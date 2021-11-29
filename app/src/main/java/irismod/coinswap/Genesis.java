@@ -44,6 +44,36 @@ public final class Genesis {
      */
     com.google.protobuf.ByteString
         getStandardDenomBytes();
+
+    /**
+     * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<irismod.coinswap.Coinswap.Pool> 
+        getPoolList();
+    /**
+     * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    irismod.coinswap.Coinswap.Pool getPool(int index);
+    /**
+     * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    int getPoolCount();
+    /**
+     * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<? extends irismod.coinswap.Coinswap.PoolOrBuilder> 
+        getPoolOrBuilderList();
+    /**
+     * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    irismod.coinswap.Coinswap.PoolOrBuilder getPoolOrBuilder(
+        int index);
+
+    /**
+     * <code>uint64 sequence = 4;</code>
+     * @return The sequence.
+     */
+    long getSequence();
   }
   /**
    * <pre>
@@ -63,6 +93,7 @@ public final class Genesis {
     }
     private GenesisState() {
       standardDenom_ = "";
+      pool_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -85,6 +116,7 @@ public final class Genesis {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -114,6 +146,20 @@ public final class Genesis {
               standardDenom_ = s;
               break;
             }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                pool_ = new java.util.ArrayList<irismod.coinswap.Coinswap.Pool>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              pool_.add(
+                  input.readMessage(irismod.coinswap.Coinswap.Pool.parser(), extensionRegistry));
+              break;
+            }
+            case 32: {
+
+              sequence_ = input.readUInt64();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -129,6 +175,9 @@ public final class Genesis {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          pool_ = java.util.Collections.unmodifiableList(pool_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -210,6 +259,57 @@ public final class Genesis {
       }
     }
 
+    public static final int POOL_FIELD_NUMBER = 3;
+    private java.util.List<irismod.coinswap.Coinswap.Pool> pool_;
+    /**
+     * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<irismod.coinswap.Coinswap.Pool> getPoolList() {
+      return pool_;
+    }
+    /**
+     * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends irismod.coinswap.Coinswap.PoolOrBuilder> 
+        getPoolOrBuilderList() {
+      return pool_;
+    }
+    /**
+     * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public int getPoolCount() {
+      return pool_.size();
+    }
+    /**
+     * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public irismod.coinswap.Coinswap.Pool getPool(int index) {
+      return pool_.get(index);
+    }
+    /**
+     * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public irismod.coinswap.Coinswap.PoolOrBuilder getPoolOrBuilder(
+        int index) {
+      return pool_.get(index);
+    }
+
+    public static final int SEQUENCE_FIELD_NUMBER = 4;
+    private long sequence_;
+    /**
+     * <code>uint64 sequence = 4;</code>
+     * @return The sequence.
+     */
+    @java.lang.Override
+    public long getSequence() {
+      return sequence_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -230,6 +330,12 @@ public final class Genesis {
       if (!getStandardDenomBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, standardDenom_);
       }
+      for (int i = 0; i < pool_.size(); i++) {
+        output.writeMessage(3, pool_.get(i));
+      }
+      if (sequence_ != 0L) {
+        output.writeUInt64(4, sequence_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -245,6 +351,14 @@ public final class Genesis {
       }
       if (!getStandardDenomBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, standardDenom_);
+      }
+      for (int i = 0; i < pool_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, pool_.get(i));
+      }
+      if (sequence_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(4, sequence_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -268,6 +382,10 @@ public final class Genesis {
       }
       if (!getStandardDenom()
           .equals(other.getStandardDenom())) return false;
+      if (!getPoolList()
+          .equals(other.getPoolList())) return false;
+      if (getSequence()
+          != other.getSequence()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -285,6 +403,13 @@ public final class Genesis {
       }
       hash = (37 * hash) + STANDARD_DENOM_FIELD_NUMBER;
       hash = (53 * hash) + getStandardDenom().hashCode();
+      if (getPoolCount() > 0) {
+        hash = (37 * hash) + POOL_FIELD_NUMBER;
+        hash = (53 * hash) + getPoolList().hashCode();
+      }
+      hash = (37 * hash) + SEQUENCE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getSequence());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -417,6 +542,7 @@ public final class Genesis {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getPoolFieldBuilder();
         }
       }
       @java.lang.Override
@@ -429,6 +555,14 @@ public final class Genesis {
           paramsBuilder_ = null;
         }
         standardDenom_ = "";
+
+        if (poolBuilder_ == null) {
+          pool_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          poolBuilder_.clear();
+        }
+        sequence_ = 0L;
 
         return this;
       }
@@ -456,12 +590,23 @@ public final class Genesis {
       @java.lang.Override
       public irismod.coinswap.Genesis.GenesisState buildPartial() {
         irismod.coinswap.Genesis.GenesisState result = new irismod.coinswap.Genesis.GenesisState(this);
+        int from_bitField0_ = bitField0_;
         if (paramsBuilder_ == null) {
           result.params_ = params_;
         } else {
           result.params_ = paramsBuilder_.build();
         }
         result.standardDenom_ = standardDenom_;
+        if (poolBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            pool_ = java.util.Collections.unmodifiableList(pool_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.pool_ = pool_;
+        } else {
+          result.pool_ = poolBuilder_.build();
+        }
+        result.sequence_ = sequence_;
         onBuilt();
         return result;
       }
@@ -517,6 +662,35 @@ public final class Genesis {
           standardDenom_ = other.standardDenom_;
           onChanged();
         }
+        if (poolBuilder_ == null) {
+          if (!other.pool_.isEmpty()) {
+            if (pool_.isEmpty()) {
+              pool_ = other.pool_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePoolIsMutable();
+              pool_.addAll(other.pool_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.pool_.isEmpty()) {
+            if (poolBuilder_.isEmpty()) {
+              poolBuilder_.dispose();
+              poolBuilder_ = null;
+              pool_ = other.pool_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              poolBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPoolFieldBuilder() : null;
+            } else {
+              poolBuilder_.addAllMessages(other.pool_);
+            }
+          }
+        }
+        if (other.getSequence() != 0L) {
+          setSequence(other.getSequence());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -545,6 +719,7 @@ public final class Genesis {
         }
         return this;
       }
+      private int bitField0_;
 
       private irismod.coinswap.Coinswap.Params params_;
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -740,6 +915,277 @@ public final class Genesis {
         onChanged();
         return this;
       }
+
+      private java.util.List<irismod.coinswap.Coinswap.Pool> pool_ =
+        java.util.Collections.emptyList();
+      private void ensurePoolIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          pool_ = new java.util.ArrayList<irismod.coinswap.Coinswap.Pool>(pool_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          irismod.coinswap.Coinswap.Pool, irismod.coinswap.Coinswap.Pool.Builder, irismod.coinswap.Coinswap.PoolOrBuilder> poolBuilder_;
+
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<irismod.coinswap.Coinswap.Pool> getPoolList() {
+        if (poolBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(pool_);
+        } else {
+          return poolBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public int getPoolCount() {
+        if (poolBuilder_ == null) {
+          return pool_.size();
+        } else {
+          return poolBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.Coinswap.Pool getPool(int index) {
+        if (poolBuilder_ == null) {
+          return pool_.get(index);
+        } else {
+          return poolBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setPool(
+          int index, irismod.coinswap.Coinswap.Pool value) {
+        if (poolBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePoolIsMutable();
+          pool_.set(index, value);
+          onChanged();
+        } else {
+          poolBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setPool(
+          int index, irismod.coinswap.Coinswap.Pool.Builder builderForValue) {
+        if (poolBuilder_ == null) {
+          ensurePoolIsMutable();
+          pool_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          poolBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addPool(irismod.coinswap.Coinswap.Pool value) {
+        if (poolBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePoolIsMutable();
+          pool_.add(value);
+          onChanged();
+        } else {
+          poolBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addPool(
+          int index, irismod.coinswap.Coinswap.Pool value) {
+        if (poolBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePoolIsMutable();
+          pool_.add(index, value);
+          onChanged();
+        } else {
+          poolBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addPool(
+          irismod.coinswap.Coinswap.Pool.Builder builderForValue) {
+        if (poolBuilder_ == null) {
+          ensurePoolIsMutable();
+          pool_.add(builderForValue.build());
+          onChanged();
+        } else {
+          poolBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addPool(
+          int index, irismod.coinswap.Coinswap.Pool.Builder builderForValue) {
+        if (poolBuilder_ == null) {
+          ensurePoolIsMutable();
+          pool_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          poolBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addAllPool(
+          java.lang.Iterable<? extends irismod.coinswap.Coinswap.Pool> values) {
+        if (poolBuilder_ == null) {
+          ensurePoolIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, pool_);
+          onChanged();
+        } else {
+          poolBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearPool() {
+        if (poolBuilder_ == null) {
+          pool_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          poolBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder removePool(int index) {
+        if (poolBuilder_ == null) {
+          ensurePoolIsMutable();
+          pool_.remove(index);
+          onChanged();
+        } else {
+          poolBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.Coinswap.Pool.Builder getPoolBuilder(
+          int index) {
+        return getPoolFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.Coinswap.PoolOrBuilder getPoolOrBuilder(
+          int index) {
+        if (poolBuilder_ == null) {
+          return pool_.get(index);  } else {
+          return poolBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<? extends irismod.coinswap.Coinswap.PoolOrBuilder> 
+           getPoolOrBuilderList() {
+        if (poolBuilder_ != null) {
+          return poolBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(pool_);
+        }
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.Coinswap.Pool.Builder addPoolBuilder() {
+        return getPoolFieldBuilder().addBuilder(
+            irismod.coinswap.Coinswap.Pool.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.Coinswap.Pool.Builder addPoolBuilder(
+          int index) {
+        return getPoolFieldBuilder().addBuilder(
+            index, irismod.coinswap.Coinswap.Pool.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .irismod.coinswap.Pool pool = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<irismod.coinswap.Coinswap.Pool.Builder> 
+           getPoolBuilderList() {
+        return getPoolFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          irismod.coinswap.Coinswap.Pool, irismod.coinswap.Coinswap.Pool.Builder, irismod.coinswap.Coinswap.PoolOrBuilder> 
+          getPoolFieldBuilder() {
+        if (poolBuilder_ == null) {
+          poolBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              irismod.coinswap.Coinswap.Pool, irismod.coinswap.Coinswap.Pool.Builder, irismod.coinswap.Coinswap.PoolOrBuilder>(
+                  pool_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          pool_ = null;
+        }
+        return poolBuilder_;
+      }
+
+      private long sequence_ ;
+      /**
+       * <code>uint64 sequence = 4;</code>
+       * @return The sequence.
+       */
+      @java.lang.Override
+      public long getSequence() {
+        return sequence_;
+      }
+      /**
+       * <code>uint64 sequence = 4;</code>
+       * @param value The sequence to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSequence(long value) {
+        
+        sequence_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 sequence = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSequence() {
+        
+        sequence_ = 0L;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -809,16 +1255,18 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n\026coinswap/genesis.proto\022\020irismod.coinsw" +
       "ap\032\024gogoproto/gogo.proto\032\027coinswap/coins" +
-      "wap.proto\"q\n\014GenesisState\022.\n\006params\030\001 \001(" +
-      "\0132\030.irismod.coinswap.ParamsB\004\310\336\037\000\0221\n\016sta" +
-      "ndard_denom\030\002 \001(\tB\031\362\336\037\025yaml:\"standard_de" +
-      "nom\"B3Z1github.com/irisnet/irismod/modul" +
-      "es/coinswap/typesb\006proto3"
+      "wap.proto\"\257\001\n\014GenesisState\022.\n\006params\030\001 \001" +
+      "(\0132\030.irismod.coinswap.ParamsB\004\310\336\037\000\0221\n\016st" +
+      "andard_denom\030\002 \001(\tB\031\362\336\037\025yaml:\"standard_d" +
+      "enom\"\022*\n\004pool\030\003 \003(\0132\026.irismod.coinswap.P" +
+      "oolB\004\310\336\037\000\022\020\n\010sequence\030\004 \001(\004B3Z1github.co" +
+      "m/irisnet/irismod/modules/coinswap/types" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           irismod.coinswap.Coinswap.getDescriptor(),
         });
     internal_static_irismod_coinswap_GenesisState_descriptor =
@@ -826,14 +1274,14 @@ public final class Genesis {
     internal_static_irismod_coinswap_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_irismod_coinswap_GenesisState_descriptor,
-        new java.lang.String[] { "Params", "StandardDenom", });
+        new java.lang.String[] { "Params", "StandardDenom", "Pool", "Sequence", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     irismod.coinswap.Coinswap.getDescriptor();
   }
 

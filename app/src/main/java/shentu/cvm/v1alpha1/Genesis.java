@@ -79,7 +79,7 @@ public final class Genesis {
    *
    * Protobuf type {@code shentu.cvm.v1alpha1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.GenesisState)
       GenesisStateOrBuilder {
@@ -191,6 +191,7 @@ public final class Genesis {
      * <code>uint64 gas_rate = 1 [(.gogoproto.moretags) = "yaml:&#92;"gas_rate&#92;""];</code>
      * @return The gasRate.
      */
+    @java.lang.Override
     public long getGasRate() {
       return gasRate_;
     }
@@ -200,12 +201,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Contract contracts = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Contracts"];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.cvm.v1alpha1.Genesis.Contract> getContractsList() {
       return contracts_;
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Contract contracts = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Contracts"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.cvm.v1alpha1.Genesis.ContractOrBuilder> 
         getContractsOrBuilderList() {
       return contracts_;
@@ -213,18 +216,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Contract contracts = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Contracts"];</code>
      */
+    @java.lang.Override
     public int getContractsCount() {
       return contracts_.size();
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Contract contracts = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Contracts"];</code>
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.Genesis.Contract getContracts(int index) {
       return contracts_.get(index);
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Contract contracts = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Contracts"];</code>
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.Genesis.ContractOrBuilder getContractsOrBuilder(
         int index) {
       return contracts_.get(index);
@@ -235,12 +241,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Metadata metadatas = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Metadatas"];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.cvm.v1alpha1.Genesis.Metadata> getMetadatasList() {
       return metadatas_;
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Metadata metadatas = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Metadatas"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.cvm.v1alpha1.Genesis.MetadataOrBuilder> 
         getMetadatasOrBuilderList() {
       return metadatas_;
@@ -248,18 +256,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Metadata metadatas = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Metadatas"];</code>
      */
+    @java.lang.Override
     public int getMetadatasCount() {
       return metadatas_.size();
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Metadata metadatas = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Metadatas"];</code>
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.Genesis.Metadata getMetadatas(int index) {
       return metadatas_.get(index);
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Metadata metadatas = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Metadatas"];</code>
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.Genesis.MetadataOrBuilder getMetadatasOrBuilder(
         int index) {
       return metadatas_.get(index);
@@ -689,6 +700,7 @@ public final class Genesis {
        * <code>uint64 gas_rate = 1 [(.gogoproto.moretags) = "yaml:&#92;"gas_rate&#92;""];</code>
        * @return The gasRate.
        */
+      @java.lang.Override
       public long getGasRate() {
         return gasRate_;
       }
@@ -1328,7 +1340,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.Contract}
    */
-  public  static final class Contract extends
+  public static final class Contract extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.Contract)
       ContractOrBuilder {
@@ -1460,6 +1472,7 @@ public final class Genesis {
      * <code>bytes Address = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAddress() {
       return address_;
     }
@@ -1470,6 +1483,7 @@ public final class Genesis {
      * <code>.shentu.cvm.v1alpha1.CVMCode code = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"code&#92;""];</code>
      * @return Whether the code field is set.
      */
+    @java.lang.Override
     public boolean hasCode() {
       return code_ != null;
     }
@@ -1477,12 +1491,14 @@ public final class Genesis {
      * <code>.shentu.cvm.v1alpha1.CVMCode code = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"code&#92;""];</code>
      * @return The code.
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.Genesis.CVMCode getCode() {
       return code_ == null ? shentu.cvm.v1alpha1.Genesis.CVMCode.getDefaultInstance() : code_;
     }
     /**
      * <code>.shentu.cvm.v1alpha1.CVMCode code = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"code&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.Genesis.CVMCodeOrBuilder getCodeOrBuilder() {
       return getCode();
     }
@@ -1492,12 +1508,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Storage storage = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"storage&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.cvm.v1alpha1.Genesis.Storage> getStorageList() {
       return storage_;
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Storage storage = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"storage&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.cvm.v1alpha1.Genesis.StorageOrBuilder> 
         getStorageOrBuilderList() {
       return storage_;
@@ -1505,18 +1523,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Storage storage = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"storage&#92;""];</code>
      */
+    @java.lang.Override
     public int getStorageCount() {
       return storage_.size();
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Storage storage = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"storage&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.Genesis.Storage getStorage(int index) {
       return storage_.get(index);
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.Storage storage = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"storage&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.Genesis.StorageOrBuilder getStorageOrBuilder(
         int index) {
       return storage_.get(index);
@@ -1528,6 +1549,7 @@ public final class Genesis {
      * <code>bytes abi = 4 [(.gogoproto.moretags) = "yaml:&#92;"abi&#92;""];</code>
      * @return The abi.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAbi() {
       return abi_;
     }
@@ -1537,12 +1559,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cvm.v1alpha1.ContractMeta meta = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"contract_meta&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.cvm.v1alpha1.Genesis.ContractMeta> getMetaList() {
       return meta_;
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.ContractMeta meta = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"contract_meta&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.cvm.v1alpha1.Genesis.ContractMetaOrBuilder> 
         getMetaOrBuilderList() {
       return meta_;
@@ -1550,18 +1574,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cvm.v1alpha1.ContractMeta meta = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"contract_meta&#92;""];</code>
      */
+    @java.lang.Override
     public int getMetaCount() {
       return meta_.size();
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.ContractMeta meta = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"contract_meta&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.Genesis.ContractMeta getMeta(int index) {
       return meta_.get(index);
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.ContractMeta meta = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"contract_meta&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.Genesis.ContractMetaOrBuilder getMetaOrBuilder(
         int index) {
       return meta_.get(index);
@@ -2033,6 +2060,7 @@ public final class Genesis {
        * <code>bytes Address = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
        * @return The address.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAddress() {
         return address_;
       }
@@ -2425,6 +2453,7 @@ public final class Genesis {
        * <code>bytes abi = 4 [(.gogoproto.moretags) = "yaml:&#92;"abi&#92;""];</code>
        * @return The abi.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAbi() {
         return abi_;
       }
@@ -2764,7 +2793,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.CVMCode}
    */
-  public  static final class CVMCode extends
+  public static final class CVMCode extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.CVMCode)
       CVMCodeOrBuilder {
@@ -2855,6 +2884,7 @@ public final class Genesis {
      * <code>int64 code_type = 1 [(.gogoproto.moretags) = "yaml:&#92;"code_type&#92;""];</code>
      * @return The codeType.
      */
+    @java.lang.Override
     public long getCodeType() {
       return codeType_;
     }
@@ -2865,6 +2895,7 @@ public final class Genesis {
      * <code>bytes code = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/acm.Bytecode", (.gogoproto.moretags) = "yaml:&#92;"code&#92;""];</code>
      * @return The code.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCode() {
       return code_;
     }
@@ -3194,6 +3225,7 @@ public final class Genesis {
        * <code>int64 code_type = 1 [(.gogoproto.moretags) = "yaml:&#92;"code_type&#92;""];</code>
        * @return The codeType.
        */
+      @java.lang.Override
       public long getCodeType() {
         return codeType_;
       }
@@ -3224,6 +3256,7 @@ public final class Genesis {
        * <code>bytes code = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/acm.Bytecode", (.gogoproto.moretags) = "yaml:&#92;"code&#92;""];</code>
        * @return The code.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCode() {
         return code_;
       }
@@ -3323,7 +3356,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.Storage}
    */
-  public  static final class Storage extends
+  public static final class Storage extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.Storage)
       StorageOrBuilder {
@@ -3415,6 +3448,7 @@ public final class Genesis {
      * <code>bytes key = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.Word256", (.gogoproto.moretags) = "yaml:&#92;"key&#92;""];</code>
      * @return The key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
@@ -3425,6 +3459,7 @@ public final class Genesis {
      * <code>bytes value = 2 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
      * @return The value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValue() {
       return value_;
     }
@@ -3753,6 +3788,7 @@ public final class Genesis {
        * <code>bytes key = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.Word256", (.gogoproto.moretags) = "yaml:&#92;"key&#92;""];</code>
        * @return The key.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getKey() {
         return key_;
       }
@@ -3786,6 +3822,7 @@ public final class Genesis {
        * <code>bytes value = 2 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
        * @return The value.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValue() {
         return value_;
       }
@@ -3885,7 +3922,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.ContractMeta}
    */
-  public  static final class ContractMeta extends
+  public static final class ContractMeta extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.ContractMeta)
       ContractMetaOrBuilder {
@@ -3977,6 +4014,7 @@ public final class Genesis {
      * <code>bytes code_hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"code_hash&#92;""];</code>
      * @return The codeHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCodeHash() {
       return codeHash_;
     }
@@ -3987,6 +4025,7 @@ public final class Genesis {
      * <code>bytes metadata_hash = 2 [(.gogoproto.moretags) = "yaml:&#92;"metadata_hash&#92;""];</code>
      * @return The metadataHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getMetadataHash() {
       return metadataHash_;
     }
@@ -4315,6 +4354,7 @@ public final class Genesis {
        * <code>bytes code_hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"code_hash&#92;""];</code>
        * @return The codeHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCodeHash() {
         return codeHash_;
       }
@@ -4348,6 +4388,7 @@ public final class Genesis {
        * <code>bytes metadata_hash = 2 [(.gogoproto.moretags) = "yaml:&#92;"metadata_hash&#92;""];</code>
        * @return The metadataHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getMetadataHash() {
         return metadataHash_;
       }
@@ -4459,7 +4500,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.ContractMetas}
    */
-  public  static final class ContractMetas extends
+  public static final class ContractMetas extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.ContractMetas)
       ContractMetasOrBuilder {
@@ -4552,12 +4593,14 @@ public final class Genesis {
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<acm.Acm.ContractMeta> getMetasList() {
       return metas_;
     }
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends acm.Acm.ContractMetaOrBuilder> 
         getMetasOrBuilderList() {
       return metas_;
@@ -4565,18 +4608,21 @@ public final class Genesis {
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
+    @java.lang.Override
     public int getMetasCount() {
       return metas_.size();
     }
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
+    @java.lang.Override
     public acm.Acm.ContractMeta getMetas(int index) {
       return metas_.get(index);
     }
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
+    @java.lang.Override
     public acm.Acm.ContractMetaOrBuilder getMetasOrBuilder(
         int index) {
       return metas_.get(index);
@@ -5241,7 +5287,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.Metadata}
    */
-  public  static final class Metadata extends
+  public static final class Metadata extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.Metadata)
       MetadataOrBuilder {
@@ -5334,6 +5380,7 @@ public final class Genesis {
      * <code>bytes hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"hash&#92;""];</code>
      * @return The hash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getHash() {
       return hash_;
     }
@@ -5344,6 +5391,7 @@ public final class Genesis {
      * <code>string metadata = 2 [(.gogoproto.moretags) = "yaml:&#92;"metadata&#92;""];</code>
      * @return The metadata.
      */
+    @java.lang.Override
     public java.lang.String getMetadata() {
       java.lang.Object ref = metadata_;
       if (ref instanceof java.lang.String) {
@@ -5360,6 +5408,7 @@ public final class Genesis {
      * <code>string metadata = 2 [(.gogoproto.moretags) = "yaml:&#92;"metadata&#92;""];</code>
      * @return The bytes for metadata.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMetadataBytes() {
       java.lang.Object ref = metadata_;
@@ -5698,6 +5747,7 @@ public final class Genesis {
        * <code>bytes hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"hash&#92;""];</code>
        * @return The hash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getHash() {
         return hash_;
       }
@@ -5934,7 +5984,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           shentu.cvm.v1alpha1.Cvm.getDescriptor(),
           acm.Acm.getDescriptor(),
         });
@@ -5982,19 +6032,19 @@ public final class Genesis {
         new java.lang.String[] { "Hash", "Metadata", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoRegistration);
-    registry.add(com.google.protobuf2.GoGoProtos.marshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.messagenameAll);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.sizerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.stableMarshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.unmarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoRegistration);
+    registry.add(com.google.protobuf.GoGoProtos.marshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.messagenameAll);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.sizerAll);
+    registry.add(com.google.protobuf.GoGoProtos.stableMarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.unmarshalerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     shentu.cvm.v1alpha1.Cvm.getDescriptor();
     acm.Acm.getDescriptor();
   }

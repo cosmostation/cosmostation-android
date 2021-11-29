@@ -18,7 +18,6 @@ import androidx.cardview.widget.CardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.protobuf2.Any;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -44,7 +43,7 @@ import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.upgrade.v1beta1.Upgrade;
 import cosmos.vesting.v1beta1.Vesting;
 import ibc.core.client.v1.Client;
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -1849,7 +1848,7 @@ public class WDp {
 
     public static BigDecimal perUsdValue(BaseData baseData, String denom) {
         if (denom.contains("gamm/pool/")) {
-            PoolOuterClass.Pool pool = baseData.getOsmosisPoolByDenom(denom);
+            BalancerPoolOuterClass.BalancerPool pool = baseData.getOsmosisPoolByDenom(denom);
             return WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
         }
         if (denom.startsWith("pool") && denom.length() >= 68) {

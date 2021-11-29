@@ -10,7 +10,7 @@ package panacea.token.v2;
  *
  * Protobuf type {@code panacea.token.v2.QueryTokensResponse}
  */
-public  final class QueryTokensResponse extends
+public final class QueryTokensResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.token.v2.QueryTokensResponse)
     QueryTokensResponseOrBuilder {
@@ -116,12 +116,14 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>repeated .panacea.token.v2.Token token = 1;</code>
    */
+  @java.lang.Override
   public java.util.List<panacea.token.v2.Token> getTokenList() {
     return token_;
   }
   /**
    * <code>repeated .panacea.token.v2.Token token = 1;</code>
    */
+  @java.lang.Override
   public java.util.List<? extends panacea.token.v2.TokenOrBuilder> 
       getTokenOrBuilderList() {
     return token_;
@@ -129,18 +131,21 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>repeated .panacea.token.v2.Token token = 1;</code>
    */
+  @java.lang.Override
   public int getTokenCount() {
     return token_.size();
   }
   /**
    * <code>repeated .panacea.token.v2.Token token = 1;</code>
    */
+  @java.lang.Override
   public panacea.token.v2.Token getToken(int index) {
     return token_.get(index);
   }
   /**
    * <code>repeated .panacea.token.v2.Token token = 1;</code>
    */
+  @java.lang.Override
   public panacea.token.v2.TokenOrBuilder getTokenOrBuilder(
       int index) {
     return token_.get(index);
@@ -152,6 +157,7 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
    * @return Whether the pagination field is set.
    */
+  @java.lang.Override
   public boolean hasPagination() {
     return pagination_ != null;
   }
@@ -159,12 +165,14 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
    * @return The pagination.
    */
+  @java.lang.Override
   public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
     return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
   }
   /**
    * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
    */
+  @java.lang.Override
   public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
     return getPagination();
   }

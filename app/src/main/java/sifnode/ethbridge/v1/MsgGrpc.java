@@ -216,6 +216,37 @@ public final class MsgGrpc {
     return getRescueCethMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sifnode.ethbridge.v1.Tx.MsgSetBlacklist,
+      sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse> getSetBlacklistMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetBlacklist",
+      requestType = sifnode.ethbridge.v1.Tx.MsgSetBlacklist.class,
+      responseType = sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.ethbridge.v1.Tx.MsgSetBlacklist,
+      sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse> getSetBlacklistMethod() {
+    io.grpc.MethodDescriptor<sifnode.ethbridge.v1.Tx.MsgSetBlacklist, sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse> getSetBlacklistMethod;
+    if ((getSetBlacklistMethod = MsgGrpc.getSetBlacklistMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getSetBlacklistMethod = MsgGrpc.getSetBlacklistMethod) == null) {
+          MsgGrpc.getSetBlacklistMethod = getSetBlacklistMethod =
+              io.grpc.MethodDescriptor.<sifnode.ethbridge.v1.Tx.MsgSetBlacklist, sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetBlacklist"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.ethbridge.v1.Tx.MsgSetBlacklist.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("SetBlacklist"))
+              .build();
+        }
+      }
+    }
+    return getSetBlacklistMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -309,6 +340,13 @@ public final class MsgGrpc {
       asyncUnimplementedUnaryCall(getRescueCethMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void setBlacklist(sifnode.ethbridge.v1.Tx.MsgSetBlacklist request,
+        io.grpc.stub.StreamObserver<sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getSetBlacklistMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -353,6 +391,13 @@ public final class MsgGrpc {
                 sifnode.ethbridge.v1.Tx.MsgRescueCeth,
                 sifnode.ethbridge.v1.Tx.MsgRescueCethResponse>(
                   this, METHODID_RESCUE_CETH)))
+          .addMethod(
+            getSetBlacklistMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.ethbridge.v1.Tx.MsgSetBlacklist,
+                sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse>(
+                  this, METHODID_SET_BLACKLIST)))
           .build();
     }
   }
@@ -421,6 +466,14 @@ public final class MsgGrpc {
       asyncUnaryCall(
           getChannel().newCall(getRescueCethMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void setBlacklist(sifnode.ethbridge.v1.Tx.MsgSetBlacklist request,
+        io.grpc.stub.StreamObserver<sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSetBlacklistMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -480,6 +533,13 @@ public final class MsgGrpc {
     public sifnode.ethbridge.v1.Tx.MsgRescueCethResponse rescueCeth(sifnode.ethbridge.v1.Tx.MsgRescueCeth request) {
       return blockingUnaryCall(
           getChannel(), getRescueCethMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse setBlacklist(sifnode.ethbridge.v1.Tx.MsgSetBlacklist request) {
+      return blockingUnaryCall(
+          getChannel(), getSetBlacklistMethod(), getCallOptions(), request);
     }
   }
 
@@ -547,6 +607,14 @@ public final class MsgGrpc {
       return futureUnaryCall(
           getChannel().newCall(getRescueCethMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse> setBlacklist(
+        sifnode.ethbridge.v1.Tx.MsgSetBlacklist request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSetBlacklistMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_LOCK = 0;
@@ -555,6 +623,7 @@ public final class MsgGrpc {
   private static final int METHODID_UPDATE_WHITE_LIST_VALIDATOR = 3;
   private static final int METHODID_UPDATE_CETH_RECEIVER_ACCOUNT = 4;
   private static final int METHODID_RESCUE_CETH = 5;
+  private static final int METHODID_SET_BLACKLIST = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -596,6 +665,10 @@ public final class MsgGrpc {
         case METHODID_RESCUE_CETH:
           serviceImpl.rescueCeth((sifnode.ethbridge.v1.Tx.MsgRescueCeth) request,
               (io.grpc.stub.StreamObserver<sifnode.ethbridge.v1.Tx.MsgRescueCethResponse>) responseObserver);
+          break;
+        case METHODID_SET_BLACKLIST:
+          serviceImpl.setBlacklist((sifnode.ethbridge.v1.Tx.MsgSetBlacklist) request,
+              (io.grpc.stub.StreamObserver<sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -664,6 +737,7 @@ public final class MsgGrpc {
               .addMethod(getUpdateWhiteListValidatorMethod())
               .addMethod(getUpdateCethReceiverAccountMethod())
               .addMethod(getRescueCethMethod())
+              .addMethod(getSetBlacklistMethod())
               .build();
         }
       }

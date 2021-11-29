@@ -10,7 +10,7 @@ package panacea.did.v2;
  *
  * Protobuf type {@code panacea.did.v2.Service}
  */
-public  final class Service extends
+public final class Service extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.did.v2.Service)
     ServiceOrBuilder {
@@ -111,6 +111,7 @@ private static final long serialVersionUID = 0L;
    * <code>string id = 1;</code>
    * @return The id.
    */
+  @java.lang.Override
   public java.lang.String getId() {
     java.lang.Object ref = id_;
     if (ref instanceof java.lang.String) {
@@ -127,6 +128,7 @@ private static final long serialVersionUID = 0L;
    * <code>string id = 1;</code>
    * @return The bytes for id.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getIdBytes() {
     java.lang.Object ref = id_;
@@ -147,6 +149,7 @@ private static final long serialVersionUID = 0L;
    * <code>string type = 2;</code>
    * @return The type.
    */
+  @java.lang.Override
   public java.lang.String getType() {
     java.lang.Object ref = type_;
     if (ref instanceof java.lang.String) {
@@ -163,6 +166,7 @@ private static final long serialVersionUID = 0L;
    * <code>string type = 2;</code>
    * @return The bytes for type.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getTypeBytes() {
     java.lang.Object ref = type_;
@@ -180,9 +184,10 @@ private static final long serialVersionUID = 0L;
   public static final int SERVICE_ENDPOINT_FIELD_NUMBER = 3;
   private volatile java.lang.Object serviceEndpoint_;
   /**
-   * <code>string service_endpoint = 3[json_name = "serviceEndpoint"];</code>
+   * <code>string service_endpoint = 3 [json_name = "serviceEndpoint"];</code>
    * @return The serviceEndpoint.
    */
+  @java.lang.Override
   public java.lang.String getServiceEndpoint() {
     java.lang.Object ref = serviceEndpoint_;
     if (ref instanceof java.lang.String) {
@@ -196,9 +201,10 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string service_endpoint = 3[json_name = "serviceEndpoint"];</code>
+   * <code>string service_endpoint = 3 [json_name = "serviceEndpoint"];</code>
    * @return The bytes for serviceEndpoint.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getServiceEndpointBytes() {
     java.lang.Object ref = serviceEndpoint_;
@@ -707,7 +713,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object serviceEndpoint_ = "";
     /**
-     * <code>string service_endpoint = 3[json_name = "serviceEndpoint"];</code>
+     * <code>string service_endpoint = 3 [json_name = "serviceEndpoint"];</code>
      * @return The serviceEndpoint.
      */
     public java.lang.String getServiceEndpoint() {
@@ -723,7 +729,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string service_endpoint = 3[json_name = "serviceEndpoint"];</code>
+     * <code>string service_endpoint = 3 [json_name = "serviceEndpoint"];</code>
      * @return The bytes for serviceEndpoint.
      */
     public com.google.protobuf.ByteString
@@ -740,7 +746,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string service_endpoint = 3[json_name = "serviceEndpoint"];</code>
+     * <code>string service_endpoint = 3 [json_name = "serviceEndpoint"];</code>
      * @param value The serviceEndpoint to set.
      * @return This builder for chaining.
      */
@@ -755,7 +761,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string service_endpoint = 3[json_name = "serviceEndpoint"];</code>
+     * <code>string service_endpoint = 3 [json_name = "serviceEndpoint"];</code>
      * @return This builder for chaining.
      */
     public Builder clearServiceEndpoint() {
@@ -765,7 +771,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string service_endpoint = 3[json_name = "serviceEndpoint"];</code>
+     * <code>string service_endpoint = 3 [json_name = "serviceEndpoint"];</code>
      * @param value The bytes for serviceEndpoint to set.
      * @return This builder for chaining.
      */

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities.chains.osmosis;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARNING;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -18,7 +20,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -29,8 +31,6 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.StartLockStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.StartLockStep3Fragment;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARNING;
 
 public class StartEarningActivity extends BaseBroadCastActivity {
 
@@ -68,7 +68,7 @@ public class StartEarningActivity extends BaseBroadCastActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         try {
-            mOsmosisPool = PoolOuterClass.Pool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));
+            mOsmosisPool = BalancerPoolOuterClass.BalancerPool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));
             mOsmosisLockupDuration = getIntent().getLongExtra("osmosisDuration", -1);
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();

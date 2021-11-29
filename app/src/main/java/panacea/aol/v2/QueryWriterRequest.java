@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.QueryWriterRequest}
  */
-public  final class QueryWriterRequest extends
+public final class QueryWriterRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.QueryWriterRequest)
     QueryWriterRequestOrBuilder {
@@ -111,6 +111,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 1;</code>
    * @return The ownerAddress.
    */
+  @java.lang.Override
   public java.lang.String getOwnerAddress() {
     java.lang.Object ref = ownerAddress_;
     if (ref instanceof java.lang.String) {
@@ -127,6 +128,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 1;</code>
    * @return The bytes for ownerAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getOwnerAddressBytes() {
     java.lang.Object ref = ownerAddress_;
@@ -147,6 +149,7 @@ private static final long serialVersionUID = 0L;
    * <code>string topic_name = 2;</code>
    * @return The topicName.
    */
+  @java.lang.Override
   public java.lang.String getTopicName() {
     java.lang.Object ref = topicName_;
     if (ref instanceof java.lang.String) {
@@ -163,6 +166,7 @@ private static final long serialVersionUID = 0L;
    * <code>string topic_name = 2;</code>
    * @return The bytes for topicName.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getTopicNameBytes() {
     java.lang.Object ref = topicName_;
@@ -183,6 +187,7 @@ private static final long serialVersionUID = 0L;
    * <code>string writer_address = 3;</code>
    * @return The writerAddress.
    */
+  @java.lang.Override
   public java.lang.String getWriterAddress() {
     java.lang.Object ref = writerAddress_;
     if (ref instanceof java.lang.String) {
@@ -199,6 +204,7 @@ private static final long serialVersionUID = 0L;
    * <code>string writer_address = 3;</code>
    * @return The bytes for writerAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getWriterAddressBytes() {
     java.lang.Object ref = writerAddress_;

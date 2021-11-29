@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import sifnode.clp.v1.Querier;
@@ -43,7 +43,7 @@ public class BaseBroadCastActivity extends BaseActivity {
 
     public Tx.SwapAmountInRoute         mOsmosisSwapAmountInRoute;                          // osmosis
     public long                         mOsmosisPoolId;
-    public PoolOuterClass.Pool          mOsmosisPool;
+    public BalancerPoolOuterClass.BalancerPool  mOsmosisPool;
     public Coin                         mPoolCoin0;
     public Coin                         mPoolCoin1;
     public Coin                         mLpToken;

@@ -131,7 +131,7 @@ public final class TokenswapOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.tokenswap.Tokenswap}
    */
-  public  static final class Tokenswap extends
+  public static final class Tokenswap extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.Tokenswap)
       TokenswapOrBuilder {
@@ -251,6 +251,7 @@ public final class TokenswapOuterClass {
      * <code>string tx_hash = 1;</code>
      * @return The txHash.
      */
+    @java.lang.Override
     public java.lang.String getTxHash() {
       java.lang.Object ref = txHash_;
       if (ref instanceof java.lang.String) {
@@ -272,6 +273,7 @@ public final class TokenswapOuterClass {
      * <code>string tx_hash = 1;</code>
      * @return The bytes for txHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTxHashBytes() {
       java.lang.Object ref = txHash_;
@@ -296,6 +298,7 @@ public final class TokenswapOuterClass {
      * <code>string receiver = 2;</code>
      * @return The receiver.
      */
+    @java.lang.Override
     public java.lang.String getReceiver() {
       java.lang.Object ref = receiver_;
       if (ref instanceof java.lang.String) {
@@ -316,6 +319,7 @@ public final class TokenswapOuterClass {
      * <code>string receiver = 2;</code>
      * @return The bytes for receiver.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getReceiverBytes() {
       java.lang.Object ref = receiver_;
@@ -340,6 +344,7 @@ public final class TokenswapOuterClass {
      * <code>string signer = 3;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -360,6 +365,7 @@ public final class TokenswapOuterClass {
      * <code>string signer = 3;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -383,6 +389,7 @@ public final class TokenswapOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getAmountList() {
       return amount_;
     }
@@ -393,6 +400,7 @@ public final class TokenswapOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getAmountOrBuilderList() {
       return amount_;
@@ -404,6 +412,7 @@ public final class TokenswapOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getAmountCount() {
       return amount_.size();
     }
@@ -414,6 +423,7 @@ public final class TokenswapOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount(int index) {
       return amount_.get(index);
     }
@@ -424,6 +434,7 @@ public final class TokenswapOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder(
         int index) {
       return amount_.get(index);
@@ -1504,7 +1515,7 @@ public final class TokenswapOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.tokenswap.SwappedAmount}
    */
-  public  static final class SwappedAmount extends
+  public static final class SwappedAmount extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.SwappedAmount)
       SwappedAmountOrBuilder {
@@ -1593,6 +1604,7 @@ public final class TokenswapOuterClass {
      * <code>int64 amount = 1 [(.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public long getAmount() {
       return amount_;
     }
@@ -1913,6 +1925,7 @@ public final class TokenswapOuterClass {
        * <code>int64 amount = 1 [(.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
        * @return The amount.
        */
+      @java.lang.Override
       public long getAmount() {
         return amount_;
       }
@@ -2031,7 +2044,7 @@ public final class TokenswapOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_rizonworld_rizon_tokenswap_Tokenswap_descriptor =
@@ -2048,12 +2061,12 @@ public final class TokenswapOuterClass {
         new java.lang.String[] { "Amount", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

@@ -51,7 +51,7 @@ public final class Genesis {
      * the previous end block.
      * </pre>
      *
-     * <code>bytes last_total_power = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"last_total_power&#92;""];</code>
+     * <code>bytes last_total_power = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The lastTotalPower.
      */
     com.google.protobuf.ByteString getLastTotalPower();
@@ -62,7 +62,7 @@ public final class Genesis {
      * of the last-block's bonded validators.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<cosmos.staking.v1beta1.Genesis.LastValidatorPower> 
         getLastValidatorPowersList();
@@ -72,7 +72,7 @@ public final class Genesis {
      * of the last-block's bonded validators.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.staking.v1beta1.Genesis.LastValidatorPower getLastValidatorPowers(int index);
     /**
@@ -81,7 +81,7 @@ public final class Genesis {
      * of the last-block's bonded validators.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
      */
     int getLastValidatorPowersCount();
     /**
@@ -90,7 +90,7 @@ public final class Genesis {
      * of the last-block's bonded validators.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends cosmos.staking.v1beta1.Genesis.LastValidatorPowerOrBuilder> 
         getLastValidatorPowersOrBuilderList();
@@ -100,7 +100,7 @@ public final class Genesis {
      * of the last-block's bonded validators.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.staking.v1beta1.Genesis.LastValidatorPowerOrBuilder getLastValidatorPowersOrBuilder(
         int index);
@@ -198,7 +198,7 @@ public final class Genesis {
      * unbonding_delegations defines the unbonding delegations active at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<cosmos.staking.v1beta1.Staking.UnbondingDelegation> 
         getUnbondingDelegationsList();
@@ -207,7 +207,7 @@ public final class Genesis {
      * unbonding_delegations defines the unbonding delegations active at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.staking.v1beta1.Staking.UnbondingDelegation getUnbondingDelegations(int index);
     /**
@@ -215,7 +215,7 @@ public final class Genesis {
      * unbonding_delegations defines the unbonding delegations active at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
      */
     int getUnbondingDelegationsCount();
     /**
@@ -223,7 +223,7 @@ public final class Genesis {
      * unbonding_delegations defines the unbonding delegations active at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends cosmos.staking.v1beta1.Staking.UnbondingDelegationOrBuilder> 
         getUnbondingDelegationsOrBuilderList();
@@ -232,7 +232,7 @@ public final class Genesis {
      * unbonding_delegations defines the unbonding delegations active at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.staking.v1beta1.Staking.UnbondingDelegationOrBuilder getUnbondingDelegationsOrBuilder(
         int index);
@@ -504,7 +504,7 @@ public final class Genesis {
      * the previous end block.
      * </pre>
      *
-     * <code>bytes last_total_power = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"last_total_power&#92;""];</code>
+     * <code>bytes last_total_power = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The lastTotalPower.
      */
     @java.lang.Override
@@ -520,7 +520,7 @@ public final class Genesis {
      * of the last-block's bonded validators.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.staking.v1beta1.Genesis.LastValidatorPower> getLastValidatorPowersList() {
@@ -532,7 +532,7 @@ public final class Genesis {
      * of the last-block's bonded validators.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.staking.v1beta1.Genesis.LastValidatorPowerOrBuilder> 
@@ -545,7 +545,7 @@ public final class Genesis {
      * of the last-block's bonded validators.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public int getLastValidatorPowersCount() {
@@ -557,7 +557,7 @@ public final class Genesis {
      * of the last-block's bonded validators.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.staking.v1beta1.Genesis.LastValidatorPower getLastValidatorPowers(int index) {
@@ -569,7 +569,7 @@ public final class Genesis {
      * of the last-block's bonded validators.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.staking.v1beta1.Genesis.LastValidatorPowerOrBuilder getLastValidatorPowersOrBuilder(
@@ -704,7 +704,7 @@ public final class Genesis {
      * unbonding_delegations defines the unbonding delegations active at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.staking.v1beta1.Staking.UnbondingDelegation> getUnbondingDelegationsList() {
@@ -715,7 +715,7 @@ public final class Genesis {
      * unbonding_delegations defines the unbonding delegations active at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.staking.v1beta1.Staking.UnbondingDelegationOrBuilder> 
@@ -727,7 +727,7 @@ public final class Genesis {
      * unbonding_delegations defines the unbonding delegations active at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public int getUnbondingDelegationsCount() {
@@ -738,7 +738,7 @@ public final class Genesis {
      * unbonding_delegations defines the unbonding delegations active at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.staking.v1beta1.Staking.UnbondingDelegation getUnbondingDelegations(int index) {
@@ -749,7 +749,7 @@ public final class Genesis {
      * unbonding_delegations defines the unbonding delegations active at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+     * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.staking.v1beta1.Staking.UnbondingDelegationOrBuilder getUnbondingDelegationsOrBuilder(
@@ -1621,7 +1621,7 @@ public final class Genesis {
        * the previous end block.
        * </pre>
        *
-       * <code>bytes last_total_power = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"last_total_power&#92;""];</code>
+       * <code>bytes last_total_power = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The lastTotalPower.
        */
       @java.lang.Override
@@ -1634,7 +1634,7 @@ public final class Genesis {
        * the previous end block.
        * </pre>
        *
-       * <code>bytes last_total_power = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"last_total_power&#92;""];</code>
+       * <code>bytes last_total_power = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The lastTotalPower to set.
        * @return This builder for chaining.
        */
@@ -1653,7 +1653,7 @@ public final class Genesis {
        * the previous end block.
        * </pre>
        *
-       * <code>bytes last_total_power = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"last_total_power&#92;""];</code>
+       * <code>bytes last_total_power = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearLastTotalPower() {
@@ -1681,7 +1681,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.staking.v1beta1.Genesis.LastValidatorPower> getLastValidatorPowersList() {
         if (lastValidatorPowersBuilder_ == null) {
@@ -1696,7 +1696,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public int getLastValidatorPowersCount() {
         if (lastValidatorPowersBuilder_ == null) {
@@ -1711,7 +1711,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.staking.v1beta1.Genesis.LastValidatorPower getLastValidatorPowers(int index) {
         if (lastValidatorPowersBuilder_ == null) {
@@ -1726,7 +1726,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setLastValidatorPowers(
           int index, cosmos.staking.v1beta1.Genesis.LastValidatorPower value) {
@@ -1748,7 +1748,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setLastValidatorPowers(
           int index, cosmos.staking.v1beta1.Genesis.LastValidatorPower.Builder builderForValue) {
@@ -1767,7 +1767,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addLastValidatorPowers(cosmos.staking.v1beta1.Genesis.LastValidatorPower value) {
         if (lastValidatorPowersBuilder_ == null) {
@@ -1788,7 +1788,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addLastValidatorPowers(
           int index, cosmos.staking.v1beta1.Genesis.LastValidatorPower value) {
@@ -1810,7 +1810,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addLastValidatorPowers(
           cosmos.staking.v1beta1.Genesis.LastValidatorPower.Builder builderForValue) {
@@ -1829,7 +1829,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addLastValidatorPowers(
           int index, cosmos.staking.v1beta1.Genesis.LastValidatorPower.Builder builderForValue) {
@@ -1848,7 +1848,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllLastValidatorPowers(
           java.lang.Iterable<? extends cosmos.staking.v1beta1.Genesis.LastValidatorPower> values) {
@@ -1868,7 +1868,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearLastValidatorPowers() {
         if (lastValidatorPowersBuilder_ == null) {
@@ -1886,7 +1886,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeLastValidatorPowers(int index) {
         if (lastValidatorPowersBuilder_ == null) {
@@ -1904,7 +1904,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.staking.v1beta1.Genesis.LastValidatorPower.Builder getLastValidatorPowersBuilder(
           int index) {
@@ -1916,7 +1916,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.staking.v1beta1.Genesis.LastValidatorPowerOrBuilder getLastValidatorPowersOrBuilder(
           int index) {
@@ -1931,7 +1931,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends cosmos.staking.v1beta1.Genesis.LastValidatorPowerOrBuilder> 
            getLastValidatorPowersOrBuilderList() {
@@ -1947,7 +1947,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.staking.v1beta1.Genesis.LastValidatorPower.Builder addLastValidatorPowersBuilder() {
         return getLastValidatorPowersFieldBuilder().addBuilder(
@@ -1959,7 +1959,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.staking.v1beta1.Genesis.LastValidatorPower.Builder addLastValidatorPowersBuilder(
           int index) {
@@ -1972,7 +1972,7 @@ public final class Genesis {
        * of the last-block's bonded validators.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_validator_powers&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.LastValidatorPower last_validator_powers = 3 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.staking.v1beta1.Genesis.LastValidatorPower.Builder> 
            getLastValidatorPowersBuilderList() {
@@ -2634,7 +2634,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.staking.v1beta1.Staking.UnbondingDelegation> getUnbondingDelegationsList() {
         if (unbondingDelegationsBuilder_ == null) {
@@ -2648,7 +2648,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public int getUnbondingDelegationsCount() {
         if (unbondingDelegationsBuilder_ == null) {
@@ -2662,7 +2662,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.staking.v1beta1.Staking.UnbondingDelegation getUnbondingDelegations(int index) {
         if (unbondingDelegationsBuilder_ == null) {
@@ -2676,7 +2676,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setUnbondingDelegations(
           int index, cosmos.staking.v1beta1.Staking.UnbondingDelegation value) {
@@ -2697,7 +2697,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setUnbondingDelegations(
           int index, cosmos.staking.v1beta1.Staking.UnbondingDelegation.Builder builderForValue) {
@@ -2715,7 +2715,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addUnbondingDelegations(cosmos.staking.v1beta1.Staking.UnbondingDelegation value) {
         if (unbondingDelegationsBuilder_ == null) {
@@ -2735,7 +2735,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addUnbondingDelegations(
           int index, cosmos.staking.v1beta1.Staking.UnbondingDelegation value) {
@@ -2756,7 +2756,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addUnbondingDelegations(
           cosmos.staking.v1beta1.Staking.UnbondingDelegation.Builder builderForValue) {
@@ -2774,7 +2774,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addUnbondingDelegations(
           int index, cosmos.staking.v1beta1.Staking.UnbondingDelegation.Builder builderForValue) {
@@ -2792,7 +2792,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllUnbondingDelegations(
           java.lang.Iterable<? extends cosmos.staking.v1beta1.Staking.UnbondingDelegation> values) {
@@ -2811,7 +2811,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearUnbondingDelegations() {
         if (unbondingDelegationsBuilder_ == null) {
@@ -2828,7 +2828,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeUnbondingDelegations(int index) {
         if (unbondingDelegationsBuilder_ == null) {
@@ -2845,7 +2845,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.staking.v1beta1.Staking.UnbondingDelegation.Builder getUnbondingDelegationsBuilder(
           int index) {
@@ -2856,7 +2856,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.staking.v1beta1.Staking.UnbondingDelegationOrBuilder getUnbondingDelegationsOrBuilder(
           int index) {
@@ -2870,7 +2870,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends cosmos.staking.v1beta1.Staking.UnbondingDelegationOrBuilder> 
            getUnbondingDelegationsOrBuilderList() {
@@ -2885,7 +2885,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.staking.v1beta1.Staking.UnbondingDelegation.Builder addUnbondingDelegationsBuilder() {
         return getUnbondingDelegationsFieldBuilder().addBuilder(
@@ -2896,7 +2896,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.staking.v1beta1.Staking.UnbondingDelegation.Builder addUnbondingDelegationsBuilder(
           int index) {
@@ -2908,7 +2908,7 @@ public final class Genesis {
        * unbonding_delegations defines the unbonding delegations active at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_delegations&#92;""];</code>
+       * <code>repeated .cosmos.staking.v1beta1.UnbondingDelegation unbonding_delegations = 6 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.staking.v1beta1.Staking.UnbondingDelegation.Builder> 
            getUnbondingDelegationsBuilderList() {
@@ -3333,7 +3333,7 @@ public final class Genesis {
      * address is the address of the validator.
      * </pre>
      *
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The address.
      */
     java.lang.String getAddress();
@@ -3342,7 +3342,7 @@ public final class Genesis {
      * address is the address of the validator.
      * </pre>
      *
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for address.
      */
     com.google.protobuf.ByteString
@@ -3458,7 +3458,7 @@ public final class Genesis {
      * address is the address of the validator.
      * </pre>
      *
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The address.
      */
     @java.lang.Override
@@ -3479,7 +3479,7 @@ public final class Genesis {
      * address is the address of the validator.
      * </pre>
      *
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for address.
      */
     @java.lang.Override
@@ -3842,7 +3842,7 @@ public final class Genesis {
        * address is the address of the validator.
        * </pre>
        *
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The address.
        */
       public java.lang.String getAddress() {
@@ -3862,7 +3862,7 @@ public final class Genesis {
        * address is the address of the validator.
        * </pre>
        *
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
@@ -3883,7 +3883,7 @@ public final class Genesis {
        * address is the address of the validator.
        * </pre>
        *
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The address to set.
        * @return This builder for chaining.
        */
@@ -3902,7 +3902,7 @@ public final class Genesis {
        * address is the address of the validator.
        * </pre>
        *
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAddress() {
@@ -3916,7 +3916,7 @@ public final class Genesis {
        * address is the address of the validator.
        * </pre>
        *
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for address to set.
        * @return This builder for chaining.
        */
@@ -4049,31 +4049,31 @@ public final class Genesis {
       "\n$cosmos/staking/v1beta1/genesis.proto\022\026" +
       "cosmos.staking.v1beta1\032\024gogoproto/gogo.p" +
       "roto\032$cosmos/staking/v1beta1/staking.pro" +
-      "to\"\335\004\n\014GenesisState\0224\n\006params\030\001 \001(\0132\036.co" +
-      "smos.staking.v1beta1.ParamsB\004\310\336\037\000\022c\n\020las" +
-      "t_total_power\030\002 \001(\014BI\332\336\037&github.com/cosm" +
-      "os/cosmos-sdk/types.Int\362\336\037\027yaml:\"last_to" +
-      "tal_power\"\310\336\037\000\022o\n\025last_validator_powers\030" +
+      "to\032\031cosmos_proto/cosmos.proto\"\202\004\n\014Genesi" +
+      "sState\0224\n\006params\030\001 \001(\0132\036.cosmos.staking." +
+      "v1beta1.ParamsB\004\310\336\037\000\022H\n\020last_total_power" +
+      "\030\002 \001(\014B.\332\336\037&github.com/cosmos/cosmos-sdk" +
+      "/types.Int\310\336\037\000\022O\n\025last_validator_powers\030" +
       "\003 \003(\0132*.cosmos.staking.v1beta1.LastValid" +
-      "atorPowerB$\362\336\037\034yaml:\"last_validator_powe" +
-      "rs\"\310\336\037\000\022;\n\nvalidators\030\004 \003(\0132!.cosmos.sta" +
-      "king.v1beta1.ValidatorB\004\310\336\037\000\022=\n\013delegati" +
-      "ons\030\005 \003(\0132\".cosmos.staking.v1beta1.Deleg" +
-      "ationB\004\310\336\037\000\022p\n\025unbonding_delegations\030\006 \003" +
-      "(\0132+.cosmos.staking.v1beta1.UnbondingDel" +
-      "egationB$\362\336\037\034yaml:\"unbonding_delegations" +
-      "\"\310\336\037\000\022A\n\rredelegations\030\007 \003(\0132$.cosmos.st" +
-      "aking.v1beta1.RedelegationB\004\310\336\037\000\022\020\n\010expo" +
-      "rted\030\010 \001(\010\">\n\022LastValidatorPower\022\017\n\007addr" +
-      "ess\030\001 \001(\t\022\r\n\005power\030\002 \001(\003:\010\350\240\037\000\210\240\037\000B.Z,gi" +
-      "thub.com/cosmos/cosmos-sdk/x/staking/typ" +
-      "esb\006proto3"
+      "atorPowerB\004\310\336\037\000\022;\n\nvalidators\030\004 \003(\0132!.co" +
+      "smos.staking.v1beta1.ValidatorB\004\310\336\037\000\022=\n\013" +
+      "delegations\030\005 \003(\0132\".cosmos.staking.v1bet" +
+      "a1.DelegationB\004\310\336\037\000\022P\n\025unbonding_delegat" +
+      "ions\030\006 \003(\0132+.cosmos.staking.v1beta1.Unbo" +
+      "ndingDelegationB\004\310\336\037\000\022A\n\rredelegations\030\007" +
+      " \003(\0132$.cosmos.staking.v1beta1.Redelegati" +
+      "onB\004\310\336\037\000\022\020\n\010exported\030\010 \001(\010\"X\n\022LastValida" +
+      "torPower\022)\n\007address\030\001 \001(\tB\030\322\264-\024cosmos.Ad" +
+      "dressString\022\r\n\005power\030\002 \001(\003:\010\350\240\037\000\210\240\037\000B.Z," +
+      "github.com/cosmos/cosmos-sdk/x/staking/t" +
+      "ypesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.staking.v1beta1.Staking.getDescriptor(),
+          cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_cosmos_staking_v1beta1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -4089,15 +4089,16 @@ public final class Genesis {
         new java.lang.String[] { "Address", "Power", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.staking.v1beta1.Staking.getDescriptor();
+    cosmos_proto.Cosmos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

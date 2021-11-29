@@ -23,7 +23,7 @@ public final class Genesis {
      * starting_proposal_id is the ID of the starting proposal.
      * </pre>
      *
-     * <code>uint64 starting_proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"starting_proposal_id&#92;""];</code>
+     * <code>uint64 starting_proposal_id = 1;</code>
      * @return The startingProposalId.
      */
     long getStartingProposalId();
@@ -165,7 +165,7 @@ public final class Genesis {
      * params defines all the paramaters of related to deposit.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
      * @return Whether the depositParams field is set.
      */
     boolean hasDepositParams();
@@ -174,7 +174,7 @@ public final class Genesis {
      * params defines all the paramaters of related to deposit.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
      * @return The depositParams.
      */
     cosmos.gov.v1beta1.Gov.DepositParams getDepositParams();
@@ -183,7 +183,7 @@ public final class Genesis {
      * params defines all the paramaters of related to deposit.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.gov.v1beta1.Gov.DepositParamsOrBuilder getDepositParamsOrBuilder();
 
@@ -192,7 +192,7 @@ public final class Genesis {
      * params defines all the paramaters of related to voting.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
      * @return Whether the votingParams field is set.
      */
     boolean hasVotingParams();
@@ -201,7 +201,7 @@ public final class Genesis {
      * params defines all the paramaters of related to voting.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
      * @return The votingParams.
      */
     cosmos.gov.v1beta1.Gov.VotingParams getVotingParams();
@@ -210,7 +210,7 @@ public final class Genesis {
      * params defines all the paramaters of related to voting.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.gov.v1beta1.Gov.VotingParamsOrBuilder getVotingParamsOrBuilder();
 
@@ -219,7 +219,7 @@ public final class Genesis {
      * params defines all the paramaters of related to tally.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
      * @return Whether the tallyParams field is set.
      */
     boolean hasTallyParams();
@@ -228,7 +228,7 @@ public final class Genesis {
      * params defines all the paramaters of related to tally.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
      * @return The tallyParams.
      */
     cosmos.gov.v1beta1.Gov.TallyParams getTallyParams();
@@ -237,7 +237,7 @@ public final class Genesis {
      * params defines all the paramaters of related to tally.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.gov.v1beta1.Gov.TallyParamsOrBuilder getTallyParamsOrBuilder();
   }
@@ -413,7 +413,7 @@ public final class Genesis {
      * starting_proposal_id is the ID of the starting proposal.
      * </pre>
      *
-     * <code>uint64 starting_proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"starting_proposal_id&#92;""];</code>
+     * <code>uint64 starting_proposal_id = 1;</code>
      * @return The startingProposalId.
      */
     @java.lang.Override
@@ -608,7 +608,7 @@ public final class Genesis {
      * params defines all the paramaters of related to deposit.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
      * @return Whether the depositParams field is set.
      */
     @java.lang.Override
@@ -620,7 +620,7 @@ public final class Genesis {
      * params defines all the paramaters of related to deposit.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
      * @return The depositParams.
      */
     @java.lang.Override
@@ -632,7 +632,7 @@ public final class Genesis {
      * params defines all the paramaters of related to deposit.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.gov.v1beta1.Gov.DepositParamsOrBuilder getDepositParamsOrBuilder() {
@@ -646,7 +646,7 @@ public final class Genesis {
      * params defines all the paramaters of related to voting.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
      * @return Whether the votingParams field is set.
      */
     @java.lang.Override
@@ -658,7 +658,7 @@ public final class Genesis {
      * params defines all the paramaters of related to voting.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
      * @return The votingParams.
      */
     @java.lang.Override
@@ -670,7 +670,7 @@ public final class Genesis {
      * params defines all the paramaters of related to voting.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.gov.v1beta1.Gov.VotingParamsOrBuilder getVotingParamsOrBuilder() {
@@ -684,7 +684,7 @@ public final class Genesis {
      * params defines all the paramaters of related to tally.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
      * @return Whether the tallyParams field is set.
      */
     @java.lang.Override
@@ -696,7 +696,7 @@ public final class Genesis {
      * params defines all the paramaters of related to tally.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
      * @return The tallyParams.
      */
     @java.lang.Override
@@ -708,7 +708,7 @@ public final class Genesis {
      * params defines all the paramaters of related to tally.
      * </pre>
      *
-     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+     * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.gov.v1beta1.Gov.TallyParamsOrBuilder getTallyParamsOrBuilder() {
@@ -1285,7 +1285,7 @@ public final class Genesis {
        * starting_proposal_id is the ID of the starting proposal.
        * </pre>
        *
-       * <code>uint64 starting_proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"starting_proposal_id&#92;""];</code>
+       * <code>uint64 starting_proposal_id = 1;</code>
        * @return The startingProposalId.
        */
       @java.lang.Override
@@ -1297,7 +1297,7 @@ public final class Genesis {
        * starting_proposal_id is the ID of the starting proposal.
        * </pre>
        *
-       * <code>uint64 starting_proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"starting_proposal_id&#92;""];</code>
+       * <code>uint64 starting_proposal_id = 1;</code>
        * @param value The startingProposalId to set.
        * @return This builder for chaining.
        */
@@ -1312,7 +1312,7 @@ public final class Genesis {
        * starting_proposal_id is the ID of the starting proposal.
        * </pre>
        *
-       * <code>uint64 starting_proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"starting_proposal_id&#92;""];</code>
+       * <code>uint64 starting_proposal_id = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearStartingProposalId() {
@@ -2266,7 +2266,7 @@ public final class Genesis {
        * params defines all the paramaters of related to deposit.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
        * @return Whether the depositParams field is set.
        */
       public boolean hasDepositParams() {
@@ -2277,7 +2277,7 @@ public final class Genesis {
        * params defines all the paramaters of related to deposit.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
        * @return The depositParams.
        */
       public cosmos.gov.v1beta1.Gov.DepositParams getDepositParams() {
@@ -2292,7 +2292,7 @@ public final class Genesis {
        * params defines all the paramaters of related to deposit.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setDepositParams(cosmos.gov.v1beta1.Gov.DepositParams value) {
         if (depositParamsBuilder_ == null) {
@@ -2312,7 +2312,7 @@ public final class Genesis {
        * params defines all the paramaters of related to deposit.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setDepositParams(
           cosmos.gov.v1beta1.Gov.DepositParams.Builder builderForValue) {
@@ -2330,7 +2330,7 @@ public final class Genesis {
        * params defines all the paramaters of related to deposit.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeDepositParams(cosmos.gov.v1beta1.Gov.DepositParams value) {
         if (depositParamsBuilder_ == null) {
@@ -2352,7 +2352,7 @@ public final class Genesis {
        * params defines all the paramaters of related to deposit.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearDepositParams() {
         if (depositParamsBuilder_ == null) {
@@ -2370,7 +2370,7 @@ public final class Genesis {
        * params defines all the paramaters of related to deposit.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.gov.v1beta1.Gov.DepositParams.Builder getDepositParamsBuilder() {
         
@@ -2382,7 +2382,7 @@ public final class Genesis {
        * params defines all the paramaters of related to deposit.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.gov.v1beta1.Gov.DepositParamsOrBuilder getDepositParamsOrBuilder() {
         if (depositParamsBuilder_ != null) {
@@ -2397,7 +2397,7 @@ public final class Genesis {
        * params defines all the paramaters of related to deposit.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.gov.v1beta1.Gov.DepositParams, cosmos.gov.v1beta1.Gov.DepositParams.Builder, cosmos.gov.v1beta1.Gov.DepositParamsOrBuilder> 
@@ -2421,7 +2421,7 @@ public final class Genesis {
        * params defines all the paramaters of related to voting.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
        * @return Whether the votingParams field is set.
        */
       public boolean hasVotingParams() {
@@ -2432,7 +2432,7 @@ public final class Genesis {
        * params defines all the paramaters of related to voting.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
        * @return The votingParams.
        */
       public cosmos.gov.v1beta1.Gov.VotingParams getVotingParams() {
@@ -2447,7 +2447,7 @@ public final class Genesis {
        * params defines all the paramaters of related to voting.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setVotingParams(cosmos.gov.v1beta1.Gov.VotingParams value) {
         if (votingParamsBuilder_ == null) {
@@ -2467,7 +2467,7 @@ public final class Genesis {
        * params defines all the paramaters of related to voting.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setVotingParams(
           cosmos.gov.v1beta1.Gov.VotingParams.Builder builderForValue) {
@@ -2485,7 +2485,7 @@ public final class Genesis {
        * params defines all the paramaters of related to voting.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeVotingParams(cosmos.gov.v1beta1.Gov.VotingParams value) {
         if (votingParamsBuilder_ == null) {
@@ -2507,7 +2507,7 @@ public final class Genesis {
        * params defines all the paramaters of related to voting.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearVotingParams() {
         if (votingParamsBuilder_ == null) {
@@ -2525,7 +2525,7 @@ public final class Genesis {
        * params defines all the paramaters of related to voting.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.gov.v1beta1.Gov.VotingParams.Builder getVotingParamsBuilder() {
         
@@ -2537,7 +2537,7 @@ public final class Genesis {
        * params defines all the paramaters of related to voting.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.gov.v1beta1.Gov.VotingParamsOrBuilder getVotingParamsOrBuilder() {
         if (votingParamsBuilder_ != null) {
@@ -2552,7 +2552,7 @@ public final class Genesis {
        * params defines all the paramaters of related to voting.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.gov.v1beta1.Gov.VotingParams, cosmos.gov.v1beta1.Gov.VotingParams.Builder, cosmos.gov.v1beta1.Gov.VotingParamsOrBuilder> 
@@ -2576,7 +2576,7 @@ public final class Genesis {
        * params defines all the paramaters of related to tally.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
        * @return Whether the tallyParams field is set.
        */
       public boolean hasTallyParams() {
@@ -2587,7 +2587,7 @@ public final class Genesis {
        * params defines all the paramaters of related to tally.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
        * @return The tallyParams.
        */
       public cosmos.gov.v1beta1.Gov.TallyParams getTallyParams() {
@@ -2602,7 +2602,7 @@ public final class Genesis {
        * params defines all the paramaters of related to tally.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setTallyParams(cosmos.gov.v1beta1.Gov.TallyParams value) {
         if (tallyParamsBuilder_ == null) {
@@ -2622,7 +2622,7 @@ public final class Genesis {
        * params defines all the paramaters of related to tally.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setTallyParams(
           cosmos.gov.v1beta1.Gov.TallyParams.Builder builderForValue) {
@@ -2640,7 +2640,7 @@ public final class Genesis {
        * params defines all the paramaters of related to tally.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeTallyParams(cosmos.gov.v1beta1.Gov.TallyParams value) {
         if (tallyParamsBuilder_ == null) {
@@ -2662,7 +2662,7 @@ public final class Genesis {
        * params defines all the paramaters of related to tally.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearTallyParams() {
         if (tallyParamsBuilder_ == null) {
@@ -2680,7 +2680,7 @@ public final class Genesis {
        * params defines all the paramaters of related to tally.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.gov.v1beta1.Gov.TallyParams.Builder getTallyParamsBuilder() {
         
@@ -2692,7 +2692,7 @@ public final class Genesis {
        * params defines all the paramaters of related to tally.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.gov.v1beta1.Gov.TallyParamsOrBuilder getTallyParamsOrBuilder() {
         if (tallyParamsBuilder_ != null) {
@@ -2707,7 +2707,7 @@ public final class Genesis {
        * params defines all the paramaters of related to tally.
        * </pre>
        *
-       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
+       * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.gov.v1beta1.Gov.TallyParams, cosmos.gov.v1beta1.Gov.TallyParams.Builder, cosmos.gov.v1beta1.Gov.TallyParamsOrBuilder> 
@@ -2791,27 +2791,24 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n cosmos/gov/v1beta1/genesis.proto\022\022cosm" +
       "os.gov.v1beta1\032\024gogoproto/gogo.proto\032\034co" +
-      "smos/gov/v1beta1/gov.proto\"\217\004\n\014GenesisSt" +
-      "ate\022=\n\024starting_proposal_id\030\001 \001(\004B\037\362\336\037\033y" +
-      "aml:\"starting_proposal_id\"\022?\n\010deposits\030\002" +
-      " \003(\0132\033.cosmos.gov.v1beta1.DepositB\020\252\337\037\010D" +
-      "eposits\310\336\037\000\0226\n\005votes\030\003 \003(\0132\030.cosmos.gov." +
-      "v1beta1.VoteB\r\252\337\037\005Votes\310\336\037\000\022B\n\tproposals" +
-      "\030\004 \003(\0132\034.cosmos.gov.v1beta1.ProposalB\021\252\337" +
-      "\037\tProposals\310\336\037\000\022X\n\016deposit_params\030\005 \001(\0132" +
-      "!.cosmos.gov.v1beta1.DepositParamsB\035\310\336\037\000" +
-      "\362\336\037\025yaml:\"deposit_params\"\022U\n\rvoting_para" +
-      "ms\030\006 \001(\0132 .cosmos.gov.v1beta1.VotingPara" +
-      "msB\034\310\336\037\000\362\336\037\024yaml:\"voting_params\"\022R\n\014tall" +
-      "y_params\030\007 \001(\0132\037.cosmos.gov.v1beta1.Tall" +
-      "yParamsB\033\310\336\037\000\362\336\037\023yaml:\"tally_params\"B*Z(" +
-      "github.com/cosmos/cosmos-sdk/x/gov/types" +
-      "b\006proto3"
+      "smos/gov/v1beta1/gov.proto\"\246\003\n\014GenesisSt" +
+      "ate\022\034\n\024starting_proposal_id\030\001 \001(\004\022?\n\010dep" +
+      "osits\030\002 \003(\0132\033.cosmos.gov.v1beta1.Deposit" +
+      "B\020\252\337\037\010Deposits\310\336\037\000\0226\n\005votes\030\003 \003(\0132\030.cosm" +
+      "os.gov.v1beta1.VoteB\r\252\337\037\005Votes\310\336\037\000\022B\n\tpr" +
+      "oposals\030\004 \003(\0132\034.cosmos.gov.v1beta1.Propo" +
+      "salB\021\252\337\037\tProposals\310\336\037\000\022?\n\016deposit_params" +
+      "\030\005 \001(\0132!.cosmos.gov.v1beta1.DepositParam" +
+      "sB\004\310\336\037\000\022=\n\rvoting_params\030\006 \001(\0132 .cosmos." +
+      "gov.v1beta1.VotingParamsB\004\310\336\037\000\022;\n\014tally_" +
+      "params\030\007 \001(\0132\037.cosmos.gov.v1beta1.TallyP" +
+      "aramsB\004\310\336\037\000B*Z(github.com/cosmos/cosmos-" +
+      "sdk/x/gov/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.gov.v1beta1.Gov.getDescriptor(),
         });
     internal_static_cosmos_gov_v1beta1_GenesisState_descriptor =
@@ -2822,12 +2819,11 @@ public final class Genesis {
         new java.lang.String[] { "StartingProposalId", "Deposits", "Votes", "Proposals", "DepositParams", "VotingParams", "TallyParams", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.gov.v1beta1.Gov.getDescriptor();
   }
 

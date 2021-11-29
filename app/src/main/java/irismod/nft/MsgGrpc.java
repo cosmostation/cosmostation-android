@@ -17,7 +17,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  * <pre>
- * Msg defines the htlc Msg service.
+ * Msg defines the nft Msg service.
  * </pre>
  */
 @javax.annotation.Generated(
@@ -185,6 +185,37 @@ public final class MsgGrpc {
     return getBurnNFTMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<irismod.nft.Tx.MsgTransferDenom,
+      irismod.nft.Tx.MsgTransferDenomResponse> getTransferDenomMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "TransferDenom",
+      requestType = irismod.nft.Tx.MsgTransferDenom.class,
+      responseType = irismod.nft.Tx.MsgTransferDenomResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<irismod.nft.Tx.MsgTransferDenom,
+      irismod.nft.Tx.MsgTransferDenomResponse> getTransferDenomMethod() {
+    io.grpc.MethodDescriptor<irismod.nft.Tx.MsgTransferDenom, irismod.nft.Tx.MsgTransferDenomResponse> getTransferDenomMethod;
+    if ((getTransferDenomMethod = MsgGrpc.getTransferDenomMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getTransferDenomMethod = MsgGrpc.getTransferDenomMethod) == null) {
+          MsgGrpc.getTransferDenomMethod = getTransferDenomMethod =
+              io.grpc.MethodDescriptor.<irismod.nft.Tx.MsgTransferDenom, irismod.nft.Tx.MsgTransferDenomResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "TransferDenom"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  irismod.nft.Tx.MsgTransferDenom.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  irismod.nft.Tx.MsgTransferDenomResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("TransferDenom"))
+              .build();
+        }
+      }
+    }
+    return getTransferDenomMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -231,7 +262,7 @@ public final class MsgGrpc {
 
   /**
    * <pre>
-   * Msg defines the htlc Msg service.
+   * Msg defines the nft Msg service.
    * </pre>
    */
   public static abstract class MsgImplBase implements io.grpc.BindableService {
@@ -286,6 +317,16 @@ public final class MsgGrpc {
       asyncUnimplementedUnaryCall(getBurnNFTMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * TransferDenom defines a method for transferring a denom.
+     * </pre>
+     */
+    public void transferDenom(irismod.nft.Tx.MsgTransferDenom request,
+        io.grpc.stub.StreamObserver<irismod.nft.Tx.MsgTransferDenomResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getTransferDenomMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -323,13 +364,20 @@ public final class MsgGrpc {
                 irismod.nft.Tx.MsgBurnNFT,
                 irismod.nft.Tx.MsgBurnNFTResponse>(
                   this, METHODID_BURN_NFT)))
+          .addMethod(
+            getTransferDenomMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                irismod.nft.Tx.MsgTransferDenom,
+                irismod.nft.Tx.MsgTransferDenomResponse>(
+                  this, METHODID_TRANSFER_DENOM)))
           .build();
     }
   }
 
   /**
    * <pre>
-   * Msg defines the htlc Msg service.
+   * Msg defines the nft Msg service.
    * </pre>
    */
   public static final class MsgStub extends io.grpc.stub.AbstractAsyncStub<MsgStub> {
@@ -398,11 +446,22 @@ public final class MsgGrpc {
       asyncUnaryCall(
           getChannel().newCall(getBurnNFTMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * TransferDenom defines a method for transferring a denom.
+     * </pre>
+     */
+    public void transferDenom(irismod.nft.Tx.MsgTransferDenom request,
+        io.grpc.stub.StreamObserver<irismod.nft.Tx.MsgTransferDenomResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getTransferDenomMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
    * <pre>
-   * Msg defines the htlc Msg service.
+   * Msg defines the nft Msg service.
    * </pre>
    */
   public static final class MsgBlockingStub extends io.grpc.stub.AbstractBlockingStub<MsgBlockingStub> {
@@ -466,11 +525,21 @@ public final class MsgGrpc {
       return blockingUnaryCall(
           getChannel(), getBurnNFTMethod(), getCallOptions(), request);
     }
+
+    /**
+     * <pre>
+     * TransferDenom defines a method for transferring a denom.
+     * </pre>
+     */
+    public irismod.nft.Tx.MsgTransferDenomResponse transferDenom(irismod.nft.Tx.MsgTransferDenom request) {
+      return blockingUnaryCall(
+          getChannel(), getTransferDenomMethod(), getCallOptions(), request);
+    }
   }
 
   /**
    * <pre>
-   * Msg defines the htlc Msg service.
+   * Msg defines the nft Msg service.
    * </pre>
    */
   public static final class MsgFutureStub extends io.grpc.stub.AbstractFutureStub<MsgFutureStub> {
@@ -539,6 +608,17 @@ public final class MsgGrpc {
       return futureUnaryCall(
           getChannel().newCall(getBurnNFTMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * TransferDenom defines a method for transferring a denom.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<irismod.nft.Tx.MsgTransferDenomResponse> transferDenom(
+        irismod.nft.Tx.MsgTransferDenom request) {
+      return futureUnaryCall(
+          getChannel().newCall(getTransferDenomMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_ISSUE_DENOM = 0;
@@ -546,6 +626,7 @@ public final class MsgGrpc {
   private static final int METHODID_EDIT_NFT = 2;
   private static final int METHODID_TRANSFER_NFT = 3;
   private static final int METHODID_BURN_NFT = 4;
+  private static final int METHODID_TRANSFER_DENOM = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -583,6 +664,10 @@ public final class MsgGrpc {
         case METHODID_BURN_NFT:
           serviceImpl.burnNFT((irismod.nft.Tx.MsgBurnNFT) request,
               (io.grpc.stub.StreamObserver<irismod.nft.Tx.MsgBurnNFTResponse>) responseObserver);
+          break;
+        case METHODID_TRANSFER_DENOM:
+          serviceImpl.transferDenom((irismod.nft.Tx.MsgTransferDenom) request,
+              (io.grpc.stub.StreamObserver<irismod.nft.Tx.MsgTransferDenomResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -650,6 +735,7 @@ public final class MsgGrpc {
               .addMethod(getEditNFTMethod())
               .addMethod(getTransferNFTMethod())
               .addMethod(getBurnNFTMethod())
+              .addMethod(getTransferDenomMethod())
               .build();
         }
       }

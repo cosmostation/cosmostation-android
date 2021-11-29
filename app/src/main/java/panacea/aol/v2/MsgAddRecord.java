@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.MsgAddRecord}
  */
-public  final class MsgAddRecord extends
+public final class MsgAddRecord extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.MsgAddRecord)
     MsgAddRecordOrBuilder {
@@ -130,6 +130,7 @@ private static final long serialVersionUID = 0L;
    * <code>string topic_name = 1;</code>
    * @return The topicName.
    */
+  @java.lang.Override
   public java.lang.String getTopicName() {
     java.lang.Object ref = topicName_;
     if (ref instanceof java.lang.String) {
@@ -146,6 +147,7 @@ private static final long serialVersionUID = 0L;
    * <code>string topic_name = 1;</code>
    * @return The bytes for topicName.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getTopicNameBytes() {
     java.lang.Object ref = topicName_;
@@ -166,6 +168,7 @@ private static final long serialVersionUID = 0L;
    * <code>bytes key = 2;</code>
    * @return The key.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString getKey() {
     return key_;
   }
@@ -176,6 +179,7 @@ private static final long serialVersionUID = 0L;
    * <code>bytes value = 3;</code>
    * @return The value.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString getValue() {
     return value_;
   }
@@ -186,6 +190,7 @@ private static final long serialVersionUID = 0L;
    * <code>string writer_address = 4;</code>
    * @return The writerAddress.
    */
+  @java.lang.Override
   public java.lang.String getWriterAddress() {
     java.lang.Object ref = writerAddress_;
     if (ref instanceof java.lang.String) {
@@ -202,6 +207,7 @@ private static final long serialVersionUID = 0L;
    * <code>string writer_address = 4;</code>
    * @return The bytes for writerAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getWriterAddressBytes() {
     java.lang.Object ref = writerAddress_;
@@ -222,6 +228,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 5;</code>
    * @return The ownerAddress.
    */
+  @java.lang.Override
   public java.lang.String getOwnerAddress() {
     java.lang.Object ref = ownerAddress_;
     if (ref instanceof java.lang.String) {
@@ -238,6 +245,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 5;</code>
    * @return The bytes for ownerAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getOwnerAddressBytes() {
     java.lang.Object ref = ownerAddress_;
@@ -258,6 +266,7 @@ private static final long serialVersionUID = 0L;
    * <code>string fee_payer_address = 6;</code>
    * @return The feePayerAddress.
    */
+  @java.lang.Override
   public java.lang.String getFeePayerAddress() {
     java.lang.Object ref = feePayerAddress_;
     if (ref instanceof java.lang.String) {
@@ -274,6 +283,7 @@ private static final long serialVersionUID = 0L;
    * <code>string fee_payer_address = 6;</code>
    * @return The bytes for feePayerAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getFeePayerAddressBytes() {
     java.lang.Object ref = feePayerAddress_;
@@ -760,6 +770,7 @@ private static final long serialVersionUID = 0L;
      * <code>bytes key = 2;</code>
      * @return The key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
@@ -793,6 +804,7 @@ private static final long serialVersionUID = 0L;
      * <code>bytes value = 3;</code>
      * @return The value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValue() {
       return value_;
     }

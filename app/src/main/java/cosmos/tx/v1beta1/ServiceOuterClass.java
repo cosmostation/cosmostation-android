@@ -16,6 +16,151 @@ public final class ServiceOuterClass {
   }
   /**
    * <pre>
+   * OrderBy defines the sorting order
+   * </pre>
+   *
+   * Protobuf enum {@code cosmos.tx.v1beta1.OrderBy}
+   */
+  public enum OrderBy
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <pre>
+     * ORDER_BY_UNSPECIFIED specifies an unknown sorting order. OrderBy defaults to ASC in this case.
+     * </pre>
+     *
+     * <code>ORDER_BY_UNSPECIFIED = 0;</code>
+     */
+    ORDER_BY_UNSPECIFIED(0),
+    /**
+     * <pre>
+     * ORDER_BY_ASC defines ascending order
+     * </pre>
+     *
+     * <code>ORDER_BY_ASC = 1;</code>
+     */
+    ORDER_BY_ASC(1),
+    /**
+     * <pre>
+     * ORDER_BY_DESC defines descending order
+     * </pre>
+     *
+     * <code>ORDER_BY_DESC = 2;</code>
+     */
+    ORDER_BY_DESC(2),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <pre>
+     * ORDER_BY_UNSPECIFIED specifies an unknown sorting order. OrderBy defaults to ASC in this case.
+     * </pre>
+     *
+     * <code>ORDER_BY_UNSPECIFIED = 0;</code>
+     */
+    public static final int ORDER_BY_UNSPECIFIED_VALUE = 0;
+    /**
+     * <pre>
+     * ORDER_BY_ASC defines ascending order
+     * </pre>
+     *
+     * <code>ORDER_BY_ASC = 1;</code>
+     */
+    public static final int ORDER_BY_ASC_VALUE = 1;
+    /**
+     * <pre>
+     * ORDER_BY_DESC defines descending order
+     * </pre>
+     *
+     * <code>ORDER_BY_DESC = 2;</code>
+     */
+    public static final int ORDER_BY_DESC_VALUE = 2;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static OrderBy valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static OrderBy forNumber(int value) {
+      switch (value) {
+        case 0: return ORDER_BY_UNSPECIFIED;
+        case 1: return ORDER_BY_ASC;
+        case 2: return ORDER_BY_DESC;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<OrderBy>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        OrderBy> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<OrderBy>() {
+            public OrderBy findValueByNumber(int number) {
+              return OrderBy.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return cosmos.tx.v1beta1.ServiceOuterClass.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final OrderBy[] VALUES = values();
+
+    public static OrderBy valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private OrderBy(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:cosmos.tx.v1beta1.OrderBy)
+  }
+
+  /**
+   * <pre>
    * BroadcastMode specifies the broadcast mode for the TxService.Broadcast RPC method.
    * </pre>
    *
@@ -156,7 +301,7 @@ public final class ServiceOuterClass {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return cosmos.tx.v1beta1.ServiceOuterClass.getDescriptor().getEnumTypes().get(0);
+      return cosmos.tx.v1beta1.ServiceOuterClass.getDescriptor().getEnumTypes().get(1);
     }
 
     private static final BroadcastMode[] VALUES = values();
@@ -253,6 +398,17 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
     cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder();
+
+    /**
+     * <code>.cosmos.tx.v1beta1.OrderBy order_by = 3;</code>
+     * @return The enum numeric value on the wire for orderBy.
+     */
+    int getOrderByValue();
+    /**
+     * <code>.cosmos.tx.v1beta1.OrderBy order_by = 3;</code>
+     * @return The orderBy.
+     */
+    cosmos.tx.v1beta1.ServiceOuterClass.OrderBy getOrderBy();
   }
   /**
    * <pre>
@@ -273,6 +429,7 @@ public final class ServiceOuterClass {
     }
     private GetTxsEventRequest() {
       events_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      orderBy_ = 0;
     }
 
     @java.lang.Override
@@ -326,6 +483,12 @@ public final class ServiceOuterClass {
                 pagination_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+
+              orderBy_ = rawValue;
               break;
             }
             default: {
@@ -452,6 +615,25 @@ public final class ServiceOuterClass {
       return getPagination();
     }
 
+    public static final int ORDER_BY_FIELD_NUMBER = 3;
+    private int orderBy_;
+    /**
+     * <code>.cosmos.tx.v1beta1.OrderBy order_by = 3;</code>
+     * @return The enum numeric value on the wire for orderBy.
+     */
+    @java.lang.Override public int getOrderByValue() {
+      return orderBy_;
+    }
+    /**
+     * <code>.cosmos.tx.v1beta1.OrderBy order_by = 3;</code>
+     * @return The orderBy.
+     */
+    @java.lang.Override public cosmos.tx.v1beta1.ServiceOuterClass.OrderBy getOrderBy() {
+      @SuppressWarnings("deprecation")
+      cosmos.tx.v1beta1.ServiceOuterClass.OrderBy result = cosmos.tx.v1beta1.ServiceOuterClass.OrderBy.valueOf(orderBy_);
+      return result == null ? cosmos.tx.v1beta1.ServiceOuterClass.OrderBy.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -471,6 +653,9 @@ public final class ServiceOuterClass {
       }
       if (pagination_ != null) {
         output.writeMessage(2, getPagination());
+      }
+      if (orderBy_ != cosmos.tx.v1beta1.ServiceOuterClass.OrderBy.ORDER_BY_UNSPECIFIED.getNumber()) {
+        output.writeEnum(3, orderBy_);
       }
       unknownFields.writeTo(output);
     }
@@ -492,6 +677,10 @@ public final class ServiceOuterClass {
       if (pagination_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getPagination());
+      }
+      if (orderBy_ != cosmos.tx.v1beta1.ServiceOuterClass.OrderBy.ORDER_BY_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, orderBy_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -515,6 +704,7 @@ public final class ServiceOuterClass {
         if (!getPagination()
             .equals(other.getPagination())) return false;
       }
+      if (orderBy_ != other.orderBy_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -534,6 +724,8 @@ public final class ServiceOuterClass {
         hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
         hash = (53 * hash) + getPagination().hashCode();
       }
+      hash = (37 * hash) + ORDER_BY_FIELD_NUMBER;
+      hash = (53 * hash) + orderBy_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -680,6 +872,8 @@ public final class ServiceOuterClass {
           pagination_ = null;
           paginationBuilder_ = null;
         }
+        orderBy_ = 0;
+
         return this;
       }
 
@@ -717,6 +911,7 @@ public final class ServiceOuterClass {
         } else {
           result.pagination_ = paginationBuilder_.build();
         }
+        result.orderBy_ = orderBy_;
         onBuilt();
         return result;
       }
@@ -777,6 +972,9 @@ public final class ServiceOuterClass {
         }
         if (other.hasPagination()) {
           mergePagination(other.getPagination());
+        }
+        if (other.orderBy_ != 0) {
+          setOrderByValue(other.getOrderByValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1107,6 +1305,60 @@ public final class ServiceOuterClass {
           pagination_ = null;
         }
         return paginationBuilder_;
+      }
+
+      private int orderBy_ = 0;
+      /**
+       * <code>.cosmos.tx.v1beta1.OrderBy order_by = 3;</code>
+       * @return The enum numeric value on the wire for orderBy.
+       */
+      @java.lang.Override public int getOrderByValue() {
+        return orderBy_;
+      }
+      /**
+       * <code>.cosmos.tx.v1beta1.OrderBy order_by = 3;</code>
+       * @param value The enum numeric value on the wire for orderBy to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderByValue(int value) {
+        
+        orderBy_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.cosmos.tx.v1beta1.OrderBy order_by = 3;</code>
+       * @return The orderBy.
+       */
+      @java.lang.Override
+      public cosmos.tx.v1beta1.ServiceOuterClass.OrderBy getOrderBy() {
+        @SuppressWarnings("deprecation")
+        cosmos.tx.v1beta1.ServiceOuterClass.OrderBy result = cosmos.tx.v1beta1.ServiceOuterClass.OrderBy.valueOf(orderBy_);
+        return result == null ? cosmos.tx.v1beta1.ServiceOuterClass.OrderBy.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.cosmos.tx.v1beta1.OrderBy order_by = 3;</code>
+       * @param value The orderBy to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderBy(cosmos.tx.v1beta1.ServiceOuterClass.OrderBy value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        orderBy_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.cosmos.tx.v1beta1.OrderBy order_by = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrderBy() {
+        
+        orderBy_ = 0;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -4150,29 +4402,43 @@ public final class ServiceOuterClass {
     /**
      * <pre>
      * tx is the transaction to simulate.
+     * Deprecated. Send raw tx bytes instead.
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+     * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
      * @return Whether the tx field is set.
      */
-    boolean hasTx();
+    @java.lang.Deprecated boolean hasTx();
     /**
      * <pre>
      * tx is the transaction to simulate.
+     * Deprecated. Send raw tx bytes instead.
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+     * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
      * @return The tx.
      */
-    cosmos.tx.v1beta1.TxOuterClass.Tx getTx();
+    @java.lang.Deprecated cosmos.tx.v1beta1.TxOuterClass.Tx getTx();
     /**
      * <pre>
      * tx is the transaction to simulate.
+     * Deprecated. Send raw tx bytes instead.
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+     * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
      */
-    cosmos.tx.v1beta1.TxOuterClass.TxOrBuilder getTxOrBuilder();
+    @java.lang.Deprecated cosmos.tx.v1beta1.TxOuterClass.TxOrBuilder getTxOrBuilder();
+
+    /**
+     * <pre>
+     * tx_bytes is the raw transaction.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>bytes tx_bytes = 2;</code>
+     * @return The txBytes.
+     */
+    com.google.protobuf.ByteString getTxBytes();
   }
   /**
    * <pre>
@@ -4192,6 +4458,7 @@ public final class ServiceOuterClass {
       super(builder);
     }
     private SimulateRequest() {
+      txBytes_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -4237,6 +4504,11 @@ public final class ServiceOuterClass {
 
               break;
             }
+            case 18: {
+
+              txBytes_ = input.readBytes();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -4274,37 +4546,56 @@ public final class ServiceOuterClass {
     /**
      * <pre>
      * tx is the transaction to simulate.
+     * Deprecated. Send raw tx bytes instead.
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+     * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
      * @return Whether the tx field is set.
      */
     @java.lang.Override
-    public boolean hasTx() {
+    @java.lang.Deprecated public boolean hasTx() {
       return tx_ != null;
     }
     /**
      * <pre>
      * tx is the transaction to simulate.
+     * Deprecated. Send raw tx bytes instead.
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+     * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
      * @return The tx.
      */
     @java.lang.Override
-    public cosmos.tx.v1beta1.TxOuterClass.Tx getTx() {
+    @java.lang.Deprecated public cosmos.tx.v1beta1.TxOuterClass.Tx getTx() {
       return tx_ == null ? cosmos.tx.v1beta1.TxOuterClass.Tx.getDefaultInstance() : tx_;
     }
     /**
      * <pre>
      * tx is the transaction to simulate.
+     * Deprecated. Send raw tx bytes instead.
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+     * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
      */
     @java.lang.Override
-    public cosmos.tx.v1beta1.TxOuterClass.TxOrBuilder getTxOrBuilder() {
+    @java.lang.Deprecated public cosmos.tx.v1beta1.TxOuterClass.TxOrBuilder getTxOrBuilder() {
       return getTx();
+    }
+
+    public static final int TX_BYTES_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString txBytes_;
+    /**
+     * <pre>
+     * tx_bytes is the raw transaction.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>bytes tx_bytes = 2;</code>
+     * @return The txBytes.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getTxBytes() {
+      return txBytes_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -4324,6 +4615,9 @@ public final class ServiceOuterClass {
       if (tx_ != null) {
         output.writeMessage(1, getTx());
       }
+      if (!txBytes_.isEmpty()) {
+        output.writeBytes(2, txBytes_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -4336,6 +4630,10 @@ public final class ServiceOuterClass {
       if (tx_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getTx());
+      }
+      if (!txBytes_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, txBytes_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4357,6 +4655,8 @@ public final class ServiceOuterClass {
         if (!getTx()
             .equals(other.getTx())) return false;
       }
+      if (!getTxBytes()
+          .equals(other.getTxBytes())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -4372,6 +4672,8 @@ public final class ServiceOuterClass {
         hash = (37 * hash) + TX_FIELD_NUMBER;
         hash = (53 * hash) + getTx().hashCode();
       }
+      hash = (37 * hash) + TX_BYTES_FIELD_NUMBER;
+      hash = (53 * hash) + getTxBytes().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -4516,6 +4818,8 @@ public final class ServiceOuterClass {
           tx_ = null;
           txBuilder_ = null;
         }
+        txBytes_ = com.google.protobuf.ByteString.EMPTY;
+
         return this;
       }
 
@@ -4547,6 +4851,7 @@ public final class ServiceOuterClass {
         } else {
           result.tx_ = txBuilder_.build();
         }
+        result.txBytes_ = txBytes_;
         onBuilt();
         return result;
       }
@@ -4598,6 +4903,9 @@ public final class ServiceOuterClass {
         if (other.hasTx()) {
           mergeTx(other.getTx());
         }
+        if (other.getTxBytes() != com.google.protobuf.ByteString.EMPTY) {
+          setTxBytes(other.getTxBytes());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -4633,23 +4941,25 @@ public final class ServiceOuterClass {
       /**
        * <pre>
        * tx is the transaction to simulate.
+       * Deprecated. Send raw tx bytes instead.
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+       * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
        * @return Whether the tx field is set.
        */
-      public boolean hasTx() {
+      @java.lang.Deprecated public boolean hasTx() {
         return txBuilder_ != null || tx_ != null;
       }
       /**
        * <pre>
        * tx is the transaction to simulate.
+       * Deprecated. Send raw tx bytes instead.
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+       * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
        * @return The tx.
        */
-      public cosmos.tx.v1beta1.TxOuterClass.Tx getTx() {
+      @java.lang.Deprecated public cosmos.tx.v1beta1.TxOuterClass.Tx getTx() {
         if (txBuilder_ == null) {
           return tx_ == null ? cosmos.tx.v1beta1.TxOuterClass.Tx.getDefaultInstance() : tx_;
         } else {
@@ -4659,11 +4969,12 @@ public final class ServiceOuterClass {
       /**
        * <pre>
        * tx is the transaction to simulate.
+       * Deprecated. Send raw tx bytes instead.
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+       * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
        */
-      public Builder setTx(cosmos.tx.v1beta1.TxOuterClass.Tx value) {
+      @java.lang.Deprecated public Builder setTx(cosmos.tx.v1beta1.TxOuterClass.Tx value) {
         if (txBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4679,11 +4990,12 @@ public final class ServiceOuterClass {
       /**
        * <pre>
        * tx is the transaction to simulate.
+       * Deprecated. Send raw tx bytes instead.
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+       * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
        */
-      public Builder setTx(
+      @java.lang.Deprecated public Builder setTx(
           cosmos.tx.v1beta1.TxOuterClass.Tx.Builder builderForValue) {
         if (txBuilder_ == null) {
           tx_ = builderForValue.build();
@@ -4697,11 +5009,12 @@ public final class ServiceOuterClass {
       /**
        * <pre>
        * tx is the transaction to simulate.
+       * Deprecated. Send raw tx bytes instead.
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+       * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
        */
-      public Builder mergeTx(cosmos.tx.v1beta1.TxOuterClass.Tx value) {
+      @java.lang.Deprecated public Builder mergeTx(cosmos.tx.v1beta1.TxOuterClass.Tx value) {
         if (txBuilder_ == null) {
           if (tx_ != null) {
             tx_ =
@@ -4719,11 +5032,12 @@ public final class ServiceOuterClass {
       /**
        * <pre>
        * tx is the transaction to simulate.
+       * Deprecated. Send raw tx bytes instead.
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+       * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
        */
-      public Builder clearTx() {
+      @java.lang.Deprecated public Builder clearTx() {
         if (txBuilder_ == null) {
           tx_ = null;
           onChanged();
@@ -4737,11 +5051,12 @@ public final class ServiceOuterClass {
       /**
        * <pre>
        * tx is the transaction to simulate.
+       * Deprecated. Send raw tx bytes instead.
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+       * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
        */
-      public cosmos.tx.v1beta1.TxOuterClass.Tx.Builder getTxBuilder() {
+      @java.lang.Deprecated public cosmos.tx.v1beta1.TxOuterClass.Tx.Builder getTxBuilder() {
         
         onChanged();
         return getTxFieldBuilder().getBuilder();
@@ -4749,11 +5064,12 @@ public final class ServiceOuterClass {
       /**
        * <pre>
        * tx is the transaction to simulate.
+       * Deprecated. Send raw tx bytes instead.
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+       * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
        */
-      public cosmos.tx.v1beta1.TxOuterClass.TxOrBuilder getTxOrBuilder() {
+      @java.lang.Deprecated public cosmos.tx.v1beta1.TxOuterClass.TxOrBuilder getTxOrBuilder() {
         if (txBuilder_ != null) {
           return txBuilder_.getMessageOrBuilder();
         } else {
@@ -4764,9 +5080,10 @@ public final class ServiceOuterClass {
       /**
        * <pre>
        * tx is the transaction to simulate.
+       * Deprecated. Send raw tx bytes instead.
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
+       * <code>.cosmos.tx.v1beta1.Tx tx = 1 [deprecated = true];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.tx.v1beta1.TxOuterClass.Tx, cosmos.tx.v1beta1.TxOuterClass.Tx.Builder, cosmos.tx.v1beta1.TxOuterClass.TxOrBuilder> 
@@ -4780,6 +5097,55 @@ public final class ServiceOuterClass {
           tx_ = null;
         }
         return txBuilder_;
+      }
+
+      private com.google.protobuf.ByteString txBytes_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * tx_bytes is the raw transaction.
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>bytes tx_bytes = 2;</code>
+       * @return The txBytes.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getTxBytes() {
+        return txBytes_;
+      }
+      /**
+       * <pre>
+       * tx_bytes is the raw transaction.
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>bytes tx_bytes = 2;</code>
+       * @param value The txBytes to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTxBytes(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        txBytes_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * tx_bytes is the raw transaction.
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>bytes tx_bytes = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTxBytes() {
+        
+        txBytes_ = getDefaultInstance().getTxBytes();
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -7408,43 +7774,47 @@ public final class ServiceOuterClass {
       "to\032#cosmos/base/abci/v1beta1/abci.proto\032" +
       "\032cosmos/tx/v1beta1/tx.proto\032\024gogoproto/g" +
       "ogo.proto\032*cosmos/base/query/v1beta1/pag" +
-      "ination.proto\"`\n\022GetTxsEventRequest\022\016\n\006e" +
-      "vents\030\001 \003(\t\022:\n\npagination\030\002 \001(\0132&.cosmos" +
-      ".base.query.v1beta1.PageRequest\"\262\001\n\023GetT" +
-      "xsEventResponse\022\"\n\003txs\030\001 \003(\0132\025.cosmos.tx" +
-      ".v1beta1.Tx\022:\n\014tx_responses\030\002 \003(\0132$.cosm" +
-      "os.base.abci.v1beta1.TxResponse\022;\n\npagin" +
-      "ation\030\003 \001(\0132\'.cosmos.base.query.v1beta1." +
-      "PageResponse\"V\n\022BroadcastTxRequest\022\020\n\010tx" +
-      "_bytes\030\001 \001(\014\022.\n\004mode\030\002 \001(\0162 .cosmos.tx.v" +
-      "1beta1.BroadcastMode\"P\n\023BroadcastTxRespo" +
-      "nse\0229\n\013tx_response\030\001 \001(\0132$.cosmos.base.a" +
-      "bci.v1beta1.TxResponse\"4\n\017SimulateReques" +
-      "t\022!\n\002tx\030\001 \001(\0132\025.cosmos.tx.v1beta1.Tx\"y\n\020" +
-      "SimulateResponse\0223\n\010gas_info\030\001 \001(\0132!.cos" +
-      "mos.base.abci.v1beta1.GasInfo\0220\n\006result\030" +
-      "\002 \001(\0132 .cosmos.base.abci.v1beta1.Result\"" +
-      "\034\n\014GetTxRequest\022\014\n\004hash\030\001 \001(\t\"m\n\rGetTxRe" +
-      "sponse\022!\n\002tx\030\001 \001(\0132\025.cosmos.tx.v1beta1.T" +
-      "x\0229\n\013tx_response\030\002 \001(\0132$.cosmos.base.abc" +
-      "i.v1beta1.TxResponse*|\n\rBroadcastMode\022\036\n" +
-      "\032BROADCAST_MODE_UNSPECIFIED\020\000\022\030\n\024BROADCA" +
-      "ST_MODE_BLOCK\020\001\022\027\n\023BROADCAST_MODE_SYNC\020\002" +
-      "\022\030\n\024BROADCAST_MODE_ASYNC\020\0032\370\003\n\007Service\022{" +
-      "\n\010Simulate\022\".cosmos.tx.v1beta1.SimulateR" +
-      "equest\032#.cosmos.tx.v1beta1.SimulateRespo" +
-      "nse\"&\202\323\344\223\002 \"\033/cosmos/tx/v1beta1/simulate" +
-      ":\001*\022q\n\005GetTx\022\037.cosmos.tx.v1beta1.GetTxRe" +
-      "quest\032 .cosmos.tx.v1beta1.GetTxResponse\"" +
-      "%\202\323\344\223\002\037\022\035/cosmos/tx/v1beta1/txs/{hash}\022\177" +
-      "\n\013BroadcastTx\022%.cosmos.tx.v1beta1.Broadc" +
-      "astTxRequest\032&.cosmos.tx.v1beta1.Broadca" +
-      "stTxResponse\"!\202\323\344\223\002\033\"\026/cosmos/tx/v1beta1" +
-      "/txs:\001*\022|\n\013GetTxsEvent\022%.cosmos.tx.v1bet" +
-      "a1.GetTxsEventRequest\032&.cosmos.tx.v1beta" +
-      "1.GetTxsEventResponse\"\036\202\323\344\223\002\030\022\026/cosmos/t" +
-      "x/v1beta1/txsB\'Z%github.com/cosmos/cosmo" +
-      "s-sdk/types/txb\006proto3"
+      "ination.proto\"\216\001\n\022GetTxsEventRequest\022\016\n\006" +
+      "events\030\001 \003(\t\022:\n\npagination\030\002 \001(\0132&.cosmo" +
+      "s.base.query.v1beta1.PageRequest\022,\n\010orde" +
+      "r_by\030\003 \001(\0162\032.cosmos.tx.v1beta1.OrderBy\"\262" +
+      "\001\n\023GetTxsEventResponse\022\"\n\003txs\030\001 \003(\0132\025.co" +
+      "smos.tx.v1beta1.Tx\022:\n\014tx_responses\030\002 \003(\013" +
+      "2$.cosmos.base.abci.v1beta1.TxResponse\022;" +
+      "\n\npagination\030\003 \001(\0132\'.cosmos.base.query.v" +
+      "1beta1.PageResponse\"V\n\022BroadcastTxReques" +
+      "t\022\020\n\010tx_bytes\030\001 \001(\014\022.\n\004mode\030\002 \001(\0162 .cosm" +
+      "os.tx.v1beta1.BroadcastMode\"P\n\023Broadcast" +
+      "TxResponse\0229\n\013tx_response\030\001 \001(\0132$.cosmos" +
+      ".base.abci.v1beta1.TxResponse\"J\n\017Simulat" +
+      "eRequest\022%\n\002tx\030\001 \001(\0132\025.cosmos.tx.v1beta1" +
+      ".TxB\002\030\001\022\020\n\010tx_bytes\030\002 \001(\014\"y\n\020SimulateRes" +
+      "ponse\0223\n\010gas_info\030\001 \001(\0132!.cosmos.base.ab" +
+      "ci.v1beta1.GasInfo\0220\n\006result\030\002 \001(\0132 .cos" +
+      "mos.base.abci.v1beta1.Result\"\034\n\014GetTxReq" +
+      "uest\022\014\n\004hash\030\001 \001(\t\"m\n\rGetTxResponse\022!\n\002t" +
+      "x\030\001 \001(\0132\025.cosmos.tx.v1beta1.Tx\0229\n\013tx_res" +
+      "ponse\030\002 \001(\0132$.cosmos.base.abci.v1beta1.T" +
+      "xResponse*H\n\007OrderBy\022\030\n\024ORDER_BY_UNSPECI" +
+      "FIED\020\000\022\020\n\014ORDER_BY_ASC\020\001\022\021\n\rORDER_BY_DES" +
+      "C\020\002*|\n\rBroadcastMode\022\036\n\032BROADCAST_MODE_U" +
+      "NSPECIFIED\020\000\022\030\n\024BROADCAST_MODE_BLOCK\020\001\022\027" +
+      "\n\023BROADCAST_MODE_SYNC\020\002\022\030\n\024BROADCAST_MOD" +
+      "E_ASYNC\020\0032\370\003\n\007Service\022{\n\010Simulate\022\".cosm" +
+      "os.tx.v1beta1.SimulateRequest\032#.cosmos.t" +
+      "x.v1beta1.SimulateResponse\"&\202\323\344\223\002 \"\033/cos" +
+      "mos/tx/v1beta1/simulate:\001*\022q\n\005GetTx\022\037.co" +
+      "smos.tx.v1beta1.GetTxRequest\032 .cosmos.tx" +
+      ".v1beta1.GetTxResponse\"%\202\323\344\223\002\037\022\035/cosmos/" +
+      "tx/v1beta1/txs/{hash}\022\177\n\013BroadcastTx\022%.c" +
+      "osmos.tx.v1beta1.BroadcastTxRequest\032&.co" +
+      "smos.tx.v1beta1.BroadcastTxResponse\"!\202\323\344" +
+      "\223\002\033\"\026/cosmos/tx/v1beta1/txs:\001*\022|\n\013GetTxs" +
+      "Event\022%.cosmos.tx.v1beta1.GetTxsEventReq" +
+      "uest\032&.cosmos.tx.v1beta1.GetTxsEventResp" +
+      "onse\"\036\202\323\344\223\002\030\022\026/cosmos/tx/v1beta1/txsB+Z%" +
+      "github.com/cosmos/cosmos-sdk/types/tx\300\343\036" +
+      "\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7452,7 +7822,7 @@ public final class ServiceOuterClass {
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.base.abci.v1beta1.Abci.getDescriptor(),
           cosmos.tx.v1beta1.TxOuterClass.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
         });
     internal_static_cosmos_tx_v1beta1_GetTxsEventRequest_descriptor =
@@ -7460,7 +7830,7 @@ public final class ServiceOuterClass {
     internal_static_cosmos_tx_v1beta1_GetTxsEventRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_tx_v1beta1_GetTxsEventRequest_descriptor,
-        new java.lang.String[] { "Events", "Pagination", });
+        new java.lang.String[] { "Events", "Pagination", "OrderBy", });
     internal_static_cosmos_tx_v1beta1_GetTxsEventResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_cosmos_tx_v1beta1_GetTxsEventResponse_fieldAccessorTable = new
@@ -7484,7 +7854,7 @@ public final class ServiceOuterClass {
     internal_static_cosmos_tx_v1beta1_SimulateRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_tx_v1beta1_SimulateRequest_descriptor,
-        new java.lang.String[] { "Tx", });
+        new java.lang.String[] { "Tx", "TxBytes", });
     internal_static_cosmos_tx_v1beta1_SimulateResponse_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_cosmos_tx_v1beta1_SimulateResponse_fieldAccessorTable = new
@@ -7505,13 +7875,14 @@ public final class ServiceOuterClass {
         new java.lang.String[] { "Tx", "TxResponse", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.protobuf.GoGoProtos.goprotoRegistration);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.base.abci.v1beta1.Abci.getDescriptor();
     cosmos.tx.v1beta1.TxOuterClass.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
   }
 

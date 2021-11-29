@@ -693,13 +693,13 @@ public final class EndpointOuterClass {
       "sh.base.v1beta1\032\024gogoproto/gogo.proto\"k\n" +
       "\010Endpoint\022/\n\004kind\030\001 \001(\0162!.akash.base.v1b" +
       "eta1.Endpoint.Kind\"(\n\004Kind\022\017\n\013SHARED_HTT" +
-      "P\020\000\022\017\n\013RANDOM_PORT\020\001:\004\350\240\037\001B\037Z\035github.com" +
-      "/ovrclk/akash/typesb\006proto3"
+      "P\020\000\022\017\n\013RANDOM_PORT\020\001:\004\350\240\037\001B\'Z%github.com" +
+      "/ovrclk/akash/types/v1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_akash_base_v1beta1_Endpoint_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -709,10 +709,10 @@ public final class EndpointOuterClass {
         new java.lang.String[] { "Kind", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

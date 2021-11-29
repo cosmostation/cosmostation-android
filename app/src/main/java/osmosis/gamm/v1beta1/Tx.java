@@ -14,8 +14,8 @@ public final class Tx {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface MsgCreatePoolOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:osmosis.gamm.v1beta1.MsgCreatePool)
+  public interface MsgCreateBalancerPoolOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.gamm.v1beta1.MsgCreateBalancerPool)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -31,29 +31,29 @@ public final class Tx {
         getSenderBytes();
 
     /**
-     * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return Whether the poolParams field is set.
      */
     boolean hasPoolParams();
     /**
-     * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return The poolParams.
      */
-    osmosis.gamm.v1beta1.PoolOuterClass.PoolParams getPoolParams();
+    osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams getPoolParams();
     /**
-     * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      */
-    osmosis.gamm.v1beta1.PoolOuterClass.PoolParamsOrBuilder getPoolParamsOrBuilder();
+    osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder getPoolParamsOrBuilder();
 
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
-    java.util.List<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset> 
+    java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> 
         getPoolAssetsList();
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
-    osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset getPoolAssets(int index);
+    osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset getPoolAssets(int index);
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
@@ -61,12 +61,12 @@ public final class Tx {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
-    java.util.List<? extends osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder> 
+    java.util.List<? extends osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder> 
         getPoolAssetsOrBuilderList();
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
-    osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
+    osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
         int index);
 
     /**
@@ -86,18 +86,18 @@ public final class Tx {
    * ===================== MsgCreatePool
    * </pre>
    *
-   * Protobuf type {@code osmosis.gamm.v1beta1.MsgCreatePool}
+   * Protobuf type {@code osmosis.gamm.v1beta1.MsgCreateBalancerPool}
    */
-  public static final class MsgCreatePool extends
+  public static final class MsgCreateBalancerPool extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgCreatePool)
-      MsgCreatePoolOrBuilder {
+      // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgCreateBalancerPool)
+      MsgCreateBalancerPoolOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use MsgCreatePool.newBuilder() to construct.
-    private MsgCreatePool(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use MsgCreateBalancerPool.newBuilder() to construct.
+    private MsgCreateBalancerPool(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private MsgCreatePool() {
+    private MsgCreateBalancerPool() {
       sender_ = "";
       poolAssets_ = java.util.Collections.emptyList();
       futurePoolGovernor_ = "";
@@ -107,7 +107,7 @@ public final class Tx {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new MsgCreatePool();
+      return new MsgCreateBalancerPool();
     }
 
     @java.lang.Override
@@ -115,7 +115,7 @@ public final class Tx {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private MsgCreatePool(
+    private MsgCreateBalancerPool(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -141,11 +141,11 @@ public final class Tx {
               break;
             }
             case 18: {
-              osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.Builder subBuilder = null;
+              osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder subBuilder = null;
               if (poolParams_ != null) {
                 subBuilder = poolParams_.toBuilder();
               }
-              poolParams_ = input.readMessage(osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.parser(), extensionRegistry);
+              poolParams_ = input.readMessage(osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(poolParams_);
                 poolParams_ = subBuilder.buildPartial();
@@ -155,11 +155,11 @@ public final class Tx {
             }
             case 26: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                poolAssets_ = new java.util.ArrayList<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset>();
+                poolAssets_ = new java.util.ArrayList<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset>();
                 mutable_bitField0_ |= 0x00000001;
               }
               poolAssets_.add(
-                  input.readMessage(osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.parser(), extensionRegistry));
+                  input.readMessage(osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.parser(), extensionRegistry));
               break;
             }
             case 34: {
@@ -192,15 +192,15 @@ public final class Tx {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreatePool_descriptor;
+      return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPool_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreatePool_fieldAccessorTable
+      return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPool_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              osmosis.gamm.v1beta1.Tx.MsgCreatePool.class, osmosis.gamm.v1beta1.Tx.MsgCreatePool.Builder.class);
+              osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool.class, osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool.Builder.class);
     }
 
     public static final int SENDER_FIELD_NUMBER = 1;
@@ -242,9 +242,9 @@ public final class Tx {
     }
 
     public static final int POOLPARAMS_FIELD_NUMBER = 2;
-    private osmosis.gamm.v1beta1.PoolOuterClass.PoolParams poolParams_;
+    private osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams poolParams_;
     /**
-     * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return Whether the poolParams field is set.
      */
     @java.lang.Override
@@ -252,35 +252,35 @@ public final class Tx {
       return poolParams_ != null;
     }
     /**
-     * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return The poolParams.
      */
     @java.lang.Override
-    public osmosis.gamm.v1beta1.PoolOuterClass.PoolParams getPoolParams() {
-      return poolParams_ == null ? osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.getDefaultInstance() : poolParams_;
+    public osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams getPoolParams() {
+      return poolParams_ == null ? osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.getDefaultInstance() : poolParams_;
     }
     /**
-     * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      */
     @java.lang.Override
-    public osmosis.gamm.v1beta1.PoolOuterClass.PoolParamsOrBuilder getPoolParamsOrBuilder() {
+    public osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder getPoolParamsOrBuilder() {
       return getPoolParams();
     }
 
     public static final int POOLASSETS_FIELD_NUMBER = 3;
-    private java.util.List<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset> poolAssets_;
+    private java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> poolAssets_;
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public java.util.List<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset> getPoolAssetsList() {
+    public java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> getPoolAssetsList() {
       return poolAssets_;
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public java.util.List<? extends osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder> 
+    public java.util.List<? extends osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder> 
         getPoolAssetsOrBuilderList() {
       return poolAssets_;
     }
@@ -295,14 +295,14 @@ public final class Tx {
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset getPoolAssets(int index) {
+    public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset getPoolAssets(int index) {
       return poolAssets_.get(index);
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
+    public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
         int index) {
       return poolAssets_.get(index);
     }
@@ -404,10 +404,10 @@ public final class Tx {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof osmosis.gamm.v1beta1.Tx.MsgCreatePool)) {
+      if (!(obj instanceof osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool)) {
         return super.equals(obj);
       }
-      osmosis.gamm.v1beta1.Tx.MsgCreatePool other = (osmosis.gamm.v1beta1.Tx.MsgCreatePool) obj;
+      osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool other = (osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool) obj;
 
       if (!getSender()
           .equals(other.getSender())) return false;
@@ -448,69 +448,69 @@ public final class Tx {
       return hash;
     }
 
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseFrom(byte[] data)
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseFrom(java.io.InputStream input)
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseDelimitedFrom(java.io.InputStream input)
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseDelimitedFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -523,7 +523,7 @@ public final class Tx {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(osmosis.gamm.v1beta1.Tx.MsgCreatePool prototype) {
+    public static Builder newBuilder(osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -543,26 +543,26 @@ public final class Tx {
      * ===================== MsgCreatePool
      * </pre>
      *
-     * Protobuf type {@code osmosis.gamm.v1beta1.MsgCreatePool}
+     * Protobuf type {@code osmosis.gamm.v1beta1.MsgCreateBalancerPool}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:osmosis.gamm.v1beta1.MsgCreatePool)
-        osmosis.gamm.v1beta1.Tx.MsgCreatePoolOrBuilder {
+        // @@protoc_insertion_point(builder_implements:osmosis.gamm.v1beta1.MsgCreateBalancerPool)
+        osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreatePool_descriptor;
+        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPool_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreatePool_fieldAccessorTable
+        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPool_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                osmosis.gamm.v1beta1.Tx.MsgCreatePool.class, osmosis.gamm.v1beta1.Tx.MsgCreatePool.Builder.class);
+                osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool.class, osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool.Builder.class);
       }
 
-      // Construct using osmosis.gamm.v1beta1.Tx.MsgCreatePool.newBuilder()
+      // Construct using osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -603,17 +603,17 @@ public final class Tx {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreatePool_descriptor;
+        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPool_descriptor;
       }
 
       @java.lang.Override
-      public osmosis.gamm.v1beta1.Tx.MsgCreatePool getDefaultInstanceForType() {
-        return osmosis.gamm.v1beta1.Tx.MsgCreatePool.getDefaultInstance();
+      public osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool getDefaultInstanceForType() {
+        return osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool.getDefaultInstance();
       }
 
       @java.lang.Override
-      public osmosis.gamm.v1beta1.Tx.MsgCreatePool build() {
-        osmosis.gamm.v1beta1.Tx.MsgCreatePool result = buildPartial();
+      public osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool build() {
+        osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -621,8 +621,8 @@ public final class Tx {
       }
 
       @java.lang.Override
-      public osmosis.gamm.v1beta1.Tx.MsgCreatePool buildPartial() {
-        osmosis.gamm.v1beta1.Tx.MsgCreatePool result = new osmosis.gamm.v1beta1.Tx.MsgCreatePool(this);
+      public osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool buildPartial() {
+        osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool result = new osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool(this);
         int from_bitField0_ = bitField0_;
         result.sender_ = sender_;
         if (poolParamsBuilder_ == null) {
@@ -678,16 +678,16 @@ public final class Tx {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof osmosis.gamm.v1beta1.Tx.MsgCreatePool) {
-          return mergeFrom((osmosis.gamm.v1beta1.Tx.MsgCreatePool)other);
+        if (other instanceof osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool) {
+          return mergeFrom((osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(osmosis.gamm.v1beta1.Tx.MsgCreatePool other) {
-        if (other == osmosis.gamm.v1beta1.Tx.MsgCreatePool.getDefaultInstance()) return this;
+      public Builder mergeFrom(osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool other) {
+        if (other == osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool.getDefaultInstance()) return this;
         if (!other.getSender().isEmpty()) {
           sender_ = other.sender_;
           onChanged();
@@ -740,11 +740,11 @@ public final class Tx {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        osmosis.gamm.v1beta1.Tx.MsgCreatePool parsedMessage = null;
+        osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (osmosis.gamm.v1beta1.Tx.MsgCreatePool) e.getUnfinishedMessage();
+          parsedMessage = (osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -831,31 +831,31 @@ public final class Tx {
         return this;
       }
 
-      private osmosis.gamm.v1beta1.PoolOuterClass.PoolParams poolParams_;
+      private osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams poolParams_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          osmosis.gamm.v1beta1.PoolOuterClass.PoolParams, osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.Builder, osmosis.gamm.v1beta1.PoolOuterClass.PoolParamsOrBuilder> poolParamsBuilder_;
+          osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder> poolParamsBuilder_;
       /**
-       * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
        * @return Whether the poolParams field is set.
        */
       public boolean hasPoolParams() {
         return poolParamsBuilder_ != null || poolParams_ != null;
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
        * @return The poolParams.
        */
-      public osmosis.gamm.v1beta1.PoolOuterClass.PoolParams getPoolParams() {
+      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams getPoolParams() {
         if (poolParamsBuilder_ == null) {
-          return poolParams_ == null ? osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.getDefaultInstance() : poolParams_;
+          return poolParams_ == null ? osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.getDefaultInstance() : poolParams_;
         } else {
           return poolParamsBuilder_.getMessage();
         }
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
        */
-      public Builder setPoolParams(osmosis.gamm.v1beta1.PoolOuterClass.PoolParams value) {
+      public Builder setPoolParams(osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams value) {
         if (poolParamsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -869,10 +869,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
        */
       public Builder setPoolParams(
-          osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.Builder builderForValue) {
+          osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder builderForValue) {
         if (poolParamsBuilder_ == null) {
           poolParams_ = builderForValue.build();
           onChanged();
@@ -883,13 +883,13 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
        */
-      public Builder mergePoolParams(osmosis.gamm.v1beta1.PoolOuterClass.PoolParams value) {
+      public Builder mergePoolParams(osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams value) {
         if (poolParamsBuilder_ == null) {
           if (poolParams_ != null) {
             poolParams_ =
-              osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.newBuilder(poolParams_).mergeFrom(value).buildPartial();
+              osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.newBuilder(poolParams_).mergeFrom(value).buildPartial();
           } else {
             poolParams_ = value;
           }
@@ -901,7 +901,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
        */
       public Builder clearPoolParams() {
         if (poolParamsBuilder_ == null) {
@@ -915,33 +915,33 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
        */
-      public osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.Builder getPoolParamsBuilder() {
+      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder getPoolParamsBuilder() {
         
         onChanged();
         return getPoolParamsFieldBuilder().getBuilder();
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
        */
-      public osmosis.gamm.v1beta1.PoolOuterClass.PoolParamsOrBuilder getPoolParamsOrBuilder() {
+      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder getPoolParamsOrBuilder() {
         if (poolParamsBuilder_ != null) {
           return poolParamsBuilder_.getMessageOrBuilder();
         } else {
           return poolParams_ == null ?
-              osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.getDefaultInstance() : poolParams_;
+              osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.getDefaultInstance() : poolParams_;
         }
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
+       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          osmosis.gamm.v1beta1.PoolOuterClass.PoolParams, osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.Builder, osmosis.gamm.v1beta1.PoolOuterClass.PoolParamsOrBuilder> 
+          osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder> 
           getPoolParamsFieldBuilder() {
         if (poolParamsBuilder_ == null) {
           poolParamsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              osmosis.gamm.v1beta1.PoolOuterClass.PoolParams, osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.Builder, osmosis.gamm.v1beta1.PoolOuterClass.PoolParamsOrBuilder>(
+              osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder>(
                   getPoolParams(),
                   getParentForChildren(),
                   isClean());
@@ -950,22 +950,22 @@ public final class Tx {
         return poolParamsBuilder_;
       }
 
-      private java.util.List<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset> poolAssets_ =
+      private java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> poolAssets_ =
         java.util.Collections.emptyList();
       private void ensurePoolAssetsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          poolAssets_ = new java.util.ArrayList<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset>(poolAssets_);
+          poolAssets_ = new java.util.ArrayList<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset>(poolAssets_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset, osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.Builder, osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder> poolAssetsBuilder_;
+          osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder> poolAssetsBuilder_;
 
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
-      public java.util.List<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset> getPoolAssetsList() {
+      public java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> getPoolAssetsList() {
         if (poolAssetsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(poolAssets_);
         } else {
@@ -985,7 +985,7 @@ public final class Tx {
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
-      public osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset getPoolAssets(int index) {
+      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset getPoolAssets(int index) {
         if (poolAssetsBuilder_ == null) {
           return poolAssets_.get(index);
         } else {
@@ -996,7 +996,7 @@ public final class Tx {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setPoolAssets(
-          int index, osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset value) {
+          int index, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset value) {
         if (poolAssetsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1013,7 +1013,7 @@ public final class Tx {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setPoolAssets(
-          int index, osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.Builder builderForValue) {
+          int index, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder builderForValue) {
         if (poolAssetsBuilder_ == null) {
           ensurePoolAssetsIsMutable();
           poolAssets_.set(index, builderForValue.build());
@@ -1026,7 +1026,7 @@ public final class Tx {
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
-      public Builder addPoolAssets(osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset value) {
+      public Builder addPoolAssets(osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset value) {
         if (poolAssetsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1043,7 +1043,7 @@ public final class Tx {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addPoolAssets(
-          int index, osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset value) {
+          int index, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset value) {
         if (poolAssetsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1060,7 +1060,7 @@ public final class Tx {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addPoolAssets(
-          osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.Builder builderForValue) {
+          osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder builderForValue) {
         if (poolAssetsBuilder_ == null) {
           ensurePoolAssetsIsMutable();
           poolAssets_.add(builderForValue.build());
@@ -1074,7 +1074,7 @@ public final class Tx {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addPoolAssets(
-          int index, osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.Builder builderForValue) {
+          int index, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder builderForValue) {
         if (poolAssetsBuilder_ == null) {
           ensurePoolAssetsIsMutable();
           poolAssets_.add(index, builderForValue.build());
@@ -1088,7 +1088,7 @@ public final class Tx {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllPoolAssets(
-          java.lang.Iterable<? extends osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset> values) {
+          java.lang.Iterable<? extends osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> values) {
         if (poolAssetsBuilder_ == null) {
           ensurePoolAssetsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -1128,14 +1128,14 @@ public final class Tx {
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
-      public osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.Builder getPoolAssetsBuilder(
+      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder getPoolAssetsBuilder(
           int index) {
         return getPoolAssetsFieldBuilder().getBuilder(index);
       }
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
-      public osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
+      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
           int index) {
         if (poolAssetsBuilder_ == null) {
           return poolAssets_.get(index);  } else {
@@ -1145,7 +1145,7 @@ public final class Tx {
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
-      public java.util.List<? extends osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder> 
+      public java.util.List<? extends osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder> 
            getPoolAssetsOrBuilderList() {
         if (poolAssetsBuilder_ != null) {
           return poolAssetsBuilder_.getMessageOrBuilderList();
@@ -1156,31 +1156,31 @@ public final class Tx {
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
-      public osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.Builder addPoolAssetsBuilder() {
+      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder addPoolAssetsBuilder() {
         return getPoolAssetsFieldBuilder().addBuilder(
-            osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.getDefaultInstance());
+            osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.getDefaultInstance());
       }
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
-      public osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.Builder addPoolAssetsBuilder(
+      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder addPoolAssetsBuilder(
           int index) {
         return getPoolAssetsFieldBuilder().addBuilder(
-            index, osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.getDefaultInstance());
+            index, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.getDefaultInstance());
       }
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
        */
-      public java.util.List<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.Builder> 
+      public java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder> 
            getPoolAssetsBuilderList() {
         return getPoolAssetsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset, osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.Builder, osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder> 
+          osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder> 
           getPoolAssetsFieldBuilder() {
         if (poolAssetsBuilder_ == null) {
           poolAssetsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset, osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset.Builder, osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder>(
+              osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder>(
                   poolAssets_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -1278,70 +1278,70 @@ public final class Tx {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:osmosis.gamm.v1beta1.MsgCreatePool)
+      // @@protoc_insertion_point(builder_scope:osmosis.gamm.v1beta1.MsgCreateBalancerPool)
     }
 
-    // @@protoc_insertion_point(class_scope:osmosis.gamm.v1beta1.MsgCreatePool)
-    private static final osmosis.gamm.v1beta1.Tx.MsgCreatePool DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:osmosis.gamm.v1beta1.MsgCreateBalancerPool)
+    private static final osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new osmosis.gamm.v1beta1.Tx.MsgCreatePool();
+      DEFAULT_INSTANCE = new osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool();
     }
 
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePool getDefaultInstance() {
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<MsgCreatePool>
-        PARSER = new com.google.protobuf.AbstractParser<MsgCreatePool>() {
+    private static final com.google.protobuf.Parser<MsgCreateBalancerPool>
+        PARSER = new com.google.protobuf.AbstractParser<MsgCreateBalancerPool>() {
       @java.lang.Override
-      public MsgCreatePool parsePartialFrom(
+      public MsgCreateBalancerPool parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MsgCreatePool(input, extensionRegistry);
+        return new MsgCreateBalancerPool(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<MsgCreatePool> parser() {
+    public static com.google.protobuf.Parser<MsgCreateBalancerPool> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<MsgCreatePool> getParserForType() {
+    public com.google.protobuf.Parser<MsgCreateBalancerPool> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public osmosis.gamm.v1beta1.Tx.MsgCreatePool getDefaultInstanceForType() {
+    public osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface MsgCreatePoolResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:osmosis.gamm.v1beta1.MsgCreatePoolResponse)
+  public interface MsgCreateBalancerPoolResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.gamm.v1beta1.MsgCreateBalancerPoolResponse)
       com.google.protobuf.MessageOrBuilder {
   }
   /**
-   * Protobuf type {@code osmosis.gamm.v1beta1.MsgCreatePoolResponse}
+   * Protobuf type {@code osmosis.gamm.v1beta1.MsgCreateBalancerPoolResponse}
    */
-  public static final class MsgCreatePoolResponse extends
+  public static final class MsgCreateBalancerPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgCreatePoolResponse)
-      MsgCreatePoolResponseOrBuilder {
+      // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgCreateBalancerPoolResponse)
+      MsgCreateBalancerPoolResponseOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use MsgCreatePoolResponse.newBuilder() to construct.
-    private MsgCreatePoolResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use MsgCreateBalancerPoolResponse.newBuilder() to construct.
+    private MsgCreateBalancerPoolResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private MsgCreatePoolResponse() {
+    private MsgCreateBalancerPoolResponse() {
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new MsgCreatePoolResponse();
+      return new MsgCreateBalancerPoolResponse();
     }
 
     @java.lang.Override
@@ -1349,7 +1349,7 @@ public final class Tx {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private MsgCreatePoolResponse(
+    private MsgCreateBalancerPoolResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1388,15 +1388,15 @@ public final class Tx {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreatePoolResponse_descriptor;
+      return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPoolResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreatePoolResponse_fieldAccessorTable
+      return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPoolResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse.class, osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse.Builder.class);
+              osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse.class, osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse.Builder.class);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1432,10 +1432,10 @@ public final class Tx {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse)) {
+      if (!(obj instanceof osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse)) {
         return super.equals(obj);
       }
-      osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse other = (osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse) obj;
+      osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse other = (osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse) obj;
 
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -1453,69 +1453,69 @@ public final class Tx {
       return hash;
     }
 
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseFrom(byte[] data)
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseFrom(java.io.InputStream input)
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseDelimitedFrom(java.io.InputStream input)
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseDelimitedFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parseFrom(
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1528,7 +1528,7 @@ public final class Tx {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse prototype) {
+    public static Builder newBuilder(osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1544,26 +1544,26 @@ public final class Tx {
       return builder;
     }
     /**
-     * Protobuf type {@code osmosis.gamm.v1beta1.MsgCreatePoolResponse}
+     * Protobuf type {@code osmosis.gamm.v1beta1.MsgCreateBalancerPoolResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:osmosis.gamm.v1beta1.MsgCreatePoolResponse)
-        osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:osmosis.gamm.v1beta1.MsgCreateBalancerPoolResponse)
+        osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreatePoolResponse_descriptor;
+        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPoolResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreatePoolResponse_fieldAccessorTable
+        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPoolResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse.class, osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse.Builder.class);
+                osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse.class, osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse.Builder.class);
       }
 
-      // Construct using osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse.newBuilder()
+      // Construct using osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1587,17 +1587,17 @@ public final class Tx {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreatePoolResponse_descriptor;
+        return osmosis.gamm.v1beta1.Tx.internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPoolResponse_descriptor;
       }
 
       @java.lang.Override
-      public osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse getDefaultInstanceForType() {
-        return osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse.getDefaultInstance();
+      public osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse getDefaultInstanceForType() {
+        return osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse build() {
-        osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse result = buildPartial();
+      public osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse build() {
+        osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1605,8 +1605,8 @@ public final class Tx {
       }
 
       @java.lang.Override
-      public osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse buildPartial() {
-        osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse result = new osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse(this);
+      public osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse buildPartial() {
+        osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse result = new osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse(this);
         onBuilt();
         return result;
       }
@@ -1645,16 +1645,16 @@ public final class Tx {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse) {
-          return mergeFrom((osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse)other);
+        if (other instanceof osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse) {
+          return mergeFrom((osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse other) {
-        if (other == osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse other) {
+        if (other == osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse.getDefaultInstance()) return this;
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -1670,11 +1670,11 @@ public final class Tx {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse parsedMessage = null;
+        osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse) e.getUnfinishedMessage();
+          parsedMessage = (osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1696,41 +1696,41 @@ public final class Tx {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:osmosis.gamm.v1beta1.MsgCreatePoolResponse)
+      // @@protoc_insertion_point(builder_scope:osmosis.gamm.v1beta1.MsgCreateBalancerPoolResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:osmosis.gamm.v1beta1.MsgCreatePoolResponse)
-    private static final osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:osmosis.gamm.v1beta1.MsgCreateBalancerPoolResponse)
+    private static final osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse();
+      DEFAULT_INSTANCE = new osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse();
     }
 
-    public static osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse getDefaultInstance() {
+    public static osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<MsgCreatePoolResponse>
-        PARSER = new com.google.protobuf.AbstractParser<MsgCreatePoolResponse>() {
+    private static final com.google.protobuf.Parser<MsgCreateBalancerPoolResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgCreateBalancerPoolResponse>() {
       @java.lang.Override
-      public MsgCreatePoolResponse parsePartialFrom(
+      public MsgCreateBalancerPoolResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MsgCreatePoolResponse(input, extensionRegistry);
+        return new MsgCreateBalancerPoolResponse(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<MsgCreatePoolResponse> parser() {
+    public static com.google.protobuf.Parser<MsgCreateBalancerPoolResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<MsgCreatePoolResponse> getParserForType() {
+    public com.google.protobuf.Parser<MsgCreateBalancerPoolResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse getDefaultInstanceForType() {
+    public osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -15505,15 +15505,15 @@ public final class Tx {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_osmosis_gamm_v1beta1_MsgCreatePool_descriptor;
+    internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPool_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_osmosis_gamm_v1beta1_MsgCreatePool_fieldAccessorTable;
+      internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPool_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_osmosis_gamm_v1beta1_MsgCreatePoolResponse_descriptor;
+    internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPoolResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_osmosis_gamm_v1beta1_MsgCreatePoolResponse_fieldAccessorTable;
+      internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPoolResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_osmosis_gamm_v1beta1_MsgJoinPool_descriptor;
   private static final 
@@ -15614,135 +15614,136 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n\035osmosis/gamm/v1beta1/tx.proto\022\024osmosis" +
-      ".gamm.v1beta1\032\024gogoproto/gogo.proto\032\037osm" +
-      "osis/gamm/v1beta1/pool.proto\032\036cosmos/bas" +
-      "e/v1beta1/coin.proto\"\376\001\n\rMsgCreatePool\022!" +
-      "\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022P\n\npoo" +
-      "lParams\030\002 \001(\0132 .osmosis.gamm.v1beta1.Poo" +
-      "lParamsB\032\362\336\037\022yaml:\"pool_params\"\310\336\037\000\0229\n\np" +
-      "oolAssets\030\003 \003(\0132\037.osmosis.gamm.v1beta1.P" +
-      "oolAssetB\004\310\336\037\000\022=\n\024future_pool_governor\030\004" +
-      " \001(\tB\037\362\336\037\033yaml:\"future_pool_governor\"\"\027\n" +
-      "\025MsgCreatePoolResponse\"\213\002\n\013MsgJoinPool\022!" +
-      "\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022\"\n\006poo" +
-      "lId\030\002 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\022`\n\016shareOu" +
-      "tAmount\030\003 \001(\tBH\332\336\037&github.com/cosmos/cos" +
-      "mos-sdk/types.Int\362\336\037\026yaml:\"pool_amount_o" +
-      "ut\"\310\336\037\000\022S\n\013tokenInMaxs\030\004 \003(\0132\031.cosmos.ba" +
-      "se.v1beta1.CoinB#\362\336\037\033yaml:\"token_in_max_" +
-      "amounts\"\310\336\037\000\"\025\n\023MsgJoinPoolResponse\"\214\002\n\013" +
-      "MsgExitPool\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"s" +
-      "ender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"pool_i" +
-      "d\"\022_\n\rshareInAmount\030\003 \001(\tBH\332\336\037&github.co" +
-      "m/cosmos/cosmos-sdk/types.Int\362\336\037\026yaml:\"s" +
-      "hare_in_amount\"\310\336\037\000\022U\n\014tokenOutMins\030\004 \003(" +
-      "\0132\031.cosmos.base.v1beta1.CoinB$\362\336\037\034yaml:\"" +
-      "token_out_min_amounts\"\310\336\037\000\"\025\n\023MsgExitPoo" +
-      "lResponse\"j\n\021SwapAmountInRoute\022\"\n\006poolId" +
-      "\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\0221\n\rtokenOutDe" +
-      "nom\030\002 \001(\tB\032\362\336\037\026yaml:\"token_out_denom\"\"\247\002" +
-      "\n\024MsgSwapExactAmountIn\022!\n\006sender\030\001 \001(\tB\021" +
-      "\362\336\037\ryaml:\"sender\"\022=\n\006routes\030\002 \003(\0132\'.osmo" +
-      "sis.gamm.v1beta1.SwapAmountInRouteB\004\310\336\037\000" +
-      "\022C\n\007tokenIn\030\003 \001(\0132\031.cosmos.base.v1beta1." +
-      "CoinB\027\362\336\037\017yaml:\"token_in\"\310\336\037\000\022h\n\021tokenOu" +
-      "tMinAmount\030\004 \001(\tBM\332\336\037&github.com/cosmos/" +
-      "cosmos-sdk/types.Int\362\336\037\033yaml:\"token_out_" +
-      "min_amount\"\310\336\037\000\"\036\n\034MsgSwapExactAmountInR" +
-      "esponse\"j\n\022SwapAmountOutRoute\022\"\n\006poolId\030" +
-      "\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\0220\n\014tokenInDeno" +
-      "m\030\002 \001(\tB\032\362\336\037\026yaml:\"token_out_denom\"\"\251\002\n\025" +
-      "MsgSwapExactAmountOut\022!\n\006sender\030\001 \001(\tB\021\362" +
-      "\336\037\ryaml:\"sender\"\022>\n\006routes\030\002 \003(\0132(.osmos" +
-      "is.gamm.v1beta1.SwapAmountOutRouteB\004\310\336\037\000" +
-      "\022f\n\020tokenInMaxAmount\030\003 \001(\tBL\332\336\037&github.c" +
-      "om/cosmos/cosmos-sdk/types.Int\362\336\037\032yaml:\"" +
-      "token_in_max_amount\"\310\336\037\000\022E\n\010tokenOut\030\004 \001" +
-      "(\0132\031.cosmos.base.v1beta1.CoinB\030\362\336\037\020yaml:" +
-      "\"token_out\"\310\336\037\000\"\037\n\035MsgSwapExactAmountOut" +
-      "Response\"\221\002\n\031MsgJoinSwapExternAmountIn\022!" +
-      "\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022\"\n\006poo" +
-      "lId\030\002 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\022C\n\007tokenIn" +
-      "\030\003 \001(\0132\031.cosmos.base.v1beta1.CoinB\027\362\336\037\017y" +
-      "aml:\"token_in\"\310\336\037\000\022h\n\021shareOutMinAmount\030" +
-      "\004 \001(\tBM\332\336\037&github.com/cosmos/cosmos-sdk/" +
-      "types.Int\362\336\037\033yaml:\"share_out_min_amount\"" +
-      "\310\336\037\000\"#\n!MsgJoinSwapExternAmountInRespons" +
-      "e\"\336\002\n\031MsgJoinSwapShareAmountOut\022!\n\006sende" +
-      "r\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022\"\n\006poolId\030\002 \001" +
-      "(\004B\022\362\336\037\016yaml:\"pool_id\"\022/\n\014tokenInDenom\030\003" +
-      " \001(\tB\031\362\336\037\025yaml:\"token_in_denom\"\022a\n\016share" +
-      "OutAmount\030\004 \001(\tBI\332\336\037&github.com/cosmos/c" +
-      "osmos-sdk/types.Int\362\336\037\027yaml:\"share_out_a" +
-      "mount\"\310\336\037\000\022f\n\020tokenInMaxAmount\030\005 \001(\tBL\332\336" +
-      "\037&github.com/cosmos/cosmos-sdk/types.Int" +
-      "\362\336\037\032yaml:\"token_in_max_amount\"\310\336\037\000\"#\n!Ms" +
-      "gJoinSwapShareAmountOutResponse\"\337\002\n\030MsgE" +
-      "xitSwapShareAmountIn\022!\n\006sender\030\001 \001(\tB\021\362\336" +
-      "\037\ryaml:\"sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yam" +
-      "l:\"pool_id\"\0221\n\rtokenOutDenom\030\003 \001(\tB\032\362\336\037\026" +
-      "yaml:\"token_out_denom\"\022_\n\rshareInAmount\030" +
-      "\004 \001(\tBH\332\336\037&github.com/cosmos/cosmos-sdk/" +
-      "types.Int\362\336\037\026yaml:\"share_in_amount\"\310\336\037\000\022" +
-      "h\n\021tokenOutMinAmount\030\005 \001(\tBM\332\336\037&github.c" +
-      "om/cosmos/cosmos-sdk/types.Int\362\336\037\033yaml:\"" +
-      "token_out_min_amount\"\310\336\037\000\"\"\n MsgExitSwap" +
-      "ShareAmountInResponse\"\222\002\n\032MsgExitSwapExt" +
-      "ernAmountOut\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"" +
+      ".gamm.v1beta1\032\024gogoproto/gogo.proto\032\'osm" +
+      "osis/gamm/v1beta1/balancerPool.proto\032\036co" +
+      "smos/base/v1beta1/coin.proto\"\216\002\n\025MsgCrea" +
+      "teBalancerPool\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml" +
+      ":\"sender\"\022X\n\npoolParams\030\002 \001(\0132(.osmosis." +
+      "gamm.v1beta1.BalancerPoolParamsB\032\362\336\037\022yam" +
+      "l:\"pool_params\"\310\336\037\000\0229\n\npoolAssets\030\003 \003(\0132" +
+      "\037.osmosis.gamm.v1beta1.PoolAssetB\004\310\336\037\000\022=" +
+      "\n\024future_pool_governor\030\004 \001(\tB\037\362\336\037\033yaml:\"" +
+      "future_pool_governor\"\"\037\n\035MsgCreateBalanc" +
+      "erPoolResponse\"\213\002\n\013MsgJoinPool\022!\n\006sender" +
+      "\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022\"\n\006poolId\030\002 \001(" +
+      "\004B\022\362\336\037\016yaml:\"pool_id\"\022`\n\016shareOutAmount\030" +
+      "\003 \001(\tBH\332\336\037&github.com/cosmos/cosmos-sdk/" +
+      "types.Int\362\336\037\026yaml:\"pool_amount_out\"\310\336\037\000\022" +
+      "S\n\013tokenInMaxs\030\004 \003(\0132\031.cosmos.base.v1bet" +
+      "a1.CoinB#\362\336\037\033yaml:\"token_in_max_amounts\"" +
+      "\310\336\037\000\"\025\n\023MsgJoinPoolResponse\"\214\002\n\013MsgExitP" +
+      "ool\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022\"" +
+      "\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\022_\n\rsh" +
+      "areInAmount\030\003 \001(\tBH\332\336\037&github.com/cosmos" +
+      "/cosmos-sdk/types.Int\362\336\037\026yaml:\"share_in_" +
+      "amount\"\310\336\037\000\022U\n\014tokenOutMins\030\004 \003(\0132\031.cosm" +
+      "os.base.v1beta1.CoinB$\362\336\037\034yaml:\"token_ou" +
+      "t_min_amounts\"\310\336\037\000\"\025\n\023MsgExitPoolRespons" +
+      "e\"j\n\021SwapAmountInRoute\022\"\n\006poolId\030\001 \001(\004B\022" +
+      "\362\336\037\016yaml:\"pool_id\"\0221\n\rtokenOutDenom\030\002 \001(" +
+      "\tB\032\362\336\037\026yaml:\"token_out_denom\"\"\247\002\n\024MsgSwa" +
+      "pExactAmountIn\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml" +
+      ":\"sender\"\022=\n\006routes\030\002 \003(\0132\'.osmosis.gamm" +
+      ".v1beta1.SwapAmountInRouteB\004\310\336\037\000\022C\n\007toke" +
+      "nIn\030\003 \001(\0132\031.cosmos.base.v1beta1.CoinB\027\362\336" +
+      "\037\017yaml:\"token_in\"\310\336\037\000\022h\n\021tokenOutMinAmou" +
+      "nt\030\004 \001(\tBM\332\336\037&github.com/cosmos/cosmos-s" +
+      "dk/types.Int\362\336\037\033yaml:\"token_out_min_amou" +
+      "nt\"\310\336\037\000\"\036\n\034MsgSwapExactAmountInResponse\"" +
+      "j\n\022SwapAmountOutRoute\022\"\n\006poolId\030\001 \001(\004B\022\362" +
+      "\336\037\016yaml:\"pool_id\"\0220\n\014tokenInDenom\030\002 \001(\tB" +
+      "\032\362\336\037\026yaml:\"token_out_denom\"\"\251\002\n\025MsgSwapE" +
+      "xactAmountOut\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:" +
+      "\"sender\"\022>\n\006routes\030\002 \003(\0132(.osmosis.gamm." +
+      "v1beta1.SwapAmountOutRouteB\004\310\336\037\000\022f\n\020toke" +
+      "nInMaxAmount\030\003 \001(\tBL\332\336\037&github.com/cosmo" +
+      "s/cosmos-sdk/types.Int\362\336\037\032yaml:\"token_in" +
+      "_max_amount\"\310\336\037\000\022E\n\010tokenOut\030\004 \001(\0132\031.cos" +
+      "mos.base.v1beta1.CoinB\030\362\336\037\020yaml:\"token_o" +
+      "ut\"\310\336\037\000\"\037\n\035MsgSwapExactAmountOutResponse" +
+      "\"\221\002\n\031MsgJoinSwapExternAmountIn\022!\n\006sender" +
+      "\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022\"\n\006poolId\030\002 \001(" +
+      "\004B\022\362\336\037\016yaml:\"pool_id\"\022C\n\007tokenIn\030\003 \001(\0132\031" +
+      ".cosmos.base.v1beta1.CoinB\027\362\336\037\017yaml:\"tok" +
+      "en_in\"\310\336\037\000\022h\n\021shareOutMinAmount\030\004 \001(\tBM\332" +
+      "\336\037&github.com/cosmos/cosmos-sdk/types.In" +
+      "t\362\336\037\033yaml:\"share_out_min_amount\"\310\336\037\000\"#\n!" +
+      "MsgJoinSwapExternAmountInResponse\"\336\002\n\031Ms" +
+      "gJoinSwapShareAmountOut\022!\n\006sender\030\001 \001(\tB" +
+      "\021\362\336\037\ryaml:\"sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016" +
+      "yaml:\"pool_id\"\022/\n\014tokenInDenom\030\003 \001(\tB\031\362\336" +
+      "\037\025yaml:\"token_in_denom\"\022a\n\016shareOutAmoun" +
+      "t\030\004 \001(\tBI\332\336\037&github.com/cosmos/cosmos-sd" +
+      "k/types.Int\362\336\037\027yaml:\"share_out_amount\"\310\336" +
+      "\037\000\022f\n\020tokenInMaxAmount\030\005 \001(\tBL\332\336\037&github" +
+      ".com/cosmos/cosmos-sdk/types.Int\362\336\037\032yaml" +
+      ":\"token_in_max_amount\"\310\336\037\000\"#\n!MsgJoinSwa" +
+      "pShareAmountOutResponse\"\337\002\n\030MsgExitSwapS" +
+      "hareAmountIn\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"" +
       "sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"pool_" +
-      "id\"\022E\n\010tokenOut\030\003 \001(\0132\031.cosmos.base.v1be" +
-      "ta1.CoinB\030\362\336\037\020yaml:\"token_out\"\310\336\037\000\022f\n\020sh" +
-      "areInMaxAmount\030\004 \001(\tBL\332\336\037&github.com/cos" +
-      "mos/cosmos-sdk/types.Int\362\336\037\032yaml:\"share_" +
-      "in_max_amount\"\310\336\037\000\"$\n\"MsgExitSwapExternA" +
-      "mountOutResponse2\231\010\n\003Msg\022^\n\nCreatePool\022#" +
-      ".osmosis.gamm.v1beta1.MsgCreatePool\032+.os" +
-      "mosis.gamm.v1beta1.MsgCreatePoolResponse" +
-      "\022X\n\010JoinPool\022!.osmosis.gamm.v1beta1.MsgJ" +
-      "oinPool\032).osmosis.gamm.v1beta1.MsgJoinPo" +
-      "olResponse\022X\n\010ExitPool\022!.osmosis.gamm.v1" +
-      "beta1.MsgExitPool\032).osmosis.gamm.v1beta1" +
-      ".MsgExitPoolResponse\022s\n\021SwapExactAmountI" +
-      "n\022*.osmosis.gamm.v1beta1.MsgSwapExactAmo" +
-      "untIn\0322.osmosis.gamm.v1beta1.MsgSwapExac" +
-      "tAmountInResponse\022v\n\022SwapExactAmountOut\022" +
-      "+.osmosis.gamm.v1beta1.MsgSwapExactAmoun" +
-      "tOut\0323.osmosis.gamm.v1beta1.MsgSwapExact" +
-      "AmountOutResponse\022\202\001\n\026JoinSwapExternAmou" +
-      "ntIn\022/.osmosis.gamm.v1beta1.MsgJoinSwapE" +
-      "xternAmountIn\0327.osmosis.gamm.v1beta1.Msg" +
-      "JoinSwapExternAmountInResponse\022\202\001\n\026JoinS" +
-      "wapShareAmountOut\022/.osmosis.gamm.v1beta1" +
-      ".MsgJoinSwapShareAmountOut\0327.osmosis.gam" +
-      "m.v1beta1.MsgJoinSwapShareAmountOutRespo" +
-      "nse\022\205\001\n\027ExitSwapExternAmountOut\0220.osmosi" +
-      "s.gamm.v1beta1.MsgExitSwapExternAmountOu" +
-      "t\0328.osmosis.gamm.v1beta1.MsgExitSwapExte" +
-      "rnAmountOutResponse\022\177\n\025ExitSwapShareAmou" +
-      "ntIn\022..osmosis.gamm.v1beta1.MsgExitSwapS" +
-      "hareAmountIn\0326.osmosis.gamm.v1beta1.MsgE" +
-      "xitSwapShareAmountInResponseB.Z,github.c" +
-      "om/osmosis-labs/osmosis/x/gamm/typesb\006pr" +
-      "oto3"
+      "id\"\0221\n\rtokenOutDenom\030\003 \001(\tB\032\362\336\037\026yaml:\"to" +
+      "ken_out_denom\"\022_\n\rshareInAmount\030\004 \001(\tBH\332" +
+      "\336\037&github.com/cosmos/cosmos-sdk/types.In" +
+      "t\362\336\037\026yaml:\"share_in_amount\"\310\336\037\000\022h\n\021token" +
+      "OutMinAmount\030\005 \001(\tBM\332\336\037&github.com/cosmo" +
+      "s/cosmos-sdk/types.Int\362\336\037\033yaml:\"token_ou" +
+      "t_min_amount\"\310\336\037\000\"\"\n MsgExitSwapShareAmo" +
+      "untInResponse\"\222\002\n\032MsgExitSwapExternAmoun" +
+      "tOut\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022" +
+      "\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\022E\n\010t" +
+      "okenOut\030\003 \001(\0132\031.cosmos.base.v1beta1.Coin" +
+      "B\030\362\336\037\020yaml:\"token_out\"\310\336\037\000\022f\n\020shareInMax" +
+      "Amount\030\004 \001(\tBL\332\336\037&github.com/cosmos/cosm" +
+      "os-sdk/types.Int\362\336\037\032yaml:\"share_in_max_a" +
+      "mount\"\310\336\037\000\"$\n\"MsgExitSwapExternAmountOut" +
+      "Response2\261\010\n\003Msg\022v\n\022CreateBalancerPool\022+" +
+      ".osmosis.gamm.v1beta1.MsgCreateBalancerP" +
+      "ool\0323.osmosis.gamm.v1beta1.MsgCreateBala" +
+      "ncerPoolResponse\022X\n\010JoinPool\022!.osmosis.g" +
+      "amm.v1beta1.MsgJoinPool\032).osmosis.gamm.v" +
+      "1beta1.MsgJoinPoolResponse\022X\n\010ExitPool\022!" +
+      ".osmosis.gamm.v1beta1.MsgExitPool\032).osmo" +
+      "sis.gamm.v1beta1.MsgExitPoolResponse\022s\n\021" +
+      "SwapExactAmountIn\022*.osmosis.gamm.v1beta1" +
+      ".MsgSwapExactAmountIn\0322.osmosis.gamm.v1b" +
+      "eta1.MsgSwapExactAmountInResponse\022v\n\022Swa" +
+      "pExactAmountOut\022+.osmosis.gamm.v1beta1.M" +
+      "sgSwapExactAmountOut\0323.osmosis.gamm.v1be" +
+      "ta1.MsgSwapExactAmountOutResponse\022\202\001\n\026Jo" +
+      "inSwapExternAmountIn\022/.osmosis.gamm.v1be" +
+      "ta1.MsgJoinSwapExternAmountIn\0327.osmosis." +
+      "gamm.v1beta1.MsgJoinSwapExternAmountInRe" +
+      "sponse\022\202\001\n\026JoinSwapShareAmountOut\022/.osmo" +
+      "sis.gamm.v1beta1.MsgJoinSwapShareAmountO" +
+      "ut\0327.osmosis.gamm.v1beta1.MsgJoinSwapSha" +
+      "reAmountOutResponse\022\205\001\n\027ExitSwapExternAm" +
+      "ountOut\0220.osmosis.gamm.v1beta1.MsgExitSw" +
+      "apExternAmountOut\0328.osmosis.gamm.v1beta1" +
+      ".MsgExitSwapExternAmountOutResponse\022\177\n\025E" +
+      "xitSwapShareAmountIn\022..osmosis.gamm.v1be" +
+      "ta1.MsgExitSwapShareAmountIn\0326.osmosis.g" +
+      "amm.v1beta1.MsgExitSwapShareAmountInResp" +
+      "onseB.Z,github.com/osmosis-labs/osmosis/" +
+      "x/gamm/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
-          osmosis.gamm.v1beta1.PoolOuterClass.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
+          osmosis.gamm.v1beta1.BalancerPoolOuterClass.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
-    internal_static_osmosis_gamm_v1beta1_MsgCreatePool_descriptor =
+    internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPool_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_osmosis_gamm_v1beta1_MsgCreatePool_fieldAccessorTable = new
+    internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPool_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_osmosis_gamm_v1beta1_MsgCreatePool_descriptor,
+        internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPool_descriptor,
         new java.lang.String[] { "Sender", "PoolParams", "PoolAssets", "FuturePoolGovernor", });
-    internal_static_osmosis_gamm_v1beta1_MsgCreatePoolResponse_descriptor =
+    internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPoolResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_osmosis_gamm_v1beta1_MsgCreatePoolResponse_fieldAccessorTable = new
+    internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPoolResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_osmosis_gamm_v1beta1_MsgCreatePoolResponse_descriptor,
+        internal_static_osmosis_gamm_v1beta1_MsgCreateBalancerPoolResponse_descriptor,
         new java.lang.String[] { });
     internal_static_osmosis_gamm_v1beta1_MsgJoinPool_descriptor =
       getDescriptor().getMessageTypes().get(2);
@@ -15854,13 +15855,13 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
-    osmosis.gamm.v1beta1.PoolOuterClass.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
+    osmosis.gamm.v1beta1.BalancerPoolOuterClass.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

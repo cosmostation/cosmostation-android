@@ -65,6 +65,17 @@ public final class Pagination {
      * @return The countTotal.
      */
     boolean getCountTotal();
+
+    /**
+     * <pre>
+     * reverse is set to true if results are to be returned in the descending order.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>bool reverse = 5;</code>
+     * @return The reverse.
+     */
+    boolean getReverse();
   }
   /**
    * <pre>
@@ -139,6 +150,11 @@ public final class Pagination {
             case 32: {
 
               countTotal_ = input.readBool();
+              break;
+            }
+            case 40: {
+
+              reverse_ = input.readBool();
               break;
             }
             default: {
@@ -241,6 +257,22 @@ public final class Pagination {
       return countTotal_;
     }
 
+    public static final int REVERSE_FIELD_NUMBER = 5;
+    private boolean reverse_;
+    /**
+     * <pre>
+     * reverse is set to true if results are to be returned in the descending order.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>bool reverse = 5;</code>
+     * @return The reverse.
+     */
+    @java.lang.Override
+    public boolean getReverse() {
+      return reverse_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -267,6 +299,9 @@ public final class Pagination {
       if (countTotal_ != false) {
         output.writeBool(4, countTotal_);
       }
+      if (reverse_ != false) {
+        output.writeBool(5, reverse_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -292,6 +327,10 @@ public final class Pagination {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(4, countTotal_);
       }
+      if (reverse_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, reverse_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -315,6 +354,8 @@ public final class Pagination {
           != other.getLimit()) return false;
       if (getCountTotal()
           != other.getCountTotal()) return false;
+      if (getReverse()
+          != other.getReverse()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -337,6 +378,9 @@ public final class Pagination {
       hash = (37 * hash) + COUNT_TOTAL_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getCountTotal());
+      hash = (37 * hash) + REVERSE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getReverse());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -487,6 +531,8 @@ public final class Pagination {
 
         countTotal_ = false;
 
+        reverse_ = false;
+
         return this;
       }
 
@@ -517,6 +563,7 @@ public final class Pagination {
         result.offset_ = offset_;
         result.limit_ = limit_;
         result.countTotal_ = countTotal_;
+        result.reverse_ = reverse_;
         onBuilt();
         return result;
       }
@@ -576,6 +623,9 @@ public final class Pagination {
         }
         if (other.getCountTotal() != false) {
           setCountTotal(other.getCountTotal());
+        }
+        if (other.getReverse() != false) {
+          setReverse(other.getReverse());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -801,6 +851,52 @@ public final class Pagination {
       public Builder clearCountTotal() {
         
         countTotal_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean reverse_ ;
+      /**
+       * <pre>
+       * reverse is set to true if results are to be returned in the descending order.
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>bool reverse = 5;</code>
+       * @return The reverse.
+       */
+      @java.lang.Override
+      public boolean getReverse() {
+        return reverse_;
+      }
+      /**
+       * <pre>
+       * reverse is set to true if results are to be returned in the descending order.
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>bool reverse = 5;</code>
+       * @param value The reverse to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReverse(boolean value) {
+        
+        reverse_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * reverse is set to true if results are to be returned in the descending order.
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>bool reverse = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReverse() {
+        
+        reverse_ = false;
         onChanged();
         return this;
       }
@@ -1508,12 +1604,12 @@ public final class Pagination {
   static {
     java.lang.String[] descriptorData = {
       "\n*cosmos/base/query/v1beta1/pagination.p" +
-      "roto\022\031cosmos.base.query.v1beta1\"N\n\013PageR" +
+      "roto\022\031cosmos.base.query.v1beta1\"_\n\013PageR" +
       "equest\022\013\n\003key\030\001 \001(\014\022\016\n\006offset\030\002 \001(\004\022\r\n\005l" +
-      "imit\030\003 \001(\004\022\023\n\013count_total\030\004 \001(\010\"/\n\014PageR" +
-      "esponse\022\020\n\010next_key\030\001 \001(\014\022\r\n\005total\030\002 \001(\004" +
-      "B*Z(github.com/cosmos/cosmos-sdk/types/q" +
-      "ueryb\006proto3"
+      "imit\030\003 \001(\004\022\023\n\013count_total\030\004 \001(\010\022\017\n\007rever" +
+      "se\030\005 \001(\010\"/\n\014PageResponse\022\020\n\010next_key\030\001 \001" +
+      "(\014\022\r\n\005total\030\002 \001(\004B*Z(github.com/cosmos/c" +
+      "osmos-sdk/types/queryb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1524,7 +1620,7 @@ public final class Pagination {
     internal_static_cosmos_base_query_v1beta1_PageRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_base_query_v1beta1_PageRequest_descriptor,
-        new java.lang.String[] { "Key", "Offset", "Limit", "CountTotal", });
+        new java.lang.String[] { "Key", "Offset", "Limit", "CountTotal", "Reverse", });
     internal_static_cosmos_base_query_v1beta1_PageResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_cosmos_base_query_v1beta1_PageResponse_fieldAccessorTable = new

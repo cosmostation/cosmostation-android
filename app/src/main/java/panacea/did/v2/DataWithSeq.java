@@ -10,7 +10,7 @@ package panacea.did.v2;
  *
  * Protobuf type {@code panacea.did.v2.DataWithSeq}
  */
-public  final class DataWithSeq extends
+public final class DataWithSeq extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.did.v2.DataWithSeq)
     DataWithSeqOrBuilder {
@@ -101,6 +101,7 @@ private static final long serialVersionUID = 0L;
    * <code>bytes data = 1;</code>
    * @return The data.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString getData() {
     return data_;
   }
@@ -111,6 +112,7 @@ private static final long serialVersionUID = 0L;
    * <code>uint64 sequence = 2;</code>
    * @return The sequence.
    */
+  @java.lang.Override
   public long getSequence() {
     return sequence_;
   }
@@ -444,6 +446,7 @@ private static final long serialVersionUID = 0L;
      * <code>bytes data = 1;</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -477,6 +480,7 @@ private static final long serialVersionUID = 0L;
      * <code>uint64 sequence = 2;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }

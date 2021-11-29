@@ -664,13 +664,13 @@ public final class ParamsOuterClass {
       "\001(\0132\031.cosmos.base.v1beta1.CoinBW\342\336\037\024Depl" +
       "oymentMinDeposit\310\336\037\000\352\336\037\026deployment_min_d" +
       "eposit\362\336\037\035yaml:\"deployment_min_deposit\"B" +
-      ",Z*github.com/ovrclk/akash/x/deployment/" +
-      "typesb\006proto3"
+      "4Z2github.com/ovrclk/akash/x/deployment/" +
+      "types/v1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_akash_deployment_v1beta1_Params_descriptor =
@@ -681,13 +681,13 @@ public final class ParamsOuterClass {
         new java.lang.String[] { "DeploymentMinDeposit", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customname);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

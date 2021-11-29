@@ -278,6 +278,37 @@ public final class QueryGrpc {
     return getBrokerDomainsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest,
+      starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse> getYieldMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Yield",
+      requestType = starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest.class,
+      responseType = starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest,
+      starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse> getYieldMethod() {
+    io.grpc.MethodDescriptor<starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest, starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse> getYieldMethod;
+    if ((getYieldMethod = QueryGrpc.getYieldMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getYieldMethod = QueryGrpc.getYieldMethod) == null) {
+          QueryGrpc.getYieldMethod = getYieldMethod =
+              io.grpc.MethodDescriptor.<starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest, starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Yield"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("Yield"))
+              .build();
+        }
+      }
+    }
+    return getYieldMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -409,6 +440,16 @@ public final class QueryGrpc {
       asyncUnimplementedUnaryCall(getBrokerDomainsMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * Yield estimates and retrieves the annualized yield for delegators
+     * </pre>
+     */
+    public void yield(starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest request,
+        io.grpc.stub.StreamObserver<starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getYieldMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -467,6 +508,13 @@ public final class QueryGrpc {
                 starnamed.x.starname.v1beta1.QueryOuterClass.QueryBrokerDomainsRequest,
                 starnamed.x.starname.v1beta1.QueryOuterClass.QueryBrokerDomainsResponse>(
                   this, METHODID_BROKER_DOMAINS)))
+          .addMethod(
+            getYieldMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest,
+                starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse>(
+                  this, METHODID_YIELD)))
           .build();
     }
   }
@@ -575,6 +623,17 @@ public final class QueryGrpc {
       asyncUnaryCall(
           getChannel().newCall(getBrokerDomainsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * Yield estimates and retrieves the annualized yield for delegators
+     * </pre>
+     */
+    public void yield(starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest request,
+        io.grpc.stub.StreamObserver<starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getYieldMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -672,6 +731,16 @@ public final class QueryGrpc {
     public starnamed.x.starname.v1beta1.QueryOuterClass.QueryBrokerDomainsResponse brokerDomains(starnamed.x.starname.v1beta1.QueryOuterClass.QueryBrokerDomainsRequest request) {
       return blockingUnaryCall(
           getChannel(), getBrokerDomainsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Yield estimates and retrieves the annualized yield for delegators
+     * </pre>
+     */
+    public starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse yield(starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getYieldMethod(), getCallOptions(), request);
     }
   }
 
@@ -779,6 +848,17 @@ public final class QueryGrpc {
       return futureUnaryCall(
           getChannel().newCall(getBrokerDomainsMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * Yield estimates and retrieves the annualized yield for delegators
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse> yield(
+        starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getYieldMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_DOMAIN = 0;
@@ -789,6 +869,7 @@ public final class QueryGrpc {
   private static final int METHODID_RESOURCE_ACCOUNTS = 5;
   private static final int METHODID_BROKER_ACCOUNTS = 6;
   private static final int METHODID_BROKER_DOMAINS = 7;
+  private static final int METHODID_YIELD = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -838,6 +919,10 @@ public final class QueryGrpc {
         case METHODID_BROKER_DOMAINS:
           serviceImpl.brokerDomains((starnamed.x.starname.v1beta1.QueryOuterClass.QueryBrokerDomainsRequest) request,
               (io.grpc.stub.StreamObserver<starnamed.x.starname.v1beta1.QueryOuterClass.QueryBrokerDomainsResponse>) responseObserver);
+          break;
+        case METHODID_YIELD:
+          serviceImpl.yield((starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldRequest) request,
+              (io.grpc.stub.StreamObserver<starnamed.x.starname.v1beta1.QueryOuterClass.QueryYieldResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -908,6 +993,7 @@ public final class QueryGrpc {
               .addMethod(getResourceAccountsMethod())
               .addMethod(getBrokerAccountsMethod())
               .addMethod(getBrokerDomainsMethod())
+              .addMethod(getYieldMethod())
               .build();
         }
       }

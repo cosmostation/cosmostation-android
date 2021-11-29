@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.Topic}
  */
-public  final class Topic extends
+public final class Topic extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.Topic)
     TopicOrBuilder {
@@ -107,6 +107,7 @@ private static final long serialVersionUID = 0L;
    * <code>string description = 1;</code>
    * @return The description.
    */
+  @java.lang.Override
   public java.lang.String getDescription() {
     java.lang.Object ref = description_;
     if (ref instanceof java.lang.String) {
@@ -123,6 +124,7 @@ private static final long serialVersionUID = 0L;
    * <code>string description = 1;</code>
    * @return The bytes for description.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getDescriptionBytes() {
     java.lang.Object ref = description_;
@@ -143,6 +145,7 @@ private static final long serialVersionUID = 0L;
    * <code>uint64 total_records = 2;</code>
    * @return The totalRecords.
    */
+  @java.lang.Override
   public long getTotalRecords() {
     return totalRecords_;
   }
@@ -153,6 +156,7 @@ private static final long serialVersionUID = 0L;
    * <code>uint64 total_writers = 3;</code>
    * @return The totalWriters.
    */
+  @java.lang.Override
   public long getTotalWriters() {
     return totalWriters_;
   }
@@ -580,6 +584,7 @@ private static final long serialVersionUID = 0L;
      * <code>uint64 total_records = 2;</code>
      * @return The totalRecords.
      */
+    @java.lang.Override
     public long getTotalRecords() {
       return totalRecords_;
     }
@@ -610,6 +615,7 @@ private static final long serialVersionUID = 0L;
      * <code>uint64 total_writers = 3;</code>
      * @return The totalWriters.
      */
+    @java.lang.Override
     public long getTotalWriters() {
       return totalWriters_;
     }

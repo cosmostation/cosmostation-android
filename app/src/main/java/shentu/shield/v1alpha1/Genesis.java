@@ -364,7 +364,7 @@ public final class Genesis {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.GenesisState)
       GenesisStateOrBuilder {
@@ -660,6 +660,7 @@ public final class Genesis {
      * <code>string shield_admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"shield_admin&#92;""];</code>
      * @return The shieldAdmin.
      */
+    @java.lang.Override
     public java.lang.String getShieldAdmin() {
       java.lang.Object ref = shieldAdmin_;
       if (ref instanceof java.lang.String) {
@@ -676,6 +677,7 @@ public final class Genesis {
      * <code>string shield_admin = 1 [(.gogoproto.moretags) = "yaml:&#92;"shield_admin&#92;""];</code>
      * @return The bytes for shieldAdmin.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getShieldAdminBytes() {
       java.lang.Object ref = shieldAdmin_;
@@ -696,6 +698,7 @@ public final class Genesis {
      * <code>uint64 next_pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"next_pool_id&#92;""];</code>
      * @return The nextPoolId.
      */
+    @java.lang.Override
     public long getNextPoolId() {
       return nextPoolId_;
     }
@@ -706,6 +709,7 @@ public final class Genesis {
      * <code>uint64 next_purchase_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"next_purchase_id&#92;""];</code>
      * @return The nextPurchaseId.
      */
+    @java.lang.Override
     public long getNextPurchaseId() {
       return nextPurchaseId_;
     }
@@ -716,6 +720,7 @@ public final class Genesis {
      * <code>.shentu.shield.v1alpha1.PoolParams pool_params = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return Whether the poolParams field is set.
      */
+    @java.lang.Override
     public boolean hasPoolParams() {
       return poolParams_ != null;
     }
@@ -723,12 +728,14 @@ public final class Genesis {
      * <code>.shentu.shield.v1alpha1.PoolParams pool_params = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return The poolParams.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.PoolParams getPoolParams() {
       return poolParams_ == null ? shentu.shield.v1alpha1.Genesis.PoolParams.getDefaultInstance() : poolParams_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.PoolParams pool_params = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.PoolParamsOrBuilder getPoolParamsOrBuilder() {
       return getPoolParams();
     }
@@ -739,6 +746,7 @@ public final class Genesis {
      * <code>.shentu.shield.v1alpha1.ClaimProposalParams claim_proposal_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_proposal_params&#92;""];</code>
      * @return Whether the claimProposalParams field is set.
      */
+    @java.lang.Override
     public boolean hasClaimProposalParams() {
       return claimProposalParams_ != null;
     }
@@ -746,12 +754,14 @@ public final class Genesis {
      * <code>.shentu.shield.v1alpha1.ClaimProposalParams claim_proposal_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_proposal_params&#92;""];</code>
      * @return The claimProposalParams.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.ClaimProposalParams getClaimProposalParams() {
       return claimProposalParams_ == null ? shentu.shield.v1alpha1.Genesis.ClaimProposalParams.getDefaultInstance() : claimProposalParams_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.ClaimProposalParams claim_proposal_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_proposal_params&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.ClaimProposalParamsOrBuilder getClaimProposalParamsOrBuilder() {
       return getClaimProposalParams();
     }
@@ -762,6 +772,7 @@ public final class Genesis {
      * <code>string total_collateral = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_collateral&#92;""];</code>
      * @return The totalCollateral.
      */
+    @java.lang.Override
     public java.lang.String getTotalCollateral() {
       java.lang.Object ref = totalCollateral_;
       if (ref instanceof java.lang.String) {
@@ -778,6 +789,7 @@ public final class Genesis {
      * <code>string total_collateral = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_collateral&#92;""];</code>
      * @return The bytes for totalCollateral.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTotalCollateralBytes() {
       java.lang.Object ref = totalCollateral_;
@@ -798,6 +810,7 @@ public final class Genesis {
      * <code>string total_withdrawing = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_withdrawing&#92;""];</code>
      * @return The totalWithdrawing.
      */
+    @java.lang.Override
     public java.lang.String getTotalWithdrawing() {
       java.lang.Object ref = totalWithdrawing_;
       if (ref instanceof java.lang.String) {
@@ -814,6 +827,7 @@ public final class Genesis {
      * <code>string total_withdrawing = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_withdrawing&#92;""];</code>
      * @return The bytes for totalWithdrawing.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTotalWithdrawingBytes() {
       java.lang.Object ref = totalWithdrawing_;
@@ -834,6 +848,7 @@ public final class Genesis {
      * <code>string total_shield = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_shield&#92;""];</code>
      * @return The totalShield.
      */
+    @java.lang.Override
     public java.lang.String getTotalShield() {
       java.lang.Object ref = totalShield_;
       if (ref instanceof java.lang.String) {
@@ -850,6 +865,7 @@ public final class Genesis {
      * <code>string total_shield = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_shield&#92;""];</code>
      * @return The bytes for totalShield.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTotalShieldBytes() {
       java.lang.Object ref = totalShield_;
@@ -870,6 +886,7 @@ public final class Genesis {
      * <code>string total_claimed = 9 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_claimed&#92;""];</code>
      * @return The totalClaimed.
      */
+    @java.lang.Override
     public java.lang.String getTotalClaimed() {
       java.lang.Object ref = totalClaimed_;
       if (ref instanceof java.lang.String) {
@@ -886,6 +903,7 @@ public final class Genesis {
      * <code>string total_claimed = 9 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_claimed&#92;""];</code>
      * @return The bytes for totalClaimed.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTotalClaimedBytes() {
       java.lang.Object ref = totalClaimed_;
@@ -906,6 +924,7 @@ public final class Genesis {
      * <code>.shentu.shield.v1alpha1.MixedDecCoins service_fees = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fees&#92;""];</code>
      * @return Whether the serviceFees field is set.
      */
+    @java.lang.Override
     public boolean hasServiceFees() {
       return serviceFees_ != null;
     }
@@ -913,12 +932,14 @@ public final class Genesis {
      * <code>.shentu.shield.v1alpha1.MixedDecCoins service_fees = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fees&#92;""];</code>
      * @return The serviceFees.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedDecCoins getServiceFees() {
       return serviceFees_ == null ? shentu.shield.v1alpha1.Shield.MixedDecCoins.getDefaultInstance() : serviceFees_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.MixedDecCoins service_fees = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fees&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedDecCoinsOrBuilder getServiceFeesOrBuilder() {
       return getServiceFees();
     }
@@ -929,6 +950,7 @@ public final class Genesis {
      * <code>.shentu.shield.v1alpha1.MixedDecCoins remaining_service_fees = 11 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_service_fees&#92;""];</code>
      * @return Whether the remainingServiceFees field is set.
      */
+    @java.lang.Override
     public boolean hasRemainingServiceFees() {
       return remainingServiceFees_ != null;
     }
@@ -936,12 +958,14 @@ public final class Genesis {
      * <code>.shentu.shield.v1alpha1.MixedDecCoins remaining_service_fees = 11 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_service_fees&#92;""];</code>
      * @return The remainingServiceFees.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedDecCoins getRemainingServiceFees() {
       return remainingServiceFees_ == null ? shentu.shield.v1alpha1.Shield.MixedDecCoins.getDefaultInstance() : remainingServiceFees_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.MixedDecCoins remaining_service_fees = 11 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_service_fees&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedDecCoinsOrBuilder getRemainingServiceFeesOrBuilder() {
       return getRemainingServiceFees();
     }
@@ -951,12 +975,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 12 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pools&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Shield.Pool> getPoolsList() {
       return pools_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 12 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pools&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Shield.PoolOrBuilder> 
         getPoolsOrBuilderList() {
       return pools_;
@@ -964,18 +990,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 12 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pools&#92;""];</code>
      */
+    @java.lang.Override
     public int getPoolsCount() {
       return pools_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 12 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pools&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.Pool getPools(int index) {
       return pools_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 12 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pools&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.PoolOrBuilder getPoolsOrBuilder(
         int index) {
       return pools_.get(index);
@@ -986,12 +1015,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Provider providers = 13 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"providers&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Shield.Provider> getProvidersList() {
       return providers_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Provider providers = 13 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"providers&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Shield.ProviderOrBuilder> 
         getProvidersOrBuilderList() {
       return providers_;
@@ -999,18 +1030,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Provider providers = 13 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"providers&#92;""];</code>
      */
+    @java.lang.Override
     public int getProvidersCount() {
       return providers_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Provider providers = 13 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"providers&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.Provider getProviders(int index) {
       return providers_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Provider providers = 13 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"providers&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.ProviderOrBuilder getProvidersOrBuilder(
         int index) {
       return providers_.get(index);
@@ -1021,12 +1055,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.PurchaseList purchase_lists = 14 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"purchases&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Shield.PurchaseList> getPurchaseListsList() {
       return purchaseLists_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.PurchaseList purchase_lists = 14 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"purchases&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Shield.PurchaseListOrBuilder> 
         getPurchaseListsOrBuilderList() {
       return purchaseLists_;
@@ -1034,18 +1070,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.PurchaseList purchase_lists = 14 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"purchases&#92;""];</code>
      */
+    @java.lang.Override
     public int getPurchaseListsCount() {
       return purchaseLists_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.PurchaseList purchase_lists = 14 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"purchases&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.PurchaseList getPurchaseLists(int index) {
       return purchaseLists_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.PurchaseList purchase_lists = 14 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"purchases&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.PurchaseListOrBuilder getPurchaseListsOrBuilder(
         int index) {
       return purchaseLists_.get(index);
@@ -1056,12 +1095,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Withdraw withdraws = 15 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraws&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Shield.Withdraw> getWithdrawsList() {
       return withdraws_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Withdraw withdraws = 15 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraws&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Shield.WithdrawOrBuilder> 
         getWithdrawsOrBuilderList() {
       return withdraws_;
@@ -1069,18 +1110,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Withdraw withdraws = 15 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraws&#92;""];</code>
      */
+    @java.lang.Override
     public int getWithdrawsCount() {
       return withdraws_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Withdraw withdraws = 15 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraws&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.Withdraw getWithdraws(int index) {
       return withdraws_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Withdraw withdraws = 15 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraws&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.WithdrawOrBuilder getWithdrawsOrBuilder(
         int index) {
       return withdraws_.get(index);
@@ -1092,6 +1136,7 @@ public final class Genesis {
      * <code>.google.protobuf.Timestamp last_update_time = 16 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_update_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the lastUpdateTime field is set.
      */
+    @java.lang.Override
     public boolean hasLastUpdateTime() {
       return lastUpdateTime_ != null;
     }
@@ -1099,12 +1144,14 @@ public final class Genesis {
      * <code>.google.protobuf.Timestamp last_update_time = 16 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_update_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The lastUpdateTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getLastUpdateTime() {
       return lastUpdateTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : lastUpdateTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp last_update_time = 16 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_update_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getLastUpdateTimeOrBuilder() {
       return getLastUpdateTime();
     }
@@ -1115,6 +1162,7 @@ public final class Genesis {
      * <code>string shield_staking_rate = 17 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"shield_staking_rate&#92;""];</code>
      * @return The shieldStakingRate.
      */
+    @java.lang.Override
     public java.lang.String getShieldStakingRate() {
       java.lang.Object ref = shieldStakingRate_;
       if (ref instanceof java.lang.String) {
@@ -1131,6 +1179,7 @@ public final class Genesis {
      * <code>string shield_staking_rate = 17 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"shield_staking_rate&#92;""];</code>
      * @return The bytes for shieldStakingRate.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getShieldStakingRateBytes() {
       java.lang.Object ref = shieldStakingRate_;
@@ -1151,6 +1200,7 @@ public final class Genesis {
      * <code>string global_staking_pool = 18 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"global_staking_pool&#92;""];</code>
      * @return The globalStakingPool.
      */
+    @java.lang.Override
     public java.lang.String getGlobalStakingPool() {
       java.lang.Object ref = globalStakingPool_;
       if (ref instanceof java.lang.String) {
@@ -1167,6 +1217,7 @@ public final class Genesis {
      * <code>string global_staking_pool = 18 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"global_staking_pool&#92;""];</code>
      * @return The bytes for globalStakingPool.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getGlobalStakingPoolBytes() {
       java.lang.Object ref = globalStakingPool_;
@@ -1186,12 +1237,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.ShieldStaking stake_for_shields = 19 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"stake_for_shields&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Shield.ShieldStaking> getStakeForShieldsList() {
       return stakeForShields_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.ShieldStaking stake_for_shields = 19 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"stake_for_shields&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Shield.ShieldStakingOrBuilder> 
         getStakeForShieldsOrBuilderList() {
       return stakeForShields_;
@@ -1199,18 +1252,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.ShieldStaking stake_for_shields = 19 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"stake_for_shields&#92;""];</code>
      */
+    @java.lang.Override
     public int getStakeForShieldsCount() {
       return stakeForShields_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.ShieldStaking stake_for_shields = 19 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"stake_for_shields&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.ShieldStaking getStakeForShields(int index) {
       return stakeForShields_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.ShieldStaking stake_for_shields = 19 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"stake_for_shields&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.ShieldStakingOrBuilder getStakeForShieldsOrBuilder(
         int index) {
       return stakeForShields_.get(index);
@@ -1221,12 +1277,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.OriginalStaking original_stakings = 20 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"original_stakings&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Genesis.OriginalStaking> getOriginalStakingsList() {
       return originalStakings_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.OriginalStaking original_stakings = 20 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"original_stakings&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Genesis.OriginalStakingOrBuilder> 
         getOriginalStakingsOrBuilderList() {
       return originalStakings_;
@@ -1234,18 +1292,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.OriginalStaking original_stakings = 20 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"original_stakings&#92;""];</code>
      */
+    @java.lang.Override
     public int getOriginalStakingsCount() {
       return originalStakings_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.OriginalStaking original_stakings = 20 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"original_stakings&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.OriginalStaking getOriginalStakings(int index) {
       return originalStakings_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.OriginalStaking original_stakings = 20 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"original_stakings&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.OriginalStakingOrBuilder getOriginalStakingsOrBuilder(
         int index) {
       return originalStakings_.get(index);
@@ -1256,12 +1317,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.ProposalIDReimbursementPair proposalID_reimbursement_pairs = 21 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proposalID_reimbursement_pairs&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Genesis.ProposalIDReimbursementPair> getProposalIDReimbursementPairsList() {
       return proposalIDReimbursementPairs_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.ProposalIDReimbursementPair proposalID_reimbursement_pairs = 21 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proposalID_reimbursement_pairs&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Genesis.ProposalIDReimbursementPairOrBuilder> 
         getProposalIDReimbursementPairsOrBuilderList() {
       return proposalIDReimbursementPairs_;
@@ -1269,18 +1332,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.shield.v1alpha1.ProposalIDReimbursementPair proposalID_reimbursement_pairs = 21 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proposalID_reimbursement_pairs&#92;""];</code>
      */
+    @java.lang.Override
     public int getProposalIDReimbursementPairsCount() {
       return proposalIDReimbursementPairs_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.ProposalIDReimbursementPair proposalID_reimbursement_pairs = 21 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proposalID_reimbursement_pairs&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.ProposalIDReimbursementPair getProposalIDReimbursementPairs(int index) {
       return proposalIDReimbursementPairs_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.ProposalIDReimbursementPair proposalID_reimbursement_pairs = 21 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proposalID_reimbursement_pairs&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.ProposalIDReimbursementPairOrBuilder getProposalIDReimbursementPairsOrBuilder(
         int index) {
       return proposalIDReimbursementPairs_.get(index);
@@ -2348,6 +2414,7 @@ public final class Genesis {
        * <code>uint64 next_pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"next_pool_id&#92;""];</code>
        * @return The nextPoolId.
        */
+      @java.lang.Override
       public long getNextPoolId() {
         return nextPoolId_;
       }
@@ -2378,6 +2445,7 @@ public final class Genesis {
        * <code>uint64 next_purchase_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"next_purchase_id&#92;""];</code>
        * @return The nextPurchaseId.
        */
+      @java.lang.Override
       public long getNextPurchaseId() {
         return nextPurchaseId_;
       }
@@ -5211,7 +5279,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.OriginalStaking}
    */
-  public  static final class OriginalStaking extends
+  public static final class OriginalStaking extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.OriginalStaking)
       OriginalStakingOrBuilder {
@@ -5303,6 +5371,7 @@ public final class Genesis {
      * <code>uint64 purchase_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"purchase_id&#92;""];</code>
      * @return The purchaseId.
      */
+    @java.lang.Override
     public long getPurchaseId() {
       return purchaseId_;
     }
@@ -5313,6 +5382,7 @@ public final class Genesis {
      * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public java.lang.String getAmount() {
       java.lang.Object ref = amount_;
       if (ref instanceof java.lang.String) {
@@ -5329,6 +5399,7 @@ public final class Genesis {
      * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      * @return The bytes for amount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAmountBytes() {
       java.lang.Object ref = amount_;
@@ -5668,6 +5739,7 @@ public final class Genesis {
        * <code>uint64 purchase_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"purchase_id&#92;""];</code>
        * @return The purchaseId.
        */
+      @java.lang.Override
       public long getPurchaseId() {
         return purchaseId_;
       }
@@ -5849,7 +5921,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.ProposalIDReimbursementPair}
    */
-  public  static final class ProposalIDReimbursementPair extends
+  public static final class ProposalIDReimbursementPair extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.ProposalIDReimbursementPair)
       ProposalIDReimbursementPairOrBuilder {
@@ -5947,6 +6019,7 @@ public final class Genesis {
      * <code>uint64 proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -5957,6 +6030,7 @@ public final class Genesis {
      * <code>.shentu.shield.v1alpha1.Reimbursement reimbursement = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reimbursement&#92;""];</code>
      * @return Whether the reimbursement field is set.
      */
+    @java.lang.Override
     public boolean hasReimbursement() {
       return reimbursement_ != null;
     }
@@ -5964,12 +6038,14 @@ public final class Genesis {
      * <code>.shentu.shield.v1alpha1.Reimbursement reimbursement = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reimbursement&#92;""];</code>
      * @return The reimbursement.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.Reimbursement getReimbursement() {
       return reimbursement_ == null ? shentu.shield.v1alpha1.Genesis.Reimbursement.getDefaultInstance() : reimbursement_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.Reimbursement reimbursement = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reimbursement&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.ReimbursementOrBuilder getReimbursementOrBuilder() {
       return getReimbursement();
     }
@@ -6312,6 +6388,7 @@ public final class Genesis {
        * <code>uint64 proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -6566,7 +6643,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.Reimbursement}
    */
-  public  static final class Reimbursement extends
+  public static final class Reimbursement extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.Reimbursement)
       ReimbursementOrBuilder {
@@ -6679,12 +6756,14 @@ public final class Genesis {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getAmountList() {
       return amount_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getAmountOrBuilderList() {
       return amount_;
@@ -6692,18 +6771,21 @@ public final class Genesis {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getAmountCount() {
       return amount_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount(int index) {
       return amount_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder(
         int index) {
       return amount_.get(index);
@@ -6715,6 +6797,7 @@ public final class Genesis {
      * <code>string beneficiary = 2 [(.gogoproto.moretags) = "yaml:&#92;"beneficiary&#92;""];</code>
      * @return The beneficiary.
      */
+    @java.lang.Override
     public java.lang.String getBeneficiary() {
       java.lang.Object ref = beneficiary_;
       if (ref instanceof java.lang.String) {
@@ -6731,6 +6814,7 @@ public final class Genesis {
      * <code>string beneficiary = 2 [(.gogoproto.moretags) = "yaml:&#92;"beneficiary&#92;""];</code>
      * @return The bytes for beneficiary.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBeneficiaryBytes() {
       java.lang.Object ref = beneficiary_;
@@ -6751,6 +6835,7 @@ public final class Genesis {
      * <code>.google.protobuf.Timestamp payout_time = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"payout_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the payoutTime field is set.
      */
+    @java.lang.Override
     public boolean hasPayoutTime() {
       return payoutTime_ != null;
     }
@@ -6758,12 +6843,14 @@ public final class Genesis {
      * <code>.google.protobuf.Timestamp payout_time = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"payout_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The payoutTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getPayoutTime() {
       return payoutTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : payoutTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp payout_time = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"payout_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getPayoutTimeOrBuilder() {
       return getPayoutTime();
     }
@@ -7733,7 +7820,7 @@ public final class Genesis {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.PoolParams}
    */
-  public  static final class PoolParams extends
+  public static final class PoolParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.PoolParams)
       PoolParamsOrBuilder {
@@ -7867,6 +7954,7 @@ public final class Genesis {
      * <code>.google.protobuf.Duration protection_period = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"protection_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the protectionPeriod field is set.
      */
+    @java.lang.Override
     public boolean hasProtectionPeriod() {
       return protectionPeriod_ != null;
     }
@@ -7874,12 +7962,14 @@ public final class Genesis {
      * <code>.google.protobuf.Duration protection_period = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"protection_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The protectionPeriod.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getProtectionPeriod() {
       return protectionPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : protectionPeriod_;
     }
     /**
      * <code>.google.protobuf.Duration protection_period = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"protection_period&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getProtectionPeriodOrBuilder() {
       return getProtectionPeriod();
     }
@@ -7890,6 +7980,7 @@ public final class Genesis {
      * <code>string shield_fees_rate = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"shield_fees_rate&#92;""];</code>
      * @return The shieldFeesRate.
      */
+    @java.lang.Override
     public java.lang.String getShieldFeesRate() {
       java.lang.Object ref = shieldFeesRate_;
       if (ref instanceof java.lang.String) {
@@ -7906,6 +7997,7 @@ public final class Genesis {
      * <code>string shield_fees_rate = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"shield_fees_rate&#92;""];</code>
      * @return The bytes for shieldFeesRate.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getShieldFeesRateBytes() {
       java.lang.Object ref = shieldFeesRate_;
@@ -7926,6 +8018,7 @@ public final class Genesis {
      * <code>.google.protobuf.Duration withdraw_period = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraw_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the withdrawPeriod field is set.
      */
+    @java.lang.Override
     public boolean hasWithdrawPeriod() {
       return withdrawPeriod_ != null;
     }
@@ -7933,12 +8026,14 @@ public final class Genesis {
      * <code>.google.protobuf.Duration withdraw_period = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraw_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The withdrawPeriod.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getWithdrawPeriod() {
       return withdrawPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : withdrawPeriod_;
     }
     /**
      * <code>.google.protobuf.Duration withdraw_period = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraw_period&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getWithdrawPeriodOrBuilder() {
       return getWithdrawPeriod();
     }
@@ -7949,6 +8044,7 @@ public final class Genesis {
      * <code>string pool_shield_limit = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"pool_shield_limit&#92;""];</code>
      * @return The poolShieldLimit.
      */
+    @java.lang.Override
     public java.lang.String getPoolShieldLimit() {
       java.lang.Object ref = poolShieldLimit_;
       if (ref instanceof java.lang.String) {
@@ -7965,6 +8061,7 @@ public final class Genesis {
      * <code>string pool_shield_limit = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"pool_shield_limit&#92;""];</code>
      * @return The bytes for poolShieldLimit.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPoolShieldLimitBytes() {
       java.lang.Object ref = poolShieldLimit_;
@@ -7984,12 +8081,14 @@ public final class Genesis {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin min_shield_purchase = 5 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getMinShieldPurchaseList() {
       return minShieldPurchase_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin min_shield_purchase = 5 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getMinShieldPurchaseOrBuilderList() {
       return minShieldPurchase_;
@@ -7997,18 +8096,21 @@ public final class Genesis {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin min_shield_purchase = 5 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getMinShieldPurchaseCount() {
       return minShieldPurchase_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin min_shield_purchase = 5 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getMinShieldPurchase(int index) {
       return minShieldPurchase_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin min_shield_purchase = 5 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getMinShieldPurchaseOrBuilder(
         int index) {
       return minShieldPurchase_.get(index);
@@ -9225,7 +9327,7 @@ public final class Genesis {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.ClaimProposalParams}
    */
-  public  static final class ClaimProposalParams extends
+  public static final class ClaimProposalParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.ClaimProposalParams)
       ClaimProposalParamsOrBuilder {
@@ -9359,6 +9461,7 @@ public final class Genesis {
      * <code>.google.protobuf.Duration claim_period = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the claimPeriod field is set.
      */
+    @java.lang.Override
     public boolean hasClaimPeriod() {
       return claimPeriod_ != null;
     }
@@ -9366,12 +9469,14 @@ public final class Genesis {
      * <code>.google.protobuf.Duration claim_period = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The claimPeriod.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getClaimPeriod() {
       return claimPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : claimPeriod_;
     }
     /**
      * <code>.google.protobuf.Duration claim_period = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_period&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getClaimPeriodOrBuilder() {
       return getClaimPeriod();
     }
@@ -9382,6 +9487,7 @@ public final class Genesis {
      * <code>.google.protobuf.Duration payout_period = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"payout_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the payoutPeriod field is set.
      */
+    @java.lang.Override
     public boolean hasPayoutPeriod() {
       return payoutPeriod_ != null;
     }
@@ -9389,12 +9495,14 @@ public final class Genesis {
      * <code>.google.protobuf.Duration payout_period = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"payout_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The payoutPeriod.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getPayoutPeriod() {
       return payoutPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : payoutPeriod_;
     }
     /**
      * <code>.google.protobuf.Duration payout_period = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"payout_period&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getPayoutPeriodOrBuilder() {
       return getPayoutPeriod();
     }
@@ -9404,12 +9512,14 @@ public final class Genesis {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin min_deposit = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getMinDepositList() {
       return minDeposit_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin min_deposit = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getMinDepositOrBuilderList() {
       return minDeposit_;
@@ -9417,18 +9527,21 @@ public final class Genesis {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin min_deposit = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getMinDepositCount() {
       return minDeposit_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin min_deposit = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getMinDeposit(int index) {
       return minDeposit_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin min_deposit = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getMinDepositOrBuilder(
         int index) {
       return minDeposit_.get(index);
@@ -9440,6 +9553,7 @@ public final class Genesis {
      * <code>string deposit_rate = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"deposit_rate&#92;""];</code>
      * @return The depositRate.
      */
+    @java.lang.Override
     public java.lang.String getDepositRate() {
       java.lang.Object ref = depositRate_;
       if (ref instanceof java.lang.String) {
@@ -9456,6 +9570,7 @@ public final class Genesis {
      * <code>string deposit_rate = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"deposit_rate&#92;""];</code>
      * @return The bytes for depositRate.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDepositRateBytes() {
       java.lang.Object ref = depositRate_;
@@ -9476,6 +9591,7 @@ public final class Genesis {
      * <code>string fees_rate = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"fees_rate&#92;""];</code>
      * @return The feesRate.
      */
+    @java.lang.Override
     public java.lang.String getFeesRate() {
       java.lang.Object ref = feesRate_;
       if (ref instanceof java.lang.String) {
@@ -9492,6 +9608,7 @@ public final class Genesis {
      * <code>string fees_rate = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"fees_rate&#92;""];</code>
      * @return The bytes for feesRate.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFeesRateBytes() {
       java.lang.Object ref = feesRate_;
@@ -10766,7 +10883,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
@@ -10810,17 +10927,17 @@ public final class Genesis {
         new java.lang.String[] { "ClaimPeriod", "PayoutPeriod", "MinDeposit", "DepositRate", "FeesRate", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
-    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();

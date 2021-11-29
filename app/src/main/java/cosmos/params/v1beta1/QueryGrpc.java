@@ -61,6 +61,37 @@ public final class QueryGrpc {
     return getParamsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest,
+      cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse> getSubspacesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Subspaces",
+      requestType = cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest.class,
+      responseType = cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest,
+      cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse> getSubspacesMethod() {
+    io.grpc.MethodDescriptor<cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest, cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse> getSubspacesMethod;
+    if ((getSubspacesMethod = QueryGrpc.getSubspacesMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getSubspacesMethod = QueryGrpc.getSubspacesMethod) == null) {
+          QueryGrpc.getSubspacesMethod = getSubspacesMethod =
+              io.grpc.MethodDescriptor.<cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest, cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Subspaces"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("Subspaces"))
+              .build();
+        }
+      }
+    }
+    return getSubspacesMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -123,6 +154,16 @@ public final class QueryGrpc {
       asyncUnimplementedUnaryCall(getParamsMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * Subspaces queries for all registered subspaces and all keys for a subspace.
+     * </pre>
+     */
+    public void subspaces(cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest request,
+        io.grpc.stub.StreamObserver<cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getSubspacesMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -132,6 +173,13 @@ public final class QueryGrpc {
                 cosmos.params.v1beta1.QueryOuterClass.QueryParamsRequest,
                 cosmos.params.v1beta1.QueryOuterClass.QueryParamsResponse>(
                   this, METHODID_PARAMS)))
+          .addMethod(
+            getSubspacesMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest,
+                cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse>(
+                  this, METHODID_SUBSPACES)))
           .build();
     }
   }
@@ -164,6 +212,17 @@ public final class QueryGrpc {
       asyncUnaryCall(
           getChannel().newCall(getParamsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * Subspaces queries for all registered subspaces and all keys for a subspace.
+     * </pre>
+     */
+    public void subspaces(cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest request,
+        io.grpc.stub.StreamObserver<cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSubspacesMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -192,6 +251,16 @@ public final class QueryGrpc {
     public cosmos.params.v1beta1.QueryOuterClass.QueryParamsResponse params(cosmos.params.v1beta1.QueryOuterClass.QueryParamsRequest request) {
       return blockingUnaryCall(
           getChannel(), getParamsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Subspaces queries for all registered subspaces and all keys for a subspace.
+     * </pre>
+     */
+    public cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse subspaces(cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getSubspacesMethod(), getCallOptions(), request);
     }
   }
 
@@ -223,9 +292,21 @@ public final class QueryGrpc {
       return futureUnaryCall(
           getChannel().newCall(getParamsMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * Subspaces queries for all registered subspaces and all keys for a subspace.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse> subspaces(
+        cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSubspacesMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_PARAMS = 0;
+  private static final int METHODID_SUBSPACES = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -247,6 +328,10 @@ public final class QueryGrpc {
         case METHODID_PARAMS:
           serviceImpl.params((cosmos.params.v1beta1.QueryOuterClass.QueryParamsRequest) request,
               (io.grpc.stub.StreamObserver<cosmos.params.v1beta1.QueryOuterClass.QueryParamsResponse>) responseObserver);
+          break;
+        case METHODID_SUBSPACES:
+          serviceImpl.subspaces((cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest) request,
+              (io.grpc.stub.StreamObserver<cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -310,6 +395,7 @@ public final class QueryGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new QueryFileDescriptorSupplier())
               .addMethod(getParamsMethod())
+              .addMethod(getSubspacesMethod())
               .build();
         }
       }

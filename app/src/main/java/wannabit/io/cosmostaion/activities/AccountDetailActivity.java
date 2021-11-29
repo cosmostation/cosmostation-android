@@ -1,5 +1,12 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,7 +28,6 @@ import androidx.cardview.widget.CardView;
 
 import java.math.BigDecimal;
 
-import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -42,14 +48,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -371,7 +369,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
-            Types.DefaultNodeInfo nodeinfo = (Types.DefaultNodeInfo)result.resultData;
+            tendermint.p2p.Types.NodeInfo nodeinfo = (tendermint.p2p.Types.NodeInfo)result.resultData;
             if (nodeinfo != null) {
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override

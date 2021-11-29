@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
@@ -51,7 +51,7 @@ public class EarningBondedHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBindView(Context c, BaseActivity activity, BaseData baseData,
-                           PoolOuterClass.Pool pool, Lock.PeriodLock lockup, ArrayList<GaugeOuterClass.Gauge> gauges) {
+                           BalancerPoolOuterClass.BalancerPool pool, Lock.PeriodLock lockup, ArrayList<GaugeOuterClass.Gauge> gauges) {
         BigDecimal totalShare = new BigDecimal(pool.getTotalShares().getAmount());
         BigDecimal lpCoinPrice = WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
         Coin myLpCoin = new Coin(lockup.getCoins(0).getDenom(), lockup.getCoins(0).getAmount());

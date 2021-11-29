@@ -4686,13 +4686,13 @@ public final class QueryOuterClass {
       "v1beta1.QueryPaymentsRequest\032+.akash.esc" +
       "row.v1beta1.QueryPaymentsResponse\"1\202\323\344\223\002" +
       "+\022)/akash/escrow/v1beta1/types/payments/" +
-      "listB(Z&github.com/ovrclk/akash/x/escrow" +
-      "/typesb\006proto3"
+      "listB0Z.github.com/ovrclk/akash/x/escrow" +
+      "/types/v1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           akash.escrow.v1beta1.Types.getDescriptor(),
@@ -4723,11 +4723,11 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Payments", "Pagination", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     akash.escrow.v1beta1.Types.getDescriptor();

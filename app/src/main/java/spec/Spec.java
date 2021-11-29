@@ -134,7 +134,7 @@ public final class Spec {
   /**
    * Protobuf type {@code spec.TemplateAccount}
    */
-  public  static final class TemplateAccount extends
+  public static final class TemplateAccount extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:spec.TemplateAccount)
       TemplateAccountOrBuilder {
@@ -286,6 +286,7 @@ public final class Spec {
      * <code>string Name = 1;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -302,6 +303,7 @@ public final class Spec {
      * <code>string Name = 1;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -322,6 +324,7 @@ public final class Spec {
      * <code>bytes Address = 2 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address", (.gogoproto.jsontag) = ",omitempty", (.gogoproto.moretags) = "toml:&#92;",omitempty&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAddress() {
       return address_;
     }
@@ -332,6 +335,7 @@ public final class Spec {
      * <code>.crypto.PublicKey PublicKey = 3 [(.gogoproto.jsontag) = ",omitempty", (.gogoproto.moretags) = "toml:&#92;",omitempty&#92;""];</code>
      * @return Whether the publicKey field is set.
      */
+    @java.lang.Override
     public boolean hasPublicKey() {
       return publicKey_ != null;
     }
@@ -339,12 +343,14 @@ public final class Spec {
      * <code>.crypto.PublicKey PublicKey = 3 [(.gogoproto.jsontag) = ",omitempty", (.gogoproto.moretags) = "toml:&#92;",omitempty&#92;""];</code>
      * @return The publicKey.
      */
+    @java.lang.Override
     public crypto.Crypto.PublicKey getPublicKey() {
       return publicKey_ == null ? crypto.Crypto.PublicKey.getDefaultInstance() : publicKey_;
     }
     /**
      * <code>.crypto.PublicKey PublicKey = 3 [(.gogoproto.jsontag) = ",omitempty", (.gogoproto.moretags) = "toml:&#92;",omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public crypto.Crypto.PublicKeyOrBuilder getPublicKeyOrBuilder() {
       return getPublicKey();
     }
@@ -354,12 +360,14 @@ public final class Spec {
     /**
      * <code>repeated .balance.Balance Amounts = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = ",omitempty", (.gogoproto.moretags) = "toml:&#92;",omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<balance.BalanceOuterClass.Balance> getAmountsList() {
       return amounts_;
     }
     /**
      * <code>repeated .balance.Balance Amounts = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = ",omitempty", (.gogoproto.moretags) = "toml:&#92;",omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends balance.BalanceOuterClass.BalanceOrBuilder> 
         getAmountsOrBuilderList() {
       return amounts_;
@@ -367,18 +375,21 @@ public final class Spec {
     /**
      * <code>repeated .balance.Balance Amounts = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = ",omitempty", (.gogoproto.moretags) = "toml:&#92;",omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public int getAmountsCount() {
       return amounts_.size();
     }
     /**
      * <code>repeated .balance.Balance Amounts = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = ",omitempty", (.gogoproto.moretags) = "toml:&#92;",omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public balance.BalanceOuterClass.Balance getAmounts(int index) {
       return amounts_.get(index);
     }
     /**
      * <code>repeated .balance.Balance Amounts = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = ",omitempty", (.gogoproto.moretags) = "toml:&#92;",omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public balance.BalanceOuterClass.BalanceOrBuilder getAmountsOrBuilder(
         int index) {
       return amounts_.get(index);
@@ -460,6 +471,7 @@ public final class Spec {
      * <code>bytes Code = 7 [(.gogoproto.nullable) = true, (.gogoproto.customtype) = "github.com/hyperledger/burrow/acm.Bytecode"];</code>
      * @return The code.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCode() {
       return code_;
     }
@@ -1036,6 +1048,7 @@ public final class Spec {
        * <code>bytes Address = 2 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address", (.gogoproto.jsontag) = ",omitempty", (.gogoproto.moretags) = "toml:&#92;",omitempty&#92;""];</code>
        * @return The address.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAddress() {
         return address_;
       }
@@ -1648,6 +1661,7 @@ public final class Spec {
        * <code>bytes Code = 7 [(.gogoproto.nullable) = true, (.gogoproto.customtype) = "github.com/hyperledger/burrow/acm.Bytecode"];</code>
        * @return The code.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCode() {
         return code_;
       }
@@ -1763,7 +1777,7 @@ public final class Spec {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           crypto.Crypto.getDescriptor(),
           balance.BalanceOuterClass.getDescriptor(),
         });
@@ -1775,21 +1789,21 @@ public final class Spec {
         new java.lang.String[] { "Name", "Address", "PublicKey", "Amounts", "Permissions", "Roles", "Code", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoRegistration);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoSizecache);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoUnkeyed);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.marshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.messagenameAll);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.sizerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.stableMarshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.unmarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoRegistration);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoSizecache);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoUnkeyed);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.marshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.messagenameAll);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.sizerAll);
+    registry.add(com.google.protobuf.GoGoProtos.stableMarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.unmarshalerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     crypto.Crypto.getDescriptor();
     balance.BalanceOuterClass.getDescriptor();
   }

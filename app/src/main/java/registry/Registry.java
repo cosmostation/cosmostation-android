@@ -88,7 +88,7 @@ public final class Registry {
    *
    * Protobuf type {@code registry.NodeIdentity}
    */
-  public  static final class NodeIdentity extends
+  public static final class NodeIdentity extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:registry.NodeIdentity)
       NodeIdentityOrBuilder {
@@ -198,6 +198,7 @@ public final class Registry {
      * <code>string Moniker = 1;</code>
      * @return The moniker.
      */
+    @java.lang.Override
     public java.lang.String getMoniker() {
       java.lang.Object ref = moniker_;
       if (ref instanceof java.lang.String) {
@@ -218,6 +219,7 @@ public final class Registry {
      * <code>string Moniker = 1;</code>
      * @return The bytes for moniker.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMonikerBytes() {
       java.lang.Object ref = moniker_;
@@ -242,6 +244,7 @@ public final class Registry {
      * <code>string NetworkAddress = 2;</code>
      * @return The networkAddress.
      */
+    @java.lang.Override
     public java.lang.String getNetworkAddress() {
       java.lang.Object ref = networkAddress_;
       if (ref instanceof java.lang.String) {
@@ -262,6 +265,7 @@ public final class Registry {
      * <code>string NetworkAddress = 2;</code>
      * @return The bytes for networkAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNetworkAddressBytes() {
       java.lang.Object ref = networkAddress_;
@@ -286,6 +290,7 @@ public final class Registry {
      * <code>bytes TendermintNodeID = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
      * @return The tendermintNodeID.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getTendermintNodeID() {
       return tendermintNodeID_;
     }
@@ -301,6 +306,7 @@ public final class Registry {
      * <code>bytes ValidatorPublicKey = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.PublicKey"];</code>
      * @return The validatorPublicKey.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValidatorPublicKey() {
       return validatorPublicKey_;
     }
@@ -865,6 +871,7 @@ public final class Registry {
        * <code>bytes TendermintNodeID = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
        * @return The tendermintNodeID.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getTendermintNodeID() {
         return tendermintNodeID_;
       }
@@ -911,6 +918,7 @@ public final class Registry {
        * <code>bytes ValidatorPublicKey = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.PublicKey"];</code>
        * @return The validatorPublicKey.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValidatorPublicKey() {
         return validatorPublicKey_;
       }
@@ -1029,7 +1037,7 @@ public final class Registry {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_registry_NodeIdentity_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1039,18 +1047,18 @@ public final class Registry {
         new java.lang.String[] { "Moniker", "NetworkAddress", "TendermintNodeID", "ValidatorPublicKey", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoRegistration);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.marshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.messagenameAll);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.sizerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.stableMarshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.unmarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoRegistration);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.marshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.messagenameAll);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.sizerAll);
+    registry.add(com.google.protobuf.GoGoProtos.stableMarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.unmarshalerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

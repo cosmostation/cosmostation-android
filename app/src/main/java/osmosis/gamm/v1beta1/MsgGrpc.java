@@ -27,35 +27,35 @@ public final class MsgGrpc {
   public static final String SERVICE_NAME = "osmosis.gamm.v1beta1.Msg";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.Tx.MsgCreatePool,
-      osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse> getCreatePoolMethod;
+  private static volatile io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool,
+      osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "CreatePool",
-      requestType = osmosis.gamm.v1beta1.Tx.MsgCreatePool.class,
-      responseType = osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "CreateBalancerPool",
+      requestType = osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool.class,
+      responseType = osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.Tx.MsgCreatePool,
-      osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse> getCreatePoolMethod() {
-    io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.Tx.MsgCreatePool, osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse> getCreatePoolMethod;
-    if ((getCreatePoolMethod = MsgGrpc.getCreatePoolMethod) == null) {
+  public static io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool,
+      osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod() {
+    io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool, osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse> getCreateBalancerPoolMethod;
+    if ((getCreateBalancerPoolMethod = MsgGrpc.getCreateBalancerPoolMethod) == null) {
       synchronized (MsgGrpc.class) {
-        if ((getCreatePoolMethod = MsgGrpc.getCreatePoolMethod) == null) {
-          MsgGrpc.getCreatePoolMethod = getCreatePoolMethod =
-              io.grpc.MethodDescriptor.<osmosis.gamm.v1beta1.Tx.MsgCreatePool, osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse>newBuilder()
+        if ((getCreateBalancerPoolMethod = MsgGrpc.getCreateBalancerPoolMethod) == null) {
+          MsgGrpc.getCreateBalancerPoolMethod = getCreateBalancerPoolMethod =
+              io.grpc.MethodDescriptor.<osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool, osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CreatePool"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CreateBalancerPool"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.gamm.v1beta1.Tx.MsgCreatePool.getDefaultInstance()))
+                  osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("CreatePool"))
+                  osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("CreateBalancerPool"))
               .build();
         }
       }
     }
-    return getCreatePoolMethod;
+    return getCreateBalancerPoolMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<osmosis.gamm.v1beta1.Tx.MsgJoinPool,
@@ -356,9 +356,9 @@ public final class MsgGrpc {
 
     /**
      */
-    public void createPool(osmosis.gamm.v1beta1.Tx.MsgCreatePool request,
-        io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getCreatePoolMethod(), responseObserver);
+    public void createBalancerPool(osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool request,
+        io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getCreateBalancerPoolMethod(), responseObserver);
     }
 
     /**
@@ -420,12 +420,12 @@ public final class MsgGrpc {
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getCreatePoolMethod(),
+            getCreateBalancerPoolMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                osmosis.gamm.v1beta1.Tx.MsgCreatePool,
-                osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse>(
-                  this, METHODID_CREATE_POOL)))
+                osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool,
+                osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse>(
+                  this, METHODID_CREATE_BALANCER_POOL)))
           .addMethod(
             getJoinPoolMethod(),
             asyncUnaryCall(
@@ -502,10 +502,10 @@ public final class MsgGrpc {
 
     /**
      */
-    public void createPool(osmosis.gamm.v1beta1.Tx.MsgCreatePool request,
-        io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse> responseObserver) {
+    public void createBalancerPool(osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool request,
+        io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getCreatePoolMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getCreateBalancerPoolMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -589,9 +589,9 @@ public final class MsgGrpc {
 
     /**
      */
-    public osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse createPool(osmosis.gamm.v1beta1.Tx.MsgCreatePool request) {
+    public osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse createBalancerPool(osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool request) {
       return blockingUnaryCall(
-          getChannel(), getCreatePoolMethod(), getCallOptions(), request);
+          getChannel(), getCreateBalancerPoolMethod(), getCallOptions(), request);
     }
 
     /**
@@ -667,10 +667,10 @@ public final class MsgGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse> createPool(
-        osmosis.gamm.v1beta1.Tx.MsgCreatePool request) {
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse> createBalancerPool(
+        osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool request) {
       return futureUnaryCall(
-          getChannel().newCall(getCreatePoolMethod(), getCallOptions()), request);
+          getChannel().newCall(getCreateBalancerPoolMethod(), getCallOptions()), request);
     }
 
     /**
@@ -738,7 +738,7 @@ public final class MsgGrpc {
     }
   }
 
-  private static final int METHODID_CREATE_POOL = 0;
+  private static final int METHODID_CREATE_BALANCER_POOL = 0;
   private static final int METHODID_JOIN_POOL = 1;
   private static final int METHODID_EXIT_POOL = 2;
   private static final int METHODID_SWAP_EXACT_AMOUNT_IN = 3;
@@ -765,9 +765,9 @@ public final class MsgGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_CREATE_POOL:
-          serviceImpl.createPool((osmosis.gamm.v1beta1.Tx.MsgCreatePool) request,
-              (io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.Tx.MsgCreatePoolResponse>) responseObserver);
+        case METHODID_CREATE_BALANCER_POOL:
+          serviceImpl.createBalancerPool((osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool) request,
+              (io.grpc.stub.StreamObserver<osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPoolResponse>) responseObserver);
           break;
         case METHODID_JOIN_POOL:
           serviceImpl.joinPool((osmosis.gamm.v1beta1.Tx.MsgJoinPool) request,
@@ -862,7 +862,7 @@ public final class MsgGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new MsgFileDescriptorSupplier())
-              .addMethod(getCreatePoolMethod())
+              .addMethod(getCreateBalancerPoolMethod())
               .addMethod(getJoinPoolMethod())
               .addMethod(getExitPoolMethod())
               .addMethod(getSwapExactAmountInMethod())

@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.Owner}
  */
-public  final class Owner extends
+public final class Owner extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.Owner)
     OwnerOrBuilder {
@@ -95,6 +95,7 @@ private static final long serialVersionUID = 0L;
    * <code>uint64 total_topics = 1;</code>
    * @return The totalTopics.
    */
+  @java.lang.Override
   public long getTotalTopics() {
     return totalTopics_;
   }
@@ -411,6 +412,7 @@ private static final long serialVersionUID = 0L;
      * <code>uint64 total_topics = 1;</code>
      * @return The totalTopics.
      */
+    @java.lang.Override
     public long getTotalTopics() {
       return totalTopics_;
     }

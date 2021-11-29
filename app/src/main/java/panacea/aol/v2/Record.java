@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.Record}
  */
-public  final class Record extends
+public final class Record extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.Record)
     RecordOrBuilder {
@@ -114,6 +114,7 @@ private static final long serialVersionUID = 0L;
    * <code>bytes key = 1;</code>
    * @return The key.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString getKey() {
     return key_;
   }
@@ -124,6 +125,7 @@ private static final long serialVersionUID = 0L;
    * <code>bytes value = 2;</code>
    * @return The value.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString getValue() {
     return value_;
   }
@@ -134,6 +136,7 @@ private static final long serialVersionUID = 0L;
    * <code>int64 nano_timestamp = 3;</code>
    * @return The nanoTimestamp.
    */
+  @java.lang.Override
   public long getNanoTimestamp() {
     return nanoTimestamp_;
   }
@@ -144,6 +147,7 @@ private static final long serialVersionUID = 0L;
    * <code>string writer_address = 4;</code>
    * @return The writerAddress.
    */
+  @java.lang.Override
   public java.lang.String getWriterAddress() {
     java.lang.Object ref = writerAddress_;
     if (ref instanceof java.lang.String) {
@@ -160,6 +164,7 @@ private static final long serialVersionUID = 0L;
    * <code>string writer_address = 4;</code>
    * @return The bytes for writerAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getWriterAddressBytes() {
     java.lang.Object ref = writerAddress_;
@@ -537,6 +542,7 @@ private static final long serialVersionUID = 0L;
      * <code>bytes key = 1;</code>
      * @return The key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
@@ -570,6 +576,7 @@ private static final long serialVersionUID = 0L;
      * <code>bytes value = 2;</code>
      * @return The value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValue() {
       return value_;
     }
@@ -603,6 +610,7 @@ private static final long serialVersionUID = 0L;
      * <code>int64 nano_timestamp = 3;</code>
      * @return The nanoTimestamp.
      */
+    @java.lang.Override
     public long getNanoTimestamp() {
       return nanoTimestamp_;
     }

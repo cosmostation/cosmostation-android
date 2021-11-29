@@ -138,6 +138,10 @@ public final class Types {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -240,7 +244,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.oracle.v1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.oracle.v1.GenesisState)
       GenesisStateOrBuilder {
@@ -389,6 +393,7 @@ public final class Types {
      * <code>string admin_address = 2;</code>
      * @return The adminAddress.
      */
+    @java.lang.Override
     public java.lang.String getAdminAddress() {
       java.lang.Object ref = adminAddress_;
       if (ref instanceof java.lang.String) {
@@ -405,6 +410,7 @@ public final class Types {
      * <code>string admin_address = 2;</code>
      * @return The bytes for adminAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAdminAddressBytes() {
       java.lang.Object ref = adminAddress_;
@@ -424,12 +430,14 @@ public final class Types {
     /**
      * <code>repeated .sifnode.oracle.v1.DBProphecy prophecies = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.oracle.v1.Types.DBProphecy> getPropheciesList() {
       return prophecies_;
     }
     /**
      * <code>repeated .sifnode.oracle.v1.DBProphecy prophecies = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.oracle.v1.Types.DBProphecyOrBuilder> 
         getPropheciesOrBuilderList() {
       return prophecies_;
@@ -437,18 +445,21 @@ public final class Types {
     /**
      * <code>repeated .sifnode.oracle.v1.DBProphecy prophecies = 3;</code>
      */
+    @java.lang.Override
     public int getPropheciesCount() {
       return prophecies_.size();
     }
     /**
      * <code>repeated .sifnode.oracle.v1.DBProphecy prophecies = 3;</code>
      */
+    @java.lang.Override
     public sifnode.oracle.v1.Types.DBProphecy getProphecies(int index) {
       return prophecies_.get(index);
     }
     /**
      * <code>repeated .sifnode.oracle.v1.DBProphecy prophecies = 3;</code>
      */
+    @java.lang.Override
     public sifnode.oracle.v1.Types.DBProphecyOrBuilder getPropheciesOrBuilder(
         int index) {
       return prophecies_.get(index);
@@ -1373,7 +1384,7 @@ public final class Types {
    *
    * Protobuf type {@code sifnode.oracle.v1.Claim}
    */
-  public  static final class Claim extends
+  public static final class Claim extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.oracle.v1.Claim)
       ClaimOrBuilder {
@@ -1474,6 +1485,7 @@ public final class Types {
      * <code>string id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -1490,6 +1502,7 @@ public final class Types {
      * <code>string id = 1;</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -1510,6 +1523,7 @@ public final class Types {
      * <code>string validator_address = 2;</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -1526,6 +1540,7 @@ public final class Types {
      * <code>string validator_address = 2;</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -1546,6 +1561,7 @@ public final class Types {
      * <code>string content = 3;</code>
      * @return The content.
      */
+    @java.lang.Override
     public java.lang.String getContent() {
       java.lang.Object ref = content_;
       if (ref instanceof java.lang.String) {
@@ -1562,6 +1578,7 @@ public final class Types {
      * <code>string content = 3;</code>
      * @return The bytes for content.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getContentBytes() {
       java.lang.Object ref = content_;
@@ -2249,7 +2266,7 @@ public final class Types {
    *
    * Protobuf type {@code sifnode.oracle.v1.DBProphecy}
    */
-  public  static final class DBProphecy extends
+  public static final class DBProphecy extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.oracle.v1.DBProphecy)
       DBProphecyOrBuilder {
@@ -2361,6 +2378,7 @@ public final class Types {
      * <code>string id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -2377,6 +2395,7 @@ public final class Types {
      * <code>string id = 1;</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -2397,6 +2416,7 @@ public final class Types {
      * <code>.sifnode.oracle.v1.Status status = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the status field is set.
      */
+    @java.lang.Override
     public boolean hasStatus() {
       return status_ != null;
     }
@@ -2404,12 +2424,14 @@ public final class Types {
      * <code>.sifnode.oracle.v1.Status status = 2 [(.gogoproto.nullable) = false];</code>
      * @return The status.
      */
+    @java.lang.Override
     public sifnode.oracle.v1.Types.Status getStatus() {
       return status_ == null ? sifnode.oracle.v1.Types.Status.getDefaultInstance() : status_;
     }
     /**
      * <code>.sifnode.oracle.v1.Status status = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public sifnode.oracle.v1.Types.StatusOrBuilder getStatusOrBuilder() {
       return getStatus();
     }
@@ -2420,6 +2442,7 @@ public final class Types {
      * <code>bytes claim_validators = 3;</code>
      * @return The claimValidators.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getClaimValidators() {
       return claimValidators_;
     }
@@ -2430,6 +2453,7 @@ public final class Types {
      * <code>bytes validator_claims = 4;</code>
      * @return The validatorClaims.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValidatorClaims() {
       return validatorClaims_;
     }
@@ -3006,6 +3030,7 @@ public final class Types {
        * <code>bytes claim_validators = 3;</code>
        * @return The claimValidators.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getClaimValidators() {
         return claimValidators_;
       }
@@ -3039,6 +3064,7 @@ public final class Types {
        * <code>bytes validator_claims = 4;</code>
        * @return The validatorClaims.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValidatorClaims() {
         return validatorClaims_;
       }
@@ -3153,7 +3179,7 @@ public final class Types {
    *
    * Protobuf type {@code sifnode.oracle.v1.Status}
    */
-  public  static final class Status extends
+  public static final class Status extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.oracle.v1.Status)
       StatusOrBuilder {
@@ -3247,14 +3273,14 @@ public final class Types {
      * <code>.sifnode.oracle.v1.StatusText text = 1;</code>
      * @return The enum numeric value on the wire for text.
      */
-    public int getTextValue() {
+    @java.lang.Override public int getTextValue() {
       return text_;
     }
     /**
      * <code>.sifnode.oracle.v1.StatusText text = 1;</code>
      * @return The text.
      */
-    public sifnode.oracle.v1.Types.StatusText getText() {
+    @java.lang.Override public sifnode.oracle.v1.Types.StatusText getText() {
       @SuppressWarnings("deprecation")
       sifnode.oracle.v1.Types.StatusText result = sifnode.oracle.v1.Types.StatusText.valueOf(text_);
       return result == null ? sifnode.oracle.v1.Types.StatusText.UNRECOGNIZED : result;
@@ -3266,6 +3292,7 @@ public final class Types {
      * <code>string final_claim = 2;</code>
      * @return The finalClaim.
      */
+    @java.lang.Override
     public java.lang.String getFinalClaim() {
       java.lang.Object ref = finalClaim_;
       if (ref instanceof java.lang.String) {
@@ -3282,6 +3309,7 @@ public final class Types {
      * <code>string final_claim = 2;</code>
      * @return The bytes for finalClaim.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFinalClaimBytes() {
       java.lang.Object ref = finalClaim_;
@@ -3623,7 +3651,7 @@ public final class Types {
        * <code>.sifnode.oracle.v1.StatusText text = 1;</code>
        * @return The enum numeric value on the wire for text.
        */
-      public int getTextValue() {
+      @java.lang.Override public int getTextValue() {
         return text_;
       }
       /**
@@ -3632,6 +3660,7 @@ public final class Types {
        * @return This builder for chaining.
        */
       public Builder setTextValue(int value) {
+        
         text_ = value;
         onChanged();
         return this;
@@ -3640,6 +3669,7 @@ public final class Types {
        * <code>.sifnode.oracle.v1.StatusText text = 1;</code>
        * @return The text.
        */
+      @java.lang.Override
       public sifnode.oracle.v1.Types.StatusText getText() {
         @SuppressWarnings("deprecation")
         sifnode.oracle.v1.Types.StatusText result = sifnode.oracle.v1.Types.StatusText.valueOf(text_);
@@ -3847,7 +3877,7 @@ public final class Types {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_sifnode_oracle_v1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3875,10 +3905,10 @@ public final class Types {
         new java.lang.String[] { "Text", "FinalClaim", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

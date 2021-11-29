@@ -10,7 +10,7 @@ package panacea.token.v2;
  *
  * Protobuf type {@code panacea.token.v2.QueryTokensRequest}
  */
-public  final class QueryTokensRequest extends
+public final class QueryTokensRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.token.v2.QueryTokensRequest)
     QueryTokensRequestOrBuilder {
@@ -103,6 +103,7 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
    * @return Whether the pagination field is set.
    */
+  @java.lang.Override
   public boolean hasPagination() {
     return pagination_ != null;
   }
@@ -110,12 +111,14 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
    * @return The pagination.
    */
+  @java.lang.Override
   public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
     return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
   }
   /**
    * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
    */
+  @java.lang.Override
   public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
     return getPagination();
   }

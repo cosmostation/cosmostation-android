@@ -86,7 +86,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.bank.v1alpha1.MsgLockedSend}
    */
-  public  static final class MsgLockedSend extends
+  public static final class MsgLockedSend extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.bank.v1alpha1.MsgLockedSend)
       MsgLockedSendOrBuilder {
@@ -201,6 +201,7 @@ public final class Tx {
      * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
      * @return The fromAddress.
      */
+    @java.lang.Override
     public java.lang.String getFromAddress() {
       java.lang.Object ref = fromAddress_;
       if (ref instanceof java.lang.String) {
@@ -217,6 +218,7 @@ public final class Tx {
      * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
      * @return The bytes for fromAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromAddressBytes() {
       java.lang.Object ref = fromAddress_;
@@ -237,6 +239,7 @@ public final class Tx {
      * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
      * @return The toAddress.
      */
+    @java.lang.Override
     public java.lang.String getToAddress() {
       java.lang.Object ref = toAddress_;
       if (ref instanceof java.lang.String) {
@@ -253,6 +256,7 @@ public final class Tx {
      * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
      * @return The bytes for toAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getToAddressBytes() {
       java.lang.Object ref = toAddress_;
@@ -273,6 +277,7 @@ public final class Tx {
      * <code>string unlocker_address = 3 [(.gogoproto.moretags) = "yaml:&#92;"unlocker_address&#92;""];</code>
      * @return The unlockerAddress.
      */
+    @java.lang.Override
     public java.lang.String getUnlockerAddress() {
       java.lang.Object ref = unlockerAddress_;
       if (ref instanceof java.lang.String) {
@@ -289,6 +294,7 @@ public final class Tx {
      * <code>string unlocker_address = 3 [(.gogoproto.moretags) = "yaml:&#92;"unlocker_address&#92;""];</code>
      * @return The bytes for unlockerAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUnlockerAddressBytes() {
       java.lang.Object ref = unlockerAddress_;
@@ -308,12 +314,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getAmountList() {
       return amount_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getAmountOrBuilderList() {
       return amount_;
@@ -321,18 +329,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getAmountCount() {
       return amount_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount(int index) {
       return amount_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder(
         int index) {
       return amount_.get(index);
@@ -1267,7 +1278,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.bank.v1alpha1.MsgLockedSendResponse}
    */
-  public  static final class MsgLockedSendResponse extends
+  public static final class MsgLockedSendResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.bank.v1alpha1.MsgLockedSendResponse)
       MsgLockedSendResponseOrBuilder {
@@ -1720,7 +1731,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos.bank.v1beta1.Bank.getDescriptor(),
         });
@@ -1738,14 +1749,14 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos.bank.v1beta1.Bank.getDescriptor();
   }

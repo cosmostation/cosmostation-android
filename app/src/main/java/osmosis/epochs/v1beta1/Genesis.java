@@ -88,10 +88,10 @@ public final class Genesis {
     boolean getEpochCountingStarted();
 
     /**
-     * <code>bool current_epoch_ended = 7;</code>
-     * @return The currentEpochEnded.
+     * <code>int64 current_epoch_start_height = 8;</code>
+     * @return The currentEpochStartHeight.
      */
-    boolean getCurrentEpochEnded();
+    long getCurrentEpochStartHeight();
   }
   /**
    * Protobuf type {@code osmosis.epochs.v1beta1.EpochInfo}
@@ -194,9 +194,9 @@ public final class Genesis {
               epochCountingStarted_ = input.readBool();
               break;
             }
-            case 56: {
+            case 64: {
 
-              currentEpochEnded_ = input.readBool();
+              currentEpochStartHeight_ = input.readInt64();
               break;
             }
             default: {
@@ -369,15 +369,15 @@ public final class Genesis {
       return epochCountingStarted_;
     }
 
-    public static final int CURRENT_EPOCH_ENDED_FIELD_NUMBER = 7;
-    private boolean currentEpochEnded_;
+    public static final int CURRENT_EPOCH_START_HEIGHT_FIELD_NUMBER = 8;
+    private long currentEpochStartHeight_;
     /**
-     * <code>bool current_epoch_ended = 7;</code>
-     * @return The currentEpochEnded.
+     * <code>int64 current_epoch_start_height = 8;</code>
+     * @return The currentEpochStartHeight.
      */
     @java.lang.Override
-    public boolean getCurrentEpochEnded() {
-      return currentEpochEnded_;
+    public long getCurrentEpochStartHeight() {
+      return currentEpochStartHeight_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -412,8 +412,8 @@ public final class Genesis {
       if (epochCountingStarted_ != false) {
         output.writeBool(6, epochCountingStarted_);
       }
-      if (currentEpochEnded_ != false) {
-        output.writeBool(7, currentEpochEnded_);
+      if (currentEpochStartHeight_ != 0L) {
+        output.writeInt64(8, currentEpochStartHeight_);
       }
       unknownFields.writeTo(output);
     }
@@ -447,9 +447,9 @@ public final class Genesis {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(6, epochCountingStarted_);
       }
-      if (currentEpochEnded_ != false) {
+      if (currentEpochStartHeight_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(7, currentEpochEnded_);
+          .computeInt64Size(8, currentEpochStartHeight_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -487,8 +487,8 @@ public final class Genesis {
       }
       if (getEpochCountingStarted()
           != other.getEpochCountingStarted()) return false;
-      if (getCurrentEpochEnded()
-          != other.getCurrentEpochEnded()) return false;
+      if (getCurrentEpochStartHeight()
+          != other.getCurrentEpochStartHeight()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -520,9 +520,9 @@ public final class Genesis {
       hash = (37 * hash) + EPOCH_COUNTING_STARTED_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getEpochCountingStarted());
-      hash = (37 * hash) + CURRENT_EPOCH_ENDED_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getCurrentEpochEnded());
+      hash = (37 * hash) + CURRENT_EPOCH_START_HEIGHT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCurrentEpochStartHeight());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -680,7 +680,7 @@ public final class Genesis {
         }
         epochCountingStarted_ = false;
 
-        currentEpochEnded_ = false;
+        currentEpochStartHeight_ = 0L;
 
         return this;
       }
@@ -726,7 +726,7 @@ public final class Genesis {
           result.currentEpochStartTime_ = currentEpochStartTimeBuilder_.build();
         }
         result.epochCountingStarted_ = epochCountingStarted_;
-        result.currentEpochEnded_ = currentEpochEnded_;
+        result.currentEpochStartHeight_ = currentEpochStartHeight_;
         onBuilt();
         return result;
       }
@@ -794,8 +794,8 @@ public final class Genesis {
         if (other.getEpochCountingStarted() != false) {
           setEpochCountingStarted(other.getEpochCountingStarted());
         }
-        if (other.getCurrentEpochEnded() != false) {
-          setCurrentEpochEnded(other.getCurrentEpochEnded());
+        if (other.getCurrentEpochStartHeight() != 0L) {
+          setCurrentEpochStartHeight(other.getCurrentEpochStartHeight());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1321,33 +1321,33 @@ public final class Genesis {
         return this;
       }
 
-      private boolean currentEpochEnded_ ;
+      private long currentEpochStartHeight_ ;
       /**
-       * <code>bool current_epoch_ended = 7;</code>
-       * @return The currentEpochEnded.
+       * <code>int64 current_epoch_start_height = 8;</code>
+       * @return The currentEpochStartHeight.
        */
       @java.lang.Override
-      public boolean getCurrentEpochEnded() {
-        return currentEpochEnded_;
+      public long getCurrentEpochStartHeight() {
+        return currentEpochStartHeight_;
       }
       /**
-       * <code>bool current_epoch_ended = 7;</code>
-       * @param value The currentEpochEnded to set.
+       * <code>int64 current_epoch_start_height = 8;</code>
+       * @param value The currentEpochStartHeight to set.
        * @return This builder for chaining.
        */
-      public Builder setCurrentEpochEnded(boolean value) {
+      public Builder setCurrentEpochStartHeight(long value) {
         
-        currentEpochEnded_ = value;
+        currentEpochStartHeight_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>bool current_epoch_ended = 7;</code>
+       * <code>int64 current_epoch_start_height = 8;</code>
        * @return This builder for chaining.
        */
-      public Builder clearCurrentEpochEnded() {
+      public Builder clearCurrentEpochStartHeight() {
         
-        currentEpochEnded_ = false;
+        currentEpochStartHeight_ = 0L;
         onChanged();
         return this;
       }
@@ -2227,7 +2227,7 @@ public final class Genesis {
       "\n\034osmosis/epochs/genesis.proto\022\026osmosis." +
       "epochs.v1beta1\032\024gogoproto/gogo.proto\032\036go" +
       "ogle/protobuf/duration.proto\032\037google/pro" +
-      "tobuf/timestamp.proto\"\215\003\n\tEpochInfo\022\022\n\ni" +
+      "tobuf/timestamp.proto\"\232\003\n\tEpochInfo\022\022\n\ni" +
       "dentifier\030\001 \001(\t\022M\n\nstart_time\030\002 \001(\0132\032.go" +
       "ogle.protobuf.TimestampB\035\220\337\037\001\310\336\037\000\362\336\037\021yam" +
       "l:\"start_time\"\022^\n\010duration\030\003 \001(\0132\031.googl" +
@@ -2236,16 +2236,17 @@ public final class Genesis {
       "t_epoch\030\004 \001(\003\022i\n\030current_epoch_start_tim" +
       "e\030\005 \001(\0132\032.google.protobuf.TimestampB+\220\337\037" +
       "\001\310\336\037\000\362\336\037\037yaml:\"current_epoch_start_time\"" +
-      "\022\036\n\026epoch_counting_started\030\006 \001(\010\022\033\n\023curr" +
-      "ent_epoch_ended\030\007 \001(\010\"G\n\014GenesisState\0227\n" +
-      "\006epochs\030\001 \003(\0132!.osmosis.epochs.v1beta1.E" +
-      "pochInfoB\004\310\336\037\000B0Z.github.com/osmosis-lab" +
-      "s/osmosis/x/epochs/typesb\006proto3"
+      "\022\036\n\026epoch_counting_started\030\006 \001(\010\022\"\n\032curr" +
+      "ent_epoch_start_height\030\010 \001(\003J\004\010\007\020\010\"G\n\014Ge" +
+      "nesisState\0227\n\006epochs\030\001 \003(\0132!.osmosis.epo" +
+      "chs.v1beta1.EpochInfoB\004\310\336\037\000B0Z.github.co" +
+      "m/osmosis-labs/osmosis/x/epochs/typesb\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
         });
@@ -2254,7 +2255,7 @@ public final class Genesis {
     internal_static_osmosis_epochs_v1beta1_EpochInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_epochs_v1beta1_EpochInfo_descriptor,
-        new java.lang.String[] { "Identifier", "StartTime", "Duration", "CurrentEpoch", "CurrentEpochStartTime", "EpochCountingStarted", "CurrentEpochEnded", });
+        new java.lang.String[] { "Identifier", "StartTime", "Duration", "CurrentEpoch", "CurrentEpochStartTime", "EpochCountingStarted", "CurrentEpochStartHeight", });
     internal_static_osmosis_epochs_v1beta1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_osmosis_epochs_v1beta1_GenesisState_fieldAccessorTable = new
@@ -2263,14 +2264,14 @@ public final class Genesis {
         new java.lang.String[] { "Epochs", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
-    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
   }

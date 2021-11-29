@@ -7242,13 +7242,13 @@ public final class GroupOuterClass {
       ":\"unit\"\022(\n\005count\030\002 \001(\rB\031\352\336\037\005count\362\336\037\014yam" +
       "l:\"count\"\022G\n\005price\030\003 \001(\0132\031.cosmos.base.v" +
       "1beta1.CoinB\035\310\336\037\000\352\336\037\005price\362\336\037\014yaml:\"pric" +
-      "e\":\004\350\240\037\000B,Z*github.com/ovrclk/akash/x/de" +
-      "ployment/typesb\006proto3"
+      "e\":\004\350\240\037\000B4Z2github.com/ovrclk/akash/x/de" +
+      "ployment/types/v1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           akash.base.v1beta1.Resource.getDescriptor(),
           akash.base.v1beta1.AttributeOuterClass.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
@@ -7315,18 +7315,18 @@ public final class GroupOuterClass {
         new java.lang.String[] { "Resources", "Count", "Price", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customname);
-    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     akash.base.v1beta1.Resource.getDescriptor();
     akash.base.v1beta1.AttributeOuterClass.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();

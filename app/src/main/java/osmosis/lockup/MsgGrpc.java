@@ -92,37 +92,6 @@ public final class MsgGrpc {
     return getBeginUnlockingAllMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<osmosis.lockup.Tx.MsgUnlockTokens,
-      osmosis.lockup.Tx.MsgUnlockTokensResponse> getUnlockTokensMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "UnlockTokens",
-      requestType = osmosis.lockup.Tx.MsgUnlockTokens.class,
-      responseType = osmosis.lockup.Tx.MsgUnlockTokensResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<osmosis.lockup.Tx.MsgUnlockTokens,
-      osmosis.lockup.Tx.MsgUnlockTokensResponse> getUnlockTokensMethod() {
-    io.grpc.MethodDescriptor<osmosis.lockup.Tx.MsgUnlockTokens, osmosis.lockup.Tx.MsgUnlockTokensResponse> getUnlockTokensMethod;
-    if ((getUnlockTokensMethod = MsgGrpc.getUnlockTokensMethod) == null) {
-      synchronized (MsgGrpc.class) {
-        if ((getUnlockTokensMethod = MsgGrpc.getUnlockTokensMethod) == null) {
-          MsgGrpc.getUnlockTokensMethod = getUnlockTokensMethod =
-              io.grpc.MethodDescriptor.<osmosis.lockup.Tx.MsgUnlockTokens, osmosis.lockup.Tx.MsgUnlockTokensResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UnlockTokens"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.lockup.Tx.MsgUnlockTokens.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.lockup.Tx.MsgUnlockTokensResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("UnlockTokens"))
-              .build();
-        }
-      }
-    }
-    return getUnlockTokensMethod;
-  }
-
   private static volatile io.grpc.MethodDescriptor<osmosis.lockup.Tx.MsgBeginUnlocking,
       osmosis.lockup.Tx.MsgBeginUnlockingResponse> getBeginUnlockingMethod;
 
@@ -152,37 +121,6 @@ public final class MsgGrpc {
       }
     }
     return getBeginUnlockingMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<osmosis.lockup.Tx.MsgUnlockPeriodLock,
-      osmosis.lockup.Tx.MsgUnlockPeriodLockResponse> getUnlockPeriodLockMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "UnlockPeriodLock",
-      requestType = osmosis.lockup.Tx.MsgUnlockPeriodLock.class,
-      responseType = osmosis.lockup.Tx.MsgUnlockPeriodLockResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<osmosis.lockup.Tx.MsgUnlockPeriodLock,
-      osmosis.lockup.Tx.MsgUnlockPeriodLockResponse> getUnlockPeriodLockMethod() {
-    io.grpc.MethodDescriptor<osmosis.lockup.Tx.MsgUnlockPeriodLock, osmosis.lockup.Tx.MsgUnlockPeriodLockResponse> getUnlockPeriodLockMethod;
-    if ((getUnlockPeriodLockMethod = MsgGrpc.getUnlockPeriodLockMethod) == null) {
-      synchronized (MsgGrpc.class) {
-        if ((getUnlockPeriodLockMethod = MsgGrpc.getUnlockPeriodLockMethod) == null) {
-          MsgGrpc.getUnlockPeriodLockMethod = getUnlockPeriodLockMethod =
-              io.grpc.MethodDescriptor.<osmosis.lockup.Tx.MsgUnlockPeriodLock, osmosis.lockup.Tx.MsgUnlockPeriodLockResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UnlockPeriodLock"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.lockup.Tx.MsgUnlockPeriodLock.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  osmosis.lockup.Tx.MsgUnlockPeriodLockResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("UnlockPeriodLock"))
-              .build();
-        }
-      }
-    }
-    return getUnlockPeriodLockMethod;
   }
 
   /**
@@ -258,32 +196,12 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * UnlockTokens unlock all unlockable tokens
-     * </pre>
-     */
-    public void unlockTokens(osmosis.lockup.Tx.MsgUnlockTokens request,
-        io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgUnlockTokensResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getUnlockTokensMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
      * MsgBeginUnlocking begins unlocking tokens by lock ID
      * </pre>
      */
     public void beginUnlocking(osmosis.lockup.Tx.MsgBeginUnlocking request,
         io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgBeginUnlockingResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getBeginUnlockingMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
-     * UnlockPeriodLock unlock individual period lock by ID
-     * </pre>
-     */
-    public void unlockPeriodLock(osmosis.lockup.Tx.MsgUnlockPeriodLock request,
-        io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgUnlockPeriodLockResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getUnlockPeriodLockMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -303,26 +221,12 @@ public final class MsgGrpc {
                 osmosis.lockup.Tx.MsgBeginUnlockingAllResponse>(
                   this, METHODID_BEGIN_UNLOCKING_ALL)))
           .addMethod(
-            getUnlockTokensMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                osmosis.lockup.Tx.MsgUnlockTokens,
-                osmosis.lockup.Tx.MsgUnlockTokensResponse>(
-                  this, METHODID_UNLOCK_TOKENS)))
-          .addMethod(
             getBeginUnlockingMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 osmosis.lockup.Tx.MsgBeginUnlocking,
                 osmosis.lockup.Tx.MsgBeginUnlockingResponse>(
                   this, METHODID_BEGIN_UNLOCKING)))
-          .addMethod(
-            getUnlockPeriodLockMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                osmosis.lockup.Tx.MsgUnlockPeriodLock,
-                osmosis.lockup.Tx.MsgUnlockPeriodLockResponse>(
-                  this, METHODID_UNLOCK_PERIOD_LOCK)))
           .build();
     }
   }
@@ -368,17 +272,6 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * UnlockTokens unlock all unlockable tokens
-     * </pre>
-     */
-    public void unlockTokens(osmosis.lockup.Tx.MsgUnlockTokens request,
-        io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgUnlockTokensResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getUnlockTokensMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
      * MsgBeginUnlocking begins unlocking tokens by lock ID
      * </pre>
      */
@@ -386,17 +279,6 @@ public final class MsgGrpc {
         io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgBeginUnlockingResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getBeginUnlockingMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * UnlockPeriodLock unlock individual period lock by ID
-     * </pre>
-     */
-    public void unlockPeriodLock(osmosis.lockup.Tx.MsgUnlockPeriodLock request,
-        io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgUnlockPeriodLockResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getUnlockPeriodLockMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -439,32 +321,12 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * UnlockTokens unlock all unlockable tokens
-     * </pre>
-     */
-    public osmosis.lockup.Tx.MsgUnlockTokensResponse unlockTokens(osmosis.lockup.Tx.MsgUnlockTokens request) {
-      return blockingUnaryCall(
-          getChannel(), getUnlockTokensMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
      * MsgBeginUnlocking begins unlocking tokens by lock ID
      * </pre>
      */
     public osmosis.lockup.Tx.MsgBeginUnlockingResponse beginUnlocking(osmosis.lockup.Tx.MsgBeginUnlocking request) {
       return blockingUnaryCall(
           getChannel(), getBeginUnlockingMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * UnlockPeriodLock unlock individual period lock by ID
-     * </pre>
-     */
-    public osmosis.lockup.Tx.MsgUnlockPeriodLockResponse unlockPeriodLock(osmosis.lockup.Tx.MsgUnlockPeriodLock request) {
-      return blockingUnaryCall(
-          getChannel(), getUnlockPeriodLockMethod(), getCallOptions(), request);
     }
   }
 
@@ -509,17 +371,6 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * UnlockTokens unlock all unlockable tokens
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<osmosis.lockup.Tx.MsgUnlockTokensResponse> unlockTokens(
-        osmosis.lockup.Tx.MsgUnlockTokens request) {
-      return futureUnaryCall(
-          getChannel().newCall(getUnlockTokensMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
      * MsgBeginUnlocking begins unlocking tokens by lock ID
      * </pre>
      */
@@ -528,24 +379,11 @@ public final class MsgGrpc {
       return futureUnaryCall(
           getChannel().newCall(getBeginUnlockingMethod(), getCallOptions()), request);
     }
-
-    /**
-     * <pre>
-     * UnlockPeriodLock unlock individual period lock by ID
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<osmosis.lockup.Tx.MsgUnlockPeriodLockResponse> unlockPeriodLock(
-        osmosis.lockup.Tx.MsgUnlockPeriodLock request) {
-      return futureUnaryCall(
-          getChannel().newCall(getUnlockPeriodLockMethod(), getCallOptions()), request);
-    }
   }
 
   private static final int METHODID_LOCK_TOKENS = 0;
   private static final int METHODID_BEGIN_UNLOCKING_ALL = 1;
-  private static final int METHODID_UNLOCK_TOKENS = 2;
-  private static final int METHODID_BEGIN_UNLOCKING = 3;
-  private static final int METHODID_UNLOCK_PERIOD_LOCK = 4;
+  private static final int METHODID_BEGIN_UNLOCKING = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -572,17 +410,9 @@ public final class MsgGrpc {
           serviceImpl.beginUnlockingAll((osmosis.lockup.Tx.MsgBeginUnlockingAll) request,
               (io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgBeginUnlockingAllResponse>) responseObserver);
           break;
-        case METHODID_UNLOCK_TOKENS:
-          serviceImpl.unlockTokens((osmosis.lockup.Tx.MsgUnlockTokens) request,
-              (io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgUnlockTokensResponse>) responseObserver);
-          break;
         case METHODID_BEGIN_UNLOCKING:
           serviceImpl.beginUnlocking((osmosis.lockup.Tx.MsgBeginUnlocking) request,
               (io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgBeginUnlockingResponse>) responseObserver);
-          break;
-        case METHODID_UNLOCK_PERIOD_LOCK:
-          serviceImpl.unlockPeriodLock((osmosis.lockup.Tx.MsgUnlockPeriodLock) request,
-              (io.grpc.stub.StreamObserver<osmosis.lockup.Tx.MsgUnlockPeriodLockResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -647,9 +477,7 @@ public final class MsgGrpc {
               .setSchemaDescriptor(new MsgFileDescriptorSupplier())
               .addMethod(getLockTokensMethod())
               .addMethod(getBeginUnlockingAllMethod())
-              .addMethod(getUnlockTokensMethod())
               .addMethod(getBeginUnlockingMethod())
-              .addMethod(getUnlockPeriodLockMethod())
               .build();
         }
       }

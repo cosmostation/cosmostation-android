@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
@@ -23,7 +23,6 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.OsmosisGaugeWrapper;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
-import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -47,7 +46,7 @@ public class EarningOtherHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBindView(Context c, BaseActivity activity, BaseData baseData,
-                           PoolOuterClass.Pool pool, ArrayList<Lock.PeriodLock> lockups, ArrayList<GaugeOuterClass.Gauge> gauges) {
+                           BalancerPoolOuterClass.BalancerPool pool, ArrayList<Lock.PeriodLock> lockups, ArrayList<GaugeOuterClass.Gauge> gauges) {
 
         Coin coin0 = new Coin(pool.getPoolAssets(0).getToken().getDenom(), pool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(pool.getPoolAssets(1).getToken().getDenom(), pool.getPoolAssets(1).getToken().getAmount());

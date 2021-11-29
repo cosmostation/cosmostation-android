@@ -285,6 +285,75 @@ public final class Types {
      * @return The metadataSizeMax.
      */
     long getMetadataSizeMax();
+
+    /**
+     * <pre>
+     * EscrowBroker defines an address that will receive a commission for completed escrows
+     * </pre>
+     *
+     * <code>string escrow_broker = 16 [(.gogoproto.moretags) = "yaml:&#92;"escrow_broker&#92;""];</code>
+     * @return The escrowBroker.
+     */
+    java.lang.String getEscrowBroker();
+    /**
+     * <pre>
+     * EscrowBroker defines an address that will receive a commission for completed escrows
+     * </pre>
+     *
+     * <code>string escrow_broker = 16 [(.gogoproto.moretags) = "yaml:&#92;"escrow_broker&#92;""];</code>
+     * @return The bytes for escrowBroker.
+     */
+    com.google.protobuf.ByteString
+        getEscrowBrokerBytes();
+
+    /**
+     * <pre>
+     * EscrowCommission defines the commission taken by the broker for a completed escrow, between 0 (no commission) and
+     * 1 (100% commission)
+     * </pre>
+     *
+     * <code>string escrow_commission = 17 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"escrow_commission&#92;""];</code>
+     * @return The escrowCommission.
+     */
+    java.lang.String getEscrowCommission();
+    /**
+     * <pre>
+     * EscrowCommission defines the commission taken by the broker for a completed escrow, between 0 (no commission) and
+     * 1 (100% commission)
+     * </pre>
+     *
+     * <code>string escrow_commission = 17 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"escrow_commission&#92;""];</code>
+     * @return The bytes for escrowCommission.
+     */
+    com.google.protobuf.ByteString
+        getEscrowCommissionBytes();
+
+    /**
+     * <pre>
+     * EscrowPeriod defines the maximum duration of an escrow in seconds
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+     * @return Whether the escrowMaxPeriod field is set.
+     */
+    boolean hasEscrowMaxPeriod();
+    /**
+     * <pre>
+     * EscrowPeriod defines the maximum duration of an escrow in seconds
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+     * @return The escrowMaxPeriod.
+     */
+    com.google.protobuf.Duration getEscrowMaxPeriod();
+    /**
+     * <pre>
+     * EscrowPeriod defines the maximum duration of an escrow in seconds
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+     */
+    com.google.protobuf.DurationOrBuilder getEscrowMaxPeriodOrBuilder();
   }
   /**
    * <pre>
@@ -308,6 +377,8 @@ public final class Types {
       validAccountName_ = "";
       validUri_ = "";
       validResource_ = "";
+      escrowBroker_ = "";
+      escrowCommission_ = "";
     }
 
     @java.lang.Override
@@ -450,6 +521,31 @@ public final class Types {
             case 120: {
 
               metadataSizeMax_ = input.readUInt64();
+              break;
+            }
+            case 130: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              escrowBroker_ = s;
+              break;
+            }
+            case 138: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              escrowCommission_ = s;
+              break;
+            }
+            case 146: {
+              com.google.protobuf.Duration.Builder subBuilder = null;
+              if (escrowMaxPeriod_ != null) {
+                subBuilder = escrowMaxPeriod_.toBuilder();
+              }
+              escrowMaxPeriod_ = input.readMessage(com.google.protobuf.Duration.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(escrowMaxPeriod_);
+                escrowMaxPeriod_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -956,6 +1052,138 @@ public final class Types {
       return metadataSizeMax_;
     }
 
+    public static final int ESCROW_BROKER_FIELD_NUMBER = 16;
+    private volatile java.lang.Object escrowBroker_;
+    /**
+     * <pre>
+     * EscrowBroker defines an address that will receive a commission for completed escrows
+     * </pre>
+     *
+     * <code>string escrow_broker = 16 [(.gogoproto.moretags) = "yaml:&#92;"escrow_broker&#92;""];</code>
+     * @return The escrowBroker.
+     */
+    @java.lang.Override
+    public java.lang.String getEscrowBroker() {
+      java.lang.Object ref = escrowBroker_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        escrowBroker_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * EscrowBroker defines an address that will receive a commission for completed escrows
+     * </pre>
+     *
+     * <code>string escrow_broker = 16 [(.gogoproto.moretags) = "yaml:&#92;"escrow_broker&#92;""];</code>
+     * @return The bytes for escrowBroker.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEscrowBrokerBytes() {
+      java.lang.Object ref = escrowBroker_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        escrowBroker_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ESCROW_COMMISSION_FIELD_NUMBER = 17;
+    private volatile java.lang.Object escrowCommission_;
+    /**
+     * <pre>
+     * EscrowCommission defines the commission taken by the broker for a completed escrow, between 0 (no commission) and
+     * 1 (100% commission)
+     * </pre>
+     *
+     * <code>string escrow_commission = 17 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"escrow_commission&#92;""];</code>
+     * @return The escrowCommission.
+     */
+    @java.lang.Override
+    public java.lang.String getEscrowCommission() {
+      java.lang.Object ref = escrowCommission_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        escrowCommission_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * EscrowCommission defines the commission taken by the broker for a completed escrow, between 0 (no commission) and
+     * 1 (100% commission)
+     * </pre>
+     *
+     * <code>string escrow_commission = 17 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"escrow_commission&#92;""];</code>
+     * @return The bytes for escrowCommission.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEscrowCommissionBytes() {
+      java.lang.Object ref = escrowCommission_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        escrowCommission_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ESCROW_MAX_PERIOD_FIELD_NUMBER = 18;
+    private com.google.protobuf.Duration escrowMaxPeriod_;
+    /**
+     * <pre>
+     * EscrowPeriod defines the maximum duration of an escrow in seconds
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+     * @return Whether the escrowMaxPeriod field is set.
+     */
+    @java.lang.Override
+    public boolean hasEscrowMaxPeriod() {
+      return escrowMaxPeriod_ != null;
+    }
+    /**
+     * <pre>
+     * EscrowPeriod defines the maximum duration of an escrow in seconds
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+     * @return The escrowMaxPeriod.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Duration getEscrowMaxPeriod() {
+      return escrowMaxPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : escrowMaxPeriod_;
+    }
+    /**
+     * <pre>
+     * EscrowPeriod defines the maximum duration of an escrow in seconds
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.DurationOrBuilder getEscrowMaxPeriodOrBuilder() {
+      return getEscrowMaxPeriod();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1014,6 +1242,15 @@ public final class Types {
       }
       if (metadataSizeMax_ != 0L) {
         output.writeUInt64(15, metadataSizeMax_);
+      }
+      if (!getEscrowBrokerBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 16, escrowBroker_);
+      }
+      if (!getEscrowCommissionBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 17, escrowCommission_);
+      }
+      if (escrowMaxPeriod_ != null) {
+        output.writeMessage(18, getEscrowMaxPeriod());
       }
       unknownFields.writeTo(output);
     }
@@ -1079,6 +1316,16 @@ public final class Types {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(15, metadataSizeMax_);
       }
+      if (!getEscrowBrokerBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, escrowBroker_);
+      }
+      if (!getEscrowCommissionBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, escrowCommission_);
+      }
+      if (escrowMaxPeriod_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(18, getEscrowMaxPeriod());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1136,6 +1383,15 @@ public final class Types {
           != other.getCertificateCountMax()) return false;
       if (getMetadataSizeMax()
           != other.getMetadataSizeMax()) return false;
+      if (!getEscrowBroker()
+          .equals(other.getEscrowBroker())) return false;
+      if (!getEscrowCommission()
+          .equals(other.getEscrowCommission())) return false;
+      if (hasEscrowMaxPeriod() != other.hasEscrowMaxPeriod()) return false;
+      if (hasEscrowMaxPeriod()) {
+        if (!getEscrowMaxPeriod()
+            .equals(other.getEscrowMaxPeriod())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1187,6 +1443,14 @@ public final class Types {
       hash = (37 * hash) + METADATA_SIZE_MAX_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getMetadataSizeMax());
+      hash = (37 * hash) + ESCROW_BROKER_FIELD_NUMBER;
+      hash = (53 * hash) + getEscrowBroker().hashCode();
+      hash = (37 * hash) + ESCROW_COMMISSION_FIELD_NUMBER;
+      hash = (53 * hash) + getEscrowCommission().hashCode();
+      if (hasEscrowMaxPeriod()) {
+        hash = (37 * hash) + ESCROW_MAX_PERIOD_FIELD_NUMBER;
+        hash = (53 * hash) + getEscrowMaxPeriod().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1370,6 +1634,16 @@ public final class Types {
 
         metadataSizeMax_ = 0L;
 
+        escrowBroker_ = "";
+
+        escrowCommission_ = "";
+
+        if (escrowMaxPeriodBuilder_ == null) {
+          escrowMaxPeriod_ = null;
+        } else {
+          escrowMaxPeriod_ = null;
+          escrowMaxPeriodBuilder_ = null;
+        }
         return this;
       }
 
@@ -1427,6 +1701,13 @@ public final class Types {
         result.certificateSizeMax_ = certificateSizeMax_;
         result.certificateCountMax_ = certificateCountMax_;
         result.metadataSizeMax_ = metadataSizeMax_;
+        result.escrowBroker_ = escrowBroker_;
+        result.escrowCommission_ = escrowCommission_;
+        if (escrowMaxPeriodBuilder_ == null) {
+          result.escrowMaxPeriod_ = escrowMaxPeriod_;
+        } else {
+          result.escrowMaxPeriod_ = escrowMaxPeriodBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -1524,6 +1805,17 @@ public final class Types {
         }
         if (other.getMetadataSizeMax() != 0L) {
           setMetadataSizeMax(other.getMetadataSizeMax());
+        }
+        if (!other.getEscrowBroker().isEmpty()) {
+          escrowBroker_ = other.escrowBroker_;
+          onChanged();
+        }
+        if (!other.getEscrowCommission().isEmpty()) {
+          escrowCommission_ = other.escrowCommission_;
+          onChanged();
+        }
+        if (other.hasEscrowMaxPeriod()) {
+          mergeEscrowMaxPeriod(other.getEscrowMaxPeriod());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2911,6 +3203,358 @@ public final class Types {
         onChanged();
         return this;
       }
+
+      private java.lang.Object escrowBroker_ = "";
+      /**
+       * <pre>
+       * EscrowBroker defines an address that will receive a commission for completed escrows
+       * </pre>
+       *
+       * <code>string escrow_broker = 16 [(.gogoproto.moretags) = "yaml:&#92;"escrow_broker&#92;""];</code>
+       * @return The escrowBroker.
+       */
+      public java.lang.String getEscrowBroker() {
+        java.lang.Object ref = escrowBroker_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          escrowBroker_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * EscrowBroker defines an address that will receive a commission for completed escrows
+       * </pre>
+       *
+       * <code>string escrow_broker = 16 [(.gogoproto.moretags) = "yaml:&#92;"escrow_broker&#92;""];</code>
+       * @return The bytes for escrowBroker.
+       */
+      public com.google.protobuf.ByteString
+          getEscrowBrokerBytes() {
+        java.lang.Object ref = escrowBroker_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          escrowBroker_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * EscrowBroker defines an address that will receive a commission for completed escrows
+       * </pre>
+       *
+       * <code>string escrow_broker = 16 [(.gogoproto.moretags) = "yaml:&#92;"escrow_broker&#92;""];</code>
+       * @param value The escrowBroker to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEscrowBroker(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        escrowBroker_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * EscrowBroker defines an address that will receive a commission for completed escrows
+       * </pre>
+       *
+       * <code>string escrow_broker = 16 [(.gogoproto.moretags) = "yaml:&#92;"escrow_broker&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEscrowBroker() {
+        
+        escrowBroker_ = getDefaultInstance().getEscrowBroker();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * EscrowBroker defines an address that will receive a commission for completed escrows
+       * </pre>
+       *
+       * <code>string escrow_broker = 16 [(.gogoproto.moretags) = "yaml:&#92;"escrow_broker&#92;""];</code>
+       * @param value The bytes for escrowBroker to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEscrowBrokerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        escrowBroker_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object escrowCommission_ = "";
+      /**
+       * <pre>
+       * EscrowCommission defines the commission taken by the broker for a completed escrow, between 0 (no commission) and
+       * 1 (100% commission)
+       * </pre>
+       *
+       * <code>string escrow_commission = 17 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"escrow_commission&#92;""];</code>
+       * @return The escrowCommission.
+       */
+      public java.lang.String getEscrowCommission() {
+        java.lang.Object ref = escrowCommission_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          escrowCommission_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * EscrowCommission defines the commission taken by the broker for a completed escrow, between 0 (no commission) and
+       * 1 (100% commission)
+       * </pre>
+       *
+       * <code>string escrow_commission = 17 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"escrow_commission&#92;""];</code>
+       * @return The bytes for escrowCommission.
+       */
+      public com.google.protobuf.ByteString
+          getEscrowCommissionBytes() {
+        java.lang.Object ref = escrowCommission_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          escrowCommission_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * EscrowCommission defines the commission taken by the broker for a completed escrow, between 0 (no commission) and
+       * 1 (100% commission)
+       * </pre>
+       *
+       * <code>string escrow_commission = 17 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"escrow_commission&#92;""];</code>
+       * @param value The escrowCommission to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEscrowCommission(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        escrowCommission_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * EscrowCommission defines the commission taken by the broker for a completed escrow, between 0 (no commission) and
+       * 1 (100% commission)
+       * </pre>
+       *
+       * <code>string escrow_commission = 17 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"escrow_commission&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEscrowCommission() {
+        
+        escrowCommission_ = getDefaultInstance().getEscrowCommission();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * EscrowCommission defines the commission taken by the broker for a completed escrow, between 0 (no commission) and
+       * 1 (100% commission)
+       * </pre>
+       *
+       * <code>string escrow_commission = 17 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"escrow_commission&#92;""];</code>
+       * @param value The bytes for escrowCommission to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEscrowCommissionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        escrowCommission_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Duration escrowMaxPeriod_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> escrowMaxPeriodBuilder_;
+      /**
+       * <pre>
+       * EscrowPeriod defines the maximum duration of an escrow in seconds
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+       * @return Whether the escrowMaxPeriod field is set.
+       */
+      public boolean hasEscrowMaxPeriod() {
+        return escrowMaxPeriodBuilder_ != null || escrowMaxPeriod_ != null;
+      }
+      /**
+       * <pre>
+       * EscrowPeriod defines the maximum duration of an escrow in seconds
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+       * @return The escrowMaxPeriod.
+       */
+      public com.google.protobuf.Duration getEscrowMaxPeriod() {
+        if (escrowMaxPeriodBuilder_ == null) {
+          return escrowMaxPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : escrowMaxPeriod_;
+        } else {
+          return escrowMaxPeriodBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * EscrowPeriod defines the maximum duration of an escrow in seconds
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder setEscrowMaxPeriod(com.google.protobuf.Duration value) {
+        if (escrowMaxPeriodBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          escrowMaxPeriod_ = value;
+          onChanged();
+        } else {
+          escrowMaxPeriodBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * EscrowPeriod defines the maximum duration of an escrow in seconds
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder setEscrowMaxPeriod(
+          com.google.protobuf.Duration.Builder builderForValue) {
+        if (escrowMaxPeriodBuilder_ == null) {
+          escrowMaxPeriod_ = builderForValue.build();
+          onChanged();
+        } else {
+          escrowMaxPeriodBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * EscrowPeriod defines the maximum duration of an escrow in seconds
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder mergeEscrowMaxPeriod(com.google.protobuf.Duration value) {
+        if (escrowMaxPeriodBuilder_ == null) {
+          if (escrowMaxPeriod_ != null) {
+            escrowMaxPeriod_ =
+              com.google.protobuf.Duration.newBuilder(escrowMaxPeriod_).mergeFrom(value).buildPartial();
+          } else {
+            escrowMaxPeriod_ = value;
+          }
+          onChanged();
+        } else {
+          escrowMaxPeriodBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * EscrowPeriod defines the maximum duration of an escrow in seconds
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public Builder clearEscrowMaxPeriod() {
+        if (escrowMaxPeriodBuilder_ == null) {
+          escrowMaxPeriod_ = null;
+          onChanged();
+        } else {
+          escrowMaxPeriod_ = null;
+          escrowMaxPeriodBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * EscrowPeriod defines the maximum duration of an escrow in seconds
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public com.google.protobuf.Duration.Builder getEscrowMaxPeriodBuilder() {
+        
+        onChanged();
+        return getEscrowMaxPeriodFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * EscrowPeriod defines the maximum duration of an escrow in seconds
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      public com.google.protobuf.DurationOrBuilder getEscrowMaxPeriodOrBuilder() {
+        if (escrowMaxPeriodBuilder_ != null) {
+          return escrowMaxPeriodBuilder_.getMessageOrBuilder();
+        } else {
+          return escrowMaxPeriod_ == null ?
+              com.google.protobuf.Duration.getDefaultInstance() : escrowMaxPeriod_;
+        }
+      }
+      /**
+       * <pre>
+       * EscrowPeriod defines the maximum duration of an escrow in seconds
+       * </pre>
+       *
+       * <code>.google.protobuf.Duration escrow_max_period = 18 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"escrow_max_period&#92;"", (.gogoproto.stdduration) = true];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> 
+          getEscrowMaxPeriodFieldBuilder() {
+        if (escrowMaxPeriodBuilder_ == null) {
+          escrowMaxPeriodBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder>(
+                  getEscrowMaxPeriod(),
+                  getParentForChildren(),
+                  isClean());
+          escrowMaxPeriod_ = null;
+        }
+        return escrowMaxPeriodBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -3387,6 +4031,86 @@ public final class Types {
      */
     com.google.protobuf.ByteString
         getRenewDomainOpenBytes();
+
+    /**
+     * <pre>
+     * create_escrow is the fee to be paid to create an escrow
+     * </pre>
+     *
+     * <code>string create_escrow = 22 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"create_escrow&#92;""];</code>
+     * @return The createEscrow.
+     */
+    java.lang.String getCreateEscrow();
+    /**
+     * <pre>
+     * create_escrow is the fee to be paid to create an escrow
+     * </pre>
+     *
+     * <code>string create_escrow = 22 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"create_escrow&#92;""];</code>
+     * @return The bytes for createEscrow.
+     */
+    com.google.protobuf.ByteString
+        getCreateEscrowBytes();
+
+    /**
+     * <pre>
+     * update_escrow is the fee to be paid to update an escrow
+     * </pre>
+     *
+     * <code>string update_escrow = 23 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"update_escrow&#92;""];</code>
+     * @return The updateEscrow.
+     */
+    java.lang.String getUpdateEscrow();
+    /**
+     * <pre>
+     * update_escrow is the fee to be paid to update an escrow
+     * </pre>
+     *
+     * <code>string update_escrow = 23 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"update_escrow&#92;""];</code>
+     * @return The bytes for updateEscrow.
+     */
+    com.google.protobuf.ByteString
+        getUpdateEscrowBytes();
+
+    /**
+     * <pre>
+     * transfer_to_escrow is the fee to be paid to transfer coins to an escrow
+     * </pre>
+     *
+     * <code>string transfer_to_escrow = 24 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"transfer_to_escrow&#92;""];</code>
+     * @return The transferToEscrow.
+     */
+    java.lang.String getTransferToEscrow();
+    /**
+     * <pre>
+     * transfer_to_escrow is the fee to be paid to transfer coins to an escrow
+     * </pre>
+     *
+     * <code>string transfer_to_escrow = 24 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"transfer_to_escrow&#92;""];</code>
+     * @return The bytes for transferToEscrow.
+     */
+    com.google.protobuf.ByteString
+        getTransferToEscrowBytes();
+
+    /**
+     * <pre>
+     * refund_escrow is the fee to be paid to refund the account or domain placed in an escrow
+     * </pre>
+     *
+     * <code>string refund_escrow = 25 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"refund_escrow&#92;""];</code>
+     * @return The refundEscrow.
+     */
+    java.lang.String getRefundEscrow();
+    /**
+     * <pre>
+     * refund_escrow is the fee to be paid to refund the account or domain placed in an escrow
+     * </pre>
+     *
+     * <code>string refund_escrow = 25 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"refund_escrow&#92;""];</code>
+     * @return The bytes for refundEscrow.
+     */
+    com.google.protobuf.ByteString
+        getRefundEscrowBytes();
   }
   /**
    * <pre>
@@ -3426,6 +4150,10 @@ public final class Types {
       transferDomainClosed_ = "";
       transferDomainOpen_ = "";
       renewDomainOpen_ = "";
+      createEscrow_ = "";
+      updateEscrow_ = "";
+      transferToEscrow_ = "";
+      refundEscrow_ = "";
     }
 
     @java.lang.Override
@@ -3582,6 +4310,30 @@ public final class Types {
               java.lang.String s = input.readStringRequireUtf8();
 
               renewDomainOpen_ = s;
+              break;
+            }
+            case 178: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              createEscrow_ = s;
+              break;
+            }
+            case 186: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              updateEscrow_ = s;
+              break;
+            }
+            case 194: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              transferToEscrow_ = s;
+              break;
+            }
+            case 202: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              refundEscrow_ = s;
               break;
             }
             default: {
@@ -4582,6 +5334,190 @@ public final class Types {
       }
     }
 
+    public static final int CREATE_ESCROW_FIELD_NUMBER = 22;
+    private volatile java.lang.Object createEscrow_;
+    /**
+     * <pre>
+     * create_escrow is the fee to be paid to create an escrow
+     * </pre>
+     *
+     * <code>string create_escrow = 22 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"create_escrow&#92;""];</code>
+     * @return The createEscrow.
+     */
+    @java.lang.Override
+    public java.lang.String getCreateEscrow() {
+      java.lang.Object ref = createEscrow_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        createEscrow_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * create_escrow is the fee to be paid to create an escrow
+     * </pre>
+     *
+     * <code>string create_escrow = 22 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"create_escrow&#92;""];</code>
+     * @return The bytes for createEscrow.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCreateEscrowBytes() {
+      java.lang.Object ref = createEscrow_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        createEscrow_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int UPDATE_ESCROW_FIELD_NUMBER = 23;
+    private volatile java.lang.Object updateEscrow_;
+    /**
+     * <pre>
+     * update_escrow is the fee to be paid to update an escrow
+     * </pre>
+     *
+     * <code>string update_escrow = 23 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"update_escrow&#92;""];</code>
+     * @return The updateEscrow.
+     */
+    @java.lang.Override
+    public java.lang.String getUpdateEscrow() {
+      java.lang.Object ref = updateEscrow_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        updateEscrow_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * update_escrow is the fee to be paid to update an escrow
+     * </pre>
+     *
+     * <code>string update_escrow = 23 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"update_escrow&#92;""];</code>
+     * @return The bytes for updateEscrow.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUpdateEscrowBytes() {
+      java.lang.Object ref = updateEscrow_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        updateEscrow_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TRANSFER_TO_ESCROW_FIELD_NUMBER = 24;
+    private volatile java.lang.Object transferToEscrow_;
+    /**
+     * <pre>
+     * transfer_to_escrow is the fee to be paid to transfer coins to an escrow
+     * </pre>
+     *
+     * <code>string transfer_to_escrow = 24 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"transfer_to_escrow&#92;""];</code>
+     * @return The transferToEscrow.
+     */
+    @java.lang.Override
+    public java.lang.String getTransferToEscrow() {
+      java.lang.Object ref = transferToEscrow_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        transferToEscrow_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * transfer_to_escrow is the fee to be paid to transfer coins to an escrow
+     * </pre>
+     *
+     * <code>string transfer_to_escrow = 24 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"transfer_to_escrow&#92;""];</code>
+     * @return The bytes for transferToEscrow.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTransferToEscrowBytes() {
+      java.lang.Object ref = transferToEscrow_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        transferToEscrow_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REFUND_ESCROW_FIELD_NUMBER = 25;
+    private volatile java.lang.Object refundEscrow_;
+    /**
+     * <pre>
+     * refund_escrow is the fee to be paid to refund the account or domain placed in an escrow
+     * </pre>
+     *
+     * <code>string refund_escrow = 25 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"refund_escrow&#92;""];</code>
+     * @return The refundEscrow.
+     */
+    @java.lang.Override
+    public java.lang.String getRefundEscrow() {
+      java.lang.Object ref = refundEscrow_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        refundEscrow_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * refund_escrow is the fee to be paid to refund the account or domain placed in an escrow
+     * </pre>
+     *
+     * <code>string refund_escrow = 25 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"refund_escrow&#92;""];</code>
+     * @return The bytes for refundEscrow.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRefundEscrowBytes() {
+      java.lang.Object ref = refundEscrow_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        refundEscrow_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -4659,6 +5595,18 @@ public final class Types {
       if (!getRenewDomainOpenBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 21, renewDomainOpen_);
       }
+      if (!getCreateEscrowBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 22, createEscrow_);
+      }
+      if (!getUpdateEscrowBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 23, updateEscrow_);
+      }
+      if (!getTransferToEscrowBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 24, transferToEscrow_);
+      }
+      if (!getRefundEscrowBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 25, refundEscrow_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -4731,6 +5679,18 @@ public final class Types {
       if (!getRenewDomainOpenBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(21, renewDomainOpen_);
       }
+      if (!getCreateEscrowBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(22, createEscrow_);
+      }
+      if (!getUpdateEscrowBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(23, updateEscrow_);
+      }
+      if (!getTransferToEscrowBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(24, transferToEscrow_);
+      }
+      if (!getRefundEscrowBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(25, refundEscrow_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -4788,6 +5748,14 @@ public final class Types {
           .equals(other.getTransferDomainOpen())) return false;
       if (!getRenewDomainOpen()
           .equals(other.getRenewDomainOpen())) return false;
+      if (!getCreateEscrow()
+          .equals(other.getCreateEscrow())) return false;
+      if (!getUpdateEscrow()
+          .equals(other.getUpdateEscrow())) return false;
+      if (!getTransferToEscrow()
+          .equals(other.getTransferToEscrow())) return false;
+      if (!getRefundEscrow()
+          .equals(other.getRefundEscrow())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -4841,6 +5809,14 @@ public final class Types {
       hash = (53 * hash) + getTransferDomainOpen().hashCode();
       hash = (37 * hash) + RENEW_DOMAIN_OPEN_FIELD_NUMBER;
       hash = (53 * hash) + getRenewDomainOpen().hashCode();
+      hash = (37 * hash) + CREATE_ESCROW_FIELD_NUMBER;
+      hash = (53 * hash) + getCreateEscrow().hashCode();
+      hash = (37 * hash) + UPDATE_ESCROW_FIELD_NUMBER;
+      hash = (53 * hash) + getUpdateEscrow().hashCode();
+      hash = (37 * hash) + TRANSFER_TO_ESCROW_FIELD_NUMBER;
+      hash = (53 * hash) + getTransferToEscrow().hashCode();
+      hash = (37 * hash) + REFUND_ESCROW_FIELD_NUMBER;
+      hash = (53 * hash) + getRefundEscrow().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -5020,6 +5996,14 @@ public final class Types {
 
         renewDomainOpen_ = "";
 
+        createEscrow_ = "";
+
+        updateEscrow_ = "";
+
+        transferToEscrow_ = "";
+
+        refundEscrow_ = "";
+
         return this;
       }
 
@@ -5067,6 +6051,10 @@ public final class Types {
         result.transferDomainClosed_ = transferDomainClosed_;
         result.transferDomainOpen_ = transferDomainOpen_;
         result.renewDomainOpen_ = renewDomainOpen_;
+        result.createEscrow_ = createEscrow_;
+        result.updateEscrow_ = updateEscrow_;
+        result.transferToEscrow_ = transferToEscrow_;
+        result.refundEscrow_ = refundEscrow_;
         onBuilt();
         return result;
       }
@@ -5197,6 +6185,22 @@ public final class Types {
         }
         if (!other.getRenewDomainOpen().isEmpty()) {
           renewDomainOpen_ = other.renewDomainOpen_;
+          onChanged();
+        }
+        if (!other.getCreateEscrow().isEmpty()) {
+          createEscrow_ = other.createEscrow_;
+          onChanged();
+        }
+        if (!other.getUpdateEscrow().isEmpty()) {
+          updateEscrow_ = other.updateEscrow_;
+          onChanged();
+        }
+        if (!other.getTransferToEscrow().isEmpty()) {
+          transferToEscrow_ = other.transferToEscrow_;
+          onChanged();
+        }
+        if (!other.getRefundEscrow().isEmpty()) {
+          refundEscrow_ = other.refundEscrow_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -7243,6 +8247,390 @@ public final class Types {
         onChanged();
         return this;
       }
+
+      private java.lang.Object createEscrow_ = "";
+      /**
+       * <pre>
+       * create_escrow is the fee to be paid to create an escrow
+       * </pre>
+       *
+       * <code>string create_escrow = 22 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"create_escrow&#92;""];</code>
+       * @return The createEscrow.
+       */
+      public java.lang.String getCreateEscrow() {
+        java.lang.Object ref = createEscrow_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          createEscrow_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * create_escrow is the fee to be paid to create an escrow
+       * </pre>
+       *
+       * <code>string create_escrow = 22 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"create_escrow&#92;""];</code>
+       * @return The bytes for createEscrow.
+       */
+      public com.google.protobuf.ByteString
+          getCreateEscrowBytes() {
+        java.lang.Object ref = createEscrow_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          createEscrow_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * create_escrow is the fee to be paid to create an escrow
+       * </pre>
+       *
+       * <code>string create_escrow = 22 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"create_escrow&#92;""];</code>
+       * @param value The createEscrow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreateEscrow(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        createEscrow_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * create_escrow is the fee to be paid to create an escrow
+       * </pre>
+       *
+       * <code>string create_escrow = 22 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"create_escrow&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCreateEscrow() {
+        
+        createEscrow_ = getDefaultInstance().getCreateEscrow();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * create_escrow is the fee to be paid to create an escrow
+       * </pre>
+       *
+       * <code>string create_escrow = 22 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"create_escrow&#92;""];</code>
+       * @param value The bytes for createEscrow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreateEscrowBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        createEscrow_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object updateEscrow_ = "";
+      /**
+       * <pre>
+       * update_escrow is the fee to be paid to update an escrow
+       * </pre>
+       *
+       * <code>string update_escrow = 23 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"update_escrow&#92;""];</code>
+       * @return The updateEscrow.
+       */
+      public java.lang.String getUpdateEscrow() {
+        java.lang.Object ref = updateEscrow_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          updateEscrow_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * update_escrow is the fee to be paid to update an escrow
+       * </pre>
+       *
+       * <code>string update_escrow = 23 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"update_escrow&#92;""];</code>
+       * @return The bytes for updateEscrow.
+       */
+      public com.google.protobuf.ByteString
+          getUpdateEscrowBytes() {
+        java.lang.Object ref = updateEscrow_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          updateEscrow_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * update_escrow is the fee to be paid to update an escrow
+       * </pre>
+       *
+       * <code>string update_escrow = 23 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"update_escrow&#92;""];</code>
+       * @param value The updateEscrow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdateEscrow(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        updateEscrow_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * update_escrow is the fee to be paid to update an escrow
+       * </pre>
+       *
+       * <code>string update_escrow = 23 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"update_escrow&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpdateEscrow() {
+        
+        updateEscrow_ = getDefaultInstance().getUpdateEscrow();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * update_escrow is the fee to be paid to update an escrow
+       * </pre>
+       *
+       * <code>string update_escrow = 23 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"update_escrow&#92;""];</code>
+       * @param value The bytes for updateEscrow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdateEscrowBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        updateEscrow_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object transferToEscrow_ = "";
+      /**
+       * <pre>
+       * transfer_to_escrow is the fee to be paid to transfer coins to an escrow
+       * </pre>
+       *
+       * <code>string transfer_to_escrow = 24 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"transfer_to_escrow&#92;""];</code>
+       * @return The transferToEscrow.
+       */
+      public java.lang.String getTransferToEscrow() {
+        java.lang.Object ref = transferToEscrow_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          transferToEscrow_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * transfer_to_escrow is the fee to be paid to transfer coins to an escrow
+       * </pre>
+       *
+       * <code>string transfer_to_escrow = 24 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"transfer_to_escrow&#92;""];</code>
+       * @return The bytes for transferToEscrow.
+       */
+      public com.google.protobuf.ByteString
+          getTransferToEscrowBytes() {
+        java.lang.Object ref = transferToEscrow_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          transferToEscrow_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * transfer_to_escrow is the fee to be paid to transfer coins to an escrow
+       * </pre>
+       *
+       * <code>string transfer_to_escrow = 24 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"transfer_to_escrow&#92;""];</code>
+       * @param value The transferToEscrow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTransferToEscrow(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        transferToEscrow_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * transfer_to_escrow is the fee to be paid to transfer coins to an escrow
+       * </pre>
+       *
+       * <code>string transfer_to_escrow = 24 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"transfer_to_escrow&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTransferToEscrow() {
+        
+        transferToEscrow_ = getDefaultInstance().getTransferToEscrow();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * transfer_to_escrow is the fee to be paid to transfer coins to an escrow
+       * </pre>
+       *
+       * <code>string transfer_to_escrow = 24 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"transfer_to_escrow&#92;""];</code>
+       * @param value The bytes for transferToEscrow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTransferToEscrowBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        transferToEscrow_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object refundEscrow_ = "";
+      /**
+       * <pre>
+       * refund_escrow is the fee to be paid to refund the account or domain placed in an escrow
+       * </pre>
+       *
+       * <code>string refund_escrow = 25 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"refund_escrow&#92;""];</code>
+       * @return The refundEscrow.
+       */
+      public java.lang.String getRefundEscrow() {
+        java.lang.Object ref = refundEscrow_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          refundEscrow_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * refund_escrow is the fee to be paid to refund the account or domain placed in an escrow
+       * </pre>
+       *
+       * <code>string refund_escrow = 25 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"refund_escrow&#92;""];</code>
+       * @return The bytes for refundEscrow.
+       */
+      public com.google.protobuf.ByteString
+          getRefundEscrowBytes() {
+        java.lang.Object ref = refundEscrow_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          refundEscrow_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * refund_escrow is the fee to be paid to refund the account or domain placed in an escrow
+       * </pre>
+       *
+       * <code>string refund_escrow = 25 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"refund_escrow&#92;""];</code>
+       * @param value The refundEscrow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRefundEscrow(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        refundEscrow_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * refund_escrow is the fee to be paid to refund the account or domain placed in an escrow
+       * </pre>
+       *
+       * <code>string refund_escrow = 25 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"refund_escrow&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRefundEscrow() {
+        
+        refundEscrow_ = getDefaultInstance().getRefundEscrow();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * refund_escrow is the fee to be paid to refund the account or domain placed in an escrow
+       * </pre>
+       *
+       * <code>string refund_escrow = 25 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"refund_escrow&#92;""];</code>
+       * @param value The bytes for refundEscrow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRefundEscrowBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        refundEscrow_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -8155,7 +9543,7 @@ public final class Types {
       "\n%iov/configuration/v1beta1/types.proto\022" +
       "!starnamed.x.configuration.v1beta1\032\024gogo" +
       "proto/gogo.proto\032\036google/protobuf/durati" +
-      "on.proto\"\225\010\n\006Config\022)\n\nconfigurer\030\001 \001(\tB" +
+      "on.proto\"\211\n\n\006Config\022)\n\nconfigurer\030\001 \001(\tB" +
       "\025\362\336\037\021yaml:\"configurer\"\0227\n\021valid_domain_n" +
       "ame\030\002 \001(\tB\034\362\336\037\030yaml:\"valid_domain_name\"\022" +
       "9\n\022valid_account_name\030\003 \001(\tB\035\362\336\037\031yaml:\"v" +
@@ -8181,76 +9569,92 @@ public final class Types {
       "cate_size_max\"\022?\n\025certificate_count_max\030" +
       "\016 \001(\rB \362\336\037\034yaml:\"certificate_count_max\"\022" +
       "7\n\021metadata_size_max\030\017 \001(\004B\034\362\336\037\030yaml:\"me" +
-      "tadata_size_max\"\"\241\022\n\004Fees\0221\n\016fee_coin_de" +
-      "nom\030\001 \001(\tB\031\362\336\037\025yaml:\"fee_coin_denom\"\022_\n\016" +
-      "fee_coin_price\030\002 \001(\tBG\362\336\037\025yaml:\"fee_coin" +
-      "_price\"\332\336\037&github.com/cosmos/cosmos-sdk/" +
-      "types.Dec\310\336\037\000\022Y\n\013fee_default\030\003 \001(\tBD\362\336\037\022" +
-      "yaml:\"fee_default\"\332\336\037&github.com/cosmos/" +
-      "cosmos-sdk/types.Dec\310\336\037\000\022q\n\027register_acc" +
-      "ount_closed\030\004 \001(\tBP\362\336\037\036yaml:\"register_ac" +
-      "count_closed\"\332\336\037&github.com/cosmos/cosmo" +
-      "s-sdk/types.Dec\310\336\037\000\022m\n\025register_account_" +
-      "open\030\005 \001(\tBN\362\336\037\034yaml:\"register_account_o" +
-      "pen\"\332\336\037&github.com/cosmos/cosmos-sdk/typ" +
-      "es.Dec\310\336\037\000\022q\n\027transfer_account_closed\030\006 " +
-      "\001(\tBP\362\336\037\036yaml:\"transfer_account_closed\"\332" +
-      "\336\037&github.com/cosmos/cosmos-sdk/types.De" +
-      "c\310\336\037\000\022m\n\025transfer_account_open\030\007 \001(\tBN\362\336" +
-      "\037\034yaml:\"transfer_account_open\"\332\336\037&github" +
-      ".com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022u\n\031" +
-      "replace_account_resources\030\010 \001(\tBR\362\336\037 yam" +
-      "l:\"replace_account_resources\"\332\336\037&github." +
-      "com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022q\n\027a" +
-      "dd_account_certificate\030\t \001(\tBP\362\336\037\036yaml:\"" +
-      "add_account_certificate\"\332\336\037&github.com/c" +
-      "osmos/cosmos-sdk/types.Dec\310\336\037\000\022q\n\027del_ac" +
-      "count_certificate\030\n \001(\tBP\362\336\037\036yaml:\"del_a" +
-      "ccount_certificate\"\332\336\037&github.com/cosmos" +
-      "/cosmos-sdk/types.Dec\310\336\037\000\022k\n\024set_account" +
-      "_metadata\030\013 \001(\tBM\362\336\037\033yaml:\"set_account_m" +
-      "etadata\"\332\336\037&github.com/cosmos/cosmos-sdk" +
-      "/types.Dec\310\336\037\000\022x\n\021register_domain_1\030\014 \001(" +
-      "\tB]\362\336\037\030yaml:\"register_domain_1\"\332\336\037&githu" +
-      "b.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\342\336\037" +
-      "\017RegisterDomain1\022x\n\021register_domain_2\030\r " +
-      "\001(\tB]\362\336\037\030yaml:\"register_domain_2\"\332\336\037&git" +
-      "hub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\342" +
-      "\336\037\017RegisterDomain2\022x\n\021register_domain_3\030" +
-      "\016 \001(\tB]\362\336\037\030yaml:\"register_domain_3\"\332\336\037&g" +
+      "tadata_size_max\"\022/\n\rescrow_broker\030\020 \001(\tB" +
+      "\030\362\336\037\024yaml:\"escrow_broker\"\022e\n\021escrow_comm" +
+      "ission\030\021 \001(\tBJ\362\336\037\030yaml:\"escrow_commissio" +
+      "n\"\332\336\037&github.com/cosmos/cosmos-sdk/types" +
+      ".Dec\310\336\037\000\022Z\n\021escrow_max_period\030\022 \001(\0132\031.go" +
+      "ogle.protobuf.DurationB$\362\336\037\030yaml:\"escrow" +
+      "_max_period\"\310\336\037\000\230\337\037\001\"\247\025\n\004Fees\0221\n\016fee_coi" +
+      "n_denom\030\001 \001(\tB\031\362\336\037\025yaml:\"fee_coin_denom\"" +
+      "\022_\n\016fee_coin_price\030\002 \001(\tBG\362\336\037\025yaml:\"fee_" +
+      "coin_price\"\332\336\037&github.com/cosmos/cosmos-" +
+      "sdk/types.Dec\310\336\037\000\022Y\n\013fee_default\030\003 \001(\tBD" +
+      "\362\336\037\022yaml:\"fee_default\"\332\336\037&github.com/cos" +
+      "mos/cosmos-sdk/types.Dec\310\336\037\000\022q\n\027register" +
+      "_account_closed\030\004 \001(\tBP\362\336\037\036yaml:\"registe" +
+      "r_account_closed\"\332\336\037&github.com/cosmos/c" +
+      "osmos-sdk/types.Dec\310\336\037\000\022m\n\025register_acco" +
+      "unt_open\030\005 \001(\tBN\362\336\037\034yaml:\"register_accou" +
+      "nt_open\"\332\336\037&github.com/cosmos/cosmos-sdk" +
+      "/types.Dec\310\336\037\000\022q\n\027transfer_account_close" +
+      "d\030\006 \001(\tBP\362\336\037\036yaml:\"transfer_account_clos" +
+      "ed\"\332\336\037&github.com/cosmos/cosmos-sdk/type" +
+      "s.Dec\310\336\037\000\022m\n\025transfer_account_open\030\007 \001(\t" +
+      "BN\362\336\037\034yaml:\"transfer_account_open\"\332\336\037&gi" +
+      "thub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000" +
+      "\022u\n\031replace_account_resources\030\010 \001(\tBR\362\336\037" +
+      " yaml:\"replace_account_resources\"\332\336\037&git" +
+      "hub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022" +
+      "q\n\027add_account_certificate\030\t \001(\tBP\362\336\037\036ya" +
+      "ml:\"add_account_certificate\"\332\336\037&github.c" +
+      "om/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022q\n\027de" +
+      "l_account_certificate\030\n \001(\tBP\362\336\037\036yaml:\"d" +
+      "el_account_certificate\"\332\336\037&github.com/co" +
+      "smos/cosmos-sdk/types.Dec\310\336\037\000\022k\n\024set_acc" +
+      "ount_metadata\030\013 \001(\tBM\362\336\037\033yaml:\"set_accou" +
+      "nt_metadata\"\332\336\037&github.com/cosmos/cosmos" +
+      "-sdk/types.Dec\310\336\037\000\022x\n\021register_domain_1\030" +
+      "\014 \001(\tB]\362\336\037\030yaml:\"register_domain_1\"\332\336\037&g" +
       "ithub.com/cosmos/cosmos-sdk/types.Dec\310\336\037" +
-      "\000\342\336\037\017RegisterDomain3\022x\n\021register_domain_" +
-      "4\030\017 \001(\tB]\362\336\037\030yaml:\"register_domain_4\"\332\336\037" +
+      "\000\342\336\037\017RegisterDomain1\022x\n\021register_domain_" +
+      "2\030\r \001(\tB]\362\336\037\030yaml:\"register_domain_2\"\332\336\037" +
       "&github.com/cosmos/cosmos-sdk/types.Dec\310" +
-      "\336\037\000\342\336\037\017RegisterDomain4\022x\n\021register_domai" +
-      "n_5\030\020 \001(\tB]\362\336\037\030yaml:\"register_domain_5\"\332" +
+      "\336\037\000\342\336\037\017RegisterDomain2\022x\n\021register_domai" +
+      "n_3\030\016 \001(\tB]\362\336\037\030yaml:\"register_domain_3\"\332" +
       "\336\037&github.com/cosmos/cosmos-sdk/types.De" +
-      "c\310\336\037\000\342\336\037\017RegisterDomain5\022q\n\027register_dom" +
-      "ain_default\030\021 \001(\tBP\362\336\037\036yaml:\"register_do" +
-      "main_default\"\332\336\037&github.com/cosmos/cosmo" +
-      "s-sdk/types.Dec\310\336\037\000\022\201\001\n\037register_open_do" +
-      "main_multiplier\030\022 \001(\tBX\362\336\037&yaml:\"registe" +
-      "r_open_domain_multiplier\"\332\336\037&github.com/" +
-      "cosmos/cosmos-sdk/types.Dec\310\336\037\000\022o\n\026trans" +
-      "fer_domain_closed\030\023 \001(\tBO\362\336\037\035yaml:\"trans" +
-      "fer_domain_closed\"\332\336\037&github.com/cosmos/" +
-      "cosmos-sdk/types.Dec\310\336\037\000\022k\n\024transfer_dom" +
-      "ain_open\030\024 \001(\tBM\362\336\037\033yaml:\"transfer_domai" +
-      "n_open\"\332\336\037&github.com/cosmos/cosmos-sdk/" +
-      "types.Dec\310\336\037\000\022e\n\021renew_domain_open\030\025 \001(\t" +
-      "BJ\362\336\037\030yaml:\"renew_domain_open\"\332\336\037&github" +
-      ".com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\"\254\001\n" +
-      "\014GenesisState\022P\n\006config\030\001 \001(\0132).starname" +
-      "d.x.configuration.v1beta1.ConfigB\025\362\336\037\rya" +
-      "ml:\"config\"\310\336\037\000\022J\n\004fees\030\002 \001(\0132\'.starname" +
-      "d.x.configuration.v1beta1.FeesB\023\362\336\037\013yaml" +
-      ":\"fees\"\310\336\037\000B8Z2github.com/iov-one/starna" +
-      "med/x/configuration/types\250\342\036\001b\006proto3"
+      "c\310\336\037\000\342\336\037\017RegisterDomain3\022x\n\021register_dom" +
+      "ain_4\030\017 \001(\tB]\362\336\037\030yaml:\"register_domain_4" +
+      "\"\332\336\037&github.com/cosmos/cosmos-sdk/types." +
+      "Dec\310\336\037\000\342\336\037\017RegisterDomain4\022x\n\021register_d" +
+      "omain_5\030\020 \001(\tB]\362\336\037\030yaml:\"register_domain" +
+      "_5\"\332\336\037&github.com/cosmos/cosmos-sdk/type" +
+      "s.Dec\310\336\037\000\342\336\037\017RegisterDomain5\022q\n\027register" +
+      "_domain_default\030\021 \001(\tBP\362\336\037\036yaml:\"registe" +
+      "r_domain_default\"\332\336\037&github.com/cosmos/c" +
+      "osmos-sdk/types.Dec\310\336\037\000\022\201\001\n\037register_ope" +
+      "n_domain_multiplier\030\022 \001(\tBX\362\336\037&yaml:\"reg" +
+      "ister_open_domain_multiplier\"\332\336\037&github." +
+      "com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022o\n\026t" +
+      "ransfer_domain_closed\030\023 \001(\tBO\362\336\037\035yaml:\"t" +
+      "ransfer_domain_closed\"\332\336\037&github.com/cos" +
+      "mos/cosmos-sdk/types.Dec\310\336\037\000\022k\n\024transfer" +
+      "_domain_open\030\024 \001(\tBM\362\336\037\033yaml:\"transfer_d" +
+      "omain_open\"\332\336\037&github.com/cosmos/cosmos-" +
+      "sdk/types.Dec\310\336\037\000\022e\n\021renew_domain_open\030\025" +
+      " \001(\tBJ\362\336\037\030yaml:\"renew_domain_open\"\332\336\037&gi" +
+      "thub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000" +
+      "\022]\n\rcreate_escrow\030\026 \001(\tBF\362\336\037\024yaml:\"creat" +
+      "e_escrow\"\332\336\037&github.com/cosmos/cosmos-sd" +
+      "k/types.Dec\310\336\037\000\022]\n\rupdate_escrow\030\027 \001(\tBF" +
+      "\362\336\037\024yaml:\"update_escrow\"\332\336\037&github.com/c" +
+      "osmos/cosmos-sdk/types.Dec\310\336\037\000\022g\n\022transf" +
+      "er_to_escrow\030\030 \001(\tBK\362\336\037\031yaml:\"transfer_t" +
+      "o_escrow\"\332\336\037&github.com/cosmos/cosmos-sd" +
+      "k/types.Dec\310\336\037\000\022]\n\rrefund_escrow\030\031 \001(\tBF" +
+      "\362\336\037\024yaml:\"refund_escrow\"\332\336\037&github.com/c" +
+      "osmos/cosmos-sdk/types.Dec\310\336\037\000\"\254\001\n\014Genes" +
+      "isState\022P\n\006config\030\001 \001(\0132).starnamed.x.co" +
+      "nfiguration.v1beta1.ConfigB\025\362\336\037\ryaml:\"co" +
+      "nfig\"\310\336\037\000\022J\n\004fees\030\002 \001(\0132\'.starnamed.x.co" +
+      "nfiguration.v1beta1.FeesB\023\362\336\037\013yaml:\"fees" +
+      "\"\310\336\037\000B8Z2github.com/iov-one/starnamed/x/" +
+      "configuration/types\250\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
         });
     internal_static_starnamed_x_configuration_v1beta1_Config_descriptor =
@@ -8258,13 +9662,13 @@ public final class Types {
     internal_static_starnamed_x_configuration_v1beta1_Config_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_starnamed_x_configuration_v1beta1_Config_descriptor,
-        new java.lang.String[] { "Configurer", "ValidDomainName", "ValidAccountName", "ValidUri", "ValidResource", "DomainRenewalPeriod", "DomainRenewalCountMax", "DomainGracePeriod", "AccountRenewalPeriod", "AccountRenewalCountMax", "AccountGracePeriod", "ResourcesMax", "CertificateSizeMax", "CertificateCountMax", "MetadataSizeMax", });
+        new java.lang.String[] { "Configurer", "ValidDomainName", "ValidAccountName", "ValidUri", "ValidResource", "DomainRenewalPeriod", "DomainRenewalCountMax", "DomainGracePeriod", "AccountRenewalPeriod", "AccountRenewalCountMax", "AccountGracePeriod", "ResourcesMax", "CertificateSizeMax", "CertificateCountMax", "MetadataSizeMax", "EscrowBroker", "EscrowCommission", "EscrowMaxPeriod", });
     internal_static_starnamed_x_configuration_v1beta1_Fees_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_starnamed_x_configuration_v1beta1_Fees_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_starnamed_x_configuration_v1beta1_Fees_descriptor,
-        new java.lang.String[] { "FeeCoinDenom", "FeeCoinPrice", "FeeDefault", "RegisterAccountClosed", "RegisterAccountOpen", "TransferAccountClosed", "TransferAccountOpen", "ReplaceAccountResources", "AddAccountCertificate", "DelAccountCertificate", "SetAccountMetadata", "RegisterDomain1", "RegisterDomain2", "RegisterDomain3", "RegisterDomain4", "RegisterDomain5", "RegisterDomainDefault", "RegisterOpenDomainMultiplier", "TransferDomainClosed", "TransferDomainOpen", "RenewDomainOpen", });
+        new java.lang.String[] { "FeeCoinDenom", "FeeCoinPrice", "FeeDefault", "RegisterAccountClosed", "RegisterAccountOpen", "TransferAccountClosed", "TransferAccountOpen", "ReplaceAccountResources", "AddAccountCertificate", "DelAccountCertificate", "SetAccountMetadata", "RegisterDomain1", "RegisterDomain2", "RegisterDomain3", "RegisterDomain4", "RegisterDomain5", "RegisterDomainDefault", "RegisterOpenDomainMultiplier", "TransferDomainClosed", "TransferDomainOpen", "RenewDomainOpen", "CreateEscrow", "UpdateEscrow", "TransferToEscrow", "RefundEscrow", });
     internal_static_starnamed_x_configuration_v1beta1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_starnamed_x_configuration_v1beta1_GenesisState_fieldAccessorTable = new
@@ -8273,15 +9677,15 @@ public final class Types {
         new java.lang.String[] { "Config", "Fees", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customname);
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.equalAll);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.equalAll);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdduration);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
   }
 

@@ -1188,7 +1188,7 @@ public final class QueryOuterClass {
      * voter defines the voter address for the proposals.
      * </pre>
      *
-     * <code>string voter = 2;</code>
+     * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The voter.
      */
     java.lang.String getVoter();
@@ -1197,7 +1197,7 @@ public final class QueryOuterClass {
      * voter defines the voter address for the proposals.
      * </pre>
      *
-     * <code>string voter = 2;</code>
+     * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for voter.
      */
     com.google.protobuf.ByteString
@@ -1208,7 +1208,7 @@ public final class QueryOuterClass {
      * depositor defines the deposit addresses from the proposals.
      * </pre>
      *
-     * <code>string depositor = 3;</code>
+     * <code>string depositor = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The depositor.
      */
     java.lang.String getDepositor();
@@ -1217,7 +1217,7 @@ public final class QueryOuterClass {
      * depositor defines the deposit addresses from the proposals.
      * </pre>
      *
-     * <code>string depositor = 3;</code>
+     * <code>string depositor = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for depositor.
      */
     com.google.protobuf.ByteString
@@ -1399,7 +1399,7 @@ public final class QueryOuterClass {
      * voter defines the voter address for the proposals.
      * </pre>
      *
-     * <code>string voter = 2;</code>
+     * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The voter.
      */
     @java.lang.Override
@@ -1420,7 +1420,7 @@ public final class QueryOuterClass {
      * voter defines the voter address for the proposals.
      * </pre>
      *
-     * <code>string voter = 2;</code>
+     * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for voter.
      */
     @java.lang.Override
@@ -1445,7 +1445,7 @@ public final class QueryOuterClass {
      * depositor defines the deposit addresses from the proposals.
      * </pre>
      *
-     * <code>string depositor = 3;</code>
+     * <code>string depositor = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The depositor.
      */
     @java.lang.Override
@@ -1466,7 +1466,7 @@ public final class QueryOuterClass {
      * depositor defines the deposit addresses from the proposals.
      * </pre>
      *
-     * <code>string depositor = 3;</code>
+     * <code>string depositor = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for depositor.
      */
     @java.lang.Override
@@ -1971,7 +1971,7 @@ public final class QueryOuterClass {
        * voter defines the voter address for the proposals.
        * </pre>
        *
-       * <code>string voter = 2;</code>
+       * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The voter.
        */
       public java.lang.String getVoter() {
@@ -1991,7 +1991,7 @@ public final class QueryOuterClass {
        * voter defines the voter address for the proposals.
        * </pre>
        *
-       * <code>string voter = 2;</code>
+       * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for voter.
        */
       public com.google.protobuf.ByteString
@@ -2012,7 +2012,7 @@ public final class QueryOuterClass {
        * voter defines the voter address for the proposals.
        * </pre>
        *
-       * <code>string voter = 2;</code>
+       * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The voter to set.
        * @return This builder for chaining.
        */
@@ -2031,7 +2031,7 @@ public final class QueryOuterClass {
        * voter defines the voter address for the proposals.
        * </pre>
        *
-       * <code>string voter = 2;</code>
+       * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearVoter() {
@@ -2045,7 +2045,7 @@ public final class QueryOuterClass {
        * voter defines the voter address for the proposals.
        * </pre>
        *
-       * <code>string voter = 2;</code>
+       * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for voter to set.
        * @return This builder for chaining.
        */
@@ -2067,7 +2067,7 @@ public final class QueryOuterClass {
        * depositor defines the deposit addresses from the proposals.
        * </pre>
        *
-       * <code>string depositor = 3;</code>
+       * <code>string depositor = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The depositor.
        */
       public java.lang.String getDepositor() {
@@ -2087,7 +2087,7 @@ public final class QueryOuterClass {
        * depositor defines the deposit addresses from the proposals.
        * </pre>
        *
-       * <code>string depositor = 3;</code>
+       * <code>string depositor = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for depositor.
        */
       public com.google.protobuf.ByteString
@@ -2108,7 +2108,7 @@ public final class QueryOuterClass {
        * depositor defines the deposit addresses from the proposals.
        * </pre>
        *
-       * <code>string depositor = 3;</code>
+       * <code>string depositor = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The depositor to set.
        * @return This builder for chaining.
        */
@@ -2127,7 +2127,7 @@ public final class QueryOuterClass {
        * depositor defines the deposit addresses from the proposals.
        * </pre>
        *
-       * <code>string depositor = 3;</code>
+       * <code>string depositor = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDepositor() {
@@ -2141,7 +2141,7 @@ public final class QueryOuterClass {
        * depositor defines the deposit addresses from the proposals.
        * </pre>
        *
-       * <code>string depositor = 3;</code>
+       * <code>string depositor = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for depositor to set.
        * @return This builder for chaining.
        */
@@ -3449,7 +3449,7 @@ public final class QueryOuterClass {
      * voter defines the oter address for the proposals.
      * </pre>
      *
-     * <code>string voter = 2;</code>
+     * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The voter.
      */
     java.lang.String getVoter();
@@ -3458,7 +3458,7 @@ public final class QueryOuterClass {
      * voter defines the oter address for the proposals.
      * </pre>
      *
-     * <code>string voter = 2;</code>
+     * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for voter.
      */
     com.google.protobuf.ByteString
@@ -3579,7 +3579,7 @@ public final class QueryOuterClass {
      * voter defines the oter address for the proposals.
      * </pre>
      *
-     * <code>string voter = 2;</code>
+     * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The voter.
      */
     @java.lang.Override
@@ -3600,7 +3600,7 @@ public final class QueryOuterClass {
      * voter defines the oter address for the proposals.
      * </pre>
      *
-     * <code>string voter = 2;</code>
+     * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for voter.
      */
     @java.lang.Override
@@ -3991,7 +3991,7 @@ public final class QueryOuterClass {
        * voter defines the oter address for the proposals.
        * </pre>
        *
-       * <code>string voter = 2;</code>
+       * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The voter.
        */
       public java.lang.String getVoter() {
@@ -4011,7 +4011,7 @@ public final class QueryOuterClass {
        * voter defines the oter address for the proposals.
        * </pre>
        *
-       * <code>string voter = 2;</code>
+       * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for voter.
        */
       public com.google.protobuf.ByteString
@@ -4032,7 +4032,7 @@ public final class QueryOuterClass {
        * voter defines the oter address for the proposals.
        * </pre>
        *
-       * <code>string voter = 2;</code>
+       * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The voter to set.
        * @return This builder for chaining.
        */
@@ -4051,7 +4051,7 @@ public final class QueryOuterClass {
        * voter defines the oter address for the proposals.
        * </pre>
        *
-       * <code>string voter = 2;</code>
+       * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearVoter() {
@@ -4065,7 +4065,7 @@ public final class QueryOuterClass {
        * voter defines the oter address for the proposals.
        * </pre>
        *
-       * <code>string voter = 2;</code>
+       * <code>string voter = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for voter to set.
        * @return This builder for chaining.
        */
@@ -8633,7 +8633,7 @@ public final class QueryOuterClass {
      * depositor defines the deposit addresses from the proposals.
      * </pre>
      *
-     * <code>string depositor = 2;</code>
+     * <code>string depositor = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The depositor.
      */
     java.lang.String getDepositor();
@@ -8642,7 +8642,7 @@ public final class QueryOuterClass {
      * depositor defines the deposit addresses from the proposals.
      * </pre>
      *
-     * <code>string depositor = 2;</code>
+     * <code>string depositor = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for depositor.
      */
     com.google.protobuf.ByteString
@@ -8763,7 +8763,7 @@ public final class QueryOuterClass {
      * depositor defines the deposit addresses from the proposals.
      * </pre>
      *
-     * <code>string depositor = 2;</code>
+     * <code>string depositor = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The depositor.
      */
     @java.lang.Override
@@ -8784,7 +8784,7 @@ public final class QueryOuterClass {
      * depositor defines the deposit addresses from the proposals.
      * </pre>
      *
-     * <code>string depositor = 2;</code>
+     * <code>string depositor = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for depositor.
      */
     @java.lang.Override
@@ -9175,7 +9175,7 @@ public final class QueryOuterClass {
        * depositor defines the deposit addresses from the proposals.
        * </pre>
        *
-       * <code>string depositor = 2;</code>
+       * <code>string depositor = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The depositor.
        */
       public java.lang.String getDepositor() {
@@ -9195,7 +9195,7 @@ public final class QueryOuterClass {
        * depositor defines the deposit addresses from the proposals.
        * </pre>
        *
-       * <code>string depositor = 2;</code>
+       * <code>string depositor = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for depositor.
        */
       public com.google.protobuf.ByteString
@@ -9216,7 +9216,7 @@ public final class QueryOuterClass {
        * depositor defines the deposit addresses from the proposals.
        * </pre>
        *
-       * <code>string depositor = 2;</code>
+       * <code>string depositor = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The depositor to set.
        * @return This builder for chaining.
        */
@@ -9235,7 +9235,7 @@ public final class QueryOuterClass {
        * depositor defines the deposit addresses from the proposals.
        * </pre>
        *
-       * <code>string depositor = 2;</code>
+       * <code>string depositor = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDepositor() {
@@ -9249,7 +9249,7 @@ public final class QueryOuterClass {
        * depositor defines the deposit addresses from the proposals.
        * </pre>
        *
-       * <code>string depositor = 2;</code>
+       * <code>string depositor = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for depositor to set.
        * @return This builder for chaining.
        */
@@ -13149,87 +13149,92 @@ public final class QueryOuterClass {
       ".gov.v1beta1\032*cosmos/base/query/v1beta1/" +
       "pagination.proto\032\024gogoproto/gogo.proto\032\034" +
       "google/api/annotations.proto\032\034cosmos/gov" +
-      "/v1beta1/gov.proto\"+\n\024QueryProposalReque" +
-      "st\022\023\n\013proposal_id\030\001 \001(\004\"M\n\025QueryProposal" +
-      "Response\0224\n\010proposal\030\001 \001(\0132\034.cosmos.gov." +
-      "v1beta1.ProposalB\004\310\336\037\000\"\274\001\n\025QueryProposal" +
-      "sRequest\022;\n\017proposal_status\030\001 \001(\0162\".cosm" +
-      "os.gov.v1beta1.ProposalStatus\022\r\n\005voter\030\002" +
-      " \001(\t\022\021\n\tdepositor\030\003 \001(\t\022:\n\npagination\030\004 " +
+      "/v1beta1/gov.proto\032\031cosmos_proto/cosmos." +
+      "proto\"+\n\024QueryProposalRequest\022\023\n\013proposa" +
+      "l_id\030\001 \001(\004\"M\n\025QueryProposalResponse\0224\n\010p" +
+      "roposal\030\001 \001(\0132\034.cosmos.gov.v1beta1.Propo" +
+      "salB\004\310\336\037\000\"\360\001\n\025QueryProposalsRequest\022;\n\017p" +
+      "roposal_status\030\001 \001(\0162\".cosmos.gov.v1beta" +
+      "1.ProposalStatus\022\'\n\005voter\030\002 \001(\tB\030\322\264-\024cos" +
+      "mos.AddressString\022+\n\tdepositor\030\003 \001(\tB\030\322\264" +
+      "-\024cosmos.AddressString\022:\n\npagination\030\004 \001" +
+      "(\0132&.cosmos.base.query.v1beta1.PageReque" +
+      "st:\010\350\240\037\000\210\240\037\000\"\214\001\n\026QueryProposalsResponse\022" +
+      "5\n\tproposals\030\001 \003(\0132\034.cosmos.gov.v1beta1." +
+      "ProposalB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cos" +
+      "mos.base.query.v1beta1.PageResponse\"Z\n\020Q" +
+      "ueryVoteRequest\022\023\n\013proposal_id\030\001 \001(\004\022\'\n\005" +
+      "voter\030\002 \001(\tB\030\322\264-\024cosmos.AddressString:\010\350" +
+      "\240\037\000\210\240\037\000\"A\n\021QueryVoteResponse\022,\n\004vote\030\001 \001" +
+      "(\0132\030.cosmos.gov.v1beta1.VoteB\004\310\336\037\000\"d\n\021Qu" +
+      "eryVotesRequest\022\023\n\013proposal_id\030\001 \001(\004\022:\n\n" +
+      "pagination\030\002 \001(\0132&.cosmos.base.query.v1b" +
+      "eta1.PageRequest\"\200\001\n\022QueryVotesResponse\022" +
+      "-\n\005votes\030\001 \003(\0132\030.cosmos.gov.v1beta1.Vote" +
+      "B\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base" +
+      ".query.v1beta1.PageResponse\")\n\022QueryPara" +
+      "msRequest\022\023\n\013params_type\030\001 \001(\t\"\322\001\n\023Query" +
+      "ParamsResponse\022=\n\rvoting_params\030\001 \001(\0132 ." +
+      "cosmos.gov.v1beta1.VotingParamsB\004\310\336\037\000\022?\n" +
+      "\016deposit_params\030\002 \001(\0132!.cosmos.gov.v1bet" +
+      "a1.DepositParamsB\004\310\336\037\000\022;\n\014tally_params\030\003" +
+      " \001(\0132\037.cosmos.gov.v1beta1.TallyParamsB\004\310" +
+      "\336\037\000\"a\n\023QueryDepositRequest\022\023\n\013proposal_i" +
+      "d\030\001 \001(\004\022+\n\tdepositor\030\002 \001(\tB\030\322\264-\024cosmos.A" +
+      "ddressString:\010\210\240\037\000\350\240\037\000\"J\n\024QueryDepositRe" +
+      "sponse\0222\n\007deposit\030\001 \001(\0132\033.cosmos.gov.v1b" +
+      "eta1.DepositB\004\310\336\037\000\"g\n\024QueryDepositsReque" +
+      "st\022\023\n\013proposal_id\030\001 \001(\004\022:\n\npagination\030\002 " +
       "\001(\0132&.cosmos.base.query.v1beta1.PageRequ" +
-      "est:\010\350\240\037\000\210\240\037\000\"\214\001\n\026QueryProposalsResponse" +
-      "\0225\n\tproposals\030\001 \003(\0132\034.cosmos.gov.v1beta1" +
-      ".ProposalB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.co" +
-      "smos.base.query.v1beta1.PageResponse\"@\n\020" +
-      "QueryVoteRequest\022\023\n\013proposal_id\030\001 \001(\004\022\r\n" +
-      "\005voter\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"A\n\021QueryVoteRespo" +
-      "nse\022,\n\004vote\030\001 \001(\0132\030.cosmos.gov.v1beta1.V" +
-      "oteB\004\310\336\037\000\"d\n\021QueryVotesRequest\022\023\n\013propos" +
-      "al_id\030\001 \001(\004\022:\n\npagination\030\002 \001(\0132&.cosmos" +
-      ".base.query.v1beta1.PageRequest\"\200\001\n\022Quer" +
-      "yVotesResponse\022-\n\005votes\030\001 \003(\0132\030.cosmos.g" +
-      "ov.v1beta1.VoteB\004\310\336\037\000\022;\n\npagination\030\002 \001(" +
-      "\0132\'.cosmos.base.query.v1beta1.PageRespon" +
-      "se\")\n\022QueryParamsRequest\022\023\n\013params_type\030" +
-      "\001 \001(\t\"\322\001\n\023QueryParamsResponse\022=\n\rvoting_" +
-      "params\030\001 \001(\0132 .cosmos.gov.v1beta1.Voting" +
-      "ParamsB\004\310\336\037\000\022?\n\016deposit_params\030\002 \001(\0132!.c" +
-      "osmos.gov.v1beta1.DepositParamsB\004\310\336\037\000\022;\n" +
-      "\014tally_params\030\003 \001(\0132\037.cosmos.gov.v1beta1" +
-      ".TallyParamsB\004\310\336\037\000\"G\n\023QueryDepositReques" +
-      "t\022\023\n\013proposal_id\030\001 \001(\004\022\021\n\tdepositor\030\002 \001(" +
-      "\t:\010\210\240\037\000\350\240\037\000\"J\n\024QueryDepositResponse\0222\n\007d" +
-      "eposit\030\001 \001(\0132\033.cosmos.gov.v1beta1.Deposi" +
-      "tB\004\310\336\037\000\"g\n\024QueryDepositsRequest\022\023\n\013propo" +
-      "sal_id\030\001 \001(\004\022:\n\npagination\030\002 \001(\0132&.cosmo" +
-      "s.base.query.v1beta1.PageRequest\"\211\001\n\025Que" +
-      "ryDepositsResponse\0223\n\010deposits\030\001 \003(\0132\033.c" +
-      "osmos.gov.v1beta1.DepositB\004\310\336\037\000\022;\n\npagin" +
-      "ation\030\002 \001(\0132\'.cosmos.base.query.v1beta1." +
-      "PageResponse\".\n\027QueryTallyResultRequest\022" +
-      "\023\n\013proposal_id\030\001 \001(\004\"P\n\030QueryTallyResult" +
-      "Response\0224\n\005tally\030\001 \001(\0132\037.cosmos.gov.v1b" +
-      "eta1.TallyResultB\004\310\336\037\0002\324\t\n\005Query\022\224\001\n\010Pro" +
-      "posal\022(.cosmos.gov.v1beta1.QueryProposal" +
-      "Request\032).cosmos.gov.v1beta1.QueryPropos" +
-      "alResponse\"3\202\323\344\223\002-\022+/cosmos/gov/v1beta1/" +
-      "proposals/{proposal_id}\022\211\001\n\tProposals\022)." +
-      "cosmos.gov.v1beta1.QueryProposalsRequest" +
-      "\032*.cosmos.gov.v1beta1.QueryProposalsResp" +
-      "onse\"%\202\323\344\223\002\037\022\035/cosmos/gov/v1beta1/propos" +
-      "als\022\226\001\n\004Vote\022$.cosmos.gov.v1beta1.QueryV" +
-      "oteRequest\032%.cosmos.gov.v1beta1.QueryVot" +
-      "eResponse\"A\202\323\344\223\002;\0229/cosmos/gov/v1beta1/p" +
-      "roposals/{proposal_id}/votes/{voter}\022\221\001\n" +
-      "\005Votes\022%.cosmos.gov.v1beta1.QueryVotesRe" +
-      "quest\032&.cosmos.gov.v1beta1.QueryVotesRes" +
-      "ponse\"9\202\323\344\223\0023\0221/cosmos/gov/v1beta1/propo" +
-      "sals/{proposal_id}/votes\022\213\001\n\006Params\022&.co" +
-      "smos.gov.v1beta1.QueryParamsRequest\032\'.co" +
-      "smos.gov.v1beta1.QueryParamsResponse\"0\202\323" +
-      "\344\223\002*\022(/cosmos/gov/v1beta1/params/{params" +
-      "_type}\022\246\001\n\007Deposit\022\'.cosmos.gov.v1beta1." +
-      "QueryDepositRequest\032(.cosmos.gov.v1beta1" +
-      ".QueryDepositResponse\"H\202\323\344\223\002B\022@/cosmos/g" +
-      "ov/v1beta1/proposals/{proposal_id}/depos" +
-      "its/{depositor}\022\235\001\n\010Deposits\022(.cosmos.go" +
-      "v.v1beta1.QueryDepositsRequest\032).cosmos." +
-      "gov.v1beta1.QueryDepositsResponse\"<\202\323\344\223\002" +
-      "6\0224/cosmos/gov/v1beta1/proposals/{propos" +
-      "al_id}/deposits\022\243\001\n\013TallyResult\022+.cosmos" +
-      ".gov.v1beta1.QueryTallyResultRequest\032,.c" +
-      "osmos.gov.v1beta1.QueryTallyResultRespon" +
-      "se\"9\202\323\344\223\0023\0221/cosmos/gov/v1beta1/proposal" +
-      "s/{proposal_id}/tallyB*Z(github.com/cosm" +
-      "os/cosmos-sdk/x/gov/typesb\006proto3"
+      "est\"\211\001\n\025QueryDepositsResponse\0223\n\010deposit" +
+      "s\030\001 \003(\0132\033.cosmos.gov.v1beta1.DepositB\004\310\336" +
+      "\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.que" +
+      "ry.v1beta1.PageResponse\".\n\027QueryTallyRes" +
+      "ultRequest\022\023\n\013proposal_id\030\001 \001(\004\"P\n\030Query" +
+      "TallyResultResponse\0224\n\005tally\030\001 \001(\0132\037.cos" +
+      "mos.gov.v1beta1.TallyResultB\004\310\336\037\0002\324\t\n\005Qu" +
+      "ery\022\224\001\n\010Proposal\022(.cosmos.gov.v1beta1.Qu" +
+      "eryProposalRequest\032).cosmos.gov.v1beta1." +
+      "QueryProposalResponse\"3\202\323\344\223\002-\022+/cosmos/g" +
+      "ov/v1beta1/proposals/{proposal_id}\022\211\001\n\tP" +
+      "roposals\022).cosmos.gov.v1beta1.QueryPropo" +
+      "salsRequest\032*.cosmos.gov.v1beta1.QueryPr" +
+      "oposalsResponse\"%\202\323\344\223\002\037\022\035/cosmos/gov/v1b" +
+      "eta1/proposals\022\226\001\n\004Vote\022$.cosmos.gov.v1b" +
+      "eta1.QueryVoteRequest\032%.cosmos.gov.v1bet" +
+      "a1.QueryVoteResponse\"A\202\323\344\223\002;\0229/cosmos/go" +
+      "v/v1beta1/proposals/{proposal_id}/votes/" +
+      "{voter}\022\221\001\n\005Votes\022%.cosmos.gov.v1beta1.Q" +
+      "ueryVotesRequest\032&.cosmos.gov.v1beta1.Qu" +
+      "eryVotesResponse\"9\202\323\344\223\0023\0221/cosmos/gov/v1" +
+      "beta1/proposals/{proposal_id}/votes\022\213\001\n\006" +
+      "Params\022&.cosmos.gov.v1beta1.QueryParamsR" +
+      "equest\032\'.cosmos.gov.v1beta1.QueryParamsR" +
+      "esponse\"0\202\323\344\223\002*\022(/cosmos/gov/v1beta1/par" +
+      "ams/{params_type}\022\246\001\n\007Deposit\022\'.cosmos.g" +
+      "ov.v1beta1.QueryDepositRequest\032(.cosmos." +
+      "gov.v1beta1.QueryDepositResponse\"H\202\323\344\223\002B" +
+      "\022@/cosmos/gov/v1beta1/proposals/{proposa" +
+      "l_id}/deposits/{depositor}\022\235\001\n\010Deposits\022" +
+      "(.cosmos.gov.v1beta1.QueryDepositsReques" +
+      "t\032).cosmos.gov.v1beta1.QueryDepositsResp" +
+      "onse\"<\202\323\344\223\0026\0224/cosmos/gov/v1beta1/propos" +
+      "als/{proposal_id}/deposits\022\243\001\n\013TallyResu" +
+      "lt\022+.cosmos.gov.v1beta1.QueryTallyResult" +
+      "Request\032,.cosmos.gov.v1beta1.QueryTallyR" +
+      "esultResponse\"9\202\323\344\223\0023\0221/cosmos/gov/v1bet" +
+      "a1/proposals/{proposal_id}/tallyB*Z(gith" +
+      "ub.com/cosmos/cosmos-sdk/x/gov/typesb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.gov.v1beta1.Gov.getDescriptor(),
+          cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_cosmos_gov_v1beta1_QueryProposalRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -13329,16 +13334,18 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Tally", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.gov.v1beta1.Gov.getDescriptor();
+    cosmos_proto.Cosmos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

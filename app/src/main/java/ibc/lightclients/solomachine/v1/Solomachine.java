@@ -16,8 +16,8 @@ public final class Solomachine {
   }
   /**
    * <pre>
-   * DataType defines the type of solo machine proof being created. This is done to preserve uniqueness of different
-   * data sign byte encodings.
+   * DataType defines the type of solo machine proof being created. This is done
+   * to preserve uniqueness of different data sign byte encodings.
    * </pre>
    *
    * Protobuf enum {@code ibc.lightclients.solomachine.v1.DataType}
@@ -1197,7 +1197,7 @@ public final class Solomachine {
      * public key of the solo machine
      * </pre>
      *
-     * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      * @return Whether the publicKey field is set.
      */
     boolean hasPublicKey();
@@ -1206,23 +1206,24 @@ public final class Solomachine {
      * public key of the solo machine
      * </pre>
      *
-     * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      * @return The publicKey.
      */
-    com.google.protobuf2.Any getPublicKey();
+    com.google.protobuf.Any getPublicKey();
     /**
      * <pre>
      * public key of the solo machine
      * </pre>
      *
-     * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      */
-    com.google.protobuf2.AnyOrBuilder getPublicKeyOrBuilder();
+    com.google.protobuf.AnyOrBuilder getPublicKeyOrBuilder();
 
     /**
      * <pre>
-     * diversifier allows the same public key to be re-used across different solo machine clients
-     * (potentially on different chains) without being considered misbehaviour.
+     * diversifier allows the same public key to be re-used across different solo
+     * machine clients (potentially on different chains) without being considered
+     * misbehaviour.
      * </pre>
      *
      * <code>string diversifier = 2;</code>
@@ -1231,8 +1232,9 @@ public final class Solomachine {
     java.lang.String getDiversifier();
     /**
      * <pre>
-     * diversifier allows the same public key to be re-used across different solo machine clients
-     * (potentially on different chains) without being considered misbehaviour.
+     * diversifier allows the same public key to be re-used across different solo
+     * machine clients (potentially on different chains) without being considered
+     * misbehaviour.
      * </pre>
      *
      * <code>string diversifier = 2;</code>
@@ -1249,8 +1251,9 @@ public final class Solomachine {
   }
   /**
    * <pre>
-   * ConsensusState defines a solo machine consensus state. The sequence of a consensus state
-   * is contained in the "height" key used in storing the consensus state.
+   * ConsensusState defines a solo machine consensus state. The sequence of a
+   * consensus state is contained in the "height" key used in storing the
+   * consensus state.
    * </pre>
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.ConsensusState}
@@ -1299,11 +1302,11 @@ public final class Solomachine {
               done = true;
               break;
             case 10: {
-              com.google.protobuf2.Any.Builder subBuilder = null;
+              com.google.protobuf.Any.Builder subBuilder = null;
               if (publicKey_ != null) {
                 subBuilder = publicKey_.toBuilder();
               }
-              publicKey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
+              publicKey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(publicKey_);
                 publicKey_ = subBuilder.buildPartial();
@@ -1355,13 +1358,13 @@ public final class Solomachine {
     }
 
     public static final int PUBLIC_KEY_FIELD_NUMBER = 1;
-    private com.google.protobuf2.Any publicKey_;
+    private com.google.protobuf.Any publicKey_;
     /**
      * <pre>
      * public key of the solo machine
      * </pre>
      *
-     * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      * @return Whether the publicKey field is set.
      */
     @java.lang.Override
@@ -1373,22 +1376,22 @@ public final class Solomachine {
      * public key of the solo machine
      * </pre>
      *
-     * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      * @return The publicKey.
      */
     @java.lang.Override
-    public com.google.protobuf2.Any getPublicKey() {
-      return publicKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : publicKey_;
+    public com.google.protobuf.Any getPublicKey() {
+      return publicKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : publicKey_;
     }
     /**
      * <pre>
      * public key of the solo machine
      * </pre>
      *
-     * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf2.AnyOrBuilder getPublicKeyOrBuilder() {
+    public com.google.protobuf.AnyOrBuilder getPublicKeyOrBuilder() {
       return getPublicKey();
     }
 
@@ -1396,8 +1399,9 @@ public final class Solomachine {
     private volatile java.lang.Object diversifier_;
     /**
      * <pre>
-     * diversifier allows the same public key to be re-used across different solo machine clients
-     * (potentially on different chains) without being considered misbehaviour.
+     * diversifier allows the same public key to be re-used across different solo
+     * machine clients (potentially on different chains) without being considered
+     * misbehaviour.
      * </pre>
      *
      * <code>string diversifier = 2;</code>
@@ -1418,8 +1422,9 @@ public final class Solomachine {
     }
     /**
      * <pre>
-     * diversifier allows the same public key to be re-used across different solo machine clients
-     * (potentially on different chains) without being considered misbehaviour.
+     * diversifier allows the same public key to be re-used across different solo
+     * machine clients (potentially on different chains) without being considered
+     * misbehaviour.
      * </pre>
      *
      * <code>string diversifier = 2;</code>
@@ -1635,8 +1640,9 @@ public final class Solomachine {
     }
     /**
      * <pre>
-     * ConsensusState defines a solo machine consensus state. The sequence of a consensus state
-     * is contained in the "height" key used in storing the consensus state.
+     * ConsensusState defines a solo machine consensus state. The sequence of a
+     * consensus state is contained in the "height" key used in storing the
+     * consensus state.
      * </pre>
      *
      * Protobuf type {@code ibc.lightclients.solomachine.v1.ConsensusState}
@@ -1806,15 +1812,15 @@ public final class Solomachine {
         return this;
       }
 
-      private com.google.protobuf2.Any publicKey_;
+      private com.google.protobuf.Any publicKey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> publicKeyBuilder_;
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> publicKeyBuilder_;
       /**
        * <pre>
        * public key of the solo machine
        * </pre>
        *
-       * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
        * @return Whether the publicKey field is set.
        */
       public boolean hasPublicKey() {
@@ -1825,12 +1831,12 @@ public final class Solomachine {
        * public key of the solo machine
        * </pre>
        *
-       * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
        * @return The publicKey.
        */
-      public com.google.protobuf2.Any getPublicKey() {
+      public com.google.protobuf.Any getPublicKey() {
         if (publicKeyBuilder_ == null) {
-          return publicKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : publicKey_;
+          return publicKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : publicKey_;
         } else {
           return publicKeyBuilder_.getMessage();
         }
@@ -1840,9 +1846,9 @@ public final class Solomachine {
        * public key of the solo machine
        * </pre>
        *
-       * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
        */
-      public Builder setPublicKey(com.google.protobuf2.Any value) {
+      public Builder setPublicKey(com.google.protobuf.Any value) {
         if (publicKeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1860,10 +1866,10 @@ public final class Solomachine {
        * public key of the solo machine
        * </pre>
        *
-       * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
        */
       public Builder setPublicKey(
-          com.google.protobuf2.Any.Builder builderForValue) {
+          com.google.protobuf.Any.Builder builderForValue) {
         if (publicKeyBuilder_ == null) {
           publicKey_ = builderForValue.build();
           onChanged();
@@ -1878,13 +1884,13 @@ public final class Solomachine {
        * public key of the solo machine
        * </pre>
        *
-       * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
        */
-      public Builder mergePublicKey(com.google.protobuf2.Any value) {
+      public Builder mergePublicKey(com.google.protobuf.Any value) {
         if (publicKeyBuilder_ == null) {
           if (publicKey_ != null) {
             publicKey_ =
-              com.google.protobuf2.Any.newBuilder(publicKey_).mergeFrom(value).buildPartial();
+              com.google.protobuf.Any.newBuilder(publicKey_).mergeFrom(value).buildPartial();
           } else {
             publicKey_ = value;
           }
@@ -1900,7 +1906,7 @@ public final class Solomachine {
        * public key of the solo machine
        * </pre>
        *
-       * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
        */
       public Builder clearPublicKey() {
         if (publicKeyBuilder_ == null) {
@@ -1918,9 +1924,9 @@ public final class Solomachine {
        * public key of the solo machine
        * </pre>
        *
-       * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
        */
-      public com.google.protobuf2.Any.Builder getPublicKeyBuilder() {
+      public com.google.protobuf.Any.Builder getPublicKeyBuilder() {
         
         onChanged();
         return getPublicKeyFieldBuilder().getBuilder();
@@ -1930,14 +1936,14 @@ public final class Solomachine {
        * public key of the solo machine
        * </pre>
        *
-       * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
        */
-      public com.google.protobuf2.AnyOrBuilder getPublicKeyOrBuilder() {
+      public com.google.protobuf.AnyOrBuilder getPublicKeyOrBuilder() {
         if (publicKeyBuilder_ != null) {
           return publicKeyBuilder_.getMessageOrBuilder();
         } else {
           return publicKey_ == null ?
-              com.google.protobuf2.Any.getDefaultInstance() : publicKey_;
+              com.google.protobuf.Any.getDefaultInstance() : publicKey_;
         }
       }
       /**
@@ -1945,14 +1951,14 @@ public final class Solomachine {
        * public key of the solo machine
        * </pre>
        *
-       * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
           getPublicKeyFieldBuilder() {
         if (publicKeyBuilder_ == null) {
           publicKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
                   getPublicKey(),
                   getParentForChildren(),
                   isClean());
@@ -1964,8 +1970,9 @@ public final class Solomachine {
       private java.lang.Object diversifier_ = "";
       /**
        * <pre>
-       * diversifier allows the same public key to be re-used across different solo machine clients
-       * (potentially on different chains) without being considered misbehaviour.
+       * diversifier allows the same public key to be re-used across different solo
+       * machine clients (potentially on different chains) without being considered
+       * misbehaviour.
        * </pre>
        *
        * <code>string diversifier = 2;</code>
@@ -1985,8 +1992,9 @@ public final class Solomachine {
       }
       /**
        * <pre>
-       * diversifier allows the same public key to be re-used across different solo machine clients
-       * (potentially on different chains) without being considered misbehaviour.
+       * diversifier allows the same public key to be re-used across different solo
+       * machine clients (potentially on different chains) without being considered
+       * misbehaviour.
        * </pre>
        *
        * <code>string diversifier = 2;</code>
@@ -2007,8 +2015,9 @@ public final class Solomachine {
       }
       /**
        * <pre>
-       * diversifier allows the same public key to be re-used across different solo machine clients
-       * (potentially on different chains) without being considered misbehaviour.
+       * diversifier allows the same public key to be re-used across different solo
+       * machine clients (potentially on different chains) without being considered
+       * misbehaviour.
        * </pre>
        *
        * <code>string diversifier = 2;</code>
@@ -2027,8 +2036,9 @@ public final class Solomachine {
       }
       /**
        * <pre>
-       * diversifier allows the same public key to be re-used across different solo machine clients
-       * (potentially on different chains) without being considered misbehaviour.
+       * diversifier allows the same public key to be re-used across different solo
+       * machine clients (potentially on different chains) without being considered
+       * misbehaviour.
        * </pre>
        *
        * <code>string diversifier = 2;</code>
@@ -2042,8 +2052,9 @@ public final class Solomachine {
       }
       /**
        * <pre>
-       * diversifier allows the same public key to be re-used across different solo machine clients
-       * (potentially on different chains) without being considered misbehaviour.
+       * diversifier allows the same public key to be re-used across different solo
+       * machine clients (potentially on different chains) without being considered
+       * misbehaviour.
        * </pre>
        *
        * <code>string diversifier = 2;</code>
@@ -2172,19 +2183,19 @@ public final class Solomachine {
     com.google.protobuf.ByteString getSignature();
 
     /**
-     * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
      * @return Whether the newPublicKey field is set.
      */
     boolean hasNewPublicKey();
     /**
-     * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
      * @return The newPublicKey.
      */
-    com.google.protobuf2.Any getNewPublicKey();
+    com.google.protobuf.Any getNewPublicKey();
     /**
-     * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
      */
-    com.google.protobuf2.AnyOrBuilder getNewPublicKeyOrBuilder();
+    com.google.protobuf.AnyOrBuilder getNewPublicKeyOrBuilder();
 
     /**
      * <code>string new_diversifier = 5 [(.gogoproto.moretags) = "yaml:&#92;"new_diversifier&#92;""];</code>
@@ -2265,11 +2276,11 @@ public final class Solomachine {
               break;
             }
             case 34: {
-              com.google.protobuf2.Any.Builder subBuilder = null;
+              com.google.protobuf.Any.Builder subBuilder = null;
               if (newPublicKey_ != null) {
                 subBuilder = newPublicKey_.toBuilder();
               }
-              newPublicKey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
+              newPublicKey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(newPublicKey_);
                 newPublicKey_ = subBuilder.buildPartial();
@@ -2353,9 +2364,9 @@ public final class Solomachine {
     }
 
     public static final int NEW_PUBLIC_KEY_FIELD_NUMBER = 4;
-    private com.google.protobuf2.Any newPublicKey_;
+    private com.google.protobuf.Any newPublicKey_;
     /**
-     * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
      * @return Whether the newPublicKey field is set.
      */
     @java.lang.Override
@@ -2363,18 +2374,18 @@ public final class Solomachine {
       return newPublicKey_ != null;
     }
     /**
-     * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
      * @return The newPublicKey.
      */
     @java.lang.Override
-    public com.google.protobuf2.Any getNewPublicKey() {
-      return newPublicKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : newPublicKey_;
+    public com.google.protobuf.Any getNewPublicKey() {
+      return newPublicKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : newPublicKey_;
     }
     /**
-     * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf2.AnyOrBuilder getNewPublicKeyOrBuilder() {
+    public com.google.protobuf.AnyOrBuilder getNewPublicKeyOrBuilder() {
       return getNewPublicKey();
     }
 
@@ -2913,31 +2924,31 @@ public final class Solomachine {
         return this;
       }
 
-      private com.google.protobuf2.Any newPublicKey_;
+      private com.google.protobuf.Any newPublicKey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> newPublicKeyBuilder_;
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> newPublicKeyBuilder_;
       /**
-       * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
        * @return Whether the newPublicKey field is set.
        */
       public boolean hasNewPublicKey() {
         return newPublicKeyBuilder_ != null || newPublicKey_ != null;
       }
       /**
-       * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
        * @return The newPublicKey.
        */
-      public com.google.protobuf2.Any getNewPublicKey() {
+      public com.google.protobuf.Any getNewPublicKey() {
         if (newPublicKeyBuilder_ == null) {
-          return newPublicKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : newPublicKey_;
+          return newPublicKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : newPublicKey_;
         } else {
           return newPublicKeyBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
        */
-      public Builder setNewPublicKey(com.google.protobuf2.Any value) {
+      public Builder setNewPublicKey(com.google.protobuf.Any value) {
         if (newPublicKeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2951,10 +2962,10 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
        */
       public Builder setNewPublicKey(
-          com.google.protobuf2.Any.Builder builderForValue) {
+          com.google.protobuf.Any.Builder builderForValue) {
         if (newPublicKeyBuilder_ == null) {
           newPublicKey_ = builderForValue.build();
           onChanged();
@@ -2965,13 +2976,13 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
        */
-      public Builder mergeNewPublicKey(com.google.protobuf2.Any value) {
+      public Builder mergeNewPublicKey(com.google.protobuf.Any value) {
         if (newPublicKeyBuilder_ == null) {
           if (newPublicKey_ != null) {
             newPublicKey_ =
-              com.google.protobuf2.Any.newBuilder(newPublicKey_).mergeFrom(value).buildPartial();
+              com.google.protobuf.Any.newBuilder(newPublicKey_).mergeFrom(value).buildPartial();
           } else {
             newPublicKey_ = value;
           }
@@ -2983,7 +2994,7 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
        */
       public Builder clearNewPublicKey() {
         if (newPublicKeyBuilder_ == null) {
@@ -2997,33 +3008,33 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
        */
-      public com.google.protobuf2.Any.Builder getNewPublicKeyBuilder() {
+      public com.google.protobuf.Any.Builder getNewPublicKeyBuilder() {
         
         onChanged();
         return getNewPublicKeyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
        */
-      public com.google.protobuf2.AnyOrBuilder getNewPublicKeyOrBuilder() {
+      public com.google.protobuf.AnyOrBuilder getNewPublicKeyOrBuilder() {
         if (newPublicKeyBuilder_ != null) {
           return newPublicKeyBuilder_.getMessageOrBuilder();
         } else {
           return newPublicKey_ == null ?
-              com.google.protobuf2.Any.getDefaultInstance() : newPublicKey_;
+              com.google.protobuf.Any.getDefaultInstance() : newPublicKey_;
         }
       }
       /**
-       * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
           getNewPublicKeyFieldBuilder() {
         if (newPublicKeyBuilder_ == null) {
           newPublicKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
                   getNewPublicKey(),
                   getParentForChildren(),
                   isClean());
@@ -6506,7 +6517,7 @@ public final class Solomachine {
      * header public key
      * </pre>
      *
-     * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
      * @return Whether the newPubKey field is set.
      */
     boolean hasNewPubKey();
@@ -6515,18 +6526,18 @@ public final class Solomachine {
      * header public key
      * </pre>
      *
-     * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
      * @return The newPubKey.
      */
-    com.google.protobuf2.Any getNewPubKey();
+    com.google.protobuf.Any getNewPubKey();
     /**
      * <pre>
      * header public key
      * </pre>
      *
-     * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
      */
-    com.google.protobuf2.AnyOrBuilder getNewPubKeyOrBuilder();
+    com.google.protobuf.AnyOrBuilder getNewPubKeyOrBuilder();
 
     /**
      * <pre>
@@ -6599,11 +6610,11 @@ public final class Solomachine {
               done = true;
               break;
             case 10: {
-              com.google.protobuf2.Any.Builder subBuilder = null;
+              com.google.protobuf.Any.Builder subBuilder = null;
               if (newPubKey_ != null) {
                 subBuilder = newPubKey_.toBuilder();
               }
-              newPubKey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
+              newPubKey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(newPubKey_);
                 newPubKey_ = subBuilder.buildPartial();
@@ -6650,13 +6661,13 @@ public final class Solomachine {
     }
 
     public static final int NEW_PUB_KEY_FIELD_NUMBER = 1;
-    private com.google.protobuf2.Any newPubKey_;
+    private com.google.protobuf.Any newPubKey_;
     /**
      * <pre>
      * header public key
      * </pre>
      *
-     * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
      * @return Whether the newPubKey field is set.
      */
     @java.lang.Override
@@ -6668,22 +6679,22 @@ public final class Solomachine {
      * header public key
      * </pre>
      *
-     * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
      * @return The newPubKey.
      */
     @java.lang.Override
-    public com.google.protobuf2.Any getNewPubKey() {
-      return newPubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : newPubKey_;
+    public com.google.protobuf.Any getNewPubKey() {
+      return newPubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : newPubKey_;
     }
     /**
      * <pre>
      * header public key
      * </pre>
      *
-     * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+     * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf2.AnyOrBuilder getNewPubKeyOrBuilder() {
+    public com.google.protobuf.AnyOrBuilder getNewPubKeyOrBuilder() {
       return getNewPubKey();
     }
 
@@ -7069,15 +7080,15 @@ public final class Solomachine {
         return this;
       }
 
-      private com.google.protobuf2.Any newPubKey_;
+      private com.google.protobuf.Any newPubKey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> newPubKeyBuilder_;
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> newPubKeyBuilder_;
       /**
        * <pre>
        * header public key
        * </pre>
        *
-       * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
        * @return Whether the newPubKey field is set.
        */
       public boolean hasNewPubKey() {
@@ -7088,12 +7099,12 @@ public final class Solomachine {
        * header public key
        * </pre>
        *
-       * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
        * @return The newPubKey.
        */
-      public com.google.protobuf2.Any getNewPubKey() {
+      public com.google.protobuf.Any getNewPubKey() {
         if (newPubKeyBuilder_ == null) {
-          return newPubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : newPubKey_;
+          return newPubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : newPubKey_;
         } else {
           return newPubKeyBuilder_.getMessage();
         }
@@ -7103,9 +7114,9 @@ public final class Solomachine {
        * header public key
        * </pre>
        *
-       * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
        */
-      public Builder setNewPubKey(com.google.protobuf2.Any value) {
+      public Builder setNewPubKey(com.google.protobuf.Any value) {
         if (newPubKeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7123,10 +7134,10 @@ public final class Solomachine {
        * header public key
        * </pre>
        *
-       * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
        */
       public Builder setNewPubKey(
-          com.google.protobuf2.Any.Builder builderForValue) {
+          com.google.protobuf.Any.Builder builderForValue) {
         if (newPubKeyBuilder_ == null) {
           newPubKey_ = builderForValue.build();
           onChanged();
@@ -7141,13 +7152,13 @@ public final class Solomachine {
        * header public key
        * </pre>
        *
-       * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
        */
-      public Builder mergeNewPubKey(com.google.protobuf2.Any value) {
+      public Builder mergeNewPubKey(com.google.protobuf.Any value) {
         if (newPubKeyBuilder_ == null) {
           if (newPubKey_ != null) {
             newPubKey_ =
-              com.google.protobuf2.Any.newBuilder(newPubKey_).mergeFrom(value).buildPartial();
+              com.google.protobuf.Any.newBuilder(newPubKey_).mergeFrom(value).buildPartial();
           } else {
             newPubKey_ = value;
           }
@@ -7163,7 +7174,7 @@ public final class Solomachine {
        * header public key
        * </pre>
        *
-       * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
        */
       public Builder clearNewPubKey() {
         if (newPubKeyBuilder_ == null) {
@@ -7181,9 +7192,9 @@ public final class Solomachine {
        * header public key
        * </pre>
        *
-       * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
        */
-      public com.google.protobuf2.Any.Builder getNewPubKeyBuilder() {
+      public com.google.protobuf.Any.Builder getNewPubKeyBuilder() {
         
         onChanged();
         return getNewPubKeyFieldBuilder().getBuilder();
@@ -7193,14 +7204,14 @@ public final class Solomachine {
        * header public key
        * </pre>
        *
-       * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
        */
-      public com.google.protobuf2.AnyOrBuilder getNewPubKeyOrBuilder() {
+      public com.google.protobuf.AnyOrBuilder getNewPubKeyOrBuilder() {
         if (newPubKeyBuilder_ != null) {
           return newPubKeyBuilder_.getMessageOrBuilder();
         } else {
           return newPubKey_ == null ?
-              com.google.protobuf2.Any.getDefaultInstance() : newPubKey_;
+              com.google.protobuf.Any.getDefaultInstance() : newPubKey_;
         }
       }
       /**
@@ -7208,14 +7219,14 @@ public final class Solomachine {
        * header public key
        * </pre>
        *
-       * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
+       * <code>.google.protobuf.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
           getNewPubKeyFieldBuilder() {
         if (newPubKeyBuilder_ == null) {
           newPubKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
                   getNewPubKey(),
                   getParentForChildren(),
                   isClean());
@@ -7383,19 +7394,19 @@ public final class Solomachine {
     com.google.protobuf.ByteString getPath();
 
     /**
-     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
     boolean hasClientState();
     /**
-     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
-    com.google.protobuf2.Any getClientState();
+    com.google.protobuf.Any getClientState();
     /**
-     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
-    com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder();
+    com.google.protobuf.AnyOrBuilder getClientStateOrBuilder();
   }
   /**
    * <pre>
@@ -7453,11 +7464,11 @@ public final class Solomachine {
               break;
             }
             case 18: {
-              com.google.protobuf2.Any.Builder subBuilder = null;
+              com.google.protobuf.Any.Builder subBuilder = null;
               if (clientState_ != null) {
                 subBuilder = clientState_.toBuilder();
               }
-              clientState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
+              clientState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(clientState_);
                 clientState_ = subBuilder.buildPartial();
@@ -7509,9 +7520,9 @@ public final class Solomachine {
     }
 
     public static final int CLIENT_STATE_FIELD_NUMBER = 2;
-    private com.google.protobuf2.Any clientState_;
+    private com.google.protobuf.Any clientState_;
     /**
-     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
     @java.lang.Override
@@ -7519,18 +7530,18 @@ public final class Solomachine {
       return clientState_ != null;
     }
     /**
-     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
     @java.lang.Override
-    public com.google.protobuf2.Any getClientState() {
-      return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
+    public com.google.protobuf.Any getClientState() {
+      return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
     }
     /**
-     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
+    public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
       return getClientState();
     }
 
@@ -7904,31 +7915,31 @@ public final class Solomachine {
         return this;
       }
 
-      private com.google.protobuf2.Any clientState_;
+      private com.google.protobuf.Any clientState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> clientStateBuilder_;
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> clientStateBuilder_;
       /**
-       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        * @return Whether the clientState field is set.
        */
       public boolean hasClientState() {
         return clientStateBuilder_ != null || clientState_ != null;
       }
       /**
-       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        * @return The clientState.
        */
-      public com.google.protobuf2.Any getClientState() {
+      public com.google.protobuf.Any getClientState() {
         if (clientStateBuilder_ == null) {
-          return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
+          return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
         } else {
           return clientStateBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public Builder setClientState(com.google.protobuf2.Any value) {
+      public Builder setClientState(com.google.protobuf.Any value) {
         if (clientStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7942,10 +7953,10 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       public Builder setClientState(
-          com.google.protobuf2.Any.Builder builderForValue) {
+          com.google.protobuf.Any.Builder builderForValue) {
         if (clientStateBuilder_ == null) {
           clientState_ = builderForValue.build();
           onChanged();
@@ -7956,13 +7967,13 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public Builder mergeClientState(com.google.protobuf2.Any value) {
+      public Builder mergeClientState(com.google.protobuf.Any value) {
         if (clientStateBuilder_ == null) {
           if (clientState_ != null) {
             clientState_ =
-              com.google.protobuf2.Any.newBuilder(clientState_).mergeFrom(value).buildPartial();
+              com.google.protobuf.Any.newBuilder(clientState_).mergeFrom(value).buildPartial();
           } else {
             clientState_ = value;
           }
@@ -7974,7 +7985,7 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       public Builder clearClientState() {
         if (clientStateBuilder_ == null) {
@@ -7988,33 +7999,33 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public com.google.protobuf2.Any.Builder getClientStateBuilder() {
+      public com.google.protobuf.Any.Builder getClientStateBuilder() {
         
         onChanged();
         return getClientStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
+      public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
         if (clientStateBuilder_ != null) {
           return clientStateBuilder_.getMessageOrBuilder();
         } else {
           return clientState_ == null ?
-              com.google.protobuf2.Any.getDefaultInstance() : clientState_;
+              com.google.protobuf.Any.getDefaultInstance() : clientState_;
         }
       }
       /**
-       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
           getClientStateFieldBuilder() {
         if (clientStateBuilder_ == null) {
           clientStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
                   getClientState(),
                   getParentForChildren(),
                   isClean());
@@ -8086,19 +8097,19 @@ public final class Solomachine {
     com.google.protobuf.ByteString getPath();
 
     /**
-     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return Whether the consensusState field is set.
      */
     boolean hasConsensusState();
     /**
-     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return The consensusState.
      */
-    com.google.protobuf2.Any getConsensusState();
+    com.google.protobuf.Any getConsensusState();
     /**
-     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      */
-    com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder();
+    com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder();
   }
   /**
    * <pre>
@@ -8157,11 +8168,11 @@ public final class Solomachine {
               break;
             }
             case 18: {
-              com.google.protobuf2.Any.Builder subBuilder = null;
+              com.google.protobuf.Any.Builder subBuilder = null;
               if (consensusState_ != null) {
                 subBuilder = consensusState_.toBuilder();
               }
-              consensusState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
+              consensusState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(consensusState_);
                 consensusState_ = subBuilder.buildPartial();
@@ -8213,9 +8224,9 @@ public final class Solomachine {
     }
 
     public static final int CONSENSUS_STATE_FIELD_NUMBER = 2;
-    private com.google.protobuf2.Any consensusState_;
+    private com.google.protobuf.Any consensusState_;
     /**
-     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return Whether the consensusState field is set.
      */
     @java.lang.Override
@@ -8223,18 +8234,18 @@ public final class Solomachine {
       return consensusState_ != null;
     }
     /**
-     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return The consensusState.
      */
     @java.lang.Override
-    public com.google.protobuf2.Any getConsensusState() {
-      return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
+    public com.google.protobuf.Any getConsensusState() {
+      return consensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusState_;
     }
     /**
-     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
+    public com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
 
@@ -8609,31 +8620,31 @@ public final class Solomachine {
         return this;
       }
 
-      private com.google.protobuf2.Any consensusState_;
+      private com.google.protobuf.Any consensusState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> consensusStateBuilder_;
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> consensusStateBuilder_;
       /**
-       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        * @return Whether the consensusState field is set.
        */
       public boolean hasConsensusState() {
         return consensusStateBuilder_ != null || consensusState_ != null;
       }
       /**
-       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        * @return The consensusState.
        */
-      public com.google.protobuf2.Any getConsensusState() {
+      public com.google.protobuf.Any getConsensusState() {
         if (consensusStateBuilder_ == null) {
-          return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
+          return consensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusState_;
         } else {
           return consensusStateBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public Builder setConsensusState(com.google.protobuf2.Any value) {
+      public Builder setConsensusState(com.google.protobuf.Any value) {
         if (consensusStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -8647,10 +8658,10 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
       public Builder setConsensusState(
-          com.google.protobuf2.Any.Builder builderForValue) {
+          com.google.protobuf.Any.Builder builderForValue) {
         if (consensusStateBuilder_ == null) {
           consensusState_ = builderForValue.build();
           onChanged();
@@ -8661,13 +8672,13 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public Builder mergeConsensusState(com.google.protobuf2.Any value) {
+      public Builder mergeConsensusState(com.google.protobuf.Any value) {
         if (consensusStateBuilder_ == null) {
           if (consensusState_ != null) {
             consensusState_ =
-              com.google.protobuf2.Any.newBuilder(consensusState_).mergeFrom(value).buildPartial();
+              com.google.protobuf.Any.newBuilder(consensusState_).mergeFrom(value).buildPartial();
           } else {
             consensusState_ = value;
           }
@@ -8679,7 +8690,7 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
       public Builder clearConsensusState() {
         if (consensusStateBuilder_ == null) {
@@ -8693,33 +8704,33 @@ public final class Solomachine {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public com.google.protobuf2.Any.Builder getConsensusStateBuilder() {
+      public com.google.protobuf.Any.Builder getConsensusStateBuilder() {
         
         onChanged();
         return getConsensusStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
+      public com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder() {
         if (consensusStateBuilder_ != null) {
           return consensusStateBuilder_.getMessageOrBuilder();
         } else {
           return consensusState_ == null ?
-              com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
+              com.google.protobuf.Any.getDefaultInstance() : consensusState_;
         }
       }
       /**
-       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
           getConsensusStateFieldBuilder() {
         if (consensusStateBuilder_ == null) {
           consensusStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
                   getConsensusState(),
                   getParentForChildren(),
                   isClean());
@@ -12510,84 +12521,84 @@ public final class Solomachine {
       "chine.proto\022\037ibc.lightclients.solomachin" +
       "e.v1\032\'ibc/core/connection/v1/connection." +
       "proto\032!ibc/core/channel/v1/channel.proto" +
-      "\032\024gogoproto/gogo.proto\032\032google/protobuf2" +
-      "/any.proto\"\215\002\n\013ClientState\022\020\n\010sequence\030\001" +
-      " \001(\004\0223\n\017frozen_sequence\030\002 \001(\004B\032\362\336\037\026yaml:" +
-      "\"frozen_sequence\"\022d\n\017consensus_state\030\003 \001" +
-      "(\0132/.ibc.lightclients.solomachine.v1.Con" +
-      "sensusStateB\032\362\336\037\026yaml:\"consensus_state\"\022" +
-      "K\n\033allow_update_after_proposal\030\004 \001(\010B&\362\336" +
-      "\037\"yaml:\"allow_update_after_proposal\":\004\210\240" +
-      "\037\000\"\200\001\n\016ConsensusState\022@\n\npublic_key\030\001 \001(" +
-      "\0132\025.google.protobuf2.AnyB\025\362\336\037\021yaml:\"publ" +
-      "ic_key\"\022\023\n\013diversifier\030\002 \001(\t\022\021\n\ttimestam" +
-      "p\030\003 \001(\004:\004\210\240\037\000\"\305\001\n\006Header\022\020\n\010sequence\030\001 \001" +
-      "(\004\022\021\n\ttimestamp\030\002 \001(\004\022\021\n\tsignature\030\003 \001(\014" +
-      "\022H\n\016new_public_key\030\004 \001(\0132\025.google.protob" +
-      "uf2.AnyB\031\362\336\037\025yaml:\"new_public_key\"\0223\n\017ne" +
-      "w_diversifier\030\005 \001(\tB\032\362\336\037\026yaml:\"new_diver" +
-      "sifier\":\004\210\240\037\000\"\227\002\n\014Misbehaviour\022\'\n\tclient" +
-      "_id\030\001 \001(\tB\024\362\336\037\020yaml:\"client_id\"\022\020\n\010seque" +
-      "nce\030\002 \001(\004\022b\n\rsignature_one\030\003 \001(\01321.ibc.l" +
-      "ightclients.solomachine.v1.SignatureAndD" +
-      "ataB\030\362\336\037\024yaml:\"signature_one\"\022b\n\rsignatu" +
-      "re_two\030\004 \001(\01321.ibc.lightclients.solomach" +
-      "ine.v1.SignatureAndDataB\030\362\336\037\024yaml:\"signa" +
-      "ture_two\":\004\210\240\037\000\"\240\001\n\020SignatureAndData\022\021\n\t" +
-      "signature\030\001 \001(\014\022R\n\tdata_type\030\002 \001(\0162).ibc" +
-      ".lightclients.solomachine.v1.DataTypeB\024\362" +
-      "\336\037\020yaml:\"data_type\"\022\014\n\004data\030\003 \001(\014\022\021\n\ttim" +
-      "estamp\030\004 \001(\004:\004\210\240\037\000\"f\n\030TimestampedSignatu" +
-      "reData\0221\n\016signature_data\030\001 \001(\014B\031\362\336\037\025yaml" +
-      ":\"signature_data\"\022\021\n\ttimestamp\030\002 \001(\004:\004\210\240" +
-      "\037\000\"\255\001\n\tSignBytes\022\020\n\010sequence\030\001 \001(\004\022\021\n\tti" +
-      "mestamp\030\002 \001(\004\022\023\n\013diversifier\030\003 \001(\t\022R\n\tda" +
-      "ta_type\030\004 \001(\0162).ibc.lightclients.solomac" +
-      "hine.v1.DataTypeB\024\362\336\037\020yaml:\"data_type\"\022\014" +
-      "\n\004data\030\005 \001(\014:\004\210\240\037\000\"\213\001\n\nHeaderData\022B\n\013new" +
-      "_pub_key\030\001 \001(\0132\025.google.protobuf2.AnyB\026\362" +
-      "\336\037\022yaml:\"new_pub_key\"\0223\n\017new_diversifier" +
-      "\030\002 \001(\tB\032\362\336\037\026yaml:\"new_diversifier\":\004\210\240\037\000" +
-      "\"k\n\017ClientStateData\022\014\n\004path\030\001 \001(\014\022D\n\014cli" +
-      "ent_state\030\002 \001(\0132\025.google.protobuf2.AnyB\027" +
-      "\362\336\037\023yaml:\"client_state\":\004\210\240\037\000\"t\n\022Consens" +
-      "usStateData\022\014\n\004path\030\001 \001(\014\022J\n\017consensus_s" +
-      "tate\030\002 \001(\0132\025.google.protobuf2.AnyB\032\362\336\037\026y" +
-      "aml:\"consensus_state\":\004\210\240\037\000\"d\n\023Connectio" +
-      "nStateData\022\014\n\004path\030\001 \001(\014\0229\n\nconnection\030\002" +
-      " \001(\0132%.ibc.core.connection.v1.Connection" +
-      "End:\004\210\240\037\000\"U\n\020ChannelStateData\022\014\n\004path\030\001 " +
-      "\001(\014\022-\n\007channel\030\002 \001(\0132\034.ibc.core.channel." +
-      "v1.Channel:\004\210\240\037\000\"8\n\024PacketCommitmentData" +
-      "\022\014\n\004path\030\001 \001(\014\022\022\n\ncommitment\030\002 \001(\014\"B\n\031Pa" +
-      "cketAcknowledgementData\022\014\n\004path\030\001 \001(\014\022\027\n" +
-      "\017acknowledgement\030\002 \001(\014\"(\n\030PacketReceiptA" +
-      "bsenceData\022\014\n\004path\030\001 \001(\014\"U\n\024NextSequence" +
-      "RecvData\022\014\n\004path\030\001 \001(\014\022/\n\rnext_seq_recv\030" +
-      "\002 \001(\004B\030\362\336\037\024yaml:\"next_seq_recv\"*\214\004\n\010Data" +
-      "Type\0228\n#DATA_TYPE_UNINITIALIZED_UNSPECIF" +
-      "IED\020\000\032\017\212\235 \013UNSPECIFIED\022&\n\026DATA_TYPE_CLIE" +
-      "NT_STATE\020\001\032\n\212\235 \006CLIENT\022,\n\031DATA_TYPE_CONS" +
-      "ENSUS_STATE\020\002\032\r\212\235 \tCONSENSUS\022.\n\032DATA_TYP" +
-      "E_CONNECTION_STATE\020\003\032\016\212\235 \nCONNECTION\022(\n\027" +
-      "DATA_TYPE_CHANNEL_STATE\020\004\032\013\212\235 \007CHANNEL\0225" +
-      "\n\033DATA_TYPE_PACKET_COMMITMENT\020\005\032\024\212\235 \020PAC" +
-      "KETCOMMITMENT\022?\n DATA_TYPE_PACKET_ACKNOW" +
-      "LEDGEMENT\020\006\032\031\212\235 \025PACKETACKNOWLEDGEMENT\022>" +
-      "\n DATA_TYPE_PACKET_RECEIPT_ABSENCE\020\007\032\030\212\235" +
-      " \024PACKETRECEIPTABSENCE\0226\n\034DATA_TYPE_NEXT" +
-      "_SEQUENCE_RECV\020\010\032\024\212\235 \020NEXTSEQUENCERECV\022 " +
-      "\n\020DATA_TYPE_HEADER\020\t\032\n\212\235 \006HEADER\032\004\210\243\036\000BG" +
-      "ZEgithub.com/cosmos/cosmos-sdk/x/ibc/lig" +
-      "ht-clients/06-solomachine/typesb\006proto3"
+      "\032\024gogoproto/gogo.proto\032\031google/protobuf/" +
+      "any.proto\"\215\002\n\013ClientState\022\020\n\010sequence\030\001 " +
+      "\001(\004\0223\n\017frozen_sequence\030\002 \001(\004B\032\362\336\037\026yaml:\"" +
+      "frozen_sequence\"\022d\n\017consensus_state\030\003 \001(" +
+      "\0132/.ibc.lightclients.solomachine.v1.Cons" +
+      "ensusStateB\032\362\336\037\026yaml:\"consensus_state\"\022K" +
+      "\n\033allow_update_after_proposal\030\004 \001(\010B&\362\336\037" +
+      "\"yaml:\"allow_update_after_proposal\":\004\210\240\037" +
+      "\000\"\177\n\016ConsensusState\022?\n\npublic_key\030\001 \001(\0132" +
+      "\024.google.protobuf.AnyB\025\362\336\037\021yaml:\"public_" +
+      "key\"\022\023\n\013diversifier\030\002 \001(\t\022\021\n\ttimestamp\030\003" +
+      " \001(\004:\004\210\240\037\000\"\304\001\n\006Header\022\020\n\010sequence\030\001 \001(\004\022" +
+      "\021\n\ttimestamp\030\002 \001(\004\022\021\n\tsignature\030\003 \001(\014\022G\n" +
+      "\016new_public_key\030\004 \001(\0132\024.google.protobuf." +
+      "AnyB\031\362\336\037\025yaml:\"new_public_key\"\0223\n\017new_di" +
+      "versifier\030\005 \001(\tB\032\362\336\037\026yaml:\"new_diversifi" +
+      "er\":\004\210\240\037\000\"\227\002\n\014Misbehaviour\022\'\n\tclient_id\030" +
+      "\001 \001(\tB\024\362\336\037\020yaml:\"client_id\"\022\020\n\010sequence\030" +
+      "\002 \001(\004\022b\n\rsignature_one\030\003 \001(\01321.ibc.light" +
+      "clients.solomachine.v1.SignatureAndDataB" +
+      "\030\362\336\037\024yaml:\"signature_one\"\022b\n\rsignature_t" +
+      "wo\030\004 \001(\01321.ibc.lightclients.solomachine." +
+      "v1.SignatureAndDataB\030\362\336\037\024yaml:\"signature" +
+      "_two\":\004\210\240\037\000\"\240\001\n\020SignatureAndData\022\021\n\tsign" +
+      "ature\030\001 \001(\014\022R\n\tdata_type\030\002 \001(\0162).ibc.lig" +
+      "htclients.solomachine.v1.DataTypeB\024\362\336\037\020y" +
+      "aml:\"data_type\"\022\014\n\004data\030\003 \001(\014\022\021\n\ttimesta" +
+      "mp\030\004 \001(\004:\004\210\240\037\000\"f\n\030TimestampedSignatureDa" +
+      "ta\0221\n\016signature_data\030\001 \001(\014B\031\362\336\037\025yaml:\"si" +
+      "gnature_data\"\022\021\n\ttimestamp\030\002 \001(\004:\004\210\240\037\000\"\255" +
+      "\001\n\tSignBytes\022\020\n\010sequence\030\001 \001(\004\022\021\n\ttimest" +
+      "amp\030\002 \001(\004\022\023\n\013diversifier\030\003 \001(\t\022R\n\tdata_t" +
+      "ype\030\004 \001(\0162).ibc.lightclients.solomachine" +
+      ".v1.DataTypeB\024\362\336\037\020yaml:\"data_type\"\022\014\n\004da" +
+      "ta\030\005 \001(\014:\004\210\240\037\000\"\212\001\n\nHeaderData\022A\n\013new_pub" +
+      "_key\030\001 \001(\0132\024.google.protobuf.AnyB\026\362\336\037\022ya" +
+      "ml:\"new_pub_key\"\0223\n\017new_diversifier\030\002 \001(" +
+      "\tB\032\362\336\037\026yaml:\"new_diversifier\":\004\210\240\037\000\"j\n\017C" +
+      "lientStateData\022\014\n\004path\030\001 \001(\014\022C\n\014client_s" +
+      "tate\030\002 \001(\0132\024.google.protobuf.AnyB\027\362\336\037\023ya" +
+      "ml:\"client_state\":\004\210\240\037\000\"s\n\022ConsensusStat" +
+      "eData\022\014\n\004path\030\001 \001(\014\022I\n\017consensus_state\030\002" +
+      " \001(\0132\024.google.protobuf.AnyB\032\362\336\037\026yaml:\"co" +
+      "nsensus_state\":\004\210\240\037\000\"d\n\023ConnectionStateD" +
+      "ata\022\014\n\004path\030\001 \001(\014\0229\n\nconnection\030\002 \001(\0132%." +
+      "ibc.core.connection.v1.ConnectionEnd:\004\210\240" +
+      "\037\000\"U\n\020ChannelStateData\022\014\n\004path\030\001 \001(\014\022-\n\007" +
+      "channel\030\002 \001(\0132\034.ibc.core.channel.v1.Chan" +
+      "nel:\004\210\240\037\000\"8\n\024PacketCommitmentData\022\014\n\004pat" +
+      "h\030\001 \001(\014\022\022\n\ncommitment\030\002 \001(\014\"B\n\031PacketAck" +
+      "nowledgementData\022\014\n\004path\030\001 \001(\014\022\027\n\017acknow" +
+      "ledgement\030\002 \001(\014\"(\n\030PacketReceiptAbsenceD" +
+      "ata\022\014\n\004path\030\001 \001(\014\"U\n\024NextSequenceRecvDat" +
+      "a\022\014\n\004path\030\001 \001(\014\022/\n\rnext_seq_recv\030\002 \001(\004B\030" +
+      "\362\336\037\024yaml:\"next_seq_recv\"*\214\004\n\010DataType\0228\n" +
+      "#DATA_TYPE_UNINITIALIZED_UNSPECIFIED\020\000\032\017" +
+      "\212\235 \013UNSPECIFIED\022&\n\026DATA_TYPE_CLIENT_STAT" +
+      "E\020\001\032\n\212\235 \006CLIENT\022,\n\031DATA_TYPE_CONSENSUS_S" +
+      "TATE\020\002\032\r\212\235 \tCONSENSUS\022.\n\032DATA_TYPE_CONNE" +
+      "CTION_STATE\020\003\032\016\212\235 \nCONNECTION\022(\n\027DATA_TY" +
+      "PE_CHANNEL_STATE\020\004\032\013\212\235 \007CHANNEL\0225\n\033DATA_" +
+      "TYPE_PACKET_COMMITMENT\020\005\032\024\212\235 \020PACKETCOMM" +
+      "ITMENT\022?\n DATA_TYPE_PACKET_ACKNOWLEDGEME" +
+      "NT\020\006\032\031\212\235 \025PACKETACKNOWLEDGEMENT\022>\n DATA_" +
+      "TYPE_PACKET_RECEIPT_ABSENCE\020\007\032\030\212\235 \024PACKE" +
+      "TRECEIPTABSENCE\0226\n\034DATA_TYPE_NEXT_SEQUEN" +
+      "CE_RECV\020\010\032\024\212\235 \020NEXTSEQUENCERECV\022 \n\020DATA_" +
+      "TYPE_HEADER\020\t\032\n\212\235 \006HEADER\032\004\210\243\036\000B@Z>githu" +
+      "b.com/cosmos/ibc-go/v2/modules/core/02-c" +
+      "lient/legacy/v100b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           ibc.core.connection.v1.Connection.getDescriptor(),
           ibc.core.channel.v1.ChannelOuterClass.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
-          com.google.protobuf2.AnyProto.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf.AnyProto.getDescriptor(),
         });
     internal_static_ibc_lightclients_solomachine_v1_ClientState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -12687,16 +12698,16 @@ public final class Solomachine {
         new java.lang.String[] { "Path", "NextSeqRecv", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     ibc.core.connection.v1.Connection.getDescriptor();
     ibc.core.channel.v1.ChannelOuterClass.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
-    com.google.protobuf2.AnyProto.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

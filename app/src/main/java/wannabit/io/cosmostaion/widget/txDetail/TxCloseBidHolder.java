@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import akash.market.v1beta1.BidOuterClass;
+import akash.market.v1beta2.BidOuterClass;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;

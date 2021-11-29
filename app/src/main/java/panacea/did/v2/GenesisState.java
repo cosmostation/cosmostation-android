@@ -10,7 +10,7 @@ package panacea.did.v2;
  *
  * Protobuf type {@code panacea.did.v2.GenesisState}
  */
-public  final class GenesisState extends
+public final class GenesisState extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.did.v2.GenesisState)
     GenesisStateOrBuilder {
@@ -140,6 +140,7 @@ private static final long serialVersionUID = 0L;
    * <code>map&lt;string, .panacea.did.v2.DIDDocumentWithSeq&gt; documents = 1;</code>
    */
 
+  @java.lang.Override
   public boolean containsDocuments(
       java.lang.String key) {
     if (key == null) { throw new java.lang.NullPointerException(); }
@@ -148,6 +149,7 @@ private static final long serialVersionUID = 0L;
   /**
    * Use {@link #getDocumentsMap()} instead.
    */
+  @java.lang.Override
   @java.lang.Deprecated
   public java.util.Map<java.lang.String, panacea.did.v2.DIDDocumentWithSeq> getDocuments() {
     return getDocumentsMap();
@@ -155,6 +157,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.did.v2.DIDDocumentWithSeq&gt; documents = 1;</code>
    */
+  @java.lang.Override
 
   public java.util.Map<java.lang.String, panacea.did.v2.DIDDocumentWithSeq> getDocumentsMap() {
     return internalGetDocuments().getMap();
@@ -162,6 +165,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.did.v2.DIDDocumentWithSeq&gt; documents = 1;</code>
    */
+  @java.lang.Override
 
   public panacea.did.v2.DIDDocumentWithSeq getDocumentsOrDefault(
       java.lang.String key,
@@ -174,6 +178,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.did.v2.DIDDocumentWithSeq&gt; documents = 1;</code>
    */
+  @java.lang.Override
 
   public panacea.did.v2.DIDDocumentWithSeq getDocumentsOrThrow(
       java.lang.String key) {
@@ -556,6 +561,7 @@ private static final long serialVersionUID = 0L;
      * <code>map&lt;string, .panacea.did.v2.DIDDocumentWithSeq&gt; documents = 1;</code>
      */
 
+    @java.lang.Override
     public boolean containsDocuments(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -564,6 +570,7 @@ private static final long serialVersionUID = 0L;
     /**
      * Use {@link #getDocumentsMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, panacea.did.v2.DIDDocumentWithSeq> getDocuments() {
       return getDocumentsMap();
@@ -571,6 +578,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.did.v2.DIDDocumentWithSeq&gt; documents = 1;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, panacea.did.v2.DIDDocumentWithSeq> getDocumentsMap() {
       return internalGetDocuments().getMap();
@@ -578,6 +586,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.did.v2.DIDDocumentWithSeq&gt; documents = 1;</code>
      */
+    @java.lang.Override
 
     public panacea.did.v2.DIDDocumentWithSeq getDocumentsOrDefault(
         java.lang.String key,
@@ -590,6 +599,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.did.v2.DIDDocumentWithSeq&gt; documents = 1;</code>
      */
+    @java.lang.Override
 
     public panacea.did.v2.DIDDocumentWithSeq getDocumentsOrThrow(
         java.lang.String key) {

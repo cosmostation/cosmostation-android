@@ -33,7 +33,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.clp.v1.Asset}
    */
-  public  static final class Asset extends
+  public static final class Asset extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.Asset)
       AssetOrBuilder {
@@ -120,6 +120,7 @@ public final class Types {
      * <code>string symbol = 1;</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -136,6 +137,7 @@ public final class Types {
      * <code>string symbol = 1;</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -638,7 +640,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.clp.v1.Pool}
    */
-  public  static final class Pool extends
+  public static final class Pool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.Pool)
       PoolOrBuilder {
@@ -752,6 +754,7 @@ public final class Types {
      * <code>.sifnode.clp.v1.Asset external_asset = 1;</code>
      * @return Whether the externalAsset field is set.
      */
+    @java.lang.Override
     public boolean hasExternalAsset() {
       return externalAsset_ != null;
     }
@@ -759,12 +762,14 @@ public final class Types {
      * <code>.sifnode.clp.v1.Asset external_asset = 1;</code>
      * @return The externalAsset.
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.Asset getExternalAsset() {
       return externalAsset_ == null ? sifnode.clp.v1.Types.Asset.getDefaultInstance() : externalAsset_;
     }
     /**
      * <code>.sifnode.clp.v1.Asset external_asset = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.AssetOrBuilder getExternalAssetOrBuilder() {
       return getExternalAsset();
     }
@@ -775,6 +780,7 @@ public final class Types {
      * <code>string native_asset_balance = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"native_asset_balance&#92;""];</code>
      * @return The nativeAssetBalance.
      */
+    @java.lang.Override
     public java.lang.String getNativeAssetBalance() {
       java.lang.Object ref = nativeAssetBalance_;
       if (ref instanceof java.lang.String) {
@@ -791,6 +797,7 @@ public final class Types {
      * <code>string native_asset_balance = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"native_asset_balance&#92;""];</code>
      * @return The bytes for nativeAssetBalance.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNativeAssetBalanceBytes() {
       java.lang.Object ref = nativeAssetBalance_;
@@ -811,6 +818,7 @@ public final class Types {
      * <code>string external_asset_balance = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"external_asset_balance&#92;""];</code>
      * @return The externalAssetBalance.
      */
+    @java.lang.Override
     public java.lang.String getExternalAssetBalance() {
       java.lang.Object ref = externalAssetBalance_;
       if (ref instanceof java.lang.String) {
@@ -827,6 +835,7 @@ public final class Types {
      * <code>string external_asset_balance = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"external_asset_balance&#92;""];</code>
      * @return The bytes for externalAssetBalance.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getExternalAssetBalanceBytes() {
       java.lang.Object ref = externalAssetBalance_;
@@ -847,6 +856,7 @@ public final class Types {
      * <code>string pool_units = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"pool_units&#92;""];</code>
      * @return The poolUnits.
      */
+    @java.lang.Override
     public java.lang.String getPoolUnits() {
       java.lang.Object ref = poolUnits_;
       if (ref instanceof java.lang.String) {
@@ -863,6 +873,7 @@ public final class Types {
      * <code>string pool_units = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"pool_units&#92;""];</code>
      * @return The bytes for poolUnits.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPoolUnitsBytes() {
       java.lang.Object ref = poolUnits_;
@@ -1688,7 +1699,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.clp.v1.LiquidityProvider}
    */
-  public  static final class LiquidityProvider extends
+  public static final class LiquidityProvider extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.LiquidityProvider)
       LiquidityProviderOrBuilder {
@@ -1795,6 +1806,7 @@ public final class Types {
      * <code>.sifnode.clp.v1.Asset asset = 1;</code>
      * @return Whether the asset field is set.
      */
+    @java.lang.Override
     public boolean hasAsset() {
       return asset_ != null;
     }
@@ -1802,12 +1814,14 @@ public final class Types {
      * <code>.sifnode.clp.v1.Asset asset = 1;</code>
      * @return The asset.
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.Asset getAsset() {
       return asset_ == null ? sifnode.clp.v1.Types.Asset.getDefaultInstance() : asset_;
     }
     /**
      * <code>.sifnode.clp.v1.Asset asset = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.AssetOrBuilder getAssetOrBuilder() {
       return getAsset();
     }
@@ -1818,6 +1832,7 @@ public final class Types {
      * <code>string liquidity_provider_units = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"liquidity_provider_units&#92;""];</code>
      * @return The liquidityProviderUnits.
      */
+    @java.lang.Override
     public java.lang.String getLiquidityProviderUnits() {
       java.lang.Object ref = liquidityProviderUnits_;
       if (ref instanceof java.lang.String) {
@@ -1834,6 +1849,7 @@ public final class Types {
      * <code>string liquidity_provider_units = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"liquidity_provider_units&#92;""];</code>
      * @return The bytes for liquidityProviderUnits.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getLiquidityProviderUnitsBytes() {
       java.lang.Object ref = liquidityProviderUnits_;
@@ -1854,6 +1870,7 @@ public final class Types {
      * <code>string liquidity_provider_address = 3;</code>
      * @return The liquidityProviderAddress.
      */
+    @java.lang.Override
     public java.lang.String getLiquidityProviderAddress() {
       java.lang.Object ref = liquidityProviderAddress_;
       if (ref instanceof java.lang.String) {
@@ -1870,6 +1887,7 @@ public final class Types {
      * <code>string liquidity_provider_address = 3;</code>
      * @return The bytes for liquidityProviderAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getLiquidityProviderAddressBytes() {
       java.lang.Object ref = liquidityProviderAddress_;
@@ -2588,7 +2606,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.clp.v1.WhiteList}
    */
-  public  static final class WhiteList extends
+  public static final class WhiteList extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.WhiteList)
       WhiteListOrBuilder {
@@ -3194,6 +3212,927 @@ public final class Types {
 
   }
 
+  public interface LiquidityProviderDataOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.LiquidityProviderData)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+     * @return Whether the liquidityProvider field is set.
+     */
+    boolean hasLiquidityProvider();
+    /**
+     * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+     * @return The liquidityProvider.
+     */
+    sifnode.clp.v1.Types.LiquidityProvider getLiquidityProvider();
+    /**
+     * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+     */
+    sifnode.clp.v1.Types.LiquidityProviderOrBuilder getLiquidityProviderOrBuilder();
+
+    /**
+     * <code>string native_asset_balance = 2;</code>
+     * @return The nativeAssetBalance.
+     */
+    java.lang.String getNativeAssetBalance();
+    /**
+     * <code>string native_asset_balance = 2;</code>
+     * @return The bytes for nativeAssetBalance.
+     */
+    com.google.protobuf.ByteString
+        getNativeAssetBalanceBytes();
+
+    /**
+     * <code>string external_asset_balance = 3;</code>
+     * @return The externalAssetBalance.
+     */
+    java.lang.String getExternalAssetBalance();
+    /**
+     * <code>string external_asset_balance = 3;</code>
+     * @return The bytes for externalAssetBalance.
+     */
+    com.google.protobuf.ByteString
+        getExternalAssetBalanceBytes();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.LiquidityProviderData}
+   */
+  public static final class LiquidityProviderData extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.LiquidityProviderData)
+      LiquidityProviderDataOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use LiquidityProviderData.newBuilder() to construct.
+    private LiquidityProviderData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LiquidityProviderData() {
+      nativeAssetBalance_ = "";
+      externalAssetBalance_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new LiquidityProviderData();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private LiquidityProviderData(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              sifnode.clp.v1.Types.LiquidityProvider.Builder subBuilder = null;
+              if (liquidityProvider_ != null) {
+                subBuilder = liquidityProvider_.toBuilder();
+              }
+              liquidityProvider_ = input.readMessage(sifnode.clp.v1.Types.LiquidityProvider.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(liquidityProvider_);
+                liquidityProvider_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              nativeAssetBalance_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              externalAssetBalance_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_LiquidityProviderData_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_LiquidityProviderData_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Types.LiquidityProviderData.class, sifnode.clp.v1.Types.LiquidityProviderData.Builder.class);
+    }
+
+    public static final int LIQUIDITY_PROVIDER_FIELD_NUMBER = 1;
+    private sifnode.clp.v1.Types.LiquidityProvider liquidityProvider_;
+    /**
+     * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+     * @return Whether the liquidityProvider field is set.
+     */
+    @java.lang.Override
+    public boolean hasLiquidityProvider() {
+      return liquidityProvider_ != null;
+    }
+    /**
+     * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+     * @return The liquidityProvider.
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.LiquidityProvider getLiquidityProvider() {
+      return liquidityProvider_ == null ? sifnode.clp.v1.Types.LiquidityProvider.getDefaultInstance() : liquidityProvider_;
+    }
+    /**
+     * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.LiquidityProviderOrBuilder getLiquidityProviderOrBuilder() {
+      return getLiquidityProvider();
+    }
+
+    public static final int NATIVE_ASSET_BALANCE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object nativeAssetBalance_;
+    /**
+     * <code>string native_asset_balance = 2;</code>
+     * @return The nativeAssetBalance.
+     */
+    @java.lang.Override
+    public java.lang.String getNativeAssetBalance() {
+      java.lang.Object ref = nativeAssetBalance_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        nativeAssetBalance_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string native_asset_balance = 2;</code>
+     * @return The bytes for nativeAssetBalance.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNativeAssetBalanceBytes() {
+      java.lang.Object ref = nativeAssetBalance_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nativeAssetBalance_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXTERNAL_ASSET_BALANCE_FIELD_NUMBER = 3;
+    private volatile java.lang.Object externalAssetBalance_;
+    /**
+     * <code>string external_asset_balance = 3;</code>
+     * @return The externalAssetBalance.
+     */
+    @java.lang.Override
+    public java.lang.String getExternalAssetBalance() {
+      java.lang.Object ref = externalAssetBalance_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        externalAssetBalance_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string external_asset_balance = 3;</code>
+     * @return The bytes for externalAssetBalance.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getExternalAssetBalanceBytes() {
+      java.lang.Object ref = externalAssetBalance_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        externalAssetBalance_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (liquidityProvider_ != null) {
+        output.writeMessage(1, getLiquidityProvider());
+      }
+      if (!getNativeAssetBalanceBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, nativeAssetBalance_);
+      }
+      if (!getExternalAssetBalanceBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, externalAssetBalance_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (liquidityProvider_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getLiquidityProvider());
+      }
+      if (!getNativeAssetBalanceBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, nativeAssetBalance_);
+      }
+      if (!getExternalAssetBalanceBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, externalAssetBalance_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Types.LiquidityProviderData)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Types.LiquidityProviderData other = (sifnode.clp.v1.Types.LiquidityProviderData) obj;
+
+      if (hasLiquidityProvider() != other.hasLiquidityProvider()) return false;
+      if (hasLiquidityProvider()) {
+        if (!getLiquidityProvider()
+            .equals(other.getLiquidityProvider())) return false;
+      }
+      if (!getNativeAssetBalance()
+          .equals(other.getNativeAssetBalance())) return false;
+      if (!getExternalAssetBalance()
+          .equals(other.getExternalAssetBalance())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasLiquidityProvider()) {
+        hash = (37 * hash) + LIQUIDITY_PROVIDER_FIELD_NUMBER;
+        hash = (53 * hash) + getLiquidityProvider().hashCode();
+      }
+      hash = (37 * hash) + NATIVE_ASSET_BALANCE_FIELD_NUMBER;
+      hash = (53 * hash) + getNativeAssetBalance().hashCode();
+      hash = (37 * hash) + EXTERNAL_ASSET_BALANCE_FIELD_NUMBER;
+      hash = (53 * hash) + getExternalAssetBalance().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Types.LiquidityProviderData parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Types.LiquidityProviderData prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.LiquidityProviderData}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.LiquidityProviderData)
+        sifnode.clp.v1.Types.LiquidityProviderDataOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_LiquidityProviderData_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_LiquidityProviderData_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Types.LiquidityProviderData.class, sifnode.clp.v1.Types.LiquidityProviderData.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Types.LiquidityProviderData.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (liquidityProviderBuilder_ == null) {
+          liquidityProvider_ = null;
+        } else {
+          liquidityProvider_ = null;
+          liquidityProviderBuilder_ = null;
+        }
+        nativeAssetBalance_ = "";
+
+        externalAssetBalance_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Types.internal_static_sifnode_clp_v1_LiquidityProviderData_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.LiquidityProviderData getDefaultInstanceForType() {
+        return sifnode.clp.v1.Types.LiquidityProviderData.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.LiquidityProviderData build() {
+        sifnode.clp.v1.Types.LiquidityProviderData result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Types.LiquidityProviderData buildPartial() {
+        sifnode.clp.v1.Types.LiquidityProviderData result = new sifnode.clp.v1.Types.LiquidityProviderData(this);
+        if (liquidityProviderBuilder_ == null) {
+          result.liquidityProvider_ = liquidityProvider_;
+        } else {
+          result.liquidityProvider_ = liquidityProviderBuilder_.build();
+        }
+        result.nativeAssetBalance_ = nativeAssetBalance_;
+        result.externalAssetBalance_ = externalAssetBalance_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Types.LiquidityProviderData) {
+          return mergeFrom((sifnode.clp.v1.Types.LiquidityProviderData)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Types.LiquidityProviderData other) {
+        if (other == sifnode.clp.v1.Types.LiquidityProviderData.getDefaultInstance()) return this;
+        if (other.hasLiquidityProvider()) {
+          mergeLiquidityProvider(other.getLiquidityProvider());
+        }
+        if (!other.getNativeAssetBalance().isEmpty()) {
+          nativeAssetBalance_ = other.nativeAssetBalance_;
+          onChanged();
+        }
+        if (!other.getExternalAssetBalance().isEmpty()) {
+          externalAssetBalance_ = other.externalAssetBalance_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Types.LiquidityProviderData parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Types.LiquidityProviderData) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private sifnode.clp.v1.Types.LiquidityProvider liquidityProvider_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.Types.LiquidityProvider, sifnode.clp.v1.Types.LiquidityProvider.Builder, sifnode.clp.v1.Types.LiquidityProviderOrBuilder> liquidityProviderBuilder_;
+      /**
+       * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+       * @return Whether the liquidityProvider field is set.
+       */
+      public boolean hasLiquidityProvider() {
+        return liquidityProviderBuilder_ != null || liquidityProvider_ != null;
+      }
+      /**
+       * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+       * @return The liquidityProvider.
+       */
+      public sifnode.clp.v1.Types.LiquidityProvider getLiquidityProvider() {
+        if (liquidityProviderBuilder_ == null) {
+          return liquidityProvider_ == null ? sifnode.clp.v1.Types.LiquidityProvider.getDefaultInstance() : liquidityProvider_;
+        } else {
+          return liquidityProviderBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+       */
+      public Builder setLiquidityProvider(sifnode.clp.v1.Types.LiquidityProvider value) {
+        if (liquidityProviderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          liquidityProvider_ = value;
+          onChanged();
+        } else {
+          liquidityProviderBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+       */
+      public Builder setLiquidityProvider(
+          sifnode.clp.v1.Types.LiquidityProvider.Builder builderForValue) {
+        if (liquidityProviderBuilder_ == null) {
+          liquidityProvider_ = builderForValue.build();
+          onChanged();
+        } else {
+          liquidityProviderBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+       */
+      public Builder mergeLiquidityProvider(sifnode.clp.v1.Types.LiquidityProvider value) {
+        if (liquidityProviderBuilder_ == null) {
+          if (liquidityProvider_ != null) {
+            liquidityProvider_ =
+              sifnode.clp.v1.Types.LiquidityProvider.newBuilder(liquidityProvider_).mergeFrom(value).buildPartial();
+          } else {
+            liquidityProvider_ = value;
+          }
+          onChanged();
+        } else {
+          liquidityProviderBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+       */
+      public Builder clearLiquidityProvider() {
+        if (liquidityProviderBuilder_ == null) {
+          liquidityProvider_ = null;
+          onChanged();
+        } else {
+          liquidityProvider_ = null;
+          liquidityProviderBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityProvider.Builder getLiquidityProviderBuilder() {
+        
+        onChanged();
+        return getLiquidityProviderFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityProviderOrBuilder getLiquidityProviderOrBuilder() {
+        if (liquidityProviderBuilder_ != null) {
+          return liquidityProviderBuilder_.getMessageOrBuilder();
+        } else {
+          return liquidityProvider_ == null ?
+              sifnode.clp.v1.Types.LiquidityProvider.getDefaultInstance() : liquidityProvider_;
+        }
+      }
+      /**
+       * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.clp.v1.Types.LiquidityProvider, sifnode.clp.v1.Types.LiquidityProvider.Builder, sifnode.clp.v1.Types.LiquidityProviderOrBuilder> 
+          getLiquidityProviderFieldBuilder() {
+        if (liquidityProviderBuilder_ == null) {
+          liquidityProviderBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sifnode.clp.v1.Types.LiquidityProvider, sifnode.clp.v1.Types.LiquidityProvider.Builder, sifnode.clp.v1.Types.LiquidityProviderOrBuilder>(
+                  getLiquidityProvider(),
+                  getParentForChildren(),
+                  isClean());
+          liquidityProvider_ = null;
+        }
+        return liquidityProviderBuilder_;
+      }
+
+      private java.lang.Object nativeAssetBalance_ = "";
+      /**
+       * <code>string native_asset_balance = 2;</code>
+       * @return The nativeAssetBalance.
+       */
+      public java.lang.String getNativeAssetBalance() {
+        java.lang.Object ref = nativeAssetBalance_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          nativeAssetBalance_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string native_asset_balance = 2;</code>
+       * @return The bytes for nativeAssetBalance.
+       */
+      public com.google.protobuf.ByteString
+          getNativeAssetBalanceBytes() {
+        java.lang.Object ref = nativeAssetBalance_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nativeAssetBalance_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string native_asset_balance = 2;</code>
+       * @param value The nativeAssetBalance to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNativeAssetBalance(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        nativeAssetBalance_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string native_asset_balance = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNativeAssetBalance() {
+        
+        nativeAssetBalance_ = getDefaultInstance().getNativeAssetBalance();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string native_asset_balance = 2;</code>
+       * @param value The bytes for nativeAssetBalance to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNativeAssetBalanceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        nativeAssetBalance_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object externalAssetBalance_ = "";
+      /**
+       * <code>string external_asset_balance = 3;</code>
+       * @return The externalAssetBalance.
+       */
+      public java.lang.String getExternalAssetBalance() {
+        java.lang.Object ref = externalAssetBalance_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          externalAssetBalance_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string external_asset_balance = 3;</code>
+       * @return The bytes for externalAssetBalance.
+       */
+      public com.google.protobuf.ByteString
+          getExternalAssetBalanceBytes() {
+        java.lang.Object ref = externalAssetBalance_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          externalAssetBalance_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string external_asset_balance = 3;</code>
+       * @param value The externalAssetBalance to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExternalAssetBalance(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        externalAssetBalance_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string external_asset_balance = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExternalAssetBalance() {
+        
+        externalAssetBalance_ = getDefaultInstance().getExternalAssetBalance();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string external_asset_balance = 3;</code>
+       * @param value The bytes for externalAssetBalance to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExternalAssetBalanceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        externalAssetBalance_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.LiquidityProviderData)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.LiquidityProviderData)
+    private static final sifnode.clp.v1.Types.LiquidityProviderData DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Types.LiquidityProviderData();
+    }
+
+    public static sifnode.clp.v1.Types.LiquidityProviderData getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<LiquidityProviderData>
+        PARSER = new com.google.protobuf.AbstractParser<LiquidityProviderData>() {
+      @java.lang.Override
+      public LiquidityProviderData parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new LiquidityProviderData(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LiquidityProviderData> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LiquidityProviderData> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Types.LiquidityProviderData getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_clp_v1_Asset_descriptor;
   private static final 
@@ -3214,6 +4153,11 @@ public final class Types {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_clp_v1_WhiteList_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_LiquidityProviderData_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_LiquidityProviderData_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3240,14 +4184,17 @@ public final class Types {
       "\'github.com/cosmos/cosmos-sdk/types.Uint" +
       "\310\336\037\000\362\336\037\037yaml:\"liquidity_provider_units\"\022" +
       "\"\n\032liquidity_provider_address\030\003 \001(\t\"#\n\tW" +
-      "hiteList\022\026\n\016validator_list\030\001 \003(\tB)Z\'gith" +
-      "ub.com/Sifchain/sifnode/x/clp/typesb\006pro" +
-      "to3"
+      "hiteList\022\026\n\016validator_list\030\001 \003(\t\"\224\001\n\025Liq" +
+      "uidityProviderData\022=\n\022liquidity_provider" +
+      "\030\001 \001(\0132!.sifnode.clp.v1.LiquidityProvide" +
+      "r\022\034\n\024native_asset_balance\030\002 \001(\t\022\036\n\026exter" +
+      "nal_asset_balance\030\003 \001(\tB)Z\'github.com/Si" +
+      "fchain/sifnode/x/clp/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_sifnode_clp_v1_Asset_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3273,14 +4220,20 @@ public final class Types {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_WhiteList_descriptor,
         new java.lang.String[] { "ValidatorList", });
+    internal_static_sifnode_clp_v1_LiquidityProviderData_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_sifnode_clp_v1_LiquidityProviderData_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_LiquidityProviderData_descriptor,
+        new java.lang.String[] { "LiquidityProvider", "NativeAssetBalance", "ExternalAssetBalance", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

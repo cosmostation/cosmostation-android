@@ -560,7 +560,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * PacketReceipt queries if a given packet sequence has been received on the queried chain
+     * PacketReceipt queries if a given packet sequence has been received on the
+     * queried chain
      * </pre>
      */
     public void packetReceipt(ibc.core.channel.v1.QueryOuterClass.QueryPacketReceiptRequest request,
@@ -602,8 +603,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * UnreceivedAcks returns all the unreceived IBC acknowledgements associated with a
-     * channel and sequences.
+     * UnreceivedAcks returns all the unreceived IBC acknowledgements associated
+     * with a channel and sequences.
      * </pre>
      */
     public void unreceivedAcks(ibc.core.channel.v1.QueryOuterClass.QueryUnreceivedAcksRequest request,
@@ -818,7 +819,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * PacketReceipt queries if a given packet sequence has been received on the queried chain
+     * PacketReceipt queries if a given packet sequence has been received on the
+     * queried chain
      * </pre>
      */
     public void packetReceipt(ibc.core.channel.v1.QueryOuterClass.QueryPacketReceiptRequest request,
@@ -864,8 +866,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * UnreceivedAcks returns all the unreceived IBC acknowledgements associated with a
-     * channel and sequences.
+     * UnreceivedAcks returns all the unreceived IBC acknowledgements associated
+     * with a channel and sequences.
      * </pre>
      */
     public void unreceivedAcks(ibc.core.channel.v1.QueryOuterClass.QueryUnreceivedAcksRequest request,
@@ -979,7 +981,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * PacketReceipt queries if a given packet sequence has been received on the queried chain
+     * PacketReceipt queries if a given packet sequence has been received on the
+     * queried chain
      * </pre>
      */
     public ibc.core.channel.v1.QueryOuterClass.QueryPacketReceiptResponse packetReceipt(ibc.core.channel.v1.QueryOuterClass.QueryPacketReceiptRequest request) {
@@ -1021,8 +1024,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * UnreceivedAcks returns all the unreceived IBC acknowledgements associated with a
-     * channel and sequences.
+     * UnreceivedAcks returns all the unreceived IBC acknowledgements associated
+     * with a channel and sequences.
      * </pre>
      */
     public ibc.core.channel.v1.QueryOuterClass.QueryUnreceivedAcksResponse unreceivedAcks(ibc.core.channel.v1.QueryOuterClass.QueryUnreceivedAcksRequest request) {
@@ -1141,7 +1144,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * PacketReceipt queries if a given packet sequence has been received on the queried chain
+     * PacketReceipt queries if a given packet sequence has been received on the
+     * queried chain
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ibc.core.channel.v1.QueryOuterClass.QueryPacketReceiptResponse> packetReceipt(
@@ -1187,8 +1191,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * UnreceivedAcks returns all the unreceived IBC acknowledgements associated with a
-     * channel and sequences.
+     * UnreceivedAcks returns all the unreceived IBC acknowledgements associated
+     * with a channel and sequences.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ibc.core.channel.v1.QueryOuterClass.QueryUnreceivedAcksResponse> unreceivedAcks(

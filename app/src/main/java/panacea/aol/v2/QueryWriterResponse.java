@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.QueryWriterResponse}
  */
-public  final class QueryWriterResponse extends
+public final class QueryWriterResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.QueryWriterResponse)
     QueryWriterResponseOrBuilder {
@@ -103,6 +103,7 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.aol.v2.Writer writer = 1;</code>
    * @return Whether the writer field is set.
    */
+  @java.lang.Override
   public boolean hasWriter() {
     return writer_ != null;
   }
@@ -110,12 +111,14 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.aol.v2.Writer writer = 1;</code>
    * @return The writer.
    */
+  @java.lang.Override
   public panacea.aol.v2.Writer getWriter() {
     return writer_ == null ? panacea.aol.v2.Writer.getDefaultInstance() : writer_;
   }
   /**
    * <code>.panacea.aol.v2.Writer writer = 1;</code>
    */
+  @java.lang.Override
   public panacea.aol.v2.WriterOrBuilder getWriterOrBuilder() {
     return getWriter();
   }

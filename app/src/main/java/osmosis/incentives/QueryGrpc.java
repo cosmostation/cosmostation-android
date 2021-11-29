@@ -185,6 +185,37 @@ public final class QueryGrpc {
     return getActiveGaugesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest,
+      osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse> getActiveGaugesPerDenomMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ActiveGaugesPerDenom",
+      requestType = osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest.class,
+      responseType = osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest,
+      osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse> getActiveGaugesPerDenomMethod() {
+    io.grpc.MethodDescriptor<osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest, osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse> getActiveGaugesPerDenomMethod;
+    if ((getActiveGaugesPerDenomMethod = QueryGrpc.getActiveGaugesPerDenomMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getActiveGaugesPerDenomMethod = QueryGrpc.getActiveGaugesPerDenomMethod) == null) {
+          QueryGrpc.getActiveGaugesPerDenomMethod = getActiveGaugesPerDenomMethod =
+              io.grpc.MethodDescriptor.<osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest, osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ActiveGaugesPerDenom"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("ActiveGaugesPerDenom"))
+              .build();
+        }
+      }
+    }
+    return getActiveGaugesPerDenomMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<osmosis.incentives.QueryOuterClass.UpcomingGaugesRequest,
       osmosis.incentives.QueryOuterClass.UpcomingGaugesResponse> getUpcomingGaugesMethod;
 
@@ -380,6 +411,13 @@ public final class QueryGrpc {
     }
 
     /**
+     */
+    public void activeGaugesPerDenom(osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest request,
+        io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getActiveGaugesPerDenomMethod(), responseObserver);
+    }
+
+    /**
      * <pre>
      * returns scheduled gauges
      * </pre>
@@ -402,6 +440,9 @@ public final class QueryGrpc {
     }
 
     /**
+     * <pre>
+     * returns lockable durations that are valid to give incentives
+     * </pre>
      */
     public void lockableDurations(osmosis.incentives.QueryOuterClass.QueryLockableDurationsRequest request,
         io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.QueryLockableDurationsResponse> responseObserver) {
@@ -445,6 +486,13 @@ public final class QueryGrpc {
                 osmosis.incentives.QueryOuterClass.ActiveGaugesRequest,
                 osmosis.incentives.QueryOuterClass.ActiveGaugesResponse>(
                   this, METHODID_ACTIVE_GAUGES)))
+          .addMethod(
+            getActiveGaugesPerDenomMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest,
+                osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse>(
+                  this, METHODID_ACTIVE_GAUGES_PER_DENOM)))
           .addMethod(
             getUpcomingGaugesMethod(),
             asyncUnaryCall(
@@ -543,6 +591,14 @@ public final class QueryGrpc {
     }
 
     /**
+     */
+    public void activeGaugesPerDenom(osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest request,
+        io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getActiveGaugesPerDenomMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
      * <pre>
      * returns scheduled gauges
      * </pre>
@@ -567,6 +623,9 @@ public final class QueryGrpc {
     }
 
     /**
+     * <pre>
+     * returns lockable durations that are valid to give incentives
+     * </pre>
      */
     public void lockableDurations(osmosis.incentives.QueryOuterClass.QueryLockableDurationsRequest request,
         io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.QueryLockableDurationsResponse> responseObserver) {
@@ -643,6 +702,13 @@ public final class QueryGrpc {
     }
 
     /**
+     */
+    public osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse activeGaugesPerDenom(osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getActiveGaugesPerDenomMethod(), getCallOptions(), request);
+    }
+
+    /**
      * <pre>
      * returns scheduled gauges
      * </pre>
@@ -665,6 +731,9 @@ public final class QueryGrpc {
     }
 
     /**
+     * <pre>
+     * returns lockable durations that are valid to give incentives
+     * </pre>
      */
     public osmosis.incentives.QueryOuterClass.QueryLockableDurationsResponse lockableDurations(osmosis.incentives.QueryOuterClass.QueryLockableDurationsRequest request) {
       return blockingUnaryCall(
@@ -745,6 +814,14 @@ public final class QueryGrpc {
     }
 
     /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse> activeGaugesPerDenom(
+        osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getActiveGaugesPerDenomMethod(), getCallOptions()), request);
+    }
+
+    /**
      * <pre>
      * returns scheduled gauges
      * </pre>
@@ -769,6 +846,9 @@ public final class QueryGrpc {
     }
 
     /**
+     * <pre>
+     * returns lockable durations that are valid to give incentives
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<osmosis.incentives.QueryOuterClass.QueryLockableDurationsResponse> lockableDurations(
         osmosis.incentives.QueryOuterClass.QueryLockableDurationsRequest request) {
@@ -782,9 +862,10 @@ public final class QueryGrpc {
   private static final int METHODID_GAUGE_BY_ID = 2;
   private static final int METHODID_GAUGES = 3;
   private static final int METHODID_ACTIVE_GAUGES = 4;
-  private static final int METHODID_UPCOMING_GAUGES = 5;
-  private static final int METHODID_REWARDS_EST = 6;
-  private static final int METHODID_LOCKABLE_DURATIONS = 7;
+  private static final int METHODID_ACTIVE_GAUGES_PER_DENOM = 5;
+  private static final int METHODID_UPCOMING_GAUGES = 6;
+  private static final int METHODID_REWARDS_EST = 7;
+  private static final int METHODID_LOCKABLE_DURATIONS = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -822,6 +903,10 @@ public final class QueryGrpc {
         case METHODID_ACTIVE_GAUGES:
           serviceImpl.activeGauges((osmosis.incentives.QueryOuterClass.ActiveGaugesRequest) request,
               (io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.ActiveGaugesResponse>) responseObserver);
+          break;
+        case METHODID_ACTIVE_GAUGES_PER_DENOM:
+          serviceImpl.activeGaugesPerDenom((osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest) request,
+              (io.grpc.stub.StreamObserver<osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse>) responseObserver);
           break;
         case METHODID_UPCOMING_GAUGES:
           serviceImpl.upcomingGauges((osmosis.incentives.QueryOuterClass.UpcomingGaugesRequest) request,
@@ -901,6 +986,7 @@ public final class QueryGrpc {
               .addMethod(getGaugeByIDMethod())
               .addMethod(getGaugesMethod())
               .addMethod(getActiveGaugesMethod())
+              .addMethod(getActiveGaugesPerDenomMethod())
               .addMethod(getUpcomingGaugesMethod())
               .addMethod(getRewardsEstMethod())
               .addMethod(getLockableDurationsMethod())

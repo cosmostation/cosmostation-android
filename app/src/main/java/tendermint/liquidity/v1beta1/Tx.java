@@ -19,12 +19,12 @@ public final class Tx {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string pool_creator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_creator_address&#92;""];</code>
+     * <code>string pool_creator_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolCreatorAddress.
      */
     java.lang.String getPoolCreatorAddress();
     /**
-     * <code>string pool_creator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_creator_address&#92;""];</code>
+     * <code>string pool_creator_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for poolCreatorAddress.
      */
     com.google.protobuf.ByteString
@@ -35,7 +35,7 @@ public final class Tx {
      * id of the target pool type, must match the value in the pool. Only pool-type-id 1 is supported.
      * </pre>
      *
-     * <code>uint32 pool_type_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_type_id&#92;""];</code>
+     * <code>uint32 pool_type_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolTypeId.
      */
     int getPoolTypeId();
@@ -45,7 +45,7 @@ public final class Tx {
      * reserve coin pair of the pool to deposit.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> 
         getDepositCoinsList();
@@ -54,7 +54,7 @@ public final class Tx {
      * reserve coin pair of the pool to deposit.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getDepositCoins(int index);
     /**
@@ -62,7 +62,7 @@ public final class Tx {
      * reserve coin pair of the pool to deposit.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     int getDepositCoinsCount();
     /**
@@ -70,7 +70,7 @@ public final class Tx {
      * reserve coin pair of the pool to deposit.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getDepositCoinsOrBuilderList();
@@ -79,7 +79,7 @@ public final class Tx {
      * reserve coin pair of the pool to deposit.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getDepositCoinsOrBuilder(
         int index);
@@ -87,12 +87,12 @@ public final class Tx {
   /**
    * <pre>
    * MsgCreatePool defines an sdk.Msg type that supports submitting a create liquidity pool tx.
-   * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
+   * See: https://github.com/tendermint/liquidity/blob/develop/x/liquidity/spec/04_messages.md
    * </pre>
    *
    * Protobuf type {@code tendermint.liquidity.v1beta1.MsgCreatePool}
    */
-  public  static final class MsgCreatePool extends
+  public static final class MsgCreatePool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.liquidity.v1beta1.MsgCreatePool)
       MsgCreatePoolOrBuilder {
@@ -195,9 +195,10 @@ public final class Tx {
     public static final int POOL_CREATOR_ADDRESS_FIELD_NUMBER = 1;
     private volatile java.lang.Object poolCreatorAddress_;
     /**
-     * <code>string pool_creator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_creator_address&#92;""];</code>
+     * <code>string pool_creator_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolCreatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getPoolCreatorAddress() {
       java.lang.Object ref = poolCreatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -211,9 +212,10 @@ public final class Tx {
       }
     }
     /**
-     * <code>string pool_creator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_creator_address&#92;""];</code>
+     * <code>string pool_creator_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for poolCreatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPoolCreatorAddressBytes() {
       java.lang.Object ref = poolCreatorAddress_;
@@ -235,9 +237,10 @@ public final class Tx {
      * id of the target pool type, must match the value in the pool. Only pool-type-id 1 is supported.
      * </pre>
      *
-     * <code>uint32 pool_type_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_type_id&#92;""];</code>
+     * <code>uint32 pool_type_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolTypeId.
      */
+    @java.lang.Override
     public int getPoolTypeId() {
       return poolTypeId_;
     }
@@ -249,8 +252,9 @@ public final class Tx {
      * reserve coin pair of the pool to deposit.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getDepositCoinsList() {
       return depositCoins_;
     }
@@ -259,8 +263,9 @@ public final class Tx {
      * reserve coin pair of the pool to deposit.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getDepositCoinsOrBuilderList() {
       return depositCoins_;
@@ -270,8 +275,9 @@ public final class Tx {
      * reserve coin pair of the pool to deposit.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public int getDepositCoinsCount() {
       return depositCoins_.size();
     }
@@ -280,8 +286,9 @@ public final class Tx {
      * reserve coin pair of the pool to deposit.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getDepositCoins(int index) {
       return depositCoins_.get(index);
     }
@@ -290,8 +297,9 @@ public final class Tx {
      * reserve coin pair of the pool to deposit.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getDepositCoinsOrBuilder(
         int index) {
       return depositCoins_.get(index);
@@ -478,7 +486,7 @@ public final class Tx {
     /**
      * <pre>
      * MsgCreatePool defines an sdk.Msg type that supports submitting a create liquidity pool tx.
-     * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
+     * See: https://github.com/tendermint/liquidity/blob/develop/x/liquidity/spec/04_messages.md
      * </pre>
      *
      * Protobuf type {@code tendermint.liquidity.v1beta1.MsgCreatePool}
@@ -680,7 +688,7 @@ public final class Tx {
 
       private java.lang.Object poolCreatorAddress_ = "";
       /**
-       * <code>string pool_creator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_creator_address&#92;""];</code>
+       * <code>string pool_creator_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The poolCreatorAddress.
        */
       public java.lang.String getPoolCreatorAddress() {
@@ -696,7 +704,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string pool_creator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_creator_address&#92;""];</code>
+       * <code>string pool_creator_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The bytes for poolCreatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -713,7 +721,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string pool_creator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_creator_address&#92;""];</code>
+       * <code>string pool_creator_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The poolCreatorAddress to set.
        * @return This builder for chaining.
        */
@@ -728,7 +736,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string pool_creator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_creator_address&#92;""];</code>
+       * <code>string pool_creator_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolCreatorAddress() {
@@ -738,7 +746,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string pool_creator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_creator_address&#92;""];</code>
+       * <code>string pool_creator_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The bytes for poolCreatorAddress to set.
        * @return This builder for chaining.
        */
@@ -760,9 +768,10 @@ public final class Tx {
        * id of the target pool type, must match the value in the pool. Only pool-type-id 1 is supported.
        * </pre>
        *
-       * <code>uint32 pool_type_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_type_id&#92;""];</code>
+       * <code>uint32 pool_type_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The poolTypeId.
        */
+      @java.lang.Override
       public int getPoolTypeId() {
         return poolTypeId_;
       }
@@ -771,7 +780,7 @@ public final class Tx {
        * id of the target pool type, must match the value in the pool. Only pool-type-id 1 is supported.
        * </pre>
        *
-       * <code>uint32 pool_type_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_type_id&#92;""];</code>
+       * <code>uint32 pool_type_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The poolTypeId to set.
        * @return This builder for chaining.
        */
@@ -786,7 +795,7 @@ public final class Tx {
        * id of the target pool type, must match the value in the pool. Only pool-type-id 1 is supported.
        * </pre>
        *
-       * <code>uint32 pool_type_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_type_id&#92;""];</code>
+       * <code>uint32 pool_type_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolTypeId() {
@@ -813,7 +822,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getDepositCoinsList() {
         if (depositCoinsBuilder_ == null) {
@@ -827,7 +836,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public int getDepositCoinsCount() {
         if (depositCoinsBuilder_ == null) {
@@ -841,7 +850,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getDepositCoins(int index) {
         if (depositCoinsBuilder_ == null) {
@@ -855,7 +864,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder setDepositCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -876,7 +885,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder setDepositCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -894,7 +903,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder addDepositCoins(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (depositCoinsBuilder_ == null) {
@@ -914,7 +923,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder addDepositCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -935,7 +944,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder addDepositCoins(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -953,7 +962,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder addDepositCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -971,7 +980,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder addAllDepositCoins(
           java.lang.Iterable<? extends cosmos.base.v1beta1.CoinOuterClass.Coin> values) {
@@ -990,7 +999,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder clearDepositCoins() {
         if (depositCoinsBuilder_ == null) {
@@ -1007,7 +1016,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder removeDepositCoins(int index) {
         if (depositCoinsBuilder_ == null) {
@@ -1024,7 +1033,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getDepositCoinsBuilder(
           int index) {
@@ -1035,7 +1044,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getDepositCoinsOrBuilder(
           int index) {
@@ -1049,7 +1058,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
            getDepositCoinsOrBuilderList() {
@@ -1064,7 +1073,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder addDepositCoinsBuilder() {
         return getDepositCoinsFieldBuilder().addBuilder(
@@ -1075,7 +1084,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder addDepositCoinsBuilder(
           int index) {
@@ -1087,7 +1096,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin.Builder> 
            getDepositCoinsBuilderList() {
@@ -1171,7 +1180,7 @@ public final class Tx {
    *
    * Protobuf type {@code tendermint.liquidity.v1beta1.MsgCreatePoolResponse}
    */
-  public  static final class MsgCreatePoolResponse extends
+  public static final class MsgCreatePoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.liquidity.v1beta1.MsgCreatePoolResponse)
       MsgCreatePoolResponseOrBuilder {
@@ -1591,12 +1600,12 @@ public final class Tx {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string depositor_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"depositor_address&#92;""];</code>
+     * <code>string depositor_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The depositorAddress.
      */
     java.lang.String getDepositorAddress();
     /**
-     * <code>string depositor_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"depositor_address&#92;""];</code>
+     * <code>string depositor_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for depositorAddress.
      */
     com.google.protobuf.ByteString
@@ -1607,7 +1616,7 @@ public final class Tx {
      * id of the target pool
      * </pre>
      *
-     * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolId.
      */
     long getPoolId();
@@ -1617,7 +1626,7 @@ public final class Tx {
      * reserve coin pair of the pool to deposit
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> 
         getDepositCoinsList();
@@ -1626,7 +1635,7 @@ public final class Tx {
      * reserve coin pair of the pool to deposit
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getDepositCoins(int index);
     /**
@@ -1634,7 +1643,7 @@ public final class Tx {
      * reserve coin pair of the pool to deposit
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     int getDepositCoinsCount();
     /**
@@ -1642,7 +1651,7 @@ public final class Tx {
      * reserve coin pair of the pool to deposit
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getDepositCoinsOrBuilderList();
@@ -1651,7 +1660,7 @@ public final class Tx {
      * reserve coin pair of the pool to deposit
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getDepositCoinsOrBuilder(
         int index);
@@ -1664,12 +1673,12 @@ public final class Tx {
    * `pool_id`, `deposit_coins` for reserve.
    * This request is stacked in the batch of the liquidity pool, is not processed 
    * immediately, and is processed in the `endblock` at the same time as other requests.
-   * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
+   * See: https://github.com/tendermint/liquidity/blob/develop/x/liquidity/spec/04_messages.md
    * </pre>
    *
    * Protobuf type {@code tendermint.liquidity.v1beta1.MsgDepositWithinBatch}
    */
-  public  static final class MsgDepositWithinBatch extends
+  public static final class MsgDepositWithinBatch extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.liquidity.v1beta1.MsgDepositWithinBatch)
       MsgDepositWithinBatchOrBuilder {
@@ -1772,9 +1781,10 @@ public final class Tx {
     public static final int DEPOSITOR_ADDRESS_FIELD_NUMBER = 1;
     private volatile java.lang.Object depositorAddress_;
     /**
-     * <code>string depositor_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"depositor_address&#92;""];</code>
+     * <code>string depositor_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The depositorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDepositorAddress() {
       java.lang.Object ref = depositorAddress_;
       if (ref instanceof java.lang.String) {
@@ -1788,9 +1798,10 @@ public final class Tx {
       }
     }
     /**
-     * <code>string depositor_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"depositor_address&#92;""];</code>
+     * <code>string depositor_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for depositorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDepositorAddressBytes() {
       java.lang.Object ref = depositorAddress_;
@@ -1812,9 +1823,10 @@ public final class Tx {
      * id of the target pool
      * </pre>
      *
-     * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -1826,8 +1838,9 @@ public final class Tx {
      * reserve coin pair of the pool to deposit
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getDepositCoinsList() {
       return depositCoins_;
     }
@@ -1836,8 +1849,9 @@ public final class Tx {
      * reserve coin pair of the pool to deposit
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getDepositCoinsOrBuilderList() {
       return depositCoins_;
@@ -1847,8 +1861,9 @@ public final class Tx {
      * reserve coin pair of the pool to deposit
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public int getDepositCoinsCount() {
       return depositCoins_.size();
     }
@@ -1857,8 +1872,9 @@ public final class Tx {
      * reserve coin pair of the pool to deposit
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getDepositCoins(int index) {
       return depositCoins_.get(index);
     }
@@ -1867,8 +1883,9 @@ public final class Tx {
      * reserve coin pair of the pool to deposit
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getDepositCoinsOrBuilder(
         int index) {
       return depositCoins_.get(index);
@@ -2061,7 +2078,7 @@ public final class Tx {
      * `pool_id`, `deposit_coins` for reserve.
      * This request is stacked in the batch of the liquidity pool, is not processed 
      * immediately, and is processed in the `endblock` at the same time as other requests.
-     * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
+     * See: https://github.com/tendermint/liquidity/blob/develop/x/liquidity/spec/04_messages.md
      * </pre>
      *
      * Protobuf type {@code tendermint.liquidity.v1beta1.MsgDepositWithinBatch}
@@ -2263,7 +2280,7 @@ public final class Tx {
 
       private java.lang.Object depositorAddress_ = "";
       /**
-       * <code>string depositor_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"depositor_address&#92;""];</code>
+       * <code>string depositor_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The depositorAddress.
        */
       public java.lang.String getDepositorAddress() {
@@ -2279,7 +2296,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string depositor_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"depositor_address&#92;""];</code>
+       * <code>string depositor_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The bytes for depositorAddress.
        */
       public com.google.protobuf.ByteString
@@ -2296,7 +2313,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string depositor_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"depositor_address&#92;""];</code>
+       * <code>string depositor_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The depositorAddress to set.
        * @return This builder for chaining.
        */
@@ -2311,7 +2328,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string depositor_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"depositor_address&#92;""];</code>
+       * <code>string depositor_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearDepositorAddress() {
@@ -2321,7 +2338,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string depositor_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"depositor_address&#92;""];</code>
+       * <code>string depositor_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The bytes for depositorAddress to set.
        * @return This builder for chaining.
        */
@@ -2343,9 +2360,10 @@ public final class Tx {
        * id of the target pool
        * </pre>
        *
-       * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -2354,7 +2372,7 @@ public final class Tx {
        * id of the target pool
        * </pre>
        *
-       * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -2369,7 +2387,7 @@ public final class Tx {
        * id of the target pool
        * </pre>
        *
-       * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -2396,7 +2414,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getDepositCoinsList() {
         if (depositCoinsBuilder_ == null) {
@@ -2410,7 +2428,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public int getDepositCoinsCount() {
         if (depositCoinsBuilder_ == null) {
@@ -2424,7 +2442,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getDepositCoins(int index) {
         if (depositCoinsBuilder_ == null) {
@@ -2438,7 +2456,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder setDepositCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -2459,7 +2477,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder setDepositCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -2477,7 +2495,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder addDepositCoins(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (depositCoinsBuilder_ == null) {
@@ -2497,7 +2515,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder addDepositCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -2518,7 +2536,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder addDepositCoins(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -2536,7 +2554,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder addDepositCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -2554,7 +2572,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder addAllDepositCoins(
           java.lang.Iterable<? extends cosmos.base.v1beta1.CoinOuterClass.Coin> values) {
@@ -2573,7 +2591,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder clearDepositCoins() {
         if (depositCoinsBuilder_ == null) {
@@ -2590,7 +2608,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder removeDepositCoins(int index) {
         if (depositCoinsBuilder_ == null) {
@@ -2607,7 +2625,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getDepositCoinsBuilder(
           int index) {
@@ -2618,7 +2636,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getDepositCoinsOrBuilder(
           int index) {
@@ -2632,7 +2650,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
            getDepositCoinsOrBuilderList() {
@@ -2647,7 +2665,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder addDepositCoinsBuilder() {
         return getDepositCoinsFieldBuilder().addBuilder(
@@ -2658,7 +2676,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder addDepositCoinsBuilder(
           int index) {
@@ -2670,7 +2688,7 @@ public final class Tx {
        * reserve coin pair of the pool to deposit
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin deposit_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin.Builder> 
            getDepositCoinsBuilderList() {
@@ -2754,7 +2772,7 @@ public final class Tx {
    *
    * Protobuf type {@code tendermint.liquidity.v1beta1.MsgDepositWithinBatchResponse}
    */
-  public  static final class MsgDepositWithinBatchResponse extends
+  public static final class MsgDepositWithinBatchResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.liquidity.v1beta1.MsgDepositWithinBatchResponse)
       MsgDepositWithinBatchResponseOrBuilder {
@@ -3174,12 +3192,12 @@ public final class Tx {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string withdrawer_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"withdrawer_address&#92;""];</code>
+     * <code>string withdrawer_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The withdrawerAddress.
      */
     java.lang.String getWithdrawerAddress();
     /**
-     * <code>string withdrawer_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"withdrawer_address&#92;""];</code>
+     * <code>string withdrawer_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for withdrawerAddress.
      */
     com.google.protobuf.ByteString
@@ -3190,23 +3208,23 @@ public final class Tx {
      * id of the target pool
      * </pre>
      *
-     * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolId.
      */
     long getPoolId();
 
     /**
-     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return Whether the poolCoin field is set.
      */
     boolean hasPoolCoin();
     /**
-     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolCoin.
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getPoolCoin();
     /**
-     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPoolCoinOrBuilder();
   }
@@ -3218,12 +3236,12 @@ public final class Tx {
    * specified `pool_id`, `pool_coin` of the pool.
    * This request is stacked in the batch of the liquidity pool, is not processed 
    * immediately, and is processed in the `endblock` at the same time as other requests.
-   * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
+   * See: https://github.com/tendermint/liquidity/blob/develop/x/liquidity/spec/04_messages.md
    * </pre>
    *
    * Protobuf type {@code tendermint.liquidity.v1beta1.MsgWithdrawWithinBatch}
    */
-  public  static final class MsgWithdrawWithinBatch extends
+  public static final class MsgWithdrawWithinBatch extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.liquidity.v1beta1.MsgWithdrawWithinBatch)
       MsgWithdrawWithinBatchOrBuilder {
@@ -3325,9 +3343,10 @@ public final class Tx {
     public static final int WITHDRAWER_ADDRESS_FIELD_NUMBER = 1;
     private volatile java.lang.Object withdrawerAddress_;
     /**
-     * <code>string withdrawer_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"withdrawer_address&#92;""];</code>
+     * <code>string withdrawer_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The withdrawerAddress.
      */
+    @java.lang.Override
     public java.lang.String getWithdrawerAddress() {
       java.lang.Object ref = withdrawerAddress_;
       if (ref instanceof java.lang.String) {
@@ -3341,9 +3360,10 @@ public final class Tx {
       }
     }
     /**
-     * <code>string withdrawer_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"withdrawer_address&#92;""];</code>
+     * <code>string withdrawer_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for withdrawerAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getWithdrawerAddressBytes() {
       java.lang.Object ref = withdrawerAddress_;
@@ -3365,9 +3385,10 @@ public final class Tx {
      * id of the target pool
      * </pre>
      *
-     * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -3375,22 +3396,25 @@ public final class Tx {
     public static final int POOL_COIN_FIELD_NUMBER = 3;
     private cosmos.base.v1beta1.CoinOuterClass.Coin poolCoin_;
     /**
-     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return Whether the poolCoin field is set.
      */
+    @java.lang.Override
     public boolean hasPoolCoin() {
       return poolCoin_ != null;
     }
     /**
-     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolCoin.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getPoolCoin() {
       return poolCoin_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : poolCoin_;
     }
     /**
-     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPoolCoinOrBuilder() {
       return getPoolCoin();
     }
@@ -3585,7 +3609,7 @@ public final class Tx {
      * specified `pool_id`, `pool_coin` of the pool.
      * This request is stacked in the batch of the liquidity pool, is not processed 
      * immediately, and is processed in the `endblock` at the same time as other requests.
-     * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
+     * See: https://github.com/tendermint/liquidity/blob/develop/x/liquidity/spec/04_messages.md
      * </pre>
      *
      * Protobuf type {@code tendermint.liquidity.v1beta1.MsgWithdrawWithinBatch}
@@ -3757,7 +3781,7 @@ public final class Tx {
 
       private java.lang.Object withdrawerAddress_ = "";
       /**
-       * <code>string withdrawer_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"withdrawer_address&#92;""];</code>
+       * <code>string withdrawer_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The withdrawerAddress.
        */
       public java.lang.String getWithdrawerAddress() {
@@ -3773,7 +3797,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string withdrawer_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"withdrawer_address&#92;""];</code>
+       * <code>string withdrawer_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The bytes for withdrawerAddress.
        */
       public com.google.protobuf.ByteString
@@ -3790,7 +3814,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string withdrawer_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"withdrawer_address&#92;""];</code>
+       * <code>string withdrawer_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The withdrawerAddress to set.
        * @return This builder for chaining.
        */
@@ -3805,7 +3829,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string withdrawer_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"withdrawer_address&#92;""];</code>
+       * <code>string withdrawer_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearWithdrawerAddress() {
@@ -3815,7 +3839,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string withdrawer_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"withdrawer_address&#92;""];</code>
+       * <code>string withdrawer_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The bytes for withdrawerAddress to set.
        * @return This builder for chaining.
        */
@@ -3837,9 +3861,10 @@ public final class Tx {
        * id of the target pool
        * </pre>
        *
-       * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -3848,7 +3873,7 @@ public final class Tx {
        * id of the target pool
        * </pre>
        *
-       * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -3863,7 +3888,7 @@ public final class Tx {
        * id of the target pool
        * </pre>
        *
-       * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -3877,14 +3902,14 @@ public final class Tx {
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> poolCoinBuilder_;
       /**
-       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return Whether the poolCoin field is set.
        */
       public boolean hasPoolCoin() {
         return poolCoinBuilder_ != null || poolCoin_ != null;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The poolCoin.
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getPoolCoin() {
@@ -3895,7 +3920,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder setPoolCoin(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (poolCoinBuilder_ == null) {
@@ -3911,7 +3936,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder setPoolCoin(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -3925,7 +3950,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder mergePoolCoin(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (poolCoinBuilder_ == null) {
@@ -3943,7 +3968,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder clearPoolCoin() {
         if (poolCoinBuilder_ == null) {
@@ -3957,7 +3982,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getPoolCoinBuilder() {
         
@@ -3965,7 +3990,7 @@ public final class Tx {
         return getPoolCoinFieldBuilder().getBuilder();
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPoolCoinOrBuilder() {
         if (poolCoinBuilder_ != null) {
@@ -3976,7 +4001,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -4055,7 +4080,7 @@ public final class Tx {
    *
    * Protobuf type {@code tendermint.liquidity.v1beta1.MsgWithdrawWithinBatchResponse}
    */
-  public  static final class MsgWithdrawWithinBatchResponse extends
+  public static final class MsgWithdrawWithinBatchResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.liquidity.v1beta1.MsgWithdrawWithinBatchResponse)
       MsgWithdrawWithinBatchResponseOrBuilder {
@@ -4479,7 +4504,7 @@ public final class Tx {
      * address of swap requester
      * </pre>
      *
-     * <code>string swap_requester_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"swap_requester_address&#92;""];</code>
+     * <code>string swap_requester_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The swapRequesterAddress.
      */
     java.lang.String getSwapRequesterAddress();
@@ -4488,7 +4513,7 @@ public final class Tx {
      * address of swap requester
      * </pre>
      *
-     * <code>string swap_requester_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"swap_requester_address&#92;""];</code>
+     * <code>string swap_requester_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for swapRequesterAddress.
      */
     com.google.protobuf.ByteString
@@ -4499,7 +4524,7 @@ public final class Tx {
      * id of swap type, must match the value in the pool. Only `swap_type_id` 1 is supported.
      * </pre>
      *
-     * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolId.
      */
     long getPoolId();
@@ -4509,7 +4534,7 @@ public final class Tx {
      * id of swap type. Must match the value in the pool.
      * </pre>
      *
-     * <code>uint32 swap_type_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"swap_type_id&#92;""];</code>
+     * <code>uint32 swap_type_id = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The swapTypeId.
      */
     int getSwapTypeId();
@@ -4519,7 +4544,7 @@ public final class Tx {
      * offer sdk.coin for the swap request, must match the denom in the pool.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return Whether the offerCoin field is set.
      */
     boolean hasOfferCoin();
@@ -4528,7 +4553,7 @@ public final class Tx {
      * offer sdk.coin for the swap request, must match the denom in the pool.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The offerCoin.
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getOfferCoin();
@@ -4537,7 +4562,7 @@ public final class Tx {
      * offer sdk.coin for the swap request, must match the denom in the pool.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getOfferCoinOrBuilder();
 
@@ -4546,7 +4571,7 @@ public final class Tx {
      * denom of demand coin to be exchanged on the swap request, must match the denom in the pool.
      * </pre>
      *
-     * <code>string demand_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"demand_coin_denom&#92;""];</code>
+     * <code>string demand_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The demandCoinDenom.
      */
     java.lang.String getDemandCoinDenom();
@@ -4555,7 +4580,7 @@ public final class Tx {
      * denom of demand coin to be exchanged on the swap request, must match the denom in the pool.
      * </pre>
      *
-     * <code>string demand_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"demand_coin_denom&#92;""];</code>
+     * <code>string demand_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for demandCoinDenom.
      */
     com.google.protobuf.ByteString
@@ -4563,28 +4588,28 @@ public final class Tx {
 
     /**
      * <pre>
-     * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+     * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return Whether the offerCoinFee field is set.
      */
     boolean hasOfferCoinFee();
     /**
      * <pre>
-     * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+     * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The offerCoinFee.
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getOfferCoinFee();
     /**
      * <pre>
-     * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+     * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getOfferCoinFeeOrBuilder();
 
@@ -4595,7 +4620,7 @@ public final class Tx {
      * of the second coin when their denoms are sorted alphabetically. 
      * </pre>
      *
-     * <code>string order_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"order_price&#92;""];</code>
+     * <code>string order_price = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The orderPrice.
      */
     java.lang.String getOrderPrice();
@@ -4606,7 +4631,7 @@ public final class Tx {
      * of the second coin when their denoms are sorted alphabetically. 
      * </pre>
      *
-     * <code>string order_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"order_price&#92;""];</code>
+     * <code>string order_price = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for orderPrice.
      */
     com.google.protobuf.ByteString
@@ -4617,18 +4642,18 @@ public final class Tx {
    * `MsgSwapWithinBatch` defines an sdk.Msg type that supports submitting a swap offer request to the batch of the liquidity pool.
    * Submit swap offer to the liquidity pool batch with the specified the `pool_id`, `swap_type_id`,
    * `demand_coin_denom` with the coin and the price you're offering
-   * and `offer_coin_fee` must be half of offer coin amount * current `params.swap_fee_rate` for reservation to pay fees.
+   * and `offer_coin_fee` must be half of offer coin amount * current `params.swap_fee_rate` and ceil for reservation to pay fees.
    * This request is stacked in the batch of the liquidity pool, is not processed 
    * immediately, and is processed in the `endblock` at the same time as other requests.
    * You must request the same fields as the pool.
    * Only the default `swap_type_id` 1 is supported.
-   * See: https://github.com/gravity-devs/liquidity/tree/develop/doc
-   * https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
+   * See: https://github.com/tendermint/liquidity/tree/develop/doc
+   * https://github.com/tendermint/liquidity/blob/develop/x/liquidity/spec/04_messages.md
    * </pre>
    *
    * Protobuf type {@code tendermint.liquidity.v1beta1.MsgSwapWithinBatch}
    */
-  public  static final class MsgSwapWithinBatch extends
+  public static final class MsgSwapWithinBatch extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.liquidity.v1beta1.MsgSwapWithinBatch)
       MsgSwapWithinBatchOrBuilder {
@@ -4766,9 +4791,10 @@ public final class Tx {
      * address of swap requester
      * </pre>
      *
-     * <code>string swap_requester_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"swap_requester_address&#92;""];</code>
+     * <code>string swap_requester_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The swapRequesterAddress.
      */
+    @java.lang.Override
     public java.lang.String getSwapRequesterAddress() {
       java.lang.Object ref = swapRequesterAddress_;
       if (ref instanceof java.lang.String) {
@@ -4786,9 +4812,10 @@ public final class Tx {
      * address of swap requester
      * </pre>
      *
-     * <code>string swap_requester_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"swap_requester_address&#92;""];</code>
+     * <code>string swap_requester_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for swapRequesterAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSwapRequesterAddressBytes() {
       java.lang.Object ref = swapRequesterAddress_;
@@ -4810,9 +4837,10 @@ public final class Tx {
      * id of swap type, must match the value in the pool. Only `swap_type_id` 1 is supported.
      * </pre>
      *
-     * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+     * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -4824,9 +4852,10 @@ public final class Tx {
      * id of swap type. Must match the value in the pool.
      * </pre>
      *
-     * <code>uint32 swap_type_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"swap_type_id&#92;""];</code>
+     * <code>uint32 swap_type_id = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The swapTypeId.
      */
+    @java.lang.Override
     public int getSwapTypeId() {
       return swapTypeId_;
     }
@@ -4838,9 +4867,10 @@ public final class Tx {
      * offer sdk.coin for the swap request, must match the denom in the pool.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return Whether the offerCoin field is set.
      */
+    @java.lang.Override
     public boolean hasOfferCoin() {
       return offerCoin_ != null;
     }
@@ -4849,9 +4879,10 @@ public final class Tx {
      * offer sdk.coin for the swap request, must match the denom in the pool.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The offerCoin.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getOfferCoin() {
       return offerCoin_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : offerCoin_;
     }
@@ -4860,8 +4891,9 @@ public final class Tx {
      * offer sdk.coin for the swap request, must match the denom in the pool.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getOfferCoinOrBuilder() {
       return getOfferCoin();
     }
@@ -4873,9 +4905,10 @@ public final class Tx {
      * denom of demand coin to be exchanged on the swap request, must match the denom in the pool.
      * </pre>
      *
-     * <code>string demand_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"demand_coin_denom&#92;""];</code>
+     * <code>string demand_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The demandCoinDenom.
      */
+    @java.lang.Override
     public java.lang.String getDemandCoinDenom() {
       java.lang.Object ref = demandCoinDenom_;
       if (ref instanceof java.lang.String) {
@@ -4893,9 +4926,10 @@ public final class Tx {
      * denom of demand coin to be exchanged on the swap request, must match the denom in the pool.
      * </pre>
      *
-     * <code>string demand_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"demand_coin_denom&#92;""];</code>
+     * <code>string demand_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for demandCoinDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDemandCoinDenomBytes() {
       java.lang.Object ref = demandCoinDenom_;
@@ -4914,33 +4948,36 @@ public final class Tx {
     private cosmos.base.v1beta1.CoinOuterClass.Coin offerCoinFee_;
     /**
      * <pre>
-     * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+     * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return Whether the offerCoinFee field is set.
      */
+    @java.lang.Override
     public boolean hasOfferCoinFee() {
       return offerCoinFee_ != null;
     }
     /**
      * <pre>
-     * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+     * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The offerCoinFee.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getOfferCoinFee() {
       return offerCoinFee_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : offerCoinFee_;
     }
     /**
      * <pre>
-     * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+     * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getOfferCoinFeeOrBuilder() {
       return getOfferCoinFee();
     }
@@ -4954,9 +4991,10 @@ public final class Tx {
      * of the second coin when their denoms are sorted alphabetically. 
      * </pre>
      *
-     * <code>string order_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"order_price&#92;""];</code>
+     * <code>string order_price = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The orderPrice.
      */
+    @java.lang.Override
     public java.lang.String getOrderPrice() {
       java.lang.Object ref = orderPrice_;
       if (ref instanceof java.lang.String) {
@@ -4976,9 +5014,10 @@ public final class Tx {
      * of the second coin when their denoms are sorted alphabetically. 
      * </pre>
      *
-     * <code>string order_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"order_price&#92;""];</code>
+     * <code>string order_price = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
      * @return The bytes for orderPrice.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOrderPriceBytes() {
       java.lang.Object ref = orderPrice_;
@@ -5227,13 +5266,13 @@ public final class Tx {
      * `MsgSwapWithinBatch` defines an sdk.Msg type that supports submitting a swap offer request to the batch of the liquidity pool.
      * Submit swap offer to the liquidity pool batch with the specified the `pool_id`, `swap_type_id`,
      * `demand_coin_denom` with the coin and the price you're offering
-     * and `offer_coin_fee` must be half of offer coin amount * current `params.swap_fee_rate` for reservation to pay fees.
+     * and `offer_coin_fee` must be half of offer coin amount * current `params.swap_fee_rate` and ceil for reservation to pay fees.
      * This request is stacked in the batch of the liquidity pool, is not processed 
      * immediately, and is processed in the `endblock` at the same time as other requests.
      * You must request the same fields as the pool.
      * Only the default `swap_type_id` 1 is supported.
-     * See: https://github.com/gravity-devs/liquidity/tree/develop/doc
-     * https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
+     * See: https://github.com/tendermint/liquidity/tree/develop/doc
+     * https://github.com/tendermint/liquidity/blob/develop/x/liquidity/spec/04_messages.md
      * </pre>
      *
      * Protobuf type {@code tendermint.liquidity.v1beta1.MsgSwapWithinBatch}
@@ -5443,7 +5482,7 @@ public final class Tx {
        * address of swap requester
        * </pre>
        *
-       * <code>string swap_requester_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"swap_requester_address&#92;""];</code>
+       * <code>string swap_requester_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The swapRequesterAddress.
        */
       public java.lang.String getSwapRequesterAddress() {
@@ -5463,7 +5502,7 @@ public final class Tx {
        * address of swap requester
        * </pre>
        *
-       * <code>string swap_requester_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"swap_requester_address&#92;""];</code>
+       * <code>string swap_requester_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The bytes for swapRequesterAddress.
        */
       public com.google.protobuf.ByteString
@@ -5484,7 +5523,7 @@ public final class Tx {
        * address of swap requester
        * </pre>
        *
-       * <code>string swap_requester_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"swap_requester_address&#92;""];</code>
+       * <code>string swap_requester_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The swapRequesterAddress to set.
        * @return This builder for chaining.
        */
@@ -5503,7 +5542,7 @@ public final class Tx {
        * address of swap requester
        * </pre>
        *
-       * <code>string swap_requester_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"swap_requester_address&#92;""];</code>
+       * <code>string swap_requester_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearSwapRequesterAddress() {
@@ -5517,7 +5556,7 @@ public final class Tx {
        * address of swap requester
        * </pre>
        *
-       * <code>string swap_requester_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"swap_requester_address&#92;""];</code>
+       * <code>string swap_requester_address = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The bytes for swapRequesterAddress to set.
        * @return This builder for chaining.
        */
@@ -5539,9 +5578,10 @@ public final class Tx {
        * id of swap type, must match the value in the pool. Only `swap_type_id` 1 is supported.
        * </pre>
        *
-       * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -5550,7 +5590,7 @@ public final class Tx {
        * id of swap type, must match the value in the pool. Only `swap_type_id` 1 is supported.
        * </pre>
        *
-       * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -5565,7 +5605,7 @@ public final class Tx {
        * id of swap type, must match the value in the pool. Only `swap_type_id` 1 is supported.
        * </pre>
        *
-       * <code>uint64 pool_id = 2 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
+       * <code>uint64 pool_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -5581,9 +5621,10 @@ public final class Tx {
        * id of swap type. Must match the value in the pool.
        * </pre>
        *
-       * <code>uint32 swap_type_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"swap_type_id&#92;""];</code>
+       * <code>uint32 swap_type_id = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The swapTypeId.
        */
+      @java.lang.Override
       public int getSwapTypeId() {
         return swapTypeId_;
       }
@@ -5592,7 +5633,7 @@ public final class Tx {
        * id of swap type. Must match the value in the pool.
        * </pre>
        *
-       * <code>uint32 swap_type_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"swap_type_id&#92;""];</code>
+       * <code>uint32 swap_type_id = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The swapTypeId to set.
        * @return This builder for chaining.
        */
@@ -5607,7 +5648,7 @@ public final class Tx {
        * id of swap type. Must match the value in the pool.
        * </pre>
        *
-       * <code>uint32 swap_type_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"swap_type_id&#92;""];</code>
+       * <code>uint32 swap_type_id = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearSwapTypeId() {
@@ -5625,7 +5666,7 @@ public final class Tx {
        * offer sdk.coin for the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return Whether the offerCoin field is set.
        */
       public boolean hasOfferCoin() {
@@ -5636,7 +5677,7 @@ public final class Tx {
        * offer sdk.coin for the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The offerCoin.
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getOfferCoin() {
@@ -5651,7 +5692,7 @@ public final class Tx {
        * offer sdk.coin for the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder setOfferCoin(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (offerCoinBuilder_ == null) {
@@ -5671,7 +5712,7 @@ public final class Tx {
        * offer sdk.coin for the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder setOfferCoin(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -5689,7 +5730,7 @@ public final class Tx {
        * offer sdk.coin for the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder mergeOfferCoin(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (offerCoinBuilder_ == null) {
@@ -5711,7 +5752,7 @@ public final class Tx {
        * offer sdk.coin for the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder clearOfferCoin() {
         if (offerCoinBuilder_ == null) {
@@ -5729,7 +5770,7 @@ public final class Tx {
        * offer sdk.coin for the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getOfferCoinBuilder() {
         
@@ -5741,7 +5782,7 @@ public final class Tx {
        * offer sdk.coin for the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getOfferCoinOrBuilder() {
         if (offerCoinBuilder_ != null) {
@@ -5756,7 +5797,7 @@ public final class Tx {
        * offer sdk.coin for the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -5778,7 +5819,7 @@ public final class Tx {
        * denom of demand coin to be exchanged on the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>string demand_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"demand_coin_denom&#92;""];</code>
+       * <code>string demand_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The demandCoinDenom.
        */
       public java.lang.String getDemandCoinDenom() {
@@ -5798,7 +5839,7 @@ public final class Tx {
        * denom of demand coin to be exchanged on the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>string demand_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"demand_coin_denom&#92;""];</code>
+       * <code>string demand_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The bytes for demandCoinDenom.
        */
       public com.google.protobuf.ByteString
@@ -5819,7 +5860,7 @@ public final class Tx {
        * denom of demand coin to be exchanged on the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>string demand_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"demand_coin_denom&#92;""];</code>
+       * <code>string demand_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The demandCoinDenom to set.
        * @return This builder for chaining.
        */
@@ -5838,7 +5879,7 @@ public final class Tx {
        * denom of demand coin to be exchanged on the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>string demand_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"demand_coin_denom&#92;""];</code>
+       * <code>string demand_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearDemandCoinDenom() {
@@ -5852,7 +5893,7 @@ public final class Tx {
        * denom of demand coin to be exchanged on the swap request, must match the denom in the pool.
        * </pre>
        *
-       * <code>string demand_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"demand_coin_denom&#92;""];</code>
+       * <code>string demand_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The bytes for demandCoinDenom to set.
        * @return This builder for chaining.
        */
@@ -5873,10 +5914,10 @@ public final class Tx {
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> offerCoinFeeBuilder_;
       /**
        * <pre>
-       * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+       * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return Whether the offerCoinFee field is set.
        */
       public boolean hasOfferCoinFee() {
@@ -5884,10 +5925,10 @@ public final class Tx {
       }
       /**
        * <pre>
-       * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+       * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The offerCoinFee.
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getOfferCoinFee() {
@@ -5899,10 +5940,10 @@ public final class Tx {
       }
       /**
        * <pre>
-       * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+       * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder setOfferCoinFee(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (offerCoinFeeBuilder_ == null) {
@@ -5919,10 +5960,10 @@ public final class Tx {
       }
       /**
        * <pre>
-       * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+       * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder setOfferCoinFee(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -5937,10 +5978,10 @@ public final class Tx {
       }
       /**
        * <pre>
-       * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+       * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder mergeOfferCoinFee(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (offerCoinFeeBuilder_ == null) {
@@ -5959,10 +6000,10 @@ public final class Tx {
       }
       /**
        * <pre>
-       * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+       * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public Builder clearOfferCoinFee() {
         if (offerCoinFeeBuilder_ == null) {
@@ -5977,10 +6018,10 @@ public final class Tx {
       }
       /**
        * <pre>
-       * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+       * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getOfferCoinFeeBuilder() {
         
@@ -5989,10 +6030,10 @@ public final class Tx {
       }
       /**
        * <pre>
-       * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+       * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getOfferCoinFeeOrBuilder() {
         if (offerCoinFeeBuilder_ != null) {
@@ -6004,10 +6045,10 @@ public final class Tx {
       }
       /**
        * <pre>
-       * half of offer coin amount * params.swap_fee_rate for reservation to pay fees.
+       * half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"offer_coin_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin offer_coin_fee = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -6031,7 +6072,7 @@ public final class Tx {
        * of the second coin when their denoms are sorted alphabetically. 
        * </pre>
        *
-       * <code>string order_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"order_price&#92;""];</code>
+       * <code>string order_price = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The orderPrice.
        */
       public java.lang.String getOrderPrice() {
@@ -6053,7 +6094,7 @@ public final class Tx {
        * of the second coin when their denoms are sorted alphabetically. 
        * </pre>
        *
-       * <code>string order_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"order_price&#92;""];</code>
+       * <code>string order_price = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return The bytes for orderPrice.
        */
       public com.google.protobuf.ByteString
@@ -6076,7 +6117,7 @@ public final class Tx {
        * of the second coin when their denoms are sorted alphabetically. 
        * </pre>
        *
-       * <code>string order_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"order_price&#92;""];</code>
+       * <code>string order_price = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The orderPrice to set.
        * @return This builder for chaining.
        */
@@ -6097,7 +6138,7 @@ public final class Tx {
        * of the second coin when their denoms are sorted alphabetically. 
        * </pre>
        *
-       * <code>string order_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"order_price&#92;""];</code>
+       * <code>string order_price = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearOrderPrice() {
@@ -6113,7 +6154,7 @@ public final class Tx {
        * of the second coin when their denoms are sorted alphabetically. 
        * </pre>
        *
-       * <code>string order_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"order_price&#92;""];</code>
+       * <code>string order_price = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
        * @param value The bytes for orderPrice to set.
        * @return This builder for chaining.
        */
@@ -6192,7 +6233,7 @@ public final class Tx {
    *
    * Protobuf type {@code tendermint.liquidity.v1beta1.MsgSwapWithinBatchResponse}
    */
-  public  static final class MsgSwapWithinBatchResponse extends
+  public static final class MsgSwapWithinBatchResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.liquidity.v1beta1.MsgSwapWithinBatchResponse)
       MsgSwapWithinBatchResponseOrBuilder {
@@ -6659,63 +6700,89 @@ public final class Tx {
       "\n%tendermint/liquidity/v1beta1/tx.proto\022" +
       "\034tendermint.liquidity.v1beta1\032\024gogoproto" +
       "/gogo.proto\032\036cosmos/base/v1beta1/coin.pr" +
-      "oto\032\034google/api/annotations.proto\"\203\002\n\rMs" +
-      "gCreatePool\022=\n\024pool_creator_address\030\001 \001(" +
-      "\tB\037\362\336\037\033yaml:\"pool_creator_address\"\022-\n\014po" +
-      "ol_type_id\030\002 \001(\rB\027\362\336\037\023yaml:\"pool_type_id" +
-      "\"\022z\n\rdeposit_coins\030\004 \003(\0132\031.cosmos.base.v" +
-      "1beta1.CoinBH\310\336\037\000\362\336\037\024yaml:\"deposit_coins" +
-      "\"\252\337\037(github.com/cosmos/cosmos-sdk/types." +
-      "Coins:\010\350\240\037\000\210\240\037\000\"\027\n\025MsgCreatePoolResponse" +
-      "\"\206\002\n\025MsgDepositWithinBatch\0227\n\021depositor_" +
-      "address\030\001 \001(\tB\034\362\336\037\030yaml:\"depositor_addre" +
-      "ss\"\022.\n\007pool_id\030\002 \001(\004B\035\362\336\037\016yaml:\"pool_id\"" +
-      "\352\336\037\007pool_id\022z\n\rdeposit_coins\030\003 \003(\0132\031.cos" +
-      "mos.base.v1beta1.CoinBH\310\336\037\000\362\336\037\024yaml:\"dep" +
-      "osit_coins\"\252\337\037(github.com/cosmos/cosmos-" +
-      "sdk/types.Coins:\010\350\240\037\000\210\240\037\000\"\037\n\035MsgDepositW" +
-      "ithinBatchResponse\"\325\001\n\026MsgWithdrawWithin" +
-      "Batch\0229\n\022withdrawer_address\030\001 \001(\tB\035\362\336\037\031y" +
-      "aml:\"withdrawer_address\"\022.\n\007pool_id\030\002 \001(" +
-      "\004B\035\362\336\037\016yaml:\"pool_id\"\352\336\037\007pool_id\022F\n\tpool" +
-      "_coin\030\003 \001(\0132\031.cosmos.base.v1beta1.CoinB\030" +
-      "\310\336\037\000\362\336\037\020yaml:\"pool_coin\":\010\350\240\037\000\210\240\037\000\" \n\036Ms" +
-      "gWithdrawWithinBatchResponse\"\360\003\n\022MsgSwap" +
-      "WithinBatch\022A\n\026swap_requester_address\030\001 " +
-      "\001(\tB!\362\336\037\035yaml:\"swap_requester_address\"\022." +
-      "\n\007pool_id\030\002 \001(\004B\035\362\336\037\016yaml:\"pool_id\"\352\336\037\007p" +
-      "ool_id\022-\n\014swap_type_id\030\003 \001(\rB\027\362\336\037\023yaml:\"" +
-      "swap_type_id\"\022H\n\noffer_coin\030\004 \001(\0132\031.cosm" +
-      "os.base.v1beta1.CoinB\031\310\336\037\000\362\336\037\021yaml:\"offe" +
-      "r_coin\"\0227\n\021demand_coin_denom\030\005 \001(\tB\034\362\336\037\030" +
-      "yaml:\"demand_coin_denom\"\022P\n\016offer_coin_f" +
-      "ee\030\006 \001(\0132\031.cosmos.base.v1beta1.CoinB\035\310\336\037" +
-      "\000\362\336\037\025yaml:\"offer_coin_fee\"\022Y\n\013order_pric" +
-      "e\030\007 \001(\tBD\362\336\037\022yaml:\"order_price\"\332\336\037&githu" +
-      "b.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000:\010\350" +
-      "\240\037\000\210\240\037\000\"\034\n\032MsgSwapWithinBatchResponse2\376\003" +
-      "\n\003Msg\022n\n\nCreatePool\022+.tendermint.liquidi" +
-      "ty.v1beta1.MsgCreatePool\0323.tendermint.li" +
-      "quidity.v1beta1.MsgCreatePoolResponse\022\206\001" +
-      "\n\022DepositWithinBatch\0223.tendermint.liquid" +
-      "ity.v1beta1.MsgDepositWithinBatch\032;.tend" +
-      "ermint.liquidity.v1beta1.MsgDepositWithi" +
-      "nBatchResponse\022\211\001\n\023WithdrawWithinBatch\0224" +
-      ".tendermint.liquidity.v1beta1.MsgWithdra" +
-      "wWithinBatch\032<.tendermint.liquidity.v1be" +
-      "ta1.MsgWithdrawWithinBatchResponse\022r\n\004Sw" +
-      "ap\0220.tendermint.liquidity.v1beta1.MsgSwa" +
-      "pWithinBatch\0328.tendermint.liquidity.v1be" +
-      "ta1.MsgSwapWithinBatchResponseB5Z3github" +
-      ".com/gravity-devs/liquidity/x/liquidity/" +
+      "oto\032.protoc-gen-openapiv2/options/annota" +
+      "tions.proto\"\361\003\n\rMsgCreatePool\022\262\001\n\024pool_c" +
+      "reator_address\030\001 \001(\tB\223\001\362\336\037\033yaml:\"pool_cr" +
+      "eator_address\"\222Aq2-account address of th" +
+      "e origin of this messageJ/\"cosmos1e35y69" +
+      "rhrt7y4yce5l5u73sjnxu0l33wvznyun\"\242\002\016sdk." +
+      "AccAddress\022>\n\014pool_type_id\030\002 \001(\rB(\362\336\037\023ya" +
+      "ml:\"pool_type_id\"\222A\016J\003\"1\"\242\002\006uint32\022\340\001\n\rd" +
+      "eposit_coins\030\004 \003(\0132\031.cosmos.base.v1beta1" +
+      ".CoinB\255\001\310\336\037\000\362\336\037\024yaml:\"deposit_coins\"\252\337\037(" +
+      "github.com/cosmos/cosmos-sdk/types.Coins" +
+      "\222AbJT[{\"denom\": \"denomX\", \"amount\": \"100" +
+      "0000\"}, {\"denom\": \"denomY\", \"amount\": \"2" +
+      "000000\"}]\242\002\tsdk.Coins:\010\350\240\037\000\210\240\037\000\"\027\n\025MsgCr" +
+      "eatePoolResponse\"\364\003\n\025MsgDepositWithinBat" +
+      "ch\022\254\001\n\021depositor_address\030\001 \001(\tB\220\001\362\336\037\030yam" +
+      "l:\"depositor_address\"\222Aq2-account addres" +
+      "s of the origin of this messageJ/\"cosmos" +
+      "1e35y69rhrt7y4yce5l5u73sjnxu0l33wvznyun\"" +
+      "\242\002\016sdk.AccAddress\022?\n\007pool_id\030\002 \001(\004B.\362\336\037\016" +
+      "yaml:\"pool_id\"\352\336\037\007pool_id\222A\016J\003\"1\"\242\002\006uint" +
+      "64\022\340\001\n\rdeposit_coins\030\003 \003(\0132\031.cosmos.base" +
+      ".v1beta1.CoinB\255\001\310\336\037\000\362\336\037\024yaml:\"deposit_co" +
+      "ins\"\252\337\037(github.com/cosmos/cosmos-sdk/typ" +
+      "es.Coins\222AbJT[{\"denom\": \"denomX\", \"amoun" +
+      "t\": \"1000000\"}, {\"denom\": \"denomY\", \"amo" +
+      "unt\": \"2000000\"}]\242\002\tsdk.Coins:\010\350\240\037\000\210\240\037\000\"" +
+      "\037\n\035MsgDepositWithinBatchResponse\"\321\003\n\026Msg" +
+      "WithdrawWithinBatch\022\256\001\n\022withdrawer_addre" +
+      "ss\030\001 \001(\tB\221\001\362\336\037\031yaml:\"withdrawer_address\"" +
+      "\222Aq2-account address of the origin of th" +
+      "is messageJ/\"cosmos1e35y69rhrt7y4yce5l5u" +
+      "73sjnxu0l33wvznyun\"\242\002\016sdk.AccAddress\022?\n\007" +
+      "pool_id\030\002 \001(\004B.\362\336\037\016yaml:\"pool_id\"\352\336\037\007poo" +
+      "l_id\222A\016J\003\"1\"\242\002\006uint64\022\272\001\n\tpool_coin\030\003 \001(" +
+      "\0132\031.cosmos.base.v1beta1.CoinB\213\001\310\336\037\000\362\336\037\020y" +
+      "aml:\"pool_coin\"\222ApJc{\"denom\": \"poolD35A0" +
+      "CC16EE598F90B044CE296A405BA9C381E3883759" +
+      "9D96F2F70C2F02A23A4\", \"amount\": \"1000\"}\242" +
+      "\002\010sdk.Coin:\010\350\240\037\000\210\240\037\000\" \n\036MsgWithdrawWithi" +
+      "nBatchResponse\"\230\006\n\022MsgSwapWithinBatch\022\266\001" +
+      "\n\026swap_requester_address\030\001 \001(\tB\225\001\362\336\037\035yam" +
+      "l:\"swap_requester_address\"\222Aq2-account a" +
+      "ddress of the origin of this messageJ/\"c" +
+      "osmos1e35y69rhrt7y4yce5l5u73sjnxu0l33wvz" +
+      "nyun\"\242\002\016sdk.AccAddress\022?\n\007pool_id\030\002 \001(\004B" +
+      ".\362\336\037\016yaml:\"pool_id\"\352\336\037\007pool_id\222A\016J\003\"1\"\242\002" +
+      "\006uint64\022>\n\014swap_type_id\030\003 \001(\rB(\362\336\037\023yaml:" +
+      "\"swap_type_id\"\222A\016J\003\"1\"\242\002\006uint32\022\200\001\n\noffe" +
+      "r_coin\030\004 \001(\0132\031.cosmos.base.v1beta1.CoinB" +
+      "Q\310\336\037\000\362\336\037\021yaml:\"offer_coin\"\222A5J({\"denom\":" +
+      " \"denomX\", \"amount\": \"1000000\"}\242\002\010sdk.Co" +
+      "in\022D\n\021demand_coin_denom\030\005 \001(\tB)\362\336\037\030yaml:" +
+      "\"demand_coin_denom\"\222A\nJ\010\"denomB\"\022\205\001\n\016off" +
+      "er_coin_fee\030\006 \001(\0132\031.cosmos.base.v1beta1." +
+      "CoinBR\310\336\037\000\362\336\037\025yaml:\"offer_coin_fee\"\222A2J%" +
+      "{\"denom\": \"denomX\", \"amount\": \"5000\"}\242\002\010" +
+      "sdk.Coin\022m\n\013order_price\030\007 \001(\tBX\362\336\037\022yaml:" +
+      "\"order_price\"\332\336\037&github.com/cosmos/cosmo" +
+      "s-sdk/types.Dec\310\336\037\000\222A\021J\005\"1.1\"\242\002\007sdk.Dec:" +
+      "\010\350\240\037\000\210\240\037\000\"\034\n\032MsgSwapWithinBatchResponse2" +
+      "\376\003\n\003Msg\022n\n\nCreatePool\022+.tendermint.liqui" +
+      "dity.v1beta1.MsgCreatePool\0323.tendermint." +
+      "liquidity.v1beta1.MsgCreatePoolResponse\022" +
+      "\206\001\n\022DepositWithinBatch\0223.tendermint.liqu" +
+      "idity.v1beta1.MsgDepositWithinBatch\032;.te" +
+      "ndermint.liquidity.v1beta1.MsgDepositWit" +
+      "hinBatchResponse\022\211\001\n\023WithdrawWithinBatch" +
+      "\0224.tendermint.liquidity.v1beta1.MsgWithd" +
+      "rawWithinBatch\032<.tendermint.liquidity.v1" +
+      "beta1.MsgWithdrawWithinBatchResponse\022r\n\004" +
+      "Swap\0220.tendermint.liquidity.v1beta1.MsgS" +
+      "wapWithinBatch\0328.tendermint.liquidity.v1" +
+      "beta1.MsgSwapWithinBatchResponseB3Z1gith" +
+      "ub.com/tendermint/liquidity/x/liquidity/" +
       "typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          com.google.api.AnnotationsProto.getDescriptor(),
+          grpc.gateway.protoc_gen_openapiv2.options.Annotations.getDescriptor(),
         });
     internal_static_tendermint_liquidity_v1beta1_MsgCreatePool_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -6767,18 +6834,19 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(grpc.gateway.protoc_gen_openapiv2.options.Annotations.openapiv2Field);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    com.google.api.AnnotationsProto.getDescriptor();
+    grpc.gateway.protoc_gen_openapiv2.options.Annotations.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

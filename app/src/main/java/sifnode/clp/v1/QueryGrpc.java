@@ -120,6 +120,37 @@ public final class QueryGrpc {
     return getGetLiquidityProviderMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.LiquidityProviderDataReq,
+      sifnode.clp.v1.Querier.LiquidityProviderDataRes> getGetLiquidityProviderDataMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetLiquidityProviderData",
+      requestType = sifnode.clp.v1.Querier.LiquidityProviderDataReq.class,
+      responseType = sifnode.clp.v1.Querier.LiquidityProviderDataRes.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.LiquidityProviderDataReq,
+      sifnode.clp.v1.Querier.LiquidityProviderDataRes> getGetLiquidityProviderDataMethod() {
+    io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.LiquidityProviderDataReq, sifnode.clp.v1.Querier.LiquidityProviderDataRes> getGetLiquidityProviderDataMethod;
+    if ((getGetLiquidityProviderDataMethod = QueryGrpc.getGetLiquidityProviderDataMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getGetLiquidityProviderDataMethod = QueryGrpc.getGetLiquidityProviderDataMethod) == null) {
+          QueryGrpc.getGetLiquidityProviderDataMethod = getGetLiquidityProviderDataMethod =
+              io.grpc.MethodDescriptor.<sifnode.clp.v1.Querier.LiquidityProviderDataReq, sifnode.clp.v1.Querier.LiquidityProviderDataRes>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetLiquidityProviderData"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Querier.LiquidityProviderDataReq.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.clp.v1.Querier.LiquidityProviderDataRes.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("GetLiquidityProviderData"))
+              .build();
+        }
+      }
+    }
+    return getGetLiquidityProviderDataMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<sifnode.clp.v1.Querier.AssetListReq,
       sifnode.clp.v1.Querier.AssetListRes> getGetAssetListMethod;
 
@@ -284,6 +315,13 @@ public final class QueryGrpc {
 
     /**
      */
+    public void getLiquidityProviderData(sifnode.clp.v1.Querier.LiquidityProviderDataReq request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.LiquidityProviderDataRes> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetLiquidityProviderDataMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void getAssetList(sifnode.clp.v1.Querier.AssetListReq request,
         io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.AssetListRes> responseObserver) {
       asyncUnimplementedUnaryCall(getGetAssetListMethod(), responseObserver);
@@ -326,6 +364,13 @@ public final class QueryGrpc {
                 sifnode.clp.v1.Querier.LiquidityProviderReq,
                 sifnode.clp.v1.Querier.LiquidityProviderRes>(
                   this, METHODID_GET_LIQUIDITY_PROVIDER)))
+          .addMethod(
+            getGetLiquidityProviderDataMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.clp.v1.Querier.LiquidityProviderDataReq,
+                sifnode.clp.v1.Querier.LiquidityProviderDataRes>(
+                  this, METHODID_GET_LIQUIDITY_PROVIDER_DATA)))
           .addMethod(
             getGetAssetListMethod(),
             asyncUnaryCall(
@@ -391,6 +436,14 @@ public final class QueryGrpc {
 
     /**
      */
+    public void getLiquidityProviderData(sifnode.clp.v1.Querier.LiquidityProviderDataReq request,
+        io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.LiquidityProviderDataRes> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetLiquidityProviderDataMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void getAssetList(sifnode.clp.v1.Querier.AssetListReq request,
         io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.AssetListRes> responseObserver) {
       asyncUnaryCall(
@@ -447,6 +500,13 @@ public final class QueryGrpc {
     public sifnode.clp.v1.Querier.LiquidityProviderRes getLiquidityProvider(sifnode.clp.v1.Querier.LiquidityProviderReq request) {
       return blockingUnaryCall(
           getChannel(), getGetLiquidityProviderMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.clp.v1.Querier.LiquidityProviderDataRes getLiquidityProviderData(sifnode.clp.v1.Querier.LiquidityProviderDataReq request) {
+      return blockingUnaryCall(
+          getChannel(), getGetLiquidityProviderDataMethod(), getCallOptions(), request);
     }
 
     /**
@@ -511,6 +571,14 @@ public final class QueryGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Querier.LiquidityProviderDataRes> getLiquidityProviderData(
+        sifnode.clp.v1.Querier.LiquidityProviderDataReq request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetLiquidityProviderDataMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<sifnode.clp.v1.Querier.AssetListRes> getAssetList(
         sifnode.clp.v1.Querier.AssetListReq request) {
       return futureUnaryCall(
@@ -537,9 +605,10 @@ public final class QueryGrpc {
   private static final int METHODID_GET_POOL = 0;
   private static final int METHODID_GET_POOLS = 1;
   private static final int METHODID_GET_LIQUIDITY_PROVIDER = 2;
-  private static final int METHODID_GET_ASSET_LIST = 3;
-  private static final int METHODID_GET_LIQUIDITY_PROVIDERS = 4;
-  private static final int METHODID_GET_LIQUIDITY_PROVIDER_LIST = 5;
+  private static final int METHODID_GET_LIQUIDITY_PROVIDER_DATA = 3;
+  private static final int METHODID_GET_ASSET_LIST = 4;
+  private static final int METHODID_GET_LIQUIDITY_PROVIDERS = 5;
+  private static final int METHODID_GET_LIQUIDITY_PROVIDER_LIST = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -569,6 +638,10 @@ public final class QueryGrpc {
         case METHODID_GET_LIQUIDITY_PROVIDER:
           serviceImpl.getLiquidityProvider((sifnode.clp.v1.Querier.LiquidityProviderReq) request,
               (io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.LiquidityProviderRes>) responseObserver);
+          break;
+        case METHODID_GET_LIQUIDITY_PROVIDER_DATA:
+          serviceImpl.getLiquidityProviderData((sifnode.clp.v1.Querier.LiquidityProviderDataReq) request,
+              (io.grpc.stub.StreamObserver<sifnode.clp.v1.Querier.LiquidityProviderDataRes>) responseObserver);
           break;
         case METHODID_GET_ASSET_LIST:
           serviceImpl.getAssetList((sifnode.clp.v1.Querier.AssetListReq) request,
@@ -646,6 +719,7 @@ public final class QueryGrpc {
               .addMethod(getGetPoolMethod())
               .addMethod(getGetPoolsMethod())
               .addMethod(getGetLiquidityProviderMethod())
+              .addMethod(getGetLiquidityProviderDataMethod())
               .addMethod(getGetAssetListMethod())
               .addMethod(getGetLiquidityProvidersMethod())
               .addMethod(getGetLiquidityProviderListMethod())

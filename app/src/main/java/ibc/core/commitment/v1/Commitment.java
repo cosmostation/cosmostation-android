@@ -2515,14 +2515,14 @@ public final class Commitment {
       "\n\nkey_prefix\030\001 \001(\014B\025\362\336\037\021yaml:\"key_prefix" +
       "\"\"9\n\nMerklePath\022%\n\010key_path\030\001 \003(\tB\023\362\336\037\017y" +
       "aml:\"key_path\":\004\230\240\037\000\"5\n\013MerkleProof\022&\n\006p" +
-      "roofs\030\001 \003(\0132\026.ics23.CommitmentProofB=Z;g" +
-      "ithub.com/cosmos/cosmos-sdk/x/ibc/core/2" +
-      "3-commitment/typesb\006proto3"
+      "roofs\030\001 \003(\0132\026.ics23.CommitmentProofB>Z<g" +
+      "ithub.com/cosmos/ibc-go/v2/modules/core/" +
+      "23-commitment/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           ics23.Proofs.getDescriptor(),
         });
     internal_static_ibc_core_commitment_v1_MerkleRoot_descriptor =
@@ -2551,12 +2551,12 @@ public final class Commitment {
         new java.lang.String[] { "Proofs", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     ics23.Proofs.getDescriptor();
   }
 

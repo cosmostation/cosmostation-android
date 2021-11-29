@@ -911,14 +911,14 @@ public final class Localhost {
       "/client.proto\"l\n\013ClientState\022%\n\010chain_id" +
       "\030\001 \001(\tB\023\362\336\037\017yaml:\"chain_id\"\0220\n\006height\030\002 " +
       "\001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000:\004\210" +
-      "\240\037\000BEZCgithub.com/cosmos/cosmos-sdk/x/ib" +
-      "c/light-clients/09-localhost/typesb\006prot" +
-      "o3"
+      "\240\037\000BFZDgithub.com/cosmos/ibc-go/v2/modul" +
+      "es/light-clients/09-localhost/typesb\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           ibc.core.client.v1.Client.getDescriptor(),
         });
     internal_static_ibc_lightclients_localhost_v1_ClientState_descriptor =
@@ -929,12 +929,12 @@ public final class Localhost {
         new java.lang.String[] { "ChainId", "Height", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     ibc.core.client.v1.Client.getDescriptor();
   }
 

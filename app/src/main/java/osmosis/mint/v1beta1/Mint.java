@@ -4675,51 +4675,51 @@ public final class Mint {
     java.lang.String[] descriptorData = {
       "\n\037osmosis/mint/v1beta1/mint.proto\022\024osmos" +
       "is.mint.v1beta1\032\024gogoproto/gogo.proto\032\037g" +
-      "oogle/protobuf/timestamp.proto\032\032google/p" +
-      "rotobuf2/any.proto\032\036google/protobuf/dura" +
-      "tion.proto\"m\n\006Minter\022c\n\020epoch_provisions" +
-      "\030\001 \001(\tBI\362\336\037\027yaml:\"epoch_provisions\"\332\336\037&g" +
-      "ithub.com/cosmos/cosmos-sdk/types.Dec\310\336\037" +
-      "\000\"\207\001\n\017WeightedAddress\022#\n\007address\030\001 \001(\tB\022" +
-      "\362\336\037\016yaml:\"address\"\022O\n\006weight\030\002 \001(\tB?\362\336\037\r" +
-      "yaml:\"weight\"\332\336\037&github.com/cosmos/cosmo" +
-      "s-sdk/types.Dec\310\336\037\000\"\227\003\n\027DistributionProp" +
-      "ortions\022Q\n\007staking\030\001 \001(\tB@\332\336\037&github.com" +
-      "/cosmos/cosmos-sdk/types.Dec\362\336\037\016yaml:\"st" +
-      "aking\"\310\336\037\000\022a\n\017pool_incentives\030\002 \001(\tBH\332\336\037" +
+      "oogle/protobuf/timestamp.proto\032\031google/p" +
+      "rotobuf/any.proto\032\036google/protobuf/durat" +
+      "ion.proto\"m\n\006Minter\022c\n\020epoch_provisions\030" +
+      "\001 \001(\tBI\362\336\037\027yaml:\"epoch_provisions\"\332\336\037&gi" +
+      "thub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000" +
+      "\"\207\001\n\017WeightedAddress\022#\n\007address\030\001 \001(\tB\022\362" +
+      "\336\037\016yaml:\"address\"\022O\n\006weight\030\002 \001(\tB?\362\336\037\ry" +
+      "aml:\"weight\"\332\336\037&github.com/cosmos/cosmos" +
+      "-sdk/types.Dec\310\336\037\000\"\227\003\n\027DistributionPropo" +
+      "rtions\022Q\n\007staking\030\001 \001(\tB@\332\336\037&github.com/" +
+      "cosmos/cosmos-sdk/types.Dec\362\336\037\016yaml:\"sta" +
+      "king\"\310\336\037\000\022a\n\017pool_incentives\030\002 \001(\tBH\332\336\037&" +
+      "github.com/cosmos/cosmos-sdk/types.Dec\362\336" +
+      "\037\026yaml:\"pool_incentives\"\310\336\037\000\022e\n\021develope" +
+      "r_rewards\030\003 \001(\tBJ\332\336\037&github.com/cosmos/c" +
+      "osmos-sdk/types.Dec\362\336\037\030yaml:\"developer_r" +
+      "ewards\"\310\336\037\000\022_\n\016community_pool\030\004 \001(\tBG\332\336\037" +
       "&github.com/cosmos/cosmos-sdk/types.Dec\362" +
-      "\336\037\026yaml:\"pool_incentives\"\310\336\037\000\022e\n\021develop" +
-      "er_rewards\030\003 \001(\tBJ\332\336\037&github.com/cosmos/" +
-      "cosmos-sdk/types.Dec\362\336\037\030yaml:\"developer_" +
-      "rewards\"\310\336\037\000\022_\n\016community_pool\030\004 \001(\tBG\332\336" +
-      "\037&github.com/cosmos/cosmos-sdk/types.Dec" +
-      "\362\336\037\025yaml:\"community_pool\"\310\336\037\000\"\274\005\n\006Params" +
-      "\022\022\n\nmint_denom\030\001 \001(\t\022s\n\030genesis_epoch_pr" +
-      "ovisions\030\002 \001(\tBQ\362\336\037\037yaml:\"genesis_epoch_" +
-      "provisions\"\332\336\037&github.com/cosmos/cosmos-" +
-      "sdk/types.Dec\310\336\037\000\0225\n\020epoch_identifier\030\003 " +
-      "\001(\tB\033\362\336\037\027yaml:\"epoch_identifier\"\022I\n\032redu" +
-      "ction_period_in_epochs\030\004 \001(\003B%\362\336\037!yaml:\"" +
-      "reduction_period_in_epochs\"\022c\n\020reduction" +
-      "_factor\030\005 \001(\tBI\362\336\037\027yaml:\"reduction_facto" +
-      "r\"\332\336\037&github.com/cosmos/cosmos-sdk/types" +
-      ".Dec\310\336\037\000\022U\n\030distribution_proportions\030\006 \001" +
-      "(\0132-.osmosis.mint.v1beta1.DistributionPr" +
-      "oportionsB\004\310\336\037\000\022~\n$weighted_developer_re" +
-      "wards_receivers\030\007 \003(\0132%.osmosis.mint.v1b" +
-      "eta1.WeightedAddressB)\362\336\037!yaml:\"develope" +
-      "r_rewards_receiver\"\310\336\037\000\022e\n(minting_rewar" +
-      "ds_distribution_start_epoch\030\010 \001(\003B3\362\336\037/y" +
-      "aml:\"minting_rewards_distribution_start_" +
-      "epoch\":\004\230\240\037\000B.Z,github.com/osmosis-labs/" +
-      "osmosis/x/mint/typesb\006proto3"
+      "\336\037\025yaml:\"community_pool\"\310\336\037\000\"\274\005\n\006Params\022" +
+      "\022\n\nmint_denom\030\001 \001(\t\022s\n\030genesis_epoch_pro" +
+      "visions\030\002 \001(\tBQ\362\336\037\037yaml:\"genesis_epoch_p" +
+      "rovisions\"\332\336\037&github.com/cosmos/cosmos-s" +
+      "dk/types.Dec\310\336\037\000\0225\n\020epoch_identifier\030\003 \001" +
+      "(\tB\033\362\336\037\027yaml:\"epoch_identifier\"\022I\n\032reduc" +
+      "tion_period_in_epochs\030\004 \001(\003B%\362\336\037!yaml:\"r" +
+      "eduction_period_in_epochs\"\022c\n\020reduction_" +
+      "factor\030\005 \001(\tBI\362\336\037\027yaml:\"reduction_factor" +
+      "\"\332\336\037&github.com/cosmos/cosmos-sdk/types." +
+      "Dec\310\336\037\000\022U\n\030distribution_proportions\030\006 \001(" +
+      "\0132-.osmosis.mint.v1beta1.DistributionPro" +
+      "portionsB\004\310\336\037\000\022~\n$weighted_developer_rew" +
+      "ards_receivers\030\007 \003(\0132%.osmosis.mint.v1be" +
+      "ta1.WeightedAddressB)\362\336\037!yaml:\"developer" +
+      "_rewards_receiver\"\310\336\037\000\022e\n(minting_reward" +
+      "s_distribution_start_epoch\030\010 \001(\003B3\362\336\037/ya" +
+      "ml:\"minting_rewards_distribution_start_e" +
+      "poch\":\004\230\240\037\000B.Z,github.com/osmosis-labs/o" +
+      "smosis/x/mint/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
-          com.google.protobuf2.AnyProto.getDescriptor(),
+          com.google.protobuf.AnyProto.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
         });
     internal_static_osmosis_mint_v1beta1_Minter_descriptor =
@@ -4748,15 +4748,15 @@ public final class Mint {
         new java.lang.String[] { "MintDenom", "GenesisEpochProvisions", "EpochIdentifier", "ReductionPeriodInEpochs", "ReductionFactor", "DistributionProportions", "WeightedDeveloperRewardsReceivers", "MintingRewardsDistributionStartEpoch", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
-    com.google.protobuf2.AnyProto.getDescriptor();
+    com.google.protobuf.AnyProto.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
   }
 

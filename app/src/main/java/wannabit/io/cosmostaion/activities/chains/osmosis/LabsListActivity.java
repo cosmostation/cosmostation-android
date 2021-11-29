@@ -22,7 +22,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import osmosis.poolincentives.v1beta1.QueryOuterClass;
@@ -61,10 +61,10 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     private TabLayout               mLabTapLayer;
     private OsmoLabPageAdapter      mPageAdapter;
 
-    public ArrayList<PoolOuterClass.Pool>                   mPoolList = new ArrayList<>();
+    public ArrayList<BalancerPoolOuterClass.BalancerPool>   mPoolList = new ArrayList<>();
     public ArrayList<String>                                mAllDenoms = new ArrayList<>();
-    public ArrayList<PoolOuterClass.Pool>                   mPoolMyList = new ArrayList<>();
-    public ArrayList<PoolOuterClass.Pool>                   mPoolOtherList = new ArrayList<>();
+    public ArrayList<BalancerPoolOuterClass.BalancerPool>   mPoolMyList = new ArrayList<>();
+    public ArrayList<BalancerPoolOuterClass.BalancerPool>   mPoolOtherList = new ArrayList<>();
     public ArrayList<QueryOuterClass.IncentivizedPool>      mIncentivizedPool = new ArrayList<>();
     public ArrayList<GaugeOuterClass.Gauge>                 mActiveGauges = new ArrayList<>();
     public ArrayList<Lock.PeriodLock>                       mPeriodLockUps = new ArrayList<>();
@@ -177,8 +177,8 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        PoolOuterClass.Pool tempPool = null;
-        for (PoolOuterClass.Pool pool: mPoolList) {
+        BalancerPoolOuterClass.BalancerPool tempPool = null;
+        for (BalancerPoolOuterClass.BalancerPool pool: mPoolList) {
             if (pool.getId() == poolId) { tempPool = pool; }
         }
         String coin0denom = tempPool.getPoolAssets(0).getToken().getDenom();
@@ -246,12 +246,12 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mGrpcOsmosisPool = (ArrayList<PoolOuterClass.Pool>)result.resultData;
-                for (PoolOuterClass.Pool pool: getBaseDao().mGrpcOsmosisPool) {
+                getBaseDao().mGrpcOsmosisPool = (ArrayList<BalancerPoolOuterClass.BalancerPool>)result.resultData;
+                for (BalancerPoolOuterClass.BalancerPool pool: getBaseDao().mGrpcOsmosisPool) {
                     if (getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
                         mPoolList.add(pool);
-                        for (PoolOuterClass.Pool swap: mPoolList) {
-                            for (PoolOuterClass.PoolAsset poolAsset: swap.getPoolAssetsList()) {
+                        for (BalancerPoolOuterClass.BalancerPool swap: mPoolList) {
+                            for (BalancerPoolOuterClass.PoolAsset poolAsset: swap.getPoolAssetsList()) {
                                 if (!mAllDenoms.contains(poolAsset.getToken().getDenom())) {
                                     mAllDenoms.add(poolAsset.getToken().getDenom());
                                 }

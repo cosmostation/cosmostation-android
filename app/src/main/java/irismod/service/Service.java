@@ -13806,6 +13806,12 @@ public final class Service {
      */
     com.google.protobuf.ByteString
         getBaseDenomBytes();
+
+    /**
+     * <code>bool restricted_service_fee_denom = 10 [(.gogoproto.moretags) = "yaml:&#92;"restricted_service_fee_denom&#92;""];</code>
+     * @return The restrictedServiceFeeDenom.
+     */
+    boolean getRestrictedServiceFeeDenom();
   }
   /**
    * <pre>
@@ -13927,6 +13933,11 @@ public final class Service {
               java.lang.String s = input.readStringRequireUtf8();
 
               baseDenom_ = s;
+              break;
+            }
+            case 80: {
+
+              restrictedServiceFeeDenom_ = input.readBool();
               break;
             }
             default: {
@@ -14203,6 +14214,17 @@ public final class Service {
       }
     }
 
+    public static final int RESTRICTED_SERVICE_FEE_DENOM_FIELD_NUMBER = 10;
+    private boolean restrictedServiceFeeDenom_;
+    /**
+     * <code>bool restricted_service_fee_denom = 10 [(.gogoproto.moretags) = "yaml:&#92;"restricted_service_fee_denom&#92;""];</code>
+     * @return The restrictedServiceFeeDenom.
+     */
+    @java.lang.Override
+    public boolean getRestrictedServiceFeeDenom() {
+      return restrictedServiceFeeDenom_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -14243,6 +14265,9 @@ public final class Service {
       }
       if (!getBaseDenomBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 9, baseDenom_);
+      }
+      if (restrictedServiceFeeDenom_ != false) {
+        output.writeBool(10, restrictedServiceFeeDenom_);
       }
       unknownFields.writeTo(output);
     }
@@ -14286,6 +14311,10 @@ public final class Service {
       if (!getBaseDenomBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, baseDenom_);
       }
+      if (restrictedServiceFeeDenom_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(10, restrictedServiceFeeDenom_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -14325,6 +14354,8 @@ public final class Service {
           != other.getTxSizeLimit()) return false;
       if (!getBaseDenom()
           .equals(other.getBaseDenom())) return false;
+      if (getRestrictedServiceFeeDenom()
+          != other.getRestrictedServiceFeeDenom()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -14363,6 +14394,9 @@ public final class Service {
           getTxSizeLimit());
       hash = (37 * hash) + BASE_DENOM_FIELD_NUMBER;
       hash = (53 * hash) + getBaseDenom().hashCode();
+      hash = (37 * hash) + RESTRICTED_SERVICE_FEE_DENOM_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRestrictedServiceFeeDenom());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -14531,6 +14565,8 @@ public final class Service {
 
         baseDenom_ = "";
 
+        restrictedServiceFeeDenom_ = false;
+
         return this;
       }
 
@@ -14583,6 +14619,7 @@ public final class Service {
         }
         result.txSizeLimit_ = txSizeLimit_;
         result.baseDenom_ = baseDenom_;
+        result.restrictedServiceFeeDenom_ = restrictedServiceFeeDenom_;
         onBuilt();
         return result;
       }
@@ -14683,6 +14720,9 @@ public final class Service {
         if (!other.getBaseDenom().isEmpty()) {
           baseDenom_ = other.baseDenom_;
           onChanged();
+        }
+        if (other.getRestrictedServiceFeeDenom() != false) {
+          setRestrictedServiceFeeDenom(other.getRestrictedServiceFeeDenom());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -15512,6 +15552,37 @@ public final class Service {
         onChanged();
         return this;
       }
+
+      private boolean restrictedServiceFeeDenom_ ;
+      /**
+       * <code>bool restricted_service_fee_denom = 10 [(.gogoproto.moretags) = "yaml:&#92;"restricted_service_fee_denom&#92;""];</code>
+       * @return The restrictedServiceFeeDenom.
+       */
+      @java.lang.Override
+      public boolean getRestrictedServiceFeeDenom() {
+        return restrictedServiceFeeDenom_;
+      }
+      /**
+       * <code>bool restricted_service_fee_denom = 10 [(.gogoproto.moretags) = "yaml:&#92;"restricted_service_fee_denom&#92;""];</code>
+       * @param value The restrictedServiceFeeDenom to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRestrictedServiceFeeDenom(boolean value) {
+        
+        restrictedServiceFeeDenom_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool restricted_service_fee_denom = 10 [(.gogoproto.moretags) = "yaml:&#92;"restricted_service_fee_denom&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRestrictedServiceFeeDenom() {
+        
+        restrictedServiceFeeDenom_ = false;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -15706,8 +15777,8 @@ public final class Service {
       "t\030\003 \001(\tB.\332\336\037&github.com/cosmos/cosmos-sd" +
       "k/types.Dec\310\336\037\000\"e\n\021PromotionByVolume\022\016\n\006" +
       "volume\030\001 \001(\004\022@\n\010discount\030\002 \001(\tB.\332\336\037&gith" +
-      "ub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\"\330" +
-      "\005\n\006Params\022;\n\023max_request_timeout\030\001 \001(\003B\036" +
+      "ub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\"\247" +
+      "\006\n\006Params\022;\n\023max_request_timeout\030\001 \001(\003B\036" +
       "\362\336\037\032yaml:\"max_request_timeout\"\022=\n\024min_de" +
       "posit_multiple\030\002 \001(\003B\037\362\336\037\033yaml:\"min_depo" +
       "sit_multiple\"\022`\n\013min_deposit\030\003 \003(\0132\031.cos" +
@@ -15724,21 +15795,23 @@ public final class Service {
       "google.protobuf.DurationB)\310\336\037\000\230\337\037\001\362\336\037\035ya" +
       "ml:\"arbitration_time_limit\"\022/\n\rtx_size_l" +
       "imit\030\010 \001(\004B\030\362\336\037\024yaml:\"tx_size_limit\"\022)\n\n" +
-      "base_denom\030\t \001(\tB\025\362\336\037\021yaml:\"base_denom\":" +
-      "\010\350\240\037\001\230\240\037\000*v\n\030RequestContextBatchState\022#\n" +
-      "\rBATCH_RUNNING\020\000\032\020\212\235 \014BATCHRUNNING\022\'\n\017BA" +
-      "TCH_COMPLETED\020\001\032\022\212\235 \016BATCHCOMPLETED\032\014\260\244\036" +
-      "\001\250\244\036\000\210\243\036\000*s\n\023RequestContextState\022\030\n\007RUNN" +
-      "ING\020\000\032\013\212\235 \007RUNNING\022\026\n\006PAUSED\020\001\032\n\212\235 \006PAUS" +
-      "ED\022\034\n\tCOMPLETED\020\002\032\r\212\235 \tCOMPLETED\032\014\260\244\036\001\250\244" +
-      "\036\000\210\243\036\000B6Z0github.com/irisnet/irismod/mod" +
-      "ules/service/types\310\341\036\000b\006proto3"
+      "base_denom\030\t \001(\tB\025\362\336\037\021yaml:\"base_denom\"\022" +
+      "M\n\034restricted_service_fee_denom\030\n \001(\010B\'\362" +
+      "\336\037#yaml:\"restricted_service_fee_denom\":\010" +
+      "\350\240\037\001\230\240\037\000*v\n\030RequestContextBatchState\022#\n\r" +
+      "BATCH_RUNNING\020\000\032\020\212\235 \014BATCHRUNNING\022\'\n\017BAT" +
+      "CH_COMPLETED\020\001\032\022\212\235 \016BATCHCOMPLETED\032\014\260\244\036\001" +
+      "\250\244\036\000\210\243\036\000*s\n\023RequestContextState\022\030\n\007RUNNI" +
+      "NG\020\000\032\013\212\235 \007RUNNING\022\026\n\006PAUSED\020\001\032\n\212\235 \006PAUSE" +
+      "D\022\034\n\tCOMPLETED\020\002\032\r\212\235 \tCOMPLETED\032\014\260\244\036\001\250\244\036" +
+      "\000\210\243\036\000B6Z0github.com/irisnet/irismod/modu" +
+      "les/service/types\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
         });
@@ -15801,27 +15874,27 @@ public final class Service {
     internal_static_irismod_service_Params_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_irismod_service_Params_descriptor,
-        new java.lang.String[] { "MaxRequestTimeout", "MinDepositMultiple", "MinDeposit", "ServiceFeeTax", "SlashFraction", "ComplaintRetrospect", "ArbitrationTimeLimit", "TxSizeLimit", "BaseDenom", });
+        new java.lang.String[] { "MaxRequestTimeout", "MinDepositMultiple", "MinDeposit", "ServiceFeeTax", "SlashFraction", "ComplaintRetrospect", "ArbitrationTimeLimit", "TxSizeLimit", "BaseDenom", "RestrictedServiceFeeDenom", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.customname);
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.enumStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
-    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.enumStringer);
+    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumStringer);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
   }

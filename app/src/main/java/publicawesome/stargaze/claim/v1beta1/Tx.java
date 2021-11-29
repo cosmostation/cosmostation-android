@@ -33,7 +33,7 @@ public final class Tx {
   /**
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.MsgInitialClaim}
    */
-  public  static final class MsgInitialClaim extends
+  public static final class MsgInitialClaim extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.MsgInitialClaim)
       MsgInitialClaimOrBuilder {
@@ -120,6 +120,7 @@ public final class Tx {
      * <code>string sender = 1;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -136,6 +137,7 @@ public final class Tx {
      * <code>string sender = 1;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -631,7 +633,7 @@ public final class Tx {
   /**
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.MsgInitialClaimResponse}
    */
-  public  static final class MsgInitialClaimResponse extends
+  public static final class MsgInitialClaimResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.MsgInitialClaimResponse)
       MsgInitialClaimResponseOrBuilder {
@@ -728,6 +730,7 @@ public final class Tx {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin claimed_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claimed_amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getClaimedAmountList() {
       return claimedAmount_;
     }
@@ -738,6 +741,7 @@ public final class Tx {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin claimed_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claimed_amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getClaimedAmountOrBuilderList() {
       return claimedAmount_;
@@ -749,6 +753,7 @@ public final class Tx {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin claimed_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claimed_amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getClaimedAmountCount() {
       return claimedAmount_.size();
     }
@@ -759,6 +764,7 @@ public final class Tx {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin claimed_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claimed_amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getClaimedAmount(int index) {
       return claimedAmount_.get(index);
     }
@@ -769,6 +775,7 @@ public final class Tx {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin claimed_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claimed_amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getClaimedAmountOrBuilder(
         int index) {
       return claimedAmount_.get(index);
@@ -1516,7 +1523,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_publicawesome_stargaze_claim_v1beta1_MsgInitialClaim_descriptor =
@@ -1533,12 +1540,12 @@ public final class Tx {
         new java.lang.String[] { "ClaimedAmount", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

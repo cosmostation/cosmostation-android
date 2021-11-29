@@ -45,7 +45,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.tokenswap.QueryTokenswapRequest}
    */
-  public  static final class QueryTokenswapRequest extends
+  public static final class QueryTokenswapRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.QueryTokenswapRequest)
       QueryTokenswapRequestOrBuilder {
@@ -136,6 +136,7 @@ public final class QueryOuterClass {
      * <code>string tx_hash = 1;</code>
      * @return The txHash.
      */
+    @java.lang.Override
     public java.lang.String getTxHash() {
       java.lang.Object ref = txHash_;
       if (ref instanceof java.lang.String) {
@@ -156,6 +157,7 @@ public final class QueryOuterClass {
      * <code>string tx_hash = 1;</code>
      * @return The bytes for txHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTxHashBytes() {
       java.lang.Object ref = txHash_;
@@ -662,7 +664,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.tokenswap.QueryTokenswapResponse}
    */
-  public  static final class QueryTokenswapResponse extends
+  public static final class QueryTokenswapResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.QueryTokenswapResponse)
       QueryTokenswapResponseOrBuilder {
@@ -759,6 +761,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.tokenswap.Tokenswap tokenswap = 1;</code>
      * @return Whether the tokenswap field is set.
      */
+    @java.lang.Override
     public boolean hasTokenswap() {
       return tokenswap_ != null;
     }
@@ -770,6 +773,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.tokenswap.Tokenswap tokenswap = 1;</code>
      * @return The tokenswap.
      */
+    @java.lang.Override
     public rizonworld.rizon.tokenswap.TokenswapOuterClass.Tokenswap getTokenswap() {
       return tokenswap_ == null ? rizonworld.rizon.tokenswap.TokenswapOuterClass.Tokenswap.getDefaultInstance() : tokenswap_;
     }
@@ -780,6 +784,7 @@ public final class QueryOuterClass {
      *
      * <code>.rizonworld.rizon.tokenswap.Tokenswap tokenswap = 1;</code>
      */
+    @java.lang.Override
     public rizonworld.rizon.tokenswap.TokenswapOuterClass.TokenswapOrBuilder getTokenswapOrBuilder() {
       return getTokenswap();
     }
@@ -1321,7 +1326,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.tokenswap.QuerySwappedAmountRequest}
    */
-  public  static final class QuerySwappedAmountRequest extends
+  public static final class QuerySwappedAmountRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.QuerySwappedAmountRequest)
       QuerySwappedAmountRequestOrBuilder {
@@ -1774,7 +1779,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.tokenswap.QuerySwappedAmountResponse}
    */
-  public  static final class QuerySwappedAmountResponse extends
+  public static final class QuerySwappedAmountResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.QuerySwappedAmountResponse)
       QuerySwappedAmountResponseOrBuilder {
@@ -1871,6 +1876,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.tokenswap.SwappedAmount swapped_amount = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the swappedAmount field is set.
      */
+    @java.lang.Override
     public boolean hasSwappedAmount() {
       return swappedAmount_ != null;
     }
@@ -1882,6 +1888,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.tokenswap.SwappedAmount swapped_amount = 1 [(.gogoproto.nullable) = false];</code>
      * @return The swappedAmount.
      */
+    @java.lang.Override
     public rizonworld.rizon.tokenswap.TokenswapOuterClass.SwappedAmount getSwappedAmount() {
       return swappedAmount_ == null ? rizonworld.rizon.tokenswap.TokenswapOuterClass.SwappedAmount.getDefaultInstance() : swappedAmount_;
     }
@@ -1892,6 +1899,7 @@ public final class QueryOuterClass {
      *
      * <code>.rizonworld.rizon.tokenswap.SwappedAmount swapped_amount = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public rizonworld.rizon.tokenswap.TokenswapOuterClass.SwappedAmountOrBuilder getSwappedAmountOrBuilder() {
       return getSwappedAmount();
     }
@@ -2433,7 +2441,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.tokenswap.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -2886,7 +2894,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.tokenswap.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -2983,6 +2991,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.tokenswap.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -2994,6 +3003,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.tokenswap.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public rizonworld.rizon.tokenswap.ParamsOuterClass.Params getParams() {
       return params_ == null ? rizonworld.rizon.tokenswap.ParamsOuterClass.Params.getDefaultInstance() : params_;
     }
@@ -3004,6 +3014,7 @@ public final class QueryOuterClass {
      *
      * <code>.rizonworld.rizon.tokenswap.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public rizonworld.rizon.tokenswap.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -3604,7 +3615,7 @@ public final class QueryOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           rizonworld.rizon.tokenswap.TokenswapOuterClass.getDescriptor(),
           rizonworld.rizon.tokenswap.ParamsOuterClass.getDescriptor(),
@@ -3647,11 +3658,11 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Params", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     rizonworld.rizon.tokenswap.TokenswapOuterClass.getDescriptor();
     rizonworld.rizon.tokenswap.ParamsOuterClass.getDescriptor();

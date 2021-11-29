@@ -2056,13 +2056,14 @@ public final class Genesis {
       "esisDeploymentB)\310\336\037\000\352\336\037\013deployments\362\336\037\022y" +
       "aml:\"deployments\"\022Q\n\006params\030\002 \001(\0132 .akas" +
       "h.deployment.v1beta1.ParamsB\037\310\336\037\000\352\336\037\006par" +
-      "ams\362\336\037\ryaml:\"params\"B,Z*github.com/ovrcl" +
-      "k/akash/x/deployment/typesb\006proto3"
+      "ams\362\336\037\ryaml:\"params\"B4Z2github.com/ovrcl" +
+      "k/akash/x/deployment/types/v1beta1b\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           akash.deployment.v1beta1.DeploymentOuterClass.getDescriptor(),
           akash.deployment.v1beta1.GroupOuterClass.getDescriptor(),
           akash.deployment.v1beta1.ParamsOuterClass.getDescriptor(),
@@ -2081,12 +2082,12 @@ public final class Genesis {
         new java.lang.String[] { "Deployments", "Params", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     akash.deployment.v1beta1.DeploymentOuterClass.getDescriptor();
     akash.deployment.v1beta1.GroupOuterClass.getDescriptor();
     akash.deployment.v1beta1.ParamsOuterClass.getDescriptor();

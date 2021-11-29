@@ -81,7 +81,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgCreateOperator}
    */
-  public  static final class MsgCreateOperator extends
+  public static final class MsgCreateOperator extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgCreateOperator)
       MsgCreateOperatorOrBuilder {
@@ -196,6 +196,7 @@ public final class Tx {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -212,6 +213,7 @@ public final class Tx {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -231,12 +233,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCollateralList() {
       return collateral_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCollateralOrBuilderList() {
       return collateral_;
@@ -244,18 +248,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCollateralCount() {
       return collateral_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCollateral(int index) {
       return collateral_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCollateralOrBuilder(
         int index) {
       return collateral_.get(index);
@@ -267,6 +274,7 @@ public final class Tx {
      * <code>string proposer = 3 [(.gogoproto.moretags) = "yaml:&#92;"proposer&#92;""];</code>
      * @return The proposer.
      */
+    @java.lang.Override
     public java.lang.String getProposer() {
       java.lang.Object ref = proposer_;
       if (ref instanceof java.lang.String) {
@@ -283,6 +291,7 @@ public final class Tx {
      * <code>string proposer = 3 [(.gogoproto.moretags) = "yaml:&#92;"proposer&#92;""];</code>
      * @return The bytes for proposer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProposerBytes() {
       java.lang.Object ref = proposer_;
@@ -303,6 +312,7 @@ public final class Tx {
      * <code>string name = 4 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -319,6 +329,7 @@ public final class Tx {
      * <code>string name = 4 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -1253,7 +1264,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgCreateOperatorResponse}
    */
-  public  static final class MsgCreateOperatorResponse extends
+  public static final class MsgCreateOperatorResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgCreateOperatorResponse)
       MsgCreateOperatorResponseOrBuilder {
@@ -1695,7 +1706,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgRemoveOperator}
    */
-  public  static final class MsgRemoveOperator extends
+  public static final class MsgRemoveOperator extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgRemoveOperator)
       MsgRemoveOperatorOrBuilder {
@@ -1789,6 +1800,7 @@ public final class Tx {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -1805,6 +1817,7 @@ public final class Tx {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -1825,6 +1838,7 @@ public final class Tx {
      * <code>string proposer = 2 [(.gogoproto.moretags) = "yaml:&#92;"proposer&#92;""];</code>
      * @return The proposer.
      */
+    @java.lang.Override
     public java.lang.String getProposer() {
       java.lang.Object ref = proposer_;
       if (ref instanceof java.lang.String) {
@@ -1841,6 +1855,7 @@ public final class Tx {
      * <code>string proposer = 2 [(.gogoproto.moretags) = "yaml:&#92;"proposer&#92;""];</code>
      * @return The bytes for proposer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProposerBytes() {
       java.lang.Object ref = proposer_;
@@ -2385,7 +2400,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgRemoveOperatorResponse}
    */
-  public  static final class MsgRemoveOperatorResponse extends
+  public static final class MsgRemoveOperatorResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgRemoveOperatorResponse)
       MsgRemoveOperatorResponseOrBuilder {
@@ -2839,7 +2854,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgAddCollateral}
    */
-  public  static final class MsgAddCollateral extends
+  public static final class MsgAddCollateral extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgAddCollateral)
       MsgAddCollateralOrBuilder {
@@ -2940,6 +2955,7 @@ public final class Tx {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -2956,6 +2972,7 @@ public final class Tx {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -2975,12 +2992,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral_increment = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral_increment&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCollateralIncrementList() {
       return collateralIncrement_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral_increment = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral_increment&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCollateralIncrementOrBuilderList() {
       return collateralIncrement_;
@@ -2988,18 +3007,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral_increment = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral_increment&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCollateralIncrementCount() {
       return collateralIncrement_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral_increment = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral_increment&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCollateralIncrement(int index) {
       return collateralIncrement_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral_increment = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral_increment&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCollateralIncrementOrBuilder(
         int index) {
       return collateralIncrement_.get(index);
@@ -3739,7 +3761,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgAddCollateralResponse}
    */
-  public  static final class MsgAddCollateralResponse extends
+  public static final class MsgAddCollateralResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgAddCollateralResponse)
       MsgAddCollateralResponseOrBuilder {
@@ -4193,7 +4215,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgReduceCollateral}
    */
-  public  static final class MsgReduceCollateral extends
+  public static final class MsgReduceCollateral extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgReduceCollateral)
       MsgReduceCollateralOrBuilder {
@@ -4294,6 +4316,7 @@ public final class Tx {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -4310,6 +4333,7 @@ public final class Tx {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -4329,12 +4353,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral_decrement = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral_decrement&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCollateralDecrementList() {
       return collateralDecrement_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral_decrement = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral_decrement&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCollateralDecrementOrBuilderList() {
       return collateralDecrement_;
@@ -4342,18 +4368,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral_decrement = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral_decrement&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCollateralDecrementCount() {
       return collateralDecrement_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral_decrement = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral_decrement&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCollateralDecrement(int index) {
       return collateralDecrement_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral_decrement = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral_decrement&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCollateralDecrementOrBuilder(
         int index) {
       return collateralDecrement_.get(index);
@@ -5093,7 +5122,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgReduceCollateralResponse}
    */
-  public  static final class MsgReduceCollateralResponse extends
+  public static final class MsgReduceCollateralResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgReduceCollateralResponse)
       MsgReduceCollateralResponseOrBuilder {
@@ -5523,7 +5552,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgWithdrawReward}
    */
-  public  static final class MsgWithdrawReward extends
+  public static final class MsgWithdrawReward extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgWithdrawReward)
       MsgWithdrawRewardOrBuilder {
@@ -5610,6 +5639,7 @@ public final class Tx {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -5626,6 +5656,7 @@ public final class Tx {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -6077,7 +6108,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgWithdrawRewardResponse}
    */
-  public  static final class MsgWithdrawRewardResponse extends
+  public static final class MsgWithdrawRewardResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgWithdrawRewardResponse)
       MsgWithdrawRewardResponseOrBuilder {
@@ -6588,7 +6619,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgCreateTask}
    */
-  public  static final class MsgCreateTask extends
+  public static final class MsgCreateTask extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgCreateTask)
       MsgCreateTaskOrBuilder {
@@ -6728,6 +6759,7 @@ public final class Tx {
      * <code>string contract = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract&#92;""];</code>
      * @return The contract.
      */
+    @java.lang.Override
     public java.lang.String getContract() {
       java.lang.Object ref = contract_;
       if (ref instanceof java.lang.String) {
@@ -6744,6 +6776,7 @@ public final class Tx {
      * <code>string contract = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract&#92;""];</code>
      * @return The bytes for contract.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getContractBytes() {
       java.lang.Object ref = contract_;
@@ -6764,6 +6797,7 @@ public final class Tx {
      * <code>string function = 2 [(.gogoproto.moretags) = "yaml:&#92;"function&#92;""];</code>
      * @return The function.
      */
+    @java.lang.Override
     public java.lang.String getFunction() {
       java.lang.Object ref = function_;
       if (ref instanceof java.lang.String) {
@@ -6780,6 +6814,7 @@ public final class Tx {
      * <code>string function = 2 [(.gogoproto.moretags) = "yaml:&#92;"function&#92;""];</code>
      * @return The bytes for function.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFunctionBytes() {
       java.lang.Object ref = function_;
@@ -6799,12 +6834,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin bounty = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"bounty&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getBountyList() {
       return bounty_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin bounty = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"bounty&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getBountyOrBuilderList() {
       return bounty_;
@@ -6812,18 +6849,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin bounty = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"bounty&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getBountyCount() {
       return bounty_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin bounty = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"bounty&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getBounty(int index) {
       return bounty_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin bounty = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"bounty&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getBountyOrBuilder(
         int index) {
       return bounty_.get(index);
@@ -6835,6 +6875,7 @@ public final class Tx {
      * <code>string description = 4 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -6851,6 +6892,7 @@ public final class Tx {
      * <code>string description = 4 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -6871,6 +6913,7 @@ public final class Tx {
      * <code>string creator = 5 [(.gogoproto.moretags) = "yaml:&#92;"creator&#92;""];</code>
      * @return The creator.
      */
+    @java.lang.Override
     public java.lang.String getCreator() {
       java.lang.Object ref = creator_;
       if (ref instanceof java.lang.String) {
@@ -6887,6 +6930,7 @@ public final class Tx {
      * <code>string creator = 5 [(.gogoproto.moretags) = "yaml:&#92;"creator&#92;""];</code>
      * @return The bytes for creator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCreatorBytes() {
       java.lang.Object ref = creator_;
@@ -6907,6 +6951,7 @@ public final class Tx {
      * <code>int64 wait = 6 [(.gogoproto.moretags) = "yaml:&#92;"wait&#92;""];</code>
      * @return The wait.
      */
+    @java.lang.Override
     public long getWait() {
       return wait_;
     }
@@ -6917,6 +6962,7 @@ public final class Tx {
      * <code>.google.protobuf.Duration valid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"valid_duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the validDuration field is set.
      */
+    @java.lang.Override
     public boolean hasValidDuration() {
       return validDuration_ != null;
     }
@@ -6924,12 +6970,14 @@ public final class Tx {
      * <code>.google.protobuf.Duration valid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"valid_duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The validDuration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getValidDuration() {
       return validDuration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : validDuration_;
     }
     /**
      * <code>.google.protobuf.Duration valid_duration = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"valid_duration&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getValidDurationOrBuilder() {
       return getValidDuration();
     }
@@ -7941,6 +7989,7 @@ public final class Tx {
        * <code>int64 wait = 6 [(.gogoproto.moretags) = "yaml:&#92;"wait&#92;""];</code>
        * @return The wait.
        */
+      @java.lang.Override
       public long getWait() {
         return wait_;
       }
@@ -8144,7 +8193,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgCreateTaskResponse}
    */
-  public  static final class MsgCreateTaskResponse extends
+  public static final class MsgCreateTaskResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgCreateTaskResponse)
       MsgCreateTaskResponseOrBuilder {
@@ -8604,7 +8653,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgTaskResponse}
    */
-  public  static final class MsgTaskResponse extends
+  public static final class MsgTaskResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgTaskResponse)
       MsgTaskResponseOrBuilder {
@@ -8710,6 +8759,7 @@ public final class Tx {
      * <code>string contract = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract&#92;""];</code>
      * @return The contract.
      */
+    @java.lang.Override
     public java.lang.String getContract() {
       java.lang.Object ref = contract_;
       if (ref instanceof java.lang.String) {
@@ -8726,6 +8776,7 @@ public final class Tx {
      * <code>string contract = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract&#92;""];</code>
      * @return The bytes for contract.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getContractBytes() {
       java.lang.Object ref = contract_;
@@ -8746,6 +8797,7 @@ public final class Tx {
      * <code>string function = 2 [(.gogoproto.moretags) = "yaml:&#92;"function&#92;""];</code>
      * @return The function.
      */
+    @java.lang.Override
     public java.lang.String getFunction() {
       java.lang.Object ref = function_;
       if (ref instanceof java.lang.String) {
@@ -8762,6 +8814,7 @@ public final class Tx {
      * <code>string function = 2 [(.gogoproto.moretags) = "yaml:&#92;"function&#92;""];</code>
      * @return The bytes for function.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFunctionBytes() {
       java.lang.Object ref = function_;
@@ -8782,6 +8835,7 @@ public final class Tx {
      * <code>int64 score = 3 [(.gogoproto.moretags) = "yaml:&#92;"score&#92;""];</code>
      * @return The score.
      */
+    @java.lang.Override
     public long getScore() {
       return score_;
     }
@@ -8792,6 +8846,7 @@ public final class Tx {
      * <code>string operator = 4 [(.gogoproto.moretags) = "yaml:&#92;"operator&#92;""];</code>
      * @return The operator.
      */
+    @java.lang.Override
     public java.lang.String getOperator() {
       java.lang.Object ref = operator_;
       if (ref instanceof java.lang.String) {
@@ -8808,6 +8863,7 @@ public final class Tx {
      * <code>string operator = 4 [(.gogoproto.moretags) = "yaml:&#92;"operator&#92;""];</code>
      * @return The bytes for operator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOperatorBytes() {
       java.lang.Object ref = operator_;
@@ -9333,6 +9389,7 @@ public final class Tx {
        * <code>int64 score = 3 [(.gogoproto.moretags) = "yaml:&#92;"score&#92;""];</code>
        * @return The score.
        */
+      @java.lang.Override
       public long getScore() {
         return score_;
       }
@@ -9493,7 +9550,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgTaskResponseResponse}
    */
-  public  static final class MsgTaskResponseResponse extends
+  public static final class MsgTaskResponseResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgTaskResponseResponse)
       MsgTaskResponseResponseOrBuilder {
@@ -9953,7 +10010,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgDeleteTask}
    */
-  public  static final class MsgDeleteTask extends
+  public static final class MsgDeleteTask extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgDeleteTask)
       MsgDeleteTaskOrBuilder {
@@ -10059,6 +10116,7 @@ public final class Tx {
      * <code>string contract = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract&#92;""];</code>
      * @return The contract.
      */
+    @java.lang.Override
     public java.lang.String getContract() {
       java.lang.Object ref = contract_;
       if (ref instanceof java.lang.String) {
@@ -10075,6 +10133,7 @@ public final class Tx {
      * <code>string contract = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract&#92;""];</code>
      * @return The bytes for contract.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getContractBytes() {
       java.lang.Object ref = contract_;
@@ -10095,6 +10154,7 @@ public final class Tx {
      * <code>string function = 2 [(.gogoproto.moretags) = "yaml:&#92;"function&#92;""];</code>
      * @return The function.
      */
+    @java.lang.Override
     public java.lang.String getFunction() {
       java.lang.Object ref = function_;
       if (ref instanceof java.lang.String) {
@@ -10111,6 +10171,7 @@ public final class Tx {
      * <code>string function = 2 [(.gogoproto.moretags) = "yaml:&#92;"function&#92;""];</code>
      * @return The bytes for function.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFunctionBytes() {
       java.lang.Object ref = function_;
@@ -10131,6 +10192,7 @@ public final class Tx {
      * <code>bool force = 3 [(.gogoproto.moretags) = "yaml:&#92;"force&#92;""];</code>
      * @return The force.
      */
+    @java.lang.Override
     public boolean getForce() {
       return force_;
     }
@@ -10141,6 +10203,7 @@ public final class Tx {
      * <code>string deleter = 4 [(.gogoproto.moretags) = "yaml:&#92;"deleter&#92;""];</code>
      * @return The deleter.
      */
+    @java.lang.Override
     public java.lang.String getDeleter() {
       java.lang.Object ref = deleter_;
       if (ref instanceof java.lang.String) {
@@ -10157,6 +10220,7 @@ public final class Tx {
      * <code>string deleter = 4 [(.gogoproto.moretags) = "yaml:&#92;"deleter&#92;""];</code>
      * @return The bytes for deleter.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDeleterBytes() {
       java.lang.Object ref = deleter_;
@@ -10682,6 +10746,7 @@ public final class Tx {
        * <code>bool force = 3 [(.gogoproto.moretags) = "yaml:&#92;"force&#92;""];</code>
        * @return The force.
        */
+      @java.lang.Override
       public boolean getForce() {
         return force_;
       }
@@ -10842,7 +10907,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.MsgDeleteTaskResponse}
    */
-  public  static final class MsgDeleteTaskResponse extends
+  public static final class MsgDeleteTaskResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.MsgDeleteTaskResponse)
       MsgDeleteTaskResponseOrBuilder {
@@ -11420,7 +11485,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
         });
@@ -11522,15 +11587,15 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdduration);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
   }

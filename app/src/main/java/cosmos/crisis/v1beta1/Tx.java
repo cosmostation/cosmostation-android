@@ -19,36 +19,36 @@ public final class Tx {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string sender = 1;</code>
+     * <code>string sender = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The sender.
      */
     java.lang.String getSender();
     /**
-     * <code>string sender = 1;</code>
+     * <code>string sender = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for sender.
      */
     com.google.protobuf.ByteString
         getSenderBytes();
 
     /**
-     * <code>string invariant_module_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"invariant_module_name&#92;""];</code>
+     * <code>string invariant_module_name = 2;</code>
      * @return The invariantModuleName.
      */
     java.lang.String getInvariantModuleName();
     /**
-     * <code>string invariant_module_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"invariant_module_name&#92;""];</code>
+     * <code>string invariant_module_name = 2;</code>
      * @return The bytes for invariantModuleName.
      */
     com.google.protobuf.ByteString
         getInvariantModuleNameBytes();
 
     /**
-     * <code>string invariant_route = 3 [(.gogoproto.moretags) = "yaml:&#92;"invariant_route&#92;""];</code>
+     * <code>string invariant_route = 3;</code>
      * @return The invariantRoute.
      */
     java.lang.String getInvariantRoute();
     /**
-     * <code>string invariant_route = 3 [(.gogoproto.moretags) = "yaml:&#92;"invariant_route&#92;""];</code>
+     * <code>string invariant_route = 3;</code>
      * @return The bytes for invariantRoute.
      */
     com.google.protobuf.ByteString
@@ -159,7 +159,7 @@ public final class Tx {
     public static final int SENDER_FIELD_NUMBER = 1;
     private volatile java.lang.Object sender_;
     /**
-     * <code>string sender = 1;</code>
+     * <code>string sender = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The sender.
      */
     @java.lang.Override
@@ -176,7 +176,7 @@ public final class Tx {
       }
     }
     /**
-     * <code>string sender = 1;</code>
+     * <code>string sender = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for sender.
      */
     @java.lang.Override
@@ -197,7 +197,7 @@ public final class Tx {
     public static final int INVARIANT_MODULE_NAME_FIELD_NUMBER = 2;
     private volatile java.lang.Object invariantModuleName_;
     /**
-     * <code>string invariant_module_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"invariant_module_name&#92;""];</code>
+     * <code>string invariant_module_name = 2;</code>
      * @return The invariantModuleName.
      */
     @java.lang.Override
@@ -214,7 +214,7 @@ public final class Tx {
       }
     }
     /**
-     * <code>string invariant_module_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"invariant_module_name&#92;""];</code>
+     * <code>string invariant_module_name = 2;</code>
      * @return The bytes for invariantModuleName.
      */
     @java.lang.Override
@@ -235,7 +235,7 @@ public final class Tx {
     public static final int INVARIANT_ROUTE_FIELD_NUMBER = 3;
     private volatile java.lang.Object invariantRoute_;
     /**
-     * <code>string invariant_route = 3 [(.gogoproto.moretags) = "yaml:&#92;"invariant_route&#92;""];</code>
+     * <code>string invariant_route = 3;</code>
      * @return The invariantRoute.
      */
     @java.lang.Override
@@ -252,7 +252,7 @@ public final class Tx {
       }
     }
     /**
-     * <code>string invariant_route = 3 [(.gogoproto.moretags) = "yaml:&#92;"invariant_route&#92;""];</code>
+     * <code>string invariant_route = 3;</code>
      * @return The bytes for invariantRoute.
      */
     @java.lang.Override
@@ -612,7 +612,7 @@ public final class Tx {
 
       private java.lang.Object sender_ = "";
       /**
-       * <code>string sender = 1;</code>
+       * <code>string sender = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The sender.
        */
       public java.lang.String getSender() {
@@ -628,7 +628,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string sender = 1;</code>
+       * <code>string sender = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for sender.
        */
       public com.google.protobuf.ByteString
@@ -645,7 +645,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string sender = 1;</code>
+       * <code>string sender = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The sender to set.
        * @return This builder for chaining.
        */
@@ -660,7 +660,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string sender = 1;</code>
+       * <code>string sender = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearSender() {
@@ -670,7 +670,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string sender = 1;</code>
+       * <code>string sender = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for sender to set.
        * @return This builder for chaining.
        */
@@ -688,7 +688,7 @@ public final class Tx {
 
       private java.lang.Object invariantModuleName_ = "";
       /**
-       * <code>string invariant_module_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"invariant_module_name&#92;""];</code>
+       * <code>string invariant_module_name = 2;</code>
        * @return The invariantModuleName.
        */
       public java.lang.String getInvariantModuleName() {
@@ -704,7 +704,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string invariant_module_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"invariant_module_name&#92;""];</code>
+       * <code>string invariant_module_name = 2;</code>
        * @return The bytes for invariantModuleName.
        */
       public com.google.protobuf.ByteString
@@ -721,7 +721,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string invariant_module_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"invariant_module_name&#92;""];</code>
+       * <code>string invariant_module_name = 2;</code>
        * @param value The invariantModuleName to set.
        * @return This builder for chaining.
        */
@@ -736,7 +736,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string invariant_module_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"invariant_module_name&#92;""];</code>
+       * <code>string invariant_module_name = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearInvariantModuleName() {
@@ -746,7 +746,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string invariant_module_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"invariant_module_name&#92;""];</code>
+       * <code>string invariant_module_name = 2;</code>
        * @param value The bytes for invariantModuleName to set.
        * @return This builder for chaining.
        */
@@ -764,7 +764,7 @@ public final class Tx {
 
       private java.lang.Object invariantRoute_ = "";
       /**
-       * <code>string invariant_route = 3 [(.gogoproto.moretags) = "yaml:&#92;"invariant_route&#92;""];</code>
+       * <code>string invariant_route = 3;</code>
        * @return The invariantRoute.
        */
       public java.lang.String getInvariantRoute() {
@@ -780,7 +780,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string invariant_route = 3 [(.gogoproto.moretags) = "yaml:&#92;"invariant_route&#92;""];</code>
+       * <code>string invariant_route = 3;</code>
        * @return The bytes for invariantRoute.
        */
       public com.google.protobuf.ByteString
@@ -797,7 +797,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string invariant_route = 3 [(.gogoproto.moretags) = "yaml:&#92;"invariant_route&#92;""];</code>
+       * <code>string invariant_route = 3;</code>
        * @param value The invariantRoute to set.
        * @return This builder for chaining.
        */
@@ -812,7 +812,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string invariant_route = 3 [(.gogoproto.moretags) = "yaml:&#92;"invariant_route&#92;""];</code>
+       * <code>string invariant_route = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearInvariantRoute() {
@@ -822,7 +822,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string invariant_route = 3 [(.gogoproto.moretags) = "yaml:&#92;"invariant_route&#92;""];</code>
+       * <code>string invariant_route = 3;</code>
        * @param value The bytes for invariantRoute to set.
        * @return This builder for chaining.
        */
@@ -1336,22 +1336,22 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n\036cosmos/crisis/v1beta1/tx.proto\022\025cosmos" +
-      ".crisis.v1beta1\032\024gogoproto/gogo.proto\"\244\001" +
-      "\n\022MsgVerifyInvariant\022\016\n\006sender\030\001 \001(\t\022?\n\025" +
-      "invariant_module_name\030\002 \001(\tB \362\336\037\034yaml:\"i" +
-      "nvariant_module_name\"\0223\n\017invariant_route" +
-      "\030\003 \001(\tB\032\362\336\037\026yaml:\"invariant_route\":\010\350\240\037\000" +
-      "\210\240\037\000\"\034\n\032MsgVerifyInvariantResponse2v\n\003Ms" +
-      "g\022o\n\017VerifyInvariant\022).cosmos.crisis.v1b" +
-      "eta1.MsgVerifyInvariant\0321.cosmos.crisis." +
-      "v1beta1.MsgVerifyInvariantResponseB-Z+gi" +
-      "thub.com/cosmos/cosmos-sdk/x/crisis/type" +
-      "sb\006proto3"
+      ".crisis.v1beta1\032\024gogoproto/gogo.proto\032\031c" +
+      "osmos_proto/cosmos.proto\"\200\001\n\022MsgVerifyIn" +
+      "variant\022(\n\006sender\030\001 \001(\tB\030\322\264-\024cosmos.Addr" +
+      "essString\022\035\n\025invariant_module_name\030\002 \001(\t" +
+      "\022\027\n\017invariant_route\030\003 \001(\t:\010\350\240\037\000\210\240\037\000\"\034\n\032M" +
+      "sgVerifyInvariantResponse2v\n\003Msg\022o\n\017Veri" +
+      "fyInvariant\022).cosmos.crisis.v1beta1.MsgV" +
+      "erifyInvariant\0321.cosmos.crisis.v1beta1.M" +
+      "sgVerifyInvariantResponseB-Z+github.com/" +
+      "cosmos/cosmos-sdk/x/crisis/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
+          cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_cosmos_crisis_v1beta1_MsgVerifyInvariant_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1367,12 +1367,13 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
+    cosmos_proto.Cosmos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

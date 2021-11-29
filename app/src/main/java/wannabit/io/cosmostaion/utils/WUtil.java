@@ -14,9 +14,9 @@ import android.widget.TextView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.protobuf.Any;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Type;
-import com.google.protobuf2.Any;
 import com.google.zxing.common.BitMatrix;
 import com.squareup.picasso.Picasso;
 
@@ -48,7 +48,7 @@ import cosmos.gov.v1beta1.Gov;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
 import okhttp3.OkHttpClient;
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import osmosis.poolincentives.v1beta1.QueryOuterClass;
@@ -1677,7 +1677,7 @@ public class WUtil {
     /**
      * About Osmosis
      */
-    public static BigDecimal getMyShareLpAmount(BaseData baseData, PoolOuterClass.Pool pool, String denom) {
+    public static BigDecimal getMyShareLpAmount(BaseData baseData, BalancerPoolOuterClass.BalancerPool pool, String denom) {
         BigDecimal result = BigDecimal.ZERO;
         BigDecimal myShare = baseData.getAvailable("gamm/pool/" + pool.getId());
         String totalLpCoin = "";
@@ -1722,12 +1722,12 @@ public class WUtil {
 //        return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
 //    }
 
-    public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, PoolOuterClass.Pool pool) {
+    public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, BalancerPoolOuterClass.BalancerPool pool) {
         BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);
         return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
     }
 
-    public static BigDecimal getPoolValue(BaseData baseData, PoolOuterClass.Pool pool) {
+    public static BigDecimal getPoolValue(BaseData baseData, BalancerPoolOuterClass.BalancerPool pool) {
         Coin coin0 = new Coin(pool.getPoolAssets(0).getToken().getDenom(), pool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(pool.getPoolAssets(1).getToken().getDenom(), pool.getPoolAssets(1).getToken().getAmount());
         BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(baseData, coin0.denom));
@@ -1761,7 +1761,7 @@ public class WUtil {
         }
     }
 
-    public static BigDecimal getPoolArp(BaseData baseData, PoolOuterClass.Pool pool, ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
+    public static BigDecimal getPoolArp(BaseData baseData, BalancerPoolOuterClass.BalancerPool pool, ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
         BigDecimal poolValue = getPoolValue(baseData, pool);
         BigDecimal incentiveAmount = getNextIncentiveAmount(gauges, position);
         BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(TOKEN_OSMOSIS), incentiveAmount, WUtil.getOsmosisCoinDecimal(baseData, TOKEN_OSMOSIS));

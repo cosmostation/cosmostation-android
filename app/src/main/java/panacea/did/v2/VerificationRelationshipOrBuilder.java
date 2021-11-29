@@ -9,6 +9,11 @@ public interface VerificationRelationshipOrBuilder extends
 
   /**
    * <code>string verification_method_id = 1;</code>
+   * @return Whether the verificationMethodId field is set.
+   */
+  boolean hasVerificationMethodId();
+  /**
+   * <code>string verification_method_id = 1;</code>
    * @return The verificationMethodId.
    */
   java.lang.String getVerificationMethodId();

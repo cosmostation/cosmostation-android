@@ -32,12 +32,12 @@ public interface ServiceOrBuilder extends
       getTypeBytes();
 
   /**
-   * <code>string service_endpoint = 3[json_name = "serviceEndpoint"];</code>
+   * <code>string service_endpoint = 3 [json_name = "serviceEndpoint"];</code>
    * @return The serviceEndpoint.
    */
   java.lang.String getServiceEndpoint();
   /**
-   * <code>string service_endpoint = 3[json_name = "serviceEndpoint"];</code>
+   * <code>string service_endpoint = 3 [json_name = "serviceEndpoint"];</code>
    * @return The bytes for serviceEndpoint.
    */
   com.google.protobuf.ByteString

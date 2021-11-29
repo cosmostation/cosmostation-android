@@ -2266,7 +2266,7 @@ public final class QueryOuterClass {
 
   }
 
-  public interface QueryUpgradedConsensusStateRequestOrBuilder extends
+  @java.lang.Deprecated public interface QueryUpgradedConsensusStateRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest)
       com.google.protobuf.MessageOrBuilder {
 
@@ -2289,7 +2289,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest}
    */
-  public static final class QueryUpgradedConsensusStateRequest extends
+  @java.lang.Deprecated public static final class QueryUpgradedConsensusStateRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest)
       QueryUpgradedConsensusStateRequestOrBuilder {
@@ -2790,24 +2790,19 @@ public final class QueryOuterClass {
 
   }
 
-  public interface QueryUpgradedConsensusStateResponseOrBuilder extends
+  @java.lang.Deprecated public interface QueryUpgradedConsensusStateResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
-     * @return Whether the upgradedConsensusState field is set.
-     */
-    boolean hasUpgradedConsensusState();
-    /**
-     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
+     * <pre>
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>bytes upgraded_consensus_state = 2;</code>
      * @return The upgradedConsensusState.
      */
-    com.google.protobuf2.Any getUpgradedConsensusState();
-    /**
-     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
-     */
-    com.google.protobuf2.AnyOrBuilder getUpgradedConsensusStateOrBuilder();
+    com.google.protobuf.ByteString getUpgradedConsensusState();
   }
   /**
    * <pre>
@@ -2817,7 +2812,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse}
    */
-  public static final class QueryUpgradedConsensusStateResponse extends
+  @java.lang.Deprecated public static final class QueryUpgradedConsensusStateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse)
       QueryUpgradedConsensusStateResponseOrBuilder {
@@ -2827,6 +2822,7 @@ public final class QueryOuterClass {
       super(builder);
     }
     private QueryUpgradedConsensusStateResponse() {
+      upgradedConsensusState_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -2859,17 +2855,9 @@ public final class QueryOuterClass {
             case 0:
               done = true;
               break;
-            case 10: {
-              com.google.protobuf2.Any.Builder subBuilder = null;
-              if (upgradedConsensusState_ != null) {
-                subBuilder = upgradedConsensusState_.toBuilder();
-              }
-              upgradedConsensusState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(upgradedConsensusState_);
-                upgradedConsensusState_ = subBuilder.buildPartial();
-              }
+            case 18: {
 
+              upgradedConsensusState_ = input.readBytes();
               break;
             }
             default: {
@@ -2904,30 +2892,19 @@ public final class QueryOuterClass {
               cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse.class, cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse.Builder.class);
     }
 
-    public static final int UPGRADED_CONSENSUS_STATE_FIELD_NUMBER = 1;
-    private com.google.protobuf2.Any upgradedConsensusState_;
+    public static final int UPGRADED_CONSENSUS_STATE_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString upgradedConsensusState_;
     /**
-     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
-     * @return Whether the upgradedConsensusState field is set.
-     */
-    @java.lang.Override
-    public boolean hasUpgradedConsensusState() {
-      return upgradedConsensusState_ != null;
-    }
-    /**
-     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
+     * <pre>
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>bytes upgraded_consensus_state = 2;</code>
      * @return The upgradedConsensusState.
      */
     @java.lang.Override
-    public com.google.protobuf2.Any getUpgradedConsensusState() {
-      return upgradedConsensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : upgradedConsensusState_;
-    }
-    /**
-     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf2.AnyOrBuilder getUpgradedConsensusStateOrBuilder() {
-      return getUpgradedConsensusState();
+    public com.google.protobuf.ByteString getUpgradedConsensusState() {
+      return upgradedConsensusState_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2944,8 +2921,8 @@ public final class QueryOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (upgradedConsensusState_ != null) {
-        output.writeMessage(1, getUpgradedConsensusState());
+      if (!upgradedConsensusState_.isEmpty()) {
+        output.writeBytes(2, upgradedConsensusState_);
       }
       unknownFields.writeTo(output);
     }
@@ -2956,9 +2933,9 @@ public final class QueryOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (upgradedConsensusState_ != null) {
+      if (!upgradedConsensusState_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getUpgradedConsensusState());
+          .computeBytesSize(2, upgradedConsensusState_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2975,11 +2952,8 @@ public final class QueryOuterClass {
       }
       cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse other = (cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse) obj;
 
-      if (hasUpgradedConsensusState() != other.hasUpgradedConsensusState()) return false;
-      if (hasUpgradedConsensusState()) {
-        if (!getUpgradedConsensusState()
-            .equals(other.getUpgradedConsensusState())) return false;
-      }
+      if (!getUpgradedConsensusState()
+          .equals(other.getUpgradedConsensusState())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2991,10 +2965,8 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasUpgradedConsensusState()) {
-        hash = (37 * hash) + UPGRADED_CONSENSUS_STATE_FIELD_NUMBER;
-        hash = (53 * hash) + getUpgradedConsensusState().hashCode();
-      }
+      hash = (37 * hash) + UPGRADED_CONSENSUS_STATE_FIELD_NUMBER;
+      hash = (53 * hash) + getUpgradedConsensusState().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3133,12 +3105,8 @@ public final class QueryOuterClass {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        if (upgradedConsensusStateBuilder_ == null) {
-          upgradedConsensusState_ = null;
-        } else {
-          upgradedConsensusState_ = null;
-          upgradedConsensusStateBuilder_ = null;
-        }
+        upgradedConsensusState_ = com.google.protobuf.ByteString.EMPTY;
+
         return this;
       }
 
@@ -3165,11 +3133,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse buildPartial() {
         cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse result = new cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse(this);
-        if (upgradedConsensusStateBuilder_ == null) {
-          result.upgradedConsensusState_ = upgradedConsensusState_;
-        } else {
-          result.upgradedConsensusState_ = upgradedConsensusStateBuilder_.build();
-        }
+        result.upgradedConsensusState_ = upgradedConsensusState_;
         onBuilt();
         return result;
       }
@@ -3218,8 +3182,8 @@ public final class QueryOuterClass {
 
       public Builder mergeFrom(cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse other) {
         if (other == cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse.getDefaultInstance()) return this;
-        if (other.hasUpgradedConsensusState()) {
-          mergeUpgradedConsensusState(other.getUpgradedConsensusState());
+        if (other.getUpgradedConsensusState() != com.google.protobuf.ByteString.EMPTY) {
+          setUpgradedConsensusState(other.getUpgradedConsensusState());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -3250,123 +3214,50 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf2.Any upgradedConsensusState_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> upgradedConsensusStateBuilder_;
+      private com.google.protobuf.ByteString upgradedConsensusState_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
-       * @return Whether the upgradedConsensusState field is set.
-       */
-      public boolean hasUpgradedConsensusState() {
-        return upgradedConsensusStateBuilder_ != null || upgradedConsensusState_ != null;
-      }
-      /**
-       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
+       * <pre>
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>bytes upgraded_consensus_state = 2;</code>
        * @return The upgradedConsensusState.
        */
-      public com.google.protobuf2.Any getUpgradedConsensusState() {
-        if (upgradedConsensusStateBuilder_ == null) {
-          return upgradedConsensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : upgradedConsensusState_;
-        } else {
-          return upgradedConsensusStateBuilder_.getMessage();
-        }
+      @java.lang.Override
+      public com.google.protobuf.ByteString getUpgradedConsensusState() {
+        return upgradedConsensusState_;
       }
       /**
-       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
+       * <pre>
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>bytes upgraded_consensus_state = 2;</code>
+       * @param value The upgradedConsensusState to set.
+       * @return This builder for chaining.
        */
-      public Builder setUpgradedConsensusState(com.google.protobuf2.Any value) {
-        if (upgradedConsensusStateBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          upgradedConsensusState_ = value;
-          onChanged();
-        } else {
-          upgradedConsensusStateBuilder_.setMessage(value);
-        }
-
+      public Builder setUpgradedConsensusState(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        upgradedConsensusState_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
-       */
-      public Builder setUpgradedConsensusState(
-          com.google.protobuf2.Any.Builder builderForValue) {
-        if (upgradedConsensusStateBuilder_ == null) {
-          upgradedConsensusState_ = builderForValue.build();
-          onChanged();
-        } else {
-          upgradedConsensusStateBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
-       */
-      public Builder mergeUpgradedConsensusState(com.google.protobuf2.Any value) {
-        if (upgradedConsensusStateBuilder_ == null) {
-          if (upgradedConsensusState_ != null) {
-            upgradedConsensusState_ =
-              com.google.protobuf2.Any.newBuilder(upgradedConsensusState_).mergeFrom(value).buildPartial();
-          } else {
-            upgradedConsensusState_ = value;
-          }
-          onChanged();
-        } else {
-          upgradedConsensusStateBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
+       * <pre>
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>bytes upgraded_consensus_state = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUpgradedConsensusState() {
-        if (upgradedConsensusStateBuilder_ == null) {
-          upgradedConsensusState_ = null;
-          onChanged();
-        } else {
-          upgradedConsensusState_ = null;
-          upgradedConsensusStateBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
-       */
-      public com.google.protobuf2.Any.Builder getUpgradedConsensusStateBuilder() {
         
+        upgradedConsensusState_ = getDefaultInstance().getUpgradedConsensusState();
         onChanged();
-        return getUpgradedConsensusStateFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
-       */
-      public com.google.protobuf2.AnyOrBuilder getUpgradedConsensusStateOrBuilder() {
-        if (upgradedConsensusStateBuilder_ != null) {
-          return upgradedConsensusStateBuilder_.getMessageOrBuilder();
-        } else {
-          return upgradedConsensusState_ == null ?
-              com.google.protobuf2.Any.getDefaultInstance() : upgradedConsensusState_;
-        }
-      }
-      /**
-       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
-          getUpgradedConsensusStateFieldBuilder() {
-        if (upgradedConsensusStateBuilder_ == null) {
-          upgradedConsensusStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
-                  getUpgradedConsensusState(),
-                  getParentForChildren(),
-                  isClean());
-          upgradedConsensusState_ = null;
-        }
-        return upgradedConsensusStateBuilder_;
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -3421,6 +3312,1557 @@ public final class QueryOuterClass {
 
   }
 
+  public interface QueryModuleVersionsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.upgrade.v1beta1.QueryModuleVersionsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * module_name is a field to query a specific module
+     * consensus version from state. Leaving this empty will
+     * fetch the full list of module versions from state
+     * </pre>
+     *
+     * <code>string module_name = 1;</code>
+     * @return The moduleName.
+     */
+    java.lang.String getModuleName();
+    /**
+     * <pre>
+     * module_name is a field to query a specific module
+     * consensus version from state. Leaving this empty will
+     * fetch the full list of module versions from state
+     * </pre>
+     *
+     * <code>string module_name = 1;</code>
+     * @return The bytes for moduleName.
+     */
+    com.google.protobuf.ByteString
+        getModuleNameBytes();
+  }
+  /**
+   * <pre>
+   * QueryModuleVersionsRequest is the request type for the Query/ModuleVersions
+   * RPC method.
+   * Since: cosmos-sdk 0.43
+   * </pre>
+   *
+   * Protobuf type {@code cosmos.upgrade.v1beta1.QueryModuleVersionsRequest}
+   */
+  public static final class QueryModuleVersionsRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.QueryModuleVersionsRequest)
+      QueryModuleVersionsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryModuleVersionsRequest.newBuilder() to construct.
+    private QueryModuleVersionsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryModuleVersionsRequest() {
+      moduleName_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryModuleVersionsRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryModuleVersionsRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              moduleName_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cosmos.upgrade.v1beta1.QueryOuterClass.internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cosmos.upgrade.v1beta1.QueryOuterClass.internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest.class, cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest.Builder.class);
+    }
+
+    public static final int MODULE_NAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object moduleName_;
+    /**
+     * <pre>
+     * module_name is a field to query a specific module
+     * consensus version from state. Leaving this empty will
+     * fetch the full list of module versions from state
+     * </pre>
+     *
+     * <code>string module_name = 1;</code>
+     * @return The moduleName.
+     */
+    @java.lang.Override
+    public java.lang.String getModuleName() {
+      java.lang.Object ref = moduleName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        moduleName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * module_name is a field to query a specific module
+     * consensus version from state. Leaving this empty will
+     * fetch the full list of module versions from state
+     * </pre>
+     *
+     * <code>string module_name = 1;</code>
+     * @return The bytes for moduleName.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getModuleNameBytes() {
+      java.lang.Object ref = moduleName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        moduleName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getModuleNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, moduleName_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getModuleNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, moduleName_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest)) {
+        return super.equals(obj);
+      }
+      cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest other = (cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest) obj;
+
+      if (!getModuleName()
+          .equals(other.getModuleName())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MODULE_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getModuleName().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryModuleVersionsRequest is the request type for the Query/ModuleVersions
+     * RPC method.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * Protobuf type {@code cosmos.upgrade.v1beta1.QueryModuleVersionsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cosmos.upgrade.v1beta1.QueryModuleVersionsRequest)
+        cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cosmos.upgrade.v1beta1.QueryOuterClass.internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cosmos.upgrade.v1beta1.QueryOuterClass.internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest.class, cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest.Builder.class);
+      }
+
+      // Construct using cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        moduleName_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cosmos.upgrade.v1beta1.QueryOuterClass.internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest getDefaultInstanceForType() {
+        return cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest build() {
+        cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest buildPartial() {
+        cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest result = new cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest(this);
+        result.moduleName_ = moduleName_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest) {
+          return mergeFrom((cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest other) {
+        if (other == cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest.getDefaultInstance()) return this;
+        if (!other.getModuleName().isEmpty()) {
+          moduleName_ = other.moduleName_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object moduleName_ = "";
+      /**
+       * <pre>
+       * module_name is a field to query a specific module
+       * consensus version from state. Leaving this empty will
+       * fetch the full list of module versions from state
+       * </pre>
+       *
+       * <code>string module_name = 1;</code>
+       * @return The moduleName.
+       */
+      public java.lang.String getModuleName() {
+        java.lang.Object ref = moduleName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          moduleName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * module_name is a field to query a specific module
+       * consensus version from state. Leaving this empty will
+       * fetch the full list of module versions from state
+       * </pre>
+       *
+       * <code>string module_name = 1;</code>
+       * @return The bytes for moduleName.
+       */
+      public com.google.protobuf.ByteString
+          getModuleNameBytes() {
+        java.lang.Object ref = moduleName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          moduleName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * module_name is a field to query a specific module
+       * consensus version from state. Leaving this empty will
+       * fetch the full list of module versions from state
+       * </pre>
+       *
+       * <code>string module_name = 1;</code>
+       * @param value The moduleName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setModuleName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        moduleName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * module_name is a field to query a specific module
+       * consensus version from state. Leaving this empty will
+       * fetch the full list of module versions from state
+       * </pre>
+       *
+       * <code>string module_name = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearModuleName() {
+        
+        moduleName_ = getDefaultInstance().getModuleName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * module_name is a field to query a specific module
+       * consensus version from state. Leaving this empty will
+       * fetch the full list of module versions from state
+       * </pre>
+       *
+       * <code>string module_name = 1;</code>
+       * @param value The bytes for moduleName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setModuleNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        moduleName_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cosmos.upgrade.v1beta1.QueryModuleVersionsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:cosmos.upgrade.v1beta1.QueryModuleVersionsRequest)
+    private static final cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest();
+    }
+
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryModuleVersionsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryModuleVersionsRequest>() {
+      @java.lang.Override
+      public QueryModuleVersionsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryModuleVersionsRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryModuleVersionsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryModuleVersionsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryModuleVersionsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.upgrade.v1beta1.QueryModuleVersionsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * module_versions is a list of module names with their consensus versions.
+     * </pre>
+     *
+     * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+     */
+    java.util.List<cosmos.upgrade.v1beta1.Upgrade.ModuleVersion> 
+        getModuleVersionsList();
+    /**
+     * <pre>
+     * module_versions is a list of module names with their consensus versions.
+     * </pre>
+     *
+     * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+     */
+    cosmos.upgrade.v1beta1.Upgrade.ModuleVersion getModuleVersions(int index);
+    /**
+     * <pre>
+     * module_versions is a list of module names with their consensus versions.
+     * </pre>
+     *
+     * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+     */
+    int getModuleVersionsCount();
+    /**
+     * <pre>
+     * module_versions is a list of module names with their consensus versions.
+     * </pre>
+     *
+     * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+     */
+    java.util.List<? extends cosmos.upgrade.v1beta1.Upgrade.ModuleVersionOrBuilder> 
+        getModuleVersionsOrBuilderList();
+    /**
+     * <pre>
+     * module_versions is a list of module names with their consensus versions.
+     * </pre>
+     *
+     * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+     */
+    cosmos.upgrade.v1beta1.Upgrade.ModuleVersionOrBuilder getModuleVersionsOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * QueryModuleVersionsResponse is the response type for the Query/ModuleVersions
+   * RPC method.
+   * Since: cosmos-sdk 0.43
+   * </pre>
+   *
+   * Protobuf type {@code cosmos.upgrade.v1beta1.QueryModuleVersionsResponse}
+   */
+  public static final class QueryModuleVersionsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.QueryModuleVersionsResponse)
+      QueryModuleVersionsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryModuleVersionsResponse.newBuilder() to construct.
+    private QueryModuleVersionsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryModuleVersionsResponse() {
+      moduleVersions_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryModuleVersionsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryModuleVersionsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                moduleVersions_ = new java.util.ArrayList<cosmos.upgrade.v1beta1.Upgrade.ModuleVersion>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              moduleVersions_.add(
+                  input.readMessage(cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          moduleVersions_ = java.util.Collections.unmodifiableList(moduleVersions_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cosmos.upgrade.v1beta1.QueryOuterClass.internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cosmos.upgrade.v1beta1.QueryOuterClass.internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse.class, cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse.Builder.class);
+    }
+
+    public static final int MODULE_VERSIONS_FIELD_NUMBER = 1;
+    private java.util.List<cosmos.upgrade.v1beta1.Upgrade.ModuleVersion> moduleVersions_;
+    /**
+     * <pre>
+     * module_versions is a list of module names with their consensus versions.
+     * </pre>
+     *
+     * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<cosmos.upgrade.v1beta1.Upgrade.ModuleVersion> getModuleVersionsList() {
+      return moduleVersions_;
+    }
+    /**
+     * <pre>
+     * module_versions is a list of module names with their consensus versions.
+     * </pre>
+     *
+     * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends cosmos.upgrade.v1beta1.Upgrade.ModuleVersionOrBuilder> 
+        getModuleVersionsOrBuilderList() {
+      return moduleVersions_;
+    }
+    /**
+     * <pre>
+     * module_versions is a list of module names with their consensus versions.
+     * </pre>
+     *
+     * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+     */
+    @java.lang.Override
+    public int getModuleVersionsCount() {
+      return moduleVersions_.size();
+    }
+    /**
+     * <pre>
+     * module_versions is a list of module names with their consensus versions.
+     * </pre>
+     *
+     * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+     */
+    @java.lang.Override
+    public cosmos.upgrade.v1beta1.Upgrade.ModuleVersion getModuleVersions(int index) {
+      return moduleVersions_.get(index);
+    }
+    /**
+     * <pre>
+     * module_versions is a list of module names with their consensus versions.
+     * </pre>
+     *
+     * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+     */
+    @java.lang.Override
+    public cosmos.upgrade.v1beta1.Upgrade.ModuleVersionOrBuilder getModuleVersionsOrBuilder(
+        int index) {
+      return moduleVersions_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < moduleVersions_.size(); i++) {
+        output.writeMessage(1, moduleVersions_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < moduleVersions_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, moduleVersions_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse)) {
+        return super.equals(obj);
+      }
+      cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse other = (cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse) obj;
+
+      if (!getModuleVersionsList()
+          .equals(other.getModuleVersionsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getModuleVersionsCount() > 0) {
+        hash = (37 * hash) + MODULE_VERSIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getModuleVersionsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryModuleVersionsResponse is the response type for the Query/ModuleVersions
+     * RPC method.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * Protobuf type {@code cosmos.upgrade.v1beta1.QueryModuleVersionsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cosmos.upgrade.v1beta1.QueryModuleVersionsResponse)
+        cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cosmos.upgrade.v1beta1.QueryOuterClass.internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cosmos.upgrade.v1beta1.QueryOuterClass.internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse.class, cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse.Builder.class);
+      }
+
+      // Construct using cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getModuleVersionsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (moduleVersionsBuilder_ == null) {
+          moduleVersions_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          moduleVersionsBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cosmos.upgrade.v1beta1.QueryOuterClass.internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse getDefaultInstanceForType() {
+        return cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse build() {
+        cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse buildPartial() {
+        cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse result = new cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (moduleVersionsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            moduleVersions_ = java.util.Collections.unmodifiableList(moduleVersions_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.moduleVersions_ = moduleVersions_;
+        } else {
+          result.moduleVersions_ = moduleVersionsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse) {
+          return mergeFrom((cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse other) {
+        if (other == cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse.getDefaultInstance()) return this;
+        if (moduleVersionsBuilder_ == null) {
+          if (!other.moduleVersions_.isEmpty()) {
+            if (moduleVersions_.isEmpty()) {
+              moduleVersions_ = other.moduleVersions_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureModuleVersionsIsMutable();
+              moduleVersions_.addAll(other.moduleVersions_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.moduleVersions_.isEmpty()) {
+            if (moduleVersionsBuilder_.isEmpty()) {
+              moduleVersionsBuilder_.dispose();
+              moduleVersionsBuilder_ = null;
+              moduleVersions_ = other.moduleVersions_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              moduleVersionsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getModuleVersionsFieldBuilder() : null;
+            } else {
+              moduleVersionsBuilder_.addAllMessages(other.moduleVersions_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<cosmos.upgrade.v1beta1.Upgrade.ModuleVersion> moduleVersions_ =
+        java.util.Collections.emptyList();
+      private void ensureModuleVersionsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          moduleVersions_ = new java.util.ArrayList<cosmos.upgrade.v1beta1.Upgrade.ModuleVersion>(moduleVersions_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          cosmos.upgrade.v1beta1.Upgrade.ModuleVersion, cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.Builder, cosmos.upgrade.v1beta1.Upgrade.ModuleVersionOrBuilder> moduleVersionsBuilder_;
+
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public java.util.List<cosmos.upgrade.v1beta1.Upgrade.ModuleVersion> getModuleVersionsList() {
+        if (moduleVersionsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(moduleVersions_);
+        } else {
+          return moduleVersionsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public int getModuleVersionsCount() {
+        if (moduleVersionsBuilder_ == null) {
+          return moduleVersions_.size();
+        } else {
+          return moduleVersionsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public cosmos.upgrade.v1beta1.Upgrade.ModuleVersion getModuleVersions(int index) {
+        if (moduleVersionsBuilder_ == null) {
+          return moduleVersions_.get(index);
+        } else {
+          return moduleVersionsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public Builder setModuleVersions(
+          int index, cosmos.upgrade.v1beta1.Upgrade.ModuleVersion value) {
+        if (moduleVersionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureModuleVersionsIsMutable();
+          moduleVersions_.set(index, value);
+          onChanged();
+        } else {
+          moduleVersionsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public Builder setModuleVersions(
+          int index, cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.Builder builderForValue) {
+        if (moduleVersionsBuilder_ == null) {
+          ensureModuleVersionsIsMutable();
+          moduleVersions_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          moduleVersionsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public Builder addModuleVersions(cosmos.upgrade.v1beta1.Upgrade.ModuleVersion value) {
+        if (moduleVersionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureModuleVersionsIsMutable();
+          moduleVersions_.add(value);
+          onChanged();
+        } else {
+          moduleVersionsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public Builder addModuleVersions(
+          int index, cosmos.upgrade.v1beta1.Upgrade.ModuleVersion value) {
+        if (moduleVersionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureModuleVersionsIsMutable();
+          moduleVersions_.add(index, value);
+          onChanged();
+        } else {
+          moduleVersionsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public Builder addModuleVersions(
+          cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.Builder builderForValue) {
+        if (moduleVersionsBuilder_ == null) {
+          ensureModuleVersionsIsMutable();
+          moduleVersions_.add(builderForValue.build());
+          onChanged();
+        } else {
+          moduleVersionsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public Builder addModuleVersions(
+          int index, cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.Builder builderForValue) {
+        if (moduleVersionsBuilder_ == null) {
+          ensureModuleVersionsIsMutable();
+          moduleVersions_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          moduleVersionsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public Builder addAllModuleVersions(
+          java.lang.Iterable<? extends cosmos.upgrade.v1beta1.Upgrade.ModuleVersion> values) {
+        if (moduleVersionsBuilder_ == null) {
+          ensureModuleVersionsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, moduleVersions_);
+          onChanged();
+        } else {
+          moduleVersionsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public Builder clearModuleVersions() {
+        if (moduleVersionsBuilder_ == null) {
+          moduleVersions_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          moduleVersionsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public Builder removeModuleVersions(int index) {
+        if (moduleVersionsBuilder_ == null) {
+          ensureModuleVersionsIsMutable();
+          moduleVersions_.remove(index);
+          onChanged();
+        } else {
+          moduleVersionsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.Builder getModuleVersionsBuilder(
+          int index) {
+        return getModuleVersionsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public cosmos.upgrade.v1beta1.Upgrade.ModuleVersionOrBuilder getModuleVersionsOrBuilder(
+          int index) {
+        if (moduleVersionsBuilder_ == null) {
+          return moduleVersions_.get(index);  } else {
+          return moduleVersionsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public java.util.List<? extends cosmos.upgrade.v1beta1.Upgrade.ModuleVersionOrBuilder> 
+           getModuleVersionsOrBuilderList() {
+        if (moduleVersionsBuilder_ != null) {
+          return moduleVersionsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(moduleVersions_);
+        }
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.Builder addModuleVersionsBuilder() {
+        return getModuleVersionsFieldBuilder().addBuilder(
+            cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.Builder addModuleVersionsBuilder(
+          int index) {
+        return getModuleVersionsFieldBuilder().addBuilder(
+            index, cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * module_versions is a list of module names with their consensus versions.
+       * </pre>
+       *
+       * <code>repeated .cosmos.upgrade.v1beta1.ModuleVersion module_versions = 1;</code>
+       */
+      public java.util.List<cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.Builder> 
+           getModuleVersionsBuilderList() {
+        return getModuleVersionsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          cosmos.upgrade.v1beta1.Upgrade.ModuleVersion, cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.Builder, cosmos.upgrade.v1beta1.Upgrade.ModuleVersionOrBuilder> 
+          getModuleVersionsFieldBuilder() {
+        if (moduleVersionsBuilder_ == null) {
+          moduleVersionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              cosmos.upgrade.v1beta1.Upgrade.ModuleVersion, cosmos.upgrade.v1beta1.Upgrade.ModuleVersion.Builder, cosmos.upgrade.v1beta1.Upgrade.ModuleVersionOrBuilder>(
+                  moduleVersions_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          moduleVersions_ = null;
+        }
+        return moduleVersionsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cosmos.upgrade.v1beta1.QueryModuleVersionsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:cosmos.upgrade.v1beta1.QueryModuleVersionsResponse)
+    private static final cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse();
+    }
+
+    public static cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryModuleVersionsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryModuleVersionsResponse>() {
+      @java.lang.Override
+      public QueryModuleVersionsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryModuleVersionsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryModuleVersionsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryModuleVersionsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_cosmos_upgrade_v1beta1_QueryCurrentPlanRequest_descriptor;
   private static final 
@@ -3451,6 +4893,16 @@ public final class QueryOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cosmos_upgrade_v1beta1_QueryUpgradedConsensusStateResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3461,38 +4913,44 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\"cosmos/upgrade/v1beta1/query.proto\022\026co" +
-      "smos.upgrade.v1beta1\032\032google/protobuf2/a" +
-      "ny.proto\032\034google/api/annotations.proto\032$" +
-      "cosmos/upgrade/v1beta1/upgrade.proto\"\031\n\027" +
-      "QueryCurrentPlanRequest\"F\n\030QueryCurrentP" +
-      "lanResponse\022*\n\004plan\030\001 \001(\0132\034.cosmos.upgra" +
-      "de.v1beta1.Plan\"\'\n\027QueryAppliedPlanReque" +
-      "st\022\014\n\004name\030\001 \001(\t\"*\n\030QueryAppliedPlanResp" +
-      "onse\022\016\n\006height\030\001 \001(\003\"9\n\"QueryUpgradedCon" +
-      "sensusStateRequest\022\023\n\013last_height\030\001 \001(\003\"" +
-      "^\n#QueryUpgradedConsensusStateResponse\0227" +
-      "\n\030upgraded_consensus_state\030\001 \001(\0132\025.googl" +
-      "e.protobuf2.Any2\254\004\n\005Query\022\236\001\n\013CurrentPla" +
-      "n\022/.cosmos.upgrade.v1beta1.QueryCurrentP" +
-      "lanRequest\0320.cosmos.upgrade.v1beta1.Quer" +
-      "yCurrentPlanResponse\",\202\323\344\223\002&\022$/cosmos/up" +
-      "grade/v1beta1/current_plan\022\245\001\n\013AppliedPl" +
-      "an\022/.cosmos.upgrade.v1beta1.QueryApplied" +
-      "PlanRequest\0320.cosmos.upgrade.v1beta1.Que" +
-      "ryAppliedPlanResponse\"3\202\323\344\223\002-\022+/cosmos/u" +
-      "pgrade/v1beta1/applied_plan/{name}\022\331\001\n\026U" +
-      "pgradedConsensusState\022:.cosmos.upgrade.v" +
-      "1beta1.QueryUpgradedConsensusStateReques" +
-      "t\032;.cosmos.upgrade.v1beta1.QueryUpgraded" +
-      "ConsensusStateResponse\"F\202\323\344\223\002@\022>/cosmos/" +
-      "upgrade/v1beta1/upgraded_consensus_state" +
-      "/{last_height}B.Z,github.com/cosmos/cosm" +
-      "os-sdk/x/upgrade/typesb\006proto3"
+      "smos.upgrade.v1beta1\032\034google/api/annotat" +
+      "ions.proto\032$cosmos/upgrade/v1beta1/upgra" +
+      "de.proto\"\031\n\027QueryCurrentPlanRequest\"F\n\030Q" +
+      "ueryCurrentPlanResponse\022*\n\004plan\030\001 \001(\0132\034." +
+      "cosmos.upgrade.v1beta1.Plan\"\'\n\027QueryAppl" +
+      "iedPlanRequest\022\014\n\004name\030\001 \001(\t\"*\n\030QueryApp" +
+      "liedPlanResponse\022\016\n\006height\030\001 \001(\003\"=\n\"Quer" +
+      "yUpgradedConsensusStateRequest\022\023\n\013last_h" +
+      "eight\030\001 \001(\003:\002\030\001\"Q\n#QueryUpgradedConsensu" +
+      "sStateResponse\022 \n\030upgraded_consensus_sta" +
+      "te\030\002 \001(\014:\002\030\001J\004\010\001\020\002\"1\n\032QueryModuleVersion" +
+      "sRequest\022\023\n\013module_name\030\001 \001(\t\"]\n\033QueryMo" +
+      "duleVersionsResponse\022>\n\017module_versions\030" +
+      "\001 \003(\0132%.cosmos.upgrade.v1beta1.ModuleVer" +
+      "sion2\334\005\n\005Query\022\236\001\n\013CurrentPlan\022/.cosmos." +
+      "upgrade.v1beta1.QueryCurrentPlanRequest\032" +
+      "0.cosmos.upgrade.v1beta1.QueryCurrentPla" +
+      "nResponse\",\202\323\344\223\002&\022$/cosmos/upgrade/v1bet" +
+      "a1/current_plan\022\245\001\n\013AppliedPlan\022/.cosmos" +
+      ".upgrade.v1beta1.QueryAppliedPlanRequest" +
+      "\0320.cosmos.upgrade.v1beta1.QueryAppliedPl" +
+      "anResponse\"3\202\323\344\223\002-\022+/cosmos/upgrade/v1be" +
+      "ta1/applied_plan/{name}\022\334\001\n\026UpgradedCons" +
+      "ensusState\022:.cosmos.upgrade.v1beta1.Quer" +
+      "yUpgradedConsensusStateRequest\032;.cosmos." +
+      "upgrade.v1beta1.QueryUpgradedConsensusSt" +
+      "ateResponse\"I\210\002\001\202\323\344\223\002@\022>/cosmos/upgrade/" +
+      "v1beta1/upgraded_consensus_state/{last_h" +
+      "eight}\022\252\001\n\016ModuleVersions\0222.cosmos.upgra" +
+      "de.v1beta1.QueryModuleVersionsRequest\0323." +
+      "cosmos.upgrade.v1beta1.QueryModuleVersio" +
+      "nsResponse\"/\202\323\344\223\002)\022\'/cosmos/upgrade/v1be" +
+      "ta1/module_versionsB.Z,github.com/cosmos" +
+      "/cosmos-sdk/x/upgrade/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.AnyProto.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.upgrade.v1beta1.Upgrade.getDescriptor(),
         });
@@ -3532,12 +4990,23 @@ public final class QueryOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_upgrade_v1beta1_QueryUpgradedConsensusStateResponse_descriptor,
         new java.lang.String[] { "UpgradedConsensusState", });
+    internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsRequest_descriptor,
+        new java.lang.String[] { "ModuleName", });
+    internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cosmos_upgrade_v1beta1_QueryModuleVersionsResponse_descriptor,
+        new java.lang.String[] { "ModuleVersions", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.AnyProto.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.upgrade.v1beta1.Upgrade.getDescriptor();
   }

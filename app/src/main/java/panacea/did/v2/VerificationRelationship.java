@@ -10,7 +10,7 @@ package panacea.did.v2;
  *
  * Protobuf type {@code panacea.did.v2.VerificationRelationship}
  */
-public  final class VerificationRelationship extends
+public final class VerificationRelationship extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.did.v2.VerificationRelationship)
     VerificationRelationshipOrBuilder {
@@ -148,6 +148,13 @@ private static final long serialVersionUID = 0L;
   public static final int VERIFICATION_METHOD_ID_FIELD_NUMBER = 1;
   /**
    * <code>string verification_method_id = 1;</code>
+   * @return Whether the verificationMethodId field is set.
+   */
+  public boolean hasVerificationMethodId() {
+    return contentCase_ == 1;
+  }
+  /**
+   * <code>string verification_method_id = 1;</code>
    * @return The verificationMethodId.
    */
   public java.lang.String getVerificationMethodId() {
@@ -195,6 +202,7 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.did.v2.VerificationMethod verification_method = 2;</code>
    * @return Whether the verificationMethod field is set.
    */
+  @java.lang.Override
   public boolean hasVerificationMethod() {
     return contentCase_ == 2;
   }
@@ -202,6 +210,7 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.did.v2.VerificationMethod verification_method = 2;</code>
    * @return The verificationMethod.
    */
+  @java.lang.Override
   public panacea.did.v2.VerificationMethod getVerificationMethod() {
     if (contentCase_ == 2) {
        return (panacea.did.v2.VerificationMethod) content_;
@@ -211,6 +220,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>.panacea.did.v2.VerificationMethod verification_method = 2;</code>
    */
+  @java.lang.Override
   public panacea.did.v2.VerificationMethodOrBuilder getVerificationMethodOrBuilder() {
     if (contentCase_ == 2) {
        return (panacea.did.v2.VerificationMethod) content_;
@@ -590,8 +600,17 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>string verification_method_id = 1;</code>
+     * @return Whether the verificationMethodId field is set.
+     */
+    @java.lang.Override
+    public boolean hasVerificationMethodId() {
+      return contentCase_ == 1;
+    }
+    /**
+     * <code>string verification_method_id = 1;</code>
      * @return The verificationMethodId.
      */
+    @java.lang.Override
     public java.lang.String getVerificationMethodId() {
       java.lang.Object ref = "";
       if (contentCase_ == 1) {
@@ -613,6 +632,7 @@ private static final long serialVersionUID = 0L;
      * <code>string verification_method_id = 1;</code>
      * @return The bytes for verificationMethodId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getVerificationMethodIdBytes() {
       java.lang.Object ref = "";
@@ -681,6 +701,7 @@ private static final long serialVersionUID = 0L;
      * <code>.panacea.did.v2.VerificationMethod verification_method = 2;</code>
      * @return Whether the verificationMethod field is set.
      */
+    @java.lang.Override
     public boolean hasVerificationMethod() {
       return contentCase_ == 2;
     }
@@ -688,6 +709,7 @@ private static final long serialVersionUID = 0L;
      * <code>.panacea.did.v2.VerificationMethod verification_method = 2;</code>
      * @return The verificationMethod.
      */
+    @java.lang.Override
     public panacea.did.v2.VerificationMethod getVerificationMethod() {
       if (verificationMethodBuilder_ == null) {
         if (contentCase_ == 2) {
@@ -781,6 +803,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>.panacea.did.v2.VerificationMethod verification_method = 2;</code>
      */
+    @java.lang.Override
     public panacea.did.v2.VerificationMethodOrBuilder getVerificationMethodOrBuilder() {
       if ((contentCase_ == 2) && (verificationMethodBuilder_ != null)) {
         return verificationMethodBuilder_.getMessageOrBuilder();

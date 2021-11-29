@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
 import cosmos.tx.v1beta1.ServiceOuterClass;
-import osmosis.gamm.v1beta1.PoolOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -41,7 +41,7 @@ public class TxCreatePoolHolder extends TxHolder {
         itemCreatePoolImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
 
         try {
-            Tx.MsgCreatePool msg = Tx.MsgCreatePool.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+            Tx.MsgCreateBalancerPool msg = Tx.MsgCreateBalancerPool.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemCreateSender.setText(msg.getSender());
             itemCreateSwapFee.setText("swapFee : " + new BigDecimal(msg.getPoolParams().getSwapFee()).movePointLeft(18).setScale(2, RoundingMode.FLOOR));
             itemCreateExitFee.setText("exitFee : " + new BigDecimal(msg.getPoolParams().getExitFee()).movePointLeft(18).setScale(2, RoundingMode.FLOOR));

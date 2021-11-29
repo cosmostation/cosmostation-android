@@ -19,24 +19,24 @@ public final class Tx {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
+     * <code>string from_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The fromAddress.
      */
     java.lang.String getFromAddress();
     /**
-     * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
+     * <code>string from_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for fromAddress.
      */
     com.google.protobuf.ByteString
         getFromAddressBytes();
 
     /**
-     * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
+     * <code>string to_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The toAddress.
      */
     java.lang.String getToAddress();
     /**
-     * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
+     * <code>string to_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for toAddress.
      */
     com.google.protobuf.ByteString
@@ -178,7 +178,7 @@ public final class Tx {
     public static final int FROM_ADDRESS_FIELD_NUMBER = 1;
     private volatile java.lang.Object fromAddress_;
     /**
-     * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
+     * <code>string from_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The fromAddress.
      */
     @java.lang.Override
@@ -195,7 +195,7 @@ public final class Tx {
       }
     }
     /**
-     * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
+     * <code>string from_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for fromAddress.
      */
     @java.lang.Override
@@ -216,7 +216,7 @@ public final class Tx {
     public static final int TO_ADDRESS_FIELD_NUMBER = 2;
     private volatile java.lang.Object toAddress_;
     /**
-     * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
+     * <code>string to_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The toAddress.
      */
     @java.lang.Override
@@ -233,7 +233,7 @@ public final class Tx {
       }
     }
     /**
-     * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
+     * <code>string to_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for toAddress.
      */
     @java.lang.Override
@@ -673,7 +673,7 @@ public final class Tx {
 
       private java.lang.Object fromAddress_ = "";
       /**
-       * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
+       * <code>string from_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The fromAddress.
        */
       public java.lang.String getFromAddress() {
@@ -689,7 +689,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
+       * <code>string from_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for fromAddress.
        */
       public com.google.protobuf.ByteString
@@ -706,7 +706,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
+       * <code>string from_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The fromAddress to set.
        * @return This builder for chaining.
        */
@@ -721,7 +721,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
+       * <code>string from_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearFromAddress() {
@@ -731,7 +731,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
+       * <code>string from_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for fromAddress to set.
        * @return This builder for chaining.
        */
@@ -749,7 +749,7 @@ public final class Tx {
 
       private java.lang.Object toAddress_ = "";
       /**
-       * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
+       * <code>string to_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The toAddress.
        */
       public java.lang.String getToAddress() {
@@ -765,7 +765,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
+       * <code>string to_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for toAddress.
        */
       public com.google.protobuf.ByteString
@@ -782,7 +782,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
+       * <code>string to_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The toAddress to set.
        * @return This builder for chaining.
        */
@@ -797,7 +797,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
+       * <code>string to_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearToAddress() {
@@ -807,7 +807,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
+       * <code>string to_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for toAddress to set.
        * @return This builder for chaining.
        */
@@ -3172,29 +3172,31 @@ public final class Tx {
       "\n\034cosmos/bank/v1beta1/tx.proto\022\023cosmos.b" +
       "ank.v1beta1\032\024gogoproto/gogo.proto\032\036cosmo" +
       "s/base/v1beta1/coin.proto\032\036cosmos/bank/v" +
-      "1beta1/bank.proto\"\312\001\n\007MsgSend\022-\n\014from_ad" +
-      "dress\030\001 \001(\tB\027\362\336\037\023yaml:\"from_address\"\022)\n\n" +
-      "to_address\030\002 \001(\tB\025\362\336\037\021yaml:\"to_address\"\022" +
-      "[\n\006amount\030\003 \003(\0132\031.cosmos.base.v1beta1.Co" +
-      "inB0\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk" +
-      "/types.Coins:\010\350\240\037\000\210\240\037\000\"\021\n\017MsgSendRespons" +
-      "e\"z\n\014MsgMultiSend\0220\n\006inputs\030\001 \003(\0132\032.cosm" +
-      "os.bank.v1beta1.InputB\004\310\336\037\000\0222\n\007outputs\030\002" +
-      " \003(\0132\033.cosmos.bank.v1beta1.OutputB\004\310\336\037\000:" +
-      "\004\350\240\037\000\"\026\n\024MsgMultiSendResponse2\254\001\n\003Msg\022J\n" +
-      "\004Send\022\034.cosmos.bank.v1beta1.MsgSend\032$.co" +
-      "smos.bank.v1beta1.MsgSendResponse\022Y\n\tMul" +
-      "tiSend\022!.cosmos.bank.v1beta1.MsgMultiSen" +
-      "d\032).cosmos.bank.v1beta1.MsgMultiSendResp" +
-      "onseB+Z)github.com/cosmos/cosmos-sdk/x/b" +
-      "ank/typesb\006proto3"
+      "1beta1/bank.proto\032\031cosmos_proto/cosmos.p" +
+      "roto\"\316\001\n\007MsgSend\022.\n\014from_address\030\001 \001(\tB\030" +
+      "\322\264-\024cosmos.AddressString\022,\n\nto_address\030\002" +
+      " \001(\tB\030\322\264-\024cosmos.AddressString\022[\n\006amount" +
+      "\030\003 \003(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252" +
+      "\337\037(github.com/cosmos/cosmos-sdk/types.Co" +
+      "ins:\010\350\240\037\000\210\240\037\000\"\021\n\017MsgSendResponse\"z\n\014MsgM" +
+      "ultiSend\0220\n\006inputs\030\001 \003(\0132\032.cosmos.bank.v" +
+      "1beta1.InputB\004\310\336\037\000\0222\n\007outputs\030\002 \003(\0132\033.co" +
+      "smos.bank.v1beta1.OutputB\004\310\336\037\000:\004\350\240\037\000\"\026\n\024" +
+      "MsgMultiSendResponse2\254\001\n\003Msg\022J\n\004Send\022\034.c" +
+      "osmos.bank.v1beta1.MsgSend\032$.cosmos.bank" +
+      ".v1beta1.MsgSendResponse\022Y\n\tMultiSend\022!." +
+      "cosmos.bank.v1beta1.MsgMultiSend\032).cosmo" +
+      "s.bank.v1beta1.MsgMultiSendResponseB+Z)g" +
+      "ithub.com/cosmos/cosmos-sdk/x/bank/types" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos.bank.v1beta1.Bank.getDescriptor(),
+          cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_cosmos_bank_v1beta1_MsgSend_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3222,16 +3224,17 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos.bank.v1beta1.Bank.getDescriptor();
+    cosmos_proto.Cosmos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

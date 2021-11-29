@@ -10,7 +10,7 @@ package panacea.did.v2;
  *
  * Protobuf type {@code panacea.did.v2.QueryDIDRequest}
  */
-public  final class QueryDIDRequest extends
+public final class QueryDIDRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.did.v2.QueryDIDRequest)
     QueryDIDRequestOrBuilder {
@@ -101,6 +101,7 @@ private static final long serialVersionUID = 0L;
    * <code>string did_base64 = 1;</code>
    * @return The didBase64.
    */
+  @java.lang.Override
   public java.lang.String getDidBase64() {
     java.lang.Object ref = didBase64_;
     if (ref instanceof java.lang.String) {
@@ -121,6 +122,7 @@ private static final long serialVersionUID = 0L;
    * <code>string did_base64 = 1;</code>
    * @return The bytes for didBase64.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getDidBase64Bytes() {
     java.lang.Object ref = didBase64_;

@@ -22,7 +22,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.33.1)",
-    comments = "Source: oracle/v1/tx.proto")
+    comments = "Source: band_oracle/v1/tx.proto")
 public final class MsgGrpc {
 
   private MsgGrpc() {}
@@ -247,68 +247,6 @@ public final class MsgGrpc {
     return getActivateMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<oracle.v1.Tx.MsgAddReporter,
-      oracle.v1.Tx.MsgAddReporterResponse> getAddReporterMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "AddReporter",
-      requestType = oracle.v1.Tx.MsgAddReporter.class,
-      responseType = oracle.v1.Tx.MsgAddReporterResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<oracle.v1.Tx.MsgAddReporter,
-      oracle.v1.Tx.MsgAddReporterResponse> getAddReporterMethod() {
-    io.grpc.MethodDescriptor<oracle.v1.Tx.MsgAddReporter, oracle.v1.Tx.MsgAddReporterResponse> getAddReporterMethod;
-    if ((getAddReporterMethod = MsgGrpc.getAddReporterMethod) == null) {
-      synchronized (MsgGrpc.class) {
-        if ((getAddReporterMethod = MsgGrpc.getAddReporterMethod) == null) {
-          MsgGrpc.getAddReporterMethod = getAddReporterMethod =
-              io.grpc.MethodDescriptor.<oracle.v1.Tx.MsgAddReporter, oracle.v1.Tx.MsgAddReporterResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "AddReporter"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  oracle.v1.Tx.MsgAddReporter.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  oracle.v1.Tx.MsgAddReporterResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("AddReporter"))
-              .build();
-        }
-      }
-    }
-    return getAddReporterMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<oracle.v1.Tx.MsgRemoveReporter,
-      oracle.v1.Tx.MsgRemoveReporterResponse> getRemoveReporterMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "RemoveReporter",
-      requestType = oracle.v1.Tx.MsgRemoveReporter.class,
-      responseType = oracle.v1.Tx.MsgRemoveReporterResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<oracle.v1.Tx.MsgRemoveReporter,
-      oracle.v1.Tx.MsgRemoveReporterResponse> getRemoveReporterMethod() {
-    io.grpc.MethodDescriptor<oracle.v1.Tx.MsgRemoveReporter, oracle.v1.Tx.MsgRemoveReporterResponse> getRemoveReporterMethod;
-    if ((getRemoveReporterMethod = MsgGrpc.getRemoveReporterMethod) == null) {
-      synchronized (MsgGrpc.class) {
-        if ((getRemoveReporterMethod = MsgGrpc.getRemoveReporterMethod) == null) {
-          MsgGrpc.getRemoveReporterMethod = getRemoveReporterMethod =
-              io.grpc.MethodDescriptor.<oracle.v1.Tx.MsgRemoveReporter, oracle.v1.Tx.MsgRemoveReporterResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RemoveReporter"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  oracle.v1.Tx.MsgRemoveReporter.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  oracle.v1.Tx.MsgRemoveReporterResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("RemoveReporter"))
-              .build();
-        }
-      }
-    }
-    return getRemoveReporterMethod;
-  }
-
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -430,26 +368,6 @@ public final class MsgGrpc {
       asyncUnimplementedUnaryCall(getActivateMethod(), responseObserver);
     }
 
-    /**
-     * <pre>
-     * AddReporter defines a method for adding a new reporter for a validator.
-     * </pre>
-     */
-    public void addReporter(oracle.v1.Tx.MsgAddReporter request,
-        io.grpc.stub.StreamObserver<oracle.v1.Tx.MsgAddReporterResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getAddReporterMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
-     * RemoveReporter defines a method for removing an reporter from a validator
-     * </pre>
-     */
-    public void removeReporter(oracle.v1.Tx.MsgRemoveReporter request,
-        io.grpc.stub.StreamObserver<oracle.v1.Tx.MsgRemoveReporterResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getRemoveReporterMethod(), responseObserver);
-    }
-
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -501,20 +419,6 @@ public final class MsgGrpc {
                 oracle.v1.Tx.MsgActivate,
                 oracle.v1.Tx.MsgActivateResponse>(
                   this, METHODID_ACTIVATE)))
-          .addMethod(
-            getAddReporterMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                oracle.v1.Tx.MsgAddReporter,
-                oracle.v1.Tx.MsgAddReporterResponse>(
-                  this, METHODID_ADD_REPORTER)))
-          .addMethod(
-            getRemoveReporterMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                oracle.v1.Tx.MsgRemoveReporter,
-                oracle.v1.Tx.MsgRemoveReporterResponse>(
-                  this, METHODID_REMOVE_REPORTER)))
           .build();
     }
   }
@@ -612,28 +516,6 @@ public final class MsgGrpc {
       asyncUnaryCall(
           getChannel().newCall(getActivateMethod(), getCallOptions()), request, responseObserver);
     }
-
-    /**
-     * <pre>
-     * AddReporter defines a method for adding a new reporter for a validator.
-     * </pre>
-     */
-    public void addReporter(oracle.v1.Tx.MsgAddReporter request,
-        io.grpc.stub.StreamObserver<oracle.v1.Tx.MsgAddReporterResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getAddReporterMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * RemoveReporter defines a method for removing an reporter from a validator
-     * </pre>
-     */
-    public void removeReporter(oracle.v1.Tx.MsgRemoveReporter request,
-        io.grpc.stub.StreamObserver<oracle.v1.Tx.MsgRemoveReporterResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getRemoveReporterMethod(), getCallOptions()), request, responseObserver);
-    }
   }
 
   /**
@@ -721,26 +603,6 @@ public final class MsgGrpc {
     public oracle.v1.Tx.MsgActivateResponse activate(oracle.v1.Tx.MsgActivate request) {
       return blockingUnaryCall(
           getChannel(), getActivateMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * AddReporter defines a method for adding a new reporter for a validator.
-     * </pre>
-     */
-    public oracle.v1.Tx.MsgAddReporterResponse addReporter(oracle.v1.Tx.MsgAddReporter request) {
-      return blockingUnaryCall(
-          getChannel(), getAddReporterMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * RemoveReporter defines a method for removing an reporter from a validator
-     * </pre>
-     */
-    public oracle.v1.Tx.MsgRemoveReporterResponse removeReporter(oracle.v1.Tx.MsgRemoveReporter request) {
-      return blockingUnaryCall(
-          getChannel(), getRemoveReporterMethod(), getCallOptions(), request);
     }
   }
 
@@ -837,28 +699,6 @@ public final class MsgGrpc {
       return futureUnaryCall(
           getChannel().newCall(getActivateMethod(), getCallOptions()), request);
     }
-
-    /**
-     * <pre>
-     * AddReporter defines a method for adding a new reporter for a validator.
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<oracle.v1.Tx.MsgAddReporterResponse> addReporter(
-        oracle.v1.Tx.MsgAddReporter request) {
-      return futureUnaryCall(
-          getChannel().newCall(getAddReporterMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
-     * RemoveReporter defines a method for removing an reporter from a validator
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<oracle.v1.Tx.MsgRemoveReporterResponse> removeReporter(
-        oracle.v1.Tx.MsgRemoveReporter request) {
-      return futureUnaryCall(
-          getChannel().newCall(getRemoveReporterMethod(), getCallOptions()), request);
-    }
   }
 
   private static final int METHODID_REQUEST_DATA = 0;
@@ -868,8 +708,6 @@ public final class MsgGrpc {
   private static final int METHODID_CREATE_ORACLE_SCRIPT = 4;
   private static final int METHODID_EDIT_ORACLE_SCRIPT = 5;
   private static final int METHODID_ACTIVATE = 6;
-  private static final int METHODID_ADD_REPORTER = 7;
-  private static final int METHODID_REMOVE_REPORTER = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -915,14 +753,6 @@ public final class MsgGrpc {
         case METHODID_ACTIVATE:
           serviceImpl.activate((oracle.v1.Tx.MsgActivate) request,
               (io.grpc.stub.StreamObserver<oracle.v1.Tx.MsgActivateResponse>) responseObserver);
-          break;
-        case METHODID_ADD_REPORTER:
-          serviceImpl.addReporter((oracle.v1.Tx.MsgAddReporter) request,
-              (io.grpc.stub.StreamObserver<oracle.v1.Tx.MsgAddReporterResponse>) responseObserver);
-          break;
-        case METHODID_REMOVE_REPORTER:
-          serviceImpl.removeReporter((oracle.v1.Tx.MsgRemoveReporter) request,
-              (io.grpc.stub.StreamObserver<oracle.v1.Tx.MsgRemoveReporterResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -992,8 +822,6 @@ public final class MsgGrpc {
               .addMethod(getCreateOracleScriptMethod())
               .addMethod(getEditOracleScriptMethod())
               .addMethod(getActivateMethod())
-              .addMethod(getAddReporterMethod())
-              .addMethod(getRemoveReporterMethod())
               .build();
         }
       }

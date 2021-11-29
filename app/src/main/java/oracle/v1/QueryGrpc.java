@@ -22,7 +22,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.33.1)",
-    comments = "Source: oracle/v1/query.proto")
+    comments = "Source: band_oracle/v1/query.proto")
 public final class QueryGrpc {
 
   private QueryGrpc() {}
@@ -247,6 +247,37 @@ public final class QueryGrpc {
     return getValidatorMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<oracle.v1.QueryOuterClass.QueryIsReporterRequest,
+      oracle.v1.QueryOuterClass.QueryIsReporterResponse> getIsReporterMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "IsReporter",
+      requestType = oracle.v1.QueryOuterClass.QueryIsReporterRequest.class,
+      responseType = oracle.v1.QueryOuterClass.QueryIsReporterResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<oracle.v1.QueryOuterClass.QueryIsReporterRequest,
+      oracle.v1.QueryOuterClass.QueryIsReporterResponse> getIsReporterMethod() {
+    io.grpc.MethodDescriptor<oracle.v1.QueryOuterClass.QueryIsReporterRequest, oracle.v1.QueryOuterClass.QueryIsReporterResponse> getIsReporterMethod;
+    if ((getIsReporterMethod = QueryGrpc.getIsReporterMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getIsReporterMethod = QueryGrpc.getIsReporterMethod) == null) {
+          QueryGrpc.getIsReporterMethod = getIsReporterMethod =
+              io.grpc.MethodDescriptor.<oracle.v1.QueryOuterClass.QueryIsReporterRequest, oracle.v1.QueryOuterClass.QueryIsReporterResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "IsReporter"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  oracle.v1.QueryOuterClass.QueryIsReporterRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  oracle.v1.QueryOuterClass.QueryIsReporterResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("IsReporter"))
+              .build();
+        }
+      }
+    }
+    return getIsReporterMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<oracle.v1.QueryOuterClass.QueryReportersRequest,
       oracle.v1.QueryOuterClass.QueryReportersResponse> getReportersMethod;
 
@@ -433,37 +464,6 @@ public final class QueryGrpc {
     return getRequestVerificationMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<oracle.v1.QueryOuterClass.QueryRequestPoolRequest,
-      oracle.v1.QueryOuterClass.QueryRequestPoolResponse> getRequestPoolMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "RequestPool",
-      requestType = oracle.v1.QueryOuterClass.QueryRequestPoolRequest.class,
-      responseType = oracle.v1.QueryOuterClass.QueryRequestPoolResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<oracle.v1.QueryOuterClass.QueryRequestPoolRequest,
-      oracle.v1.QueryOuterClass.QueryRequestPoolResponse> getRequestPoolMethod() {
-    io.grpc.MethodDescriptor<oracle.v1.QueryOuterClass.QueryRequestPoolRequest, oracle.v1.QueryOuterClass.QueryRequestPoolResponse> getRequestPoolMethod;
-    if ((getRequestPoolMethod = QueryGrpc.getRequestPoolMethod) == null) {
-      synchronized (QueryGrpc.class) {
-        if ((getRequestPoolMethod = QueryGrpc.getRequestPoolMethod) == null) {
-          QueryGrpc.getRequestPoolMethod = getRequestPoolMethod =
-              io.grpc.MethodDescriptor.<oracle.v1.QueryOuterClass.QueryRequestPoolRequest, oracle.v1.QueryOuterClass.QueryRequestPoolResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RequestPool"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  oracle.v1.QueryOuterClass.QueryRequestPoolRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  oracle.v1.QueryOuterClass.QueryRequestPoolResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("RequestPool"))
-              .build();
-        }
-      }
-    }
-    return getRequestPoolMethod;
-  }
-
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -590,6 +590,16 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * IsReporter queries grant of account on this validator.
+     * </pre>
+     */
+    public void isReporter(oracle.v1.QueryOuterClass.QueryIsReporterRequest request,
+        io.grpc.stub.StreamObserver<oracle.v1.QueryOuterClass.QueryIsReporterResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getIsReporterMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Reporters queries all reporters associated with given validator address.
      * </pre>
      */
@@ -650,17 +660,6 @@ public final class QueryGrpc {
       asyncUnimplementedUnaryCall(getRequestVerificationMethod(), responseObserver);
     }
 
-    /**
-     * <pre>
-     * RequestPool queries the request pool information corresponding to the given
-     * port, channel, and request key.
-     * </pre>
-     */
-    public void requestPool(oracle.v1.QueryOuterClass.QueryRequestPoolRequest request,
-        io.grpc.stub.StreamObserver<oracle.v1.QueryOuterClass.QueryRequestPoolResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getRequestPoolMethod(), responseObserver);
-    }
-
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -713,6 +712,13 @@ public final class QueryGrpc {
                 oracle.v1.QueryOuterClass.QueryValidatorResponse>(
                   this, METHODID_VALIDATOR)))
           .addMethod(
+            getIsReporterMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                oracle.v1.QueryOuterClass.QueryIsReporterRequest,
+                oracle.v1.QueryOuterClass.QueryIsReporterResponse>(
+                  this, METHODID_IS_REPORTER)))
+          .addMethod(
             getReportersMethod(),
             asyncUnaryCall(
               new MethodHandlers<
@@ -754,13 +760,6 @@ public final class QueryGrpc {
                 oracle.v1.QueryOuterClass.QueryRequestVerificationRequest,
                 oracle.v1.QueryOuterClass.QueryRequestVerificationResponse>(
                   this, METHODID_REQUEST_VERIFICATION)))
-          .addMethod(
-            getRequestPoolMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                oracle.v1.QueryOuterClass.QueryRequestPoolRequest,
-                oracle.v1.QueryOuterClass.QueryRequestPoolResponse>(
-                  this, METHODID_REQUEST_POOL)))
           .build();
     }
   }
@@ -864,6 +863,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * IsReporter queries grant of account on this validator.
+     * </pre>
+     */
+    public void isReporter(oracle.v1.QueryOuterClass.QueryIsReporterRequest request,
+        io.grpc.stub.StreamObserver<oracle.v1.QueryOuterClass.QueryIsReporterResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getIsReporterMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * Reporters queries all reporters associated with given validator address.
      * </pre>
      */
@@ -928,18 +938,6 @@ public final class QueryGrpc {
         io.grpc.stub.StreamObserver<oracle.v1.QueryOuterClass.QueryRequestVerificationResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getRequestVerificationMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * RequestPool queries the request pool information corresponding to the given
-     * port, channel, and request key.
-     * </pre>
-     */
-    public void requestPool(oracle.v1.QueryOuterClass.QueryRequestPoolRequest request,
-        io.grpc.stub.StreamObserver<oracle.v1.QueryOuterClass.QueryRequestPoolResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getRequestPoolMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -1035,6 +1033,16 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * IsReporter queries grant of account on this validator.
+     * </pre>
+     */
+    public oracle.v1.QueryOuterClass.QueryIsReporterResponse isReporter(oracle.v1.QueryOuterClass.QueryIsReporterRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getIsReporterMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * Reporters queries all reporters associated with given validator address.
      * </pre>
      */
@@ -1093,17 +1101,6 @@ public final class QueryGrpc {
     public oracle.v1.QueryOuterClass.QueryRequestVerificationResponse requestVerification(oracle.v1.QueryOuterClass.QueryRequestVerificationRequest request) {
       return blockingUnaryCall(
           getChannel(), getRequestVerificationMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * RequestPool queries the request pool information corresponding to the given
-     * port, channel, and request key.
-     * </pre>
-     */
-    public oracle.v1.QueryOuterClass.QueryRequestPoolResponse requestPool(oracle.v1.QueryOuterClass.QueryRequestPoolRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getRequestPoolMethod(), getCallOptions(), request);
     }
   }
 
@@ -1206,6 +1203,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * IsReporter queries grant of account on this validator.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<oracle.v1.QueryOuterClass.QueryIsReporterResponse> isReporter(
+        oracle.v1.QueryOuterClass.QueryIsReporterRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getIsReporterMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Reporters queries all reporters associated with given validator address.
      * </pre>
      */
@@ -1271,18 +1279,6 @@ public final class QueryGrpc {
       return futureUnaryCall(
           getChannel().newCall(getRequestVerificationMethod(), getCallOptions()), request);
     }
-
-    /**
-     * <pre>
-     * RequestPool queries the request pool information corresponding to the given
-     * port, channel, and request key.
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<oracle.v1.QueryOuterClass.QueryRequestPoolResponse> requestPool(
-        oracle.v1.QueryOuterClass.QueryRequestPoolRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getRequestPoolMethod(), getCallOptions()), request);
-    }
   }
 
   private static final int METHODID_COUNTS = 0;
@@ -1292,13 +1288,13 @@ public final class QueryGrpc {
   private static final int METHODID_REQUEST = 4;
   private static final int METHODID_PENDING_REQUESTS = 5;
   private static final int METHODID_VALIDATOR = 6;
-  private static final int METHODID_REPORTERS = 7;
-  private static final int METHODID_ACTIVE_VALIDATORS = 8;
-  private static final int METHODID_PARAMS = 9;
-  private static final int METHODID_REQUEST_SEARCH = 10;
-  private static final int METHODID_REQUEST_PRICE = 11;
-  private static final int METHODID_REQUEST_VERIFICATION = 12;
-  private static final int METHODID_REQUEST_POOL = 13;
+  private static final int METHODID_IS_REPORTER = 7;
+  private static final int METHODID_REPORTERS = 8;
+  private static final int METHODID_ACTIVE_VALIDATORS = 9;
+  private static final int METHODID_PARAMS = 10;
+  private static final int METHODID_REQUEST_SEARCH = 11;
+  private static final int METHODID_REQUEST_PRICE = 12;
+  private static final int METHODID_REQUEST_VERIFICATION = 13;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1345,6 +1341,10 @@ public final class QueryGrpc {
           serviceImpl.validator((oracle.v1.QueryOuterClass.QueryValidatorRequest) request,
               (io.grpc.stub.StreamObserver<oracle.v1.QueryOuterClass.QueryValidatorResponse>) responseObserver);
           break;
+        case METHODID_IS_REPORTER:
+          serviceImpl.isReporter((oracle.v1.QueryOuterClass.QueryIsReporterRequest) request,
+              (io.grpc.stub.StreamObserver<oracle.v1.QueryOuterClass.QueryIsReporterResponse>) responseObserver);
+          break;
         case METHODID_REPORTERS:
           serviceImpl.reporters((oracle.v1.QueryOuterClass.QueryReportersRequest) request,
               (io.grpc.stub.StreamObserver<oracle.v1.QueryOuterClass.QueryReportersResponse>) responseObserver);
@@ -1368,10 +1368,6 @@ public final class QueryGrpc {
         case METHODID_REQUEST_VERIFICATION:
           serviceImpl.requestVerification((oracle.v1.QueryOuterClass.QueryRequestVerificationRequest) request,
               (io.grpc.stub.StreamObserver<oracle.v1.QueryOuterClass.QueryRequestVerificationResponse>) responseObserver);
-          break;
-        case METHODID_REQUEST_POOL:
-          serviceImpl.requestPool((oracle.v1.QueryOuterClass.QueryRequestPoolRequest) request,
-              (io.grpc.stub.StreamObserver<oracle.v1.QueryOuterClass.QueryRequestPoolResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1441,13 +1437,13 @@ public final class QueryGrpc {
               .addMethod(getRequestMethod())
               .addMethod(getPendingRequestsMethod())
               .addMethod(getValidatorMethod())
+              .addMethod(getIsReporterMethod())
               .addMethod(getReportersMethod())
               .addMethod(getActiveValidatorsMethod())
               .addMethod(getParamsMethod())
               .addMethod(getRequestSearchMethod())
               .addMethod(getRequestPriceMethod())
               .addMethod(getRequestVerificationMethod())
-              .addMethod(getRequestPoolMethod())
               .build();
         }
       }

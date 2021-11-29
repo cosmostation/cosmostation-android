@@ -19,38 +19,82 @@ public final class Genesis {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
+     * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the params field is set.
      */
-    int getPendingHtlcsCount();
+    boolean hasParams();
     /**
-     * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
+     * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
+     * @return The params.
      */
-    boolean containsPendingHtlcs(
-        java.lang.String key);
+    irismod.htlc.Htlc.Params getParams();
     /**
-     * Use {@link #getPendingHtlcsMap()} instead.
+     * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
-    @java.lang.Deprecated
-    java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC>
-    getPendingHtlcs();
-    /**
-     * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC>
-    getPendingHtlcsMap();
-    /**
-     * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
-     */
+    irismod.htlc.Htlc.ParamsOrBuilder getParamsOrBuilder();
 
-    irismod.htlc.Htlc.HTLC getPendingHtlcsOrDefault(
-        java.lang.String key,
-        irismod.htlc.Htlc.HTLC defaultValue);
     /**
-     * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
+     * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
      */
+    java.util.List<irismod.htlc.Htlc.HTLC> 
+        getHtlcsList();
+    /**
+     * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    irismod.htlc.Htlc.HTLC getHtlcs(int index);
+    /**
+     * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    int getHtlcsCount();
+    /**
+     * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<? extends irismod.htlc.Htlc.HTLCOrBuilder> 
+        getHtlcsOrBuilderList();
+    /**
+     * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    irismod.htlc.Htlc.HTLCOrBuilder getHtlcsOrBuilder(
+        int index);
 
-    irismod.htlc.Htlc.HTLC getPendingHtlcsOrThrow(
-        java.lang.String key);
+    /**
+     * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<irismod.htlc.Htlc.AssetSupply> 
+        getSuppliesList();
+    /**
+     * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    irismod.htlc.Htlc.AssetSupply getSupplies(int index);
+    /**
+     * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    int getSuppliesCount();
+    /**
+     * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<? extends irismod.htlc.Htlc.AssetSupplyOrBuilder> 
+        getSuppliesOrBuilderList();
+    /**
+     * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    irismod.htlc.Htlc.AssetSupplyOrBuilder getSuppliesOrBuilder(
+        int index);
+
+    /**
+     * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+     * @return Whether the previousBlockTime field is set.
+     */
+    boolean hasPreviousBlockTime();
+    /**
+     * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+     * @return The previousBlockTime.
+     */
+    com.google.protobuf.Timestamp getPreviousBlockTime();
+    /**
+     * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getPreviousBlockTimeOrBuilder();
   }
   /**
    * <pre>
@@ -69,6 +113,8 @@ public final class Genesis {
       super(builder);
     }
     private GenesisState() {
+      htlcs_ = java.util.Collections.emptyList();
+      supplies_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -103,16 +149,47 @@ public final class Genesis {
               done = true;
               break;
             case 10: {
+              irismod.htlc.Htlc.Params.Builder subBuilder = null;
+              if (params_ != null) {
+                subBuilder = params_.toBuilder();
+              }
+              params_ = input.readMessage(irismod.htlc.Htlc.Params.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(params_);
+                params_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 18: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                pendingHtlcs_ = com.google.protobuf.MapField.newMapField(
-                    PendingHtlcsDefaultEntryHolder.defaultEntry);
+                htlcs_ = new java.util.ArrayList<irismod.htlc.Htlc.HTLC>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              com.google.protobuf.MapEntry<java.lang.String, irismod.htlc.Htlc.HTLC>
-              pendingHtlcs__ = input.readMessage(
-                  PendingHtlcsDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
-              pendingHtlcs_.getMutableMap().put(
-                  pendingHtlcs__.getKey(), pendingHtlcs__.getValue());
+              htlcs_.add(
+                  input.readMessage(irismod.htlc.Htlc.HTLC.parser(), extensionRegistry));
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                supplies_ = new java.util.ArrayList<irismod.htlc.Htlc.AssetSupply>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              supplies_.add(
+                  input.readMessage(irismod.htlc.Htlc.AssetSupply.parser(), extensionRegistry));
+              break;
+            }
+            case 34: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (previousBlockTime_ != null) {
+                subBuilder = previousBlockTime_.toBuilder();
+              }
+              previousBlockTime_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(previousBlockTime_);
+                previousBlockTime_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -130,6 +207,12 @@ public final class Genesis {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          htlcs_ = java.util.Collections.unmodifiableList(htlcs_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          supplies_ = java.util.Collections.unmodifiableList(supplies_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -139,18 +222,6 @@ public final class Genesis {
       return irismod.htlc.Genesis.internal_static_irismod_htlc_GenesisState_descriptor;
     }
 
-    @SuppressWarnings({"rawtypes"})
-    @java.lang.Override
-    protected com.google.protobuf.MapField internalGetMapField(
-        int number) {
-      switch (number) {
-        case 1:
-          return internalGetPendingHtlcs();
-        default:
-          throw new RuntimeException(
-              "Invalid map field number: " + number);
-      }
-    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
@@ -159,85 +230,136 @@ public final class Genesis {
               irismod.htlc.Genesis.GenesisState.class, irismod.htlc.Genesis.GenesisState.Builder.class);
     }
 
-    public static final int PENDING_HTLCS_FIELD_NUMBER = 1;
-    private static final class PendingHtlcsDefaultEntryHolder {
-      static final com.google.protobuf.MapEntry<
-          java.lang.String, irismod.htlc.Htlc.HTLC> defaultEntry =
-              com.google.protobuf.MapEntry
-              .<java.lang.String, irismod.htlc.Htlc.HTLC>newDefaultInstance(
-                  irismod.htlc.Genesis.internal_static_irismod_htlc_GenesisState_PendingHtlcsEntry_descriptor, 
-                  com.google.protobuf.WireFormat.FieldType.STRING,
-                  "",
-                  com.google.protobuf.WireFormat.FieldType.MESSAGE,
-                  irismod.htlc.Htlc.HTLC.getDefaultInstance());
-    }
-    private com.google.protobuf.MapField<
-        java.lang.String, irismod.htlc.Htlc.HTLC> pendingHtlcs_;
-    private com.google.protobuf.MapField<java.lang.String, irismod.htlc.Htlc.HTLC>
-    internalGetPendingHtlcs() {
-      if (pendingHtlcs_ == null) {
-        return com.google.protobuf.MapField.emptyMapField(
-            PendingHtlcsDefaultEntryHolder.defaultEntry);
-      }
-      return pendingHtlcs_;
-    }
-
-    public int getPendingHtlcsCount() {
-      return internalGetPendingHtlcs().getMap().size();
-    }
+    public static final int PARAMS_FIELD_NUMBER = 1;
+    private irismod.htlc.Htlc.Params params_;
     /**
-     * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-
-    @java.lang.Override
-    public boolean containsPendingHtlcs(
-        java.lang.String key) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      return internalGetPendingHtlcs().getMap().containsKey(key);
-    }
-    /**
-     * Use {@link #getPendingHtlcsMap()} instead.
+     * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the params field is set.
      */
     @java.lang.Override
-    @java.lang.Deprecated
-    public java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> getPendingHtlcs() {
-      return getPendingHtlcsMap();
+    public boolean hasParams() {
+      return params_ != null;
     }
     /**
-     * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
+     * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
+     * @return The params.
      */
     @java.lang.Override
-
-    public java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> getPendingHtlcsMap() {
-      return internalGetPendingHtlcs().getMap();
+    public irismod.htlc.Htlc.Params getParams() {
+      return params_ == null ? irismod.htlc.Htlc.Params.getDefaultInstance() : params_;
     }
     /**
-     * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
+     * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
+    public irismod.htlc.Htlc.ParamsOrBuilder getParamsOrBuilder() {
+      return getParams();
+    }
 
-    public irismod.htlc.Htlc.HTLC getPendingHtlcsOrDefault(
-        java.lang.String key,
-        irismod.htlc.Htlc.HTLC defaultValue) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> map =
-          internalGetPendingHtlcs().getMap();
-      return map.containsKey(key) ? map.get(key) : defaultValue;
+    public static final int HTLCS_FIELD_NUMBER = 2;
+    private java.util.List<irismod.htlc.Htlc.HTLC> htlcs_;
+    /**
+     * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<irismod.htlc.Htlc.HTLC> getHtlcsList() {
+      return htlcs_;
     }
     /**
-     * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
+     * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
+    public java.util.List<? extends irismod.htlc.Htlc.HTLCOrBuilder> 
+        getHtlcsOrBuilderList() {
+      return htlcs_;
+    }
+    /**
+     * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public int getHtlcsCount() {
+      return htlcs_.size();
+    }
+    /**
+     * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public irismod.htlc.Htlc.HTLC getHtlcs(int index) {
+      return htlcs_.get(index);
+    }
+    /**
+     * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public irismod.htlc.Htlc.HTLCOrBuilder getHtlcsOrBuilder(
+        int index) {
+      return htlcs_.get(index);
+    }
 
-    public irismod.htlc.Htlc.HTLC getPendingHtlcsOrThrow(
-        java.lang.String key) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> map =
-          internalGetPendingHtlcs().getMap();
-      if (!map.containsKey(key)) {
-        throw new java.lang.IllegalArgumentException();
-      }
-      return map.get(key);
+    public static final int SUPPLIES_FIELD_NUMBER = 3;
+    private java.util.List<irismod.htlc.Htlc.AssetSupply> supplies_;
+    /**
+     * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<irismod.htlc.Htlc.AssetSupply> getSuppliesList() {
+      return supplies_;
+    }
+    /**
+     * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends irismod.htlc.Htlc.AssetSupplyOrBuilder> 
+        getSuppliesOrBuilderList() {
+      return supplies_;
+    }
+    /**
+     * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public int getSuppliesCount() {
+      return supplies_.size();
+    }
+    /**
+     * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public irismod.htlc.Htlc.AssetSupply getSupplies(int index) {
+      return supplies_.get(index);
+    }
+    /**
+     * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public irismod.htlc.Htlc.AssetSupplyOrBuilder getSuppliesOrBuilder(
+        int index) {
+      return supplies_.get(index);
+    }
+
+    public static final int PREVIOUS_BLOCK_TIME_FIELD_NUMBER = 4;
+    private com.google.protobuf.Timestamp previousBlockTime_;
+    /**
+     * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+     * @return Whether the previousBlockTime field is set.
+     */
+    @java.lang.Override
+    public boolean hasPreviousBlockTime() {
+      return previousBlockTime_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+     * @return The previousBlockTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getPreviousBlockTime() {
+      return previousBlockTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : previousBlockTime_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getPreviousBlockTimeOrBuilder() {
+      return getPreviousBlockTime();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -254,12 +376,18 @@ public final class Genesis {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      com.google.protobuf.GeneratedMessageV3
-        .serializeStringMapTo(
-          output,
-          internalGetPendingHtlcs(),
-          PendingHtlcsDefaultEntryHolder.defaultEntry,
-          1);
+      if (params_ != null) {
+        output.writeMessage(1, getParams());
+      }
+      for (int i = 0; i < htlcs_.size(); i++) {
+        output.writeMessage(2, htlcs_.get(i));
+      }
+      for (int i = 0; i < supplies_.size(); i++) {
+        output.writeMessage(3, supplies_.get(i));
+      }
+      if (previousBlockTime_ != null) {
+        output.writeMessage(4, getPreviousBlockTime());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -269,15 +397,21 @@ public final class Genesis {
       if (size != -1) return size;
 
       size = 0;
-      for (java.util.Map.Entry<java.lang.String, irismod.htlc.Htlc.HTLC> entry
-           : internalGetPendingHtlcs().getMap().entrySet()) {
-        com.google.protobuf.MapEntry<java.lang.String, irismod.htlc.Htlc.HTLC>
-        pendingHtlcs__ = PendingHtlcsDefaultEntryHolder.defaultEntry.newBuilderForType()
-            .setKey(entry.getKey())
-            .setValue(entry.getValue())
-            .build();
+      if (params_ != null) {
         size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(1, pendingHtlcs__);
+          .computeMessageSize(1, getParams());
+      }
+      for (int i = 0; i < htlcs_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, htlcs_.get(i));
+      }
+      for (int i = 0; i < supplies_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, supplies_.get(i));
+      }
+      if (previousBlockTime_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getPreviousBlockTime());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -294,8 +428,20 @@ public final class Genesis {
       }
       irismod.htlc.Genesis.GenesisState other = (irismod.htlc.Genesis.GenesisState) obj;
 
-      if (!internalGetPendingHtlcs().equals(
-          other.internalGetPendingHtlcs())) return false;
+      if (hasParams() != other.hasParams()) return false;
+      if (hasParams()) {
+        if (!getParams()
+            .equals(other.getParams())) return false;
+      }
+      if (!getHtlcsList()
+          .equals(other.getHtlcsList())) return false;
+      if (!getSuppliesList()
+          .equals(other.getSuppliesList())) return false;
+      if (hasPreviousBlockTime() != other.hasPreviousBlockTime()) return false;
+      if (hasPreviousBlockTime()) {
+        if (!getPreviousBlockTime()
+            .equals(other.getPreviousBlockTime())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -307,9 +453,21 @@ public final class Genesis {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (!internalGetPendingHtlcs().getMap().isEmpty()) {
-        hash = (37 * hash) + PENDING_HTLCS_FIELD_NUMBER;
-        hash = (53 * hash) + internalGetPendingHtlcs().hashCode();
+      if (hasParams()) {
+        hash = (37 * hash) + PARAMS_FIELD_NUMBER;
+        hash = (53 * hash) + getParams().hashCode();
+      }
+      if (getHtlcsCount() > 0) {
+        hash = (37 * hash) + HTLCS_FIELD_NUMBER;
+        hash = (53 * hash) + getHtlcsList().hashCode();
+      }
+      if (getSuppliesCount() > 0) {
+        hash = (37 * hash) + SUPPLIES_FIELD_NUMBER;
+        hash = (53 * hash) + getSuppliesList().hashCode();
+      }
+      if (hasPreviousBlockTime()) {
+        hash = (37 * hash) + PREVIOUS_BLOCK_TIME_FIELD_NUMBER;
+        hash = (53 * hash) + getPreviousBlockTime().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -422,28 +580,6 @@ public final class Genesis {
         return irismod.htlc.Genesis.internal_static_irismod_htlc_GenesisState_descriptor;
       }
 
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMapField(
-          int number) {
-        switch (number) {
-          case 1:
-            return internalGetPendingHtlcs();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMutableMapField(
-          int number) {
-        switch (number) {
-          case 1:
-            return internalGetMutablePendingHtlcs();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
@@ -465,12 +601,37 @@ public final class Genesis {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getHtlcsFieldBuilder();
+          getSuppliesFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        internalGetMutablePendingHtlcs().clear();
+        if (paramsBuilder_ == null) {
+          params_ = null;
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
+        if (htlcsBuilder_ == null) {
+          htlcs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          htlcsBuilder_.clear();
+        }
+        if (suppliesBuilder_ == null) {
+          supplies_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          suppliesBuilder_.clear();
+        }
+        if (previousBlockTimeBuilder_ == null) {
+          previousBlockTime_ = null;
+        } else {
+          previousBlockTime_ = null;
+          previousBlockTimeBuilder_ = null;
+        }
         return this;
       }
 
@@ -498,8 +659,34 @@ public final class Genesis {
       public irismod.htlc.Genesis.GenesisState buildPartial() {
         irismod.htlc.Genesis.GenesisState result = new irismod.htlc.Genesis.GenesisState(this);
         int from_bitField0_ = bitField0_;
-        result.pendingHtlcs_ = internalGetPendingHtlcs();
-        result.pendingHtlcs_.makeImmutable();
+        if (paramsBuilder_ == null) {
+          result.params_ = params_;
+        } else {
+          result.params_ = paramsBuilder_.build();
+        }
+        if (htlcsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            htlcs_ = java.util.Collections.unmodifiableList(htlcs_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.htlcs_ = htlcs_;
+        } else {
+          result.htlcs_ = htlcsBuilder_.build();
+        }
+        if (suppliesBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            supplies_ = java.util.Collections.unmodifiableList(supplies_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.supplies_ = supplies_;
+        } else {
+          result.supplies_ = suppliesBuilder_.build();
+        }
+        if (previousBlockTimeBuilder_ == null) {
+          result.previousBlockTime_ = previousBlockTime_;
+        } else {
+          result.previousBlockTime_ = previousBlockTimeBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -548,8 +735,64 @@ public final class Genesis {
 
       public Builder mergeFrom(irismod.htlc.Genesis.GenesisState other) {
         if (other == irismod.htlc.Genesis.GenesisState.getDefaultInstance()) return this;
-        internalGetMutablePendingHtlcs().mergeFrom(
-            other.internalGetPendingHtlcs());
+        if (other.hasParams()) {
+          mergeParams(other.getParams());
+        }
+        if (htlcsBuilder_ == null) {
+          if (!other.htlcs_.isEmpty()) {
+            if (htlcs_.isEmpty()) {
+              htlcs_ = other.htlcs_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureHtlcsIsMutable();
+              htlcs_.addAll(other.htlcs_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.htlcs_.isEmpty()) {
+            if (htlcsBuilder_.isEmpty()) {
+              htlcsBuilder_.dispose();
+              htlcsBuilder_ = null;
+              htlcs_ = other.htlcs_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              htlcsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getHtlcsFieldBuilder() : null;
+            } else {
+              htlcsBuilder_.addAllMessages(other.htlcs_);
+            }
+          }
+        }
+        if (suppliesBuilder_ == null) {
+          if (!other.supplies_.isEmpty()) {
+            if (supplies_.isEmpty()) {
+              supplies_ = other.supplies_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureSuppliesIsMutable();
+              supplies_.addAll(other.supplies_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.supplies_.isEmpty()) {
+            if (suppliesBuilder_.isEmpty()) {
+              suppliesBuilder_.dispose();
+              suppliesBuilder_ = null;
+              supplies_ = other.supplies_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              suppliesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSuppliesFieldBuilder() : null;
+            } else {
+              suppliesBuilder_.addAllMessages(other.supplies_);
+            }
+          }
+        }
+        if (other.hasPreviousBlockTime()) {
+          mergePreviousBlockTime(other.getPreviousBlockTime());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -580,132 +823,722 @@ public final class Genesis {
       }
       private int bitField0_;
 
-      private com.google.protobuf.MapField<
-          java.lang.String, irismod.htlc.Htlc.HTLC> pendingHtlcs_;
-      private com.google.protobuf.MapField<java.lang.String, irismod.htlc.Htlc.HTLC>
-      internalGetPendingHtlcs() {
-        if (pendingHtlcs_ == null) {
-          return com.google.protobuf.MapField.emptyMapField(
-              PendingHtlcsDefaultEntryHolder.defaultEntry);
+      private irismod.htlc.Htlc.Params params_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          irismod.htlc.Htlc.Params, irismod.htlc.Htlc.Params.Builder, irismod.htlc.Htlc.ParamsOrBuilder> paramsBuilder_;
+      /**
+       * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
+       * @return Whether the params field is set.
+       */
+      public boolean hasParams() {
+        return paramsBuilder_ != null || params_ != null;
+      }
+      /**
+       * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
+       * @return The params.
+       */
+      public irismod.htlc.Htlc.Params getParams() {
+        if (paramsBuilder_ == null) {
+          return params_ == null ? irismod.htlc.Htlc.Params.getDefaultInstance() : params_;
+        } else {
+          return paramsBuilder_.getMessage();
         }
-        return pendingHtlcs_;
       }
-      private com.google.protobuf.MapField<java.lang.String, irismod.htlc.Htlc.HTLC>
-      internalGetMutablePendingHtlcs() {
-        onChanged();;
-        if (pendingHtlcs_ == null) {
-          pendingHtlcs_ = com.google.protobuf.MapField.newMapField(
-              PendingHtlcsDefaultEntryHolder.defaultEntry);
+      /**
+       * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setParams(irismod.htlc.Htlc.Params value) {
+        if (paramsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          params_ = value;
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(value);
         }
-        if (!pendingHtlcs_.isMutable()) {
-          pendingHtlcs_ = pendingHtlcs_.copy();
-        }
-        return pendingHtlcs_;
-      }
 
-      public int getPendingHtlcsCount() {
-        return internalGetPendingHtlcs().getMap().size();
-      }
-      /**
-       * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-
-      @java.lang.Override
-      public boolean containsPendingHtlcs(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        return internalGetPendingHtlcs().getMap().containsKey(key);
-      }
-      /**
-       * Use {@link #getPendingHtlcsMap()} instead.
-       */
-      @java.lang.Override
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> getPendingHtlcs() {
-        return getPendingHtlcsMap();
-      }
-      /**
-       * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      @java.lang.Override
-
-      public java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> getPendingHtlcsMap() {
-        return internalGetPendingHtlcs().getMap();
-      }
-      /**
-       * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      @java.lang.Override
-
-      public irismod.htlc.Htlc.HTLC getPendingHtlcsOrDefault(
-          java.lang.String key,
-          irismod.htlc.Htlc.HTLC defaultValue) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> map =
-            internalGetPendingHtlcs().getMap();
-        return map.containsKey(key) ? map.get(key) : defaultValue;
-      }
-      /**
-       * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      @java.lang.Override
-
-      public irismod.htlc.Htlc.HTLC getPendingHtlcsOrThrow(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> map =
-            internalGetPendingHtlcs().getMap();
-        if (!map.containsKey(key)) {
-          throw new java.lang.IllegalArgumentException();
-        }
-        return map.get(key);
-      }
-
-      public Builder clearPendingHtlcs() {
-        internalGetMutablePendingHtlcs().getMutableMap()
-            .clear();
         return this;
       }
       /**
-       * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
+       * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
        */
+      public Builder setParams(
+          irismod.htlc.Htlc.Params.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
+          params_ = builderForValue.build();
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(builderForValue.build());
+        }
 
-      public Builder removePendingHtlcs(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        internalGetMutablePendingHtlcs().getMutableMap()
-            .remove(key);
         return this;
       }
       /**
-       * Use alternate mutation accessors instead.
+       * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
        */
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC>
-      getMutablePendingHtlcs() {
-        return internalGetMutablePendingHtlcs().getMutableMap();
-      }
-      /**
-       * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder putPendingHtlcs(
-          java.lang.String key,
-          irismod.htlc.Htlc.HTLC value) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        if (value == null) { throw new java.lang.NullPointerException(); }
-        internalGetMutablePendingHtlcs().getMutableMap()
-            .put(key, value);
-        return this;
-      }
-      /**
-       * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
-       */
+      public Builder mergeParams(irismod.htlc.Htlc.Params value) {
+        if (paramsBuilder_ == null) {
+          if (params_ != null) {
+            params_ =
+              irismod.htlc.Htlc.Params.newBuilder(params_).mergeFrom(value).buildPartial();
+          } else {
+            params_ = value;
+          }
+          onChanged();
+        } else {
+          paramsBuilder_.mergeFrom(value);
+        }
 
-      public Builder putAllPendingHtlcs(
-          java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> values) {
-        internalGetMutablePendingHtlcs().getMutableMap()
-            .putAll(values);
         return this;
+      }
+      /**
+       * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearParams() {
+        if (paramsBuilder_ == null) {
+          params_ = null;
+          onChanged();
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.Params.Builder getParamsBuilder() {
+        
+        onChanged();
+        return getParamsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.ParamsOrBuilder getParamsOrBuilder() {
+        if (paramsBuilder_ != null) {
+          return paramsBuilder_.getMessageOrBuilder();
+        } else {
+          return params_ == null ?
+              irismod.htlc.Htlc.Params.getDefaultInstance() : params_;
+        }
+      }
+      /**
+       * <code>.irismod.htlc.Params params = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          irismod.htlc.Htlc.Params, irismod.htlc.Htlc.Params.Builder, irismod.htlc.Htlc.ParamsOrBuilder> 
+          getParamsFieldBuilder() {
+        if (paramsBuilder_ == null) {
+          paramsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              irismod.htlc.Htlc.Params, irismod.htlc.Htlc.Params.Builder, irismod.htlc.Htlc.ParamsOrBuilder>(
+                  getParams(),
+                  getParentForChildren(),
+                  isClean());
+          params_ = null;
+        }
+        return paramsBuilder_;
+      }
+
+      private java.util.List<irismod.htlc.Htlc.HTLC> htlcs_ =
+        java.util.Collections.emptyList();
+      private void ensureHtlcsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          htlcs_ = new java.util.ArrayList<irismod.htlc.Htlc.HTLC>(htlcs_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          irismod.htlc.Htlc.HTLC, irismod.htlc.Htlc.HTLC.Builder, irismod.htlc.Htlc.HTLCOrBuilder> htlcsBuilder_;
+
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<irismod.htlc.Htlc.HTLC> getHtlcsList() {
+        if (htlcsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(htlcs_);
+        } else {
+          return htlcsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public int getHtlcsCount() {
+        if (htlcsBuilder_ == null) {
+          return htlcs_.size();
+        } else {
+          return htlcsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.HTLC getHtlcs(int index) {
+        if (htlcsBuilder_ == null) {
+          return htlcs_.get(index);
+        } else {
+          return htlcsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setHtlcs(
+          int index, irismod.htlc.Htlc.HTLC value) {
+        if (htlcsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureHtlcsIsMutable();
+          htlcs_.set(index, value);
+          onChanged();
+        } else {
+          htlcsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setHtlcs(
+          int index, irismod.htlc.Htlc.HTLC.Builder builderForValue) {
+        if (htlcsBuilder_ == null) {
+          ensureHtlcsIsMutable();
+          htlcs_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          htlcsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addHtlcs(irismod.htlc.Htlc.HTLC value) {
+        if (htlcsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureHtlcsIsMutable();
+          htlcs_.add(value);
+          onChanged();
+        } else {
+          htlcsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addHtlcs(
+          int index, irismod.htlc.Htlc.HTLC value) {
+        if (htlcsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureHtlcsIsMutable();
+          htlcs_.add(index, value);
+          onChanged();
+        } else {
+          htlcsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addHtlcs(
+          irismod.htlc.Htlc.HTLC.Builder builderForValue) {
+        if (htlcsBuilder_ == null) {
+          ensureHtlcsIsMutable();
+          htlcs_.add(builderForValue.build());
+          onChanged();
+        } else {
+          htlcsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addHtlcs(
+          int index, irismod.htlc.Htlc.HTLC.Builder builderForValue) {
+        if (htlcsBuilder_ == null) {
+          ensureHtlcsIsMutable();
+          htlcs_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          htlcsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addAllHtlcs(
+          java.lang.Iterable<? extends irismod.htlc.Htlc.HTLC> values) {
+        if (htlcsBuilder_ == null) {
+          ensureHtlcsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, htlcs_);
+          onChanged();
+        } else {
+          htlcsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearHtlcs() {
+        if (htlcsBuilder_ == null) {
+          htlcs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          htlcsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder removeHtlcs(int index) {
+        if (htlcsBuilder_ == null) {
+          ensureHtlcsIsMutable();
+          htlcs_.remove(index);
+          onChanged();
+        } else {
+          htlcsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.HTLC.Builder getHtlcsBuilder(
+          int index) {
+        return getHtlcsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.HTLCOrBuilder getHtlcsOrBuilder(
+          int index) {
+        if (htlcsBuilder_ == null) {
+          return htlcs_.get(index);  } else {
+          return htlcsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<? extends irismod.htlc.Htlc.HTLCOrBuilder> 
+           getHtlcsOrBuilderList() {
+        if (htlcsBuilder_ != null) {
+          return htlcsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(htlcs_);
+        }
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.HTLC.Builder addHtlcsBuilder() {
+        return getHtlcsFieldBuilder().addBuilder(
+            irismod.htlc.Htlc.HTLC.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.HTLC.Builder addHtlcsBuilder(
+          int index) {
+        return getHtlcsFieldBuilder().addBuilder(
+            index, irismod.htlc.Htlc.HTLC.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .irismod.htlc.HTLC htlcs = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<irismod.htlc.Htlc.HTLC.Builder> 
+           getHtlcsBuilderList() {
+        return getHtlcsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          irismod.htlc.Htlc.HTLC, irismod.htlc.Htlc.HTLC.Builder, irismod.htlc.Htlc.HTLCOrBuilder> 
+          getHtlcsFieldBuilder() {
+        if (htlcsBuilder_ == null) {
+          htlcsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              irismod.htlc.Htlc.HTLC, irismod.htlc.Htlc.HTLC.Builder, irismod.htlc.Htlc.HTLCOrBuilder>(
+                  htlcs_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          htlcs_ = null;
+        }
+        return htlcsBuilder_;
+      }
+
+      private java.util.List<irismod.htlc.Htlc.AssetSupply> supplies_ =
+        java.util.Collections.emptyList();
+      private void ensureSuppliesIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          supplies_ = new java.util.ArrayList<irismod.htlc.Htlc.AssetSupply>(supplies_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          irismod.htlc.Htlc.AssetSupply, irismod.htlc.Htlc.AssetSupply.Builder, irismod.htlc.Htlc.AssetSupplyOrBuilder> suppliesBuilder_;
+
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<irismod.htlc.Htlc.AssetSupply> getSuppliesList() {
+        if (suppliesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(supplies_);
+        } else {
+          return suppliesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public int getSuppliesCount() {
+        if (suppliesBuilder_ == null) {
+          return supplies_.size();
+        } else {
+          return suppliesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.AssetSupply getSupplies(int index) {
+        if (suppliesBuilder_ == null) {
+          return supplies_.get(index);
+        } else {
+          return suppliesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setSupplies(
+          int index, irismod.htlc.Htlc.AssetSupply value) {
+        if (suppliesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSuppliesIsMutable();
+          supplies_.set(index, value);
+          onChanged();
+        } else {
+          suppliesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setSupplies(
+          int index, irismod.htlc.Htlc.AssetSupply.Builder builderForValue) {
+        if (suppliesBuilder_ == null) {
+          ensureSuppliesIsMutable();
+          supplies_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          suppliesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSupplies(irismod.htlc.Htlc.AssetSupply value) {
+        if (suppliesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSuppliesIsMutable();
+          supplies_.add(value);
+          onChanged();
+        } else {
+          suppliesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSupplies(
+          int index, irismod.htlc.Htlc.AssetSupply value) {
+        if (suppliesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSuppliesIsMutable();
+          supplies_.add(index, value);
+          onChanged();
+        } else {
+          suppliesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSupplies(
+          irismod.htlc.Htlc.AssetSupply.Builder builderForValue) {
+        if (suppliesBuilder_ == null) {
+          ensureSuppliesIsMutable();
+          supplies_.add(builderForValue.build());
+          onChanged();
+        } else {
+          suppliesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSupplies(
+          int index, irismod.htlc.Htlc.AssetSupply.Builder builderForValue) {
+        if (suppliesBuilder_ == null) {
+          ensureSuppliesIsMutable();
+          supplies_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          suppliesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addAllSupplies(
+          java.lang.Iterable<? extends irismod.htlc.Htlc.AssetSupply> values) {
+        if (suppliesBuilder_ == null) {
+          ensureSuppliesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, supplies_);
+          onChanged();
+        } else {
+          suppliesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearSupplies() {
+        if (suppliesBuilder_ == null) {
+          supplies_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          suppliesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder removeSupplies(int index) {
+        if (suppliesBuilder_ == null) {
+          ensureSuppliesIsMutable();
+          supplies_.remove(index);
+          onChanged();
+        } else {
+          suppliesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.AssetSupply.Builder getSuppliesBuilder(
+          int index) {
+        return getSuppliesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.AssetSupplyOrBuilder getSuppliesOrBuilder(
+          int index) {
+        if (suppliesBuilder_ == null) {
+          return supplies_.get(index);  } else {
+          return suppliesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<? extends irismod.htlc.Htlc.AssetSupplyOrBuilder> 
+           getSuppliesOrBuilderList() {
+        if (suppliesBuilder_ != null) {
+          return suppliesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(supplies_);
+        }
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.AssetSupply.Builder addSuppliesBuilder() {
+        return getSuppliesFieldBuilder().addBuilder(
+            irismod.htlc.Htlc.AssetSupply.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.htlc.Htlc.AssetSupply.Builder addSuppliesBuilder(
+          int index) {
+        return getSuppliesFieldBuilder().addBuilder(
+            index, irismod.htlc.Htlc.AssetSupply.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .irismod.htlc.AssetSupply supplies = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<irismod.htlc.Htlc.AssetSupply.Builder> 
+           getSuppliesBuilderList() {
+        return getSuppliesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          irismod.htlc.Htlc.AssetSupply, irismod.htlc.Htlc.AssetSupply.Builder, irismod.htlc.Htlc.AssetSupplyOrBuilder> 
+          getSuppliesFieldBuilder() {
+        if (suppliesBuilder_ == null) {
+          suppliesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              irismod.htlc.Htlc.AssetSupply, irismod.htlc.Htlc.AssetSupply.Builder, irismod.htlc.Htlc.AssetSupplyOrBuilder>(
+                  supplies_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          supplies_ = null;
+        }
+        return suppliesBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp previousBlockTime_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> previousBlockTimeBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+       * @return Whether the previousBlockTime field is set.
+       */
+      public boolean hasPreviousBlockTime() {
+        return previousBlockTimeBuilder_ != null || previousBlockTime_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+       * @return The previousBlockTime.
+       */
+      public com.google.protobuf.Timestamp getPreviousBlockTime() {
+        if (previousBlockTimeBuilder_ == null) {
+          return previousBlockTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : previousBlockTime_;
+        } else {
+          return previousBlockTimeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setPreviousBlockTime(com.google.protobuf.Timestamp value) {
+        if (previousBlockTimeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          previousBlockTime_ = value;
+          onChanged();
+        } else {
+          previousBlockTimeBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setPreviousBlockTime(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (previousBlockTimeBuilder_ == null) {
+          previousBlockTime_ = builderForValue.build();
+          onChanged();
+        } else {
+          previousBlockTimeBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder mergePreviousBlockTime(com.google.protobuf.Timestamp value) {
+        if (previousBlockTimeBuilder_ == null) {
+          if (previousBlockTime_ != null) {
+            previousBlockTime_ =
+              com.google.protobuf.Timestamp.newBuilder(previousBlockTime_).mergeFrom(value).buildPartial();
+          } else {
+            previousBlockTime_ = value;
+          }
+          onChanged();
+        } else {
+          previousBlockTimeBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder clearPreviousBlockTime() {
+        if (previousBlockTimeBuilder_ == null) {
+          previousBlockTime_ = null;
+          onChanged();
+        } else {
+          previousBlockTime_ = null;
+          previousBlockTimeBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getPreviousBlockTimeBuilder() {
+        
+        onChanged();
+        return getPreviousBlockTimeFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getPreviousBlockTimeOrBuilder() {
+        if (previousBlockTimeBuilder_ != null) {
+          return previousBlockTimeBuilder_.getMessageOrBuilder();
+        } else {
+          return previousBlockTime_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : previousBlockTime_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp previous_block_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"previous_block_time&#92;"", (.gogoproto.stdtime) = true];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getPreviousBlockTimeFieldBuilder() {
+        if (previousBlockTimeBuilder_ == null) {
+          previousBlockTimeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getPreviousBlockTime(),
+                  getParentForChildren(),
+                  isClean());
+          previousBlockTime_ = null;
+        }
+        return previousBlockTimeBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -765,11 +1598,6 @@ public final class Genesis {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_irismod_htlc_GenesisState_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_irismod_htlc_GenesisState_PendingHtlcsEntry_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_irismod_htlc_GenesisState_PendingHtlcsEntry_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -780,39 +1608,40 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n\022htlc/genesis.proto\022\014irismod.htlc\032\024gogo" +
-      "proto/gogo.proto\032\017htlc/htlc.proto\"\242\001\n\014Ge" +
-      "nesisState\022I\n\rpending_htlcs\030\001 \003(\0132,.iris" +
-      "mod.htlc.GenesisState.PendingHtlcsEntryB" +
-      "\004\310\336\037\000\032G\n\021PendingHtlcsEntry\022\013\n\003key\030\001 \001(\t\022" +
-      "!\n\005value\030\002 \001(\0132\022.irismod.htlc.HTLC:\0028\001B/" +
-      "Z-github.com/irisnet/irismod/modules/htl" +
-      "c/typesb\006proto3"
+      "proto/gogo.proto\032\017htlc/htlc.proto\032\037googl" +
+      "e/protobuf/timestamp.proto\"\367\001\n\014GenesisSt" +
+      "ate\022*\n\006params\030\001 \001(\0132\024.irismod.htlc.Param" +
+      "sB\004\310\336\037\000\022\'\n\005htlcs\030\002 \003(\0132\022.irismod.htlc.HT" +
+      "LCB\004\310\336\037\000\0221\n\010supplies\030\003 \003(\0132\031.irismod.htl" +
+      "c.AssetSupplyB\004\310\336\037\000\022_\n\023previous_block_ti" +
+      "me\030\004 \001(\0132\032.google.protobuf.TimestampB&\310\336" +
+      "\037\000\220\337\037\001\362\336\037\032yaml:\"previous_block_time\"B/Z-" +
+      "github.com/irisnet/irismod/modules/htlc/" +
+      "typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           irismod.htlc.Htlc.getDescriptor(),
+          com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_irismod_htlc_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_irismod_htlc_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_irismod_htlc_GenesisState_descriptor,
-        new java.lang.String[] { "PendingHtlcs", });
-    internal_static_irismod_htlc_GenesisState_PendingHtlcsEntry_descriptor =
-      internal_static_irismod_htlc_GenesisState_descriptor.getNestedTypes().get(0);
-    internal_static_irismod_htlc_GenesisState_PendingHtlcsEntry_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_irismod_htlc_GenesisState_PendingHtlcsEntry_descriptor,
-        new java.lang.String[] { "Key", "Value", });
+        new java.lang.String[] { "Params", "Htlcs", "Supplies", "PreviousBlockTime", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     irismod.htlc.Htlc.getDescriptor();
+    com.google.protobuf.TimestampProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

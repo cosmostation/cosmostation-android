@@ -170,7 +170,7 @@ public final class Tx {
    * <pre>
    * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
    * ICS20 enabled chains. See ICS Spec here:
-   * https://github.com/cosmos/ics/tree/master/spec/ics-020-fungible-token-transfer#data-structures
+   * https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
    * </pre>
    *
    * Protobuf type {@code ibc.applications.transfer.v1.MsgTransfer}
@@ -819,7 +819,7 @@ public final class Tx {
      * <pre>
      * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
      * ICS20 enabled chains. See ICS Spec here:
-     * https://github.com/cosmos/ics/tree/master/spec/ics-020-fungible-token-transfer#data-structures
+     * https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
      * </pre>
      *
      * Protobuf type {@code ibc.applications.transfer.v1.MsgTransfer}
@@ -2285,14 +2285,14 @@ public final class Tx {
       "timestamp\":\010\350\240\037\000\210\240\037\000\"\025\n\023MsgTransferRespo" +
       "nse2o\n\003Msg\022h\n\010Transfer\022).ibc.application" +
       "s.transfer.v1.MsgTransfer\0321.ibc.applicat" +
-      "ions.transfer.v1.MsgTransferResponseB@Z>" +
-      "github.com/cosmos/cosmos-sdk/x/ibc/appli" +
-      "cations/transfer/typesb\006proto3"
+      "ions.transfer.v1.MsgTransferResponseB9Z7" +
+      "github.com/cosmos/ibc-go/v2/modules/apps" +
+      "/transfer/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           ibc.core.client.v1.Client.getDescriptor(),
         });
@@ -2310,13 +2310,13 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     ibc.core.client.v1.Client.getDescriptor();
   }

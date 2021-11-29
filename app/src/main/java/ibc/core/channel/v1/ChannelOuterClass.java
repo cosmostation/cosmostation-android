@@ -7203,7 +7203,7 @@ public final class ChannelOuterClass {
    * conflicts with other protobuf message formats used for acknowledgements.
    * The first byte of any message with this format will be the non-ASCII values
    * `0xaa` (result) or `0xb2` (error). Implemented as defined by ICS:
-   * https://github.com/cosmos/ics/tree/master/spec/ics-004-channel-and-packet-semantics#acknowledgement-envelope
+   * https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#acknowledgement-envelope
    * </pre>
    *
    * Protobuf type {@code ibc.core.channel.v1.Acknowledgement}
@@ -7599,7 +7599,7 @@ public final class ChannelOuterClass {
      * conflicts with other protobuf message formats used for acknowledgements.
      * The first byte of any message with this format will be the non-ASCII values
      * `0xaa` (result) or `0xb2` (error). Implemented as defined by ICS:
-     * https://github.com/cosmos/ics/tree/master/spec/ics-004-channel-and-packet-semantics#acknowledgement-envelope
+     * https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#acknowledgement-envelope
      * </pre>
      *
      * Protobuf type {@code ibc.core.channel.v1.Acknowledgement}
@@ -8054,13 +8054,13 @@ public final class ChannelOuterClass {
       "D\032\004\210\243\036\000*w\n\005Order\022$\n\026ORDER_NONE_UNSPECIFI" +
       "ED\020\000\032\010\212\235 \004NONE\022\"\n\017ORDER_UNORDERED\020\001\032\r\212\235 " +
       "\tUNORDERED\022\036\n\rORDER_ORDERED\020\002\032\013\212\235 \007ORDER" +
-      "ED\032\004\210\243\036\000B:Z8github.com/cosmos/cosmos-sdk" +
-      "/x/ibc/core/04-channel/typesb\006proto3"
+      "ED\032\004\210\243\036\000B;Z9github.com/cosmos/ibc-go/v2/" +
+      "modules/core/04-channel/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           ibc.core.client.v1.Client.getDescriptor(),
         });
     internal_static_ibc_core_channel_v1_Channel_descriptor =
@@ -8101,14 +8101,14 @@ public final class ChannelOuterClass {
         new java.lang.String[] { "Result", "Error", "Response", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     ibc.core.client.v1.Client.getDescriptor();
   }
 

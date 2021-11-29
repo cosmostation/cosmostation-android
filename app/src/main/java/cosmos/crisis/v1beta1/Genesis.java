@@ -24,7 +24,7 @@ public final class Genesis {
      * module.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the constantFee field is set.
      */
     boolean hasConstantFee();
@@ -34,7 +34,7 @@ public final class Genesis {
      * module.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
      * @return The constantFee.
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getConstantFee();
@@ -44,7 +44,7 @@ public final class Genesis {
      * module.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getConstantFeeOrBuilder();
   }
@@ -150,7 +150,7 @@ public final class Genesis {
      * module.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the constantFee field is set.
      */
     @java.lang.Override
@@ -163,7 +163,7 @@ public final class Genesis {
      * module.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
      * @return The constantFee.
      */
     @java.lang.Override
@@ -176,7 +176,7 @@ public final class Genesis {
      * module.
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+     * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getConstantFeeOrBuilder() {
@@ -511,7 +511,7 @@ public final class Genesis {
        * module.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
        * @return Whether the constantFee field is set.
        */
       public boolean hasConstantFee() {
@@ -523,7 +523,7 @@ public final class Genesis {
        * module.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
        * @return The constantFee.
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getConstantFee() {
@@ -539,7 +539,7 @@ public final class Genesis {
        * module.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setConstantFee(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (constantFeeBuilder_ == null) {
@@ -560,7 +560,7 @@ public final class Genesis {
        * module.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setConstantFee(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -579,7 +579,7 @@ public final class Genesis {
        * module.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeConstantFee(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (constantFeeBuilder_ == null) {
@@ -602,7 +602,7 @@ public final class Genesis {
        * module.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearConstantFee() {
         if (constantFeeBuilder_ == null) {
@@ -621,7 +621,7 @@ public final class Genesis {
        * module.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getConstantFeeBuilder() {
         
@@ -634,7 +634,7 @@ public final class Genesis {
        * module.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getConstantFeeOrBuilder() {
         if (constantFeeBuilder_ != null) {
@@ -650,7 +650,7 @@ public final class Genesis {
        * module.
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
+       * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -734,16 +734,15 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n#cosmos/crisis/v1beta1/genesis.proto\022\025c" +
       "osmos.crisis.v1beta1\032\024gogoproto/gogo.pro" +
-      "to\032\036cosmos/base/v1beta1/coin.proto\"\\\n\014Ge" +
-      "nesisState\022L\n\014constant_fee\030\003 \001(\0132\031.cosmo" +
-      "s.base.v1beta1.CoinB\033\310\336\037\000\362\336\037\023yaml:\"const" +
-      "ant_fee\"B-Z+github.com/cosmos/cosmos-sdk" +
-      "/x/crisis/typesb\006proto3"
+      "to\032\036cosmos/base/v1beta1/coin.proto\"E\n\014Ge" +
+      "nesisState\0225\n\014constant_fee\030\003 \001(\0132\031.cosmo" +
+      "s.base.v1beta1.CoinB\004\310\336\037\000B-Z+github.com/" +
+      "cosmos/cosmos-sdk/x/crisis/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_cosmos_crisis_v1beta1_GenesisState_descriptor =
@@ -754,11 +753,10 @@ public final class Genesis {
         new java.lang.String[] { "ConstantFee", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

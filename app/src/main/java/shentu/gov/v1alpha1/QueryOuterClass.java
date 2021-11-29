@@ -35,7 +35,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryProposalRequest}
    */
-  public  static final class QueryProposalRequest extends
+  public static final class QueryProposalRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryProposalRequest)
       QueryProposalRequestOrBuilder {
@@ -124,6 +124,7 @@ public final class QueryOuterClass {
      * <code>uint64 proposal_id = 1;</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -444,6 +445,7 @@ public final class QueryOuterClass {
        * <code>uint64 proposal_id = 1;</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -555,7 +557,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryProposalResponse}
    */
-  public  static final class QueryProposalResponse extends
+  public static final class QueryProposalResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryProposalResponse)
       QueryProposalResponseOrBuilder {
@@ -648,6 +650,7 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.Proposal proposal = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proposal field is set.
      */
+    @java.lang.Override
     public boolean hasProposal() {
       return proposal_ != null;
     }
@@ -655,12 +658,14 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.Proposal proposal = 1 [(.gogoproto.nullable) = false];</code>
      * @return The proposal.
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.Proposal getProposal() {
       return proposal_ == null ? shentu.gov.v1alpha1.Gov.Proposal.getDefaultInstance() : proposal_;
     }
     /**
      * <code>.shentu.gov.v1alpha1.Proposal proposal = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.ProposalOrBuilder getProposalOrBuilder() {
       return getProposal();
     }
@@ -1252,7 +1257,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryProposalsRequest}
    */
-  public  static final class QueryProposalsRequest extends
+  public static final class QueryProposalsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryProposalsRequest)
       QueryProposalsRequestOrBuilder {
@@ -1370,7 +1375,7 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.ProposalStatus proposal_status = 1;</code>
      * @return The enum numeric value on the wire for proposalStatus.
      */
-    public int getProposalStatusValue() {
+    @java.lang.Override public int getProposalStatusValue() {
       return proposalStatus_;
     }
     /**
@@ -1381,7 +1386,7 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.ProposalStatus proposal_status = 1;</code>
      * @return The proposalStatus.
      */
-    public shentu.gov.v1alpha1.Gov.ProposalStatus getProposalStatus() {
+    @java.lang.Override public shentu.gov.v1alpha1.Gov.ProposalStatus getProposalStatus() {
       @SuppressWarnings("deprecation")
       shentu.gov.v1alpha1.Gov.ProposalStatus result = shentu.gov.v1alpha1.Gov.ProposalStatus.valueOf(proposalStatus_);
       return result == null ? shentu.gov.v1alpha1.Gov.ProposalStatus.UNRECOGNIZED : result;
@@ -1397,6 +1402,7 @@ public final class QueryOuterClass {
      * <code>string voter = 2;</code>
      * @return The voter.
      */
+    @java.lang.Override
     public java.lang.String getVoter() {
       java.lang.Object ref = voter_;
       if (ref instanceof java.lang.String) {
@@ -1417,6 +1423,7 @@ public final class QueryOuterClass {
      * <code>string voter = 2;</code>
      * @return The bytes for voter.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getVoterBytes() {
       java.lang.Object ref = voter_;
@@ -1441,6 +1448,7 @@ public final class QueryOuterClass {
      * <code>string depositor = 3;</code>
      * @return The depositor.
      */
+    @java.lang.Override
     public java.lang.String getDepositor() {
       java.lang.Object ref = depositor_;
       if (ref instanceof java.lang.String) {
@@ -1461,6 +1469,7 @@ public final class QueryOuterClass {
      * <code>string depositor = 3;</code>
      * @return The bytes for depositor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDepositorBytes() {
       java.lang.Object ref = depositor_;
@@ -1485,6 +1494,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 4;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1496,6 +1506,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 4;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -1506,6 +1517,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 4;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -1888,7 +1900,7 @@ public final class QueryOuterClass {
        * <code>.shentu.gov.v1alpha1.ProposalStatus proposal_status = 1;</code>
        * @return The enum numeric value on the wire for proposalStatus.
        */
-      public int getProposalStatusValue() {
+      @java.lang.Override public int getProposalStatusValue() {
         return proposalStatus_;
       }
       /**
@@ -1901,6 +1913,7 @@ public final class QueryOuterClass {
        * @return This builder for chaining.
        */
       public Builder setProposalStatusValue(int value) {
+        
         proposalStatus_ = value;
         onChanged();
         return this;
@@ -1913,6 +1926,7 @@ public final class QueryOuterClass {
        * <code>.shentu.gov.v1alpha1.ProposalStatus proposal_status = 1;</code>
        * @return The proposalStatus.
        */
+      @java.lang.Override
       public shentu.gov.v1alpha1.Gov.ProposalStatus getProposalStatus() {
         @SuppressWarnings("deprecation")
         shentu.gov.v1alpha1.Gov.ProposalStatus result = shentu.gov.v1alpha1.Gov.ProposalStatus.valueOf(proposalStatus_);
@@ -2413,7 +2427,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryProposalsResponse}
    */
-  public  static final class QueryProposalsResponse extends
+  public static final class QueryProposalsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryProposalsResponse)
       QueryProposalsResponseOrBuilder {
@@ -2519,12 +2533,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.gov.v1alpha1.Proposal proposals = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.gov.v1alpha1.Gov.Proposal> getProposalsList() {
       return proposals_;
     }
     /**
      * <code>repeated .shentu.gov.v1alpha1.Proposal proposals = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.gov.v1alpha1.Gov.ProposalOrBuilder> 
         getProposalsOrBuilderList() {
       return proposals_;
@@ -2532,18 +2548,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.gov.v1alpha1.Proposal proposals = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getProposalsCount() {
       return proposals_.size();
     }
     /**
      * <code>repeated .shentu.gov.v1alpha1.Proposal proposals = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.Proposal getProposals(int index) {
       return proposals_.get(index);
     }
     /**
      * <code>repeated .shentu.gov.v1alpha1.Proposal proposals = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.ProposalOrBuilder getProposalsOrBuilder(
         int index) {
       return proposals_.get(index);
@@ -2559,6 +2578,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2570,6 +2590,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -2580,6 +2601,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3449,7 +3471,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryVoteRequest}
    */
-  public  static final class QueryVoteRequest extends
+  public static final class QueryVoteRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryVoteRequest)
       QueryVoteRequestOrBuilder {
@@ -3545,6 +3567,7 @@ public final class QueryOuterClass {
      * <code>uint64 proposal_id = 1;</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -3559,6 +3582,7 @@ public final class QueryOuterClass {
      * <code>string voter = 2;</code>
      * @return The voter.
      */
+    @java.lang.Override
     public java.lang.String getVoter() {
       java.lang.Object ref = voter_;
       if (ref instanceof java.lang.String) {
@@ -3579,6 +3603,7 @@ public final class QueryOuterClass {
      * <code>string voter = 2;</code>
      * @return The bytes for voter.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getVoterBytes() {
       java.lang.Object ref = voter_;
@@ -3926,6 +3951,7 @@ public final class QueryOuterClass {
        * <code>uint64 proposal_id = 1;</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -4145,7 +4171,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryVoteResponse}
    */
-  public  static final class QueryVoteResponse extends
+  public static final class QueryVoteResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryVoteResponse)
       QueryVoteResponseOrBuilder {
@@ -4242,6 +4268,7 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.Vote vote = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the vote field is set.
      */
+    @java.lang.Override
     public boolean hasVote() {
       return vote_ != null;
     }
@@ -4253,6 +4280,7 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.Vote vote = 1 [(.gogoproto.nullable) = false];</code>
      * @return The vote.
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.Vote getVote() {
       return vote_ == null ? shentu.gov.v1alpha1.Gov.Vote.getDefaultInstance() : vote_;
     }
@@ -4263,6 +4291,7 @@ public final class QueryOuterClass {
      *
      * <code>.shentu.gov.v1alpha1.Vote vote = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.VoteOrBuilder getVoteOrBuilder() {
       return getVote();
     }
@@ -4841,7 +4870,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryVotesRequest}
    */
-  public  static final class QueryVotesRequest extends
+  public static final class QueryVotesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryVotesRequest)
       QueryVotesRequestOrBuilder {
@@ -4943,6 +4972,7 @@ public final class QueryOuterClass {
      * <code>uint64 proposal_id = 1;</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -4957,6 +4987,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -4968,6 +4999,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -4978,6 +5010,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -5328,6 +5361,7 @@ public final class QueryOuterClass {
        * <code>uint64 proposal_id = 1;</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -5650,7 +5684,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryVotesResponse}
    */
-  public  static final class QueryVotesResponse extends
+  public static final class QueryVotesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryVotesResponse)
       QueryVotesResponseOrBuilder {
@@ -5760,6 +5794,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .shentu.gov.v1alpha1.Vote votes = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.gov.v1alpha1.Gov.Vote> getVotesList() {
       return votes_;
     }
@@ -5770,6 +5805,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .shentu.gov.v1alpha1.Vote votes = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.gov.v1alpha1.Gov.VoteOrBuilder> 
         getVotesOrBuilderList() {
       return votes_;
@@ -5781,6 +5817,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .shentu.gov.v1alpha1.Vote votes = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getVotesCount() {
       return votes_.size();
     }
@@ -5791,6 +5828,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .shentu.gov.v1alpha1.Vote votes = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.Vote getVotes(int index) {
       return votes_.get(index);
     }
@@ -5801,6 +5839,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .shentu.gov.v1alpha1.Vote votes = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.VoteOrBuilder getVotesOrBuilder(
         int index) {
       return votes_.get(index);
@@ -5816,6 +5855,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -5827,6 +5867,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -5837,6 +5878,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -6769,7 +6811,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -6861,6 +6903,7 @@ public final class QueryOuterClass {
      * <code>string params_type = 1;</code>
      * @return The paramsType.
      */
+    @java.lang.Override
     public java.lang.String getParamsType() {
       java.lang.Object ref = paramsType_;
       if (ref instanceof java.lang.String) {
@@ -6882,6 +6925,7 @@ public final class QueryOuterClass {
      * <code>string params_type = 1;</code>
      * @return The bytes for paramsType.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getParamsTypeBytes() {
       java.lang.Object ref = paramsType_;
@@ -7447,7 +7491,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -7570,6 +7614,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the votingParams field is set.
      */
+    @java.lang.Override
     public boolean hasVotingParams() {
       return votingParams_ != null;
     }
@@ -7581,6 +7626,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The votingParams.
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.VotingParams getVotingParams() {
       return votingParams_ == null ? cosmos.gov.v1beta1.Gov.VotingParams.getDefaultInstance() : votingParams_;
     }
@@ -7591,6 +7637,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.VotingParamsOrBuilder getVotingParamsOrBuilder() {
       return getVotingParams();
     }
@@ -7605,6 +7652,7 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.DepositParams deposit_params = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the depositParams field is set.
      */
+    @java.lang.Override
     public boolean hasDepositParams() {
       return depositParams_ != null;
     }
@@ -7616,6 +7664,7 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.DepositParams deposit_params = 2 [(.gogoproto.nullable) = false];</code>
      * @return The depositParams.
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.DepositParams getDepositParams() {
       return depositParams_ == null ? shentu.gov.v1alpha1.Gov.DepositParams.getDefaultInstance() : depositParams_;
     }
@@ -7626,6 +7675,7 @@ public final class QueryOuterClass {
      *
      * <code>.shentu.gov.v1alpha1.DepositParams deposit_params = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.DepositParamsOrBuilder getDepositParamsOrBuilder() {
       return getDepositParams();
     }
@@ -7640,6 +7690,7 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.TallyParams tally_params = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the tallyParams field is set.
      */
+    @java.lang.Override
     public boolean hasTallyParams() {
       return tallyParams_ != null;
     }
@@ -7651,6 +7702,7 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.TallyParams tally_params = 3 [(.gogoproto.nullable) = false];</code>
      * @return The tallyParams.
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.TallyParams getTallyParams() {
       return tallyParams_ == null ? shentu.gov.v1alpha1.Gov.TallyParams.getDefaultInstance() : tallyParams_;
     }
@@ -7661,6 +7713,7 @@ public final class QueryOuterClass {
      *
      * <code>.shentu.gov.v1alpha1.TallyParams tally_params = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.TallyParamsOrBuilder getTallyParamsOrBuilder() {
       return getTallyParams();
     }
@@ -8602,7 +8655,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryDepositRequest}
    */
-  public  static final class QueryDepositRequest extends
+  public static final class QueryDepositRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryDepositRequest)
       QueryDepositRequestOrBuilder {
@@ -8698,6 +8751,7 @@ public final class QueryOuterClass {
      * <code>uint64 proposal_id = 1;</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -8712,6 +8766,7 @@ public final class QueryOuterClass {
      * <code>string depositor = 2;</code>
      * @return The depositor.
      */
+    @java.lang.Override
     public java.lang.String getDepositor() {
       java.lang.Object ref = depositor_;
       if (ref instanceof java.lang.String) {
@@ -8732,6 +8787,7 @@ public final class QueryOuterClass {
      * <code>string depositor = 2;</code>
      * @return The bytes for depositor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDepositorBytes() {
       java.lang.Object ref = depositor_;
@@ -9079,6 +9135,7 @@ public final class QueryOuterClass {
        * <code>uint64 proposal_id = 1;</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -9298,7 +9355,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryDepositResponse}
    */
-  public  static final class QueryDepositResponse extends
+  public static final class QueryDepositResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryDepositResponse)
       QueryDepositResponseOrBuilder {
@@ -9395,6 +9452,7 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.Deposit deposit = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the deposit field is set.
      */
+    @java.lang.Override
     public boolean hasDeposit() {
       return deposit_ != null;
     }
@@ -9406,6 +9464,7 @@ public final class QueryOuterClass {
      * <code>.shentu.gov.v1alpha1.Deposit deposit = 1 [(.gogoproto.nullable) = false];</code>
      * @return The deposit.
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.Deposit getDeposit() {
       return deposit_ == null ? shentu.gov.v1alpha1.Gov.Deposit.getDefaultInstance() : deposit_;
     }
@@ -9416,6 +9475,7 @@ public final class QueryOuterClass {
      *
      * <code>.shentu.gov.v1alpha1.Deposit deposit = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.DepositOrBuilder getDepositOrBuilder() {
       return getDeposit();
     }
@@ -9994,7 +10054,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryDepositsRequest}
    */
-  public  static final class QueryDepositsRequest extends
+  public static final class QueryDepositsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryDepositsRequest)
       QueryDepositsRequestOrBuilder {
@@ -10096,6 +10156,7 @@ public final class QueryOuterClass {
      * <code>uint64 proposal_id = 1;</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -10110,6 +10171,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -10121,6 +10183,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -10131,6 +10194,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -10481,6 +10545,7 @@ public final class QueryOuterClass {
        * <code>uint64 proposal_id = 1;</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -10783,7 +10848,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryDepositsResponse}
    */
-  public  static final class QueryDepositsResponse extends
+  public static final class QueryDepositsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryDepositsResponse)
       QueryDepositsResponseOrBuilder {
@@ -10889,12 +10954,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.gov.v1alpha1.Deposit deposits = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.gov.v1alpha1.Gov.Deposit> getDepositsList() {
       return deposits_;
     }
     /**
      * <code>repeated .shentu.gov.v1alpha1.Deposit deposits = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.gov.v1alpha1.Gov.DepositOrBuilder> 
         getDepositsOrBuilderList() {
       return deposits_;
@@ -10902,18 +10969,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.gov.v1alpha1.Deposit deposits = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getDepositsCount() {
       return deposits_.size();
     }
     /**
      * <code>repeated .shentu.gov.v1alpha1.Deposit deposits = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.Deposit getDeposits(int index) {
       return deposits_.get(index);
     }
     /**
      * <code>repeated .shentu.gov.v1alpha1.Deposit deposits = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.gov.v1alpha1.Gov.DepositOrBuilder getDepositsOrBuilder(
         int index) {
       return deposits_.get(index);
@@ -10929,6 +10999,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -10940,6 +11011,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -10950,6 +11022,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -11798,7 +11871,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryTallyResultRequest}
    */
-  public  static final class QueryTallyResultRequest extends
+  public static final class QueryTallyResultRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryTallyResultRequest)
       QueryTallyResultRequestOrBuilder {
@@ -11887,6 +11960,7 @@ public final class QueryOuterClass {
      * <code>uint64 proposal_id = 1;</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -12207,6 +12281,7 @@ public final class QueryOuterClass {
        * <code>uint64 proposal_id = 1;</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -12330,7 +12405,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code shentu.gov.v1alpha1.QueryTallyResultResponse}
    */
-  public  static final class QueryTallyResultResponse extends
+  public static final class QueryTallyResultResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.gov.v1alpha1.QueryTallyResultResponse)
       QueryTallyResultResponseOrBuilder {
@@ -12427,6 +12502,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.gov.v1beta1.TallyResult tally = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the tally field is set.
      */
+    @java.lang.Override
     public boolean hasTally() {
       return tally_ != null;
     }
@@ -12438,6 +12514,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.gov.v1beta1.TallyResult tally = 1 [(.gogoproto.nullable) = false];</code>
      * @return The tally.
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.TallyResult getTally() {
       return tally_ == null ? cosmos.gov.v1beta1.Gov.TallyResult.getDefaultInstance() : tally_;
     }
@@ -12448,6 +12525,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.gov.v1beta1.TallyResult tally = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.TallyResultOrBuilder getTallyOrBuilder() {
       return getTally();
     }
@@ -13151,7 +13229,7 @@ public final class QueryOuterClass {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.gov.v1beta1.Gov.getDescriptor(),
           shentu.gov.v1alpha1.Gov.getDescriptor(),
@@ -13254,14 +13332,14 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Tally", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.gov.v1beta1.Gov.getDescriptor();
     shentu.gov.v1alpha1.Gov.getDescriptor();

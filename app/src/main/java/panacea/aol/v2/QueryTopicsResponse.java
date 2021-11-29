@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.QueryTopicsResponse}
  */
-public  final class QueryTopicsResponse extends
+public final class QueryTopicsResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.QueryTopicsResponse)
     QueryTopicsResponseOrBuilder {
@@ -152,6 +152,7 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
    * @return Whether the pagination field is set.
    */
+  @java.lang.Override
   public boolean hasPagination() {
     return pagination_ != null;
   }
@@ -159,12 +160,14 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
    * @return The pagination.
    */
+  @java.lang.Override
   public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
     return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
   }
   /**
    * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
    */
+  @java.lang.Override
   public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
     return getPagination();
   }

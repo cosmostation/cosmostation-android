@@ -10,7 +10,7 @@ package panacea.token.v2;
  *
  * Protobuf type {@code panacea.token.v2.MsgIssueTokenResponse}
  */
-public  final class MsgIssueTokenResponse extends
+public final class MsgIssueTokenResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.token.v2.MsgIssueTokenResponse)
     MsgIssueTokenResponseOrBuilder {

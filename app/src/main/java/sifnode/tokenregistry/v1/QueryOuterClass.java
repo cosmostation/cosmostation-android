@@ -36,7 +36,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code sifnode.tokenregistry.v1.QueryEntriesResponse}
    */
-  public  static final class QueryEntriesResponse extends
+  public static final class QueryEntriesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.QueryEntriesResponse)
       QueryEntriesResponseOrBuilder {
@@ -129,6 +129,7 @@ public final class QueryOuterClass {
      * <code>.sifnode.tokenregistry.v1.Registry registry = 1;</code>
      * @return Whether the registry field is set.
      */
+    @java.lang.Override
     public boolean hasRegistry() {
       return registry_ != null;
     }
@@ -136,12 +137,14 @@ public final class QueryOuterClass {
      * <code>.sifnode.tokenregistry.v1.Registry registry = 1;</code>
      * @return The registry.
      */
+    @java.lang.Override
     public sifnode.tokenregistry.v1.Types.Registry getRegistry() {
       return registry_ == null ? sifnode.tokenregistry.v1.Types.Registry.getDefaultInstance() : registry_;
     }
     /**
      * <code>.sifnode.tokenregistry.v1.Registry registry = 1;</code>
      */
+    @java.lang.Override
     public sifnode.tokenregistry.v1.Types.RegistryOrBuilder getRegistryOrBuilder() {
       return getRegistry();
     }
@@ -639,7 +642,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code sifnode.tokenregistry.v1.QueryEntriesRequest}
    */
-  public  static final class QueryEntriesRequest extends
+  public static final class QueryEntriesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.QueryEntriesRequest)
       QueryEntriesRequestOrBuilder {
@@ -1086,7 +1089,7 @@ public final class QueryOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           sifnode.tokenregistry.v1.Types.getDescriptor(),
         });
@@ -1107,7 +1110,7 @@ public final class QueryOuterClass {
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     sifnode.tokenregistry.v1.Types.getDescriptor();
   }

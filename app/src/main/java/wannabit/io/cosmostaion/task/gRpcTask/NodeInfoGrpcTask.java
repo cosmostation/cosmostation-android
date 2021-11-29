@@ -33,7 +33,7 @@ public class NodeInfoGrpcTask extends CommonTask {
             Query.GetNodeInfoResponse response = mStub.getNodeInfo(request);
 
             this.mResult.isSuccess = true;
-            mResult.resultData = response.getDefaultNodeInfo();
+            mResult.resultData = response.getNodeInfo();
 
         } catch (Exception e) { WLog.e( "NodeInfoGrpcTask "+ e.getMessage()); }
         return mResult;

@@ -92,6 +92,37 @@ public final class MsgGrpc {
     return getVoteMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<cosmos.gov.v1beta1.Tx.MsgVoteWeighted,
+      cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse> getVoteWeightedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "VoteWeighted",
+      requestType = cosmos.gov.v1beta1.Tx.MsgVoteWeighted.class,
+      responseType = cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<cosmos.gov.v1beta1.Tx.MsgVoteWeighted,
+      cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse> getVoteWeightedMethod() {
+    io.grpc.MethodDescriptor<cosmos.gov.v1beta1.Tx.MsgVoteWeighted, cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse> getVoteWeightedMethod;
+    if ((getVoteWeightedMethod = MsgGrpc.getVoteWeightedMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getVoteWeightedMethod = MsgGrpc.getVoteWeightedMethod) == null) {
+          MsgGrpc.getVoteWeightedMethod = getVoteWeightedMethod =
+              io.grpc.MethodDescriptor.<cosmos.gov.v1beta1.Tx.MsgVoteWeighted, cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "VoteWeighted"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cosmos.gov.v1beta1.Tx.MsgVoteWeighted.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("VoteWeighted"))
+              .build();
+        }
+      }
+    }
+    return getVoteWeightedMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<cosmos.gov.v1beta1.Tx.MsgDeposit,
       cosmos.gov.v1beta1.Tx.MsgDepositResponse> getDepositMethod;
 
@@ -196,6 +227,17 @@ public final class MsgGrpc {
 
     /**
      * <pre>
+     * VoteWeighted defines a method to add a weighted vote on a specific proposal.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     */
+    public void voteWeighted(cosmos.gov.v1beta1.Tx.MsgVoteWeighted request,
+        io.grpc.stub.StreamObserver<cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getVoteWeightedMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Deposit defines a method to add deposit on a specific proposal.
      * </pre>
      */
@@ -220,6 +262,13 @@ public final class MsgGrpc {
                 cosmos.gov.v1beta1.Tx.MsgVote,
                 cosmos.gov.v1beta1.Tx.MsgVoteResponse>(
                   this, METHODID_VOTE)))
+          .addMethod(
+            getVoteWeightedMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                cosmos.gov.v1beta1.Tx.MsgVoteWeighted,
+                cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse>(
+                  this, METHODID_VOTE_WEIGHTED)))
           .addMethod(
             getDepositMethod(),
             asyncUnaryCall(
@@ -272,6 +321,18 @@ public final class MsgGrpc {
 
     /**
      * <pre>
+     * VoteWeighted defines a method to add a weighted vote on a specific proposal.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     */
+    public void voteWeighted(cosmos.gov.v1beta1.Tx.MsgVoteWeighted request,
+        io.grpc.stub.StreamObserver<cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getVoteWeightedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * Deposit defines a method to add deposit on a specific proposal.
      * </pre>
      */
@@ -317,6 +378,17 @@ public final class MsgGrpc {
     public cosmos.gov.v1beta1.Tx.MsgVoteResponse vote(cosmos.gov.v1beta1.Tx.MsgVote request) {
       return blockingUnaryCall(
           getChannel(), getVoteMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * VoteWeighted defines a method to add a weighted vote on a specific proposal.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     */
+    public cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse voteWeighted(cosmos.gov.v1beta1.Tx.MsgVoteWeighted request) {
+      return blockingUnaryCall(
+          getChannel(), getVoteWeightedMethod(), getCallOptions(), request);
     }
 
     /**
@@ -371,6 +443,18 @@ public final class MsgGrpc {
 
     /**
      * <pre>
+     * VoteWeighted defines a method to add a weighted vote on a specific proposal.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse> voteWeighted(
+        cosmos.gov.v1beta1.Tx.MsgVoteWeighted request) {
+      return futureUnaryCall(
+          getChannel().newCall(getVoteWeightedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Deposit defines a method to add deposit on a specific proposal.
      * </pre>
      */
@@ -383,7 +467,8 @@ public final class MsgGrpc {
 
   private static final int METHODID_SUBMIT_PROPOSAL = 0;
   private static final int METHODID_VOTE = 1;
-  private static final int METHODID_DEPOSIT = 2;
+  private static final int METHODID_VOTE_WEIGHTED = 2;
+  private static final int METHODID_DEPOSIT = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -409,6 +494,10 @@ public final class MsgGrpc {
         case METHODID_VOTE:
           serviceImpl.vote((cosmos.gov.v1beta1.Tx.MsgVote) request,
               (io.grpc.stub.StreamObserver<cosmos.gov.v1beta1.Tx.MsgVoteResponse>) responseObserver);
+          break;
+        case METHODID_VOTE_WEIGHTED:
+          serviceImpl.voteWeighted((cosmos.gov.v1beta1.Tx.MsgVoteWeighted) request,
+              (io.grpc.stub.StreamObserver<cosmos.gov.v1beta1.Tx.MsgVoteWeightedResponse>) responseObserver);
           break;
         case METHODID_DEPOSIT:
           serviceImpl.deposit((cosmos.gov.v1beta1.Tx.MsgDeposit) request,
@@ -477,6 +566,7 @@ public final class MsgGrpc {
               .setSchemaDescriptor(new MsgFileDescriptorSupplier())
               .addMethod(getSubmitProposalMethod())
               .addMethod(getVoteMethod())
+              .addMethod(getVoteWeightedMethod())
               .addMethod(getDepositMethod())
               .build();
         }

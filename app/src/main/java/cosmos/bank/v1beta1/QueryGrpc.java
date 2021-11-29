@@ -247,6 +247,37 @@ public final class QueryGrpc {
     return getDenomsMetadataMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest,
+      cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse> getDenomOwnersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DenomOwners",
+      requestType = cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest.class,
+      responseType = cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest,
+      cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse> getDenomOwnersMethod() {
+    io.grpc.MethodDescriptor<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest, cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse> getDenomOwnersMethod;
+    if ((getDenomOwnersMethod = QueryGrpc.getDenomOwnersMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getDenomOwnersMethod = QueryGrpc.getDenomOwnersMethod) == null) {
+          QueryGrpc.getDenomOwnersMethod = getDenomOwnersMethod =
+              io.grpc.MethodDescriptor.<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest, cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DenomOwners"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("DenomOwners"))
+              .build();
+        }
+      }
+    }
+    return getDenomOwnersMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -360,12 +391,24 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * DenomsMetadata queries the client metadata for all registered coin denominations.
+     * DenomsMetadata queries the client metadata for all registered coin
+     * denominations.
      * </pre>
      */
     public void denomsMetadata(cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataRequest request,
         io.grpc.stub.StreamObserver<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getDenomsMetadataMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * DenomOwners queries for all account addresses that own a particular token
+     * denomination.
+     * </pre>
+     */
+    public void denomOwners(cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest request,
+        io.grpc.stub.StreamObserver<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getDenomOwnersMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -419,6 +462,13 @@ public final class QueryGrpc {
                 cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataRequest,
                 cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataResponse>(
                   this, METHODID_DENOMS_METADATA)))
+          .addMethod(
+            getDenomOwnersMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest,
+                cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse>(
+                  this, METHODID_DENOM_OWNERS)))
           .build();
     }
   }
@@ -508,13 +558,26 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * DenomsMetadata queries the client metadata for all registered coin denominations.
+     * DenomsMetadata queries the client metadata for all registered coin
+     * denominations.
      * </pre>
      */
     public void denomsMetadata(cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataRequest request,
         io.grpc.stub.StreamObserver<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getDenomsMetadataMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * DenomOwners queries for all account addresses that own a particular token
+     * denomination.
+     * </pre>
+     */
+    public void denomOwners(cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest request,
+        io.grpc.stub.StreamObserver<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getDenomOwnersMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -597,12 +660,24 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * DenomsMetadata queries the client metadata for all registered coin denominations.
+     * DenomsMetadata queries the client metadata for all registered coin
+     * denominations.
      * </pre>
      */
     public cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataResponse denomsMetadata(cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataRequest request) {
       return blockingUnaryCall(
           getChannel(), getDenomsMetadataMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * DenomOwners queries for all account addresses that own a particular token
+     * denomination.
+     * </pre>
+     */
+    public cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse denomOwners(cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getDenomOwnersMethod(), getCallOptions(), request);
     }
   }
 
@@ -691,13 +766,26 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * DenomsMetadata queries the client metadata for all registered coin denominations.
+     * DenomsMetadata queries the client metadata for all registered coin
+     * denominations.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataResponse> denomsMetadata(
         cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getDenomsMetadataMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * DenomOwners queries for all account addresses that own a particular token
+     * denomination.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse> denomOwners(
+        cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getDenomOwnersMethod(), getCallOptions()), request);
     }
   }
 
@@ -708,6 +796,7 @@ public final class QueryGrpc {
   private static final int METHODID_PARAMS = 4;
   private static final int METHODID_DENOM_METADATA = 5;
   private static final int METHODID_DENOMS_METADATA = 6;
+  private static final int METHODID_DENOM_OWNERS = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -753,6 +842,10 @@ public final class QueryGrpc {
         case METHODID_DENOMS_METADATA:
           serviceImpl.denomsMetadata((cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataRequest) request,
               (io.grpc.stub.StreamObserver<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomsMetadataResponse>) responseObserver);
+          break;
+        case METHODID_DENOM_OWNERS:
+          serviceImpl.denomOwners((cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersRequest) request,
+              (io.grpc.stub.StreamObserver<cosmos.bank.v1beta1.QueryOuterClass.QueryDenomOwnersResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -822,6 +915,7 @@ public final class QueryGrpc {
               .addMethod(getParamsMethod())
               .addMethod(getDenomMetadataMethod())
               .addMethod(getDenomsMetadataMethod())
+              .addMethod(getDenomOwnersMethod())
               .build();
         }
       }

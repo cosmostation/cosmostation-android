@@ -10,7 +10,7 @@ package panacea.token.v2;
  *
  * Protobuf type {@code panacea.token.v2.MsgIssueToken}
  */
-public  final class MsgIssueToken extends
+public final class MsgIssueToken extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.token.v2.MsgIssueToken)
     MsgIssueTokenOrBuilder {
@@ -129,6 +129,7 @@ private static final long serialVersionUID = 0L;
    * <code>string name = 1;</code>
    * @return The name.
    */
+  @java.lang.Override
   public java.lang.String getName() {
     java.lang.Object ref = name_;
     if (ref instanceof java.lang.String) {
@@ -145,6 +146,7 @@ private static final long serialVersionUID = 0L;
    * <code>string name = 1;</code>
    * @return The bytes for name.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getNameBytes() {
     java.lang.Object ref = name_;
@@ -165,6 +167,7 @@ private static final long serialVersionUID = 0L;
    * <code>string short_symbol = 2;</code>
    * @return The shortSymbol.
    */
+  @java.lang.Override
   public java.lang.String getShortSymbol() {
     java.lang.Object ref = shortSymbol_;
     if (ref instanceof java.lang.String) {
@@ -181,6 +184,7 @@ private static final long serialVersionUID = 0L;
    * <code>string short_symbol = 2;</code>
    * @return The bytes for shortSymbol.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getShortSymbolBytes() {
     java.lang.Object ref = shortSymbol_;
@@ -201,6 +205,7 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.v1beta1.IntProto total_supply_micro = 3 [(.gogoproto.nullable) = false];</code>
    * @return Whether the totalSupplyMicro field is set.
    */
+  @java.lang.Override
   public boolean hasTotalSupplyMicro() {
     return totalSupplyMicro_ != null;
   }
@@ -208,12 +213,14 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.v1beta1.IntProto total_supply_micro = 3 [(.gogoproto.nullable) = false];</code>
    * @return The totalSupplyMicro.
    */
+  @java.lang.Override
   public cosmos.base.v1beta1.CoinOuterClass.IntProto getTotalSupplyMicro() {
     return totalSupplyMicro_ == null ? cosmos.base.v1beta1.CoinOuterClass.IntProto.getDefaultInstance() : totalSupplyMicro_;
   }
   /**
    * <code>.cosmos.base.v1beta1.IntProto total_supply_micro = 3 [(.gogoproto.nullable) = false];</code>
    */
+  @java.lang.Override
   public cosmos.base.v1beta1.CoinOuterClass.IntProtoOrBuilder getTotalSupplyMicroOrBuilder() {
     return getTotalSupplyMicro();
   }
@@ -224,6 +231,7 @@ private static final long serialVersionUID = 0L;
    * <code>bool mintable = 4;</code>
    * @return The mintable.
    */
+  @java.lang.Override
   public boolean getMintable() {
     return mintable_;
   }
@@ -234,6 +242,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 5;</code>
    * @return The ownerAddress.
    */
+  @java.lang.Override
   public java.lang.String getOwnerAddress() {
     java.lang.Object ref = ownerAddress_;
     if (ref instanceof java.lang.String) {
@@ -250,6 +259,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 5;</code>
    * @return The bytes for ownerAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getOwnerAddressBytes() {
     java.lang.Object ref = ownerAddress_;
@@ -928,6 +938,7 @@ private static final long serialVersionUID = 0L;
      * <code>bool mintable = 4;</code>
      * @return The mintable.
      */
+    @java.lang.Override
     public boolean getMintable() {
       return mintable_;
     }

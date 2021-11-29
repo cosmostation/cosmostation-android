@@ -20,11 +20,11 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.protobuf2.Any;
 
+import akash.cert.v1beta2.Cert;
 import akash.deployment.v1beta1.DeploymentOuterClass;
-import akash.market.v1beta1.BidOuterClass;
-import akash.market.v1beta1.LeaseOuterClass;
+import akash.market.v1beta2.BidOuterClass;
+import akash.market.v1beta2.LeaseOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import ibc.applications.transfer.v1.Tx;
@@ -89,6 +89,8 @@ import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
+
+import com.google.protobuf.Any;
 
 public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener, Dialog_MoreWait.OnTxWaitListener {
     private Toolbar         mToolbar;
@@ -495,7 +497,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_CREATE_DEPLOYMENT;
                 } else if (msg.getTypeUrl().contains(DeploymentOuterClass.MsgCloseDeployment.getDescriptor().getFullName())) {
                     return TYPE_TX_CLOSE_DEPLOYMENT;
-                } else if (msg.getTypeUrl().contains(akash.cert.v1beta1.Cert.MsgCreateCertificate.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(Cert.MsgCreateCertificate.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_CERTIFICATE;
                 }
 
@@ -525,7 +527,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME;
                 }
 
-                else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgCreatePool.getDescriptor().getFullName())) {
+                else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_POOL;
                 } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinPool.getDescriptor().getFullName())) {
                     return TYPE_TX_JOIN_POOL;
@@ -540,9 +542,10 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_BEGIN_UNLOCK_TOKEN;
                 } else if (msg.getTypeUrl().equals("/" + osmosis.lockup.Tx.MsgBeginUnlockingAll.getDescriptor().getFullName())) {
                     return TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL;
-                } else if (msg.getTypeUrl().contains(osmosis.lockup.Tx.MsgUnlockPeriodLock.getDescriptor().getFullName())) {
-                    return TYPE_TX_UNLOCK_PERIOD_LOCK;
                 }
+//                else if (msg.getTypeUrl().contains(osmosis.lockup.Tx.MsgUnlockPeriodLock.getDescriptor().getFullName())) {
+//                    return TYPE_TX_UNLOCK_PERIOD_LOCK;
+//                }
 
                 else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgCreatePool.getDescriptor().getFullName())) {
                     return TYPE_TX_GRAVITY_CREATE_POOL;

@@ -19,31 +19,31 @@ public final class Bank {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
      */
     java.util.List<cosmos.bank.v1beta1.Bank.SendEnabled> 
         getSendEnabledList();
     /**
-     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
      */
     cosmos.bank.v1beta1.Bank.SendEnabled getSendEnabled(int index);
     /**
-     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
      */
     int getSendEnabledCount();
     /**
-     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
      */
     java.util.List<? extends cosmos.bank.v1beta1.Bank.SendEnabledOrBuilder> 
         getSendEnabledOrBuilderList();
     /**
-     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
      */
     cosmos.bank.v1beta1.Bank.SendEnabledOrBuilder getSendEnabledOrBuilder(
         int index);
 
     /**
-     * <code>bool default_send_enabled = 2 [(.gogoproto.moretags) = "yaml:&#92;"default_send_enabled,omitempty&#92;""];</code>
+     * <code>bool default_send_enabled = 2;</code>
      * @return The defaultSendEnabled.
      */
     boolean getDefaultSendEnabled();
@@ -151,14 +151,14 @@ public final class Bank {
     public static final int SEND_ENABLED_FIELD_NUMBER = 1;
     private java.util.List<cosmos.bank.v1beta1.Bank.SendEnabled> sendEnabled_;
     /**
-     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.bank.v1beta1.Bank.SendEnabled> getSendEnabledList() {
       return sendEnabled_;
     }
     /**
-     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.bank.v1beta1.Bank.SendEnabledOrBuilder> 
@@ -166,21 +166,21 @@ public final class Bank {
       return sendEnabled_;
     }
     /**
-     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
      */
     @java.lang.Override
     public int getSendEnabledCount() {
       return sendEnabled_.size();
     }
     /**
-     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
      */
     @java.lang.Override
     public cosmos.bank.v1beta1.Bank.SendEnabled getSendEnabled(int index) {
       return sendEnabled_.get(index);
     }
     /**
-     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
      */
     @java.lang.Override
     public cosmos.bank.v1beta1.Bank.SendEnabledOrBuilder getSendEnabledOrBuilder(
@@ -191,7 +191,7 @@ public final class Bank {
     public static final int DEFAULT_SEND_ENABLED_FIELD_NUMBER = 2;
     private boolean defaultSendEnabled_;
     /**
-     * <code>bool default_send_enabled = 2 [(.gogoproto.moretags) = "yaml:&#92;"default_send_enabled,omitempty&#92;""];</code>
+     * <code>bool default_send_enabled = 2;</code>
      * @return The defaultSendEnabled.
      */
     @java.lang.Override
@@ -576,7 +576,7 @@ public final class Bank {
           cosmos.bank.v1beta1.Bank.SendEnabled, cosmos.bank.v1beta1.Bank.SendEnabled.Builder, cosmos.bank.v1beta1.Bank.SendEnabledOrBuilder> sendEnabledBuilder_;
 
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public java.util.List<cosmos.bank.v1beta1.Bank.SendEnabled> getSendEnabledList() {
         if (sendEnabledBuilder_ == null) {
@@ -586,7 +586,7 @@ public final class Bank {
         }
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public int getSendEnabledCount() {
         if (sendEnabledBuilder_ == null) {
@@ -596,7 +596,7 @@ public final class Bank {
         }
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public cosmos.bank.v1beta1.Bank.SendEnabled getSendEnabled(int index) {
         if (sendEnabledBuilder_ == null) {
@@ -606,7 +606,7 @@ public final class Bank {
         }
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public Builder setSendEnabled(
           int index, cosmos.bank.v1beta1.Bank.SendEnabled value) {
@@ -623,7 +623,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public Builder setSendEnabled(
           int index, cosmos.bank.v1beta1.Bank.SendEnabled.Builder builderForValue) {
@@ -637,7 +637,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public Builder addSendEnabled(cosmos.bank.v1beta1.Bank.SendEnabled value) {
         if (sendEnabledBuilder_ == null) {
@@ -653,7 +653,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public Builder addSendEnabled(
           int index, cosmos.bank.v1beta1.Bank.SendEnabled value) {
@@ -670,7 +670,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public Builder addSendEnabled(
           cosmos.bank.v1beta1.Bank.SendEnabled.Builder builderForValue) {
@@ -684,7 +684,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public Builder addSendEnabled(
           int index, cosmos.bank.v1beta1.Bank.SendEnabled.Builder builderForValue) {
@@ -698,7 +698,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public Builder addAllSendEnabled(
           java.lang.Iterable<? extends cosmos.bank.v1beta1.Bank.SendEnabled> values) {
@@ -713,7 +713,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public Builder clearSendEnabled() {
         if (sendEnabledBuilder_ == null) {
@@ -726,7 +726,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public Builder removeSendEnabled(int index) {
         if (sendEnabledBuilder_ == null) {
@@ -739,14 +739,14 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public cosmos.bank.v1beta1.Bank.SendEnabled.Builder getSendEnabledBuilder(
           int index) {
         return getSendEnabledFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public cosmos.bank.v1beta1.Bank.SendEnabledOrBuilder getSendEnabledOrBuilder(
           int index) {
@@ -756,7 +756,7 @@ public final class Bank {
         }
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public java.util.List<? extends cosmos.bank.v1beta1.Bank.SendEnabledOrBuilder> 
            getSendEnabledOrBuilderList() {
@@ -767,14 +767,14 @@ public final class Bank {
         }
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public cosmos.bank.v1beta1.Bank.SendEnabled.Builder addSendEnabledBuilder() {
         return getSendEnabledFieldBuilder().addBuilder(
             cosmos.bank.v1beta1.Bank.SendEnabled.getDefaultInstance());
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public cosmos.bank.v1beta1.Bank.SendEnabled.Builder addSendEnabledBuilder(
           int index) {
@@ -782,7 +782,7 @@ public final class Bank {
             index, cosmos.bank.v1beta1.Bank.SendEnabled.getDefaultInstance());
       }
       /**
-       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled,omitempty&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.SendEnabled send_enabled = 1;</code>
        */
       public java.util.List<cosmos.bank.v1beta1.Bank.SendEnabled.Builder> 
            getSendEnabledBuilderList() {
@@ -805,7 +805,7 @@ public final class Bank {
 
       private boolean defaultSendEnabled_ ;
       /**
-       * <code>bool default_send_enabled = 2 [(.gogoproto.moretags) = "yaml:&#92;"default_send_enabled,omitempty&#92;""];</code>
+       * <code>bool default_send_enabled = 2;</code>
        * @return The defaultSendEnabled.
        */
       @java.lang.Override
@@ -813,7 +813,7 @@ public final class Bank {
         return defaultSendEnabled_;
       }
       /**
-       * <code>bool default_send_enabled = 2 [(.gogoproto.moretags) = "yaml:&#92;"default_send_enabled,omitempty&#92;""];</code>
+       * <code>bool default_send_enabled = 2;</code>
        * @param value The defaultSendEnabled to set.
        * @return This builder for chaining.
        */
@@ -824,7 +824,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>bool default_send_enabled = 2 [(.gogoproto.moretags) = "yaml:&#92;"default_send_enabled,omitempty&#92;""];</code>
+       * <code>bool default_send_enabled = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearDefaultSendEnabled() {
@@ -1540,12 +1540,12 @@ public final class Bank {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The address.
      */
     java.lang.String getAddress();
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for address.
      */
     com.google.protobuf.ByteString
@@ -1680,7 +1680,7 @@ public final class Bank {
     public static final int ADDRESS_FIELD_NUMBER = 1;
     private volatile java.lang.Object address_;
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The address.
      */
     @java.lang.Override
@@ -1697,7 +1697,7 @@ public final class Bank {
       }
     }
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for address.
      */
     @java.lang.Override
@@ -2120,7 +2120,7 @@ public final class Bank {
 
       private java.lang.Object address_ = "";
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The address.
        */
       public java.lang.String getAddress() {
@@ -2136,7 +2136,7 @@ public final class Bank {
         }
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
@@ -2153,7 +2153,7 @@ public final class Bank {
         }
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The address to set.
        * @return This builder for chaining.
        */
@@ -2168,7 +2168,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAddress() {
@@ -2178,7 +2178,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for address to set.
        * @return This builder for chaining.
        */
@@ -2491,12 +2491,12 @@ public final class Bank {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The address.
      */
     java.lang.String getAddress();
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for address.
      */
     com.google.protobuf.ByteString
@@ -2631,7 +2631,7 @@ public final class Bank {
     public static final int ADDRESS_FIELD_NUMBER = 1;
     private volatile java.lang.Object address_;
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The address.
      */
     @java.lang.Override
@@ -2648,7 +2648,7 @@ public final class Bank {
       }
     }
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for address.
      */
     @java.lang.Override
@@ -3071,7 +3071,7 @@ public final class Bank {
 
       private java.lang.Object address_ = "";
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The address.
        */
       public java.lang.String getAddress() {
@@ -3087,7 +3087,7 @@ public final class Bank {
         }
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
@@ -3104,7 +3104,7 @@ public final class Bank {
         }
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The address to set.
        * @return This builder for chaining.
        */
@@ -3119,7 +3119,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAddress() {
@@ -3129,7 +3129,7 @@ public final class Bank {
         return this;
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for address to set.
        * @return This builder for chaining.
        */
@@ -3437,7 +3437,7 @@ public final class Bank {
 
   }
 
-  public interface SupplyOrBuilder extends
+  @java.lang.Deprecated public interface SupplyOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.bank.v1beta1.Supply)
       com.google.protobuf.MessageOrBuilder {
 
@@ -3469,11 +3469,12 @@ public final class Bank {
    * <pre>
    * Supply represents a struct that passively keeps track of the total supply
    * amounts in the network.
+   * This message is deprecated now that supply is indexed by denom.
    * </pre>
    *
    * Protobuf type {@code cosmos.bank.v1beta1.Supply}
    */
-  public static final class Supply extends
+  @java.lang.Deprecated public static final class Supply extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.bank.v1beta1.Supply)
       SupplyOrBuilder {
@@ -3762,6 +3763,7 @@ public final class Bank {
      * <pre>
      * Supply represents a struct that passively keeps track of the total supply
      * amounts in the network.
+     * This message is deprecated now that supply is indexed by denom.
      * </pre>
      *
      * Protobuf type {@code cosmos.bank.v1beta1.Supply}
@@ -4268,7 +4270,7 @@ public final class Bank {
      * <pre>
      * exponent represents power of 10 exponent that one must
      * raise the base_denom to in order to equal the given DenomUnit's denom
-     * 1 denom = 1^exponent base_denom
+     * 1 denom = 10^exponent base_denom
      * (e.g. with a base_denom of uatom, one can create a DenomUnit of 'atom' with
      * exponent = 6, thus: 1 atom = 10^6 uatom).
      * </pre>
@@ -4479,7 +4481,7 @@ public final class Bank {
      * <pre>
      * exponent represents power of 10 exponent that one must
      * raise the base_denom to in order to equal the given DenomUnit's denom
-     * 1 denom = 1^exponent base_denom
+     * 1 denom = 10^exponent base_denom
      * (e.g. with a base_denom of uatom, one can create a DenomUnit of 'atom' with
      * exponent = 6, thus: 1 atom = 10^6 uatom).
      * </pre>
@@ -5004,7 +5006,7 @@ public final class Bank {
        * <pre>
        * exponent represents power of 10 exponent that one must
        * raise the base_denom to in order to equal the given DenomUnit's denom
-       * 1 denom = 1^exponent base_denom
+       * 1 denom = 10^exponent base_denom
        * (e.g. with a base_denom of uatom, one can create a DenomUnit of 'atom' with
        * exponent = 6, thus: 1 atom = 10^6 uatom).
        * </pre>
@@ -5020,7 +5022,7 @@ public final class Bank {
        * <pre>
        * exponent represents power of 10 exponent that one must
        * raise the base_denom to in order to equal the given DenomUnit's denom
-       * 1 denom = 1^exponent base_denom
+       * 1 denom = 10^exponent base_denom
        * (e.g. with a base_denom of uatom, one can create a DenomUnit of 'atom' with
        * exponent = 6, thus: 1 atom = 10^6 uatom).
        * </pre>
@@ -5039,7 +5041,7 @@ public final class Bank {
        * <pre>
        * exponent represents power of 10 exponent that one must
        * raise the base_denom to in order to equal the given DenomUnit's denom
-       * 1 denom = 1^exponent base_denom
+       * 1 denom = 10^exponent base_denom
        * (e.g. with a base_denom of uatom, one can create a DenomUnit of 'atom' with
        * exponent = 6, thus: 1 atom = 10^6 uatom).
        * </pre>
@@ -5353,6 +5355,98 @@ public final class Bank {
      */
     com.google.protobuf.ByteString
         getDisplayBytes();
+
+    /**
+     * <pre>
+     * name defines the name of the token (eg: Cosmos Atom)
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>string name = 5;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <pre>
+     * name defines the name of the token (eg: Cosmos Atom)
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>string name = 5;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <pre>
+     * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
+     * be the same as the display.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>string symbol = 6;</code>
+     * @return The symbol.
+     */
+    java.lang.String getSymbol();
+    /**
+     * <pre>
+     * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
+     * be the same as the display.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>string symbol = 6;</code>
+     * @return The bytes for symbol.
+     */
+    com.google.protobuf.ByteString
+        getSymbolBytes();
+
+    /**
+     * <pre>
+     * URI to a document (on or off-chain) that contains additional information. Optional.
+     * Since: cosmos-sdk 0.45
+     * </pre>
+     *
+     * <code>string uri = 7 [(.gogoproto.customname) = "URI"];</code>
+     * @return The uri.
+     */
+    java.lang.String getUri();
+    /**
+     * <pre>
+     * URI to a document (on or off-chain) that contains additional information. Optional.
+     * Since: cosmos-sdk 0.45
+     * </pre>
+     *
+     * <code>string uri = 7 [(.gogoproto.customname) = "URI"];</code>
+     * @return The bytes for uri.
+     */
+    com.google.protobuf.ByteString
+        getUriBytes();
+
+    /**
+     * <pre>
+     * URIHash is a sha256 hash of a document pointed by URI. It's used to verify that
+     * the document didn't change. Optional.
+     * Since: cosmos-sdk 0.45
+     * </pre>
+     *
+     * <code>string uri_hash = 8 [(.gogoproto.customname) = "URIHash"];</code>
+     * @return The uriHash.
+     */
+    java.lang.String getUriHash();
+    /**
+     * <pre>
+     * URIHash is a sha256 hash of a document pointed by URI. It's used to verify that
+     * the document didn't change. Optional.
+     * Since: cosmos-sdk 0.45
+     * </pre>
+     *
+     * <code>string uri_hash = 8 [(.gogoproto.customname) = "URIHash"];</code>
+     * @return The bytes for uriHash.
+     */
+    com.google.protobuf.ByteString
+        getUriHashBytes();
   }
   /**
    * <pre>
@@ -5376,6 +5470,10 @@ public final class Bank {
       denomUnits_ = java.util.Collections.emptyList();
       base_ = "";
       display_ = "";
+      name_ = "";
+      symbol_ = "";
+      uri_ = "";
+      uriHash_ = "";
     }
 
     @java.lang.Override
@@ -5434,6 +5532,30 @@ public final class Bank {
               java.lang.String s = input.readStringRequireUtf8();
 
               display_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              symbol_ = s;
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              uri_ = s;
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              uriHash_ = s;
               break;
             }
             default: {
@@ -5663,6 +5785,202 @@ public final class Bank {
       }
     }
 
+    public static final int NAME_FIELD_NUMBER = 5;
+    private volatile java.lang.Object name_;
+    /**
+     * <pre>
+     * name defines the name of the token (eg: Cosmos Atom)
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>string name = 5;</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * name defines the name of the token (eg: Cosmos Atom)
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>string name = 5;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SYMBOL_FIELD_NUMBER = 6;
+    private volatile java.lang.Object symbol_;
+    /**
+     * <pre>
+     * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
+     * be the same as the display.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>string symbol = 6;</code>
+     * @return The symbol.
+     */
+    @java.lang.Override
+    public java.lang.String getSymbol() {
+      java.lang.Object ref = symbol_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        symbol_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
+     * be the same as the display.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     *
+     * <code>string symbol = 6;</code>
+     * @return The bytes for symbol.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSymbolBytes() {
+      java.lang.Object ref = symbol_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        symbol_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int URI_FIELD_NUMBER = 7;
+    private volatile java.lang.Object uri_;
+    /**
+     * <pre>
+     * URI to a document (on or off-chain) that contains additional information. Optional.
+     * Since: cosmos-sdk 0.45
+     * </pre>
+     *
+     * <code>string uri = 7 [(.gogoproto.customname) = "URI"];</code>
+     * @return The uri.
+     */
+    @java.lang.Override
+    public java.lang.String getUri() {
+      java.lang.Object ref = uri_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        uri_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * URI to a document (on or off-chain) that contains additional information. Optional.
+     * Since: cosmos-sdk 0.45
+     * </pre>
+     *
+     * <code>string uri = 7 [(.gogoproto.customname) = "URI"];</code>
+     * @return The bytes for uri.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUriBytes() {
+      java.lang.Object ref = uri_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uri_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int URI_HASH_FIELD_NUMBER = 8;
+    private volatile java.lang.Object uriHash_;
+    /**
+     * <pre>
+     * URIHash is a sha256 hash of a document pointed by URI. It's used to verify that
+     * the document didn't change. Optional.
+     * Since: cosmos-sdk 0.45
+     * </pre>
+     *
+     * <code>string uri_hash = 8 [(.gogoproto.customname) = "URIHash"];</code>
+     * @return The uriHash.
+     */
+    @java.lang.Override
+    public java.lang.String getUriHash() {
+      java.lang.Object ref = uriHash_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        uriHash_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * URIHash is a sha256 hash of a document pointed by URI. It's used to verify that
+     * the document didn't change. Optional.
+     * Since: cosmos-sdk 0.45
+     * </pre>
+     *
+     * <code>string uri_hash = 8 [(.gogoproto.customname) = "URIHash"];</code>
+     * @return The bytes for uriHash.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUriHashBytes() {
+      java.lang.Object ref = uriHash_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uriHash_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -5689,6 +6007,18 @@ public final class Bank {
       if (!getDisplayBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, display_);
       }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, name_);
+      }
+      if (!getSymbolBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, symbol_);
+      }
+      if (!getUriBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, uri_);
+      }
+      if (!getUriHashBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, uriHash_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -5710,6 +6040,18 @@ public final class Bank {
       }
       if (!getDisplayBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, display_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, name_);
+      }
+      if (!getSymbolBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, symbol_);
+      }
+      if (!getUriBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, uri_);
+      }
+      if (!getUriHashBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, uriHash_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5734,6 +6076,14 @@ public final class Bank {
           .equals(other.getBase())) return false;
       if (!getDisplay()
           .equals(other.getDisplay())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getSymbol()
+          .equals(other.getSymbol())) return false;
+      if (!getUri()
+          .equals(other.getUri())) return false;
+      if (!getUriHash()
+          .equals(other.getUriHash())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -5755,6 +6105,14 @@ public final class Bank {
       hash = (53 * hash) + getBase().hashCode();
       hash = (37 * hash) + DISPLAY_FIELD_NUMBER;
       hash = (53 * hash) + getDisplay().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + SYMBOL_FIELD_NUMBER;
+      hash = (53 * hash) + getSymbol().hashCode();
+      hash = (37 * hash) + URI_FIELD_NUMBER;
+      hash = (53 * hash) + getUri().hashCode();
+      hash = (37 * hash) + URI_HASH_FIELD_NUMBER;
+      hash = (53 * hash) + getUriHash().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -5906,6 +6264,14 @@ public final class Bank {
 
         display_ = "";
 
+        name_ = "";
+
+        symbol_ = "";
+
+        uri_ = "";
+
+        uriHash_ = "";
+
         return this;
       }
 
@@ -5945,6 +6311,10 @@ public final class Bank {
         }
         result.base_ = base_;
         result.display_ = display_;
+        result.name_ = name_;
+        result.symbol_ = symbol_;
+        result.uri_ = uri_;
+        result.uriHash_ = uriHash_;
         onBuilt();
         return result;
       }
@@ -6029,6 +6399,22 @@ public final class Bank {
         }
         if (!other.getDisplay().isEmpty()) {
           display_ = other.display_;
+          onChanged();
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (!other.getSymbol().isEmpty()) {
+          symbol_ = other.symbol_;
+          onChanged();
+        }
+        if (!other.getUri().isEmpty()) {
+          uri_ = other.uri_;
+          onChanged();
+        }
+        if (!other.getUriHash().isEmpty()) {
+          uriHash_ = other.uriHash_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -6645,6 +7031,420 @@ public final class Bank {
         onChanged();
         return this;
       }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <pre>
+       * name defines the name of the token (eg: Cosmos Atom)
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>string name = 5;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * name defines the name of the token (eg: Cosmos Atom)
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>string name = 5;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * name defines the name of the token (eg: Cosmos Atom)
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>string name = 5;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * name defines the name of the token (eg: Cosmos Atom)
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>string name = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * name defines the name of the token (eg: Cosmos Atom)
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>string name = 5;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object symbol_ = "";
+      /**
+       * <pre>
+       * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
+       * be the same as the display.
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>string symbol = 6;</code>
+       * @return The symbol.
+       */
+      public java.lang.String getSymbol() {
+        java.lang.Object ref = symbol_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          symbol_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
+       * be the same as the display.
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>string symbol = 6;</code>
+       * @return The bytes for symbol.
+       */
+      public com.google.protobuf.ByteString
+          getSymbolBytes() {
+        java.lang.Object ref = symbol_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          symbol_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
+       * be the same as the display.
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>string symbol = 6;</code>
+       * @param value The symbol to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSymbol(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        symbol_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
+       * be the same as the display.
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>string symbol = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSymbol() {
+        
+        symbol_ = getDefaultInstance().getSymbol();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
+       * be the same as the display.
+       * Since: cosmos-sdk 0.43
+       * </pre>
+       *
+       * <code>string symbol = 6;</code>
+       * @param value The bytes for symbol to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSymbolBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        symbol_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object uri_ = "";
+      /**
+       * <pre>
+       * URI to a document (on or off-chain) that contains additional information. Optional.
+       * Since: cosmos-sdk 0.45
+       * </pre>
+       *
+       * <code>string uri = 7 [(.gogoproto.customname) = "URI"];</code>
+       * @return The uri.
+       */
+      public java.lang.String getUri() {
+        java.lang.Object ref = uri_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          uri_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * URI to a document (on or off-chain) that contains additional information. Optional.
+       * Since: cosmos-sdk 0.45
+       * </pre>
+       *
+       * <code>string uri = 7 [(.gogoproto.customname) = "URI"];</code>
+       * @return The bytes for uri.
+       */
+      public com.google.protobuf.ByteString
+          getUriBytes() {
+        java.lang.Object ref = uri_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uri_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * URI to a document (on or off-chain) that contains additional information. Optional.
+       * Since: cosmos-sdk 0.45
+       * </pre>
+       *
+       * <code>string uri = 7 [(.gogoproto.customname) = "URI"];</code>
+       * @param value The uri to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUri(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        uri_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * URI to a document (on or off-chain) that contains additional information. Optional.
+       * Since: cosmos-sdk 0.45
+       * </pre>
+       *
+       * <code>string uri = 7 [(.gogoproto.customname) = "URI"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUri() {
+        
+        uri_ = getDefaultInstance().getUri();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * URI to a document (on or off-chain) that contains additional information. Optional.
+       * Since: cosmos-sdk 0.45
+       * </pre>
+       *
+       * <code>string uri = 7 [(.gogoproto.customname) = "URI"];</code>
+       * @param value The bytes for uri to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUriBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        uri_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object uriHash_ = "";
+      /**
+       * <pre>
+       * URIHash is a sha256 hash of a document pointed by URI. It's used to verify that
+       * the document didn't change. Optional.
+       * Since: cosmos-sdk 0.45
+       * </pre>
+       *
+       * <code>string uri_hash = 8 [(.gogoproto.customname) = "URIHash"];</code>
+       * @return The uriHash.
+       */
+      public java.lang.String getUriHash() {
+        java.lang.Object ref = uriHash_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          uriHash_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * URIHash is a sha256 hash of a document pointed by URI. It's used to verify that
+       * the document didn't change. Optional.
+       * Since: cosmos-sdk 0.45
+       * </pre>
+       *
+       * <code>string uri_hash = 8 [(.gogoproto.customname) = "URIHash"];</code>
+       * @return The bytes for uriHash.
+       */
+      public com.google.protobuf.ByteString
+          getUriHashBytes() {
+        java.lang.Object ref = uriHash_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uriHash_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * URIHash is a sha256 hash of a document pointed by URI. It's used to verify that
+       * the document didn't change. Optional.
+       * Since: cosmos-sdk 0.45
+       * </pre>
+       *
+       * <code>string uri_hash = 8 [(.gogoproto.customname) = "URIHash"];</code>
+       * @param value The uriHash to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUriHash(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        uriHash_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * URIHash is a sha256 hash of a document pointed by URI. It's used to verify that
+       * the document didn't change. Optional.
+       * Since: cosmos-sdk 0.45
+       * </pre>
+       *
+       * <code>string uri_hash = 8 [(.gogoproto.customname) = "URIHash"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUriHash() {
+        
+        uriHash_ = getDefaultInstance().getUriHash();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * URIHash is a sha256 hash of a document pointed by URI. It's used to verify that
+       * the document didn't change. Optional.
+       * Since: cosmos-sdk 0.45
+       * </pre>
+       *
+       * <code>string uri_hash = 8 [(.gogoproto.customname) = "URIHash"];</code>
+       * @param value The bytes for uriHash to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUriHashBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        uriHash_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -6745,34 +7545,36 @@ public final class Bank {
       "\n\036cosmos/bank/v1beta1/bank.proto\022\023cosmos" +
       ".bank.v1beta1\032\024gogoproto/gogo.proto\032\031cos" +
       "mos_proto/cosmos.proto\032\036cosmos/base/v1be" +
-      "ta1/coin.proto\"\262\001\n\006Params\022Y\n\014send_enable" +
-      "d\030\001 \003(\0132 .cosmos.bank.v1beta1.SendEnable" +
-      "dB!\362\336\037\035yaml:\"send_enabled,omitempty\"\022G\n\024" +
-      "default_send_enabled\030\002 \001(\010B)\362\336\037%yaml:\"de" +
-      "fault_send_enabled,omitempty\":\004\230\240\037\000\"7\n\013S" +
-      "endEnabled\022\r\n\005denom\030\001 \001(\t\022\017\n\007enabled\030\002 \001" +
-      "(\010:\010\350\240\037\001\230\240\037\000\"~\n\005Input\022\017\n\007address\030\001 \001(\t\022Z" +
-      "\n\005coins\030\002 \003(\0132\031.cosmos.base.v1beta1.Coin" +
-      "B0\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/t" +
-      "ypes.Coins:\010\350\240\037\000\210\240\037\000\"\177\n\006Output\022\017\n\007addres" +
-      "s\030\001 \001(\t\022Z\n\005coins\030\002 \003(\0132\031.cosmos.base.v1b" +
-      "eta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/cos" +
-      "mos-sdk/types.Coins:\010\350\240\037\000\210\240\037\000\"\253\001\n\006Supply" +
-      "\022Z\n\005total\030\001 \003(\0132\031.cosmos.base.v1beta1.Co" +
-      "inB0\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk" +
-      "/types.Coins:E\350\240\037\001\210\240\037\000\230\240\037\000\322\264-5*github.co" +
-      "m/cosmos/cosmos-sdk/x/bank/exported.Supp" +
-      "lyI\"=\n\tDenomUnit\022\r\n\005denom\030\001 \001(\t\022\020\n\010expon" +
-      "ent\030\002 \001(\r\022\017\n\007aliases\030\003 \003(\t\"s\n\010Metadata\022\023" +
-      "\n\013description\030\001 \001(\t\0223\n\013denom_units\030\002 \003(\013" +
-      "2\036.cosmos.bank.v1beta1.DenomUnit\022\014\n\004base" +
-      "\030\003 \001(\t\022\017\n\007display\030\004 \001(\tB+Z)github.com/co" +
-      "smos/cosmos-sdk/x/bank/typesb\006proto3"
+      "ta1/coin.proto\"d\n\006Params\0226\n\014send_enabled" +
+      "\030\001 \003(\0132 .cosmos.bank.v1beta1.SendEnabled" +
+      "\022\034\n\024default_send_enabled\030\002 \001(\010:\004\230\240\037\000\"7\n\013" +
+      "SendEnabled\022\r\n\005denom\030\001 \001(\t\022\017\n\007enabled\030\002 " +
+      "\001(\010:\010\350\240\037\001\230\240\037\000\"\230\001\n\005Input\022)\n\007address\030\001 \001(\t" +
+      "B\030\322\264-\024cosmos.AddressString\022Z\n\005coins\030\002 \003(" +
+      "\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(gi" +
+      "thub.com/cosmos/cosmos-sdk/types.Coins:\010" +
+      "\350\240\037\000\210\240\037\000\"\231\001\n\006Output\022)\n\007address\030\001 \001(\tB\030\322\264" +
+      "-\024cosmos.AddressString\022Z\n\005coins\030\002 \003(\0132\031." +
+      "cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github" +
+      ".com/cosmos/cosmos-sdk/types.Coins:\010\350\240\037\000" +
+      "\210\240\037\000\"\260\001\n\006Supply\022Z\n\005total\030\001 \003(\0132\031.cosmos." +
+      "base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/co" +
+      "smos/cosmos-sdk/types.Coins:J\030\001\350\240\037\001\210\240\037\000\312" +
+      "\264-<*github.com/cosmos/cosmos-sdk/x/bank/" +
+      "migrations/v040.SupplyI\"=\n\tDenomUnit\022\r\n\005" +
+      "denom\030\001 \001(\t\022\020\n\010exponent\030\002 \001(\r\022\017\n\007aliases" +
+      "\030\003 \003(\t\"\306\001\n\010Metadata\022\023\n\013description\030\001 \001(\t" +
+      "\0223\n\013denom_units\030\002 \003(\0132\036.cosmos.bank.v1be" +
+      "ta1.DenomUnit\022\014\n\004base\030\003 \001(\t\022\017\n\007display\030\004" +
+      " \001(\t\022\014\n\004name\030\005 \001(\t\022\016\n\006symbol\030\006 \001(\t\022\024\n\003ur" +
+      "i\030\007 \001(\tB\007\342\336\037\003URI\022\035\n\010uri_hash\030\010 \001(\tB\013\342\336\037\007" +
+      "URIHashB+Z)github.com/cosmos/cosmos-sdk/" +
+      "x/bank/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
@@ -6817,19 +7619,20 @@ public final class Bank {
     internal_static_cosmos_bank_v1beta1_Metadata_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_bank_v1beta1_Metadata_descriptor,
-        new java.lang.String[] { "Description", "DenomUnits", "Base", "Display", });
+        new java.lang.String[] { "Description", "DenomUnits", "Base", "Display", "Name", "Symbol", "Uri", "UriHash", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.implementsInterface);
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }

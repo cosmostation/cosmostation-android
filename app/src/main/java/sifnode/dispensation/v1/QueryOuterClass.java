@@ -21,7 +21,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.QueryAllDistributionsRequest}
    */
-  public  static final class QueryAllDistributionsRequest extends
+  public static final class QueryAllDistributionsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.QueryAllDistributionsRequest)
       QueryAllDistributionsRequestOrBuilder {
@@ -469,7 +469,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.QueryAllDistributionsResponse}
    */
-  public  static final class QueryAllDistributionsResponse extends
+  public static final class QueryAllDistributionsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.QueryAllDistributionsResponse)
       QueryAllDistributionsResponseOrBuilder {
@@ -567,12 +567,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .sifnode.dispensation.v1.Distribution distributions = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.dispensation.v1.Types.Distribution> getDistributionsList() {
       return distributions_;
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.Distribution distributions = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.dispensation.v1.Types.DistributionOrBuilder> 
         getDistributionsOrBuilderList() {
       return distributions_;
@@ -580,18 +582,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .sifnode.dispensation.v1.Distribution distributions = 1;</code>
      */
+    @java.lang.Override
     public int getDistributionsCount() {
       return distributions_.size();
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.Distribution distributions = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.Distribution getDistributions(int index) {
       return distributions_.get(index);
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.Distribution distributions = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.DistributionOrBuilder getDistributionsOrBuilder(
         int index) {
       return distributions_.get(index);
@@ -603,6 +608,7 @@ public final class QueryOuterClass {
      * <code>int64 height = 2;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -1212,6 +1218,7 @@ public final class QueryOuterClass {
        * <code>int64 height = 2;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -1319,7 +1326,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.QueryRecordsByDistributionNameRequest}
    */
-  public  static final class QueryRecordsByDistributionNameRequest extends
+  public static final class QueryRecordsByDistributionNameRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.QueryRecordsByDistributionNameRequest)
       QueryRecordsByDistributionNameRequestOrBuilder {
@@ -1413,6 +1420,7 @@ public final class QueryOuterClass {
      * <code>string distribution_name = 1;</code>
      * @return The distributionName.
      */
+    @java.lang.Override
     public java.lang.String getDistributionName() {
       java.lang.Object ref = distributionName_;
       if (ref instanceof java.lang.String) {
@@ -1429,6 +1437,7 @@ public final class QueryOuterClass {
      * <code>string distribution_name = 1;</code>
      * @return The bytes for distributionName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDistributionNameBytes() {
       java.lang.Object ref = distributionName_;
@@ -1449,14 +1458,14 @@ public final class QueryOuterClass {
      * <code>.sifnode.dispensation.v1.DistributionStatus status = 2;</code>
      * @return The enum numeric value on the wire for status.
      */
-    public int getStatusValue() {
+    @java.lang.Override public int getStatusValue() {
       return status_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionStatus status = 2;</code>
      * @return The status.
      */
-    public sifnode.dispensation.v1.Types.DistributionStatus getStatus() {
+    @java.lang.Override public sifnode.dispensation.v1.Types.DistributionStatus getStatus() {
       @SuppressWarnings("deprecation")
       sifnode.dispensation.v1.Types.DistributionStatus result = sifnode.dispensation.v1.Types.DistributionStatus.valueOf(status_);
       return result == null ? sifnode.dispensation.v1.Types.DistributionStatus.UNRECOGNIZED : result;
@@ -1861,7 +1870,7 @@ public final class QueryOuterClass {
        * <code>.sifnode.dispensation.v1.DistributionStatus status = 2;</code>
        * @return The enum numeric value on the wire for status.
        */
-      public int getStatusValue() {
+      @java.lang.Override public int getStatusValue() {
         return status_;
       }
       /**
@@ -1870,6 +1879,7 @@ public final class QueryOuterClass {
        * @return This builder for chaining.
        */
       public Builder setStatusValue(int value) {
+        
         status_ = value;
         onChanged();
         return this;
@@ -1878,6 +1888,7 @@ public final class QueryOuterClass {
        * <code>.sifnode.dispensation.v1.DistributionStatus status = 2;</code>
        * @return The status.
        */
+      @java.lang.Override
       public sifnode.dispensation.v1.Types.DistributionStatus getStatus() {
         @SuppressWarnings("deprecation")
         sifnode.dispensation.v1.Types.DistributionStatus result = sifnode.dispensation.v1.Types.DistributionStatus.valueOf(status_);
@@ -1988,7 +1999,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.QueryRecordsByDistributionNameResponse}
    */
-  public  static final class QueryRecordsByDistributionNameResponse extends
+  public static final class QueryRecordsByDistributionNameResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.QueryRecordsByDistributionNameResponse)
       QueryRecordsByDistributionNameResponseOrBuilder {
@@ -2086,6 +2097,7 @@ public final class QueryOuterClass {
      * <code>.sifnode.dispensation.v1.DistributionRecords distribution_records = 1;</code>
      * @return Whether the distributionRecords field is set.
      */
+    @java.lang.Override
     public boolean hasDistributionRecords() {
       return distributionRecords_ != null;
     }
@@ -2093,12 +2105,14 @@ public final class QueryOuterClass {
      * <code>.sifnode.dispensation.v1.DistributionRecords distribution_records = 1;</code>
      * @return The distributionRecords.
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.DistributionRecords getDistributionRecords() {
       return distributionRecords_ == null ? sifnode.dispensation.v1.Types.DistributionRecords.getDefaultInstance() : distributionRecords_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionRecords distribution_records = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.DistributionRecordsOrBuilder getDistributionRecordsOrBuilder() {
       return getDistributionRecords();
     }
@@ -2109,6 +2123,7 @@ public final class QueryOuterClass {
      * <code>int64 height = 2;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -2570,6 +2585,7 @@ public final class QueryOuterClass {
        * <code>int64 height = 2;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -2666,7 +2682,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.QueryRecordsByRecipientAddrRequest}
    */
-  public  static final class QueryRecordsByRecipientAddrRequest extends
+  public static final class QueryRecordsByRecipientAddrRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.QueryRecordsByRecipientAddrRequest)
       QueryRecordsByRecipientAddrRequestOrBuilder {
@@ -2753,6 +2769,7 @@ public final class QueryOuterClass {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -2769,6 +2786,7 @@ public final class QueryOuterClass {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -3241,7 +3259,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.QueryRecordsByRecipientAddrResponse}
    */
-  public  static final class QueryRecordsByRecipientAddrResponse extends
+  public static final class QueryRecordsByRecipientAddrResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.QueryRecordsByRecipientAddrResponse)
       QueryRecordsByRecipientAddrResponseOrBuilder {
@@ -3339,6 +3357,7 @@ public final class QueryOuterClass {
      * <code>.sifnode.dispensation.v1.DistributionRecords distribution_records = 1;</code>
      * @return Whether the distributionRecords field is set.
      */
+    @java.lang.Override
     public boolean hasDistributionRecords() {
       return distributionRecords_ != null;
     }
@@ -3346,12 +3365,14 @@ public final class QueryOuterClass {
      * <code>.sifnode.dispensation.v1.DistributionRecords distribution_records = 1;</code>
      * @return The distributionRecords.
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.DistributionRecords getDistributionRecords() {
       return distributionRecords_ == null ? sifnode.dispensation.v1.Types.DistributionRecords.getDefaultInstance() : distributionRecords_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionRecords distribution_records = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.DistributionRecordsOrBuilder getDistributionRecordsOrBuilder() {
       return getDistributionRecords();
     }
@@ -3362,6 +3383,7 @@ public final class QueryOuterClass {
      * <code>int64 height = 2;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -3823,6 +3845,7 @@ public final class QueryOuterClass {
        * <code>int64 height = 2;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -3918,7 +3941,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.QueryClaimsByTypeRequest}
    */
-  public  static final class QueryClaimsByTypeRequest extends
+  public static final class QueryClaimsByTypeRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.QueryClaimsByTypeRequest)
       QueryClaimsByTypeRequestOrBuilder {
@@ -4005,14 +4028,14 @@ public final class QueryOuterClass {
      * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 1;</code>
      * @return The enum numeric value on the wire for userClaimType.
      */
-    public int getUserClaimTypeValue() {
+    @java.lang.Override public int getUserClaimTypeValue() {
       return userClaimType_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 1;</code>
      * @return The userClaimType.
      */
-    public sifnode.dispensation.v1.Types.DistributionType getUserClaimType() {
+    @java.lang.Override public sifnode.dispensation.v1.Types.DistributionType getUserClaimType() {
       @SuppressWarnings("deprecation")
       sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(userClaimType_);
       return result == null ? sifnode.dispensation.v1.Types.DistributionType.UNRECOGNIZED : result;
@@ -4324,7 +4347,7 @@ public final class QueryOuterClass {
        * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 1;</code>
        * @return The enum numeric value on the wire for userClaimType.
        */
-      public int getUserClaimTypeValue() {
+      @java.lang.Override public int getUserClaimTypeValue() {
         return userClaimType_;
       }
       /**
@@ -4333,6 +4356,7 @@ public final class QueryOuterClass {
        * @return This builder for chaining.
        */
       public Builder setUserClaimTypeValue(int value) {
+        
         userClaimType_ = value;
         onChanged();
         return this;
@@ -4341,6 +4365,7 @@ public final class QueryOuterClass {
        * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 1;</code>
        * @return The userClaimType.
        */
+      @java.lang.Override
       public sifnode.dispensation.v1.Types.DistributionType getUserClaimType() {
         @SuppressWarnings("deprecation")
         sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(userClaimType_);
@@ -4460,7 +4485,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.QueryClaimsResponse}
    */
-  public  static final class QueryClaimsResponse extends
+  public static final class QueryClaimsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.QueryClaimsResponse)
       QueryClaimsResponseOrBuilder {
@@ -4558,12 +4583,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .sifnode.dispensation.v1.UserClaim claims = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.dispensation.v1.Types.UserClaim> getClaimsList() {
       return claims_;
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.UserClaim claims = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.dispensation.v1.Types.UserClaimOrBuilder> 
         getClaimsOrBuilderList() {
       return claims_;
@@ -4571,18 +4598,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .sifnode.dispensation.v1.UserClaim claims = 1;</code>
      */
+    @java.lang.Override
     public int getClaimsCount() {
       return claims_.size();
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.UserClaim claims = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.UserClaim getClaims(int index) {
       return claims_.get(index);
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.UserClaim claims = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.UserClaimOrBuilder getClaimsOrBuilder(
         int index) {
       return claims_.get(index);
@@ -4594,6 +4624,7 @@ public final class QueryOuterClass {
      * <code>int64 height = 2;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -5203,6 +5234,7 @@ public final class QueryOuterClass {
        * <code>int64 height = 2;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -5372,7 +5404,7 @@ public final class QueryOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           sifnode.dispensation.v1.Types.getDescriptor(),
         });
     internal_static_sifnode_dispensation_v1_QueryAllDistributionsRequest_descriptor =
@@ -5423,7 +5455,7 @@ public final class QueryOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_dispensation_v1_QueryClaimsResponse_descriptor,
         new java.lang.String[] { "Claims", "Height", });
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     sifnode.dispensation.v1.Types.getDescriptor();
   }
 

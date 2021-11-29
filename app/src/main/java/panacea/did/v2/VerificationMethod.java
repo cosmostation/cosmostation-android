@@ -10,7 +10,7 @@ package panacea.did.v2;
  *
  * Protobuf type {@code panacea.did.v2.VerificationMethod}
  */
-public  final class VerificationMethod extends
+public final class VerificationMethod extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.did.v2.VerificationMethod)
     VerificationMethodOrBuilder {
@@ -118,6 +118,7 @@ private static final long serialVersionUID = 0L;
    * <code>string id = 1;</code>
    * @return The id.
    */
+  @java.lang.Override
   public java.lang.String getId() {
     java.lang.Object ref = id_;
     if (ref instanceof java.lang.String) {
@@ -134,6 +135,7 @@ private static final long serialVersionUID = 0L;
    * <code>string id = 1;</code>
    * @return The bytes for id.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getIdBytes() {
     java.lang.Object ref = id_;
@@ -154,6 +156,7 @@ private static final long serialVersionUID = 0L;
    * <code>string type = 2;</code>
    * @return The type.
    */
+  @java.lang.Override
   public java.lang.String getType() {
     java.lang.Object ref = type_;
     if (ref instanceof java.lang.String) {
@@ -170,6 +173,7 @@ private static final long serialVersionUID = 0L;
    * <code>string type = 2;</code>
    * @return The bytes for type.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getTypeBytes() {
     java.lang.Object ref = type_;
@@ -190,6 +194,7 @@ private static final long serialVersionUID = 0L;
    * <code>string controller = 3;</code>
    * @return The controller.
    */
+  @java.lang.Override
   public java.lang.String getController() {
     java.lang.Object ref = controller_;
     if (ref instanceof java.lang.String) {
@@ -206,6 +211,7 @@ private static final long serialVersionUID = 0L;
    * <code>string controller = 3;</code>
    * @return The bytes for controller.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getControllerBytes() {
     java.lang.Object ref = controller_;
@@ -223,9 +229,10 @@ private static final long serialVersionUID = 0L;
   public static final int PUBLIC_KEY_BASE58_FIELD_NUMBER = 4;
   private volatile java.lang.Object publicKeyBase58_;
   /**
-   * <code>string public_key_base58 = 4[json_name = "publicKeyBase58"];</code>
+   * <code>string public_key_base58 = 4 [json_name = "publicKeyBase58"];</code>
    * @return The publicKeyBase58.
    */
+  @java.lang.Override
   public java.lang.String getPublicKeyBase58() {
     java.lang.Object ref = publicKeyBase58_;
     if (ref instanceof java.lang.String) {
@@ -239,9 +246,10 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string public_key_base58 = 4[json_name = "publicKeyBase58"];</code>
+   * <code>string public_key_base58 = 4 [json_name = "publicKeyBase58"];</code>
    * @return The bytes for publicKeyBase58.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getPublicKeyBase58Bytes() {
     java.lang.Object ref = publicKeyBase58_;
@@ -843,7 +851,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object publicKeyBase58_ = "";
     /**
-     * <code>string public_key_base58 = 4[json_name = "publicKeyBase58"];</code>
+     * <code>string public_key_base58 = 4 [json_name = "publicKeyBase58"];</code>
      * @return The publicKeyBase58.
      */
     public java.lang.String getPublicKeyBase58() {
@@ -859,7 +867,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string public_key_base58 = 4[json_name = "publicKeyBase58"];</code>
+     * <code>string public_key_base58 = 4 [json_name = "publicKeyBase58"];</code>
      * @return The bytes for publicKeyBase58.
      */
     public com.google.protobuf.ByteString
@@ -876,7 +884,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string public_key_base58 = 4[json_name = "publicKeyBase58"];</code>
+     * <code>string public_key_base58 = 4 [json_name = "publicKeyBase58"];</code>
      * @param value The publicKeyBase58 to set.
      * @return This builder for chaining.
      */
@@ -891,7 +899,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string public_key_base58 = 4[json_name = "publicKeyBase58"];</code>
+     * <code>string public_key_base58 = 4 [json_name = "publicKeyBase58"];</code>
      * @return This builder for chaining.
      */
     public Builder clearPublicKeyBase58() {
@@ -901,7 +909,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string public_key_base58 = 4[json_name = "publicKeyBase58"];</code>
+     * <code>string public_key_base58 = 4 [json_name = "publicKeyBase58"];</code>
      * @param value The bytes for publicKeyBase58 to set.
      * @return This builder for chaining.
      */

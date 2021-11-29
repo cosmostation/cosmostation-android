@@ -4359,27 +4359,26 @@ public final class QueryOuterClass {
       "\'.cosmos.base.query.v1beta1.PageResponse" +
       "\"\024\n\022QueryParamsRequest\"K\n\023QueryParamsRes" +
       "ponse\0224\n\006params\030\001 \001(\0132$.ibc.applications" +
-      ".transfer.v1.Params2\236\004\n\005Query\022\271\001\n\nDenomT" +
+      ".transfer.v1.Params2\367\003\n\005Query\022\254\001\n\nDenomT" +
       "race\0224.ibc.applications.transfer.v1.Quer" +
       "yDenomTraceRequest\0325.ibc.applications.tr" +
-      "ansfer.v1.QueryDenomTraceResponse\">\202\323\344\223\002" +
-      "8\0226/ibc/applications/transfer/v1beta1/de" +
-      "nom_traces/{hash}\022\265\001\n\013DenomTraces\0225.ibc." +
-      "applications.transfer.v1.QueryDenomTrace" +
-      "sRequest\0326.ibc.applications.transfer.v1." +
-      "QueryDenomTracesResponse\"7\202\323\344\223\0021\022//ibc/a" +
-      "pplications/transfer/v1beta1/denom_trace" +
-      "s\022\240\001\n\006Params\0220.ibc.applications.transfer" +
-      ".v1.QueryParamsRequest\0321.ibc.application" +
-      "s.transfer.v1.QueryParamsResponse\"1\202\323\344\223\002" +
-      "+\022)/ibc/applications/transfer/v1beta1/pa" +
-      "ramsB@Z>github.com/cosmos/cosmos-sdk/x/i" +
-      "bc/applications/transfer/typesb\006proto3"
+      "ansfer.v1.QueryDenomTraceResponse\"1\202\323\344\223\002" +
+      "+\022)/ibc/apps/transfer/v1/denom_traces/{h" +
+      "ash}\022\250\001\n\013DenomTraces\0225.ibc.applications." +
+      "transfer.v1.QueryDenomTracesRequest\0326.ib" +
+      "c.applications.transfer.v1.QueryDenomTra" +
+      "cesResponse\"*\202\323\344\223\002$\022\"/ibc/apps/transfer/" +
+      "v1/denom_traces\022\223\001\n\006Params\0220.ibc.applica" +
+      "tions.transfer.v1.QueryParamsRequest\0321.i" +
+      "bc.applications.transfer.v1.QueryParamsR" +
+      "esponse\"$\202\323\344\223\002\036\022\034/ibc/apps/transfer/v1/p" +
+      "aramsB9Z7github.com/cosmos/ibc-go/v2/mod" +
+      "ules/apps/transfer/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           ibc.applications.transfer.v1.Transfer.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
@@ -4422,12 +4421,12 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Params", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     ibc.applications.transfer.v1.Transfer.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();

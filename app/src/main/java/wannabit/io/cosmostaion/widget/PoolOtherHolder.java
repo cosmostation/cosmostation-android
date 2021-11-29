@@ -10,7 +10,7 @@ import androidx.cardview.widget.CardView;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
@@ -48,7 +48,7 @@ public class PoolOtherHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindOsmoOtherPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
+    public void onBindOsmoOtherPool(Context context, BaseActivity activity, BaseData baseData, BalancerPoolOuterClass.BalancerPool otherPool) {
         Coin coin0 = new Coin(otherPool.getPoolAssets(0).getToken().getDenom(), otherPool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(otherPool.getPoolAssets(1).getToken().getDenom(), otherPool.getPoolAssets(1).getToken().getAmount());
 

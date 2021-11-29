@@ -10,7 +10,7 @@ package panacea.token.v2;
  *
  * Protobuf type {@code panacea.token.v2.GenesisState}
  */
-public  final class GenesisState extends
+public final class GenesisState extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.token.v2.GenesisState)
     GenesisStateOrBuilder {
@@ -140,6 +140,7 @@ private static final long serialVersionUID = 0L;
    * <code>map&lt;string, .panacea.token.v2.Token&gt; tokens = 1;</code>
    */
 
+  @java.lang.Override
   public boolean containsTokens(
       java.lang.String key) {
     if (key == null) { throw new java.lang.NullPointerException(); }
@@ -148,6 +149,7 @@ private static final long serialVersionUID = 0L;
   /**
    * Use {@link #getTokensMap()} instead.
    */
+  @java.lang.Override
   @java.lang.Deprecated
   public java.util.Map<java.lang.String, panacea.token.v2.Token> getTokens() {
     return getTokensMap();
@@ -155,6 +157,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.token.v2.Token&gt; tokens = 1;</code>
    */
+  @java.lang.Override
 
   public java.util.Map<java.lang.String, panacea.token.v2.Token> getTokensMap() {
     return internalGetTokens().getMap();
@@ -162,6 +165,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.token.v2.Token&gt; tokens = 1;</code>
    */
+  @java.lang.Override
 
   public panacea.token.v2.Token getTokensOrDefault(
       java.lang.String key,
@@ -174,6 +178,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.token.v2.Token&gt; tokens = 1;</code>
    */
+  @java.lang.Override
 
   public panacea.token.v2.Token getTokensOrThrow(
       java.lang.String key) {
@@ -556,6 +561,7 @@ private static final long serialVersionUID = 0L;
      * <code>map&lt;string, .panacea.token.v2.Token&gt; tokens = 1;</code>
      */
 
+    @java.lang.Override
     public boolean containsTokens(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -564,6 +570,7 @@ private static final long serialVersionUID = 0L;
     /**
      * Use {@link #getTokensMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, panacea.token.v2.Token> getTokens() {
       return getTokensMap();
@@ -571,6 +578,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.token.v2.Token&gt; tokens = 1;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, panacea.token.v2.Token> getTokensMap() {
       return internalGetTokens().getMap();
@@ -578,6 +586,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.token.v2.Token&gt; tokens = 1;</code>
      */
+    @java.lang.Override
 
     public panacea.token.v2.Token getTokensOrDefault(
         java.lang.String key,
@@ -590,6 +599,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.token.v2.Token&gt; tokens = 1;</code>
      */
+    @java.lang.Override
 
     public panacea.token.v2.Token getTokensOrThrow(
         java.lang.String key) {

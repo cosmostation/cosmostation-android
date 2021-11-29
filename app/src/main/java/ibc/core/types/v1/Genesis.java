@@ -1255,13 +1255,13 @@ public final class Genesis {
       "\336\037\031yaml:\"connection_genesis\"\022Z\n\017channel_" +
       "genesis\030\003 \001(\0132!.ibc.core.channel.v1.Gene" +
       "sisStateB\036\310\336\037\000\362\336\037\026yaml:\"channel_genesis\"" +
-      "B/Z-github.com/cosmos/cosmos-sdk/x/ibc/c" +
-      "ore/typesb\006proto3"
+      "B0Z.github.com/cosmos/ibc-go/v2/modules/" +
+      "core/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           ibc.core.client.v1.Genesis.getDescriptor(),
           ibc.core.connection.v1.Genesis.getDescriptor(),
           ibc.core.channel.v1.Genesis.getDescriptor(),
@@ -1274,11 +1274,11 @@ public final class Genesis {
         new java.lang.String[] { "ClientGenesis", "ConnectionGenesis", "ChannelGenesis", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     ibc.core.client.v1.Genesis.getDescriptor();
     ibc.core.connection.v1.Genesis.getDescriptor();
     ibc.core.channel.v1.Genesis.getDescriptor();

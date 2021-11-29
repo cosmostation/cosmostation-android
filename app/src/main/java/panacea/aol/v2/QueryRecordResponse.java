@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.QueryRecordResponse}
  */
-public  final class QueryRecordResponse extends
+public final class QueryRecordResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.QueryRecordResponse)
     QueryRecordResponseOrBuilder {
@@ -103,6 +103,7 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.aol.v2.Record record = 1;</code>
    * @return Whether the record field is set.
    */
+  @java.lang.Override
   public boolean hasRecord() {
     return record_ != null;
   }
@@ -110,12 +111,14 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.aol.v2.Record record = 1;</code>
    * @return The record.
    */
+  @java.lang.Override
   public panacea.aol.v2.Record getRecord() {
     return record_ == null ? panacea.aol.v2.Record.getDefaultInstance() : record_;
   }
   /**
    * <code>.panacea.aol.v2.Record record = 1;</code>
    */
+  @java.lang.Override
   public panacea.aol.v2.RecordOrBuilder getRecordOrBuilder() {
     return getRecord();
   }

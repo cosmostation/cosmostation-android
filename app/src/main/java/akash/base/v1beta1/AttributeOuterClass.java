@@ -2956,14 +2956,14 @@ public final class AttributeOuterClass {
       "ase.v1beta1.SignedByB%\310\336\037\000\352\336\037\tsigned_by\362" +
       "\336\037\020yaml:\"signed_by\"\022Z\n\nattributes\030\002 \003(\0132" +
       "\035.akash.base.v1beta1.AttributeB\'\310\336\037\000\352\336\037\n" +
-      "attributes\362\336\037\021yaml:\"attributes\":\004\210\240\037\000B\'Z" +
-      "\035github.com/ovrclk/akash/types\330\341\036\000\200\342\036\000b\006" +
-      "proto3"
+      "attributes\362\336\037\021yaml:\"attributes\":\004\210\240\037\000B/Z" +
+      "%github.com/ovrclk/akash/types/v1beta1\330\341" +
+      "\036\000\200\342\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_akash_base_v1beta1_Attribute_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2985,15 +2985,15 @@ public final class AttributeOuterClass {
         new java.lang.String[] { "SignedBy", "Attributes", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.stringerAll);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringerAll);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stringerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -89,6 +89,37 @@ public final class MsgGrpc {
     return getDeregisterMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sifnode.tokenregistry.v1.Tx.MsgSetRegistry,
+      sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse> getSetRegistryMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SetRegistry",
+      requestType = sifnode.tokenregistry.v1.Tx.MsgSetRegistry.class,
+      responseType = sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.tokenregistry.v1.Tx.MsgSetRegistry,
+      sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse> getSetRegistryMethod() {
+    io.grpc.MethodDescriptor<sifnode.tokenregistry.v1.Tx.MsgSetRegistry, sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse> getSetRegistryMethod;
+    if ((getSetRegistryMethod = MsgGrpc.getSetRegistryMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getSetRegistryMethod = MsgGrpc.getSetRegistryMethod) == null) {
+          MsgGrpc.getSetRegistryMethod = getSetRegistryMethod =
+              io.grpc.MethodDescriptor.<sifnode.tokenregistry.v1.Tx.MsgSetRegistry, sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetRegistry"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.tokenregistry.v1.Tx.MsgSetRegistry.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("SetRegistry"))
+              .build();
+        }
+      }
+    }
+    return getSetRegistryMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -151,6 +182,13 @@ public final class MsgGrpc {
       asyncUnimplementedUnaryCall(getDeregisterMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void setRegistry(sifnode.tokenregistry.v1.Tx.MsgSetRegistry request,
+        io.grpc.stub.StreamObserver<sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getSetRegistryMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -167,6 +205,13 @@ public final class MsgGrpc {
                 sifnode.tokenregistry.v1.Tx.MsgDeregister,
                 sifnode.tokenregistry.v1.Tx.MsgDeregisterResponse>(
                   this, METHODID_DEREGISTER)))
+          .addMethod(
+            getSetRegistryMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.tokenregistry.v1.Tx.MsgSetRegistry,
+                sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse>(
+                  this, METHODID_SET_REGISTRY)))
           .build();
     }
   }
@@ -200,6 +245,14 @@ public final class MsgGrpc {
       asyncUnaryCall(
           getChannel().newCall(getDeregisterMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void setRegistry(sifnode.tokenregistry.v1.Tx.MsgSetRegistry request,
+        io.grpc.stub.StreamObserver<sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSetRegistryMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -228,6 +281,13 @@ public final class MsgGrpc {
     public sifnode.tokenregistry.v1.Tx.MsgDeregisterResponse deregister(sifnode.tokenregistry.v1.Tx.MsgDeregister request) {
       return blockingUnaryCall(
           getChannel(), getDeregisterMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse setRegistry(sifnode.tokenregistry.v1.Tx.MsgSetRegistry request) {
+      return blockingUnaryCall(
+          getChannel(), getSetRegistryMethod(), getCallOptions(), request);
     }
   }
 
@@ -260,10 +320,19 @@ public final class MsgGrpc {
       return futureUnaryCall(
           getChannel().newCall(getDeregisterMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse> setRegistry(
+        sifnode.tokenregistry.v1.Tx.MsgSetRegistry request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSetRegistryMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_REGISTER = 0;
   private static final int METHODID_DEREGISTER = 1;
+  private static final int METHODID_SET_REGISTRY = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -289,6 +358,10 @@ public final class MsgGrpc {
         case METHODID_DEREGISTER:
           serviceImpl.deregister((sifnode.tokenregistry.v1.Tx.MsgDeregister) request,
               (io.grpc.stub.StreamObserver<sifnode.tokenregistry.v1.Tx.MsgDeregisterResponse>) responseObserver);
+          break;
+        case METHODID_SET_REGISTRY:
+          serviceImpl.setRegistry((sifnode.tokenregistry.v1.Tx.MsgSetRegistry) request,
+              (io.grpc.stub.StreamObserver<sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -353,6 +426,7 @@ public final class MsgGrpc {
               .setSchemaDescriptor(new MsgFileDescriptorSupplier())
               .addMethod(getRegisterMethod())
               .addMethod(getDeregisterMethod())
+              .addMethod(getSetRegistryMethod())
               .build();
         }
       }

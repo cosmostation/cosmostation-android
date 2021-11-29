@@ -61,6 +61,37 @@ public final class QueryGrpc {
     return getEthProphecyMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest,
+      sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse> getGetBlacklistMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetBlacklist",
+      requestType = sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest.class,
+      responseType = sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest,
+      sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse> getGetBlacklistMethod() {
+    io.grpc.MethodDescriptor<sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest, sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse> getGetBlacklistMethod;
+    if ((getGetBlacklistMethod = QueryGrpc.getGetBlacklistMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getGetBlacklistMethod = QueryGrpc.getGetBlacklistMethod) == null) {
+          QueryGrpc.getGetBlacklistMethod = getGetBlacklistMethod =
+              io.grpc.MethodDescriptor.<sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest, sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetBlacklist"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("GetBlacklist"))
+              .build();
+        }
+      }
+    }
+    return getGetBlacklistMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -122,6 +153,13 @@ public final class QueryGrpc {
       asyncUnimplementedUnaryCall(getEthProphecyMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getBlacklist(sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest request,
+        io.grpc.stub.StreamObserver<sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetBlacklistMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -131,6 +169,13 @@ public final class QueryGrpc {
                 sifnode.ethbridge.v1.QueryOuterClass.QueryEthProphecyRequest,
                 sifnode.ethbridge.v1.QueryOuterClass.QueryEthProphecyResponse>(
                   this, METHODID_ETH_PROPHECY)))
+          .addMethod(
+            getGetBlacklistMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest,
+                sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse>(
+                  this, METHODID_GET_BLACKLIST)))
           .build();
     }
   }
@@ -162,6 +207,14 @@ public final class QueryGrpc {
       asyncUnaryCall(
           getChannel().newCall(getEthProphecyMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getBlacklist(sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest request,
+        io.grpc.stub.StreamObserver<sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetBlacklistMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -189,6 +242,13 @@ public final class QueryGrpc {
     public sifnode.ethbridge.v1.QueryOuterClass.QueryEthProphecyResponse ethProphecy(sifnode.ethbridge.v1.QueryOuterClass.QueryEthProphecyRequest request) {
       return blockingUnaryCall(
           getChannel(), getEthProphecyMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse getBlacklist(sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getGetBlacklistMethod(), getCallOptions(), request);
     }
   }
 
@@ -219,9 +279,18 @@ public final class QueryGrpc {
       return futureUnaryCall(
           getChannel().newCall(getEthProphecyMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse> getBlacklist(
+        sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetBlacklistMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_ETH_PROPHECY = 0;
+  private static final int METHODID_GET_BLACKLIST = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -243,6 +312,10 @@ public final class QueryGrpc {
         case METHODID_ETH_PROPHECY:
           serviceImpl.ethProphecy((sifnode.ethbridge.v1.QueryOuterClass.QueryEthProphecyRequest) request,
               (io.grpc.stub.StreamObserver<sifnode.ethbridge.v1.QueryOuterClass.QueryEthProphecyResponse>) responseObserver);
+          break;
+        case METHODID_GET_BLACKLIST:
+          serviceImpl.getBlacklist((sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistRequest) request,
+              (io.grpc.stub.StreamObserver<sifnode.ethbridge.v1.QueryOuterClass.QueryBlacklistResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -306,6 +379,7 @@ public final class QueryGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new QueryFileDescriptorSupplier())
               .addMethod(getEthProphecyMethod())
+              .addMethod(getGetBlacklistMethod())
               .build();
         }
       }

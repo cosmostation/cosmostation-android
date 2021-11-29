@@ -33,7 +33,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.QueryOperatorRequest}
    */
-  public  static final class QueryOperatorRequest extends
+  public static final class QueryOperatorRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.QueryOperatorRequest)
       QueryOperatorRequestOrBuilder {
@@ -120,6 +120,7 @@ public final class QueryOuterClass {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -136,6 +137,7 @@ public final class QueryOuterClass {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -602,7 +604,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.QueryOperatorResponse}
    */
-  public  static final class QueryOperatorResponse extends
+  public static final class QueryOperatorResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.QueryOperatorResponse)
       QueryOperatorResponseOrBuilder {
@@ -695,6 +697,7 @@ public final class QueryOuterClass {
      * <code>.shentu.oracle.v1alpha1.Operator operator = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the operator field is set.
      */
+    @java.lang.Override
     public boolean hasOperator() {
       return operator_ != null;
     }
@@ -702,12 +705,14 @@ public final class QueryOuterClass {
      * <code>.shentu.oracle.v1alpha1.Operator operator = 1 [(.gogoproto.nullable) = false];</code>
      * @return The operator.
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.Operator getOperator() {
       return operator_ == null ? shentu.oracle.v1alpha1.Oracle.Operator.getDefaultInstance() : operator_;
     }
     /**
      * <code>.shentu.oracle.v1alpha1.Operator operator = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.OperatorOrBuilder getOperatorOrBuilder() {
       return getOperator();
     }
@@ -1205,7 +1210,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.QueryOperatorsRequest}
    */
-  public  static final class QueryOperatorsRequest extends
+  public static final class QueryOperatorsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.QueryOperatorsRequest)
       QueryOperatorsRequestOrBuilder {
@@ -1647,7 +1652,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.QueryOperatorsResponse}
    */
-  public  static final class QueryOperatorsResponse extends
+  public static final class QueryOperatorsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.QueryOperatorsResponse)
       QueryOperatorsResponseOrBuilder {
@@ -1740,12 +1745,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Operator operators = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.oracle.v1alpha1.Oracle.Operator> getOperatorsList() {
       return operators_;
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Operator operators = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.oracle.v1alpha1.Oracle.OperatorOrBuilder> 
         getOperatorsOrBuilderList() {
       return operators_;
@@ -1753,18 +1760,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Operator operators = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getOperatorsCount() {
       return operators_.size();
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Operator operators = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.Operator getOperators(int index) {
       return operators_.get(index);
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Operator operators = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.OperatorOrBuilder getOperatorsOrBuilder(
         int index) {
       return operators_.get(index);
@@ -2411,7 +2421,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.QueryWithdrawsRequest}
    */
-  public  static final class QueryWithdrawsRequest extends
+  public static final class QueryWithdrawsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.QueryWithdrawsRequest)
       QueryWithdrawsRequestOrBuilder {
@@ -2853,7 +2863,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.QueryWithdrawsResponse}
    */
-  public  static final class QueryWithdrawsResponse extends
+  public static final class QueryWithdrawsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.QueryWithdrawsResponse)
       QueryWithdrawsResponseOrBuilder {
@@ -2946,12 +2956,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Withdraw withdraws = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.oracle.v1alpha1.Oracle.Withdraw> getWithdrawsList() {
       return withdraws_;
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Withdraw withdraws = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.oracle.v1alpha1.Oracle.WithdrawOrBuilder> 
         getWithdrawsOrBuilderList() {
       return withdraws_;
@@ -2959,18 +2971,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Withdraw withdraws = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getWithdrawsCount() {
       return withdraws_.size();
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Withdraw withdraws = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.Withdraw getWithdraws(int index) {
       return withdraws_.get(index);
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Withdraw withdraws = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.WithdrawOrBuilder getWithdrawsOrBuilder(
         int index) {
       return withdraws_.get(index);
@@ -3641,7 +3656,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.QueryTaskRequest}
    */
-  public  static final class QueryTaskRequest extends
+  public static final class QueryTaskRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.QueryTaskRequest)
       QueryTaskRequestOrBuilder {
@@ -3735,6 +3750,7 @@ public final class QueryOuterClass {
      * <code>string contract = 1;</code>
      * @return The contract.
      */
+    @java.lang.Override
     public java.lang.String getContract() {
       java.lang.Object ref = contract_;
       if (ref instanceof java.lang.String) {
@@ -3751,6 +3767,7 @@ public final class QueryOuterClass {
      * <code>string contract = 1;</code>
      * @return The bytes for contract.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getContractBytes() {
       java.lang.Object ref = contract_;
@@ -3771,6 +3788,7 @@ public final class QueryOuterClass {
      * <code>string function = 2;</code>
      * @return The function.
      */
+    @java.lang.Override
     public java.lang.String getFunction() {
       java.lang.Object ref = function_;
       if (ref instanceof java.lang.String) {
@@ -3787,6 +3805,7 @@ public final class QueryOuterClass {
      * <code>string function = 2;</code>
      * @return The bytes for function.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFunctionBytes() {
       java.lang.Object ref = function_;
@@ -4346,7 +4365,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.QueryTaskResponse}
    */
-  public  static final class QueryTaskResponse extends
+  public static final class QueryTaskResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.QueryTaskResponse)
       QueryTaskResponseOrBuilder {
@@ -4439,6 +4458,7 @@ public final class QueryOuterClass {
      * <code>.shentu.oracle.v1alpha1.Task task = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the task field is set.
      */
+    @java.lang.Override
     public boolean hasTask() {
       return task_ != null;
     }
@@ -4446,12 +4466,14 @@ public final class QueryOuterClass {
      * <code>.shentu.oracle.v1alpha1.Task task = 1 [(.gogoproto.nullable) = false];</code>
      * @return The task.
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.Task getTask() {
       return task_ == null ? shentu.oracle.v1alpha1.Oracle.Task.getDefaultInstance() : task_;
     }
     /**
      * <code>.shentu.oracle.v1alpha1.Task task = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.TaskOrBuilder getTaskOrBuilder() {
       return getTask();
     }
@@ -4985,7 +5007,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.QueryResponseRequest}
    */
-  public  static final class QueryResponseRequest extends
+  public static final class QueryResponseRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.QueryResponseRequest)
       QueryResponseRequestOrBuilder {
@@ -5086,6 +5108,7 @@ public final class QueryOuterClass {
      * <code>string contract = 1;</code>
      * @return The contract.
      */
+    @java.lang.Override
     public java.lang.String getContract() {
       java.lang.Object ref = contract_;
       if (ref instanceof java.lang.String) {
@@ -5102,6 +5125,7 @@ public final class QueryOuterClass {
      * <code>string contract = 1;</code>
      * @return The bytes for contract.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getContractBytes() {
       java.lang.Object ref = contract_;
@@ -5122,6 +5146,7 @@ public final class QueryOuterClass {
      * <code>string function = 2;</code>
      * @return The function.
      */
+    @java.lang.Override
     public java.lang.String getFunction() {
       java.lang.Object ref = function_;
       if (ref instanceof java.lang.String) {
@@ -5138,6 +5163,7 @@ public final class QueryOuterClass {
      * <code>string function = 2;</code>
      * @return The bytes for function.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFunctionBytes() {
       java.lang.Object ref = function_;
@@ -5158,6 +5184,7 @@ public final class QueryOuterClass {
      * <code>string operator_address = 3;</code>
      * @return The operatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getOperatorAddress() {
       java.lang.Object ref = operatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -5174,6 +5201,7 @@ public final class QueryOuterClass {
      * <code>string operator_address = 3;</code>
      * @return The bytes for operatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOperatorAddressBytes() {
       java.lang.Object ref = operatorAddress_;
@@ -5826,7 +5854,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.QueryResponseResponse}
    */
-  public  static final class QueryResponseResponse extends
+  public static final class QueryResponseResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.QueryResponseResponse)
       QueryResponseResponseOrBuilder {
@@ -5919,6 +5947,7 @@ public final class QueryOuterClass {
      * <code>.shentu.oracle.v1alpha1.Response response = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the response field is set.
      */
+    @java.lang.Override
     public boolean hasResponse() {
       return response_ != null;
     }
@@ -5926,12 +5955,14 @@ public final class QueryOuterClass {
      * <code>.shentu.oracle.v1alpha1.Response response = 1 [(.gogoproto.nullable) = false];</code>
      * @return The response.
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.Response getResponse() {
       return response_ == null ? shentu.oracle.v1alpha1.Oracle.Response.getDefaultInstance() : response_;
     }
     /**
      * <code>.shentu.oracle.v1alpha1.Response response = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.ResponseOrBuilder getResponseOrBuilder() {
       return getResponse();
     }
@@ -6530,7 +6561,7 @@ public final class QueryOuterClass {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           shentu.oracle.v1alpha1.Oracle.getDescriptor(),
         });
@@ -6596,12 +6627,12 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Response", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     shentu.oracle.v1alpha1.Oracle.getDescriptor();
   }

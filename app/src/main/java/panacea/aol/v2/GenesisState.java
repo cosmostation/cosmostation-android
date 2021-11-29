@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.GenesisState}
  */
-public  final class GenesisState extends
+public final class GenesisState extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.GenesisState)
     GenesisStateOrBuilder {
@@ -185,6 +185,7 @@ private static final long serialVersionUID = 0L;
    * <code>map&lt;string, .panacea.aol.v2.Owner&gt; owners = 1;</code>
    */
 
+  @java.lang.Override
   public boolean containsOwners(
       java.lang.String key) {
     if (key == null) { throw new java.lang.NullPointerException(); }
@@ -193,6 +194,7 @@ private static final long serialVersionUID = 0L;
   /**
    * Use {@link #getOwnersMap()} instead.
    */
+  @java.lang.Override
   @java.lang.Deprecated
   public java.util.Map<java.lang.String, panacea.aol.v2.Owner> getOwners() {
     return getOwnersMap();
@@ -200,6 +202,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Owner&gt; owners = 1;</code>
    */
+  @java.lang.Override
 
   public java.util.Map<java.lang.String, panacea.aol.v2.Owner> getOwnersMap() {
     return internalGetOwners().getMap();
@@ -207,6 +210,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Owner&gt; owners = 1;</code>
    */
+  @java.lang.Override
 
   public panacea.aol.v2.Owner getOwnersOrDefault(
       java.lang.String key,
@@ -219,6 +223,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Owner&gt; owners = 1;</code>
    */
+  @java.lang.Override
 
   public panacea.aol.v2.Owner getOwnersOrThrow(
       java.lang.String key) {
@@ -261,6 +266,7 @@ private static final long serialVersionUID = 0L;
    * <code>map&lt;string, .panacea.aol.v2.Topic&gt; topics = 2;</code>
    */
 
+  @java.lang.Override
   public boolean containsTopics(
       java.lang.String key) {
     if (key == null) { throw new java.lang.NullPointerException(); }
@@ -269,6 +275,7 @@ private static final long serialVersionUID = 0L;
   /**
    * Use {@link #getTopicsMap()} instead.
    */
+  @java.lang.Override
   @java.lang.Deprecated
   public java.util.Map<java.lang.String, panacea.aol.v2.Topic> getTopics() {
     return getTopicsMap();
@@ -276,6 +283,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Topic&gt; topics = 2;</code>
    */
+  @java.lang.Override
 
   public java.util.Map<java.lang.String, panacea.aol.v2.Topic> getTopicsMap() {
     return internalGetTopics().getMap();
@@ -283,6 +291,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Topic&gt; topics = 2;</code>
    */
+  @java.lang.Override
 
   public panacea.aol.v2.Topic getTopicsOrDefault(
       java.lang.String key,
@@ -295,6 +304,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Topic&gt; topics = 2;</code>
    */
+  @java.lang.Override
 
   public panacea.aol.v2.Topic getTopicsOrThrow(
       java.lang.String key) {
@@ -337,6 +347,7 @@ private static final long serialVersionUID = 0L;
    * <code>map&lt;string, .panacea.aol.v2.Writer&gt; writers = 3;</code>
    */
 
+  @java.lang.Override
   public boolean containsWriters(
       java.lang.String key) {
     if (key == null) { throw new java.lang.NullPointerException(); }
@@ -345,6 +356,7 @@ private static final long serialVersionUID = 0L;
   /**
    * Use {@link #getWritersMap()} instead.
    */
+  @java.lang.Override
   @java.lang.Deprecated
   public java.util.Map<java.lang.String, panacea.aol.v2.Writer> getWriters() {
     return getWritersMap();
@@ -352,6 +364,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Writer&gt; writers = 3;</code>
    */
+  @java.lang.Override
 
   public java.util.Map<java.lang.String, panacea.aol.v2.Writer> getWritersMap() {
     return internalGetWriters().getMap();
@@ -359,6 +372,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Writer&gt; writers = 3;</code>
    */
+  @java.lang.Override
 
   public panacea.aol.v2.Writer getWritersOrDefault(
       java.lang.String key,
@@ -371,6 +385,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Writer&gt; writers = 3;</code>
    */
+  @java.lang.Override
 
   public panacea.aol.v2.Writer getWritersOrThrow(
       java.lang.String key) {
@@ -413,6 +428,7 @@ private static final long serialVersionUID = 0L;
    * <code>map&lt;string, .panacea.aol.v2.Record&gt; records = 4;</code>
    */
 
+  @java.lang.Override
   public boolean containsRecords(
       java.lang.String key) {
     if (key == null) { throw new java.lang.NullPointerException(); }
@@ -421,6 +437,7 @@ private static final long serialVersionUID = 0L;
   /**
    * Use {@link #getRecordsMap()} instead.
    */
+  @java.lang.Override
   @java.lang.Deprecated
   public java.util.Map<java.lang.String, panacea.aol.v2.Record> getRecords() {
     return getRecordsMap();
@@ -428,6 +445,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Record&gt; records = 4;</code>
    */
+  @java.lang.Override
 
   public java.util.Map<java.lang.String, panacea.aol.v2.Record> getRecordsMap() {
     return internalGetRecords().getMap();
@@ -435,6 +453,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Record&gt; records = 4;</code>
    */
+  @java.lang.Override
 
   public panacea.aol.v2.Record getRecordsOrDefault(
       java.lang.String key,
@@ -447,6 +466,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <code>map&lt;string, .panacea.aol.v2.Record&gt; records = 4;</code>
    */
+  @java.lang.Override
 
   public panacea.aol.v2.Record getRecordsOrThrow(
       java.lang.String key) {
@@ -922,6 +942,7 @@ private static final long serialVersionUID = 0L;
      * <code>map&lt;string, .panacea.aol.v2.Owner&gt; owners = 1;</code>
      */
 
+    @java.lang.Override
     public boolean containsOwners(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -930,6 +951,7 @@ private static final long serialVersionUID = 0L;
     /**
      * Use {@link #getOwnersMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, panacea.aol.v2.Owner> getOwners() {
       return getOwnersMap();
@@ -937,6 +959,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Owner&gt; owners = 1;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, panacea.aol.v2.Owner> getOwnersMap() {
       return internalGetOwners().getMap();
@@ -944,6 +967,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Owner&gt; owners = 1;</code>
      */
+    @java.lang.Override
 
     public panacea.aol.v2.Owner getOwnersOrDefault(
         java.lang.String key,
@@ -956,6 +980,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Owner&gt; owners = 1;</code>
      */
+    @java.lang.Override
 
     public panacea.aol.v2.Owner getOwnersOrThrow(
         java.lang.String key) {
@@ -1045,6 +1070,7 @@ private static final long serialVersionUID = 0L;
      * <code>map&lt;string, .panacea.aol.v2.Topic&gt; topics = 2;</code>
      */
 
+    @java.lang.Override
     public boolean containsTopics(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -1053,6 +1079,7 @@ private static final long serialVersionUID = 0L;
     /**
      * Use {@link #getTopicsMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, panacea.aol.v2.Topic> getTopics() {
       return getTopicsMap();
@@ -1060,6 +1087,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Topic&gt; topics = 2;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, panacea.aol.v2.Topic> getTopicsMap() {
       return internalGetTopics().getMap();
@@ -1067,6 +1095,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Topic&gt; topics = 2;</code>
      */
+    @java.lang.Override
 
     public panacea.aol.v2.Topic getTopicsOrDefault(
         java.lang.String key,
@@ -1079,6 +1108,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Topic&gt; topics = 2;</code>
      */
+    @java.lang.Override
 
     public panacea.aol.v2.Topic getTopicsOrThrow(
         java.lang.String key) {
@@ -1168,6 +1198,7 @@ private static final long serialVersionUID = 0L;
      * <code>map&lt;string, .panacea.aol.v2.Writer&gt; writers = 3;</code>
      */
 
+    @java.lang.Override
     public boolean containsWriters(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -1176,6 +1207,7 @@ private static final long serialVersionUID = 0L;
     /**
      * Use {@link #getWritersMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, panacea.aol.v2.Writer> getWriters() {
       return getWritersMap();
@@ -1183,6 +1215,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Writer&gt; writers = 3;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, panacea.aol.v2.Writer> getWritersMap() {
       return internalGetWriters().getMap();
@@ -1190,6 +1223,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Writer&gt; writers = 3;</code>
      */
+    @java.lang.Override
 
     public panacea.aol.v2.Writer getWritersOrDefault(
         java.lang.String key,
@@ -1202,6 +1236,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Writer&gt; writers = 3;</code>
      */
+    @java.lang.Override
 
     public panacea.aol.v2.Writer getWritersOrThrow(
         java.lang.String key) {
@@ -1291,6 +1326,7 @@ private static final long serialVersionUID = 0L;
      * <code>map&lt;string, .panacea.aol.v2.Record&gt; records = 4;</code>
      */
 
+    @java.lang.Override
     public boolean containsRecords(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -1299,6 +1335,7 @@ private static final long serialVersionUID = 0L;
     /**
      * Use {@link #getRecordsMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, panacea.aol.v2.Record> getRecords() {
       return getRecordsMap();
@@ -1306,6 +1343,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Record&gt; records = 4;</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, panacea.aol.v2.Record> getRecordsMap() {
       return internalGetRecords().getMap();
@@ -1313,6 +1351,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Record&gt; records = 4;</code>
      */
+    @java.lang.Override
 
     public panacea.aol.v2.Record getRecordsOrDefault(
         java.lang.String key,
@@ -1325,6 +1364,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>map&lt;string, .panacea.aol.v2.Record&gt; records = 4;</code>
      */
+    @java.lang.Override
 
     public panacea.aol.v2.Record getRecordsOrThrow(
         java.lang.String key) {

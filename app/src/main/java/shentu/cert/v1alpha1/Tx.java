@@ -73,7 +73,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.cert.v1alpha1.MsgProposeCertifier}
    */
-  public  static final class MsgProposeCertifier extends
+  public static final class MsgProposeCertifier extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.MsgProposeCertifier)
       MsgProposeCertifierOrBuilder {
@@ -181,6 +181,7 @@ public final class Tx {
      * <code>string proposer = 1 [(.gogoproto.moretags) = "yaml:&#92;"proposer&#92;""];</code>
      * @return The proposer.
      */
+    @java.lang.Override
     public java.lang.String getProposer() {
       java.lang.Object ref = proposer_;
       if (ref instanceof java.lang.String) {
@@ -197,6 +198,7 @@ public final class Tx {
      * <code>string proposer = 1 [(.gogoproto.moretags) = "yaml:&#92;"proposer&#92;""];</code>
      * @return The bytes for proposer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProposerBytes() {
       java.lang.Object ref = proposer_;
@@ -217,6 +219,7 @@ public final class Tx {
      * <code>string alias = 2 [(.gogoproto.moretags) = "yaml:&#92;"alias&#92;""];</code>
      * @return The alias.
      */
+    @java.lang.Override
     public java.lang.String getAlias() {
       java.lang.Object ref = alias_;
       if (ref instanceof java.lang.String) {
@@ -233,6 +236,7 @@ public final class Tx {
      * <code>string alias = 2 [(.gogoproto.moretags) = "yaml:&#92;"alias&#92;""];</code>
      * @return The bytes for alias.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAliasBytes() {
       java.lang.Object ref = alias_;
@@ -253,6 +257,7 @@ public final class Tx {
      * <code>string certifier = 3 [(.gogoproto.moretags) = "yaml:&#92;"certifier&#92;""];</code>
      * @return The certifier.
      */
+    @java.lang.Override
     public java.lang.String getCertifier() {
       java.lang.Object ref = certifier_;
       if (ref instanceof java.lang.String) {
@@ -269,6 +274,7 @@ public final class Tx {
      * <code>string certifier = 3 [(.gogoproto.moretags) = "yaml:&#92;"certifier&#92;""];</code>
      * @return The bytes for certifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCertifierBytes() {
       java.lang.Object ref = certifier_;
@@ -289,6 +295,7 @@ public final class Tx {
      * <code>string description = 4 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -305,6 +312,7 @@ public final class Tx {
      * <code>string description = 4 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -1039,7 +1047,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.MsgProposeCertifierResponse}
    */
-  public  static final class MsgProposeCertifierResponse extends
+  public static final class MsgProposeCertifierResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.MsgProposeCertifierResponse)
       MsgProposeCertifierResponseOrBuilder {
@@ -1455,19 +1463,19 @@ public final class Tx {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return Whether the content field is set.
      */
     boolean hasContent();
     /**
-     * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return The content.
      */
-    com.google.protobuf2.Any getContent();
+    com.google.protobuf.Any getContent();
     /**
-     * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      */
-    com.google.protobuf2.AnyOrBuilder getContentOrBuilder();
+    com.google.protobuf.AnyOrBuilder getContentOrBuilder();
 
     /**
      * <code>string compiler = 2 [(.gogoproto.moretags) = "yaml:&#92;"compiler&#92;""];</code>
@@ -1524,7 +1532,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.cert.v1alpha1.MsgIssueCertificate}
    */
-  public  static final class MsgIssueCertificate extends
+  public static final class MsgIssueCertificate extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.MsgIssueCertificate)
       MsgIssueCertificateOrBuilder {
@@ -1571,11 +1579,11 @@ public final class Tx {
               done = true;
               break;
             case 10: {
-              com.google.protobuf2.Any.Builder subBuilder = null;
+              com.google.protobuf.Any.Builder subBuilder = null;
               if (content_ != null) {
                 subBuilder = content_.toBuilder();
               }
-              content_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
+              content_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(content_);
                 content_ = subBuilder.buildPartial();
@@ -1640,25 +1648,28 @@ public final class Tx {
     }
 
     public static final int CONTENT_FIELD_NUMBER = 1;
-    private com.google.protobuf2.Any content_;
+    private com.google.protobuf.Any content_;
     /**
-     * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return Whether the content field is set.
      */
+    @java.lang.Override
     public boolean hasContent() {
       return content_ != null;
     }
     /**
-     * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return The content.
      */
-    public com.google.protobuf2.Any getContent() {
-      return content_ == null ? com.google.protobuf2.Any.getDefaultInstance() : content_;
+    @java.lang.Override
+    public com.google.protobuf.Any getContent() {
+      return content_ == null ? com.google.protobuf.Any.getDefaultInstance() : content_;
     }
     /**
-     * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      */
-    public com.google.protobuf2.AnyOrBuilder getContentOrBuilder() {
+    @java.lang.Override
+    public com.google.protobuf.AnyOrBuilder getContentOrBuilder() {
       return getContent();
     }
 
@@ -1668,6 +1679,7 @@ public final class Tx {
      * <code>string compiler = 2 [(.gogoproto.moretags) = "yaml:&#92;"compiler&#92;""];</code>
      * @return The compiler.
      */
+    @java.lang.Override
     public java.lang.String getCompiler() {
       java.lang.Object ref = compiler_;
       if (ref instanceof java.lang.String) {
@@ -1684,6 +1696,7 @@ public final class Tx {
      * <code>string compiler = 2 [(.gogoproto.moretags) = "yaml:&#92;"compiler&#92;""];</code>
      * @return The bytes for compiler.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCompilerBytes() {
       java.lang.Object ref = compiler_;
@@ -1704,6 +1717,7 @@ public final class Tx {
      * <code>string bytecode_hash = 3 [(.gogoproto.moretags) = "yaml:&#92;"bytecodehash&#92;""];</code>
      * @return The bytecodeHash.
      */
+    @java.lang.Override
     public java.lang.String getBytecodeHash() {
       java.lang.Object ref = bytecodeHash_;
       if (ref instanceof java.lang.String) {
@@ -1720,6 +1734,7 @@ public final class Tx {
      * <code>string bytecode_hash = 3 [(.gogoproto.moretags) = "yaml:&#92;"bytecodehash&#92;""];</code>
      * @return The bytes for bytecodeHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBytecodeHashBytes() {
       java.lang.Object ref = bytecodeHash_;
@@ -1740,6 +1755,7 @@ public final class Tx {
      * <code>string description = 4 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -1756,6 +1772,7 @@ public final class Tx {
      * <code>string description = 4 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -1776,6 +1793,7 @@ public final class Tx {
      * <code>string certifier = 5 [(.gogoproto.moretags) = "yaml:&#92;"certifier&#92;""];</code>
      * @return The certifier.
      */
+    @java.lang.Override
     public java.lang.String getCertifier() {
       java.lang.Object ref = certifier_;
       if (ref instanceof java.lang.String) {
@@ -1792,6 +1810,7 @@ public final class Tx {
      * <code>string certifier = 5 [(.gogoproto.moretags) = "yaml:&#92;"certifier&#92;""];</code>
      * @return The bytes for certifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCertifierBytes() {
       java.lang.Object ref = certifier_;
@@ -2193,31 +2212,31 @@ public final class Tx {
         return this;
       }
 
-      private com.google.protobuf2.Any content_;
+      private com.google.protobuf.Any content_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> contentBuilder_;
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> contentBuilder_;
       /**
-       * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        * @return Whether the content field is set.
        */
       public boolean hasContent() {
         return contentBuilder_ != null || content_ != null;
       }
       /**
-       * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        * @return The content.
        */
-      public com.google.protobuf2.Any getContent() {
+      public com.google.protobuf.Any getContent() {
         if (contentBuilder_ == null) {
-          return content_ == null ? com.google.protobuf2.Any.getDefaultInstance() : content_;
+          return content_ == null ? com.google.protobuf.Any.getDefaultInstance() : content_;
         } else {
           return contentBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public Builder setContent(com.google.protobuf2.Any value) {
+      public Builder setContent(com.google.protobuf.Any value) {
         if (contentBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2231,10 +2250,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
       public Builder setContent(
-          com.google.protobuf2.Any.Builder builderForValue) {
+          com.google.protobuf.Any.Builder builderForValue) {
         if (contentBuilder_ == null) {
           content_ = builderForValue.build();
           onChanged();
@@ -2245,13 +2264,13 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public Builder mergeContent(com.google.protobuf2.Any value) {
+      public Builder mergeContent(com.google.protobuf.Any value) {
         if (contentBuilder_ == null) {
           if (content_ != null) {
             content_ =
-              com.google.protobuf2.Any.newBuilder(content_).mergeFrom(value).buildPartial();
+              com.google.protobuf.Any.newBuilder(content_).mergeFrom(value).buildPartial();
           } else {
             content_ = value;
           }
@@ -2263,7 +2282,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
       public Builder clearContent() {
         if (contentBuilder_ == null) {
@@ -2277,33 +2296,33 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public com.google.protobuf2.Any.Builder getContentBuilder() {
+      public com.google.protobuf.Any.Builder getContentBuilder() {
         
         onChanged();
         return getContentFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public com.google.protobuf2.AnyOrBuilder getContentOrBuilder() {
+      public com.google.protobuf.AnyOrBuilder getContentOrBuilder() {
         if (contentBuilder_ != null) {
           return contentBuilder_.getMessageOrBuilder();
         } else {
           return content_ == null ?
-              com.google.protobuf2.Any.getDefaultInstance() : content_;
+              com.google.protobuf.Any.getDefaultInstance() : content_;
         }
       }
       /**
-       * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
           getContentFieldBuilder() {
         if (contentBuilder_ == null) {
           contentBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
                   getContent(),
                   getParentForChildren(),
                   isClean());
@@ -2675,7 +2694,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.MsgIssueCertificateResponse}
    */
-  public  static final class MsgIssueCertificateResponse extends
+  public static final class MsgIssueCertificateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.MsgIssueCertificateResponse)
       MsgIssueCertificateResponseOrBuilder {
@@ -3127,7 +3146,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.cert.v1alpha1.MsgRevokeCertificate}
    */
-  public  static final class MsgRevokeCertificate extends
+  public static final class MsgRevokeCertificate extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.MsgRevokeCertificate)
       MsgRevokeCertificateOrBuilder {
@@ -3226,6 +3245,7 @@ public final class Tx {
      * <code>string revoker = 1 [(.gogoproto.moretags) = "yaml:&#92;"revoker&#92;""];</code>
      * @return The revoker.
      */
+    @java.lang.Override
     public java.lang.String getRevoker() {
       java.lang.Object ref = revoker_;
       if (ref instanceof java.lang.String) {
@@ -3242,6 +3262,7 @@ public final class Tx {
      * <code>string revoker = 1 [(.gogoproto.moretags) = "yaml:&#92;"revoker&#92;""];</code>
      * @return The bytes for revoker.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRevokerBytes() {
       java.lang.Object ref = revoker_;
@@ -3262,6 +3283,7 @@ public final class Tx {
      * <code>uint64 id = 2 [(.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
+    @java.lang.Override
     public long getId() {
       return id_;
     }
@@ -3272,6 +3294,7 @@ public final class Tx {
      * <code>string description = 3 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -3288,6 +3311,7 @@ public final class Tx {
      * <code>string description = 3 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -3724,6 +3748,7 @@ public final class Tx {
        * <code>uint64 id = 2 [(.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        * @return The id.
        */
+      @java.lang.Override
       public long getId() {
         return id_;
       }
@@ -3884,7 +3909,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.MsgRevokeCertificateResponse}
    */
-  public  static final class MsgRevokeCertificateResponse extends
+  public static final class MsgRevokeCertificateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.MsgRevokeCertificateResponse)
       MsgRevokeCertificateResponseOrBuilder {
@@ -4312,19 +4337,19 @@ public final class Tx {
         getCertifierBytes();
 
     /**
-     * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return Whether the validatorPubkey field is set.
      */
     boolean hasValidatorPubkey();
     /**
-     * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return The validatorPubkey.
      */
-    com.google.protobuf2.Any getValidatorPubkey();
+    com.google.protobuf.Any getValidatorPubkey();
     /**
-     * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      */
-    com.google.protobuf2.AnyOrBuilder getValidatorPubkeyOrBuilder();
+    com.google.protobuf.AnyOrBuilder getValidatorPubkeyOrBuilder();
 
     /**
      * <code>string platform = 3 [(.gogoproto.moretags) = "yaml:&#92;"platform&#92;""];</code>
@@ -4345,7 +4370,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.cert.v1alpha1.MsgCertifyPlatform}
    */
-  public  static final class MsgCertifyPlatform extends
+  public static final class MsgCertifyPlatform extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.MsgCertifyPlatform)
       MsgCertifyPlatformOrBuilder {
@@ -4396,11 +4421,11 @@ public final class Tx {
               break;
             }
             case 18: {
-              com.google.protobuf2.Any.Builder subBuilder = null;
+              com.google.protobuf.Any.Builder subBuilder = null;
               if (validatorPubkey_ != null) {
                 subBuilder = validatorPubkey_.toBuilder();
               }
-              validatorPubkey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
+              validatorPubkey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(validatorPubkey_);
                 validatorPubkey_ = subBuilder.buildPartial();
@@ -4452,6 +4477,7 @@ public final class Tx {
      * <code>string certifier = 1 [(.gogoproto.moretags) = "yaml:&#92;"certifier&#92;""];</code>
      * @return The certifier.
      */
+    @java.lang.Override
     public java.lang.String getCertifier() {
       java.lang.Object ref = certifier_;
       if (ref instanceof java.lang.String) {
@@ -4468,6 +4494,7 @@ public final class Tx {
      * <code>string certifier = 1 [(.gogoproto.moretags) = "yaml:&#92;"certifier&#92;""];</code>
      * @return The bytes for certifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCertifierBytes() {
       java.lang.Object ref = certifier_;
@@ -4483,25 +4510,28 @@ public final class Tx {
     }
 
     public static final int VALIDATOR_PUBKEY_FIELD_NUMBER = 2;
-    private com.google.protobuf2.Any validatorPubkey_;
+    private com.google.protobuf.Any validatorPubkey_;
     /**
-     * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return Whether the validatorPubkey field is set.
      */
+    @java.lang.Override
     public boolean hasValidatorPubkey() {
       return validatorPubkey_ != null;
     }
     /**
-     * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return The validatorPubkey.
      */
-    public com.google.protobuf2.Any getValidatorPubkey() {
-      return validatorPubkey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : validatorPubkey_;
+    @java.lang.Override
+    public com.google.protobuf.Any getValidatorPubkey() {
+      return validatorPubkey_ == null ? com.google.protobuf.Any.getDefaultInstance() : validatorPubkey_;
     }
     /**
-     * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      */
-    public com.google.protobuf2.AnyOrBuilder getValidatorPubkeyOrBuilder() {
+    @java.lang.Override
+    public com.google.protobuf.AnyOrBuilder getValidatorPubkeyOrBuilder() {
       return getValidatorPubkey();
     }
 
@@ -4511,6 +4541,7 @@ public final class Tx {
      * <code>string platform = 3 [(.gogoproto.moretags) = "yaml:&#92;"platform&#92;""];</code>
      * @return The platform.
      */
+    @java.lang.Override
     public java.lang.String getPlatform() {
       java.lang.Object ref = platform_;
       if (ref instanceof java.lang.String) {
@@ -4527,6 +4558,7 @@ public final class Tx {
      * <code>string platform = 3 [(.gogoproto.moretags) = "yaml:&#92;"platform&#92;""];</code>
      * @return The bytes for platform.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPlatformBytes() {
       java.lang.Object ref = platform_;
@@ -4970,31 +5002,31 @@ public final class Tx {
         return this;
       }
 
-      private com.google.protobuf2.Any validatorPubkey_;
+      private com.google.protobuf.Any validatorPubkey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> validatorPubkeyBuilder_;
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> validatorPubkeyBuilder_;
       /**
-       * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        * @return Whether the validatorPubkey field is set.
        */
       public boolean hasValidatorPubkey() {
         return validatorPubkeyBuilder_ != null || validatorPubkey_ != null;
       }
       /**
-       * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        * @return The validatorPubkey.
        */
-      public com.google.protobuf2.Any getValidatorPubkey() {
+      public com.google.protobuf.Any getValidatorPubkey() {
         if (validatorPubkeyBuilder_ == null) {
-          return validatorPubkey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : validatorPubkey_;
+          return validatorPubkey_ == null ? com.google.protobuf.Any.getDefaultInstance() : validatorPubkey_;
         } else {
           return validatorPubkeyBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public Builder setValidatorPubkey(com.google.protobuf2.Any value) {
+      public Builder setValidatorPubkey(com.google.protobuf.Any value) {
         if (validatorPubkeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5008,10 +5040,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       public Builder setValidatorPubkey(
-          com.google.protobuf2.Any.Builder builderForValue) {
+          com.google.protobuf.Any.Builder builderForValue) {
         if (validatorPubkeyBuilder_ == null) {
           validatorPubkey_ = builderForValue.build();
           onChanged();
@@ -5022,13 +5054,13 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public Builder mergeValidatorPubkey(com.google.protobuf2.Any value) {
+      public Builder mergeValidatorPubkey(com.google.protobuf.Any value) {
         if (validatorPubkeyBuilder_ == null) {
           if (validatorPubkey_ != null) {
             validatorPubkey_ =
-              com.google.protobuf2.Any.newBuilder(validatorPubkey_).mergeFrom(value).buildPartial();
+              com.google.protobuf.Any.newBuilder(validatorPubkey_).mergeFrom(value).buildPartial();
           } else {
             validatorPubkey_ = value;
           }
@@ -5040,7 +5072,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       public Builder clearValidatorPubkey() {
         if (validatorPubkeyBuilder_ == null) {
@@ -5054,33 +5086,33 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public com.google.protobuf2.Any.Builder getValidatorPubkeyBuilder() {
+      public com.google.protobuf.Any.Builder getValidatorPubkeyBuilder() {
         
         onChanged();
         return getValidatorPubkeyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public com.google.protobuf2.AnyOrBuilder getValidatorPubkeyOrBuilder() {
+      public com.google.protobuf.AnyOrBuilder getValidatorPubkeyOrBuilder() {
         if (validatorPubkeyBuilder_ != null) {
           return validatorPubkeyBuilder_.getMessageOrBuilder();
         } else {
           return validatorPubkey_ == null ?
-              com.google.protobuf2.Any.getDefaultInstance() : validatorPubkey_;
+              com.google.protobuf.Any.getDefaultInstance() : validatorPubkey_;
         }
       }
       /**
-       * <code>.google.protobuf2.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any validator_pubkey = 2 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
           getValidatorPubkeyFieldBuilder() {
         if (validatorPubkeyBuilder_ == null) {
           validatorPubkeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
                   getValidatorPubkey(),
                   getParentForChildren(),
                   isClean());
@@ -5224,7 +5256,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.MsgCertifyPlatformResponse}
    */
-  public  static final class MsgCertifyPlatformResponse extends
+  public static final class MsgCertifyPlatformResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.MsgCertifyPlatformResponse)
       MsgCertifyPlatformResponseOrBuilder {
@@ -5685,51 +5717,51 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n\035shentu/cert/v1alpha1/tx.proto\022\024shentu." +
-      "cert.v1alpha1\032\024gogoproto/gogo.proto\032\032goo" +
-      "gle/protobuf2/any.proto\032\031cosmos_proto/co" +
-      "smos.proto\032\037shentu/cert/v1alpha1/cert.pr" +
-      "oto\"\275\001\n\023MsgProposeCertifier\022%\n\010proposer\030" +
-      "\001 \001(\tB\023\362\336\037\017yaml:\"proposer\"\022\037\n\005alias\030\002 \001(" +
-      "\tB\020\362\336\037\014yaml:\"alias\"\022\'\n\tcertifier\030\003 \001(\tB\024" +
-      "\362\336\037\020yaml:\"certifier\"\022+\n\013description\030\004 \001(" +
-      "\tB\026\362\336\037\022yaml:\"description\":\010\350\240\037\000\210\240\037\000\"\035\n\033M" +
-      "sgProposeCertifierResponse\"\201\002\n\023MsgIssueC" +
-      "ertificate\0223\n\007content\030\001 \001(\0132\025.google.pro" +
-      "tobuf2.AnyB\013\312\264-\007Content\022%\n\010compiler\030\002 \001(" +
-      "\tB\023\362\336\037\017yaml:\"compiler\"\022.\n\rbytecode_hash\030" +
-      "\003 \001(\tB\027\362\336\037\023yaml:\"bytecodehash\"\022+\n\013descri" +
-      "ption\030\004 \001(\tB\026\362\336\037\022yaml:\"description\"\022\'\n\tc" +
-      "ertifier\030\005 \001(\tB\024\362\336\037\020yaml:\"certifier\":\010\350\240" +
-      "\037\000\210\240\037\000\"\035\n\033MsgIssueCertificateResponse\"\215\001" +
-      "\n\024MsgRevokeCertificate\022#\n\007revoker\030\001 \001(\tB" +
-      "\022\362\336\037\016yaml:\"revoker\"\022\031\n\002id\030\002 \001(\004B\r\362\336\037\tyam" +
-      "l:\"id\"\022+\n\013description\030\003 \001(\tB\026\362\336\037\022yaml:\"d" +
-      "escription\":\010\350\240\037\000\210\240\037\000\"\036\n\034MsgRevokeCertif" +
-      "icateResponse\"\271\001\n\022MsgCertifyPlatform\022\'\n\t" +
-      "certifier\030\001 \001(\tB\024\362\336\037\020yaml:\"certifier\"\022I\n" +
-      "\020validator_pubkey\030\002 \001(\0132\025.google.protobu" +
-      "f2.AnyB\030\312\264-\024cosmos.crypto.PubKey\022%\n\010plat" +
-      "form\030\003 \001(\tB\023\362\336\037\017yaml:\"platform\":\010\350\240\037\000\210\240\037" +
-      "\000\"\034\n\032MsgCertifyPlatformResponse2\315\003\n\003Msg\022" +
-      "p\n\020ProposeCertifier\022).shentu.cert.v1alph" +
-      "a1.MsgProposeCertifier\0321.shentu.cert.v1a" +
-      "lpha1.MsgProposeCertifierResponse\022p\n\020Iss" +
-      "ueCertificate\022).shentu.cert.v1alpha1.Msg" +
-      "IssueCertificate\0321.shentu.cert.v1alpha1." +
-      "MsgIssueCertificateResponse\022s\n\021RevokeCer" +
-      "tificate\022*.shentu.cert.v1alpha1.MsgRevok" +
-      "eCertificate\0322.shentu.cert.v1alpha1.MsgR" +
-      "evokeCertificateResponse\022m\n\017CertifyPlatf" +
-      "orm\022(.shentu.cert.v1alpha1.MsgCertifyPla" +
-      "tform\0320.shentu.cert.v1alpha1.MsgCertifyP" +
-      "latformResponseB1Z/github.com/certikfoun" +
-      "dation/shentu/x/cert/typesb\006proto3"
+      "cert.v1alpha1\032\024gogoproto/gogo.proto\032\031goo" +
+      "gle/protobuf/any.proto\032\031cosmos_proto/cos" +
+      "mos.proto\032\037shentu/cert/v1alpha1/cert.pro" +
+      "to\"\275\001\n\023MsgProposeCertifier\022%\n\010proposer\030\001" +
+      " \001(\tB\023\362\336\037\017yaml:\"proposer\"\022\037\n\005alias\030\002 \001(\t" +
+      "B\020\362\336\037\014yaml:\"alias\"\022\'\n\tcertifier\030\003 \001(\tB\024\362" +
+      "\336\037\020yaml:\"certifier\"\022+\n\013description\030\004 \001(\t" +
+      "B\026\362\336\037\022yaml:\"description\":\010\350\240\037\000\210\240\037\000\"\035\n\033Ms" +
+      "gProposeCertifierResponse\"\200\002\n\023MsgIssueCe" +
+      "rtificate\0222\n\007content\030\001 \001(\0132\024.google.prot" +
+      "obuf.AnyB\013\312\264-\007Content\022%\n\010compiler\030\002 \001(\tB" +
+      "\023\362\336\037\017yaml:\"compiler\"\022.\n\rbytecode_hash\030\003 " +
+      "\001(\tB\027\362\336\037\023yaml:\"bytecodehash\"\022+\n\013descript" +
+      "ion\030\004 \001(\tB\026\362\336\037\022yaml:\"description\"\022\'\n\tcer" +
+      "tifier\030\005 \001(\tB\024\362\336\037\020yaml:\"certifier\":\010\350\240\037\000" +
+      "\210\240\037\000\"\035\n\033MsgIssueCertificateResponse\"\215\001\n\024" +
+      "MsgRevokeCertificate\022#\n\007revoker\030\001 \001(\tB\022\362" +
+      "\336\037\016yaml:\"revoker\"\022\031\n\002id\030\002 \001(\004B\r\362\336\037\tyaml:" +
+      "\"id\"\022+\n\013description\030\003 \001(\tB\026\362\336\037\022yaml:\"des" +
+      "cription\":\010\350\240\037\000\210\240\037\000\"\036\n\034MsgRevokeCertific" +
+      "ateResponse\"\270\001\n\022MsgCertifyPlatform\022\'\n\tce" +
+      "rtifier\030\001 \001(\tB\024\362\336\037\020yaml:\"certifier\"\022H\n\020v" +
+      "alidator_pubkey\030\002 \001(\0132\024.google.protobuf." +
+      "AnyB\030\312\264-\024cosmos.crypto.PubKey\022%\n\010platfor" +
+      "m\030\003 \001(\tB\023\362\336\037\017yaml:\"platform\":\010\350\240\037\000\210\240\037\000\"\034" +
+      "\n\032MsgCertifyPlatformResponse2\315\003\n\003Msg\022p\n\020" +
+      "ProposeCertifier\022).shentu.cert.v1alpha1." +
+      "MsgProposeCertifier\0321.shentu.cert.v1alph" +
+      "a1.MsgProposeCertifierResponse\022p\n\020IssueC" +
+      "ertificate\022).shentu.cert.v1alpha1.MsgIss" +
+      "ueCertificate\0321.shentu.cert.v1alpha1.Msg" +
+      "IssueCertificateResponse\022s\n\021RevokeCertif" +
+      "icate\022*.shentu.cert.v1alpha1.MsgRevokeCe" +
+      "rtificate\0322.shentu.cert.v1alpha1.MsgRevo" +
+      "keCertificateResponse\022m\n\017CertifyPlatform" +
+      "\022(.shentu.cert.v1alpha1.MsgCertifyPlatfo" +
+      "rm\0320.shentu.cert.v1alpha1.MsgCertifyPlat" +
+      "formResponseB1Z/github.com/certikfoundat" +
+      "ion/shentu/x/cert/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
-          com.google.protobuf2.AnyProto.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           shentu.cert.v1alpha1.Cert.getDescriptor(),
         });
@@ -5784,13 +5816,13 @@ public final class Tx {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
-    com.google.protobuf2.AnyProto.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     shentu.cert.v1alpha1.Cert.getDescriptor();
   }

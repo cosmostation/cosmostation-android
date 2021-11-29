@@ -107,7 +107,7 @@ public final class Tx {
    *
    * Protobuf type {@code rizonworld.rizon.tokenswap.MsgCreateTokenswapRequest}
    */
-  public  static final class MsgCreateTokenswapRequest extends
+  public static final class MsgCreateTokenswapRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.MsgCreateTokenswapRequest)
       MsgCreateTokenswapRequestOrBuilder {
@@ -220,6 +220,7 @@ public final class Tx {
      * <code>string tx_hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"tx_hash&#92;""];</code>
      * @return The txHash.
      */
+    @java.lang.Override
     public java.lang.String getTxHash() {
       java.lang.Object ref = txHash_;
       if (ref instanceof java.lang.String) {
@@ -241,6 +242,7 @@ public final class Tx {
      * <code>string tx_hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"tx_hash&#92;""];</code>
      * @return The bytes for txHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTxHashBytes() {
       java.lang.Object ref = txHash_;
@@ -265,6 +267,7 @@ public final class Tx {
      * <code>string receiver = 2 [(.gogoproto.moretags) = "yaml:&#92;"receiver&#92;""];</code>
      * @return The receiver.
      */
+    @java.lang.Override
     public java.lang.String getReceiver() {
       java.lang.Object ref = receiver_;
       if (ref instanceof java.lang.String) {
@@ -285,6 +288,7 @@ public final class Tx {
      * <code>string receiver = 2 [(.gogoproto.moretags) = "yaml:&#92;"receiver&#92;""];</code>
      * @return The bytes for receiver.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getReceiverBytes() {
       java.lang.Object ref = receiver_;
@@ -309,6 +313,7 @@ public final class Tx {
      * <code>string signer = 3 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -329,6 +334,7 @@ public final class Tx {
      * <code>string signer = 3 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -353,6 +359,7 @@ public final class Tx {
      * <code>string amount = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public java.lang.String getAmount() {
       java.lang.Object ref = amount_;
       if (ref instanceof java.lang.String) {
@@ -373,6 +380,7 @@ public final class Tx {
      * <code>string amount = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      * @return The bytes for amount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAmountBytes() {
       java.lang.Object ref = amount_;
@@ -1196,7 +1204,7 @@ public final class Tx {
    *
    * Protobuf type {@code rizonworld.rizon.tokenswap.MsgCreateTokenswapResponse}
    */
-  public  static final class MsgCreateTokenswapResponse extends
+  public static final class MsgCreateTokenswapResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.MsgCreateTokenswapResponse)
       MsgCreateTokenswapResponseOrBuilder {
@@ -1647,7 +1655,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_rizonworld_rizon_tokenswap_MsgCreateTokenswapRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1663,11 +1671,11 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

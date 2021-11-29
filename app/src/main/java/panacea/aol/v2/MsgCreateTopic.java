@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.MsgCreateTopic}
  */
-public  final class MsgCreateTopic extends
+public final class MsgCreateTopic extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.MsgCreateTopic)
     MsgCreateTopicOrBuilder {
@@ -111,6 +111,7 @@ private static final long serialVersionUID = 0L;
    * <code>string topic_name = 1;</code>
    * @return The topicName.
    */
+  @java.lang.Override
   public java.lang.String getTopicName() {
     java.lang.Object ref = topicName_;
     if (ref instanceof java.lang.String) {
@@ -127,6 +128,7 @@ private static final long serialVersionUID = 0L;
    * <code>string topic_name = 1;</code>
    * @return The bytes for topicName.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getTopicNameBytes() {
     java.lang.Object ref = topicName_;
@@ -147,6 +149,7 @@ private static final long serialVersionUID = 0L;
    * <code>string description = 2;</code>
    * @return The description.
    */
+  @java.lang.Override
   public java.lang.String getDescription() {
     java.lang.Object ref = description_;
     if (ref instanceof java.lang.String) {
@@ -163,6 +166,7 @@ private static final long serialVersionUID = 0L;
    * <code>string description = 2;</code>
    * @return The bytes for description.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getDescriptionBytes() {
     java.lang.Object ref = description_;
@@ -183,6 +187,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 3;</code>
    * @return The ownerAddress.
    */
+  @java.lang.Override
   public java.lang.String getOwnerAddress() {
     java.lang.Object ref = ownerAddress_;
     if (ref instanceof java.lang.String) {
@@ -199,6 +204,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 3;</code>
    * @return The bytes for ownerAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getOwnerAddressBytes() {
     java.lang.Object ref = ownerAddress_;

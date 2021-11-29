@@ -10,7 +10,7 @@ package panacea.did.v2;
  *
  * Protobuf type {@code panacea.did.v2.MsgUpdateDID}
  */
-public  final class MsgUpdateDID extends
+public final class MsgUpdateDID extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.did.v2.MsgUpdateDID)
     MsgUpdateDIDOrBuilder {
@@ -130,6 +130,7 @@ private static final long serialVersionUID = 0L;
    * <code>string did = 1;</code>
    * @return The did.
    */
+  @java.lang.Override
   public java.lang.String getDid() {
     java.lang.Object ref = did_;
     if (ref instanceof java.lang.String) {
@@ -146,6 +147,7 @@ private static final long serialVersionUID = 0L;
    * <code>string did = 1;</code>
    * @return The bytes for did.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getDidBytes() {
     java.lang.Object ref = did_;
@@ -166,6 +168,7 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.did.v2.DIDDocument document = 2;</code>
    * @return Whether the document field is set.
    */
+  @java.lang.Override
   public boolean hasDocument() {
     return document_ != null;
   }
@@ -173,12 +176,14 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.did.v2.DIDDocument document = 2;</code>
    * @return The document.
    */
+  @java.lang.Override
   public panacea.did.v2.DIDDocument getDocument() {
     return document_ == null ? panacea.did.v2.DIDDocument.getDefaultInstance() : document_;
   }
   /**
    * <code>.panacea.did.v2.DIDDocument document = 2;</code>
    */
+  @java.lang.Override
   public panacea.did.v2.DIDDocumentOrBuilder getDocumentOrBuilder() {
     return getDocument();
   }
@@ -189,6 +194,7 @@ private static final long serialVersionUID = 0L;
    * <code>string verification_method_id = 3;</code>
    * @return The verificationMethodId.
    */
+  @java.lang.Override
   public java.lang.String getVerificationMethodId() {
     java.lang.Object ref = verificationMethodId_;
     if (ref instanceof java.lang.String) {
@@ -205,6 +211,7 @@ private static final long serialVersionUID = 0L;
    * <code>string verification_method_id = 3;</code>
    * @return The bytes for verificationMethodId.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getVerificationMethodIdBytes() {
     java.lang.Object ref = verificationMethodId_;
@@ -225,6 +232,7 @@ private static final long serialVersionUID = 0L;
    * <code>bytes signature = 4;</code>
    * @return The signature.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString getSignature() {
     return signature_;
   }
@@ -235,6 +243,7 @@ private static final long serialVersionUID = 0L;
    * <code>string from_address = 5;</code>
    * @return The fromAddress.
    */
+  @java.lang.Override
   public java.lang.String getFromAddress() {
     java.lang.Object ref = fromAddress_;
     if (ref instanceof java.lang.String) {
@@ -251,6 +260,7 @@ private static final long serialVersionUID = 0L;
    * <code>string from_address = 5;</code>
    * @return The bytes for fromAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getFromAddressBytes() {
     java.lang.Object ref = fromAddress_;
@@ -928,6 +938,7 @@ private static final long serialVersionUID = 0L;
      * <code>bytes signature = 4;</code>
      * @return The signature.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSignature() {
       return signature_;
     }

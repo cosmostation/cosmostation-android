@@ -182,6 +182,37 @@ public final class QueryGrpc {
     return getIncentivizedPoolsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest,
+      osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse> getExternalIncentiveGaugesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ExternalIncentiveGauges",
+      requestType = osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest.class,
+      responseType = osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest,
+      osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse> getExternalIncentiveGaugesMethod() {
+    io.grpc.MethodDescriptor<osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest, osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse> getExternalIncentiveGaugesMethod;
+    if ((getExternalIncentiveGaugesMethod = QueryGrpc.getExternalIncentiveGaugesMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getExternalIncentiveGaugesMethod = QueryGrpc.getExternalIncentiveGaugesMethod) == null) {
+          QueryGrpc.getExternalIncentiveGaugesMethod = getExternalIncentiveGaugesMethod =
+              io.grpc.MethodDescriptor.<osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest, osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ExternalIncentiveGauges"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("ExternalIncentiveGauges"))
+              .build();
+        }
+      }
+    }
+    return getExternalIncentiveGaugesMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -268,6 +299,13 @@ public final class QueryGrpc {
       asyncUnimplementedUnaryCall(getIncentivizedPoolsMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void externalIncentiveGauges(osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest request,
+        io.grpc.stub.StreamObserver<osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getExternalIncentiveGaugesMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -305,6 +343,13 @@ public final class QueryGrpc {
                 osmosis.poolincentives.v1beta1.QueryOuterClass.QueryIncentivizedPoolsRequest,
                 osmosis.poolincentives.v1beta1.QueryOuterClass.QueryIncentivizedPoolsResponse>(
                   this, METHODID_INCENTIVIZED_POOLS)))
+          .addMethod(
+            getExternalIncentiveGaugesMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest,
+                osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse>(
+                  this, METHODID_EXTERNAL_INCENTIVE_GAUGES)))
           .build();
     }
   }
@@ -365,6 +410,14 @@ public final class QueryGrpc {
       asyncUnaryCall(
           getChannel().newCall(getIncentivizedPoolsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void externalIncentiveGauges(osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest request,
+        io.grpc.stub.StreamObserver<osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getExternalIncentiveGaugesMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -417,6 +470,13 @@ public final class QueryGrpc {
     public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryIncentivizedPoolsResponse incentivizedPools(osmosis.poolincentives.v1beta1.QueryOuterClass.QueryIncentivizedPoolsRequest request) {
       return blockingUnaryCall(
           getChannel(), getIncentivizedPoolsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse externalIncentiveGauges(osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getExternalIncentiveGaugesMethod(), getCallOptions(), request);
     }
   }
 
@@ -476,6 +536,14 @@ public final class QueryGrpc {
       return futureUnaryCall(
           getChannel().newCall(getIncentivizedPoolsMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse> externalIncentiveGauges(
+        osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getExternalIncentiveGaugesMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GAUGE_IDS = 0;
@@ -483,6 +551,7 @@ public final class QueryGrpc {
   private static final int METHODID_PARAMS = 2;
   private static final int METHODID_LOCKABLE_DURATIONS = 3;
   private static final int METHODID_INCENTIVIZED_POOLS = 4;
+  private static final int METHODID_EXTERNAL_INCENTIVE_GAUGES = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -520,6 +589,10 @@ public final class QueryGrpc {
         case METHODID_INCENTIVIZED_POOLS:
           serviceImpl.incentivizedPools((osmosis.poolincentives.v1beta1.QueryOuterClass.QueryIncentivizedPoolsRequest) request,
               (io.grpc.stub.StreamObserver<osmosis.poolincentives.v1beta1.QueryOuterClass.QueryIncentivizedPoolsResponse>) responseObserver);
+          break;
+        case METHODID_EXTERNAL_INCENTIVE_GAUGES:
+          serviceImpl.externalIncentiveGauges((osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest) request,
+              (io.grpc.stub.StreamObserver<osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -587,6 +660,7 @@ public final class QueryGrpc {
               .addMethod(getParamsMethod())
               .addMethod(getLockableDurationsMethod())
               .addMethod(getIncentivizedPoolsMethod())
+              .addMethod(getExternalIncentiveGaugesMethod())
               .build();
         }
       }

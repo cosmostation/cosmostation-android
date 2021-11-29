@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.QueryTopicsRequest}
  */
-public  final class QueryTopicsRequest extends
+public final class QueryTopicsRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.QueryTopicsRequest)
     QueryTopicsRequestOrBuilder {
@@ -110,6 +110,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 1;</code>
    * @return The ownerAddress.
    */
+  @java.lang.Override
   public java.lang.String getOwnerAddress() {
     java.lang.Object ref = ownerAddress_;
     if (ref instanceof java.lang.String) {
@@ -126,6 +127,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 1;</code>
    * @return The bytes for ownerAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getOwnerAddressBytes() {
     java.lang.Object ref = ownerAddress_;
@@ -146,6 +148,7 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
    * @return Whether the pagination field is set.
    */
+  @java.lang.Override
   public boolean hasPagination() {
     return pagination_ != null;
   }
@@ -153,12 +156,14 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
    * @return The pagination.
    */
+  @java.lang.Override
   public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
     return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
   }
   /**
    * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
    */
+  @java.lang.Override
   public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
     return getPagination();
   }

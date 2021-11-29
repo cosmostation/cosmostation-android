@@ -30,35 +30,66 @@ public final class QueryGrpc {
   public static final String SERVICE_NAME = "irismod.coinswap.Query";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<irismod.coinswap.QueryOuterClass.QueryLiquidityRequest,
-      irismod.coinswap.QueryOuterClass.QueryLiquidityResponse> getLiquidityMethod;
+  private static volatile io.grpc.MethodDescriptor<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest,
+      irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse> getLiquidityPoolMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Liquidity",
-      requestType = irismod.coinswap.QueryOuterClass.QueryLiquidityRequest.class,
-      responseType = irismod.coinswap.QueryOuterClass.QueryLiquidityResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "LiquidityPool",
+      requestType = irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest.class,
+      responseType = irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<irismod.coinswap.QueryOuterClass.QueryLiquidityRequest,
-      irismod.coinswap.QueryOuterClass.QueryLiquidityResponse> getLiquidityMethod() {
-    io.grpc.MethodDescriptor<irismod.coinswap.QueryOuterClass.QueryLiquidityRequest, irismod.coinswap.QueryOuterClass.QueryLiquidityResponse> getLiquidityMethod;
-    if ((getLiquidityMethod = QueryGrpc.getLiquidityMethod) == null) {
+  public static io.grpc.MethodDescriptor<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest,
+      irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse> getLiquidityPoolMethod() {
+    io.grpc.MethodDescriptor<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse> getLiquidityPoolMethod;
+    if ((getLiquidityPoolMethod = QueryGrpc.getLiquidityPoolMethod) == null) {
       synchronized (QueryGrpc.class) {
-        if ((getLiquidityMethod = QueryGrpc.getLiquidityMethod) == null) {
-          QueryGrpc.getLiquidityMethod = getLiquidityMethod =
-              io.grpc.MethodDescriptor.<irismod.coinswap.QueryOuterClass.QueryLiquidityRequest, irismod.coinswap.QueryOuterClass.QueryLiquidityResponse>newBuilder()
+        if ((getLiquidityPoolMethod = QueryGrpc.getLiquidityPoolMethod) == null) {
+          QueryGrpc.getLiquidityPoolMethod = getLiquidityPoolMethod =
+              io.grpc.MethodDescriptor.<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Liquidity"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "LiquidityPool"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  irismod.coinswap.QueryOuterClass.QueryLiquidityRequest.getDefaultInstance()))
+                  irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  irismod.coinswap.QueryOuterClass.QueryLiquidityResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("Liquidity"))
+                  irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("LiquidityPool"))
               .build();
         }
       }
     }
-    return getLiquidityMethod;
+    return getLiquidityPoolMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest,
+      irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse> getLiquidityPoolsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "LiquidityPools",
+      requestType = irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest.class,
+      responseType = irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest,
+      irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse> getLiquidityPoolsMethod() {
+    io.grpc.MethodDescriptor<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse> getLiquidityPoolsMethod;
+    if ((getLiquidityPoolsMethod = QueryGrpc.getLiquidityPoolsMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getLiquidityPoolsMethod = QueryGrpc.getLiquidityPoolsMethod) == null) {
+          QueryGrpc.getLiquidityPoolsMethod = getLiquidityPoolsMethod =
+              io.grpc.MethodDescriptor.<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "LiquidityPools"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("LiquidityPools"))
+              .build();
+        }
+      }
+    }
+    return getLiquidityPoolsMethod;
   }
 
   /**
@@ -114,23 +145,41 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Liquidity returns the total liquidity available for the provided denomination
+     * LiquidityPool returns the liquidity pool for the provided
+     * lpt_denom
      * </pre>
      */
-    public void liquidity(irismod.coinswap.QueryOuterClass.QueryLiquidityRequest request,
-        io.grpc.stub.StreamObserver<irismod.coinswap.QueryOuterClass.QueryLiquidityResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getLiquidityMethod(), responseObserver);
+    public void liquidityPool(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest request,
+        io.grpc.stub.StreamObserver<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getLiquidityPoolMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * LiquidityPools returns all the liquidity pools available
+     * </pre>
+     */
+    public void liquidityPools(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest request,
+        io.grpc.stub.StreamObserver<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getLiquidityPoolsMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getLiquidityMethod(),
+            getLiquidityPoolMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                irismod.coinswap.QueryOuterClass.QueryLiquidityRequest,
-                irismod.coinswap.QueryOuterClass.QueryLiquidityResponse>(
-                  this, METHODID_LIQUIDITY)))
+                irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest,
+                irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse>(
+                  this, METHODID_LIQUIDITY_POOL)))
+          .addMethod(
+            getLiquidityPoolsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest,
+                irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse>(
+                  this, METHODID_LIQUIDITY_POOLS)))
           .build();
     }
   }
@@ -154,13 +203,25 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Liquidity returns the total liquidity available for the provided denomination
+     * LiquidityPool returns the liquidity pool for the provided
+     * lpt_denom
      * </pre>
      */
-    public void liquidity(irismod.coinswap.QueryOuterClass.QueryLiquidityRequest request,
-        io.grpc.stub.StreamObserver<irismod.coinswap.QueryOuterClass.QueryLiquidityResponse> responseObserver) {
+    public void liquidityPool(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest request,
+        io.grpc.stub.StreamObserver<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getLiquidityMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getLiquidityPoolMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * LiquidityPools returns all the liquidity pools available
+     * </pre>
+     */
+    public void liquidityPools(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest request,
+        io.grpc.stub.StreamObserver<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getLiquidityPoolsMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -183,12 +244,23 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Liquidity returns the total liquidity available for the provided denomination
+     * LiquidityPool returns the liquidity pool for the provided
+     * lpt_denom
      * </pre>
      */
-    public irismod.coinswap.QueryOuterClass.QueryLiquidityResponse liquidity(irismod.coinswap.QueryOuterClass.QueryLiquidityRequest request) {
+    public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse liquidityPool(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest request) {
       return blockingUnaryCall(
-          getChannel(), getLiquidityMethod(), getCallOptions(), request);
+          getChannel(), getLiquidityPoolMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * LiquidityPools returns all the liquidity pools available
+     * </pre>
+     */
+    public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse liquidityPools(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getLiquidityPoolsMethod(), getCallOptions(), request);
     }
   }
 
@@ -211,17 +283,30 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Liquidity returns the total liquidity available for the provided denomination
+     * LiquidityPool returns the liquidity pool for the provided
+     * lpt_denom
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<irismod.coinswap.QueryOuterClass.QueryLiquidityResponse> liquidity(
-        irismod.coinswap.QueryOuterClass.QueryLiquidityRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse> liquidityPool(
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(getLiquidityMethod(), getCallOptions()), request);
+          getChannel().newCall(getLiquidityPoolMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * LiquidityPools returns all the liquidity pools available
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse> liquidityPools(
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getLiquidityPoolsMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_LIQUIDITY = 0;
+  private static final int METHODID_LIQUIDITY_POOL = 0;
+  private static final int METHODID_LIQUIDITY_POOLS = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -240,9 +325,13 @@ public final class QueryGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_LIQUIDITY:
-          serviceImpl.liquidity((irismod.coinswap.QueryOuterClass.QueryLiquidityRequest) request,
-              (io.grpc.stub.StreamObserver<irismod.coinswap.QueryOuterClass.QueryLiquidityResponse>) responseObserver);
+        case METHODID_LIQUIDITY_POOL:
+          serviceImpl.liquidityPool((irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest) request,
+              (io.grpc.stub.StreamObserver<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse>) responseObserver);
+          break;
+        case METHODID_LIQUIDITY_POOLS:
+          serviceImpl.liquidityPools((irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest) request,
+              (io.grpc.stub.StreamObserver<irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -305,7 +394,8 @@ public final class QueryGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new QueryFileDescriptorSupplier())
-              .addMethod(getLiquidityMethod())
+              .addMethod(getLiquidityPoolMethod())
+              .addMethod(getLiquidityPoolsMethod())
               .build();
         }
       }

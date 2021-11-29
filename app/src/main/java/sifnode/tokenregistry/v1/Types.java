@@ -102,6 +102,10 @@ public final class Types {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -170,7 +174,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.tokenregistry.v1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.GenesisState)
       GenesisStateOrBuilder {
@@ -270,6 +274,7 @@ public final class Types {
      * <code>string admin_account = 1;</code>
      * @return The adminAccount.
      */
+    @java.lang.Override
     public java.lang.String getAdminAccount() {
       java.lang.Object ref = adminAccount_;
       if (ref instanceof java.lang.String) {
@@ -286,6 +291,7 @@ public final class Types {
      * <code>string admin_account = 1;</code>
      * @return The bytes for adminAccount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAdminAccountBytes() {
       java.lang.Object ref = adminAccount_;
@@ -306,6 +312,7 @@ public final class Types {
      * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
      * @return Whether the registry field is set.
      */
+    @java.lang.Override
     public boolean hasRegistry() {
       return registry_ != null;
     }
@@ -313,12 +320,14 @@ public final class Types {
      * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
      * @return The registry.
      */
+    @java.lang.Override
     public sifnode.tokenregistry.v1.Types.Registry getRegistry() {
       return registry_ == null ? sifnode.tokenregistry.v1.Types.Registry.getDefaultInstance() : registry_;
     }
     /**
      * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
      */
+    @java.lang.Override
     public sifnode.tokenregistry.v1.Types.RegistryOrBuilder getRegistryOrBuilder() {
       return getRegistry();
     }
@@ -933,7 +942,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.tokenregistry.v1.Registry}
    */
-  public  static final class Registry extends
+  public static final class Registry extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.Registry)
       RegistryOrBuilder {
@@ -1026,12 +1035,14 @@ public final class Types {
     /**
      * <code>repeated .sifnode.tokenregistry.v1.RegistryEntry entries = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.tokenregistry.v1.Types.RegistryEntry> getEntriesList() {
       return entries_;
     }
     /**
      * <code>repeated .sifnode.tokenregistry.v1.RegistryEntry entries = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.tokenregistry.v1.Types.RegistryEntryOrBuilder> 
         getEntriesOrBuilderList() {
       return entries_;
@@ -1039,18 +1050,21 @@ public final class Types {
     /**
      * <code>repeated .sifnode.tokenregistry.v1.RegistryEntry entries = 1;</code>
      */
+    @java.lang.Override
     public int getEntriesCount() {
       return entries_.size();
     }
     /**
      * <code>repeated .sifnode.tokenregistry.v1.RegistryEntry entries = 1;</code>
      */
+    @java.lang.Override
     public sifnode.tokenregistry.v1.Types.RegistryEntry getEntries(int index) {
       return entries_.get(index);
     }
     /**
      * <code>repeated .sifnode.tokenregistry.v1.RegistryEntry entries = 1;</code>
      */
+    @java.lang.Override
     public sifnode.tokenregistry.v1.Types.RegistryEntryOrBuilder getEntriesOrBuilder(
         int index) {
       return entries_.get(index);
@@ -1863,16 +1877,16 @@ public final class Types {
 
     /**
      * <pre>
-     * The name of denomination unit of this token that is the smallest unit stored.
-     * IBC imports of this RegistryEntry convert and store funds as unit_denom.
-     * Several different denom units of a token may be imported into this same unit denom,
-     * they should all be stored under the same unit_denom if they are the same token.
-     * When exporting a RegistryEntry where unit_denom != denom,
-     * then unit_denom can, in future, be used to indicate the source of funds for a denom unit that does not actually
-     * exist on chain, enabling other chains to overcome the uint64 limit on the packet level and import large amounts
-     * of high precision tokens easily.
-     * ie. microrowan -&gt; rowan
-     * i.e rowan -&gt; rowan
+     * The name of denomination unit of this token that is the smallest unit
+     * stored. IBC imports of this RegistryEntry convert and store funds as
+     * unit_denom. Several different denom units of a token may be imported into
+     * this same unit denom, they should all be stored under the same unit_denom
+     * if they are the same token. When exporting a RegistryEntry where unit_denom
+     * != denom, then unit_denom can, in future, be used to indicate the source of
+     * funds for a denom unit that does not actually exist on chain, enabling
+     * other chains to overcome the uint64 limit on the packet level and import
+     * large amounts of high precision tokens easily. ie. microrowan -&gt; rowan i.e
+     * rowan -&gt; rowan
      * </pre>
      *
      * <code>string unit_denom = 16;</code>
@@ -1881,16 +1895,16 @@ public final class Types {
     java.lang.String getUnitDenom();
     /**
      * <pre>
-     * The name of denomination unit of this token that is the smallest unit stored.
-     * IBC imports of this RegistryEntry convert and store funds as unit_denom.
-     * Several different denom units of a token may be imported into this same unit denom,
-     * they should all be stored under the same unit_denom if they are the same token.
-     * When exporting a RegistryEntry where unit_denom != denom,
-     * then unit_denom can, in future, be used to indicate the source of funds for a denom unit that does not actually
-     * exist on chain, enabling other chains to overcome the uint64 limit on the packet level and import large amounts
-     * of high precision tokens easily.
-     * ie. microrowan -&gt; rowan
-     * i.e rowan -&gt; rowan
+     * The name of denomination unit of this token that is the smallest unit
+     * stored. IBC imports of this RegistryEntry convert and store funds as
+     * unit_denom. Several different denom units of a token may be imported into
+     * this same unit denom, they should all be stored under the same unit_denom
+     * if they are the same token. When exporting a RegistryEntry where unit_denom
+     * != denom, then unit_denom can, in future, be used to indicate the source of
+     * funds for a denom unit that does not actually exist on chain, enabling
+     * other chains to overcome the uint64 limit on the packet level and import
+     * large amounts of high precision tokens easily. ie. microrowan -&gt; rowan i.e
+     * rowan -&gt; rowan
      * </pre>
      *
      * <code>string unit_denom = 16;</code>
@@ -1901,12 +1915,11 @@ public final class Types {
 
     /**
      * <pre>
-     * The name of denomination unit of this token that should appear on counterparty chain when this unit is exported.
-     * If empty, the denom is exported as is.
-     * Generally this will only be used to map a high precision (unit_denom) to a lower precision,
-     * to overcome the current uint64 limit on the packet level.
-     * i.e rowan -&gt; microrowan
-     * i.e microrowan -&gt; microrowan
+     * The name of denomination unit of this token that should appear on
+     * counterparty chain when this unit is exported. If empty, the denom is
+     * exported as is. Generally this will only be used to map a high precision
+     * (unit_denom) to a lower precision, to overcome the current uint64 limit on
+     * the packet level. i.e rowan -&gt; microrowan i.e microrowan -&gt; microrowan
      * </pre>
      *
      * <code>string ibc_counterparty_denom = 17;</code>
@@ -1915,12 +1928,11 @@ public final class Types {
     java.lang.String getIbcCounterpartyDenom();
     /**
      * <pre>
-     * The name of denomination unit of this token that should appear on counterparty chain when this unit is exported.
-     * If empty, the denom is exported as is.
-     * Generally this will only be used to map a high precision (unit_denom) to a lower precision,
-     * to overcome the current uint64 limit on the packet level.
-     * i.e rowan -&gt; microrowan
-     * i.e microrowan -&gt; microrowan
+     * The name of denomination unit of this token that should appear on
+     * counterparty chain when this unit is exported. If empty, the denom is
+     * exported as is. Generally this will only be used to map a high precision
+     * (unit_denom) to a lower precision, to overcome the current uint64 limit on
+     * the packet level. i.e rowan -&gt; microrowan i.e microrowan -&gt; microrowan
      * </pre>
      *
      * <code>string ibc_counterparty_denom = 17;</code>
@@ -1944,7 +1956,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.tokenregistry.v1.RegistryEntry}
    */
-  public  static final class RegistryEntry extends
+  public static final class RegistryEntry extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.RegistryEntry)
       RegistryEntryOrBuilder {
@@ -2155,6 +2167,7 @@ public final class Types {
      * <code>int64 decimals = 2;</code>
      * @return The decimals.
      */
+    @java.lang.Override
     public long getDecimals() {
       return decimals_;
     }
@@ -2165,6 +2178,7 @@ public final class Types {
      * <code>string denom = 3;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -2181,6 +2195,7 @@ public final class Types {
      * <code>string denom = 3;</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -2201,6 +2216,7 @@ public final class Types {
      * <code>string base_denom = 4;</code>
      * @return The baseDenom.
      */
+    @java.lang.Override
     public java.lang.String getBaseDenom() {
       java.lang.Object ref = baseDenom_;
       if (ref instanceof java.lang.String) {
@@ -2217,6 +2233,7 @@ public final class Types {
      * <code>string base_denom = 4;</code>
      * @return The bytes for baseDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBaseDenomBytes() {
       java.lang.Object ref = baseDenom_;
@@ -2237,6 +2254,7 @@ public final class Types {
      * <code>string path = 5;</code>
      * @return The path.
      */
+    @java.lang.Override
     public java.lang.String getPath() {
       java.lang.Object ref = path_;
       if (ref instanceof java.lang.String) {
@@ -2253,6 +2271,7 @@ public final class Types {
      * <code>string path = 5;</code>
      * @return The bytes for path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPathBytes() {
       java.lang.Object ref = path_;
@@ -2273,6 +2292,7 @@ public final class Types {
      * <code>string ibc_channel_id = 6;</code>
      * @return The ibcChannelId.
      */
+    @java.lang.Override
     public java.lang.String getIbcChannelId() {
       java.lang.Object ref = ibcChannelId_;
       if (ref instanceof java.lang.String) {
@@ -2289,6 +2309,7 @@ public final class Types {
      * <code>string ibc_channel_id = 6;</code>
      * @return The bytes for ibcChannelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIbcChannelIdBytes() {
       java.lang.Object ref = ibcChannelId_;
@@ -2309,6 +2330,7 @@ public final class Types {
      * <code>string ibc_counterparty_channel_id = 7;</code>
      * @return The ibcCounterpartyChannelId.
      */
+    @java.lang.Override
     public java.lang.String getIbcCounterpartyChannelId() {
       java.lang.Object ref = ibcCounterpartyChannelId_;
       if (ref instanceof java.lang.String) {
@@ -2325,6 +2347,7 @@ public final class Types {
      * <code>string ibc_counterparty_channel_id = 7;</code>
      * @return The bytes for ibcCounterpartyChannelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIbcCounterpartyChannelIdBytes() {
       java.lang.Object ref = ibcCounterpartyChannelId_;
@@ -2345,6 +2368,7 @@ public final class Types {
      * <code>string display_name = 8;</code>
      * @return The displayName.
      */
+    @java.lang.Override
     public java.lang.String getDisplayName() {
       java.lang.Object ref = displayName_;
       if (ref instanceof java.lang.String) {
@@ -2361,6 +2385,7 @@ public final class Types {
      * <code>string display_name = 8;</code>
      * @return The bytes for displayName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDisplayNameBytes() {
       java.lang.Object ref = displayName_;
@@ -2381,6 +2406,7 @@ public final class Types {
      * <code>string display_symbol = 9;</code>
      * @return The displaySymbol.
      */
+    @java.lang.Override
     public java.lang.String getDisplaySymbol() {
       java.lang.Object ref = displaySymbol_;
       if (ref instanceof java.lang.String) {
@@ -2397,6 +2423,7 @@ public final class Types {
      * <code>string display_symbol = 9;</code>
      * @return The bytes for displaySymbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDisplaySymbolBytes() {
       java.lang.Object ref = displaySymbol_;
@@ -2417,6 +2444,7 @@ public final class Types {
      * <code>string network = 10;</code>
      * @return The network.
      */
+    @java.lang.Override
     public java.lang.String getNetwork() {
       java.lang.Object ref = network_;
       if (ref instanceof java.lang.String) {
@@ -2433,6 +2461,7 @@ public final class Types {
      * <code>string network = 10;</code>
      * @return The bytes for network.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNetworkBytes() {
       java.lang.Object ref = network_;
@@ -2453,6 +2482,7 @@ public final class Types {
      * <code>string address = 11;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -2469,6 +2499,7 @@ public final class Types {
      * <code>string address = 11;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -2489,6 +2520,7 @@ public final class Types {
      * <code>string external_symbol = 12;</code>
      * @return The externalSymbol.
      */
+    @java.lang.Override
     public java.lang.String getExternalSymbol() {
       java.lang.Object ref = externalSymbol_;
       if (ref instanceof java.lang.String) {
@@ -2505,6 +2537,7 @@ public final class Types {
      * <code>string external_symbol = 12;</code>
      * @return The bytes for externalSymbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getExternalSymbolBytes() {
       java.lang.Object ref = externalSymbol_;
@@ -2525,6 +2558,7 @@ public final class Types {
      * <code>string transfer_limit = 13;</code>
      * @return The transferLimit.
      */
+    @java.lang.Override
     public java.lang.String getTransferLimit() {
       java.lang.Object ref = transferLimit_;
       if (ref instanceof java.lang.String) {
@@ -2541,6 +2575,7 @@ public final class Types {
      * <code>string transfer_limit = 13;</code>
      * @return The bytes for transferLimit.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTransferLimitBytes() {
       java.lang.Object ref = transferLimit_;
@@ -2571,6 +2606,7 @@ public final class Types {
      * <code>repeated .sifnode.tokenregistry.v1.Permission permissions = 15;</code>
      * @return A list containing the permissions.
      */
+    @java.lang.Override
     public java.util.List<sifnode.tokenregistry.v1.Types.Permission> getPermissionsList() {
       return new com.google.protobuf.Internal.ListAdapter<
           java.lang.Integer, sifnode.tokenregistry.v1.Types.Permission>(permissions_, permissions_converter_);
@@ -2579,6 +2615,7 @@ public final class Types {
      * <code>repeated .sifnode.tokenregistry.v1.Permission permissions = 15;</code>
      * @return The count of permissions.
      */
+    @java.lang.Override
     public int getPermissionsCount() {
       return permissions_.size();
     }
@@ -2587,6 +2624,7 @@ public final class Types {
      * @param index The index of the element to return.
      * @return The permissions at the given index.
      */
+    @java.lang.Override
     public sifnode.tokenregistry.v1.Types.Permission getPermissions(int index) {
       return permissions_converter_.convert(permissions_.get(index));
     }
@@ -2594,6 +2632,7 @@ public final class Types {
      * <code>repeated .sifnode.tokenregistry.v1.Permission permissions = 15;</code>
      * @return A list containing the enum numeric values on the wire for permissions.
      */
+    @java.lang.Override
     public java.util.List<java.lang.Integer>
     getPermissionsValueList() {
       return permissions_;
@@ -2603,6 +2642,7 @@ public final class Types {
      * @param index The index of the value to return.
      * @return The enum numeric value on the wire of permissions at the given index.
      */
+    @java.lang.Override
     public int getPermissionsValue(int index) {
       return permissions_.get(index);
     }
@@ -2612,21 +2652,22 @@ public final class Types {
     private volatile java.lang.Object unitDenom_;
     /**
      * <pre>
-     * The name of denomination unit of this token that is the smallest unit stored.
-     * IBC imports of this RegistryEntry convert and store funds as unit_denom.
-     * Several different denom units of a token may be imported into this same unit denom,
-     * they should all be stored under the same unit_denom if they are the same token.
-     * When exporting a RegistryEntry where unit_denom != denom,
-     * then unit_denom can, in future, be used to indicate the source of funds for a denom unit that does not actually
-     * exist on chain, enabling other chains to overcome the uint64 limit on the packet level and import large amounts
-     * of high precision tokens easily.
-     * ie. microrowan -&gt; rowan
-     * i.e rowan -&gt; rowan
+     * The name of denomination unit of this token that is the smallest unit
+     * stored. IBC imports of this RegistryEntry convert and store funds as
+     * unit_denom. Several different denom units of a token may be imported into
+     * this same unit denom, they should all be stored under the same unit_denom
+     * if they are the same token. When exporting a RegistryEntry where unit_denom
+     * != denom, then unit_denom can, in future, be used to indicate the source of
+     * funds for a denom unit that does not actually exist on chain, enabling
+     * other chains to overcome the uint64 limit on the packet level and import
+     * large amounts of high precision tokens easily. ie. microrowan -&gt; rowan i.e
+     * rowan -&gt; rowan
      * </pre>
      *
      * <code>string unit_denom = 16;</code>
      * @return The unitDenom.
      */
+    @java.lang.Override
     public java.lang.String getUnitDenom() {
       java.lang.Object ref = unitDenom_;
       if (ref instanceof java.lang.String) {
@@ -2641,21 +2682,22 @@ public final class Types {
     }
     /**
      * <pre>
-     * The name of denomination unit of this token that is the smallest unit stored.
-     * IBC imports of this RegistryEntry convert and store funds as unit_denom.
-     * Several different denom units of a token may be imported into this same unit denom,
-     * they should all be stored under the same unit_denom if they are the same token.
-     * When exporting a RegistryEntry where unit_denom != denom,
-     * then unit_denom can, in future, be used to indicate the source of funds for a denom unit that does not actually
-     * exist on chain, enabling other chains to overcome the uint64 limit on the packet level and import large amounts
-     * of high precision tokens easily.
-     * ie. microrowan -&gt; rowan
-     * i.e rowan -&gt; rowan
+     * The name of denomination unit of this token that is the smallest unit
+     * stored. IBC imports of this RegistryEntry convert and store funds as
+     * unit_denom. Several different denom units of a token may be imported into
+     * this same unit denom, they should all be stored under the same unit_denom
+     * if they are the same token. When exporting a RegistryEntry where unit_denom
+     * != denom, then unit_denom can, in future, be used to indicate the source of
+     * funds for a denom unit that does not actually exist on chain, enabling
+     * other chains to overcome the uint64 limit on the packet level and import
+     * large amounts of high precision tokens easily. ie. microrowan -&gt; rowan i.e
+     * rowan -&gt; rowan
      * </pre>
      *
      * <code>string unit_denom = 16;</code>
      * @return The bytes for unitDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUnitDenomBytes() {
       java.lang.Object ref = unitDenom_;
@@ -2674,17 +2716,17 @@ public final class Types {
     private volatile java.lang.Object ibcCounterpartyDenom_;
     /**
      * <pre>
-     * The name of denomination unit of this token that should appear on counterparty chain when this unit is exported.
-     * If empty, the denom is exported as is.
-     * Generally this will only be used to map a high precision (unit_denom) to a lower precision,
-     * to overcome the current uint64 limit on the packet level.
-     * i.e rowan -&gt; microrowan
-     * i.e microrowan -&gt; microrowan
+     * The name of denomination unit of this token that should appear on
+     * counterparty chain when this unit is exported. If empty, the denom is
+     * exported as is. Generally this will only be used to map a high precision
+     * (unit_denom) to a lower precision, to overcome the current uint64 limit on
+     * the packet level. i.e rowan -&gt; microrowan i.e microrowan -&gt; microrowan
      * </pre>
      *
      * <code>string ibc_counterparty_denom = 17;</code>
      * @return The ibcCounterpartyDenom.
      */
+    @java.lang.Override
     public java.lang.String getIbcCounterpartyDenom() {
       java.lang.Object ref = ibcCounterpartyDenom_;
       if (ref instanceof java.lang.String) {
@@ -2699,17 +2741,17 @@ public final class Types {
     }
     /**
      * <pre>
-     * The name of denomination unit of this token that should appear on counterparty chain when this unit is exported.
-     * If empty, the denom is exported as is.
-     * Generally this will only be used to map a high precision (unit_denom) to a lower precision,
-     * to overcome the current uint64 limit on the packet level.
-     * i.e rowan -&gt; microrowan
-     * i.e microrowan -&gt; microrowan
+     * The name of denomination unit of this token that should appear on
+     * counterparty chain when this unit is exported. If empty, the denom is
+     * exported as is. Generally this will only be used to map a high precision
+     * (unit_denom) to a lower precision, to overcome the current uint64 limit on
+     * the packet level. i.e rowan -&gt; microrowan i.e microrowan -&gt; microrowan
      * </pre>
      *
      * <code>string ibc_counterparty_denom = 17;</code>
      * @return The bytes for ibcCounterpartyDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIbcCounterpartyDenomBytes() {
       java.lang.Object ref = ibcCounterpartyDenom_;
@@ -2730,6 +2772,7 @@ public final class Types {
      * <code>string ibc_counterparty_chain_id = 18;</code>
      * @return The ibcCounterpartyChainId.
      */
+    @java.lang.Override
     public java.lang.String getIbcCounterpartyChainId() {
       java.lang.Object ref = ibcCounterpartyChainId_;
       if (ref instanceof java.lang.String) {
@@ -2746,6 +2789,7 @@ public final class Types {
      * <code>string ibc_counterparty_chain_id = 18;</code>
      * @return The bytes for ibcCounterpartyChainId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIbcCounterpartyChainIdBytes() {
       java.lang.Object ref = ibcCounterpartyChainId_;
@@ -3350,6 +3394,7 @@ public final class Types {
        * <code>int64 decimals = 2;</code>
        * @return The decimals.
        */
+      @java.lang.Override
       public long getDecimals() {
         return decimals_;
       }
@@ -4354,16 +4399,16 @@ public final class Types {
       private java.lang.Object unitDenom_ = "";
       /**
        * <pre>
-       * The name of denomination unit of this token that is the smallest unit stored.
-       * IBC imports of this RegistryEntry convert and store funds as unit_denom.
-       * Several different denom units of a token may be imported into this same unit denom,
-       * they should all be stored under the same unit_denom if they are the same token.
-       * When exporting a RegistryEntry where unit_denom != denom,
-       * then unit_denom can, in future, be used to indicate the source of funds for a denom unit that does not actually
-       * exist on chain, enabling other chains to overcome the uint64 limit on the packet level and import large amounts
-       * of high precision tokens easily.
-       * ie. microrowan -&gt; rowan
-       * i.e rowan -&gt; rowan
+       * The name of denomination unit of this token that is the smallest unit
+       * stored. IBC imports of this RegistryEntry convert and store funds as
+       * unit_denom. Several different denom units of a token may be imported into
+       * this same unit denom, they should all be stored under the same unit_denom
+       * if they are the same token. When exporting a RegistryEntry where unit_denom
+       * != denom, then unit_denom can, in future, be used to indicate the source of
+       * funds for a denom unit that does not actually exist on chain, enabling
+       * other chains to overcome the uint64 limit on the packet level and import
+       * large amounts of high precision tokens easily. ie. microrowan -&gt; rowan i.e
+       * rowan -&gt; rowan
        * </pre>
        *
        * <code>string unit_denom = 16;</code>
@@ -4383,16 +4428,16 @@ public final class Types {
       }
       /**
        * <pre>
-       * The name of denomination unit of this token that is the smallest unit stored.
-       * IBC imports of this RegistryEntry convert and store funds as unit_denom.
-       * Several different denom units of a token may be imported into this same unit denom,
-       * they should all be stored under the same unit_denom if they are the same token.
-       * When exporting a RegistryEntry where unit_denom != denom,
-       * then unit_denom can, in future, be used to indicate the source of funds for a denom unit that does not actually
-       * exist on chain, enabling other chains to overcome the uint64 limit on the packet level and import large amounts
-       * of high precision tokens easily.
-       * ie. microrowan -&gt; rowan
-       * i.e rowan -&gt; rowan
+       * The name of denomination unit of this token that is the smallest unit
+       * stored. IBC imports of this RegistryEntry convert and store funds as
+       * unit_denom. Several different denom units of a token may be imported into
+       * this same unit denom, they should all be stored under the same unit_denom
+       * if they are the same token. When exporting a RegistryEntry where unit_denom
+       * != denom, then unit_denom can, in future, be used to indicate the source of
+       * funds for a denom unit that does not actually exist on chain, enabling
+       * other chains to overcome the uint64 limit on the packet level and import
+       * large amounts of high precision tokens easily. ie. microrowan -&gt; rowan i.e
+       * rowan -&gt; rowan
        * </pre>
        *
        * <code>string unit_denom = 16;</code>
@@ -4413,16 +4458,16 @@ public final class Types {
       }
       /**
        * <pre>
-       * The name of denomination unit of this token that is the smallest unit stored.
-       * IBC imports of this RegistryEntry convert and store funds as unit_denom.
-       * Several different denom units of a token may be imported into this same unit denom,
-       * they should all be stored under the same unit_denom if they are the same token.
-       * When exporting a RegistryEntry where unit_denom != denom,
-       * then unit_denom can, in future, be used to indicate the source of funds for a denom unit that does not actually
-       * exist on chain, enabling other chains to overcome the uint64 limit on the packet level and import large amounts
-       * of high precision tokens easily.
-       * ie. microrowan -&gt; rowan
-       * i.e rowan -&gt; rowan
+       * The name of denomination unit of this token that is the smallest unit
+       * stored. IBC imports of this RegistryEntry convert and store funds as
+       * unit_denom. Several different denom units of a token may be imported into
+       * this same unit denom, they should all be stored under the same unit_denom
+       * if they are the same token. When exporting a RegistryEntry where unit_denom
+       * != denom, then unit_denom can, in future, be used to indicate the source of
+       * funds for a denom unit that does not actually exist on chain, enabling
+       * other chains to overcome the uint64 limit on the packet level and import
+       * large amounts of high precision tokens easily. ie. microrowan -&gt; rowan i.e
+       * rowan -&gt; rowan
        * </pre>
        *
        * <code>string unit_denom = 16;</code>
@@ -4441,16 +4486,16 @@ public final class Types {
       }
       /**
        * <pre>
-       * The name of denomination unit of this token that is the smallest unit stored.
-       * IBC imports of this RegistryEntry convert and store funds as unit_denom.
-       * Several different denom units of a token may be imported into this same unit denom,
-       * they should all be stored under the same unit_denom if they are the same token.
-       * When exporting a RegistryEntry where unit_denom != denom,
-       * then unit_denom can, in future, be used to indicate the source of funds for a denom unit that does not actually
-       * exist on chain, enabling other chains to overcome the uint64 limit on the packet level and import large amounts
-       * of high precision tokens easily.
-       * ie. microrowan -&gt; rowan
-       * i.e rowan -&gt; rowan
+       * The name of denomination unit of this token that is the smallest unit
+       * stored. IBC imports of this RegistryEntry convert and store funds as
+       * unit_denom. Several different denom units of a token may be imported into
+       * this same unit denom, they should all be stored under the same unit_denom
+       * if they are the same token. When exporting a RegistryEntry where unit_denom
+       * != denom, then unit_denom can, in future, be used to indicate the source of
+       * funds for a denom unit that does not actually exist on chain, enabling
+       * other chains to overcome the uint64 limit on the packet level and import
+       * large amounts of high precision tokens easily. ie. microrowan -&gt; rowan i.e
+       * rowan -&gt; rowan
        * </pre>
        *
        * <code>string unit_denom = 16;</code>
@@ -4464,16 +4509,16 @@ public final class Types {
       }
       /**
        * <pre>
-       * The name of denomination unit of this token that is the smallest unit stored.
-       * IBC imports of this RegistryEntry convert and store funds as unit_denom.
-       * Several different denom units of a token may be imported into this same unit denom,
-       * they should all be stored under the same unit_denom if they are the same token.
-       * When exporting a RegistryEntry where unit_denom != denom,
-       * then unit_denom can, in future, be used to indicate the source of funds for a denom unit that does not actually
-       * exist on chain, enabling other chains to overcome the uint64 limit on the packet level and import large amounts
-       * of high precision tokens easily.
-       * ie. microrowan -&gt; rowan
-       * i.e rowan -&gt; rowan
+       * The name of denomination unit of this token that is the smallest unit
+       * stored. IBC imports of this RegistryEntry convert and store funds as
+       * unit_denom. Several different denom units of a token may be imported into
+       * this same unit denom, they should all be stored under the same unit_denom
+       * if they are the same token. When exporting a RegistryEntry where unit_denom
+       * != denom, then unit_denom can, in future, be used to indicate the source of
+       * funds for a denom unit that does not actually exist on chain, enabling
+       * other chains to overcome the uint64 limit on the packet level and import
+       * large amounts of high precision tokens easily. ie. microrowan -&gt; rowan i.e
+       * rowan -&gt; rowan
        * </pre>
        *
        * <code>string unit_denom = 16;</code>
@@ -4495,12 +4540,11 @@ public final class Types {
       private java.lang.Object ibcCounterpartyDenom_ = "";
       /**
        * <pre>
-       * The name of denomination unit of this token that should appear on counterparty chain when this unit is exported.
-       * If empty, the denom is exported as is.
-       * Generally this will only be used to map a high precision (unit_denom) to a lower precision,
-       * to overcome the current uint64 limit on the packet level.
-       * i.e rowan -&gt; microrowan
-       * i.e microrowan -&gt; microrowan
+       * The name of denomination unit of this token that should appear on
+       * counterparty chain when this unit is exported. If empty, the denom is
+       * exported as is. Generally this will only be used to map a high precision
+       * (unit_denom) to a lower precision, to overcome the current uint64 limit on
+       * the packet level. i.e rowan -&gt; microrowan i.e microrowan -&gt; microrowan
        * </pre>
        *
        * <code>string ibc_counterparty_denom = 17;</code>
@@ -4520,12 +4564,11 @@ public final class Types {
       }
       /**
        * <pre>
-       * The name of denomination unit of this token that should appear on counterparty chain when this unit is exported.
-       * If empty, the denom is exported as is.
-       * Generally this will only be used to map a high precision (unit_denom) to a lower precision,
-       * to overcome the current uint64 limit on the packet level.
-       * i.e rowan -&gt; microrowan
-       * i.e microrowan -&gt; microrowan
+       * The name of denomination unit of this token that should appear on
+       * counterparty chain when this unit is exported. If empty, the denom is
+       * exported as is. Generally this will only be used to map a high precision
+       * (unit_denom) to a lower precision, to overcome the current uint64 limit on
+       * the packet level. i.e rowan -&gt; microrowan i.e microrowan -&gt; microrowan
        * </pre>
        *
        * <code>string ibc_counterparty_denom = 17;</code>
@@ -4546,12 +4589,11 @@ public final class Types {
       }
       /**
        * <pre>
-       * The name of denomination unit of this token that should appear on counterparty chain when this unit is exported.
-       * If empty, the denom is exported as is.
-       * Generally this will only be used to map a high precision (unit_denom) to a lower precision,
-       * to overcome the current uint64 limit on the packet level.
-       * i.e rowan -&gt; microrowan
-       * i.e microrowan -&gt; microrowan
+       * The name of denomination unit of this token that should appear on
+       * counterparty chain when this unit is exported. If empty, the denom is
+       * exported as is. Generally this will only be used to map a high precision
+       * (unit_denom) to a lower precision, to overcome the current uint64 limit on
+       * the packet level. i.e rowan -&gt; microrowan i.e microrowan -&gt; microrowan
        * </pre>
        *
        * <code>string ibc_counterparty_denom = 17;</code>
@@ -4570,12 +4612,11 @@ public final class Types {
       }
       /**
        * <pre>
-       * The name of denomination unit of this token that should appear on counterparty chain when this unit is exported.
-       * If empty, the denom is exported as is.
-       * Generally this will only be used to map a high precision (unit_denom) to a lower precision,
-       * to overcome the current uint64 limit on the packet level.
-       * i.e rowan -&gt; microrowan
-       * i.e microrowan -&gt; microrowan
+       * The name of denomination unit of this token that should appear on
+       * counterparty chain when this unit is exported. If empty, the denom is
+       * exported as is. Generally this will only be used to map a high precision
+       * (unit_denom) to a lower precision, to overcome the current uint64 limit on
+       * the packet level. i.e rowan -&gt; microrowan i.e microrowan -&gt; microrowan
        * </pre>
        *
        * <code>string ibc_counterparty_denom = 17;</code>
@@ -4589,12 +4630,11 @@ public final class Types {
       }
       /**
        * <pre>
-       * The name of denomination unit of this token that should appear on counterparty chain when this unit is exported.
-       * If empty, the denom is exported as is.
-       * Generally this will only be used to map a high precision (unit_denom) to a lower precision,
-       * to overcome the current uint64 limit on the packet level.
-       * i.e rowan -&gt; microrowan
-       * i.e microrowan -&gt; microrowan
+       * The name of denomination unit of this token that should appear on
+       * counterparty chain when this unit is exported. If empty, the denom is
+       * exported as is. Generally this will only be used to map a high precision
+       * (unit_denom) to a lower precision, to overcome the current uint64 limit on
+       * the packet level. i.e rowan -&gt; microrowan i.e microrowan -&gt; microrowan
        * </pre>
        *
        * <code>string ibc_counterparty_denom = 17;</code>
@@ -4790,7 +4830,7 @@ public final class Types {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_sifnode_tokenregistry_v1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -4810,7 +4850,7 @@ public final class Types {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_tokenregistry_v1_RegistryEntry_descriptor,
         new java.lang.String[] { "Decimals", "Denom", "BaseDenom", "Path", "IbcChannelId", "IbcCounterpartyChannelId", "DisplayName", "DisplaySymbol", "Network", "Address", "ExternalSymbol", "TransferLimit", "Permissions", "UnitDenom", "IbcCounterpartyDenom", "IbcCounterpartyChainId", });
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

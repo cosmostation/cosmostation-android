@@ -175,7 +175,7 @@ public final class Payload {
    *
    * Protobuf type {@code payload.Any}
    */
-  public  static final class Any extends
+  public static final class Any extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.Any)
       AnyOrBuilder {
@@ -385,6 +385,7 @@ public final class Payload {
      * <code>.payload.CallTx CallTx = 1;</code>
      * @return Whether the callTx field is set.
      */
+    @java.lang.Override
     public boolean hasCallTx() {
       return callTx_ != null;
     }
@@ -392,12 +393,14 @@ public final class Payload {
      * <code>.payload.CallTx CallTx = 1;</code>
      * @return The callTx.
      */
+    @java.lang.Override
     public payload.Payload.CallTx getCallTx() {
       return callTx_ == null ? payload.Payload.CallTx.getDefaultInstance() : callTx_;
     }
     /**
      * <code>.payload.CallTx CallTx = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.CallTxOrBuilder getCallTxOrBuilder() {
       return getCallTx();
     }
@@ -408,6 +411,7 @@ public final class Payload {
      * <code>.payload.SendTx SendTx = 2;</code>
      * @return Whether the sendTx field is set.
      */
+    @java.lang.Override
     public boolean hasSendTx() {
       return sendTx_ != null;
     }
@@ -415,12 +419,14 @@ public final class Payload {
      * <code>.payload.SendTx SendTx = 2;</code>
      * @return The sendTx.
      */
+    @java.lang.Override
     public payload.Payload.SendTx getSendTx() {
       return sendTx_ == null ? payload.Payload.SendTx.getDefaultInstance() : sendTx_;
     }
     /**
      * <code>.payload.SendTx SendTx = 2;</code>
      */
+    @java.lang.Override
     public payload.Payload.SendTxOrBuilder getSendTxOrBuilder() {
       return getSendTx();
     }
@@ -431,6 +437,7 @@ public final class Payload {
      * <code>.payload.NameTx NameTx = 3;</code>
      * @return Whether the nameTx field is set.
      */
+    @java.lang.Override
     public boolean hasNameTx() {
       return nameTx_ != null;
     }
@@ -438,12 +445,14 @@ public final class Payload {
      * <code>.payload.NameTx NameTx = 3;</code>
      * @return The nameTx.
      */
+    @java.lang.Override
     public payload.Payload.NameTx getNameTx() {
       return nameTx_ == null ? payload.Payload.NameTx.getDefaultInstance() : nameTx_;
     }
     /**
      * <code>.payload.NameTx NameTx = 3;</code>
      */
+    @java.lang.Override
     public payload.Payload.NameTxOrBuilder getNameTxOrBuilder() {
       return getNameTx();
     }
@@ -454,6 +463,7 @@ public final class Payload {
      * <code>.payload.PermsTx PermsTx = 4;</code>
      * @return Whether the permsTx field is set.
      */
+    @java.lang.Override
     public boolean hasPermsTx() {
       return permsTx_ != null;
     }
@@ -461,12 +471,14 @@ public final class Payload {
      * <code>.payload.PermsTx PermsTx = 4;</code>
      * @return The permsTx.
      */
+    @java.lang.Override
     public payload.Payload.PermsTx getPermsTx() {
       return permsTx_ == null ? payload.Payload.PermsTx.getDefaultInstance() : permsTx_;
     }
     /**
      * <code>.payload.PermsTx PermsTx = 4;</code>
      */
+    @java.lang.Override
     public payload.Payload.PermsTxOrBuilder getPermsTxOrBuilder() {
       return getPermsTx();
     }
@@ -477,6 +489,7 @@ public final class Payload {
      * <code>.payload.GovTx GovTx = 5;</code>
      * @return Whether the govTx field is set.
      */
+    @java.lang.Override
     public boolean hasGovTx() {
       return govTx_ != null;
     }
@@ -484,12 +497,14 @@ public final class Payload {
      * <code>.payload.GovTx GovTx = 5;</code>
      * @return The govTx.
      */
+    @java.lang.Override
     public payload.Payload.GovTx getGovTx() {
       return govTx_ == null ? payload.Payload.GovTx.getDefaultInstance() : govTx_;
     }
     /**
      * <code>.payload.GovTx GovTx = 5;</code>
      */
+    @java.lang.Override
     public payload.Payload.GovTxOrBuilder getGovTxOrBuilder() {
       return getGovTx();
     }
@@ -500,6 +515,7 @@ public final class Payload {
      * <code>.payload.BondTx BondTx = 6;</code>
      * @return Whether the bondTx field is set.
      */
+    @java.lang.Override
     public boolean hasBondTx() {
       return bondTx_ != null;
     }
@@ -507,12 +523,14 @@ public final class Payload {
      * <code>.payload.BondTx BondTx = 6;</code>
      * @return The bondTx.
      */
+    @java.lang.Override
     public payload.Payload.BondTx getBondTx() {
       return bondTx_ == null ? payload.Payload.BondTx.getDefaultInstance() : bondTx_;
     }
     /**
      * <code>.payload.BondTx BondTx = 6;</code>
      */
+    @java.lang.Override
     public payload.Payload.BondTxOrBuilder getBondTxOrBuilder() {
       return getBondTx();
     }
@@ -523,6 +541,7 @@ public final class Payload {
      * <code>.payload.UnbondTx UnbondTx = 7;</code>
      * @return Whether the unbondTx field is set.
      */
+    @java.lang.Override
     public boolean hasUnbondTx() {
       return unbondTx_ != null;
     }
@@ -530,12 +549,14 @@ public final class Payload {
      * <code>.payload.UnbondTx UnbondTx = 7;</code>
      * @return The unbondTx.
      */
+    @java.lang.Override
     public payload.Payload.UnbondTx getUnbondTx() {
       return unbondTx_ == null ? payload.Payload.UnbondTx.getDefaultInstance() : unbondTx_;
     }
     /**
      * <code>.payload.UnbondTx UnbondTx = 7;</code>
      */
+    @java.lang.Override
     public payload.Payload.UnbondTxOrBuilder getUnbondTxOrBuilder() {
       return getUnbondTx();
     }
@@ -546,6 +567,7 @@ public final class Payload {
      * <code>.payload.BatchTx BatchTx = 8;</code>
      * @return Whether the batchTx field is set.
      */
+    @java.lang.Override
     public boolean hasBatchTx() {
       return batchTx_ != null;
     }
@@ -553,12 +575,14 @@ public final class Payload {
      * <code>.payload.BatchTx BatchTx = 8;</code>
      * @return The batchTx.
      */
+    @java.lang.Override
     public payload.Payload.BatchTx getBatchTx() {
       return batchTx_ == null ? payload.Payload.BatchTx.getDefaultInstance() : batchTx_;
     }
     /**
      * <code>.payload.BatchTx BatchTx = 8;</code>
      */
+    @java.lang.Override
     public payload.Payload.BatchTxOrBuilder getBatchTxOrBuilder() {
       return getBatchTx();
     }
@@ -569,6 +593,7 @@ public final class Payload {
      * <code>.payload.ProposalTx ProposalTx = 9;</code>
      * @return Whether the proposalTx field is set.
      */
+    @java.lang.Override
     public boolean hasProposalTx() {
       return proposalTx_ != null;
     }
@@ -576,12 +601,14 @@ public final class Payload {
      * <code>.payload.ProposalTx ProposalTx = 9;</code>
      * @return The proposalTx.
      */
+    @java.lang.Override
     public payload.Payload.ProposalTx getProposalTx() {
       return proposalTx_ == null ? payload.Payload.ProposalTx.getDefaultInstance() : proposalTx_;
     }
     /**
      * <code>.payload.ProposalTx ProposalTx = 9;</code>
      */
+    @java.lang.Override
     public payload.Payload.ProposalTxOrBuilder getProposalTxOrBuilder() {
       return getProposalTx();
     }
@@ -592,6 +619,7 @@ public final class Payload {
      * <code>.payload.IdentifyTx IdentifyTx = 10;</code>
      * @return Whether the identifyTx field is set.
      */
+    @java.lang.Override
     public boolean hasIdentifyTx() {
       return identifyTx_ != null;
     }
@@ -599,12 +627,14 @@ public final class Payload {
      * <code>.payload.IdentifyTx IdentifyTx = 10;</code>
      * @return The identifyTx.
      */
+    @java.lang.Override
     public payload.Payload.IdentifyTx getIdentifyTx() {
       return identifyTx_ == null ? payload.Payload.IdentifyTx.getDefaultInstance() : identifyTx_;
     }
     /**
      * <code>.payload.IdentifyTx IdentifyTx = 10;</code>
      */
+    @java.lang.Override
     public payload.Payload.IdentifyTxOrBuilder getIdentifyTxOrBuilder() {
       return getIdentifyTx();
     }
@@ -2482,7 +2512,7 @@ public final class Payload {
    *
    * Protobuf type {@code payload.TxInput}
    */
-  public  static final class TxInput extends
+  public static final class TxInput extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.TxInput)
       TxInputOrBuilder {
@@ -2582,6 +2612,7 @@ public final class Payload {
      * <code>bytes Address = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
      * @return The address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAddress() {
       return address_;
     }
@@ -2596,6 +2627,7 @@ public final class Payload {
      * <code>uint64 Amount = 2;</code>
      * @return The amount.
      */
+    @java.lang.Override
     public long getAmount() {
       return amount_;
     }
@@ -2610,6 +2642,7 @@ public final class Payload {
      * <code>uint64 Sequence = 3;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -2966,6 +2999,7 @@ public final class Payload {
        * <code>bytes Address = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
        * @return The address.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAddress() {
         return address_;
       }
@@ -3011,6 +3045,7 @@ public final class Payload {
        * <code>uint64 Amount = 2;</code>
        * @return The amount.
        */
+      @java.lang.Override
       public long getAmount() {
         return amount_;
       }
@@ -3053,6 +3088,7 @@ public final class Payload {
        * <code>uint64 Sequence = 3;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -3169,7 +3205,7 @@ public final class Payload {
    *
    * Protobuf type {@code payload.TxOutput}
    */
-  public  static final class TxOutput extends
+  public static final class TxOutput extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.TxOutput)
       TxOutputOrBuilder {
@@ -3264,6 +3300,7 @@ public final class Payload {
      * <code>bytes Address = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
      * @return The address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAddress() {
       return address_;
     }
@@ -3278,6 +3315,7 @@ public final class Payload {
      * <code>uint64 Amount = 2;</code>
      * @return The amount.
      */
+    @java.lang.Override
     public long getAmount() {
       return amount_;
     }
@@ -3615,6 +3653,7 @@ public final class Payload {
        * <code>bytes Address = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
        * @return The address.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAddress() {
         return address_;
       }
@@ -3660,6 +3699,7 @@ public final class Payload {
        * <code>uint64 Amount = 2;</code>
        * @return The amount.
        */
+      @java.lang.Override
       public long getAmount() {
         return amount_;
       }
@@ -3887,7 +3927,7 @@ public final class Payload {
    *
    * Protobuf type {@code payload.CallTx}
    */
-  public  static final class CallTx extends
+  public static final class CallTx extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.CallTx)
       CallTxOrBuilder {
@@ -4031,6 +4071,7 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return Whether the input field is set.
      */
+    @java.lang.Override
     public boolean hasInput() {
       return input_ != null;
     }
@@ -4042,6 +4083,7 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return The input.
      */
+    @java.lang.Override
     public payload.Payload.TxInput getInput() {
       return input_ == null ? payload.Payload.TxInput.getDefaultInstance() : input_;
     }
@@ -4052,6 +4094,7 @@ public final class Payload {
      *
      * <code>.payload.TxInput Input = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInputOrBuilder getInputOrBuilder() {
       return getInput();
     }
@@ -4066,6 +4109,7 @@ public final class Payload {
      * <code>bytes Address = 2 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
      * @return The address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAddress() {
       return address_;
     }
@@ -4080,6 +4124,7 @@ public final class Payload {
      * <code>uint64 GasLimit = 3;</code>
      * @return The gasLimit.
      */
+    @java.lang.Override
     public long getGasLimit() {
       return gasLimit_;
     }
@@ -4094,6 +4139,7 @@ public final class Payload {
      * <code>uint64 Fee = 4;</code>
      * @return The fee.
      */
+    @java.lang.Override
     public long getFee() {
       return fee_;
     }
@@ -4108,6 +4154,7 @@ public final class Payload {
      * <code>bytes Data = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -4122,6 +4169,7 @@ public final class Payload {
      * <code>bytes WASM = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes", (.gogoproto.jsontag) = "tags,omitempty"];</code>
      * @return The wASM.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getWASM() {
       return wASM_;
     }
@@ -4135,6 +4183,7 @@ public final class Payload {
      *
      * <code>repeated .payload.ContractMeta ContractMeta = 7;</code>
      */
+    @java.lang.Override
     public java.util.List<payload.Payload.ContractMeta> getContractMetaList() {
       return contractMeta_;
     }
@@ -4145,6 +4194,7 @@ public final class Payload {
      *
      * <code>repeated .payload.ContractMeta ContractMeta = 7;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends payload.Payload.ContractMetaOrBuilder> 
         getContractMetaOrBuilderList() {
       return contractMeta_;
@@ -4156,6 +4206,7 @@ public final class Payload {
      *
      * <code>repeated .payload.ContractMeta ContractMeta = 7;</code>
      */
+    @java.lang.Override
     public int getContractMetaCount() {
       return contractMeta_.size();
     }
@@ -4166,6 +4217,7 @@ public final class Payload {
      *
      * <code>repeated .payload.ContractMeta ContractMeta = 7;</code>
      */
+    @java.lang.Override
     public payload.Payload.ContractMeta getContractMeta(int index) {
       return contractMeta_.get(index);
     }
@@ -4176,6 +4228,7 @@ public final class Payload {
      *
      * <code>repeated .payload.ContractMeta ContractMeta = 7;</code>
      */
+    @java.lang.Override
     public payload.Payload.ContractMetaOrBuilder getContractMetaOrBuilder(
         int index) {
       return contractMeta_.get(index);
@@ -4191,6 +4244,7 @@ public final class Payload {
      * <code>uint64 GasPrice = 8;</code>
      * @return The gasPrice.
      */
+    @java.lang.Override
     public long getGasPrice() {
       return gasPrice_;
     }
@@ -4840,6 +4894,7 @@ public final class Payload {
        * <code>bytes Address = 2 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
        * @return The address.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAddress() {
         return address_;
       }
@@ -4885,6 +4940,7 @@ public final class Payload {
        * <code>uint64 GasLimit = 3;</code>
        * @return The gasLimit.
        */
+      @java.lang.Override
       public long getGasLimit() {
         return gasLimit_;
       }
@@ -4927,6 +4983,7 @@ public final class Payload {
        * <code>uint64 Fee = 4;</code>
        * @return The fee.
        */
+      @java.lang.Override
       public long getFee() {
         return fee_;
       }
@@ -4969,6 +5026,7 @@ public final class Payload {
        * <code>bytes Data = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
        * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
@@ -5014,6 +5072,7 @@ public final class Payload {
        * <code>bytes WASM = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes", (.gogoproto.jsontag) = "tags,omitempty"];</code>
        * @return The wASM.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getWASM() {
         return wASM_;
       }
@@ -5371,6 +5430,7 @@ public final class Payload {
        * <code>uint64 GasPrice = 8;</code>
        * @return The gasPrice.
        */
+      @java.lang.Override
       public long getGasPrice() {
         return gasPrice_;
       }
@@ -5481,7 +5541,7 @@ public final class Payload {
   /**
    * Protobuf type {@code payload.ContractMeta}
    */
-  public  static final class ContractMeta extends
+  public static final class ContractMeta extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.ContractMeta)
       ContractMetaOrBuilder {
@@ -5574,6 +5634,7 @@ public final class Payload {
      * <code>bytes CodeHash = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
      * @return The codeHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCodeHash() {
       return codeHash_;
     }
@@ -5584,6 +5645,7 @@ public final class Payload {
      * <code>string Meta = 2;</code>
      * @return The meta.
      */
+    @java.lang.Override
     public java.lang.String getMeta() {
       java.lang.Object ref = meta_;
       if (ref instanceof java.lang.String) {
@@ -5600,6 +5662,7 @@ public final class Payload {
      * <code>string Meta = 2;</code>
      * @return The bytes for meta.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMetaBytes() {
       java.lang.Object ref = meta_;
@@ -5938,6 +6001,7 @@ public final class Payload {
        * <code>bytes CodeHash = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
        * @return The codeHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCodeHash() {
         return codeHash_;
       }
@@ -6193,7 +6257,7 @@ public final class Payload {
    *
    * Protobuf type {@code payload.SendTx}
    */
-  public  static final class SendTx extends
+  public static final class SendTx extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.SendTx)
       SendTxOrBuilder {
@@ -6303,6 +6367,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<payload.Payload.TxInput> getInputsList() {
       return inputs_;
     }
@@ -6313,6 +6378,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends payload.Payload.TxInputOrBuilder> 
         getInputsOrBuilderList() {
       return inputs_;
@@ -6324,6 +6390,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public int getInputsCount() {
       return inputs_.size();
     }
@@ -6334,6 +6401,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInput getInputs(int index) {
       return inputs_.get(index);
     }
@@ -6344,6 +6412,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInputOrBuilder getInputsOrBuilder(
         int index) {
       return inputs_.get(index);
@@ -6358,6 +6427,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxOutput Outputs = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<payload.Payload.TxOutput> getOutputsList() {
       return outputs_;
     }
@@ -6368,6 +6438,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxOutput Outputs = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends payload.Payload.TxOutputOrBuilder> 
         getOutputsOrBuilderList() {
       return outputs_;
@@ -6379,6 +6450,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxOutput Outputs = 2;</code>
      */
+    @java.lang.Override
     public int getOutputsCount() {
       return outputs_.size();
     }
@@ -6389,6 +6461,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxOutput Outputs = 2;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxOutput getOutputs(int index) {
       return outputs_.get(index);
     }
@@ -6399,6 +6472,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxOutput Outputs = 2;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxOutputOrBuilder getOutputsOrBuilder(
         int index) {
       return outputs_.get(index);
@@ -7546,7 +7620,7 @@ public final class Payload {
    *
    * Protobuf type {@code payload.PermsTx}
    */
-  public  static final class PermsTx extends
+  public static final class PermsTx extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.PermsTx)
       PermsTxOrBuilder {
@@ -7656,6 +7730,7 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return Whether the input field is set.
      */
+    @java.lang.Override
     public boolean hasInput() {
       return input_ != null;
     }
@@ -7667,6 +7742,7 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return The input.
      */
+    @java.lang.Override
     public payload.Payload.TxInput getInput() {
       return input_ == null ? payload.Payload.TxInput.getDefaultInstance() : input_;
     }
@@ -7677,6 +7753,7 @@ public final class Payload {
      *
      * <code>.payload.TxInput Input = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInputOrBuilder getInputOrBuilder() {
       return getInput();
     }
@@ -7691,6 +7768,7 @@ public final class Payload {
      * <code>.permission.PermArgs PermArgs = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the permArgs field is set.
      */
+    @java.lang.Override
     public boolean hasPermArgs() {
       return permArgs_ != null;
     }
@@ -7702,6 +7780,7 @@ public final class Payload {
      * <code>.permission.PermArgs PermArgs = 2 [(.gogoproto.nullable) = false];</code>
      * @return The permArgs.
      */
+    @java.lang.Override
     public permission.Permission.PermArgs getPermArgs() {
       return permArgs_ == null ? permission.Permission.PermArgs.getDefaultInstance() : permArgs_;
     }
@@ -7712,6 +7791,7 @@ public final class Payload {
      *
      * <code>.permission.PermArgs PermArgs = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public permission.Permission.PermArgsOrBuilder getPermArgsOrBuilder() {
       return getPermArgs();
     }
@@ -8515,7 +8595,7 @@ public final class Payload {
    *
    * Protobuf type {@code payload.NameTx}
    */
-  public  static final class NameTx extends
+  public static final class NameTx extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.NameTx)
       NameTxOrBuilder {
@@ -8631,6 +8711,7 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return Whether the input field is set.
      */
+    @java.lang.Override
     public boolean hasInput() {
       return input_ != null;
     }
@@ -8642,6 +8723,7 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return The input.
      */
+    @java.lang.Override
     public payload.Payload.TxInput getInput() {
       return input_ == null ? payload.Payload.TxInput.getDefaultInstance() : input_;
     }
@@ -8652,6 +8734,7 @@ public final class Payload {
      *
      * <code>.payload.TxInput Input = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInputOrBuilder getInputOrBuilder() {
       return getInput();
     }
@@ -8666,6 +8749,7 @@ public final class Payload {
      * <code>string Name = 2;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -8686,6 +8770,7 @@ public final class Payload {
      * <code>string Name = 2;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -8710,6 +8795,7 @@ public final class Payload {
      * <code>string Data = 3;</code>
      * @return The data.
      */
+    @java.lang.Override
     public java.lang.String getData() {
       java.lang.Object ref = data_;
       if (ref instanceof java.lang.String) {
@@ -8730,6 +8816,7 @@ public final class Payload {
      * <code>string Data = 3;</code>
      * @return The bytes for data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDataBytes() {
       java.lang.Object ref = data_;
@@ -8754,6 +8841,7 @@ public final class Payload {
      * <code>uint64 Fee = 4;</code>
      * @return The fee.
      */
+    @java.lang.Override
     public long getFee() {
       return fee_;
     }
@@ -9485,6 +9573,7 @@ public final class Payload {
        * <code>uint64 Fee = 4;</code>
        * @return The fee.
        */
+      @java.lang.Override
       public long getFee() {
         return fee_;
       }
@@ -9604,7 +9693,7 @@ public final class Payload {
   /**
    * Protobuf type {@code payload.BondTx}
    */
-  public  static final class BondTx extends
+  public static final class BondTx extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.BondTx)
       BondTxOrBuilder {
@@ -9701,6 +9790,7 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return Whether the input field is set.
      */
+    @java.lang.Override
     public boolean hasInput() {
       return input_ != null;
     }
@@ -9712,6 +9802,7 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return The input.
      */
+    @java.lang.Override
     public payload.Payload.TxInput getInput() {
       return input_ == null ? payload.Payload.TxInput.getDefaultInstance() : input_;
     }
@@ -9722,6 +9813,7 @@ public final class Payload {
      *
      * <code>.payload.TxInput Input = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInputOrBuilder getInputOrBuilder() {
       return getInput();
     }
@@ -10297,7 +10389,7 @@ public final class Payload {
   /**
    * Protobuf type {@code payload.UnbondTx}
    */
-  public  static final class UnbondTx extends
+  public static final class UnbondTx extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.UnbondTx)
       UnbondTxOrBuilder {
@@ -10403,6 +10495,7 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return Whether the input field is set.
      */
+    @java.lang.Override
     public boolean hasInput() {
       return input_ != null;
     }
@@ -10410,12 +10503,14 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return The input.
      */
+    @java.lang.Override
     public payload.Payload.TxInput getInput() {
       return input_ == null ? payload.Payload.TxInput.getDefaultInstance() : input_;
     }
     /**
      * <code>.payload.TxInput Input = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInputOrBuilder getInputOrBuilder() {
       return getInput();
     }
@@ -10430,6 +10525,7 @@ public final class Payload {
      * <code>.payload.TxOutput Output = 2;</code>
      * @return Whether the output field is set.
      */
+    @java.lang.Override
     public boolean hasOutput() {
       return output_ != null;
     }
@@ -10441,6 +10537,7 @@ public final class Payload {
      * <code>.payload.TxOutput Output = 2;</code>
      * @return The output.
      */
+    @java.lang.Override
     public payload.Payload.TxOutput getOutput() {
       return output_ == null ? payload.Payload.TxOutput.getDefaultInstance() : output_;
     }
@@ -10451,6 +10548,7 @@ public final class Payload {
      *
      * <code>.payload.TxOutput Output = 2;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxOutputOrBuilder getOutputOrBuilder() {
       return getOutput();
     }
@@ -11181,7 +11279,7 @@ public final class Payload {
   /**
    * Protobuf type {@code payload.GovTx}
    */
-  public  static final class GovTx extends
+  public static final class GovTx extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.GovTx)
       GovTxOrBuilder {
@@ -11287,12 +11385,14 @@ public final class Payload {
     /**
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<payload.Payload.TxInput> getInputsList() {
       return inputs_;
     }
     /**
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends payload.Payload.TxInputOrBuilder> 
         getInputsOrBuilderList() {
       return inputs_;
@@ -11300,18 +11400,21 @@ public final class Payload {
     /**
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public int getInputsCount() {
       return inputs_.size();
     }
     /**
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInput getInputs(int index) {
       return inputs_.get(index);
     }
     /**
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInputOrBuilder getInputsOrBuilder(
         int index) {
       return inputs_.get(index);
@@ -11322,12 +11425,14 @@ public final class Payload {
     /**
      * <code>repeated .spec.TemplateAccount AccountUpdates = 2 [(.gogoproto.nullable) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<spec.Spec.TemplateAccount> getAccountUpdatesList() {
       return accountUpdates_;
     }
     /**
      * <code>repeated .spec.TemplateAccount AccountUpdates = 2 [(.gogoproto.nullable) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends spec.Spec.TemplateAccountOrBuilder> 
         getAccountUpdatesOrBuilderList() {
       return accountUpdates_;
@@ -11335,18 +11440,21 @@ public final class Payload {
     /**
      * <code>repeated .spec.TemplateAccount AccountUpdates = 2 [(.gogoproto.nullable) = true];</code>
      */
+    @java.lang.Override
     public int getAccountUpdatesCount() {
       return accountUpdates_.size();
     }
     /**
      * <code>repeated .spec.TemplateAccount AccountUpdates = 2 [(.gogoproto.nullable) = true];</code>
      */
+    @java.lang.Override
     public spec.Spec.TemplateAccount getAccountUpdates(int index) {
       return accountUpdates_.get(index);
     }
     /**
      * <code>repeated .spec.TemplateAccount AccountUpdates = 2 [(.gogoproto.nullable) = true];</code>
      */
+    @java.lang.Override
     public spec.Spec.TemplateAccountOrBuilder getAccountUpdatesOrBuilder(
         int index) {
       return accountUpdates_.get(index);
@@ -12330,7 +12438,7 @@ public final class Payload {
   /**
    * Protobuf type {@code payload.ProposalTx}
    */
-  public  static final class ProposalTx extends
+  public static final class ProposalTx extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.ProposalTx)
       ProposalTxOrBuilder {
@@ -12447,6 +12555,7 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return Whether the input field is set.
      */
+    @java.lang.Override
     public boolean hasInput() {
       return input_ != null;
     }
@@ -12454,12 +12563,14 @@ public final class Payload {
      * <code>.payload.TxInput Input = 1;</code>
      * @return The input.
      */
+    @java.lang.Override
     public payload.Payload.TxInput getInput() {
       return input_ == null ? payload.Payload.TxInput.getDefaultInstance() : input_;
     }
     /**
      * <code>.payload.TxInput Input = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInputOrBuilder getInputOrBuilder() {
       return getInput();
     }
@@ -12470,6 +12581,7 @@ public final class Payload {
      * <code>int64 VotingWeight = 2;</code>
      * @return The votingWeight.
      */
+    @java.lang.Override
     public long getVotingWeight() {
       return votingWeight_;
     }
@@ -12480,6 +12592,7 @@ public final class Payload {
      * <code>bytes ProposalHash = 3 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
      * @return The proposalHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProposalHash() {
       return proposalHash_;
     }
@@ -12490,6 +12603,7 @@ public final class Payload {
      * <code>.payload.Proposal Proposal = 4;</code>
      * @return Whether the proposal field is set.
      */
+    @java.lang.Override
     public boolean hasProposal() {
       return proposal_ != null;
     }
@@ -12497,12 +12611,14 @@ public final class Payload {
      * <code>.payload.Proposal Proposal = 4;</code>
      * @return The proposal.
      */
+    @java.lang.Override
     public payload.Payload.Proposal getProposal() {
       return proposal_ == null ? payload.Payload.Proposal.getDefaultInstance() : proposal_;
     }
     /**
      * <code>.payload.Proposal Proposal = 4;</code>
      */
+    @java.lang.Override
     public payload.Payload.ProposalOrBuilder getProposalOrBuilder() {
       return getProposal();
     }
@@ -13011,6 +13127,7 @@ public final class Payload {
        * <code>int64 VotingWeight = 2;</code>
        * @return The votingWeight.
        */
+      @java.lang.Override
       public long getVotingWeight() {
         return votingWeight_;
       }
@@ -13041,6 +13158,7 @@ public final class Payload {
        * <code>bytes ProposalHash = 3 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
        * @return The proposalHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProposalHash() {
         return proposalHash_;
       }
@@ -13318,7 +13436,7 @@ public final class Payload {
   /**
    * Protobuf type {@code payload.IdentifyTx}
    */
-  public  static final class IdentifyTx extends
+  public static final class IdentifyTx extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.IdentifyTx)
       IdentifyTxOrBuilder {
@@ -13428,6 +13546,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<payload.Payload.TxInput> getInputsList() {
       return inputs_;
     }
@@ -13438,6 +13557,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends payload.Payload.TxInputOrBuilder> 
         getInputsOrBuilderList() {
       return inputs_;
@@ -13449,6 +13569,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public int getInputsCount() {
       return inputs_.size();
     }
@@ -13459,6 +13580,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInput getInputs(int index) {
       return inputs_.get(index);
     }
@@ -13469,6 +13591,7 @@ public final class Payload {
      *
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInputOrBuilder getInputsOrBuilder(
         int index) {
       return inputs_.get(index);
@@ -13484,6 +13607,7 @@ public final class Payload {
      * <code>.registry.NodeIdentity Node = 2;</code>
      * @return Whether the node field is set.
      */
+    @java.lang.Override
     public boolean hasNode() {
       return node_ != null;
     }
@@ -13495,6 +13619,7 @@ public final class Payload {
      * <code>.registry.NodeIdentity Node = 2;</code>
      * @return The node.
      */
+    @java.lang.Override
     public registry.Registry.NodeIdentity getNode() {
       return node_ == null ? registry.Registry.NodeIdentity.getDefaultInstance() : node_;
     }
@@ -13505,6 +13630,7 @@ public final class Payload {
      *
      * <code>.registry.NodeIdentity Node = 2;</code>
      */
+    @java.lang.Override
     public registry.Registry.NodeIdentityOrBuilder getNodeOrBuilder() {
       return getNode();
     }
@@ -14455,7 +14581,7 @@ public final class Payload {
   /**
    * Protobuf type {@code payload.BatchTx}
    */
-  public  static final class BatchTx extends
+  public static final class BatchTx extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.BatchTx)
       BatchTxOrBuilder {
@@ -14561,12 +14687,14 @@ public final class Payload {
     /**
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<payload.Payload.TxInput> getInputsList() {
       return inputs_;
     }
     /**
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends payload.Payload.TxInputOrBuilder> 
         getInputsOrBuilderList() {
       return inputs_;
@@ -14574,18 +14702,21 @@ public final class Payload {
     /**
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public int getInputsCount() {
       return inputs_.size();
     }
     /**
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInput getInputs(int index) {
       return inputs_.get(index);
     }
     /**
      * <code>repeated .payload.TxInput Inputs = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.TxInputOrBuilder getInputsOrBuilder(
         int index) {
       return inputs_.get(index);
@@ -14596,12 +14727,14 @@ public final class Payload {
     /**
      * <code>repeated .payload.Any Txs = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<payload.Payload.Any> getTxsList() {
       return txs_;
     }
     /**
      * <code>repeated .payload.Any Txs = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends payload.Payload.AnyOrBuilder> 
         getTxsOrBuilderList() {
       return txs_;
@@ -14609,18 +14742,21 @@ public final class Payload {
     /**
      * <code>repeated .payload.Any Txs = 2;</code>
      */
+    @java.lang.Override
     public int getTxsCount() {
       return txs_.size();
     }
     /**
      * <code>repeated .payload.Any Txs = 2;</code>
      */
+    @java.lang.Override
     public payload.Payload.Any getTxs(int index) {
       return txs_.get(index);
     }
     /**
      * <code>repeated .payload.Any Txs = 2;</code>
      */
+    @java.lang.Override
     public payload.Payload.AnyOrBuilder getTxsOrBuilder(
         int index) {
       return txs_.get(index);
@@ -15574,7 +15710,7 @@ public final class Payload {
   /**
    * Protobuf type {@code payload.Vote}
    */
-  public  static final class Vote extends
+  public static final class Vote extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.Vote)
       VoteOrBuilder {
@@ -15665,6 +15801,7 @@ public final class Payload {
      * <code>bytes Address = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
      * @return The address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAddress() {
       return address_;
     }
@@ -15675,6 +15812,7 @@ public final class Payload {
      * <code>int64 VotingWeight = 2;</code>
      * @return The votingWeight.
      */
+    @java.lang.Override
     public long getVotingWeight() {
       return votingWeight_;
     }
@@ -16004,6 +16142,7 @@ public final class Payload {
        * <code>bytes Address = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
        * @return The address.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAddress() {
         return address_;
       }
@@ -16037,6 +16176,7 @@ public final class Payload {
        * <code>int64 VotingWeight = 2;</code>
        * @return The votingWeight.
        */
+      @java.lang.Override
       public long getVotingWeight() {
         return votingWeight_;
       }
@@ -16160,7 +16300,7 @@ public final class Payload {
   /**
    * Protobuf type {@code payload.Proposal}
    */
-  public  static final class Proposal extends
+  public static final class Proposal extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.Proposal)
       ProposalOrBuilder {
@@ -16267,6 +16407,7 @@ public final class Payload {
      * <code>string Name = 1;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -16283,6 +16424,7 @@ public final class Payload {
      * <code>string Name = 1;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -16303,6 +16445,7 @@ public final class Payload {
      * <code>string Description = 2;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -16319,6 +16462,7 @@ public final class Payload {
      * <code>string Description = 2;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -16339,6 +16483,7 @@ public final class Payload {
      * <code>.payload.BatchTx BatchTx = 3;</code>
      * @return Whether the batchTx field is set.
      */
+    @java.lang.Override
     public boolean hasBatchTx() {
       return batchTx_ != null;
     }
@@ -16346,12 +16491,14 @@ public final class Payload {
      * <code>.payload.BatchTx BatchTx = 3;</code>
      * @return The batchTx.
      */
+    @java.lang.Override
     public payload.Payload.BatchTx getBatchTx() {
       return batchTx_ == null ? payload.Payload.BatchTx.getDefaultInstance() : batchTx_;
     }
     /**
      * <code>.payload.BatchTx BatchTx = 3;</code>
      */
+    @java.lang.Override
     public payload.Payload.BatchTxOrBuilder getBatchTxOrBuilder() {
       return getBatchTx();
     }
@@ -17091,7 +17238,7 @@ public final class Payload {
   /**
    * Protobuf type {@code payload.Ballot}
    */
-  public  static final class Ballot extends
+  public static final class Ballot extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:payload.Ballot)
       BallotOrBuilder {
@@ -17292,6 +17439,10 @@ public final class Payload {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -17332,6 +17483,7 @@ public final class Payload {
      * <code>.payload.Proposal Proposal = 1;</code>
      * @return Whether the proposal field is set.
      */
+    @java.lang.Override
     public boolean hasProposal() {
       return proposal_ != null;
     }
@@ -17339,12 +17491,14 @@ public final class Payload {
      * <code>.payload.Proposal Proposal = 1;</code>
      * @return The proposal.
      */
+    @java.lang.Override
     public payload.Payload.Proposal getProposal() {
       return proposal_ == null ? payload.Payload.Proposal.getDefaultInstance() : proposal_;
     }
     /**
      * <code>.payload.Proposal Proposal = 1;</code>
      */
+    @java.lang.Override
     public payload.Payload.ProposalOrBuilder getProposalOrBuilder() {
       return getProposal();
     }
@@ -17355,6 +17509,7 @@ public final class Payload {
      * <code>bytes FinalizingTx = 2 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
      * @return The finalizingTx.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getFinalizingTx() {
       return finalizingTx_;
     }
@@ -17365,14 +17520,14 @@ public final class Payload {
      * <code>.payload.Ballot.ProposalState proposalState = 4;</code>
      * @return The enum numeric value on the wire for proposalState.
      */
-    public int getProposalStateValue() {
+    @java.lang.Override public int getProposalStateValue() {
       return proposalState_;
     }
     /**
      * <code>.payload.Ballot.ProposalState proposalState = 4;</code>
      * @return The proposalState.
      */
-    public payload.Payload.Ballot.ProposalState getProposalState() {
+    @java.lang.Override public payload.Payload.Ballot.ProposalState getProposalState() {
       @SuppressWarnings("deprecation")
       payload.Payload.Ballot.ProposalState result = payload.Payload.Ballot.ProposalState.valueOf(proposalState_);
       return result == null ? payload.Payload.Ballot.ProposalState.UNRECOGNIZED : result;
@@ -17383,12 +17538,14 @@ public final class Payload {
     /**
      * <code>repeated .payload.Vote Votes = 5;</code>
      */
+    @java.lang.Override
     public java.util.List<payload.Payload.Vote> getVotesList() {
       return votes_;
     }
     /**
      * <code>repeated .payload.Vote Votes = 5;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends payload.Payload.VoteOrBuilder> 
         getVotesOrBuilderList() {
       return votes_;
@@ -17396,18 +17553,21 @@ public final class Payload {
     /**
      * <code>repeated .payload.Vote Votes = 5;</code>
      */
+    @java.lang.Override
     public int getVotesCount() {
       return votes_.size();
     }
     /**
      * <code>repeated .payload.Vote Votes = 5;</code>
      */
+    @java.lang.Override
     public payload.Payload.Vote getVotes(int index) {
       return votes_.get(index);
     }
     /**
      * <code>repeated .payload.Vote Votes = 5;</code>
      */
+    @java.lang.Override
     public payload.Payload.VoteOrBuilder getVotesOrBuilder(
         int index) {
       return votes_.get(index);
@@ -17942,6 +18102,7 @@ public final class Payload {
        * <code>bytes FinalizingTx = 2 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
        * @return The finalizingTx.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getFinalizingTx() {
         return finalizingTx_;
       }
@@ -17975,7 +18136,7 @@ public final class Payload {
        * <code>.payload.Ballot.ProposalState proposalState = 4;</code>
        * @return The enum numeric value on the wire for proposalState.
        */
-      public int getProposalStateValue() {
+      @java.lang.Override public int getProposalStateValue() {
         return proposalState_;
       }
       /**
@@ -17984,6 +18145,7 @@ public final class Payload {
        * @return This builder for chaining.
        */
       public Builder setProposalStateValue(int value) {
+        
         proposalState_ = value;
         onChanged();
         return this;
@@ -17992,6 +18154,7 @@ public final class Payload {
        * <code>.payload.Ballot.ProposalState proposalState = 4;</code>
        * @return The proposalState.
        */
+      @java.lang.Override
       public payload.Payload.Ballot.ProposalState getProposalState() {
         @SuppressWarnings("deprecation")
         payload.Payload.Ballot.ProposalState result = payload.Payload.Ballot.ProposalState.valueOf(proposalState_);
@@ -18478,7 +18641,7 @@ public final class Payload {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           permission.Permission.getDescriptor(),
           registry.Registry.getDescriptor(),
           spec.Spec.getDescriptor(),
@@ -18587,21 +18750,22 @@ public final class Payload {
         new java.lang.String[] { "Proposal", "FinalizingTx", "ProposalState", "Votes", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoRegistration);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.marshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.messagenameAll);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.onlyone);
-    registry.add(com.google.protobuf2.GoGoProtos.sizerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.unmarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoRegistration);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.marshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.messagenameAll);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.onlyone);
+    registry.add(com.google.protobuf.GoGoProtos.sizerAll);
+    registry.add(com.google.protobuf.GoGoProtos.unmarshalerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     permission.Permission.getDescriptor();
+//    registry.Registry.getDescriptor();
     spec.Spec.getDescriptor();
   }
 

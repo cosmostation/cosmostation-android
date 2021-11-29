@@ -75,6 +75,21 @@ public final class Genesis {
      * @return The nextConnectionSequence.
      */
     long getNextConnectionSequence();
+
+    /**
+     * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the params field is set.
+     */
+    boolean hasParams();
+    /**
+     * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+     * @return The params.
+     */
+    ibc.core.connection.v1.Connection.Params getParams();
+    /**
+     * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+     */
+    ibc.core.connection.v1.Connection.ParamsOrBuilder getParamsOrBuilder();
   }
   /**
    * <pre>
@@ -149,6 +164,19 @@ public final class Genesis {
             case 24: {
 
               nextConnectionSequence_ = input.readUInt64();
+              break;
+            }
+            case 34: {
+              ibc.core.connection.v1.Connection.Params.Builder subBuilder = null;
+              if (params_ != null) {
+                subBuilder = params_.toBuilder();
+              }
+              params_ = input.readMessage(ibc.core.connection.v1.Connection.Params.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(params_);
+                params_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -284,6 +312,32 @@ public final class Genesis {
       return nextConnectionSequence_;
     }
 
+    public static final int PARAMS_FIELD_NUMBER = 4;
+    private ibc.core.connection.v1.Connection.Params params_;
+    /**
+     * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the params field is set.
+     */
+    @java.lang.Override
+    public boolean hasParams() {
+      return params_ != null;
+    }
+    /**
+     * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+     * @return The params.
+     */
+    @java.lang.Override
+    public ibc.core.connection.v1.Connection.Params getParams() {
+      return params_ == null ? ibc.core.connection.v1.Connection.Params.getDefaultInstance() : params_;
+    }
+    /**
+     * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public ibc.core.connection.v1.Connection.ParamsOrBuilder getParamsOrBuilder() {
+      return getParams();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -307,6 +361,9 @@ public final class Genesis {
       if (nextConnectionSequence_ != 0L) {
         output.writeUInt64(3, nextConnectionSequence_);
       }
+      if (params_ != null) {
+        output.writeMessage(4, getParams());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -327,6 +384,10 @@ public final class Genesis {
       if (nextConnectionSequence_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(3, nextConnectionSequence_);
+      }
+      if (params_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getParams());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -349,6 +410,11 @@ public final class Genesis {
           .equals(other.getClientConnectionPathsList())) return false;
       if (getNextConnectionSequence()
           != other.getNextConnectionSequence()) return false;
+      if (hasParams() != other.hasParams()) return false;
+      if (hasParams()) {
+        if (!getParams()
+            .equals(other.getParams())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -371,6 +437,10 @@ public final class Genesis {
       hash = (37 * hash) + NEXT_CONNECTION_SEQUENCE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getNextConnectionSequence());
+      if (hasParams()) {
+        hash = (37 * hash) + PARAMS_FIELD_NUMBER;
+        hash = (53 * hash) + getParams().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -524,6 +594,12 @@ public final class Genesis {
         }
         nextConnectionSequence_ = 0L;
 
+        if (paramsBuilder_ == null) {
+          params_ = null;
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
         return this;
       }
 
@@ -570,6 +646,11 @@ public final class Genesis {
           result.clientConnectionPaths_ = clientConnectionPathsBuilder_.build();
         }
         result.nextConnectionSequence_ = nextConnectionSequence_;
+        if (paramsBuilder_ == null) {
+          result.params_ = params_;
+        } else {
+          result.params_ = paramsBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -672,6 +753,9 @@ public final class Genesis {
         }
         if (other.getNextConnectionSequence() != 0L) {
           setNextConnectionSequence(other.getNextConnectionSequence());
+        }
+        if (other.hasParams()) {
+          mergeParams(other.getParams());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1225,6 +1309,125 @@ public final class Genesis {
         onChanged();
         return this;
       }
+
+      private ibc.core.connection.v1.Connection.Params params_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ibc.core.connection.v1.Connection.Params, ibc.core.connection.v1.Connection.Params.Builder, ibc.core.connection.v1.Connection.ParamsOrBuilder> paramsBuilder_;
+      /**
+       * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+       * @return Whether the params field is set.
+       */
+      public boolean hasParams() {
+        return paramsBuilder_ != null || params_ != null;
+      }
+      /**
+       * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+       * @return The params.
+       */
+      public ibc.core.connection.v1.Connection.Params getParams() {
+        if (paramsBuilder_ == null) {
+          return params_ == null ? ibc.core.connection.v1.Connection.Params.getDefaultInstance() : params_;
+        } else {
+          return paramsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setParams(ibc.core.connection.v1.Connection.Params value) {
+        if (paramsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          params_ = value;
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setParams(
+          ibc.core.connection.v1.Connection.Params.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
+          params_ = builderForValue.build();
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeParams(ibc.core.connection.v1.Connection.Params value) {
+        if (paramsBuilder_ == null) {
+          if (params_ != null) {
+            params_ =
+              ibc.core.connection.v1.Connection.Params.newBuilder(params_).mergeFrom(value).buildPartial();
+          } else {
+            params_ = value;
+          }
+          onChanged();
+        } else {
+          paramsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearParams() {
+        if (paramsBuilder_ == null) {
+          params_ = null;
+          onChanged();
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public ibc.core.connection.v1.Connection.Params.Builder getParamsBuilder() {
+        
+        onChanged();
+        return getParamsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public ibc.core.connection.v1.Connection.ParamsOrBuilder getParamsOrBuilder() {
+        if (paramsBuilder_ != null) {
+          return paramsBuilder_.getMessageOrBuilder();
+        } else {
+          return params_ == null ?
+              ibc.core.connection.v1.Connection.Params.getDefaultInstance() : params_;
+        }
+      }
+      /**
+       * <code>.ibc.core.connection.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ibc.core.connection.v1.Connection.Params, ibc.core.connection.v1.Connection.Params.Builder, ibc.core.connection.v1.Connection.ParamsOrBuilder> 
+          getParamsFieldBuilder() {
+        if (paramsBuilder_ == null) {
+          paramsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              ibc.core.connection.v1.Connection.Params, ibc.core.connection.v1.Connection.Params.Builder, ibc.core.connection.v1.Connection.ParamsOrBuilder>(
+                  getParams(),
+                  getParentForChildren(),
+                  isClean());
+          params_ = null;
+        }
+        return paramsBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1295,20 +1498,22 @@ public final class Genesis {
       "\n$ibc/core/connection/v1/genesis.proto\022\026" +
       "ibc.core.connection.v1\032\024gogoproto/gogo.p" +
       "roto\032\'ibc/core/connection/v1/connection." +
-      "proto\"\220\002\n\014GenesisState\022G\n\013connections\030\001 " +
+      "proto\"\306\002\n\014GenesisState\022G\n\013connections\030\001 " +
       "\003(\0132,.ibc.core.connection.v1.IdentifiedC" +
       "onnectionB\004\310\336\037\000\022p\n\027client_connection_pat" +
       "hs\030\002 \003(\0132\'.ibc.core.connection.v1.Connec" +
       "tionPathsB&\310\336\037\000\362\336\037\036yaml:\"client_connecti" +
       "on_paths\"\022E\n\030next_connection_sequence\030\003 " +
       "\001(\004B#\362\336\037\037yaml:\"next_connection_sequence\"" +
-      "B=Z;github.com/cosmos/cosmos-sdk/x/ibc/c" +
-      "ore/03-connection/typesb\006proto3"
+      "\0224\n\006params\030\004 \001(\0132\036.ibc.core.connection.v" +
+      "1.ParamsB\004\310\336\037\000B>Z<github.com/cosmos/ibc-" +
+      "go/v2/modules/core/03-connection/typesb\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           ibc.core.connection.v1.Connection.getDescriptor(),
         });
     internal_static_ibc_core_connection_v1_GenesisState_descriptor =
@@ -1316,14 +1521,14 @@ public final class Genesis {
     internal_static_ibc_core_connection_v1_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_connection_v1_GenesisState_descriptor,
-        new java.lang.String[] { "Connections", "ClientConnectionPaths", "NextConnectionSequence", });
+        new java.lang.String[] { "Connections", "ClientConnectionPaths", "NextConnectionSequence", "Params", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     ibc.core.connection.v1.Connection.getDescriptor();
   }
 

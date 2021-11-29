@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.MsgCreateTopicResponse}
  */
-public  final class MsgCreateTopicResponse extends
+public final class MsgCreateTopicResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.MsgCreateTopicResponse)
     MsgCreateTopicResponseOrBuilder {

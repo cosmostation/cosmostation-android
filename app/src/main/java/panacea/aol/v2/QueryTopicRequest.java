@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.QueryTopicRequest}
  */
-public  final class QueryTopicRequest extends
+public final class QueryTopicRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.QueryTopicRequest)
     QueryTopicRequestOrBuilder {
@@ -104,6 +104,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 1;</code>
    * @return The ownerAddress.
    */
+  @java.lang.Override
   public java.lang.String getOwnerAddress() {
     java.lang.Object ref = ownerAddress_;
     if (ref instanceof java.lang.String) {
@@ -120,6 +121,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 1;</code>
    * @return The bytes for ownerAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getOwnerAddressBytes() {
     java.lang.Object ref = ownerAddress_;
@@ -140,6 +142,7 @@ private static final long serialVersionUID = 0L;
    * <code>string topic_name = 2;</code>
    * @return The topicName.
    */
+  @java.lang.Override
   public java.lang.String getTopicName() {
     java.lang.Object ref = topicName_;
     if (ref instanceof java.lang.String) {
@@ -156,6 +159,7 @@ private static final long serialVersionUID = 0L;
    * <code>string topic_name = 2;</code>
    * @return The bytes for topicName.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getTopicNameBytes() {
     java.lang.Object ref = topicName_;

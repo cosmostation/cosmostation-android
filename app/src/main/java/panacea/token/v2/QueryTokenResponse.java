@@ -10,7 +10,7 @@ package panacea.token.v2;
  *
  * Protobuf type {@code panacea.token.v2.QueryTokenResponse}
  */
-public  final class QueryTokenResponse extends
+public final class QueryTokenResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.token.v2.QueryTokenResponse)
     QueryTokenResponseOrBuilder {
@@ -103,6 +103,7 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.token.v2.Token token = 1;</code>
    * @return Whether the token field is set.
    */
+  @java.lang.Override
   public boolean hasToken() {
     return token_ != null;
   }
@@ -110,12 +111,14 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.token.v2.Token token = 1;</code>
    * @return The token.
    */
+  @java.lang.Override
   public panacea.token.v2.Token getToken() {
     return token_ == null ? panacea.token.v2.Token.getDefaultInstance() : token_;
   }
   /**
    * <code>.panacea.token.v2.Token token = 1;</code>
    */
+  @java.lang.Override
   public panacea.token.v2.TokenOrBuilder getTokenOrBuilder() {
     return getToken();
   }

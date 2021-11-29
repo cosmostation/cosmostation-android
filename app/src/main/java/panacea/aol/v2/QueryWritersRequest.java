@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.QueryWritersRequest}
  */
-public  final class QueryWritersRequest extends
+public final class QueryWritersRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.QueryWritersRequest)
     QueryWritersRequestOrBuilder {
@@ -117,6 +117,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 1;</code>
    * @return The ownerAddress.
    */
+  @java.lang.Override
   public java.lang.String getOwnerAddress() {
     java.lang.Object ref = ownerAddress_;
     if (ref instanceof java.lang.String) {
@@ -133,6 +134,7 @@ private static final long serialVersionUID = 0L;
    * <code>string owner_address = 1;</code>
    * @return The bytes for ownerAddress.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getOwnerAddressBytes() {
     java.lang.Object ref = ownerAddress_;
@@ -153,6 +155,7 @@ private static final long serialVersionUID = 0L;
    * <code>string topic_name = 2;</code>
    * @return The topicName.
    */
+  @java.lang.Override
   public java.lang.String getTopicName() {
     java.lang.Object ref = topicName_;
     if (ref instanceof java.lang.String) {
@@ -169,6 +172,7 @@ private static final long serialVersionUID = 0L;
    * <code>string topic_name = 2;</code>
    * @return The bytes for topicName.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getTopicNameBytes() {
     java.lang.Object ref = topicName_;
@@ -189,6 +193,7 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
    * @return Whether the pagination field is set.
    */
+  @java.lang.Override
   public boolean hasPagination() {
     return pagination_ != null;
   }
@@ -196,12 +201,14 @@ private static final long serialVersionUID = 0L;
    * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
    * @return The pagination.
    */
+  @java.lang.Override
   public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
     return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
   }
   /**
    * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
    */
+  @java.lang.Override
   public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
     return getPagination();
   }

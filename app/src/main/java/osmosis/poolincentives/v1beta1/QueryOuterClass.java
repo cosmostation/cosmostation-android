@@ -7251,6 +7251,1217 @@ public final class QueryOuterClass {
 
   }
 
+  public interface QueryExternalIncentiveGaugesRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesRequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesRequest}
+   */
+  public static final class QueryExternalIncentiveGaugesRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesRequest)
+      QueryExternalIncentiveGaugesRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryExternalIncentiveGaugesRequest.newBuilder() to construct.
+    private QueryExternalIncentiveGaugesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryExternalIncentiveGaugesRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryExternalIncentiveGaugesRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryExternalIncentiveGaugesRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.poolincentives.v1beta1.QueryOuterClass.internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.poolincentives.v1beta1.QueryOuterClass.internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest.class, osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest)) {
+        return super.equals(obj);
+      }
+      osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest other = (osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesRequest)
+        osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.poolincentives.v1beta1.QueryOuterClass.internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.poolincentives.v1beta1.QueryOuterClass.internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest.class, osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest.Builder.class);
+      }
+
+      // Construct using osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.poolincentives.v1beta1.QueryOuterClass.internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest getDefaultInstanceForType() {
+        return osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest build() {
+        osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest buildPartial() {
+        osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest result = new osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest) {
+          return mergeFrom((osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest other) {
+        if (other == osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesRequest)
+    private static final osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest();
+    }
+
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryExternalIncentiveGaugesRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryExternalIncentiveGaugesRequest>() {
+      @java.lang.Override
+      public QueryExternalIncentiveGaugesRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryExternalIncentiveGaugesRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryExternalIncentiveGaugesRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryExternalIncentiveGaugesRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryExternalIncentiveGaugesResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> 
+        getDataList();
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    osmosis.incentives.GaugeOuterClass.Gauge getData(int index);
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    int getDataCount();
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<? extends osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
+        getDataOrBuilderList();
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    osmosis.incentives.GaugeOuterClass.GaugeOrBuilder getDataOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesResponse}
+   */
+  public static final class QueryExternalIncentiveGaugesResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesResponse)
+      QueryExternalIncentiveGaugesResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryExternalIncentiveGaugesResponse.newBuilder() to construct.
+    private QueryExternalIncentiveGaugesResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryExternalIncentiveGaugesResponse() {
+      data_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryExternalIncentiveGaugesResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryExternalIncentiveGaugesResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                data_ = new java.util.ArrayList<osmosis.incentives.GaugeOuterClass.Gauge>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              data_.add(
+                  input.readMessage(osmosis.incentives.GaugeOuterClass.Gauge.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          data_ = java.util.Collections.unmodifiableList(data_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.poolincentives.v1beta1.QueryOuterClass.internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.poolincentives.v1beta1.QueryOuterClass.internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse.class, osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse.Builder.class);
+    }
+
+    public static final int DATA_FIELD_NUMBER = 1;
+    private java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> data_;
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> getDataList() {
+      return data_;
+    }
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
+        getDataOrBuilderList() {
+      return data_;
+    }
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public int getDataCount() {
+      return data_.size();
+    }
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public osmosis.incentives.GaugeOuterClass.Gauge getData(int index) {
+      return data_.get(index);
+    }
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public osmosis.incentives.GaugeOuterClass.GaugeOrBuilder getDataOrBuilder(
+        int index) {
+      return data_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < data_.size(); i++) {
+        output.writeMessage(1, data_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < data_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, data_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse)) {
+        return super.equals(obj);
+      }
+      osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse other = (osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse) obj;
+
+      if (!getDataList()
+          .equals(other.getDataList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getDataCount() > 0) {
+        hash = (37 * hash) + DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getDataList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesResponse)
+        osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.poolincentives.v1beta1.QueryOuterClass.internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.poolincentives.v1beta1.QueryOuterClass.internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse.class, osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse.Builder.class);
+      }
+
+      // Construct using osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getDataFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (dataBuilder_ == null) {
+          data_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          dataBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.poolincentives.v1beta1.QueryOuterClass.internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse getDefaultInstanceForType() {
+        return osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse build() {
+        osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse buildPartial() {
+        osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse result = new osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (dataBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            data_ = java.util.Collections.unmodifiableList(data_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.data_ = data_;
+        } else {
+          result.data_ = dataBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse) {
+          return mergeFrom((osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse other) {
+        if (other == osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse.getDefaultInstance()) return this;
+        if (dataBuilder_ == null) {
+          if (!other.data_.isEmpty()) {
+            if (data_.isEmpty()) {
+              data_ = other.data_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureDataIsMutable();
+              data_.addAll(other.data_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.data_.isEmpty()) {
+            if (dataBuilder_.isEmpty()) {
+              dataBuilder_.dispose();
+              dataBuilder_ = null;
+              data_ = other.data_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              dataBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDataFieldBuilder() : null;
+            } else {
+              dataBuilder_.addAllMessages(other.data_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> data_ =
+        java.util.Collections.emptyList();
+      private void ensureDataIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          data_ = new java.util.ArrayList<osmosis.incentives.GaugeOuterClass.Gauge>(data_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          osmosis.incentives.GaugeOuterClass.Gauge, osmosis.incentives.GaugeOuterClass.Gauge.Builder, osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> dataBuilder_;
+
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> getDataList() {
+        if (dataBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(data_);
+        } else {
+          return dataBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public int getDataCount() {
+        if (dataBuilder_ == null) {
+          return data_.size();
+        } else {
+          return dataBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.incentives.GaugeOuterClass.Gauge getData(int index) {
+        if (dataBuilder_ == null) {
+          return data_.get(index);
+        } else {
+          return dataBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setData(
+          int index, osmosis.incentives.GaugeOuterClass.Gauge value) {
+        if (dataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDataIsMutable();
+          data_.set(index, value);
+          onChanged();
+        } else {
+          dataBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setData(
+          int index, osmosis.incentives.GaugeOuterClass.Gauge.Builder builderForValue) {
+        if (dataBuilder_ == null) {
+          ensureDataIsMutable();
+          data_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          dataBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addData(osmosis.incentives.GaugeOuterClass.Gauge value) {
+        if (dataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDataIsMutable();
+          data_.add(value);
+          onChanged();
+        } else {
+          dataBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addData(
+          int index, osmosis.incentives.GaugeOuterClass.Gauge value) {
+        if (dataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDataIsMutable();
+          data_.add(index, value);
+          onChanged();
+        } else {
+          dataBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addData(
+          osmosis.incentives.GaugeOuterClass.Gauge.Builder builderForValue) {
+        if (dataBuilder_ == null) {
+          ensureDataIsMutable();
+          data_.add(builderForValue.build());
+          onChanged();
+        } else {
+          dataBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addData(
+          int index, osmosis.incentives.GaugeOuterClass.Gauge.Builder builderForValue) {
+        if (dataBuilder_ == null) {
+          ensureDataIsMutable();
+          data_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          dataBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addAllData(
+          java.lang.Iterable<? extends osmosis.incentives.GaugeOuterClass.Gauge> values) {
+        if (dataBuilder_ == null) {
+          ensureDataIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, data_);
+          onChanged();
+        } else {
+          dataBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearData() {
+        if (dataBuilder_ == null) {
+          data_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          dataBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder removeData(int index) {
+        if (dataBuilder_ == null) {
+          ensureDataIsMutable();
+          data_.remove(index);
+          onChanged();
+        } else {
+          dataBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.incentives.GaugeOuterClass.Gauge.Builder getDataBuilder(
+          int index) {
+        return getDataFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.incentives.GaugeOuterClass.GaugeOrBuilder getDataOrBuilder(
+          int index) {
+        if (dataBuilder_ == null) {
+          return data_.get(index);  } else {
+          return dataBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<? extends osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
+           getDataOrBuilderList() {
+        if (dataBuilder_ != null) {
+          return dataBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(data_);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.incentives.GaugeOuterClass.Gauge.Builder addDataBuilder() {
+        return getDataFieldBuilder().addBuilder(
+            osmosis.incentives.GaugeOuterClass.Gauge.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.incentives.GaugeOuterClass.Gauge.Builder addDataBuilder(
+          int index) {
+        return getDataFieldBuilder().addBuilder(
+            index, osmosis.incentives.GaugeOuterClass.Gauge.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<osmosis.incentives.GaugeOuterClass.Gauge.Builder> 
+           getDataBuilderList() {
+        return getDataFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          osmosis.incentives.GaugeOuterClass.Gauge, osmosis.incentives.GaugeOuterClass.Gauge.Builder, osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
+          getDataFieldBuilder() {
+        if (dataBuilder_ == null) {
+          dataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              osmosis.incentives.GaugeOuterClass.Gauge, osmosis.incentives.GaugeOuterClass.Gauge.Builder, osmosis.incentives.GaugeOuterClass.GaugeOrBuilder>(
+                  data_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          data_ = null;
+        }
+        return dataBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.poolincentives.v1beta1.QueryExternalIncentiveGaugesResponse)
+    private static final osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse();
+    }
+
+    public static osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryExternalIncentiveGaugesResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryExternalIncentiveGaugesResponse>() {
+      @java.lang.Override
+      public QueryExternalIncentiveGaugesResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryExternalIncentiveGaugesResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryExternalIncentiveGaugesResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryExternalIncentiveGaugesResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryExternalIncentiveGaugesResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_osmosis_poolincentives_v1beta1_QueryGaugeIdsRequest_descriptor;
   private static final 
@@ -7311,6 +8522,16 @@ public final class QueryOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_osmosis_poolincentives_v1beta1_QueryIncentivizedPoolsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7324,69 +8545,79 @@ public final class QueryOuterClass {
       "proto\022\036osmosis.poolincentives.v1beta1\032\024g" +
       "ogoproto/gogo.proto\032\034google/api/annotati" +
       "ons.proto\032\036google/protobuf/duration.prot" +
-      "o\0320osmosis/pool-incentives/v1beta1/incen" +
-      "tives.proto\";\n\024QueryGaugeIdsRequest\022#\n\007p" +
-      "ool_id\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\"\235\002\n\025Que" +
-      "ryGaugeIdsResponse\022\216\001\n\027gauge_ids_with_du" +
-      "ration\030\001 \003(\0132I.osmosis.poolincentives.v1" +
-      "beta1.QueryGaugeIdsResponse.GaugeIdWithD" +
-      "urationB\"\362\336\037\036yaml:\"gauge_ids_with_durati" +
-      "on\"\032s\n\023GaugeIdWithDuration\022%\n\010gauge_id\030\001" +
-      " \001(\004B\023\362\336\037\017yaml:\"gauge_id\"\0225\n\010duration\030\002 " +
-      "\001(\0132\031.google.protobuf.DurationB\010\310\336\037\000\230\337\037\001" +
-      "\"\027\n\025QueryDistrInfoRequest\"r\n\026QueryDistrI" +
-      "nfoResponse\022X\n\ndistr_info\030\001 \001(\0132).osmosi" +
-      "s.poolincentives.v1beta1.DistrInfoB\031\310\336\037\000" +
-      "\362\336\037\021yaml:\"distr_info\"\"\024\n\022QueryParamsRequ" +
-      "est\"S\n\023QueryParamsResponse\022<\n\006params\030\001 \001" +
-      "(\0132&.osmosis.poolincentives.v1beta1.Para" +
-      "msB\004\310\336\037\000\"\037\n\035QueryLockableDurationsReques" +
-      "t\"~\n\036QueryLockableDurationsResponse\022\\\n\022l" +
-      "ockable_durations\030\001 \003(\0132\031.google.protobu" +
-      "f.DurationB%\310\336\037\000\230\337\037\001\362\336\037\031yaml:\"lockable_d" +
-      "urations\"\"\037\n\035QueryIncentivizedPoolsReque" +
-      "st\"\272\001\n\020IncentivizedPool\022#\n\007pool_id\030\001 \001(\004" +
-      "B\022\362\336\037\016yaml:\"pool_id\"\022Z\n\021lockable_duratio" +
-      "n\030\002 \001(\0132\031.google.protobuf.DurationB$\310\336\037\000" +
-      "\230\337\037\001\362\336\037\030yaml:\"lockable_duration\"\022%\n\010gaug" +
-      "e_id\030\003 \001(\004B\023\362\336\037\017yaml:\"gauge_id\"\"\221\001\n\036Quer" +
-      "yIncentivizedPoolsResponse\022o\n\022incentiviz" +
-      "ed_pools\030\001 \003(\01320.osmosis.poolincentives." +
-      "v1beta1.IncentivizedPoolB!\310\336\037\000\362\336\037\031yaml:\"" +
-      "incentivized_pools\"2\272\007\n\005Query\022\265\001\n\010GaugeI" +
-      "ds\0224.osmosis.poolincentives.v1beta1.Quer" +
-      "yGaugeIdsRequest\0325.osmosis.poolincentive" +
-      "s.v1beta1.QueryGaugeIdsResponse\"<\202\323\344\223\0026\022" +
-      "4/osmosis/pool-incentives/v1beta1/gauge-" +
-      "ids/{pool_id}\022\257\001\n\tDistrInfo\0225.osmosis.po" +
-      "olincentives.v1beta1.QueryDistrInfoReque" +
-      "st\0326.osmosis.poolincentives.v1beta1.Quer" +
-      "yDistrInfoResponse\"3\202\323\344\223\002-\022+/osmosis/poo" +
-      "l-incentives/v1beta1/distr_info\022\242\001\n\006Para" +
-      "ms\0222.osmosis.poolincentives.v1beta1.Quer" +
-      "yParamsRequest\0323.osmosis.poolincentives." +
-      "v1beta1.QueryParamsResponse\"/\202\323\344\223\002)\022\'/os" +
-      "mosis/pool-incentives/v1beta1/params\022\317\001\n" +
-      "\021LockableDurations\022=.osmosis.poolincenti" +
-      "ves.v1beta1.QueryLockableDurationsReques" +
-      "t\032>.osmosis.poolincentives.v1beta1.Query" +
-      "LockableDurationsResponse\";\202\323\344\223\0025\0223/osmo" +
-      "sis/pool-incentives/v1beta1/lockable_dur" +
-      "ations\022\317\001\n\021IncentivizedPools\022=.osmosis.p" +
-      "oolincentives.v1beta1.QueryIncentivizedP" +
-      "oolsRequest\032>.osmosis.poolincentives.v1b" +
-      "eta1.QueryIncentivizedPoolsResponse\";\202\323\344" +
-      "\223\0025\0223/osmosis/pool-incentives/v1beta1/in" +
-      "centivized_poolsB9Z7github.com/osmosis-l" +
-      "abs/osmosis/x/pool-incentives/typesb\006pro" +
-      "to3"
+      "o\032\036osmosis/incentives/gauge.proto\0320osmos" +
+      "is/pool-incentives/v1beta1/incentives.pr" +
+      "oto\";\n\024QueryGaugeIdsRequest\022#\n\007pool_id\030\001" +
+      " \001(\004B\022\362\336\037\016yaml:\"pool_id\"\"\235\002\n\025QueryGaugeI" +
+      "dsResponse\022\216\001\n\027gauge_ids_with_duration\030\001" +
+      " \003(\0132I.osmosis.poolincentives.v1beta1.Qu" +
+      "eryGaugeIdsResponse.GaugeIdWithDurationB" +
+      "\"\362\336\037\036yaml:\"gauge_ids_with_duration\"\032s\n\023G" +
+      "augeIdWithDuration\022%\n\010gauge_id\030\001 \001(\004B\023\362\336" +
+      "\037\017yaml:\"gauge_id\"\0225\n\010duration\030\002 \001(\0132\031.go" +
+      "ogle.protobuf.DurationB\010\310\336\037\000\230\337\037\001\"\027\n\025Quer" +
+      "yDistrInfoRequest\"r\n\026QueryDistrInfoRespo" +
+      "nse\022X\n\ndistr_info\030\001 \001(\0132).osmosis.poolin" +
+      "centives.v1beta1.DistrInfoB\031\310\336\037\000\362\336\037\021yaml" +
+      ":\"distr_info\"\"\024\n\022QueryParamsRequest\"S\n\023Q" +
+      "ueryParamsResponse\022<\n\006params\030\001 \001(\0132&.osm" +
+      "osis.poolincentives.v1beta1.ParamsB\004\310\336\037\000" +
+      "\"\037\n\035QueryLockableDurationsRequest\"~\n\036Que" +
+      "ryLockableDurationsResponse\022\\\n\022lockable_" +
+      "durations\030\001 \003(\0132\031.google.protobuf.Durati" +
+      "onB%\310\336\037\000\230\337\037\001\362\336\037\031yaml:\"lockable_durations" +
+      "\"\"\037\n\035QueryIncentivizedPoolsRequest\"\272\001\n\020I" +
+      "ncentivizedPool\022#\n\007pool_id\030\001 \001(\004B\022\362\336\037\016ya" +
+      "ml:\"pool_id\"\022Z\n\021lockable_duration\030\002 \001(\0132" +
+      "\031.google.protobuf.DurationB$\310\336\037\000\230\337\037\001\362\336\037\030" +
+      "yaml:\"lockable_duration\"\022%\n\010gauge_id\030\003 \001" +
+      "(\004B\023\362\336\037\017yaml:\"gauge_id\"\"\221\001\n\036QueryIncenti" +
+      "vizedPoolsResponse\022o\n\022incentivized_pools" +
+      "\030\001 \003(\01320.osmosis.poolincentives.v1beta1." +
+      "IncentivizedPoolB!\310\336\037\000\362\336\037\031yaml:\"incentiv" +
+      "ized_pools\"\"%\n#QueryExternalIncentiveGau" +
+      "gesRequest\"U\n$QueryExternalIncentiveGaug" +
+      "esResponse\022-\n\004data\030\001 \003(\0132\031.osmosis.incen" +
+      "tives.GaugeB\004\310\336\037\0002\245\t\n\005Query\022\265\001\n\010GaugeIds" +
+      "\0224.osmosis.poolincentives.v1beta1.QueryG" +
+      "augeIdsRequest\0325.osmosis.poolincentives." +
+      "v1beta1.QueryGaugeIdsResponse\"<\202\323\344\223\0026\0224/" +
+      "osmosis/pool-incentives/v1beta1/gauge-id" +
+      "s/{pool_id}\022\257\001\n\tDistrInfo\0225.osmosis.pool" +
+      "incentives.v1beta1.QueryDistrInfoRequest" +
+      "\0326.osmosis.poolincentives.v1beta1.QueryD" +
+      "istrInfoResponse\"3\202\323\344\223\002-\022+/osmosis/pool-" +
+      "incentives/v1beta1/distr_info\022\242\001\n\006Params" +
+      "\0222.osmosis.poolincentives.v1beta1.QueryP" +
+      "aramsRequest\0323.osmosis.poolincentives.v1" +
+      "beta1.QueryParamsResponse\"/\202\323\344\223\002)\022\'/osmo" +
+      "sis/pool-incentives/v1beta1/params\022\317\001\n\021L" +
+      "ockableDurations\022=.osmosis.poolincentive" +
+      "s.v1beta1.QueryLockableDurationsRequest\032" +
+      ">.osmosis.poolincentives.v1beta1.QueryLo" +
+      "ckableDurationsResponse\";\202\323\344\223\0025\0223/osmosi" +
+      "s/pool-incentives/v1beta1/lockable_durat" +
+      "ions\022\317\001\n\021IncentivizedPools\022=.osmosis.poo" +
+      "lincentives.v1beta1.QueryIncentivizedPoo" +
+      "lsRequest\032>.osmosis.poolincentives.v1bet" +
+      "a1.QueryIncentivizedPoolsResponse\";\202\323\344\223\002" +
+      "5\0223/osmosis/pool-incentives/v1beta1/ince" +
+      "ntivized_pools\022\350\001\n\027ExternalIncentiveGaug" +
+      "es\022C.osmosis.poolincentives.v1beta1.Quer" +
+      "yExternalIncentiveGaugesRequest\032D.osmosi" +
+      "s.poolincentives.v1beta1.QueryExternalIn" +
+      "centiveGaugesResponse\"B\202\323\344\223\002<\022:/osmosis/" +
+      "pool-incentives/v1beta1/external_incenti" +
+      "ve_gaugesB9Z7github.com/osmosis-labs/osm" +
+      "osis/x/pool-incentives/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
+          osmosis.incentives.GaugeOuterClass.getDescriptor(),
           osmosis.poolincentives.v1beta1.Incentives.getDescriptor(),
         });
     internal_static_osmosis_poolincentives_v1beta1_QueryGaugeIdsRequest_descriptor =
@@ -7461,17 +8692,30 @@ public final class QueryOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_poolincentives_v1beta1_QueryIncentivizedPoolsResponse_descriptor,
         new java.lang.String[] { "IncentivizedPools", });
+    internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesResponse_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_poolincentives_v1beta1_QueryExternalIncentiveGaugesResponse_descriptor,
+        new java.lang.String[] { "Data", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdduration);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
+    osmosis.incentives.GaugeOuterClass.getDescriptor();
     osmosis.poolincentives.v1beta1.Incentives.getDescriptor();
   }
 

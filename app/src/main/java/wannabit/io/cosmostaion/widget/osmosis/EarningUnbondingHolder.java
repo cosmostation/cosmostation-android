@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.widget.osmosis;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
@@ -22,7 +21,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class EarningUnbondingHolder extends RecyclerView.ViewHolder {
@@ -50,7 +48,7 @@ public class EarningUnbondingHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBindView(Context c, BaseActivity activity, BaseData baseData,
-                           PoolOuterClass.Pool pool, Lock.PeriodLock lockup, ArrayList<GaugeOuterClass.Gauge> gauges) {
+                           BalancerPoolOuterClass.BalancerPool pool, Lock.PeriodLock lockup, ArrayList<GaugeOuterClass.Gauge> gauges) {
         BigDecimal totalShare = new BigDecimal(pool.getTotalShares().getAmount());
         BigDecimal lpCoinPrice = WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
         Coin myLpCoin = new Coin(lockup.getCoins(0).getDenom(), lockup.getCoins(0).getAmount());

@@ -7,9 +7,9 @@ public final class Cosmos {
   private Cosmos() {}
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
-    registry.add(cosmos_proto.Cosmos.interfaceType);
     registry.add(cosmos_proto.Cosmos.implementsInterface);
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
+    registry.add(cosmos_proto.Cosmos.scalar);
   }
 
   public static void registerAllExtensions(
@@ -17,19 +17,12 @@ public final class Cosmos {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public static final int INTERFACE_TYPE_FIELD_NUMBER = 93001;
+  public static final int IMPLEMENTS_INTERFACE_FIELD_NUMBER = 93001;
   /**
-   * <code>extend .google.protobuf.MessageOptions { ... }</code>
-   */
-  public static final
-    com.google.protobuf.GeneratedMessage.GeneratedExtension<
-      com.google.protobuf.DescriptorProtos.MessageOptions,
-      java.lang.String> interfaceType = com.google.protobuf.GeneratedMessage
-          .newFileScopedGeneratedExtension(
-        java.lang.String.class,
-        null);
-  public static final int IMPLEMENTS_INTERFACE_FIELD_NUMBER = 93002;
-  /**
+   * <pre>
+   * implements_interface is used to annotate interface implementations
+   * </pre>
+   *
    * <code>extend .google.protobuf.MessageOptions { ... }</code>
    */
   public static final
@@ -41,12 +34,31 @@ public final class Cosmos {
         null);
   public static final int ACCEPTS_INTERFACE_FIELD_NUMBER = 93001;
   /**
+   * <pre>
+   * accepts_interface is used to annote fields that accept interfaces
+   * </pre>
+   *
    * <code>extend .google.protobuf.FieldOptions { ... }</code>
    */
   public static final
     com.google.protobuf.GeneratedMessage.GeneratedExtension<
       com.google.protobuf.DescriptorProtos.FieldOptions,
       java.lang.String> acceptsInterface = com.google.protobuf.GeneratedMessage
+          .newFileScopedGeneratedExtension(
+        java.lang.String.class,
+        null);
+  public static final int SCALAR_FIELD_NUMBER = 93002;
+  /**
+   * <pre>
+   * scalar is used to define scalar types
+   * </pre>
+   *
+   * <code>extend .google.protobuf.FieldOptions { ... }</code>
+   */
+  public static final
+    com.google.protobuf.GeneratedMessage.GeneratedExtension<
+      com.google.protobuf.DescriptorProtos.FieldOptions,
+      java.lang.String> scalar = com.google.protobuf.GeneratedMessage
           .newFileScopedGeneratedExtension(
         java.lang.String.class,
         null);
@@ -60,22 +72,22 @@ public final class Cosmos {
   static {
     java.lang.String[] descriptorData = {
       "\n\031cosmos_proto/cosmos.proto\022\014cosmos_prot" +
-      "o\032 google/protobuf/descriptor.proto:9\n\016i" +
-      "nterface_type\022\037.google.protobuf.MessageO" +
-      "ptions\030\311\326\005 \001(\t:?\n\024implements_interface\022\037" +
-      ".google.protobuf.MessageOptions\030\312\326\005 \001(\t:" +
-      ":\n\021accepts_interface\022\035.google.protobuf.F" +
-      "ieldOptions\030\311\326\005 \001(\tB\'Z%github.com/regen-" +
-      "network/cosmos-protob\006proto3"
+      "o\032 google/protobuf/descriptor.proto:?\n\024i" +
+      "mplements_interface\022\037.google.protobuf.Me" +
+      "ssageOptions\030\311\326\005 \001(\t::\n\021accepts_interfac" +
+      "e\022\035.google.protobuf.FieldOptions\030\311\326\005 \001(\t" +
+      ":/\n\006scalar\022\035.google.protobuf.FieldOption" +
+      "s\030\312\326\005 \001(\tB Z\036github.com/cosmos/cosmos-pr" +
+      "otob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.DescriptorProtos.getDescriptor(),
         });
-    interfaceType.internalInit(descriptor.getExtensions().get(0));
-    implementsInterface.internalInit(descriptor.getExtensions().get(1));
-    acceptsInterface.internalInit(descriptor.getExtensions().get(2));
+    implementsInterface.internalInit(descriptor.getExtensions().get(0));
+    acceptsInterface.internalInit(descriptor.getExtensions().get(1));
+    scalar.internalInit(descriptor.getExtensions().get(2));
     com.google.protobuf.DescriptorProtos.getDescriptor();
   }
 

@@ -154,6 +154,37 @@ public final class QueryGrpc {
     return getConsensusStatesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest,
+      ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse> getClientStatusMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ClientStatus",
+      requestType = ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest.class,
+      responseType = ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest,
+      ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse> getClientStatusMethod() {
+    io.grpc.MethodDescriptor<ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest, ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse> getClientStatusMethod;
+    if ((getClientStatusMethod = QueryGrpc.getClientStatusMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getClientStatusMethod = QueryGrpc.getClientStatusMethod) == null) {
+          QueryGrpc.getClientStatusMethod = getClientStatusMethod =
+              io.grpc.MethodDescriptor.<ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest, ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ClientStatus"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("ClientStatus"))
+              .build();
+        }
+      }
+    }
+    return getClientStatusMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<ibc.core.client.v1.QueryOuterClass.QueryClientParamsRequest,
       ibc.core.client.v1.QueryOuterClass.QueryClientParamsResponse> getClientParamsMethod;
 
@@ -183,6 +214,68 @@ public final class QueryGrpc {
       }
     }
     return getClientParamsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest,
+      ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse> getUpgradedClientStateMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpgradedClientState",
+      requestType = ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest.class,
+      responseType = ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest,
+      ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse> getUpgradedClientStateMethod() {
+    io.grpc.MethodDescriptor<ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest, ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse> getUpgradedClientStateMethod;
+    if ((getUpgradedClientStateMethod = QueryGrpc.getUpgradedClientStateMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getUpgradedClientStateMethod = QueryGrpc.getUpgradedClientStateMethod) == null) {
+          QueryGrpc.getUpgradedClientStateMethod = getUpgradedClientStateMethod =
+              io.grpc.MethodDescriptor.<ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest, ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpgradedClientState"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("UpgradedClientState"))
+              .build();
+        }
+      }
+    }
+    return getUpgradedClientStateMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest,
+      ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse> getUpgradedConsensusStateMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpgradedConsensusState",
+      requestType = ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest.class,
+      responseType = ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest,
+      ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse> getUpgradedConsensusStateMethod() {
+    io.grpc.MethodDescriptor<ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest, ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse> getUpgradedConsensusStateMethod;
+    if ((getUpgradedConsensusStateMethod = QueryGrpc.getUpgradedConsensusStateMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getUpgradedConsensusStateMethod = QueryGrpc.getUpgradedConsensusStateMethod) == null) {
+          QueryGrpc.getUpgradedConsensusStateMethod = getUpgradedConsensusStateMethod =
+              io.grpc.MethodDescriptor.<ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest, ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpgradedConsensusState"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("UpgradedConsensusState"))
+              .build();
+        }
+      }
+    }
+    return getUpgradedConsensusStateMethod;
   }
 
   /**
@@ -280,12 +373,42 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Status queries the status of an IBC client.
+     * </pre>
+     */
+    public void clientStatus(ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest request,
+        io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getClientStatusMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * ClientParams queries all parameters of the ibc client.
      * </pre>
      */
     public void clientParams(ibc.core.client.v1.QueryOuterClass.QueryClientParamsRequest request,
         io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryClientParamsResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getClientParamsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * UpgradedClientState queries an Upgraded IBC light client.
+     * </pre>
+     */
+    public void upgradedClientState(ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest request,
+        io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getUpgradedClientStateMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * UpgradedConsensusState queries an Upgraded IBC consensus state.
+     * </pre>
+     */
+    public void upgradedConsensusState(ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest request,
+        io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getUpgradedConsensusStateMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -319,12 +442,33 @@ public final class QueryGrpc {
                 ibc.core.client.v1.QueryOuterClass.QueryConsensusStatesResponse>(
                   this, METHODID_CONSENSUS_STATES)))
           .addMethod(
+            getClientStatusMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest,
+                ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse>(
+                  this, METHODID_CLIENT_STATUS)))
+          .addMethod(
             getClientParamsMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 ibc.core.client.v1.QueryOuterClass.QueryClientParamsRequest,
                 ibc.core.client.v1.QueryOuterClass.QueryClientParamsResponse>(
                   this, METHODID_CLIENT_PARAMS)))
+          .addMethod(
+            getUpgradedClientStateMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest,
+                ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse>(
+                  this, METHODID_UPGRADED_CLIENT_STATE)))
+          .addMethod(
+            getUpgradedConsensusStateMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest,
+                ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse>(
+                  this, METHODID_UPGRADED_CONSENSUS_STATE)))
           .build();
     }
   }
@@ -394,6 +538,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Status queries the status of an IBC client.
+     * </pre>
+     */
+    public void clientStatus(ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest request,
+        io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getClientStatusMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * ClientParams queries all parameters of the ibc client.
      * </pre>
      */
@@ -401,6 +556,28 @@ public final class QueryGrpc {
         io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryClientParamsResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getClientParamsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * UpgradedClientState queries an Upgraded IBC light client.
+     * </pre>
+     */
+    public void upgradedClientState(ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest request,
+        io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getUpgradedClientStateMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * UpgradedConsensusState queries an Upgraded IBC consensus state.
+     * </pre>
+     */
+    public void upgradedConsensusState(ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest request,
+        io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getUpgradedConsensusStateMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -465,12 +642,42 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Status queries the status of an IBC client.
+     * </pre>
+     */
+    public ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse clientStatus(ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getClientStatusMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * ClientParams queries all parameters of the ibc client.
      * </pre>
      */
     public ibc.core.client.v1.QueryOuterClass.QueryClientParamsResponse clientParams(ibc.core.client.v1.QueryOuterClass.QueryClientParamsRequest request) {
       return blockingUnaryCall(
           getChannel(), getClientParamsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * UpgradedClientState queries an Upgraded IBC light client.
+     * </pre>
+     */
+    public ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse upgradedClientState(ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getUpgradedClientStateMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * UpgradedConsensusState queries an Upgraded IBC consensus state.
+     * </pre>
+     */
+    public ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse upgradedConsensusState(ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getUpgradedConsensusStateMethod(), getCallOptions(), request);
     }
   }
 
@@ -539,6 +746,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Status queries the status of an IBC client.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse> clientStatus(
+        ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getClientStatusMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * ClientParams queries all parameters of the ibc client.
      * </pre>
      */
@@ -547,13 +765,38 @@ public final class QueryGrpc {
       return futureUnaryCall(
           getChannel().newCall(getClientParamsMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * UpgradedClientState queries an Upgraded IBC light client.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse> upgradedClientState(
+        ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getUpgradedClientStateMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * UpgradedConsensusState queries an Upgraded IBC consensus state.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse> upgradedConsensusState(
+        ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getUpgradedConsensusStateMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CLIENT_STATE = 0;
   private static final int METHODID_CLIENT_STATES = 1;
   private static final int METHODID_CONSENSUS_STATE = 2;
   private static final int METHODID_CONSENSUS_STATES = 3;
-  private static final int METHODID_CLIENT_PARAMS = 4;
+  private static final int METHODID_CLIENT_STATUS = 4;
+  private static final int METHODID_CLIENT_PARAMS = 5;
+  private static final int METHODID_UPGRADED_CLIENT_STATE = 6;
+  private static final int METHODID_UPGRADED_CONSENSUS_STATE = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -588,9 +831,21 @@ public final class QueryGrpc {
           serviceImpl.consensusStates((ibc.core.client.v1.QueryOuterClass.QueryConsensusStatesRequest) request,
               (io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryConsensusStatesResponse>) responseObserver);
           break;
+        case METHODID_CLIENT_STATUS:
+          serviceImpl.clientStatus((ibc.core.client.v1.QueryOuterClass.QueryClientStatusRequest) request,
+              (io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryClientStatusResponse>) responseObserver);
+          break;
         case METHODID_CLIENT_PARAMS:
           serviceImpl.clientParams((ibc.core.client.v1.QueryOuterClass.QueryClientParamsRequest) request,
               (io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryClientParamsResponse>) responseObserver);
+          break;
+        case METHODID_UPGRADED_CLIENT_STATE:
+          serviceImpl.upgradedClientState((ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateRequest) request,
+              (io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryUpgradedClientStateResponse>) responseObserver);
+          break;
+        case METHODID_UPGRADED_CONSENSUS_STATE:
+          serviceImpl.upgradedConsensusState((ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateRequest) request,
+              (io.grpc.stub.StreamObserver<ibc.core.client.v1.QueryOuterClass.QueryUpgradedConsensusStateResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -657,7 +912,10 @@ public final class QueryGrpc {
               .addMethod(getClientStatesMethod())
               .addMethod(getConsensusStateMethod())
               .addMethod(getConsensusStatesMethod())
+              .addMethod(getClientStatusMethod())
               .addMethod(getClientParamsMethod())
+              .addMethod(getUpgradedClientStateMethod())
+              .addMethod(getUpgradedConsensusStateMethod())
               .build();
         }
       }

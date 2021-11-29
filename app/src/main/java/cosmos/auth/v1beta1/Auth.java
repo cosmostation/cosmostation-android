@@ -19,34 +19,34 @@ public final class Auth {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The address.
      */
     java.lang.String getAddress();
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for address.
      */
     com.google.protobuf.ByteString
         getAddressBytes();
 
     /**
-     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      * @return Whether the pubKey field is set.
      */
     boolean hasPubKey();
     /**
-     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      * @return The pubKey.
      */
-    com.google.protobuf2.Any getPubKey();
+    com.google.protobuf.Any getPubKey();
     /**
-     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      */
-    com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder();
+    com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder();
 
     /**
-     * <code>uint64 account_number = 3 [(.gogoproto.moretags) = "yaml:&#92;"account_number&#92;""];</code>
+     * <code>uint64 account_number = 3;</code>
      * @return The accountNumber.
      */
     long getAccountNumber();
@@ -116,11 +116,11 @@ public final class Auth {
               break;
             }
             case 18: {
-              com.google.protobuf2.Any.Builder subBuilder = null;
+              com.google.protobuf.Any.Builder subBuilder = null;
               if (pubKey_ != null) {
                 subBuilder = pubKey_.toBuilder();
               }
-              pubKey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
+              pubKey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(pubKey_);
                 pubKey_ = subBuilder.buildPartial();
@@ -173,7 +173,7 @@ public final class Auth {
     public static final int ADDRESS_FIELD_NUMBER = 1;
     private volatile java.lang.Object address_;
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The address.
      */
     @java.lang.Override
@@ -190,7 +190,7 @@ public final class Auth {
       }
     }
     /**
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for address.
      */
     @java.lang.Override
@@ -209,9 +209,9 @@ public final class Auth {
     }
 
     public static final int PUB_KEY_FIELD_NUMBER = 2;
-    private com.google.protobuf2.Any pubKey_;
+    private com.google.protobuf.Any pubKey_;
     /**
-     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      * @return Whether the pubKey field is set.
      */
     @java.lang.Override
@@ -219,25 +219,25 @@ public final class Auth {
       return pubKey_ != null;
     }
     /**
-     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      * @return The pubKey.
      */
     @java.lang.Override
-    public com.google.protobuf2.Any getPubKey() {
-      return pubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
+    public com.google.protobuf.Any getPubKey() {
+      return pubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubKey_;
     }
     /**
-     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder() {
+    public com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder() {
       return getPubKey();
     }
 
     public static final int ACCOUNT_NUMBER_FIELD_NUMBER = 3;
     private long accountNumber_;
     /**
-     * <code>uint64 account_number = 3 [(.gogoproto.moretags) = "yaml:&#92;"account_number&#92;""];</code>
+     * <code>uint64 account_number = 3;</code>
      * @return The accountNumber.
      */
     @java.lang.Override
@@ -632,7 +632,7 @@ public final class Auth {
 
       private java.lang.Object address_ = "";
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The address.
        */
       public java.lang.String getAddress() {
@@ -648,7 +648,7 @@ public final class Auth {
         }
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
@@ -665,7 +665,7 @@ public final class Auth {
         }
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The address to set.
        * @return This builder for chaining.
        */
@@ -680,7 +680,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAddress() {
@@ -690,7 +690,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for address to set.
        * @return This builder for chaining.
        */
@@ -706,31 +706,31 @@ public final class Auth {
         return this;
       }
 
-      private com.google.protobuf2.Any pubKey_;
+      private com.google.protobuf.Any pubKey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> pubKeyBuilder_;
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> pubKeyBuilder_;
       /**
-       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        * @return Whether the pubKey field is set.
        */
       public boolean hasPubKey() {
         return pubKeyBuilder_ != null || pubKey_ != null;
       }
       /**
-       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        * @return The pubKey.
        */
-      public com.google.protobuf2.Any getPubKey() {
+      public com.google.protobuf.Any getPubKey() {
         if (pubKeyBuilder_ == null) {
-          return pubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
+          return pubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubKey_;
         } else {
           return pubKeyBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
-      public Builder setPubKey(com.google.protobuf2.Any value) {
+      public Builder setPubKey(com.google.protobuf.Any value) {
         if (pubKeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -744,10 +744,10 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
       public Builder setPubKey(
-          com.google.protobuf2.Any.Builder builderForValue) {
+          com.google.protobuf.Any.Builder builderForValue) {
         if (pubKeyBuilder_ == null) {
           pubKey_ = builderForValue.build();
           onChanged();
@@ -758,13 +758,13 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
-      public Builder mergePubKey(com.google.protobuf2.Any value) {
+      public Builder mergePubKey(com.google.protobuf.Any value) {
         if (pubKeyBuilder_ == null) {
           if (pubKey_ != null) {
             pubKey_ =
-              com.google.protobuf2.Any.newBuilder(pubKey_).mergeFrom(value).buildPartial();
+              com.google.protobuf.Any.newBuilder(pubKey_).mergeFrom(value).buildPartial();
           } else {
             pubKey_ = value;
           }
@@ -776,7 +776,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
       public Builder clearPubKey() {
         if (pubKeyBuilder_ == null) {
@@ -790,33 +790,33 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
-      public com.google.protobuf2.Any.Builder getPubKeyBuilder() {
+      public com.google.protobuf.Any.Builder getPubKeyBuilder() {
         
         onChanged();
         return getPubKeyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
-      public com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder() {
+      public com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder() {
         if (pubKeyBuilder_ != null) {
           return pubKeyBuilder_.getMessageOrBuilder();
         } else {
           return pubKey_ == null ?
-              com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
+              com.google.protobuf.Any.getDefaultInstance() : pubKey_;
         }
       }
       /**
-       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
+       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
           getPubKeyFieldBuilder() {
         if (pubKeyBuilder_ == null) {
           pubKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
                   getPubKey(),
                   getParentForChildren(),
                   isClean());
@@ -827,7 +827,7 @@ public final class Auth {
 
       private long accountNumber_ ;
       /**
-       * <code>uint64 account_number = 3 [(.gogoproto.moretags) = "yaml:&#92;"account_number&#92;""];</code>
+       * <code>uint64 account_number = 3;</code>
        * @return The accountNumber.
        */
       @java.lang.Override
@@ -835,7 +835,7 @@ public final class Auth {
         return accountNumber_;
       }
       /**
-       * <code>uint64 account_number = 3 [(.gogoproto.moretags) = "yaml:&#92;"account_number&#92;""];</code>
+       * <code>uint64 account_number = 3;</code>
        * @param value The accountNumber to set.
        * @return This builder for chaining.
        */
@@ -846,7 +846,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>uint64 account_number = 3 [(.gogoproto.moretags) = "yaml:&#92;"account_number&#92;""];</code>
+       * <code>uint64 account_number = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearAccountNumber() {
@@ -944,17 +944,17 @@ public final class Auth {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
      * @return Whether the baseAccount field is set.
      */
     boolean hasBaseAccount();
     /**
-     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
      * @return The baseAccount.
      */
     cosmos.auth.v1beta1.Auth.BaseAccount getBaseAccount();
     /**
-     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
      */
     cosmos.auth.v1beta1.Auth.BaseAccountOrBuilder getBaseAccountOrBuilder();
 
@@ -1113,7 +1113,7 @@ public final class Auth {
     public static final int BASE_ACCOUNT_FIELD_NUMBER = 1;
     private cosmos.auth.v1beta1.Auth.BaseAccount baseAccount_;
     /**
-     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
      * @return Whether the baseAccount field is set.
      */
     @java.lang.Override
@@ -1121,7 +1121,7 @@ public final class Auth {
       return baseAccount_ != null;
     }
     /**
-     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
      * @return The baseAccount.
      */
     @java.lang.Override
@@ -1129,7 +1129,7 @@ public final class Auth {
       return baseAccount_ == null ? cosmos.auth.v1beta1.Auth.BaseAccount.getDefaultInstance() : baseAccount_;
     }
     /**
-     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+     * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
      */
     @java.lang.Override
     public cosmos.auth.v1beta1.Auth.BaseAccountOrBuilder getBaseAccountOrBuilder() {
@@ -1585,14 +1585,14 @@ public final class Auth {
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.auth.v1beta1.Auth.BaseAccount, cosmos.auth.v1beta1.Auth.BaseAccount.Builder, cosmos.auth.v1beta1.Auth.BaseAccountOrBuilder> baseAccountBuilder_;
       /**
-       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
        * @return Whether the baseAccount field is set.
        */
       public boolean hasBaseAccount() {
         return baseAccountBuilder_ != null || baseAccount_ != null;
       }
       /**
-       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
        * @return The baseAccount.
        */
       public cosmos.auth.v1beta1.Auth.BaseAccount getBaseAccount() {
@@ -1603,7 +1603,7 @@ public final class Auth {
         }
       }
       /**
-       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
        */
       public Builder setBaseAccount(cosmos.auth.v1beta1.Auth.BaseAccount value) {
         if (baseAccountBuilder_ == null) {
@@ -1619,7 +1619,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
        */
       public Builder setBaseAccount(
           cosmos.auth.v1beta1.Auth.BaseAccount.Builder builderForValue) {
@@ -1633,7 +1633,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
        */
       public Builder mergeBaseAccount(cosmos.auth.v1beta1.Auth.BaseAccount value) {
         if (baseAccountBuilder_ == null) {
@@ -1651,7 +1651,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
        */
       public Builder clearBaseAccount() {
         if (baseAccountBuilder_ == null) {
@@ -1665,7 +1665,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
        */
       public cosmos.auth.v1beta1.Auth.BaseAccount.Builder getBaseAccountBuilder() {
         
@@ -1673,7 +1673,7 @@ public final class Auth {
         return getBaseAccountFieldBuilder().getBuilder();
       }
       /**
-       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
        */
       public cosmos.auth.v1beta1.Auth.BaseAccountOrBuilder getBaseAccountOrBuilder() {
         if (baseAccountBuilder_ != null) {
@@ -1684,7 +1684,7 @@ public final class Auth {
         }
       }
       /**
-       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
+       * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.auth.v1beta1.Auth.BaseAccount, cosmos.auth.v1beta1.Auth.BaseAccount.Builder, cosmos.auth.v1beta1.Auth.BaseAccountOrBuilder> 
@@ -1943,31 +1943,31 @@ public final class Auth {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint64 max_memo_characters = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_memo_characters&#92;""];</code>
+     * <code>uint64 max_memo_characters = 1;</code>
      * @return The maxMemoCharacters.
      */
     long getMaxMemoCharacters();
 
     /**
-     * <code>uint64 tx_sig_limit = 2 [(.gogoproto.moretags) = "yaml:&#92;"tx_sig_limit&#92;""];</code>
+     * <code>uint64 tx_sig_limit = 2;</code>
      * @return The txSigLimit.
      */
     long getTxSigLimit();
 
     /**
-     * <code>uint64 tx_size_cost_per_byte = 3 [(.gogoproto.moretags) = "yaml:&#92;"tx_size_cost_per_byte&#92;""];</code>
+     * <code>uint64 tx_size_cost_per_byte = 3;</code>
      * @return The txSizeCostPerByte.
      */
     long getTxSizeCostPerByte();
 
     /**
-     * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_ed25519&#92;""];</code>
+     * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519"];</code>
      * @return The sigVerifyCostEd25519.
      */
     long getSigVerifyCostEd25519();
 
     /**
-     * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_secp256k1&#92;""];</code>
+     * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1"];</code>
      * @return The sigVerifyCostSecp256k1.
      */
     long getSigVerifyCostSecp256K1();
@@ -2081,7 +2081,7 @@ public final class Auth {
     public static final int MAX_MEMO_CHARACTERS_FIELD_NUMBER = 1;
     private long maxMemoCharacters_;
     /**
-     * <code>uint64 max_memo_characters = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_memo_characters&#92;""];</code>
+     * <code>uint64 max_memo_characters = 1;</code>
      * @return The maxMemoCharacters.
      */
     @java.lang.Override
@@ -2092,7 +2092,7 @@ public final class Auth {
     public static final int TX_SIG_LIMIT_FIELD_NUMBER = 2;
     private long txSigLimit_;
     /**
-     * <code>uint64 tx_sig_limit = 2 [(.gogoproto.moretags) = "yaml:&#92;"tx_sig_limit&#92;""];</code>
+     * <code>uint64 tx_sig_limit = 2;</code>
      * @return The txSigLimit.
      */
     @java.lang.Override
@@ -2103,7 +2103,7 @@ public final class Auth {
     public static final int TX_SIZE_COST_PER_BYTE_FIELD_NUMBER = 3;
     private long txSizeCostPerByte_;
     /**
-     * <code>uint64 tx_size_cost_per_byte = 3 [(.gogoproto.moretags) = "yaml:&#92;"tx_size_cost_per_byte&#92;""];</code>
+     * <code>uint64 tx_size_cost_per_byte = 3;</code>
      * @return The txSizeCostPerByte.
      */
     @java.lang.Override
@@ -2114,7 +2114,7 @@ public final class Auth {
     public static final int SIG_VERIFY_COST_ED25519_FIELD_NUMBER = 4;
     private long sigVerifyCostEd25519_;
     /**
-     * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_ed25519&#92;""];</code>
+     * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519"];</code>
      * @return The sigVerifyCostEd25519.
      */
     @java.lang.Override
@@ -2125,7 +2125,7 @@ public final class Auth {
     public static final int SIG_VERIFY_COST_SECP256K1_FIELD_NUMBER = 5;
     private long sigVerifyCostSecp256K1_;
     /**
-     * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_secp256k1&#92;""];</code>
+     * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1"];</code>
      * @return The sigVerifyCostSecp256k1.
      */
     @java.lang.Override
@@ -2514,7 +2514,7 @@ public final class Auth {
 
       private long maxMemoCharacters_ ;
       /**
-       * <code>uint64 max_memo_characters = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_memo_characters&#92;""];</code>
+       * <code>uint64 max_memo_characters = 1;</code>
        * @return The maxMemoCharacters.
        */
       @java.lang.Override
@@ -2522,7 +2522,7 @@ public final class Auth {
         return maxMemoCharacters_;
       }
       /**
-       * <code>uint64 max_memo_characters = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_memo_characters&#92;""];</code>
+       * <code>uint64 max_memo_characters = 1;</code>
        * @param value The maxMemoCharacters to set.
        * @return This builder for chaining.
        */
@@ -2533,7 +2533,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>uint64 max_memo_characters = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_memo_characters&#92;""];</code>
+       * <code>uint64 max_memo_characters = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearMaxMemoCharacters() {
@@ -2545,7 +2545,7 @@ public final class Auth {
 
       private long txSigLimit_ ;
       /**
-       * <code>uint64 tx_sig_limit = 2 [(.gogoproto.moretags) = "yaml:&#92;"tx_sig_limit&#92;""];</code>
+       * <code>uint64 tx_sig_limit = 2;</code>
        * @return The txSigLimit.
        */
       @java.lang.Override
@@ -2553,7 +2553,7 @@ public final class Auth {
         return txSigLimit_;
       }
       /**
-       * <code>uint64 tx_sig_limit = 2 [(.gogoproto.moretags) = "yaml:&#92;"tx_sig_limit&#92;""];</code>
+       * <code>uint64 tx_sig_limit = 2;</code>
        * @param value The txSigLimit to set.
        * @return This builder for chaining.
        */
@@ -2564,7 +2564,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>uint64 tx_sig_limit = 2 [(.gogoproto.moretags) = "yaml:&#92;"tx_sig_limit&#92;""];</code>
+       * <code>uint64 tx_sig_limit = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearTxSigLimit() {
@@ -2576,7 +2576,7 @@ public final class Auth {
 
       private long txSizeCostPerByte_ ;
       /**
-       * <code>uint64 tx_size_cost_per_byte = 3 [(.gogoproto.moretags) = "yaml:&#92;"tx_size_cost_per_byte&#92;""];</code>
+       * <code>uint64 tx_size_cost_per_byte = 3;</code>
        * @return The txSizeCostPerByte.
        */
       @java.lang.Override
@@ -2584,7 +2584,7 @@ public final class Auth {
         return txSizeCostPerByte_;
       }
       /**
-       * <code>uint64 tx_size_cost_per_byte = 3 [(.gogoproto.moretags) = "yaml:&#92;"tx_size_cost_per_byte&#92;""];</code>
+       * <code>uint64 tx_size_cost_per_byte = 3;</code>
        * @param value The txSizeCostPerByte to set.
        * @return This builder for chaining.
        */
@@ -2595,7 +2595,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>uint64 tx_size_cost_per_byte = 3 [(.gogoproto.moretags) = "yaml:&#92;"tx_size_cost_per_byte&#92;""];</code>
+       * <code>uint64 tx_size_cost_per_byte = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearTxSizeCostPerByte() {
@@ -2607,7 +2607,7 @@ public final class Auth {
 
       private long sigVerifyCostEd25519_ ;
       /**
-       * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_ed25519&#92;""];</code>
+       * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519"];</code>
        * @return The sigVerifyCostEd25519.
        */
       @java.lang.Override
@@ -2615,7 +2615,7 @@ public final class Auth {
         return sigVerifyCostEd25519_;
       }
       /**
-       * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_ed25519&#92;""];</code>
+       * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519"];</code>
        * @param value The sigVerifyCostEd25519 to set.
        * @return This builder for chaining.
        */
@@ -2626,7 +2626,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_ed25519&#92;""];</code>
+       * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519"];</code>
        * @return This builder for chaining.
        */
       public Builder clearSigVerifyCostEd25519() {
@@ -2638,7 +2638,7 @@ public final class Auth {
 
       private long sigVerifyCostSecp256K1_ ;
       /**
-       * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_secp256k1&#92;""];</code>
+       * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1"];</code>
        * @return The sigVerifyCostSecp256k1.
        */
       @java.lang.Override
@@ -2646,7 +2646,7 @@ public final class Auth {
         return sigVerifyCostSecp256K1_;
       }
       /**
-       * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_secp256k1&#92;""];</code>
+       * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1"];</code>
        * @param value The sigVerifyCostSecp256k1 to set.
        * @return This builder for chaining.
        */
@@ -2657,7 +2657,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_secp256k1&#92;""];</code>
+       * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1"];</code>
        * @return This builder for chaining.
        */
       public Builder clearSigVerifyCostSecp256K1() {
@@ -2745,35 +2745,30 @@ public final class Auth {
     java.lang.String[] descriptorData = {
       "\n\036cosmos/auth/v1beta1/auth.proto\022\023cosmos" +
       ".auth.v1beta1\032\031cosmos_proto/cosmos.proto" +
-      "\032\024gogoproto/gogo.proto\032\032google/protobuf2" +
-      "/any.proto\"\324\001\n\013BaseAccount\022\017\n\007address\030\001 " +
-      "\001(\t\022U\n\007pub_key\030\002 \001(\0132\025.google.protobuf2." +
-      "AnyB-\352\336\037\024public_key,omitempty\362\336\037\021yaml:\"p" +
-      "ublic_key\"\0221\n\016account_number\030\003 \001(\004B\031\362\336\037\025" +
-      "yaml:\"account_number\"\022\020\n\010sequence\030\004 \001(\004:" +
-      "\030\210\240\037\000\230\240\037\000\350\240\037\000\322\264-\010AccountI\"\243\001\n\rModuleAcco" +
-      "unt\022S\n\014base_account\030\001 \001(\0132 .cosmos.auth." +
-      "v1beta1.BaseAccountB\033\320\336\037\001\362\336\037\023yaml:\"base_" +
-      "account\"\022\014\n\004name\030\002 \001(\t\022\023\n\013permissions\030\003 " +
-      "\003(\t:\032\210\240\037\000\230\240\037\000\322\264-\016ModuleAccountI\"\377\002\n\006Para" +
-      "ms\022;\n\023max_memo_characters\030\001 \001(\004B\036\362\336\037\032yam" +
-      "l:\"max_memo_characters\"\022-\n\014tx_sig_limit\030" +
-      "\002 \001(\004B\027\362\336\037\023yaml:\"tx_sig_limit\"\022?\n\025tx_siz" +
-      "e_cost_per_byte\030\003 \001(\004B \362\336\037\034yaml:\"tx_size" +
-      "_cost_per_byte\"\022[\n\027sig_verify_cost_ed255" +
-      "19\030\004 \001(\004B:\342\336\037\024SigVerifyCostED25519\362\336\037\036ya" +
-      "ml:\"sig_verify_cost_ed25519\"\022a\n\031sig_veri" +
-      "fy_cost_secp256k1\030\005 \001(\004B>\342\336\037\026SigVerifyCo" +
-      "stSecp256k1\362\336\037 yaml:\"sig_verify_cost_sec" +
-      "p256k1\":\010\350\240\037\001\230\240\037\000B+Z)github.com/cosmos/c" +
-      "osmos-sdk/x/auth/typesb\006proto3"
+      "\032\024gogoproto/gogo.proto\032\031google/protobuf/" +
+      "any.proto\"\275\001\n\013BaseAccount\022)\n\007address\030\001 \001" +
+      "(\tB\030\322\264-\024cosmos.AddressString\022?\n\007pub_key\030" +
+      "\002 \001(\0132\024.google.protobuf.AnyB\030\352\336\037\024public_" +
+      "key,omitempty\022\026\n\016account_number\030\003 \001(\004\022\020\n" +
+      "\010sequence\030\004 \001(\004:\030\210\240\037\000\230\240\037\000\350\240\037\000\312\264-\010Account" +
+      "I\"\214\001\n\rModuleAccount\022<\n\014base_account\030\001 \001(" +
+      "\0132 .cosmos.auth.v1beta1.BaseAccountB\004\320\336\037" +
+      "\001\022\014\n\004name\030\002 \001(\t\022\023\n\013permissions\030\003 \003(\t:\032\210\240" +
+      "\037\000\230\240\037\000\312\264-\016ModuleAccountI\"\336\001\n\006Params\022\033\n\023m" +
+      "ax_memo_characters\030\001 \001(\004\022\024\n\014tx_sig_limit" +
+      "\030\002 \001(\004\022\035\n\025tx_size_cost_per_byte\030\003 \001(\004\0229\n" +
+      "\027sig_verify_cost_ed25519\030\004 \001(\004B\030\342\336\037\024SigV" +
+      "erifyCostED25519\022=\n\031sig_verify_cost_secp" +
+      "256k1\030\005 \001(\004B\032\342\336\037\026SigVerifyCostSecp256k1:" +
+      "\010\350\240\037\001\230\240\037\000B+Z)github.com/cosmos/cosmos-sd" +
+      "k/x/auth/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos_proto.Cosmos.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
-          com.google.protobuf2.AnyProto.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf.AnyProto.getDescriptor(),
         });
     internal_static_cosmos_auth_v1beta1_BaseAccount_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2796,18 +2791,18 @@ public final class Auth {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.implementsInterface);
-    registry.add(com.google.protobuf2.GoGoProtos.customname);
-    registry.add(com.google.protobuf2.GoGoProtos.embed);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.embed);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos_proto.Cosmos.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
-    com.google.protobuf2.AnyProto.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

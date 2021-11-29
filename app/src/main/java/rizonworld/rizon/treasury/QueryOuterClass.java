@@ -52,7 +52,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.QueryCurrenciesRequest}
    */
-  public  static final class QueryCurrenciesRequest extends
+  public static final class QueryCurrenciesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.QueryCurrenciesRequest)
       QueryCurrenciesRequestOrBuilder {
@@ -149,6 +149,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -160,6 +161,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -170,6 +172,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -765,7 +768,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.QueryCurrenciesResponse}
    */
-  public  static final class QueryCurrenciesResponse extends
+  public static final class QueryCurrenciesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.QueryCurrenciesResponse)
       QueryCurrenciesResponseOrBuilder {
@@ -875,6 +878,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.treasury.Currencies currencies = 1;</code>
      * @return Whether the currencies field is set.
      */
+    @java.lang.Override
     public boolean hasCurrencies() {
       return currencies_ != null;
     }
@@ -886,6 +890,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.treasury.Currencies currencies = 1;</code>
      * @return The currencies.
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.Treasury.Currencies getCurrencies() {
       return currencies_ == null ? rizonworld.rizon.treasury.Treasury.Currencies.getDefaultInstance() : currencies_;
     }
@@ -896,6 +901,7 @@ public final class QueryOuterClass {
      *
      * <code>.rizonworld.rizon.treasury.Currencies currencies = 1;</code>
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.Treasury.CurrenciesOrBuilder getCurrenciesOrBuilder() {
       return getCurrencies();
     }
@@ -910,6 +916,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -921,6 +928,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -931,6 +939,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -1677,7 +1686,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.QueryCurrencyRequest}
    */
-  public  static final class QueryCurrencyRequest extends
+  public static final class QueryCurrencyRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.QueryCurrencyRequest)
       QueryCurrencyRequestOrBuilder {
@@ -1768,6 +1777,7 @@ public final class QueryOuterClass {
      * <code>string denom = 1;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -1788,6 +1798,7 @@ public final class QueryOuterClass {
      * <code>string denom = 1;</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -2294,7 +2305,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.QueryCurrencyResponse}
    */
-  public  static final class QueryCurrencyResponse extends
+  public static final class QueryCurrencyResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.QueryCurrencyResponse)
       QueryCurrencyResponseOrBuilder {
@@ -2391,6 +2402,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.treasury.Currency currency = 1;</code>
      * @return Whether the currency field is set.
      */
+    @java.lang.Override
     public boolean hasCurrency() {
       return currency_ != null;
     }
@@ -2402,6 +2414,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.treasury.Currency currency = 1;</code>
      * @return The currency.
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.Treasury.Currency getCurrency() {
       return currency_ == null ? rizonworld.rizon.treasury.Treasury.Currency.getDefaultInstance() : currency_;
     }
@@ -2412,6 +2425,7 @@ public final class QueryOuterClass {
      *
      * <code>.rizonworld.rizon.treasury.Currency currency = 1;</code>
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.Treasury.CurrencyOrBuilder getCurrencyOrBuilder() {
       return getCurrency();
     }
@@ -2942,6 +2956,1121 @@ public final class QueryOuterClass {
 
   }
 
+  public interface QueryMaxRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:rizonworld.rizon.treasury.QueryMaxRequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * <pre>
+   * QueryMaxRequest is request type for the Query/MaxAtoloSupply RPC method
+   * </pre>
+   *
+   * Protobuf type {@code rizonworld.rizon.treasury.QueryMaxRequest}
+   */
+  public static final class QueryMaxRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.QueryMaxRequest)
+      QueryMaxRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryMaxRequest.newBuilder() to construct.
+    private QueryMaxRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryMaxRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryMaxRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryMaxRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return rizonworld.rizon.treasury.QueryOuterClass.internal_static_rizonworld_rizon_treasury_QueryMaxRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return rizonworld.rizon.treasury.QueryOuterClass.internal_static_rizonworld_rizon_treasury_QueryMaxRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest.class, rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest)) {
+        return super.equals(obj);
+      }
+      rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest other = (rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryMaxRequest is request type for the Query/MaxAtoloSupply RPC method
+     * </pre>
+     *
+     * Protobuf type {@code rizonworld.rizon.treasury.QueryMaxRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:rizonworld.rizon.treasury.QueryMaxRequest)
+        rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return rizonworld.rizon.treasury.QueryOuterClass.internal_static_rizonworld_rizon_treasury_QueryMaxRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return rizonworld.rizon.treasury.QueryOuterClass.internal_static_rizonworld_rizon_treasury_QueryMaxRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest.class, rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest.Builder.class);
+      }
+
+      // Construct using rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return rizonworld.rizon.treasury.QueryOuterClass.internal_static_rizonworld_rizon_treasury_QueryMaxRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest getDefaultInstanceForType() {
+        return rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest build() {
+        rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest buildPartial() {
+        rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest result = new rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest) {
+          return mergeFrom((rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest other) {
+        if (other == rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:rizonworld.rizon.treasury.QueryMaxRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:rizonworld.rizon.treasury.QueryMaxRequest)
+    private static final rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest();
+    }
+
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryMaxRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryMaxRequest>() {
+      @java.lang.Override
+      public QueryMaxRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryMaxRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryMaxRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryMaxRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryMaxResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:rizonworld.rizon.treasury.QueryMaxResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * params defines maximum mintable amount of uatolo
+     * </pre>
+     *
+     * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the maxAtoloSupply field is set.
+     */
+    boolean hasMaxAtoloSupply();
+    /**
+     * <pre>
+     * params defines maximum mintable amount of uatolo
+     * </pre>
+     *
+     * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+     * @return The maxAtoloSupply.
+     */
+    rizonworld.rizon.treasury.Treasury.MaxAtoloSupply getMaxAtoloSupply();
+    /**
+     * <pre>
+     * params defines maximum mintable amount of uatolo
+     * </pre>
+     *
+     * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    rizonworld.rizon.treasury.Treasury.MaxAtoloSupplyOrBuilder getMaxAtoloSupplyOrBuilder();
+  }
+  /**
+   * <pre>
+   * QueryMaxResponse is response type for the Query/MaxAtoloSupply RPC method
+   * </pre>
+   *
+   * Protobuf type {@code rizonworld.rizon.treasury.QueryMaxResponse}
+   */
+  public static final class QueryMaxResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.QueryMaxResponse)
+      QueryMaxResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryMaxResponse.newBuilder() to construct.
+    private QueryMaxResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryMaxResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryMaxResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryMaxResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              rizonworld.rizon.treasury.Treasury.MaxAtoloSupply.Builder subBuilder = null;
+              if (maxAtoloSupply_ != null) {
+                subBuilder = maxAtoloSupply_.toBuilder();
+              }
+              maxAtoloSupply_ = input.readMessage(rizonworld.rizon.treasury.Treasury.MaxAtoloSupply.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(maxAtoloSupply_);
+                maxAtoloSupply_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return rizonworld.rizon.treasury.QueryOuterClass.internal_static_rizonworld_rizon_treasury_QueryMaxResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return rizonworld.rizon.treasury.QueryOuterClass.internal_static_rizonworld_rizon_treasury_QueryMaxResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse.class, rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse.Builder.class);
+    }
+
+    public static final int MAX_ATOLO_SUPPLY_FIELD_NUMBER = 1;
+    private rizonworld.rizon.treasury.Treasury.MaxAtoloSupply maxAtoloSupply_;
+    /**
+     * <pre>
+     * params defines maximum mintable amount of uatolo
+     * </pre>
+     *
+     * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the maxAtoloSupply field is set.
+     */
+    @java.lang.Override
+    public boolean hasMaxAtoloSupply() {
+      return maxAtoloSupply_ != null;
+    }
+    /**
+     * <pre>
+     * params defines maximum mintable amount of uatolo
+     * </pre>
+     *
+     * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+     * @return The maxAtoloSupply.
+     */
+    @java.lang.Override
+    public rizonworld.rizon.treasury.Treasury.MaxAtoloSupply getMaxAtoloSupply() {
+      return maxAtoloSupply_ == null ? rizonworld.rizon.treasury.Treasury.MaxAtoloSupply.getDefaultInstance() : maxAtoloSupply_;
+    }
+    /**
+     * <pre>
+     * params defines maximum mintable amount of uatolo
+     * </pre>
+     *
+     * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public rizonworld.rizon.treasury.Treasury.MaxAtoloSupplyOrBuilder getMaxAtoloSupplyOrBuilder() {
+      return getMaxAtoloSupply();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (maxAtoloSupply_ != null) {
+        output.writeMessage(1, getMaxAtoloSupply());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (maxAtoloSupply_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getMaxAtoloSupply());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse)) {
+        return super.equals(obj);
+      }
+      rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse other = (rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse) obj;
+
+      if (hasMaxAtoloSupply() != other.hasMaxAtoloSupply()) return false;
+      if (hasMaxAtoloSupply()) {
+        if (!getMaxAtoloSupply()
+            .equals(other.getMaxAtoloSupply())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasMaxAtoloSupply()) {
+        hash = (37 * hash) + MAX_ATOLO_SUPPLY_FIELD_NUMBER;
+        hash = (53 * hash) + getMaxAtoloSupply().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryMaxResponse is response type for the Query/MaxAtoloSupply RPC method
+     * </pre>
+     *
+     * Protobuf type {@code rizonworld.rizon.treasury.QueryMaxResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:rizonworld.rizon.treasury.QueryMaxResponse)
+        rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return rizonworld.rizon.treasury.QueryOuterClass.internal_static_rizonworld_rizon_treasury_QueryMaxResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return rizonworld.rizon.treasury.QueryOuterClass.internal_static_rizonworld_rizon_treasury_QueryMaxResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse.class, rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse.Builder.class);
+      }
+
+      // Construct using rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (maxAtoloSupplyBuilder_ == null) {
+          maxAtoloSupply_ = null;
+        } else {
+          maxAtoloSupply_ = null;
+          maxAtoloSupplyBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return rizonworld.rizon.treasury.QueryOuterClass.internal_static_rizonworld_rizon_treasury_QueryMaxResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse getDefaultInstanceForType() {
+        return rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse build() {
+        rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse buildPartial() {
+        rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse result = new rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse(this);
+        if (maxAtoloSupplyBuilder_ == null) {
+          result.maxAtoloSupply_ = maxAtoloSupply_;
+        } else {
+          result.maxAtoloSupply_ = maxAtoloSupplyBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse) {
+          return mergeFrom((rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse other) {
+        if (other == rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse.getDefaultInstance()) return this;
+        if (other.hasMaxAtoloSupply()) {
+          mergeMaxAtoloSupply(other.getMaxAtoloSupply());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private rizonworld.rizon.treasury.Treasury.MaxAtoloSupply maxAtoloSupply_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          rizonworld.rizon.treasury.Treasury.MaxAtoloSupply, rizonworld.rizon.treasury.Treasury.MaxAtoloSupply.Builder, rizonworld.rizon.treasury.Treasury.MaxAtoloSupplyOrBuilder> maxAtoloSupplyBuilder_;
+      /**
+       * <pre>
+       * params defines maximum mintable amount of uatolo
+       * </pre>
+       *
+       * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+       * @return Whether the maxAtoloSupply field is set.
+       */
+      public boolean hasMaxAtoloSupply() {
+        return maxAtoloSupplyBuilder_ != null || maxAtoloSupply_ != null;
+      }
+      /**
+       * <pre>
+       * params defines maximum mintable amount of uatolo
+       * </pre>
+       *
+       * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+       * @return The maxAtoloSupply.
+       */
+      public rizonworld.rizon.treasury.Treasury.MaxAtoloSupply getMaxAtoloSupply() {
+        if (maxAtoloSupplyBuilder_ == null) {
+          return maxAtoloSupply_ == null ? rizonworld.rizon.treasury.Treasury.MaxAtoloSupply.getDefaultInstance() : maxAtoloSupply_;
+        } else {
+          return maxAtoloSupplyBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * params defines maximum mintable amount of uatolo
+       * </pre>
+       *
+       * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setMaxAtoloSupply(rizonworld.rizon.treasury.Treasury.MaxAtoloSupply value) {
+        if (maxAtoloSupplyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          maxAtoloSupply_ = value;
+          onChanged();
+        } else {
+          maxAtoloSupplyBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines maximum mintable amount of uatolo
+       * </pre>
+       *
+       * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setMaxAtoloSupply(
+          rizonworld.rizon.treasury.Treasury.MaxAtoloSupply.Builder builderForValue) {
+        if (maxAtoloSupplyBuilder_ == null) {
+          maxAtoloSupply_ = builderForValue.build();
+          onChanged();
+        } else {
+          maxAtoloSupplyBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines maximum mintable amount of uatolo
+       * </pre>
+       *
+       * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeMaxAtoloSupply(rizonworld.rizon.treasury.Treasury.MaxAtoloSupply value) {
+        if (maxAtoloSupplyBuilder_ == null) {
+          if (maxAtoloSupply_ != null) {
+            maxAtoloSupply_ =
+              rizonworld.rizon.treasury.Treasury.MaxAtoloSupply.newBuilder(maxAtoloSupply_).mergeFrom(value).buildPartial();
+          } else {
+            maxAtoloSupply_ = value;
+          }
+          onChanged();
+        } else {
+          maxAtoloSupplyBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines maximum mintable amount of uatolo
+       * </pre>
+       *
+       * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearMaxAtoloSupply() {
+        if (maxAtoloSupplyBuilder_ == null) {
+          maxAtoloSupply_ = null;
+          onChanged();
+        } else {
+          maxAtoloSupply_ = null;
+          maxAtoloSupplyBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines maximum mintable amount of uatolo
+       * </pre>
+       *
+       * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public rizonworld.rizon.treasury.Treasury.MaxAtoloSupply.Builder getMaxAtoloSupplyBuilder() {
+        
+        onChanged();
+        return getMaxAtoloSupplyFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * params defines maximum mintable amount of uatolo
+       * </pre>
+       *
+       * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public rizonworld.rizon.treasury.Treasury.MaxAtoloSupplyOrBuilder getMaxAtoloSupplyOrBuilder() {
+        if (maxAtoloSupplyBuilder_ != null) {
+          return maxAtoloSupplyBuilder_.getMessageOrBuilder();
+        } else {
+          return maxAtoloSupply_ == null ?
+              rizonworld.rizon.treasury.Treasury.MaxAtoloSupply.getDefaultInstance() : maxAtoloSupply_;
+        }
+      }
+      /**
+       * <pre>
+       * params defines maximum mintable amount of uatolo
+       * </pre>
+       *
+       * <code>.rizonworld.rizon.treasury.MaxAtoloSupply max_atolo_supply = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          rizonworld.rizon.treasury.Treasury.MaxAtoloSupply, rizonworld.rizon.treasury.Treasury.MaxAtoloSupply.Builder, rizonworld.rizon.treasury.Treasury.MaxAtoloSupplyOrBuilder> 
+          getMaxAtoloSupplyFieldBuilder() {
+        if (maxAtoloSupplyBuilder_ == null) {
+          maxAtoloSupplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              rizonworld.rizon.treasury.Treasury.MaxAtoloSupply, rizonworld.rizon.treasury.Treasury.MaxAtoloSupply.Builder, rizonworld.rizon.treasury.Treasury.MaxAtoloSupplyOrBuilder>(
+                  getMaxAtoloSupply(),
+                  getParentForChildren(),
+                  isClean());
+          maxAtoloSupply_ = null;
+        }
+        return maxAtoloSupplyBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:rizonworld.rizon.treasury.QueryMaxResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:rizonworld.rizon.treasury.QueryMaxResponse)
+    private static final rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse();
+    }
+
+    public static rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryMaxResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryMaxResponse>() {
+      @java.lang.Override
+      public QueryMaxResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryMaxResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryMaxResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryMaxResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface QueryParamsRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:rizonworld.rizon.treasury.QueryParamsRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -2953,7 +4082,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -3406,7 +4535,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -3503,6 +4632,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.treasury.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -3514,6 +4644,7 @@ public final class QueryOuterClass {
      * <code>.rizonworld.rizon.treasury.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.ParamsOuterClass.Params getParams() {
       return params_ == null ? rizonworld.rizon.treasury.ParamsOuterClass.Params.getDefaultInstance() : params_;
     }
@@ -3524,6 +4655,7 @@ public final class QueryOuterClass {
      *
      * <code>.rizonworld.rizon.treasury.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -4075,6 +5207,16 @@ public final class QueryOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_rizonworld_rizon_treasury_QueryCurrencyResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_rizonworld_rizon_treasury_QueryMaxRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_rizonworld_rizon_treasury_QueryMaxRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_rizonworld_rizon_treasury_QueryMaxResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_rizonworld_rizon_treasury_QueryMaxResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_rizonworld_rizon_treasury_QueryParamsRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -4106,29 +5248,35 @@ public final class QueryOuterClass {
       ".query.v1beta1.PageResponse\"%\n\024QueryCurr" +
       "encyRequest\022\r\n\005denom\030\001 \001(\t\"N\n\025QueryCurre" +
       "ncyResponse\0225\n\010currency\030\001 \001(\0132#.rizonwor" +
-      "ld.rizon.treasury.Currency\"\024\n\022QueryParam" +
-      "sRequest\"N\n\023QueryParamsResponse\0227\n\006param" +
-      "s\030\001 \001(\0132!.rizonworld.rizon.treasury.Para" +
-      "msB\004\310\336\037\0002\307\003\n\005Query\022\227\001\n\nCurrencies\0221.rizo" +
-      "nworld.rizon.treasury.QueryCurrenciesReq" +
-      "uest\0322.rizonworld.rizon.treasury.QueryCu" +
-      "rrenciesResponse\"\"\202\323\344\223\002\034\022\032/rizon/treasur" +
-      "y/currencies\022\231\001\n\010Currency\022/.rizonworld.r" +
-      "izon.treasury.QueryCurrencyRequest\0320.riz" +
-      "onworld.rizon.treasury.QueryCurrencyResp" +
-      "onse\"*\202\323\344\223\002$\022\"/rizon/treasury/currencies" +
-      "/{denom}\022\207\001\n\006Params\022-.rizonworld.rizon.t" +
-      "reasury.QueryParamsRequest\032..rizonworld." +
-      "rizon.treasury.QueryParamsResponse\"\036\202\323\344\223" +
-      "\002\030\022\026/rizon/treasury/paramsB/Z-github.com" +
-      "/rizon-world/rizon/x/treasury/typesb\006pro" +
-      "to3"
+      "ld.rizon.treasury.Currency\"\021\n\017QueryMaxRe" +
+      "quest\"]\n\020QueryMaxResponse\022I\n\020max_atolo_s" +
+      "upply\030\001 \001(\0132).rizonworld.rizon.treasury." +
+      "MaxAtoloSupplyB\004\310\336\037\000\"\024\n\022QueryParamsReque" +
+      "st\"N\n\023QueryParamsResponse\0227\n\006params\030\001 \001(" +
+      "\0132!.rizonworld.rizon.treasury.ParamsB\004\310\336" +
+      "\037\0002\326\004\n\005Query\022\227\001\n\nCurrencies\0221.rizonworld" +
+      ".rizon.treasury.QueryCurrenciesRequest\0322" +
+      ".rizonworld.rizon.treasury.QueryCurrenci" +
+      "esResponse\"\"\202\323\344\223\002\034\022\032/rizon/treasury/curr" +
+      "encies\022\231\001\n\010Currency\022/.rizonworld.rizon.t" +
+      "reasury.QueryCurrencyRequest\0320.rizonworl" +
+      "d.rizon.treasury.QueryCurrencyResponse\"*" +
+      "\202\323\344\223\002$\022\"/rizon/treasury/currencies/{deno" +
+      "m}\022\214\001\n\016MaxAtoloSupply\022*.rizonworld.rizon" +
+      ".treasury.QueryMaxRequest\032+.rizonworld.r" +
+      "izon.treasury.QueryMaxResponse\"!\202\323\344\223\002\033\022\031" +
+      "/rizon/treasury/max_atolo\022\207\001\n\006Params\022-.r" +
+      "izonworld.rizon.treasury.QueryParamsRequ" +
+      "est\032..rizonworld.rizon.treasury.QueryPar" +
+      "amsResponse\"\036\202\323\344\223\002\030\022\026/rizon/treasury/par" +
+      "amsB/Z-github.com/rizon-world/rizon/x/tr" +
+      "easury/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           rizonworld.rizon.treasury.Treasury.getDescriptor(),
           rizonworld.rizon.treasury.ParamsOuterClass.getDescriptor(),
@@ -4157,26 +5305,38 @@ public final class QueryOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_rizonworld_rizon_treasury_QueryCurrencyResponse_descriptor,
         new java.lang.String[] { "Currency", });
-    internal_static_rizonworld_rizon_treasury_QueryParamsRequest_descriptor =
+    internal_static_rizonworld_rizon_treasury_QueryMaxRequest_descriptor =
       getDescriptor().getMessageTypes().get(4);
+    internal_static_rizonworld_rizon_treasury_QueryMaxRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_rizonworld_rizon_treasury_QueryMaxRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_rizonworld_rizon_treasury_QueryMaxResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_rizonworld_rizon_treasury_QueryMaxResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_rizonworld_rizon_treasury_QueryMaxResponse_descriptor,
+        new java.lang.String[] { "MaxAtoloSupply", });
+    internal_static_rizonworld_rizon_treasury_QueryParamsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
     internal_static_rizonworld_rizon_treasury_QueryParamsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_rizonworld_rizon_treasury_QueryParamsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_rizonworld_rizon_treasury_QueryParamsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_rizonworld_rizon_treasury_QueryParamsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_rizonworld_rizon_treasury_QueryParamsResponse_descriptor,
         new java.lang.String[] { "Params", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     rizonworld.rizon.treasury.Treasury.getDescriptor();
     rizonworld.rizon.treasury.ParamsOuterClass.getDescriptor();

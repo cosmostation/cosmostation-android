@@ -142,7 +142,7 @@ public final class Genesis {
    *
    * Protobuf type {@code tendermint.liquidity.v1beta1.PoolRecord}
    */
-  public  static final class PoolRecord extends
+  public static final class PoolRecord extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.liquidity.v1beta1.PoolRecord)
       PoolRecordOrBuilder {
@@ -301,6 +301,7 @@ public final class Genesis {
      * <code>.tendermint.liquidity.v1beta1.Pool pool = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool&#92;""];</code>
      * @return Whether the pool field is set.
      */
+    @java.lang.Override
     public boolean hasPool() {
       return pool_ != null;
     }
@@ -308,12 +309,14 @@ public final class Genesis {
      * <code>.tendermint.liquidity.v1beta1.Pool pool = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool&#92;""];</code>
      * @return The pool.
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.Pool getPool() {
       return pool_ == null ? tendermint.liquidity.v1beta1.Liquidity.Pool.getDefaultInstance() : pool_;
     }
     /**
      * <code>.tendermint.liquidity.v1beta1.Pool pool = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.PoolOrBuilder getPoolOrBuilder() {
       return getPool();
     }
@@ -324,6 +327,7 @@ public final class Genesis {
      * <code>.tendermint.liquidity.v1beta1.PoolMetadata pool_metadata = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_metadata&#92;""];</code>
      * @return Whether the poolMetadata field is set.
      */
+    @java.lang.Override
     public boolean hasPoolMetadata() {
       return poolMetadata_ != null;
     }
@@ -331,12 +335,14 @@ public final class Genesis {
      * <code>.tendermint.liquidity.v1beta1.PoolMetadata pool_metadata = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_metadata&#92;""];</code>
      * @return The poolMetadata.
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.PoolMetadata getPoolMetadata() {
       return poolMetadata_ == null ? tendermint.liquidity.v1beta1.Liquidity.PoolMetadata.getDefaultInstance() : poolMetadata_;
     }
     /**
      * <code>.tendermint.liquidity.v1beta1.PoolMetadata pool_metadata = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.PoolMetadataOrBuilder getPoolMetadataOrBuilder() {
       return getPoolMetadata();
     }
@@ -347,6 +353,7 @@ public final class Genesis {
      * <code>.tendermint.liquidity.v1beta1.PoolBatch pool_batch = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_batch&#92;""];</code>
      * @return Whether the poolBatch field is set.
      */
+    @java.lang.Override
     public boolean hasPoolBatch() {
       return poolBatch_ != null;
     }
@@ -354,12 +361,14 @@ public final class Genesis {
      * <code>.tendermint.liquidity.v1beta1.PoolBatch pool_batch = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_batch&#92;""];</code>
      * @return The poolBatch.
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.PoolBatch getPoolBatch() {
       return poolBatch_ == null ? tendermint.liquidity.v1beta1.Liquidity.PoolBatch.getDefaultInstance() : poolBatch_;
     }
     /**
      * <code>.tendermint.liquidity.v1beta1.PoolBatch pool_batch = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_batch&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.PoolBatchOrBuilder getPoolBatchOrBuilder() {
       return getPoolBatch();
     }
@@ -369,12 +378,14 @@ public final class Genesis {
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.DepositMsgState deposit_msg_states = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<tendermint.liquidity.v1beta1.Liquidity.DepositMsgState> getDepositMsgStatesList() {
       return depositMsgStates_;
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.DepositMsgState deposit_msg_states = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends tendermint.liquidity.v1beta1.Liquidity.DepositMsgStateOrBuilder> 
         getDepositMsgStatesOrBuilderList() {
       return depositMsgStates_;
@@ -382,18 +393,21 @@ public final class Genesis {
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.DepositMsgState deposit_msg_states = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public int getDepositMsgStatesCount() {
       return depositMsgStates_.size();
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.DepositMsgState deposit_msg_states = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.DepositMsgState getDepositMsgStates(int index) {
       return depositMsgStates_.get(index);
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.DepositMsgState deposit_msg_states = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.DepositMsgStateOrBuilder getDepositMsgStatesOrBuilder(
         int index) {
       return depositMsgStates_.get(index);
@@ -404,12 +418,14 @@ public final class Genesis {
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.WithdrawMsgState withdraw_msg_states = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraw_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<tendermint.liquidity.v1beta1.Liquidity.WithdrawMsgState> getWithdrawMsgStatesList() {
       return withdrawMsgStates_;
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.WithdrawMsgState withdraw_msg_states = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraw_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends tendermint.liquidity.v1beta1.Liquidity.WithdrawMsgStateOrBuilder> 
         getWithdrawMsgStatesOrBuilderList() {
       return withdrawMsgStates_;
@@ -417,18 +433,21 @@ public final class Genesis {
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.WithdrawMsgState withdraw_msg_states = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraw_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public int getWithdrawMsgStatesCount() {
       return withdrawMsgStates_.size();
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.WithdrawMsgState withdraw_msg_states = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraw_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.WithdrawMsgState getWithdrawMsgStates(int index) {
       return withdrawMsgStates_.get(index);
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.WithdrawMsgState withdraw_msg_states = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraw_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.WithdrawMsgStateOrBuilder getWithdrawMsgStatesOrBuilder(
         int index) {
       return withdrawMsgStates_.get(index);
@@ -439,12 +458,14 @@ public final class Genesis {
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.SwapMsgState swap_msg_states = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"swap_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<tendermint.liquidity.v1beta1.Liquidity.SwapMsgState> getSwapMsgStatesList() {
       return swapMsgStates_;
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.SwapMsgState swap_msg_states = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"swap_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends tendermint.liquidity.v1beta1.Liquidity.SwapMsgStateOrBuilder> 
         getSwapMsgStatesOrBuilderList() {
       return swapMsgStates_;
@@ -452,18 +473,21 @@ public final class Genesis {
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.SwapMsgState swap_msg_states = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"swap_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public int getSwapMsgStatesCount() {
       return swapMsgStates_.size();
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.SwapMsgState swap_msg_states = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"swap_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.SwapMsgState getSwapMsgStates(int index) {
       return swapMsgStates_.get(index);
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.SwapMsgState swap_msg_states = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"swap_msg_states&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.SwapMsgStateOrBuilder getSwapMsgStatesOrBuilder(
         int index) {
       return swapMsgStates_.get(index);
@@ -2206,7 +2230,7 @@ public final class Genesis {
    *
    * Protobuf type {@code tendermint.liquidity.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.liquidity.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -2317,6 +2341,7 @@ public final class Genesis {
      * <code>.tendermint.liquidity.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -2328,6 +2353,7 @@ public final class Genesis {
      * <code>.tendermint.liquidity.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.Params getParams() {
       return params_ == null ? tendermint.liquidity.v1beta1.Liquidity.Params.getDefaultInstance() : params_;
     }
@@ -2338,6 +2364,7 @@ public final class Genesis {
      *
      * <code>.tendermint.liquidity.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Liquidity.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -2347,12 +2374,14 @@ public final class Genesis {
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.PoolRecord pool_records = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pools&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<tendermint.liquidity.v1beta1.Genesis.PoolRecord> getPoolRecordsList() {
       return poolRecords_;
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.PoolRecord pool_records = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pools&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends tendermint.liquidity.v1beta1.Genesis.PoolRecordOrBuilder> 
         getPoolRecordsOrBuilderList() {
       return poolRecords_;
@@ -2360,18 +2389,21 @@ public final class Genesis {
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.PoolRecord pool_records = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pools&#92;""];</code>
      */
+    @java.lang.Override
     public int getPoolRecordsCount() {
       return poolRecords_.size();
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.PoolRecord pool_records = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pools&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Genesis.PoolRecord getPoolRecords(int index) {
       return poolRecords_.get(index);
     }
     /**
      * <code>repeated .tendermint.liquidity.v1beta1.PoolRecord pool_records = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pools&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.liquidity.v1beta1.Genesis.PoolRecordOrBuilder getPoolRecordsOrBuilder(
         int index) {
       return poolRecords_.get(index);
@@ -3241,15 +3273,15 @@ public final class Genesis {
       "rams\030\001 \001(\0132$.tendermint.liquidity.v1beta" +
       "1.ParamsB\004\310\336\037\000\022T\n\014pool_records\030\002 \003(\0132(.t" +
       "endermint.liquidity.v1beta1.PoolRecordB\024" +
-      "\310\336\037\000\362\336\037\014yaml:\"pools\":\010\350\240\037\000\210\240\037\000B5Z3github" +
-      ".com/gravity-devs/liquidity/x/liquidity/" +
-      "typesb\006proto3"
+      "\310\336\037\000\362\336\037\014yaml:\"pools\":\010\350\240\037\000\210\240\037\000B3Z1github" +
+      ".com/tendermint/liquidity/x/liquidity/ty" +
+      "pesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           tendermint.liquidity.v1beta1.Liquidity.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_tendermint_liquidity_v1beta1_PoolRecord_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3265,14 +3297,14 @@ public final class Genesis {
         new java.lang.String[] { "Params", "PoolRecords", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     tendermint.liquidity.v1beta1.Liquidity.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -22,7 +22,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.33.1)",
-    comments = "Source: cosmwasm/wasm/v1beta1/query.proto")
+    comments = "Source: cosmwasm/wasm/v1/query.proto")
 public final class QueryGrpc {
 
   private QueryGrpc() {}
@@ -278,6 +278,37 @@ public final class QueryGrpc {
     return getCodesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest,
+      starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse> getPinnedCodesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "PinnedCodes",
+      requestType = starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest.class,
+      responseType = starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest,
+      starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse> getPinnedCodesMethod() {
+    io.grpc.MethodDescriptor<starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest, starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse> getPinnedCodesMethod;
+    if ((getPinnedCodesMethod = QueryGrpc.getPinnedCodesMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getPinnedCodesMethod = QueryGrpc.getPinnedCodesMethod) == null) {
+          QueryGrpc.getPinnedCodesMethod = getPinnedCodesMethod =
+              io.grpc.MethodDescriptor.<starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest, starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "PinnedCodes"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("PinnedCodes"))
+              .build();
+        }
+      }
+    }
+    return getPinnedCodesMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -409,6 +440,16 @@ public final class QueryGrpc {
       asyncUnimplementedUnaryCall(getCodesMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * PinnedCodes gets the pinned code ids
+     * </pre>
+     */
+    public void pinnedCodes(starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest request,
+        io.grpc.stub.StreamObserver<starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getPinnedCodesMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -467,6 +508,13 @@ public final class QueryGrpc {
                 starnamed.x.wasm.v1beta1.QueryOuterClass.QueryCodesRequest,
                 starnamed.x.wasm.v1beta1.QueryOuterClass.QueryCodesResponse>(
                   this, METHODID_CODES)))
+          .addMethod(
+            getPinnedCodesMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest,
+                starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse>(
+                  this, METHODID_PINNED_CODES)))
           .build();
     }
   }
@@ -575,6 +623,17 @@ public final class QueryGrpc {
       asyncUnaryCall(
           getChannel().newCall(getCodesMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * PinnedCodes gets the pinned code ids
+     * </pre>
+     */
+    public void pinnedCodes(starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest request,
+        io.grpc.stub.StreamObserver<starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getPinnedCodesMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -672,6 +731,16 @@ public final class QueryGrpc {
     public starnamed.x.wasm.v1beta1.QueryOuterClass.QueryCodesResponse codes(starnamed.x.wasm.v1beta1.QueryOuterClass.QueryCodesRequest request) {
       return blockingUnaryCall(
           getChannel(), getCodesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * PinnedCodes gets the pinned code ids
+     * </pre>
+     */
+    public starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse pinnedCodes(starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getPinnedCodesMethod(), getCallOptions(), request);
     }
   }
 
@@ -779,6 +848,17 @@ public final class QueryGrpc {
       return futureUnaryCall(
           getChannel().newCall(getCodesMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * PinnedCodes gets the pinned code ids
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse> pinnedCodes(
+        starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getPinnedCodesMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CONTRACT_INFO = 0;
@@ -789,6 +869,7 @@ public final class QueryGrpc {
   private static final int METHODID_SMART_CONTRACT_STATE = 5;
   private static final int METHODID_CODE = 6;
   private static final int METHODID_CODES = 7;
+  private static final int METHODID_PINNED_CODES = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -838,6 +919,10 @@ public final class QueryGrpc {
         case METHODID_CODES:
           serviceImpl.codes((starnamed.x.wasm.v1beta1.QueryOuterClass.QueryCodesRequest) request,
               (io.grpc.stub.StreamObserver<starnamed.x.wasm.v1beta1.QueryOuterClass.QueryCodesResponse>) responseObserver);
+          break;
+        case METHODID_PINNED_CODES:
+          serviceImpl.pinnedCodes((starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesRequest) request,
+              (io.grpc.stub.StreamObserver<starnamed.x.wasm.v1beta1.QueryOuterClass.QueryPinnedCodesResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -908,6 +993,7 @@ public final class QueryGrpc {
               .addMethod(getSmartContractStateMethod())
               .addMethod(getCodeMethod())
               .addMethod(getCodesMethod())
+              .addMethod(getPinnedCodesMethod())
               .build();
         }
       }

@@ -188,7 +188,7 @@ public final class Acm {
   /**
    * Protobuf type {@code acm.Account}
    */
-  public  static final class Account extends
+  public static final class Account extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:acm.Account)
       AccountOrBuilder {
@@ -355,6 +355,7 @@ public final class Acm {
      * <code>bytes Address = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
      * @return The address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAddress() {
       return address_;
     }
@@ -365,6 +366,7 @@ public final class Acm {
      * <code>.crypto.PublicKey PublicKey = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the publicKey field is set.
      */
+    @java.lang.Override
     public boolean hasPublicKey() {
       return publicKey_ != null;
     }
@@ -372,12 +374,14 @@ public final class Acm {
      * <code>.crypto.PublicKey PublicKey = 2 [(.gogoproto.nullable) = false];</code>
      * @return The publicKey.
      */
+    @java.lang.Override
     public crypto.Crypto.PublicKey getPublicKey() {
       return publicKey_ == null ? crypto.Crypto.PublicKey.getDefaultInstance() : publicKey_;
     }
     /**
      * <code>.crypto.PublicKey PublicKey = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public crypto.Crypto.PublicKeyOrBuilder getPublicKeyOrBuilder() {
       return getPublicKey();
     }
@@ -392,6 +396,7 @@ public final class Acm {
      * <code>uint64 Sequence = 3;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -406,6 +411,7 @@ public final class Acm {
      * <code>uint64 Balance = 4;</code>
      * @return The balance.
      */
+    @java.lang.Override
     public long getBalance() {
       return balance_;
     }
@@ -421,6 +427,7 @@ public final class Acm {
      * <code>bytes EVMCode = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Bytecode"];</code>
      * @return The eVMCode.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getEVMCode() {
       return eVMCode_;
     }
@@ -431,6 +438,7 @@ public final class Acm {
      * <code>.permission.AccountPermissions Permissions = 6 [(.gogoproto.nullable) = false];</code>
      * @return Whether the permissions field is set.
      */
+    @java.lang.Override
     public boolean hasPermissions() {
       return permissions_ != null;
     }
@@ -438,12 +446,14 @@ public final class Acm {
      * <code>.permission.AccountPermissions Permissions = 6 [(.gogoproto.nullable) = false];</code>
      * @return The permissions.
      */
+    @java.lang.Override
     public permission.Permission.AccountPermissions getPermissions() {
       return permissions_ == null ? permission.Permission.AccountPermissions.getDefaultInstance() : permissions_;
     }
     /**
      * <code>.permission.AccountPermissions Permissions = 6 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public permission.Permission.AccountPermissionsOrBuilder getPermissionsOrBuilder() {
       return getPermissions();
     }
@@ -458,6 +468,7 @@ public final class Acm {
      * <code>bytes WASMCode = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Bytecode", (.gogoproto.jsontag) = ",omitempty"];</code>
      * @return The wASMCode.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getWASMCode() {
       return wASMCode_;
     }
@@ -474,6 +485,7 @@ public final class Acm {
      * <code>string NativeName = 11 [(.gogoproto.jsontag) = ",omitempty"];</code>
      * @return The nativeName.
      */
+    @java.lang.Override
     public java.lang.String getNativeName() {
       java.lang.Object ref = nativeName_;
       if (ref instanceof java.lang.String) {
@@ -496,6 +508,7 @@ public final class Acm {
      * <code>string NativeName = 11 [(.gogoproto.jsontag) = ",omitempty"];</code>
      * @return The bytes for nativeName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNativeNameBytes() {
       java.lang.Object ref = nativeName_;
@@ -520,6 +533,7 @@ public final class Acm {
      * <code>bytes CodeHash = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes", (.gogoproto.jsontag) = "-"];</code>
      * @return The codeHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCodeHash() {
       return codeHash_;
     }
@@ -533,6 +547,7 @@ public final class Acm {
      *
      * <code>repeated .acm.ContractMeta ContractMeta = 9;</code>
      */
+    @java.lang.Override
     public java.util.List<acm.Acm.ContractMeta> getContractMetaList() {
       return contractMeta_;
     }
@@ -543,6 +558,7 @@ public final class Acm {
      *
      * <code>repeated .acm.ContractMeta ContractMeta = 9;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends acm.Acm.ContractMetaOrBuilder> 
         getContractMetaOrBuilderList() {
       return contractMeta_;
@@ -554,6 +570,7 @@ public final class Acm {
      *
      * <code>repeated .acm.ContractMeta ContractMeta = 9;</code>
      */
+    @java.lang.Override
     public int getContractMetaCount() {
       return contractMeta_.size();
     }
@@ -564,6 +581,7 @@ public final class Acm {
      *
      * <code>repeated .acm.ContractMeta ContractMeta = 9;</code>
      */
+    @java.lang.Override
     public acm.Acm.ContractMeta getContractMeta(int index) {
       return contractMeta_.get(index);
     }
@@ -574,6 +592,7 @@ public final class Acm {
      *
      * <code>repeated .acm.ContractMeta ContractMeta = 9;</code>
      */
+    @java.lang.Override
     public acm.Acm.ContractMetaOrBuilder getContractMetaOrBuilder(
         int index) {
       return contractMeta_.get(index);
@@ -591,6 +610,7 @@ public final class Acm {
      * <code>bytes Forebear = 10 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
      * @return The forebear.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getForebear() {
       return forebear_;
     }
@@ -1140,6 +1160,7 @@ public final class Acm {
        * <code>bytes Address = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
        * @return The address.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAddress() {
         return address_;
       }
@@ -1296,6 +1317,7 @@ public final class Acm {
        * <code>uint64 Sequence = 3;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -1338,6 +1360,7 @@ public final class Acm {
        * <code>uint64 Balance = 4;</code>
        * @return The balance.
        */
+      @java.lang.Override
       public long getBalance() {
         return balance_;
       }
@@ -1381,6 +1404,7 @@ public final class Acm {
        * <code>bytes EVMCode = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Bytecode"];</code>
        * @return The eVMCode.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getEVMCode() {
         return eVMCode_;
       }
@@ -1547,6 +1571,7 @@ public final class Acm {
        * <code>bytes WASMCode = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Bytecode", (.gogoproto.jsontag) = ",omitempty"];</code>
        * @return The wASMCode.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getWASMCode() {
         return wASMCode_;
       }
@@ -1698,6 +1723,7 @@ public final class Acm {
        * <code>bytes CodeHash = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes", (.gogoproto.jsontag) = "-"];</code>
        * @return The codeHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCodeHash() {
         return codeHash_;
       }
@@ -2057,6 +2083,7 @@ public final class Acm {
        * <code>bytes Forebear = 10 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
        * @return The forebear.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getForebear() {
         return forebear_;
       }
@@ -2188,7 +2215,7 @@ public final class Acm {
   /**
    * Protobuf type {@code acm.ContractMeta}
    */
-  public  static final class ContractMeta extends
+  public static final class ContractMeta extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:acm.ContractMeta)
       ContractMetaOrBuilder {
@@ -2287,6 +2314,7 @@ public final class Acm {
      * <code>bytes CodeHash = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
      * @return The codeHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCodeHash() {
       return codeHash_;
     }
@@ -2297,6 +2325,7 @@ public final class Acm {
      * <code>bytes MetadataHash = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
      * @return The metadataHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getMetadataHash() {
       return metadataHash_;
     }
@@ -2311,6 +2340,7 @@ public final class Acm {
      * <code>string Metadata = 3;</code>
      * @return The metadata.
      */
+    @java.lang.Override
     public java.lang.String getMetadata() {
       java.lang.Object ref = metadata_;
       if (ref instanceof java.lang.String) {
@@ -2331,6 +2361,7 @@ public final class Acm {
      * <code>string Metadata = 3;</code>
      * @return The bytes for metadata.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMetadataBytes() {
       java.lang.Object ref = metadata_;
@@ -2686,6 +2717,7 @@ public final class Acm {
        * <code>bytes CodeHash = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
        * @return The codeHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCodeHash() {
         return codeHash_;
       }
@@ -2719,6 +2751,7 @@ public final class Acm {
        * <code>bytes MetadataHash = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
        * @return The metadataHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getMetadataHash() {
         return metadataHash_;
       }
@@ -2940,7 +2973,7 @@ public final class Acm {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           permission.Permission.getDescriptor(),
           crypto.Crypto.getDescriptor(),
         });
@@ -2958,19 +2991,19 @@ public final class Acm {
         new java.lang.String[] { "CodeHash", "MetadataHash", "Metadata", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoRegistration);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.marshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.messagenameAll);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.sizerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.stableMarshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.unmarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoRegistration);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.marshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.messagenameAll);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.sizerAll);
+    registry.add(com.google.protobuf.GoGoProtos.stableMarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.unmarshalerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     permission.Permission.getDescriptor();
     crypto.Crypto.getDescriptor();
   }

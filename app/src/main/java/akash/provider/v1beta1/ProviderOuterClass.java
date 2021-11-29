@@ -769,25 +769,25 @@ public final class ProviderOuterClass {
         getHostUriBytes();
 
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> 
         getAttributesList();
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index);
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     int getAttributesCount();
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList();
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index);
@@ -1008,14 +1008,14 @@ public final class ProviderOuterClass {
     public static final int ATTRIBUTES_FIELD_NUMBER = 3;
     private java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> attributes_;
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
@@ -1023,21 +1023,21 @@ public final class ProviderOuterClass {
       return attributes_;
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
@@ -1646,7 +1646,7 @@ public final class ProviderOuterClass {
           akash.base.v1beta1.AttributeOuterClass.Attribute, akash.base.v1beta1.AttributeOuterClass.Attribute.Builder, akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> attributesBuilder_;
 
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
         if (attributesBuilder_ == null) {
@@ -1656,7 +1656,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public int getAttributesCount() {
         if (attributesBuilder_ == null) {
@@ -1666,7 +1666,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
         if (attributesBuilder_ == null) {
@@ -1676,7 +1676,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder setAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute value) {
@@ -1693,7 +1693,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder setAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute.Builder builderForValue) {
@@ -1707,7 +1707,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(akash.base.v1beta1.AttributeOuterClass.Attribute value) {
         if (attributesBuilder_ == null) {
@@ -1723,7 +1723,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute value) {
@@ -1740,7 +1740,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(
           akash.base.v1beta1.AttributeOuterClass.Attribute.Builder builderForValue) {
@@ -1754,7 +1754,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute.Builder builderForValue) {
@@ -1768,7 +1768,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAllAttributes(
           java.lang.Iterable<? extends akash.base.v1beta1.AttributeOuterClass.Attribute> values) {
@@ -1783,7 +1783,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder clearAttributes() {
         if (attributesBuilder_ == null) {
@@ -1796,7 +1796,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder removeAttributes(int index) {
         if (attributesBuilder_ == null) {
@@ -1809,14 +1809,14 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute.Builder getAttributesBuilder(
           int index) {
         return getAttributesFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
           int index) {
@@ -1826,7 +1826,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
            getAttributesOrBuilderList() {
@@ -1837,14 +1837,14 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute.Builder addAttributesBuilder() {
         return getAttributesFieldBuilder().addBuilder(
             akash.base.v1beta1.AttributeOuterClass.Attribute.getDefaultInstance());
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute.Builder addAttributesBuilder(
           int index) {
@@ -1852,7 +1852,7 @@ public final class ProviderOuterClass {
             index, akash.base.v1beta1.AttributeOuterClass.Attribute.getDefaultInstance());
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute.Builder> 
            getAttributesBuilderList() {
@@ -2499,25 +2499,25 @@ public final class ProviderOuterClass {
         getHostUriBytes();
 
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> 
         getAttributesList();
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index);
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     int getAttributesCount();
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList();
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index);
@@ -2738,14 +2738,14 @@ public final class ProviderOuterClass {
     public static final int ATTRIBUTES_FIELD_NUMBER = 3;
     private java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> attributes_;
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
@@ -2753,21 +2753,21 @@ public final class ProviderOuterClass {
       return attributes_;
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
@@ -3376,7 +3376,7 @@ public final class ProviderOuterClass {
           akash.base.v1beta1.AttributeOuterClass.Attribute, akash.base.v1beta1.AttributeOuterClass.Attribute.Builder, akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> attributesBuilder_;
 
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
         if (attributesBuilder_ == null) {
@@ -3386,7 +3386,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public int getAttributesCount() {
         if (attributesBuilder_ == null) {
@@ -3396,7 +3396,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
         if (attributesBuilder_ == null) {
@@ -3406,7 +3406,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder setAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute value) {
@@ -3423,7 +3423,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder setAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute.Builder builderForValue) {
@@ -3437,7 +3437,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(akash.base.v1beta1.AttributeOuterClass.Attribute value) {
         if (attributesBuilder_ == null) {
@@ -3453,7 +3453,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute value) {
@@ -3470,7 +3470,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(
           akash.base.v1beta1.AttributeOuterClass.Attribute.Builder builderForValue) {
@@ -3484,7 +3484,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute.Builder builderForValue) {
@@ -3498,7 +3498,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAllAttributes(
           java.lang.Iterable<? extends akash.base.v1beta1.AttributeOuterClass.Attribute> values) {
@@ -3513,7 +3513,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder clearAttributes() {
         if (attributesBuilder_ == null) {
@@ -3526,7 +3526,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder removeAttributes(int index) {
         if (attributesBuilder_ == null) {
@@ -3539,14 +3539,14 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute.Builder getAttributesBuilder(
           int index) {
         return getAttributesFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
           int index) {
@@ -3556,7 +3556,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
            getAttributesOrBuilderList() {
@@ -3567,14 +3567,14 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute.Builder addAttributesBuilder() {
         return getAttributesFieldBuilder().addBuilder(
             akash.base.v1beta1.AttributeOuterClass.Attribute.getDefaultInstance());
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute.Builder addAttributesBuilder(
           int index) {
@@ -3582,7 +3582,7 @@ public final class ProviderOuterClass {
             index, akash.base.v1beta1.AttributeOuterClass.Attribute.getDefaultInstance());
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute.Builder> 
            getAttributesBuilderList() {
@@ -5231,25 +5231,25 @@ public final class ProviderOuterClass {
         getHostUriBytes();
 
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> 
         getAttributesList();
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index);
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     int getAttributesCount();
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList();
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index);
@@ -5470,14 +5470,14 @@ public final class ProviderOuterClass {
     public static final int ATTRIBUTES_FIELD_NUMBER = 3;
     private java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> attributes_;
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
@@ -5485,21 +5485,21 @@ public final class ProviderOuterClass {
       return attributes_;
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
-     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+     * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
      */
     @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
@@ -6108,7 +6108,7 @@ public final class ProviderOuterClass {
           akash.base.v1beta1.AttributeOuterClass.Attribute, akash.base.v1beta1.AttributeOuterClass.Attribute.Builder, akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> attributesBuilder_;
 
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
         if (attributesBuilder_ == null) {
@@ -6118,7 +6118,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public int getAttributesCount() {
         if (attributesBuilder_ == null) {
@@ -6128,7 +6128,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
         if (attributesBuilder_ == null) {
@@ -6138,7 +6138,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder setAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute value) {
@@ -6155,7 +6155,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder setAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute.Builder builderForValue) {
@@ -6169,7 +6169,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(akash.base.v1beta1.AttributeOuterClass.Attribute value) {
         if (attributesBuilder_ == null) {
@@ -6185,7 +6185,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute value) {
@@ -6202,7 +6202,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(
           akash.base.v1beta1.AttributeOuterClass.Attribute.Builder builderForValue) {
@@ -6216,7 +6216,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAttributes(
           int index, akash.base.v1beta1.AttributeOuterClass.Attribute.Builder builderForValue) {
@@ -6230,7 +6230,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder addAllAttributes(
           java.lang.Iterable<? extends akash.base.v1beta1.AttributeOuterClass.Attribute> values) {
@@ -6245,7 +6245,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder clearAttributes() {
         if (attributesBuilder_ == null) {
@@ -6258,7 +6258,7 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public Builder removeAttributes(int index) {
         if (attributesBuilder_ == null) {
@@ -6271,14 +6271,14 @@ public final class ProviderOuterClass {
         return this;
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute.Builder getAttributesBuilder(
           int index) {
         return getAttributesFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
           int index) {
@@ -6288,7 +6288,7 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
            getAttributesOrBuilderList() {
@@ -6299,14 +6299,14 @@ public final class ProviderOuterClass {
         }
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute.Builder addAttributesBuilder() {
         return getAttributesFieldBuilder().addBuilder(
             akash.base.v1beta1.AttributeOuterClass.Attribute.getDefaultInstance());
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public akash.base.v1beta1.AttributeOuterClass.Attribute.Builder addAttributesBuilder(
           int index) {
@@ -6314,7 +6314,7 @@ public final class ProviderOuterClass {
             index, akash.base.v1beta1.AttributeOuterClass.Attribute.getDefaultInstance());
       }
       /**
-       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
+       * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types/v1beta1.Attributes"];</code>
        */
       public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute.Builder> 
            getAttributesBuilderList() {
@@ -6560,52 +6560,53 @@ public final class ProviderOuterClass {
       "proto\032\"akash/base/v1beta1/attribute.prot" +
       "o\"q\n\014ProviderInfo\0221\n\005email\030\001 \001(\tB\"\342\336\037\005EM" +
       "ail\352\336\037\005email\362\336\037\014yaml:\"email\"\022.\n\007website\030" +
-      "\002 \001(\tB\035\352\336\037\007website\362\336\037\016yaml:\"website\"\"\333\002\n" +
+      "\002 \001(\tB\035\352\336\037\007website\362\336\037\016yaml:\"website\"\"\343\002\n" +
       "\021MsgCreateProvider\022(\n\005owner\030\001 \001(\tB\031\352\336\037\005o" +
       "wner\362\336\037\014yaml:\"owner\"\022<\n\010host_uri\030\002 \001(\tB*" +
       "\342\336\037\007HostURI\352\336\037\010host_uri\362\336\037\017yaml:\"host_ur" +
-      "i\"\022\206\001\n\nattributes\030\003 \003(\0132\035.akash.base.v1b" +
-      "eta1.AttributeBS\252\337\037(github.com/ovrclk/ak" +
-      "ash/types.Attributes\310\336\037\000\352\336\037\nattributes\362\336" +
-      "\037\021yaml:\"attributes\"\022O\n\004info\030\004 \001(\0132$.akas" +
-      "h.provider.v1beta1.ProviderInfoB\033\310\336\037\000\352\336\037" +
-      "\004info\362\336\037\013yaml:\"info\":\004\350\240\037\000\"\033\n\031MsgCreateP" +
-      "roviderResponse\"\333\002\n\021MsgUpdateProvider\022(\n" +
-      "\005owner\030\001 \001(\tB\031\352\336\037\005owner\362\336\037\014yaml:\"owner\"\022" +
-      "<\n\010host_uri\030\002 \001(\tB*\342\336\037\007HostURI\352\336\037\010host_u" +
-      "ri\362\336\037\017yaml:\"host_uri\"\022\206\001\n\nattributes\030\003 \003" +
-      "(\0132\035.akash.base.v1beta1.AttributeBS\252\337\037(g" +
-      "ithub.com/ovrclk/akash/types.Attributes\310" +
-      "\336\037\000\352\336\037\nattributes\362\336\037\021yaml:\"attributes\"\022O" +
-      "\n\004info\030\004 \001(\0132$.akash.provider.v1beta1.Pr" +
-      "oviderInfoB\033\310\336\037\000\352\336\037\004info\362\336\037\013yaml:\"info\":" +
-      "\004\350\240\037\000\"\033\n\031MsgUpdateProviderResponse\"C\n\021Ms" +
-      "gDeleteProvider\022(\n\005owner\030\001 \001(\tB\031\352\336\037\005owne" +
-      "r\362\336\037\014yaml:\"owner\":\004\350\240\037\000\"\033\n\031MsgDeleteProv" +
-      "iderResponse\"\326\002\n\010Provider\022(\n\005owner\030\001 \001(\t" +
-      "B\031\352\336\037\005owner\362\336\037\014yaml:\"owner\"\022<\n\010host_uri\030" +
-      "\002 \001(\tB*\342\336\037\007HostURI\352\336\037\010host_uri\362\336\037\017yaml:\"" +
-      "host_uri\"\022\206\001\n\nattributes\030\003 \003(\0132\035.akash.b" +
-      "ase.v1beta1.AttributeBS\252\337\037(github.com/ov" +
-      "rclk/akash/types.Attributes\310\336\037\000\352\336\037\nattri" +
-      "butes\362\336\037\021yaml:\"attributes\"\022O\n\004info\030\004 \001(\013" +
-      "2$.akash.provider.v1beta1.ProviderInfoB\033" +
-      "\310\336\037\000\352\336\037\004info\362\336\037\013yaml:\"info\":\010\350\240\037\000\230\240\037\0002\325\002" +
-      "\n\003Msg\022n\n\016CreateProvider\022).akash.provider" +
-      ".v1beta1.MsgCreateProvider\0321.akash.provi" +
-      "der.v1beta1.MsgCreateProviderResponse\022n\n" +
-      "\016UpdateProvider\022).akash.provider.v1beta1" +
-      ".MsgUpdateProvider\0321.akash.provider.v1be" +
-      "ta1.MsgUpdateProviderResponse\022n\n\016DeleteP" +
-      "rovider\022).akash.provider.v1beta1.MsgDele" +
-      "teProvider\0321.akash.provider.v1beta1.MsgD" +
-      "eleteProviderResponseB*Z(github.com/ovrc" +
-      "lk/akash/x/provider/typesb\006proto3"
+      "i\"\022\216\001\n\nattributes\030\003 \003(\0132\035.akash.base.v1b" +
+      "eta1.AttributeB[\252\337\0370github.com/ovrclk/ak" +
+      "ash/types/v1beta1.Attributes\310\336\037\000\352\336\037\nattr" +
+      "ibutes\362\336\037\021yaml:\"attributes\"\022O\n\004info\030\004 \001(" +
+      "\0132$.akash.provider.v1beta1.ProviderInfoB" +
+      "\033\310\336\037\000\352\336\037\004info\362\336\037\013yaml:\"info\":\004\350\240\037\000\"\033\n\031Ms" +
+      "gCreateProviderResponse\"\343\002\n\021MsgUpdatePro" +
+      "vider\022(\n\005owner\030\001 \001(\tB\031\352\336\037\005owner\362\336\037\014yaml:" +
+      "\"owner\"\022<\n\010host_uri\030\002 \001(\tB*\342\336\037\007HostURI\352\336" +
+      "\037\010host_uri\362\336\037\017yaml:\"host_uri\"\022\216\001\n\nattrib" +
+      "utes\030\003 \003(\0132\035.akash.base.v1beta1.Attribut" +
+      "eB[\252\337\0370github.com/ovrclk/akash/types/v1b" +
+      "eta1.Attributes\310\336\037\000\352\336\037\nattributes\362\336\037\021yam" +
+      "l:\"attributes\"\022O\n\004info\030\004 \001(\0132$.akash.pro" +
+      "vider.v1beta1.ProviderInfoB\033\310\336\037\000\352\336\037\004info" +
+      "\362\336\037\013yaml:\"info\":\004\350\240\037\000\"\033\n\031MsgUpdateProvid" +
+      "erResponse\"C\n\021MsgDeleteProvider\022(\n\005owner" +
+      "\030\001 \001(\tB\031\352\336\037\005owner\362\336\037\014yaml:\"owner\":\004\350\240\037\000\"" +
+      "\033\n\031MsgDeleteProviderResponse\"\336\002\n\010Provide" +
+      "r\022(\n\005owner\030\001 \001(\tB\031\352\336\037\005owner\362\336\037\014yaml:\"own" +
+      "er\"\022<\n\010host_uri\030\002 \001(\tB*\342\336\037\007HostURI\352\336\037\010ho" +
+      "st_uri\362\336\037\017yaml:\"host_uri\"\022\216\001\n\nattributes" +
+      "\030\003 \003(\0132\035.akash.base.v1beta1.AttributeB[\252" +
+      "\337\0370github.com/ovrclk/akash/types/v1beta1" +
+      ".Attributes\310\336\037\000\352\336\037\nattributes\362\336\037\021yaml:\"a" +
+      "ttributes\"\022O\n\004info\030\004 \001(\0132$.akash.provide" +
+      "r.v1beta1.ProviderInfoB\033\310\336\037\000\352\336\037\004info\362\336\037\013" +
+      "yaml:\"info\":\010\350\240\037\000\230\240\037\0002\325\002\n\003Msg\022n\n\016CreateP" +
+      "rovider\022).akash.provider.v1beta1.MsgCrea" +
+      "teProvider\0321.akash.provider.v1beta1.MsgC" +
+      "reateProviderResponse\022n\n\016UpdateProvider\022" +
+      ").akash.provider.v1beta1.MsgUpdateProvid" +
+      "er\0321.akash.provider.v1beta1.MsgUpdatePro" +
+      "viderResponse\022n\n\016DeleteProvider\022).akash." +
+      "provider.v1beta1.MsgDeleteProvider\0321.aka" +
+      "sh.provider.v1beta1.MsgDeleteProviderRes" +
+      "ponseB2Z0github.com/ovrclk/akash/x/provi" +
+      "der/types/v1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           akash.base.v1beta1.AttributeOuterClass.getDescriptor(),
         });
     internal_static_akash_provider_v1beta1_ProviderInfo_descriptor =
@@ -6658,16 +6659,16 @@ public final class ProviderOuterClass {
         new java.lang.String[] { "Owner", "HostUri", "Attributes", "Info", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.customname);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     akash.base.v1beta1.AttributeOuterClass.getDescriptor();
   }
 

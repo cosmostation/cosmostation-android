@@ -4496,13 +4496,13 @@ public final class Resource {
       "ge,omitempty\362\336\037\030yaml:\"storage,omitempty\"" +
       "\022V\n\tendpoints\030\004 \003(\0132\034.akash.base.v1beta1" +
       ".EndpointB%\310\336\037\000\352\336\037\tendpoints\362\336\037\020yaml:\"en" +
-      "dpoints\":\004\350\240\037\001B\037Z\035github.com/ovrclk/akas" +
-      "h/typesb\006proto3"
+      "dpoints\":\004\350\240\037\001B\'Z%github.com/ovrclk/akas" +
+      "h/types/v1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           akash.base.v1beta1.AttributeOuterClass.getDescriptor(),
           akash.base.v1beta1.Resourcevalue.getDescriptor(),
           akash.base.v1beta1.EndpointOuterClass.getDescriptor(),
@@ -4533,14 +4533,14 @@ public final class Resource {
         new java.lang.String[] { "Cpu", "Memory", "Storage", "Endpoints", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customname);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     akash.base.v1beta1.AttributeOuterClass.getDescriptor();
     akash.base.v1beta1.Resourcevalue.getDescriptor();
     akash.base.v1beta1.EndpointOuterClass.getDescriptor();

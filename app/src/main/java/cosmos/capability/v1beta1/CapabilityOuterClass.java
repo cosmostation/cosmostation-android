@@ -19,7 +19,7 @@ public final class CapabilityOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint64 index = 1 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
+     * <code>uint64 index = 1;</code>
      * @return The index.
      */
     long getIndex();
@@ -114,7 +114,7 @@ public final class CapabilityOuterClass {
     public static final int INDEX_FIELD_NUMBER = 1;
     private long index_;
     /**
-     * <code>uint64 index = 1 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
+     * <code>uint64 index = 1;</code>
      * @return The index.
      */
     @java.lang.Override
@@ -432,7 +432,7 @@ public final class CapabilityOuterClass {
 
       private long index_ ;
       /**
-       * <code>uint64 index = 1 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
+       * <code>uint64 index = 1;</code>
        * @return The index.
        */
       @java.lang.Override
@@ -440,7 +440,7 @@ public final class CapabilityOuterClass {
         return index_;
       }
       /**
-       * <code>uint64 index = 1 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
+       * <code>uint64 index = 1;</code>
        * @param value The index to set.
        * @return This builder for chaining.
        */
@@ -451,7 +451,7 @@ public final class CapabilityOuterClass {
         return this;
       }
       /**
-       * <code>uint64 index = 1 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
+       * <code>uint64 index = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearIndex() {
@@ -518,24 +518,24 @@ public final class CapabilityOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string module = 1 [(.gogoproto.moretags) = "yaml:&#92;"module&#92;""];</code>
+     * <code>string module = 1;</code>
      * @return The module.
      */
     java.lang.String getModule();
     /**
-     * <code>string module = 1 [(.gogoproto.moretags) = "yaml:&#92;"module&#92;""];</code>
+     * <code>string module = 1;</code>
      * @return The bytes for module.
      */
     com.google.protobuf.ByteString
         getModuleBytes();
 
     /**
-     * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
+     * <code>string name = 2;</code>
      * @return The name.
      */
     java.lang.String getName();
     /**
-     * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
+     * <code>string name = 2;</code>
      * @return The bytes for name.
      */
     com.google.protobuf.ByteString
@@ -640,7 +640,7 @@ public final class CapabilityOuterClass {
     public static final int MODULE_FIELD_NUMBER = 1;
     private volatile java.lang.Object module_;
     /**
-     * <code>string module = 1 [(.gogoproto.moretags) = "yaml:&#92;"module&#92;""];</code>
+     * <code>string module = 1;</code>
      * @return The module.
      */
     @java.lang.Override
@@ -657,7 +657,7 @@ public final class CapabilityOuterClass {
       }
     }
     /**
-     * <code>string module = 1 [(.gogoproto.moretags) = "yaml:&#92;"module&#92;""];</code>
+     * <code>string module = 1;</code>
      * @return The bytes for module.
      */
     @java.lang.Override
@@ -678,7 +678,7 @@ public final class CapabilityOuterClass {
     public static final int NAME_FIELD_NUMBER = 2;
     private volatile java.lang.Object name_;
     /**
-     * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
+     * <code>string name = 2;</code>
      * @return The name.
      */
     @java.lang.Override
@@ -695,7 +695,7 @@ public final class CapabilityOuterClass {
       }
     }
     /**
-     * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
+     * <code>string name = 2;</code>
      * @return The bytes for name.
      */
     @java.lang.Override
@@ -1039,7 +1039,7 @@ public final class CapabilityOuterClass {
 
       private java.lang.Object module_ = "";
       /**
-       * <code>string module = 1 [(.gogoproto.moretags) = "yaml:&#92;"module&#92;""];</code>
+       * <code>string module = 1;</code>
        * @return The module.
        */
       public java.lang.String getModule() {
@@ -1055,7 +1055,7 @@ public final class CapabilityOuterClass {
         }
       }
       /**
-       * <code>string module = 1 [(.gogoproto.moretags) = "yaml:&#92;"module&#92;""];</code>
+       * <code>string module = 1;</code>
        * @return The bytes for module.
        */
       public com.google.protobuf.ByteString
@@ -1072,7 +1072,7 @@ public final class CapabilityOuterClass {
         }
       }
       /**
-       * <code>string module = 1 [(.gogoproto.moretags) = "yaml:&#92;"module&#92;""];</code>
+       * <code>string module = 1;</code>
        * @param value The module to set.
        * @return This builder for chaining.
        */
@@ -1087,7 +1087,7 @@ public final class CapabilityOuterClass {
         return this;
       }
       /**
-       * <code>string module = 1 [(.gogoproto.moretags) = "yaml:&#92;"module&#92;""];</code>
+       * <code>string module = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearModule() {
@@ -1097,7 +1097,7 @@ public final class CapabilityOuterClass {
         return this;
       }
       /**
-       * <code>string module = 1 [(.gogoproto.moretags) = "yaml:&#92;"module&#92;""];</code>
+       * <code>string module = 1;</code>
        * @param value The bytes for module to set.
        * @return This builder for chaining.
        */
@@ -1115,7 +1115,7 @@ public final class CapabilityOuterClass {
 
       private java.lang.Object name_ = "";
       /**
-       * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
+       * <code>string name = 2;</code>
        * @return The name.
        */
       public java.lang.String getName() {
@@ -1131,7 +1131,7 @@ public final class CapabilityOuterClass {
         }
       }
       /**
-       * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
+       * <code>string name = 2;</code>
        * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
@@ -1148,7 +1148,7 @@ public final class CapabilityOuterClass {
         }
       }
       /**
-       * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
+       * <code>string name = 2;</code>
        * @param value The name to set.
        * @return This builder for chaining.
        */
@@ -1163,7 +1163,7 @@ public final class CapabilityOuterClass {
         return this;
       }
       /**
-       * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
+       * <code>string name = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearName() {
@@ -1173,7 +1173,7 @@ public final class CapabilityOuterClass {
         return this;
       }
       /**
-       * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
+       * <code>string name = 2;</code>
        * @param value The bytes for name to set.
        * @return This builder for chaining.
        */
@@ -2070,19 +2070,17 @@ public final class CapabilityOuterClass {
     java.lang.String[] descriptorData = {
       "\n*cosmos/capability/v1beta1/capability.p" +
       "roto\022\031cosmos.capability.v1beta1\032\024gogopro" +
-      "to/gogo.proto\"3\n\nCapability\022\037\n\005index\030\001 \001" +
-      "(\004B\020\362\336\037\014yaml:\"index\":\004\230\240\037\000\"S\n\005Owner\022!\n\006m" +
-      "odule\030\001 \001(\tB\021\362\336\037\ryaml:\"module\"\022\035\n\004name\030\002" +
-      " \001(\tB\017\362\336\037\013yaml:\"name\":\010\230\240\037\000\210\240\037\000\"J\n\020Capab" +
-      "ilityOwners\0226\n\006owners\030\001 \003(\0132 .cosmos.cap" +
-      "ability.v1beta1.OwnerB\004\310\336\037\000B1Z/github.co" +
-      "m/cosmos/cosmos-sdk/x/capability/typesb\006" +
-      "proto3"
+      "to/gogo.proto\"!\n\nCapability\022\r\n\005index\030\001 \001" +
+      "(\004:\004\230\240\037\000\"/\n\005Owner\022\016\n\006module\030\001 \001(\t\022\014\n\004nam" +
+      "e\030\002 \001(\t:\010\230\240\037\000\210\240\037\000\"J\n\020CapabilityOwners\0226\n" +
+      "\006owners\030\001 \003(\0132 .cosmos.capability.v1beta" +
+      "1.OwnerB\004\310\336\037\000B1Z/github.com/cosmos/cosmo" +
+      "s-sdk/x/capability/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_cosmos_capability_v1beta1_Capability_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2104,13 +2102,12 @@ public final class CapabilityOuterClass {
         new java.lang.String[] { "Owners", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

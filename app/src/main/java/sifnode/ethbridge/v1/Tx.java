@@ -91,7 +91,7 @@ public final class Tx {
    *
    * Protobuf type {@code sifnode.ethbridge.v1.MsgLock}
    */
-  public  static final class MsgLock extends
+  public static final class MsgLock extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgLock)
       MsgLockOrBuilder {
@@ -211,6 +211,7 @@ public final class Tx {
      * <code>string cosmos_sender = 1;</code>
      * @return The cosmosSender.
      */
+    @java.lang.Override
     public java.lang.String getCosmosSender() {
       java.lang.Object ref = cosmosSender_;
       if (ref instanceof java.lang.String) {
@@ -227,6 +228,7 @@ public final class Tx {
      * <code>string cosmos_sender = 1;</code>
      * @return The bytes for cosmosSender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCosmosSenderBytes() {
       java.lang.Object ref = cosmosSender_;
@@ -247,6 +249,7 @@ public final class Tx {
      * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public java.lang.String getAmount() {
       java.lang.Object ref = amount_;
       if (ref instanceof java.lang.String) {
@@ -263,6 +266,7 @@ public final class Tx {
      * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      * @return The bytes for amount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAmountBytes() {
       java.lang.Object ref = amount_;
@@ -283,6 +287,7 @@ public final class Tx {
      * <code>string symbol = 3 [(.gogoproto.moretags) = "yaml:&#92;"symbol&#92;""];</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -299,6 +304,7 @@ public final class Tx {
      * <code>string symbol = 3 [(.gogoproto.moretags) = "yaml:&#92;"symbol&#92;""];</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -319,6 +325,7 @@ public final class Tx {
      * <code>int64 ethereum_chain_id = 4 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_chain_id&#92;""];</code>
      * @return The ethereumChainId.
      */
+    @java.lang.Override
     public long getEthereumChainId() {
       return ethereumChainId_;
     }
@@ -329,6 +336,7 @@ public final class Tx {
      * <code>string ethereum_receiver = 5 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_receiver&#92;""];</code>
      * @return The ethereumReceiver.
      */
+    @java.lang.Override
     public java.lang.String getEthereumReceiver() {
       java.lang.Object ref = ethereumReceiver_;
       if (ref instanceof java.lang.String) {
@@ -345,6 +353,7 @@ public final class Tx {
      * <code>string ethereum_receiver = 5 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_receiver&#92;""];</code>
      * @return The bytes for ethereumReceiver.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getEthereumReceiverBytes() {
       java.lang.Object ref = ethereumReceiver_;
@@ -365,6 +374,7 @@ public final class Tx {
      * <code>string ceth_amount = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"ceth_amount&#92;""];</code>
      * @return The cethAmount.
      */
+    @java.lang.Override
     public java.lang.String getCethAmount() {
       java.lang.Object ref = cethAmount_;
       if (ref instanceof java.lang.String) {
@@ -381,6 +391,7 @@ public final class Tx {
      * <code>string ceth_amount = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"ceth_amount&#92;""];</code>
      * @return The bytes for cethAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCethAmountBytes() {
       java.lang.Object ref = cethAmount_;
@@ -1020,6 +1031,7 @@ public final class Tx {
        * <code>int64 ethereum_chain_id = 4 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_chain_id&#92;""];</code>
        * @return The ethereumChainId.
        */
+      @java.lang.Override
       public long getEthereumChainId() {
         return ethereumChainId_;
       }
@@ -1256,7 +1268,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.ethbridge.v1.MsgLockResponse}
    */
-  public  static final class MsgLockResponse extends
+  public static final class MsgLockResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgLockResponse)
       MsgLockResponseOrBuilder {
@@ -1744,7 +1756,7 @@ public final class Tx {
    *
    * Protobuf type {@code sifnode.ethbridge.v1.MsgBurn}
    */
-  public  static final class MsgBurn extends
+  public static final class MsgBurn extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgBurn)
       MsgBurnOrBuilder {
@@ -1864,6 +1876,7 @@ public final class Tx {
      * <code>string cosmos_sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"cosmos_sender&#92;""];</code>
      * @return The cosmosSender.
      */
+    @java.lang.Override
     public java.lang.String getCosmosSender() {
       java.lang.Object ref = cosmosSender_;
       if (ref instanceof java.lang.String) {
@@ -1880,6 +1893,7 @@ public final class Tx {
      * <code>string cosmos_sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"cosmos_sender&#92;""];</code>
      * @return The bytes for cosmosSender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCosmosSenderBytes() {
       java.lang.Object ref = cosmosSender_;
@@ -1900,6 +1914,7 @@ public final class Tx {
      * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public java.lang.String getAmount() {
       java.lang.Object ref = amount_;
       if (ref instanceof java.lang.String) {
@@ -1916,6 +1931,7 @@ public final class Tx {
      * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      * @return The bytes for amount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAmountBytes() {
       java.lang.Object ref = amount_;
@@ -1936,6 +1952,7 @@ public final class Tx {
      * <code>string symbol = 3 [(.gogoproto.moretags) = "yaml:&#92;"symbol&#92;""];</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -1952,6 +1969,7 @@ public final class Tx {
      * <code>string symbol = 3 [(.gogoproto.moretags) = "yaml:&#92;"symbol&#92;""];</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -1972,6 +1990,7 @@ public final class Tx {
      * <code>int64 ethereum_chain_id = 4 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_chain_id&#92;""];</code>
      * @return The ethereumChainId.
      */
+    @java.lang.Override
     public long getEthereumChainId() {
       return ethereumChainId_;
     }
@@ -1982,6 +2001,7 @@ public final class Tx {
      * <code>string ethereum_receiver = 5 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_receiver&#92;""];</code>
      * @return The ethereumReceiver.
      */
+    @java.lang.Override
     public java.lang.String getEthereumReceiver() {
       java.lang.Object ref = ethereumReceiver_;
       if (ref instanceof java.lang.String) {
@@ -1998,6 +2018,7 @@ public final class Tx {
      * <code>string ethereum_receiver = 5 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_receiver&#92;""];</code>
      * @return The bytes for ethereumReceiver.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getEthereumReceiverBytes() {
       java.lang.Object ref = ethereumReceiver_;
@@ -2018,6 +2039,7 @@ public final class Tx {
      * <code>string ceth_amount = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"ceth_amount&#92;""];</code>
      * @return The cethAmount.
      */
+    @java.lang.Override
     public java.lang.String getCethAmount() {
       java.lang.Object ref = cethAmount_;
       if (ref instanceof java.lang.String) {
@@ -2034,6 +2056,7 @@ public final class Tx {
      * <code>string ceth_amount = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"ceth_amount&#92;""];</code>
      * @return The bytes for cethAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCethAmountBytes() {
       java.lang.Object ref = cethAmount_;
@@ -2673,6 +2696,7 @@ public final class Tx {
        * <code>int64 ethereum_chain_id = 4 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_chain_id&#92;""];</code>
        * @return The ethereumChainId.
        */
+      @java.lang.Override
       public long getEthereumChainId() {
         return ethereumChainId_;
       }
@@ -2909,7 +2933,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.ethbridge.v1.MsgBurnResponse}
    */
-  public  static final class MsgBurnResponse extends
+  public static final class MsgBurnResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgBurnResponse)
       MsgBurnResponseOrBuilder {
@@ -3342,7 +3366,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.ethbridge.v1.MsgCreateEthBridgeClaim}
    */
-  public  static final class MsgCreateEthBridgeClaim extends
+  public static final class MsgCreateEthBridgeClaim extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgCreateEthBridgeClaim)
       MsgCreateEthBridgeClaimOrBuilder {
@@ -3435,6 +3459,7 @@ public final class Tx {
      * <code>.sifnode.ethbridge.v1.EthBridgeClaim eth_bridge_claim = 1 [(.gogoproto.moretags) = "yaml:&#92;"eth_bridge_claim&#92;""];</code>
      * @return Whether the ethBridgeClaim field is set.
      */
+    @java.lang.Override
     public boolean hasEthBridgeClaim() {
       return ethBridgeClaim_ != null;
     }
@@ -3442,12 +3467,14 @@ public final class Tx {
      * <code>.sifnode.ethbridge.v1.EthBridgeClaim eth_bridge_claim = 1 [(.gogoproto.moretags) = "yaml:&#92;"eth_bridge_claim&#92;""];</code>
      * @return The ethBridgeClaim.
      */
+    @java.lang.Override
     public sifnode.ethbridge.v1.Types.EthBridgeClaim getEthBridgeClaim() {
       return ethBridgeClaim_ == null ? sifnode.ethbridge.v1.Types.EthBridgeClaim.getDefaultInstance() : ethBridgeClaim_;
     }
     /**
      * <code>.sifnode.ethbridge.v1.EthBridgeClaim eth_bridge_claim = 1 [(.gogoproto.moretags) = "yaml:&#92;"eth_bridge_claim&#92;""];</code>
      */
+    @java.lang.Override
     public sifnode.ethbridge.v1.Types.EthBridgeClaimOrBuilder getEthBridgeClaimOrBuilder() {
       return getEthBridgeClaim();
     }
@@ -3945,7 +3972,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.ethbridge.v1.MsgCreateEthBridgeClaimResponse}
    */
-  public  static final class MsgCreateEthBridgeClaimResponse extends
+  public static final class MsgCreateEthBridgeClaimResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgCreateEthBridgeClaimResponse)
       MsgCreateEthBridgeClaimResponseOrBuilder {
@@ -4403,7 +4430,7 @@ public final class Tx {
    *
    * Protobuf type {@code sifnode.ethbridge.v1.MsgUpdateWhiteListValidator}
    */
-  public  static final class MsgUpdateWhiteListValidator extends
+  public static final class MsgUpdateWhiteListValidator extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgUpdateWhiteListValidator)
       MsgUpdateWhiteListValidatorOrBuilder {
@@ -4504,6 +4531,7 @@ public final class Tx {
      * <code>string cosmos_sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"cosmos_sender&#92;""];</code>
      * @return The cosmosSender.
      */
+    @java.lang.Override
     public java.lang.String getCosmosSender() {
       java.lang.Object ref = cosmosSender_;
       if (ref instanceof java.lang.String) {
@@ -4520,6 +4548,7 @@ public final class Tx {
      * <code>string cosmos_sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"cosmos_sender&#92;""];</code>
      * @return The bytes for cosmosSender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCosmosSenderBytes() {
       java.lang.Object ref = cosmosSender_;
@@ -4540,6 +4569,7 @@ public final class Tx {
      * <code>string validator = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator&#92;""];</code>
      * @return The validator.
      */
+    @java.lang.Override
     public java.lang.String getValidator() {
       java.lang.Object ref = validator_;
       if (ref instanceof java.lang.String) {
@@ -4556,6 +4586,7 @@ public final class Tx {
      * <code>string validator = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator&#92;""];</code>
      * @return The bytes for validator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorBytes() {
       java.lang.Object ref = validator_;
@@ -4576,6 +4607,7 @@ public final class Tx {
      * <code>string operation_type = 3 [(.gogoproto.moretags) = "yaml:&#92;"operation_type&#92;""];</code>
      * @return The operationType.
      */
+    @java.lang.Override
     public java.lang.String getOperationType() {
       java.lang.Object ref = operationType_;
       if (ref instanceof java.lang.String) {
@@ -4592,6 +4624,7 @@ public final class Tx {
      * <code>string operation_type = 3 [(.gogoproto.moretags) = "yaml:&#92;"operation_type&#92;""];</code>
      * @return The bytes for operationType.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOperationTypeBytes() {
       java.lang.Object ref = operationType_;
@@ -5233,7 +5266,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.ethbridge.v1.MsgUpdateWhiteListValidatorResponse}
    */
-  public  static final class MsgUpdateWhiteListValidatorResponse extends
+  public static final class MsgUpdateWhiteListValidatorResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgUpdateWhiteListValidatorResponse)
       MsgUpdateWhiteListValidatorResponseOrBuilder {
@@ -5675,7 +5708,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.ethbridge.v1.MsgUpdateCethReceiverAccount}
    */
-  public  static final class MsgUpdateCethReceiverAccount extends
+  public static final class MsgUpdateCethReceiverAccount extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgUpdateCethReceiverAccount)
       MsgUpdateCethReceiverAccountOrBuilder {
@@ -5769,6 +5802,7 @@ public final class Tx {
      * <code>string cosmos_sender = 1;</code>
      * @return The cosmosSender.
      */
+    @java.lang.Override
     public java.lang.String getCosmosSender() {
       java.lang.Object ref = cosmosSender_;
       if (ref instanceof java.lang.String) {
@@ -5785,6 +5819,7 @@ public final class Tx {
      * <code>string cosmos_sender = 1;</code>
      * @return The bytes for cosmosSender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCosmosSenderBytes() {
       java.lang.Object ref = cosmosSender_;
@@ -5805,6 +5840,7 @@ public final class Tx {
      * <code>string ceth_receiver_account = 2;</code>
      * @return The cethReceiverAccount.
      */
+    @java.lang.Override
     public java.lang.String getCethReceiverAccount() {
       java.lang.Object ref = cethReceiverAccount_;
       if (ref instanceof java.lang.String) {
@@ -5821,6 +5857,7 @@ public final class Tx {
      * <code>string ceth_receiver_account = 2;</code>
      * @return The bytes for cethReceiverAccount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCethReceiverAccountBytes() {
       java.lang.Object ref = cethReceiverAccount_;
@@ -6365,7 +6402,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.ethbridge.v1.MsgUpdateCethReceiverAccountResponse}
    */
-  public  static final class MsgUpdateCethReceiverAccountResponse extends
+  public static final class MsgUpdateCethReceiverAccountResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgUpdateCethReceiverAccountResponse)
       MsgUpdateCethReceiverAccountResponseOrBuilder {
@@ -6819,7 +6856,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.ethbridge.v1.MsgRescueCeth}
    */
-  public  static final class MsgRescueCeth extends
+  public static final class MsgRescueCeth extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgRescueCeth)
       MsgRescueCethOrBuilder {
@@ -6920,6 +6957,7 @@ public final class Tx {
      * <code>string cosmos_sender = 1;</code>
      * @return The cosmosSender.
      */
+    @java.lang.Override
     public java.lang.String getCosmosSender() {
       java.lang.Object ref = cosmosSender_;
       if (ref instanceof java.lang.String) {
@@ -6936,6 +6974,7 @@ public final class Tx {
      * <code>string cosmos_sender = 1;</code>
      * @return The bytes for cosmosSender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCosmosSenderBytes() {
       java.lang.Object ref = cosmosSender_;
@@ -6956,6 +6995,7 @@ public final class Tx {
      * <code>string cosmos_receiver = 2;</code>
      * @return The cosmosReceiver.
      */
+    @java.lang.Override
     public java.lang.String getCosmosReceiver() {
       java.lang.Object ref = cosmosReceiver_;
       if (ref instanceof java.lang.String) {
@@ -6972,6 +7012,7 @@ public final class Tx {
      * <code>string cosmos_receiver = 2;</code>
      * @return The bytes for cosmosReceiver.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCosmosReceiverBytes() {
       java.lang.Object ref = cosmosReceiver_;
@@ -6992,6 +7033,7 @@ public final class Tx {
      * <code>string ceth_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The cethAmount.
      */
+    @java.lang.Override
     public java.lang.String getCethAmount() {
       java.lang.Object ref = cethAmount_;
       if (ref instanceof java.lang.String) {
@@ -7008,6 +7050,7 @@ public final class Tx {
      * <code>string ceth_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The bytes for cethAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCethAmountBytes() {
       java.lang.Object ref = cethAmount_;
@@ -7645,7 +7688,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.ethbridge.v1.MsgRescueCethResponse}
    */
-  public  static final class MsgRescueCethResponse extends
+  public static final class MsgRescueCethResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgRescueCethResponse)
       MsgRescueCethResponseOrBuilder {
@@ -8056,6 +8099,1212 @@ public final class Tx {
 
   }
 
+  public interface MsgSetBlacklistOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.ethbridge.v1.MsgSetBlacklist)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string from = 1;</code>
+     * @return The from.
+     */
+    java.lang.String getFrom();
+    /**
+     * <code>string from = 1;</code>
+     * @return The bytes for from.
+     */
+    com.google.protobuf.ByteString
+        getFromBytes();
+
+    /**
+     * <code>repeated string addresses = 2;</code>
+     * @return A list containing the addresses.
+     */
+    java.util.List<java.lang.String>
+        getAddressesList();
+    /**
+     * <code>repeated string addresses = 2;</code>
+     * @return The count of addresses.
+     */
+    int getAddressesCount();
+    /**
+     * <code>repeated string addresses = 2;</code>
+     * @param index The index of the element to return.
+     * @return The addresses at the given index.
+     */
+    java.lang.String getAddresses(int index);
+    /**
+     * <code>repeated string addresses = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the addresses at the given index.
+     */
+    com.google.protobuf.ByteString
+        getAddressesBytes(int index);
+  }
+  /**
+   * Protobuf type {@code sifnode.ethbridge.v1.MsgSetBlacklist}
+   */
+  public static final class MsgSetBlacklist extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgSetBlacklist)
+      MsgSetBlacklistOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgSetBlacklist.newBuilder() to construct.
+    private MsgSetBlacklist(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgSetBlacklist() {
+      from_ = "";
+      addresses_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgSetBlacklist();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgSetBlacklist(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              from_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                addresses_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              addresses_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          addresses_ = addresses_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.ethbridge.v1.Tx.internal_static_sifnode_ethbridge_v1_MsgSetBlacklist_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.ethbridge.v1.Tx.internal_static_sifnode_ethbridge_v1_MsgSetBlacklist_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.ethbridge.v1.Tx.MsgSetBlacklist.class, sifnode.ethbridge.v1.Tx.MsgSetBlacklist.Builder.class);
+    }
+
+    public static final int FROM_FIELD_NUMBER = 1;
+    private volatile java.lang.Object from_;
+    /**
+     * <code>string from = 1;</code>
+     * @return The from.
+     */
+    @java.lang.Override
+    public java.lang.String getFrom() {
+      java.lang.Object ref = from_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        from_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string from = 1;</code>
+     * @return The bytes for from.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getFromBytes() {
+      java.lang.Object ref = from_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        from_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ADDRESSES_FIELD_NUMBER = 2;
+    private com.google.protobuf.LazyStringList addresses_;
+    /**
+     * <code>repeated string addresses = 2;</code>
+     * @return A list containing the addresses.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getAddressesList() {
+      return addresses_;
+    }
+    /**
+     * <code>repeated string addresses = 2;</code>
+     * @return The count of addresses.
+     */
+    public int getAddressesCount() {
+      return addresses_.size();
+    }
+    /**
+     * <code>repeated string addresses = 2;</code>
+     * @param index The index of the element to return.
+     * @return The addresses at the given index.
+     */
+    public java.lang.String getAddresses(int index) {
+      return addresses_.get(index);
+    }
+    /**
+     * <code>repeated string addresses = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the addresses at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getAddressesBytes(int index) {
+      return addresses_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getFromBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, from_);
+      }
+      for (int i = 0; i < addresses_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, addresses_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getFromBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, from_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < addresses_.size(); i++) {
+          dataSize += computeStringSizeNoTag(addresses_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getAddressesList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.ethbridge.v1.Tx.MsgSetBlacklist)) {
+        return super.equals(obj);
+      }
+      sifnode.ethbridge.v1.Tx.MsgSetBlacklist other = (sifnode.ethbridge.v1.Tx.MsgSetBlacklist) obj;
+
+      if (!getFrom()
+          .equals(other.getFrom())) return false;
+      if (!getAddressesList()
+          .equals(other.getAddressesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + FROM_FIELD_NUMBER;
+      hash = (53 * hash) + getFrom().hashCode();
+      if (getAddressesCount() > 0) {
+        hash = (37 * hash) + ADDRESSES_FIELD_NUMBER;
+        hash = (53 * hash) + getAddressesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.ethbridge.v1.Tx.MsgSetBlacklist prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.ethbridge.v1.MsgSetBlacklist}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.ethbridge.v1.MsgSetBlacklist)
+        sifnode.ethbridge.v1.Tx.MsgSetBlacklistOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.ethbridge.v1.Tx.internal_static_sifnode_ethbridge_v1_MsgSetBlacklist_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.ethbridge.v1.Tx.internal_static_sifnode_ethbridge_v1_MsgSetBlacklist_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.ethbridge.v1.Tx.MsgSetBlacklist.class, sifnode.ethbridge.v1.Tx.MsgSetBlacklist.Builder.class);
+      }
+
+      // Construct using sifnode.ethbridge.v1.Tx.MsgSetBlacklist.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        from_ = "";
+
+        addresses_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.ethbridge.v1.Tx.internal_static_sifnode_ethbridge_v1_MsgSetBlacklist_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.ethbridge.v1.Tx.MsgSetBlacklist getDefaultInstanceForType() {
+        return sifnode.ethbridge.v1.Tx.MsgSetBlacklist.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.ethbridge.v1.Tx.MsgSetBlacklist build() {
+        sifnode.ethbridge.v1.Tx.MsgSetBlacklist result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.ethbridge.v1.Tx.MsgSetBlacklist buildPartial() {
+        sifnode.ethbridge.v1.Tx.MsgSetBlacklist result = new sifnode.ethbridge.v1.Tx.MsgSetBlacklist(this);
+        int from_bitField0_ = bitField0_;
+        result.from_ = from_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          addresses_ = addresses_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.addresses_ = addresses_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.ethbridge.v1.Tx.MsgSetBlacklist) {
+          return mergeFrom((sifnode.ethbridge.v1.Tx.MsgSetBlacklist)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.ethbridge.v1.Tx.MsgSetBlacklist other) {
+        if (other == sifnode.ethbridge.v1.Tx.MsgSetBlacklist.getDefaultInstance()) return this;
+        if (!other.getFrom().isEmpty()) {
+          from_ = other.from_;
+          onChanged();
+        }
+        if (!other.addresses_.isEmpty()) {
+          if (addresses_.isEmpty()) {
+            addresses_ = other.addresses_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureAddressesIsMutable();
+            addresses_.addAll(other.addresses_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.ethbridge.v1.Tx.MsgSetBlacklist parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.ethbridge.v1.Tx.MsgSetBlacklist) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object from_ = "";
+      /**
+       * <code>string from = 1;</code>
+       * @return The from.
+       */
+      public java.lang.String getFrom() {
+        java.lang.Object ref = from_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          from_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string from = 1;</code>
+       * @return The bytes for from.
+       */
+      public com.google.protobuf.ByteString
+          getFromBytes() {
+        java.lang.Object ref = from_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          from_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string from = 1;</code>
+       * @param value The from to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFrom(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        from_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string from = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFrom() {
+        
+        from_ = getDefaultInstance().getFrom();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string from = 1;</code>
+       * @param value The bytes for from to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFromBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        from_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList addresses_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureAddressesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          addresses_ = new com.google.protobuf.LazyStringArrayList(addresses_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string addresses = 2;</code>
+       * @return A list containing the addresses.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getAddressesList() {
+        return addresses_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string addresses = 2;</code>
+       * @return The count of addresses.
+       */
+      public int getAddressesCount() {
+        return addresses_.size();
+      }
+      /**
+       * <code>repeated string addresses = 2;</code>
+       * @param index The index of the element to return.
+       * @return The addresses at the given index.
+       */
+      public java.lang.String getAddresses(int index) {
+        return addresses_.get(index);
+      }
+      /**
+       * <code>repeated string addresses = 2;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the addresses at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getAddressesBytes(int index) {
+        return addresses_.getByteString(index);
+      }
+      /**
+       * <code>repeated string addresses = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The addresses to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddresses(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureAddressesIsMutable();
+        addresses_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string addresses = 2;</code>
+       * @param value The addresses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAddresses(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureAddressesIsMutable();
+        addresses_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string addresses = 2;</code>
+       * @param values The addresses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllAddresses(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureAddressesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, addresses_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string addresses = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAddresses() {
+        addresses_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string addresses = 2;</code>
+       * @param value The bytes of the addresses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAddressesBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureAddressesIsMutable();
+        addresses_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.ethbridge.v1.MsgSetBlacklist)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.ethbridge.v1.MsgSetBlacklist)
+    private static final sifnode.ethbridge.v1.Tx.MsgSetBlacklist DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.ethbridge.v1.Tx.MsgSetBlacklist();
+    }
+
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklist getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgSetBlacklist>
+        PARSER = new com.google.protobuf.AbstractParser<MsgSetBlacklist>() {
+      @java.lang.Override
+      public MsgSetBlacklist parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgSetBlacklist(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgSetBlacklist> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgSetBlacklist> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.ethbridge.v1.Tx.MsgSetBlacklist getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgSetBlacklistResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.ethbridge.v1.MsgSetBlacklistResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.ethbridge.v1.MsgSetBlacklistResponse}
+   */
+  public static final class MsgSetBlacklistResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.MsgSetBlacklistResponse)
+      MsgSetBlacklistResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgSetBlacklistResponse.newBuilder() to construct.
+    private MsgSetBlacklistResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgSetBlacklistResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgSetBlacklistResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgSetBlacklistResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.ethbridge.v1.Tx.internal_static_sifnode_ethbridge_v1_MsgSetBlacklistResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.ethbridge.v1.Tx.internal_static_sifnode_ethbridge_v1_MsgSetBlacklistResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse.class, sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse)) {
+        return super.equals(obj);
+      }
+      sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse other = (sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.ethbridge.v1.MsgSetBlacklistResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.ethbridge.v1.MsgSetBlacklistResponse)
+        sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.ethbridge.v1.Tx.internal_static_sifnode_ethbridge_v1_MsgSetBlacklistResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.ethbridge.v1.Tx.internal_static_sifnode_ethbridge_v1_MsgSetBlacklistResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse.class, sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse.Builder.class);
+      }
+
+      // Construct using sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.ethbridge.v1.Tx.internal_static_sifnode_ethbridge_v1_MsgSetBlacklistResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse getDefaultInstanceForType() {
+        return sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse build() {
+        sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse buildPartial() {
+        sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse result = new sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse) {
+          return mergeFrom((sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse other) {
+        if (other == sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.ethbridge.v1.MsgSetBlacklistResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.ethbridge.v1.MsgSetBlacklistResponse)
+    private static final sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse();
+    }
+
+    public static sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgSetBlacklistResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgSetBlacklistResponse>() {
+      @java.lang.Override
+      public MsgSetBlacklistResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgSetBlacklistResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgSetBlacklistResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgSetBlacklistResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.ethbridge.v1.Tx.MsgSetBlacklistResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_ethbridge_v1_MsgLock_descriptor;
   private static final 
@@ -8116,6 +9365,16 @@ public final class Tx {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_ethbridge_v1_MsgRescueCethResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_ethbridge_v1_MsgSetBlacklist_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_ethbridge_v1_MsgSetBlacklist_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_ethbridge_v1_MsgSetBlacklistResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_ethbridge_v1_MsgSetBlacklistResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -8163,30 +9422,35 @@ public final class Tx {
       "cosmos_sender\030\001 \001(\t\022\027\n\017cosmos_receiver\030\002" +
       " \001(\t\022C\n\013ceth_amount\030\003 \001(\tB.\332\336\037&github.co" +
       "m/cosmos/cosmos-sdk/types.Int\310\336\037\000\"\027\n\025Msg" +
-      "RescueCethResponse2\230\005\n\003Msg\022L\n\004Lock\022\035.sif" +
-      "node.ethbridge.v1.MsgLock\032%.sifnode.ethb" +
-      "ridge.v1.MsgLockResponse\022L\n\004Burn\022\035.sifno" +
-      "de.ethbridge.v1.MsgBurn\032%.sifnode.ethbri" +
-      "dge.v1.MsgBurnResponse\022|\n\024CreateEthBridg" +
-      "eClaim\022-.sifnode.ethbridge.v1.MsgCreateE" +
-      "thBridgeClaim\0325.sifnode.ethbridge.v1.Msg" +
-      "CreateEthBridgeClaimResponse\022\210\001\n\030UpdateW" +
-      "hiteListValidator\0221.sifnode.ethbridge.v1" +
-      ".MsgUpdateWhiteListValidator\0329.sifnode.e" +
-      "thbridge.v1.MsgUpdateWhiteListValidatorR" +
-      "esponse\022\213\001\n\031UpdateCethReceiverAccount\0222." +
-      "sifnode.ethbridge.v1.MsgUpdateCethReceiv" +
-      "erAccount\032:.sifnode.ethbridge.v1.MsgUpda" +
-      "teCethReceiverAccountResponse\022^\n\nRescueC" +
-      "eth\022#.sifnode.ethbridge.v1.MsgRescueCeth" +
-      "\032+.sifnode.ethbridge.v1.MsgRescueCethRes" +
-      "ponseB/Z-github.com/Sifchain/sifnode/x/e" +
-      "thbridge/typesb\006proto3"
+      "RescueCethResponse\"2\n\017MsgSetBlacklist\022\014\n" +
+      "\004from\030\001 \001(\t\022\021\n\taddresses\030\002 \003(\t\"\031\n\027MsgSet" +
+      "BlacklistResponse2\376\005\n\003Msg\022L\n\004Lock\022\035.sifn" +
+      "ode.ethbridge.v1.MsgLock\032%.sifnode.ethbr" +
+      "idge.v1.MsgLockResponse\022L\n\004Burn\022\035.sifnod" +
+      "e.ethbridge.v1.MsgBurn\032%.sifnode.ethbrid" +
+      "ge.v1.MsgBurnResponse\022|\n\024CreateEthBridge" +
+      "Claim\022-.sifnode.ethbridge.v1.MsgCreateEt" +
+      "hBridgeClaim\0325.sifnode.ethbridge.v1.MsgC" +
+      "reateEthBridgeClaimResponse\022\210\001\n\030UpdateWh" +
+      "iteListValidator\0221.sifnode.ethbridge.v1." +
+      "MsgUpdateWhiteListValidator\0329.sifnode.et" +
+      "hbridge.v1.MsgUpdateWhiteListValidatorRe" +
+      "sponse\022\213\001\n\031UpdateCethReceiverAccount\0222.s" +
+      "ifnode.ethbridge.v1.MsgUpdateCethReceive" +
+      "rAccount\032:.sifnode.ethbridge.v1.MsgUpdat" +
+      "eCethReceiverAccountResponse\022^\n\nRescueCe" +
+      "th\022#.sifnode.ethbridge.v1.MsgRescueCeth\032" +
+      "+.sifnode.ethbridge.v1.MsgRescueCethResp" +
+      "onse\022d\n\014SetBlacklist\022%.sifnode.ethbridge" +
+      ".v1.MsgSetBlacklist\032-.sifnode.ethbridge." +
+      "v1.MsgSetBlacklistResponseB/Z-github.com" +
+      "/Sifchain/sifnode/x/ethbridge/typesb\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           sifnode.ethbridge.v1.Types.getDescriptor(),
         });
     internal_static_sifnode_ethbridge_v1_MsgLock_descriptor =
@@ -8261,14 +9525,26 @@ public final class Tx {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_ethbridge_v1_MsgRescueCethResponse_descriptor,
         new java.lang.String[] { });
+    internal_static_sifnode_ethbridge_v1_MsgSetBlacklist_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_sifnode_ethbridge_v1_MsgSetBlacklist_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_ethbridge_v1_MsgSetBlacklist_descriptor,
+        new java.lang.String[] { "From", "Addresses", });
+    internal_static_sifnode_ethbridge_v1_MsgSetBlacklistResponse_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_sifnode_ethbridge_v1_MsgSetBlacklistResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_ethbridge_v1_MsgSetBlacklistResponse_descriptor,
+        new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     sifnode.ethbridge.v1.Types.getDescriptor();
   }
 

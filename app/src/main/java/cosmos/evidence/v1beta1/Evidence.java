@@ -46,12 +46,12 @@ public final class Evidence {
     long getPower();
 
     /**
-     * <code>string consensus_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"consensus_address&#92;""];</code>
+     * <code>string consensus_address = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The consensusAddress.
      */
     java.lang.String getConsensusAddress();
     /**
-     * <code>string consensus_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"consensus_address&#92;""];</code>
+     * <code>string consensus_address = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for consensusAddress.
      */
     com.google.protobuf.ByteString
@@ -220,7 +220,7 @@ public final class Evidence {
     public static final int CONSENSUS_ADDRESS_FIELD_NUMBER = 4;
     private volatile java.lang.Object consensusAddress_;
     /**
-     * <code>string consensus_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"consensus_address&#92;""];</code>
+     * <code>string consensus_address = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The consensusAddress.
      */
     @java.lang.Override
@@ -237,7 +237,7 @@ public final class Evidence {
       }
     }
     /**
-     * <code>string consensus_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"consensus_address&#92;""];</code>
+     * <code>string consensus_address = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for consensusAddress.
      */
     @java.lang.Override
@@ -811,7 +811,7 @@ public final class Evidence {
 
       private java.lang.Object consensusAddress_ = "";
       /**
-       * <code>string consensus_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"consensus_address&#92;""];</code>
+       * <code>string consensus_address = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The consensusAddress.
        */
       public java.lang.String getConsensusAddress() {
@@ -827,7 +827,7 @@ public final class Evidence {
         }
       }
       /**
-       * <code>string consensus_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"consensus_address&#92;""];</code>
+       * <code>string consensus_address = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for consensusAddress.
        */
       public com.google.protobuf.ByteString
@@ -844,7 +844,7 @@ public final class Evidence {
         }
       }
       /**
-       * <code>string consensus_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"consensus_address&#92;""];</code>
+       * <code>string consensus_address = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The consensusAddress to set.
        * @return This builder for chaining.
        */
@@ -859,7 +859,7 @@ public final class Evidence {
         return this;
       }
       /**
-       * <code>string consensus_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"consensus_address&#92;""];</code>
+       * <code>string consensus_address = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearConsensusAddress() {
@@ -869,7 +869,7 @@ public final class Evidence {
         return this;
       }
       /**
-       * <code>string consensus_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"consensus_address&#92;""];</code>
+       * <code>string consensus_address = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for consensusAddress to set.
        * @return This builder for chaining.
        */
@@ -954,18 +954,20 @@ public final class Evidence {
       "\n&cosmos/evidence/v1beta1/evidence.proto" +
       "\022\027cosmos.evidence.v1beta1\032\024gogoproto/gog" +
       "o.proto\032\037google/protobuf/timestamp.proto" +
-      "\"\250\001\n\014Equivocation\022\016\n\006height\030\001 \001(\003\0222\n\004tim" +
-      "e\030\002 \001(\0132\032.google.protobuf.TimestampB\010\310\336\037" +
-      "\000\220\337\037\001\022\r\n\005power\030\003 \001(\003\0227\n\021consensus_addres" +
-      "s\030\004 \001(\tB\034\362\336\037\030yaml:\"consensus_address\":\014\230" +
-      "\240\037\000\210\240\037\000\350\240\037\000B3Z-github.com/cosmos/cosmos-" +
-      "sdk/x/evidence/types\250\342\036\001b\006proto3"
+      "\032\031cosmos_proto/cosmos.proto\"\244\001\n\014Equivoca" +
+      "tion\022\016\n\006height\030\001 \001(\003\0222\n\004time\030\002 \001(\0132\032.goo" +
+      "gle.protobuf.TimestampB\010\310\336\037\000\220\337\037\001\022\r\n\005powe" +
+      "r\030\003 \001(\003\0223\n\021consensus_address\030\004 \001(\tB\030\322\264-\024" +
+      "cosmos.AddressString:\014\230\240\037\000\210\240\037\000\350\240\037\000B3Z-gi" +
+      "thub.com/cosmos/cosmos-sdk/x/evidence/ty" +
+      "pes\250\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
+          cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_cosmos_evidence_v1beta1_Equivocation_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -975,17 +977,18 @@ public final class Evidence {
         new java.lang.String[] { "Height", "Time", "Power", "ConsensusAddress", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.equalAll);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.equalAll);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
+    cosmos_proto.Cosmos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -81,7 +81,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.MsgCreateDistribution}
    */
-  public  static final class MsgCreateDistribution extends
+  public static final class MsgCreateDistribution extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.MsgCreateDistribution)
       MsgCreateDistributionOrBuilder {
@@ -196,6 +196,7 @@ public final class Tx {
      * <code>string distributor = 1;</code>
      * @return The distributor.
      */
+    @java.lang.Override
     public java.lang.String getDistributor() {
       java.lang.Object ref = distributor_;
       if (ref instanceof java.lang.String) {
@@ -212,6 +213,7 @@ public final class Tx {
      * <code>string distributor = 1;</code>
      * @return The bytes for distributor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDistributorBytes() {
       java.lang.Object ref = distributor_;
@@ -232,6 +234,7 @@ public final class Tx {
      * <code>string authorized_runner = 2;</code>
      * @return The authorizedRunner.
      */
+    @java.lang.Override
     public java.lang.String getAuthorizedRunner() {
       java.lang.Object ref = authorizedRunner_;
       if (ref instanceof java.lang.String) {
@@ -248,6 +251,7 @@ public final class Tx {
      * <code>string authorized_runner = 2;</code>
      * @return The bytes for authorizedRunner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAuthorizedRunnerBytes() {
       java.lang.Object ref = authorizedRunner_;
@@ -268,14 +272,14 @@ public final class Tx {
      * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 3;</code>
      * @return The enum numeric value on the wire for distributionType.
      */
-    public int getDistributionTypeValue() {
+    @java.lang.Override public int getDistributionTypeValue() {
       return distributionType_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 3;</code>
      * @return The distributionType.
      */
-    public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
+    @java.lang.Override public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
       @SuppressWarnings("deprecation")
       sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(distributionType_);
       return result == null ? sifnode.dispensation.v1.Types.DistributionType.UNRECOGNIZED : result;
@@ -844,7 +848,7 @@ public final class Tx {
        * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 3;</code>
        * @return The enum numeric value on the wire for distributionType.
        */
-      public int getDistributionTypeValue() {
+      @java.lang.Override public int getDistributionTypeValue() {
         return distributionType_;
       }
       /**
@@ -853,6 +857,7 @@ public final class Tx {
        * @return This builder for chaining.
        */
       public Builder setDistributionTypeValue(int value) {
+        
         distributionType_ = value;
         onChanged();
         return this;
@@ -861,6 +866,7 @@ public final class Tx {
        * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 3;</code>
        * @return The distributionType.
        */
+      @java.lang.Override
       public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
         @SuppressWarnings("deprecation")
         sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(distributionType_);
@@ -1060,7 +1066,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.MsgCreateDistributionResponse}
    */
-  public  static final class MsgCreateDistributionResponse extends
+  public static final class MsgCreateDistributionResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.MsgCreateDistributionResponse)
       MsgCreateDistributionResponseOrBuilder {
@@ -1478,7 +1484,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.MsgCreateClaimResponse}
    */
-  public  static final class MsgCreateClaimResponse extends
+  public static final class MsgCreateClaimResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.MsgCreateClaimResponse)
       MsgCreateClaimResponseOrBuilder {
@@ -1896,7 +1902,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.MsgRunDistributionResponse}
    */
-  public  static final class MsgRunDistributionResponse extends
+  public static final class MsgRunDistributionResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.MsgRunDistributionResponse)
       MsgRunDistributionResponseOrBuilder {
@@ -2337,7 +2343,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.MsgCreateUserClaim}
    */
-  public  static final class MsgCreateUserClaim extends
+  public static final class MsgCreateUserClaim extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.MsgCreateUserClaim)
       MsgCreateUserClaimOrBuilder {
@@ -2431,6 +2437,7 @@ public final class Tx {
      * <code>string user_claim_address = 1;</code>
      * @return The userClaimAddress.
      */
+    @java.lang.Override
     public java.lang.String getUserClaimAddress() {
       java.lang.Object ref = userClaimAddress_;
       if (ref instanceof java.lang.String) {
@@ -2447,6 +2454,7 @@ public final class Tx {
      * <code>string user_claim_address = 1;</code>
      * @return The bytes for userClaimAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUserClaimAddressBytes() {
       java.lang.Object ref = userClaimAddress_;
@@ -2467,14 +2475,14 @@ public final class Tx {
      * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 2;</code>
      * @return The enum numeric value on the wire for userClaimType.
      */
-    public int getUserClaimTypeValue() {
+    @java.lang.Override public int getUserClaimTypeValue() {
       return userClaimType_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 2;</code>
      * @return The userClaimType.
      */
-    public sifnode.dispensation.v1.Types.DistributionType getUserClaimType() {
+    @java.lang.Override public sifnode.dispensation.v1.Types.DistributionType getUserClaimType() {
       @SuppressWarnings("deprecation")
       sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(userClaimType_);
       return result == null ? sifnode.dispensation.v1.Types.DistributionType.UNRECOGNIZED : result;
@@ -2879,7 +2887,7 @@ public final class Tx {
        * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 2;</code>
        * @return The enum numeric value on the wire for userClaimType.
        */
-      public int getUserClaimTypeValue() {
+      @java.lang.Override public int getUserClaimTypeValue() {
         return userClaimType_;
       }
       /**
@@ -2888,6 +2896,7 @@ public final class Tx {
        * @return This builder for chaining.
        */
       public Builder setUserClaimTypeValue(int value) {
+        
         userClaimType_ = value;
         onChanged();
         return this;
@@ -2896,6 +2905,7 @@ public final class Tx {
        * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 2;</code>
        * @return The userClaimType.
        */
+      @java.lang.Override
       public sifnode.dispensation.v1.Types.DistributionType getUserClaimType() {
         @SuppressWarnings("deprecation")
         sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(userClaimType_);
@@ -3020,7 +3030,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.MsgRunDistribution}
    */
-  public  static final class MsgRunDistribution extends
+  public static final class MsgRunDistribution extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.MsgRunDistribution)
       MsgRunDistributionOrBuilder {
@@ -3121,6 +3131,7 @@ public final class Tx {
      * <code>string authorized_runner = 1;</code>
      * @return The authorizedRunner.
      */
+    @java.lang.Override
     public java.lang.String getAuthorizedRunner() {
       java.lang.Object ref = authorizedRunner_;
       if (ref instanceof java.lang.String) {
@@ -3137,6 +3148,7 @@ public final class Tx {
      * <code>string authorized_runner = 1;</code>
      * @return The bytes for authorizedRunner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAuthorizedRunnerBytes() {
       java.lang.Object ref = authorizedRunner_;
@@ -3157,6 +3169,7 @@ public final class Tx {
      * <code>string distribution_name = 2;</code>
      * @return The distributionName.
      */
+    @java.lang.Override
     public java.lang.String getDistributionName() {
       java.lang.Object ref = distributionName_;
       if (ref instanceof java.lang.String) {
@@ -3173,6 +3186,7 @@ public final class Tx {
      * <code>string distribution_name = 2;</code>
      * @return The bytes for distributionName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDistributionNameBytes() {
       java.lang.Object ref = distributionName_;
@@ -3193,14 +3207,14 @@ public final class Tx {
      * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 3;</code>
      * @return The enum numeric value on the wire for distributionType.
      */
-    public int getDistributionTypeValue() {
+    @java.lang.Override public int getDistributionTypeValue() {
       return distributionType_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 3;</code>
      * @return The distributionType.
      */
-    public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
+    @java.lang.Override public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
       @SuppressWarnings("deprecation")
       sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(distributionType_);
       return result == null ? sifnode.dispensation.v1.Types.DistributionType.UNRECOGNIZED : result;
@@ -3698,7 +3712,7 @@ public final class Tx {
        * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 3;</code>
        * @return The enum numeric value on the wire for distributionType.
        */
-      public int getDistributionTypeValue() {
+      @java.lang.Override public int getDistributionTypeValue() {
         return distributionType_;
       }
       /**
@@ -3707,6 +3721,7 @@ public final class Tx {
        * @return This builder for chaining.
        */
       public Builder setDistributionTypeValue(int value) {
+        
         distributionType_ = value;
         onChanged();
         return this;
@@ -3715,6 +3730,7 @@ public final class Tx {
        * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 3;</code>
        * @return The distributionType.
        */
+      @java.lang.Override
       public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
         @SuppressWarnings("deprecation")
         sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(distributionType_);
@@ -3868,7 +3884,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           sifnode.dispensation.v1.Types.getDescriptor(),
         });
     internal_static_sifnode_dispensation_v1_MsgCreateDistribution_descriptor =
@@ -3909,10 +3925,10 @@ public final class Tx {
         new java.lang.String[] { "AuthorizedRunner", "DistributionName", "DistributionType", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     sifnode.dispensation.v1.Types.getDescriptor();
   }
 

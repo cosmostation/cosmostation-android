@@ -10,7 +10,7 @@ package panacea.token.v2;
  *
  * Protobuf type {@code panacea.token.v2.QueryTokenRequest}
  */
-public  final class QueryTokenRequest extends
+public final class QueryTokenRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.token.v2.QueryTokenRequest)
     QueryTokenRequestOrBuilder {
@@ -97,6 +97,7 @@ private static final long serialVersionUID = 0L;
    * <code>string symbol = 1;</code>
    * @return The symbol.
    */
+  @java.lang.Override
   public java.lang.String getSymbol() {
     java.lang.Object ref = symbol_;
     if (ref instanceof java.lang.String) {
@@ -113,6 +114,7 @@ private static final long serialVersionUID = 0L;
    * <code>string symbol = 1;</code>
    * @return The bytes for symbol.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getSymbolBytes() {
     java.lang.Object ref = symbol_;

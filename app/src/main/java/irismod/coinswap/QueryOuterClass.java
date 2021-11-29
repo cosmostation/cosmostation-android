@@ -14,47 +14,48 @@ public final class QueryOuterClass {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface QueryLiquidityRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:irismod.coinswap.QueryLiquidityRequest)
+  public interface QueryLiquidityPoolRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:irismod.coinswap.QueryLiquidityPoolRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string denom = 1;</code>
-     * @return The denom.
+     * <code>string lpt_denom = 1;</code>
+     * @return The lptDenom.
      */
-    java.lang.String getDenom();
+    java.lang.String getLptDenom();
     /**
-     * <code>string denom = 1;</code>
-     * @return The bytes for denom.
+     * <code>string lpt_denom = 1;</code>
+     * @return The bytes for lptDenom.
      */
     com.google.protobuf.ByteString
-        getDenomBytes();
+        getLptDenomBytes();
   }
   /**
    * <pre>
-   * QueryLiquidityRequest is request type for the Query/Liquidity RPC method
+   * QueryLiquidityPoolRequest is request type for the Query/LiquidityPool RPC
+   * method
    * </pre>
    *
-   * Protobuf type {@code irismod.coinswap.QueryLiquidityRequest}
+   * Protobuf type {@code irismod.coinswap.QueryLiquidityPoolRequest}
    */
-  public static final class QueryLiquidityRequest extends
+  public static final class QueryLiquidityPoolRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:irismod.coinswap.QueryLiquidityRequest)
-      QueryLiquidityRequestOrBuilder {
+      // @@protoc_insertion_point(message_implements:irismod.coinswap.QueryLiquidityPoolRequest)
+      QueryLiquidityPoolRequestOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use QueryLiquidityRequest.newBuilder() to construct.
-    private QueryLiquidityRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use QueryLiquidityPoolRequest.newBuilder() to construct.
+    private QueryLiquidityPoolRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private QueryLiquidityRequest() {
-      denom_ = "";
+    private QueryLiquidityPoolRequest() {
+      lptDenom_ = "";
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new QueryLiquidityRequest();
+      return new QueryLiquidityPoolRequest();
     }
 
     @java.lang.Override
@@ -62,7 +63,7 @@ public final class QueryOuterClass {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private QueryLiquidityRequest(
+    private QueryLiquidityPoolRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -83,7 +84,7 @@ public final class QueryOuterClass {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              denom_ = s;
+              lptDenom_ = s;
               break;
             }
             default: {
@@ -107,49 +108,49 @@ public final class QueryOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityRequest_descriptor;
+      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityRequest_fieldAccessorTable
+      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              irismod.coinswap.QueryOuterClass.QueryLiquidityRequest.class, irismod.coinswap.QueryOuterClass.QueryLiquidityRequest.Builder.class);
+              irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest.class, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest.Builder.class);
     }
 
-    public static final int DENOM_FIELD_NUMBER = 1;
-    private volatile java.lang.Object denom_;
+    public static final int LPT_DENOM_FIELD_NUMBER = 1;
+    private volatile java.lang.Object lptDenom_;
     /**
-     * <code>string denom = 1;</code>
-     * @return The denom.
+     * <code>string lpt_denom = 1;</code>
+     * @return The lptDenom.
      */
     @java.lang.Override
-    public java.lang.String getDenom() {
-      java.lang.Object ref = denom_;
+    public java.lang.String getLptDenom() {
+      java.lang.Object ref = lptDenom_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        denom_ = s;
+        lptDenom_ = s;
         return s;
       }
     }
     /**
-     * <code>string denom = 1;</code>
-     * @return The bytes for denom.
+     * <code>string lpt_denom = 1;</code>
+     * @return The bytes for lptDenom.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getDenomBytes() {
-      java.lang.Object ref = denom_;
+        getLptDenomBytes() {
+      java.lang.Object ref = lptDenom_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        denom_ = b;
+        lptDenom_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -170,8 +171,8 @@ public final class QueryOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getDenomBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, denom_);
+      if (!getLptDenomBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, lptDenom_);
       }
       unknownFields.writeTo(output);
     }
@@ -182,8 +183,8 @@ public final class QueryOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (!getDenomBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, denom_);
+      if (!getLptDenomBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, lptDenom_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -195,13 +196,13 @@ public final class QueryOuterClass {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityRequest)) {
+      if (!(obj instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest)) {
         return super.equals(obj);
       }
-      irismod.coinswap.QueryOuterClass.QueryLiquidityRequest other = (irismod.coinswap.QueryOuterClass.QueryLiquidityRequest) obj;
+      irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest other = (irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest) obj;
 
-      if (!getDenom()
-          .equals(other.getDenom())) return false;
+      if (!getLptDenom()
+          .equals(other.getLptDenom())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -213,76 +214,76 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + DENOM_FIELD_NUMBER;
-      hash = (53 * hash) + getDenom().hashCode();
+      hash = (37 * hash) + LPT_DENOM_FIELD_NUMBER;
+      hash = (53 * hash) + getLptDenom().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseFrom(
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseFrom(
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseFrom(
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseFrom(
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseFrom(byte[] data)
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseFrom(
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseFrom(java.io.InputStream input)
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseFrom(
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseDelimitedFrom(java.io.InputStream input)
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseDelimitedFrom(
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseFrom(
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parseFrom(
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -295,7 +296,7 @@ public final class QueryOuterClass {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(irismod.coinswap.QueryOuterClass.QueryLiquidityRequest prototype) {
+    public static Builder newBuilder(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -312,29 +313,30 @@ public final class QueryOuterClass {
     }
     /**
      * <pre>
-     * QueryLiquidityRequest is request type for the Query/Liquidity RPC method
+     * QueryLiquidityPoolRequest is request type for the Query/LiquidityPool RPC
+     * method
      * </pre>
      *
-     * Protobuf type {@code irismod.coinswap.QueryLiquidityRequest}
+     * Protobuf type {@code irismod.coinswap.QueryLiquidityPoolRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:irismod.coinswap.QueryLiquidityRequest)
-        irismod.coinswap.QueryOuterClass.QueryLiquidityRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:irismod.coinswap.QueryLiquidityPoolRequest)
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityRequest_descriptor;
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityRequest_fieldAccessorTable
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                irismod.coinswap.QueryOuterClass.QueryLiquidityRequest.class, irismod.coinswap.QueryOuterClass.QueryLiquidityRequest.Builder.class);
+                irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest.class, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest.Builder.class);
       }
 
-      // Construct using irismod.coinswap.QueryOuterClass.QueryLiquidityRequest.newBuilder()
+      // Construct using irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -352,7 +354,7 @@ public final class QueryOuterClass {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        denom_ = "";
+        lptDenom_ = "";
 
         return this;
       }
@@ -360,17 +362,17 @@ public final class QueryOuterClass {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityRequest_descriptor;
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolRequest_descriptor;
       }
 
       @java.lang.Override
-      public irismod.coinswap.QueryOuterClass.QueryLiquidityRequest getDefaultInstanceForType() {
-        return irismod.coinswap.QueryOuterClass.QueryLiquidityRequest.getDefaultInstance();
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest getDefaultInstanceForType() {
+        return irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public irismod.coinswap.QueryOuterClass.QueryLiquidityRequest build() {
-        irismod.coinswap.QueryOuterClass.QueryLiquidityRequest result = buildPartial();
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest build() {
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -378,9 +380,9 @@ public final class QueryOuterClass {
       }
 
       @java.lang.Override
-      public irismod.coinswap.QueryOuterClass.QueryLiquidityRequest buildPartial() {
-        irismod.coinswap.QueryOuterClass.QueryLiquidityRequest result = new irismod.coinswap.QueryOuterClass.QueryLiquidityRequest(this);
-        result.denom_ = denom_;
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest buildPartial() {
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest result = new irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest(this);
+        result.lptDenom_ = lptDenom_;
         onBuilt();
         return result;
       }
@@ -419,18 +421,18 @@ public final class QueryOuterClass {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityRequest) {
-          return mergeFrom((irismod.coinswap.QueryOuterClass.QueryLiquidityRequest)other);
+        if (other instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest) {
+          return mergeFrom((irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(irismod.coinswap.QueryOuterClass.QueryLiquidityRequest other) {
-        if (other == irismod.coinswap.QueryOuterClass.QueryLiquidityRequest.getDefaultInstance()) return this;
-        if (!other.getDenom().isEmpty()) {
-          denom_ = other.denom_;
+      public Builder mergeFrom(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest other) {
+        if (other == irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest.getDefaultInstance()) return this;
+        if (!other.getLptDenom().isEmpty()) {
+          lptDenom_ = other.lptDenom_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -448,11 +450,11 @@ public final class QueryOuterClass {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        irismod.coinswap.QueryOuterClass.QueryLiquidityRequest parsedMessage = null;
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (irismod.coinswap.QueryOuterClass.QueryLiquidityRequest) e.getUnfinishedMessage();
+          parsedMessage = (irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -462,78 +464,78 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private java.lang.Object denom_ = "";
+      private java.lang.Object lptDenom_ = "";
       /**
-       * <code>string denom = 1;</code>
-       * @return The denom.
+       * <code>string lpt_denom = 1;</code>
+       * @return The lptDenom.
        */
-      public java.lang.String getDenom() {
-        java.lang.Object ref = denom_;
+      public java.lang.String getLptDenom() {
+        java.lang.Object ref = lptDenom_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          denom_ = s;
+          lptDenom_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string denom = 1;</code>
-       * @return The bytes for denom.
+       * <code>string lpt_denom = 1;</code>
+       * @return The bytes for lptDenom.
        */
       public com.google.protobuf.ByteString
-          getDenomBytes() {
-        java.lang.Object ref = denom_;
+          getLptDenomBytes() {
+        java.lang.Object ref = lptDenom_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          denom_ = b;
+          lptDenom_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string denom = 1;</code>
-       * @param value The denom to set.
+       * <code>string lpt_denom = 1;</code>
+       * @param value The lptDenom to set.
        * @return This builder for chaining.
        */
-      public Builder setDenom(
+      public Builder setLptDenom(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        denom_ = value;
+        lptDenom_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string denom = 1;</code>
+       * <code>string lpt_denom = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearDenom() {
+      public Builder clearLptDenom() {
         
-        denom_ = getDefaultInstance().getDenom();
+        lptDenom_ = getDefaultInstance().getLptDenom();
         onChanged();
         return this;
       }
       /**
-       * <code>string denom = 1;</code>
-       * @param value The bytes for denom to set.
+       * <code>string lpt_denom = 1;</code>
+       * @param value The bytes for lptDenom to set.
        * @return This builder for chaining.
        */
-      public Builder setDenomBytes(
+      public Builder setLptDenomBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        denom_ = value;
+        lptDenom_ = value;
         onChanged();
         return this;
       }
@@ -550,132 +552,90 @@ public final class QueryOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:irismod.coinswap.QueryLiquidityRequest)
+      // @@protoc_insertion_point(builder_scope:irismod.coinswap.QueryLiquidityPoolRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:irismod.coinswap.QueryLiquidityRequest)
-    private static final irismod.coinswap.QueryOuterClass.QueryLiquidityRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:irismod.coinswap.QueryLiquidityPoolRequest)
+    private static final irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new irismod.coinswap.QueryOuterClass.QueryLiquidityRequest();
+      DEFAULT_INSTANCE = new irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest();
     }
 
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityRequest getDefaultInstance() {
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<QueryLiquidityRequest>
-        PARSER = new com.google.protobuf.AbstractParser<QueryLiquidityRequest>() {
+    private static final com.google.protobuf.Parser<QueryLiquidityPoolRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryLiquidityPoolRequest>() {
       @java.lang.Override
-      public QueryLiquidityRequest parsePartialFrom(
+      public QueryLiquidityPoolRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryLiquidityRequest(input, extensionRegistry);
+        return new QueryLiquidityPoolRequest(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<QueryLiquidityRequest> parser() {
+    public static com.google.protobuf.Parser<QueryLiquidityPoolRequest> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<QueryLiquidityRequest> getParserForType() {
+    public com.google.protobuf.Parser<QueryLiquidityPoolRequest> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public irismod.coinswap.QueryOuterClass.QueryLiquidityRequest getDefaultInstanceForType() {
+    public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface QueryLiquidityResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:irismod.coinswap.QueryLiquidityResponse)
+  public interface QueryLiquidityPoolResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:irismod.coinswap.QueryLiquidityPoolResponse)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
-     * @return Whether the standard field is set.
+     * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the pool field is set.
      */
-    boolean hasStandard();
+    boolean hasPool();
     /**
-     * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
-     * @return The standard.
+     * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+     * @return The pool.
      */
-    cosmos.base.v1beta1.CoinOuterClass.Coin getStandard();
+    irismod.coinswap.QueryOuterClass.PoolInfo getPool();
     /**
-     * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+     * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
      */
-    cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getStandardOrBuilder();
-
-    /**
-     * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
-     * @return Whether the token field is set.
-     */
-    boolean hasToken();
-    /**
-     * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
-     * @return The token.
-     */
-    cosmos.base.v1beta1.CoinOuterClass.Coin getToken();
-    /**
-     * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
-     */
-    cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenOrBuilder();
-
-    /**
-     * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
-     * @return Whether the liquidity field is set.
-     */
-    boolean hasLiquidity();
-    /**
-     * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
-     * @return The liquidity.
-     */
-    cosmos.base.v1beta1.CoinOuterClass.Coin getLiquidity();
-    /**
-     * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
-     */
-    cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getLiquidityOrBuilder();
-
-    /**
-     * <code>string fee = 4;</code>
-     * @return The fee.
-     */
-    java.lang.String getFee();
-    /**
-     * <code>string fee = 4;</code>
-     * @return The bytes for fee.
-     */
-    com.google.protobuf.ByteString
-        getFeeBytes();
+    irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder getPoolOrBuilder();
   }
   /**
    * <pre>
-   * QueryLiquidityResponse is response type for the Query/Liquidity RPC method
+   * QueryLiquidityPoolResponse is response type for the Query/LiquidityPool RPC
+   * method
    * </pre>
    *
-   * Protobuf type {@code irismod.coinswap.QueryLiquidityResponse}
+   * Protobuf type {@code irismod.coinswap.QueryLiquidityPoolResponse}
    */
-  public static final class QueryLiquidityResponse extends
+  public static final class QueryLiquidityPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:irismod.coinswap.QueryLiquidityResponse)
-      QueryLiquidityResponseOrBuilder {
+      // @@protoc_insertion_point(message_implements:irismod.coinswap.QueryLiquidityPoolResponse)
+      QueryLiquidityPoolResponseOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use QueryLiquidityResponse.newBuilder() to construct.
-    private QueryLiquidityResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use QueryLiquidityPoolResponse.newBuilder() to construct.
+    private QueryLiquidityPoolResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private QueryLiquidityResponse() {
-      fee_ = "";
+    private QueryLiquidityPoolResponse() {
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new QueryLiquidityResponse();
+      return new QueryLiquidityPoolResponse();
     }
 
     @java.lang.Override
@@ -683,7 +643,7 @@ public final class QueryOuterClass {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private QueryLiquidityResponse(
+    private QueryLiquidityPoolResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -702,6 +662,2462 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
+              irismod.coinswap.QueryOuterClass.PoolInfo.Builder subBuilder = null;
+              if (pool_ != null) {
+                subBuilder = pool_.toBuilder();
+              }
+              pool_ = input.readMessage(irismod.coinswap.QueryOuterClass.PoolInfo.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pool_);
+                pool_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse.class, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse.Builder.class);
+    }
+
+    public static final int POOL_FIELD_NUMBER = 1;
+    private irismod.coinswap.QueryOuterClass.PoolInfo pool_;
+    /**
+     * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the pool field is set.
+     */
+    @java.lang.Override
+    public boolean hasPool() {
+      return pool_ != null;
+    }
+    /**
+     * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+     * @return The pool.
+     */
+    @java.lang.Override
+    public irismod.coinswap.QueryOuterClass.PoolInfo getPool() {
+      return pool_ == null ? irismod.coinswap.QueryOuterClass.PoolInfo.getDefaultInstance() : pool_;
+    }
+    /**
+     * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder getPoolOrBuilder() {
+      return getPool();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (pool_ != null) {
+        output.writeMessage(1, getPool());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (pool_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getPool());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse)) {
+        return super.equals(obj);
+      }
+      irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse other = (irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse) obj;
+
+      if (hasPool() != other.hasPool()) return false;
+      if (hasPool()) {
+        if (!getPool()
+            .equals(other.getPool())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasPool()) {
+        hash = (37 * hash) + POOL_FIELD_NUMBER;
+        hash = (53 * hash) + getPool().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryLiquidityPoolResponse is response type for the Query/LiquidityPool RPC
+     * method
+     * </pre>
+     *
+     * Protobuf type {@code irismod.coinswap.QueryLiquidityPoolResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:irismod.coinswap.QueryLiquidityPoolResponse)
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse.class, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse.Builder.class);
+      }
+
+      // Construct using irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (poolBuilder_ == null) {
+          pool_ = null;
+        } else {
+          pool_ = null;
+          poolBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse getDefaultInstanceForType() {
+        return irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse build() {
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse buildPartial() {
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse result = new irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse(this);
+        if (poolBuilder_ == null) {
+          result.pool_ = pool_;
+        } else {
+          result.pool_ = poolBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse) {
+          return mergeFrom((irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse other) {
+        if (other == irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse.getDefaultInstance()) return this;
+        if (other.hasPool()) {
+          mergePool(other.getPool());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private irismod.coinswap.QueryOuterClass.PoolInfo pool_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          irismod.coinswap.QueryOuterClass.PoolInfo, irismod.coinswap.QueryOuterClass.PoolInfo.Builder, irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder> poolBuilder_;
+      /**
+       * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+       * @return Whether the pool field is set.
+       */
+      public boolean hasPool() {
+        return poolBuilder_ != null || pool_ != null;
+      }
+      /**
+       * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+       * @return The pool.
+       */
+      public irismod.coinswap.QueryOuterClass.PoolInfo getPool() {
+        if (poolBuilder_ == null) {
+          return pool_ == null ? irismod.coinswap.QueryOuterClass.PoolInfo.getDefaultInstance() : pool_;
+        } else {
+          return poolBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setPool(irismod.coinswap.QueryOuterClass.PoolInfo value) {
+        if (poolBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pool_ = value;
+          onChanged();
+        } else {
+          poolBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setPool(
+          irismod.coinswap.QueryOuterClass.PoolInfo.Builder builderForValue) {
+        if (poolBuilder_ == null) {
+          pool_ = builderForValue.build();
+          onChanged();
+        } else {
+          poolBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergePool(irismod.coinswap.QueryOuterClass.PoolInfo value) {
+        if (poolBuilder_ == null) {
+          if (pool_ != null) {
+            pool_ =
+              irismod.coinswap.QueryOuterClass.PoolInfo.newBuilder(pool_).mergeFrom(value).buildPartial();
+          } else {
+            pool_ = value;
+          }
+          onChanged();
+        } else {
+          poolBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearPool() {
+        if (poolBuilder_ == null) {
+          pool_ = null;
+          onChanged();
+        } else {
+          pool_ = null;
+          poolBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.QueryOuterClass.PoolInfo.Builder getPoolBuilder() {
+        
+        onChanged();
+        return getPoolFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder getPoolOrBuilder() {
+        if (poolBuilder_ != null) {
+          return poolBuilder_.getMessageOrBuilder();
+        } else {
+          return pool_ == null ?
+              irismod.coinswap.QueryOuterClass.PoolInfo.getDefaultInstance() : pool_;
+        }
+      }
+      /**
+       * <code>.irismod.coinswap.PoolInfo pool = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          irismod.coinswap.QueryOuterClass.PoolInfo, irismod.coinswap.QueryOuterClass.PoolInfo.Builder, irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder> 
+          getPoolFieldBuilder() {
+        if (poolBuilder_ == null) {
+          poolBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              irismod.coinswap.QueryOuterClass.PoolInfo, irismod.coinswap.QueryOuterClass.PoolInfo.Builder, irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder>(
+                  getPool(),
+                  getParentForChildren(),
+                  isClean());
+          pool_ = null;
+        }
+        return poolBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:irismod.coinswap.QueryLiquidityPoolResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:irismod.coinswap.QueryLiquidityPoolResponse)
+    private static final irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse();
+    }
+
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryLiquidityPoolResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryLiquidityPoolResponse>() {
+      @java.lang.Override
+      public QueryLiquidityPoolResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryLiquidityPoolResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryLiquidityPoolResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryLiquidityPoolResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryLiquidityPoolsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:irismod.coinswap.QueryLiquidityPoolsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequest getPagination();
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder();
+  }
+  /**
+   * <pre>
+   * QueryLiquidityPoolsRequest is request type for the Query/LiquidityPools RPC
+   * method
+   * </pre>
+   *
+   * Protobuf type {@code irismod.coinswap.QueryLiquidityPoolsRequest}
+   */
+  public static final class QueryLiquidityPoolsRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:irismod.coinswap.QueryLiquidityPoolsRequest)
+      QueryLiquidityPoolsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryLiquidityPoolsRequest.newBuilder() to construct.
+    private QueryLiquidityPoolsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryLiquidityPoolsRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryLiquidityPoolsRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryLiquidityPoolsRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              cosmos.base.query.v1beta1.Pagination.PageRequest.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest.class, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest.Builder.class);
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 1;
+    private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+      return getPagination();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (pagination_ != null) {
+        output.writeMessage(1, getPagination());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getPagination());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest)) {
+        return super.equals(obj);
+      }
+      irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest other = (irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest) obj;
+
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryLiquidityPoolsRequest is request type for the Query/LiquidityPools RPC
+     * method
+     * </pre>
+     *
+     * Protobuf type {@code irismod.coinswap.QueryLiquidityPoolsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:irismod.coinswap.QueryLiquidityPoolsRequest)
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest.class, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest.Builder.class);
+      }
+
+      // Construct using irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest getDefaultInstanceForType() {
+        return irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest build() {
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest buildPartial() {
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest result = new irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest(this);
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest) {
+          return mergeFrom((irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest other) {
+        if (other == irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest.getDefaultInstance()) return this;
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> paginationBuilder_;
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageRequest.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageRequest.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:irismod.coinswap.QueryLiquidityPoolsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:irismod.coinswap.QueryLiquidityPoolsRequest)
+    private static final irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest();
+    }
+
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryLiquidityPoolsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryLiquidityPoolsRequest>() {
+      @java.lang.Override
+      public QueryLiquidityPoolsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryLiquidityPoolsRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryLiquidityPoolsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryLiquidityPoolsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryLiquidityPoolsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:irismod.coinswap.QueryLiquidityPoolsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<irismod.coinswap.QueryOuterClass.PoolInfo> 
+        getPoolsList();
+    /**
+     * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    irismod.coinswap.QueryOuterClass.PoolInfo getPools(int index);
+    /**
+     * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    int getPoolsCount();
+    /**
+     * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<? extends irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder> 
+        getPoolsOrBuilderList();
+    /**
+     * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder getPoolsOrBuilder(
+        int index);
+
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponse getPagination();
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder();
+  }
+  /**
+   * <pre>
+   * QueryLiquidityPoolsResponse is response type for the Query/LiquidityPools RPC
+   * method
+   * </pre>
+   *
+   * Protobuf type {@code irismod.coinswap.QueryLiquidityPoolsResponse}
+   */
+  public static final class QueryLiquidityPoolsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:irismod.coinswap.QueryLiquidityPoolsResponse)
+      QueryLiquidityPoolsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryLiquidityPoolsResponse.newBuilder() to construct.
+    private QueryLiquidityPoolsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryLiquidityPoolsResponse() {
+      pools_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryLiquidityPoolsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryLiquidityPoolsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                pools_ = new java.util.ArrayList<irismod.coinswap.QueryOuterClass.PoolInfo>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              pools_.add(
+                  input.readMessage(irismod.coinswap.QueryOuterClass.PoolInfo.parser(), extensionRegistry));
+              break;
+            }
+            case 18: {
+              cosmos.base.query.v1beta1.Pagination.PageResponse.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageResponse.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          pools_ = java.util.Collections.unmodifiableList(pools_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse.class, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse.Builder.class);
+    }
+
+    public static final int POOLS_FIELD_NUMBER = 1;
+    private java.util.List<irismod.coinswap.QueryOuterClass.PoolInfo> pools_;
+    /**
+     * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<irismod.coinswap.QueryOuterClass.PoolInfo> getPoolsList() {
+      return pools_;
+    }
+    /**
+     * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder> 
+        getPoolsOrBuilderList() {
+      return pools_;
+    }
+    /**
+     * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public int getPoolsCount() {
+      return pools_.size();
+    }
+    /**
+     * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public irismod.coinswap.QueryOuterClass.PoolInfo getPools(int index) {
+      return pools_.get(index);
+    }
+    /**
+     * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder getPoolsOrBuilder(
+        int index) {
+      return pools_.get(index);
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 2;
+    private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
+      return getPagination();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < pools_.size(); i++) {
+        output.writeMessage(1, pools_.get(i));
+      }
+      if (pagination_ != null) {
+        output.writeMessage(2, getPagination());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < pools_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, pools_.get(i));
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPagination());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse)) {
+        return super.equals(obj);
+      }
+      irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse other = (irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse) obj;
+
+      if (!getPoolsList()
+          .equals(other.getPoolsList())) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getPoolsCount() > 0) {
+        hash = (37 * hash) + POOLS_FIELD_NUMBER;
+        hash = (53 * hash) + getPoolsList().hashCode();
+      }
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryLiquidityPoolsResponse is response type for the Query/LiquidityPools RPC
+     * method
+     * </pre>
+     *
+     * Protobuf type {@code irismod.coinswap.QueryLiquidityPoolsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:irismod.coinswap.QueryLiquidityPoolsResponse)
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse.class, irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse.Builder.class);
+      }
+
+      // Construct using irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getPoolsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (poolsBuilder_ == null) {
+          pools_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          poolsBuilder_.clear();
+        }
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityPoolsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse getDefaultInstanceForType() {
+        return irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse build() {
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse buildPartial() {
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse result = new irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (poolsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            pools_ = java.util.Collections.unmodifiableList(pools_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.pools_ = pools_;
+        } else {
+          result.pools_ = poolsBuilder_.build();
+        }
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse) {
+          return mergeFrom((irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse other) {
+        if (other == irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse.getDefaultInstance()) return this;
+        if (poolsBuilder_ == null) {
+          if (!other.pools_.isEmpty()) {
+            if (pools_.isEmpty()) {
+              pools_ = other.pools_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePoolsIsMutable();
+              pools_.addAll(other.pools_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.pools_.isEmpty()) {
+            if (poolsBuilder_.isEmpty()) {
+              poolsBuilder_.dispose();
+              poolsBuilder_ = null;
+              pools_ = other.pools_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              poolsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPoolsFieldBuilder() : null;
+            } else {
+              poolsBuilder_.addAllMessages(other.pools_);
+            }
+          }
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<irismod.coinswap.QueryOuterClass.PoolInfo> pools_ =
+        java.util.Collections.emptyList();
+      private void ensurePoolsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          pools_ = new java.util.ArrayList<irismod.coinswap.QueryOuterClass.PoolInfo>(pools_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          irismod.coinswap.QueryOuterClass.PoolInfo, irismod.coinswap.QueryOuterClass.PoolInfo.Builder, irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder> poolsBuilder_;
+
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<irismod.coinswap.QueryOuterClass.PoolInfo> getPoolsList() {
+        if (poolsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(pools_);
+        } else {
+          return poolsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public int getPoolsCount() {
+        if (poolsBuilder_ == null) {
+          return pools_.size();
+        } else {
+          return poolsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.QueryOuterClass.PoolInfo getPools(int index) {
+        if (poolsBuilder_ == null) {
+          return pools_.get(index);
+        } else {
+          return poolsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setPools(
+          int index, irismod.coinswap.QueryOuterClass.PoolInfo value) {
+        if (poolsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePoolsIsMutable();
+          pools_.set(index, value);
+          onChanged();
+        } else {
+          poolsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setPools(
+          int index, irismod.coinswap.QueryOuterClass.PoolInfo.Builder builderForValue) {
+        if (poolsBuilder_ == null) {
+          ensurePoolsIsMutable();
+          pools_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          poolsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addPools(irismod.coinswap.QueryOuterClass.PoolInfo value) {
+        if (poolsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePoolsIsMutable();
+          pools_.add(value);
+          onChanged();
+        } else {
+          poolsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addPools(
+          int index, irismod.coinswap.QueryOuterClass.PoolInfo value) {
+        if (poolsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePoolsIsMutable();
+          pools_.add(index, value);
+          onChanged();
+        } else {
+          poolsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addPools(
+          irismod.coinswap.QueryOuterClass.PoolInfo.Builder builderForValue) {
+        if (poolsBuilder_ == null) {
+          ensurePoolsIsMutable();
+          pools_.add(builderForValue.build());
+          onChanged();
+        } else {
+          poolsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addPools(
+          int index, irismod.coinswap.QueryOuterClass.PoolInfo.Builder builderForValue) {
+        if (poolsBuilder_ == null) {
+          ensurePoolsIsMutable();
+          pools_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          poolsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addAllPools(
+          java.lang.Iterable<? extends irismod.coinswap.QueryOuterClass.PoolInfo> values) {
+        if (poolsBuilder_ == null) {
+          ensurePoolsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, pools_);
+          onChanged();
+        } else {
+          poolsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearPools() {
+        if (poolsBuilder_ == null) {
+          pools_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          poolsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder removePools(int index) {
+        if (poolsBuilder_ == null) {
+          ensurePoolsIsMutable();
+          pools_.remove(index);
+          onChanged();
+        } else {
+          poolsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.QueryOuterClass.PoolInfo.Builder getPoolsBuilder(
+          int index) {
+        return getPoolsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder getPoolsOrBuilder(
+          int index) {
+        if (poolsBuilder_ == null) {
+          return pools_.get(index);  } else {
+          return poolsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<? extends irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder> 
+           getPoolsOrBuilderList() {
+        if (poolsBuilder_ != null) {
+          return poolsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(pools_);
+        }
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.QueryOuterClass.PoolInfo.Builder addPoolsBuilder() {
+        return getPoolsFieldBuilder().addBuilder(
+            irismod.coinswap.QueryOuterClass.PoolInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public irismod.coinswap.QueryOuterClass.PoolInfo.Builder addPoolsBuilder(
+          int index) {
+        return getPoolsFieldBuilder().addBuilder(
+            index, irismod.coinswap.QueryOuterClass.PoolInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .irismod.coinswap.PoolInfo pools = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<irismod.coinswap.QueryOuterClass.PoolInfo.Builder> 
+           getPoolsBuilderList() {
+        return getPoolsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          irismod.coinswap.QueryOuterClass.PoolInfo, irismod.coinswap.QueryOuterClass.PoolInfo.Builder, irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder> 
+          getPoolsFieldBuilder() {
+        if (poolsBuilder_ == null) {
+          poolsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              irismod.coinswap.QueryOuterClass.PoolInfo, irismod.coinswap.QueryOuterClass.PoolInfo.Builder, irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder>(
+                  pools_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          pools_ = null;
+        }
+        return poolsBuilder_;
+      }
+
+      private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> paginationBuilder_;
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageResponse.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageResponse.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponse.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:irismod.coinswap.QueryLiquidityPoolsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:irismod.coinswap.QueryLiquidityPoolsResponse)
+    private static final irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse();
+    }
+
+    public static irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryLiquidityPoolsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryLiquidityPoolsResponse>() {
+      @java.lang.Override
+      public QueryLiquidityPoolsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryLiquidityPoolsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryLiquidityPoolsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryLiquidityPoolsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public irismod.coinswap.QueryOuterClass.QueryLiquidityPoolsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PoolInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:irismod.coinswap.PoolInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <pre>
+     * escrow account for deposit tokens
+     * </pre>
+     *
+     * <code>string escrow_address = 2;</code>
+     * @return The escrowAddress.
+     */
+    java.lang.String getEscrowAddress();
+    /**
+     * <pre>
+     * escrow account for deposit tokens
+     * </pre>
+     *
+     * <code>string escrow_address = 2;</code>
+     * @return The bytes for escrowAddress.
+     */
+    com.google.protobuf.ByteString
+        getEscrowAddressBytes();
+
+    /**
+     * <pre>
+     * main token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the standard field is set.
+     */
+    boolean hasStandard();
+    /**
+     * <pre>
+     * main token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
+     * @return The standard.
+     */
+    cosmos.base.v1beta1.CoinOuterClass.Coin getStandard();
+    /**
+     * <pre>
+     * main token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getStandardOrBuilder();
+
+    /**
+     * <pre>
+     * counterparty token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the token field is set.
+     */
+    boolean hasToken();
+    /**
+     * <pre>
+     * counterparty token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
+     * @return The token.
+     */
+    cosmos.base.v1beta1.CoinOuterClass.Coin getToken();
+    /**
+     * <pre>
+     * counterparty token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
+     */
+    cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenOrBuilder();
+
+    /**
+     * <pre>
+     * liquidity token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the lpt field is set.
+     */
+    boolean hasLpt();
+    /**
+     * <pre>
+     * liquidity token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
+     * @return The lpt.
+     */
+    cosmos.base.v1beta1.CoinOuterClass.Coin getLpt();
+    /**
+     * <pre>
+     * liquidity token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
+     */
+    cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getLptOrBuilder();
+
+    /**
+     * <pre>
+     * liquidity pool fee
+     * </pre>
+     *
+     * <code>string fee = 6;</code>
+     * @return The fee.
+     */
+    java.lang.String getFee();
+    /**
+     * <pre>
+     * liquidity pool fee
+     * </pre>
+     *
+     * <code>string fee = 6;</code>
+     * @return The bytes for fee.
+     */
+    com.google.protobuf.ByteString
+        getFeeBytes();
+  }
+  /**
+   * Protobuf type {@code irismod.coinswap.PoolInfo}
+   */
+  public static final class PoolInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:irismod.coinswap.PoolInfo)
+      PoolInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PoolInfo.newBuilder() to construct.
+    private PoolInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PoolInfo() {
+      id_ = "";
+      escrowAddress_ = "";
+      fee_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PoolInfo();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PoolInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              escrowAddress_ = s;
+              break;
+            }
+            case 26: {
               cosmos.base.v1beta1.CoinOuterClass.Coin.Builder subBuilder = null;
               if (standard_ != null) {
                 subBuilder = standard_.toBuilder();
@@ -714,7 +3130,7 @@ public final class QueryOuterClass {
 
               break;
             }
-            case 18: {
+            case 34: {
               cosmos.base.v1beta1.CoinOuterClass.Coin.Builder subBuilder = null;
               if (token_ != null) {
                 subBuilder = token_.toBuilder();
@@ -727,20 +3143,20 @@ public final class QueryOuterClass {
 
               break;
             }
-            case 26: {
+            case 42: {
               cosmos.base.v1beta1.CoinOuterClass.Coin.Builder subBuilder = null;
-              if (liquidity_ != null) {
-                subBuilder = liquidity_.toBuilder();
+              if (lpt_ != null) {
+                subBuilder = lpt_.toBuilder();
               }
-              liquidity_ = input.readMessage(cosmos.base.v1beta1.CoinOuterClass.Coin.parser(), extensionRegistry);
+              lpt_ = input.readMessage(cosmos.base.v1beta1.CoinOuterClass.Coin.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom(liquidity_);
-                liquidity_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom(lpt_);
+                lpt_ = subBuilder.buildPartial();
               }
 
               break;
             }
-            case 34: {
+            case 50: {
               java.lang.String s = input.readStringRequireUtf8();
 
               fee_ = s;
@@ -767,21 +3183,109 @@ public final class QueryOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityResponse_descriptor;
+      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_PoolInfo_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityResponse_fieldAccessorTable
+      return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_PoolInfo_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              irismod.coinswap.QueryOuterClass.QueryLiquidityResponse.class, irismod.coinswap.QueryOuterClass.QueryLiquidityResponse.Builder.class);
+              irismod.coinswap.QueryOuterClass.PoolInfo.class, irismod.coinswap.QueryOuterClass.PoolInfo.Builder.class);
     }
 
-    public static final int STANDARD_FIELD_NUMBER = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ESCROW_ADDRESS_FIELD_NUMBER = 2;
+    private volatile java.lang.Object escrowAddress_;
+    /**
+     * <pre>
+     * escrow account for deposit tokens
+     * </pre>
+     *
+     * <code>string escrow_address = 2;</code>
+     * @return The escrowAddress.
+     */
+    @java.lang.Override
+    public java.lang.String getEscrowAddress() {
+      java.lang.Object ref = escrowAddress_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        escrowAddress_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * escrow account for deposit tokens
+     * </pre>
+     *
+     * <code>string escrow_address = 2;</code>
+     * @return The bytes for escrowAddress.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEscrowAddressBytes() {
+      java.lang.Object ref = escrowAddress_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        escrowAddress_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int STANDARD_FIELD_NUMBER = 3;
     private cosmos.base.v1beta1.CoinOuterClass.Coin standard_;
     /**
-     * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+     * <pre>
+     * main token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the standard field is set.
      */
     @java.lang.Override
@@ -789,7 +3293,11 @@ public final class QueryOuterClass {
       return standard_ != null;
     }
     /**
-     * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+     * <pre>
+     * main token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
      * @return The standard.
      */
     @java.lang.Override
@@ -797,17 +3305,25 @@ public final class QueryOuterClass {
       return standard_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : standard_;
     }
     /**
-     * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+     * <pre>
+     * main token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getStandardOrBuilder() {
       return getStandard();
     }
 
-    public static final int TOKEN_FIELD_NUMBER = 2;
+    public static final int TOKEN_FIELD_NUMBER = 4;
     private cosmos.base.v1beta1.CoinOuterClass.Coin token_;
     /**
-     * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+     * <pre>
+     * counterparty token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
      * @return Whether the token field is set.
      */
     @java.lang.Override
@@ -815,7 +3331,11 @@ public final class QueryOuterClass {
       return token_ != null;
     }
     /**
-     * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+     * <pre>
+     * counterparty token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
      * @return The token.
      */
     @java.lang.Override
@@ -823,43 +3343,63 @@ public final class QueryOuterClass {
       return token_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : token_;
     }
     /**
-     * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+     * <pre>
+     * counterparty token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenOrBuilder() {
       return getToken();
     }
 
-    public static final int LIQUIDITY_FIELD_NUMBER = 3;
-    private cosmos.base.v1beta1.CoinOuterClass.Coin liquidity_;
+    public static final int LPT_FIELD_NUMBER = 5;
+    private cosmos.base.v1beta1.CoinOuterClass.Coin lpt_;
     /**
-     * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
-     * @return Whether the liquidity field is set.
+     * <pre>
+     * liquidity token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the lpt field is set.
      */
     @java.lang.Override
-    public boolean hasLiquidity() {
-      return liquidity_ != null;
+    public boolean hasLpt() {
+      return lpt_ != null;
     }
     /**
-     * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
-     * @return The liquidity.
+     * <pre>
+     * liquidity token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
+     * @return The lpt.
      */
     @java.lang.Override
-    public cosmos.base.v1beta1.CoinOuterClass.Coin getLiquidity() {
-      return liquidity_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : liquidity_;
+    public cosmos.base.v1beta1.CoinOuterClass.Coin getLpt() {
+      return lpt_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : lpt_;
     }
     /**
-     * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
+     * <pre>
+     * liquidity token balance
+     * </pre>
+     *
+     * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getLiquidityOrBuilder() {
-      return getLiquidity();
+    public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getLptOrBuilder() {
+      return getLpt();
     }
 
-    public static final int FEE_FIELD_NUMBER = 4;
+    public static final int FEE_FIELD_NUMBER = 6;
     private volatile java.lang.Object fee_;
     /**
-     * <code>string fee = 4;</code>
+     * <pre>
+     * liquidity pool fee
+     * </pre>
+     *
+     * <code>string fee = 6;</code>
      * @return The fee.
      */
     @java.lang.Override
@@ -876,7 +3416,11 @@ public final class QueryOuterClass {
       }
     }
     /**
-     * <code>string fee = 4;</code>
+     * <pre>
+     * liquidity pool fee
+     * </pre>
+     *
+     * <code>string fee = 6;</code>
      * @return The bytes for fee.
      */
     @java.lang.Override
@@ -908,17 +3452,23 @@ public final class QueryOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      if (!getEscrowAddressBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, escrowAddress_);
+      }
       if (standard_ != null) {
-        output.writeMessage(1, getStandard());
+        output.writeMessage(3, getStandard());
       }
       if (token_ != null) {
-        output.writeMessage(2, getToken());
+        output.writeMessage(4, getToken());
       }
-      if (liquidity_ != null) {
-        output.writeMessage(3, getLiquidity());
+      if (lpt_ != null) {
+        output.writeMessage(5, getLpt());
       }
       if (!getFeeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, fee_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, fee_);
       }
       unknownFields.writeTo(output);
     }
@@ -929,20 +3479,26 @@ public final class QueryOuterClass {
       if (size != -1) return size;
 
       size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (!getEscrowAddressBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, escrowAddress_);
+      }
       if (standard_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getStandard());
+          .computeMessageSize(3, getStandard());
       }
       if (token_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getToken());
+          .computeMessageSize(4, getToken());
       }
-      if (liquidity_ != null) {
+      if (lpt_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getLiquidity());
+          .computeMessageSize(5, getLpt());
       }
       if (!getFeeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, fee_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, fee_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -954,11 +3510,15 @@ public final class QueryOuterClass {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityResponse)) {
+      if (!(obj instanceof irismod.coinswap.QueryOuterClass.PoolInfo)) {
         return super.equals(obj);
       }
-      irismod.coinswap.QueryOuterClass.QueryLiquidityResponse other = (irismod.coinswap.QueryOuterClass.QueryLiquidityResponse) obj;
+      irismod.coinswap.QueryOuterClass.PoolInfo other = (irismod.coinswap.QueryOuterClass.PoolInfo) obj;
 
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getEscrowAddress()
+          .equals(other.getEscrowAddress())) return false;
       if (hasStandard() != other.hasStandard()) return false;
       if (hasStandard()) {
         if (!getStandard()
@@ -969,10 +3529,10 @@ public final class QueryOuterClass {
         if (!getToken()
             .equals(other.getToken())) return false;
       }
-      if (hasLiquidity() != other.hasLiquidity()) return false;
-      if (hasLiquidity()) {
-        if (!getLiquidity()
-            .equals(other.getLiquidity())) return false;
+      if (hasLpt() != other.hasLpt()) return false;
+      if (hasLpt()) {
+        if (!getLpt()
+            .equals(other.getLpt())) return false;
       }
       if (!getFee()
           .equals(other.getFee())) return false;
@@ -987,6 +3547,10 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + ESCROW_ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getEscrowAddress().hashCode();
       if (hasStandard()) {
         hash = (37 * hash) + STANDARD_FIELD_NUMBER;
         hash = (53 * hash) + getStandard().hashCode();
@@ -995,9 +3559,9 @@ public final class QueryOuterClass {
         hash = (37 * hash) + TOKEN_FIELD_NUMBER;
         hash = (53 * hash) + getToken().hashCode();
       }
-      if (hasLiquidity()) {
-        hash = (37 * hash) + LIQUIDITY_FIELD_NUMBER;
-        hash = (53 * hash) + getLiquidity().hashCode();
+      if (hasLpt()) {
+        hash = (37 * hash) + LPT_FIELD_NUMBER;
+        hash = (53 * hash) + getLpt().hashCode();
       }
       hash = (37 * hash) + FEE_FIELD_NUMBER;
       hash = (53 * hash) + getFee().hashCode();
@@ -1006,69 +3570,69 @@ public final class QueryOuterClass {
       return hash;
     }
 
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseFrom(
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseFrom(
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseFrom(
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseFrom(
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseFrom(byte[] data)
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseFrom(
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseFrom(java.io.InputStream input)
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseFrom(
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseDelimitedFrom(java.io.InputStream input)
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseDelimitedFrom(
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseFrom(
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parseFrom(
+    public static irismod.coinswap.QueryOuterClass.PoolInfo parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1081,7 +3645,7 @@ public final class QueryOuterClass {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(irismod.coinswap.QueryOuterClass.QueryLiquidityResponse prototype) {
+    public static Builder newBuilder(irismod.coinswap.QueryOuterClass.PoolInfo prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1097,30 +3661,26 @@ public final class QueryOuterClass {
       return builder;
     }
     /**
-     * <pre>
-     * QueryLiquidityResponse is response type for the Query/Liquidity RPC method
-     * </pre>
-     *
-     * Protobuf type {@code irismod.coinswap.QueryLiquidityResponse}
+     * Protobuf type {@code irismod.coinswap.PoolInfo}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:irismod.coinswap.QueryLiquidityResponse)
-        irismod.coinswap.QueryOuterClass.QueryLiquidityResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:irismod.coinswap.PoolInfo)
+        irismod.coinswap.QueryOuterClass.PoolInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityResponse_descriptor;
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_PoolInfo_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityResponse_fieldAccessorTable
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_PoolInfo_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                irismod.coinswap.QueryOuterClass.QueryLiquidityResponse.class, irismod.coinswap.QueryOuterClass.QueryLiquidityResponse.Builder.class);
+                irismod.coinswap.QueryOuterClass.PoolInfo.class, irismod.coinswap.QueryOuterClass.PoolInfo.Builder.class);
       }
 
-      // Construct using irismod.coinswap.QueryOuterClass.QueryLiquidityResponse.newBuilder()
+      // Construct using irismod.coinswap.QueryOuterClass.PoolInfo.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1138,6 +3698,10 @@ public final class QueryOuterClass {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        id_ = "";
+
+        escrowAddress_ = "";
+
         if (standardBuilder_ == null) {
           standard_ = null;
         } else {
@@ -1150,11 +3714,11 @@ public final class QueryOuterClass {
           token_ = null;
           tokenBuilder_ = null;
         }
-        if (liquidityBuilder_ == null) {
-          liquidity_ = null;
+        if (lptBuilder_ == null) {
+          lpt_ = null;
         } else {
-          liquidity_ = null;
-          liquidityBuilder_ = null;
+          lpt_ = null;
+          lptBuilder_ = null;
         }
         fee_ = "";
 
@@ -1164,17 +3728,17 @@ public final class QueryOuterClass {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_QueryLiquidityResponse_descriptor;
+        return irismod.coinswap.QueryOuterClass.internal_static_irismod_coinswap_PoolInfo_descriptor;
       }
 
       @java.lang.Override
-      public irismod.coinswap.QueryOuterClass.QueryLiquidityResponse getDefaultInstanceForType() {
-        return irismod.coinswap.QueryOuterClass.QueryLiquidityResponse.getDefaultInstance();
+      public irismod.coinswap.QueryOuterClass.PoolInfo getDefaultInstanceForType() {
+        return irismod.coinswap.QueryOuterClass.PoolInfo.getDefaultInstance();
       }
 
       @java.lang.Override
-      public irismod.coinswap.QueryOuterClass.QueryLiquidityResponse build() {
-        irismod.coinswap.QueryOuterClass.QueryLiquidityResponse result = buildPartial();
+      public irismod.coinswap.QueryOuterClass.PoolInfo build() {
+        irismod.coinswap.QueryOuterClass.PoolInfo result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1182,8 +3746,10 @@ public final class QueryOuterClass {
       }
 
       @java.lang.Override
-      public irismod.coinswap.QueryOuterClass.QueryLiquidityResponse buildPartial() {
-        irismod.coinswap.QueryOuterClass.QueryLiquidityResponse result = new irismod.coinswap.QueryOuterClass.QueryLiquidityResponse(this);
+      public irismod.coinswap.QueryOuterClass.PoolInfo buildPartial() {
+        irismod.coinswap.QueryOuterClass.PoolInfo result = new irismod.coinswap.QueryOuterClass.PoolInfo(this);
+        result.id_ = id_;
+        result.escrowAddress_ = escrowAddress_;
         if (standardBuilder_ == null) {
           result.standard_ = standard_;
         } else {
@@ -1194,10 +3760,10 @@ public final class QueryOuterClass {
         } else {
           result.token_ = tokenBuilder_.build();
         }
-        if (liquidityBuilder_ == null) {
-          result.liquidity_ = liquidity_;
+        if (lptBuilder_ == null) {
+          result.lpt_ = lpt_;
         } else {
-          result.liquidity_ = liquidityBuilder_.build();
+          result.lpt_ = lptBuilder_.build();
         }
         result.fee_ = fee_;
         onBuilt();
@@ -1238,24 +3804,32 @@ public final class QueryOuterClass {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof irismod.coinswap.QueryOuterClass.QueryLiquidityResponse) {
-          return mergeFrom((irismod.coinswap.QueryOuterClass.QueryLiquidityResponse)other);
+        if (other instanceof irismod.coinswap.QueryOuterClass.PoolInfo) {
+          return mergeFrom((irismod.coinswap.QueryOuterClass.PoolInfo)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(irismod.coinswap.QueryOuterClass.QueryLiquidityResponse other) {
-        if (other == irismod.coinswap.QueryOuterClass.QueryLiquidityResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(irismod.coinswap.QueryOuterClass.PoolInfo other) {
+        if (other == irismod.coinswap.QueryOuterClass.PoolInfo.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (!other.getEscrowAddress().isEmpty()) {
+          escrowAddress_ = other.escrowAddress_;
+          onChanged();
+        }
         if (other.hasStandard()) {
           mergeStandard(other.getStandard());
         }
         if (other.hasToken()) {
           mergeToken(other.getToken());
         }
-        if (other.hasLiquidity()) {
-          mergeLiquidity(other.getLiquidity());
+        if (other.hasLpt()) {
+          mergeLpt(other.getLpt());
         }
         if (!other.getFee().isEmpty()) {
           fee_ = other.fee_;
@@ -1276,11 +3850,11 @@ public final class QueryOuterClass {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        irismod.coinswap.QueryOuterClass.QueryLiquidityResponse parsedMessage = null;
+        irismod.coinswap.QueryOuterClass.PoolInfo parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (irismod.coinswap.QueryOuterClass.QueryLiquidityResponse) e.getUnfinishedMessage();
+          parsedMessage = (irismod.coinswap.QueryOuterClass.PoolInfo) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1290,18 +3864,198 @@ public final class QueryOuterClass {
         return this;
       }
 
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object escrowAddress_ = "";
+      /**
+       * <pre>
+       * escrow account for deposit tokens
+       * </pre>
+       *
+       * <code>string escrow_address = 2;</code>
+       * @return The escrowAddress.
+       */
+      public java.lang.String getEscrowAddress() {
+        java.lang.Object ref = escrowAddress_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          escrowAddress_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * escrow account for deposit tokens
+       * </pre>
+       *
+       * <code>string escrow_address = 2;</code>
+       * @return The bytes for escrowAddress.
+       */
+      public com.google.protobuf.ByteString
+          getEscrowAddressBytes() {
+        java.lang.Object ref = escrowAddress_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          escrowAddress_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * escrow account for deposit tokens
+       * </pre>
+       *
+       * <code>string escrow_address = 2;</code>
+       * @param value The escrowAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEscrowAddress(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        escrowAddress_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * escrow account for deposit tokens
+       * </pre>
+       *
+       * <code>string escrow_address = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEscrowAddress() {
+        
+        escrowAddress_ = getDefaultInstance().getEscrowAddress();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * escrow account for deposit tokens
+       * </pre>
+       *
+       * <code>string escrow_address = 2;</code>
+       * @param value The bytes for escrowAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEscrowAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        escrowAddress_ = value;
+        onChanged();
+        return this;
+      }
+
       private cosmos.base.v1beta1.CoinOuterClass.Coin standard_;
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> standardBuilder_;
       /**
-       * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * main token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
        * @return Whether the standard field is set.
        */
       public boolean hasStandard() {
         return standardBuilder_ != null || standard_ != null;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * main token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
        * @return The standard.
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getStandard() {
@@ -1312,7 +4066,11 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * main token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setStandard(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (standardBuilder_ == null) {
@@ -1328,7 +4086,11 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * main token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setStandard(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -1342,7 +4104,11 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * main token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeStandard(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (standardBuilder_ == null) {
@@ -1360,7 +4126,11 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * main token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearStandard() {
         if (standardBuilder_ == null) {
@@ -1374,7 +4144,11 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * main token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getStandardBuilder() {
         
@@ -1382,7 +4156,11 @@ public final class QueryOuterClass {
         return getStandardFieldBuilder().getBuilder();
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * main token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getStandardOrBuilder() {
         if (standardBuilder_ != null) {
@@ -1393,7 +4171,11 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * main token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin standard = 3 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -1413,14 +4195,22 @@ public final class QueryOuterClass {
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> tokenBuilder_;
       /**
-       * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * counterparty token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
        * @return Whether the token field is set.
        */
       public boolean hasToken() {
         return tokenBuilder_ != null || token_ != null;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * counterparty token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
        * @return The token.
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getToken() {
@@ -1431,7 +4221,11 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * counterparty token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setToken(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (tokenBuilder_ == null) {
@@ -1447,7 +4241,11 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * counterparty token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setToken(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -1461,7 +4259,11 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * counterparty token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeToken(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (tokenBuilder_ == null) {
@@ -1479,7 +4281,11 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * counterparty token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearToken() {
         if (tokenBuilder_ == null) {
@@ -1493,7 +4299,11 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * counterparty token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getTokenBuilder() {
         
@@ -1501,7 +4311,11 @@ public final class QueryOuterClass {
         return getTokenFieldBuilder().getBuilder();
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * counterparty token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenOrBuilder() {
         if (tokenBuilder_ != null) {
@@ -1512,7 +4326,11 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * counterparty token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin token = 4 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -1528,128 +4346,168 @@ public final class QueryOuterClass {
         return tokenBuilder_;
       }
 
-      private cosmos.base.v1beta1.CoinOuterClass.Coin liquidity_;
+      private cosmos.base.v1beta1.CoinOuterClass.Coin lpt_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> liquidityBuilder_;
+          cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> lptBuilder_;
       /**
-       * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
-       * @return Whether the liquidity field is set.
+       * <pre>
+       * liquidity token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
+       * @return Whether the lpt field is set.
        */
-      public boolean hasLiquidity() {
-        return liquidityBuilder_ != null || liquidity_ != null;
+      public boolean hasLpt() {
+        return lptBuilder_ != null || lpt_ != null;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
-       * @return The liquidity.
+       * <pre>
+       * liquidity token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
+       * @return The lpt.
        */
-      public cosmos.base.v1beta1.CoinOuterClass.Coin getLiquidity() {
-        if (liquidityBuilder_ == null) {
-          return liquidity_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : liquidity_;
+      public cosmos.base.v1beta1.CoinOuterClass.Coin getLpt() {
+        if (lptBuilder_ == null) {
+          return lpt_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : lpt_;
         } else {
-          return liquidityBuilder_.getMessage();
+          return lptBuilder_.getMessage();
         }
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * liquidity token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
        */
-      public Builder setLiquidity(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
-        if (liquidityBuilder_ == null) {
+      public Builder setLpt(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
+        if (lptBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          liquidity_ = value;
+          lpt_ = value;
           onChanged();
         } else {
-          liquidityBuilder_.setMessage(value);
+          lptBuilder_.setMessage(value);
         }
 
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * liquidity token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
        */
-      public Builder setLiquidity(
+      public Builder setLpt(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
-        if (liquidityBuilder_ == null) {
-          liquidity_ = builderForValue.build();
+        if (lptBuilder_ == null) {
+          lpt_ = builderForValue.build();
           onChanged();
         } else {
-          liquidityBuilder_.setMessage(builderForValue.build());
+          lptBuilder_.setMessage(builderForValue.build());
         }
 
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * liquidity token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
        */
-      public Builder mergeLiquidity(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
-        if (liquidityBuilder_ == null) {
-          if (liquidity_ != null) {
-            liquidity_ =
-              cosmos.base.v1beta1.CoinOuterClass.Coin.newBuilder(liquidity_).mergeFrom(value).buildPartial();
+      public Builder mergeLpt(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
+        if (lptBuilder_ == null) {
+          if (lpt_ != null) {
+            lpt_ =
+              cosmos.base.v1beta1.CoinOuterClass.Coin.newBuilder(lpt_).mergeFrom(value).buildPartial();
           } else {
-            liquidity_ = value;
+            lpt_ = value;
           }
           onChanged();
         } else {
-          liquidityBuilder_.mergeFrom(value);
+          lptBuilder_.mergeFrom(value);
         }
 
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * liquidity token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
        */
-      public Builder clearLiquidity() {
-        if (liquidityBuilder_ == null) {
-          liquidity_ = null;
+      public Builder clearLpt() {
+        if (lptBuilder_ == null) {
+          lpt_ = null;
           onChanged();
         } else {
-          liquidity_ = null;
-          liquidityBuilder_ = null;
+          lpt_ = null;
+          lptBuilder_ = null;
         }
 
         return this;
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * liquidity token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
        */
-      public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getLiquidityBuilder() {
+      public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getLptBuilder() {
         
         onChanged();
-        return getLiquidityFieldBuilder().getBuilder();
+        return getLptFieldBuilder().getBuilder();
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * liquidity token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
        */
-      public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getLiquidityOrBuilder() {
-        if (liquidityBuilder_ != null) {
-          return liquidityBuilder_.getMessageOrBuilder();
+      public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getLptOrBuilder() {
+        if (lptBuilder_ != null) {
+          return lptBuilder_.getMessageOrBuilder();
         } else {
-          return liquidity_ == null ?
-              cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : liquidity_;
+          return lpt_ == null ?
+              cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : lpt_;
         }
       }
       /**
-       * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
+       * <pre>
+       * liquidity token balance
+       * </pre>
+       *
+       * <code>.cosmos.base.v1beta1.Coin lpt = 5 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
-          getLiquidityFieldBuilder() {
-        if (liquidityBuilder_ == null) {
-          liquidityBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+          getLptFieldBuilder() {
+        if (lptBuilder_ == null) {
+          lptBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder>(
-                  getLiquidity(),
+                  getLpt(),
                   getParentForChildren(),
                   isClean());
-          liquidity_ = null;
+          lpt_ = null;
         }
-        return liquidityBuilder_;
+        return lptBuilder_;
       }
 
       private java.lang.Object fee_ = "";
       /**
-       * <code>string fee = 4;</code>
+       * <pre>
+       * liquidity pool fee
+       * </pre>
+       *
+       * <code>string fee = 6;</code>
        * @return The fee.
        */
       public java.lang.String getFee() {
@@ -1665,7 +4523,11 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string fee = 4;</code>
+       * <pre>
+       * liquidity pool fee
+       * </pre>
+       *
+       * <code>string fee = 6;</code>
        * @return The bytes for fee.
        */
       public com.google.protobuf.ByteString
@@ -1682,7 +4544,11 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string fee = 4;</code>
+       * <pre>
+       * liquidity pool fee
+       * </pre>
+       *
+       * <code>string fee = 6;</code>
        * @param value The fee to set.
        * @return This builder for chaining.
        */
@@ -1697,7 +4563,11 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string fee = 4;</code>
+       * <pre>
+       * liquidity pool fee
+       * </pre>
+       *
+       * <code>string fee = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearFee() {
@@ -1707,7 +4577,11 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string fee = 4;</code>
+       * <pre>
+       * liquidity pool fee
+       * </pre>
+       *
+       * <code>string fee = 6;</code>
        * @param value The bytes for fee to set.
        * @return This builder for chaining.
        */
@@ -1735,56 +4609,71 @@ public final class QueryOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:irismod.coinswap.QueryLiquidityResponse)
+      // @@protoc_insertion_point(builder_scope:irismod.coinswap.PoolInfo)
     }
 
-    // @@protoc_insertion_point(class_scope:irismod.coinswap.QueryLiquidityResponse)
-    private static final irismod.coinswap.QueryOuterClass.QueryLiquidityResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:irismod.coinswap.PoolInfo)
+    private static final irismod.coinswap.QueryOuterClass.PoolInfo DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new irismod.coinswap.QueryOuterClass.QueryLiquidityResponse();
+      DEFAULT_INSTANCE = new irismod.coinswap.QueryOuterClass.PoolInfo();
     }
 
-    public static irismod.coinswap.QueryOuterClass.QueryLiquidityResponse getDefaultInstance() {
+    public static irismod.coinswap.QueryOuterClass.PoolInfo getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<QueryLiquidityResponse>
-        PARSER = new com.google.protobuf.AbstractParser<QueryLiquidityResponse>() {
+    private static final com.google.protobuf.Parser<PoolInfo>
+        PARSER = new com.google.protobuf.AbstractParser<PoolInfo>() {
       @java.lang.Override
-      public QueryLiquidityResponse parsePartialFrom(
+      public PoolInfo parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryLiquidityResponse(input, extensionRegistry);
+        return new PoolInfo(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<QueryLiquidityResponse> parser() {
+    public static com.google.protobuf.Parser<PoolInfo> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<QueryLiquidityResponse> getParserForType() {
+    public com.google.protobuf.Parser<PoolInfo> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public irismod.coinswap.QueryOuterClass.QueryLiquidityResponse getDefaultInstanceForType() {
+    public irismod.coinswap.QueryOuterClass.PoolInfo getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_irismod_coinswap_QueryLiquidityRequest_descriptor;
+    internal_static_irismod_coinswap_QueryLiquidityPoolRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_irismod_coinswap_QueryLiquidityRequest_fieldAccessorTable;
+      internal_static_irismod_coinswap_QueryLiquidityPoolRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_irismod_coinswap_QueryLiquidityResponse_descriptor;
+    internal_static_irismod_coinswap_QueryLiquidityPoolResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_irismod_coinswap_QueryLiquidityResponse_fieldAccessorTable;
+      internal_static_irismod_coinswap_QueryLiquidityPoolResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_irismod_coinswap_QueryLiquidityPoolsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_irismod_coinswap_QueryLiquidityPoolsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_irismod_coinswap_QueryLiquidityPoolsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_irismod_coinswap_QueryLiquidityPoolsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_irismod_coinswap_PoolInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_irismod_coinswap_PoolInfo_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1797,47 +4686,80 @@ public final class QueryOuterClass {
       "\n\024coinswap/query.proto\022\020irismod.coinswap" +
       "\032\036cosmos/base/v1beta1/coin.proto\032\024gogopr" +
       "oto/gogo.proto\032\034google/api/annotations.p" +
-      "roto\"&\n\025QueryLiquidityRequest\022\r\n\005denom\030\001" +
-      " \001(\t\"\274\001\n\026QueryLiquidityResponse\0221\n\010stand" +
-      "ard\030\001 \001(\0132\031.cosmos.base.v1beta1.CoinB\004\310\336" +
-      "\037\000\022.\n\005token\030\002 \001(\0132\031.cosmos.base.v1beta1." +
-      "CoinB\004\310\336\037\000\0222\n\tliquidity\030\003 \001(\0132\031.cosmos.b" +
-      "ase.v1beta1.CoinB\004\310\336\037\000\022\013\n\003fee\030\004 \001(\t2\227\001\n\005" +
-      "Query\022\215\001\n\tLiquidity\022\'.irismod.coinswap.Q" +
-      "ueryLiquidityRequest\032(.irismod.coinswap." +
-      "QueryLiquidityResponse\"-\202\323\344\223\002\'\022%/irismod" +
-      "/coinswap/liquidities/{denom}B3Z1github." +
-      "com/irisnet/irismod/modules/coinswap/typ" +
-      "esb\006proto3"
+      "roto\032*cosmos/base/query/v1beta1/paginati" +
+      "on.proto\".\n\031QueryLiquidityPoolRequest\022\021\n" +
+      "\tlpt_denom\030\001 \001(\t\"L\n\032QueryLiquidityPoolRe" +
+      "sponse\022.\n\004pool\030\001 \001(\0132\032.irismod.coinswap." +
+      "PoolInfoB\004\310\336\037\000\"X\n\032QueryLiquidityPoolsReq" +
+      "uest\022:\n\npagination\030\001 \001(\0132&.cosmos.base.q" +
+      "uery.v1beta1.PageRequest\"\213\001\n\033QueryLiquid" +
+      "ityPoolsResponse\022/\n\005pools\030\001 \003(\0132\032.irismo" +
+      "d.coinswap.PoolInfoB\004\310\336\037\000\022;\n\npagination\030" +
+      "\002 \001(\0132\'.cosmos.base.query.v1beta1.PageRe" +
+      "sponse\"\314\001\n\010PoolInfo\022\n\n\002id\030\001 \001(\t\022\026\n\016escro" +
+      "w_address\030\002 \001(\t\0221\n\010standard\030\003 \001(\0132\031.cosm" +
+      "os.base.v1beta1.CoinB\004\310\336\037\000\022.\n\005token\030\004 \001(" +
+      "\0132\031.cosmos.base.v1beta1.CoinB\004\310\336\037\000\022,\n\003lp" +
+      "t\030\005 \001(\0132\031.cosmos.base.v1beta1.CoinB\004\310\336\037\000" +
+      "\022\013\n\003fee\030\006 \001(\t2\262\002\n\005Query\022\227\001\n\rLiquidityPoo" +
+      "l\022+.irismod.coinswap.QueryLiquidityPoolR" +
+      "equest\032,.irismod.coinswap.QueryLiquidity" +
+      "PoolResponse\"+\202\323\344\223\002%\022#/irismod/coinswap/" +
+      "pools/{lpt_denom}\022\216\001\n\016LiquidityPools\022,.i" +
+      "rismod.coinswap.QueryLiquidityPoolsReque" +
+      "st\032-.irismod.coinswap.QueryLiquidityPool" +
+      "sResponse\"\037\202\323\344\223\002\031\022\027/irismod/coinswap/poo" +
+      "lsB3Z1github.com/irisnet/irismod/modules" +
+      "/coinswap/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
+          cosmos.base.query.v1beta1.Pagination.getDescriptor(),
         });
-    internal_static_irismod_coinswap_QueryLiquidityRequest_descriptor =
+    internal_static_irismod_coinswap_QueryLiquidityPoolRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_irismod_coinswap_QueryLiquidityRequest_fieldAccessorTable = new
+    internal_static_irismod_coinswap_QueryLiquidityPoolRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_irismod_coinswap_QueryLiquidityRequest_descriptor,
-        new java.lang.String[] { "Denom", });
-    internal_static_irismod_coinswap_QueryLiquidityResponse_descriptor =
+        internal_static_irismod_coinswap_QueryLiquidityPoolRequest_descriptor,
+        new java.lang.String[] { "LptDenom", });
+    internal_static_irismod_coinswap_QueryLiquidityPoolResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_irismod_coinswap_QueryLiquidityResponse_fieldAccessorTable = new
+    internal_static_irismod_coinswap_QueryLiquidityPoolResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_irismod_coinswap_QueryLiquidityResponse_descriptor,
-        new java.lang.String[] { "Standard", "Token", "Liquidity", "Fee", });
+        internal_static_irismod_coinswap_QueryLiquidityPoolResponse_descriptor,
+        new java.lang.String[] { "Pool", });
+    internal_static_irismod_coinswap_QueryLiquidityPoolsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_irismod_coinswap_QueryLiquidityPoolsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_irismod_coinswap_QueryLiquidityPoolsRequest_descriptor,
+        new java.lang.String[] { "Pagination", });
+    internal_static_irismod_coinswap_QueryLiquidityPoolsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_irismod_coinswap_QueryLiquidityPoolsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_irismod_coinswap_QueryLiquidityPoolsResponse_descriptor,
+        new java.lang.String[] { "Pools", "Pagination", });
+    internal_static_irismod_coinswap_PoolInfo_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_irismod_coinswap_PoolInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_irismod_coinswap_PoolInfo_descriptor,
+        new java.lang.String[] { "Id", "EscrowAddress", "Standard", "Token", "Lpt", "Fee", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
+    cosmos.base.query.v1beta1.Pagination.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -44,12 +44,12 @@ public interface VerificationMethodOrBuilder extends
       getControllerBytes();
 
   /**
-   * <code>string public_key_base58 = 4[json_name = "publicKeyBase58"];</code>
+   * <code>string public_key_base58 = 4 [json_name = "publicKeyBase58"];</code>
    * @return The publicKeyBase58.
    */
   java.lang.String getPublicKeyBase58();
   /**
-   * <code>string public_key_base58 = 4[json_name = "publicKeyBase58"];</code>
+   * <code>string public_key_base58 = 4 [json_name = "publicKeyBase58"];</code>
    * @return The bytes for publicKeyBase58.
    */
   com.google.protobuf.ByteString

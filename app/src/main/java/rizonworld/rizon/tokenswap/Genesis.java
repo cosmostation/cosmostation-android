@@ -36,7 +36,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code rizonworld.rizon.tokenswap.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.GenesisState)
       GenesisStateOrBuilder {
@@ -129,6 +129,7 @@ public final class Genesis {
      * <code>.rizonworld.rizon.tokenswap.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -136,12 +137,14 @@ public final class Genesis {
      * <code>.rizonworld.rizon.tokenswap.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public rizonworld.rizon.tokenswap.ParamsOuterClass.Params getParams() {
       return params_ == null ? rizonworld.rizon.tokenswap.ParamsOuterClass.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.rizonworld.rizon.tokenswap.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public rizonworld.rizon.tokenswap.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -656,7 +659,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           rizonworld.rizon.tokenswap.ParamsOuterClass.getDescriptor(),
         });
     internal_static_rizonworld_rizon_tokenswap_GenesisState_descriptor =
@@ -667,10 +670,10 @@ public final class Genesis {
         new java.lang.String[] { "Params", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     rizonworld.rizon.tokenswap.ParamsOuterClass.getDescriptor();
   }
 

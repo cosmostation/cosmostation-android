@@ -48,7 +48,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.tokenregistry.v1.MsgRegister}
    */
-  public  static final class MsgRegister extends
+  public static final class MsgRegister extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.MsgRegister)
       MsgRegisterOrBuilder {
@@ -148,6 +148,7 @@ public final class Tx {
      * <code>string from = 1;</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -164,6 +165,7 @@ public final class Tx {
      * <code>string from = 1;</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -184,6 +186,7 @@ public final class Tx {
      * <code>.sifnode.tokenregistry.v1.RegistryEntry entry = 2;</code>
      * @return Whether the entry field is set.
      */
+    @java.lang.Override
     public boolean hasEntry() {
       return entry_ != null;
     }
@@ -191,12 +194,14 @@ public final class Tx {
      * <code>.sifnode.tokenregistry.v1.RegistryEntry entry = 2;</code>
      * @return The entry.
      */
+    @java.lang.Override
     public sifnode.tokenregistry.v1.Types.RegistryEntry getEntry() {
       return entry_ == null ? sifnode.tokenregistry.v1.Types.RegistryEntry.getDefaultInstance() : entry_;
     }
     /**
      * <code>.sifnode.tokenregistry.v1.RegistryEntry entry = 2;</code>
      */
+    @java.lang.Override
     public sifnode.tokenregistry.v1.Types.RegistryEntryOrBuilder getEntryOrBuilder() {
       return getEntry();
     }
@@ -787,7 +792,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.tokenregistry.v1.MsgRegisterResponse}
    */
-  public  static final class MsgRegisterResponse extends
+  public static final class MsgRegisterResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.MsgRegisterResponse)
       MsgRegisterResponseOrBuilder {
@@ -1198,6 +1203,1195 @@ public final class Tx {
 
   }
 
+  public interface MsgSetRegistryOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.tokenregistry.v1.MsgSetRegistry)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string from = 1;</code>
+     * @return The from.
+     */
+    java.lang.String getFrom();
+    /**
+     * <code>string from = 1;</code>
+     * @return The bytes for from.
+     */
+    com.google.protobuf.ByteString
+        getFromBytes();
+
+    /**
+     * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+     * @return Whether the registry field is set.
+     */
+    boolean hasRegistry();
+    /**
+     * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+     * @return The registry.
+     */
+    sifnode.tokenregistry.v1.Types.Registry getRegistry();
+    /**
+     * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+     */
+    sifnode.tokenregistry.v1.Types.RegistryOrBuilder getRegistryOrBuilder();
+  }
+  /**
+   * Protobuf type {@code sifnode.tokenregistry.v1.MsgSetRegistry}
+   */
+  public static final class MsgSetRegistry extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.MsgSetRegistry)
+      MsgSetRegistryOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgSetRegistry.newBuilder() to construct.
+    private MsgSetRegistry(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgSetRegistry() {
+      from_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgSetRegistry();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgSetRegistry(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              from_ = s;
+              break;
+            }
+            case 18: {
+              sifnode.tokenregistry.v1.Types.Registry.Builder subBuilder = null;
+              if (registry_ != null) {
+                subBuilder = registry_.toBuilder();
+              }
+              registry_ = input.readMessage(sifnode.tokenregistry.v1.Types.Registry.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(registry_);
+                registry_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.tokenregistry.v1.Tx.internal_static_sifnode_tokenregistry_v1_MsgSetRegistry_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.tokenregistry.v1.Tx.internal_static_sifnode_tokenregistry_v1_MsgSetRegistry_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.tokenregistry.v1.Tx.MsgSetRegistry.class, sifnode.tokenregistry.v1.Tx.MsgSetRegistry.Builder.class);
+    }
+
+    public static final int FROM_FIELD_NUMBER = 1;
+    private volatile java.lang.Object from_;
+    /**
+     * <code>string from = 1;</code>
+     * @return The from.
+     */
+    @java.lang.Override
+    public java.lang.String getFrom() {
+      java.lang.Object ref = from_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        from_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string from = 1;</code>
+     * @return The bytes for from.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getFromBytes() {
+      java.lang.Object ref = from_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        from_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REGISTRY_FIELD_NUMBER = 2;
+    private sifnode.tokenregistry.v1.Types.Registry registry_;
+    /**
+     * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+     * @return Whether the registry field is set.
+     */
+    @java.lang.Override
+    public boolean hasRegistry() {
+      return registry_ != null;
+    }
+    /**
+     * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+     * @return The registry.
+     */
+    @java.lang.Override
+    public sifnode.tokenregistry.v1.Types.Registry getRegistry() {
+      return registry_ == null ? sifnode.tokenregistry.v1.Types.Registry.getDefaultInstance() : registry_;
+    }
+    /**
+     * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+     */
+    @java.lang.Override
+    public sifnode.tokenregistry.v1.Types.RegistryOrBuilder getRegistryOrBuilder() {
+      return getRegistry();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getFromBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, from_);
+      }
+      if (registry_ != null) {
+        output.writeMessage(2, getRegistry());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getFromBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, from_);
+      }
+      if (registry_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getRegistry());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.tokenregistry.v1.Tx.MsgSetRegistry)) {
+        return super.equals(obj);
+      }
+      sifnode.tokenregistry.v1.Tx.MsgSetRegistry other = (sifnode.tokenregistry.v1.Tx.MsgSetRegistry) obj;
+
+      if (!getFrom()
+          .equals(other.getFrom())) return false;
+      if (hasRegistry() != other.hasRegistry()) return false;
+      if (hasRegistry()) {
+        if (!getRegistry()
+            .equals(other.getRegistry())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + FROM_FIELD_NUMBER;
+      hash = (53 * hash) + getFrom().hashCode();
+      if (hasRegistry()) {
+        hash = (37 * hash) + REGISTRY_FIELD_NUMBER;
+        hash = (53 * hash) + getRegistry().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.tokenregistry.v1.Tx.MsgSetRegistry prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.tokenregistry.v1.MsgSetRegistry}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.tokenregistry.v1.MsgSetRegistry)
+        sifnode.tokenregistry.v1.Tx.MsgSetRegistryOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.tokenregistry.v1.Tx.internal_static_sifnode_tokenregistry_v1_MsgSetRegistry_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.tokenregistry.v1.Tx.internal_static_sifnode_tokenregistry_v1_MsgSetRegistry_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.tokenregistry.v1.Tx.MsgSetRegistry.class, sifnode.tokenregistry.v1.Tx.MsgSetRegistry.Builder.class);
+      }
+
+      // Construct using sifnode.tokenregistry.v1.Tx.MsgSetRegistry.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        from_ = "";
+
+        if (registryBuilder_ == null) {
+          registry_ = null;
+        } else {
+          registry_ = null;
+          registryBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.tokenregistry.v1.Tx.internal_static_sifnode_tokenregistry_v1_MsgSetRegistry_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Tx.MsgSetRegistry getDefaultInstanceForType() {
+        return sifnode.tokenregistry.v1.Tx.MsgSetRegistry.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Tx.MsgSetRegistry build() {
+        sifnode.tokenregistry.v1.Tx.MsgSetRegistry result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Tx.MsgSetRegistry buildPartial() {
+        sifnode.tokenregistry.v1.Tx.MsgSetRegistry result = new sifnode.tokenregistry.v1.Tx.MsgSetRegistry(this);
+        result.from_ = from_;
+        if (registryBuilder_ == null) {
+          result.registry_ = registry_;
+        } else {
+          result.registry_ = registryBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.tokenregistry.v1.Tx.MsgSetRegistry) {
+          return mergeFrom((sifnode.tokenregistry.v1.Tx.MsgSetRegistry)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.tokenregistry.v1.Tx.MsgSetRegistry other) {
+        if (other == sifnode.tokenregistry.v1.Tx.MsgSetRegistry.getDefaultInstance()) return this;
+        if (!other.getFrom().isEmpty()) {
+          from_ = other.from_;
+          onChanged();
+        }
+        if (other.hasRegistry()) {
+          mergeRegistry(other.getRegistry());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.tokenregistry.v1.Tx.MsgSetRegistry parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.tokenregistry.v1.Tx.MsgSetRegistry) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object from_ = "";
+      /**
+       * <code>string from = 1;</code>
+       * @return The from.
+       */
+      public java.lang.String getFrom() {
+        java.lang.Object ref = from_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          from_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string from = 1;</code>
+       * @return The bytes for from.
+       */
+      public com.google.protobuf.ByteString
+          getFromBytes() {
+        java.lang.Object ref = from_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          from_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string from = 1;</code>
+       * @param value The from to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFrom(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        from_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string from = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFrom() {
+        
+        from_ = getDefaultInstance().getFrom();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string from = 1;</code>
+       * @param value The bytes for from to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFromBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        from_ = value;
+        onChanged();
+        return this;
+      }
+
+      private sifnode.tokenregistry.v1.Types.Registry registry_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.tokenregistry.v1.Types.Registry, sifnode.tokenregistry.v1.Types.Registry.Builder, sifnode.tokenregistry.v1.Types.RegistryOrBuilder> registryBuilder_;
+      /**
+       * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+       * @return Whether the registry field is set.
+       */
+      public boolean hasRegistry() {
+        return registryBuilder_ != null || registry_ != null;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+       * @return The registry.
+       */
+      public sifnode.tokenregistry.v1.Types.Registry getRegistry() {
+        if (registryBuilder_ == null) {
+          return registry_ == null ? sifnode.tokenregistry.v1.Types.Registry.getDefaultInstance() : registry_;
+        } else {
+          return registryBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+       */
+      public Builder setRegistry(sifnode.tokenregistry.v1.Types.Registry value) {
+        if (registryBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          registry_ = value;
+          onChanged();
+        } else {
+          registryBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+       */
+      public Builder setRegistry(
+          sifnode.tokenregistry.v1.Types.Registry.Builder builderForValue) {
+        if (registryBuilder_ == null) {
+          registry_ = builderForValue.build();
+          onChanged();
+        } else {
+          registryBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+       */
+      public Builder mergeRegistry(sifnode.tokenregistry.v1.Types.Registry value) {
+        if (registryBuilder_ == null) {
+          if (registry_ != null) {
+            registry_ =
+              sifnode.tokenregistry.v1.Types.Registry.newBuilder(registry_).mergeFrom(value).buildPartial();
+          } else {
+            registry_ = value;
+          }
+          onChanged();
+        } else {
+          registryBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+       */
+      public Builder clearRegistry() {
+        if (registryBuilder_ == null) {
+          registry_ = null;
+          onChanged();
+        } else {
+          registry_ = null;
+          registryBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+       */
+      public sifnode.tokenregistry.v1.Types.Registry.Builder getRegistryBuilder() {
+        
+        onChanged();
+        return getRegistryFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+       */
+      public sifnode.tokenregistry.v1.Types.RegistryOrBuilder getRegistryOrBuilder() {
+        if (registryBuilder_ != null) {
+          return registryBuilder_.getMessageOrBuilder();
+        } else {
+          return registry_ == null ?
+              sifnode.tokenregistry.v1.Types.Registry.getDefaultInstance() : registry_;
+        }
+      }
+      /**
+       * <code>.sifnode.tokenregistry.v1.Registry registry = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sifnode.tokenregistry.v1.Types.Registry, sifnode.tokenregistry.v1.Types.Registry.Builder, sifnode.tokenregistry.v1.Types.RegistryOrBuilder> 
+          getRegistryFieldBuilder() {
+        if (registryBuilder_ == null) {
+          registryBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sifnode.tokenregistry.v1.Types.Registry, sifnode.tokenregistry.v1.Types.Registry.Builder, sifnode.tokenregistry.v1.Types.RegistryOrBuilder>(
+                  getRegistry(),
+                  getParentForChildren(),
+                  isClean());
+          registry_ = null;
+        }
+        return registryBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.tokenregistry.v1.MsgSetRegistry)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.tokenregistry.v1.MsgSetRegistry)
+    private static final sifnode.tokenregistry.v1.Tx.MsgSetRegistry DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.tokenregistry.v1.Tx.MsgSetRegistry();
+    }
+
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistry getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgSetRegistry>
+        PARSER = new com.google.protobuf.AbstractParser<MsgSetRegistry>() {
+      @java.lang.Override
+      public MsgSetRegistry parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgSetRegistry(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgSetRegistry> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgSetRegistry> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.tokenregistry.v1.Tx.MsgSetRegistry getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgSetRegistryResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.tokenregistry.v1.MsgSetRegistryResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code sifnode.tokenregistry.v1.MsgSetRegistryResponse}
+   */
+  public static final class MsgSetRegistryResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.MsgSetRegistryResponse)
+      MsgSetRegistryResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgSetRegistryResponse.newBuilder() to construct.
+    private MsgSetRegistryResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgSetRegistryResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgSetRegistryResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgSetRegistryResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.tokenregistry.v1.Tx.internal_static_sifnode_tokenregistry_v1_MsgSetRegistryResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.tokenregistry.v1.Tx.internal_static_sifnode_tokenregistry_v1_MsgSetRegistryResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse.class, sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse)) {
+        return super.equals(obj);
+      }
+      sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse other = (sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.tokenregistry.v1.MsgSetRegistryResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.tokenregistry.v1.MsgSetRegistryResponse)
+        sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.tokenregistry.v1.Tx.internal_static_sifnode_tokenregistry_v1_MsgSetRegistryResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.tokenregistry.v1.Tx.internal_static_sifnode_tokenregistry_v1_MsgSetRegistryResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse.class, sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse.Builder.class);
+      }
+
+      // Construct using sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.tokenregistry.v1.Tx.internal_static_sifnode_tokenregistry_v1_MsgSetRegistryResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse getDefaultInstanceForType() {
+        return sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse build() {
+        sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse buildPartial() {
+        sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse result = new sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse) {
+          return mergeFrom((sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse other) {
+        if (other == sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.tokenregistry.v1.MsgSetRegistryResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.tokenregistry.v1.MsgSetRegistryResponse)
+    private static final sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse();
+    }
+
+    public static sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgSetRegistryResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgSetRegistryResponse>() {
+      @java.lang.Override
+      public MsgSetRegistryResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgSetRegistryResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgSetRegistryResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgSetRegistryResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.tokenregistry.v1.Tx.MsgSetRegistryResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface MsgDeregisterOrBuilder extends
       // @@protoc_insertion_point(interface_extends:sifnode.tokenregistry.v1.MsgDeregister)
       com.google.protobuf.MessageOrBuilder {
@@ -1229,7 +2423,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.tokenregistry.v1.MsgDeregister}
    */
-  public  static final class MsgDeregister extends
+  public static final class MsgDeregister extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.MsgDeregister)
       MsgDeregisterOrBuilder {
@@ -1323,6 +2517,7 @@ public final class Tx {
      * <code>string from = 1;</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -1339,6 +2534,7 @@ public final class Tx {
      * <code>string from = 1;</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -1359,6 +2555,7 @@ public final class Tx {
      * <code>string denom = 2;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -1375,6 +2572,7 @@ public final class Tx {
      * <code>string denom = 2;</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -1919,7 +3117,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.tokenregistry.v1.MsgDeregisterResponse}
    */
-  public  static final class MsgDeregisterResponse extends
+  public static final class MsgDeregisterResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.tokenregistry.v1.MsgDeregisterResponse)
       MsgDeregisterResponseOrBuilder {
@@ -2341,6 +3539,16 @@ public final class Tx {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_tokenregistry_v1_MsgRegisterResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_tokenregistry_v1_MsgSetRegistry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_tokenregistry_v1_MsgSetRegistry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_tokenregistry_v1_MsgSetRegistryResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_tokenregistry_v1_MsgSetRegistryResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_tokenregistry_v1_MsgDeregister_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -2364,21 +3572,26 @@ public final class Tx {
       "oto\032$sifnode/tokenregistry/v1/types.prot" +
       "o\"S\n\013MsgRegister\022\014\n\004from\030\001 \001(\t\0226\n\005entry\030" +
       "\002 \001(\0132\'.sifnode.tokenregistry.v1.Registr" +
-      "yEntry\"\025\n\023MsgRegisterResponse\",\n\rMsgDere" +
-      "gister\022\014\n\004from\030\001 \001(\t\022\r\n\005denom\030\002 \001(\t\"\027\n\025M" +
-      "sgDeregisterResponse2\323\001\n\003Msg\022b\n\010Register" +
-      "\022%.sifnode.tokenregistry.v1.MsgRegister\032" +
-      "-.sifnode.tokenregistry.v1.MsgRegisterRe" +
-      "sponse\"\000\022h\n\nDeregister\022\'.sifnode.tokenre" +
-      "gistry.v1.MsgDeregister\032/.sifnode.tokenr" +
-      "egistry.v1.MsgDeregisterResponse\"\000B3Z1gi" +
-      "thub.com/Sifchain/sifnode/x/tokenregistr" +
-      "y/typesb\006proto3"
+      "yEntry\"\025\n\023MsgRegisterResponse\"T\n\016MsgSetR" +
+      "egistry\022\014\n\004from\030\001 \001(\t\0224\n\010registry\030\002 \001(\0132" +
+      "\".sifnode.tokenregistry.v1.Registry\"\030\n\026M" +
+      "sgSetRegistryResponse\",\n\rMsgDeregister\022\014" +
+      "\n\004from\030\001 \001(\t\022\r\n\005denom\030\002 \001(\t\"\027\n\025MsgDeregi" +
+      "sterResponse2\300\002\n\003Msg\022b\n\010Register\022%.sifno" +
+      "de.tokenregistry.v1.MsgRegister\032-.sifnod" +
+      "e.tokenregistry.v1.MsgRegisterResponse\"\000" +
+      "\022h\n\nDeregister\022\'.sifnode.tokenregistry.v" +
+      "1.MsgDeregister\032/.sifnode.tokenregistry." +
+      "v1.MsgDeregisterResponse\"\000\022k\n\013SetRegistr" +
+      "y\022(.sifnode.tokenregistry.v1.MsgSetRegis" +
+      "try\0320.sifnode.tokenregistry.v1.MsgSetReg" +
+      "istryResponse\"\000B3Z1github.com/Sifchain/s" +
+      "ifnode/x/tokenregistry/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           sifnode.tokenregistry.v1.Types.getDescriptor(),
         });
     internal_static_sifnode_tokenregistry_v1_MsgRegister_descriptor =
@@ -2393,19 +3606,31 @@ public final class Tx {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_tokenregistry_v1_MsgRegisterResponse_descriptor,
         new java.lang.String[] { });
-    internal_static_sifnode_tokenregistry_v1_MsgDeregister_descriptor =
+    internal_static_sifnode_tokenregistry_v1_MsgSetRegistry_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_sifnode_tokenregistry_v1_MsgSetRegistry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_tokenregistry_v1_MsgSetRegistry_descriptor,
+        new java.lang.String[] { "From", "Registry", });
+    internal_static_sifnode_tokenregistry_v1_MsgSetRegistryResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_sifnode_tokenregistry_v1_MsgSetRegistryResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_tokenregistry_v1_MsgSetRegistryResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_sifnode_tokenregistry_v1_MsgDeregister_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_sifnode_tokenregistry_v1_MsgDeregister_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_tokenregistry_v1_MsgDeregister_descriptor,
         new java.lang.String[] { "From", "Denom", });
     internal_static_sifnode_tokenregistry_v1_MsgDeregisterResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_sifnode_tokenregistry_v1_MsgDeregisterResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_tokenregistry_v1_MsgDeregisterResponse_descriptor,
         new java.lang.String[] { });
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     sifnode.tokenregistry.v1.Types.getDescriptor();
   }
 

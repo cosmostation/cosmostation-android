@@ -1501,6 +1501,2035 @@ public final class QueryOuterClass {
 
   }
 
+  public interface QuerySubspacesRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.params.v1beta1.QuerySubspacesRequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * <pre>
+   * QuerySubspacesRequest defines a request type for querying for all registered
+   * subspaces and all keys for a subspace.
+   * </pre>
+   *
+   * Protobuf type {@code cosmos.params.v1beta1.QuerySubspacesRequest}
+   */
+  public static final class QuerySubspacesRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cosmos.params.v1beta1.QuerySubspacesRequest)
+      QuerySubspacesRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QuerySubspacesRequest.newBuilder() to construct.
+    private QuerySubspacesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QuerySubspacesRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QuerySubspacesRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QuerySubspacesRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_QuerySubspacesRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_QuerySubspacesRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest.class, cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest)) {
+        return super.equals(obj);
+      }
+      cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest other = (cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QuerySubspacesRequest defines a request type for querying for all registered
+     * subspaces and all keys for a subspace.
+     * </pre>
+     *
+     * Protobuf type {@code cosmos.params.v1beta1.QuerySubspacesRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cosmos.params.v1beta1.QuerySubspacesRequest)
+        cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_QuerySubspacesRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_QuerySubspacesRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest.class, cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest.Builder.class);
+      }
+
+      // Construct using cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_QuerySubspacesRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest getDefaultInstanceForType() {
+        return cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest build() {
+        cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest buildPartial() {
+        cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest result = new cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest) {
+          return mergeFrom((cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest other) {
+        if (other == cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cosmos.params.v1beta1.QuerySubspacesRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:cosmos.params.v1beta1.QuerySubspacesRequest)
+    private static final cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest();
+    }
+
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QuerySubspacesRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QuerySubspacesRequest>() {
+      @java.lang.Override
+      public QuerySubspacesRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QuerySubspacesRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QuerySubspacesRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QuerySubspacesRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QuerySubspacesResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.params.v1beta1.QuerySubspacesResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+     */
+    java.util.List<cosmos.params.v1beta1.QueryOuterClass.Subspace> 
+        getSubspacesList();
+    /**
+     * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+     */
+    cosmos.params.v1beta1.QueryOuterClass.Subspace getSubspaces(int index);
+    /**
+     * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+     */
+    int getSubspacesCount();
+    /**
+     * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+     */
+    java.util.List<? extends cosmos.params.v1beta1.QueryOuterClass.SubspaceOrBuilder> 
+        getSubspacesOrBuilderList();
+    /**
+     * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+     */
+    cosmos.params.v1beta1.QueryOuterClass.SubspaceOrBuilder getSubspacesOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * QuerySubspacesResponse defines the response types for querying for all
+   * registered subspaces and all keys for a subspace.
+   * </pre>
+   *
+   * Protobuf type {@code cosmos.params.v1beta1.QuerySubspacesResponse}
+   */
+  public static final class QuerySubspacesResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cosmos.params.v1beta1.QuerySubspacesResponse)
+      QuerySubspacesResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QuerySubspacesResponse.newBuilder() to construct.
+    private QuerySubspacesResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QuerySubspacesResponse() {
+      subspaces_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QuerySubspacesResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QuerySubspacesResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                subspaces_ = new java.util.ArrayList<cosmos.params.v1beta1.QueryOuterClass.Subspace>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              subspaces_.add(
+                  input.readMessage(cosmos.params.v1beta1.QueryOuterClass.Subspace.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          subspaces_ = java.util.Collections.unmodifiableList(subspaces_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_QuerySubspacesResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_QuerySubspacesResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse.class, cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse.Builder.class);
+    }
+
+    public static final int SUBSPACES_FIELD_NUMBER = 1;
+    private java.util.List<cosmos.params.v1beta1.QueryOuterClass.Subspace> subspaces_;
+    /**
+     * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<cosmos.params.v1beta1.QueryOuterClass.Subspace> getSubspacesList() {
+      return subspaces_;
+    }
+    /**
+     * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends cosmos.params.v1beta1.QueryOuterClass.SubspaceOrBuilder> 
+        getSubspacesOrBuilderList() {
+      return subspaces_;
+    }
+    /**
+     * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+     */
+    @java.lang.Override
+    public int getSubspacesCount() {
+      return subspaces_.size();
+    }
+    /**
+     * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+     */
+    @java.lang.Override
+    public cosmos.params.v1beta1.QueryOuterClass.Subspace getSubspaces(int index) {
+      return subspaces_.get(index);
+    }
+    /**
+     * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+     */
+    @java.lang.Override
+    public cosmos.params.v1beta1.QueryOuterClass.SubspaceOrBuilder getSubspacesOrBuilder(
+        int index) {
+      return subspaces_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < subspaces_.size(); i++) {
+        output.writeMessage(1, subspaces_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < subspaces_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, subspaces_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse)) {
+        return super.equals(obj);
+      }
+      cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse other = (cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse) obj;
+
+      if (!getSubspacesList()
+          .equals(other.getSubspacesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getSubspacesCount() > 0) {
+        hash = (37 * hash) + SUBSPACES_FIELD_NUMBER;
+        hash = (53 * hash) + getSubspacesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QuerySubspacesResponse defines the response types for querying for all
+     * registered subspaces and all keys for a subspace.
+     * </pre>
+     *
+     * Protobuf type {@code cosmos.params.v1beta1.QuerySubspacesResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cosmos.params.v1beta1.QuerySubspacesResponse)
+        cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_QuerySubspacesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_QuerySubspacesResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse.class, cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse.Builder.class);
+      }
+
+      // Construct using cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getSubspacesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (subspacesBuilder_ == null) {
+          subspaces_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          subspacesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_QuerySubspacesResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse getDefaultInstanceForType() {
+        return cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse build() {
+        cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse buildPartial() {
+        cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse result = new cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (subspacesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            subspaces_ = java.util.Collections.unmodifiableList(subspaces_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.subspaces_ = subspaces_;
+        } else {
+          result.subspaces_ = subspacesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse) {
+          return mergeFrom((cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse other) {
+        if (other == cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse.getDefaultInstance()) return this;
+        if (subspacesBuilder_ == null) {
+          if (!other.subspaces_.isEmpty()) {
+            if (subspaces_.isEmpty()) {
+              subspaces_ = other.subspaces_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureSubspacesIsMutable();
+              subspaces_.addAll(other.subspaces_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.subspaces_.isEmpty()) {
+            if (subspacesBuilder_.isEmpty()) {
+              subspacesBuilder_.dispose();
+              subspacesBuilder_ = null;
+              subspaces_ = other.subspaces_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              subspacesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSubspacesFieldBuilder() : null;
+            } else {
+              subspacesBuilder_.addAllMessages(other.subspaces_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<cosmos.params.v1beta1.QueryOuterClass.Subspace> subspaces_ =
+        java.util.Collections.emptyList();
+      private void ensureSubspacesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          subspaces_ = new java.util.ArrayList<cosmos.params.v1beta1.QueryOuterClass.Subspace>(subspaces_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          cosmos.params.v1beta1.QueryOuterClass.Subspace, cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder, cosmos.params.v1beta1.QueryOuterClass.SubspaceOrBuilder> subspacesBuilder_;
+
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public java.util.List<cosmos.params.v1beta1.QueryOuterClass.Subspace> getSubspacesList() {
+        if (subspacesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(subspaces_);
+        } else {
+          return subspacesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public int getSubspacesCount() {
+        if (subspacesBuilder_ == null) {
+          return subspaces_.size();
+        } else {
+          return subspacesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public cosmos.params.v1beta1.QueryOuterClass.Subspace getSubspaces(int index) {
+        if (subspacesBuilder_ == null) {
+          return subspaces_.get(index);
+        } else {
+          return subspacesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public Builder setSubspaces(
+          int index, cosmos.params.v1beta1.QueryOuterClass.Subspace value) {
+        if (subspacesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSubspacesIsMutable();
+          subspaces_.set(index, value);
+          onChanged();
+        } else {
+          subspacesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public Builder setSubspaces(
+          int index, cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder builderForValue) {
+        if (subspacesBuilder_ == null) {
+          ensureSubspacesIsMutable();
+          subspaces_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          subspacesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public Builder addSubspaces(cosmos.params.v1beta1.QueryOuterClass.Subspace value) {
+        if (subspacesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSubspacesIsMutable();
+          subspaces_.add(value);
+          onChanged();
+        } else {
+          subspacesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public Builder addSubspaces(
+          int index, cosmos.params.v1beta1.QueryOuterClass.Subspace value) {
+        if (subspacesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSubspacesIsMutable();
+          subspaces_.add(index, value);
+          onChanged();
+        } else {
+          subspacesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public Builder addSubspaces(
+          cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder builderForValue) {
+        if (subspacesBuilder_ == null) {
+          ensureSubspacesIsMutable();
+          subspaces_.add(builderForValue.build());
+          onChanged();
+        } else {
+          subspacesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public Builder addSubspaces(
+          int index, cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder builderForValue) {
+        if (subspacesBuilder_ == null) {
+          ensureSubspacesIsMutable();
+          subspaces_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          subspacesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public Builder addAllSubspaces(
+          java.lang.Iterable<? extends cosmos.params.v1beta1.QueryOuterClass.Subspace> values) {
+        if (subspacesBuilder_ == null) {
+          ensureSubspacesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, subspaces_);
+          onChanged();
+        } else {
+          subspacesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public Builder clearSubspaces() {
+        if (subspacesBuilder_ == null) {
+          subspaces_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          subspacesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public Builder removeSubspaces(int index) {
+        if (subspacesBuilder_ == null) {
+          ensureSubspacesIsMutable();
+          subspaces_.remove(index);
+          onChanged();
+        } else {
+          subspacesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder getSubspacesBuilder(
+          int index) {
+        return getSubspacesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public cosmos.params.v1beta1.QueryOuterClass.SubspaceOrBuilder getSubspacesOrBuilder(
+          int index) {
+        if (subspacesBuilder_ == null) {
+          return subspaces_.get(index);  } else {
+          return subspacesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public java.util.List<? extends cosmos.params.v1beta1.QueryOuterClass.SubspaceOrBuilder> 
+           getSubspacesOrBuilderList() {
+        if (subspacesBuilder_ != null) {
+          return subspacesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(subspaces_);
+        }
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder addSubspacesBuilder() {
+        return getSubspacesFieldBuilder().addBuilder(
+            cosmos.params.v1beta1.QueryOuterClass.Subspace.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder addSubspacesBuilder(
+          int index) {
+        return getSubspacesFieldBuilder().addBuilder(
+            index, cosmos.params.v1beta1.QueryOuterClass.Subspace.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .cosmos.params.v1beta1.Subspace subspaces = 1;</code>
+       */
+      public java.util.List<cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder> 
+           getSubspacesBuilderList() {
+        return getSubspacesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          cosmos.params.v1beta1.QueryOuterClass.Subspace, cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder, cosmos.params.v1beta1.QueryOuterClass.SubspaceOrBuilder> 
+          getSubspacesFieldBuilder() {
+        if (subspacesBuilder_ == null) {
+          subspacesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              cosmos.params.v1beta1.QueryOuterClass.Subspace, cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder, cosmos.params.v1beta1.QueryOuterClass.SubspaceOrBuilder>(
+                  subspaces_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          subspaces_ = null;
+        }
+        return subspacesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cosmos.params.v1beta1.QuerySubspacesResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:cosmos.params.v1beta1.QuerySubspacesResponse)
+    private static final cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse();
+    }
+
+    public static cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QuerySubspacesResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QuerySubspacesResponse>() {
+      @java.lang.Override
+      public QuerySubspacesResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QuerySubspacesResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QuerySubspacesResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QuerySubspacesResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public cosmos.params.v1beta1.QueryOuterClass.QuerySubspacesResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SubspaceOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.params.v1beta1.Subspace)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string subspace = 1;</code>
+     * @return The subspace.
+     */
+    java.lang.String getSubspace();
+    /**
+     * <code>string subspace = 1;</code>
+     * @return The bytes for subspace.
+     */
+    com.google.protobuf.ByteString
+        getSubspaceBytes();
+
+    /**
+     * <code>repeated string keys = 2;</code>
+     * @return A list containing the keys.
+     */
+    java.util.List<java.lang.String>
+        getKeysList();
+    /**
+     * <code>repeated string keys = 2;</code>
+     * @return The count of keys.
+     */
+    int getKeysCount();
+    /**
+     * <code>repeated string keys = 2;</code>
+     * @param index The index of the element to return.
+     * @return The keys at the given index.
+     */
+    java.lang.String getKeys(int index);
+    /**
+     * <code>repeated string keys = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the keys at the given index.
+     */
+    com.google.protobuf.ByteString
+        getKeysBytes(int index);
+  }
+  /**
+   * <pre>
+   * Subspace defines a parameter subspace name and all the keys that exist for
+   * the subspace.
+   * </pre>
+   *
+   * Protobuf type {@code cosmos.params.v1beta1.Subspace}
+   */
+  public static final class Subspace extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cosmos.params.v1beta1.Subspace)
+      SubspaceOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Subspace.newBuilder() to construct.
+    private Subspace(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Subspace() {
+      subspace_ = "";
+      keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Subspace();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Subspace(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              subspace_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                keys_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              keys_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          keys_ = keys_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_Subspace_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_Subspace_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cosmos.params.v1beta1.QueryOuterClass.Subspace.class, cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder.class);
+    }
+
+    public static final int SUBSPACE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object subspace_;
+    /**
+     * <code>string subspace = 1;</code>
+     * @return The subspace.
+     */
+    @java.lang.Override
+    public java.lang.String getSubspace() {
+      java.lang.Object ref = subspace_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        subspace_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string subspace = 1;</code>
+     * @return The bytes for subspace.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSubspaceBytes() {
+      java.lang.Object ref = subspace_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        subspace_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int KEYS_FIELD_NUMBER = 2;
+    private com.google.protobuf.LazyStringList keys_;
+    /**
+     * <code>repeated string keys = 2;</code>
+     * @return A list containing the keys.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getKeysList() {
+      return keys_;
+    }
+    /**
+     * <code>repeated string keys = 2;</code>
+     * @return The count of keys.
+     */
+    public int getKeysCount() {
+      return keys_.size();
+    }
+    /**
+     * <code>repeated string keys = 2;</code>
+     * @param index The index of the element to return.
+     * @return The keys at the given index.
+     */
+    public java.lang.String getKeys(int index) {
+      return keys_.get(index);
+    }
+    /**
+     * <code>repeated string keys = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the keys at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getKeysBytes(int index) {
+      return keys_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSubspaceBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, subspace_);
+      }
+      for (int i = 0; i < keys_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, keys_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSubspaceBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, subspace_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < keys_.size(); i++) {
+          dataSize += computeStringSizeNoTag(keys_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getKeysList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof cosmos.params.v1beta1.QueryOuterClass.Subspace)) {
+        return super.equals(obj);
+      }
+      cosmos.params.v1beta1.QueryOuterClass.Subspace other = (cosmos.params.v1beta1.QueryOuterClass.Subspace) obj;
+
+      if (!getSubspace()
+          .equals(other.getSubspace())) return false;
+      if (!getKeysList()
+          .equals(other.getKeysList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SUBSPACE_FIELD_NUMBER;
+      hash = (53 * hash) + getSubspace().hashCode();
+      if (getKeysCount() > 0) {
+        hash = (37 * hash) + KEYS_FIELD_NUMBER;
+        hash = (53 * hash) + getKeysList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(cosmos.params.v1beta1.QueryOuterClass.Subspace prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * Subspace defines a parameter subspace name and all the keys that exist for
+     * the subspace.
+     * </pre>
+     *
+     * Protobuf type {@code cosmos.params.v1beta1.Subspace}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cosmos.params.v1beta1.Subspace)
+        cosmos.params.v1beta1.QueryOuterClass.SubspaceOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_Subspace_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_Subspace_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cosmos.params.v1beta1.QueryOuterClass.Subspace.class, cosmos.params.v1beta1.QueryOuterClass.Subspace.Builder.class);
+      }
+
+      // Construct using cosmos.params.v1beta1.QueryOuterClass.Subspace.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        subspace_ = "";
+
+        keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cosmos.params.v1beta1.QueryOuterClass.internal_static_cosmos_params_v1beta1_Subspace_descriptor;
+      }
+
+      @java.lang.Override
+      public cosmos.params.v1beta1.QueryOuterClass.Subspace getDefaultInstanceForType() {
+        return cosmos.params.v1beta1.QueryOuterClass.Subspace.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public cosmos.params.v1beta1.QueryOuterClass.Subspace build() {
+        cosmos.params.v1beta1.QueryOuterClass.Subspace result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public cosmos.params.v1beta1.QueryOuterClass.Subspace buildPartial() {
+        cosmos.params.v1beta1.QueryOuterClass.Subspace result = new cosmos.params.v1beta1.QueryOuterClass.Subspace(this);
+        int from_bitField0_ = bitField0_;
+        result.subspace_ = subspace_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          keys_ = keys_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.keys_ = keys_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cosmos.params.v1beta1.QueryOuterClass.Subspace) {
+          return mergeFrom((cosmos.params.v1beta1.QueryOuterClass.Subspace)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cosmos.params.v1beta1.QueryOuterClass.Subspace other) {
+        if (other == cosmos.params.v1beta1.QueryOuterClass.Subspace.getDefaultInstance()) return this;
+        if (!other.getSubspace().isEmpty()) {
+          subspace_ = other.subspace_;
+          onChanged();
+        }
+        if (!other.keys_.isEmpty()) {
+          if (keys_.isEmpty()) {
+            keys_ = other.keys_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureKeysIsMutable();
+            keys_.addAll(other.keys_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cosmos.params.v1beta1.QueryOuterClass.Subspace parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cosmos.params.v1beta1.QueryOuterClass.Subspace) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object subspace_ = "";
+      /**
+       * <code>string subspace = 1;</code>
+       * @return The subspace.
+       */
+      public java.lang.String getSubspace() {
+        java.lang.Object ref = subspace_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          subspace_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string subspace = 1;</code>
+       * @return The bytes for subspace.
+       */
+      public com.google.protobuf.ByteString
+          getSubspaceBytes() {
+        java.lang.Object ref = subspace_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          subspace_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string subspace = 1;</code>
+       * @param value The subspace to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSubspace(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        subspace_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string subspace = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSubspace() {
+        
+        subspace_ = getDefaultInstance().getSubspace();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string subspace = 1;</code>
+       * @param value The bytes for subspace to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSubspaceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        subspace_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureKeysIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          keys_ = new com.google.protobuf.LazyStringArrayList(keys_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string keys = 2;</code>
+       * @return A list containing the keys.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getKeysList() {
+        return keys_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string keys = 2;</code>
+       * @return The count of keys.
+       */
+      public int getKeysCount() {
+        return keys_.size();
+      }
+      /**
+       * <code>repeated string keys = 2;</code>
+       * @param index The index of the element to return.
+       * @return The keys at the given index.
+       */
+      public java.lang.String getKeys(int index) {
+        return keys_.get(index);
+      }
+      /**
+       * <code>repeated string keys = 2;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the keys at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getKeysBytes(int index) {
+        return keys_.getByteString(index);
+      }
+      /**
+       * <code>repeated string keys = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The keys to set.
+       * @return This builder for chaining.
+       */
+      public Builder setKeys(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureKeysIsMutable();
+        keys_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string keys = 2;</code>
+       * @param value The keys to add.
+       * @return This builder for chaining.
+       */
+      public Builder addKeys(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureKeysIsMutable();
+        keys_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string keys = 2;</code>
+       * @param values The keys to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllKeys(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureKeysIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, keys_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string keys = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearKeys() {
+        keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string keys = 2;</code>
+       * @param value The bytes of the keys to add.
+       * @return This builder for chaining.
+       */
+      public Builder addKeysBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureKeysIsMutable();
+        keys_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cosmos.params.v1beta1.Subspace)
+    }
+
+    // @@protoc_insertion_point(class_scope:cosmos.params.v1beta1.Subspace)
+    private static final cosmos.params.v1beta1.QueryOuterClass.Subspace DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new cosmos.params.v1beta1.QueryOuterClass.Subspace();
+    }
+
+    public static cosmos.params.v1beta1.QueryOuterClass.Subspace getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Subspace>
+        PARSER = new com.google.protobuf.AbstractParser<Subspace>() {
+      @java.lang.Override
+      public Subspace parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Subspace(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Subspace> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Subspace> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public cosmos.params.v1beta1.QueryOuterClass.Subspace getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_cosmos_params_v1beta1_QueryParamsRequest_descriptor;
   private static final 
@@ -1511,6 +3540,21 @@ public final class QueryOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cosmos_params_v1beta1_QueryParamsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cosmos_params_v1beta1_QuerySubspacesRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cosmos_params_v1beta1_QuerySubspacesRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cosmos_params_v1beta1_QuerySubspacesResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cosmos_params_v1beta1_QuerySubspacesResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cosmos_params_v1beta1_Subspace_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cosmos_params_v1beta1_Subspace_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1526,18 +3570,25 @@ public final class QueryOuterClass {
       "arams/v1beta1/params.proto\"3\n\022QueryParam" +
       "sRequest\022\020\n\010subspace\030\001 \001(\t\022\013\n\003key\030\002 \001(\t\"" +
       "N\n\023QueryParamsResponse\0227\n\005param\030\001 \001(\0132\"." +
-      "cosmos.params.v1beta1.ParamChangeB\004\310\336\037\0002" +
-      "\220\001\n\005Query\022\206\001\n\006Params\022).cosmos.params.v1b" +
-      "eta1.QueryParamsRequest\032*.cosmos.params." +
-      "v1beta1.QueryParamsResponse\"%\202\323\344\223\002\037\022\035/co" +
-      "smos/params/v1beta1/paramsB6Z4github.com" +
-      "/cosmos/cosmos-sdk/x/params/types/propos" +
-      "alb\006proto3"
+      "cosmos.params.v1beta1.ParamChangeB\004\310\336\037\000\"" +
+      "\027\n\025QuerySubspacesRequest\"L\n\026QuerySubspac" +
+      "esResponse\0222\n\tsubspaces\030\001 \003(\0132\037.cosmos.p" +
+      "arams.v1beta1.Subspace\"*\n\010Subspace\022\020\n\010su" +
+      "bspace\030\001 \001(\t\022\014\n\004keys\030\002 \003(\t2\245\002\n\005Query\022\206\001\n" +
+      "\006Params\022).cosmos.params.v1beta1.QueryPar" +
+      "amsRequest\032*.cosmos.params.v1beta1.Query" +
+      "ParamsResponse\"%\202\323\344\223\002\037\022\035/cosmos/params/v" +
+      "1beta1/params\022\222\001\n\tSubspaces\022,.cosmos.par" +
+      "ams.v1beta1.QuerySubspacesRequest\032-.cosm" +
+      "os.params.v1beta1.QuerySubspacesResponse" +
+      "\"(\202\323\344\223\002\"\022 /cosmos/params/v1beta1/subspac" +
+      "esB6Z4github.com/cosmos/cosmos-sdk/x/par" +
+      "ams/types/proposalb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.params.v1beta1.Params.getDescriptor(),
         });
@@ -1553,13 +3604,31 @@ public final class QueryOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_params_v1beta1_QueryParamsResponse_descriptor,
         new java.lang.String[] { "Param", });
+    internal_static_cosmos_params_v1beta1_QuerySubspacesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_cosmos_params_v1beta1_QuerySubspacesRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cosmos_params_v1beta1_QuerySubspacesRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_cosmos_params_v1beta1_QuerySubspacesResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_cosmos_params_v1beta1_QuerySubspacesResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cosmos_params_v1beta1_QuerySubspacesResponse_descriptor,
+        new java.lang.String[] { "Subspaces", });
+    internal_static_cosmos_params_v1beta1_Subspace_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_cosmos_params_v1beta1_Subspace_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cosmos_params_v1beta1_Subspace_descriptor,
+        new java.lang.String[] { "Subspace", "Keys", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.params.v1beta1.Params.getDescriptor();
   }

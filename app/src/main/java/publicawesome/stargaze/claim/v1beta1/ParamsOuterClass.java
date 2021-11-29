@@ -44,7 +44,7 @@ public final class ParamsOuterClass {
   /**
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.ClaimAuthorization}
    */
-  public  static final class ClaimAuthorization extends
+  public static final class ClaimAuthorization extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.ClaimAuthorization)
       ClaimAuthorizationOrBuilder {
@@ -138,6 +138,7 @@ public final class ParamsOuterClass {
      * <code>string contract_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract_address&#92;""];</code>
      * @return The contractAddress.
      */
+    @java.lang.Override
     public java.lang.String getContractAddress() {
       java.lang.Object ref = contractAddress_;
       if (ref instanceof java.lang.String) {
@@ -154,6 +155,7 @@ public final class ParamsOuterClass {
      * <code>string contract_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract_address&#92;""];</code>
      * @return The bytes for contractAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getContractAddressBytes() {
       java.lang.Object ref = contractAddress_;
@@ -174,14 +176,14 @@ public final class ParamsOuterClass {
      * <code>.publicawesome.stargaze.claim.v1beta1.Action action = 2 [(.gogoproto.moretags) = "yaml:&#92;"action&#92;""];</code>
      * @return The enum numeric value on the wire for action.
      */
-    public int getActionValue() {
+    @java.lang.Override public int getActionValue() {
       return action_;
     }
     /**
      * <code>.publicawesome.stargaze.claim.v1beta1.Action action = 2 [(.gogoproto.moretags) = "yaml:&#92;"action&#92;""];</code>
      * @return The action.
      */
-    public publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action getAction() {
+    @java.lang.Override public publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action getAction() {
       @SuppressWarnings("deprecation")
       publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action result = publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action.valueOf(action_);
       return result == null ? publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action.UNRECOGNIZED : result;
@@ -586,7 +588,7 @@ public final class ParamsOuterClass {
        * <code>.publicawesome.stargaze.claim.v1beta1.Action action = 2 [(.gogoproto.moretags) = "yaml:&#92;"action&#92;""];</code>
        * @return The enum numeric value on the wire for action.
        */
-      public int getActionValue() {
+      @java.lang.Override public int getActionValue() {
         return action_;
       }
       /**
@@ -595,6 +597,7 @@ public final class ParamsOuterClass {
        * @return This builder for chaining.
        */
       public Builder setActionValue(int value) {
+        
         action_ = value;
         onChanged();
         return this;
@@ -603,6 +606,7 @@ public final class ParamsOuterClass {
        * <code>.publicawesome.stargaze.claim.v1beta1.Action action = 2 [(.gogoproto.moretags) = "yaml:&#92;"action&#92;""];</code>
        * @return The action.
        */
+      @java.lang.Override
       public publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action getAction() {
         @SuppressWarnings("deprecation")
         publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action result = publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action.valueOf(action_);
@@ -811,7 +815,7 @@ public final class ParamsOuterClass {
    *
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.Params)
       ParamsOrBuilder {
@@ -956,6 +960,7 @@ public final class ParamsOuterClass {
      * <code>bool airdrop_enabled = 1;</code>
      * @return The airdropEnabled.
      */
+    @java.lang.Override
     public boolean getAirdropEnabled() {
       return airdropEnabled_;
     }
@@ -966,6 +971,7 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Timestamp airdrop_start_time = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"airdrop_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the airdropStartTime field is set.
      */
+    @java.lang.Override
     public boolean hasAirdropStartTime() {
       return airdropStartTime_ != null;
     }
@@ -973,12 +979,14 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Timestamp airdrop_start_time = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"airdrop_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The airdropStartTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getAirdropStartTime() {
       return airdropStartTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : airdropStartTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp airdrop_start_time = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"airdrop_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getAirdropStartTimeOrBuilder() {
       return getAirdropStartTime();
     }
@@ -989,6 +997,7 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Duration duration_until_decay = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_until_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_until_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the durationUntilDecay field is set.
      */
+    @java.lang.Override
     public boolean hasDurationUntilDecay() {
       return durationUntilDecay_ != null;
     }
@@ -996,12 +1005,14 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Duration duration_until_decay = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_until_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_until_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The durationUntilDecay.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDurationUntilDecay() {
       return durationUntilDecay_ == null ? com.google.protobuf.Duration.getDefaultInstance() : durationUntilDecay_;
     }
     /**
      * <code>.google.protobuf.Duration duration_until_decay = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_until_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_until_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationUntilDecayOrBuilder() {
       return getDurationUntilDecay();
     }
@@ -1012,6 +1023,7 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Duration duration_of_decay = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_of_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_of_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the durationOfDecay field is set.
      */
+    @java.lang.Override
     public boolean hasDurationOfDecay() {
       return durationOfDecay_ != null;
     }
@@ -1019,12 +1031,14 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Duration duration_of_decay = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_of_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_of_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The durationOfDecay.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDurationOfDecay() {
       return durationOfDecay_ == null ? com.google.protobuf.Duration.getDefaultInstance() : durationOfDecay_;
     }
     /**
      * <code>.google.protobuf.Duration duration_of_decay = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_of_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_of_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationOfDecayOrBuilder() {
       return getDurationOfDecay();
     }
@@ -1039,6 +1053,7 @@ public final class ParamsOuterClass {
      * <code>string claim_denom = 5;</code>
      * @return The claimDenom.
      */
+    @java.lang.Override
     public java.lang.String getClaimDenom() {
       java.lang.Object ref = claimDenom_;
       if (ref instanceof java.lang.String) {
@@ -1059,6 +1074,7 @@ public final class ParamsOuterClass {
      * <code>string claim_denom = 5;</code>
      * @return The bytes for claimDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClaimDenomBytes() {
       java.lang.Object ref = claimDenom_;
@@ -1082,6 +1098,7 @@ public final class ParamsOuterClass {
      *
      * <code>repeated .publicawesome.stargaze.claim.v1beta1.ClaimAuthorization allowed_claimers = 6 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "allowed_claimers", (.gogoproto.moretags) = "yaml:&#92;"allowed_claimers&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.ClaimAuthorization> getAllowedClaimersList() {
       return allowedClaimers_;
     }
@@ -1092,6 +1109,7 @@ public final class ParamsOuterClass {
      *
      * <code>repeated .publicawesome.stargaze.claim.v1beta1.ClaimAuthorization allowed_claimers = 6 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "allowed_claimers", (.gogoproto.moretags) = "yaml:&#92;"allowed_claimers&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.ClaimAuthorizationOrBuilder> 
         getAllowedClaimersOrBuilderList() {
       return allowedClaimers_;
@@ -1103,6 +1121,7 @@ public final class ParamsOuterClass {
      *
      * <code>repeated .publicawesome.stargaze.claim.v1beta1.ClaimAuthorization allowed_claimers = 6 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "allowed_claimers", (.gogoproto.moretags) = "yaml:&#92;"allowed_claimers&#92;""];</code>
      */
+    @java.lang.Override
     public int getAllowedClaimersCount() {
       return allowedClaimers_.size();
     }
@@ -1113,6 +1132,7 @@ public final class ParamsOuterClass {
      *
      * <code>repeated .publicawesome.stargaze.claim.v1beta1.ClaimAuthorization allowed_claimers = 6 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "allowed_claimers", (.gogoproto.moretags) = "yaml:&#92;"allowed_claimers&#92;""];</code>
      */
+    @java.lang.Override
     public publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.ClaimAuthorization getAllowedClaimers(int index) {
       return allowedClaimers_.get(index);
     }
@@ -1123,6 +1143,7 @@ public final class ParamsOuterClass {
      *
      * <code>repeated .publicawesome.stargaze.claim.v1beta1.ClaimAuthorization allowed_claimers = 6 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "allowed_claimers", (.gogoproto.moretags) = "yaml:&#92;"allowed_claimers&#92;""];</code>
      */
+    @java.lang.Override
     public publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.ClaimAuthorizationOrBuilder getAllowedClaimersOrBuilder(
         int index) {
       return allowedClaimers_.get(index);
@@ -1604,6 +1625,7 @@ public final class ParamsOuterClass {
        * <code>bool airdrop_enabled = 1;</code>
        * @return The airdropEnabled.
        */
+      @java.lang.Override
       public boolean getAirdropEnabled() {
         return airdropEnabled_;
       }
@@ -2494,7 +2516,7 @@ public final class ParamsOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.getDescriptor(),
@@ -2513,15 +2535,15 @@ public final class ParamsOuterClass {
         new java.lang.String[] { "AirdropEnabled", "AirdropStartTime", "DurationUntilDecay", "DurationOfDecay", "ClaimDenom", "AllowedClaimers", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
-    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.getDescriptor();

@@ -309,6 +309,37 @@ public final class QueryGrpc {
     return getAccountLockedPastTimeDenomMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.LockedDenomRequest,
+      osmosis.lockup.QueryOuterClass.LockedDenomResponse> getLockedDenomMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "LockedDenom",
+      requestType = osmosis.lockup.QueryOuterClass.LockedDenomRequest.class,
+      responseType = osmosis.lockup.QueryOuterClass.LockedDenomResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.LockedDenomRequest,
+      osmosis.lockup.QueryOuterClass.LockedDenomResponse> getLockedDenomMethod() {
+    io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.LockedDenomRequest, osmosis.lockup.QueryOuterClass.LockedDenomResponse> getLockedDenomMethod;
+    if ((getLockedDenomMethod = QueryGrpc.getLockedDenomMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getLockedDenomMethod = QueryGrpc.getLockedDenomMethod) == null) {
+          QueryGrpc.getLockedDenomMethod = getLockedDenomMethod =
+              io.grpc.MethodDescriptor.<osmosis.lockup.QueryOuterClass.LockedDenomRequest, osmosis.lockup.QueryOuterClass.LockedDenomResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "LockedDenom"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.lockup.QueryOuterClass.LockedDenomRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.lockup.QueryOuterClass.LockedDenomResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("LockedDenom"))
+              .build();
+        }
+      }
+    }
+    return getLockedDenomMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.LockedRequest,
       osmosis.lockup.QueryOuterClass.LockedResponse> getLockedByIDMethod;
 
@@ -577,6 +608,16 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Returns total locked per denom with longer past given time
+     * </pre>
+     */
+    public void lockedDenom(osmosis.lockup.QueryOuterClass.LockedDenomRequest request,
+        io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.LockedDenomResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getLockedDenomMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Returns lock record by id
      * </pre>
      */
@@ -681,6 +722,13 @@ public final class QueryGrpc {
                 osmosis.lockup.QueryOuterClass.AccountLockedPastTimeDenomRequest,
                 osmosis.lockup.QueryOuterClass.AccountLockedPastTimeDenomResponse>(
                   this, METHODID_ACCOUNT_LOCKED_PAST_TIME_DENOM)))
+          .addMethod(
+            getLockedDenomMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                osmosis.lockup.QueryOuterClass.LockedDenomRequest,
+                osmosis.lockup.QueryOuterClass.LockedDenomResponse>(
+                  this, METHODID_LOCKED_DENOM)))
           .addMethod(
             getLockedByIDMethod(),
             asyncUnaryCall(
@@ -828,6 +876,17 @@ public final class QueryGrpc {
         io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.AccountLockedPastTimeDenomResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getAccountLockedPastTimeDenomMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Returns total locked per denom with longer past given time
+     * </pre>
+     */
+    public void lockedDenom(osmosis.lockup.QueryOuterClass.LockedDenomRequest request,
+        io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.LockedDenomResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getLockedDenomMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -982,6 +1041,16 @@ public final class QueryGrpc {
     public osmosis.lockup.QueryOuterClass.AccountLockedPastTimeDenomResponse accountLockedPastTimeDenom(osmosis.lockup.QueryOuterClass.AccountLockedPastTimeDenomRequest request) {
       return blockingUnaryCall(
           getChannel(), getAccountLockedPastTimeDenomMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Returns total locked per denom with longer past given time
+     * </pre>
+     */
+    public osmosis.lockup.QueryOuterClass.LockedDenomResponse lockedDenom(osmosis.lockup.QueryOuterClass.LockedDenomRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getLockedDenomMethod(), getCallOptions(), request);
     }
 
     /**
@@ -1145,6 +1214,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Returns total locked per denom with longer past given time
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.lockup.QueryOuterClass.LockedDenomResponse> lockedDenom(
+        osmosis.lockup.QueryOuterClass.LockedDenomRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getLockedDenomMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Returns lock record by id
      * </pre>
      */
@@ -1198,10 +1278,11 @@ public final class QueryGrpc {
   private static final int METHODID_ACCOUNT_LOCKED_PAST_TIME_NOT_UNLOCKING_ONLY = 6;
   private static final int METHODID_ACCOUNT_UNLOCKED_BEFORE_TIME = 7;
   private static final int METHODID_ACCOUNT_LOCKED_PAST_TIME_DENOM = 8;
-  private static final int METHODID_LOCKED_BY_ID = 9;
-  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION = 10;
-  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_NOT_UNLOCKING_ONLY = 11;
-  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_DENOM = 12;
+  private static final int METHODID_LOCKED_DENOM = 9;
+  private static final int METHODID_LOCKED_BY_ID = 10;
+  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION = 11;
+  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_NOT_UNLOCKING_ONLY = 12;
+  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_DENOM = 13;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1255,6 +1336,10 @@ public final class QueryGrpc {
         case METHODID_ACCOUNT_LOCKED_PAST_TIME_DENOM:
           serviceImpl.accountLockedPastTimeDenom((osmosis.lockup.QueryOuterClass.AccountLockedPastTimeDenomRequest) request,
               (io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.AccountLockedPastTimeDenomResponse>) responseObserver);
+          break;
+        case METHODID_LOCKED_DENOM:
+          serviceImpl.lockedDenom((osmosis.lockup.QueryOuterClass.LockedDenomRequest) request,
+              (io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.LockedDenomResponse>) responseObserver);
           break;
         case METHODID_LOCKED_BY_ID:
           serviceImpl.lockedByID((osmosis.lockup.QueryOuterClass.LockedRequest) request,
@@ -1342,6 +1427,7 @@ public final class QueryGrpc {
               .addMethod(getAccountLockedPastTimeNotUnlockingOnlyMethod())
               .addMethod(getAccountUnlockedBeforeTimeMethod())
               .addMethod(getAccountLockedPastTimeDenomMethod())
+              .addMethod(getLockedDenomMethod())
               .addMethod(getLockedByIDMethod())
               .addMethod(getAccountLockedLongerDurationMethod())
               .addMethod(getAccountLockedLongerDurationNotUnlockingOnlyMethod())

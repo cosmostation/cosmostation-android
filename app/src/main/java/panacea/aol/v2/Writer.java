@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.Writer}
  */
-public  final class Writer extends
+public final class Writer extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.Writer)
     WriterOrBuilder {
@@ -109,6 +109,7 @@ private static final long serialVersionUID = 0L;
    * <code>string moniker = 1;</code>
    * @return The moniker.
    */
+  @java.lang.Override
   public java.lang.String getMoniker() {
     java.lang.Object ref = moniker_;
     if (ref instanceof java.lang.String) {
@@ -125,6 +126,7 @@ private static final long serialVersionUID = 0L;
    * <code>string moniker = 1;</code>
    * @return The bytes for moniker.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getMonikerBytes() {
     java.lang.Object ref = moniker_;
@@ -145,6 +147,7 @@ private static final long serialVersionUID = 0L;
    * <code>string description = 2;</code>
    * @return The description.
    */
+  @java.lang.Override
   public java.lang.String getDescription() {
     java.lang.Object ref = description_;
     if (ref instanceof java.lang.String) {
@@ -161,6 +164,7 @@ private static final long serialVersionUID = 0L;
    * <code>string description = 2;</code>
    * @return The bytes for description.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getDescriptionBytes() {
     java.lang.Object ref = description_;
@@ -181,6 +185,7 @@ private static final long serialVersionUID = 0L;
    * <code>int64 nano_timestamp = 3;</code>
    * @return The nanoTimestamp.
    */
+  @java.lang.Override
   public long getNanoTimestamp() {
     return nanoTimestamp_;
   }
@@ -683,6 +688,7 @@ private static final long serialVersionUID = 0L;
      * <code>int64 nano_timestamp = 3;</code>
      * @return The nanoTimestamp.
      */
+    @java.lang.Override
     public long getNanoTimestamp() {
       return nanoTimestamp_;
     }

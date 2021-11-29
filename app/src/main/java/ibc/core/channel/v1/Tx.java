@@ -1389,8 +1389,8 @@ public final class Tx {
 
     /**
      * <pre>
-     * in the case of crossing hello's, when both chains call OpenInit, we need the channel identifier
-     * of the previous channel in state INIT
+     * in the case of crossing hello's, when both chains call OpenInit, we need
+     * the channel identifier of the previous channel in state INIT
      * </pre>
      *
      * <code>string previous_channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"previous_channel_id&#92;""];</code>
@@ -1399,8 +1399,8 @@ public final class Tx {
     java.lang.String getPreviousChannelId();
     /**
      * <pre>
-     * in the case of crossing hello's, when both chains call OpenInit, we need the channel identifier
-     * of the previous channel in state INIT
+     * in the case of crossing hello's, when both chains call OpenInit, we need
+     * the channel identifier of the previous channel in state INIT
      * </pre>
      *
      * <code>string previous_channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"previous_channel_id&#92;""];</code>
@@ -1653,8 +1653,8 @@ public final class Tx {
     private volatile java.lang.Object previousChannelId_;
     /**
      * <pre>
-     * in the case of crossing hello's, when both chains call OpenInit, we need the channel identifier
-     * of the previous channel in state INIT
+     * in the case of crossing hello's, when both chains call OpenInit, we need
+     * the channel identifier of the previous channel in state INIT
      * </pre>
      *
      * <code>string previous_channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"previous_channel_id&#92;""];</code>
@@ -1675,8 +1675,8 @@ public final class Tx {
     }
     /**
      * <pre>
-     * in the case of crossing hello's, when both chains call OpenInit, we need the channel identifier
-     * of the previous channel in state INIT
+     * in the case of crossing hello's, when both chains call OpenInit, we need
+     * the channel identifier of the previous channel in state INIT
      * </pre>
      *
      * <code>string previous_channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"previous_channel_id&#92;""];</code>
@@ -2350,8 +2350,8 @@ public final class Tx {
       private java.lang.Object previousChannelId_ = "";
       /**
        * <pre>
-       * in the case of crossing hello's, when both chains call OpenInit, we need the channel identifier
-       * of the previous channel in state INIT
+       * in the case of crossing hello's, when both chains call OpenInit, we need
+       * the channel identifier of the previous channel in state INIT
        * </pre>
        *
        * <code>string previous_channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"previous_channel_id&#92;""];</code>
@@ -2371,8 +2371,8 @@ public final class Tx {
       }
       /**
        * <pre>
-       * in the case of crossing hello's, when both chains call OpenInit, we need the channel identifier
-       * of the previous channel in state INIT
+       * in the case of crossing hello's, when both chains call OpenInit, we need
+       * the channel identifier of the previous channel in state INIT
        * </pre>
        *
        * <code>string previous_channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"previous_channel_id&#92;""];</code>
@@ -2393,8 +2393,8 @@ public final class Tx {
       }
       /**
        * <pre>
-       * in the case of crossing hello's, when both chains call OpenInit, we need the channel identifier
-       * of the previous channel in state INIT
+       * in the case of crossing hello's, when both chains call OpenInit, we need
+       * the channel identifier of the previous channel in state INIT
        * </pre>
        *
        * <code>string previous_channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"previous_channel_id&#92;""];</code>
@@ -2413,8 +2413,8 @@ public final class Tx {
       }
       /**
        * <pre>
-       * in the case of crossing hello's, when both chains call OpenInit, we need the channel identifier
-       * of the previous channel in state INIT
+       * in the case of crossing hello's, when both chains call OpenInit, we need
+       * the channel identifier of the previous channel in state INIT
        * </pre>
        *
        * <code>string previous_channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"previous_channel_id&#92;""];</code>
@@ -2428,8 +2428,8 @@ public final class Tx {
       }
       /**
        * <pre>
-       * in the case of crossing hello's, when both chains call OpenInit, we need the channel identifier
-       * of the previous channel in state INIT
+       * in the case of crossing hello's, when both chains call OpenInit, we need
+       * the channel identifier of the previous channel in state INIT
        * </pre>
        *
        * <code>string previous_channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"previous_channel_id&#92;""];</code>
@@ -6392,7 +6392,8 @@ public final class Tx {
   }
   /**
    * <pre>
-   * MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response type.
+   * MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response
+   * type.
    * </pre>
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelOpenConfirmResponse}
@@ -6617,7 +6618,8 @@ public final class Tx {
     }
     /**
      * <pre>
-     * MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response type.
+     * MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response
+     * type.
      * </pre>
      *
      * Protobuf type {@code ibc.core.channel.v1.MsgChannelOpenConfirmResponse}
@@ -9277,7 +9279,8 @@ public final class Tx {
   }
   /**
    * <pre>
-   * MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response type.
+   * MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response
+   * type.
    * </pre>
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelCloseConfirmResponse}
@@ -9502,7 +9505,8 @@ public final class Tx {
     }
     /**
      * <pre>
-     * MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response type.
+     * MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response
+     * type.
      * </pre>
      *
      * Protobuf type {@code ibc.core.channel.v1.MsgChannelCloseConfirmResponse}
@@ -16127,14 +16131,14 @@ public final class Tx {
       ".channel.v1.MsgTimeoutOnCloseResponse\022k\n" +
       "\017Acknowledgement\022\'.ibc.core.channel.v1.M" +
       "sgAcknowledgement\032/.ibc.core.channel.v1." +
-      "MsgAcknowledgementResponseB:Z8github.com" +
-      "/cosmos/cosmos-sdk/x/ibc/core/04-channel" +
-      "/typesb\006proto3"
+      "MsgAcknowledgementResponseB;Z9github.com" +
+      "/cosmos/ibc-go/v2/modules/core/04-channe" +
+      "l/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           ibc.core.client.v1.Client.getDescriptor(),
           ibc.core.channel.v1.ChannelOuterClass.getDescriptor(),
         });
@@ -16260,13 +16264,13 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     ibc.core.client.v1.Client.getDescriptor();
     ibc.core.channel.v1.ChannelOuterClass.getDescriptor();
   }

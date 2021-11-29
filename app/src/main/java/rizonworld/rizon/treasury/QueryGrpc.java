@@ -92,6 +92,37 @@ public final class QueryGrpc {
     return getCurrencyMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest,
+      rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse> getMaxAtoloSupplyMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "MaxAtoloSupply",
+      requestType = rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest.class,
+      responseType = rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest,
+      rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse> getMaxAtoloSupplyMethod() {
+    io.grpc.MethodDescriptor<rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest, rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse> getMaxAtoloSupplyMethod;
+    if ((getMaxAtoloSupplyMethod = QueryGrpc.getMaxAtoloSupplyMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getMaxAtoloSupplyMethod = QueryGrpc.getMaxAtoloSupplyMethod) == null) {
+          QueryGrpc.getMaxAtoloSupplyMethod = getMaxAtoloSupplyMethod =
+              io.grpc.MethodDescriptor.<rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest, rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "MaxAtoloSupply"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("MaxAtoloSupply"))
+              .build();
+        }
+      }
+    }
+    return getMaxAtoloSupplyMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<rizonworld.rizon.treasury.QueryOuterClass.QueryParamsRequest,
       rizonworld.rizon.treasury.QueryOuterClass.QueryParamsResponse> getParamsMethod;
 
@@ -196,6 +227,16 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * MaxAtoloSupply queries maximum mintable amount of uatolo
+     * </pre>
+     */
+    public void maxAtoloSupply(rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest request,
+        io.grpc.stub.StreamObserver<rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getMaxAtoloSupplyMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Params queries parameters of treasury
      * </pre>
      */
@@ -220,6 +261,13 @@ public final class QueryGrpc {
                 rizonworld.rizon.treasury.QueryOuterClass.QueryCurrencyRequest,
                 rizonworld.rizon.treasury.QueryOuterClass.QueryCurrencyResponse>(
                   this, METHODID_CURRENCY)))
+          .addMethod(
+            getMaxAtoloSupplyMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest,
+                rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse>(
+                  this, METHODID_MAX_ATOLO_SUPPLY)))
           .addMethod(
             getParamsMethod(),
             asyncUnaryCall(
@@ -272,6 +320,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * MaxAtoloSupply queries maximum mintable amount of uatolo
+     * </pre>
+     */
+    public void maxAtoloSupply(rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest request,
+        io.grpc.stub.StreamObserver<rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getMaxAtoloSupplyMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * Params queries parameters of treasury
      * </pre>
      */
@@ -317,6 +376,16 @@ public final class QueryGrpc {
     public rizonworld.rizon.treasury.QueryOuterClass.QueryCurrencyResponse currency(rizonworld.rizon.treasury.QueryOuterClass.QueryCurrencyRequest request) {
       return blockingUnaryCall(
           getChannel(), getCurrencyMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * MaxAtoloSupply queries maximum mintable amount of uatolo
+     * </pre>
+     */
+    public rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse maxAtoloSupply(rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getMaxAtoloSupplyMethod(), getCallOptions(), request);
     }
 
     /**
@@ -371,6 +440,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * MaxAtoloSupply queries maximum mintable amount of uatolo
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse> maxAtoloSupply(
+        rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getMaxAtoloSupplyMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Params queries parameters of treasury
      * </pre>
      */
@@ -383,7 +463,8 @@ public final class QueryGrpc {
 
   private static final int METHODID_CURRENCIES = 0;
   private static final int METHODID_CURRENCY = 1;
-  private static final int METHODID_PARAMS = 2;
+  private static final int METHODID_MAX_ATOLO_SUPPLY = 2;
+  private static final int METHODID_PARAMS = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -409,6 +490,10 @@ public final class QueryGrpc {
         case METHODID_CURRENCY:
           serviceImpl.currency((rizonworld.rizon.treasury.QueryOuterClass.QueryCurrencyRequest) request,
               (io.grpc.stub.StreamObserver<rizonworld.rizon.treasury.QueryOuterClass.QueryCurrencyResponse>) responseObserver);
+          break;
+        case METHODID_MAX_ATOLO_SUPPLY:
+          serviceImpl.maxAtoloSupply((rizonworld.rizon.treasury.QueryOuterClass.QueryMaxRequest) request,
+              (io.grpc.stub.StreamObserver<rizonworld.rizon.treasury.QueryOuterClass.QueryMaxResponse>) responseObserver);
           break;
         case METHODID_PARAMS:
           serviceImpl.params((rizonworld.rizon.treasury.QueryOuterClass.QueryParamsRequest) request,
@@ -477,6 +562,7 @@ public final class QueryGrpc {
               .setSchemaDescriptor(new QueryFileDescriptorSupplier())
               .addMethod(getCurrenciesMethod())
               .addMethod(getCurrencyMethod())
+              .addMethod(getMaxAtoloSupplyMethod())
               .addMethod(getParamsMethod())
               .build();
         }

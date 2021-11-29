@@ -532,13 +532,13 @@ public final class Resourcevalue {
       "\022\022akash.base.v1beta1\032\024gogoproto/gogo.pro" +
       "to\"R\n\rResourceValue\022;\n\003val\030\001 \001(\014B.\310\336\037\000\332\336" +
       "\037&github.com/cosmos/cosmos-sdk/types.Int" +
-      ":\004\350\240\037\001B\037Z\035github.com/ovrclk/akash/typesb" +
-      "\006proto3"
+      ":\004\350\240\037\001B\'Z%github.com/ovrclk/akash/types/" +
+      "v1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_akash_base_v1beta1_ResourceValue_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -548,12 +548,12 @@ public final class Resourcevalue {
         new java.lang.String[] { "Val", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

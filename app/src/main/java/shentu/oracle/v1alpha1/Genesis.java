@@ -147,7 +147,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.GenesisState)
       GenesisStateOrBuilder {
@@ -305,12 +305,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Operator operators = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"operators&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.oracle.v1alpha1.Oracle.Operator> getOperatorsList() {
       return operators_;
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Operator operators = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"operators&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.oracle.v1alpha1.Oracle.OperatorOrBuilder> 
         getOperatorsOrBuilderList() {
       return operators_;
@@ -318,18 +320,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Operator operators = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"operators&#92;""];</code>
      */
+    @java.lang.Override
     public int getOperatorsCount() {
       return operators_.size();
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Operator operators = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"operators&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.Operator getOperators(int index) {
       return operators_.get(index);
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Operator operators = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"operators&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.OperatorOrBuilder getOperatorsOrBuilder(
         int index) {
       return operators_.get(index);
@@ -340,12 +345,14 @@ public final class Genesis {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin total_collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getTotalCollateralList() {
       return totalCollateral_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin total_collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getTotalCollateralOrBuilderList() {
       return totalCollateral_;
@@ -353,18 +360,21 @@ public final class Genesis {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin total_collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getTotalCollateralCount() {
       return totalCollateral_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin total_collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getTotalCollateral(int index) {
       return totalCollateral_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin total_collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalCollateralOrBuilder(
         int index) {
       return totalCollateral_.get(index);
@@ -376,6 +386,7 @@ public final class Genesis {
      * <code>.shentu.oracle.v1alpha1.LockedPoolParams pool_params = 3 [(.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return Whether the poolParams field is set.
      */
+    @java.lang.Override
     public boolean hasPoolParams() {
       return poolParams_ != null;
     }
@@ -383,12 +394,14 @@ public final class Genesis {
      * <code>.shentu.oracle.v1alpha1.LockedPoolParams pool_params = 3 [(.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return The poolParams.
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.LockedPoolParams getPoolParams() {
       return poolParams_ == null ? shentu.oracle.v1alpha1.Oracle.LockedPoolParams.getDefaultInstance() : poolParams_;
     }
     /**
      * <code>.shentu.oracle.v1alpha1.LockedPoolParams pool_params = 3 [(.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.LockedPoolParamsOrBuilder getPoolParamsOrBuilder() {
       return getPoolParams();
     }
@@ -399,6 +412,7 @@ public final class Genesis {
      * <code>.shentu.oracle.v1alpha1.TaskParams task_params = 4 [(.gogoproto.moretags) = "yaml:&#92;"task_params&#92;""];</code>
      * @return Whether the taskParams field is set.
      */
+    @java.lang.Override
     public boolean hasTaskParams() {
       return taskParams_ != null;
     }
@@ -406,12 +420,14 @@ public final class Genesis {
      * <code>.shentu.oracle.v1alpha1.TaskParams task_params = 4 [(.gogoproto.moretags) = "yaml:&#92;"task_params&#92;""];</code>
      * @return The taskParams.
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.TaskParams getTaskParams() {
       return taskParams_ == null ? shentu.oracle.v1alpha1.Oracle.TaskParams.getDefaultInstance() : taskParams_;
     }
     /**
      * <code>.shentu.oracle.v1alpha1.TaskParams task_params = 4 [(.gogoproto.moretags) = "yaml:&#92;"task_params&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.TaskParamsOrBuilder getTaskParamsOrBuilder() {
       return getTaskParams();
     }
@@ -421,12 +437,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Withdraw withdraws = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraws&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.oracle.v1alpha1.Oracle.Withdraw> getWithdrawsList() {
       return withdraws_;
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Withdraw withdraws = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraws&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.oracle.v1alpha1.Oracle.WithdrawOrBuilder> 
         getWithdrawsOrBuilderList() {
       return withdraws_;
@@ -434,18 +452,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Withdraw withdraws = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraws&#92;""];</code>
      */
+    @java.lang.Override
     public int getWithdrawsCount() {
       return withdraws_.size();
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Withdraw withdraws = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraws&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.Withdraw getWithdraws(int index) {
       return withdraws_.get(index);
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Withdraw withdraws = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraws&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.WithdrawOrBuilder getWithdrawsOrBuilder(
         int index) {
       return withdraws_.get(index);
@@ -456,12 +477,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Task tasks = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tasks&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.oracle.v1alpha1.Oracle.Task> getTasksList() {
       return tasks_;
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Task tasks = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tasks&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.oracle.v1alpha1.Oracle.TaskOrBuilder> 
         getTasksOrBuilderList() {
       return tasks_;
@@ -469,18 +492,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Task tasks = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tasks&#92;""];</code>
      */
+    @java.lang.Override
     public int getTasksCount() {
       return tasks_.size();
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Task tasks = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tasks&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.Task getTasks(int index) {
       return tasks_.get(index);
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Task tasks = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tasks&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.TaskOrBuilder getTasksOrBuilder(
         int index) {
       return tasks_.get(index);
@@ -2341,7 +2367,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           shentu.oracle.v1alpha1.Oracle.getDescriptor(),
         });
@@ -2353,14 +2379,14 @@ public final class Genesis {
         new java.lang.String[] { "Operators", "TotalCollateral", "PoolParams", "TaskParams", "Withdraws", "Tasks", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     shentu.oracle.v1alpha1.Oracle.getDescriptor();
   }

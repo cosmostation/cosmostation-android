@@ -65,6 +65,30 @@ public final class Tx {
      */
     com.google.protobuf.ByteString
         getSenderBytes();
+
+    /**
+     * <code>string symbol = 5;</code>
+     * @return The symbol.
+     */
+    java.lang.String getSymbol();
+    /**
+     * <code>string symbol = 5;</code>
+     * @return The bytes for symbol.
+     */
+    com.google.protobuf.ByteString
+        getSymbolBytes();
+
+    /**
+     * <code>bool mint_restricted = 6;</code>
+     * @return The mintRestricted.
+     */
+    boolean getMintRestricted();
+
+    /**
+     * <code>bool update_restricted = 7;</code>
+     * @return The updateRestricted.
+     */
+    boolean getUpdateRestricted();
   }
   /**
    * <pre>
@@ -87,6 +111,7 @@ public final class Tx {
       name_ = "";
       schema_ = "";
       sender_ = "";
+      symbol_ = "";
     }
 
     @java.lang.Override
@@ -141,6 +166,22 @@ public final class Tx {
               java.lang.String s = input.readStringRequireUtf8();
 
               sender_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              symbol_ = s;
+              break;
+            }
+            case 48: {
+
+              mintRestricted_ = input.readBool();
+              break;
+            }
+            case 56: {
+
+              updateRestricted_ = input.readBool();
               break;
             }
             default: {
@@ -327,6 +368,66 @@ public final class Tx {
       }
     }
 
+    public static final int SYMBOL_FIELD_NUMBER = 5;
+    private volatile java.lang.Object symbol_;
+    /**
+     * <code>string symbol = 5;</code>
+     * @return The symbol.
+     */
+    @java.lang.Override
+    public java.lang.String getSymbol() {
+      java.lang.Object ref = symbol_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        symbol_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string symbol = 5;</code>
+     * @return The bytes for symbol.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSymbolBytes() {
+      java.lang.Object ref = symbol_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        symbol_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MINT_RESTRICTED_FIELD_NUMBER = 6;
+    private boolean mintRestricted_;
+    /**
+     * <code>bool mint_restricted = 6;</code>
+     * @return The mintRestricted.
+     */
+    @java.lang.Override
+    public boolean getMintRestricted() {
+      return mintRestricted_;
+    }
+
+    public static final int UPDATE_RESTRICTED_FIELD_NUMBER = 7;
+    private boolean updateRestricted_;
+    /**
+     * <code>bool update_restricted = 7;</code>
+     * @return The updateRestricted.
+     */
+    @java.lang.Override
+    public boolean getUpdateRestricted() {
+      return updateRestricted_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -353,6 +454,15 @@ public final class Tx {
       if (!getSenderBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, sender_);
       }
+      if (!getSymbolBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, symbol_);
+      }
+      if (mintRestricted_ != false) {
+        output.writeBool(6, mintRestricted_);
+      }
+      if (updateRestricted_ != false) {
+        output.writeBool(7, updateRestricted_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -373,6 +483,17 @@ public final class Tx {
       }
       if (!getSenderBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, sender_);
+      }
+      if (!getSymbolBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, symbol_);
+      }
+      if (mintRestricted_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(6, mintRestricted_);
+      }
+      if (updateRestricted_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(7, updateRestricted_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -397,6 +518,12 @@ public final class Tx {
           .equals(other.getSchema())) return false;
       if (!getSender()
           .equals(other.getSender())) return false;
+      if (!getSymbol()
+          .equals(other.getSymbol())) return false;
+      if (getMintRestricted()
+          != other.getMintRestricted()) return false;
+      if (getUpdateRestricted()
+          != other.getUpdateRestricted()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -416,6 +543,14 @@ public final class Tx {
       hash = (53 * hash) + getSchema().hashCode();
       hash = (37 * hash) + SENDER_FIELD_NUMBER;
       hash = (53 * hash) + getSender().hashCode();
+      hash = (37 * hash) + SYMBOL_FIELD_NUMBER;
+      hash = (53 * hash) + getSymbol().hashCode();
+      hash = (37 * hash) + MINT_RESTRICTED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getMintRestricted());
+      hash = (37 * hash) + UPDATE_RESTRICTED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getUpdateRestricted());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -561,6 +696,12 @@ public final class Tx {
 
         sender_ = "";
 
+        symbol_ = "";
+
+        mintRestricted_ = false;
+
+        updateRestricted_ = false;
+
         return this;
       }
 
@@ -591,6 +732,9 @@ public final class Tx {
         result.name_ = name_;
         result.schema_ = schema_;
         result.sender_ = sender_;
+        result.symbol_ = symbol_;
+        result.mintRestricted_ = mintRestricted_;
+        result.updateRestricted_ = updateRestricted_;
         onBuilt();
         return result;
       }
@@ -654,6 +798,16 @@ public final class Tx {
         if (!other.getSender().isEmpty()) {
           sender_ = other.sender_;
           onChanged();
+        }
+        if (!other.getSymbol().isEmpty()) {
+          symbol_ = other.symbol_;
+          onChanged();
+        }
+        if (other.getMintRestricted() != false) {
+          setMintRestricted(other.getMintRestricted());
+        }
+        if (other.getUpdateRestricted() != false) {
+          setUpdateRestricted(other.getUpdateRestricted());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -984,6 +1138,144 @@ public final class Tx {
   checkByteStringIsUtf8(value);
         
         sender_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object symbol_ = "";
+      /**
+       * <code>string symbol = 5;</code>
+       * @return The symbol.
+       */
+      public java.lang.String getSymbol() {
+        java.lang.Object ref = symbol_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          symbol_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string symbol = 5;</code>
+       * @return The bytes for symbol.
+       */
+      public com.google.protobuf.ByteString
+          getSymbolBytes() {
+        java.lang.Object ref = symbol_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          symbol_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string symbol = 5;</code>
+       * @param value The symbol to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSymbol(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        symbol_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string symbol = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSymbol() {
+        
+        symbol_ = getDefaultInstance().getSymbol();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string symbol = 5;</code>
+       * @param value The bytes for symbol to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSymbolBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        symbol_ = value;
+        onChanged();
+        return this;
+      }
+
+      private boolean mintRestricted_ ;
+      /**
+       * <code>bool mint_restricted = 6;</code>
+       * @return The mintRestricted.
+       */
+      @java.lang.Override
+      public boolean getMintRestricted() {
+        return mintRestricted_;
+      }
+      /**
+       * <code>bool mint_restricted = 6;</code>
+       * @param value The mintRestricted to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMintRestricted(boolean value) {
+        
+        mintRestricted_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool mint_restricted = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMintRestricted() {
+        
+        mintRestricted_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean updateRestricted_ ;
+      /**
+       * <code>bool update_restricted = 7;</code>
+       * @return The updateRestricted.
+       */
+      @java.lang.Override
+      public boolean getUpdateRestricted() {
+        return updateRestricted_;
+      }
+      /**
+       * <code>bool update_restricted = 7;</code>
+       * @param value The updateRestricted to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdateRestricted(boolean value) {
+        
+        updateRestricted_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool update_restricted = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpdateRestricted() {
+        
+        updateRestricted_ = false;
         onChanged();
         return this;
       }
@@ -8324,6 +8616,1308 @@ public final class Tx {
 
   }
 
+  public interface MsgTransferDenomOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:irismod.nft.MsgTransferDenom)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>string sender = 2;</code>
+     * @return The sender.
+     */
+    java.lang.String getSender();
+    /**
+     * <code>string sender = 2;</code>
+     * @return The bytes for sender.
+     */
+    com.google.protobuf.ByteString
+        getSenderBytes();
+
+    /**
+     * <code>string recipient = 3;</code>
+     * @return The recipient.
+     */
+    java.lang.String getRecipient();
+    /**
+     * <code>string recipient = 3;</code>
+     * @return The bytes for recipient.
+     */
+    com.google.protobuf.ByteString
+        getRecipientBytes();
+  }
+  /**
+   * <pre>
+   * MsgTransferDenom defines an SDK message for transferring an denom to recipient.
+   * </pre>
+   *
+   * Protobuf type {@code irismod.nft.MsgTransferDenom}
+   */
+  public static final class MsgTransferDenom extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:irismod.nft.MsgTransferDenom)
+      MsgTransferDenomOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgTransferDenom.newBuilder() to construct.
+    private MsgTransferDenom(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgTransferDenom() {
+      id_ = "";
+      sender_ = "";
+      recipient_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgTransferDenom();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgTransferDenom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              sender_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              recipient_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return irismod.nft.Tx.internal_static_irismod_nft_MsgTransferDenom_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return irismod.nft.Tx.internal_static_irismod_nft_MsgTransferDenom_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              irismod.nft.Tx.MsgTransferDenom.class, irismod.nft.Tx.MsgTransferDenom.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SENDER_FIELD_NUMBER = 2;
+    private volatile java.lang.Object sender_;
+    /**
+     * <code>string sender = 2;</code>
+     * @return The sender.
+     */
+    @java.lang.Override
+    public java.lang.String getSender() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sender_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string sender = 2;</code>
+     * @return The bytes for sender.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSenderBytes() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sender_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int RECIPIENT_FIELD_NUMBER = 3;
+    private volatile java.lang.Object recipient_;
+    /**
+     * <code>string recipient = 3;</code>
+     * @return The recipient.
+     */
+    @java.lang.Override
+    public java.lang.String getRecipient() {
+      java.lang.Object ref = recipient_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        recipient_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string recipient = 3;</code>
+     * @return The bytes for recipient.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRecipientBytes() {
+      java.lang.Object ref = recipient_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        recipient_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      if (!getSenderBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, sender_);
+      }
+      if (!getRecipientBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, recipient_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (!getSenderBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, sender_);
+      }
+      if (!getRecipientBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, recipient_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof irismod.nft.Tx.MsgTransferDenom)) {
+        return super.equals(obj);
+      }
+      irismod.nft.Tx.MsgTransferDenom other = (irismod.nft.Tx.MsgTransferDenom) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getSender()
+          .equals(other.getSender())) return false;
+      if (!getRecipient()
+          .equals(other.getRecipient())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + SENDER_FIELD_NUMBER;
+      hash = (53 * hash) + getSender().hashCode();
+      hash = (37 * hash) + RECIPIENT_FIELD_NUMBER;
+      hash = (53 * hash) + getRecipient().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static irismod.nft.Tx.MsgTransferDenom parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.nft.Tx.MsgTransferDenom parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.nft.Tx.MsgTransferDenom parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.nft.Tx.MsgTransferDenom parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.nft.Tx.MsgTransferDenom parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.nft.Tx.MsgTransferDenom parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.nft.Tx.MsgTransferDenom parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static irismod.nft.Tx.MsgTransferDenom parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static irismod.nft.Tx.MsgTransferDenom parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static irismod.nft.Tx.MsgTransferDenom parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static irismod.nft.Tx.MsgTransferDenom parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static irismod.nft.Tx.MsgTransferDenom parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(irismod.nft.Tx.MsgTransferDenom prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgTransferDenom defines an SDK message for transferring an denom to recipient.
+     * </pre>
+     *
+     * Protobuf type {@code irismod.nft.MsgTransferDenom}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:irismod.nft.MsgTransferDenom)
+        irismod.nft.Tx.MsgTransferDenomOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return irismod.nft.Tx.internal_static_irismod_nft_MsgTransferDenom_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return irismod.nft.Tx.internal_static_irismod_nft_MsgTransferDenom_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                irismod.nft.Tx.MsgTransferDenom.class, irismod.nft.Tx.MsgTransferDenom.Builder.class);
+      }
+
+      // Construct using irismod.nft.Tx.MsgTransferDenom.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        sender_ = "";
+
+        recipient_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return irismod.nft.Tx.internal_static_irismod_nft_MsgTransferDenom_descriptor;
+      }
+
+      @java.lang.Override
+      public irismod.nft.Tx.MsgTransferDenom getDefaultInstanceForType() {
+        return irismod.nft.Tx.MsgTransferDenom.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public irismod.nft.Tx.MsgTransferDenom build() {
+        irismod.nft.Tx.MsgTransferDenom result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public irismod.nft.Tx.MsgTransferDenom buildPartial() {
+        irismod.nft.Tx.MsgTransferDenom result = new irismod.nft.Tx.MsgTransferDenom(this);
+        result.id_ = id_;
+        result.sender_ = sender_;
+        result.recipient_ = recipient_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof irismod.nft.Tx.MsgTransferDenom) {
+          return mergeFrom((irismod.nft.Tx.MsgTransferDenom)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(irismod.nft.Tx.MsgTransferDenom other) {
+        if (other == irismod.nft.Tx.MsgTransferDenom.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (!other.getSender().isEmpty()) {
+          sender_ = other.sender_;
+          onChanged();
+        }
+        if (!other.getRecipient().isEmpty()) {
+          recipient_ = other.recipient_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        irismod.nft.Tx.MsgTransferDenom parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (irismod.nft.Tx.MsgTransferDenom) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object sender_ = "";
+      /**
+       * <code>string sender = 2;</code>
+       * @return The sender.
+       */
+      public java.lang.String getSender() {
+        java.lang.Object ref = sender_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sender_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string sender = 2;</code>
+       * @return The bytes for sender.
+       */
+      public com.google.protobuf.ByteString
+          getSenderBytes() {
+        java.lang.Object ref = sender_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sender_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string sender = 2;</code>
+       * @param value The sender to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSender(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        sender_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string sender = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSender() {
+        
+        sender_ = getDefaultInstance().getSender();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string sender = 2;</code>
+       * @param value The bytes for sender to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSenderBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        sender_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object recipient_ = "";
+      /**
+       * <code>string recipient = 3;</code>
+       * @return The recipient.
+       */
+      public java.lang.String getRecipient() {
+        java.lang.Object ref = recipient_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          recipient_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string recipient = 3;</code>
+       * @return The bytes for recipient.
+       */
+      public com.google.protobuf.ByteString
+          getRecipientBytes() {
+        java.lang.Object ref = recipient_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          recipient_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string recipient = 3;</code>
+       * @param value The recipient to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRecipient(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        recipient_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string recipient = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRecipient() {
+        
+        recipient_ = getDefaultInstance().getRecipient();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string recipient = 3;</code>
+       * @param value The bytes for recipient to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRecipientBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        recipient_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:irismod.nft.MsgTransferDenom)
+    }
+
+    // @@protoc_insertion_point(class_scope:irismod.nft.MsgTransferDenom)
+    private static final irismod.nft.Tx.MsgTransferDenom DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new irismod.nft.Tx.MsgTransferDenom();
+    }
+
+    public static irismod.nft.Tx.MsgTransferDenom getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgTransferDenom>
+        PARSER = new com.google.protobuf.AbstractParser<MsgTransferDenom>() {
+      @java.lang.Override
+      public MsgTransferDenom parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgTransferDenom(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgTransferDenom> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgTransferDenom> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public irismod.nft.Tx.MsgTransferDenom getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgTransferDenomResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:irismod.nft.MsgTransferDenomResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * <pre>
+   * MsgTransferDenomResponse defines the Msg/TransferDenom response type.
+   * </pre>
+   *
+   * Protobuf type {@code irismod.nft.MsgTransferDenomResponse}
+   */
+  public static final class MsgTransferDenomResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:irismod.nft.MsgTransferDenomResponse)
+      MsgTransferDenomResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgTransferDenomResponse.newBuilder() to construct.
+    private MsgTransferDenomResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgTransferDenomResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgTransferDenomResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgTransferDenomResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return irismod.nft.Tx.internal_static_irismod_nft_MsgTransferDenomResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return irismod.nft.Tx.internal_static_irismod_nft_MsgTransferDenomResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              irismod.nft.Tx.MsgTransferDenomResponse.class, irismod.nft.Tx.MsgTransferDenomResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof irismod.nft.Tx.MsgTransferDenomResponse)) {
+        return super.equals(obj);
+      }
+      irismod.nft.Tx.MsgTransferDenomResponse other = (irismod.nft.Tx.MsgTransferDenomResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static irismod.nft.Tx.MsgTransferDenomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(irismod.nft.Tx.MsgTransferDenomResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgTransferDenomResponse defines the Msg/TransferDenom response type.
+     * </pre>
+     *
+     * Protobuf type {@code irismod.nft.MsgTransferDenomResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:irismod.nft.MsgTransferDenomResponse)
+        irismod.nft.Tx.MsgTransferDenomResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return irismod.nft.Tx.internal_static_irismod_nft_MsgTransferDenomResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return irismod.nft.Tx.internal_static_irismod_nft_MsgTransferDenomResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                irismod.nft.Tx.MsgTransferDenomResponse.class, irismod.nft.Tx.MsgTransferDenomResponse.Builder.class);
+      }
+
+      // Construct using irismod.nft.Tx.MsgTransferDenomResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return irismod.nft.Tx.internal_static_irismod_nft_MsgTransferDenomResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public irismod.nft.Tx.MsgTransferDenomResponse getDefaultInstanceForType() {
+        return irismod.nft.Tx.MsgTransferDenomResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public irismod.nft.Tx.MsgTransferDenomResponse build() {
+        irismod.nft.Tx.MsgTransferDenomResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public irismod.nft.Tx.MsgTransferDenomResponse buildPartial() {
+        irismod.nft.Tx.MsgTransferDenomResponse result = new irismod.nft.Tx.MsgTransferDenomResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof irismod.nft.Tx.MsgTransferDenomResponse) {
+          return mergeFrom((irismod.nft.Tx.MsgTransferDenomResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(irismod.nft.Tx.MsgTransferDenomResponse other) {
+        if (other == irismod.nft.Tx.MsgTransferDenomResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        irismod.nft.Tx.MsgTransferDenomResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (irismod.nft.Tx.MsgTransferDenomResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:irismod.nft.MsgTransferDenomResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:irismod.nft.MsgTransferDenomResponse)
+    private static final irismod.nft.Tx.MsgTransferDenomResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new irismod.nft.Tx.MsgTransferDenomResponse();
+    }
+
+    public static irismod.nft.Tx.MsgTransferDenomResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgTransferDenomResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgTransferDenomResponse>() {
+      @java.lang.Override
+      public MsgTransferDenomResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgTransferDenomResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgTransferDenomResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgTransferDenomResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public irismod.nft.Tx.MsgTransferDenomResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_irismod_nft_MsgIssueDenom_descriptor;
   private static final 
@@ -8374,6 +9968,16 @@ public final class Tx {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_irismod_nft_MsgBurnNFTResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_irismod_nft_MsgTransferDenom_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_irismod_nft_MsgTransferDenom_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_irismod_nft_MsgTransferDenomResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_irismod_nft_MsgTransferDenomResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -8384,48 +9988,55 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n\014nft/tx.proto\022\013irismod.nft\032\024gogoproto/g" +
-      "ogo.proto\"O\n\rMsgIssueDenom\022\n\n\002id\030\001 \001(\t\022\014" +
-      "\n\004name\030\002 \001(\t\022\016\n\006schema\030\003 \001(\t\022\016\n\006sender\030\004" +
-      " \001(\t:\004\350\240\037\001\"\027\n\025MsgIssueDenomResponse\"\236\001\n\016" +
-      "MsgTransferNFT\022\n\n\002id\030\001 \001(\t\022%\n\010denom_id\030\002" +
-      " \001(\tB\023\362\336\037\017yaml:\"denom_id\"\022\014\n\004name\030\003 \001(\t\022" +
-      "\024\n\003uri\030\004 \001(\tB\007\342\336\037\003URI\022\014\n\004data\030\005 \001(\t\022\016\n\006s" +
-      "ender\030\006 \001(\t\022\021\n\trecipient\030\007 \001(\t:\004\350\240\037\001\"\030\n\026" +
-      "MsgTransferNFTResponse\"\207\001\n\nMsgEditNFT\022\n\n" +
-      "\002id\030\001 \001(\t\022%\n\010denom_id\030\002 \001(\tB\023\362\336\037\017yaml:\"d" +
-      "enom_id\"\022\014\n\004name\030\003 \001(\t\022\024\n\003uri\030\004 \001(\tB\007\342\336\037" +
-      "\003URI\022\014\n\004data\030\005 \001(\t\022\016\n\006sender\030\006 \001(\t:\004\350\240\037\001" +
-      "\"\024\n\022MsgEditNFTResponse\"\232\001\n\nMsgMintNFT\022\n\n" +
-      "\002id\030\001 \001(\t\022%\n\010denom_id\030\002 \001(\tB\023\362\336\037\017yaml:\"d" +
-      "enom_id\"\022\014\n\004name\030\003 \001(\t\022\024\n\003uri\030\004 \001(\tB\007\342\336\037" +
-      "\003URI\022\014\n\004data\030\005 \001(\t\022\016\n\006sender\030\006 \001(\t\022\021\n\tre" +
-      "cipient\030\007 \001(\t:\004\350\240\037\001\"\024\n\022MsgMintNFTRespons" +
-      "e\"U\n\nMsgBurnNFT\022\n\n\002id\030\001 \001(\t\022%\n\010denom_id\030" +
-      "\002 \001(\tB\023\362\336\037\017yaml:\"denom_id\"\022\016\n\006sender\030\003 \001" +
-      "(\t:\004\350\240\037\001\"\024\n\022MsgBurnNFTResponse2\363\002\n\003Msg\022L" +
-      "\n\nIssueDenom\022\032.irismod.nft.MsgIssueDenom" +
-      "\032\".irismod.nft.MsgIssueDenomResponse\022C\n\007" +
-      "MintNFT\022\027.irismod.nft.MsgMintNFT\032\037.irism" +
-      "od.nft.MsgMintNFTResponse\022C\n\007EditNFT\022\027.i" +
-      "rismod.nft.MsgEditNFT\032\037.irismod.nft.MsgE" +
-      "ditNFTResponse\022O\n\013TransferNFT\022\033.irismod." +
-      "nft.MsgTransferNFT\032#.irismod.nft.MsgTran" +
-      "sferNFTResponse\022C\n\007BurnNFT\022\027.irismod.nft" +
-      ".MsgBurnNFT\032\037.irismod.nft.MsgBurnNFTResp" +
-      "onseB2Z,github.com/irisnet/irismod/modul" +
-      "es/nft/types\310\341\036\000b\006proto3"
+      "ogo.proto\"\223\001\n\rMsgIssueDenom\022\n\n\002id\030\001 \001(\t\022" +
+      "\014\n\004name\030\002 \001(\t\022\016\n\006schema\030\003 \001(\t\022\016\n\006sender\030" +
+      "\004 \001(\t\022\016\n\006symbol\030\005 \001(\t\022\027\n\017mint_restricted" +
+      "\030\006 \001(\010\022\031\n\021update_restricted\030\007 \001(\010:\004\350\240\037\001\"" +
+      "\027\n\025MsgIssueDenomResponse\"\236\001\n\016MsgTransfer" +
+      "NFT\022\n\n\002id\030\001 \001(\t\022%\n\010denom_id\030\002 \001(\tB\023\362\336\037\017y" +
+      "aml:\"denom_id\"\022\014\n\004name\030\003 \001(\t\022\024\n\003uri\030\004 \001(" +
+      "\tB\007\342\336\037\003URI\022\014\n\004data\030\005 \001(\t\022\016\n\006sender\030\006 \001(\t" +
+      "\022\021\n\trecipient\030\007 \001(\t:\004\350\240\037\001\"\030\n\026MsgTransfer" +
+      "NFTResponse\"\207\001\n\nMsgEditNFT\022\n\n\002id\030\001 \001(\t\022%" +
+      "\n\010denom_id\030\002 \001(\tB\023\362\336\037\017yaml:\"denom_id\"\022\014\n" +
+      "\004name\030\003 \001(\t\022\024\n\003uri\030\004 \001(\tB\007\342\336\037\003URI\022\014\n\004dat" +
+      "a\030\005 \001(\t\022\016\n\006sender\030\006 \001(\t:\004\350\240\037\001\"\024\n\022MsgEdit" +
+      "NFTResponse\"\232\001\n\nMsgMintNFT\022\n\n\002id\030\001 \001(\t\022%" +
+      "\n\010denom_id\030\002 \001(\tB\023\362\336\037\017yaml:\"denom_id\"\022\014\n" +
+      "\004name\030\003 \001(\t\022\024\n\003uri\030\004 \001(\tB\007\342\336\037\003URI\022\014\n\004dat" +
+      "a\030\005 \001(\t\022\016\n\006sender\030\006 \001(\t\022\021\n\trecipient\030\007 \001" +
+      "(\t:\004\350\240\037\001\"\024\n\022MsgMintNFTResponse\"U\n\nMsgBur" +
+      "nNFT\022\n\n\002id\030\001 \001(\t\022%\n\010denom_id\030\002 \001(\tB\023\362\336\037\017" +
+      "yaml:\"denom_id\"\022\016\n\006sender\030\003 \001(\t:\004\350\240\037\001\"\024\n" +
+      "\022MsgBurnNFTResponse\"G\n\020MsgTransferDenom\022" +
+      "\n\n\002id\030\001 \001(\t\022\016\n\006sender\030\002 \001(\t\022\021\n\trecipient" +
+      "\030\003 \001(\t:\004\350\240\037\001\"\032\n\030MsgTransferDenomResponse" +
+      "2\312\003\n\003Msg\022L\n\nIssueDenom\022\032.irismod.nft.Msg" +
+      "IssueDenom\032\".irismod.nft.MsgIssueDenomRe" +
+      "sponse\022C\n\007MintNFT\022\027.irismod.nft.MsgMintN" +
+      "FT\032\037.irismod.nft.MsgMintNFTResponse\022C\n\007E" +
+      "ditNFT\022\027.irismod.nft.MsgEditNFT\032\037.irismo" +
+      "d.nft.MsgEditNFTResponse\022O\n\013TransferNFT\022" +
+      "\033.irismod.nft.MsgTransferNFT\032#.irismod.n" +
+      "ft.MsgTransferNFTResponse\022C\n\007BurnNFT\022\027.i" +
+      "rismod.nft.MsgBurnNFT\032\037.irismod.nft.MsgB" +
+      "urnNFTResponse\022U\n\rTransferDenom\022\035.irismo" +
+      "d.nft.MsgTransferDenom\032%.irismod.nft.Msg" +
+      "TransferDenomResponseB2Z,github.com/iris" +
+      "net/irismod/modules/nft/types\310\341\036\000b\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_irismod_nft_MsgIssueDenom_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_irismod_nft_MsgIssueDenom_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_irismod_nft_MsgIssueDenom_descriptor,
-        new java.lang.String[] { "Id", "Name", "Schema", "Sender", });
+        new java.lang.String[] { "Id", "Name", "Schema", "Sender", "Symbol", "MintRestricted", "UpdateRestricted", });
     internal_static_irismod_nft_MsgIssueDenomResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_irismod_nft_MsgIssueDenomResponse_fieldAccessorTable = new
@@ -8480,15 +10091,27 @@ public final class Tx {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_irismod_nft_MsgBurnNFTResponse_descriptor,
         new java.lang.String[] { });
+    internal_static_irismod_nft_MsgTransferDenom_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_irismod_nft_MsgTransferDenom_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_irismod_nft_MsgTransferDenom_descriptor,
+        new java.lang.String[] { "Id", "Sender", "Recipient", });
+    internal_static_irismod_nft_MsgTransferDenomResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_irismod_nft_MsgTransferDenomResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_irismod_nft_MsgTransferDenomResponse_descriptor,
+        new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customname);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

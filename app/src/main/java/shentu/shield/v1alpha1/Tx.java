@@ -124,7 +124,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgCreatePool}
    */
-  public  static final class MsgCreatePool extends
+  public static final class MsgCreatePool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgCreatePool)
       MsgCreatePoolOrBuilder {
@@ -266,6 +266,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -282,6 +283,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -301,12 +303,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getShieldList() {
       return shield_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getShieldOrBuilderList() {
       return shield_;
@@ -314,18 +318,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getShieldCount() {
       return shield_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getShield(int index) {
       return shield_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getShieldOrBuilder(
         int index) {
       return shield_.get(index);
@@ -337,6 +344,7 @@ public final class Tx {
      * <code>.shentu.shield.v1alpha1.MixedCoins deposit = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit&#92;""];</code>
      * @return Whether the deposit field is set.
      */
+    @java.lang.Override
     public boolean hasDeposit() {
       return deposit_ != null;
     }
@@ -344,12 +352,14 @@ public final class Tx {
      * <code>.shentu.shield.v1alpha1.MixedCoins deposit = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit&#92;""];</code>
      * @return The deposit.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedCoins getDeposit() {
       return deposit_ == null ? shentu.shield.v1alpha1.Shield.MixedCoins.getDefaultInstance() : deposit_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.MixedCoins deposit = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedCoinsOrBuilder getDepositOrBuilder() {
       return getDeposit();
     }
@@ -360,6 +370,7 @@ public final class Tx {
      * <code>string sponsor = 4 [(.gogoproto.moretags) = "yaml:&#92;"sponsor&#92;""];</code>
      * @return The sponsor.
      */
+    @java.lang.Override
     public java.lang.String getSponsor() {
       java.lang.Object ref = sponsor_;
       if (ref instanceof java.lang.String) {
@@ -376,6 +387,7 @@ public final class Tx {
      * <code>string sponsor = 4 [(.gogoproto.moretags) = "yaml:&#92;"sponsor&#92;""];</code>
      * @return The bytes for sponsor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSponsorBytes() {
       java.lang.Object ref = sponsor_;
@@ -396,6 +408,7 @@ public final class Tx {
      * <code>string sponsor_addr = 5 [(.gogoproto.moretags) = "yaml:&#92;"sponsor_addr&#92;""];</code>
      * @return The sponsorAddr.
      */
+    @java.lang.Override
     public java.lang.String getSponsorAddr() {
       java.lang.Object ref = sponsorAddr_;
       if (ref instanceof java.lang.String) {
@@ -412,6 +425,7 @@ public final class Tx {
      * <code>string sponsor_addr = 5 [(.gogoproto.moretags) = "yaml:&#92;"sponsor_addr&#92;""];</code>
      * @return The bytes for sponsorAddr.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSponsorAddrBytes() {
       java.lang.Object ref = sponsorAddr_;
@@ -432,6 +446,7 @@ public final class Tx {
      * <code>string description = 6 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -448,6 +463,7 @@ public final class Tx {
      * <code>string description = 6 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -468,6 +484,7 @@ public final class Tx {
      * <code>string shield_limit = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The shieldLimit.
      */
+    @java.lang.Override
     public java.lang.String getShieldLimit() {
       java.lang.Object ref = shieldLimit_;
       if (ref instanceof java.lang.String) {
@@ -484,6 +501,7 @@ public final class Tx {
      * <code>string shield_limit = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The bytes for shieldLimit.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getShieldLimitBytes() {
       java.lang.Object ref = shieldLimit_;
@@ -1757,7 +1775,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgCreatePoolResponse}
    */
-  public  static final class MsgCreatePoolResponse extends
+  public static final class MsgCreatePoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgCreatePoolResponse)
       MsgCreatePoolResponseOrBuilder {
@@ -2260,7 +2278,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgUpdatePool}
    */
-  public  static final class MsgUpdatePool extends
+  public static final class MsgUpdatePool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgUpdatePool)
       MsgUpdatePoolOrBuilder {
@@ -2393,6 +2411,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -2409,6 +2428,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -2428,12 +2448,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getShieldList() {
       return shield_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getShieldOrBuilderList() {
       return shield_;
@@ -2441,18 +2463,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getShieldCount() {
       return shield_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getShield(int index) {
       return shield_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getShieldOrBuilder(
         int index) {
       return shield_.get(index);
@@ -2464,6 +2489,7 @@ public final class Tx {
      * <code>.shentu.shield.v1alpha1.MixedCoins service_fees = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fees&#92;""];</code>
      * @return Whether the serviceFees field is set.
      */
+    @java.lang.Override
     public boolean hasServiceFees() {
       return serviceFees_ != null;
     }
@@ -2471,12 +2497,14 @@ public final class Tx {
      * <code>.shentu.shield.v1alpha1.MixedCoins service_fees = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fees&#92;""];</code>
      * @return The serviceFees.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedCoins getServiceFees() {
       return serviceFees_ == null ? shentu.shield.v1alpha1.Shield.MixedCoins.getDefaultInstance() : serviceFees_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.MixedCoins service_fees = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fees&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedCoinsOrBuilder getServiceFeesOrBuilder() {
       return getServiceFees();
     }
@@ -2487,6 +2515,7 @@ public final class Tx {
      * <code>uint64 pool_id = 4 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -2497,6 +2526,7 @@ public final class Tx {
      * <code>string description = 5 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -2513,6 +2543,7 @@ public final class Tx {
      * <code>string description = 5 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -2533,6 +2564,7 @@ public final class Tx {
      * <code>string shield_limit = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The shieldLimit.
      */
+    @java.lang.Override
     public java.lang.String getShieldLimit() {
       java.lang.Object ref = shieldLimit_;
       if (ref instanceof java.lang.String) {
@@ -2549,6 +2581,7 @@ public final class Tx {
      * <code>string shield_limit = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The bytes for shieldLimit.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getShieldLimitBytes() {
       java.lang.Object ref = shieldLimit_;
@@ -3448,6 +3481,7 @@ public final class Tx {
        * <code>uint64 pool_id = 4 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -3684,7 +3718,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgUpdatePoolResponse}
    */
-  public  static final class MsgUpdatePoolResponse extends
+  public static final class MsgUpdatePoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgUpdatePoolResponse)
       MsgUpdatePoolResponseOrBuilder {
@@ -4124,7 +4158,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgPausePool}
    */
-  public  static final class MsgPausePool extends
+  public static final class MsgPausePool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgPausePool)
       MsgPausePoolOrBuilder {
@@ -4216,6 +4250,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -4232,6 +4267,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -4252,6 +4288,7 @@ public final class Tx {
      * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -4661,6 +4698,7 @@ public final class Tx {
        * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -4745,7 +4783,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgPausePoolResponse}
    */
-  public  static final class MsgPausePoolResponse extends
+  public static final class MsgPausePoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgPausePoolResponse)
       MsgPausePoolResponseOrBuilder {
@@ -5185,7 +5223,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgResumePool}
    */
-  public  static final class MsgResumePool extends
+  public static final class MsgResumePool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgResumePool)
       MsgResumePoolOrBuilder {
@@ -5277,6 +5315,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -5293,6 +5332,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -5313,6 +5353,7 @@ public final class Tx {
      * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -5722,6 +5763,7 @@ public final class Tx {
        * <code>uint64 pool_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -5806,7 +5848,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgResumePoolResponse}
    */
-  public  static final class MsgResumePoolResponse extends
+  public static final class MsgResumePoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgResumePoolResponse)
       MsgResumePoolResponseOrBuilder {
@@ -6264,7 +6306,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgDepositCollateral}
    */
-  public  static final class MsgDepositCollateral extends
+  public static final class MsgDepositCollateral extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgDepositCollateral)
       MsgDepositCollateralOrBuilder {
@@ -6365,6 +6407,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -6381,6 +6424,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -6400,12 +6444,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCollateralList() {
       return collateral_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCollateralOrBuilderList() {
       return collateral_;
@@ -6413,18 +6459,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCollateralCount() {
       return collateral_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCollateral(int index) {
       return collateral_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCollateralOrBuilder(
         int index) {
       return collateral_.get(index);
@@ -7168,7 +7217,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgDepositCollateralResponse}
    */
-  public  static final class MsgDepositCollateralResponse extends
+  public static final class MsgDepositCollateralResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgDepositCollateralResponse)
       MsgDepositCollateralResponseOrBuilder {
@@ -7626,7 +7675,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgWithdrawCollateral}
    */
-  public  static final class MsgWithdrawCollateral extends
+  public static final class MsgWithdrawCollateral extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgWithdrawCollateral)
       MsgWithdrawCollateralOrBuilder {
@@ -7727,6 +7776,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -7743,6 +7793,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -7762,12 +7813,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCollateralList() {
       return collateral_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCollateralOrBuilderList() {
       return collateral_;
@@ -7775,18 +7828,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCollateralCount() {
       return collateral_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCollateral(int index) {
       return collateral_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCollateralOrBuilder(
         int index) {
       return collateral_.get(index);
@@ -8530,7 +8586,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgWithdrawCollateralResponse}
    */
-  public  static final class MsgWithdrawCollateralResponse extends
+  public static final class MsgWithdrawCollateralResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgWithdrawCollateralResponse)
       MsgWithdrawCollateralResponseOrBuilder {
@@ -8964,7 +9020,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgWithdrawRewards}
    */
-  public  static final class MsgWithdrawRewards extends
+  public static final class MsgWithdrawRewards extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgWithdrawRewards)
       MsgWithdrawRewardsOrBuilder {
@@ -9051,6 +9107,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -9067,6 +9124,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -9522,7 +9580,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgWithdrawRewardsResponse}
    */
-  public  static final class MsgWithdrawRewardsResponse extends
+  public static final class MsgWithdrawRewardsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgWithdrawRewardsResponse)
       MsgWithdrawRewardsResponseOrBuilder {
@@ -9980,7 +10038,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgWithdrawForeignRewards}
    */
-  public  static final class MsgWithdrawForeignRewards extends
+  public static final class MsgWithdrawForeignRewards extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgWithdrawForeignRewards)
       MsgWithdrawForeignRewardsOrBuilder {
@@ -10081,6 +10139,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -10097,6 +10156,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -10117,6 +10177,7 @@ public final class Tx {
      * <code>string denom = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -10133,6 +10194,7 @@ public final class Tx {
      * <code>string denom = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -10153,6 +10215,7 @@ public final class Tx {
      * <code>string to_addr = 3 [(.gogoproto.moretags) = "yaml:&#92;"to_addr&#92;""];</code>
      * @return The toAddr.
      */
+    @java.lang.Override
     public java.lang.String getToAddr() {
       java.lang.Object ref = toAddr_;
       if (ref instanceof java.lang.String) {
@@ -10169,6 +10232,7 @@ public final class Tx {
      * <code>string to_addr = 3 [(.gogoproto.moretags) = "yaml:&#92;"to_addr&#92;""];</code>
      * @return The bytes for toAddr.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getToAddrBytes() {
       java.lang.Object ref = toAddr_;
@@ -10810,7 +10874,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgWithdrawForeignRewardsResponse}
    */
-  public  static final class MsgWithdrawForeignRewardsResponse extends
+  public static final class MsgWithdrawForeignRewardsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgWithdrawForeignRewardsResponse)
       MsgWithdrawForeignRewardsResponseOrBuilder {
@@ -11256,7 +11320,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgClearPayouts}
    */
-  public  static final class MsgClearPayouts extends
+  public static final class MsgClearPayouts extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgClearPayouts)
       MsgClearPayoutsOrBuilder {
@@ -11350,6 +11414,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -11366,6 +11431,7 @@ public final class Tx {
      * <code>string from = 1 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -11386,6 +11452,7 @@ public final class Tx {
      * <code>string denom = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -11402,6 +11469,7 @@ public final class Tx {
      * <code>string denom = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom&#92;""];</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -11950,7 +12018,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgClearPayoutsResponse}
    */
-  public  static final class MsgClearPayoutsResponse extends
+  public static final class MsgClearPayoutsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgClearPayoutsResponse)
       MsgClearPayoutsResponseOrBuilder {
@@ -12426,7 +12494,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgPurchaseShield}
    */
-  public  static final class MsgPurchaseShield extends
+  public static final class MsgPurchaseShield extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgPurchaseShield)
       MsgPurchaseShieldOrBuilder {
@@ -12539,6 +12607,7 @@ public final class Tx {
      * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -12548,12 +12617,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getShieldList() {
       return shield_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getShieldOrBuilderList() {
       return shield_;
@@ -12561,18 +12632,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getShieldCount() {
       return shield_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getShield(int index) {
       return shield_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getShieldOrBuilder(
         int index) {
       return shield_.get(index);
@@ -12584,6 +12658,7 @@ public final class Tx {
      * <code>string description = 3 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -12600,6 +12675,7 @@ public final class Tx {
      * <code>string description = 3 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -12620,6 +12696,7 @@ public final class Tx {
      * <code>string from = 4 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -12636,6 +12713,7 @@ public final class Tx {
      * <code>string from = 4 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -13053,6 +13131,7 @@ public final class Tx {
        * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -13529,7 +13608,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgPurchaseShieldResponse}
    */
-  public  static final class MsgPurchaseShieldResponse extends
+  public static final class MsgPurchaseShieldResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgPurchaseShieldResponse)
       MsgPurchaseShieldResponseOrBuilder {
@@ -13969,7 +14048,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgWithdrawReimbursement}
    */
-  public  static final class MsgWithdrawReimbursement extends
+  public static final class MsgWithdrawReimbursement extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgWithdrawReimbursement)
       MsgWithdrawReimbursementOrBuilder {
@@ -14061,6 +14140,7 @@ public final class Tx {
      * <code>uint64 proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -14071,6 +14151,7 @@ public final class Tx {
      * <code>string from = 2 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -14087,6 +14168,7 @@ public final class Tx {
      * <code>string from = 2 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -14430,6 +14512,7 @@ public final class Tx {
        * <code>uint64 proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -14590,7 +14673,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgWithdrawReimbursementResponse}
    */
-  public  static final class MsgWithdrawReimbursementResponse extends
+  public static final class MsgWithdrawReimbursementResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgWithdrawReimbursementResponse)
       MsgWithdrawReimbursementResponseOrBuilder {
@@ -15067,7 +15150,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgStakeForShield}
    */
-  public  static final class MsgStakeForShield extends
+  public static final class MsgStakeForShield extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgStakeForShield)
       MsgStakeForShieldOrBuilder {
@@ -15180,6 +15263,7 @@ public final class Tx {
      * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -15189,12 +15273,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getShieldList() {
       return shield_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getShieldOrBuilderList() {
       return shield_;
@@ -15202,18 +15288,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getShieldCount() {
       return shield_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getShield(int index) {
       return shield_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getShieldOrBuilder(
         int index) {
       return shield_.get(index);
@@ -15225,6 +15314,7 @@ public final class Tx {
      * <code>string description = 3 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -15241,6 +15331,7 @@ public final class Tx {
      * <code>string description = 3 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -15261,6 +15352,7 @@ public final class Tx {
      * <code>string from = 4 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -15277,6 +15369,7 @@ public final class Tx {
      * <code>string from = 4 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -15695,6 +15788,7 @@ public final class Tx {
        * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -16171,7 +16265,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgStakeForShieldResponse}
    */
-  public  static final class MsgStakeForShieldResponse extends
+  public static final class MsgStakeForShieldResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgStakeForShieldResponse)
       MsgStakeForShieldResponseOrBuilder {
@@ -16635,7 +16729,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgUnstakeFromShield}
    */
-  public  static final class MsgUnstakeFromShield extends
+  public static final class MsgUnstakeFromShield extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgUnstakeFromShield)
       MsgUnstakeFromShieldOrBuilder {
@@ -16741,6 +16835,7 @@ public final class Tx {
      * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -16750,12 +16845,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getShieldList() {
       return shield_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getShieldOrBuilderList() {
       return shield_;
@@ -16763,18 +16860,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getShieldCount() {
       return shield_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getShield(int index) {
       return shield_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getShieldOrBuilder(
         int index) {
       return shield_.get(index);
@@ -16786,6 +16886,7 @@ public final class Tx {
      * <code>string from = 3 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -16802,6 +16903,7 @@ public final class Tx {
      * <code>string from = 3 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -17202,6 +17304,7 @@ public final class Tx {
        * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -17602,7 +17705,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgUnstakeFromShieldResponse}
    */
-  public  static final class MsgUnstakeFromShieldResponse extends
+  public static final class MsgUnstakeFromShieldResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgUnstakeFromShieldResponse)
       MsgUnstakeFromShieldResponseOrBuilder {
@@ -18066,7 +18169,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.shield.v1alpha1.MsgUpdateSponsor}
    */
-  public  static final class MsgUpdateSponsor extends
+  public static final class MsgUpdateSponsor extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgUpdateSponsor)
       MsgUpdateSponsorOrBuilder {
@@ -18172,6 +18275,7 @@ public final class Tx {
      * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -18182,6 +18286,7 @@ public final class Tx {
      * <code>string sponsor = 2 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The sponsor.
      */
+    @java.lang.Override
     public java.lang.String getSponsor() {
       java.lang.Object ref = sponsor_;
       if (ref instanceof java.lang.String) {
@@ -18198,6 +18303,7 @@ public final class Tx {
      * <code>string sponsor = 2 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for sponsor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSponsorBytes() {
       java.lang.Object ref = sponsor_;
@@ -18218,6 +18324,7 @@ public final class Tx {
      * <code>string sponsor_addr = 3 [(.gogoproto.moretags) = "yaml:&#92;"sponsor_addr&#92;""];</code>
      * @return The sponsorAddr.
      */
+    @java.lang.Override
     public java.lang.String getSponsorAddr() {
       java.lang.Object ref = sponsorAddr_;
       if (ref instanceof java.lang.String) {
@@ -18234,6 +18341,7 @@ public final class Tx {
      * <code>string sponsor_addr = 3 [(.gogoproto.moretags) = "yaml:&#92;"sponsor_addr&#92;""];</code>
      * @return The bytes for sponsorAddr.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSponsorAddrBytes() {
       java.lang.Object ref = sponsorAddr_;
@@ -18254,6 +18362,7 @@ public final class Tx {
      * <code>string from = 4 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The from.
      */
+    @java.lang.Override
     public java.lang.String getFrom() {
       java.lang.Object ref = from_;
       if (ref instanceof java.lang.String) {
@@ -18270,6 +18379,7 @@ public final class Tx {
      * <code>string from = 4 [(.gogoproto.moretags) = "yaml:&#92;"from&#92;""];</code>
      * @return The bytes for from.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromBytes() {
       java.lang.Object ref = from_;
@@ -18647,6 +18757,7 @@ public final class Tx {
        * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -18959,7 +19070,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.MsgUpdateSponsorResponse}
    */
-  public  static final class MsgUpdateSponsorResponse extends
+  public static final class MsgUpdateSponsorResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.MsgUpdateSponsorResponse)
       MsgUpdateSponsorResponseOrBuilder {
@@ -19641,7 +19752,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           shentu.shield.v1alpha1.Shield.getDescriptor(),
         });
@@ -19815,15 +19926,15 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     shentu.shield.v1alpha1.Shield.getDescriptor();
   }

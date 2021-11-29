@@ -33,7 +33,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryCodeRequest}
    */
-  public  static final class QueryCodeRequest extends
+  public static final class QueryCodeRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryCodeRequest)
       QueryCodeRequestOrBuilder {
@@ -120,6 +120,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -136,6 +137,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -599,7 +601,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryCodeResponse}
    */
-  public  static final class QueryCodeResponse extends
+  public static final class QueryCodeResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryCodeResponse)
       QueryCodeResponseOrBuilder {
@@ -686,6 +688,7 @@ public final class QueryOuterClass {
      * <code>string code = 1 [(.gogoproto.moretags) = "yaml:&#92;"code&#92;""];</code>
      * @return The code.
      */
+    @java.lang.Override
     public java.lang.String getCode() {
       java.lang.Object ref = code_;
       if (ref instanceof java.lang.String) {
@@ -702,6 +705,7 @@ public final class QueryOuterClass {
      * <code>string code = 1 [(.gogoproto.moretags) = "yaml:&#92;"code&#92;""];</code>
      * @return The bytes for code.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCodeBytes() {
       java.lang.Object ref = code_;
@@ -1165,7 +1169,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryAbiRequest}
    */
-  public  static final class QueryAbiRequest extends
+  public static final class QueryAbiRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryAbiRequest)
       QueryAbiRequestOrBuilder {
@@ -1252,6 +1256,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -1268,6 +1273,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -1731,7 +1737,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryAbiResponse}
    */
-  public  static final class QueryAbiResponse extends
+  public static final class QueryAbiResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryAbiResponse)
       QueryAbiResponseOrBuilder {
@@ -1818,6 +1824,7 @@ public final class QueryOuterClass {
      * <code>string abi = 1 [(.gogoproto.moretags) = "yaml:&#92;"abi&#92;""];</code>
      * @return The abi.
      */
+    @java.lang.Override
     public java.lang.String getAbi() {
       java.lang.Object ref = abi_;
       if (ref instanceof java.lang.String) {
@@ -1834,6 +1841,7 @@ public final class QueryOuterClass {
      * <code>string abi = 1 [(.gogoproto.moretags) = "yaml:&#92;"abi&#92;""];</code>
      * @return The bytes for abi.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAbiBytes() {
       java.lang.Object ref = abi_;
@@ -2309,7 +2317,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryStorageRequest}
    */
-  public  static final class QueryStorageRequest extends
+  public static final class QueryStorageRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryStorageRequest)
       QueryStorageRequestOrBuilder {
@@ -2403,6 +2411,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -2419,6 +2428,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -2439,6 +2449,7 @@ public final class QueryOuterClass {
      * <code>string key = 2 [(.gogoproto.moretags) = "yaml:&#92;"key&#92;""];</code>
      * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -2455,6 +2466,7 @@ public final class QueryOuterClass {
      * <code>string key = 2 [(.gogoproto.moretags) = "yaml:&#92;"key&#92;""];</code>
      * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -3005,7 +3017,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryStorageResponse}
    */
-  public  static final class QueryStorageResponse extends
+  public static final class QueryStorageResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryStorageResponse)
       QueryStorageResponseOrBuilder {
@@ -3091,6 +3103,7 @@ public final class QueryOuterClass {
      * <code>bytes value = 1 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
      * @return The value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValue() {
       return value_;
     }
@@ -3402,6 +3415,7 @@ public final class QueryOuterClass {
        * <code>bytes value = 1 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
        * @return The value.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValue() {
         return value_;
       }
@@ -3501,7 +3515,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryAddressMetaRequest}
    */
-  public  static final class QueryAddressMetaRequest extends
+  public static final class QueryAddressMetaRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryAddressMetaRequest)
       QueryAddressMetaRequestOrBuilder {
@@ -3588,6 +3602,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -3604,6 +3619,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -4067,7 +4083,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryAddressMetaResponse}
    */
-  public  static final class QueryAddressMetaResponse extends
+  public static final class QueryAddressMetaResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryAddressMetaResponse)
       QueryAddressMetaResponseOrBuilder {
@@ -4154,6 +4170,7 @@ public final class QueryOuterClass {
      * <code>string meta_hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"metaHash&#92;""];</code>
      * @return The metaHash.
      */
+    @java.lang.Override
     public java.lang.String getMetaHash() {
       java.lang.Object ref = metaHash_;
       if (ref instanceof java.lang.String) {
@@ -4170,6 +4187,7 @@ public final class QueryOuterClass {
      * <code>string meta_hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"metaHash&#92;""];</code>
      * @return The bytes for metaHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMetaHashBytes() {
       java.lang.Object ref = metaHash_;
@@ -4633,7 +4651,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryMetaRequest}
    */
-  public  static final class QueryMetaRequest extends
+  public static final class QueryMetaRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryMetaRequest)
       QueryMetaRequestOrBuilder {
@@ -4720,6 +4738,7 @@ public final class QueryOuterClass {
      * <code>string hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"hash&#92;""];</code>
      * @return The hash.
      */
+    @java.lang.Override
     public java.lang.String getHash() {
       java.lang.Object ref = hash_;
       if (ref instanceof java.lang.String) {
@@ -4736,6 +4755,7 @@ public final class QueryOuterClass {
      * <code>string hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"hash&#92;""];</code>
      * @return The bytes for hash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHashBytes() {
       java.lang.Object ref = hash_;
@@ -5199,7 +5219,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryMetaResponse}
    */
-  public  static final class QueryMetaResponse extends
+  public static final class QueryMetaResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryMetaResponse)
       QueryMetaResponseOrBuilder {
@@ -5286,6 +5306,7 @@ public final class QueryOuterClass {
      * <code>string meta = 1 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      * @return The meta.
      */
+    @java.lang.Override
     public java.lang.String getMeta() {
       java.lang.Object ref = meta_;
       if (ref instanceof java.lang.String) {
@@ -5302,6 +5323,7 @@ public final class QueryOuterClass {
      * <code>string meta = 1 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      * @return The bytes for meta.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMetaBytes() {
       java.lang.Object ref = meta_;
@@ -5765,7 +5787,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryAccountRequest}
    */
-  public  static final class QueryAccountRequest extends
+  public static final class QueryAccountRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryAccountRequest)
       QueryAccountRequestOrBuilder {
@@ -5852,6 +5874,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -5868,6 +5891,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -6358,7 +6382,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.CVMAccount}
    */
-  public  static final class CVMAccount extends
+  public static final class CVMAccount extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.CVMAccount)
       CVMAccountOrBuilder {
@@ -6465,6 +6489,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
      * @return Whether the baseAccount field is set.
      */
+    @java.lang.Override
     public boolean hasBaseAccount() {
       return baseAccount_ != null;
     }
@@ -6472,12 +6497,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
      * @return The baseAccount.
      */
+    @java.lang.Override
     public cosmos.auth.v1beta1.Auth.BaseAccount getBaseAccount() {
       return baseAccount_ == null ? cosmos.auth.v1beta1.Auth.BaseAccount.getDefaultInstance() : baseAccount_;
     }
     /**
      * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.auth.v1beta1.Auth.BaseAccountOrBuilder getBaseAccountOrBuilder() {
       return getBaseAccount();
     }
@@ -6488,6 +6515,7 @@ public final class QueryOuterClass {
      * <code>string code = 2 [(.gogoproto.moretags) = "yaml:&#92;"code&#92;""];</code>
      * @return The code.
      */
+    @java.lang.Override
     public java.lang.String getCode() {
       java.lang.Object ref = code_;
       if (ref instanceof java.lang.String) {
@@ -6504,6 +6532,7 @@ public final class QueryOuterClass {
      * <code>string code = 2 [(.gogoproto.moretags) = "yaml:&#92;"code&#92;""];</code>
      * @return The bytes for code.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCodeBytes() {
       java.lang.Object ref = code_;
@@ -6524,6 +6553,7 @@ public final class QueryOuterClass {
      * <code>string abi = 3 [(.gogoproto.moretags) = "yaml:&#92;"abi&#92;""];</code>
      * @return The abi.
      */
+    @java.lang.Override
     public java.lang.String getAbi() {
       java.lang.Object ref = abi_;
       if (ref instanceof java.lang.String) {
@@ -6540,6 +6570,7 @@ public final class QueryOuterClass {
      * <code>string abi = 3 [(.gogoproto.moretags) = "yaml:&#92;"abi&#92;""];</code>
      * @return The bytes for abi.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAbiBytes() {
       java.lang.Object ref = abi_;
@@ -7281,7 +7312,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryViewRequest}
    */
-  public  static final class QueryViewRequest extends
+  public static final class QueryViewRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryViewRequest)
       QueryViewRequestOrBuilder {
@@ -7394,6 +7425,7 @@ public final class QueryOuterClass {
      * <code>string caller = 1 [(.gogoproto.moretags) = "yaml:&#92;"caller&#92;""];</code>
      * @return The caller.
      */
+    @java.lang.Override
     public java.lang.String getCaller() {
       java.lang.Object ref = caller_;
       if (ref instanceof java.lang.String) {
@@ -7410,6 +7442,7 @@ public final class QueryOuterClass {
      * <code>string caller = 1 [(.gogoproto.moretags) = "yaml:&#92;"caller&#92;""];</code>
      * @return The bytes for caller.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCallerBytes() {
       java.lang.Object ref = caller_;
@@ -7430,6 +7463,7 @@ public final class QueryOuterClass {
      * <code>string callee = 2 [(.gogoproto.moretags) = "yaml:&#92;"callee&#92;""];</code>
      * @return The callee.
      */
+    @java.lang.Override
     public java.lang.String getCallee() {
       java.lang.Object ref = callee_;
       if (ref instanceof java.lang.String) {
@@ -7446,6 +7480,7 @@ public final class QueryOuterClass {
      * <code>string callee = 2 [(.gogoproto.moretags) = "yaml:&#92;"callee&#92;""];</code>
      * @return The bytes for callee.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCalleeBytes() {
       java.lang.Object ref = callee_;
@@ -7466,6 +7501,7 @@ public final class QueryOuterClass {
      * <code>bytes abi_spec = 3 [(.gogoproto.moretags) = "yaml:&#92;"abi_spec&#92;""];</code>
      * @return The abiSpec.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAbiSpec() {
       return abiSpec_;
     }
@@ -7476,6 +7512,7 @@ public final class QueryOuterClass {
      * <code>string function_name = 4 [(.gogoproto.moretags) = "yaml:&#92;"function_name&#92;""];</code>
      * @return The functionName.
      */
+    @java.lang.Override
     public java.lang.String getFunctionName() {
       java.lang.Object ref = functionName_;
       if (ref instanceof java.lang.String) {
@@ -7492,6 +7529,7 @@ public final class QueryOuterClass {
      * <code>string function_name = 4 [(.gogoproto.moretags) = "yaml:&#92;"function_name&#92;""];</code>
      * @return The bytes for functionName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFunctionNameBytes() {
       java.lang.Object ref = functionName_;
@@ -7512,6 +7550,7 @@ public final class QueryOuterClass {
      * <code>bytes data = 5 [(.gogoproto.moretags) = "yaml:&#92;"data&#92;""];</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -8043,6 +8082,7 @@ public final class QueryOuterClass {
        * <code>bytes abi_spec = 3 [(.gogoproto.moretags) = "yaml:&#92;"abi_spec&#92;""];</code>
        * @return The abiSpec.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAbiSpec() {
         return abiSpec_;
       }
@@ -8152,6 +8192,7 @@ public final class QueryOuterClass {
        * <code>bytes data = 5 [(.gogoproto.moretags) = "yaml:&#92;"data&#92;""];</code>
        * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
@@ -8263,7 +8304,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.QueryViewResponse}
    */
-  public  static final class QueryViewResponse extends
+  public static final class QueryViewResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.QueryViewResponse)
       QueryViewResponseOrBuilder {
@@ -8356,12 +8397,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.cvm.v1alpha1.ReturnVars return_vars = 1 [(.gogoproto.moretags) = "yaml:&#92;"return_vars&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.cvm.v1alpha1.QueryOuterClass.ReturnVars> getReturnVarsList() {
       return returnVars_;
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.ReturnVars return_vars = 1 [(.gogoproto.moretags) = "yaml:&#92;"return_vars&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.cvm.v1alpha1.QueryOuterClass.ReturnVarsOrBuilder> 
         getReturnVarsOrBuilderList() {
       return returnVars_;
@@ -8369,18 +8412,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.cvm.v1alpha1.ReturnVars return_vars = 1 [(.gogoproto.moretags) = "yaml:&#92;"return_vars&#92;""];</code>
      */
+    @java.lang.Override
     public int getReturnVarsCount() {
       return returnVars_.size();
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.ReturnVars return_vars = 1 [(.gogoproto.moretags) = "yaml:&#92;"return_vars&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.QueryOuterClass.ReturnVars getReturnVars(int index) {
       return returnVars_.get(index);
     }
     /**
      * <code>repeated .shentu.cvm.v1alpha1.ReturnVars return_vars = 1 [(.gogoproto.moretags) = "yaml:&#92;"return_vars&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cvm.v1alpha1.QueryOuterClass.ReturnVarsOrBuilder getReturnVarsOrBuilder(
         int index) {
       return returnVars_.get(index);
@@ -9051,7 +9097,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.ReturnVars}
    */
-  public  static final class ReturnVars extends
+  public static final class ReturnVars extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.ReturnVars)
       ReturnVarsOrBuilder {
@@ -9145,6 +9191,7 @@ public final class QueryOuterClass {
      * <code>string name = 1 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -9161,6 +9208,7 @@ public final class QueryOuterClass {
      * <code>string name = 1 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -9181,6 +9229,7 @@ public final class QueryOuterClass {
      * <code>string value = 2 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
      * @return The value.
      */
+    @java.lang.Override
     public java.lang.String getValue() {
       java.lang.Object ref = value_;
       if (ref instanceof java.lang.String) {
@@ -9197,6 +9246,7 @@ public final class QueryOuterClass {
      * <code>string value = 2 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
      * @return The bytes for value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValueBytes() {
       java.lang.Object ref = value_;
@@ -9884,7 +9934,7 @@ public final class QueryOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           shentu.cvm.v1alpha1.Cvm.getDescriptor(),
           cosmos.auth.v1beta1.Auth.getDescriptor(),
@@ -9982,12 +10032,12 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Name", "Value", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.embed);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.embed);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     shentu.cvm.v1alpha1.Cvm.getDescriptor();
     cosmos.auth.v1beta1.Auth.getDescriptor();

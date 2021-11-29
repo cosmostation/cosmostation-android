@@ -126,7 +126,7 @@ public final class Genesis {
    *
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -251,6 +251,7 @@ public final class Genesis {
      * <code>.cosmos.base.v1beta1.Coin module_account_balance = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"module_account_balance&#92;""];</code>
      * @return Whether the moduleAccountBalance field is set.
      */
+    @java.lang.Override
     public boolean hasModuleAccountBalance() {
       return moduleAccountBalance_ != null;
     }
@@ -263,6 +264,7 @@ public final class Genesis {
      * <code>.cosmos.base.v1beta1.Coin module_account_balance = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"module_account_balance&#92;""];</code>
      * @return The moduleAccountBalance.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getModuleAccountBalance() {
       return moduleAccountBalance_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : moduleAccountBalance_;
     }
@@ -274,6 +276,7 @@ public final class Genesis {
      *
      * <code>.cosmos.base.v1beta1.Coin module_account_balance = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"module_account_balance&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getModuleAccountBalanceOrBuilder() {
       return getModuleAccountBalance();
     }
@@ -288,6 +291,7 @@ public final class Genesis {
      * <code>.publicawesome.stargaze.claim.v1beta1.Params params = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -299,6 +303,7 @@ public final class Genesis {
      * <code>.publicawesome.stargaze.claim.v1beta1.Params params = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      * @return The params.
      */
+    @java.lang.Override
     public publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.Params getParams() {
       return params_ == null ? publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.Params.getDefaultInstance() : params_;
     }
@@ -309,6 +314,7 @@ public final class Genesis {
      *
      * <code>.publicawesome.stargaze.claim.v1beta1.Params params = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      */
+    @java.lang.Override
     public publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -322,6 +328,7 @@ public final class Genesis {
      *
      * <code>repeated .publicawesome.stargaze.claim.v1beta1.ClaimRecord claim_records = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_records&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.ClaimRecord> getClaimRecordsList() {
       return claimRecords_;
     }
@@ -332,6 +339,7 @@ public final class Genesis {
      *
      * <code>repeated .publicawesome.stargaze.claim.v1beta1.ClaimRecord claim_records = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_records&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.ClaimRecordOrBuilder> 
         getClaimRecordsOrBuilderList() {
       return claimRecords_;
@@ -343,6 +351,7 @@ public final class Genesis {
      *
      * <code>repeated .publicawesome.stargaze.claim.v1beta1.ClaimRecord claim_records = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_records&#92;""];</code>
      */
+    @java.lang.Override
     public int getClaimRecordsCount() {
       return claimRecords_.size();
     }
@@ -353,6 +362,7 @@ public final class Genesis {
      *
      * <code>repeated .publicawesome.stargaze.claim.v1beta1.ClaimRecord claim_records = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_records&#92;""];</code>
      */
+    @java.lang.Override
     public publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.ClaimRecord getClaimRecords(int index) {
       return claimRecords_.get(index);
     }
@@ -363,6 +373,7 @@ public final class Genesis {
      *
      * <code>repeated .publicawesome.stargaze.claim.v1beta1.ClaimRecord claim_records = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_records&#92;""];</code>
      */
+    @java.lang.Override
     public publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.ClaimRecordOrBuilder getClaimRecordsOrBuilder(
         int index) {
       return claimRecords_.get(index);
@@ -1490,7 +1501,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.getDescriptor(),
           publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.getDescriptor(),
@@ -1503,11 +1514,11 @@ public final class Genesis {
         new java.lang.String[] { "ModuleAccountBalance", "Params", "ClaimRecords", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.getDescriptor();
     publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.getDescriptor();

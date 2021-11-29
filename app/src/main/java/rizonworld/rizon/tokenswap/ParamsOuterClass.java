@@ -65,7 +65,7 @@ public final class ParamsOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.tokenswap.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.tokenswap.Params)
       ParamsOrBuilder {
@@ -166,6 +166,7 @@ public final class ParamsOuterClass {
      * <code>bool swappable = 1 [(.gogoproto.moretags) = "yaml:&#92;"swappable&#92;""];</code>
      * @return The swappable.
      */
+    @java.lang.Override
     public boolean getSwappable() {
       return swappable_;
     }
@@ -180,6 +181,7 @@ public final class ParamsOuterClass {
      * <code>string signer = 2 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -200,6 +202,7 @@ public final class ParamsOuterClass {
      * <code>string signer = 2 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -224,6 +227,7 @@ public final class ParamsOuterClass {
      * <code>int64 limit = 3 [(.gogoproto.moretags) = "yaml:&#92;"limit&#92;""];</code>
      * @return The limit.
      */
+    @java.lang.Override
     public long getLimit() {
       return limit_;
     }
@@ -579,6 +583,7 @@ public final class ParamsOuterClass {
        * <code>bool swappable = 1 [(.gogoproto.moretags) = "yaml:&#92;"swappable&#92;""];</code>
        * @return The swappable.
        */
+      @java.lang.Override
       public boolean getSwappable() {
         return swappable_;
       }
@@ -717,6 +722,7 @@ public final class ParamsOuterClass {
        * <code>int64 limit = 3 [(.gogoproto.moretags) = "yaml:&#92;"limit&#92;""];</code>
        * @return The limit.
        */
+      @java.lang.Override
       public long getLimit() {
         return limit_;
       }
@@ -827,7 +833,7 @@ public final class ParamsOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_rizonworld_rizon_tokenswap_Params_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -837,11 +843,11 @@ public final class ParamsOuterClass {
         new java.lang.String[] { "Swappable", "Signer", "Limit", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -24,7 +24,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPool;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
@@ -62,7 +62,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
     private EarningDetailsAdapter               mAdapter;
     private RecyclerViewHeader                  mRecyclerViewHeader;
 
-    private PoolOuterClass.Pool                 mPool;
+    private BalancerPool                        mPool;
     private ArrayList<GaugeOuterClass.Gauge>    mGauges;
     public ArrayList<Lock.PeriodLock>           mLockUps = new ArrayList<>();
     public ArrayList<Lock.PeriodLock>           mBondedList = new ArrayList<>();
@@ -93,7 +93,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         mBaseChain          = BaseChain.getChain(mAccount.baseChain);
 
         try {
-            mPool = PoolOuterClass.Pool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));
+            mPool = BalancerPool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));
             OsmosisGaugeWrapper gaugeWrapper = (OsmosisGaugeWrapper) getIntent().getSerializableExtra("osmosisGauges");
             if (gaugeWrapper != null) { mGauges = gaugeWrapper.array; }
             OsmosisPeriodLockWrapper lockupWrapper = (OsmosisPeriodLockWrapper) getIntent().getSerializableExtra("osmosislockups");

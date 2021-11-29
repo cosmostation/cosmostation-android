@@ -23,7 +23,7 @@ public final class Genesis {
      * delegator_address is the address of the delegator.
      * </pre>
      *
-     * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+     * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddress.
      */
     java.lang.String getDelegatorAddress();
@@ -32,7 +32,7 @@ public final class Genesis {
      * delegator_address is the address of the delegator.
      * </pre>
      *
-     * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+     * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddress.
      */
     com.google.protobuf.ByteString
@@ -43,7 +43,7 @@ public final class Genesis {
      * withdraw_address is the address to withdraw the delegation rewards to.
      * </pre>
      *
-     * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
+     * <code>string withdraw_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The withdrawAddress.
      */
     java.lang.String getWithdrawAddress();
@@ -52,7 +52,7 @@ public final class Genesis {
      * withdraw_address is the address to withdraw the delegation rewards to.
      * </pre>
      *
-     * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
+     * <code>string withdraw_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for withdrawAddress.
      */
     com.google.protobuf.ByteString
@@ -162,7 +162,7 @@ public final class Genesis {
      * delegator_address is the address of the delegator.
      * </pre>
      *
-     * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+     * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddress.
      */
     @java.lang.Override
@@ -183,7 +183,7 @@ public final class Genesis {
      * delegator_address is the address of the delegator.
      * </pre>
      *
-     * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+     * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddress.
      */
     @java.lang.Override
@@ -208,7 +208,7 @@ public final class Genesis {
      * withdraw_address is the address to withdraw the delegation rewards to.
      * </pre>
      *
-     * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
+     * <code>string withdraw_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The withdrawAddress.
      */
     @java.lang.Override
@@ -229,7 +229,7 @@ public final class Genesis {
      * withdraw_address is the address to withdraw the delegation rewards to.
      * </pre>
      *
-     * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
+     * <code>string withdraw_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for withdrawAddress.
      */
     @java.lang.Override
@@ -578,7 +578,7 @@ public final class Genesis {
        * delegator_address is the address of the delegator.
        * </pre>
        *
-       * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+       * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The delegatorAddress.
        */
       public java.lang.String getDelegatorAddress() {
@@ -598,7 +598,7 @@ public final class Genesis {
        * delegator_address is the address of the delegator.
        * </pre>
        *
-       * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+       * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for delegatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -619,7 +619,7 @@ public final class Genesis {
        * delegator_address is the address of the delegator.
        * </pre>
        *
-       * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+       * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The delegatorAddress to set.
        * @return This builder for chaining.
        */
@@ -638,7 +638,7 @@ public final class Genesis {
        * delegator_address is the address of the delegator.
        * </pre>
        *
-       * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+       * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDelegatorAddress() {
@@ -652,7 +652,7 @@ public final class Genesis {
        * delegator_address is the address of the delegator.
        * </pre>
        *
-       * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+       * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for delegatorAddress to set.
        * @return This builder for chaining.
        */
@@ -674,7 +674,7 @@ public final class Genesis {
        * withdraw_address is the address to withdraw the delegation rewards to.
        * </pre>
        *
-       * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
+       * <code>string withdraw_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The withdrawAddress.
        */
       public java.lang.String getWithdrawAddress() {
@@ -694,7 +694,7 @@ public final class Genesis {
        * withdraw_address is the address to withdraw the delegation rewards to.
        * </pre>
        *
-       * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
+       * <code>string withdraw_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for withdrawAddress.
        */
       public com.google.protobuf.ByteString
@@ -715,7 +715,7 @@ public final class Genesis {
        * withdraw_address is the address to withdraw the delegation rewards to.
        * </pre>
        *
-       * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
+       * <code>string withdraw_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The withdrawAddress to set.
        * @return This builder for chaining.
        */
@@ -734,7 +734,7 @@ public final class Genesis {
        * withdraw_address is the address to withdraw the delegation rewards to.
        * </pre>
        *
-       * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
+       * <code>string withdraw_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearWithdrawAddress() {
@@ -748,7 +748,7 @@ public final class Genesis {
        * withdraw_address is the address to withdraw the delegation rewards to.
        * </pre>
        *
-       * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
+       * <code>string withdraw_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for withdrawAddress to set.
        * @return This builder for chaining.
        */
@@ -825,7 +825,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -834,7 +834,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -845,7 +845,7 @@ public final class Genesis {
      * outstanding_rewards represents the oustanding rewards of a validator.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
     java.util.List<cosmos.base.v1beta1.CoinOuterClass.DecCoin> 
         getOutstandingRewardsList();
@@ -854,7 +854,7 @@ public final class Genesis {
      * outstanding_rewards represents the oustanding rewards of a validator.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.DecCoin getOutstandingRewards(int index);
     /**
@@ -862,7 +862,7 @@ public final class Genesis {
      * outstanding_rewards represents the oustanding rewards of a validator.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
     int getOutstandingRewardsCount();
     /**
@@ -870,7 +870,7 @@ public final class Genesis {
      * outstanding_rewards represents the oustanding rewards of a validator.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
     java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder> 
         getOutstandingRewardsOrBuilderList();
@@ -879,7 +879,7 @@ public final class Genesis {
      * outstanding_rewards represents the oustanding rewards of a validator.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder getOutstandingRewardsOrBuilder(
         int index);
@@ -993,7 +993,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -1014,7 +1014,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -1039,7 +1039,7 @@ public final class Genesis {
      * outstanding_rewards represents the oustanding rewards of a validator.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.DecCoin> getOutstandingRewardsList() {
@@ -1050,7 +1050,7 @@ public final class Genesis {
      * outstanding_rewards represents the oustanding rewards of a validator.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder> 
@@ -1062,7 +1062,7 @@ public final class Genesis {
      * outstanding_rewards represents the oustanding rewards of a validator.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
     @java.lang.Override
     public int getOutstandingRewardsCount() {
@@ -1073,7 +1073,7 @@ public final class Genesis {
      * outstanding_rewards represents the oustanding rewards of a validator.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.DecCoin getOutstandingRewards(int index) {
@@ -1084,7 +1084,7 @@ public final class Genesis {
      * outstanding_rewards represents the oustanding rewards of a validator.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder getOutstandingRewardsOrBuilder(
@@ -1461,7 +1461,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -1481,7 +1481,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -1502,7 +1502,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -1521,7 +1521,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -1535,7 +1535,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -1568,7 +1568,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public java.util.List<cosmos.base.v1beta1.CoinOuterClass.DecCoin> getOutstandingRewardsList() {
         if (outstandingRewardsBuilder_ == null) {
@@ -1582,7 +1582,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public int getOutstandingRewardsCount() {
         if (outstandingRewardsBuilder_ == null) {
@@ -1596,7 +1596,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.DecCoin getOutstandingRewards(int index) {
         if (outstandingRewardsBuilder_ == null) {
@@ -1610,7 +1610,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public Builder setOutstandingRewards(
           int index, cosmos.base.v1beta1.CoinOuterClass.DecCoin value) {
@@ -1631,7 +1631,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public Builder setOutstandingRewards(
           int index, cosmos.base.v1beta1.CoinOuterClass.DecCoin.Builder builderForValue) {
@@ -1649,7 +1649,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public Builder addOutstandingRewards(cosmos.base.v1beta1.CoinOuterClass.DecCoin value) {
         if (outstandingRewardsBuilder_ == null) {
@@ -1669,7 +1669,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public Builder addOutstandingRewards(
           int index, cosmos.base.v1beta1.CoinOuterClass.DecCoin value) {
@@ -1690,7 +1690,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public Builder addOutstandingRewards(
           cosmos.base.v1beta1.CoinOuterClass.DecCoin.Builder builderForValue) {
@@ -1708,7 +1708,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public Builder addOutstandingRewards(
           int index, cosmos.base.v1beta1.CoinOuterClass.DecCoin.Builder builderForValue) {
@@ -1726,7 +1726,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public Builder addAllOutstandingRewards(
           java.lang.Iterable<? extends cosmos.base.v1beta1.CoinOuterClass.DecCoin> values) {
@@ -1745,7 +1745,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public Builder clearOutstandingRewards() {
         if (outstandingRewardsBuilder_ == null) {
@@ -1762,7 +1762,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public Builder removeOutstandingRewards(int index) {
         if (outstandingRewardsBuilder_ == null) {
@@ -1779,7 +1779,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.DecCoin.Builder getOutstandingRewardsBuilder(
           int index) {
@@ -1790,7 +1790,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder getOutstandingRewardsOrBuilder(
           int index) {
@@ -1804,7 +1804,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder> 
            getOutstandingRewardsOrBuilderList() {
@@ -1819,7 +1819,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.DecCoin.Builder addOutstandingRewardsBuilder() {
         return getOutstandingRewardsFieldBuilder().addBuilder(
@@ -1830,7 +1830,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.DecCoin.Builder addOutstandingRewardsBuilder(
           int index) {
@@ -1842,7 +1842,7 @@ public final class Genesis {
        * outstanding_rewards represents the oustanding rewards of a validator.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
        */
       public java.util.List<cosmos.base.v1beta1.CoinOuterClass.DecCoin.Builder> 
            getOutstandingRewardsBuilderList() {
@@ -1924,7 +1924,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -1933,7 +1933,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -1944,7 +1944,7 @@ public final class Genesis {
      * accumulated is the accumulated commission of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the accumulated field is set.
      */
     boolean hasAccumulated();
@@ -1953,7 +1953,7 @@ public final class Genesis {
      * accumulated is the accumulated commission of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
      * @return The accumulated.
      */
     cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission getAccumulated();
@@ -1962,7 +1962,7 @@ public final class Genesis {
      * accumulated is the accumulated commission of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommissionOrBuilder getAccumulatedOrBuilder();
   }
@@ -2075,7 +2075,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -2096,7 +2096,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -2121,7 +2121,7 @@ public final class Genesis {
      * accumulated is the accumulated commission of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the accumulated field is set.
      */
     @java.lang.Override
@@ -2133,7 +2133,7 @@ public final class Genesis {
      * accumulated is the accumulated commission of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
      * @return The accumulated.
      */
     @java.lang.Override
@@ -2145,7 +2145,7 @@ public final class Genesis {
      * accumulated is the accumulated commission of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommissionOrBuilder getAccumulatedOrBuilder() {
@@ -2495,7 +2495,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -2515,7 +2515,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -2536,7 +2536,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -2555,7 +2555,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -2569,7 +2569,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -2593,7 +2593,7 @@ public final class Genesis {
        * accumulated is the accumulated commission of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
        * @return Whether the accumulated field is set.
        */
       public boolean hasAccumulated() {
@@ -2604,7 +2604,7 @@ public final class Genesis {
        * accumulated is the accumulated commission of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
        * @return The accumulated.
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission getAccumulated() {
@@ -2619,7 +2619,7 @@ public final class Genesis {
        * accumulated is the accumulated commission of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setAccumulated(cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission value) {
         if (accumulatedBuilder_ == null) {
@@ -2639,7 +2639,7 @@ public final class Genesis {
        * accumulated is the accumulated commission of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setAccumulated(
           cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission.Builder builderForValue) {
@@ -2657,7 +2657,7 @@ public final class Genesis {
        * accumulated is the accumulated commission of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeAccumulated(cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission value) {
         if (accumulatedBuilder_ == null) {
@@ -2679,7 +2679,7 @@ public final class Genesis {
        * accumulated is the accumulated commission of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearAccumulated() {
         if (accumulatedBuilder_ == null) {
@@ -2697,7 +2697,7 @@ public final class Genesis {
        * accumulated is the accumulated commission of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission.Builder getAccumulatedBuilder() {
         
@@ -2709,7 +2709,7 @@ public final class Genesis {
        * accumulated is the accumulated commission of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommissionOrBuilder getAccumulatedOrBuilder() {
         if (accumulatedBuilder_ != null) {
@@ -2724,7 +2724,7 @@ public final class Genesis {
        * accumulated is the accumulated commission of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission, cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission.Builder, cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommissionOrBuilder> 
@@ -2801,7 +2801,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -2810,7 +2810,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -2831,7 +2831,7 @@ public final class Genesis {
      * rewards defines the historical rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the rewards field is set.
      */
     boolean hasRewards();
@@ -2840,7 +2840,7 @@ public final class Genesis {
      * rewards defines the historical rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
      * @return The rewards.
      */
     cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewards getRewards();
@@ -2849,7 +2849,7 @@ public final class Genesis {
      * rewards defines the historical rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewardsOrBuilder getRewardsOrBuilder();
   }
@@ -2967,7 +2967,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -2988,7 +2988,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -3028,7 +3028,7 @@ public final class Genesis {
      * rewards defines the historical rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the rewards field is set.
      */
     @java.lang.Override
@@ -3040,7 +3040,7 @@ public final class Genesis {
      * rewards defines the historical rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
      * @return The rewards.
      */
     @java.lang.Override
@@ -3052,7 +3052,7 @@ public final class Genesis {
      * rewards defines the historical rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewardsOrBuilder getRewardsOrBuilder() {
@@ -3420,7 +3420,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -3440,7 +3440,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -3461,7 +3461,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -3480,7 +3480,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -3494,7 +3494,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -3561,7 +3561,7 @@ public final class Genesis {
        * rewards defines the historical rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
        * @return Whether the rewards field is set.
        */
       public boolean hasRewards() {
@@ -3572,7 +3572,7 @@ public final class Genesis {
        * rewards defines the historical rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
        * @return The rewards.
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewards getRewards() {
@@ -3587,7 +3587,7 @@ public final class Genesis {
        * rewards defines the historical rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setRewards(cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewards value) {
         if (rewardsBuilder_ == null) {
@@ -3607,7 +3607,7 @@ public final class Genesis {
        * rewards defines the historical rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setRewards(
           cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewards.Builder builderForValue) {
@@ -3625,7 +3625,7 @@ public final class Genesis {
        * rewards defines the historical rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeRewards(cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewards value) {
         if (rewardsBuilder_ == null) {
@@ -3647,7 +3647,7 @@ public final class Genesis {
        * rewards defines the historical rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearRewards() {
         if (rewardsBuilder_ == null) {
@@ -3665,7 +3665,7 @@ public final class Genesis {
        * rewards defines the historical rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewards.Builder getRewardsBuilder() {
         
@@ -3677,7 +3677,7 @@ public final class Genesis {
        * rewards defines the historical rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewardsOrBuilder getRewardsOrBuilder() {
         if (rewardsBuilder_ != null) {
@@ -3692,7 +3692,7 @@ public final class Genesis {
        * rewards defines the historical rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewards, cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewards.Builder, cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewardsOrBuilder> 
@@ -3769,7 +3769,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -3778,7 +3778,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -3789,7 +3789,7 @@ public final class Genesis {
      * rewards defines the current rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the rewards field is set.
      */
     boolean hasRewards();
@@ -3798,7 +3798,7 @@ public final class Genesis {
      * rewards defines the current rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
      * @return The rewards.
      */
     cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewards getRewards();
@@ -3807,7 +3807,7 @@ public final class Genesis {
      * rewards defines the current rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewardsOrBuilder getRewardsOrBuilder();
   }
@@ -3919,7 +3919,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -3940,7 +3940,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -3965,7 +3965,7 @@ public final class Genesis {
      * rewards defines the current rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the rewards field is set.
      */
     @java.lang.Override
@@ -3977,7 +3977,7 @@ public final class Genesis {
      * rewards defines the current rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
      * @return The rewards.
      */
     @java.lang.Override
@@ -3989,7 +3989,7 @@ public final class Genesis {
      * rewards defines the current rewards of a validator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewardsOrBuilder getRewardsOrBuilder() {
@@ -4338,7 +4338,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -4358,7 +4358,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -4379,7 +4379,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -4398,7 +4398,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -4412,7 +4412,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -4436,7 +4436,7 @@ public final class Genesis {
        * rewards defines the current rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
        * @return Whether the rewards field is set.
        */
       public boolean hasRewards() {
@@ -4447,7 +4447,7 @@ public final class Genesis {
        * rewards defines the current rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
        * @return The rewards.
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewards getRewards() {
@@ -4462,7 +4462,7 @@ public final class Genesis {
        * rewards defines the current rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setRewards(cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewards value) {
         if (rewardsBuilder_ == null) {
@@ -4482,7 +4482,7 @@ public final class Genesis {
        * rewards defines the current rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setRewards(
           cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewards.Builder builderForValue) {
@@ -4500,7 +4500,7 @@ public final class Genesis {
        * rewards defines the current rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeRewards(cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewards value) {
         if (rewardsBuilder_ == null) {
@@ -4522,7 +4522,7 @@ public final class Genesis {
        * rewards defines the current rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearRewards() {
         if (rewardsBuilder_ == null) {
@@ -4540,7 +4540,7 @@ public final class Genesis {
        * rewards defines the current rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewards.Builder getRewardsBuilder() {
         
@@ -4552,7 +4552,7 @@ public final class Genesis {
        * rewards defines the current rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewardsOrBuilder getRewardsOrBuilder() {
         if (rewardsBuilder_ != null) {
@@ -4567,7 +4567,7 @@ public final class Genesis {
        * rewards defines the current rewards of a validator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewards, cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewards.Builder, cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewardsOrBuilder> 
@@ -4644,7 +4644,7 @@ public final class Genesis {
      * delegator_address is the address of the delegator.
      * </pre>
      *
-     * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+     * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddress.
      */
     java.lang.String getDelegatorAddress();
@@ -4653,7 +4653,7 @@ public final class Genesis {
      * delegator_address is the address of the delegator.
      * </pre>
      *
-     * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+     * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddress.
      */
     com.google.protobuf.ByteString
@@ -4664,7 +4664,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -4673,7 +4673,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -4684,7 +4684,7 @@ public final class Genesis {
      * starting_info defines the starting info of a delegator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the startingInfo field is set.
      */
     boolean hasStartingInfo();
@@ -4693,7 +4693,7 @@ public final class Genesis {
      * starting_info defines the starting info of a delegator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
      * @return The startingInfo.
      */
     cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfo getStartingInfo();
@@ -4702,7 +4702,7 @@ public final class Genesis {
      * starting_info defines the starting info of a delegator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfoOrBuilder getStartingInfoOrBuilder();
   }
@@ -4821,7 +4821,7 @@ public final class Genesis {
      * delegator_address is the address of the delegator.
      * </pre>
      *
-     * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+     * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddress.
      */
     @java.lang.Override
@@ -4842,7 +4842,7 @@ public final class Genesis {
      * delegator_address is the address of the delegator.
      * </pre>
      *
-     * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+     * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddress.
      */
     @java.lang.Override
@@ -4867,7 +4867,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -4888,7 +4888,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -4913,7 +4913,7 @@ public final class Genesis {
      * starting_info defines the starting info of a delegator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the startingInfo field is set.
      */
     @java.lang.Override
@@ -4925,7 +4925,7 @@ public final class Genesis {
      * starting_info defines the starting info of a delegator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
      * @return The startingInfo.
      */
     @java.lang.Override
@@ -4937,7 +4937,7 @@ public final class Genesis {
      * starting_info defines the starting info of a delegator.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfoOrBuilder getStartingInfoOrBuilder() {
@@ -5303,7 +5303,7 @@ public final class Genesis {
        * delegator_address is the address of the delegator.
        * </pre>
        *
-       * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+       * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The delegatorAddress.
        */
       public java.lang.String getDelegatorAddress() {
@@ -5323,7 +5323,7 @@ public final class Genesis {
        * delegator_address is the address of the delegator.
        * </pre>
        *
-       * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+       * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for delegatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -5344,7 +5344,7 @@ public final class Genesis {
        * delegator_address is the address of the delegator.
        * </pre>
        *
-       * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+       * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The delegatorAddress to set.
        * @return This builder for chaining.
        */
@@ -5363,7 +5363,7 @@ public final class Genesis {
        * delegator_address is the address of the delegator.
        * </pre>
        *
-       * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+       * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDelegatorAddress() {
@@ -5377,7 +5377,7 @@ public final class Genesis {
        * delegator_address is the address of the delegator.
        * </pre>
        *
-       * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
+       * <code>string delegator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for delegatorAddress to set.
        * @return This builder for chaining.
        */
@@ -5399,7 +5399,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -5419,7 +5419,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -5440,7 +5440,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -5459,7 +5459,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -5473,7 +5473,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -5497,7 +5497,7 @@ public final class Genesis {
        * starting_info defines the starting info of a delegator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
        * @return Whether the startingInfo field is set.
        */
       public boolean hasStartingInfo() {
@@ -5508,7 +5508,7 @@ public final class Genesis {
        * starting_info defines the starting info of a delegator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
        * @return The startingInfo.
        */
       public cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfo getStartingInfo() {
@@ -5523,7 +5523,7 @@ public final class Genesis {
        * starting_info defines the starting info of a delegator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setStartingInfo(cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfo value) {
         if (startingInfoBuilder_ == null) {
@@ -5543,7 +5543,7 @@ public final class Genesis {
        * starting_info defines the starting info of a delegator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setStartingInfo(
           cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfo.Builder builderForValue) {
@@ -5561,7 +5561,7 @@ public final class Genesis {
        * starting_info defines the starting info of a delegator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeStartingInfo(cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfo value) {
         if (startingInfoBuilder_ == null) {
@@ -5583,7 +5583,7 @@ public final class Genesis {
        * starting_info defines the starting info of a delegator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearStartingInfo() {
         if (startingInfoBuilder_ == null) {
@@ -5601,7 +5601,7 @@ public final class Genesis {
        * starting_info defines the starting info of a delegator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfo.Builder getStartingInfoBuilder() {
         
@@ -5613,7 +5613,7 @@ public final class Genesis {
        * starting_info defines the starting info of a delegator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfoOrBuilder getStartingInfoOrBuilder() {
         if (startingInfoBuilder_ != null) {
@@ -5628,7 +5628,7 @@ public final class Genesis {
        * starting_info defines the starting info of a delegator.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfo, cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfo.Builder, cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfoOrBuilder> 
@@ -5705,7 +5705,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -5714,7 +5714,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -5745,7 +5745,7 @@ public final class Genesis {
      * validator_slash_event describes the slash event.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
      * @return Whether the validatorSlashEvent field is set.
      */
     boolean hasValidatorSlashEvent();
@@ -5754,7 +5754,7 @@ public final class Genesis {
      * validator_slash_event describes the slash event.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
      * @return The validatorSlashEvent.
      */
     cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent getValidatorSlashEvent();
@@ -5763,7 +5763,7 @@ public final class Genesis {
      * validator_slash_event describes the slash event.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Distribution.ValidatorSlashEventOrBuilder getValidatorSlashEventOrBuilder();
   }
@@ -5885,7 +5885,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -5906,7 +5906,7 @@ public final class Genesis {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+     * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -5961,7 +5961,7 @@ public final class Genesis {
      * validator_slash_event describes the slash event.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
      * @return Whether the validatorSlashEvent field is set.
      */
     @java.lang.Override
@@ -5973,7 +5973,7 @@ public final class Genesis {
      * validator_slash_event describes the slash event.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
      * @return The validatorSlashEvent.
      */
     @java.lang.Override
@@ -5985,7 +5985,7 @@ public final class Genesis {
      * validator_slash_event describes the slash event.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorSlashEventOrBuilder getValidatorSlashEventOrBuilder() {
@@ -6370,7 +6370,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -6390,7 +6390,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -6411,7 +6411,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -6430,7 +6430,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -6444,7 +6444,7 @@ public final class Genesis {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
+       * <code>string validator_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -6554,7 +6554,7 @@ public final class Genesis {
        * validator_slash_event describes the slash event.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
        * @return Whether the validatorSlashEvent field is set.
        */
       public boolean hasValidatorSlashEvent() {
@@ -6565,7 +6565,7 @@ public final class Genesis {
        * validator_slash_event describes the slash event.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
        * @return The validatorSlashEvent.
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent getValidatorSlashEvent() {
@@ -6580,7 +6580,7 @@ public final class Genesis {
        * validator_slash_event describes the slash event.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setValidatorSlashEvent(cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent value) {
         if (validatorSlashEventBuilder_ == null) {
@@ -6600,7 +6600,7 @@ public final class Genesis {
        * validator_slash_event describes the slash event.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setValidatorSlashEvent(
           cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent.Builder builderForValue) {
@@ -6618,7 +6618,7 @@ public final class Genesis {
        * validator_slash_event describes the slash event.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeValidatorSlashEvent(cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent value) {
         if (validatorSlashEventBuilder_ == null) {
@@ -6640,7 +6640,7 @@ public final class Genesis {
        * validator_slash_event describes the slash event.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearValidatorSlashEvent() {
         if (validatorSlashEventBuilder_ == null) {
@@ -6658,7 +6658,7 @@ public final class Genesis {
        * validator_slash_event describes the slash event.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent.Builder getValidatorSlashEventBuilder() {
         
@@ -6670,7 +6670,7 @@ public final class Genesis {
        * validator_slash_event describes the slash event.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.ValidatorSlashEventOrBuilder getValidatorSlashEventOrBuilder() {
         if (validatorSlashEventBuilder_ != null) {
@@ -6685,7 +6685,7 @@ public final class Genesis {
        * validator_slash_event describes the slash event.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent, cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent.Builder, cosmos.distribution.v1beta1.Distribution.ValidatorSlashEventOrBuilder> 
@@ -6762,7 +6762,7 @@ public final class Genesis {
      * params defines all the paramaters of the module.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
     boolean hasParams();
@@ -6771,7 +6771,7 @@ public final class Genesis {
      * params defines all the paramaters of the module.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
     cosmos.distribution.v1beta1.Distribution.Params getParams();
@@ -6780,7 +6780,7 @@ public final class Genesis {
      * params defines all the paramaters of the module.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Distribution.ParamsOrBuilder getParamsOrBuilder();
 
@@ -6789,7 +6789,7 @@ public final class Genesis {
      * fee_pool defines the fee pool at genesis.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the feePool field is set.
      */
     boolean hasFeePool();
@@ -6798,7 +6798,7 @@ public final class Genesis {
      * fee_pool defines the fee pool at genesis.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
      * @return The feePool.
      */
     cosmos.distribution.v1beta1.Distribution.FeePool getFeePool();
@@ -6807,7 +6807,7 @@ public final class Genesis {
      * fee_pool defines the fee pool at genesis.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Distribution.FeePoolOrBuilder getFeePoolOrBuilder();
 
@@ -6816,7 +6816,7 @@ public final class Genesis {
      * fee_pool defines the delegator withdraw infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo> 
         getDelegatorWithdrawInfosList();
@@ -6825,7 +6825,7 @@ public final class Genesis {
      * fee_pool defines the delegator withdraw infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo getDelegatorWithdrawInfos(int index);
     /**
@@ -6833,7 +6833,7 @@ public final class Genesis {
      * fee_pool defines the delegator withdraw infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
      */
     int getDelegatorWithdrawInfosCount();
     /**
@@ -6841,7 +6841,7 @@ public final class Genesis {
      * fee_pool defines the delegator withdraw infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfoOrBuilder> 
         getDelegatorWithdrawInfosOrBuilderList();
@@ -6850,7 +6850,7 @@ public final class Genesis {
      * fee_pool defines the delegator withdraw infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfoOrBuilder getDelegatorWithdrawInfosOrBuilder(
         int index);
@@ -6860,7 +6860,7 @@ public final class Genesis {
      * fee_pool defines the previous proposer at genesis.
      * </pre>
      *
-     * <code>string previous_proposer = 4 [(.gogoproto.moretags) = "yaml:&#92;"previous_proposer&#92;""];</code>
+     * <code>string previous_proposer = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The previousProposer.
      */
     java.lang.String getPreviousProposer();
@@ -6869,7 +6869,7 @@ public final class Genesis {
      * fee_pool defines the previous proposer at genesis.
      * </pre>
      *
-     * <code>string previous_proposer = 4 [(.gogoproto.moretags) = "yaml:&#92;"previous_proposer&#92;""];</code>
+     * <code>string previous_proposer = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for previousProposer.
      */
     com.google.protobuf.ByteString
@@ -6880,7 +6880,7 @@ public final class Genesis {
      * fee_pool defines the outstanding rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord> 
         getOutstandingRewardsList();
@@ -6889,7 +6889,7 @@ public final class Genesis {
      * fee_pool defines the outstanding rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord getOutstandingRewards(int index);
     /**
@@ -6897,7 +6897,7 @@ public final class Genesis {
      * fee_pool defines the outstanding rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
      */
     int getOutstandingRewardsCount();
     /**
@@ -6905,7 +6905,7 @@ public final class Genesis {
      * fee_pool defines the outstanding rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecordOrBuilder> 
         getOutstandingRewardsOrBuilderList();
@@ -6914,7 +6914,7 @@ public final class Genesis {
      * fee_pool defines the outstanding rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecordOrBuilder getOutstandingRewardsOrBuilder(
         int index);
@@ -6924,7 +6924,7 @@ public final class Genesis {
      * fee_pool defines the accumulated commisions of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord> 
         getValidatorAccumulatedCommissionsList();
@@ -6933,7 +6933,7 @@ public final class Genesis {
      * fee_pool defines the accumulated commisions of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord getValidatorAccumulatedCommissions(int index);
     /**
@@ -6941,7 +6941,7 @@ public final class Genesis {
      * fee_pool defines the accumulated commisions of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
      */
     int getValidatorAccumulatedCommissionsCount();
     /**
@@ -6949,7 +6949,7 @@ public final class Genesis {
      * fee_pool defines the accumulated commisions of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecordOrBuilder> 
         getValidatorAccumulatedCommissionsOrBuilderList();
@@ -6958,7 +6958,7 @@ public final class Genesis {
      * fee_pool defines the accumulated commisions of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecordOrBuilder getValidatorAccumulatedCommissionsOrBuilder(
         int index);
@@ -6968,7 +6968,7 @@ public final class Genesis {
      * fee_pool defines the historical rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord> 
         getValidatorHistoricalRewardsList();
@@ -6977,7 +6977,7 @@ public final class Genesis {
      * fee_pool defines the historical rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord getValidatorHistoricalRewards(int index);
     /**
@@ -6985,7 +6985,7 @@ public final class Genesis {
      * fee_pool defines the historical rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
      */
     int getValidatorHistoricalRewardsCount();
     /**
@@ -6993,7 +6993,7 @@ public final class Genesis {
      * fee_pool defines the historical rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecordOrBuilder> 
         getValidatorHistoricalRewardsOrBuilderList();
@@ -7002,7 +7002,7 @@ public final class Genesis {
      * fee_pool defines the historical rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecordOrBuilder getValidatorHistoricalRewardsOrBuilder(
         int index);
@@ -7012,7 +7012,7 @@ public final class Genesis {
      * fee_pool defines the current rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord> 
         getValidatorCurrentRewardsList();
@@ -7021,7 +7021,7 @@ public final class Genesis {
      * fee_pool defines the current rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord getValidatorCurrentRewards(int index);
     /**
@@ -7029,7 +7029,7 @@ public final class Genesis {
      * fee_pool defines the current rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
      */
     int getValidatorCurrentRewardsCount();
     /**
@@ -7037,7 +7037,7 @@ public final class Genesis {
      * fee_pool defines the current rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecordOrBuilder> 
         getValidatorCurrentRewardsOrBuilderList();
@@ -7046,7 +7046,7 @@ public final class Genesis {
      * fee_pool defines the current rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecordOrBuilder getValidatorCurrentRewardsOrBuilder(
         int index);
@@ -7056,7 +7056,7 @@ public final class Genesis {
      * fee_pool defines the delegator starting infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord> 
         getDelegatorStartingInfosList();
@@ -7065,7 +7065,7 @@ public final class Genesis {
      * fee_pool defines the delegator starting infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord getDelegatorStartingInfos(int index);
     /**
@@ -7073,7 +7073,7 @@ public final class Genesis {
      * fee_pool defines the delegator starting infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
      */
     int getDelegatorStartingInfosCount();
     /**
@@ -7081,7 +7081,7 @@ public final class Genesis {
      * fee_pool defines the delegator starting infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecordOrBuilder> 
         getDelegatorStartingInfosOrBuilderList();
@@ -7090,7 +7090,7 @@ public final class Genesis {
      * fee_pool defines the delegator starting infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecordOrBuilder getDelegatorStartingInfosOrBuilder(
         int index);
@@ -7100,7 +7100,7 @@ public final class Genesis {
      * fee_pool defines the validator slash events at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord> 
         getValidatorSlashEventsList();
@@ -7109,7 +7109,7 @@ public final class Genesis {
      * fee_pool defines the validator slash events at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord getValidatorSlashEvents(int index);
     /**
@@ -7117,7 +7117,7 @@ public final class Genesis {
      * fee_pool defines the validator slash events at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
      */
     int getValidatorSlashEventsCount();
     /**
@@ -7125,7 +7125,7 @@ public final class Genesis {
      * fee_pool defines the validator slash events at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecordOrBuilder> 
         getValidatorSlashEventsOrBuilderList();
@@ -7134,7 +7134,7 @@ public final class Genesis {
      * fee_pool defines the validator slash events at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecordOrBuilder getValidatorSlashEventsOrBuilder(
         int index);
@@ -7352,7 +7352,7 @@ public final class Genesis {
      * params defines all the paramaters of the module.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
     @java.lang.Override
@@ -7364,7 +7364,7 @@ public final class Genesis {
      * params defines all the paramaters of the module.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
     @java.lang.Override
@@ -7376,7 +7376,7 @@ public final class Genesis {
      * params defines all the paramaters of the module.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ParamsOrBuilder getParamsOrBuilder() {
@@ -7390,7 +7390,7 @@ public final class Genesis {
      * fee_pool defines the fee pool at genesis.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the feePool field is set.
      */
     @java.lang.Override
@@ -7402,7 +7402,7 @@ public final class Genesis {
      * fee_pool defines the fee pool at genesis.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
      * @return The feePool.
      */
     @java.lang.Override
@@ -7414,7 +7414,7 @@ public final class Genesis {
      * fee_pool defines the fee pool at genesis.
      * </pre>
      *
-     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+     * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.FeePoolOrBuilder getFeePoolOrBuilder() {
@@ -7428,7 +7428,7 @@ public final class Genesis {
      * fee_pool defines the delegator withdraw infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo> getDelegatorWithdrawInfosList() {
@@ -7439,7 +7439,7 @@ public final class Genesis {
      * fee_pool defines the delegator withdraw infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfoOrBuilder> 
@@ -7451,7 +7451,7 @@ public final class Genesis {
      * fee_pool defines the delegator withdraw infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public int getDelegatorWithdrawInfosCount() {
@@ -7462,7 +7462,7 @@ public final class Genesis {
      * fee_pool defines the delegator withdraw infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo getDelegatorWithdrawInfos(int index) {
@@ -7473,7 +7473,7 @@ public final class Genesis {
      * fee_pool defines the delegator withdraw infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfoOrBuilder getDelegatorWithdrawInfosOrBuilder(
@@ -7488,7 +7488,7 @@ public final class Genesis {
      * fee_pool defines the previous proposer at genesis.
      * </pre>
      *
-     * <code>string previous_proposer = 4 [(.gogoproto.moretags) = "yaml:&#92;"previous_proposer&#92;""];</code>
+     * <code>string previous_proposer = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The previousProposer.
      */
     @java.lang.Override
@@ -7509,7 +7509,7 @@ public final class Genesis {
      * fee_pool defines the previous proposer at genesis.
      * </pre>
      *
-     * <code>string previous_proposer = 4 [(.gogoproto.moretags) = "yaml:&#92;"previous_proposer&#92;""];</code>
+     * <code>string previous_proposer = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for previousProposer.
      */
     @java.lang.Override
@@ -7534,7 +7534,7 @@ public final class Genesis {
      * fee_pool defines the outstanding rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord> getOutstandingRewardsList() {
@@ -7545,7 +7545,7 @@ public final class Genesis {
      * fee_pool defines the outstanding rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecordOrBuilder> 
@@ -7557,7 +7557,7 @@ public final class Genesis {
      * fee_pool defines the outstanding rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public int getOutstandingRewardsCount() {
@@ -7568,7 +7568,7 @@ public final class Genesis {
      * fee_pool defines the outstanding rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord getOutstandingRewards(int index) {
@@ -7579,7 +7579,7 @@ public final class Genesis {
      * fee_pool defines the outstanding rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecordOrBuilder getOutstandingRewardsOrBuilder(
@@ -7594,7 +7594,7 @@ public final class Genesis {
      * fee_pool defines the accumulated commisions of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord> getValidatorAccumulatedCommissionsList() {
@@ -7605,7 +7605,7 @@ public final class Genesis {
      * fee_pool defines the accumulated commisions of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecordOrBuilder> 
@@ -7617,7 +7617,7 @@ public final class Genesis {
      * fee_pool defines the accumulated commisions of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public int getValidatorAccumulatedCommissionsCount() {
@@ -7628,7 +7628,7 @@ public final class Genesis {
      * fee_pool defines the accumulated commisions of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord getValidatorAccumulatedCommissions(int index) {
@@ -7639,7 +7639,7 @@ public final class Genesis {
      * fee_pool defines the accumulated commisions of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecordOrBuilder getValidatorAccumulatedCommissionsOrBuilder(
@@ -7654,7 +7654,7 @@ public final class Genesis {
      * fee_pool defines the historical rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord> getValidatorHistoricalRewardsList() {
@@ -7665,7 +7665,7 @@ public final class Genesis {
      * fee_pool defines the historical rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecordOrBuilder> 
@@ -7677,7 +7677,7 @@ public final class Genesis {
      * fee_pool defines the historical rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public int getValidatorHistoricalRewardsCount() {
@@ -7688,7 +7688,7 @@ public final class Genesis {
      * fee_pool defines the historical rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord getValidatorHistoricalRewards(int index) {
@@ -7699,7 +7699,7 @@ public final class Genesis {
      * fee_pool defines the historical rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecordOrBuilder getValidatorHistoricalRewardsOrBuilder(
@@ -7714,7 +7714,7 @@ public final class Genesis {
      * fee_pool defines the current rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord> getValidatorCurrentRewardsList() {
@@ -7725,7 +7725,7 @@ public final class Genesis {
      * fee_pool defines the current rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecordOrBuilder> 
@@ -7737,7 +7737,7 @@ public final class Genesis {
      * fee_pool defines the current rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public int getValidatorCurrentRewardsCount() {
@@ -7748,7 +7748,7 @@ public final class Genesis {
      * fee_pool defines the current rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord getValidatorCurrentRewards(int index) {
@@ -7759,7 +7759,7 @@ public final class Genesis {
      * fee_pool defines the current rewards of all validators at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecordOrBuilder getValidatorCurrentRewardsOrBuilder(
@@ -7774,7 +7774,7 @@ public final class Genesis {
      * fee_pool defines the delegator starting infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord> getDelegatorStartingInfosList() {
@@ -7785,7 +7785,7 @@ public final class Genesis {
      * fee_pool defines the delegator starting infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecordOrBuilder> 
@@ -7797,7 +7797,7 @@ public final class Genesis {
      * fee_pool defines the delegator starting infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public int getDelegatorStartingInfosCount() {
@@ -7808,7 +7808,7 @@ public final class Genesis {
      * fee_pool defines the delegator starting infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord getDelegatorStartingInfos(int index) {
@@ -7819,7 +7819,7 @@ public final class Genesis {
      * fee_pool defines the delegator starting infos at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecordOrBuilder getDelegatorStartingInfosOrBuilder(
@@ -7834,7 +7834,7 @@ public final class Genesis {
      * fee_pool defines the validator slash events at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord> getValidatorSlashEventsList() {
@@ -7845,7 +7845,7 @@ public final class Genesis {
      * fee_pool defines the validator slash events at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecordOrBuilder> 
@@ -7857,7 +7857,7 @@ public final class Genesis {
      * fee_pool defines the validator slash events at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public int getValidatorSlashEventsCount() {
@@ -7868,7 +7868,7 @@ public final class Genesis {
      * fee_pool defines the validator slash events at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord getValidatorSlashEvents(int index) {
@@ -7879,7 +7879,7 @@ public final class Genesis {
      * fee_pool defines the validator slash events at genesis.
      * </pre>
      *
-     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+     * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecordOrBuilder getValidatorSlashEventsOrBuilder(
@@ -8648,7 +8648,7 @@ public final class Genesis {
        * params defines all the paramaters of the module.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
        * @return Whether the params field is set.
        */
       public boolean hasParams() {
@@ -8659,7 +8659,7 @@ public final class Genesis {
        * params defines all the paramaters of the module.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
        * @return The params.
        */
       public cosmos.distribution.v1beta1.Distribution.Params getParams() {
@@ -8674,7 +8674,7 @@ public final class Genesis {
        * params defines all the paramaters of the module.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setParams(cosmos.distribution.v1beta1.Distribution.Params value) {
         if (paramsBuilder_ == null) {
@@ -8694,7 +8694,7 @@ public final class Genesis {
        * params defines all the paramaters of the module.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setParams(
           cosmos.distribution.v1beta1.Distribution.Params.Builder builderForValue) {
@@ -8712,7 +8712,7 @@ public final class Genesis {
        * params defines all the paramaters of the module.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeParams(cosmos.distribution.v1beta1.Distribution.Params value) {
         if (paramsBuilder_ == null) {
@@ -8734,7 +8734,7 @@ public final class Genesis {
        * params defines all the paramaters of the module.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearParams() {
         if (paramsBuilder_ == null) {
@@ -8752,7 +8752,7 @@ public final class Genesis {
        * params defines all the paramaters of the module.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.Params.Builder getParamsBuilder() {
         
@@ -8764,7 +8764,7 @@ public final class Genesis {
        * params defines all the paramaters of the module.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.ParamsOrBuilder getParamsOrBuilder() {
         if (paramsBuilder_ != null) {
@@ -8779,7 +8779,7 @@ public final class Genesis {
        * params defines all the paramaters of the module.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.distribution.v1beta1.Distribution.Params, cosmos.distribution.v1beta1.Distribution.Params.Builder, cosmos.distribution.v1beta1.Distribution.ParamsOrBuilder> 
@@ -8803,7 +8803,7 @@ public final class Genesis {
        * fee_pool defines the fee pool at genesis.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
        * @return Whether the feePool field is set.
        */
       public boolean hasFeePool() {
@@ -8814,7 +8814,7 @@ public final class Genesis {
        * fee_pool defines the fee pool at genesis.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
        * @return The feePool.
        */
       public cosmos.distribution.v1beta1.Distribution.FeePool getFeePool() {
@@ -8829,7 +8829,7 @@ public final class Genesis {
        * fee_pool defines the fee pool at genesis.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setFeePool(cosmos.distribution.v1beta1.Distribution.FeePool value) {
         if (feePoolBuilder_ == null) {
@@ -8849,7 +8849,7 @@ public final class Genesis {
        * fee_pool defines the fee pool at genesis.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setFeePool(
           cosmos.distribution.v1beta1.Distribution.FeePool.Builder builderForValue) {
@@ -8867,7 +8867,7 @@ public final class Genesis {
        * fee_pool defines the fee pool at genesis.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeFeePool(cosmos.distribution.v1beta1.Distribution.FeePool value) {
         if (feePoolBuilder_ == null) {
@@ -8889,7 +8889,7 @@ public final class Genesis {
        * fee_pool defines the fee pool at genesis.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearFeePool() {
         if (feePoolBuilder_ == null) {
@@ -8907,7 +8907,7 @@ public final class Genesis {
        * fee_pool defines the fee pool at genesis.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.FeePool.Builder getFeePoolBuilder() {
         
@@ -8919,7 +8919,7 @@ public final class Genesis {
        * fee_pool defines the fee pool at genesis.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Distribution.FeePoolOrBuilder getFeePoolOrBuilder() {
         if (feePoolBuilder_ != null) {
@@ -8934,7 +8934,7 @@ public final class Genesis {
        * fee_pool defines the fee pool at genesis.
        * </pre>
        *
-       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
+       * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.distribution.v1beta1.Distribution.FeePool, cosmos.distribution.v1beta1.Distribution.FeePool.Builder, cosmos.distribution.v1beta1.Distribution.FeePoolOrBuilder> 
@@ -8967,7 +8967,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo> getDelegatorWithdrawInfosList() {
         if (delegatorWithdrawInfosBuilder_ == null) {
@@ -8981,7 +8981,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public int getDelegatorWithdrawInfosCount() {
         if (delegatorWithdrawInfosBuilder_ == null) {
@@ -8995,7 +8995,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo getDelegatorWithdrawInfos(int index) {
         if (delegatorWithdrawInfosBuilder_ == null) {
@@ -9009,7 +9009,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setDelegatorWithdrawInfos(
           int index, cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo value) {
@@ -9030,7 +9030,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setDelegatorWithdrawInfos(
           int index, cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo.Builder builderForValue) {
@@ -9048,7 +9048,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDelegatorWithdrawInfos(cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo value) {
         if (delegatorWithdrawInfosBuilder_ == null) {
@@ -9068,7 +9068,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDelegatorWithdrawInfos(
           int index, cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo value) {
@@ -9089,7 +9089,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDelegatorWithdrawInfos(
           cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo.Builder builderForValue) {
@@ -9107,7 +9107,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDelegatorWithdrawInfos(
           int index, cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo.Builder builderForValue) {
@@ -9125,7 +9125,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllDelegatorWithdrawInfos(
           java.lang.Iterable<? extends cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo> values) {
@@ -9144,7 +9144,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearDelegatorWithdrawInfos() {
         if (delegatorWithdrawInfosBuilder_ == null) {
@@ -9161,7 +9161,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeDelegatorWithdrawInfos(int index) {
         if (delegatorWithdrawInfosBuilder_ == null) {
@@ -9178,7 +9178,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo.Builder getDelegatorWithdrawInfosBuilder(
           int index) {
@@ -9189,7 +9189,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfoOrBuilder getDelegatorWithdrawInfosOrBuilder(
           int index) {
@@ -9203,7 +9203,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfoOrBuilder> 
            getDelegatorWithdrawInfosOrBuilderList() {
@@ -9218,7 +9218,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo.Builder addDelegatorWithdrawInfosBuilder() {
         return getDelegatorWithdrawInfosFieldBuilder().addBuilder(
@@ -9229,7 +9229,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo.Builder addDelegatorWithdrawInfosBuilder(
           int index) {
@@ -9241,7 +9241,7 @@ public final class Genesis {
        * fee_pool defines the delegator withdraw infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo.Builder> 
            getDelegatorWithdrawInfosBuilderList() {
@@ -9268,7 +9268,7 @@ public final class Genesis {
        * fee_pool defines the previous proposer at genesis.
        * </pre>
        *
-       * <code>string previous_proposer = 4 [(.gogoproto.moretags) = "yaml:&#92;"previous_proposer&#92;""];</code>
+       * <code>string previous_proposer = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The previousProposer.
        */
       public java.lang.String getPreviousProposer() {
@@ -9288,7 +9288,7 @@ public final class Genesis {
        * fee_pool defines the previous proposer at genesis.
        * </pre>
        *
-       * <code>string previous_proposer = 4 [(.gogoproto.moretags) = "yaml:&#92;"previous_proposer&#92;""];</code>
+       * <code>string previous_proposer = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for previousProposer.
        */
       public com.google.protobuf.ByteString
@@ -9309,7 +9309,7 @@ public final class Genesis {
        * fee_pool defines the previous proposer at genesis.
        * </pre>
        *
-       * <code>string previous_proposer = 4 [(.gogoproto.moretags) = "yaml:&#92;"previous_proposer&#92;""];</code>
+       * <code>string previous_proposer = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The previousProposer to set.
        * @return This builder for chaining.
        */
@@ -9328,7 +9328,7 @@ public final class Genesis {
        * fee_pool defines the previous proposer at genesis.
        * </pre>
        *
-       * <code>string previous_proposer = 4 [(.gogoproto.moretags) = "yaml:&#92;"previous_proposer&#92;""];</code>
+       * <code>string previous_proposer = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearPreviousProposer() {
@@ -9342,7 +9342,7 @@ public final class Genesis {
        * fee_pool defines the previous proposer at genesis.
        * </pre>
        *
-       * <code>string previous_proposer = 4 [(.gogoproto.moretags) = "yaml:&#92;"previous_proposer&#92;""];</code>
+       * <code>string previous_proposer = 4 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for previousProposer to set.
        * @return This builder for chaining.
        */
@@ -9375,7 +9375,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord> getOutstandingRewardsList() {
         if (outstandingRewardsBuilder_ == null) {
@@ -9389,7 +9389,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public int getOutstandingRewardsCount() {
         if (outstandingRewardsBuilder_ == null) {
@@ -9403,7 +9403,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord getOutstandingRewards(int index) {
         if (outstandingRewardsBuilder_ == null) {
@@ -9417,7 +9417,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setOutstandingRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord value) {
@@ -9438,7 +9438,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setOutstandingRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord.Builder builderForValue) {
@@ -9456,7 +9456,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addOutstandingRewards(cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord value) {
         if (outstandingRewardsBuilder_ == null) {
@@ -9476,7 +9476,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addOutstandingRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord value) {
@@ -9497,7 +9497,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addOutstandingRewards(
           cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord.Builder builderForValue) {
@@ -9515,7 +9515,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addOutstandingRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord.Builder builderForValue) {
@@ -9533,7 +9533,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllOutstandingRewards(
           java.lang.Iterable<? extends cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord> values) {
@@ -9552,7 +9552,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearOutstandingRewards() {
         if (outstandingRewardsBuilder_ == null) {
@@ -9569,7 +9569,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeOutstandingRewards(int index) {
         if (outstandingRewardsBuilder_ == null) {
@@ -9586,7 +9586,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord.Builder getOutstandingRewardsBuilder(
           int index) {
@@ -9597,7 +9597,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecordOrBuilder getOutstandingRewardsOrBuilder(
           int index) {
@@ -9611,7 +9611,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecordOrBuilder> 
            getOutstandingRewardsOrBuilderList() {
@@ -9626,7 +9626,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord.Builder addOutstandingRewardsBuilder() {
         return getOutstandingRewardsFieldBuilder().addBuilder(
@@ -9637,7 +9637,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord.Builder addOutstandingRewardsBuilder(
           int index) {
@@ -9649,7 +9649,7 @@ public final class Genesis {
        * fee_pool defines the outstanding rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord.Builder> 
            getOutstandingRewardsBuilderList() {
@@ -9687,7 +9687,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord> getValidatorAccumulatedCommissionsList() {
         if (validatorAccumulatedCommissionsBuilder_ == null) {
@@ -9701,7 +9701,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public int getValidatorAccumulatedCommissionsCount() {
         if (validatorAccumulatedCommissionsBuilder_ == null) {
@@ -9715,7 +9715,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord getValidatorAccumulatedCommissions(int index) {
         if (validatorAccumulatedCommissionsBuilder_ == null) {
@@ -9729,7 +9729,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setValidatorAccumulatedCommissions(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord value) {
@@ -9750,7 +9750,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setValidatorAccumulatedCommissions(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord.Builder builderForValue) {
@@ -9768,7 +9768,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorAccumulatedCommissions(cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord value) {
         if (validatorAccumulatedCommissionsBuilder_ == null) {
@@ -9788,7 +9788,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorAccumulatedCommissions(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord value) {
@@ -9809,7 +9809,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorAccumulatedCommissions(
           cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord.Builder builderForValue) {
@@ -9827,7 +9827,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorAccumulatedCommissions(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord.Builder builderForValue) {
@@ -9845,7 +9845,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllValidatorAccumulatedCommissions(
           java.lang.Iterable<? extends cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord> values) {
@@ -9864,7 +9864,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearValidatorAccumulatedCommissions() {
         if (validatorAccumulatedCommissionsBuilder_ == null) {
@@ -9881,7 +9881,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeValidatorAccumulatedCommissions(int index) {
         if (validatorAccumulatedCommissionsBuilder_ == null) {
@@ -9898,7 +9898,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord.Builder getValidatorAccumulatedCommissionsBuilder(
           int index) {
@@ -9909,7 +9909,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecordOrBuilder getValidatorAccumulatedCommissionsOrBuilder(
           int index) {
@@ -9923,7 +9923,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecordOrBuilder> 
            getValidatorAccumulatedCommissionsOrBuilderList() {
@@ -9938,7 +9938,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord.Builder addValidatorAccumulatedCommissionsBuilder() {
         return getValidatorAccumulatedCommissionsFieldBuilder().addBuilder(
@@ -9949,7 +9949,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord.Builder addValidatorAccumulatedCommissionsBuilder(
           int index) {
@@ -9961,7 +9961,7 @@ public final class Genesis {
        * fee_pool defines the accumulated commisions of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord.Builder> 
            getValidatorAccumulatedCommissionsBuilderList() {
@@ -9999,7 +9999,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord> getValidatorHistoricalRewardsList() {
         if (validatorHistoricalRewardsBuilder_ == null) {
@@ -10013,7 +10013,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public int getValidatorHistoricalRewardsCount() {
         if (validatorHistoricalRewardsBuilder_ == null) {
@@ -10027,7 +10027,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord getValidatorHistoricalRewards(int index) {
         if (validatorHistoricalRewardsBuilder_ == null) {
@@ -10041,7 +10041,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setValidatorHistoricalRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord value) {
@@ -10062,7 +10062,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setValidatorHistoricalRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord.Builder builderForValue) {
@@ -10080,7 +10080,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorHistoricalRewards(cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord value) {
         if (validatorHistoricalRewardsBuilder_ == null) {
@@ -10100,7 +10100,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorHistoricalRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord value) {
@@ -10121,7 +10121,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorHistoricalRewards(
           cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord.Builder builderForValue) {
@@ -10139,7 +10139,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorHistoricalRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord.Builder builderForValue) {
@@ -10157,7 +10157,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllValidatorHistoricalRewards(
           java.lang.Iterable<? extends cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord> values) {
@@ -10176,7 +10176,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearValidatorHistoricalRewards() {
         if (validatorHistoricalRewardsBuilder_ == null) {
@@ -10193,7 +10193,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeValidatorHistoricalRewards(int index) {
         if (validatorHistoricalRewardsBuilder_ == null) {
@@ -10210,7 +10210,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord.Builder getValidatorHistoricalRewardsBuilder(
           int index) {
@@ -10221,7 +10221,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecordOrBuilder getValidatorHistoricalRewardsOrBuilder(
           int index) {
@@ -10235,7 +10235,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecordOrBuilder> 
            getValidatorHistoricalRewardsOrBuilderList() {
@@ -10250,7 +10250,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord.Builder addValidatorHistoricalRewardsBuilder() {
         return getValidatorHistoricalRewardsFieldBuilder().addBuilder(
@@ -10261,7 +10261,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord.Builder addValidatorHistoricalRewardsBuilder(
           int index) {
@@ -10273,7 +10273,7 @@ public final class Genesis {
        * fee_pool defines the historical rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord.Builder> 
            getValidatorHistoricalRewardsBuilderList() {
@@ -10311,7 +10311,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord> getValidatorCurrentRewardsList() {
         if (validatorCurrentRewardsBuilder_ == null) {
@@ -10325,7 +10325,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public int getValidatorCurrentRewardsCount() {
         if (validatorCurrentRewardsBuilder_ == null) {
@@ -10339,7 +10339,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord getValidatorCurrentRewards(int index) {
         if (validatorCurrentRewardsBuilder_ == null) {
@@ -10353,7 +10353,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setValidatorCurrentRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord value) {
@@ -10374,7 +10374,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setValidatorCurrentRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord.Builder builderForValue) {
@@ -10392,7 +10392,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorCurrentRewards(cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord value) {
         if (validatorCurrentRewardsBuilder_ == null) {
@@ -10412,7 +10412,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorCurrentRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord value) {
@@ -10433,7 +10433,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorCurrentRewards(
           cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord.Builder builderForValue) {
@@ -10451,7 +10451,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorCurrentRewards(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord.Builder builderForValue) {
@@ -10469,7 +10469,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllValidatorCurrentRewards(
           java.lang.Iterable<? extends cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord> values) {
@@ -10488,7 +10488,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearValidatorCurrentRewards() {
         if (validatorCurrentRewardsBuilder_ == null) {
@@ -10505,7 +10505,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeValidatorCurrentRewards(int index) {
         if (validatorCurrentRewardsBuilder_ == null) {
@@ -10522,7 +10522,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord.Builder getValidatorCurrentRewardsBuilder(
           int index) {
@@ -10533,7 +10533,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecordOrBuilder getValidatorCurrentRewardsOrBuilder(
           int index) {
@@ -10547,7 +10547,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecordOrBuilder> 
            getValidatorCurrentRewardsOrBuilderList() {
@@ -10562,7 +10562,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord.Builder addValidatorCurrentRewardsBuilder() {
         return getValidatorCurrentRewardsFieldBuilder().addBuilder(
@@ -10573,7 +10573,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord.Builder addValidatorCurrentRewardsBuilder(
           int index) {
@@ -10585,7 +10585,7 @@ public final class Genesis {
        * fee_pool defines the current rewards of all validators at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord.Builder> 
            getValidatorCurrentRewardsBuilderList() {
@@ -10623,7 +10623,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord> getDelegatorStartingInfosList() {
         if (delegatorStartingInfosBuilder_ == null) {
@@ -10637,7 +10637,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public int getDelegatorStartingInfosCount() {
         if (delegatorStartingInfosBuilder_ == null) {
@@ -10651,7 +10651,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord getDelegatorStartingInfos(int index) {
         if (delegatorStartingInfosBuilder_ == null) {
@@ -10665,7 +10665,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setDelegatorStartingInfos(
           int index, cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord value) {
@@ -10686,7 +10686,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setDelegatorStartingInfos(
           int index, cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord.Builder builderForValue) {
@@ -10704,7 +10704,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDelegatorStartingInfos(cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord value) {
         if (delegatorStartingInfosBuilder_ == null) {
@@ -10724,7 +10724,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDelegatorStartingInfos(
           int index, cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord value) {
@@ -10745,7 +10745,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDelegatorStartingInfos(
           cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord.Builder builderForValue) {
@@ -10763,7 +10763,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDelegatorStartingInfos(
           int index, cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord.Builder builderForValue) {
@@ -10781,7 +10781,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllDelegatorStartingInfos(
           java.lang.Iterable<? extends cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord> values) {
@@ -10800,7 +10800,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearDelegatorStartingInfos() {
         if (delegatorStartingInfosBuilder_ == null) {
@@ -10817,7 +10817,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeDelegatorStartingInfos(int index) {
         if (delegatorStartingInfosBuilder_ == null) {
@@ -10834,7 +10834,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord.Builder getDelegatorStartingInfosBuilder(
           int index) {
@@ -10845,7 +10845,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecordOrBuilder getDelegatorStartingInfosOrBuilder(
           int index) {
@@ -10859,7 +10859,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecordOrBuilder> 
            getDelegatorStartingInfosOrBuilderList() {
@@ -10874,7 +10874,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord.Builder addDelegatorStartingInfosBuilder() {
         return getDelegatorStartingInfosFieldBuilder().addBuilder(
@@ -10885,7 +10885,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord.Builder addDelegatorStartingInfosBuilder(
           int index) {
@@ -10897,7 +10897,7 @@ public final class Genesis {
        * fee_pool defines the delegator starting infos at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord.Builder> 
            getDelegatorStartingInfosBuilderList() {
@@ -10935,7 +10935,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord> getValidatorSlashEventsList() {
         if (validatorSlashEventsBuilder_ == null) {
@@ -10949,7 +10949,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public int getValidatorSlashEventsCount() {
         if (validatorSlashEventsBuilder_ == null) {
@@ -10963,7 +10963,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord getValidatorSlashEvents(int index) {
         if (validatorSlashEventsBuilder_ == null) {
@@ -10977,7 +10977,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setValidatorSlashEvents(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord value) {
@@ -10998,7 +10998,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setValidatorSlashEvents(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord.Builder builderForValue) {
@@ -11016,7 +11016,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorSlashEvents(cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord value) {
         if (validatorSlashEventsBuilder_ == null) {
@@ -11036,7 +11036,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorSlashEvents(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord value) {
@@ -11057,7 +11057,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorSlashEvents(
           cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord.Builder builderForValue) {
@@ -11075,7 +11075,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addValidatorSlashEvents(
           int index, cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord.Builder builderForValue) {
@@ -11093,7 +11093,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllValidatorSlashEvents(
           java.lang.Iterable<? extends cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord> values) {
@@ -11112,7 +11112,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearValidatorSlashEvents() {
         if (validatorSlashEventsBuilder_ == null) {
@@ -11129,7 +11129,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeValidatorSlashEvents(int index) {
         if (validatorSlashEventsBuilder_ == null) {
@@ -11146,7 +11146,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord.Builder getValidatorSlashEventsBuilder(
           int index) {
@@ -11157,7 +11157,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecordOrBuilder getValidatorSlashEventsOrBuilder(
           int index) {
@@ -11171,7 +11171,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecordOrBuilder> 
            getValidatorSlashEventsOrBuilderList() {
@@ -11186,7 +11186,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord.Builder addValidatorSlashEventsBuilder() {
         return getValidatorSlashEventsFieldBuilder().addBuilder(
@@ -11197,7 +11197,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord.Builder addValidatorSlashEventsBuilder(
           int index) {
@@ -11209,7 +11209,7 @@ public final class Genesis {
        * fee_pool defines the validator slash events at genesis.
        * </pre>
        *
-       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
+       * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord.Builder> 
            getValidatorSlashEventsBuilderList() {
@@ -11335,84 +11335,74 @@ public final class Genesis {
       "oto\022\033cosmos.distribution.v1beta1\032\024gogopr" +
       "oto/gogo.proto\032\036cosmos/base/v1beta1/coin" +
       ".proto\032.cosmos/distribution/v1beta1/dist" +
-      "ribution.proto\"\221\001\n\025DelegatorWithdrawInfo" +
-      "\0227\n\021delegator_address\030\001 \001(\tB\034\362\336\037\030yaml:\"d" +
-      "elegator_address\"\0225\n\020withdraw_address\030\002 " +
-      "\001(\tB\033\362\336\037\027yaml:\"withdraw_address\":\010\350\240\037\000\210\240" +
-      "\037\000\"\365\001\n!ValidatorOutstandingRewardsRecord" +
-      "\0227\n\021validator_address\030\001 \001(\tB\034\362\336\037\030yaml:\"v" +
-      "alidator_address\"\022\214\001\n\023outstanding_reward" +
-      "s\030\002 \003(\0132\034.cosmos.base.v1beta1.DecCoinBQ\252" +
-      "\337\037+github.com/cosmos/cosmos-sdk/types.De" +
-      "cCoins\310\336\037\000\362\336\037\032yaml:\"outstanding_rewards\"" +
-      ":\010\350\240\037\000\210\240\037\000\"\327\001\n$ValidatorAccumulatedCommi" +
-      "ssionRecord\0227\n\021validator_address\030\001 \001(\tB\034" +
-      "\362\336\037\030yaml:\"validator_address\"\022l\n\013accumula" +
-      "ted\030\002 \001(\0132;.cosmos.distribution.v1beta1." +
-      "ValidatorAccumulatedCommissionB\032\310\336\037\000\362\336\037\022" +
-      "yaml:\"accumulated\":\010\350\240\037\000\210\240\037\000\"\327\001\n Validat" +
-      "orHistoricalRewardsRecord\0227\n\021validator_a" +
-      "ddress\030\001 \001(\tB\034\362\336\037\030yaml:\"validator_addres" +
-      "s\"\022\016\n\006period\030\002 \001(\004\022`\n\007rewards\030\003 \001(\01327.co" +
-      "smos.distribution.v1beta1.ValidatorHisto" +
-      "ricalRewardsB\026\310\336\037\000\362\336\037\016yaml:\"rewards\":\010\350\240" +
-      "\037\000\210\240\037\000\"\301\001\n\035ValidatorCurrentRewardsRecord" +
-      "\0227\n\021validator_address\030\001 \001(\tB\034\362\336\037\030yaml:\"v" +
-      "alidator_address\"\022]\n\007rewards\030\002 \001(\01324.cos" +
-      "mos.distribution.v1beta1.ValidatorCurren" +
-      "tRewardsB\026\310\336\037\000\362\336\037\016yaml:\"rewards\":\010\350\240\037\000\210\240" +
-      "\037\000\"\202\002\n\033DelegatorStartingInfoRecord\0227\n\021de" +
-      "legator_address\030\001 \001(\tB\034\362\336\037\030yaml:\"delegat" +
-      "or_address\"\0227\n\021validator_address\030\002 \001(\tB\034" +
-      "\362\336\037\030yaml:\"validator_address\"\022g\n\rstarting" +
-      "_info\030\003 \001(\01322.cosmos.distribution.v1beta" +
-      "1.DelegatorStartingInfoB\034\310\336\037\000\362\336\037\024yaml:\"s" +
-      "tarting_info\":\010\350\240\037\000\210\240\037\000\"\345\001\n\031ValidatorSla" +
-      "shEventRecord\0227\n\021validator_address\030\001 \001(\t" +
-      "B\034\362\336\037\030yaml:\"validator_address\"\022\016\n\006height" +
-      "\030\002 \001(\004\022\016\n\006period\030\003 \001(\004\022e\n\025validator_slas" +
-      "h_event\030\004 \001(\01320.cosmos.distribution.v1be" +
-      "ta1.ValidatorSlashEventB\024\310\336\037\000\362\336\037\014yaml:\"e" +
-      "vent\":\010\350\240\037\000\210\240\037\000\"\261\t\n\014GenesisState\022J\n\006para" +
-      "ms\030\001 \001(\0132#.cosmos.distribution.v1beta1.P" +
-      "aramsB\025\310\336\037\000\362\336\037\ryaml:\"params\"\022O\n\010fee_pool" +
-      "\030\002 \001(\0132$.cosmos.distribution.v1beta1.Fee" +
-      "PoolB\027\310\336\037\000\362\336\037\017yaml:\"fee_pool\"\022}\n\030delegat" +
-      "or_withdraw_infos\030\003 \003(\01322.cosmos.distrib" +
-      "ution.v1beta1.DelegatorWithdrawInfoB\'\310\336\037" +
-      "\000\362\336\037\037yaml:\"delegator_withdraw_infos\"\0227\n\021" +
-      "previous_proposer\030\004 \001(\tB\034\362\336\037\030yaml:\"previ" +
-      "ous_proposer\"\022\177\n\023outstanding_rewards\030\005 \003" +
-      "(\0132>.cosmos.distribution.v1beta1.Validat" +
-      "orOutstandingRewardsRecordB\"\310\336\037\000\362\336\037\032yaml" +
-      ":\"outstanding_rewards\"\022\236\001\n!validator_acc" +
-      "umulated_commissions\030\006 \003(\0132A.cosmos.dist" +
-      "ribution.v1beta1.ValidatorAccumulatedCom" +
-      "missionRecordB0\310\336\037\000\362\336\037(yaml:\"validator_a" +
-      "ccumulated_commissions\"\022\220\001\n\034validator_hi" +
-      "storical_rewards\030\007 \003(\0132=.cosmos.distribu" +
-      "tion.v1beta1.ValidatorHistoricalRewardsR" +
-      "ecordB+\310\336\037\000\362\336\037#yaml:\"validator_historica" +
-      "l_rewards\"\022\207\001\n\031validator_current_rewards" +
-      "\030\010 \003(\0132:.cosmos.distribution.v1beta1.Val" +
-      "idatorCurrentRewardsRecordB(\310\336\037\000\362\336\037 yaml" +
-      ":\"validator_current_rewards\"\022\203\001\n\030delegat" +
-      "or_starting_infos\030\t \003(\01328.cosmos.distrib" +
-      "ution.v1beta1.DelegatorStartingInfoRecor" +
-      "dB\'\310\336\037\000\362\336\037\037yaml:\"delegator_starting_info" +
-      "s\"\022}\n\026validator_slash_events\030\n \003(\01326.cos" +
+      "ribution.proto\032\031cosmos_proto/cosmos.prot" +
+      "o\"\212\001\n\025DelegatorWithdrawInfo\0223\n\021delegator" +
+      "_address\030\001 \001(\tB\030\322\264-\024cosmos.AddressString" +
+      "\0222\n\020withdraw_address\030\002 \001(\tB\030\322\264-\024cosmos.A" +
+      "ddressString:\010\350\240\037\000\210\240\037\000\"\322\001\n!ValidatorOuts" +
+      "tandingRewardsRecord\0223\n\021validator_addres" +
+      "s\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022n\n\023out" +
+      "standing_rewards\030\002 \003(\0132\034.cosmos.base.v1b" +
+      "eta1.DecCoinB3\252\337\037+github.com/cosmos/cosm" +
+      "os-sdk/types.DecCoins\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\275\001\n$" +
+      "ValidatorAccumulatedCommissionRecord\0223\n\021" +
+      "validator_address\030\001 \001(\tB\030\322\264-\024cosmos.Addr" +
+      "essString\022V\n\013accumulated\030\002 \001(\0132;.cosmos." +
+      "distribution.v1beta1.ValidatorAccumulate" +
+      "dCommissionB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\301\001\n Validato" +
+      "rHistoricalRewardsRecord\0223\n\021validator_ad" +
+      "dress\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022\016\n" +
+      "\006period\030\002 \001(\004\022N\n\007rewards\030\003 \001(\01327.cosmos." +
+      "distribution.v1beta1.ValidatorHistorical" +
+      "RewardsB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\253\001\n\035ValidatorCur" +
+      "rentRewardsRecord\0223\n\021validator_address\030\001" +
+      " \001(\tB\030\322\264-\024cosmos.AddressString\022K\n\007reward" +
+      "s\030\002 \001(\01324.cosmos.distribution.v1beta1.Va" +
+      "lidatorCurrentRewardsB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\342\001" +
+      "\n\033DelegatorStartingInfoRecord\0223\n\021delegat" +
+      "or_address\030\001 \001(\tB\030\322\264-\024cosmos.AddressStri" +
+      "ng\0223\n\021validator_address\030\002 \001(\tB\030\322\264-\024cosmo" +
+      "s.AddressString\022O\n\rstarting_info\030\003 \001(\01322" +
+      ".cosmos.distribution.v1beta1.DelegatorSt" +
+      "artingInfoB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\321\001\n\031Validator" +
+      "SlashEventRecord\0223\n\021validator_address\030\001 " +
+      "\001(\tB\030\322\264-\024cosmos.AddressString\022\016\n\006height\030" +
+      "\002 \001(\004\022\016\n\006period\030\003 \001(\004\022U\n\025validator_slash" +
+      "_event\030\004 \001(\01320.cosmos.distribution.v1bet" +
+      "a1.ValidatorSlashEventB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\211" +
+      "\007\n\014GenesisState\0229\n\006params\030\001 \001(\0132#.cosmos" +
+      ".distribution.v1beta1.ParamsB\004\310\336\037\000\022<\n\010fe" +
+      "e_pool\030\002 \001(\0132$.cosmos.distribution.v1bet" +
+      "a1.FeePoolB\004\310\336\037\000\022Z\n\030delegator_withdraw_i" +
+      "nfos\030\003 \003(\01322.cosmos.distribution.v1beta1" +
+      ".DelegatorWithdrawInfoB\004\310\336\037\000\0223\n\021previous" +
+      "_proposer\030\004 \001(\tB\030\322\264-\024cosmos.AddressStrin" +
+      "g\022a\n\023outstanding_rewards\030\005 \003(\0132>.cosmos." +
+      "distribution.v1beta1.ValidatorOutstandin" +
+      "gRewardsRecordB\004\310\336\037\000\022r\n!validator_accumu" +
+      "lated_commissions\030\006 \003(\0132A.cosmos.distrib" +
+      "ution.v1beta1.ValidatorAccumulatedCommis" +
+      "sionRecordB\004\310\336\037\000\022i\n\034validator_historical" +
+      "_rewards\030\007 \003(\0132=.cosmos.distribution.v1b" +
+      "eta1.ValidatorHistoricalRewardsRecordB\004\310" +
+      "\336\037\000\022c\n\031validator_current_rewards\030\010 \003(\0132:" +
+      ".cosmos.distribution.v1beta1.ValidatorCu" +
+      "rrentRewardsRecordB\004\310\336\037\000\022`\n\030delegator_st" +
+      "arting_infos\030\t \003(\01328.cosmos.distribution" +
+      ".v1beta1.DelegatorStartingInfoRecordB\004\310\336" +
+      "\037\000\022\\\n\026validator_slash_events\030\n \003(\01326.cos" +
       "mos.distribution.v1beta1.ValidatorSlashE" +
-      "ventRecordB%\310\336\037\000\362\336\037\035yaml:\"validator_slas" +
-      "h_events\":\010\350\240\037\000\210\240\037\000B7Z1github.com/cosmos" +
-      "/cosmos-sdk/x/distribution/types\250\342\036\001b\006pr" +
-      "oto3"
+      "ventRecordB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000B7Z1github.com" +
+      "/cosmos/cosmos-sdk/x/distribution/types\250" +
+      "\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos.distribution.v1beta1.Distribution.getDescriptor(),
+          cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_cosmos_distribution_v1beta1_DelegatorWithdrawInfo_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -11464,17 +11454,18 @@ public final class Genesis {
         new java.lang.String[] { "Params", "FeePool", "DelegatorWithdrawInfos", "PreviousProposer", "OutstandingRewards", "ValidatorAccumulatedCommissions", "ValidatorHistoricalRewards", "ValidatorCurrentRewards", "DelegatorStartingInfos", "ValidatorSlashEvents", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.equalAll);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.equalAll);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos.distribution.v1beta1.Distribution.getDescriptor();
+    cosmos_proto.Cosmos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

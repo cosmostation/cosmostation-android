@@ -80,7 +80,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           panacea.did.v2.Did.getDescriptor(),
         });
     internal_static_panacea_did_v2_MsgCreateDID_descriptor =
@@ -119,7 +119,7 @@ public final class Tx {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_panacea_did_v2_MsgDeactivateDIDResponse_descriptor,
         new java.lang.String[] { });
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     panacea.did.v2.Did.getDescriptor();
   }
 

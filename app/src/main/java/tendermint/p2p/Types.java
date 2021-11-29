@@ -14,794 +14,6 @@ public final class Types {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface NetAddressOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:tendermint.p2p.NetAddress)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
-     * @return The id.
-     */
-    java.lang.String getId();
-    /**
-     * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
-     * @return The bytes for id.
-     */
-    com.google.protobuf.ByteString
-        getIdBytes();
-
-    /**
-     * <code>string ip = 2 [(.gogoproto.customname) = "IP"];</code>
-     * @return The ip.
-     */
-    java.lang.String getIp();
-    /**
-     * <code>string ip = 2 [(.gogoproto.customname) = "IP"];</code>
-     * @return The bytes for ip.
-     */
-    com.google.protobuf.ByteString
-        getIpBytes();
-
-    /**
-     * <code>uint32 port = 3;</code>
-     * @return The port.
-     */
-    int getPort();
-  }
-  /**
-   * Protobuf type {@code tendermint.p2p.NetAddress}
-   */
-  public static final class NetAddress extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:tendermint.p2p.NetAddress)
-      NetAddressOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use NetAddress.newBuilder() to construct.
-    private NetAddress(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private NetAddress() {
-      id_ = "";
-      ip_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new NetAddress();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private NetAddress(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              id_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              ip_ = s;
-              break;
-            }
-            case 24: {
-
-              port_ = input.readUInt32();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return tendermint.p2p.Types.internal_static_tendermint_p2p_NetAddress_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return tendermint.p2p.Types.internal_static_tendermint_p2p_NetAddress_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              tendermint.p2p.Types.NetAddress.class, tendermint.p2p.Types.NetAddress.Builder.class);
-    }
-
-    public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
-    /**
-     * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
-     * @return The id.
-     */
-    @java.lang.Override
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        id_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
-     * @return The bytes for id.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        id_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int IP_FIELD_NUMBER = 2;
-    private volatile java.lang.Object ip_;
-    /**
-     * <code>string ip = 2 [(.gogoproto.customname) = "IP"];</code>
-     * @return The ip.
-     */
-    @java.lang.Override
-    public java.lang.String getIp() {
-      java.lang.Object ref = ip_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ip_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string ip = 2 [(.gogoproto.customname) = "IP"];</code>
-     * @return The bytes for ip.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getIpBytes() {
-      java.lang.Object ref = ip_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ip_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PORT_FIELD_NUMBER = 3;
-    private int port_;
-    /**
-     * <code>uint32 port = 3;</code>
-     * @return The port.
-     */
-    @java.lang.Override
-    public int getPort() {
-      return port_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
-      }
-      if (!getIpBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ip_);
-      }
-      if (port_ != 0) {
-        output.writeUInt32(3, port_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
-      }
-      if (!getIpBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ip_);
-      }
-      if (port_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(3, port_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof tendermint.p2p.Types.NetAddress)) {
-        return super.equals(obj);
-      }
-      tendermint.p2p.Types.NetAddress other = (tendermint.p2p.Types.NetAddress) obj;
-
-      if (!getId()
-          .equals(other.getId())) return false;
-      if (!getIp()
-          .equals(other.getIp())) return false;
-      if (getPort()
-          != other.getPort()) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
-      hash = (37 * hash) + IP_FIELD_NUMBER;
-      hash = (53 * hash) + getIp().hashCode();
-      hash = (37 * hash) + PORT_FIELD_NUMBER;
-      hash = (53 * hash) + getPort();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static tendermint.p2p.Types.NetAddress parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static tendermint.p2p.Types.NetAddress parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static tendermint.p2p.Types.NetAddress parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static tendermint.p2p.Types.NetAddress parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static tendermint.p2p.Types.NetAddress parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static tendermint.p2p.Types.NetAddress parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static tendermint.p2p.Types.NetAddress parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static tendermint.p2p.Types.NetAddress parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static tendermint.p2p.Types.NetAddress parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static tendermint.p2p.Types.NetAddress parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static tendermint.p2p.Types.NetAddress parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static tendermint.p2p.Types.NetAddress parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(tendermint.p2p.Types.NetAddress prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code tendermint.p2p.NetAddress}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:tendermint.p2p.NetAddress)
-        tendermint.p2p.Types.NetAddressOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return tendermint.p2p.Types.internal_static_tendermint_p2p_NetAddress_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return tendermint.p2p.Types.internal_static_tendermint_p2p_NetAddress_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                tendermint.p2p.Types.NetAddress.class, tendermint.p2p.Types.NetAddress.Builder.class);
-      }
-
-      // Construct using tendermint.p2p.Types.NetAddress.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        id_ = "";
-
-        ip_ = "";
-
-        port_ = 0;
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return tendermint.p2p.Types.internal_static_tendermint_p2p_NetAddress_descriptor;
-      }
-
-      @java.lang.Override
-      public tendermint.p2p.Types.NetAddress getDefaultInstanceForType() {
-        return tendermint.p2p.Types.NetAddress.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public tendermint.p2p.Types.NetAddress build() {
-        tendermint.p2p.Types.NetAddress result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public tendermint.p2p.Types.NetAddress buildPartial() {
-        tendermint.p2p.Types.NetAddress result = new tendermint.p2p.Types.NetAddress(this);
-        result.id_ = id_;
-        result.ip_ = ip_;
-        result.port_ = port_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof tendermint.p2p.Types.NetAddress) {
-          return mergeFrom((tendermint.p2p.Types.NetAddress)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(tendermint.p2p.Types.NetAddress other) {
-        if (other == tendermint.p2p.Types.NetAddress.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
-          onChanged();
-        }
-        if (!other.getIp().isEmpty()) {
-          ip_ = other.ip_;
-          onChanged();
-        }
-        if (other.getPort() != 0) {
-          setPort(other.getPort());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        tendermint.p2p.Types.NetAddress parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (tendermint.p2p.Types.NetAddress) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object id_ = "";
-      /**
-       * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
-       * @return The id.
-       */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          id_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
-       * @return The bytes for id.
-       */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
-       * @param value The id to set.
-       * @return This builder for chaining.
-       */
-      public Builder setId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearId() {
-        
-        id_ = getDefaultInstance().getId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
-       * @param value The bytes for id to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        id_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object ip_ = "";
-      /**
-       * <code>string ip = 2 [(.gogoproto.customname) = "IP"];</code>
-       * @return The ip.
-       */
-      public java.lang.String getIp() {
-        java.lang.Object ref = ip_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ip_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string ip = 2 [(.gogoproto.customname) = "IP"];</code>
-       * @return The bytes for ip.
-       */
-      public com.google.protobuf.ByteString
-          getIpBytes() {
-        java.lang.Object ref = ip_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ip_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string ip = 2 [(.gogoproto.customname) = "IP"];</code>
-       * @param value The ip to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIp(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        ip_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ip = 2 [(.gogoproto.customname) = "IP"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearIp() {
-        
-        ip_ = getDefaultInstance().getIp();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ip = 2 [(.gogoproto.customname) = "IP"];</code>
-       * @param value The bytes for ip to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIpBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        ip_ = value;
-        onChanged();
-        return this;
-      }
-
-      private int port_ ;
-      /**
-       * <code>uint32 port = 3;</code>
-       * @return The port.
-       */
-      @java.lang.Override
-      public int getPort() {
-        return port_;
-      }
-      /**
-       * <code>uint32 port = 3;</code>
-       * @param value The port to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPort(int value) {
-        
-        port_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint32 port = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPort() {
-        
-        port_ = 0;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:tendermint.p2p.NetAddress)
-    }
-
-    // @@protoc_insertion_point(class_scope:tendermint.p2p.NetAddress)
-    private static final tendermint.p2p.Types.NetAddress DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new tendermint.p2p.Types.NetAddress();
-    }
-
-    public static tendermint.p2p.Types.NetAddress getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<NetAddress>
-        PARSER = new com.google.protobuf.AbstractParser<NetAddress>() {
-      @java.lang.Override
-      public NetAddress parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new NetAddress(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<NetAddress> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<NetAddress> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public tendermint.p2p.Types.NetAddress getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface ProtocolVersionOrBuilder extends
       // @@protoc_insertion_point(interface_extends:tendermint.p2p.ProtocolVersion)
       com.google.protobuf.MessageOrBuilder {
@@ -1433,8 +645,8 @@ public final class Types {
 
   }
 
-  public interface DefaultNodeInfoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:tendermint.p2p.DefaultNodeInfo)
+  public interface NodeInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:tendermint.p2p.NodeInfo)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1453,16 +665,16 @@ public final class Types {
     tendermint.p2p.Types.ProtocolVersionOrBuilder getProtocolVersionOrBuilder();
 
     /**
-     * <code>string default_node_id = 2 [(.gogoproto.customname) = "DefaultNodeID"];</code>
-     * @return The defaultNodeId.
+     * <code>string node_id = 2 [(.gogoproto.customname) = "NodeID"];</code>
+     * @return The nodeId.
      */
-    java.lang.String getDefaultNodeId();
+    java.lang.String getNodeId();
     /**
-     * <code>string default_node_id = 2 [(.gogoproto.customname) = "DefaultNodeID"];</code>
-     * @return The bytes for defaultNodeId.
+     * <code>string node_id = 2 [(.gogoproto.customname) = "NodeID"];</code>
+     * @return The bytes for nodeId.
      */
     com.google.protobuf.ByteString
-        getDefaultNodeIdBytes();
+        getNodeIdBytes();
 
     /**
      * <code>string listen_addr = 3;</code>
@@ -1519,34 +731,34 @@ public final class Types {
         getMonikerBytes();
 
     /**
-     * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+     * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
      * @return Whether the other field is set.
      */
     boolean hasOther();
     /**
-     * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+     * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
      * @return The other.
      */
-    tendermint.p2p.Types.DefaultNodeInfoOther getOther();
+    tendermint.p2p.Types.NodeInfoOther getOther();
     /**
-     * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+     * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
      */
-    tendermint.p2p.Types.DefaultNodeInfoOtherOrBuilder getOtherOrBuilder();
+    tendermint.p2p.Types.NodeInfoOtherOrBuilder getOtherOrBuilder();
   }
   /**
-   * Protobuf type {@code tendermint.p2p.DefaultNodeInfo}
+   * Protobuf type {@code tendermint.p2p.NodeInfo}
    */
-  public static final class DefaultNodeInfo extends
+  public static final class NodeInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:tendermint.p2p.DefaultNodeInfo)
-      DefaultNodeInfoOrBuilder {
+      // @@protoc_insertion_point(message_implements:tendermint.p2p.NodeInfo)
+      NodeInfoOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use DefaultNodeInfo.newBuilder() to construct.
-    private DefaultNodeInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use NodeInfo.newBuilder() to construct.
+    private NodeInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private DefaultNodeInfo() {
-      defaultNodeId_ = "";
+    private NodeInfo() {
+      nodeId_ = "";
       listenAddr_ = "";
       network_ = "";
       version_ = "";
@@ -1558,7 +770,7 @@ public final class Types {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new DefaultNodeInfo();
+      return new NodeInfo();
     }
 
     @java.lang.Override
@@ -1566,7 +778,7 @@ public final class Types {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private DefaultNodeInfo(
+    private NodeInfo(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1600,7 +812,7 @@ public final class Types {
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              defaultNodeId_ = s;
+              nodeId_ = s;
               break;
             }
             case 26: {
@@ -1633,11 +845,11 @@ public final class Types {
               break;
             }
             case 66: {
-              tendermint.p2p.Types.DefaultNodeInfoOther.Builder subBuilder = null;
+              tendermint.p2p.Types.NodeInfoOther.Builder subBuilder = null;
               if (other_ != null) {
                 subBuilder = other_.toBuilder();
               }
-              other_ = input.readMessage(tendermint.p2p.Types.DefaultNodeInfoOther.parser(), extensionRegistry);
+              other_ = input.readMessage(tendermint.p2p.Types.NodeInfoOther.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(other_);
                 other_ = subBuilder.buildPartial();
@@ -1666,15 +878,15 @@ public final class Types {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return tendermint.p2p.Types.internal_static_tendermint_p2p_DefaultNodeInfo_descriptor;
+      return tendermint.p2p.Types.internal_static_tendermint_p2p_NodeInfo_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return tendermint.p2p.Types.internal_static_tendermint_p2p_DefaultNodeInfo_fieldAccessorTable
+      return tendermint.p2p.Types.internal_static_tendermint_p2p_NodeInfo_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              tendermint.p2p.Types.DefaultNodeInfo.class, tendermint.p2p.Types.DefaultNodeInfo.Builder.class);
+              tendermint.p2p.Types.NodeInfo.class, tendermint.p2p.Types.NodeInfo.Builder.class);
     }
 
     public static final int PROTOCOL_VERSION_FIELD_NUMBER = 1;
@@ -1703,38 +915,38 @@ public final class Types {
       return getProtocolVersion();
     }
 
-    public static final int DEFAULT_NODE_ID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object defaultNodeId_;
+    public static final int NODE_ID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object nodeId_;
     /**
-     * <code>string default_node_id = 2 [(.gogoproto.customname) = "DefaultNodeID"];</code>
-     * @return The defaultNodeId.
+     * <code>string node_id = 2 [(.gogoproto.customname) = "NodeID"];</code>
+     * @return The nodeId.
      */
     @java.lang.Override
-    public java.lang.String getDefaultNodeId() {
-      java.lang.Object ref = defaultNodeId_;
+    public java.lang.String getNodeId() {
+      java.lang.Object ref = nodeId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        defaultNodeId_ = s;
+        nodeId_ = s;
         return s;
       }
     }
     /**
-     * <code>string default_node_id = 2 [(.gogoproto.customname) = "DefaultNodeID"];</code>
-     * @return The bytes for defaultNodeId.
+     * <code>string node_id = 2 [(.gogoproto.customname) = "NodeID"];</code>
+     * @return The bytes for nodeId.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getDefaultNodeIdBytes() {
-      java.lang.Object ref = defaultNodeId_;
+        getNodeIdBytes() {
+      java.lang.Object ref = nodeId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        defaultNodeId_ = b;
+        nodeId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1905,9 +1117,9 @@ public final class Types {
     }
 
     public static final int OTHER_FIELD_NUMBER = 8;
-    private tendermint.p2p.Types.DefaultNodeInfoOther other_;
+    private tendermint.p2p.Types.NodeInfoOther other_;
     /**
-     * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+     * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
      * @return Whether the other field is set.
      */
     @java.lang.Override
@@ -1915,18 +1127,18 @@ public final class Types {
       return other_ != null;
     }
     /**
-     * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+     * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
      * @return The other.
      */
     @java.lang.Override
-    public tendermint.p2p.Types.DefaultNodeInfoOther getOther() {
-      return other_ == null ? tendermint.p2p.Types.DefaultNodeInfoOther.getDefaultInstance() : other_;
+    public tendermint.p2p.Types.NodeInfoOther getOther() {
+      return other_ == null ? tendermint.p2p.Types.NodeInfoOther.getDefaultInstance() : other_;
     }
     /**
-     * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+     * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public tendermint.p2p.Types.DefaultNodeInfoOtherOrBuilder getOtherOrBuilder() {
+    public tendermint.p2p.Types.NodeInfoOtherOrBuilder getOtherOrBuilder() {
       return getOther();
     }
 
@@ -1947,8 +1159,8 @@ public final class Types {
       if (protocolVersion_ != null) {
         output.writeMessage(1, getProtocolVersion());
       }
-      if (!getDefaultNodeIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, defaultNodeId_);
+      if (!getNodeIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, nodeId_);
       }
       if (!getListenAddrBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, listenAddr_);
@@ -1981,8 +1193,8 @@ public final class Types {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getProtocolVersion());
       }
-      if (!getDefaultNodeIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, defaultNodeId_);
+      if (!getNodeIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, nodeId_);
       }
       if (!getListenAddrBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, listenAddr_);
@@ -2014,18 +1226,18 @@ public final class Types {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof tendermint.p2p.Types.DefaultNodeInfo)) {
+      if (!(obj instanceof tendermint.p2p.Types.NodeInfo)) {
         return super.equals(obj);
       }
-      tendermint.p2p.Types.DefaultNodeInfo other = (tendermint.p2p.Types.DefaultNodeInfo) obj;
+      tendermint.p2p.Types.NodeInfo other = (tendermint.p2p.Types.NodeInfo) obj;
 
       if (hasProtocolVersion() != other.hasProtocolVersion()) return false;
       if (hasProtocolVersion()) {
         if (!getProtocolVersion()
             .equals(other.getProtocolVersion())) return false;
       }
-      if (!getDefaultNodeId()
-          .equals(other.getDefaultNodeId())) return false;
+      if (!getNodeId()
+          .equals(other.getNodeId())) return false;
       if (!getListenAddr()
           .equals(other.getListenAddr())) return false;
       if (!getNetwork()
@@ -2056,8 +1268,8 @@ public final class Types {
         hash = (37 * hash) + PROTOCOL_VERSION_FIELD_NUMBER;
         hash = (53 * hash) + getProtocolVersion().hashCode();
       }
-      hash = (37 * hash) + DEFAULT_NODE_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getDefaultNodeId().hashCode();
+      hash = (37 * hash) + NODE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeId().hashCode();
       hash = (37 * hash) + LISTEN_ADDR_FIELD_NUMBER;
       hash = (53 * hash) + getListenAddr().hashCode();
       hash = (37 * hash) + NETWORK_FIELD_NUMBER;
@@ -2077,69 +1289,69 @@ public final class Types {
       return hash;
     }
 
-    public static tendermint.p2p.Types.DefaultNodeInfo parseFrom(
+    public static tendermint.p2p.Types.NodeInfo parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfo parseFrom(
+    public static tendermint.p2p.Types.NodeInfo parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfo parseFrom(
+    public static tendermint.p2p.Types.NodeInfo parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfo parseFrom(
+    public static tendermint.p2p.Types.NodeInfo parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfo parseFrom(byte[] data)
+    public static tendermint.p2p.Types.NodeInfo parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfo parseFrom(
+    public static tendermint.p2p.Types.NodeInfo parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfo parseFrom(java.io.InputStream input)
+    public static tendermint.p2p.Types.NodeInfo parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfo parseFrom(
+    public static tendermint.p2p.Types.NodeInfo parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfo parseDelimitedFrom(java.io.InputStream input)
+    public static tendermint.p2p.Types.NodeInfo parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfo parseDelimitedFrom(
+    public static tendermint.p2p.Types.NodeInfo parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfo parseFrom(
+    public static tendermint.p2p.Types.NodeInfo parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfo parseFrom(
+    public static tendermint.p2p.Types.NodeInfo parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2152,7 +1364,7 @@ public final class Types {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(tendermint.p2p.Types.DefaultNodeInfo prototype) {
+    public static Builder newBuilder(tendermint.p2p.Types.NodeInfo prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -2168,26 +1380,26 @@ public final class Types {
       return builder;
     }
     /**
-     * Protobuf type {@code tendermint.p2p.DefaultNodeInfo}
+     * Protobuf type {@code tendermint.p2p.NodeInfo}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:tendermint.p2p.DefaultNodeInfo)
-        tendermint.p2p.Types.DefaultNodeInfoOrBuilder {
+        // @@protoc_insertion_point(builder_implements:tendermint.p2p.NodeInfo)
+        tendermint.p2p.Types.NodeInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return tendermint.p2p.Types.internal_static_tendermint_p2p_DefaultNodeInfo_descriptor;
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_NodeInfo_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return tendermint.p2p.Types.internal_static_tendermint_p2p_DefaultNodeInfo_fieldAccessorTable
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_NodeInfo_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                tendermint.p2p.Types.DefaultNodeInfo.class, tendermint.p2p.Types.DefaultNodeInfo.Builder.class);
+                tendermint.p2p.Types.NodeInfo.class, tendermint.p2p.Types.NodeInfo.Builder.class);
       }
 
-      // Construct using tendermint.p2p.Types.DefaultNodeInfo.newBuilder()
+      // Construct using tendermint.p2p.Types.NodeInfo.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2211,7 +1423,7 @@ public final class Types {
           protocolVersion_ = null;
           protocolVersionBuilder_ = null;
         }
-        defaultNodeId_ = "";
+        nodeId_ = "";
 
         listenAddr_ = "";
 
@@ -2235,17 +1447,17 @@ public final class Types {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return tendermint.p2p.Types.internal_static_tendermint_p2p_DefaultNodeInfo_descriptor;
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_NodeInfo_descriptor;
       }
 
       @java.lang.Override
-      public tendermint.p2p.Types.DefaultNodeInfo getDefaultInstanceForType() {
-        return tendermint.p2p.Types.DefaultNodeInfo.getDefaultInstance();
+      public tendermint.p2p.Types.NodeInfo getDefaultInstanceForType() {
+        return tendermint.p2p.Types.NodeInfo.getDefaultInstance();
       }
 
       @java.lang.Override
-      public tendermint.p2p.Types.DefaultNodeInfo build() {
-        tendermint.p2p.Types.DefaultNodeInfo result = buildPartial();
+      public tendermint.p2p.Types.NodeInfo build() {
+        tendermint.p2p.Types.NodeInfo result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2253,14 +1465,14 @@ public final class Types {
       }
 
       @java.lang.Override
-      public tendermint.p2p.Types.DefaultNodeInfo buildPartial() {
-        tendermint.p2p.Types.DefaultNodeInfo result = new tendermint.p2p.Types.DefaultNodeInfo(this);
+      public tendermint.p2p.Types.NodeInfo buildPartial() {
+        tendermint.p2p.Types.NodeInfo result = new tendermint.p2p.Types.NodeInfo(this);
         if (protocolVersionBuilder_ == null) {
           result.protocolVersion_ = protocolVersion_;
         } else {
           result.protocolVersion_ = protocolVersionBuilder_.build();
         }
-        result.defaultNodeId_ = defaultNodeId_;
+        result.nodeId_ = nodeId_;
         result.listenAddr_ = listenAddr_;
         result.network_ = network_;
         result.version_ = version_;
@@ -2309,21 +1521,21 @@ public final class Types {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof tendermint.p2p.Types.DefaultNodeInfo) {
-          return mergeFrom((tendermint.p2p.Types.DefaultNodeInfo)other);
+        if (other instanceof tendermint.p2p.Types.NodeInfo) {
+          return mergeFrom((tendermint.p2p.Types.NodeInfo)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(tendermint.p2p.Types.DefaultNodeInfo other) {
-        if (other == tendermint.p2p.Types.DefaultNodeInfo.getDefaultInstance()) return this;
+      public Builder mergeFrom(tendermint.p2p.Types.NodeInfo other) {
+        if (other == tendermint.p2p.Types.NodeInfo.getDefaultInstance()) return this;
         if (other.hasProtocolVersion()) {
           mergeProtocolVersion(other.getProtocolVersion());
         }
-        if (!other.getDefaultNodeId().isEmpty()) {
-          defaultNodeId_ = other.defaultNodeId_;
+        if (!other.getNodeId().isEmpty()) {
+          nodeId_ = other.nodeId_;
           onChanged();
         }
         if (!other.getListenAddr().isEmpty()) {
@@ -2363,11 +1575,11 @@ public final class Types {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        tendermint.p2p.Types.DefaultNodeInfo parsedMessage = null;
+        tendermint.p2p.Types.NodeInfo parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (tendermint.p2p.Types.DefaultNodeInfo) e.getUnfinishedMessage();
+          parsedMessage = (tendermint.p2p.Types.NodeInfo) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2496,78 +1708,78 @@ public final class Types {
         return protocolVersionBuilder_;
       }
 
-      private java.lang.Object defaultNodeId_ = "";
+      private java.lang.Object nodeId_ = "";
       /**
-       * <code>string default_node_id = 2 [(.gogoproto.customname) = "DefaultNodeID"];</code>
-       * @return The defaultNodeId.
+       * <code>string node_id = 2 [(.gogoproto.customname) = "NodeID"];</code>
+       * @return The nodeId.
        */
-      public java.lang.String getDefaultNodeId() {
-        java.lang.Object ref = defaultNodeId_;
+      public java.lang.String getNodeId() {
+        java.lang.Object ref = nodeId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          defaultNodeId_ = s;
+          nodeId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string default_node_id = 2 [(.gogoproto.customname) = "DefaultNodeID"];</code>
-       * @return The bytes for defaultNodeId.
+       * <code>string node_id = 2 [(.gogoproto.customname) = "NodeID"];</code>
+       * @return The bytes for nodeId.
        */
       public com.google.protobuf.ByteString
-          getDefaultNodeIdBytes() {
-        java.lang.Object ref = defaultNodeId_;
+          getNodeIdBytes() {
+        java.lang.Object ref = nodeId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          defaultNodeId_ = b;
+          nodeId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string default_node_id = 2 [(.gogoproto.customname) = "DefaultNodeID"];</code>
-       * @param value The defaultNodeId to set.
+       * <code>string node_id = 2 [(.gogoproto.customname) = "NodeID"];</code>
+       * @param value The nodeId to set.
        * @return This builder for chaining.
        */
-      public Builder setDefaultNodeId(
+      public Builder setNodeId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        defaultNodeId_ = value;
+        nodeId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string default_node_id = 2 [(.gogoproto.customname) = "DefaultNodeID"];</code>
+       * <code>string node_id = 2 [(.gogoproto.customname) = "NodeID"];</code>
        * @return This builder for chaining.
        */
-      public Builder clearDefaultNodeId() {
+      public Builder clearNodeId() {
         
-        defaultNodeId_ = getDefaultInstance().getDefaultNodeId();
+        nodeId_ = getDefaultInstance().getNodeId();
         onChanged();
         return this;
       }
       /**
-       * <code>string default_node_id = 2 [(.gogoproto.customname) = "DefaultNodeID"];</code>
-       * @param value The bytes for defaultNodeId to set.
+       * <code>string node_id = 2 [(.gogoproto.customname) = "NodeID"];</code>
+       * @param value The bytes for nodeId to set.
        * @return This builder for chaining.
        */
-      public Builder setDefaultNodeIdBytes(
+      public Builder setNodeIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        defaultNodeId_ = value;
+        nodeId_ = value;
         onChanged();
         return this;
       }
@@ -2910,31 +2122,31 @@ public final class Types {
         return this;
       }
 
-      private tendermint.p2p.Types.DefaultNodeInfoOther other_;
+      private tendermint.p2p.Types.NodeInfoOther other_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          tendermint.p2p.Types.DefaultNodeInfoOther, tendermint.p2p.Types.DefaultNodeInfoOther.Builder, tendermint.p2p.Types.DefaultNodeInfoOtherOrBuilder> otherBuilder_;
+          tendermint.p2p.Types.NodeInfoOther, tendermint.p2p.Types.NodeInfoOther.Builder, tendermint.p2p.Types.NodeInfoOtherOrBuilder> otherBuilder_;
       /**
-       * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+       * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
        * @return Whether the other field is set.
        */
       public boolean hasOther() {
         return otherBuilder_ != null || other_ != null;
       }
       /**
-       * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+       * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
        * @return The other.
        */
-      public tendermint.p2p.Types.DefaultNodeInfoOther getOther() {
+      public tendermint.p2p.Types.NodeInfoOther getOther() {
         if (otherBuilder_ == null) {
-          return other_ == null ? tendermint.p2p.Types.DefaultNodeInfoOther.getDefaultInstance() : other_;
+          return other_ == null ? tendermint.p2p.Types.NodeInfoOther.getDefaultInstance() : other_;
         } else {
           return otherBuilder_.getMessage();
         }
       }
       /**
-       * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+       * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
        */
-      public Builder setOther(tendermint.p2p.Types.DefaultNodeInfoOther value) {
+      public Builder setOther(tendermint.p2p.Types.NodeInfoOther value) {
         if (otherBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2948,10 +2160,10 @@ public final class Types {
         return this;
       }
       /**
-       * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+       * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setOther(
-          tendermint.p2p.Types.DefaultNodeInfoOther.Builder builderForValue) {
+          tendermint.p2p.Types.NodeInfoOther.Builder builderForValue) {
         if (otherBuilder_ == null) {
           other_ = builderForValue.build();
           onChanged();
@@ -2962,13 +2174,13 @@ public final class Types {
         return this;
       }
       /**
-       * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+       * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
        */
-      public Builder mergeOther(tendermint.p2p.Types.DefaultNodeInfoOther value) {
+      public Builder mergeOther(tendermint.p2p.Types.NodeInfoOther value) {
         if (otherBuilder_ == null) {
           if (other_ != null) {
             other_ =
-              tendermint.p2p.Types.DefaultNodeInfoOther.newBuilder(other_).mergeFrom(value).buildPartial();
+              tendermint.p2p.Types.NodeInfoOther.newBuilder(other_).mergeFrom(value).buildPartial();
           } else {
             other_ = value;
           }
@@ -2980,7 +2192,7 @@ public final class Types {
         return this;
       }
       /**
-       * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+       * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearOther() {
         if (otherBuilder_ == null) {
@@ -2994,33 +2206,33 @@ public final class Types {
         return this;
       }
       /**
-       * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+       * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
        */
-      public tendermint.p2p.Types.DefaultNodeInfoOther.Builder getOtherBuilder() {
+      public tendermint.p2p.Types.NodeInfoOther.Builder getOtherBuilder() {
         
         onChanged();
         return getOtherFieldBuilder().getBuilder();
       }
       /**
-       * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+       * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
        */
-      public tendermint.p2p.Types.DefaultNodeInfoOtherOrBuilder getOtherOrBuilder() {
+      public tendermint.p2p.Types.NodeInfoOtherOrBuilder getOtherOrBuilder() {
         if (otherBuilder_ != null) {
           return otherBuilder_.getMessageOrBuilder();
         } else {
           return other_ == null ?
-              tendermint.p2p.Types.DefaultNodeInfoOther.getDefaultInstance() : other_;
+              tendermint.p2p.Types.NodeInfoOther.getDefaultInstance() : other_;
         }
       }
       /**
-       * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
+       * <code>.tendermint.p2p.NodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          tendermint.p2p.Types.DefaultNodeInfoOther, tendermint.p2p.Types.DefaultNodeInfoOther.Builder, tendermint.p2p.Types.DefaultNodeInfoOtherOrBuilder> 
+          tendermint.p2p.Types.NodeInfoOther, tendermint.p2p.Types.NodeInfoOther.Builder, tendermint.p2p.Types.NodeInfoOtherOrBuilder> 
           getOtherFieldBuilder() {
         if (otherBuilder_ == null) {
           otherBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              tendermint.p2p.Types.DefaultNodeInfoOther, tendermint.p2p.Types.DefaultNodeInfoOther.Builder, tendermint.p2p.Types.DefaultNodeInfoOtherOrBuilder>(
+              tendermint.p2p.Types.NodeInfoOther, tendermint.p2p.Types.NodeInfoOther.Builder, tendermint.p2p.Types.NodeInfoOtherOrBuilder>(
                   getOther(),
                   getParentForChildren(),
                   isClean());
@@ -3041,48 +2253,48 @@ public final class Types {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:tendermint.p2p.DefaultNodeInfo)
+      // @@protoc_insertion_point(builder_scope:tendermint.p2p.NodeInfo)
     }
 
-    // @@protoc_insertion_point(class_scope:tendermint.p2p.DefaultNodeInfo)
-    private static final tendermint.p2p.Types.DefaultNodeInfo DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:tendermint.p2p.NodeInfo)
+    private static final tendermint.p2p.Types.NodeInfo DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new tendermint.p2p.Types.DefaultNodeInfo();
+      DEFAULT_INSTANCE = new tendermint.p2p.Types.NodeInfo();
     }
 
-    public static tendermint.p2p.Types.DefaultNodeInfo getDefaultInstance() {
+    public static tendermint.p2p.Types.NodeInfo getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<DefaultNodeInfo>
-        PARSER = new com.google.protobuf.AbstractParser<DefaultNodeInfo>() {
+    private static final com.google.protobuf.Parser<NodeInfo>
+        PARSER = new com.google.protobuf.AbstractParser<NodeInfo>() {
       @java.lang.Override
-      public DefaultNodeInfo parsePartialFrom(
+      public NodeInfo parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new DefaultNodeInfo(input, extensionRegistry);
+        return new NodeInfo(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<DefaultNodeInfo> parser() {
+    public static com.google.protobuf.Parser<NodeInfo> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<DefaultNodeInfo> getParserForType() {
+    public com.google.protobuf.Parser<NodeInfo> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public tendermint.p2p.Types.DefaultNodeInfo getDefaultInstanceForType() {
+    public tendermint.p2p.Types.NodeInfo getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface DefaultNodeInfoOtherOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:tendermint.p2p.DefaultNodeInfoOther)
+  public interface NodeInfoOtherOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:tendermint.p2p.NodeInfoOther)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -3110,18 +2322,18 @@ public final class Types {
         getRpcAddressBytes();
   }
   /**
-   * Protobuf type {@code tendermint.p2p.DefaultNodeInfoOther}
+   * Protobuf type {@code tendermint.p2p.NodeInfoOther}
    */
-  public static final class DefaultNodeInfoOther extends
+  public static final class NodeInfoOther extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:tendermint.p2p.DefaultNodeInfoOther)
-      DefaultNodeInfoOtherOrBuilder {
+      // @@protoc_insertion_point(message_implements:tendermint.p2p.NodeInfoOther)
+      NodeInfoOtherOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use DefaultNodeInfoOther.newBuilder() to construct.
-    private DefaultNodeInfoOther(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use NodeInfoOther.newBuilder() to construct.
+    private NodeInfoOther(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private DefaultNodeInfoOther() {
+    private NodeInfoOther() {
       txIndex_ = "";
       rpcAddress_ = "";
     }
@@ -3130,7 +2342,7 @@ public final class Types {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new DefaultNodeInfoOther();
+      return new NodeInfoOther();
     }
 
     @java.lang.Override
@@ -3138,7 +2350,7 @@ public final class Types {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private DefaultNodeInfoOther(
+    private NodeInfoOther(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3189,15 +2401,15 @@ public final class Types {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return tendermint.p2p.Types.internal_static_tendermint_p2p_DefaultNodeInfoOther_descriptor;
+      return tendermint.p2p.Types.internal_static_tendermint_p2p_NodeInfoOther_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return tendermint.p2p.Types.internal_static_tendermint_p2p_DefaultNodeInfoOther_fieldAccessorTable
+      return tendermint.p2p.Types.internal_static_tendermint_p2p_NodeInfoOther_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              tendermint.p2p.Types.DefaultNodeInfoOther.class, tendermint.p2p.Types.DefaultNodeInfoOther.Builder.class);
+              tendermint.p2p.Types.NodeInfoOther.class, tendermint.p2p.Types.NodeInfoOther.Builder.class);
     }
 
     public static final int TX_INDEX_FIELD_NUMBER = 1;
@@ -3321,10 +2533,10 @@ public final class Types {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof tendermint.p2p.Types.DefaultNodeInfoOther)) {
+      if (!(obj instanceof tendermint.p2p.Types.NodeInfoOther)) {
         return super.equals(obj);
       }
-      tendermint.p2p.Types.DefaultNodeInfoOther other = (tendermint.p2p.Types.DefaultNodeInfoOther) obj;
+      tendermint.p2p.Types.NodeInfoOther other = (tendermint.p2p.Types.NodeInfoOther) obj;
 
       if (!getTxIndex()
           .equals(other.getTxIndex())) return false;
@@ -3350,69 +2562,69 @@ public final class Types {
       return hash;
     }
 
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseFrom(
+    public static tendermint.p2p.Types.NodeInfoOther parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseFrom(
+    public static tendermint.p2p.Types.NodeInfoOther parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseFrom(
+    public static tendermint.p2p.Types.NodeInfoOther parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseFrom(
+    public static tendermint.p2p.Types.NodeInfoOther parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseFrom(byte[] data)
+    public static tendermint.p2p.Types.NodeInfoOther parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseFrom(
+    public static tendermint.p2p.Types.NodeInfoOther parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseFrom(java.io.InputStream input)
+    public static tendermint.p2p.Types.NodeInfoOther parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseFrom(
+    public static tendermint.p2p.Types.NodeInfoOther parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseDelimitedFrom(java.io.InputStream input)
+    public static tendermint.p2p.Types.NodeInfoOther parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseDelimitedFrom(
+    public static tendermint.p2p.Types.NodeInfoOther parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseFrom(
+    public static tendermint.p2p.Types.NodeInfoOther parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static tendermint.p2p.Types.DefaultNodeInfoOther parseFrom(
+    public static tendermint.p2p.Types.NodeInfoOther parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3425,7 +2637,7 @@ public final class Types {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(tendermint.p2p.Types.DefaultNodeInfoOther prototype) {
+    public static Builder newBuilder(tendermint.p2p.Types.NodeInfoOther prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -3441,26 +2653,26 @@ public final class Types {
       return builder;
     }
     /**
-     * Protobuf type {@code tendermint.p2p.DefaultNodeInfoOther}
+     * Protobuf type {@code tendermint.p2p.NodeInfoOther}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:tendermint.p2p.DefaultNodeInfoOther)
-        tendermint.p2p.Types.DefaultNodeInfoOtherOrBuilder {
+        // @@protoc_insertion_point(builder_implements:tendermint.p2p.NodeInfoOther)
+        tendermint.p2p.Types.NodeInfoOtherOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return tendermint.p2p.Types.internal_static_tendermint_p2p_DefaultNodeInfoOther_descriptor;
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_NodeInfoOther_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return tendermint.p2p.Types.internal_static_tendermint_p2p_DefaultNodeInfoOther_fieldAccessorTable
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_NodeInfoOther_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                tendermint.p2p.Types.DefaultNodeInfoOther.class, tendermint.p2p.Types.DefaultNodeInfoOther.Builder.class);
+                tendermint.p2p.Types.NodeInfoOther.class, tendermint.p2p.Types.NodeInfoOther.Builder.class);
       }
 
-      // Construct using tendermint.p2p.Types.DefaultNodeInfoOther.newBuilder()
+      // Construct using tendermint.p2p.Types.NodeInfoOther.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3488,17 +2700,17 @@ public final class Types {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return tendermint.p2p.Types.internal_static_tendermint_p2p_DefaultNodeInfoOther_descriptor;
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_NodeInfoOther_descriptor;
       }
 
       @java.lang.Override
-      public tendermint.p2p.Types.DefaultNodeInfoOther getDefaultInstanceForType() {
-        return tendermint.p2p.Types.DefaultNodeInfoOther.getDefaultInstance();
+      public tendermint.p2p.Types.NodeInfoOther getDefaultInstanceForType() {
+        return tendermint.p2p.Types.NodeInfoOther.getDefaultInstance();
       }
 
       @java.lang.Override
-      public tendermint.p2p.Types.DefaultNodeInfoOther build() {
-        tendermint.p2p.Types.DefaultNodeInfoOther result = buildPartial();
+      public tendermint.p2p.Types.NodeInfoOther build() {
+        tendermint.p2p.Types.NodeInfoOther result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -3506,8 +2718,8 @@ public final class Types {
       }
 
       @java.lang.Override
-      public tendermint.p2p.Types.DefaultNodeInfoOther buildPartial() {
-        tendermint.p2p.Types.DefaultNodeInfoOther result = new tendermint.p2p.Types.DefaultNodeInfoOther(this);
+      public tendermint.p2p.Types.NodeInfoOther buildPartial() {
+        tendermint.p2p.Types.NodeInfoOther result = new tendermint.p2p.Types.NodeInfoOther(this);
         result.txIndex_ = txIndex_;
         result.rpcAddress_ = rpcAddress_;
         onBuilt();
@@ -3548,16 +2760,16 @@ public final class Types {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof tendermint.p2p.Types.DefaultNodeInfoOther) {
-          return mergeFrom((tendermint.p2p.Types.DefaultNodeInfoOther)other);
+        if (other instanceof tendermint.p2p.Types.NodeInfoOther) {
+          return mergeFrom((tendermint.p2p.Types.NodeInfoOther)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(tendermint.p2p.Types.DefaultNodeInfoOther other) {
-        if (other == tendermint.p2p.Types.DefaultNodeInfoOther.getDefaultInstance()) return this;
+      public Builder mergeFrom(tendermint.p2p.Types.NodeInfoOther other) {
+        if (other == tendermint.p2p.Types.NodeInfoOther.getDefaultInstance()) return this;
         if (!other.getTxIndex().isEmpty()) {
           txIndex_ = other.txIndex_;
           onChanged();
@@ -3581,11 +2793,11 @@ public final class Types {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        tendermint.p2p.Types.DefaultNodeInfoOther parsedMessage = null;
+        tendermint.p2p.Types.NodeInfoOther parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (tendermint.p2p.Types.DefaultNodeInfoOther) e.getUnfinishedMessage();
+          parsedMessage = (tendermint.p2p.Types.NodeInfoOther) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3759,66 +2971,2261 @@ public final class Types {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:tendermint.p2p.DefaultNodeInfoOther)
+      // @@protoc_insertion_point(builder_scope:tendermint.p2p.NodeInfoOther)
     }
 
-    // @@protoc_insertion_point(class_scope:tendermint.p2p.DefaultNodeInfoOther)
-    private static final tendermint.p2p.Types.DefaultNodeInfoOther DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:tendermint.p2p.NodeInfoOther)
+    private static final tendermint.p2p.Types.NodeInfoOther DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new tendermint.p2p.Types.DefaultNodeInfoOther();
+      DEFAULT_INSTANCE = new tendermint.p2p.Types.NodeInfoOther();
     }
 
-    public static tendermint.p2p.Types.DefaultNodeInfoOther getDefaultInstance() {
+    public static tendermint.p2p.Types.NodeInfoOther getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<DefaultNodeInfoOther>
-        PARSER = new com.google.protobuf.AbstractParser<DefaultNodeInfoOther>() {
+    private static final com.google.protobuf.Parser<NodeInfoOther>
+        PARSER = new com.google.protobuf.AbstractParser<NodeInfoOther>() {
       @java.lang.Override
-      public DefaultNodeInfoOther parsePartialFrom(
+      public NodeInfoOther parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new DefaultNodeInfoOther(input, extensionRegistry);
+        return new NodeInfoOther(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<DefaultNodeInfoOther> parser() {
+    public static com.google.protobuf.Parser<NodeInfoOther> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<DefaultNodeInfoOther> getParserForType() {
+    public com.google.protobuf.Parser<NodeInfoOther> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public tendermint.p2p.Types.DefaultNodeInfoOther getDefaultInstanceForType() {
+    public tendermint.p2p.Types.NodeInfoOther getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PeerInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:tendermint.p2p.PeerInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+     */
+    java.util.List<tendermint.p2p.Types.PeerAddressInfo> 
+        getAddressInfoList();
+    /**
+     * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+     */
+    tendermint.p2p.Types.PeerAddressInfo getAddressInfo(int index);
+    /**
+     * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+     */
+    int getAddressInfoCount();
+    /**
+     * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+     */
+    java.util.List<? extends tendermint.p2p.Types.PeerAddressInfoOrBuilder> 
+        getAddressInfoOrBuilderList();
+    /**
+     * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+     */
+    tendermint.p2p.Types.PeerAddressInfoOrBuilder getAddressInfoOrBuilder(
+        int index);
+
+    /**
+     * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+     * @return Whether the lastConnected field is set.
+     */
+    boolean hasLastConnected();
+    /**
+     * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+     * @return The lastConnected.
+     */
+    com.google.protobuf.Timestamp getLastConnected();
+    /**
+     * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getLastConnectedOrBuilder();
+  }
+  /**
+   * Protobuf type {@code tendermint.p2p.PeerInfo}
+   */
+  public static final class PeerInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:tendermint.p2p.PeerInfo)
+      PeerInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PeerInfo.newBuilder() to construct.
+    private PeerInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PeerInfo() {
+      id_ = "";
+      addressInfo_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PeerInfo();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PeerInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                addressInfo_ = new java.util.ArrayList<tendermint.p2p.Types.PeerAddressInfo>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              addressInfo_.add(
+                  input.readMessage(tendermint.p2p.Types.PeerAddressInfo.parser(), extensionRegistry));
+              break;
+            }
+            case 26: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (lastConnected_ != null) {
+                subBuilder = lastConnected_.toBuilder();
+              }
+              lastConnected_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(lastConnected_);
+                lastConnected_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          addressInfo_ = java.util.Collections.unmodifiableList(addressInfo_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return tendermint.p2p.Types.internal_static_tendermint_p2p_PeerInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return tendermint.p2p.Types.internal_static_tendermint_p2p_PeerInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              tendermint.p2p.Types.PeerInfo.class, tendermint.p2p.Types.PeerInfo.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ADDRESS_INFO_FIELD_NUMBER = 2;
+    private java.util.List<tendermint.p2p.Types.PeerAddressInfo> addressInfo_;
+    /**
+     * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<tendermint.p2p.Types.PeerAddressInfo> getAddressInfoList() {
+      return addressInfo_;
+    }
+    /**
+     * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends tendermint.p2p.Types.PeerAddressInfoOrBuilder> 
+        getAddressInfoOrBuilderList() {
+      return addressInfo_;
+    }
+    /**
+     * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+     */
+    @java.lang.Override
+    public int getAddressInfoCount() {
+      return addressInfo_.size();
+    }
+    /**
+     * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+     */
+    @java.lang.Override
+    public tendermint.p2p.Types.PeerAddressInfo getAddressInfo(int index) {
+      return addressInfo_.get(index);
+    }
+    /**
+     * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+     */
+    @java.lang.Override
+    public tendermint.p2p.Types.PeerAddressInfoOrBuilder getAddressInfoOrBuilder(
+        int index) {
+      return addressInfo_.get(index);
+    }
+
+    public static final int LAST_CONNECTED_FIELD_NUMBER = 3;
+    private com.google.protobuf.Timestamp lastConnected_;
+    /**
+     * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+     * @return Whether the lastConnected field is set.
+     */
+    @java.lang.Override
+    public boolean hasLastConnected() {
+      return lastConnected_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+     * @return The lastConnected.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getLastConnected() {
+      return lastConnected_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : lastConnected_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getLastConnectedOrBuilder() {
+      return getLastConnected();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      for (int i = 0; i < addressInfo_.size(); i++) {
+        output.writeMessage(2, addressInfo_.get(i));
+      }
+      if (lastConnected_ != null) {
+        output.writeMessage(3, getLastConnected());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      for (int i = 0; i < addressInfo_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, addressInfo_.get(i));
+      }
+      if (lastConnected_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getLastConnected());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof tendermint.p2p.Types.PeerInfo)) {
+        return super.equals(obj);
+      }
+      tendermint.p2p.Types.PeerInfo other = (tendermint.p2p.Types.PeerInfo) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getAddressInfoList()
+          .equals(other.getAddressInfoList())) return false;
+      if (hasLastConnected() != other.hasLastConnected()) return false;
+      if (hasLastConnected()) {
+        if (!getLastConnected()
+            .equals(other.getLastConnected())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      if (getAddressInfoCount() > 0) {
+        hash = (37 * hash) + ADDRESS_INFO_FIELD_NUMBER;
+        hash = (53 * hash) + getAddressInfoList().hashCode();
+      }
+      if (hasLastConnected()) {
+        hash = (37 * hash) + LAST_CONNECTED_FIELD_NUMBER;
+        hash = (53 * hash) + getLastConnected().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static tendermint.p2p.Types.PeerInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static tendermint.p2p.Types.PeerInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static tendermint.p2p.Types.PeerInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static tendermint.p2p.Types.PeerInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static tendermint.p2p.Types.PeerInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static tendermint.p2p.Types.PeerInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static tendermint.p2p.Types.PeerInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static tendermint.p2p.Types.PeerInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static tendermint.p2p.Types.PeerInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static tendermint.p2p.Types.PeerInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static tendermint.p2p.Types.PeerInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static tendermint.p2p.Types.PeerInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(tendermint.p2p.Types.PeerInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tendermint.p2p.PeerInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:tendermint.p2p.PeerInfo)
+        tendermint.p2p.Types.PeerInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_PeerInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_PeerInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                tendermint.p2p.Types.PeerInfo.class, tendermint.p2p.Types.PeerInfo.Builder.class);
+      }
+
+      // Construct using tendermint.p2p.Types.PeerInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getAddressInfoFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        if (addressInfoBuilder_ == null) {
+          addressInfo_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          addressInfoBuilder_.clear();
+        }
+        if (lastConnectedBuilder_ == null) {
+          lastConnected_ = null;
+        } else {
+          lastConnected_ = null;
+          lastConnectedBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_PeerInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public tendermint.p2p.Types.PeerInfo getDefaultInstanceForType() {
+        return tendermint.p2p.Types.PeerInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public tendermint.p2p.Types.PeerInfo build() {
+        tendermint.p2p.Types.PeerInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public tendermint.p2p.Types.PeerInfo buildPartial() {
+        tendermint.p2p.Types.PeerInfo result = new tendermint.p2p.Types.PeerInfo(this);
+        int from_bitField0_ = bitField0_;
+        result.id_ = id_;
+        if (addressInfoBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            addressInfo_ = java.util.Collections.unmodifiableList(addressInfo_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.addressInfo_ = addressInfo_;
+        } else {
+          result.addressInfo_ = addressInfoBuilder_.build();
+        }
+        if (lastConnectedBuilder_ == null) {
+          result.lastConnected_ = lastConnected_;
+        } else {
+          result.lastConnected_ = lastConnectedBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof tendermint.p2p.Types.PeerInfo) {
+          return mergeFrom((tendermint.p2p.Types.PeerInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(tendermint.p2p.Types.PeerInfo other) {
+        if (other == tendermint.p2p.Types.PeerInfo.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (addressInfoBuilder_ == null) {
+          if (!other.addressInfo_.isEmpty()) {
+            if (addressInfo_.isEmpty()) {
+              addressInfo_ = other.addressInfo_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureAddressInfoIsMutable();
+              addressInfo_.addAll(other.addressInfo_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.addressInfo_.isEmpty()) {
+            if (addressInfoBuilder_.isEmpty()) {
+              addressInfoBuilder_.dispose();
+              addressInfoBuilder_ = null;
+              addressInfo_ = other.addressInfo_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              addressInfoBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getAddressInfoFieldBuilder() : null;
+            } else {
+              addressInfoBuilder_.addAllMessages(other.addressInfo_);
+            }
+          }
+        }
+        if (other.hasLastConnected()) {
+          mergeLastConnected(other.getLastConnected());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        tendermint.p2p.Types.PeerInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (tendermint.p2p.Types.PeerInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<tendermint.p2p.Types.PeerAddressInfo> addressInfo_ =
+        java.util.Collections.emptyList();
+      private void ensureAddressInfoIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          addressInfo_ = new java.util.ArrayList<tendermint.p2p.Types.PeerAddressInfo>(addressInfo_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          tendermint.p2p.Types.PeerAddressInfo, tendermint.p2p.Types.PeerAddressInfo.Builder, tendermint.p2p.Types.PeerAddressInfoOrBuilder> addressInfoBuilder_;
+
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public java.util.List<tendermint.p2p.Types.PeerAddressInfo> getAddressInfoList() {
+        if (addressInfoBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(addressInfo_);
+        } else {
+          return addressInfoBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public int getAddressInfoCount() {
+        if (addressInfoBuilder_ == null) {
+          return addressInfo_.size();
+        } else {
+          return addressInfoBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public tendermint.p2p.Types.PeerAddressInfo getAddressInfo(int index) {
+        if (addressInfoBuilder_ == null) {
+          return addressInfo_.get(index);
+        } else {
+          return addressInfoBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public Builder setAddressInfo(
+          int index, tendermint.p2p.Types.PeerAddressInfo value) {
+        if (addressInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAddressInfoIsMutable();
+          addressInfo_.set(index, value);
+          onChanged();
+        } else {
+          addressInfoBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public Builder setAddressInfo(
+          int index, tendermint.p2p.Types.PeerAddressInfo.Builder builderForValue) {
+        if (addressInfoBuilder_ == null) {
+          ensureAddressInfoIsMutable();
+          addressInfo_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          addressInfoBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public Builder addAddressInfo(tendermint.p2p.Types.PeerAddressInfo value) {
+        if (addressInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAddressInfoIsMutable();
+          addressInfo_.add(value);
+          onChanged();
+        } else {
+          addressInfoBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public Builder addAddressInfo(
+          int index, tendermint.p2p.Types.PeerAddressInfo value) {
+        if (addressInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAddressInfoIsMutable();
+          addressInfo_.add(index, value);
+          onChanged();
+        } else {
+          addressInfoBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public Builder addAddressInfo(
+          tendermint.p2p.Types.PeerAddressInfo.Builder builderForValue) {
+        if (addressInfoBuilder_ == null) {
+          ensureAddressInfoIsMutable();
+          addressInfo_.add(builderForValue.build());
+          onChanged();
+        } else {
+          addressInfoBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public Builder addAddressInfo(
+          int index, tendermint.p2p.Types.PeerAddressInfo.Builder builderForValue) {
+        if (addressInfoBuilder_ == null) {
+          ensureAddressInfoIsMutable();
+          addressInfo_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          addressInfoBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public Builder addAllAddressInfo(
+          java.lang.Iterable<? extends tendermint.p2p.Types.PeerAddressInfo> values) {
+        if (addressInfoBuilder_ == null) {
+          ensureAddressInfoIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, addressInfo_);
+          onChanged();
+        } else {
+          addressInfoBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public Builder clearAddressInfo() {
+        if (addressInfoBuilder_ == null) {
+          addressInfo_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          addressInfoBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public Builder removeAddressInfo(int index) {
+        if (addressInfoBuilder_ == null) {
+          ensureAddressInfoIsMutable();
+          addressInfo_.remove(index);
+          onChanged();
+        } else {
+          addressInfoBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public tendermint.p2p.Types.PeerAddressInfo.Builder getAddressInfoBuilder(
+          int index) {
+        return getAddressInfoFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public tendermint.p2p.Types.PeerAddressInfoOrBuilder getAddressInfoOrBuilder(
+          int index) {
+        if (addressInfoBuilder_ == null) {
+          return addressInfo_.get(index);  } else {
+          return addressInfoBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public java.util.List<? extends tendermint.p2p.Types.PeerAddressInfoOrBuilder> 
+           getAddressInfoOrBuilderList() {
+        if (addressInfoBuilder_ != null) {
+          return addressInfoBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(addressInfo_);
+        }
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public tendermint.p2p.Types.PeerAddressInfo.Builder addAddressInfoBuilder() {
+        return getAddressInfoFieldBuilder().addBuilder(
+            tendermint.p2p.Types.PeerAddressInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public tendermint.p2p.Types.PeerAddressInfo.Builder addAddressInfoBuilder(
+          int index) {
+        return getAddressInfoFieldBuilder().addBuilder(
+            index, tendermint.p2p.Types.PeerAddressInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .tendermint.p2p.PeerAddressInfo address_info = 2;</code>
+       */
+      public java.util.List<tendermint.p2p.Types.PeerAddressInfo.Builder> 
+           getAddressInfoBuilderList() {
+        return getAddressInfoFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          tendermint.p2p.Types.PeerAddressInfo, tendermint.p2p.Types.PeerAddressInfo.Builder, tendermint.p2p.Types.PeerAddressInfoOrBuilder> 
+          getAddressInfoFieldBuilder() {
+        if (addressInfoBuilder_ == null) {
+          addressInfoBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              tendermint.p2p.Types.PeerAddressInfo, tendermint.p2p.Types.PeerAddressInfo.Builder, tendermint.p2p.Types.PeerAddressInfoOrBuilder>(
+                  addressInfo_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          addressInfo_ = null;
+        }
+        return addressInfoBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp lastConnected_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> lastConnectedBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+       * @return Whether the lastConnected field is set.
+       */
+      public boolean hasLastConnected() {
+        return lastConnectedBuilder_ != null || lastConnected_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+       * @return The lastConnected.
+       */
+      public com.google.protobuf.Timestamp getLastConnected() {
+        if (lastConnectedBuilder_ == null) {
+          return lastConnected_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : lastConnected_;
+        } else {
+          return lastConnectedBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setLastConnected(com.google.protobuf.Timestamp value) {
+        if (lastConnectedBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          lastConnected_ = value;
+          onChanged();
+        } else {
+          lastConnectedBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setLastConnected(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (lastConnectedBuilder_ == null) {
+          lastConnected_ = builderForValue.build();
+          onChanged();
+        } else {
+          lastConnectedBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder mergeLastConnected(com.google.protobuf.Timestamp value) {
+        if (lastConnectedBuilder_ == null) {
+          if (lastConnected_ != null) {
+            lastConnected_ =
+              com.google.protobuf.Timestamp.newBuilder(lastConnected_).mergeFrom(value).buildPartial();
+          } else {
+            lastConnected_ = value;
+          }
+          onChanged();
+        } else {
+          lastConnectedBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder clearLastConnected() {
+        if (lastConnectedBuilder_ == null) {
+          lastConnected_ = null;
+          onChanged();
+        } else {
+          lastConnected_ = null;
+          lastConnectedBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getLastConnectedBuilder() {
+        
+        onChanged();
+        return getLastConnectedFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getLastConnectedOrBuilder() {
+        if (lastConnectedBuilder_ != null) {
+          return lastConnectedBuilder_.getMessageOrBuilder();
+        } else {
+          return lastConnected_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : lastConnected_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_connected = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getLastConnectedFieldBuilder() {
+        if (lastConnectedBuilder_ == null) {
+          lastConnectedBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getLastConnected(),
+                  getParentForChildren(),
+                  isClean());
+          lastConnected_ = null;
+        }
+        return lastConnectedBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:tendermint.p2p.PeerInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:tendermint.p2p.PeerInfo)
+    private static final tendermint.p2p.Types.PeerInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new tendermint.p2p.Types.PeerInfo();
+    }
+
+    public static tendermint.p2p.Types.PeerInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PeerInfo>
+        PARSER = new com.google.protobuf.AbstractParser<PeerInfo>() {
+      @java.lang.Override
+      public PeerInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PeerInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PeerInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PeerInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public tendermint.p2p.Types.PeerInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PeerAddressInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:tendermint.p2p.PeerAddressInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string address = 1;</code>
+     * @return The address.
+     */
+    java.lang.String getAddress();
+    /**
+     * <code>string address = 1;</code>
+     * @return The bytes for address.
+     */
+    com.google.protobuf.ByteString
+        getAddressBytes();
+
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+     * @return Whether the lastDialSuccess field is set.
+     */
+    boolean hasLastDialSuccess();
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+     * @return The lastDialSuccess.
+     */
+    com.google.protobuf.Timestamp getLastDialSuccess();
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getLastDialSuccessOrBuilder();
+
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+     * @return Whether the lastDialFailure field is set.
+     */
+    boolean hasLastDialFailure();
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+     * @return The lastDialFailure.
+     */
+    com.google.protobuf.Timestamp getLastDialFailure();
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getLastDialFailureOrBuilder();
+
+    /**
+     * <code>uint32 dial_failures = 4;</code>
+     * @return The dialFailures.
+     */
+    int getDialFailures();
+  }
+  /**
+   * Protobuf type {@code tendermint.p2p.PeerAddressInfo}
+   */
+  public static final class PeerAddressInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:tendermint.p2p.PeerAddressInfo)
+      PeerAddressInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PeerAddressInfo.newBuilder() to construct.
+    private PeerAddressInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PeerAddressInfo() {
+      address_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PeerAddressInfo();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PeerAddressInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              address_ = s;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (lastDialSuccess_ != null) {
+                subBuilder = lastDialSuccess_.toBuilder();
+              }
+              lastDialSuccess_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(lastDialSuccess_);
+                lastDialSuccess_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 26: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (lastDialFailure_ != null) {
+                subBuilder = lastDialFailure_.toBuilder();
+              }
+              lastDialFailure_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(lastDialFailure_);
+                lastDialFailure_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 32: {
+
+              dialFailures_ = input.readUInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return tendermint.p2p.Types.internal_static_tendermint_p2p_PeerAddressInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return tendermint.p2p.Types.internal_static_tendermint_p2p_PeerAddressInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              tendermint.p2p.Types.PeerAddressInfo.class, tendermint.p2p.Types.PeerAddressInfo.Builder.class);
+    }
+
+    public static final int ADDRESS_FIELD_NUMBER = 1;
+    private volatile java.lang.Object address_;
+    /**
+     * <code>string address = 1;</code>
+     * @return The address.
+     */
+    @java.lang.Override
+    public java.lang.String getAddress() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        address_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string address = 1;</code>
+     * @return The bytes for address.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAddressBytes() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        address_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LAST_DIAL_SUCCESS_FIELD_NUMBER = 2;
+    private com.google.protobuf.Timestamp lastDialSuccess_;
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+     * @return Whether the lastDialSuccess field is set.
+     */
+    @java.lang.Override
+    public boolean hasLastDialSuccess() {
+      return lastDialSuccess_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+     * @return The lastDialSuccess.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getLastDialSuccess() {
+      return lastDialSuccess_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : lastDialSuccess_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getLastDialSuccessOrBuilder() {
+      return getLastDialSuccess();
+    }
+
+    public static final int LAST_DIAL_FAILURE_FIELD_NUMBER = 3;
+    private com.google.protobuf.Timestamp lastDialFailure_;
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+     * @return Whether the lastDialFailure field is set.
+     */
+    @java.lang.Override
+    public boolean hasLastDialFailure() {
+      return lastDialFailure_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+     * @return The lastDialFailure.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getLastDialFailure() {
+      return lastDialFailure_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : lastDialFailure_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getLastDialFailureOrBuilder() {
+      return getLastDialFailure();
+    }
+
+    public static final int DIAL_FAILURES_FIELD_NUMBER = 4;
+    private int dialFailures_;
+    /**
+     * <code>uint32 dial_failures = 4;</code>
+     * @return The dialFailures.
+     */
+    @java.lang.Override
+    public int getDialFailures() {
+      return dialFailures_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getAddressBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, address_);
+      }
+      if (lastDialSuccess_ != null) {
+        output.writeMessage(2, getLastDialSuccess());
+      }
+      if (lastDialFailure_ != null) {
+        output.writeMessage(3, getLastDialFailure());
+      }
+      if (dialFailures_ != 0) {
+        output.writeUInt32(4, dialFailures_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getAddressBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, address_);
+      }
+      if (lastDialSuccess_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getLastDialSuccess());
+      }
+      if (lastDialFailure_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getLastDialFailure());
+      }
+      if (dialFailures_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(4, dialFailures_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof tendermint.p2p.Types.PeerAddressInfo)) {
+        return super.equals(obj);
+      }
+      tendermint.p2p.Types.PeerAddressInfo other = (tendermint.p2p.Types.PeerAddressInfo) obj;
+
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (hasLastDialSuccess() != other.hasLastDialSuccess()) return false;
+      if (hasLastDialSuccess()) {
+        if (!getLastDialSuccess()
+            .equals(other.getLastDialSuccess())) return false;
+      }
+      if (hasLastDialFailure() != other.hasLastDialFailure()) return false;
+      if (hasLastDialFailure()) {
+        if (!getLastDialFailure()
+            .equals(other.getLastDialFailure())) return false;
+      }
+      if (getDialFailures()
+          != other.getDialFailures()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getAddress().hashCode();
+      if (hasLastDialSuccess()) {
+        hash = (37 * hash) + LAST_DIAL_SUCCESS_FIELD_NUMBER;
+        hash = (53 * hash) + getLastDialSuccess().hashCode();
+      }
+      if (hasLastDialFailure()) {
+        hash = (37 * hash) + LAST_DIAL_FAILURE_FIELD_NUMBER;
+        hash = (53 * hash) + getLastDialFailure().hashCode();
+      }
+      hash = (37 * hash) + DIAL_FAILURES_FIELD_NUMBER;
+      hash = (53 * hash) + getDialFailures();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static tendermint.p2p.Types.PeerAddressInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static tendermint.p2p.Types.PeerAddressInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static tendermint.p2p.Types.PeerAddressInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static tendermint.p2p.Types.PeerAddressInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static tendermint.p2p.Types.PeerAddressInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static tendermint.p2p.Types.PeerAddressInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static tendermint.p2p.Types.PeerAddressInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static tendermint.p2p.Types.PeerAddressInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static tendermint.p2p.Types.PeerAddressInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static tendermint.p2p.Types.PeerAddressInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static tendermint.p2p.Types.PeerAddressInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static tendermint.p2p.Types.PeerAddressInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(tendermint.p2p.Types.PeerAddressInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tendermint.p2p.PeerAddressInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:tendermint.p2p.PeerAddressInfo)
+        tendermint.p2p.Types.PeerAddressInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_PeerAddressInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_PeerAddressInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                tendermint.p2p.Types.PeerAddressInfo.class, tendermint.p2p.Types.PeerAddressInfo.Builder.class);
+      }
+
+      // Construct using tendermint.p2p.Types.PeerAddressInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        address_ = "";
+
+        if (lastDialSuccessBuilder_ == null) {
+          lastDialSuccess_ = null;
+        } else {
+          lastDialSuccess_ = null;
+          lastDialSuccessBuilder_ = null;
+        }
+        if (lastDialFailureBuilder_ == null) {
+          lastDialFailure_ = null;
+        } else {
+          lastDialFailure_ = null;
+          lastDialFailureBuilder_ = null;
+        }
+        dialFailures_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return tendermint.p2p.Types.internal_static_tendermint_p2p_PeerAddressInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public tendermint.p2p.Types.PeerAddressInfo getDefaultInstanceForType() {
+        return tendermint.p2p.Types.PeerAddressInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public tendermint.p2p.Types.PeerAddressInfo build() {
+        tendermint.p2p.Types.PeerAddressInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public tendermint.p2p.Types.PeerAddressInfo buildPartial() {
+        tendermint.p2p.Types.PeerAddressInfo result = new tendermint.p2p.Types.PeerAddressInfo(this);
+        result.address_ = address_;
+        if (lastDialSuccessBuilder_ == null) {
+          result.lastDialSuccess_ = lastDialSuccess_;
+        } else {
+          result.lastDialSuccess_ = lastDialSuccessBuilder_.build();
+        }
+        if (lastDialFailureBuilder_ == null) {
+          result.lastDialFailure_ = lastDialFailure_;
+        } else {
+          result.lastDialFailure_ = lastDialFailureBuilder_.build();
+        }
+        result.dialFailures_ = dialFailures_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof tendermint.p2p.Types.PeerAddressInfo) {
+          return mergeFrom((tendermint.p2p.Types.PeerAddressInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(tendermint.p2p.Types.PeerAddressInfo other) {
+        if (other == tendermint.p2p.Types.PeerAddressInfo.getDefaultInstance()) return this;
+        if (!other.getAddress().isEmpty()) {
+          address_ = other.address_;
+          onChanged();
+        }
+        if (other.hasLastDialSuccess()) {
+          mergeLastDialSuccess(other.getLastDialSuccess());
+        }
+        if (other.hasLastDialFailure()) {
+          mergeLastDialFailure(other.getLastDialFailure());
+        }
+        if (other.getDialFailures() != 0) {
+          setDialFailures(other.getDialFailures());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        tendermint.p2p.Types.PeerAddressInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (tendermint.p2p.Types.PeerAddressInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object address_ = "";
+      /**
+       * <code>string address = 1;</code>
+       * @return The address.
+       */
+      public java.lang.String getAddress() {
+        java.lang.Object ref = address_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          address_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string address = 1;</code>
+       * @return The bytes for address.
+       */
+      public com.google.protobuf.ByteString
+          getAddressBytes() {
+        java.lang.Object ref = address_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          address_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string address = 1;</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddress(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        address_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string address = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAddress() {
+        
+        address_ = getDefaultInstance().getAddress();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string address = 1;</code>
+       * @param value The bytes for address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        address_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp lastDialSuccess_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> lastDialSuccessBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+       * @return Whether the lastDialSuccess field is set.
+       */
+      public boolean hasLastDialSuccess() {
+        return lastDialSuccessBuilder_ != null || lastDialSuccess_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+       * @return The lastDialSuccess.
+       */
+      public com.google.protobuf.Timestamp getLastDialSuccess() {
+        if (lastDialSuccessBuilder_ == null) {
+          return lastDialSuccess_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : lastDialSuccess_;
+        } else {
+          return lastDialSuccessBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setLastDialSuccess(com.google.protobuf.Timestamp value) {
+        if (lastDialSuccessBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          lastDialSuccess_ = value;
+          onChanged();
+        } else {
+          lastDialSuccessBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setLastDialSuccess(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (lastDialSuccessBuilder_ == null) {
+          lastDialSuccess_ = builderForValue.build();
+          onChanged();
+        } else {
+          lastDialSuccessBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder mergeLastDialSuccess(com.google.protobuf.Timestamp value) {
+        if (lastDialSuccessBuilder_ == null) {
+          if (lastDialSuccess_ != null) {
+            lastDialSuccess_ =
+              com.google.protobuf.Timestamp.newBuilder(lastDialSuccess_).mergeFrom(value).buildPartial();
+          } else {
+            lastDialSuccess_ = value;
+          }
+          onChanged();
+        } else {
+          lastDialSuccessBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder clearLastDialSuccess() {
+        if (lastDialSuccessBuilder_ == null) {
+          lastDialSuccess_ = null;
+          onChanged();
+        } else {
+          lastDialSuccess_ = null;
+          lastDialSuccessBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getLastDialSuccessBuilder() {
+        
+        onChanged();
+        return getLastDialSuccessFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getLastDialSuccessOrBuilder() {
+        if (lastDialSuccessBuilder_ != null) {
+          return lastDialSuccessBuilder_.getMessageOrBuilder();
+        } else {
+          return lastDialSuccess_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : lastDialSuccess_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_success = 2 [(.gogoproto.stdtime) = true];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getLastDialSuccessFieldBuilder() {
+        if (lastDialSuccessBuilder_ == null) {
+          lastDialSuccessBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getLastDialSuccess(),
+                  getParentForChildren(),
+                  isClean());
+          lastDialSuccess_ = null;
+        }
+        return lastDialSuccessBuilder_;
+      }
+
+      private com.google.protobuf.Timestamp lastDialFailure_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> lastDialFailureBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+       * @return Whether the lastDialFailure field is set.
+       */
+      public boolean hasLastDialFailure() {
+        return lastDialFailureBuilder_ != null || lastDialFailure_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+       * @return The lastDialFailure.
+       */
+      public com.google.protobuf.Timestamp getLastDialFailure() {
+        if (lastDialFailureBuilder_ == null) {
+          return lastDialFailure_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : lastDialFailure_;
+        } else {
+          return lastDialFailureBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setLastDialFailure(com.google.protobuf.Timestamp value) {
+        if (lastDialFailureBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          lastDialFailure_ = value;
+          onChanged();
+        } else {
+          lastDialFailureBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setLastDialFailure(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (lastDialFailureBuilder_ == null) {
+          lastDialFailure_ = builderForValue.build();
+          onChanged();
+        } else {
+          lastDialFailureBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder mergeLastDialFailure(com.google.protobuf.Timestamp value) {
+        if (lastDialFailureBuilder_ == null) {
+          if (lastDialFailure_ != null) {
+            lastDialFailure_ =
+              com.google.protobuf.Timestamp.newBuilder(lastDialFailure_).mergeFrom(value).buildPartial();
+          } else {
+            lastDialFailure_ = value;
+          }
+          onChanged();
+        } else {
+          lastDialFailureBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public Builder clearLastDialFailure() {
+        if (lastDialFailureBuilder_ == null) {
+          lastDialFailure_ = null;
+          onChanged();
+        } else {
+          lastDialFailure_ = null;
+          lastDialFailureBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getLastDialFailureBuilder() {
+        
+        onChanged();
+        return getLastDialFailureFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getLastDialFailureOrBuilder() {
+        if (lastDialFailureBuilder_ != null) {
+          return lastDialFailureBuilder_.getMessageOrBuilder();
+        } else {
+          return lastDialFailure_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : lastDialFailure_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp last_dial_failure = 3 [(.gogoproto.stdtime) = true];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getLastDialFailureFieldBuilder() {
+        if (lastDialFailureBuilder_ == null) {
+          lastDialFailureBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getLastDialFailure(),
+                  getParentForChildren(),
+                  isClean());
+          lastDialFailure_ = null;
+        }
+        return lastDialFailureBuilder_;
+      }
+
+      private int dialFailures_ ;
+      /**
+       * <code>uint32 dial_failures = 4;</code>
+       * @return The dialFailures.
+       */
+      @java.lang.Override
+      public int getDialFailures() {
+        return dialFailures_;
+      }
+      /**
+       * <code>uint32 dial_failures = 4;</code>
+       * @param value The dialFailures to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDialFailures(int value) {
+        
+        dialFailures_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 dial_failures = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDialFailures() {
+        
+        dialFailures_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:tendermint.p2p.PeerAddressInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:tendermint.p2p.PeerAddressInfo)
+    private static final tendermint.p2p.Types.PeerAddressInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new tendermint.p2p.Types.PeerAddressInfo();
+    }
+
+    public static tendermint.p2p.Types.PeerAddressInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PeerAddressInfo>
+        PARSER = new com.google.protobuf.AbstractParser<PeerAddressInfo>() {
+      @java.lang.Override
+      public PeerAddressInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PeerAddressInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PeerAddressInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PeerAddressInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public tendermint.p2p.Types.PeerAddressInfo getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_tendermint_p2p_NetAddress_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_tendermint_p2p_NetAddress_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_tendermint_p2p_ProtocolVersion_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_tendermint_p2p_ProtocolVersion_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_tendermint_p2p_DefaultNodeInfo_descriptor;
+    internal_static_tendermint_p2p_NodeInfo_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_tendermint_p2p_DefaultNodeInfo_fieldAccessorTable;
+      internal_static_tendermint_p2p_NodeInfo_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_tendermint_p2p_DefaultNodeInfoOther_descriptor;
+    internal_static_tendermint_p2p_NodeInfoOther_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_tendermint_p2p_DefaultNodeInfoOther_fieldAccessorTable;
+      internal_static_tendermint_p2p_NodeInfoOther_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_tendermint_p2p_PeerInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_tendermint_p2p_PeerInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_tendermint_p2p_PeerAddressInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_tendermint_p2p_PeerAddressInfo_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3829,58 +5236,74 @@ public final class Types {
   static {
     java.lang.String[] descriptorData = {
       "\n\032tendermint/p2p/types.proto\022\016tendermint" +
-      ".p2p\032\024gogoproto/gogo.proto\"B\n\nNetAddress" +
-      "\022\022\n\002id\030\001 \001(\tB\006\342\336\037\002ID\022\022\n\002ip\030\002 \001(\tB\006\342\336\037\002IP" +
-      "\022\014\n\004port\030\003 \001(\r\"C\n\017ProtocolVersion\022\024\n\003p2p" +
-      "\030\001 \001(\004B\007\342\336\037\003P2P\022\r\n\005block\030\002 \001(\004\022\013\n\003app\030\003 " +
-      "\001(\004\"\223\002\n\017DefaultNodeInfo\022?\n\020protocol_vers" +
-      "ion\030\001 \001(\0132\037.tendermint.p2p.ProtocolVersi" +
-      "onB\004\310\336\037\000\022*\n\017default_node_id\030\002 \001(\tB\021\342\336\037\rD" +
-      "efaultNodeID\022\023\n\013listen_addr\030\003 \001(\t\022\017\n\007net" +
-      "work\030\004 \001(\t\022\017\n\007version\030\005 \001(\t\022\020\n\010channels\030" +
-      "\006 \001(\014\022\017\n\007moniker\030\007 \001(\t\0229\n\005other\030\010 \001(\0132$." +
-      "tendermint.p2p.DefaultNodeInfoOtherB\004\310\336\037" +
-      "\000\"M\n\024DefaultNodeInfoOther\022\020\n\010tx_index\030\001 " +
-      "\001(\t\022#\n\013rpc_address\030\002 \001(\tB\016\342\336\037\nRPCAddress" +
-      "B7Z5github.com/tendermint/tendermint/pro" +
-      "to/tendermint/p2pb\006proto3"
+      ".p2p\032\024gogoproto/gogo.proto\032\037google/proto" +
+      "buf/timestamp.proto\"C\n\017ProtocolVersion\022\024" +
+      "\n\003p2p\030\001 \001(\004B\007\342\336\037\003P2P\022\r\n\005block\030\002 \001(\004\022\013\n\003a" +
+      "pp\030\003 \001(\004\"\366\001\n\010NodeInfo\022?\n\020protocol_versio" +
+      "n\030\001 \001(\0132\037.tendermint.p2p.ProtocolVersion" +
+      "B\004\310\336\037\000\022\033\n\007node_id\030\002 \001(\tB\n\342\336\037\006NodeID\022\023\n\013l" +
+      "isten_addr\030\003 \001(\t\022\017\n\007network\030\004 \001(\t\022\017\n\007ver" +
+      "sion\030\005 \001(\t\022\020\n\010channels\030\006 \001(\014\022\017\n\007moniker\030" +
+      "\007 \001(\t\0222\n\005other\030\010 \001(\0132\035.tendermint.p2p.No" +
+      "deInfoOtherB\004\310\336\037\000\"F\n\rNodeInfoOther\022\020\n\010tx" +
+      "_index\030\001 \001(\t\022#\n\013rpc_address\030\002 \001(\tB\016\342\336\037\nR" +
+      "PCAddress\"\217\001\n\010PeerInfo\022\022\n\002id\030\001 \001(\tB\006\342\336\037\002" +
+      "ID\0225\n\014address_info\030\002 \003(\0132\037.tendermint.p2" +
+      "p.PeerAddressInfo\0228\n\016last_connected\030\003 \001(" +
+      "\0132\032.google.protobuf.TimestampB\004\220\337\037\001\"\263\001\n\017" +
+      "PeerAddressInfo\022\017\n\007address\030\001 \001(\t\022;\n\021last" +
+      "_dial_success\030\002 \001(\0132\032.google.protobuf.Ti" +
+      "mestampB\004\220\337\037\001\022;\n\021last_dial_failure\030\003 \001(\013" +
+      "2\032.google.protobuf.TimestampB\004\220\337\037\001\022\025\n\rdi" +
+      "al_failures\030\004 \001(\rB7Z5github.com/tendermi" +
+      "nt/tendermint/proto/tendermint/p2pb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf.TimestampProto.getDescriptor(),
         });
-    internal_static_tendermint_p2p_NetAddress_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_tendermint_p2p_NetAddress_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_tendermint_p2p_NetAddress_descriptor,
-        new java.lang.String[] { "Id", "Ip", "Port", });
     internal_static_tendermint_p2p_ProtocolVersion_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_tendermint_p2p_ProtocolVersion_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_tendermint_p2p_ProtocolVersion_descriptor,
         new java.lang.String[] { "P2P", "Block", "App", });
-    internal_static_tendermint_p2p_DefaultNodeInfo_descriptor =
+    internal_static_tendermint_p2p_NodeInfo_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_tendermint_p2p_NodeInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_tendermint_p2p_NodeInfo_descriptor,
+        new java.lang.String[] { "ProtocolVersion", "NodeId", "ListenAddr", "Network", "Version", "Channels", "Moniker", "Other", });
+    internal_static_tendermint_p2p_NodeInfoOther_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_tendermint_p2p_DefaultNodeInfo_fieldAccessorTable = new
+    internal_static_tendermint_p2p_NodeInfoOther_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_tendermint_p2p_DefaultNodeInfo_descriptor,
-        new java.lang.String[] { "ProtocolVersion", "DefaultNodeId", "ListenAddr", "Network", "Version", "Channels", "Moniker", "Other", });
-    internal_static_tendermint_p2p_DefaultNodeInfoOther_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_tendermint_p2p_DefaultNodeInfoOther_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_tendermint_p2p_DefaultNodeInfoOther_descriptor,
+        internal_static_tendermint_p2p_NodeInfoOther_descriptor,
         new java.lang.String[] { "TxIndex", "RpcAddress", });
+    internal_static_tendermint_p2p_PeerInfo_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_tendermint_p2p_PeerInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_tendermint_p2p_PeerInfo_descriptor,
+        new java.lang.String[] { "Id", "AddressInfo", "LastConnected", });
+    internal_static_tendermint_p2p_PeerAddressInfo_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_tendermint_p2p_PeerAddressInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_tendermint_p2p_PeerAddressInfo_descriptor,
+        new java.lang.String[] { "Address", "LastDialSuccess", "LastDialFailure", "DialFailures", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customname);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf.TimestampProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

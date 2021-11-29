@@ -10,7 +10,7 @@ package panacea.did.v2;
  *
  * Protobuf type {@code panacea.did.v2.MsgDeactivateDIDResponse}
  */
-public  final class MsgDeactivateDIDResponse extends
+public final class MsgDeactivateDIDResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.did.v2.MsgDeactivateDIDResponse)
     MsgDeactivateDIDResponseOrBuilder {

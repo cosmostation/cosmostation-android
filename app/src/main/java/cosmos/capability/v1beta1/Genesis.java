@@ -33,7 +33,7 @@ public final class Genesis {
      * index_owners are the owners at the given index.
      * </pre>
      *
-     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the indexOwners field is set.
      */
     boolean hasIndexOwners();
@@ -42,7 +42,7 @@ public final class Genesis {
      * index_owners are the owners at the given index.
      * </pre>
      *
-     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
      * @return The indexOwners.
      */
     cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwners getIndexOwners();
@@ -51,7 +51,7 @@ public final class Genesis {
      * index_owners are the owners at the given index.
      * </pre>
      *
-     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwnersOrBuilder getIndexOwnersOrBuilder();
   }
@@ -176,7 +176,7 @@ public final class Genesis {
      * index_owners are the owners at the given index.
      * </pre>
      *
-     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the indexOwners field is set.
      */
     @java.lang.Override
@@ -188,7 +188,7 @@ public final class Genesis {
      * index_owners are the owners at the given index.
      * </pre>
      *
-     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
      * @return The indexOwners.
      */
     @java.lang.Override
@@ -200,7 +200,7 @@ public final class Genesis {
      * index_owners are the owners at the given index.
      * </pre>
      *
-     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+     * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwnersOrBuilder getIndexOwnersOrBuilder() {
@@ -595,7 +595,7 @@ public final class Genesis {
        * index_owners are the owners at the given index.
        * </pre>
        *
-       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
        * @return Whether the indexOwners field is set.
        */
       public boolean hasIndexOwners() {
@@ -606,7 +606,7 @@ public final class Genesis {
        * index_owners are the owners at the given index.
        * </pre>
        *
-       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
        * @return The indexOwners.
        */
       public cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwners getIndexOwners() {
@@ -621,7 +621,7 @@ public final class Genesis {
        * index_owners are the owners at the given index.
        * </pre>
        *
-       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setIndexOwners(cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwners value) {
         if (indexOwnersBuilder_ == null) {
@@ -641,7 +641,7 @@ public final class Genesis {
        * index_owners are the owners at the given index.
        * </pre>
        *
-       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setIndexOwners(
           cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwners.Builder builderForValue) {
@@ -659,7 +659,7 @@ public final class Genesis {
        * index_owners are the owners at the given index.
        * </pre>
        *
-       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder mergeIndexOwners(cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwners value) {
         if (indexOwnersBuilder_ == null) {
@@ -681,7 +681,7 @@ public final class Genesis {
        * index_owners are the owners at the given index.
        * </pre>
        *
-       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearIndexOwners() {
         if (indexOwnersBuilder_ == null) {
@@ -699,7 +699,7 @@ public final class Genesis {
        * index_owners are the owners at the given index.
        * </pre>
        *
-       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwners.Builder getIndexOwnersBuilder() {
         
@@ -711,7 +711,7 @@ public final class Genesis {
        * index_owners are the owners at the given index.
        * </pre>
        *
-       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwnersOrBuilder getIndexOwnersOrBuilder() {
         if (indexOwnersBuilder_ != null) {
@@ -726,7 +726,7 @@ public final class Genesis {
        * index_owners are the owners at the given index.
        * </pre>
        *
-       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
+       * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwners, cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwners.Builder, cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwnersOrBuilder> 
@@ -1848,19 +1848,18 @@ public final class Genesis {
       "\n\'cosmos/capability/v1beta1/genesis.prot" +
       "o\022\031cosmos.capability.v1beta1\032\024gogoproto/" +
       "gogo.proto\032*cosmos/capability/v1beta1/ca" +
-      "pability.proto\"~\n\rGenesisOwners\022\r\n\005index" +
-      "\030\001 \001(\004\022^\n\014index_owners\030\002 \001(\0132+.cosmos.ca" +
-      "pability.v1beta1.CapabilityOwnersB\033\310\336\037\000\362" +
-      "\336\037\023yaml:\"index_owners\"\"]\n\014GenesisState\022\r" +
-      "\n\005index\030\001 \001(\004\022>\n\006owners\030\002 \003(\0132(.cosmos.c" +
-      "apability.v1beta1.GenesisOwnersB\004\310\336\037\000B1Z" +
-      "/github.com/cosmos/cosmos-sdk/x/capabili" +
-      "ty/typesb\006proto3"
+      "pability.proto\"g\n\rGenesisOwners\022\r\n\005index" +
+      "\030\001 \001(\004\022G\n\014index_owners\030\002 \001(\0132+.cosmos.ca" +
+      "pability.v1beta1.CapabilityOwnersB\004\310\336\037\000\"" +
+      "]\n\014GenesisState\022\r\n\005index\030\001 \001(\004\022>\n\006owners" +
+      "\030\002 \003(\0132(.cosmos.capability.v1beta1.Genes" +
+      "isOwnersB\004\310\336\037\000B1Z/github.com/cosmos/cosm" +
+      "os-sdk/x/capability/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.capability.v1beta1.CapabilityOuterClass.getDescriptor(),
         });
     internal_static_cosmos_capability_v1beta1_GenesisOwners_descriptor =
@@ -1877,11 +1876,10 @@ public final class Genesis {
         new java.lang.String[] { "Index", "Owners", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.capability.v1beta1.CapabilityOuterClass.getDescriptor();
   }
 

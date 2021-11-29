@@ -745,26 +745,46 @@ public final class Types {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * unique identifier for this escrow account
+     * </pre>
+     *
      * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the id field is set.
      */
     boolean hasId();
     /**
+     * <pre>
+     * unique identifier for this escrow account
+     * </pre>
+     *
      * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
     akash.escrow.v1beta1.Types.AccountID getId();
     /**
+     * <pre>
+     * unique identifier for this escrow account
+     * </pre>
+     *
      * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
     akash.escrow.v1beta1.Types.AccountIDOrBuilder getIdOrBuilder();
 
     /**
+     * <pre>
+     * bech32 encoded account address of the owner of this escrow account
+     * </pre>
+     *
      * <code>string owner = 2 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
     java.lang.String getOwner();
     /**
+     * <pre>
+     * bech32 encoded account address of the owner of this escrow account
+     * </pre>
+     *
      * <code>string owner = 2 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
@@ -772,47 +792,83 @@ public final class Types {
         getOwnerBytes();
 
     /**
+     * <pre>
+     * current state of this escrow account
+     * </pre>
+     *
      * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The enum numeric value on the wire for state.
      */
     int getStateValue();
     /**
+     * <pre>
+     * current state of this escrow account
+     * </pre>
+     *
      * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
     akash.escrow.v1beta1.Types.Account.State getState();
 
     /**
+     * <pre>
+     * unspent coins received from the owner's wallet
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      * @return Whether the balance field is set.
      */
     boolean hasBalance();
     /**
+     * <pre>
+     * unspent coins received from the owner's wallet
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      * @return The balance.
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getBalance();
     /**
+     * <pre>
+     * unspent coins received from the owner's wallet
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getBalanceOrBuilder();
 
     /**
+     * <pre>
+     * total coins spent by this account
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
      * @return Whether the transferred field is set.
      */
     boolean hasTransferred();
     /**
+     * <pre>
+     * total coins spent by this account
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
      * @return The transferred.
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getTransferred();
     /**
+     * <pre>
+     * total coins spent by this account
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTransferredOrBuilder();
 
     /**
+     * <pre>
+     * block height at which this account was last settled
+     * </pre>
+     *
      * <code>int64 settled_at = 6 [(.gogoproto.customname) = "SettledAt", (.gogoproto.jsontag) = "settledAt", (.gogoproto.moretags) = "yaml:&#92;"settledAt&#92;""];</code>
      * @return The settledAt.
      */
@@ -1122,6 +1178,10 @@ public final class Types {
     public static final int ID_FIELD_NUMBER = 1;
     private akash.escrow.v1beta1.Types.AccountID id_;
     /**
+     * <pre>
+     * unique identifier for this escrow account
+     * </pre>
+     *
      * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the id field is set.
      */
@@ -1130,6 +1190,10 @@ public final class Types {
       return id_ != null;
     }
     /**
+     * <pre>
+     * unique identifier for this escrow account
+     * </pre>
+     *
      * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
@@ -1138,6 +1202,10 @@ public final class Types {
       return id_ == null ? akash.escrow.v1beta1.Types.AccountID.getDefaultInstance() : id_;
     }
     /**
+     * <pre>
+     * unique identifier for this escrow account
+     * </pre>
+     *
      * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
     @java.lang.Override
@@ -1148,6 +1216,10 @@ public final class Types {
     public static final int OWNER_FIELD_NUMBER = 2;
     private volatile java.lang.Object owner_;
     /**
+     * <pre>
+     * bech32 encoded account address of the owner of this escrow account
+     * </pre>
+     *
      * <code>string owner = 2 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
@@ -1165,6 +1237,10 @@ public final class Types {
       }
     }
     /**
+     * <pre>
+     * bech32 encoded account address of the owner of this escrow account
+     * </pre>
+     *
      * <code>string owner = 2 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
@@ -1186,6 +1262,10 @@ public final class Types {
     public static final int STATE_FIELD_NUMBER = 3;
     private int state_;
     /**
+     * <pre>
+     * current state of this escrow account
+     * </pre>
+     *
      * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The enum numeric value on the wire for state.
      */
@@ -1193,6 +1273,10 @@ public final class Types {
       return state_;
     }
     /**
+     * <pre>
+     * current state of this escrow account
+     * </pre>
+     *
      * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
@@ -1205,6 +1289,10 @@ public final class Types {
     public static final int BALANCE_FIELD_NUMBER = 4;
     private cosmos.base.v1beta1.CoinOuterClass.Coin balance_;
     /**
+     * <pre>
+     * unspent coins received from the owner's wallet
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      * @return Whether the balance field is set.
      */
@@ -1213,6 +1301,10 @@ public final class Types {
       return balance_ != null;
     }
     /**
+     * <pre>
+     * unspent coins received from the owner's wallet
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      * @return The balance.
      */
@@ -1221,6 +1313,10 @@ public final class Types {
       return balance_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : balance_;
     }
     /**
+     * <pre>
+     * unspent coins received from the owner's wallet
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      */
     @java.lang.Override
@@ -1231,6 +1327,10 @@ public final class Types {
     public static final int TRANSFERRED_FIELD_NUMBER = 5;
     private cosmos.base.v1beta1.CoinOuterClass.Coin transferred_;
     /**
+     * <pre>
+     * total coins spent by this account
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
      * @return Whether the transferred field is set.
      */
@@ -1239,6 +1339,10 @@ public final class Types {
       return transferred_ != null;
     }
     /**
+     * <pre>
+     * total coins spent by this account
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
      * @return The transferred.
      */
@@ -1247,6 +1351,10 @@ public final class Types {
       return transferred_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : transferred_;
     }
     /**
+     * <pre>
+     * total coins spent by this account
+     * </pre>
+     *
      * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
      */
     @java.lang.Override
@@ -1257,6 +1365,10 @@ public final class Types {
     public static final int SETTLED_AT_FIELD_NUMBER = 6;
     private long settledAt_;
     /**
+     * <pre>
+     * block height at which this account was last settled
+     * </pre>
+     *
      * <code>int64 settled_at = 6 [(.gogoproto.customname) = "SettledAt", (.gogoproto.jsontag) = "settledAt", (.gogoproto.moretags) = "yaml:&#92;"settledAt&#92;""];</code>
      * @return The settledAt.
      */
@@ -1699,6 +1811,10 @@ public final class Types {
       private com.google.protobuf.SingleFieldBuilderV3<
           akash.escrow.v1beta1.Types.AccountID, akash.escrow.v1beta1.Types.AccountID.Builder, akash.escrow.v1beta1.Types.AccountIDOrBuilder> idBuilder_;
       /**
+       * <pre>
+       * unique identifier for this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        * @return Whether the id field is set.
        */
@@ -1706,6 +1822,10 @@ public final class Types {
         return idBuilder_ != null || id_ != null;
       }
       /**
+       * <pre>
+       * unique identifier for this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        * @return The id.
        */
@@ -1717,6 +1837,10 @@ public final class Types {
         }
       }
       /**
+       * <pre>
+       * unique identifier for this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        */
       public Builder setId(akash.escrow.v1beta1.Types.AccountID value) {
@@ -1733,6 +1857,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * unique identifier for this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        */
       public Builder setId(
@@ -1747,6 +1875,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * unique identifier for this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        */
       public Builder mergeId(akash.escrow.v1beta1.Types.AccountID value) {
@@ -1765,6 +1897,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * unique identifier for this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        */
       public Builder clearId() {
@@ -1779,6 +1915,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * unique identifier for this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        */
       public akash.escrow.v1beta1.Types.AccountID.Builder getIdBuilder() {
@@ -1787,6 +1927,10 @@ public final class Types {
         return getIdFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * unique identifier for this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        */
       public akash.escrow.v1beta1.Types.AccountIDOrBuilder getIdOrBuilder() {
@@ -1798,6 +1942,10 @@ public final class Types {
         }
       }
       /**
+       * <pre>
+       * unique identifier for this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -1816,6 +1964,10 @@ public final class Types {
 
       private java.lang.Object owner_ = "";
       /**
+       * <pre>
+       * bech32 encoded account address of the owner of this escrow account
+       * </pre>
+       *
        * <code>string owner = 2 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
        * @return The owner.
        */
@@ -1832,6 +1984,10 @@ public final class Types {
         }
       }
       /**
+       * <pre>
+       * bech32 encoded account address of the owner of this escrow account
+       * </pre>
+       *
        * <code>string owner = 2 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
        * @return The bytes for owner.
        */
@@ -1849,6 +2005,10 @@ public final class Types {
         }
       }
       /**
+       * <pre>
+       * bech32 encoded account address of the owner of this escrow account
+       * </pre>
+       *
        * <code>string owner = 2 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
        * @param value The owner to set.
        * @return This builder for chaining.
@@ -1864,6 +2024,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * bech32 encoded account address of the owner of this escrow account
+       * </pre>
+       *
        * <code>string owner = 2 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
        * @return This builder for chaining.
        */
@@ -1874,6 +2038,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * bech32 encoded account address of the owner of this escrow account
+       * </pre>
+       *
        * <code>string owner = 2 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
        * @param value The bytes for owner to set.
        * @return This builder for chaining.
@@ -1892,6 +2060,10 @@ public final class Types {
 
       private int state_ = 0;
       /**
+       * <pre>
+       * current state of this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The enum numeric value on the wire for state.
        */
@@ -1899,6 +2071,10 @@ public final class Types {
         return state_;
       }
       /**
+       * <pre>
+       * current state of this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @param value The enum numeric value on the wire for state to set.
        * @return This builder for chaining.
@@ -1910,6 +2086,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * current state of this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The state.
        */
@@ -1920,6 +2100,10 @@ public final class Types {
         return result == null ? akash.escrow.v1beta1.Types.Account.State.UNRECOGNIZED : result;
       }
       /**
+       * <pre>
+       * current state of this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @param value The state to set.
        * @return This builder for chaining.
@@ -1934,6 +2118,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * current state of this escrow account
+       * </pre>
+       *
        * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return This builder for chaining.
        */
@@ -1948,6 +2136,10 @@ public final class Types {
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> balanceBuilder_;
       /**
+       * <pre>
+       * unspent coins received from the owner's wallet
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
        * @return Whether the balance field is set.
        */
@@ -1955,6 +2147,10 @@ public final class Types {
         return balanceBuilder_ != null || balance_ != null;
       }
       /**
+       * <pre>
+       * unspent coins received from the owner's wallet
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
        * @return The balance.
        */
@@ -1966,6 +2162,10 @@ public final class Types {
         }
       }
       /**
+       * <pre>
+       * unspent coins received from the owner's wallet
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
        */
       public Builder setBalance(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -1982,6 +2182,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * unspent coins received from the owner's wallet
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
        */
       public Builder setBalance(
@@ -1996,6 +2200,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * unspent coins received from the owner's wallet
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
        */
       public Builder mergeBalance(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -2014,6 +2222,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * unspent coins received from the owner's wallet
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
        */
       public Builder clearBalance() {
@@ -2028,6 +2240,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * unspent coins received from the owner's wallet
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getBalanceBuilder() {
@@ -2036,6 +2252,10 @@ public final class Types {
         return getBalanceFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * unspent coins received from the owner's wallet
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getBalanceOrBuilder() {
@@ -2047,6 +2267,10 @@ public final class Types {
         }
       }
       /**
+       * <pre>
+       * unspent coins received from the owner's wallet
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -2067,6 +2291,10 @@ public final class Types {
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> transferredBuilder_;
       /**
+       * <pre>
+       * total coins spent by this account
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
        * @return Whether the transferred field is set.
        */
@@ -2074,6 +2302,10 @@ public final class Types {
         return transferredBuilder_ != null || transferred_ != null;
       }
       /**
+       * <pre>
+       * total coins spent by this account
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
        * @return The transferred.
        */
@@ -2085,6 +2317,10 @@ public final class Types {
         }
       }
       /**
+       * <pre>
+       * total coins spent by this account
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
        */
       public Builder setTransferred(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -2101,6 +2337,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * total coins spent by this account
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
        */
       public Builder setTransferred(
@@ -2115,6 +2355,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * total coins spent by this account
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
        */
       public Builder mergeTransferred(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -2133,6 +2377,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * total coins spent by this account
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
        */
       public Builder clearTransferred() {
@@ -2147,6 +2395,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * total coins spent by this account
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getTransferredBuilder() {
@@ -2155,6 +2407,10 @@ public final class Types {
         return getTransferredFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * total coins spent by this account
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTransferredOrBuilder() {
@@ -2166,6 +2422,10 @@ public final class Types {
         }
       }
       /**
+       * <pre>
+       * total coins spent by this account
+       * </pre>
+       *
        * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -2184,6 +2444,10 @@ public final class Types {
 
       private long settledAt_ ;
       /**
+       * <pre>
+       * block height at which this account was last settled
+       * </pre>
+       *
        * <code>int64 settled_at = 6 [(.gogoproto.customname) = "SettledAt", (.gogoproto.jsontag) = "settledAt", (.gogoproto.moretags) = "yaml:&#92;"settledAt&#92;""];</code>
        * @return The settledAt.
        */
@@ -2192,6 +2456,10 @@ public final class Types {
         return settledAt_;
       }
       /**
+       * <pre>
+       * block height at which this account was last settled
+       * </pre>
+       *
        * <code>int64 settled_at = 6 [(.gogoproto.customname) = "SettledAt", (.gogoproto.jsontag) = "settledAt", (.gogoproto.moretags) = "yaml:&#92;"settledAt&#92;""];</code>
        * @param value The settledAt to set.
        * @return This builder for chaining.
@@ -2203,6 +2471,10 @@ public final class Types {
         return this;
       }
       /**
+       * <pre>
+       * block height at which this account was last settled
+       * </pre>
+       *
        * <code>int64 settled_at = 6 [(.gogoproto.customname) = "SettledAt", (.gogoproto.jsontag) = "settledAt", (.gogoproto.moretags) = "yaml:&#92;"settledAt&#92;""];</code>
        * @return This builder for chaining.
        */
@@ -4133,13 +4405,13 @@ public final class Types {
       "valid\020\000\032\027\212\235 \023PaymentStateInvalid\022\031\n\004open" +
       "\020\001\032\017\212\235 \013PaymentOpen\022\035\n\006closed\020\002\032\021\212\235 \rPay" +
       "mentClosed\022#\n\toverdrawn\020\003\032\024\212\235 \020PaymentOv" +
-      "erdrawn\032\004\210\243\036\000:\004\230\240\037\001B(Z&github.com/ovrclk" +
-      "/akash/x/escrow/typesb\006proto3"
+      "erdrawn\032\004\210\243\036\000:\004\230\240\037\001B0Z.github.com/ovrclk" +
+      "/akash/x/escrow/types/v1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_akash_escrow_v1beta1_AccountID_descriptor =
@@ -4162,16 +4434,16 @@ public final class Types {
         new java.lang.String[] { "AccountId", "PaymentId", "Owner", "State", "Rate", "Balance", "Withdrawn", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customname);
-    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

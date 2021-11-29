@@ -115,7 +115,7 @@ public final class Genesis {
    *
    * Protobuf type {@code sifnode.clp.v1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.GenesisState)
       GenesisStateOrBuilder {
@@ -248,6 +248,7 @@ public final class Genesis {
      * <code>.sifnode.clp.v1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -255,12 +256,14 @@ public final class Genesis {
      * <code>.sifnode.clp.v1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public sifnode.clp.v1.ParamsOuterClass.Params getParams() {
       return params_ == null ? sifnode.clp.v1.ParamsOuterClass.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.sifnode.clp.v1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -305,12 +308,14 @@ public final class Genesis {
     /**
      * <code>repeated .sifnode.clp.v1.Pool pool_list = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.clp.v1.Types.Pool> getPoolListList() {
       return poolList_;
     }
     /**
      * <code>repeated .sifnode.clp.v1.Pool pool_list = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.clp.v1.Types.PoolOrBuilder> 
         getPoolListOrBuilderList() {
       return poolList_;
@@ -318,18 +323,21 @@ public final class Genesis {
     /**
      * <code>repeated .sifnode.clp.v1.Pool pool_list = 3;</code>
      */
+    @java.lang.Override
     public int getPoolListCount() {
       return poolList_.size();
     }
     /**
      * <code>repeated .sifnode.clp.v1.Pool pool_list = 3;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.Pool getPoolList(int index) {
       return poolList_.get(index);
     }
     /**
      * <code>repeated .sifnode.clp.v1.Pool pool_list = 3;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.PoolOrBuilder getPoolListOrBuilder(
         int index) {
       return poolList_.get(index);
@@ -340,12 +348,14 @@ public final class Genesis {
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 4;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.clp.v1.Types.LiquidityProvider> getLiquidityProvidersList() {
       return liquidityProviders_;
     }
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 4;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.clp.v1.Types.LiquidityProviderOrBuilder> 
         getLiquidityProvidersOrBuilderList() {
       return liquidityProviders_;
@@ -353,18 +363,21 @@ public final class Genesis {
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 4;</code>
      */
+    @java.lang.Override
     public int getLiquidityProvidersCount() {
       return liquidityProviders_.size();
     }
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 4;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.LiquidityProvider getLiquidityProviders(int index) {
       return liquidityProviders_.get(index);
     }
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 4;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.LiquidityProviderOrBuilder getLiquidityProvidersOrBuilder(
         int index) {
       return liquidityProviders_.get(index);
@@ -1626,7 +1639,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           sifnode.clp.v1.ParamsOuterClass.getDescriptor(),
           sifnode.clp.v1.Types.getDescriptor(),
         });
@@ -1638,10 +1651,10 @@ public final class Genesis {
         new java.lang.String[] { "Params", "AddressWhitelist", "PoolList", "LiquidityProviders", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     sifnode.clp.v1.ParamsOuterClass.getDescriptor();
     sifnode.clp.v1.Types.getDescriptor();
   }

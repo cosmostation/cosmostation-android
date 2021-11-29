@@ -37,7 +37,7 @@ public final class WriterOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_panacea_aol_v2_Writer_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -45,7 +45,7 @@ public final class WriterOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_panacea_aol_v2_Writer_descriptor,
         new java.lang.String[] { "Moniker", "Description", "NanoTimestamp", });
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

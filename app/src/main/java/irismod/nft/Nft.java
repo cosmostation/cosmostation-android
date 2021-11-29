@@ -1241,6 +1241,30 @@ public final class Nft {
      */
     com.google.protobuf.ByteString
         getCreatorBytes();
+
+    /**
+     * <code>string symbol = 5;</code>
+     * @return The symbol.
+     */
+    java.lang.String getSymbol();
+    /**
+     * <code>string symbol = 5;</code>
+     * @return The bytes for symbol.
+     */
+    com.google.protobuf.ByteString
+        getSymbolBytes();
+
+    /**
+     * <code>bool mint_restricted = 6;</code>
+     * @return The mintRestricted.
+     */
+    boolean getMintRestricted();
+
+    /**
+     * <code>bool update_restricted = 7;</code>
+     * @return The updateRestricted.
+     */
+    boolean getUpdateRestricted();
   }
   /**
    * <pre>
@@ -1263,6 +1287,7 @@ public final class Nft {
       name_ = "";
       schema_ = "";
       creator_ = "";
+      symbol_ = "";
     }
 
     @java.lang.Override
@@ -1317,6 +1342,22 @@ public final class Nft {
               java.lang.String s = input.readStringRequireUtf8();
 
               creator_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              symbol_ = s;
+              break;
+            }
+            case 48: {
+
+              mintRestricted_ = input.readBool();
+              break;
+            }
+            case 56: {
+
+              updateRestricted_ = input.readBool();
               break;
             }
             default: {
@@ -1503,6 +1544,66 @@ public final class Nft {
       }
     }
 
+    public static final int SYMBOL_FIELD_NUMBER = 5;
+    private volatile java.lang.Object symbol_;
+    /**
+     * <code>string symbol = 5;</code>
+     * @return The symbol.
+     */
+    @java.lang.Override
+    public java.lang.String getSymbol() {
+      java.lang.Object ref = symbol_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        symbol_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string symbol = 5;</code>
+     * @return The bytes for symbol.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSymbolBytes() {
+      java.lang.Object ref = symbol_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        symbol_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MINT_RESTRICTED_FIELD_NUMBER = 6;
+    private boolean mintRestricted_;
+    /**
+     * <code>bool mint_restricted = 6;</code>
+     * @return The mintRestricted.
+     */
+    @java.lang.Override
+    public boolean getMintRestricted() {
+      return mintRestricted_;
+    }
+
+    public static final int UPDATE_RESTRICTED_FIELD_NUMBER = 7;
+    private boolean updateRestricted_;
+    /**
+     * <code>bool update_restricted = 7;</code>
+     * @return The updateRestricted.
+     */
+    @java.lang.Override
+    public boolean getUpdateRestricted() {
+      return updateRestricted_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1529,6 +1630,15 @@ public final class Nft {
       if (!getCreatorBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, creator_);
       }
+      if (!getSymbolBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, symbol_);
+      }
+      if (mintRestricted_ != false) {
+        output.writeBool(6, mintRestricted_);
+      }
+      if (updateRestricted_ != false) {
+        output.writeBool(7, updateRestricted_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -1549,6 +1659,17 @@ public final class Nft {
       }
       if (!getCreatorBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, creator_);
+      }
+      if (!getSymbolBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, symbol_);
+      }
+      if (mintRestricted_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(6, mintRestricted_);
+      }
+      if (updateRestricted_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(7, updateRestricted_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1573,6 +1694,12 @@ public final class Nft {
           .equals(other.getSchema())) return false;
       if (!getCreator()
           .equals(other.getCreator())) return false;
+      if (!getSymbol()
+          .equals(other.getSymbol())) return false;
+      if (getMintRestricted()
+          != other.getMintRestricted()) return false;
+      if (getUpdateRestricted()
+          != other.getUpdateRestricted()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1592,6 +1719,14 @@ public final class Nft {
       hash = (53 * hash) + getSchema().hashCode();
       hash = (37 * hash) + CREATOR_FIELD_NUMBER;
       hash = (53 * hash) + getCreator().hashCode();
+      hash = (37 * hash) + SYMBOL_FIELD_NUMBER;
+      hash = (53 * hash) + getSymbol().hashCode();
+      hash = (37 * hash) + MINT_RESTRICTED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getMintRestricted());
+      hash = (37 * hash) + UPDATE_RESTRICTED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getUpdateRestricted());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1737,6 +1872,12 @@ public final class Nft {
 
         creator_ = "";
 
+        symbol_ = "";
+
+        mintRestricted_ = false;
+
+        updateRestricted_ = false;
+
         return this;
       }
 
@@ -1767,6 +1908,9 @@ public final class Nft {
         result.name_ = name_;
         result.schema_ = schema_;
         result.creator_ = creator_;
+        result.symbol_ = symbol_;
+        result.mintRestricted_ = mintRestricted_;
+        result.updateRestricted_ = updateRestricted_;
         onBuilt();
         return result;
       }
@@ -1830,6 +1974,16 @@ public final class Nft {
         if (!other.getCreator().isEmpty()) {
           creator_ = other.creator_;
           onChanged();
+        }
+        if (!other.getSymbol().isEmpty()) {
+          symbol_ = other.symbol_;
+          onChanged();
+        }
+        if (other.getMintRestricted() != false) {
+          setMintRestricted(other.getMintRestricted());
+        }
+        if (other.getUpdateRestricted() != false) {
+          setUpdateRestricted(other.getUpdateRestricted());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2160,6 +2314,144 @@ public final class Nft {
   checkByteStringIsUtf8(value);
         
         creator_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object symbol_ = "";
+      /**
+       * <code>string symbol = 5;</code>
+       * @return The symbol.
+       */
+      public java.lang.String getSymbol() {
+        java.lang.Object ref = symbol_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          symbol_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string symbol = 5;</code>
+       * @return The bytes for symbol.
+       */
+      public com.google.protobuf.ByteString
+          getSymbolBytes() {
+        java.lang.Object ref = symbol_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          symbol_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string symbol = 5;</code>
+       * @param value The symbol to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSymbol(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        symbol_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string symbol = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSymbol() {
+        
+        symbol_ = getDefaultInstance().getSymbol();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string symbol = 5;</code>
+       * @param value The bytes for symbol to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSymbolBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        symbol_ = value;
+        onChanged();
+        return this;
+      }
+
+      private boolean mintRestricted_ ;
+      /**
+       * <code>bool mint_restricted = 6;</code>
+       * @return The mintRestricted.
+       */
+      @java.lang.Override
+      public boolean getMintRestricted() {
+        return mintRestricted_;
+      }
+      /**
+       * <code>bool mint_restricted = 6;</code>
+       * @param value The mintRestricted to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMintRestricted(boolean value) {
+        
+        mintRestricted_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool mint_restricted = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMintRestricted() {
+        
+        mintRestricted_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean updateRestricted_ ;
+      /**
+       * <code>bool update_restricted = 7;</code>
+       * @return The updateRestricted.
+       */
+      @java.lang.Override
+      public boolean getUpdateRestricted() {
+        return updateRestricted_;
+      }
+      /**
+       * <code>bool update_restricted = 7;</code>
+       * @param value The updateRestricted to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpdateRestricted(boolean value) {
+        
+        updateRestricted_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool update_restricted = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpdateRestricted() {
+        
+        updateRestricted_ = false;
         onChanged();
         return this;
       }
@@ -5004,24 +5296,26 @@ public final class Nft {
       "\n\rnft/nft.proto\022\013irismod.nft\032\024gogoproto/" +
       "gogo.proto\"\\\n\007BaseNFT\022\n\n\002id\030\001 \001(\t\022\014\n\004nam" +
       "e\030\002 \001(\t\022\024\n\003uri\030\003 \001(\tB\007\342\336\037\003URI\022\014\n\004data\030\004 " +
-      "\001(\t\022\r\n\005owner\030\005 \001(\t:\004\350\240\037\001\"H\n\005Denom\022\n\n\002id\030" +
-      "\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\016\n\006schema\030\003 \001(\t\022\017\n\007c" +
-      "reator\030\004 \001(\t:\004\350\240\037\001\"d\n\014IDCollection\022%\n\010de" +
-      "nom_id\030\001 \001(\tB\023\362\336\037\017yaml:\"denom_id\"\022\'\n\ttok" +
-      "en_ids\030\002 \003(\tB\024\362\336\037\020yaml:\"token_ids\":\004\350\240\037\001" +
-      "\"w\n\005Owner\022\017\n\007address\030\001 \001(\t\022W\n\016id_collect" +
-      "ions\030\002 \003(\0132\031.irismod.nft.IDCollectionB$\362" +
-      "\336\037\013yaml:\"idcs\"\342\336\037\rIDCollections\310\336\037\000:\004\350\240\037" +
-      "\001\"m\n\nCollection\022\'\n\005denom\030\001 \001(\0132\022.irismod" +
-      ".nft.DenomB\004\310\336\037\000\0220\n\004nfts\030\002 \003(\0132\024.irismod" +
-      ".nft.BaseNFTB\014\342\336\037\004NFTs\310\336\037\000:\004\350\240\037\001B2Z,gith" +
-      "ub.com/irisnet/irismod/modules/nft/types" +
-      "\310\341\036\000b\006proto3"
+      "\001(\t\022\r\n\005owner\030\005 \001(\t:\004\350\240\037\001\"\214\001\n\005Denom\022\n\n\002id" +
+      "\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\016\n\006schema\030\003 \001(\t\022\017\n\007" +
+      "creator\030\004 \001(\t\022\016\n\006symbol\030\005 \001(\t\022\027\n\017mint_re" +
+      "stricted\030\006 \001(\010\022\031\n\021update_restricted\030\007 \001(" +
+      "\010:\004\350\240\037\001\"d\n\014IDCollection\022%\n\010denom_id\030\001 \001(" +
+      "\tB\023\362\336\037\017yaml:\"denom_id\"\022\'\n\ttoken_ids\030\002 \003(" +
+      "\tB\024\362\336\037\020yaml:\"token_ids\":\004\350\240\037\001\"w\n\005Owner\022\017" +
+      "\n\007address\030\001 \001(\t\022W\n\016id_collections\030\002 \003(\0132" +
+      "\031.irismod.nft.IDCollectionB$\362\336\037\013yaml:\"id" +
+      "cs\"\342\336\037\rIDCollections\310\336\037\000:\004\350\240\037\001\"m\n\nCollec" +
+      "tion\022\'\n\005denom\030\001 \001(\0132\022.irismod.nft.DenomB" +
+      "\004\310\336\037\000\0220\n\004nfts\030\002 \003(\0132\024.irismod.nft.BaseNF" +
+      "TB\014\342\336\037\004NFTs\310\336\037\000:\004\350\240\037\001B2Z,github.com/iris" +
+      "net/irismod/modules/nft/types\310\341\036\000b\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_irismod_nft_BaseNFT_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5034,7 +5328,7 @@ public final class Nft {
     internal_static_irismod_nft_Denom_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_irismod_nft_Denom_descriptor,
-        new java.lang.String[] { "Id", "Name", "Schema", "Creator", });
+        new java.lang.String[] { "Id", "Name", "Schema", "Creator", "Symbol", "MintRestricted", "UpdateRestricted", });
     internal_static_irismod_nft_IDCollection_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_irismod_nft_IDCollection_fieldAccessorTable = new
@@ -5055,14 +5349,14 @@ public final class Nft {
         new java.lang.String[] { "Denom", "Nfts", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customname);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customname);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -123,6 +123,37 @@ public final class QueryGrpc {
     return getUpgradedConsensusStateMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest,
+      cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse> getModuleVersionsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ModuleVersions",
+      requestType = cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest.class,
+      responseType = cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest,
+      cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse> getModuleVersionsMethod() {
+    io.grpc.MethodDescriptor<cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest, cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse> getModuleVersionsMethod;
+    if ((getModuleVersionsMethod = QueryGrpc.getModuleVersionsMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getModuleVersionsMethod = QueryGrpc.getModuleVersionsMethod) == null) {
+          QueryGrpc.getModuleVersionsMethod = getModuleVersionsMethod =
+              io.grpc.MethodDescriptor.<cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest, cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ModuleVersions"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("ModuleVersions"))
+              .build();
+        }
+      }
+    }
+    return getModuleVersionsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -200,11 +231,25 @@ public final class QueryGrpc {
      * as a trusted kernel for the next version of this chain. It will only be
      * stored at the last height of this chain.
      * UpgradedConsensusState RPC not supported with legacy querier
+     * This rpc is deprecated now that IBC has its own replacement
+     * (https://github.com/cosmos/ibc-go/blob/2c880a22e9f9cc75f62b527ca94aa75ce1106001/proto/ibc/core/client/v1/query.proto#L54)
      * </pre>
      */
+    @java.lang.Deprecated
     public void upgradedConsensusState(cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateRequest request,
         io.grpc.stub.StreamObserver<cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getUpgradedConsensusStateMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * ModuleVersions queries the list of module versions from state.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     */
+    public void moduleVersions(cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest request,
+        io.grpc.stub.StreamObserver<cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getModuleVersionsMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -230,6 +275,13 @@ public final class QueryGrpc {
                 cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateRequest,
                 cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse>(
                   this, METHODID_UPGRADED_CONSENSUS_STATE)))
+          .addMethod(
+            getModuleVersionsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest,
+                cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse>(
+                  this, METHODID_MODULE_VERSIONS)))
           .build();
     }
   }
@@ -279,12 +331,27 @@ public final class QueryGrpc {
      * as a trusted kernel for the next version of this chain. It will only be
      * stored at the last height of this chain.
      * UpgradedConsensusState RPC not supported with legacy querier
+     * This rpc is deprecated now that IBC has its own replacement
+     * (https://github.com/cosmos/ibc-go/blob/2c880a22e9f9cc75f62b527ca94aa75ce1106001/proto/ibc/core/client/v1/query.proto#L54)
      * </pre>
      */
+    @java.lang.Deprecated
     public void upgradedConsensusState(cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateRequest request,
         io.grpc.stub.StreamObserver<cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getUpgradedConsensusStateMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * ModuleVersions queries the list of module versions from state.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     */
+    public void moduleVersions(cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest request,
+        io.grpc.stub.StreamObserver<cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getModuleVersionsMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -331,11 +398,25 @@ public final class QueryGrpc {
      * as a trusted kernel for the next version of this chain. It will only be
      * stored at the last height of this chain.
      * UpgradedConsensusState RPC not supported with legacy querier
+     * This rpc is deprecated now that IBC has its own replacement
+     * (https://github.com/cosmos/ibc-go/blob/2c880a22e9f9cc75f62b527ca94aa75ce1106001/proto/ibc/core/client/v1/query.proto#L54)
      * </pre>
      */
+    @java.lang.Deprecated
     public cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse upgradedConsensusState(cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateRequest request) {
       return blockingUnaryCall(
           getChannel(), getUpgradedConsensusStateMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * ModuleVersions queries the list of module versions from state.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     */
+    public cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse moduleVersions(cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getModuleVersionsMethod(), getCallOptions(), request);
     }
   }
 
@@ -384,18 +465,34 @@ public final class QueryGrpc {
      * as a trusted kernel for the next version of this chain. It will only be
      * stored at the last height of this chain.
      * UpgradedConsensusState RPC not supported with legacy querier
+     * This rpc is deprecated now that IBC has its own replacement
+     * (https://github.com/cosmos/ibc-go/blob/2c880a22e9f9cc75f62b527ca94aa75ce1106001/proto/ibc/core/client/v1/query.proto#L54)
      * </pre>
      */
+    @java.lang.Deprecated
     public com.google.common.util.concurrent.ListenableFuture<cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse> upgradedConsensusState(
         cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getUpgradedConsensusStateMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * ModuleVersions queries the list of module versions from state.
+     * Since: cosmos-sdk 0.43
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse> moduleVersions(
+        cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getModuleVersionsMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_CURRENT_PLAN = 0;
   private static final int METHODID_APPLIED_PLAN = 1;
   private static final int METHODID_UPGRADED_CONSENSUS_STATE = 2;
+  private static final int METHODID_MODULE_VERSIONS = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -425,6 +522,10 @@ public final class QueryGrpc {
         case METHODID_UPGRADED_CONSENSUS_STATE:
           serviceImpl.upgradedConsensusState((cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateRequest) request,
               (io.grpc.stub.StreamObserver<cosmos.upgrade.v1beta1.QueryOuterClass.QueryUpgradedConsensusStateResponse>) responseObserver);
+          break;
+        case METHODID_MODULE_VERSIONS:
+          serviceImpl.moduleVersions((cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsRequest) request,
+              (io.grpc.stub.StreamObserver<cosmos.upgrade.v1beta1.QueryOuterClass.QueryModuleVersionsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -490,6 +591,7 @@ public final class QueryGrpc {
               .addMethod(getCurrentPlanMethod())
               .addMethod(getAppliedPlanMethod())
               .addMethod(getUpgradedConsensusStateMethod())
+              .addMethod(getModuleVersionsMethod())
               .build();
         }
       }

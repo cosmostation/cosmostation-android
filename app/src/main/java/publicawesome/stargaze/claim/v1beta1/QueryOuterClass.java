@@ -25,7 +25,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.QueryModuleAccountBalanceRequest}
    */
-  public  static final class QueryModuleAccountBalanceRequest extends
+  public static final class QueryModuleAccountBalanceRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.QueryModuleAccountBalanceRequest)
       QueryModuleAccountBalanceRequestOrBuilder {
@@ -495,7 +495,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.QueryModuleAccountBalanceResponse}
    */
-  public  static final class QueryModuleAccountBalanceResponse extends
+  public static final class QueryModuleAccountBalanceResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.QueryModuleAccountBalanceResponse)
       QueryModuleAccountBalanceResponseOrBuilder {
@@ -592,6 +592,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin moduleAccountBalance = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getModuleAccountBalanceList() {
       return moduleAccountBalance_;
     }
@@ -602,6 +603,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin moduleAccountBalance = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getModuleAccountBalanceOrBuilderList() {
       return moduleAccountBalance_;
@@ -613,6 +615,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin moduleAccountBalance = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getModuleAccountBalanceCount() {
       return moduleAccountBalance_.size();
     }
@@ -623,6 +626,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin moduleAccountBalance = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getModuleAccountBalance(int index) {
       return moduleAccountBalance_.get(index);
     }
@@ -633,6 +637,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin moduleAccountBalance = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getModuleAccountBalanceOrBuilder(
         int index) {
       return moduleAccountBalance_.get(index);
@@ -1359,7 +1364,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -1812,7 +1817,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -1909,6 +1914,7 @@ public final class QueryOuterClass {
      * <code>.publicawesome.stargaze.claim.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -1920,6 +1926,7 @@ public final class QueryOuterClass {
      * <code>.publicawesome.stargaze.claim.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.Params getParams() {
       return params_ == null ? publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.Params.getDefaultInstance() : params_;
     }
@@ -1930,6 +1937,7 @@ public final class QueryOuterClass {
      *
      * <code>.publicawesome.stargaze.claim.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public publicawesome.stargaze.claim.v1beta1.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -2479,7 +2487,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.QueryClaimRecordRequest}
    */
-  public  static final class QueryClaimRecordRequest extends
+  public static final class QueryClaimRecordRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.QueryClaimRecordRequest)
       QueryClaimRecordRequestOrBuilder {
@@ -2566,6 +2574,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -2582,6 +2591,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -3048,7 +3058,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.QueryClaimRecordResponse}
    */
-  public  static final class QueryClaimRecordResponse extends
+  public static final class QueryClaimRecordResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.QueryClaimRecordResponse)
       QueryClaimRecordResponseOrBuilder {
@@ -3141,6 +3151,7 @@ public final class QueryOuterClass {
      * <code>.publicawesome.stargaze.claim.v1beta1.ClaimRecord claim_record = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_record&#92;""];</code>
      * @return Whether the claimRecord field is set.
      */
+    @java.lang.Override
     public boolean hasClaimRecord() {
       return claimRecord_ != null;
     }
@@ -3148,12 +3159,14 @@ public final class QueryOuterClass {
      * <code>.publicawesome.stargaze.claim.v1beta1.ClaimRecord claim_record = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_record&#92;""];</code>
      * @return The claimRecord.
      */
+    @java.lang.Override
     public publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.ClaimRecord getClaimRecord() {
       return claimRecord_ == null ? publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.ClaimRecord.getDefaultInstance() : claimRecord_;
     }
     /**
      * <code>.publicawesome.stargaze.claim.v1beta1.ClaimRecord claim_record = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_record&#92;""];</code>
      */
+    @java.lang.Override
     public publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.ClaimRecordOrBuilder getClaimRecordOrBuilder() {
       return getClaimRecord();
     }
@@ -3674,7 +3687,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.QueryClaimableForActionRequest}
    */
-  public  static final class QueryClaimableForActionRequest extends
+  public static final class QueryClaimableForActionRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.QueryClaimableForActionRequest)
       QueryClaimableForActionRequestOrBuilder {
@@ -3768,6 +3781,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -3784,6 +3798,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -3804,14 +3819,14 @@ public final class QueryOuterClass {
      * <code>.publicawesome.stargaze.claim.v1beta1.Action action = 2 [(.gogoproto.moretags) = "yaml:&#92;"action&#92;""];</code>
      * @return The enum numeric value on the wire for action.
      */
-    public int getActionValue() {
+    @java.lang.Override public int getActionValue() {
       return action_;
     }
     /**
      * <code>.publicawesome.stargaze.claim.v1beta1.Action action = 2 [(.gogoproto.moretags) = "yaml:&#92;"action&#92;""];</code>
      * @return The action.
      */
-    public publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action getAction() {
+    @java.lang.Override public publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action getAction() {
       @SuppressWarnings("deprecation")
       publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action result = publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action.valueOf(action_);
       return result == null ? publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action.UNRECOGNIZED : result;
@@ -4216,7 +4231,7 @@ public final class QueryOuterClass {
        * <code>.publicawesome.stargaze.claim.v1beta1.Action action = 2 [(.gogoproto.moretags) = "yaml:&#92;"action&#92;""];</code>
        * @return The enum numeric value on the wire for action.
        */
-      public int getActionValue() {
+      @java.lang.Override public int getActionValue() {
         return action_;
       }
       /**
@@ -4225,6 +4240,7 @@ public final class QueryOuterClass {
        * @return This builder for chaining.
        */
       public Builder setActionValue(int value) {
+        
         action_ = value;
         onChanged();
         return this;
@@ -4233,6 +4249,7 @@ public final class QueryOuterClass {
        * <code>.publicawesome.stargaze.claim.v1beta1.Action action = 2 [(.gogoproto.moretags) = "yaml:&#92;"action&#92;""];</code>
        * @return The action.
        */
+      @java.lang.Override
       public publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action getAction() {
         @SuppressWarnings("deprecation")
         publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action result = publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.Action.valueOf(action_);
@@ -4346,7 +4363,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.QueryClaimableForActionResponse}
    */
-  public  static final class QueryClaimableForActionResponse extends
+  public static final class QueryClaimableForActionResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.QueryClaimableForActionResponse)
       QueryClaimableForActionResponseOrBuilder {
@@ -4439,12 +4456,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -4452,18 +4471,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -5122,7 +5144,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.QueryTotalClaimableRequest}
    */
-  public  static final class QueryTotalClaimableRequest extends
+  public static final class QueryTotalClaimableRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.QueryTotalClaimableRequest)
       QueryTotalClaimableRequestOrBuilder {
@@ -5209,6 +5231,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -5225,6 +5248,7 @@ public final class QueryOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -5700,7 +5724,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.QueryTotalClaimableResponse}
    */
-  public  static final class QueryTotalClaimableResponse extends
+  public static final class QueryTotalClaimableResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.QueryTotalClaimableResponse)
       QueryTotalClaimableResponseOrBuilder {
@@ -5793,12 +5817,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -5806,18 +5832,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -6579,7 +6608,7 @@ public final class QueryOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.getDescriptor(),
@@ -6647,13 +6676,13 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Coins", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     publicawesome.stargaze.claim.v1beta1.ClaimRecordOuterClass.getDescriptor();

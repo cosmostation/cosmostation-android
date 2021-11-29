@@ -92,7 +92,7 @@ public final class Tx {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.MsgMintRequest}
    */
-  public  static final class MsgMintRequest extends
+  public static final class MsgMintRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.MsgMintRequest)
       MsgMintRequestOrBuilder {
@@ -203,6 +203,7 @@ public final class Tx {
      * <code>string receiver = 1 [(.gogoproto.moretags) = "yaml:&#92;"receiver&#92;""];</code>
      * @return The receiver.
      */
+    @java.lang.Override
     public java.lang.String getReceiver() {
       java.lang.Object ref = receiver_;
       if (ref instanceof java.lang.String) {
@@ -223,6 +224,7 @@ public final class Tx {
      * <code>string receiver = 1 [(.gogoproto.moretags) = "yaml:&#92;"receiver&#92;""];</code>
      * @return The bytes for receiver.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getReceiverBytes() {
       java.lang.Object ref = receiver_;
@@ -247,6 +249,7 @@ public final class Tx {
      * <code>string signer = 2 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -267,6 +270,7 @@ public final class Tx {
      * <code>string signer = 2 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -291,6 +295,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the amount field is set.
      */
+    @java.lang.Override
     public boolean hasAmount() {
       return amount_ != null;
     }
@@ -302,6 +307,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount() {
       return amount_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : amount_;
     }
@@ -312,6 +318,7 @@ public final class Tx {
      *
      * <code>.cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder() {
       return getAmount();
     }
@@ -1079,7 +1086,7 @@ public final class Tx {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.MsgMintResponse}
    */
-  public  static final class MsgMintResponse extends
+  public static final class MsgMintResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.MsgMintResponse)
       MsgMintResponseOrBuilder {
@@ -1552,7 +1559,7 @@ public final class Tx {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.MsgBurnRequest}
    */
-  public  static final class MsgBurnRequest extends
+  public static final class MsgBurnRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.MsgBurnRequest)
       MsgBurnRequestOrBuilder {
@@ -1656,6 +1663,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -1676,6 +1684,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -1700,6 +1709,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin amount = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the amount field is set.
      */
+    @java.lang.Override
     public boolean hasAmount() {
       return amount_ != null;
     }
@@ -1711,6 +1721,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin amount = 2 [(.gogoproto.nullable) = false];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount() {
       return amount_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : amount_;
     }
@@ -1721,6 +1732,7 @@ public final class Tx {
      *
      * <code>.cosmos.base.v1beta1.Coin amount = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder() {
       return getAmount();
     }
@@ -2375,7 +2387,7 @@ public final class Tx {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.MsgBurnResponse}
    */
-  public  static final class MsgBurnResponse extends
+  public static final class MsgBurnResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.MsgBurnResponse)
       MsgBurnResponseOrBuilder {
@@ -2839,7 +2851,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_rizonworld_rizon_treasury_MsgMintRequest_descriptor =
@@ -2868,11 +2880,11 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

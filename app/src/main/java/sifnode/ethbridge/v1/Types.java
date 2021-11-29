@@ -121,6 +121,10 @@ public final class Types {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -314,7 +318,7 @@ public final class Types {
    *
    * Protobuf type {@code sifnode.ethbridge.v1.EthBridgeClaim}
    */
-  public  static final class EthBridgeClaim extends
+  public static final class EthBridgeClaim extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.EthBridgeClaim)
       EthBridgeClaimOrBuilder {
@@ -460,6 +464,7 @@ public final class Types {
      * <code>int64 ethereum_chain_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_chain_id&#92;""];</code>
      * @return The ethereumChainId.
      */
+    @java.lang.Override
     public long getEthereumChainId() {
       return ethereumChainId_;
     }
@@ -474,6 +479,7 @@ public final class Types {
      * <code>string bridge_contract_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"bridge_contract_address&#92;""];</code>
      * @return The bridgeContractAddress.
      */
+    @java.lang.Override
     public java.lang.String getBridgeContractAddress() {
       java.lang.Object ref = bridgeContractAddress_;
       if (ref instanceof java.lang.String) {
@@ -494,6 +500,7 @@ public final class Types {
      * <code>string bridge_contract_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"bridge_contract_address&#92;""];</code>
      * @return The bytes for bridgeContractAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBridgeContractAddressBytes() {
       java.lang.Object ref = bridgeContractAddress_;
@@ -514,6 +521,7 @@ public final class Types {
      * <code>int64 nonce = 3 [(.gogoproto.moretags) = "yaml:&#92;"nonce&#92;""];</code>
      * @return The nonce.
      */
+    @java.lang.Override
     public long getNonce() {
       return nonce_;
     }
@@ -524,6 +532,7 @@ public final class Types {
      * <code>string symbol = 4 [(.gogoproto.moretags) = "yaml:&#92;"symbol&#92;""];</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -540,6 +549,7 @@ public final class Types {
      * <code>string symbol = 4 [(.gogoproto.moretags) = "yaml:&#92;"symbol&#92;""];</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -564,6 +574,7 @@ public final class Types {
      * <code>string token_contract_address = 5 [(.gogoproto.moretags) = "yaml:&#92;"token_contract_address&#92;""];</code>
      * @return The tokenContractAddress.
      */
+    @java.lang.Override
     public java.lang.String getTokenContractAddress() {
       java.lang.Object ref = tokenContractAddress_;
       if (ref instanceof java.lang.String) {
@@ -584,6 +595,7 @@ public final class Types {
      * <code>string token_contract_address = 5 [(.gogoproto.moretags) = "yaml:&#92;"token_contract_address&#92;""];</code>
      * @return The bytes for tokenContractAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenContractAddressBytes() {
       java.lang.Object ref = tokenContractAddress_;
@@ -608,6 +620,7 @@ public final class Types {
      * <code>string ethereum_sender = 6 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_sender&#92;""];</code>
      * @return The ethereumSender.
      */
+    @java.lang.Override
     public java.lang.String getEthereumSender() {
       java.lang.Object ref = ethereumSender_;
       if (ref instanceof java.lang.String) {
@@ -628,6 +641,7 @@ public final class Types {
      * <code>string ethereum_sender = 6 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_sender&#92;""];</code>
      * @return The bytes for ethereumSender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getEthereumSenderBytes() {
       java.lang.Object ref = ethereumSender_;
@@ -652,6 +666,7 @@ public final class Types {
      * <code>string cosmos_receiver = 7 [(.gogoproto.moretags) = "yaml:&#92;"cosmos_receiver&#92;""];</code>
      * @return The cosmosReceiver.
      */
+    @java.lang.Override
     public java.lang.String getCosmosReceiver() {
       java.lang.Object ref = cosmosReceiver_;
       if (ref instanceof java.lang.String) {
@@ -672,6 +687,7 @@ public final class Types {
      * <code>string cosmos_receiver = 7 [(.gogoproto.moretags) = "yaml:&#92;"cosmos_receiver&#92;""];</code>
      * @return The bytes for cosmosReceiver.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCosmosReceiverBytes() {
       java.lang.Object ref = cosmosReceiver_;
@@ -696,6 +712,7 @@ public final class Types {
      * <code>string validator_address = 8 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -716,6 +733,7 @@ public final class Types {
      * <code>string validator_address = 8 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -736,6 +754,7 @@ public final class Types {
      * <code>string amount = 9 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public java.lang.String getAmount() {
       java.lang.Object ref = amount_;
       if (ref instanceof java.lang.String) {
@@ -752,6 +771,7 @@ public final class Types {
      * <code>string amount = 9 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      * @return The bytes for amount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAmountBytes() {
       java.lang.Object ref = amount_;
@@ -772,14 +792,14 @@ public final class Types {
      * <code>.sifnode.ethbridge.v1.ClaimType claim_type = 10;</code>
      * @return The enum numeric value on the wire for claimType.
      */
-    public int getClaimTypeValue() {
+    @java.lang.Override public int getClaimTypeValue() {
       return claimType_;
     }
     /**
      * <code>.sifnode.ethbridge.v1.ClaimType claim_type = 10;</code>
      * @return The claimType.
      */
-    public sifnode.ethbridge.v1.Types.ClaimType getClaimType() {
+    @java.lang.Override public sifnode.ethbridge.v1.Types.ClaimType getClaimType() {
       @SuppressWarnings("deprecation")
       sifnode.ethbridge.v1.Types.ClaimType result = sifnode.ethbridge.v1.Types.ClaimType.valueOf(claimType_);
       return result == null ? sifnode.ethbridge.v1.Types.ClaimType.UNRECOGNIZED : result;
@@ -1251,6 +1271,7 @@ public final class Types {
        * <code>int64 ethereum_chain_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"ethereum_chain_id&#92;""];</code>
        * @return The ethereumChainId.
        */
+      @java.lang.Override
       public long getEthereumChainId() {
         return ethereumChainId_;
       }
@@ -1377,6 +1398,7 @@ public final class Types {
        * <code>int64 nonce = 3 [(.gogoproto.moretags) = "yaml:&#92;"nonce&#92;""];</code>
        * @return The nonce.
        */
+      @java.lang.Override
       public long getNonce() {
         return nonce_;
       }
@@ -1943,7 +1965,7 @@ public final class Types {
        * <code>.sifnode.ethbridge.v1.ClaimType claim_type = 10;</code>
        * @return The enum numeric value on the wire for claimType.
        */
-      public int getClaimTypeValue() {
+      @java.lang.Override public int getClaimTypeValue() {
         return claimType_;
       }
       /**
@@ -1952,6 +1974,7 @@ public final class Types {
        * @return This builder for chaining.
        */
       public Builder setClaimTypeValue(int value) {
+        
         claimType_ = value;
         onChanged();
         return this;
@@ -1960,6 +1983,7 @@ public final class Types {
        * <code>.sifnode.ethbridge.v1.ClaimType claim_type = 10;</code>
        * @return The claimType.
        */
+      @java.lang.Override
       public sifnode.ethbridge.v1.Types.ClaimType getClaimType() {
         @SuppressWarnings("deprecation")
         sifnode.ethbridge.v1.Types.ClaimType result = sifnode.ethbridge.v1.Types.ClaimType.valueOf(claimType_);
@@ -2074,7 +2098,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.ethbridge.v1.PeggyTokens}
    */
-  public  static final class PeggyTokens extends
+  public static final class PeggyTokens extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.PeggyTokens)
       PeggyTokensOrBuilder {
@@ -2728,7 +2752,7 @@ public final class Types {
    *
    * Protobuf type {@code sifnode.ethbridge.v1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.ethbridge.v1.GenesisState)
       GenesisStateOrBuilder {
@@ -2829,6 +2853,7 @@ public final class Types {
      * <code>string ceth_receive_account = 1;</code>
      * @return The cethReceiveAccount.
      */
+    @java.lang.Override
     public java.lang.String getCethReceiveAccount() {
       java.lang.Object ref = cethReceiveAccount_;
       if (ref instanceof java.lang.String) {
@@ -2845,6 +2870,7 @@ public final class Types {
      * <code>string ceth_receive_account = 1;</code>
      * @return The bytes for cethReceiveAccount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCethReceiveAccountBytes() {
       java.lang.Object ref = cethReceiveAccount_;
@@ -3525,7 +3551,7 @@ public final class Types {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_sifnode_ethbridge_v1_EthBridgeClaim_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3547,12 +3573,12 @@ public final class Types {
         new java.lang.String[] { "CethReceiveAccount", "PeggyTokens", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

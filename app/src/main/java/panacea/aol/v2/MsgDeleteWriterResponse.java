@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.MsgDeleteWriterResponse}
  */
-public  final class MsgDeleteWriterResponse extends
+public final class MsgDeleteWriterResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.MsgDeleteWriterResponse)
     MsgDeleteWriterResponseOrBuilder {

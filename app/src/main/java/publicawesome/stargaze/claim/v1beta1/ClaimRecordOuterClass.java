@@ -111,6 +111,10 @@ public final class ClaimRecordOuterClass {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -248,7 +252,7 @@ public final class ClaimRecordOuterClass {
   /**
    * Protobuf type {@code publicawesome.stargaze.claim.v1beta1.ClaimRecord}
    */
-  public  static final class ClaimRecord extends
+  public static final class ClaimRecord extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:publicawesome.stargaze.claim.v1beta1.ClaimRecord)
       ClaimRecordOrBuilder {
@@ -378,6 +382,7 @@ public final class ClaimRecordOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -398,6 +403,7 @@ public final class ClaimRecordOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -421,6 +427,7 @@ public final class ClaimRecordOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin initial_claimable_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_claimable_amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getInitialClaimableAmountList() {
       return initialClaimableAmount_;
     }
@@ -431,6 +438,7 @@ public final class ClaimRecordOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin initial_claimable_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_claimable_amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getInitialClaimableAmountOrBuilderList() {
       return initialClaimableAmount_;
@@ -442,6 +450,7 @@ public final class ClaimRecordOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin initial_claimable_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_claimable_amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getInitialClaimableAmountCount() {
       return initialClaimableAmount_.size();
     }
@@ -452,6 +461,7 @@ public final class ClaimRecordOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin initial_claimable_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_claimable_amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getInitialClaimableAmount(int index) {
       return initialClaimableAmount_.get(index);
     }
@@ -462,6 +472,7 @@ public final class ClaimRecordOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin initial_claimable_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_claimable_amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getInitialClaimableAmountOrBuilder(
         int index) {
       return initialClaimableAmount_.get(index);
@@ -478,6 +489,7 @@ public final class ClaimRecordOuterClass {
      * <code>repeated bool action_completed = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
      * @return A list containing the actionCompleted.
      */
+    @java.lang.Override
     public java.util.List<java.lang.Boolean>
         getActionCompletedList() {
       return actionCompleted_;
@@ -1517,7 +1529,7 @@ public final class ClaimRecordOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_publicawesome_stargaze_claim_v1beta1_ClaimRecord_descriptor =
@@ -1528,13 +1540,13 @@ public final class ClaimRecordOuterClass {
         new java.lang.String[] { "Address", "InitialClaimableAmount", "ActionCompleted", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

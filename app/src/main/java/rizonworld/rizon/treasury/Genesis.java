@@ -67,7 +67,7 @@ public final class Genesis {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.GenesisState)
       GenesisStateOrBuilder {
@@ -177,6 +177,7 @@ public final class Genesis {
      * <code>.rizonworld.rizon.treasury.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -188,6 +189,7 @@ public final class Genesis {
      * <code>.rizonworld.rizon.treasury.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.ParamsOuterClass.Params getParams() {
       return params_ == null ? rizonworld.rizon.treasury.ParamsOuterClass.Params.getDefaultInstance() : params_;
     }
@@ -198,6 +200,7 @@ public final class Genesis {
      *
      * <code>.rizonworld.rizon.treasury.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -208,6 +211,7 @@ public final class Genesis {
      * <code>.rizonworld.rizon.treasury.Sequence seq = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the seq field is set.
      */
+    @java.lang.Override
     public boolean hasSeq() {
       return seq_ != null;
     }
@@ -215,12 +219,14 @@ public final class Genesis {
      * <code>.rizonworld.rizon.treasury.Sequence seq = 2 [(.gogoproto.nullable) = false];</code>
      * @return The seq.
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.Treasury.Sequence getSeq() {
       return seq_ == null ? rizonworld.rizon.treasury.Treasury.Sequence.getDefaultInstance() : seq_;
     }
     /**
      * <code>.rizonworld.rizon.treasury.Sequence seq = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.Treasury.SequenceOrBuilder getSeqOrBuilder() {
       return getSeq();
     }
@@ -926,7 +932,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           rizonworld.rizon.treasury.ParamsOuterClass.getDescriptor(),
           rizonworld.rizon.treasury.Treasury.getDescriptor(),
         });
@@ -938,10 +944,10 @@ public final class Genesis {
         new java.lang.String[] { "Params", "Seq", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     rizonworld.rizon.treasury.ParamsOuterClass.getDescriptor();
     rizonworld.rizon.treasury.Treasury.getDescriptor();
   }

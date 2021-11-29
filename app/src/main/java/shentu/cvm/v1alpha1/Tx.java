@@ -57,7 +57,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.MsgCall}
    */
-  public  static final class MsgCall extends
+  public static final class MsgCall extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.MsgCall)
       MsgCallOrBuilder {
@@ -162,6 +162,7 @@ public final class Tx {
      * <code>string caller = 1 [(.gogoproto.moretags) = "yaml:&#92;"caller&#92;""];</code>
      * @return The caller.
      */
+    @java.lang.Override
     public java.lang.String getCaller() {
       java.lang.Object ref = caller_;
       if (ref instanceof java.lang.String) {
@@ -178,6 +179,7 @@ public final class Tx {
      * <code>string caller = 1 [(.gogoproto.moretags) = "yaml:&#92;"caller&#92;""];</code>
      * @return The bytes for caller.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCallerBytes() {
       java.lang.Object ref = caller_;
@@ -198,6 +200,7 @@ public final class Tx {
      * <code>string callee = 2 [(.gogoproto.moretags) = "yaml:&#92;"callee&#92;""];</code>
      * @return The callee.
      */
+    @java.lang.Override
     public java.lang.String getCallee() {
       java.lang.Object ref = callee_;
       if (ref instanceof java.lang.String) {
@@ -214,6 +217,7 @@ public final class Tx {
      * <code>string callee = 2 [(.gogoproto.moretags) = "yaml:&#92;"callee&#92;""];</code>
      * @return The bytes for callee.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCalleeBytes() {
       java.lang.Object ref = callee_;
@@ -234,6 +238,7 @@ public final class Tx {
      * <code>uint64 value = 3 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
      * @return The value.
      */
+    @java.lang.Override
     public long getValue() {
       return value_;
     }
@@ -244,6 +249,7 @@ public final class Tx {
      * <code>bytes data = 4 [(.gogoproto.moretags) = "yaml:&#92;"data&#92;""];</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -759,6 +765,7 @@ public final class Tx {
        * <code>uint64 value = 3 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
        * @return The value.
        */
+      @java.lang.Override
       public long getValue() {
         return value_;
       }
@@ -789,6 +796,7 @@ public final class Tx {
        * <code>bytes data = 4 [(.gogoproto.moretags) = "yaml:&#92;"data&#92;""];</code>
        * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
@@ -882,7 +890,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.MsgCallResponse}
    */
-  public  static final class MsgCallResponse extends
+  public static final class MsgCallResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.MsgCallResponse)
       MsgCallResponseOrBuilder {
@@ -968,6 +976,7 @@ public final class Tx {
      * <code>bytes result = 1 [(.gogoproto.moretags) = "yaml:&#92;"result&#92;""];</code>
      * @return The result.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getResult() {
       return result_;
     }
@@ -1279,6 +1288,7 @@ public final class Tx {
        * <code>bytes result = 1 [(.gogoproto.moretags) = "yaml:&#92;"result&#92;""];</code>
        * @return The result.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getResult() {
         return result_;
       }
@@ -1490,7 +1500,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.MsgDeploy}
    */
-  public  static final class MsgDeploy extends
+  public static final class MsgDeploy extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.MsgDeploy)
       MsgDeployOrBuilder {
@@ -1623,6 +1633,7 @@ public final class Tx {
      * <code>string caller = 1 [(.gogoproto.moretags) = "yaml:&#92;"caller&#92;""];</code>
      * @return The caller.
      */
+    @java.lang.Override
     public java.lang.String getCaller() {
       java.lang.Object ref = caller_;
       if (ref instanceof java.lang.String) {
@@ -1643,6 +1654,7 @@ public final class Tx {
      * <code>string caller = 1 [(.gogoproto.moretags) = "yaml:&#92;"caller&#92;""];</code>
      * @return The bytes for caller.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCallerBytes() {
       java.lang.Object ref = caller_;
@@ -1667,6 +1679,7 @@ public final class Tx {
      * <code>uint64 value = 2 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
      * @return The value.
      */
+    @java.lang.Override
     public long getValue() {
       return value_;
     }
@@ -1681,6 +1694,7 @@ public final class Tx {
      * <code>bytes code = 3 [(.gogoproto.moretags) = "yaml:&#92;"code&#92;""];</code>
      * @return The code.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCode() {
       return code_;
     }
@@ -1695,6 +1709,7 @@ public final class Tx {
      * <code>string abi = 4 [(.gogoproto.moretags) = "yaml:&#92;"abi&#92;""];</code>
      * @return The abi.
      */
+    @java.lang.Override
     public java.lang.String getAbi() {
       java.lang.Object ref = abi_;
       if (ref instanceof java.lang.String) {
@@ -1715,6 +1730,7 @@ public final class Tx {
      * <code>string abi = 4 [(.gogoproto.moretags) = "yaml:&#92;"abi&#92;""];</code>
      * @return The bytes for abi.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAbiBytes() {
       java.lang.Object ref = abi_;
@@ -1738,6 +1754,7 @@ public final class Tx {
      *
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<payload.Payload.ContractMeta> getMetaList() {
       return meta_;
     }
@@ -1748,6 +1765,7 @@ public final class Tx {
      *
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends payload.Payload.ContractMetaOrBuilder> 
         getMetaOrBuilderList() {
       return meta_;
@@ -1759,6 +1777,7 @@ public final class Tx {
      *
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
+    @java.lang.Override
     public int getMetaCount() {
       return meta_.size();
     }
@@ -1769,6 +1788,7 @@ public final class Tx {
      *
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
+    @java.lang.Override
     public payload.Payload.ContractMeta getMeta(int index) {
       return meta_.get(index);
     }
@@ -1779,6 +1799,7 @@ public final class Tx {
      *
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
+    @java.lang.Override
     public payload.Payload.ContractMetaOrBuilder getMetaOrBuilder(
         int index) {
       return meta_.get(index);
@@ -1794,6 +1815,7 @@ public final class Tx {
      * <code>bool is_eWASM = 6 [(.gogoproto.moretags) = "yaml:&#92;"is_EWASM&#92;""];</code>
      * @return The isEWASM.
      */
+    @java.lang.Override
     public boolean getIsEWASM() {
       return isEWASM_;
     }
@@ -1808,6 +1830,7 @@ public final class Tx {
      * <code>bool is_runtime = 7 [(.gogoproto.moretags) = "yaml:&#92;"is_runtime&#92;""];</code>
      * @return The isRuntime.
      */
+    @java.lang.Override
     public boolean getIsRuntime() {
       return isRuntime_;
     }
@@ -2364,6 +2387,7 @@ public final class Tx {
        * <code>uint64 value = 2 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
        * @return The value.
        */
+      @java.lang.Override
       public long getValue() {
         return value_;
       }
@@ -2406,6 +2430,7 @@ public final class Tx {
        * <code>bytes code = 3 [(.gogoproto.moretags) = "yaml:&#92;"code&#92;""];</code>
        * @return The code.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCode() {
         return code_;
       }
@@ -2859,6 +2884,7 @@ public final class Tx {
        * <code>bool is_eWASM = 6 [(.gogoproto.moretags) = "yaml:&#92;"is_EWASM&#92;""];</code>
        * @return The isEWASM.
        */
+      @java.lang.Override
       public boolean getIsEWASM() {
         return isEWASM_;
       }
@@ -2901,6 +2927,7 @@ public final class Tx {
        * <code>bool is_runtime = 7 [(.gogoproto.moretags) = "yaml:&#92;"is_runtime&#92;""];</code>
        * @return The isRuntime.
        */
+      @java.lang.Override
       public boolean getIsRuntime() {
         return isRuntime_;
       }
@@ -2999,7 +3026,7 @@ public final class Tx {
   /**
    * Protobuf type {@code shentu.cvm.v1alpha1.MsgDeployResponse}
    */
-  public  static final class MsgDeployResponse extends
+  public static final class MsgDeployResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cvm.v1alpha1.MsgDeployResponse)
       MsgDeployResponseOrBuilder {
@@ -3085,6 +3112,7 @@ public final class Tx {
      * <code>bytes result = 1 [(.gogoproto.moretags) = "yaml:&#92;"result&#92;""];</code>
      * @return The result.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getResult() {
       return result_;
     }
@@ -3396,6 +3424,7 @@ public final class Tx {
        * <code>bytes result = 1 [(.gogoproto.moretags) = "yaml:&#92;"result&#92;""];</code>
        * @return The result.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getResult() {
         return result_;
       }
@@ -3532,7 +3561,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           shentu.cvm.v1alpha1.Cvm.getDescriptor(),
           payload.Payload.getDescriptor(),
         });
@@ -3562,10 +3591,10 @@ public final class Tx {
         new java.lang.String[] { "Result", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     shentu.cvm.v1alpha1.Cvm.getDescriptor();
     payload.Payload.getDescriptor();
   }

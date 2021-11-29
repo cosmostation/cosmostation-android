@@ -2074,7 +2074,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     java.lang.String getValidatorAddr();
@@ -2083,7 +2083,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     com.google.protobuf.ByteString
@@ -2184,7 +2184,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     @java.lang.Override
@@ -2205,7 +2205,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     @java.lang.Override
@@ -2535,7 +2535,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddr.
        */
       public java.lang.String getValidatorAddr() {
@@ -2555,7 +2555,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -2576,7 +2576,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -2595,7 +2595,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddr() {
@@ -2609,7 +2609,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -3375,7 +3375,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     java.lang.String getValidatorAddr();
@@ -3384,7 +3384,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     com.google.protobuf.ByteString
@@ -3526,7 +3526,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     @java.lang.Override
@@ -3547,7 +3547,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     @java.lang.Override
@@ -3946,7 +3946,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddr.
        */
       public java.lang.String getValidatorAddr() {
@@ -3966,7 +3966,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -3987,7 +3987,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -4006,7 +4006,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddr() {
@@ -4020,7 +4020,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -5318,7 +5318,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     java.lang.String getValidatorAddr();
@@ -5327,7 +5327,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     com.google.protobuf.ByteString
@@ -5469,7 +5469,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     @java.lang.Override
@@ -5490,7 +5490,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 1;</code>
+     * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     @java.lang.Override
@@ -5889,7 +5889,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddr.
        */
       public java.lang.String getValidatorAddr() {
@@ -5909,7 +5909,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -5930,7 +5930,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -5949,7 +5949,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddr() {
@@ -5963,7 +5963,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 1;</code>
+       * <code>string validator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -7261,7 +7261,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     java.lang.String getDelegatorAddr();
@@ -7270,7 +7270,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     com.google.protobuf.ByteString
@@ -7281,7 +7281,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     java.lang.String getValidatorAddr();
@@ -7290,7 +7290,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     com.google.protobuf.ByteString
@@ -7398,7 +7398,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     @java.lang.Override
@@ -7419,7 +7419,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     @java.lang.Override
@@ -7444,7 +7444,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     @java.lang.Override
@@ -7465,7 +7465,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     @java.lang.Override
@@ -7812,7 +7812,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The delegatorAddr.
        */
       public java.lang.String getDelegatorAddr() {
@@ -7832,7 +7832,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for delegatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -7853,7 +7853,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -7872,7 +7872,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDelegatorAddr() {
@@ -7886,7 +7886,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -7908,7 +7908,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddr.
        */
       public java.lang.String getValidatorAddr() {
@@ -7928,7 +7928,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -7949,7 +7949,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -7968,7 +7968,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddr() {
@@ -7982,7 +7982,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -8748,7 +8748,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     java.lang.String getDelegatorAddr();
@@ -8757,7 +8757,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     com.google.protobuf.ByteString
@@ -8768,7 +8768,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     java.lang.String getValidatorAddr();
@@ -8777,7 +8777,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     com.google.protobuf.ByteString
@@ -8886,7 +8886,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     @java.lang.Override
@@ -8907,7 +8907,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     @java.lang.Override
@@ -8932,7 +8932,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     @java.lang.Override
@@ -8953,7 +8953,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     @java.lang.Override
@@ -9301,7 +9301,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The delegatorAddr.
        */
       public java.lang.String getDelegatorAddr() {
@@ -9321,7 +9321,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for delegatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -9342,7 +9342,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -9361,7 +9361,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDelegatorAddr() {
@@ -9375,7 +9375,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -9397,7 +9397,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddr.
        */
       public java.lang.String getValidatorAddr() {
@@ -9417,7 +9417,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -9438,7 +9438,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -9457,7 +9457,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddr() {
@@ -9471,7 +9471,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -10239,7 +10239,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     java.lang.String getDelegatorAddr();
@@ -10248,7 +10248,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     com.google.protobuf.ByteString
@@ -10390,7 +10390,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     @java.lang.Override
@@ -10411,7 +10411,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     @java.lang.Override
@@ -10810,7 +10810,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The delegatorAddr.
        */
       public java.lang.String getDelegatorAddr() {
@@ -10830,7 +10830,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for delegatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -10851,7 +10851,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -10870,7 +10870,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDelegatorAddr() {
@@ -10884,7 +10884,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -12294,7 +12294,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     java.lang.String getDelegatorAddr();
@@ -12303,7 +12303,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     com.google.protobuf.ByteString
@@ -12445,7 +12445,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     @java.lang.Override
@@ -12466,7 +12466,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     @java.lang.Override
@@ -12865,7 +12865,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The delegatorAddr.
        */
       public java.lang.String getDelegatorAddr() {
@@ -12885,7 +12885,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for delegatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -12906,7 +12906,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -12925,7 +12925,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDelegatorAddr() {
@@ -12939,7 +12939,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -14237,7 +14237,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     java.lang.String getDelegatorAddr();
@@ -14246,7 +14246,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     com.google.protobuf.ByteString
@@ -14257,7 +14257,7 @@ public final class QueryOuterClass {
      * src_validator_addr defines the validator address to redelegate from.
      * </pre>
      *
-     * <code>string src_validator_addr = 2;</code>
+     * <code>string src_validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The srcValidatorAddr.
      */
     java.lang.String getSrcValidatorAddr();
@@ -14266,7 +14266,7 @@ public final class QueryOuterClass {
      * src_validator_addr defines the validator address to redelegate from.
      * </pre>
      *
-     * <code>string src_validator_addr = 2;</code>
+     * <code>string src_validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for srcValidatorAddr.
      */
     com.google.protobuf.ByteString
@@ -14277,7 +14277,7 @@ public final class QueryOuterClass {
      * dst_validator_addr defines the validator address to redelegate to.
      * </pre>
      *
-     * <code>string dst_validator_addr = 3;</code>
+     * <code>string dst_validator_addr = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The dstValidatorAddr.
      */
     java.lang.String getDstValidatorAddr();
@@ -14286,7 +14286,7 @@ public final class QueryOuterClass {
      * dst_validator_addr defines the validator address to redelegate to.
      * </pre>
      *
-     * <code>string dst_validator_addr = 3;</code>
+     * <code>string dst_validator_addr = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for dstValidatorAddr.
      */
     com.google.protobuf.ByteString
@@ -14442,7 +14442,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     @java.lang.Override
@@ -14463,7 +14463,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     @java.lang.Override
@@ -14488,7 +14488,7 @@ public final class QueryOuterClass {
      * src_validator_addr defines the validator address to redelegate from.
      * </pre>
      *
-     * <code>string src_validator_addr = 2;</code>
+     * <code>string src_validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The srcValidatorAddr.
      */
     @java.lang.Override
@@ -14509,7 +14509,7 @@ public final class QueryOuterClass {
      * src_validator_addr defines the validator address to redelegate from.
      * </pre>
      *
-     * <code>string src_validator_addr = 2;</code>
+     * <code>string src_validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for srcValidatorAddr.
      */
     @java.lang.Override
@@ -14534,7 +14534,7 @@ public final class QueryOuterClass {
      * dst_validator_addr defines the validator address to redelegate to.
      * </pre>
      *
-     * <code>string dst_validator_addr = 3;</code>
+     * <code>string dst_validator_addr = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The dstValidatorAddr.
      */
     @java.lang.Override
@@ -14555,7 +14555,7 @@ public final class QueryOuterClass {
      * dst_validator_addr defines the validator address to redelegate to.
      * </pre>
      *
-     * <code>string dst_validator_addr = 3;</code>
+     * <code>string dst_validator_addr = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for dstValidatorAddr.
      */
     @java.lang.Override
@@ -14988,7 +14988,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The delegatorAddr.
        */
       public java.lang.String getDelegatorAddr() {
@@ -15008,7 +15008,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for delegatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -15029,7 +15029,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -15048,7 +15048,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDelegatorAddr() {
@@ -15062,7 +15062,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -15084,7 +15084,7 @@ public final class QueryOuterClass {
        * src_validator_addr defines the validator address to redelegate from.
        * </pre>
        *
-       * <code>string src_validator_addr = 2;</code>
+       * <code>string src_validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The srcValidatorAddr.
        */
       public java.lang.String getSrcValidatorAddr() {
@@ -15104,7 +15104,7 @@ public final class QueryOuterClass {
        * src_validator_addr defines the validator address to redelegate from.
        * </pre>
        *
-       * <code>string src_validator_addr = 2;</code>
+       * <code>string src_validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for srcValidatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -15125,7 +15125,7 @@ public final class QueryOuterClass {
        * src_validator_addr defines the validator address to redelegate from.
        * </pre>
        *
-       * <code>string src_validator_addr = 2;</code>
+       * <code>string src_validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The srcValidatorAddr to set.
        * @return This builder for chaining.
        */
@@ -15144,7 +15144,7 @@ public final class QueryOuterClass {
        * src_validator_addr defines the validator address to redelegate from.
        * </pre>
        *
-       * <code>string src_validator_addr = 2;</code>
+       * <code>string src_validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearSrcValidatorAddr() {
@@ -15158,7 +15158,7 @@ public final class QueryOuterClass {
        * src_validator_addr defines the validator address to redelegate from.
        * </pre>
        *
-       * <code>string src_validator_addr = 2;</code>
+       * <code>string src_validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for srcValidatorAddr to set.
        * @return This builder for chaining.
        */
@@ -15180,7 +15180,7 @@ public final class QueryOuterClass {
        * dst_validator_addr defines the validator address to redelegate to.
        * </pre>
        *
-       * <code>string dst_validator_addr = 3;</code>
+       * <code>string dst_validator_addr = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The dstValidatorAddr.
        */
       public java.lang.String getDstValidatorAddr() {
@@ -15200,7 +15200,7 @@ public final class QueryOuterClass {
        * dst_validator_addr defines the validator address to redelegate to.
        * </pre>
        *
-       * <code>string dst_validator_addr = 3;</code>
+       * <code>string dst_validator_addr = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for dstValidatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -15221,7 +15221,7 @@ public final class QueryOuterClass {
        * dst_validator_addr defines the validator address to redelegate to.
        * </pre>
        *
-       * <code>string dst_validator_addr = 3;</code>
+       * <code>string dst_validator_addr = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The dstValidatorAddr to set.
        * @return This builder for chaining.
        */
@@ -15240,7 +15240,7 @@ public final class QueryOuterClass {
        * dst_validator_addr defines the validator address to redelegate to.
        * </pre>
        *
-       * <code>string dst_validator_addr = 3;</code>
+       * <code>string dst_validator_addr = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDstValidatorAddr() {
@@ -15254,7 +15254,7 @@ public final class QueryOuterClass {
        * dst_validator_addr defines the validator address to redelegate to.
        * </pre>
        *
-       * <code>string dst_validator_addr = 3;</code>
+       * <code>string dst_validator_addr = 3 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for dstValidatorAddr to set.
        * @return This builder for chaining.
        */
@@ -16552,7 +16552,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     java.lang.String getDelegatorAddr();
@@ -16561,7 +16561,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     com.google.protobuf.ByteString
@@ -16703,7 +16703,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     @java.lang.Override
@@ -16724,7 +16724,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     @java.lang.Override
@@ -17123,7 +17123,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The delegatorAddr.
        */
       public java.lang.String getDelegatorAddr() {
@@ -17143,7 +17143,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for delegatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -17164,7 +17164,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -17183,7 +17183,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDelegatorAddr() {
@@ -17197,7 +17197,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -18607,7 +18607,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     java.lang.String getDelegatorAddr();
@@ -18616,7 +18616,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     com.google.protobuf.ByteString
@@ -18627,7 +18627,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     java.lang.String getValidatorAddr();
@@ -18636,7 +18636,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     com.google.protobuf.ByteString
@@ -18745,7 +18745,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The delegatorAddr.
      */
     @java.lang.Override
@@ -18766,7 +18766,7 @@ public final class QueryOuterClass {
      * delegator_addr defines the delegator address to query for.
      * </pre>
      *
-     * <code>string delegator_addr = 1;</code>
+     * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for delegatorAddr.
      */
     @java.lang.Override
@@ -18791,7 +18791,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddr.
      */
     @java.lang.Override
@@ -18812,7 +18812,7 @@ public final class QueryOuterClass {
      * validator_addr defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_addr = 2;</code>
+     * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddr.
      */
     @java.lang.Override
@@ -19160,7 +19160,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The delegatorAddr.
        */
       public java.lang.String getDelegatorAddr() {
@@ -19180,7 +19180,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for delegatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -19201,7 +19201,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -19220,7 +19220,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDelegatorAddr() {
@@ -19234,7 +19234,7 @@ public final class QueryOuterClass {
        * delegator_addr defines the delegator address to query for.
        * </pre>
        *
-       * <code>string delegator_addr = 1;</code>
+       * <code>string delegator_addr = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for delegatorAddr to set.
        * @return This builder for chaining.
        */
@@ -19256,7 +19256,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddr.
        */
       public java.lang.String getValidatorAddr() {
@@ -19276,7 +19276,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddr.
        */
       public com.google.protobuf.ByteString
@@ -19297,7 +19297,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -19316,7 +19316,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddr() {
@@ -19330,7 +19330,7 @@ public final class QueryOuterClass {
        * validator_addr defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_addr = 2;</code>
+       * <code>string validator_addr = 2 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddr to set.
        * @return This builder for chaining.
        */
@@ -23682,167 +23682,178 @@ public final class QueryOuterClass {
       "smos.staking.v1beta1\032*cosmos/base/query/" +
       "v1beta1/pagination.proto\032\024gogoproto/gogo" +
       ".proto\032\034google/api/annotations.proto\032$co" +
-      "smos/staking/v1beta1/staking.proto\"d\n\026Qu" +
-      "eryValidatorsRequest\022\016\n\006status\030\001 \001(\t\022:\n\n" +
-      "pagination\030\002 \001(\0132&.cosmos.base.query.v1b" +
-      "eta1.PageRequest\"\223\001\n\027QueryValidatorsResp" +
-      "onse\022;\n\nvalidators\030\001 \003(\0132!.cosmos.stakin" +
-      "g.v1beta1.ValidatorB\004\310\336\037\000\022;\n\npagination\030" +
-      "\002 \001(\0132\'.cosmos.base.query.v1beta1.PageRe" +
-      "sponse\"/\n\025QueryValidatorRequest\022\026\n\016valid" +
-      "ator_addr\030\001 \001(\t\"T\n\026QueryValidatorRespons" +
-      "e\022:\n\tvalidator\030\001 \001(\0132!.cosmos.staking.v1" +
-      "beta1.ValidatorB\004\310\336\037\000\"v\n QueryValidatorD" +
-      "elegationsRequest\022\026\n\016validator_addr\030\001 \001(" +
-      "\t\022:\n\npagination\030\002 \001(\0132&.cosmos.base.quer" +
+      "smos/staking/v1beta1/staking.proto\032\031cosm" +
+      "os_proto/cosmos.proto\"d\n\026QueryValidators" +
+      "Request\022\016\n\006status\030\001 \001(\t\022:\n\npagination\030\002 " +
+      "\001(\0132&.cosmos.base.query.v1beta1.PageRequ" +
+      "est\"\223\001\n\027QueryValidatorsResponse\022;\n\nvalid" +
+      "ators\030\001 \003(\0132!.cosmos.staking.v1beta1.Val" +
+      "idatorB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmo" +
+      "s.base.query.v1beta1.PageResponse\"I\n\025Que" +
+      "ryValidatorRequest\0220\n\016validator_addr\030\001 \001" +
+      "(\tB\030\322\264-\024cosmos.AddressString\"T\n\026QueryVal" +
+      "idatorResponse\022:\n\tvalidator\030\001 \001(\0132!.cosm" +
+      "os.staking.v1beta1.ValidatorB\004\310\336\037\000\"\220\001\n Q" +
+      "ueryValidatorDelegationsRequest\0220\n\016valid" +
+      "ator_addr\030\001 \001(\tB\030\322\264-\024cosmos.AddressStrin" +
+      "g\022:\n\npagination\030\002 \001(\0132&.cosmos.base.quer" +
       "y.v1beta1.PageRequest\"\307\001\n!QueryValidator" +
       "DelegationsResponse\022e\n\024delegation_respon" +
       "ses\030\001 \003(\0132*.cosmos.staking.v1beta1.Deleg" +
       "ationResponseB\033\310\336\037\000\252\337\037\023DelegationRespons" +
       "es\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.que" +
-      "ry.v1beta1.PageResponse\"\177\n)QueryValidato" +
-      "rUnbondingDelegationsRequest\022\026\n\016validato" +
-      "r_addr\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&.cosmo" +
-      "s.base.query.v1beta1.PageRequest\"\271\001\n*Que" +
-      "ryValidatorUnbondingDelegationsResponse\022" +
-      "N\n\023unbonding_responses\030\001 \003(\0132+.cosmos.st" +
-      "aking.v1beta1.UnbondingDelegationB\004\310\336\037\000\022" +
-      ";\n\npagination\030\002 \001(\0132\'.cosmos.base.query." +
-      "v1beta1.PageResponse\"R\n\026QueryDelegationR" +
-      "equest\022\026\n\016delegator_addr\030\001 \001(\t\022\026\n\016valida" +
-      "tor_addr\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"b\n\027QueryDelegat" +
+      "ry.v1beta1.PageResponse\"\231\001\n)QueryValidat" +
+      "orUnbondingDelegationsRequest\0220\n\016validat" +
+      "or_addr\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022" +
+      ":\n\npagination\030\002 \001(\0132&.cosmos.base.query." +
+      "v1beta1.PageRequest\"\271\001\n*QueryValidatorUn" +
+      "bondingDelegationsResponse\022N\n\023unbonding_" +
+      "responses\030\001 \003(\0132+.cosmos.staking.v1beta1" +
+      ".UnbondingDelegationB\004\310\336\037\000\022;\n\npagination" +
+      "\030\002 \001(\0132\'.cosmos.base.query.v1beta1.PageR" +
+      "esponse\"\206\001\n\026QueryDelegationRequest\0220\n\016de" +
+      "legator_addr\030\001 \001(\tB\030\322\264-\024cosmos.AddressSt" +
+      "ring\0220\n\016validator_addr\030\002 \001(\tB\030\322\264-\024cosmos" +
+      ".AddressString:\010\350\240\037\000\210\240\037\000\"b\n\027QueryDelegat" +
       "ionResponse\022G\n\023delegation_response\030\001 \001(\013" +
       "2*.cosmos.staking.v1beta1.DelegationResp" +
-      "onse\"[\n\037QueryUnbondingDelegationRequest\022" +
-      "\026\n\016delegator_addr\030\001 \001(\t\022\026\n\016validator_add" +
-      "r\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"e\n QueryUnbondingDeleg" +
-      "ationResponse\022A\n\006unbond\030\001 \001(\0132+.cosmos.s" +
-      "taking.v1beta1.UnbondingDelegationB\004\310\336\037\000" +
-      "\"\200\001\n QueryDelegatorDelegationsRequest\022\026\n" +
-      "\016delegator_addr\030\001 \001(\t\022:\n\npagination\030\002 \001(" +
-      "\0132&.cosmos.base.query.v1beta1.PageReques" +
-      "t:\010\350\240\037\000\210\240\037\000\"\260\001\n!QueryDelegatorDelegation" +
-      "sResponse\022N\n\024delegation_responses\030\001 \003(\0132" +
-      "*.cosmos.staking.v1beta1.DelegationRespo" +
-      "nseB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.b" +
-      "ase.query.v1beta1.PageResponse\"\211\001\n)Query" +
-      "DelegatorUnbondingDelegationsRequest\022\026\n\016" +
-      "delegator_addr\030\001 \001(\t\022:\n\npagination\030\002 \001(\013" +
+      "onse\"\217\001\n\037QueryUnbondingDelegationRequest" +
+      "\0220\n\016delegator_addr\030\001 \001(\tB\030\322\264-\024cosmos.Add" +
+      "ressString\0220\n\016validator_addr\030\002 \001(\tB\030\322\264-\024" +
+      "cosmos.AddressString:\010\350\240\037\000\210\240\037\000\"e\n QueryU" +
+      "nbondingDelegationResponse\022A\n\006unbond\030\001 \001" +
+      "(\0132+.cosmos.staking.v1beta1.UnbondingDel" +
+      "egationB\004\310\336\037\000\"\232\001\n QueryDelegatorDelegati" +
+      "onsRequest\0220\n\016delegator_addr\030\001 \001(\tB\030\322\264-\024" +
+      "cosmos.AddressString\022:\n\npagination\030\002 \001(\013" +
       "2&.cosmos.base.query.v1beta1.PageRequest" +
-      ":\010\350\240\037\000\210\240\037\000\"\271\001\n*QueryDelegatorUnbondingDe" +
-      "legationsResponse\022N\n\023unbonding_responses" +
-      "\030\001 \003(\0132+.cosmos.staking.v1beta1.Unbondin" +
-      "gDelegationB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'." +
-      "cosmos.base.query.v1beta1.PageResponse\"\261" +
-      "\001\n\031QueryRedelegationsRequest\022\026\n\016delegato" +
-      "r_addr\030\001 \001(\t\022\032\n\022src_validator_addr\030\002 \001(\t" +
-      "\022\032\n\022dst_validator_addr\030\003 \001(\t\022:\n\npaginati" +
-      "on\030\004 \001(\0132&.cosmos.base.query.v1beta1.Pag" +
-      "eRequest:\010\350\240\037\000\210\240\037\000\"\255\001\n\032QueryRedelegation" +
-      "sResponse\022R\n\026redelegation_responses\030\001 \003(" +
-      "\0132,.cosmos.staking.v1beta1.RedelegationR" +
-      "esponseB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosm" +
-      "os.base.query.v1beta1.PageResponse\"\177\n\037Qu" +
-      "eryDelegatorValidatorsRequest\022\026\n\016delegat" +
-      "or_addr\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&.cosm" +
-      "os.base.query.v1beta1.PageRequest:\010\350\240\037\000\210" +
-      "\240\037\000\"\234\001\n QueryDelegatorValidatorsResponse" +
-      "\022;\n\nvalidators\030\001 \003(\0132!.cosmos.staking.v1" +
-      "beta1.ValidatorB\004\310\336\037\000\022;\n\npagination\030\002 \001(" +
-      "\0132\'.cosmos.base.query.v1beta1.PageRespon" +
-      "se\"Z\n\036QueryDelegatorValidatorRequest\022\026\n\016" +
-      "delegator_addr\030\001 \001(\t\022\026\n\016validator_addr\030\002" +
-      " \001(\t:\010\350\240\037\000\210\240\037\000\"]\n\037QueryDelegatorValidato" +
-      "rResponse\022:\n\tvalidator\030\001 \001(\0132!.cosmos.st" +
-      "aking.v1beta1.ValidatorB\004\310\336\037\000\",\n\032QueryHi" +
-      "storicalInfoRequest\022\016\n\006height\030\001 \001(\003\"S\n\033Q" +
-      "ueryHistoricalInfoResponse\0224\n\004hist\030\001 \001(\013" +
-      "2&.cosmos.staking.v1beta1.HistoricalInfo" +
-      "\"\022\n\020QueryPoolRequest\"E\n\021QueryPoolRespons" +
-      "e\0220\n\004pool\030\001 \001(\0132\034.cosmos.staking.v1beta1" +
-      ".PoolB\004\310\336\037\000\"\024\n\022QueryParamsRequest\"K\n\023Que" +
-      "ryParamsResponse\0224\n\006params\030\001 \001(\0132\036.cosmo" +
-      "s.staking.v1beta1.ParamsB\004\310\336\037\0002\352\025\n\005Query" +
-      "\022\231\001\n\nValidators\022..cosmos.staking.v1beta1" +
-      ".QueryValidatorsRequest\032/.cosmos.staking" +
-      ".v1beta1.QueryValidatorsResponse\"*\202\323\344\223\002$" +
-      "\022\"/cosmos/staking/v1beta1/validators\022\247\001\n" +
-      "\tValidator\022-.cosmos.staking.v1beta1.Quer" +
-      "yValidatorRequest\032..cosmos.staking.v1bet" +
-      "a1.QueryValidatorResponse\";\202\323\344\223\0025\0223/cosm" +
-      "os/staking/v1beta1/validators/{validator" +
-      "_addr}\022\324\001\n\024ValidatorDelegations\0228.cosmos" +
-      ".staking.v1beta1.QueryValidatorDelegatio" +
-      "nsRequest\0329.cosmos.staking.v1beta1.Query" +
-      "ValidatorDelegationsResponse\"G\202\323\344\223\002A\022?/c" +
-      "osmos/staking/v1beta1/validators/{valida" +
-      "tor_addr}/delegations\022\371\001\n\035ValidatorUnbon" +
-      "dingDelegations\022A.cosmos.staking.v1beta1" +
-      ".QueryValidatorUnbondingDelegationsReque" +
-      "st\032B.cosmos.staking.v1beta1.QueryValidat" +
-      "orUnbondingDelegationsResponse\"Q\202\323\344\223\002K\022I" +
-      "/cosmos/staking/v1beta1/validators/{vali" +
-      "dator_addr}/unbonding_delegations\022\307\001\n\nDe" +
-      "legation\022..cosmos.staking.v1beta1.QueryD" +
-      "elegationRequest\032/.cosmos.staking.v1beta" +
-      "1.QueryDelegationResponse\"X\202\323\344\223\002R\022P/cosm" +
-      "os/staking/v1beta1/validators/{validator" +
-      "_addr}/delegations/{delegator_addr}\022\367\001\n\023" +
-      "UnbondingDelegation\0227.cosmos.staking.v1b" +
-      "eta1.QueryUnbondingDelegationRequest\0328.c" +
-      "osmos.staking.v1beta1.QueryUnbondingDele" +
-      "gationResponse\"m\202\323\344\223\002g\022e/cosmos/staking/" +
-      "v1beta1/validators/{validator_addr}/dele" +
-      "gations/{delegator_addr}/unbonding_deleg" +
-      "ation\022\311\001\n\024DelegatorDelegations\0228.cosmos." +
-      "staking.v1beta1.QueryDelegatorDelegation" +
-      "sRequest\0329.cosmos.staking.v1beta1.QueryD" +
-      "elegatorDelegationsResponse\"<\202\323\344\223\0026\0224/co" +
-      "smos/staking/v1beta1/delegations/{delega" +
-      "tor_addr}\022\371\001\n\035DelegatorUnbondingDelegati" +
-      "ons\022A.cosmos.staking.v1beta1.QueryDelega" +
-      "torUnbondingDelegationsRequest\032B.cosmos." +
-      "staking.v1beta1.QueryDelegatorUnbondingD" +
-      "elegationsResponse\"Q\202\323\344\223\002K\022I/cosmos/stak" +
-      "ing/v1beta1/delegators/{delegator_addr}/" +
-      "unbonding_delegations\022\301\001\n\rRedelegations\022" +
-      "1.cosmos.staking.v1beta1.QueryRedelegati" +
-      "onsRequest\0322.cosmos.staking.v1beta1.Quer" +
-      "yRedelegationsResponse\"I\202\323\344\223\002C\022A/cosmos/" +
-      "staking/v1beta1/delegators/{delegator_ad" +
-      "dr}/redelegations\022\320\001\n\023DelegatorValidator" +
-      "s\0227.cosmos.staking.v1beta1.QueryDelegato" +
-      "rValidatorsRequest\0328.cosmos.staking.v1be" +
-      "ta1.QueryDelegatorValidatorsResponse\"F\202\323" +
-      "\344\223\002@\022>/cosmos/staking/v1beta1/delegators" +
-      "/{delegator_addr}/validators\022\336\001\n\022Delegat" +
-      "orValidator\0226.cosmos.staking.v1beta1.Que" +
-      "ryDelegatorValidatorRequest\0327.cosmos.sta" +
-      "king.v1beta1.QueryDelegatorValidatorResp" +
-      "onse\"W\202\323\344\223\002Q\022O/cosmos/staking/v1beta1/de" +
-      "legators/{delegator_addr}/validators/{va" +
-      "lidator_addr}\022\263\001\n\016HistoricalInfo\0222.cosmo" +
-      "s.staking.v1beta1.QueryHistoricalInfoReq" +
-      "uest\0323.cosmos.staking.v1beta1.QueryHisto" +
-      "ricalInfoResponse\"8\202\323\344\223\0022\0220/cosmos/staki" +
-      "ng/v1beta1/historical_info/{height}\022\201\001\n\004" +
-      "Pool\022(.cosmos.staking.v1beta1.QueryPoolR" +
-      "equest\032).cosmos.staking.v1beta1.QueryPoo" +
-      "lResponse\"$\202\323\344\223\002\036\022\034/cosmos/staking/v1bet" +
-      "a1/pool\022\211\001\n\006Params\022*.cosmos.staking.v1be" +
-      "ta1.QueryParamsRequest\032+.cosmos.staking." +
-      "v1beta1.QueryParamsResponse\"&\202\323\344\223\002 \022\036/co" +
-      "smos/staking/v1beta1/paramsB.Z,github.co" +
-      "m/cosmos/cosmos-sdk/x/staking/typesb\006pro" +
-      "to3"
+      ":\010\350\240\037\000\210\240\037\000\"\260\001\n!QueryDelegatorDelegations" +
+      "Response\022N\n\024delegation_responses\030\001 \003(\0132*" +
+      ".cosmos.staking.v1beta1.DelegationRespon" +
+      "seB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.ba" +
+      "se.query.v1beta1.PageResponse\"\243\001\n)QueryD" +
+      "elegatorUnbondingDelegationsRequest\0220\n\016d" +
+      "elegator_addr\030\001 \001(\tB\030\322\264-\024cosmos.AddressS" +
+      "tring\022:\n\npagination\030\002 \001(\0132&.cosmos.base." +
+      "query.v1beta1.PageRequest:\010\350\240\037\000\210\240\037\000\"\271\001\n*" +
+      "QueryDelegatorUnbondingDelegationsRespon" +
+      "se\022N\n\023unbonding_responses\030\001 \003(\0132+.cosmos" +
+      ".staking.v1beta1.UnbondingDelegationB\004\310\336" +
+      "\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.que" +
+      "ry.v1beta1.PageResponse\"\377\001\n\031QueryRedeleg" +
+      "ationsRequest\0220\n\016delegator_addr\030\001 \001(\tB\030\322" +
+      "\264-\024cosmos.AddressString\0224\n\022src_validator" +
+      "_addr\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\0224\n" +
+      "\022dst_validator_addr\030\003 \001(\tB\030\322\264-\024cosmos.Ad" +
+      "dressString\022:\n\npagination\030\004 \001(\0132&.cosmos" +
+      ".base.query.v1beta1.PageRequest:\010\350\240\037\000\210\240\037" +
+      "\000\"\255\001\n\032QueryRedelegationsResponse\022R\n\026rede" +
+      "legation_responses\030\001 \003(\0132,.cosmos.stakin" +
+      "g.v1beta1.RedelegationResponseB\004\310\336\037\000\022;\n\n" +
+      "pagination\030\002 \001(\0132\'.cosmos.base.query.v1b" +
+      "eta1.PageResponse\"\231\001\n\037QueryDelegatorVali" +
+      "datorsRequest\0220\n\016delegator_addr\030\001 \001(\tB\030\322" +
+      "\264-\024cosmos.AddressString\022:\n\npagination\030\002 " +
+      "\001(\0132&.cosmos.base.query.v1beta1.PageRequ" +
+      "est:\010\350\240\037\000\210\240\037\000\"\234\001\n QueryDelegatorValidato" +
+      "rsResponse\022;\n\nvalidators\030\001 \003(\0132!.cosmos." +
+      "staking.v1beta1.ValidatorB\004\310\336\037\000\022;\n\npagin" +
+      "ation\030\002 \001(\0132\'.cosmos.base.query.v1beta1." +
+      "PageResponse\"\216\001\n\036QueryDelegatorValidator" +
+      "Request\0220\n\016delegator_addr\030\001 \001(\tB\030\322\264-\024cos" +
+      "mos.AddressString\0220\n\016validator_addr\030\002 \001(" +
+      "\tB\030\322\264-\024cosmos.AddressString:\010\350\240\037\000\210\240\037\000\"]\n" +
+      "\037QueryDelegatorValidatorResponse\022:\n\tvali" +
+      "dator\030\001 \001(\0132!.cosmos.staking.v1beta1.Val" +
+      "idatorB\004\310\336\037\000\",\n\032QueryHistoricalInfoReque" +
+      "st\022\016\n\006height\030\001 \001(\003\"S\n\033QueryHistoricalInf" +
+      "oResponse\0224\n\004hist\030\001 \001(\0132&.cosmos.staking" +
+      ".v1beta1.HistoricalInfo\"\022\n\020QueryPoolRequ" +
+      "est\"E\n\021QueryPoolResponse\0220\n\004pool\030\001 \001(\0132\034" +
+      ".cosmos.staking.v1beta1.PoolB\004\310\336\037\000\"\024\n\022Qu" +
+      "eryParamsRequest\"K\n\023QueryParamsResponse\022" +
+      "4\n\006params\030\001 \001(\0132\036.cosmos.staking.v1beta1" +
+      ".ParamsB\004\310\336\037\0002\352\025\n\005Query\022\231\001\n\nValidators\022." +
+      ".cosmos.staking.v1beta1.QueryValidatorsR" +
+      "equest\032/.cosmos.staking.v1beta1.QueryVal" +
+      "idatorsResponse\"*\202\323\344\223\002$\022\"/cosmos/staking" +
+      "/v1beta1/validators\022\247\001\n\tValidator\022-.cosm" +
+      "os.staking.v1beta1.QueryValidatorRequest" +
+      "\032..cosmos.staking.v1beta1.QueryValidator" +
+      "Response\";\202\323\344\223\0025\0223/cosmos/staking/v1beta" +
+      "1/validators/{validator_addr}\022\324\001\n\024Valida" +
+      "torDelegations\0228.cosmos.staking.v1beta1." +
+      "QueryValidatorDelegationsRequest\0329.cosmo" +
+      "s.staking.v1beta1.QueryValidatorDelegati" +
+      "onsResponse\"G\202\323\344\223\002A\022?/cosmos/staking/v1b" +
+      "eta1/validators/{validator_addr}/delegat" +
+      "ions\022\371\001\n\035ValidatorUnbondingDelegations\022A" +
+      ".cosmos.staking.v1beta1.QueryValidatorUn" +
+      "bondingDelegationsRequest\032B.cosmos.staki" +
+      "ng.v1beta1.QueryValidatorUnbondingDelega" +
+      "tionsResponse\"Q\202\323\344\223\002K\022I/cosmos/staking/v" +
+      "1beta1/validators/{validator_addr}/unbon" +
+      "ding_delegations\022\307\001\n\nDelegation\022..cosmos" +
+      ".staking.v1beta1.QueryDelegationRequest\032" +
+      "/.cosmos.staking.v1beta1.QueryDelegation" +
+      "Response\"X\202\323\344\223\002R\022P/cosmos/staking/v1beta" +
+      "1/validators/{validator_addr}/delegation" +
+      "s/{delegator_addr}\022\367\001\n\023UnbondingDelegati" +
+      "on\0227.cosmos.staking.v1beta1.QueryUnbondi" +
+      "ngDelegationRequest\0328.cosmos.staking.v1b" +
+      "eta1.QueryUnbondingDelegationResponse\"m\202" +
+      "\323\344\223\002g\022e/cosmos/staking/v1beta1/validator" +
+      "s/{validator_addr}/delegations/{delegato" +
+      "r_addr}/unbonding_delegation\022\311\001\n\024Delegat" +
+      "orDelegations\0228.cosmos.staking.v1beta1.Q" +
+      "ueryDelegatorDelegationsRequest\0329.cosmos" +
+      ".staking.v1beta1.QueryDelegatorDelegatio" +
+      "nsResponse\"<\202\323\344\223\0026\0224/cosmos/staking/v1be" +
+      "ta1/delegations/{delegator_addr}\022\371\001\n\035Del" +
+      "egatorUnbondingDelegations\022A.cosmos.stak" +
+      "ing.v1beta1.QueryDelegatorUnbondingDeleg" +
+      "ationsRequest\032B.cosmos.staking.v1beta1.Q" +
+      "ueryDelegatorUnbondingDelegationsRespons" +
+      "e\"Q\202\323\344\223\002K\022I/cosmos/staking/v1beta1/deleg" +
+      "ators/{delegator_addr}/unbonding_delegat" +
+      "ions\022\301\001\n\rRedelegations\0221.cosmos.staking." +
+      "v1beta1.QueryRedelegationsRequest\0322.cosm" +
+      "os.staking.v1beta1.QueryRedelegationsRes" +
+      "ponse\"I\202\323\344\223\002C\022A/cosmos/staking/v1beta1/d" +
+      "elegators/{delegator_addr}/redelegations" +
+      "\022\320\001\n\023DelegatorValidators\0227.cosmos.stakin" +
+      "g.v1beta1.QueryDelegatorValidatorsReques" +
+      "t\0328.cosmos.staking.v1beta1.QueryDelegato" +
+      "rValidatorsResponse\"F\202\323\344\223\002@\022>/cosmos/sta" +
+      "king/v1beta1/delegators/{delegator_addr}" +
+      "/validators\022\336\001\n\022DelegatorValidator\0226.cos" +
+      "mos.staking.v1beta1.QueryDelegatorValida" +
+      "torRequest\0327.cosmos.staking.v1beta1.Quer" +
+      "yDelegatorValidatorResponse\"W\202\323\344\223\002Q\022O/co" +
+      "smos/staking/v1beta1/delegators/{delegat" +
+      "or_addr}/validators/{validator_addr}\022\263\001\n" +
+      "\016HistoricalInfo\0222.cosmos.staking.v1beta1" +
+      ".QueryHistoricalInfoRequest\0323.cosmos.sta" +
+      "king.v1beta1.QueryHistoricalInfoResponse" +
+      "\"8\202\323\344\223\0022\0220/cosmos/staking/v1beta1/histor" +
+      "ical_info/{height}\022\201\001\n\004Pool\022(.cosmos.sta" +
+      "king.v1beta1.QueryPoolRequest\032).cosmos.s" +
+      "taking.v1beta1.QueryPoolResponse\"$\202\323\344\223\002\036" +
+      "\022\034/cosmos/staking/v1beta1/pool\022\211\001\n\006Param" +
+      "s\022*.cosmos.staking.v1beta1.QueryParamsRe" +
+      "quest\032+.cosmos.staking.v1beta1.QueryPara" +
+      "msResponse\"&\202\323\344\223\002 \022\036/cosmos/staking/v1be" +
+      "ta1/paramsB.Z,github.com/cosmos/cosmos-s" +
+      "dk/x/staking/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.staking.v1beta1.Staking.getDescriptor(),
+          cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_cosmos_staking_v1beta1_QueryValidatorsRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -24014,17 +24025,19 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Params", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.staking.v1beta1.Staking.getDescriptor();
+    cosmos_proto.Cosmos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

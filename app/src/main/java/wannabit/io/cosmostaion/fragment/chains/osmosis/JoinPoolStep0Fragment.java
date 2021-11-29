@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.fragment.chains.osmosis;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,7 +24,7 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.JoinPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -32,10 +36,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -435,7 +435,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mOsmosisPool = (PoolOuterClass.Pool)result.resultData;
+                getSActivity().mOsmosisPool = (BalancerPoolOuterClass.BalancerPool)result.resultData;
             }
         }
         if (mTaskCount == 0) {

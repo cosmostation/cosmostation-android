@@ -1,13 +1,30 @@
 package wannabit.io.cosmostaion.base;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.google.protobuf.Any;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf2.Any;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -29,9 +46,8 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
-import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
@@ -75,23 +91,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class BaseData {
 
@@ -434,7 +433,7 @@ public class BaseData {
     }
 
     //gRPC
-    public Types.DefaultNodeInfo                                mGRpcNodeInfo;
+    public tendermint.p2p.Types.NodeInfo                        mGRpcNodeInfo;
     public Any                                                  mGRpcAccount;
     public ArrayList<Staking.Validator>                         mGRpcTopValidators = new ArrayList<>();
     public ArrayList<Staking.Validator>                         mGRpcOtherValidators = new ArrayList<>();
@@ -452,7 +451,7 @@ public class BaseData {
     public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
 
     //Osmosis pool list
-    public ArrayList<PoolOuterClass.Pool>                       mGrpcOsmosisPool = new ArrayList<>();
+    public ArrayList<BalancerPoolOuterClass.BalancerPool>       mGrpcOsmosisPool = new ArrayList<>();
 
     //Gravity pool list
     public ArrayList<Liquidity.Pool>                            mGrpcGravityPools = new ArrayList<>();
@@ -737,8 +736,8 @@ public class BaseData {
     }
 
 
-    public PoolOuterClass.Pool getOsmosisPoolByDenom(String denom) {
-        for (PoolOuterClass.Pool pool: mGrpcOsmosisPool) {
+    public BalancerPoolOuterClass.BalancerPool getOsmosisPoolByDenom(String denom) {
+        for (BalancerPoolOuterClass.BalancerPool pool: mGrpcOsmosisPool) {
             if (pool.getTotalShares().getDenom().equals(denom)) {
                 return pool;
             }

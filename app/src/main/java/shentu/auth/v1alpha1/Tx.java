@@ -74,7 +74,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.auth.v1alpha1.MsgUnlock}
    */
-  public  static final class MsgUnlock extends
+  public static final class MsgUnlock extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.auth.v1alpha1.MsgUnlock)
       MsgUnlockOrBuilder {
@@ -182,6 +182,7 @@ public final class Tx {
      * <code>string issuer = 1 [(.gogoproto.moretags) = "yaml:&#92;"issuer&#92;""];</code>
      * @return The issuer.
      */
+    @java.lang.Override
     public java.lang.String getIssuer() {
       java.lang.Object ref = issuer_;
       if (ref instanceof java.lang.String) {
@@ -198,6 +199,7 @@ public final class Tx {
      * <code>string issuer = 1 [(.gogoproto.moretags) = "yaml:&#92;"issuer&#92;""];</code>
      * @return The bytes for issuer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIssuerBytes() {
       java.lang.Object ref = issuer_;
@@ -218,6 +220,7 @@ public final class Tx {
      * <code>string account = 2 [(.gogoproto.moretags) = "yaml:&#92;"account_address&#92;""];</code>
      * @return The account.
      */
+    @java.lang.Override
     public java.lang.String getAccount() {
       java.lang.Object ref = account_;
       if (ref instanceof java.lang.String) {
@@ -234,6 +237,7 @@ public final class Tx {
      * <code>string account = 2 [(.gogoproto.moretags) = "yaml:&#92;"account_address&#92;""];</code>
      * @return The bytes for account.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAccountBytes() {
       java.lang.Object ref = account_;
@@ -253,12 +257,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin unlock_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getUnlockAmountList() {
       return unlockAmount_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin unlock_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getUnlockAmountOrBuilderList() {
       return unlockAmount_;
@@ -266,18 +272,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin unlock_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getUnlockAmountCount() {
       return unlockAmount_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin unlock_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getUnlockAmount(int index) {
       return unlockAmount_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin unlock_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getUnlockAmountOrBuilder(
         int index) {
       return unlockAmount_.get(index);
@@ -1119,7 +1128,7 @@ public final class Tx {
    *
    * Protobuf type {@code shentu.auth.v1alpha1.MsgUnlockResponse}
    */
-  public  static final class MsgUnlockResponse extends
+  public static final class MsgUnlockResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.auth.v1alpha1.MsgUnlockResponse)
       MsgUnlockResponseOrBuilder {
@@ -1570,7 +1579,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_shentu_auth_v1alpha1_MsgUnlock_descriptor =
@@ -1587,14 +1596,14 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

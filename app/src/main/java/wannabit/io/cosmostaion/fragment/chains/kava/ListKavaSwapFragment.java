@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseFragment;

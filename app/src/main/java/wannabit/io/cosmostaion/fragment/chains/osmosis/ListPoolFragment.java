@@ -13,7 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -28,8 +28,8 @@ public class ListPoolFragment extends BaseFragment {
     private RecyclerView        mRecyclerView;
     private PoolListAdapter     mAdapter;
 
-    public ArrayList<PoolOuterClass.Pool>       mPoolMyList = new ArrayList<>();
-    public ArrayList<PoolOuterClass.Pool>       mPoolOtherList = new ArrayList<>();
+    public ArrayList<BalancerPoolOuterClass.BalancerPool>   mPoolMyList = new ArrayList<>();
+    public ArrayList<BalancerPoolOuterClass.BalancerPool>   mPoolOtherList = new ArrayList<>();
 
     public static ListPoolFragment newInstance(Bundle bundle) {
         ListPoolFragment fragment = new ListPoolFragment();
@@ -88,11 +88,11 @@ public class ListPoolFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull BaseHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_MY_POOL) {
-                final PoolOuterClass.Pool myPool = mPoolMyList.get(position);
+                final BalancerPoolOuterClass.BalancerPool myPool = mPoolMyList.get(position);
                 viewHolder.onBindOsmoMyPool(getContext(), getSActivity(), getBaseDao(), myPool);
             }
             else if (getItemViewType(position) == TYPE_OTHER_POOL) {
-                final PoolOuterClass.Pool otherPool = mPoolOtherList.get(position - mPoolMyList.size());
+                final BalancerPoolOuterClass.BalancerPool otherPool = mPoolOtherList.get(position - mPoolMyList.size());
                 viewHolder.onBindOsmoOtherPool(getContext(), getSActivity(), getBaseDao(), otherPool);
             }
         }

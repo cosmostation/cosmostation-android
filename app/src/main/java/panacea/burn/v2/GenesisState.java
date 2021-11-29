@@ -10,7 +10,7 @@ package panacea.burn.v2;
  *
  * Protobuf type {@code panacea.burn.v2.GenesisState}
  */
-public  final class GenesisState extends
+public final class GenesisState extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.burn.v2.GenesisState)
     GenesisStateOrBuilder {

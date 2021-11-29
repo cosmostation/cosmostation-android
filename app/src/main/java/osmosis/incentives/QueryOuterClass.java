@@ -7020,6 +7020,1893 @@ public final class QueryOuterClass {
 
   }
 
+  public interface ActiveGaugesPerDenomRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.incentives.ActiveGaugesPerDenomRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string denom = 1;</code>
+     * @return The denom.
+     */
+    java.lang.String getDenom();
+    /**
+     * <code>string denom = 1;</code>
+     * @return The bytes for denom.
+     */
+    com.google.protobuf.ByteString
+        getDenomBytes();
+
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequest getPagination();
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder();
+  }
+  /**
+   * Protobuf type {@code osmosis.incentives.ActiveGaugesPerDenomRequest}
+   */
+  public static final class ActiveGaugesPerDenomRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.incentives.ActiveGaugesPerDenomRequest)
+      ActiveGaugesPerDenomRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ActiveGaugesPerDenomRequest.newBuilder() to construct.
+    private ActiveGaugesPerDenomRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ActiveGaugesPerDenomRequest() {
+      denom_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ActiveGaugesPerDenomRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ActiveGaugesPerDenomRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              denom_ = s;
+              break;
+            }
+            case 18: {
+              cosmos.base.query.v1beta1.Pagination.PageRequest.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.incentives.QueryOuterClass.internal_static_osmosis_incentives_ActiveGaugesPerDenomRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.incentives.QueryOuterClass.internal_static_osmosis_incentives_ActiveGaugesPerDenomRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest.class, osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest.Builder.class);
+    }
+
+    public static final int DENOM_FIELD_NUMBER = 1;
+    private volatile java.lang.Object denom_;
+    /**
+     * <code>string denom = 1;</code>
+     * @return The denom.
+     */
+    @java.lang.Override
+    public java.lang.String getDenom() {
+      java.lang.Object ref = denom_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        denom_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string denom = 1;</code>
+     * @return The bytes for denom.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDenomBytes() {
+      java.lang.Object ref = denom_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        denom_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 2;
+    private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+      return getPagination();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getDenomBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, denom_);
+      }
+      if (pagination_ != null) {
+        output.writeMessage(2, getPagination());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getDenomBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, denom_);
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPagination());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest)) {
+        return super.equals(obj);
+      }
+      osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest other = (osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest) obj;
+
+      if (!getDenom()
+          .equals(other.getDenom())) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DENOM_FIELD_NUMBER;
+      hash = (53 * hash) + getDenom().hashCode();
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code osmosis.incentives.ActiveGaugesPerDenomRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.incentives.ActiveGaugesPerDenomRequest)
+        osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.incentives.QueryOuterClass.internal_static_osmosis_incentives_ActiveGaugesPerDenomRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.incentives.QueryOuterClass.internal_static_osmosis_incentives_ActiveGaugesPerDenomRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest.class, osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest.Builder.class);
+      }
+
+      // Construct using osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        denom_ = "";
+
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.incentives.QueryOuterClass.internal_static_osmosis_incentives_ActiveGaugesPerDenomRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest getDefaultInstanceForType() {
+        return osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest build() {
+        osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest buildPartial() {
+        osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest result = new osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest(this);
+        result.denom_ = denom_;
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest) {
+          return mergeFrom((osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest other) {
+        if (other == osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest.getDefaultInstance()) return this;
+        if (!other.getDenom().isEmpty()) {
+          denom_ = other.denom_;
+          onChanged();
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object denom_ = "";
+      /**
+       * <code>string denom = 1;</code>
+       * @return The denom.
+       */
+      public java.lang.String getDenom() {
+        java.lang.Object ref = denom_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          denom_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string denom = 1;</code>
+       * @return The bytes for denom.
+       */
+      public com.google.protobuf.ByteString
+          getDenomBytes() {
+        java.lang.Object ref = denom_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          denom_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string denom = 1;</code>
+       * @param value The denom to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDenom(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        denom_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string denom = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDenom() {
+        
+        denom_ = getDefaultInstance().getDenom();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string denom = 1;</code>
+       * @param value The bytes for denom to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDenomBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        denom_ = value;
+        onChanged();
+        return this;
+      }
+
+      private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> paginationBuilder_;
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageRequest.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageRequest.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.incentives.ActiveGaugesPerDenomRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.incentives.ActiveGaugesPerDenomRequest)
+    private static final osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest();
+    }
+
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ActiveGaugesPerDenomRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ActiveGaugesPerDenomRequest>() {
+      @java.lang.Override
+      public ActiveGaugesPerDenomRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ActiveGaugesPerDenomRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ActiveGaugesPerDenomRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ActiveGaugesPerDenomRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ActiveGaugesPerDenomResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.incentives.ActiveGaugesPerDenomResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> 
+        getDataList();
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    osmosis.incentives.GaugeOuterClass.Gauge getData(int index);
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    int getDataCount();
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<? extends osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
+        getDataOrBuilderList();
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    osmosis.incentives.GaugeOuterClass.GaugeOrBuilder getDataOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponse getPagination();
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder();
+  }
+  /**
+   * Protobuf type {@code osmosis.incentives.ActiveGaugesPerDenomResponse}
+   */
+  public static final class ActiveGaugesPerDenomResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.incentives.ActiveGaugesPerDenomResponse)
+      ActiveGaugesPerDenomResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ActiveGaugesPerDenomResponse.newBuilder() to construct.
+    private ActiveGaugesPerDenomResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ActiveGaugesPerDenomResponse() {
+      data_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ActiveGaugesPerDenomResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ActiveGaugesPerDenomResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                data_ = new java.util.ArrayList<osmosis.incentives.GaugeOuterClass.Gauge>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              data_.add(
+                  input.readMessage(osmosis.incentives.GaugeOuterClass.Gauge.parser(), extensionRegistry));
+              break;
+            }
+            case 18: {
+              cosmos.base.query.v1beta1.Pagination.PageResponse.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageResponse.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          data_ = java.util.Collections.unmodifiableList(data_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.incentives.QueryOuterClass.internal_static_osmosis_incentives_ActiveGaugesPerDenomResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.incentives.QueryOuterClass.internal_static_osmosis_incentives_ActiveGaugesPerDenomResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse.class, osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse.Builder.class);
+    }
+
+    public static final int DATA_FIELD_NUMBER = 1;
+    private java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> data_;
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> getDataList() {
+      return data_;
+    }
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
+        getDataOrBuilderList() {
+      return data_;
+    }
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public int getDataCount() {
+      return data_.size();
+    }
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public osmosis.incentives.GaugeOuterClass.Gauge getData(int index) {
+      return data_.get(index);
+    }
+    /**
+     * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public osmosis.incentives.GaugeOuterClass.GaugeOrBuilder getDataOrBuilder(
+        int index) {
+      return data_.get(index);
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 2;
+    private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
+      return getPagination();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < data_.size(); i++) {
+        output.writeMessage(1, data_.get(i));
+      }
+      if (pagination_ != null) {
+        output.writeMessage(2, getPagination());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < data_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, data_.get(i));
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPagination());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse)) {
+        return super.equals(obj);
+      }
+      osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse other = (osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse) obj;
+
+      if (!getDataList()
+          .equals(other.getDataList())) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getDataCount() > 0) {
+        hash = (37 * hash) + DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getDataList().hashCode();
+      }
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code osmosis.incentives.ActiveGaugesPerDenomResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.incentives.ActiveGaugesPerDenomResponse)
+        osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.incentives.QueryOuterClass.internal_static_osmosis_incentives_ActiveGaugesPerDenomResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.incentives.QueryOuterClass.internal_static_osmosis_incentives_ActiveGaugesPerDenomResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse.class, osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse.Builder.class);
+      }
+
+      // Construct using osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getDataFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (dataBuilder_ == null) {
+          data_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          dataBuilder_.clear();
+        }
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.incentives.QueryOuterClass.internal_static_osmosis_incentives_ActiveGaugesPerDenomResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse getDefaultInstanceForType() {
+        return osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse build() {
+        osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse buildPartial() {
+        osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse result = new osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (dataBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            data_ = java.util.Collections.unmodifiableList(data_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.data_ = data_;
+        } else {
+          result.data_ = dataBuilder_.build();
+        }
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse) {
+          return mergeFrom((osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse other) {
+        if (other == osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse.getDefaultInstance()) return this;
+        if (dataBuilder_ == null) {
+          if (!other.data_.isEmpty()) {
+            if (data_.isEmpty()) {
+              data_ = other.data_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureDataIsMutable();
+              data_.addAll(other.data_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.data_.isEmpty()) {
+            if (dataBuilder_.isEmpty()) {
+              dataBuilder_.dispose();
+              dataBuilder_ = null;
+              data_ = other.data_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              dataBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDataFieldBuilder() : null;
+            } else {
+              dataBuilder_.addAllMessages(other.data_);
+            }
+          }
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> data_ =
+        java.util.Collections.emptyList();
+      private void ensureDataIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          data_ = new java.util.ArrayList<osmosis.incentives.GaugeOuterClass.Gauge>(data_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          osmosis.incentives.GaugeOuterClass.Gauge, osmosis.incentives.GaugeOuterClass.Gauge.Builder, osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> dataBuilder_;
+
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> getDataList() {
+        if (dataBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(data_);
+        } else {
+          return dataBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public int getDataCount() {
+        if (dataBuilder_ == null) {
+          return data_.size();
+        } else {
+          return dataBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.incentives.GaugeOuterClass.Gauge getData(int index) {
+        if (dataBuilder_ == null) {
+          return data_.get(index);
+        } else {
+          return dataBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setData(
+          int index, osmosis.incentives.GaugeOuterClass.Gauge value) {
+        if (dataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDataIsMutable();
+          data_.set(index, value);
+          onChanged();
+        } else {
+          dataBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setData(
+          int index, osmosis.incentives.GaugeOuterClass.Gauge.Builder builderForValue) {
+        if (dataBuilder_ == null) {
+          ensureDataIsMutable();
+          data_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          dataBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addData(osmosis.incentives.GaugeOuterClass.Gauge value) {
+        if (dataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDataIsMutable();
+          data_.add(value);
+          onChanged();
+        } else {
+          dataBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addData(
+          int index, osmosis.incentives.GaugeOuterClass.Gauge value) {
+        if (dataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDataIsMutable();
+          data_.add(index, value);
+          onChanged();
+        } else {
+          dataBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addData(
+          osmosis.incentives.GaugeOuterClass.Gauge.Builder builderForValue) {
+        if (dataBuilder_ == null) {
+          ensureDataIsMutable();
+          data_.add(builderForValue.build());
+          onChanged();
+        } else {
+          dataBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addData(
+          int index, osmosis.incentives.GaugeOuterClass.Gauge.Builder builderForValue) {
+        if (dataBuilder_ == null) {
+          ensureDataIsMutable();
+          data_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          dataBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addAllData(
+          java.lang.Iterable<? extends osmosis.incentives.GaugeOuterClass.Gauge> values) {
+        if (dataBuilder_ == null) {
+          ensureDataIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, data_);
+          onChanged();
+        } else {
+          dataBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearData() {
+        if (dataBuilder_ == null) {
+          data_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          dataBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder removeData(int index) {
+        if (dataBuilder_ == null) {
+          ensureDataIsMutable();
+          data_.remove(index);
+          onChanged();
+        } else {
+          dataBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.incentives.GaugeOuterClass.Gauge.Builder getDataBuilder(
+          int index) {
+        return getDataFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.incentives.GaugeOuterClass.GaugeOrBuilder getDataOrBuilder(
+          int index) {
+        if (dataBuilder_ == null) {
+          return data_.get(index);  } else {
+          return dataBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<? extends osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
+           getDataOrBuilderList() {
+        if (dataBuilder_ != null) {
+          return dataBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(data_);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.incentives.GaugeOuterClass.Gauge.Builder addDataBuilder() {
+        return getDataFieldBuilder().addBuilder(
+            osmosis.incentives.GaugeOuterClass.Gauge.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.incentives.GaugeOuterClass.Gauge.Builder addDataBuilder(
+          int index) {
+        return getDataFieldBuilder().addBuilder(
+            index, osmosis.incentives.GaugeOuterClass.Gauge.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<osmosis.incentives.GaugeOuterClass.Gauge.Builder> 
+           getDataBuilderList() {
+        return getDataFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          osmosis.incentives.GaugeOuterClass.Gauge, osmosis.incentives.GaugeOuterClass.Gauge.Builder, osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
+          getDataFieldBuilder() {
+        if (dataBuilder_ == null) {
+          dataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              osmosis.incentives.GaugeOuterClass.Gauge, osmosis.incentives.GaugeOuterClass.Gauge.Builder, osmosis.incentives.GaugeOuterClass.GaugeOrBuilder>(
+                  data_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          data_ = null;
+        }
+        return dataBuilder_;
+      }
+
+      private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> paginationBuilder_;
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageResponse.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageResponse.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponse.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.incentives.ActiveGaugesPerDenomResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.incentives.ActiveGaugesPerDenomResponse)
+    private static final osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse();
+    }
+
+    public static osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ActiveGaugesPerDenomResponse>
+        PARSER = new com.google.protobuf.AbstractParser<ActiveGaugesPerDenomResponse>() {
+      @java.lang.Override
+      public ActiveGaugesPerDenomResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ActiveGaugesPerDenomResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ActiveGaugesPerDenomResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ActiveGaugesPerDenomResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.incentives.QueryOuterClass.ActiveGaugesPerDenomResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface UpcomingGaugesRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:osmosis.incentives.UpcomingGaugesRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -11648,6 +13535,16 @@ public final class QueryOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_osmosis_incentives_ActiveGaugesResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_incentives_ActiveGaugesPerDenomRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_incentives_ActiveGaugesPerDenomRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_incentives_ActiveGaugesPerDenomResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_incentives_ActiveGaugesPerDenomResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_osmosis_incentives_UpcomingGaugesRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -11713,61 +13610,72 @@ public final class QueryOuterClass {
       ".PageRequest\"\202\001\n\024ActiveGaugesResponse\022-\n" +
       "\004data\030\001 \003(\0132\031.osmosis.incentives.GaugeB\004" +
       "\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.q" +
-      "uery.v1beta1.PageResponse\"S\n\025UpcomingGau" +
-      "gesRequest\022:\n\npagination\030\001 \001(\0132&.cosmos." +
-      "base.query.v1beta1.PageRequest\"\204\001\n\026Upcom" +
-      "ingGaugesResponse\022-\n\004data\030\001 \003(\0132\031.osmosi" +
-      "s.incentives.GaugeB\004\310\336\037\000\022;\n\npagination\030\002" +
-      " \001(\0132\'.cosmos.base.query.v1beta1.PageRes" +
-      "ponse\"Y\n\021RewardsEstRequest\022\037\n\005owner\030\001 \001(" +
-      "\tB\020\362\336\037\014yaml:\"owner\"\022\020\n\010lock_ids\030\002 \003(\004\022\021\n" +
-      "\tend_epoch\030\003 \001(\003\"p\n\022RewardsEstResponse\022Z" +
-      "\n\005coins\030\001 \003(\0132\031.cosmos.base.v1beta1.Coin" +
-      "B0\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/t" +
-      "ypes.Coins\"\037\n\035QueryLockableDurationsRequ" +
-      "est\"~\n\036QueryLockableDurationsResponse\022\\\n" +
-      "\022lockable_durations\030\001 \003(\0132\031.google.proto" +
-      "buf.DurationB%\310\336\037\000\230\337\037\001\362\336\037\031yaml:\"lockable" +
-      "_durations\"2\234\n\n\005Query\022\302\001\n\027ModuleToDistri" +
-      "buteCoins\0222.osmosis.incentives.ModuleToD" +
-      "istributeCoinsRequest\0323.osmosis.incentiv" +
-      "es.ModuleToDistributeCoinsResponse\">\202\323\344\223" +
-      "\0028\0226/osmosis/incentives/v1beta1/module_t" +
-      "o_distribute_coins\022\275\001\n\026ModuleDistributed" +
-      "Coins\0221.osmosis.incentives.ModuleDistrib" +
-      "utedCoinsRequest\0322.osmosis.incentives.Mo" +
-      "duleDistributedCoinsResponse\"<\202\323\344\223\0026\0224/o" +
-      "smosis/incentives/v1beta1/module_distrib" +
-      "uted_coins\022\216\001\n\tGaugeByID\022$.osmosis.incen" +
-      "tives.GaugeByIDRequest\032%.osmosis.incenti" +
-      "ves.GaugeByIDResponse\"4\202\323\344\223\002.\022,/osmosis/" +
-      "incentives/v1beta1/gauge_by_id/{id}\022{\n\006G" +
-      "auges\022!.osmosis.incentives.GaugesRequest" +
-      "\032\".osmosis.incentives.GaugesResponse\"*\202\323" +
-      "\344\223\002$\022\"/osmosis/incentives/v1beta1/gauges" +
-      "\022\224\001\n\014ActiveGauges\022\'.osmosis.incentives.A" +
-      "ctiveGaugesRequest\032(.osmosis.incentives." +
-      "ActiveGaugesResponse\"1\202\323\344\223\002+\022)/osmosis/i" +
-      "ncentives/v1beta1/active_gauges\022\234\001\n\016Upco" +
-      "mingGauges\022).osmosis.incentives.Upcoming" +
-      "GaugesRequest\032*.osmosis.incentives.Upcom" +
-      "ingGaugesResponse\"3\202\323\344\223\002-\022+/osmosis/ince" +
-      "ntives/v1beta1/upcoming_gauges\022\224\001\n\nRewar" +
-      "dsEst\022%.osmosis.incentives.RewardsEstReq" +
-      "uest\032&.osmosis.incentives.RewardsEstResp" +
-      "onse\"7\202\323\344\223\0021\022//osmosis/incentives/v1beta" +
-      "1/rewards_est/{owner}\022\262\001\n\021LockableDurati" +
-      "ons\0221.osmosis.incentives.QueryLockableDu" +
-      "rationsRequest\0322.osmosis.incentives.Quer" +
-      "yLockableDurationsResponse\"6\202\323\344\223\0020\022./osm" +
-      "osis/incentives/v1beta1/lockable_duratio" +
-      "nsB4Z2github.com/osmosis-labs/osmosis/x/" +
-      "incentives/typesb\006proto3"
+      "uery.v1beta1.PageResponse\"h\n\033ActiveGauge" +
+      "sPerDenomRequest\022\r\n\005denom\030\001 \001(\t\022:\n\npagin" +
+      "ation\030\002 \001(\0132&.cosmos.base.query.v1beta1." +
+      "PageRequest\"\212\001\n\034ActiveGaugesPerDenomResp" +
+      "onse\022-\n\004data\030\001 \003(\0132\031.osmosis.incentives." +
+      "GaugeB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos" +
+      ".base.query.v1beta1.PageResponse\"S\n\025Upco" +
+      "mingGaugesRequest\022:\n\npagination\030\001 \001(\0132&." +
+      "cosmos.base.query.v1beta1.PageRequest\"\204\001" +
+      "\n\026UpcomingGaugesResponse\022-\n\004data\030\001 \003(\0132\031" +
+      ".osmosis.incentives.GaugeB\004\310\336\037\000\022;\n\npagin" +
+      "ation\030\002 \001(\0132\'.cosmos.base.query.v1beta1." +
+      "PageResponse\"Y\n\021RewardsEstRequest\022\037\n\005own" +
+      "er\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\022\020\n\010lock_ids\030\002" +
+      " \003(\004\022\021\n\tend_epoch\030\003 \001(\003\"p\n\022RewardsEstRes" +
+      "ponse\022Z\n\005coins\030\001 \003(\0132\031.cosmos.base.v1bet" +
+      "a1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/cosmo" +
+      "s-sdk/types.Coins\"\037\n\035QueryLockableDurati" +
+      "onsRequest\"~\n\036QueryLockableDurationsResp" +
+      "onse\022\\\n\022lockable_durations\030\001 \003(\0132\031.googl" +
+      "e.protobuf.DurationB%\310\336\037\000\230\337\037\001\362\336\037\031yaml:\"l" +
+      "ockable_durations\"2\325\013\n\005Query\022\302\001\n\027ModuleT" +
+      "oDistributeCoins\0222.osmosis.incentives.Mo" +
+      "duleToDistributeCoinsRequest\0323.osmosis.i" +
+      "ncentives.ModuleToDistributeCoinsRespons" +
+      "e\">\202\323\344\223\0028\0226/osmosis/incentives/v1beta1/m" +
+      "odule_to_distribute_coins\022\275\001\n\026ModuleDist" +
+      "ributedCoins\0221.osmosis.incentives.Module" +
+      "DistributedCoinsRequest\0322.osmosis.incent" +
+      "ives.ModuleDistributedCoinsResponse\"<\202\323\344" +
+      "\223\0026\0224/osmosis/incentives/v1beta1/module_" +
+      "distributed_coins\022\216\001\n\tGaugeByID\022$.osmosi" +
+      "s.incentives.GaugeByIDRequest\032%.osmosis." +
+      "incentives.GaugeByIDResponse\"4\202\323\344\223\002.\022,/o" +
+      "smosis/incentives/v1beta1/gauge_by_id/{i" +
+      "d}\022{\n\006Gauges\022!.osmosis.incentives.Gauges" +
+      "Request\032\".osmosis.incentives.GaugesRespo" +
+      "nse\"*\202\323\344\223\002$\022\"/osmosis/incentives/v1beta1" +
+      "/gauges\022\224\001\n\014ActiveGauges\022\'.osmosis.incen" +
+      "tives.ActiveGaugesRequest\032(.osmosis.ince" +
+      "ntives.ActiveGaugesResponse\"1\202\323\344\223\002+\022)/os" +
+      "mosis/incentives/v1beta1/active_gauges\022\266" +
+      "\001\n\024ActiveGaugesPerDenom\022/.osmosis.incent" +
+      "ives.ActiveGaugesPerDenomRequest\0320.osmos" +
+      "is.incentives.ActiveGaugesPerDenomRespon" +
+      "se\";\202\323\344\223\0025\0223/osmosis/incentives/v1beta1/" +
+      "active_gauges_per_denom\022\234\001\n\016UpcomingGaug" +
+      "es\022).osmosis.incentives.UpcomingGaugesRe" +
+      "quest\032*.osmosis.incentives.UpcomingGauge" +
+      "sResponse\"3\202\323\344\223\002-\022+/osmosis/incentives/v" +
+      "1beta1/upcoming_gauges\022\224\001\n\nRewardsEst\022%." +
+      "osmosis.incentives.RewardsEstRequest\032&.o" +
+      "smosis.incentives.RewardsEstResponse\"7\202\323" +
+      "\344\223\0021\022//osmosis/incentives/v1beta1/reward" +
+      "s_est/{owner}\022\262\001\n\021LockableDurations\0221.os" +
+      "mosis.incentives.QueryLockableDurationsR" +
+      "equest\0322.osmosis.incentives.QueryLockabl" +
+      "eDurationsResponse\"6\202\323\344\223\0020\022./osmosis/inc" +
+      "entives/v1beta1/lockable_durationsB4Z2gi" +
+      "thub.com/osmosis-labs/osmosis/x/incentiv" +
+      "es/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
@@ -11835,52 +13743,64 @@ public final class QueryOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_incentives_ActiveGaugesResponse_descriptor,
         new java.lang.String[] { "Data", "Pagination", });
-    internal_static_osmosis_incentives_UpcomingGaugesRequest_descriptor =
+    internal_static_osmosis_incentives_ActiveGaugesPerDenomRequest_descriptor =
       getDescriptor().getMessageTypes().get(10);
+    internal_static_osmosis_incentives_ActiveGaugesPerDenomRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_incentives_ActiveGaugesPerDenomRequest_descriptor,
+        new java.lang.String[] { "Denom", "Pagination", });
+    internal_static_osmosis_incentives_ActiveGaugesPerDenomResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_osmosis_incentives_ActiveGaugesPerDenomResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_incentives_ActiveGaugesPerDenomResponse_descriptor,
+        new java.lang.String[] { "Data", "Pagination", });
+    internal_static_osmosis_incentives_UpcomingGaugesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(12);
     internal_static_osmosis_incentives_UpcomingGaugesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_incentives_UpcomingGaugesRequest_descriptor,
         new java.lang.String[] { "Pagination", });
     internal_static_osmosis_incentives_UpcomingGaugesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_osmosis_incentives_UpcomingGaugesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_incentives_UpcomingGaugesResponse_descriptor,
         new java.lang.String[] { "Data", "Pagination", });
     internal_static_osmosis_incentives_RewardsEstRequest_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_osmosis_incentives_RewardsEstRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_incentives_RewardsEstRequest_descriptor,
         new java.lang.String[] { "Owner", "LockIds", "EndEpoch", });
     internal_static_osmosis_incentives_RewardsEstResponse_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_osmosis_incentives_RewardsEstResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_incentives_RewardsEstResponse_descriptor,
         new java.lang.String[] { "Coins", });
     internal_static_osmosis_incentives_QueryLockableDurationsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_osmosis_incentives_QueryLockableDurationsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_incentives_QueryLockableDurationsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_osmosis_incentives_QueryLockableDurationsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_osmosis_incentives_QueryLockableDurationsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_incentives_QueryLockableDurationsResponse_descriptor,
         new java.lang.String[] { "LockableDurations", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdduration);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();

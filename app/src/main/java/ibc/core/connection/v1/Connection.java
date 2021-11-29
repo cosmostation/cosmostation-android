@@ -300,8 +300,9 @@ public final class Connection {
 
     /**
      * <pre>
-     * delay period that must pass before a consensus state can be used for packet-verification
-     * NOTE: delay period logic is only implemented by some clients.
+     * delay period that must pass before a consensus state can be used for
+     * packet-verification NOTE: delay period logic is only implemented by some
+     * clients.
      * </pre>
      *
      * <code>uint64 delay_period = 5 [(.gogoproto.moretags) = "yaml:&#92;"delay_period&#92;""];</code>
@@ -619,8 +620,9 @@ public final class Connection {
     private long delayPeriod_;
     /**
      * <pre>
-     * delay period that must pass before a consensus state can be used for packet-verification
-     * NOTE: delay period logic is only implemented by some clients.
+     * delay period that must pass before a consensus state can be used for
+     * packet-verification NOTE: delay period logic is only implemented by some
+     * clients.
      * </pre>
      *
      * <code>uint64 delay_period = 5 [(.gogoproto.moretags) = "yaml:&#92;"delay_period&#92;""];</code>
@@ -1719,8 +1721,9 @@ public final class Connection {
       private long delayPeriod_ ;
       /**
        * <pre>
-       * delay period that must pass before a consensus state can be used for packet-verification
-       * NOTE: delay period logic is only implemented by some clients.
+       * delay period that must pass before a consensus state can be used for
+       * packet-verification NOTE: delay period logic is only implemented by some
+       * clients.
        * </pre>
        *
        * <code>uint64 delay_period = 5 [(.gogoproto.moretags) = "yaml:&#92;"delay_period&#92;""];</code>
@@ -1732,8 +1735,9 @@ public final class Connection {
       }
       /**
        * <pre>
-       * delay period that must pass before a consensus state can be used for packet-verification
-       * NOTE: delay period logic is only implemented by some clients.
+       * delay period that must pass before a consensus state can be used for
+       * packet-verification NOTE: delay period logic is only implemented by some
+       * clients.
        * </pre>
        *
        * <code>uint64 delay_period = 5 [(.gogoproto.moretags) = "yaml:&#92;"delay_period&#92;""];</code>
@@ -1748,8 +1752,9 @@ public final class Connection {
       }
       /**
        * <pre>
-       * delay period that must pass before a consensus state can be used for packet-verification
-       * NOTE: delay period logic is only implemented by some clients.
+       * delay period that must pass before a consensus state can be used for
+       * packet-verification NOTE: delay period logic is only implemented by some
+       * clients.
        * </pre>
        *
        * <code>uint64 delay_period = 5 [(.gogoproto.moretags) = "yaml:&#92;"delay_period&#92;""];</code>
@@ -7221,6 +7226,533 @@ public final class Connection {
 
   }
 
+  public interface ParamsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.connection.v1.Params)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * maximum expected time per block (in nanoseconds), used to enforce block delay. This parameter should reflect the
+     * largest amount of time that the chain might reasonably take to produce the next block under normal operating
+     * conditions. A safe choice is 3-5x the expected time per block.
+     * </pre>
+     *
+     * <code>uint64 max_expected_time_per_block = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_expected_time_per_block&#92;""];</code>
+     * @return The maxExpectedTimePerBlock.
+     */
+    long getMaxExpectedTimePerBlock();
+  }
+  /**
+   * <pre>
+   * Params defines the set of Connection parameters.
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.connection.v1.Params}
+   */
+  public static final class Params extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.Params)
+      ParamsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Params.newBuilder() to construct.
+    private Params(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Params() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Params();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Params(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              maxExpectedTimePerBlock_ = input.readUInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ibc.core.connection.v1.Connection.internal_static_ibc_core_connection_v1_Params_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ibc.core.connection.v1.Connection.internal_static_ibc_core_connection_v1_Params_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ibc.core.connection.v1.Connection.Params.class, ibc.core.connection.v1.Connection.Params.Builder.class);
+    }
+
+    public static final int MAX_EXPECTED_TIME_PER_BLOCK_FIELD_NUMBER = 1;
+    private long maxExpectedTimePerBlock_;
+    /**
+     * <pre>
+     * maximum expected time per block (in nanoseconds), used to enforce block delay. This parameter should reflect the
+     * largest amount of time that the chain might reasonably take to produce the next block under normal operating
+     * conditions. A safe choice is 3-5x the expected time per block.
+     * </pre>
+     *
+     * <code>uint64 max_expected_time_per_block = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_expected_time_per_block&#92;""];</code>
+     * @return The maxExpectedTimePerBlock.
+     */
+    @java.lang.Override
+    public long getMaxExpectedTimePerBlock() {
+      return maxExpectedTimePerBlock_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (maxExpectedTimePerBlock_ != 0L) {
+        output.writeUInt64(1, maxExpectedTimePerBlock_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (maxExpectedTimePerBlock_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, maxExpectedTimePerBlock_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ibc.core.connection.v1.Connection.Params)) {
+        return super.equals(obj);
+      }
+      ibc.core.connection.v1.Connection.Params other = (ibc.core.connection.v1.Connection.Params) obj;
+
+      if (getMaxExpectedTimePerBlock()
+          != other.getMaxExpectedTimePerBlock()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MAX_EXPECTED_TIME_PER_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMaxExpectedTimePerBlock());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ibc.core.connection.v1.Connection.Params parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ibc.core.connection.v1.Connection.Params parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ibc.core.connection.v1.Connection.Params parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ibc.core.connection.v1.Connection.Params parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ibc.core.connection.v1.Connection.Params parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ibc.core.connection.v1.Connection.Params parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ibc.core.connection.v1.Connection.Params parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ibc.core.connection.v1.Connection.Params parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ibc.core.connection.v1.Connection.Params parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ibc.core.connection.v1.Connection.Params parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ibc.core.connection.v1.Connection.Params parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ibc.core.connection.v1.Connection.Params parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ibc.core.connection.v1.Connection.Params prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * Params defines the set of Connection parameters.
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.connection.v1.Params}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.connection.v1.Params)
+        ibc.core.connection.v1.Connection.ParamsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ibc.core.connection.v1.Connection.internal_static_ibc_core_connection_v1_Params_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ibc.core.connection.v1.Connection.internal_static_ibc_core_connection_v1_Params_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ibc.core.connection.v1.Connection.Params.class, ibc.core.connection.v1.Connection.Params.Builder.class);
+      }
+
+      // Construct using ibc.core.connection.v1.Connection.Params.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        maxExpectedTimePerBlock_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ibc.core.connection.v1.Connection.internal_static_ibc_core_connection_v1_Params_descriptor;
+      }
+
+      @java.lang.Override
+      public ibc.core.connection.v1.Connection.Params getDefaultInstanceForType() {
+        return ibc.core.connection.v1.Connection.Params.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ibc.core.connection.v1.Connection.Params build() {
+        ibc.core.connection.v1.Connection.Params result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ibc.core.connection.v1.Connection.Params buildPartial() {
+        ibc.core.connection.v1.Connection.Params result = new ibc.core.connection.v1.Connection.Params(this);
+        result.maxExpectedTimePerBlock_ = maxExpectedTimePerBlock_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ibc.core.connection.v1.Connection.Params) {
+          return mergeFrom((ibc.core.connection.v1.Connection.Params)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ibc.core.connection.v1.Connection.Params other) {
+        if (other == ibc.core.connection.v1.Connection.Params.getDefaultInstance()) return this;
+        if (other.getMaxExpectedTimePerBlock() != 0L) {
+          setMaxExpectedTimePerBlock(other.getMaxExpectedTimePerBlock());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ibc.core.connection.v1.Connection.Params parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ibc.core.connection.v1.Connection.Params) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long maxExpectedTimePerBlock_ ;
+      /**
+       * <pre>
+       * maximum expected time per block (in nanoseconds), used to enforce block delay. This parameter should reflect the
+       * largest amount of time that the chain might reasonably take to produce the next block under normal operating
+       * conditions. A safe choice is 3-5x the expected time per block.
+       * </pre>
+       *
+       * <code>uint64 max_expected_time_per_block = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_expected_time_per_block&#92;""];</code>
+       * @return The maxExpectedTimePerBlock.
+       */
+      @java.lang.Override
+      public long getMaxExpectedTimePerBlock() {
+        return maxExpectedTimePerBlock_;
+      }
+      /**
+       * <pre>
+       * maximum expected time per block (in nanoseconds), used to enforce block delay. This parameter should reflect the
+       * largest amount of time that the chain might reasonably take to produce the next block under normal operating
+       * conditions. A safe choice is 3-5x the expected time per block.
+       * </pre>
+       *
+       * <code>uint64 max_expected_time_per_block = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_expected_time_per_block&#92;""];</code>
+       * @param value The maxExpectedTimePerBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaxExpectedTimePerBlock(long value) {
+        
+        maxExpectedTimePerBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * maximum expected time per block (in nanoseconds), used to enforce block delay. This parameter should reflect the
+       * largest amount of time that the chain might reasonably take to produce the next block under normal operating
+       * conditions. A safe choice is 3-5x the expected time per block.
+       * </pre>
+       *
+       * <code>uint64 max_expected_time_per_block = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_expected_time_per_block&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMaxExpectedTimePerBlock() {
+        
+        maxExpectedTimePerBlock_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.connection.v1.Params)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.connection.v1.Params)
+    private static final ibc.core.connection.v1.Connection.Params DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ibc.core.connection.v1.Connection.Params();
+    }
+
+    public static ibc.core.connection.v1.Connection.Params getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Params>
+        PARSER = new com.google.protobuf.AbstractParser<Params>() {
+      @java.lang.Override
+      public Params parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Params(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Params> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Params> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ibc.core.connection.v1.Connection.Params getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ibc_core_connection_v1_ConnectionEnd_descriptor;
   private static final 
@@ -7251,6 +7783,11 @@ public final class Connection {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ibc_core_connection_v1_Version_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_connection_v1_Params_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_connection_v1_Params_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7286,17 +7823,19 @@ public final class Connection {
       "onnectionPaths\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020y" +
       "aml:\"client_id\"\022\r\n\005paths\030\002 \003(\t\"5\n\007Versio" +
       "n\022\022\n\nidentifier\030\001 \001(\t\022\020\n\010features\030\002 \003(\t:" +
-      "\004\210\240\037\000*\231\001\n\005State\0226\n\037STATE_UNINITIALIZED_U" +
-      "NSPECIFIED\020\000\032\021\212\235 \rUNINITIALIZED\022\030\n\nSTATE" +
-      "_INIT\020\001\032\010\212\235 \004INIT\022\036\n\rSTATE_TRYOPEN\020\002\032\013\212\235" +
-      " \007TRYOPEN\022\030\n\nSTATE_OPEN\020\003\032\010\212\235 \004OPEN\032\004\210\243\036" +
-      "\000B=Z;github.com/cosmos/cosmos-sdk/x/ibc/" +
-      "core/03-connection/typesb\006proto3"
+      "\004\210\240\037\000\"U\n\006Params\022K\n\033max_expected_time_per" +
+      "_block\030\001 \001(\004B&\362\336\037\"yaml:\"max_expected_tim" +
+      "e_per_block\"*\231\001\n\005State\0226\n\037STATE_UNINITIA" +
+      "LIZED_UNSPECIFIED\020\000\032\021\212\235 \rUNINITIALIZED\022\030" +
+      "\n\nSTATE_INIT\020\001\032\010\212\235 \004INIT\022\036\n\rSTATE_TRYOPE" +
+      "N\020\002\032\013\212\235 \007TRYOPEN\022\030\n\nSTATE_OPEN\020\003\032\010\212\235 \004OP" +
+      "EN\032\004\210\243\036\000B>Z<github.com/cosmos/ibc-go/v2/" +
+      "modules/core/03-connection/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           ibc.core.commitment.v1.Commitment.getDescriptor(),
         });
     internal_static_ibc_core_connection_v1_ConnectionEnd_descriptor =
@@ -7335,16 +7874,22 @@ public final class Connection {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_connection_v1_Version_descriptor,
         new java.lang.String[] { "Identifier", "Features", });
+    internal_static_ibc_core_connection_v1_Params_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_ibc_core_connection_v1_Params_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_connection_v1_Params_descriptor,
+        new java.lang.String[] { "MaxExpectedTimePerBlock", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     ibc.core.commitment.v1.Commitment.getDescriptor();
   }
 

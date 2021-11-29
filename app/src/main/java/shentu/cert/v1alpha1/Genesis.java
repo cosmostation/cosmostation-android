@@ -123,7 +123,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.GenesisState)
       GenesisStateOrBuilder {
@@ -260,12 +260,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certifier certifiers = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"certifiers&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.cert.v1alpha1.Cert.Certifier> getCertifiersList() {
       return certifiers_;
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certifier certifiers = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"certifiers&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.cert.v1alpha1.Cert.CertifierOrBuilder> 
         getCertifiersOrBuilderList() {
       return certifiers_;
@@ -273,18 +275,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certifier certifiers = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"certifiers&#92;""];</code>
      */
+    @java.lang.Override
     public int getCertifiersCount() {
       return certifiers_.size();
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certifier certifiers = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"certifiers&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.Certifier getCertifiers(int index) {
       return certifiers_.get(index);
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certifier certifiers = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"certifiers&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.CertifierOrBuilder getCertifiersOrBuilder(
         int index) {
       return certifiers_.get(index);
@@ -295,12 +300,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cert.v1alpha1.Platform platforms = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"platforms&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.cert.v1alpha1.Cert.Platform> getPlatformsList() {
       return platforms_;
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Platform platforms = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"platforms&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.cert.v1alpha1.Cert.PlatformOrBuilder> 
         getPlatformsOrBuilderList() {
       return platforms_;
@@ -308,18 +315,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cert.v1alpha1.Platform platforms = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"platforms&#92;""];</code>
      */
+    @java.lang.Override
     public int getPlatformsCount() {
       return platforms_.size();
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Platform platforms = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"platforms&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.Platform getPlatforms(int index) {
       return platforms_.get(index);
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Platform platforms = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"platforms&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.PlatformOrBuilder getPlatformsOrBuilder(
         int index) {
       return platforms_.get(index);
@@ -330,12 +340,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certificate certificates = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"certificates&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.cert.v1alpha1.Cert.Certificate> getCertificatesList() {
       return certificates_;
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certificate certificates = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"certificates&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.cert.v1alpha1.Cert.CertificateOrBuilder> 
         getCertificatesOrBuilderList() {
       return certificates_;
@@ -343,18 +355,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certificate certificates = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"certificates&#92;""];</code>
      */
+    @java.lang.Override
     public int getCertificatesCount() {
       return certificates_.size();
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certificate certificates = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"certificates&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.Certificate getCertificates(int index) {
       return certificates_.get(index);
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certificate certificates = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"certificates&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.CertificateOrBuilder getCertificatesOrBuilder(
         int index) {
       return certificates_.get(index);
@@ -365,12 +380,14 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cert.v1alpha1.Library libraries = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"libraries&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.cert.v1alpha1.Cert.Library> getLibrariesList() {
       return libraries_;
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Library libraries = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"libraries&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.cert.v1alpha1.Cert.LibraryOrBuilder> 
         getLibrariesOrBuilderList() {
       return libraries_;
@@ -378,18 +395,21 @@ public final class Genesis {
     /**
      * <code>repeated .shentu.cert.v1alpha1.Library libraries = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"libraries&#92;""];</code>
      */
+    @java.lang.Override
     public int getLibrariesCount() {
       return libraries_.size();
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Library libraries = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"libraries&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.Library getLibraries(int index) {
       return libraries_.get(index);
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Library libraries = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"libraries&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.LibraryOrBuilder getLibrariesOrBuilder(
         int index) {
       return libraries_.get(index);
@@ -401,6 +421,7 @@ public final class Genesis {
      * <code>uint64 next_certificate_id = 5 [(.gogoproto.moretags) = "yaml:&#92;"next_certificate_id&#92;""];</code>
      * @return The nextCertificateId.
      */
+    @java.lang.Override
     public long getNextCertificateId() {
       return nextCertificateId_;
     }
@@ -1895,6 +1916,7 @@ public final class Genesis {
        * <code>uint64 next_certificate_id = 5 [(.gogoproto.moretags) = "yaml:&#92;"next_certificate_id&#92;""];</code>
        * @return The nextCertificateId.
        */
+      @java.lang.Override
       public long getNextCertificateId() {
         return nextCertificateId_;
       }
@@ -1988,27 +2010,27 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n\"shentu/cert/v1alpha1/genesis.proto\022\024sh" +
       "entu.cert.v1alpha1\032\024gogoproto/gogo.proto" +
-      "\032\032google/protobuf2/any.proto\032\036cosmos/bas" +
-      "e/v1beta1/coin.proto\032\031cosmos_proto/cosmo" +
-      "s.proto\032\037shentu/cert/v1alpha1/cert.proto" +
-      "\"\224\003\n\014GenesisState\022N\n\ncertifiers\030\001 \003(\0132\037." +
-      "shentu.cert.v1alpha1.CertifierB\031\362\336\037\021yaml" +
-      ":\"certifiers\"\310\336\037\000\022K\n\tplatforms\030\002 \003(\0132\036.s" +
-      "hentu.cert.v1alpha1.PlatformB\030\362\336\037\020yaml:\"" +
-      "platforms\"\310\336\037\000\022T\n\014certificates\030\003 \003(\0132!.s" +
-      "hentu.cert.v1alpha1.CertificateB\033\362\336\037\023yam" +
-      "l:\"certificates\"\310\336\037\000\022J\n\tlibraries\030\004 \003(\0132" +
-      "\035.shentu.cert.v1alpha1.LibraryB\030\362\336\037\020yaml" +
-      ":\"libraries\"\310\336\037\000\022;\n\023next_certificate_id\030" +
-      "\005 \001(\004B\036\362\336\037\032yaml:\"next_certificate_id\":\010\350" +
-      "\240\037\000\210\240\037\000B1Z/github.com/certikfoundation/s" +
-      "hentu/x/cert/typesb\006proto3"
+      "\032\031google/protobuf/any.proto\032\036cosmos/base" +
+      "/v1beta1/coin.proto\032\031cosmos_proto/cosmos" +
+      ".proto\032\037shentu/cert/v1alpha1/cert.proto\"" +
+      "\224\003\n\014GenesisState\022N\n\ncertifiers\030\001 \003(\0132\037.s" +
+      "hentu.cert.v1alpha1.CertifierB\031\362\336\037\021yaml:" +
+      "\"certifiers\"\310\336\037\000\022K\n\tplatforms\030\002 \003(\0132\036.sh" +
+      "entu.cert.v1alpha1.PlatformB\030\362\336\037\020yaml:\"p" +
+      "latforms\"\310\336\037\000\022T\n\014certificates\030\003 \003(\0132!.sh" +
+      "entu.cert.v1alpha1.CertificateB\033\362\336\037\023yaml" +
+      ":\"certificates\"\310\336\037\000\022J\n\tlibraries\030\004 \003(\0132\035" +
+      ".shentu.cert.v1alpha1.LibraryB\030\362\336\037\020yaml:" +
+      "\"libraries\"\310\336\037\000\022;\n\023next_certificate_id\030\005" +
+      " \001(\004B\036\362\336\037\032yaml:\"next_certificate_id\":\010\350\240" +
+      "\037\000\210\240\037\000B1Z/github.com/certikfoundation/sh" +
+      "entu/x/cert/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
-          com.google.protobuf2.AnyProto.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf.AnyProto.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           shentu.cert.v1alpha1.Cert.getDescriptor(),
@@ -2021,14 +2043,14 @@ public final class Genesis {
         new java.lang.String[] { "Certifiers", "Platforms", "Certificates", "Libraries", "NextCertificateId", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
-    com.google.protobuf2.AnyProto.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf.AnyProto.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     shentu.cert.v1alpha1.Cert.getDescriptor();

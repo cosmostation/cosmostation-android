@@ -45,7 +45,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.QueryCertifierRequest}
    */
-  public  static final class QueryCertifierRequest extends
+  public static final class QueryCertifierRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.QueryCertifierRequest)
       QueryCertifierRequestOrBuilder {
@@ -139,6 +139,7 @@ public final class QueryOuterClass {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -155,6 +156,7 @@ public final class QueryOuterClass {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -175,6 +177,7 @@ public final class QueryOuterClass {
      * <code>string alias = 2;</code>
      * @return The alias.
      */
+    @java.lang.Override
     public java.lang.String getAlias() {
       java.lang.Object ref = alias_;
       if (ref instanceof java.lang.String) {
@@ -191,6 +194,7 @@ public final class QueryOuterClass {
      * <code>string alias = 2;</code>
      * @return The bytes for alias.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAliasBytes() {
       java.lang.Object ref = alias_;
@@ -750,7 +754,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.QueryCertifierResponse}
    */
-  public  static final class QueryCertifierResponse extends
+  public static final class QueryCertifierResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.QueryCertifierResponse)
       QueryCertifierResponseOrBuilder {
@@ -843,6 +847,7 @@ public final class QueryOuterClass {
      * <code>.shentu.cert.v1alpha1.Certifier certifier = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the certifier field is set.
      */
+    @java.lang.Override
     public boolean hasCertifier() {
       return certifier_ != null;
     }
@@ -850,12 +855,14 @@ public final class QueryOuterClass {
      * <code>.shentu.cert.v1alpha1.Certifier certifier = 1 [(.gogoproto.nullable) = false];</code>
      * @return The certifier.
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.Certifier getCertifier() {
       return certifier_ == null ? shentu.cert.v1alpha1.Cert.Certifier.getDefaultInstance() : certifier_;
     }
     /**
      * <code>.shentu.cert.v1alpha1.Certifier certifier = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.CertifierOrBuilder getCertifierOrBuilder() {
       return getCertifier();
     }
@@ -1353,7 +1360,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.QueryCertifiersRequest}
    */
-  public  static final class QueryCertifiersRequest extends
+  public static final class QueryCertifiersRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.QueryCertifiersRequest)
       QueryCertifiersRequestOrBuilder {
@@ -1795,7 +1802,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.QueryCertifiersResponse}
    */
-  public  static final class QueryCertifiersResponse extends
+  public static final class QueryCertifiersResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.QueryCertifiersResponse)
       QueryCertifiersResponseOrBuilder {
@@ -1888,12 +1895,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certifier certifiers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.cert.v1alpha1.Cert.Certifier> getCertifiersList() {
       return certifiers_;
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certifier certifiers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.cert.v1alpha1.Cert.CertifierOrBuilder> 
         getCertifiersOrBuilderList() {
       return certifiers_;
@@ -1901,18 +1910,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certifier certifiers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getCertifiersCount() {
       return certifiers_.size();
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certifier certifiers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.Certifier getCertifiers(int index) {
       return certifiers_.get(index);
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.Certifier certifiers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.CertifierOrBuilder getCertifiersOrBuilder(
         int index) {
       return certifiers_.get(index);
@@ -2557,24 +2569,24 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return Whether the pubkey field is set.
      */
     boolean hasPubkey();
     /**
-     * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return The pubkey.
      */
-    com.google.protobuf2.Any getPubkey();
+    com.google.protobuf.Any getPubkey();
     /**
-     * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      */
-    com.google.protobuf2.AnyOrBuilder getPubkeyOrBuilder();
+    com.google.protobuf.AnyOrBuilder getPubkeyOrBuilder();
   }
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.QueryPlatformRequest}
    */
-  public  static final class QueryPlatformRequest extends
+  public static final class QueryPlatformRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.QueryPlatformRequest)
       QueryPlatformRequestOrBuilder {
@@ -2617,11 +2629,11 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              com.google.protobuf2.Any.Builder subBuilder = null;
+              com.google.protobuf.Any.Builder subBuilder = null;
               if (pubkey_ != null) {
                 subBuilder = pubkey_.toBuilder();
               }
-              pubkey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
+              pubkey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(pubkey_);
                 pubkey_ = subBuilder.buildPartial();
@@ -2662,25 +2674,28 @@ public final class QueryOuterClass {
     }
 
     public static final int PUBKEY_FIELD_NUMBER = 1;
-    private com.google.protobuf2.Any pubkey_;
+    private com.google.protobuf.Any pubkey_;
     /**
-     * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return Whether the pubkey field is set.
      */
+    @java.lang.Override
     public boolean hasPubkey() {
       return pubkey_ != null;
     }
     /**
-     * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return The pubkey.
      */
-    public com.google.protobuf2.Any getPubkey() {
-      return pubkey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubkey_;
+    @java.lang.Override
+    public com.google.protobuf.Any getPubkey() {
+      return pubkey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubkey_;
     }
     /**
-     * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      */
-    public com.google.protobuf2.AnyOrBuilder getPubkeyOrBuilder() {
+    @java.lang.Override
+    public com.google.protobuf.AnyOrBuilder getPubkeyOrBuilder() {
       return getPubkey();
     }
 
@@ -2999,31 +3014,31 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf2.Any pubkey_;
+      private com.google.protobuf.Any pubkey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> pubkeyBuilder_;
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> pubkeyBuilder_;
       /**
-       * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        * @return Whether the pubkey field is set.
        */
       public boolean hasPubkey() {
         return pubkeyBuilder_ != null || pubkey_ != null;
       }
       /**
-       * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        * @return The pubkey.
        */
-      public com.google.protobuf2.Any getPubkey() {
+      public com.google.protobuf.Any getPubkey() {
         if (pubkeyBuilder_ == null) {
-          return pubkey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubkey_;
+          return pubkey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubkey_;
         } else {
           return pubkeyBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public Builder setPubkey(com.google.protobuf2.Any value) {
+      public Builder setPubkey(com.google.protobuf.Any value) {
         if (pubkeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3037,10 +3052,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       public Builder setPubkey(
-          com.google.protobuf2.Any.Builder builderForValue) {
+          com.google.protobuf.Any.Builder builderForValue) {
         if (pubkeyBuilder_ == null) {
           pubkey_ = builderForValue.build();
           onChanged();
@@ -3051,13 +3066,13 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public Builder mergePubkey(com.google.protobuf2.Any value) {
+      public Builder mergePubkey(com.google.protobuf.Any value) {
         if (pubkeyBuilder_ == null) {
           if (pubkey_ != null) {
             pubkey_ =
-              com.google.protobuf2.Any.newBuilder(pubkey_).mergeFrom(value).buildPartial();
+              com.google.protobuf.Any.newBuilder(pubkey_).mergeFrom(value).buildPartial();
           } else {
             pubkey_ = value;
           }
@@ -3069,7 +3084,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       public Builder clearPubkey() {
         if (pubkeyBuilder_ == null) {
@@ -3083,33 +3098,33 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public com.google.protobuf2.Any.Builder getPubkeyBuilder() {
+      public com.google.protobuf.Any.Builder getPubkeyBuilder() {
         
         onChanged();
         return getPubkeyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public com.google.protobuf2.AnyOrBuilder getPubkeyOrBuilder() {
+      public com.google.protobuf.AnyOrBuilder getPubkeyOrBuilder() {
         if (pubkeyBuilder_ != null) {
           return pubkeyBuilder_.getMessageOrBuilder();
         } else {
           return pubkey_ == null ?
-              com.google.protobuf2.Any.getDefaultInstance() : pubkey_;
+              com.google.protobuf.Any.getDefaultInstance() : pubkey_;
         }
       }
       /**
-       * <code>.google.protobuf2.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf.Any pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
           getPubkeyFieldBuilder() {
         if (pubkeyBuilder_ == null) {
           pubkeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
                   getPubkey(),
                   getParentForChildren(),
                   isClean());
@@ -3192,7 +3207,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.QueryPlatformResponse}
    */
-  public  static final class QueryPlatformResponse extends
+  public static final class QueryPlatformResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.QueryPlatformResponse)
       QueryPlatformResponseOrBuilder {
@@ -3285,6 +3300,7 @@ public final class QueryOuterClass {
      * <code>.shentu.cert.v1alpha1.Platform platform = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the platform field is set.
      */
+    @java.lang.Override
     public boolean hasPlatform() {
       return platform_ != null;
     }
@@ -3292,12 +3308,14 @@ public final class QueryOuterClass {
      * <code>.shentu.cert.v1alpha1.Platform platform = 1 [(.gogoproto.nullable) = false];</code>
      * @return The platform.
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.Platform getPlatform() {
       return platform_ == null ? shentu.cert.v1alpha1.Cert.Platform.getDefaultInstance() : platform_;
     }
     /**
      * <code>.shentu.cert.v1alpha1.Platform platform = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.PlatformOrBuilder getPlatformOrBuilder() {
       return getPlatform();
     }
@@ -3801,7 +3819,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.QueryCertificateRequest}
    */
-  public  static final class QueryCertificateRequest extends
+  public static final class QueryCertificateRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.QueryCertificateRequest)
       QueryCertificateRequestOrBuilder {
@@ -3886,6 +3904,7 @@ public final class QueryOuterClass {
      * <code>uint64 certificate_id = 1;</code>
      * @return The certificateId.
      */
+    @java.lang.Override
     public long getCertificateId() {
       return certificateId_;
     }
@@ -4198,6 +4217,7 @@ public final class QueryOuterClass {
        * <code>uint64 certificate_id = 1;</code>
        * @return The certificateId.
        */
+      @java.lang.Override
       public long getCertificateId() {
         return certificateId_;
       }
@@ -4297,7 +4317,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.QueryCertificateResponse}
    */
-  public  static final class QueryCertificateResponse extends
+  public static final class QueryCertificateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.QueryCertificateResponse)
       QueryCertificateResponseOrBuilder {
@@ -4390,6 +4410,7 @@ public final class QueryOuterClass {
      * <code>.shentu.cert.v1alpha1.Certificate certificate = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the certificate field is set.
      */
+    @java.lang.Override
     public boolean hasCertificate() {
       return certificate_ != null;
     }
@@ -4397,12 +4418,14 @@ public final class QueryOuterClass {
      * <code>.shentu.cert.v1alpha1.Certificate certificate = 1 [(.gogoproto.nullable) = false];</code>
      * @return The certificate.
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.Certificate getCertificate() {
       return certificate_ == null ? shentu.cert.v1alpha1.Cert.Certificate.getDefaultInstance() : certificate_;
     }
     /**
      * <code>.shentu.cert.v1alpha1.Certificate certificate = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.Cert.CertificateOrBuilder getCertificateOrBuilder() {
       return getCertificate();
     }
@@ -4951,7 +4974,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.QueryCertificatesRequest}
    */
-  public  static final class QueryCertificatesRequest extends
+  public static final class QueryCertificatesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.QueryCertificatesRequest)
       QueryCertificatesRequestOrBuilder {
@@ -5058,6 +5081,7 @@ public final class QueryOuterClass {
      * <code>string certifier = 1;</code>
      * @return The certifier.
      */
+    @java.lang.Override
     public java.lang.String getCertifier() {
       java.lang.Object ref = certifier_;
       if (ref instanceof java.lang.String) {
@@ -5074,6 +5098,7 @@ public final class QueryOuterClass {
      * <code>string certifier = 1;</code>
      * @return The bytes for certifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCertifierBytes() {
       java.lang.Object ref = certifier_;
@@ -5094,6 +5119,7 @@ public final class QueryOuterClass {
      * <code>string certificate_type = 2;</code>
      * @return The certificateType.
      */
+    @java.lang.Override
     public java.lang.String getCertificateType() {
       java.lang.Object ref = certificateType_;
       if (ref instanceof java.lang.String) {
@@ -5110,6 +5136,7 @@ public final class QueryOuterClass {
      * <code>string certificate_type = 2;</code>
      * @return The bytes for certificateType.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCertificateTypeBytes() {
       java.lang.Object ref = certificateType_;
@@ -5134,6 +5161,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 4;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -5145,6 +5173,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 4;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -5155,6 +5184,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 4;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -5904,7 +5934,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.cert.v1alpha1.QueryCertificatesResponse}
    */
-  public  static final class QueryCertificatesResponse extends
+  public static final class QueryCertificatesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.cert.v1alpha1.QueryCertificatesResponse)
       QueryCertificatesResponseOrBuilder {
@@ -6003,6 +6033,7 @@ public final class QueryOuterClass {
      * <code>uint64 total = 1;</code>
      * @return The total.
      */
+    @java.lang.Override
     public long getTotal() {
       return total_;
     }
@@ -6012,12 +6043,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.cert.v1alpha1.QueryCertificateResponse certificates = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.cert.v1alpha1.QueryOuterClass.QueryCertificateResponse> getCertificatesList() {
       return certificates_;
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.QueryCertificateResponse certificates = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.cert.v1alpha1.QueryOuterClass.QueryCertificateResponseOrBuilder> 
         getCertificatesOrBuilderList() {
       return certificates_;
@@ -6025,18 +6058,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.cert.v1alpha1.QueryCertificateResponse certificates = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getCertificatesCount() {
       return certificates_.size();
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.QueryCertificateResponse certificates = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.QueryOuterClass.QueryCertificateResponse getCertificates(int index) {
       return certificates_.get(index);
     }
     /**
      * <code>repeated .shentu.cert.v1alpha1.QueryCertificateResponse certificates = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.cert.v1alpha1.QueryOuterClass.QueryCertificateResponseOrBuilder getCertificatesOrBuilder(
         int index) {
       return certificates_.get(index);
@@ -6407,6 +6443,7 @@ public final class QueryOuterClass {
        * <code>uint64 total = 1;</code>
        * @return The total.
        */
+      @java.lang.Override
       public long getTotal() {
         return total_;
       }
@@ -6788,60 +6825,60 @@ public final class QueryOuterClass {
       "cosmos/base/query/v1beta1/pagination.pro" +
       "to\032\034google/api/annotations.proto\032\037shentu" +
       "/cert/v1alpha1/cert.proto\032\"shentu/cert/v" +
-      "1alpha1/genesis.proto\032\032google/protobuf2/" +
-      "any.proto\032\031cosmos_proto/cosmos.proto\"7\n\025" +
-      "QueryCertifierRequest\022\017\n\007address\030\001 \001(\t\022\r" +
-      "\n\005alias\030\002 \001(\t\"R\n\026QueryCertifierResponse\022" +
-      "8\n\tcertifier\030\001 \001(\0132\037.shentu.cert.v1alpha" +
-      "1.CertifierB\004\310\336\037\000\"\030\n\026QueryCertifiersRequ" +
-      "est\"T\n\027QueryCertifiersResponse\0229\n\ncertif" +
-      "iers\030\001 \003(\0132\037.shentu.cert.v1alpha1.Certif" +
-      "ierB\004\310\336\037\000\"W\n\024QueryPlatformRequest\022?\n\006pub" +
-      "key\030\001 \001(\0132\025.google.protobuf2.AnyB\030\312\264-\024co" +
-      "smos.crypto.PubKey\"O\n\025QueryPlatformRespo" +
-      "nse\0226\n\010platform\030\001 \001(\0132\036.shentu.cert.v1al" +
-      "pha1.PlatformB\004\310\336\037\000\"1\n\027QueryCertificateR" +
-      "equest\022\026\n\016certificate_id\030\001 \001(\004\"X\n\030QueryC" +
-      "ertificateResponse\022<\n\013certificate\030\001 \001(\0132" +
-      "!.shentu.cert.v1alpha1.CertificateB\004\310\336\037\000" +
-      "\"\203\001\n\030QueryCertificatesRequest\022\021\n\tcertifi" +
-      "er\030\001 \001(\t\022\030\n\020certificate_type\030\002 \001(\t\022:\n\npa" +
-      "gination\030\004 \001(\0132&.cosmos.base.query.v1bet" +
-      "a1.PageRequest\"v\n\031QueryCertificatesRespo" +
-      "nse\022\r\n\005total\030\001 \001(\004\022J\n\014certificates\030\002 \003(\013" +
-      "2..shentu.cert.v1alpha1.QueryCertificate" +
-      "ResponseB\004\310\336\037\0002\236\006\n\005Query\022\247\001\n\tCertifier\022+" +
-      ".shentu.cert.v1alpha1.QueryCertifierRequ" +
-      "est\032,.shentu.cert.v1alpha1.QueryCertifie" +
-      "rResponse\"?\202\323\344\223\0029\0227/shentu/cert/v1alpha1" +
-      "/certifier/{address}/alias/{alias}\022\223\001\n\nC" +
-      "ertifiers\022,.shentu.cert.v1alpha1.QueryCe" +
-      "rtifiersRequest\032-.shentu.cert.v1alpha1.Q" +
-      "ueryCertifiersResponse\"(\202\323\344\223\002\"\022 /shentu/" +
-      "cert/v1alpha1/certifiers\022\213\001\n\010Platform\022*." +
-      "shentu.cert.v1alpha1.QueryPlatformReques" +
-      "t\032+.shentu.cert.v1alpha1.QueryPlatformRe" +
-      "sponse\"&\202\323\344\223\002 \022\036/shentu/cert/v1alpha1/pl" +
-      "atform\022\250\001\n\013Certificate\022-.shentu.cert.v1a" +
-      "lpha1.QueryCertificateRequest\032..shentu.c" +
-      "ert.v1alpha1.QueryCertificateResponse\":\202" +
-      "\323\344\223\0024\0222/shentu/cert/v1alpha1/certificate" +
-      "/{certificate_id}\022\233\001\n\014Certificates\022..she" +
-      "ntu.cert.v1alpha1.QueryCertificatesReque" +
-      "st\032/.shentu.cert.v1alpha1.QueryCertifica" +
-      "tesResponse\"*\202\323\344\223\002$\022\"/shentu/cert/v1alph" +
-      "a1/certificatesB1Z/github.com/certikfoun" +
-      "dation/shentu/x/cert/typesb\006proto3"
+      "1alpha1/genesis.proto\032\031google/protobuf/a" +
+      "ny.proto\032\031cosmos_proto/cosmos.proto\"7\n\025Q" +
+      "ueryCertifierRequest\022\017\n\007address\030\001 \001(\t\022\r\n" +
+      "\005alias\030\002 \001(\t\"R\n\026QueryCertifierResponse\0228" +
+      "\n\tcertifier\030\001 \001(\0132\037.shentu.cert.v1alpha1" +
+      ".CertifierB\004\310\336\037\000\"\030\n\026QueryCertifiersReque" +
+      "st\"T\n\027QueryCertifiersResponse\0229\n\ncertifi" +
+      "ers\030\001 \003(\0132\037.shentu.cert.v1alpha1.Certifi" +
+      "erB\004\310\336\037\000\"V\n\024QueryPlatformRequest\022>\n\006pubk" +
+      "ey\030\001 \001(\0132\024.google.protobuf.AnyB\030\312\264-\024cosm" +
+      "os.crypto.PubKey\"O\n\025QueryPlatformRespons" +
+      "e\0226\n\010platform\030\001 \001(\0132\036.shentu.cert.v1alph" +
+      "a1.PlatformB\004\310\336\037\000\"1\n\027QueryCertificateReq" +
+      "uest\022\026\n\016certificate_id\030\001 \001(\004\"X\n\030QueryCer" +
+      "tificateResponse\022<\n\013certificate\030\001 \001(\0132!." +
+      "shentu.cert.v1alpha1.CertificateB\004\310\336\037\000\"\203" +
+      "\001\n\030QueryCertificatesRequest\022\021\n\tcertifier" +
+      "\030\001 \001(\t\022\030\n\020certificate_type\030\002 \001(\t\022:\n\npagi" +
+      "nation\030\004 \001(\0132&.cosmos.base.query.v1beta1" +
+      ".PageRequest\"v\n\031QueryCertificatesRespons" +
+      "e\022\r\n\005total\030\001 \001(\004\022J\n\014certificates\030\002 \003(\0132." +
+      ".shentu.cert.v1alpha1.QueryCertificateRe" +
+      "sponseB\004\310\336\037\0002\236\006\n\005Query\022\247\001\n\tCertifier\022+.s" +
+      "hentu.cert.v1alpha1.QueryCertifierReques" +
+      "t\032,.shentu.cert.v1alpha1.QueryCertifierR" +
+      "esponse\"?\202\323\344\223\0029\0227/shentu/cert/v1alpha1/c" +
+      "ertifier/{address}/alias/{alias}\022\223\001\n\nCer" +
+      "tifiers\022,.shentu.cert.v1alpha1.QueryCert" +
+      "ifiersRequest\032-.shentu.cert.v1alpha1.Que" +
+      "ryCertifiersResponse\"(\202\323\344\223\002\"\022 /shentu/ce" +
+      "rt/v1alpha1/certifiers\022\213\001\n\010Platform\022*.sh" +
+      "entu.cert.v1alpha1.QueryPlatformRequest\032" +
+      "+.shentu.cert.v1alpha1.QueryPlatformResp" +
+      "onse\"&\202\323\344\223\002 \022\036/shentu/cert/v1alpha1/plat" +
+      "form\022\250\001\n\013Certificate\022-.shentu.cert.v1alp" +
+      "ha1.QueryCertificateRequest\032..shentu.cer" +
+      "t.v1alpha1.QueryCertificateResponse\":\202\323\344" +
+      "\223\0024\0222/shentu/cert/v1alpha1/certificate/{" +
+      "certificate_id}\022\233\001\n\014Certificates\022..shent" +
+      "u.cert.v1alpha1.QueryCertificatesRequest" +
+      "\032/.shentu.cert.v1alpha1.QueryCertificate" +
+      "sResponse\"*\202\323\344\223\002$\022\"/shentu/cert/v1alpha1" +
+      "/certificatesB1Z/github.com/certikfounda" +
+      "tion/shentu/x/cert/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           shentu.cert.v1alpha1.Cert.getDescriptor(),
           shentu.cert.v1alpha1.Genesis.getDescriptor(),
-          com.google.protobuf2.AnyProto.getDescriptor(),
+          com.google.protobuf.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_shentu_cert_v1alpha1_QueryCertifierRequest_descriptor =
@@ -6907,16 +6944,16 @@ public final class QueryOuterClass {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     shentu.cert.v1alpha1.Cert.getDescriptor();
     shentu.cert.v1alpha1.Genesis.getDescriptor();
-    com.google.protobuf2.AnyProto.getDescriptor();
+    com.google.protobuf.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
   }
 

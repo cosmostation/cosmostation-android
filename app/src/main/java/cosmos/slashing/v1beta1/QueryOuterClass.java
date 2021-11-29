@@ -1078,7 +1078,7 @@ public final class QueryOuterClass {
      * cons_address is the address to query signing info of
      * </pre>
      *
-     * <code>string cons_address = 1;</code>
+     * <code>string cons_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The consAddress.
      */
     java.lang.String getConsAddress();
@@ -1087,7 +1087,7 @@ public final class QueryOuterClass {
      * cons_address is the address to query signing info of
      * </pre>
      *
-     * <code>string cons_address = 1;</code>
+     * <code>string cons_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for consAddress.
      */
     com.google.protobuf.ByteString
@@ -1189,7 +1189,7 @@ public final class QueryOuterClass {
      * cons_address is the address to query signing info of
      * </pre>
      *
-     * <code>string cons_address = 1;</code>
+     * <code>string cons_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The consAddress.
      */
     @java.lang.Override
@@ -1210,7 +1210,7 @@ public final class QueryOuterClass {
      * cons_address is the address to query signing info of
      * </pre>
      *
-     * <code>string cons_address = 1;</code>
+     * <code>string cons_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for consAddress.
      */
     @java.lang.Override
@@ -1541,7 +1541,7 @@ public final class QueryOuterClass {
        * cons_address is the address to query signing info of
        * </pre>
        *
-       * <code>string cons_address = 1;</code>
+       * <code>string cons_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The consAddress.
        */
       public java.lang.String getConsAddress() {
@@ -1561,7 +1561,7 @@ public final class QueryOuterClass {
        * cons_address is the address to query signing info of
        * </pre>
        *
-       * <code>string cons_address = 1;</code>
+       * <code>string cons_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for consAddress.
        */
       public com.google.protobuf.ByteString
@@ -1582,7 +1582,7 @@ public final class QueryOuterClass {
        * cons_address is the address to query signing info of
        * </pre>
        *
-       * <code>string cons_address = 1;</code>
+       * <code>string cons_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The consAddress to set.
        * @return This builder for chaining.
        */
@@ -1601,7 +1601,7 @@ public final class QueryOuterClass {
        * cons_address is the address to query signing info of
        * </pre>
        *
-       * <code>string cons_address = 1;</code>
+       * <code>string cons_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearConsAddress() {
@@ -1615,7 +1615,7 @@ public final class QueryOuterClass {
        * cons_address is the address to query signing info of
        * </pre>
        *
-       * <code>string cons_address = 1;</code>
+       * <code>string cons_address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for consAddress to set.
        * @return This builder for chaining.
        */
@@ -4166,42 +4166,44 @@ public final class QueryOuterClass {
       "osmos.slashing.v1beta1\032*cosmos/base/quer" +
       "y/v1beta1/pagination.proto\032\024gogoproto/go" +
       "go.proto\032\034google/api/annotations.proto\032&" +
-      "cosmos/slashing/v1beta1/slashing.proto\"\024" +
-      "\n\022QueryParamsRequest\"L\n\023QueryParamsRespo" +
-      "nse\0225\n\006params\030\001 \001(\0132\037.cosmos.slashing.v1" +
-      "beta1.ParamsB\004\310\336\037\000\"/\n\027QuerySigningInfoRe" +
-      "quest\022\024\n\014cons_address\030\001 \001(\t\"i\n\030QuerySign" +
-      "ingInfoResponse\022M\n\020val_signing_info\030\001 \001(" +
-      "\0132-.cosmos.slashing.v1beta1.ValidatorSig" +
-      "ningInfoB\004\310\336\037\000\"V\n\030QuerySigningInfosReque" +
-      "st\022:\n\npagination\030\001 \001(\0132&.cosmos.base.que" +
-      "ry.v1beta1.PageRequest\"\233\001\n\031QuerySigningI" +
-      "nfosResponse\022A\n\004info\030\001 \003(\0132-.cosmos.slas" +
-      "hing.v1beta1.ValidatorSigningInfoB\004\310\336\037\000\022" +
-      ";\n\npagination\030\002 \001(\0132\'.cosmos.base.query." +
-      "v1beta1.PageResponse2\362\003\n\005Query\022\214\001\n\006Param" +
-      "s\022+.cosmos.slashing.v1beta1.QueryParamsR" +
-      "equest\032,.cosmos.slashing.v1beta1.QueryPa" +
-      "ramsResponse\"\'\202\323\344\223\002!\022\037/cosmos/slashing/v" +
-      "1beta1/params\022\261\001\n\013SigningInfo\0220.cosmos.s" +
-      "lashing.v1beta1.QuerySigningInfoRequest\032" +
-      "1.cosmos.slashing.v1beta1.QuerySigningIn" +
-      "foResponse\"=\202\323\344\223\0027\0225/cosmos/slashing/v1b" +
-      "eta1/signing_infos/{cons_address}\022\245\001\n\014Si" +
-      "gningInfos\0221.cosmos.slashing.v1beta1.Que" +
-      "rySigningInfosRequest\0322.cosmos.slashing." +
-      "v1beta1.QuerySigningInfosResponse\".\202\323\344\223\002" +
-      "(\022&/cosmos/slashing/v1beta1/signing_info" +
-      "sB/Z-github.com/cosmos/cosmos-sdk/x/slas" +
-      "hing/typesb\006proto3"
+      "cosmos/slashing/v1beta1/slashing.proto\032\031" +
+      "cosmos_proto/cosmos.proto\"\024\n\022QueryParams" +
+      "Request\"L\n\023QueryParamsResponse\0225\n\006params" +
+      "\030\001 \001(\0132\037.cosmos.slashing.v1beta1.ParamsB" +
+      "\004\310\336\037\000\"I\n\027QuerySigningInfoRequest\022.\n\014cons" +
+      "_address\030\001 \001(\tB\030\322\264-\024cosmos.AddressString" +
+      "\"i\n\030QuerySigningInfoResponse\022M\n\020val_sign" +
+      "ing_info\030\001 \001(\0132-.cosmos.slashing.v1beta1" +
+      ".ValidatorSigningInfoB\004\310\336\037\000\"V\n\030QuerySign" +
+      "ingInfosRequest\022:\n\npagination\030\001 \001(\0132&.co" +
+      "smos.base.query.v1beta1.PageRequest\"\233\001\n\031" +
+      "QuerySigningInfosResponse\022A\n\004info\030\001 \003(\0132" +
+      "-.cosmos.slashing.v1beta1.ValidatorSigni" +
+      "ngInfoB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmo" +
+      "s.base.query.v1beta1.PageResponse2\362\003\n\005Qu" +
+      "ery\022\214\001\n\006Params\022+.cosmos.slashing.v1beta1" +
+      ".QueryParamsRequest\032,.cosmos.slashing.v1" +
+      "beta1.QueryParamsResponse\"\'\202\323\344\223\002!\022\037/cosm" +
+      "os/slashing/v1beta1/params\022\261\001\n\013SigningIn" +
+      "fo\0220.cosmos.slashing.v1beta1.QuerySignin" +
+      "gInfoRequest\0321.cosmos.slashing.v1beta1.Q" +
+      "uerySigningInfoResponse\"=\202\323\344\223\0027\0225/cosmos" +
+      "/slashing/v1beta1/signing_infos/{cons_ad" +
+      "dress}\022\245\001\n\014SigningInfos\0221.cosmos.slashin" +
+      "g.v1beta1.QuerySigningInfosRequest\0322.cos" +
+      "mos.slashing.v1beta1.QuerySigningInfosRe" +
+      "sponse\".\202\323\344\223\002(\022&/cosmos/slashing/v1beta1" +
+      "/signing_infosB/Z-github.com/cosmos/cosm" +
+      "os-sdk/x/slashing/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.slashing.v1beta1.Slashing.getDescriptor(),
+          cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_cosmos_slashing_v1beta1_QueryParamsRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -4241,14 +4243,16 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Info", "Pagination", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.slashing.v1beta1.Slashing.getDescriptor();
+    cosmos_proto.Cosmos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

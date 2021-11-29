@@ -27,7 +27,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPoolRequest}
    */
-  public  static final class QueryPoolRequest extends
+  public static final class QueryPoolRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPoolRequest)
       QueryPoolRequestOrBuilder {
@@ -112,6 +112,7 @@ public final class QueryOuterClass {
      * <code>uint64 pool_id = 1;</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -424,6 +425,7 @@ public final class QueryOuterClass {
        * <code>uint64 pool_id = 1;</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -523,7 +525,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPoolResponse}
    */
-  public  static final class QueryPoolResponse extends
+  public static final class QueryPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPoolResponse)
       QueryPoolResponseOrBuilder {
@@ -616,6 +618,7 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.Pool pool = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the pool field is set.
      */
+    @java.lang.Override
     public boolean hasPool() {
       return pool_ != null;
     }
@@ -623,12 +626,14 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.Pool pool = 1 [(.gogoproto.nullable) = false];</code>
      * @return The pool.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.Pool getPool() {
       return pool_ == null ? shentu.shield.v1alpha1.Shield.Pool.getDefaultInstance() : pool_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.Pool pool = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.PoolOrBuilder getPoolOrBuilder() {
       return getPool();
     }
@@ -1138,7 +1143,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QuerySponsorRequest}
    */
-  public  static final class QuerySponsorRequest extends
+  public static final class QuerySponsorRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QuerySponsorRequest)
       QuerySponsorRequestOrBuilder {
@@ -1225,6 +1230,7 @@ public final class QueryOuterClass {
      * <code>string sponsor = 1;</code>
      * @return The sponsor.
      */
+    @java.lang.Override
     public java.lang.String getSponsor() {
       java.lang.Object ref = sponsor_;
       if (ref instanceof java.lang.String) {
@@ -1241,6 +1247,7 @@ public final class QueryOuterClass {
      * <code>string sponsor = 1;</code>
      * @return The bytes for sponsor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSponsorBytes() {
       java.lang.Object ref = sponsor_;
@@ -1716,7 +1723,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QuerySponsorResponse}
    */
-  public  static final class QuerySponsorResponse extends
+  public static final class QuerySponsorResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QuerySponsorResponse)
       QuerySponsorResponseOrBuilder {
@@ -1809,12 +1816,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Shield.Pool> getPoolsList() {
       return pools_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Shield.PoolOrBuilder> 
         getPoolsOrBuilderList() {
       return pools_;
@@ -1822,18 +1831,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getPoolsCount() {
       return pools_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.Pool getPools(int index) {
       return pools_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.PoolOrBuilder getPoolsOrBuilder(
         int index) {
       return pools_.get(index);
@@ -2480,7 +2492,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPoolsRequest}
    */
-  public  static final class QueryPoolsRequest extends
+  public static final class QueryPoolsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPoolsRequest)
       QueryPoolsRequestOrBuilder {
@@ -2922,7 +2934,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPoolsResponse}
    */
-  public  static final class QueryPoolsResponse extends
+  public static final class QueryPoolsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPoolsResponse)
       QueryPoolsResponseOrBuilder {
@@ -3015,12 +3027,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Shield.Pool> getPoolsList() {
       return pools_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Shield.PoolOrBuilder> 
         getPoolsOrBuilderList() {
       return pools_;
@@ -3028,18 +3042,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getPoolsCount() {
       return pools_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.Pool getPools(int index) {
       return pools_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Pool pools = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.PoolOrBuilder getPoolsOrBuilder(
         int index) {
       return pools_.get(index);
@@ -3692,7 +3709,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPoolPurchaseListsRequest}
    */
-  public  static final class QueryPoolPurchaseListsRequest extends
+  public static final class QueryPoolPurchaseListsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPoolPurchaseListsRequest)
       QueryPoolPurchaseListsRequestOrBuilder {
@@ -3777,6 +3794,7 @@ public final class QueryOuterClass {
      * <code>uint64 pool_id = 1;</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -4089,6 +4107,7 @@ public final class QueryOuterClass {
        * <code>uint64 pool_id = 1;</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -4185,7 +4204,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPurchaseListsRequest}
    */
-  public  static final class QueryPurchaseListsRequest extends
+  public static final class QueryPurchaseListsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPurchaseListsRequest)
       QueryPurchaseListsRequestOrBuilder {
@@ -4272,6 +4291,7 @@ public final class QueryOuterClass {
      * <code>string purchaser = 1;</code>
      * @return The purchaser.
      */
+    @java.lang.Override
     public java.lang.String getPurchaser() {
       java.lang.Object ref = purchaser_;
       if (ref instanceof java.lang.String) {
@@ -4288,6 +4308,7 @@ public final class QueryOuterClass {
      * <code>string purchaser = 1;</code>
      * @return The bytes for purchaser.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPurchaserBytes() {
       java.lang.Object ref = purchaser_;
@@ -4763,7 +4784,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPurchaseListsResponse}
    */
-  public  static final class QueryPurchaseListsResponse extends
+  public static final class QueryPurchaseListsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPurchaseListsResponse)
       QueryPurchaseListsResponseOrBuilder {
@@ -4856,12 +4877,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.PurchaseList purchase_lists = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Shield.PurchaseList> getPurchaseListsList() {
       return purchaseLists_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.PurchaseList purchase_lists = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Shield.PurchaseListOrBuilder> 
         getPurchaseListsOrBuilderList() {
       return purchaseLists_;
@@ -4869,18 +4892,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.PurchaseList purchase_lists = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getPurchaseListsCount() {
       return purchaseLists_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.PurchaseList purchase_lists = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.PurchaseList getPurchaseLists(int index) {
       return purchaseLists_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.PurchaseList purchase_lists = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.PurchaseListOrBuilder getPurchaseListsOrBuilder(
         int index) {
       return purchaseLists_.get(index);
@@ -5545,7 +5571,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPurchaseListRequest}
    */
-  public  static final class QueryPurchaseListRequest extends
+  public static final class QueryPurchaseListRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPurchaseListRequest)
       QueryPurchaseListRequestOrBuilder {
@@ -5637,6 +5663,7 @@ public final class QueryOuterClass {
      * <code>uint64 pool_id = 1;</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -5647,6 +5674,7 @@ public final class QueryOuterClass {
      * <code>string purchaser = 2;</code>
      * @return The purchaser.
      */
+    @java.lang.Override
     public java.lang.String getPurchaser() {
       java.lang.Object ref = purchaser_;
       if (ref instanceof java.lang.String) {
@@ -5663,6 +5691,7 @@ public final class QueryOuterClass {
      * <code>string purchaser = 2;</code>
      * @return The bytes for purchaser.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPurchaserBytes() {
       java.lang.Object ref = purchaser_;
@@ -6002,6 +6031,7 @@ public final class QueryOuterClass {
        * <code>uint64 pool_id = 1;</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -6177,7 +6207,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPurchaseListResponse}
    */
-  public  static final class QueryPurchaseListResponse extends
+  public static final class QueryPurchaseListResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPurchaseListResponse)
       QueryPurchaseListResponseOrBuilder {
@@ -6270,6 +6300,7 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.PurchaseList purchase_list = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the purchaseList field is set.
      */
+    @java.lang.Override
     public boolean hasPurchaseList() {
       return purchaseList_ != null;
     }
@@ -6277,12 +6308,14 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.PurchaseList purchase_list = 1 [(.gogoproto.nullable) = false];</code>
      * @return The purchaseList.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.PurchaseList getPurchaseList() {
       return purchaseList_ == null ? shentu.shield.v1alpha1.Shield.PurchaseList.getDefaultInstance() : purchaseList_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.PurchaseList purchase_list = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.PurchaseListOrBuilder getPurchaseListOrBuilder() {
       return getPurchaseList();
     }
@@ -6780,7 +6813,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPurchasesRequest}
    */
-  public  static final class QueryPurchasesRequest extends
+  public static final class QueryPurchasesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPurchasesRequest)
       QueryPurchasesRequestOrBuilder {
@@ -7222,7 +7255,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPurchasesResponse}
    */
-  public  static final class QueryPurchasesResponse extends
+  public static final class QueryPurchasesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPurchasesResponse)
       QueryPurchasesResponseOrBuilder {
@@ -7315,12 +7348,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Purchase purchases = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Shield.Purchase> getPurchasesList() {
       return purchases_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Purchase purchases = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Shield.PurchaseOrBuilder> 
         getPurchasesOrBuilderList() {
       return purchases_;
@@ -7328,18 +7363,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Purchase purchases = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getPurchasesCount() {
       return purchases_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Purchase purchases = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.Purchase getPurchases(int index) {
       return purchases_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Purchase purchases = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.PurchaseOrBuilder getPurchasesOrBuilder(
         int index) {
       return purchases_.get(index);
@@ -7998,7 +8036,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryProviderRequest}
    */
-  public  static final class QueryProviderRequest extends
+  public static final class QueryProviderRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryProviderRequest)
       QueryProviderRequestOrBuilder {
@@ -8085,6 +8123,7 @@ public final class QueryOuterClass {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -8101,6 +8140,7 @@ public final class QueryOuterClass {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -8567,7 +8607,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryProviderResponse}
    */
-  public  static final class QueryProviderResponse extends
+  public static final class QueryProviderResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryProviderResponse)
       QueryProviderResponseOrBuilder {
@@ -8660,6 +8700,7 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.Provider provider = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the provider field is set.
      */
+    @java.lang.Override
     public boolean hasProvider() {
       return provider_ != null;
     }
@@ -8667,12 +8708,14 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.Provider provider = 1 [(.gogoproto.nullable) = false];</code>
      * @return The provider.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.Provider getProvider() {
       return provider_ == null ? shentu.shield.v1alpha1.Shield.Provider.getDefaultInstance() : provider_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.Provider provider = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.ProviderOrBuilder getProviderOrBuilder() {
       return getProvider();
     }
@@ -9170,7 +9213,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryProvidersRequest}
    */
-  public  static final class QueryProvidersRequest extends
+  public static final class QueryProvidersRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryProvidersRequest)
       QueryProvidersRequestOrBuilder {
@@ -9612,7 +9655,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryProvidersResponse}
    */
-  public  static final class QueryProvidersResponse extends
+  public static final class QueryProvidersResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryProvidersResponse)
       QueryProvidersResponseOrBuilder {
@@ -9705,12 +9748,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Provider providers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Shield.Provider> getProvidersList() {
       return providers_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Provider providers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Shield.ProviderOrBuilder> 
         getProvidersOrBuilderList() {
       return providers_;
@@ -9718,18 +9763,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.Provider providers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getProvidersCount() {
       return providers_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Provider providers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.Provider getProviders(int index) {
       return providers_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.Provider providers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.ProviderOrBuilder getProvidersOrBuilder(
         int index) {
       return providers_.get(index);
@@ -10376,7 +10424,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPoolParamsRequest}
    */
-  public  static final class QueryPoolParamsRequest extends
+  public static final class QueryPoolParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPoolParamsRequest)
       QueryPoolParamsRequestOrBuilder {
@@ -10809,7 +10857,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryPoolParamsResponse}
    */
-  public  static final class QueryPoolParamsResponse extends
+  public static final class QueryPoolParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryPoolParamsResponse)
       QueryPoolParamsResponseOrBuilder {
@@ -10902,6 +10950,7 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.PoolParams params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -10909,12 +10958,14 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.PoolParams params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.PoolParams getParams() {
       return params_ == null ? shentu.shield.v1alpha1.Genesis.PoolParams.getDefaultInstance() : params_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.PoolParams params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.PoolParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -11412,7 +11463,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryClaimParamsRequest}
    */
-  public  static final class QueryClaimParamsRequest extends
+  public static final class QueryClaimParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryClaimParamsRequest)
       QueryClaimParamsRequestOrBuilder {
@@ -11845,7 +11896,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryClaimParamsResponse}
    */
-  public  static final class QueryClaimParamsResponse extends
+  public static final class QueryClaimParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryClaimParamsResponse)
       QueryClaimParamsResponseOrBuilder {
@@ -11938,6 +11989,7 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.ClaimProposalParams params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -11945,12 +11997,14 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.ClaimProposalParams params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.ClaimProposalParams getParams() {
       return params_ == null ? shentu.shield.v1alpha1.Genesis.ClaimProposalParams.getDefaultInstance() : params_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.ClaimProposalParams params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.ClaimProposalParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -12448,7 +12502,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryShieldStatusRequest}
    */
-  public  static final class QueryShieldStatusRequest extends
+  public static final class QueryShieldStatusRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryShieldStatusRequest)
       QueryShieldStatusRequestOrBuilder {
@@ -12944,7 +12998,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryShieldStatusResponse}
    */
-  public  static final class QueryShieldStatusResponse extends
+  public static final class QueryShieldStatusResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryShieldStatusResponse)
       QueryShieldStatusResponseOrBuilder {
@@ -13078,6 +13132,7 @@ public final class QueryOuterClass {
      * <code>string total_collateral = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_collateral&#92;""];</code>
      * @return The totalCollateral.
      */
+    @java.lang.Override
     public java.lang.String getTotalCollateral() {
       java.lang.Object ref = totalCollateral_;
       if (ref instanceof java.lang.String) {
@@ -13094,6 +13149,7 @@ public final class QueryOuterClass {
      * <code>string total_collateral = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_collateral&#92;""];</code>
      * @return The bytes for totalCollateral.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTotalCollateralBytes() {
       java.lang.Object ref = totalCollateral_;
@@ -13114,6 +13170,7 @@ public final class QueryOuterClass {
      * <code>string total_shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_shield&#92;""];</code>
      * @return The totalShield.
      */
+    @java.lang.Override
     public java.lang.String getTotalShield() {
       java.lang.Object ref = totalShield_;
       if (ref instanceof java.lang.String) {
@@ -13130,6 +13187,7 @@ public final class QueryOuterClass {
      * <code>string total_shield = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_shield&#92;""];</code>
      * @return The bytes for totalShield.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTotalShieldBytes() {
       java.lang.Object ref = totalShield_;
@@ -13150,6 +13208,7 @@ public final class QueryOuterClass {
      * <code>string total_withdrawing = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_withdrawing&#92;""];</code>
      * @return The totalWithdrawing.
      */
+    @java.lang.Override
     public java.lang.String getTotalWithdrawing() {
       java.lang.Object ref = totalWithdrawing_;
       if (ref instanceof java.lang.String) {
@@ -13166,6 +13225,7 @@ public final class QueryOuterClass {
      * <code>string total_withdrawing = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_withdrawing&#92;""];</code>
      * @return The bytes for totalWithdrawing.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTotalWithdrawingBytes() {
       java.lang.Object ref = totalWithdrawing_;
@@ -13186,6 +13246,7 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.MixedDecCoins current_service_fees = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"current_service_fees&#92;""];</code>
      * @return Whether the currentServiceFees field is set.
      */
+    @java.lang.Override
     public boolean hasCurrentServiceFees() {
       return currentServiceFees_ != null;
     }
@@ -13193,12 +13254,14 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.MixedDecCoins current_service_fees = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"current_service_fees&#92;""];</code>
      * @return The currentServiceFees.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedDecCoins getCurrentServiceFees() {
       return currentServiceFees_ == null ? shentu.shield.v1alpha1.Shield.MixedDecCoins.getDefaultInstance() : currentServiceFees_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.MixedDecCoins current_service_fees = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"current_service_fees&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedDecCoinsOrBuilder getCurrentServiceFeesOrBuilder() {
       return getCurrentServiceFees();
     }
@@ -13209,6 +13272,7 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.MixedDecCoins remaining_service_fees = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_service_fees&#92;""];</code>
      * @return Whether the remainingServiceFees field is set.
      */
+    @java.lang.Override
     public boolean hasRemainingServiceFees() {
       return remainingServiceFees_ != null;
     }
@@ -13216,12 +13280,14 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.MixedDecCoins remaining_service_fees = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_service_fees&#92;""];</code>
      * @return The remainingServiceFees.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedDecCoins getRemainingServiceFees() {
       return remainingServiceFees_ == null ? shentu.shield.v1alpha1.Shield.MixedDecCoins.getDefaultInstance() : remainingServiceFees_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.MixedDecCoins remaining_service_fees = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_service_fees&#92;""];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.MixedDecCoinsOrBuilder getRemainingServiceFeesOrBuilder() {
       return getRemainingServiceFees();
     }
@@ -13232,6 +13298,7 @@ public final class QueryOuterClass {
      * <code>string global_shield_staking_pool = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"global_shield_staking_pool&#92;""];</code>
      * @return The globalShieldStakingPool.
      */
+    @java.lang.Override
     public java.lang.String getGlobalShieldStakingPool() {
       java.lang.Object ref = globalShieldStakingPool_;
       if (ref instanceof java.lang.String) {
@@ -13248,6 +13315,7 @@ public final class QueryOuterClass {
      * <code>string global_shield_staking_pool = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"global_shield_staking_pool&#92;""];</code>
      * @return The bytes for globalShieldStakingPool.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getGlobalShieldStakingPoolBytes() {
       java.lang.Object ref = globalShieldStakingPool_;
@@ -14294,7 +14362,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryShieldStakingRequest}
    */
-  public  static final class QueryShieldStakingRequest extends
+  public static final class QueryShieldStakingRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryShieldStakingRequest)
       QueryShieldStakingRequestOrBuilder {
@@ -14386,6 +14454,7 @@ public final class QueryOuterClass {
      * <code>uint64 pool_id = 1;</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -14396,6 +14465,7 @@ public final class QueryOuterClass {
      * <code>string purchaser = 2;</code>
      * @return The purchaser.
      */
+    @java.lang.Override
     public java.lang.String getPurchaser() {
       java.lang.Object ref = purchaser_;
       if (ref instanceof java.lang.String) {
@@ -14412,6 +14482,7 @@ public final class QueryOuterClass {
      * <code>string purchaser = 2;</code>
      * @return The bytes for purchaser.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPurchaserBytes() {
       java.lang.Object ref = purchaser_;
@@ -14751,6 +14822,7 @@ public final class QueryOuterClass {
        * <code>uint64 pool_id = 1;</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -14926,7 +14998,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryShieldStakingResponse}
    */
-  public  static final class QueryShieldStakingResponse extends
+  public static final class QueryShieldStakingResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryShieldStakingResponse)
       QueryShieldStakingResponseOrBuilder {
@@ -15019,6 +15091,7 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.ShieldStaking shield_staking = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the shieldStaking field is set.
      */
+    @java.lang.Override
     public boolean hasShieldStaking() {
       return shieldStaking_ != null;
     }
@@ -15026,12 +15099,14 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.ShieldStaking shield_staking = 1 [(.gogoproto.nullable) = false];</code>
      * @return The shieldStaking.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.ShieldStaking getShieldStaking() {
       return shieldStaking_ == null ? shentu.shield.v1alpha1.Shield.ShieldStaking.getDefaultInstance() : shieldStaking_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.ShieldStaking shield_staking = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Shield.ShieldStakingOrBuilder getShieldStakingOrBuilder() {
       return getShieldStaking();
     }
@@ -15529,7 +15604,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryShieldStakingRateRequest}
    */
-  public  static final class QueryShieldStakingRateRequest extends
+  public static final class QueryShieldStakingRateRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryShieldStakingRateRequest)
       QueryShieldStakingRateRequestOrBuilder {
@@ -15959,7 +16034,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryShieldStakingRateResponse}
    */
-  public  static final class QueryShieldStakingRateResponse extends
+  public static final class QueryShieldStakingRateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryShieldStakingRateResponse)
       QueryShieldStakingRateResponseOrBuilder {
@@ -16046,6 +16121,7 @@ public final class QueryOuterClass {
      * <code>string rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"rate&#92;""];</code>
      * @return The rate.
      */
+    @java.lang.Override
     public java.lang.String getRate() {
       java.lang.Object ref = rate_;
       if (ref instanceof java.lang.String) {
@@ -16062,6 +16138,7 @@ public final class QueryOuterClass {
      * <code>string rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"rate&#92;""];</code>
      * @return The bytes for rate.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRateBytes() {
       java.lang.Object ref = rate_;
@@ -16519,7 +16596,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryReimbursementRequest}
    */
-  public  static final class QueryReimbursementRequest extends
+  public static final class QueryReimbursementRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryReimbursementRequest)
       QueryReimbursementRequestOrBuilder {
@@ -16604,6 +16681,7 @@ public final class QueryOuterClass {
      * <code>uint64 proposal_id = 1;</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -16916,6 +16994,7 @@ public final class QueryOuterClass {
        * <code>uint64 proposal_id = 1;</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -17015,7 +17094,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryReimbursementResponse}
    */
-  public  static final class QueryReimbursementResponse extends
+  public static final class QueryReimbursementResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryReimbursementResponse)
       QueryReimbursementResponseOrBuilder {
@@ -17108,6 +17187,7 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.Reimbursement reimbursement = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the reimbursement field is set.
      */
+    @java.lang.Override
     public boolean hasReimbursement() {
       return reimbursement_ != null;
     }
@@ -17115,12 +17195,14 @@ public final class QueryOuterClass {
      * <code>.shentu.shield.v1alpha1.Reimbursement reimbursement = 1 [(.gogoproto.nullable) = false];</code>
      * @return The reimbursement.
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.Reimbursement getReimbursement() {
       return reimbursement_ == null ? shentu.shield.v1alpha1.Genesis.Reimbursement.getDefaultInstance() : reimbursement_;
     }
     /**
      * <code>.shentu.shield.v1alpha1.Reimbursement reimbursement = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.ReimbursementOrBuilder getReimbursementOrBuilder() {
       return getReimbursement();
     }
@@ -17618,7 +17700,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryReimbursementsRequest}
    */
-  public  static final class QueryReimbursementsRequest extends
+  public static final class QueryReimbursementsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryReimbursementsRequest)
       QueryReimbursementsRequestOrBuilder {
@@ -18060,7 +18142,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code shentu.shield.v1alpha1.QueryReimbursementsResponse}
    */
-  public  static final class QueryReimbursementsResponse extends
+  public static final class QueryReimbursementsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.shield.v1alpha1.QueryReimbursementsResponse)
       QueryReimbursementsResponseOrBuilder {
@@ -18153,12 +18235,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.ProposalIDReimbursementPair pairs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.shield.v1alpha1.Genesis.ProposalIDReimbursementPair> getPairsList() {
       return pairs_;
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.ProposalIDReimbursementPair pairs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.shield.v1alpha1.Genesis.ProposalIDReimbursementPairOrBuilder> 
         getPairsOrBuilderList() {
       return pairs_;
@@ -18166,18 +18250,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .shentu.shield.v1alpha1.ProposalIDReimbursementPair pairs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getPairsCount() {
       return pairs_.size();
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.ProposalIDReimbursementPair pairs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.ProposalIDReimbursementPair getPairs(int index) {
       return pairs_.get(index);
     }
     /**
      * <code>repeated .shentu.shield.v1alpha1.ProposalIDReimbursementPair pairs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.shield.v1alpha1.Genesis.ProposalIDReimbursementPairOrBuilder getPairsOrBuilder(
         int index) {
       return pairs_.get(index);
@@ -19124,7 +19211,7 @@ public final class QueryOuterClass {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           shentu.shield.v1alpha1.Shield.getDescriptor(),
           shentu.shield.v1alpha1.Genesis.getDescriptor(),
@@ -19317,14 +19404,14 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Pairs", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     shentu.shield.v1alpha1.Shield.getDescriptor();
     shentu.shield.v1alpha1.Genesis.getDescriptor();

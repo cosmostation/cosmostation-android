@@ -106,6 +106,10 @@ public final class Oracle {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -193,7 +197,7 @@ public final class Oracle {
    *
    * Protobuf type {@code shentu.oracle.v1alpha1.Withdraw}
    */
-  public  static final class Withdraw extends
+  public static final class Withdraw extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.Withdraw)
       WithdrawOrBuilder {
@@ -299,6 +303,7 @@ public final class Oracle {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -315,6 +320,7 @@ public final class Oracle {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -334,12 +340,14 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getAmountList() {
       return amount_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getAmountOrBuilderList() {
       return amount_;
@@ -347,18 +355,21 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getAmountCount() {
       return amount_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount(int index) {
       return amount_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder(
         int index) {
       return amount_.get(index);
@@ -370,6 +381,7 @@ public final class Oracle {
      * <code>int64 due_block = 3 [(.gogoproto.moretags) = "yaml:&#92;"due_block&#92;""];</code>
      * @return The dueBlock.
      */
+    @java.lang.Override
     public long getDueBlock() {
       return dueBlock_;
     }
@@ -1076,6 +1088,7 @@ public final class Oracle {
        * <code>int64 due_block = 3 [(.gogoproto.moretags) = "yaml:&#92;"due_block&#92;""];</code>
        * @return The dueBlock.
        */
+      @java.lang.Override
       public long getDueBlock() {
         return dueBlock_;
       }
@@ -1312,7 +1325,7 @@ public final class Oracle {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.Task}
    */
-  public  static final class Task extends
+  public static final class Task extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.Task)
       TaskOrBuilder {
@@ -1489,6 +1502,7 @@ public final class Oracle {
      * <code>string contract = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract&#92;""];</code>
      * @return The contract.
      */
+    @java.lang.Override
     public java.lang.String getContract() {
       java.lang.Object ref = contract_;
       if (ref instanceof java.lang.String) {
@@ -1505,6 +1519,7 @@ public final class Oracle {
      * <code>string contract = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract&#92;""];</code>
      * @return The bytes for contract.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getContractBytes() {
       java.lang.Object ref = contract_;
@@ -1525,6 +1540,7 @@ public final class Oracle {
      * <code>string function = 2 [(.gogoproto.moretags) = "yaml:&#92;"function&#92;""];</code>
      * @return The function.
      */
+    @java.lang.Override
     public java.lang.String getFunction() {
       java.lang.Object ref = function_;
       if (ref instanceof java.lang.String) {
@@ -1541,6 +1557,7 @@ public final class Oracle {
      * <code>string function = 2 [(.gogoproto.moretags) = "yaml:&#92;"function&#92;""];</code>
      * @return The bytes for function.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFunctionBytes() {
       java.lang.Object ref = function_;
@@ -1561,6 +1578,7 @@ public final class Oracle {
      * <code>int64 begin_block = 3 [(.gogoproto.moretags) = "yaml:&#92;"begin_block&#92;""];</code>
      * @return The beginBlock.
      */
+    @java.lang.Override
     public long getBeginBlock() {
       return beginBlock_;
     }
@@ -1570,12 +1588,14 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin bounty = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"bounty&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getBountyList() {
       return bounty_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin bounty = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"bounty&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getBountyOrBuilderList() {
       return bounty_;
@@ -1583,18 +1603,21 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin bounty = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"bounty&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getBountyCount() {
       return bounty_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin bounty = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"bounty&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getBounty(int index) {
       return bounty_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin bounty = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"bounty&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getBountyOrBuilder(
         int index) {
       return bounty_.get(index);
@@ -1606,6 +1629,7 @@ public final class Oracle {
      * <code>string description = 5 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -1622,6 +1646,7 @@ public final class Oracle {
      * <code>string description = 5 [(.gogoproto.moretags) = "yaml:&#92;"description&#92;""];</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -1642,6 +1667,7 @@ public final class Oracle {
      * <code>.google.protobuf.Timestamp expiration = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"expiration&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the expiration field is set.
      */
+    @java.lang.Override
     public boolean hasExpiration() {
       return expiration_ != null;
     }
@@ -1649,12 +1675,14 @@ public final class Oracle {
      * <code>.google.protobuf.Timestamp expiration = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"expiration&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The expiration.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getExpiration() {
       return expiration_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : expiration_;
     }
     /**
      * <code>.google.protobuf.Timestamp expiration = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"expiration&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getExpirationOrBuilder() {
       return getExpiration();
     }
@@ -1665,6 +1693,7 @@ public final class Oracle {
      * <code>string creator = 7 [(.gogoproto.moretags) = "yaml:&#92;"creator&#92;""];</code>
      * @return The creator.
      */
+    @java.lang.Override
     public java.lang.String getCreator() {
       java.lang.Object ref = creator_;
       if (ref instanceof java.lang.String) {
@@ -1681,6 +1710,7 @@ public final class Oracle {
      * <code>string creator = 7 [(.gogoproto.moretags) = "yaml:&#92;"creator&#92;""];</code>
      * @return The bytes for creator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCreatorBytes() {
       java.lang.Object ref = creator_;
@@ -1700,12 +1730,14 @@ public final class Oracle {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Response responses = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"responses&#92;"", (.gogoproto.castrepeated) = "Responses"];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.oracle.v1alpha1.Oracle.Response> getResponsesList() {
       return responses_;
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Response responses = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"responses&#92;"", (.gogoproto.castrepeated) = "Responses"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.oracle.v1alpha1.Oracle.ResponseOrBuilder> 
         getResponsesOrBuilderList() {
       return responses_;
@@ -1713,18 +1745,21 @@ public final class Oracle {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Response responses = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"responses&#92;"", (.gogoproto.castrepeated) = "Responses"];</code>
      */
+    @java.lang.Override
     public int getResponsesCount() {
       return responses_.size();
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Response responses = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"responses&#92;"", (.gogoproto.castrepeated) = "Responses"];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.Response getResponses(int index) {
       return responses_.get(index);
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.Response responses = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"responses&#92;"", (.gogoproto.castrepeated) = "Responses"];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.ResponseOrBuilder getResponsesOrBuilder(
         int index) {
       return responses_.get(index);
@@ -1736,6 +1771,7 @@ public final class Oracle {
      * <code>string result = 9 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"result&#92;""];</code>
      * @return The result.
      */
+    @java.lang.Override
     public java.lang.String getResult() {
       java.lang.Object ref = result_;
       if (ref instanceof java.lang.String) {
@@ -1752,6 +1788,7 @@ public final class Oracle {
      * <code>string result = 9 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"result&#92;""];</code>
      * @return The bytes for result.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getResultBytes() {
       java.lang.Object ref = result_;
@@ -1772,6 +1809,7 @@ public final class Oracle {
      * <code>int64 closing_block = 10 [(.gogoproto.moretags) = "yaml:&#92;"closing_block&#92;""];</code>
      * @return The closingBlock.
      */
+    @java.lang.Override
     public long getClosingBlock() {
       return closingBlock_;
     }
@@ -1782,6 +1820,7 @@ public final class Oracle {
      * <code>int64 waiting_blocks = 11 [(.gogoproto.moretags) = "yaml:&#92;"waiting_blocks&#92;""];</code>
      * @return The waitingBlocks.
      */
+    @java.lang.Override
     public long getWaitingBlocks() {
       return waitingBlocks_;
     }
@@ -1792,14 +1831,14 @@ public final class Oracle {
      * <code>.shentu.oracle.v1alpha1.TaskStatus status = 12 [(.gogoproto.moretags) = "yaml:&#92;"status&#92;""];</code>
      * @return The enum numeric value on the wire for status.
      */
-    public int getStatusValue() {
+    @java.lang.Override public int getStatusValue() {
       return status_;
     }
     /**
      * <code>.shentu.oracle.v1alpha1.TaskStatus status = 12 [(.gogoproto.moretags) = "yaml:&#92;"status&#92;""];</code>
      * @return The status.
      */
-    public shentu.oracle.v1alpha1.Oracle.TaskStatus getStatus() {
+    @java.lang.Override public shentu.oracle.v1alpha1.Oracle.TaskStatus getStatus() {
       @SuppressWarnings("deprecation")
       shentu.oracle.v1alpha1.Oracle.TaskStatus result = shentu.oracle.v1alpha1.Oracle.TaskStatus.valueOf(status_);
       return result == null ? shentu.oracle.v1alpha1.Oracle.TaskStatus.UNRECOGNIZED : result;
@@ -2544,6 +2583,7 @@ public final class Oracle {
        * <code>int64 begin_block = 3 [(.gogoproto.moretags) = "yaml:&#92;"begin_block&#92;""];</code>
        * @return The beginBlock.
        */
+      @java.lang.Override
       public long getBeginBlock() {
         return beginBlock_;
       }
@@ -3401,6 +3441,7 @@ public final class Oracle {
        * <code>int64 closing_block = 10 [(.gogoproto.moretags) = "yaml:&#92;"closing_block&#92;""];</code>
        * @return The closingBlock.
        */
+      @java.lang.Override
       public long getClosingBlock() {
         return closingBlock_;
       }
@@ -3431,6 +3472,7 @@ public final class Oracle {
        * <code>int64 waiting_blocks = 11 [(.gogoproto.moretags) = "yaml:&#92;"waiting_blocks&#92;""];</code>
        * @return The waitingBlocks.
        */
+      @java.lang.Override
       public long getWaitingBlocks() {
         return waitingBlocks_;
       }
@@ -3461,7 +3503,7 @@ public final class Oracle {
        * <code>.shentu.oracle.v1alpha1.TaskStatus status = 12 [(.gogoproto.moretags) = "yaml:&#92;"status&#92;""];</code>
        * @return The enum numeric value on the wire for status.
        */
-      public int getStatusValue() {
+      @java.lang.Override public int getStatusValue() {
         return status_;
       }
       /**
@@ -3470,6 +3512,7 @@ public final class Oracle {
        * @return This builder for chaining.
        */
       public Builder setStatusValue(int value) {
+        
         status_ = value;
         onChanged();
         return this;
@@ -3478,6 +3521,7 @@ public final class Oracle {
        * <code>.shentu.oracle.v1alpha1.TaskStatus status = 12 [(.gogoproto.moretags) = "yaml:&#92;"status&#92;""];</code>
        * @return The status.
        */
+      @java.lang.Override
       public shentu.oracle.v1alpha1.Oracle.TaskStatus getStatus() {
         @SuppressWarnings("deprecation")
         shentu.oracle.v1alpha1.Oracle.TaskStatus result = shentu.oracle.v1alpha1.Oracle.TaskStatus.valueOf(status_);
@@ -3627,7 +3671,7 @@ public final class Oracle {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.Response}
    */
-  public  static final class Response extends
+  public static final class Response extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.Response)
       ResponseOrBuilder {
@@ -3742,6 +3786,7 @@ public final class Oracle {
      * <code>string operator = 1 [(.gogoproto.moretags) = "yaml:&#92;"operator&#92;""];</code>
      * @return The operator.
      */
+    @java.lang.Override
     public java.lang.String getOperator() {
       java.lang.Object ref = operator_;
       if (ref instanceof java.lang.String) {
@@ -3758,6 +3803,7 @@ public final class Oracle {
      * <code>string operator = 1 [(.gogoproto.moretags) = "yaml:&#92;"operator&#92;""];</code>
      * @return The bytes for operator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOperatorBytes() {
       java.lang.Object ref = operator_;
@@ -3778,6 +3824,7 @@ public final class Oracle {
      * <code>string score = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"score&#92;""];</code>
      * @return The score.
      */
+    @java.lang.Override
     public java.lang.String getScore() {
       java.lang.Object ref = score_;
       if (ref instanceof java.lang.String) {
@@ -3794,6 +3841,7 @@ public final class Oracle {
      * <code>string score = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"score&#92;""];</code>
      * @return The bytes for score.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getScoreBytes() {
       java.lang.Object ref = score_;
@@ -3814,6 +3862,7 @@ public final class Oracle {
      * <code>string weight = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"weight&#92;""];</code>
      * @return The weight.
      */
+    @java.lang.Override
     public java.lang.String getWeight() {
       java.lang.Object ref = weight_;
       if (ref instanceof java.lang.String) {
@@ -3830,6 +3879,7 @@ public final class Oracle {
      * <code>string weight = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"weight&#92;""];</code>
      * @return The bytes for weight.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getWeightBytes() {
       java.lang.Object ref = weight_;
@@ -3849,12 +3899,14 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin reward = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reward&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getRewardList() {
       return reward_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin reward = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reward&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getRewardOrBuilderList() {
       return reward_;
@@ -3862,18 +3914,21 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin reward = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reward&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getRewardCount() {
       return reward_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin reward = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reward&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getReward(int index) {
       return reward_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin reward = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reward&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getRewardOrBuilder(
         int index) {
       return reward_.get(index);
@@ -4883,7 +4938,7 @@ public final class Oracle {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.Operator}
    */
-  public  static final class Operator extends
+  public static final class Operator extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.Operator)
       OperatorOrBuilder {
@@ -5011,6 +5066,7 @@ public final class Oracle {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -5027,6 +5083,7 @@ public final class Oracle {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -5047,6 +5104,7 @@ public final class Oracle {
      * <code>string proposer = 2 [(.gogoproto.moretags) = "yaml:&#92;"proposer&#92;""];</code>
      * @return The proposer.
      */
+    @java.lang.Override
     public java.lang.String getProposer() {
       java.lang.Object ref = proposer_;
       if (ref instanceof java.lang.String) {
@@ -5063,6 +5121,7 @@ public final class Oracle {
      * <code>string proposer = 2 [(.gogoproto.moretags) = "yaml:&#92;"proposer&#92;""];</code>
      * @return The bytes for proposer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProposerBytes() {
       java.lang.Object ref = proposer_;
@@ -5082,12 +5141,14 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCollateralList() {
       return collateral_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCollateralOrBuilderList() {
       return collateral_;
@@ -5095,18 +5156,21 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCollateralCount() {
       return collateral_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCollateral(int index) {
       return collateral_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin collateral = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"collateral&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCollateralOrBuilder(
         int index) {
       return collateral_.get(index);
@@ -5117,12 +5181,14 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin accumulated_rewards = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getAccumulatedRewardsList() {
       return accumulatedRewards_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin accumulated_rewards = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getAccumulatedRewardsOrBuilderList() {
       return accumulatedRewards_;
@@ -5130,18 +5196,21 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin accumulated_rewards = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getAccumulatedRewardsCount() {
       return accumulatedRewards_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin accumulated_rewards = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAccumulatedRewards(int index) {
       return accumulatedRewards_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin accumulated_rewards = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAccumulatedRewardsOrBuilder(
         int index) {
       return accumulatedRewards_.get(index);
@@ -5153,6 +5222,7 @@ public final class Oracle {
      * <code>string name = 5 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -5169,6 +5239,7 @@ public final class Oracle {
      * <code>string name = 5 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -6467,7 +6538,7 @@ public final class Oracle {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.TaskParams}
    */
-  public  static final class TaskParams extends
+  public static final class TaskParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.TaskParams)
       TaskParamsOrBuilder {
@@ -6593,6 +6664,7 @@ public final class Oracle {
      * <code>.google.protobuf.Duration expiration_duration = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"task_expiration_duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the expirationDuration field is set.
      */
+    @java.lang.Override
     public boolean hasExpirationDuration() {
       return expirationDuration_ != null;
     }
@@ -6600,12 +6672,14 @@ public final class Oracle {
      * <code>.google.protobuf.Duration expiration_duration = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"task_expiration_duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The expirationDuration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getExpirationDuration() {
       return expirationDuration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : expirationDuration_;
     }
     /**
      * <code>.google.protobuf.Duration expiration_duration = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"task_expiration_duration&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getExpirationDurationOrBuilder() {
       return getExpirationDuration();
     }
@@ -6616,6 +6690,7 @@ public final class Oracle {
      * <code>int64 aggregation_window = 2 [(.gogoproto.moretags) = "yaml:&#92;"task_aggregation_window&#92;""];</code>
      * @return The aggregationWindow.
      */
+    @java.lang.Override
     public long getAggregationWindow() {
       return aggregationWindow_;
     }
@@ -6626,6 +6701,7 @@ public final class Oracle {
      * <code>string aggregation_result = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"task_aggregation_result&#92;""];</code>
      * @return The aggregationResult.
      */
+    @java.lang.Override
     public java.lang.String getAggregationResult() {
       java.lang.Object ref = aggregationResult_;
       if (ref instanceof java.lang.String) {
@@ -6642,6 +6718,7 @@ public final class Oracle {
      * <code>string aggregation_result = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"task_aggregation_result&#92;""];</code>
      * @return The bytes for aggregationResult.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAggregationResultBytes() {
       java.lang.Object ref = aggregationResult_;
@@ -6662,6 +6739,7 @@ public final class Oracle {
      * <code>string threshold_score = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"task_threshold_score&#92;""];</code>
      * @return The thresholdScore.
      */
+    @java.lang.Override
     public java.lang.String getThresholdScore() {
       java.lang.Object ref = thresholdScore_;
       if (ref instanceof java.lang.String) {
@@ -6678,6 +6756,7 @@ public final class Oracle {
      * <code>string threshold_score = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"task_threshold_score&#92;""];</code>
      * @return The bytes for thresholdScore.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getThresholdScoreBytes() {
       java.lang.Object ref = thresholdScore_;
@@ -6698,6 +6777,7 @@ public final class Oracle {
      * <code>string epsilon1 = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"task_epsilon1&#92;""];</code>
      * @return The epsilon1.
      */
+    @java.lang.Override
     public java.lang.String getEpsilon1() {
       java.lang.Object ref = epsilon1_;
       if (ref instanceof java.lang.String) {
@@ -6714,6 +6794,7 @@ public final class Oracle {
      * <code>string epsilon1 = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"task_epsilon1&#92;""];</code>
      * @return The bytes for epsilon1.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getEpsilon1Bytes() {
       java.lang.Object ref = epsilon1_;
@@ -6734,6 +6815,7 @@ public final class Oracle {
      * <code>string epsilon2 = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"task_epsilon2&#92;""];</code>
      * @return The epsilon2.
      */
+    @java.lang.Override
     public java.lang.String getEpsilon2() {
       java.lang.Object ref = epsilon2_;
       if (ref instanceof java.lang.String) {
@@ -6750,6 +6832,7 @@ public final class Oracle {
      * <code>string epsilon2 = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"task_epsilon2&#92;""];</code>
      * @return The bytes for epsilon2.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getEpsilon2Bytes() {
       java.lang.Object ref = epsilon2_;
@@ -7289,6 +7372,7 @@ public final class Oracle {
        * <code>int64 aggregation_window = 2 [(.gogoproto.moretags) = "yaml:&#92;"task_aggregation_window&#92;""];</code>
        * @return The aggregationWindow.
        */
+      @java.lang.Override
       public long getAggregationWindow() {
         return aggregationWindow_;
       }
@@ -7689,7 +7773,7 @@ public final class Oracle {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.LockedPoolParams}
    */
-  public  static final class LockedPoolParams extends
+  public static final class LockedPoolParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.LockedPoolParams)
       LockedPoolParamsOrBuilder {
@@ -7779,6 +7863,7 @@ public final class Oracle {
      * <code>int64 locked_in_blocks = 1 [(.gogoproto.moretags) = "yaml:&#92;"locked_in_blocks&#92;""];</code>
      * @return The lockedInBlocks.
      */
+    @java.lang.Override
     public long getLockedInBlocks() {
       return lockedInBlocks_;
     }
@@ -7789,6 +7874,7 @@ public final class Oracle {
      * <code>int64 minimum_collateral = 2 [(.gogoproto.moretags) = "yaml:&#92;"minimum_collateral&#92;""];</code>
      * @return The minimumCollateral.
      */
+    @java.lang.Override
     public long getMinimumCollateral() {
       return minimumCollateral_;
     }
@@ -8119,6 +8205,7 @@ public final class Oracle {
        * <code>int64 locked_in_blocks = 1 [(.gogoproto.moretags) = "yaml:&#92;"locked_in_blocks&#92;""];</code>
        * @return The lockedInBlocks.
        */
+      @java.lang.Override
       public long getLockedInBlocks() {
         return lockedInBlocks_;
       }
@@ -8149,6 +8236,7 @@ public final class Oracle {
        * <code>int64 minimum_collateral = 2 [(.gogoproto.moretags) = "yaml:&#92;"minimum_collateral&#92;""];</code>
        * @return The minimumCollateral.
        */
+      @java.lang.Override
       public long getMinimumCollateral() {
         return minimumCollateral_;
       }
@@ -8257,7 +8345,7 @@ public final class Oracle {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.TaskID}
    */
-  public  static final class TaskID extends
+  public static final class TaskID extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.TaskID)
       TaskIDOrBuilder {
@@ -8351,6 +8439,7 @@ public final class Oracle {
      * <code>string contract = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract&#92;""];</code>
      * @return The contract.
      */
+    @java.lang.Override
     public java.lang.String getContract() {
       java.lang.Object ref = contract_;
       if (ref instanceof java.lang.String) {
@@ -8367,6 +8456,7 @@ public final class Oracle {
      * <code>string contract = 1 [(.gogoproto.moretags) = "yaml:&#92;"contract&#92;""];</code>
      * @return The bytes for contract.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getContractBytes() {
       java.lang.Object ref = contract_;
@@ -8387,6 +8477,7 @@ public final class Oracle {
      * <code>string function = 2 [(.gogoproto.moretags) = "yaml:&#92;"function&#92;""];</code>
      * @return The function.
      */
+    @java.lang.Override
     public java.lang.String getFunction() {
       java.lang.Object ref = function_;
       if (ref instanceof java.lang.String) {
@@ -8403,6 +8494,7 @@ public final class Oracle {
      * <code>string function = 2 [(.gogoproto.moretags) = "yaml:&#92;"function&#92;""];</code>
      * @return The bytes for function.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFunctionBytes() {
       java.lang.Object ref = function_;
@@ -8971,7 +9063,7 @@ public final class Oracle {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.TaskIDs}
    */
-  public  static final class TaskIDs extends
+  public static final class TaskIDs extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.TaskIDs)
       TaskIDsOrBuilder {
@@ -9064,12 +9156,14 @@ public final class Oracle {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.TaskID task_ids = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<shentu.oracle.v1alpha1.Oracle.TaskID> getTaskIdsList() {
       return taskIds_;
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.TaskID task_ids = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends shentu.oracle.v1alpha1.Oracle.TaskIDOrBuilder> 
         getTaskIdsOrBuilderList() {
       return taskIds_;
@@ -9077,18 +9171,21 @@ public final class Oracle {
     /**
      * <code>repeated .shentu.oracle.v1alpha1.TaskID task_ids = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getTaskIdsCount() {
       return taskIds_.size();
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.TaskID task_ids = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.TaskID getTaskIds(int index) {
       return taskIds_.get(index);
     }
     /**
      * <code>repeated .shentu.oracle.v1alpha1.TaskID task_ids = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public shentu.oracle.v1alpha1.Oracle.TaskIDOrBuilder getTaskIdsOrBuilder(
         int index) {
       return taskIds_.get(index);
@@ -9759,7 +9856,7 @@ public final class Oracle {
   /**
    * Protobuf type {@code shentu.oracle.v1alpha1.CoinsProto}
    */
-  public  static final class CoinsProto extends
+  public static final class CoinsProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:shentu.oracle.v1alpha1.CoinsProto)
       CoinsProtoOrBuilder {
@@ -9852,12 +9949,14 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -9865,18 +9964,21 @@ public final class Oracle {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"amount&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -10653,7 +10755,7 @@ public final class Oracle {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
@@ -10714,19 +10816,19 @@ public final class Oracle {
         new java.lang.String[] { "Coins", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
-    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();

@@ -17,7 +17,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  * <pre>
- * Msg defines the HTLC Msg service.
+ * Msg defines the HTLC Msg service
  * </pre>
  */
 @javax.annotation.Generated(
@@ -92,37 +92,6 @@ public final class MsgGrpc {
     return getClaimHTLCMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<irismod.htlc.Tx.MsgRefundHTLC,
-      irismod.htlc.Tx.MsgRefundHTLCResponse> getRefundHTLCMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "RefundHTLC",
-      requestType = irismod.htlc.Tx.MsgRefundHTLC.class,
-      responseType = irismod.htlc.Tx.MsgRefundHTLCResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<irismod.htlc.Tx.MsgRefundHTLC,
-      irismod.htlc.Tx.MsgRefundHTLCResponse> getRefundHTLCMethod() {
-    io.grpc.MethodDescriptor<irismod.htlc.Tx.MsgRefundHTLC, irismod.htlc.Tx.MsgRefundHTLCResponse> getRefundHTLCMethod;
-    if ((getRefundHTLCMethod = MsgGrpc.getRefundHTLCMethod) == null) {
-      synchronized (MsgGrpc.class) {
-        if ((getRefundHTLCMethod = MsgGrpc.getRefundHTLCMethod) == null) {
-          MsgGrpc.getRefundHTLCMethod = getRefundHTLCMethod =
-              io.grpc.MethodDescriptor.<irismod.htlc.Tx.MsgRefundHTLC, irismod.htlc.Tx.MsgRefundHTLCResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RefundHTLC"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  irismod.htlc.Tx.MsgRefundHTLC.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  irismod.htlc.Tx.MsgRefundHTLCResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("RefundHTLC"))
-              .build();
-        }
-      }
-    }
-    return getRefundHTLCMethod;
-  }
-
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -169,14 +138,14 @@ public final class MsgGrpc {
 
   /**
    * <pre>
-   * Msg defines the HTLC Msg service.
+   * Msg defines the HTLC Msg service
    * </pre>
    */
   public static abstract class MsgImplBase implements io.grpc.BindableService {
 
     /**
      * <pre>
-     * CreateHTLC defines a method for creating a HTLC.
+     * CreateHTLC defines a method for creating a HTLC
      * </pre>
      */
     public void createHTLC(irismod.htlc.Tx.MsgCreateHTLC request,
@@ -192,16 +161,6 @@ public final class MsgGrpc {
     public void claimHTLC(irismod.htlc.Tx.MsgClaimHTLC request,
         io.grpc.stub.StreamObserver<irismod.htlc.Tx.MsgClaimHTLCResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getClaimHTLCMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
-     * RefundHTLC defines a method for refunding a HTLC.
-     * </pre>
-     */
-    public void refundHTLC(irismod.htlc.Tx.MsgRefundHTLC request,
-        io.grpc.stub.StreamObserver<irismod.htlc.Tx.MsgRefundHTLCResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getRefundHTLCMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -220,20 +179,13 @@ public final class MsgGrpc {
                 irismod.htlc.Tx.MsgClaimHTLC,
                 irismod.htlc.Tx.MsgClaimHTLCResponse>(
                   this, METHODID_CLAIM_HTLC)))
-          .addMethod(
-            getRefundHTLCMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                irismod.htlc.Tx.MsgRefundHTLC,
-                irismod.htlc.Tx.MsgRefundHTLCResponse>(
-                  this, METHODID_REFUND_HTLC)))
           .build();
     }
   }
 
   /**
    * <pre>
-   * Msg defines the HTLC Msg service.
+   * Msg defines the HTLC Msg service
    * </pre>
    */
   public static final class MsgStub extends io.grpc.stub.AbstractAsyncStub<MsgStub> {
@@ -250,7 +202,7 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * CreateHTLC defines a method for creating a HTLC.
+     * CreateHTLC defines a method for creating a HTLC
      * </pre>
      */
     public void createHTLC(irismod.htlc.Tx.MsgCreateHTLC request,
@@ -269,22 +221,11 @@ public final class MsgGrpc {
       asyncUnaryCall(
           getChannel().newCall(getClaimHTLCMethod(), getCallOptions()), request, responseObserver);
     }
-
-    /**
-     * <pre>
-     * RefundHTLC defines a method for refunding a HTLC.
-     * </pre>
-     */
-    public void refundHTLC(irismod.htlc.Tx.MsgRefundHTLC request,
-        io.grpc.stub.StreamObserver<irismod.htlc.Tx.MsgRefundHTLCResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getRefundHTLCMethod(), getCallOptions()), request, responseObserver);
-    }
   }
 
   /**
    * <pre>
-   * Msg defines the HTLC Msg service.
+   * Msg defines the HTLC Msg service
    * </pre>
    */
   public static final class MsgBlockingStub extends io.grpc.stub.AbstractBlockingStub<MsgBlockingStub> {
@@ -301,7 +242,7 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * CreateHTLC defines a method for creating a HTLC.
+     * CreateHTLC defines a method for creating a HTLC
      * </pre>
      */
     public irismod.htlc.Tx.MsgCreateHTLCResponse createHTLC(irismod.htlc.Tx.MsgCreateHTLC request) {
@@ -318,21 +259,11 @@ public final class MsgGrpc {
       return blockingUnaryCall(
           getChannel(), getClaimHTLCMethod(), getCallOptions(), request);
     }
-
-    /**
-     * <pre>
-     * RefundHTLC defines a method for refunding a HTLC.
-     * </pre>
-     */
-    public irismod.htlc.Tx.MsgRefundHTLCResponse refundHTLC(irismod.htlc.Tx.MsgRefundHTLC request) {
-      return blockingUnaryCall(
-          getChannel(), getRefundHTLCMethod(), getCallOptions(), request);
-    }
   }
 
   /**
    * <pre>
-   * Msg defines the HTLC Msg service.
+   * Msg defines the HTLC Msg service
    * </pre>
    */
   public static final class MsgFutureStub extends io.grpc.stub.AbstractFutureStub<MsgFutureStub> {
@@ -349,7 +280,7 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * CreateHTLC defines a method for creating a HTLC.
+     * CreateHTLC defines a method for creating a HTLC
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<irismod.htlc.Tx.MsgCreateHTLCResponse> createHTLC(
@@ -368,22 +299,10 @@ public final class MsgGrpc {
       return futureUnaryCall(
           getChannel().newCall(getClaimHTLCMethod(), getCallOptions()), request);
     }
-
-    /**
-     * <pre>
-     * RefundHTLC defines a method for refunding a HTLC.
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<irismod.htlc.Tx.MsgRefundHTLCResponse> refundHTLC(
-        irismod.htlc.Tx.MsgRefundHTLC request) {
-      return futureUnaryCall(
-          getChannel().newCall(getRefundHTLCMethod(), getCallOptions()), request);
-    }
   }
 
   private static final int METHODID_CREATE_HTLC = 0;
   private static final int METHODID_CLAIM_HTLC = 1;
-  private static final int METHODID_REFUND_HTLC = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -409,10 +328,6 @@ public final class MsgGrpc {
         case METHODID_CLAIM_HTLC:
           serviceImpl.claimHTLC((irismod.htlc.Tx.MsgClaimHTLC) request,
               (io.grpc.stub.StreamObserver<irismod.htlc.Tx.MsgClaimHTLCResponse>) responseObserver);
-          break;
-        case METHODID_REFUND_HTLC:
-          serviceImpl.refundHTLC((irismod.htlc.Tx.MsgRefundHTLC) request,
-              (io.grpc.stub.StreamObserver<irismod.htlc.Tx.MsgRefundHTLCResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -477,7 +392,6 @@ public final class MsgGrpc {
               .setSchemaDescriptor(new MsgFileDescriptorSupplier())
               .addMethod(getCreateHTLCMethod())
               .addMethod(getClaimHTLCMethod())
-              .addMethod(getRefundHTLCMethod())
               .build();
         }
       }

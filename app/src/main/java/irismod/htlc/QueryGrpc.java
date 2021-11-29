@@ -61,6 +61,99 @@ public final class QueryGrpc {
     return getHTLCMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest,
+      irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse> getAssetSupplyMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "AssetSupply",
+      requestType = irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest.class,
+      responseType = irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest,
+      irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse> getAssetSupplyMethod() {
+    io.grpc.MethodDescriptor<irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest, irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse> getAssetSupplyMethod;
+    if ((getAssetSupplyMethod = QueryGrpc.getAssetSupplyMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getAssetSupplyMethod = QueryGrpc.getAssetSupplyMethod) == null) {
+          QueryGrpc.getAssetSupplyMethod = getAssetSupplyMethod =
+              io.grpc.MethodDescriptor.<irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest, irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "AssetSupply"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("AssetSupply"))
+              .build();
+        }
+      }
+    }
+    return getAssetSupplyMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest,
+      irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse> getAssetSuppliesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "AssetSupplies",
+      requestType = irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest.class,
+      responseType = irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest,
+      irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse> getAssetSuppliesMethod() {
+    io.grpc.MethodDescriptor<irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest, irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse> getAssetSuppliesMethod;
+    if ((getAssetSuppliesMethod = QueryGrpc.getAssetSuppliesMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getAssetSuppliesMethod = QueryGrpc.getAssetSuppliesMethod) == null) {
+          QueryGrpc.getAssetSuppliesMethod = getAssetSuppliesMethod =
+              io.grpc.MethodDescriptor.<irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest, irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "AssetSupplies"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("AssetSupplies"))
+              .build();
+        }
+      }
+    }
+    return getAssetSuppliesMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<irismod.htlc.QueryOuterClass.QueryParamsRequest,
+      irismod.htlc.QueryOuterClass.QueryParamsResponse> getParamsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Params",
+      requestType = irismod.htlc.QueryOuterClass.QueryParamsRequest.class,
+      responseType = irismod.htlc.QueryOuterClass.QueryParamsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<irismod.htlc.QueryOuterClass.QueryParamsRequest,
+      irismod.htlc.QueryOuterClass.QueryParamsResponse> getParamsMethod() {
+    io.grpc.MethodDescriptor<irismod.htlc.QueryOuterClass.QueryParamsRequest, irismod.htlc.QueryOuterClass.QueryParamsResponse> getParamsMethod;
+    if ((getParamsMethod = QueryGrpc.getParamsMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getParamsMethod = QueryGrpc.getParamsMethod) == null) {
+          QueryGrpc.getParamsMethod = getParamsMethod =
+              io.grpc.MethodDescriptor.<irismod.htlc.QueryOuterClass.QueryParamsRequest, irismod.htlc.QueryOuterClass.QueryParamsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Params"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  irismod.htlc.QueryOuterClass.QueryParamsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  irismod.htlc.QueryOuterClass.QueryParamsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("Params"))
+              .build();
+        }
+      }
+    }
+    return getParamsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -122,6 +215,36 @@ public final class QueryGrpc {
       asyncUnimplementedUnaryCall(getHTLCMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * AssetSupply queries the supply of an asset
+     * </pre>
+     */
+    public void assetSupply(irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest request,
+        io.grpc.stub.StreamObserver<irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getAssetSupplyMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * AssetSupplies queries the supplies of all assets
+     * </pre>
+     */
+    public void assetSupplies(irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest request,
+        io.grpc.stub.StreamObserver<irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getAssetSuppliesMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Params queries the htlc parameters
+     * </pre>
+     */
+    public void params(irismod.htlc.QueryOuterClass.QueryParamsRequest request,
+        io.grpc.stub.StreamObserver<irismod.htlc.QueryOuterClass.QueryParamsResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getParamsMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -131,6 +254,27 @@ public final class QueryGrpc {
                 irismod.htlc.QueryOuterClass.QueryHTLCRequest,
                 irismod.htlc.QueryOuterClass.QueryHTLCResponse>(
                   this, METHODID_HTLC)))
+          .addMethod(
+            getAssetSupplyMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest,
+                irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse>(
+                  this, METHODID_ASSET_SUPPLY)))
+          .addMethod(
+            getAssetSuppliesMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest,
+                irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse>(
+                  this, METHODID_ASSET_SUPPLIES)))
+          .addMethod(
+            getParamsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                irismod.htlc.QueryOuterClass.QueryParamsRequest,
+                irismod.htlc.QueryOuterClass.QueryParamsResponse>(
+                  this, METHODID_PARAMS)))
           .build();
     }
   }
@@ -162,6 +306,39 @@ public final class QueryGrpc {
       asyncUnaryCall(
           getChannel().newCall(getHTLCMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * AssetSupply queries the supply of an asset
+     * </pre>
+     */
+    public void assetSupply(irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest request,
+        io.grpc.stub.StreamObserver<irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getAssetSupplyMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * AssetSupplies queries the supplies of all assets
+     * </pre>
+     */
+    public void assetSupplies(irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest request,
+        io.grpc.stub.StreamObserver<irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getAssetSuppliesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * Params queries the htlc parameters
+     * </pre>
+     */
+    public void params(irismod.htlc.QueryOuterClass.QueryParamsRequest request,
+        io.grpc.stub.StreamObserver<irismod.htlc.QueryOuterClass.QueryParamsResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getParamsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -189,6 +366,36 @@ public final class QueryGrpc {
     public irismod.htlc.QueryOuterClass.QueryHTLCResponse hTLC(irismod.htlc.QueryOuterClass.QueryHTLCRequest request) {
       return blockingUnaryCall(
           getChannel(), getHTLCMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * AssetSupply queries the supply of an asset
+     * </pre>
+     */
+    public irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse assetSupply(irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getAssetSupplyMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * AssetSupplies queries the supplies of all assets
+     * </pre>
+     */
+    public irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse assetSupplies(irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getAssetSuppliesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Params queries the htlc parameters
+     * </pre>
+     */
+    public irismod.htlc.QueryOuterClass.QueryParamsResponse params(irismod.htlc.QueryOuterClass.QueryParamsRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getParamsMethod(), getCallOptions(), request);
     }
   }
 
@@ -219,9 +426,45 @@ public final class QueryGrpc {
       return futureUnaryCall(
           getChannel().newCall(getHTLCMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * AssetSupply queries the supply of an asset
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse> assetSupply(
+        irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getAssetSupplyMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * AssetSupplies queries the supplies of all assets
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse> assetSupplies(
+        irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getAssetSuppliesMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * Params queries the htlc parameters
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<irismod.htlc.QueryOuterClass.QueryParamsResponse> params(
+        irismod.htlc.QueryOuterClass.QueryParamsRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getParamsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_HTLC = 0;
+  private static final int METHODID_ASSET_SUPPLY = 1;
+  private static final int METHODID_ASSET_SUPPLIES = 2;
+  private static final int METHODID_PARAMS = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -243,6 +486,18 @@ public final class QueryGrpc {
         case METHODID_HTLC:
           serviceImpl.hTLC((irismod.htlc.QueryOuterClass.QueryHTLCRequest) request,
               (io.grpc.stub.StreamObserver<irismod.htlc.QueryOuterClass.QueryHTLCResponse>) responseObserver);
+          break;
+        case METHODID_ASSET_SUPPLY:
+          serviceImpl.assetSupply((irismod.htlc.QueryOuterClass.QueryAssetSupplyRequest) request,
+              (io.grpc.stub.StreamObserver<irismod.htlc.QueryOuterClass.QueryAssetSupplyResponse>) responseObserver);
+          break;
+        case METHODID_ASSET_SUPPLIES:
+          serviceImpl.assetSupplies((irismod.htlc.QueryOuterClass.QueryAssetSuppliesRequest) request,
+              (io.grpc.stub.StreamObserver<irismod.htlc.QueryOuterClass.QueryAssetSuppliesResponse>) responseObserver);
+          break;
+        case METHODID_PARAMS:
+          serviceImpl.params((irismod.htlc.QueryOuterClass.QueryParamsRequest) request,
+              (io.grpc.stub.StreamObserver<irismod.htlc.QueryOuterClass.QueryParamsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -306,6 +561,9 @@ public final class QueryGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new QueryFileDescriptorSupplier())
               .addMethod(getHTLCMethod())
+              .addMethod(getAssetSupplyMethod())
+              .addMethod(getAssetSuppliesMethod())
+              .addMethod(getParamsMethod())
               .build();
         }
       }

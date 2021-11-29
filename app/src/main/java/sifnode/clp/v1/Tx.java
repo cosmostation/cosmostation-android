@@ -72,7 +72,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.clp.v1.MsgRemoveLiquidity}
    */
-  public  static final class MsgRemoveLiquidity extends
+  public static final class MsgRemoveLiquidity extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgRemoveLiquidity)
       MsgRemoveLiquidityOrBuilder {
@@ -186,6 +186,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -202,6 +203,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -222,6 +224,7 @@ public final class Tx {
      * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
      * @return Whether the externalAsset field is set.
      */
+    @java.lang.Override
     public boolean hasExternalAsset() {
       return externalAsset_ != null;
     }
@@ -229,12 +232,14 @@ public final class Tx {
      * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
      * @return The externalAsset.
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.Asset getExternalAsset() {
       return externalAsset_ == null ? sifnode.clp.v1.Types.Asset.getDefaultInstance() : externalAsset_;
     }
     /**
      * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.AssetOrBuilder getExternalAssetOrBuilder() {
       return getExternalAsset();
     }
@@ -245,6 +250,7 @@ public final class Tx {
      * <code>string w_basis_points = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"w_basis_points&#92;""];</code>
      * @return The wBasisPoints.
      */
+    @java.lang.Override
     public java.lang.String getWBasisPoints() {
       java.lang.Object ref = wBasisPoints_;
       if (ref instanceof java.lang.String) {
@@ -261,6 +267,7 @@ public final class Tx {
      * <code>string w_basis_points = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"w_basis_points&#92;""];</code>
      * @return The bytes for wBasisPoints.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getWBasisPointsBytes() {
       java.lang.Object ref = wBasisPoints_;
@@ -281,6 +288,7 @@ public final class Tx {
      * <code>string asymmetry = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"asymmetry&#92;""];</code>
      * @return The asymmetry.
      */
+    @java.lang.Override
     public java.lang.String getAsymmetry() {
       java.lang.Object ref = asymmetry_;
       if (ref instanceof java.lang.String) {
@@ -297,6 +305,7 @@ public final class Tx {
      * <code>string asymmetry = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"asymmetry&#92;""];</code>
      * @return The bytes for asymmetry.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAsymmetryBytes() {
       java.lang.Object ref = asymmetry_;
@@ -1083,7 +1092,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.clp.v1.MsgRemoveLiquidityResponse}
    */
-  public  static final class MsgRemoveLiquidityResponse extends
+  public static final class MsgRemoveLiquidityResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgRemoveLiquidityResponse)
       MsgRemoveLiquidityResponseOrBuilder {
@@ -1552,7 +1561,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.clp.v1.MsgCreatePool}
    */
-  public  static final class MsgCreatePool extends
+  public static final class MsgCreatePool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgCreatePool)
       MsgCreatePoolOrBuilder {
@@ -1666,6 +1675,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -1682,6 +1692,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -1702,6 +1713,7 @@ public final class Tx {
      * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
      * @return Whether the externalAsset field is set.
      */
+    @java.lang.Override
     public boolean hasExternalAsset() {
       return externalAsset_ != null;
     }
@@ -1709,12 +1721,14 @@ public final class Tx {
      * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
      * @return The externalAsset.
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.Asset getExternalAsset() {
       return externalAsset_ == null ? sifnode.clp.v1.Types.Asset.getDefaultInstance() : externalAsset_;
     }
     /**
      * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.AssetOrBuilder getExternalAssetOrBuilder() {
       return getExternalAsset();
     }
@@ -1725,6 +1739,7 @@ public final class Tx {
      * <code>string native_asset_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"native_asset_amount&#92;""];</code>
      * @return The nativeAssetAmount.
      */
+    @java.lang.Override
     public java.lang.String getNativeAssetAmount() {
       java.lang.Object ref = nativeAssetAmount_;
       if (ref instanceof java.lang.String) {
@@ -1741,6 +1756,7 @@ public final class Tx {
      * <code>string native_asset_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"native_asset_amount&#92;""];</code>
      * @return The bytes for nativeAssetAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNativeAssetAmountBytes() {
       java.lang.Object ref = nativeAssetAmount_;
@@ -1761,6 +1777,7 @@ public final class Tx {
      * <code>string external_asset_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"external_asset_amount&#92;""];</code>
      * @return The externalAssetAmount.
      */
+    @java.lang.Override
     public java.lang.String getExternalAssetAmount() {
       java.lang.Object ref = externalAssetAmount_;
       if (ref instanceof java.lang.String) {
@@ -1777,6 +1794,7 @@ public final class Tx {
      * <code>string external_asset_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"external_asset_amount&#92;""];</code>
      * @return The bytes for externalAssetAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getExternalAssetAmountBytes() {
       java.lang.Object ref = externalAssetAmount_;
@@ -2563,7 +2581,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.clp.v1.MsgCreatePoolResponse}
    */
-  public  static final class MsgCreatePoolResponse extends
+  public static final class MsgCreatePoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgCreatePoolResponse)
       MsgCreatePoolResponseOrBuilder {
@@ -3032,7 +3050,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.clp.v1.MsgAddLiquidity}
    */
-  public  static final class MsgAddLiquidity extends
+  public static final class MsgAddLiquidity extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgAddLiquidity)
       MsgAddLiquidityOrBuilder {
@@ -3146,6 +3164,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -3162,6 +3181,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -3182,6 +3202,7 @@ public final class Tx {
      * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
      * @return Whether the externalAsset field is set.
      */
+    @java.lang.Override
     public boolean hasExternalAsset() {
       return externalAsset_ != null;
     }
@@ -3189,12 +3210,14 @@ public final class Tx {
      * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
      * @return The externalAsset.
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.Asset getExternalAsset() {
       return externalAsset_ == null ? sifnode.clp.v1.Types.Asset.getDefaultInstance() : externalAsset_;
     }
     /**
      * <code>.sifnode.clp.v1.Asset external_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"external_asset&#92;""];</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.AssetOrBuilder getExternalAssetOrBuilder() {
       return getExternalAsset();
     }
@@ -3205,6 +3228,7 @@ public final class Tx {
      * <code>string native_asset_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"native_asset_amount&#92;""];</code>
      * @return The nativeAssetAmount.
      */
+    @java.lang.Override
     public java.lang.String getNativeAssetAmount() {
       java.lang.Object ref = nativeAssetAmount_;
       if (ref instanceof java.lang.String) {
@@ -3221,6 +3245,7 @@ public final class Tx {
      * <code>string native_asset_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"native_asset_amount&#92;""];</code>
      * @return The bytes for nativeAssetAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNativeAssetAmountBytes() {
       java.lang.Object ref = nativeAssetAmount_;
@@ -3241,6 +3266,7 @@ public final class Tx {
      * <code>string external_asset_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"external_asset_amount&#92;""];</code>
      * @return The externalAssetAmount.
      */
+    @java.lang.Override
     public java.lang.String getExternalAssetAmount() {
       java.lang.Object ref = externalAssetAmount_;
       if (ref instanceof java.lang.String) {
@@ -3257,6 +3283,7 @@ public final class Tx {
      * <code>string external_asset_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"external_asset_amount&#92;""];</code>
      * @return The bytes for externalAssetAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getExternalAssetAmountBytes() {
       java.lang.Object ref = externalAssetAmount_;
@@ -4043,7 +4070,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.clp.v1.MsgAddLiquidityResponse}
    */
-  public  static final class MsgAddLiquidityResponse extends
+  public static final class MsgAddLiquidityResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgAddLiquidityResponse)
       MsgAddLiquidityResponseOrBuilder {
@@ -4527,7 +4554,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.clp.v1.MsgSwap}
    */
-  public  static final class MsgSwap extends
+  public static final class MsgSwap extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgSwap)
       MsgSwapOrBuilder {
@@ -4654,6 +4681,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -4670,6 +4698,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -4690,6 +4719,7 @@ public final class Tx {
      * <code>.sifnode.clp.v1.Asset sent_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"sent_asset&#92;""];</code>
      * @return Whether the sentAsset field is set.
      */
+    @java.lang.Override
     public boolean hasSentAsset() {
       return sentAsset_ != null;
     }
@@ -4697,12 +4727,14 @@ public final class Tx {
      * <code>.sifnode.clp.v1.Asset sent_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"sent_asset&#92;""];</code>
      * @return The sentAsset.
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.Asset getSentAsset() {
       return sentAsset_ == null ? sifnode.clp.v1.Types.Asset.getDefaultInstance() : sentAsset_;
     }
     /**
      * <code>.sifnode.clp.v1.Asset sent_asset = 2 [(.gogoproto.moretags) = "yaml:&#92;"sent_asset&#92;""];</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.AssetOrBuilder getSentAssetOrBuilder() {
       return getSentAsset();
     }
@@ -4713,6 +4745,7 @@ public final class Tx {
      * <code>.sifnode.clp.v1.Asset received_asset = 3 [(.gogoproto.moretags) = "yaml:&#92;"received_asset&#92;""];</code>
      * @return Whether the receivedAsset field is set.
      */
+    @java.lang.Override
     public boolean hasReceivedAsset() {
       return receivedAsset_ != null;
     }
@@ -4720,12 +4753,14 @@ public final class Tx {
      * <code>.sifnode.clp.v1.Asset received_asset = 3 [(.gogoproto.moretags) = "yaml:&#92;"received_asset&#92;""];</code>
      * @return The receivedAsset.
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.Asset getReceivedAsset() {
       return receivedAsset_ == null ? sifnode.clp.v1.Types.Asset.getDefaultInstance() : receivedAsset_;
     }
     /**
      * <code>.sifnode.clp.v1.Asset received_asset = 3 [(.gogoproto.moretags) = "yaml:&#92;"received_asset&#92;""];</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.AssetOrBuilder getReceivedAssetOrBuilder() {
       return getReceivedAsset();
     }
@@ -4736,6 +4771,7 @@ public final class Tx {
      * <code>string sent_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"sent_amount&#92;""];</code>
      * @return The sentAmount.
      */
+    @java.lang.Override
     public java.lang.String getSentAmount() {
       java.lang.Object ref = sentAmount_;
       if (ref instanceof java.lang.String) {
@@ -4752,6 +4788,7 @@ public final class Tx {
      * <code>string sent_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"sent_amount&#92;""];</code>
      * @return The bytes for sentAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSentAmountBytes() {
       java.lang.Object ref = sentAmount_;
@@ -4772,6 +4809,7 @@ public final class Tx {
      * <code>string min_receiving_amount = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"min_receiving_amount&#92;""];</code>
      * @return The minReceivingAmount.
      */
+    @java.lang.Override
     public java.lang.String getMinReceivingAmount() {
       java.lang.Object ref = minReceivingAmount_;
       if (ref instanceof java.lang.String) {
@@ -4788,6 +4826,7 @@ public final class Tx {
      * <code>string min_receiving_amount = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Uint", (.gogoproto.moretags) = "yaml:&#92;"min_receiving_amount&#92;""];</code>
      * @return The bytes for minReceivingAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMinReceivingAmountBytes() {
       java.lang.Object ref = minReceivingAmount_;
@@ -5723,7 +5762,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.clp.v1.MsgSwapResponse}
    */
-  public  static final class MsgSwapResponse extends
+  public static final class MsgSwapResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgSwapResponse)
       MsgSwapResponseOrBuilder {
@@ -6165,7 +6204,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.clp.v1.MsgDecommissionPool}
    */
-  public  static final class MsgDecommissionPool extends
+  public static final class MsgDecommissionPool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgDecommissionPool)
       MsgDecommissionPoolOrBuilder {
@@ -6259,6 +6298,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -6275,6 +6315,7 @@ public final class Tx {
      * <code>string signer = 1 [(.gogoproto.moretags) = "yaml:&#92;"signer&#92;""];</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -6295,6 +6336,7 @@ public final class Tx {
      * <code>string symbol = 2 [(.gogoproto.moretags) = "yaml:&#92;"symbol&#92;""];</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -6311,6 +6353,7 @@ public final class Tx {
      * <code>string symbol = 2 [(.gogoproto.moretags) = "yaml:&#92;"symbol&#92;""];</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -6855,7 +6898,7 @@ public final class Tx {
   /**
    * Protobuf type {@code sifnode.clp.v1.MsgDecommissionPoolResponse}
    */
-  public  static final class MsgDecommissionPoolResponse extends
+  public static final class MsgDecommissionPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.MsgDecommissionPoolResponse)
       MsgDecommissionPoolResponseOrBuilder {
@@ -7385,7 +7428,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           sifnode.clp.v1.Types.getDescriptor(),
         });
     internal_static_sifnode_clp_v1_MsgRemoveLiquidity_descriptor =
@@ -7450,12 +7493,12 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     sifnode.clp.v1.Types.getDescriptor();
   }
 

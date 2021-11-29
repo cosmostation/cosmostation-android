@@ -61,7 +61,7 @@ public final class Permission {
   /**
    * Protobuf type {@code permission.AccountPermissions}
    */
-  public  static final class AccountPermissions extends
+  public static final class AccountPermissions extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:permission.AccountPermissions)
       AccountPermissionsOrBuilder {
@@ -169,6 +169,7 @@ public final class Permission {
      * <code>optional .permission.BasePermissions Base = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the base field is set.
      */
+    @java.lang.Override
     public boolean hasBase() {
       return ((bitField0_ & 0x00000001) != 0);
     }
@@ -176,12 +177,14 @@ public final class Permission {
      * <code>optional .permission.BasePermissions Base = 1 [(.gogoproto.nullable) = false];</code>
      * @return The base.
      */
+    @java.lang.Override
     public permission.Permission.BasePermissions getBase() {
       return base_ == null ? permission.Permission.BasePermissions.getDefaultInstance() : base_;
     }
     /**
      * <code>optional .permission.BasePermissions Base = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public permission.Permission.BasePermissionsOrBuilder getBaseOrBuilder() {
       return base_ == null ? permission.Permission.BasePermissions.getDefaultInstance() : base_;
     }
@@ -888,7 +891,7 @@ public final class Permission {
   /**
    * Protobuf type {@code permission.BasePermissions}
    */
-  public  static final class BasePermissions extends
+  public static final class BasePermissions extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:permission.BasePermissions)
       BasePermissionsOrBuilder {
@@ -980,6 +983,7 @@ public final class Permission {
      * <code>optional uint64 Perms = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
      * @return Whether the perms field is set.
      */
+    @java.lang.Override
     public boolean hasPerms() {
       return ((bitField0_ & 0x00000001) != 0);
     }
@@ -987,6 +991,7 @@ public final class Permission {
      * <code>optional uint64 Perms = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
      * @return The perms.
      */
+    @java.lang.Override
     public long getPerms() {
       return perms_;
     }
@@ -997,6 +1002,7 @@ public final class Permission {
      * <code>optional uint64 SetBit = 2 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
      * @return Whether the setBit field is set.
      */
+    @java.lang.Override
     public boolean hasSetBit() {
       return ((bitField0_ & 0x00000002) != 0);
     }
@@ -1004,6 +1010,7 @@ public final class Permission {
      * <code>optional uint64 SetBit = 2 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
      * @return The setBit.
      */
+    @java.lang.Override
     public long getSetBit() {
       return setBit_;
     }
@@ -1354,6 +1361,7 @@ public final class Permission {
        * <code>optional uint64 Perms = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
        * @return Whether the perms field is set.
        */
+      @java.lang.Override
       public boolean hasPerms() {
         return ((bitField0_ & 0x00000001) != 0);
       }
@@ -1361,6 +1369,7 @@ public final class Permission {
        * <code>optional uint64 Perms = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
        * @return The perms.
        */
+      @java.lang.Override
       public long getPerms() {
         return perms_;
       }
@@ -1391,6 +1400,7 @@ public final class Permission {
        * <code>optional uint64 SetBit = 2 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
        * @return Whether the setBit field is set.
        */
+      @java.lang.Override
       public boolean hasSetBit() {
         return ((bitField0_ & 0x00000002) != 0);
       }
@@ -1398,6 +1408,7 @@ public final class Permission {
        * <code>optional uint64 SetBit = 2 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
        * @return The setBit.
        */
+      @java.lang.Override
       public long getSetBit() {
         return setBit_;
       }
@@ -1567,7 +1578,7 @@ public final class Permission {
   /**
    * Protobuf type {@code permission.PermArgs}
    */
-  public  static final class PermArgs extends
+  public static final class PermArgs extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:permission.PermArgs)
       PermArgsOrBuilder {
@@ -1681,6 +1692,7 @@ public final class Permission {
      * <code>optional uint64 Action = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
      * @return Whether the action field is set.
      */
+    @java.lang.Override
     public boolean hasAction() {
       return ((bitField0_ & 0x00000001) != 0);
     }
@@ -1692,6 +1704,7 @@ public final class Permission {
      * <code>optional uint64 Action = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
      * @return The action.
      */
+    @java.lang.Override
     public long getAction() {
       return action_;
     }
@@ -1706,6 +1719,7 @@ public final class Permission {
      * <code>optional bytes Target = 2 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
      * @return Whether the target field is set.
      */
+    @java.lang.Override
     public boolean hasTarget() {
       return ((bitField0_ & 0x00000002) != 0);
     }
@@ -1717,6 +1731,7 @@ public final class Permission {
      * <code>optional bytes Target = 2 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
      * @return The target.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getTarget() {
       return target_;
     }
@@ -1731,6 +1746,7 @@ public final class Permission {
      * <code>optional uint64 Permission = 3 [(.gogoproto.casttype) = "PermFlag"];</code>
      * @return Whether the permission field is set.
      */
+    @java.lang.Override
     public boolean hasPermission() {
       return ((bitField0_ & 0x00000004) != 0);
     }
@@ -1742,6 +1758,7 @@ public final class Permission {
      * <code>optional uint64 Permission = 3 [(.gogoproto.casttype) = "PermFlag"];</code>
      * @return The permission.
      */
+    @java.lang.Override
     public long getPermission() {
       return permission_;
     }
@@ -1752,6 +1769,7 @@ public final class Permission {
      * <code>optional string Role = 4;</code>
      * @return Whether the role field is set.
      */
+    @java.lang.Override
     public boolean hasRole() {
       return ((bitField0_ & 0x00000008) != 0);
     }
@@ -1759,6 +1777,7 @@ public final class Permission {
      * <code>optional string Role = 4;</code>
      * @return The role.
      */
+    @java.lang.Override
     public java.lang.String getRole() {
       java.lang.Object ref = role_;
       if (ref instanceof java.lang.String) {
@@ -1777,6 +1796,7 @@ public final class Permission {
      * <code>optional string Role = 4;</code>
      * @return The bytes for role.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRoleBytes() {
       java.lang.Object ref = role_;
@@ -1797,6 +1817,7 @@ public final class Permission {
      * <code>optional bool Value = 5;</code>
      * @return Whether the value field is set.
      */
+    @java.lang.Override
     public boolean hasValue() {
       return ((bitField0_ & 0x00000010) != 0);
     }
@@ -1804,6 +1825,7 @@ public final class Permission {
      * <code>optional bool Value = 5;</code>
      * @return The value.
      */
+    @java.lang.Override
     public boolean getValue() {
       return value_;
     }
@@ -2235,6 +2257,7 @@ public final class Permission {
        * <code>optional uint64 Action = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
        * @return Whether the action field is set.
        */
+      @java.lang.Override
       public boolean hasAction() {
         return ((bitField0_ & 0x00000001) != 0);
       }
@@ -2246,6 +2269,7 @@ public final class Permission {
        * <code>optional uint64 Action = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "PermFlag"];</code>
        * @return The action.
        */
+      @java.lang.Override
       public long getAction() {
         return action_;
       }
@@ -2288,6 +2312,7 @@ public final class Permission {
        * <code>optional bytes Target = 2 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
        * @return Whether the target field is set.
        */
+      @java.lang.Override
       public boolean hasTarget() {
         return ((bitField0_ & 0x00000002) != 0);
       }
@@ -2299,6 +2324,7 @@ public final class Permission {
        * <code>optional bytes Target = 2 [(.gogoproto.customtype) = "github.com/hyperledger/burrow/crypto.Address"];</code>
        * @return The target.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getTarget() {
         return target_;
       }
@@ -2344,6 +2370,7 @@ public final class Permission {
        * <code>optional uint64 Permission = 3 [(.gogoproto.casttype) = "PermFlag"];</code>
        * @return Whether the permission field is set.
        */
+      @java.lang.Override
       public boolean hasPermission() {
         return ((bitField0_ & 0x00000004) != 0);
       }
@@ -2355,6 +2382,7 @@ public final class Permission {
        * <code>optional uint64 Permission = 3 [(.gogoproto.casttype) = "PermFlag"];</code>
        * @return The permission.
        */
+      @java.lang.Override
       public long getPermission() {
         return permission_;
       }
@@ -2477,6 +2505,7 @@ public final class Permission {
        * <code>optional bool Value = 5;</code>
        * @return Whether the value field is set.
        */
+      @java.lang.Override
       public boolean hasValue() {
         return ((bitField0_ & 0x00000010) != 0);
       }
@@ -2484,6 +2513,7 @@ public final class Permission {
        * <code>optional bool Value = 5;</code>
        * @return The value.
        */
+      @java.lang.Override
       public boolean getValue() {
         return value_;
       }
@@ -2602,7 +2632,7 @@ public final class Permission {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_permission_AccountPermissions_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2624,21 +2654,21 @@ public final class Permission {
         new java.lang.String[] { "Action", "Target", "Permission", "Role", "Value", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.casttype);
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoRegistration);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoSizecache);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoUnkeyed);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoUnrecognized);
-    registry.add(com.google.protobuf2.GoGoProtos.marshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.messagenameAll);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.sizerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.unmarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.casttype);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoRegistration);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoSizecache);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoUnkeyed);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoUnrecognized);
+    registry.add(com.google.protobuf.GoGoProtos.marshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.messagenameAll);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.sizerAll);
+    registry.add(com.google.protobuf.GoGoProtos.unmarshalerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

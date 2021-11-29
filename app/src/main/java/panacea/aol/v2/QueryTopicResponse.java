@@ -10,7 +10,7 @@ package panacea.aol.v2;
  *
  * Protobuf type {@code panacea.aol.v2.QueryTopicResponse}
  */
-public  final class QueryTopicResponse extends
+public final class QueryTopicResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.aol.v2.QueryTopicResponse)
     QueryTopicResponseOrBuilder {
@@ -103,6 +103,7 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.aol.v2.Topic topic = 1;</code>
    * @return Whether the topic field is set.
    */
+  @java.lang.Override
   public boolean hasTopic() {
     return topic_ != null;
   }
@@ -110,12 +111,14 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.aol.v2.Topic topic = 1;</code>
    * @return The topic.
    */
+  @java.lang.Override
   public panacea.aol.v2.Topic getTopic() {
     return topic_ == null ? panacea.aol.v2.Topic.getDefaultInstance() : topic_;
   }
   /**
    * <code>.panacea.aol.v2.Topic topic = 1;</code>
    */
+  @java.lang.Override
   public panacea.aol.v2.TopicOrBuilder getTopicOrBuilder() {
     return getTopic();
   }

@@ -237,7 +237,8 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * ConnectionOpenConfirm defines a rpc handler method for MsgConnectionOpenConfirm.
+     * ConnectionOpenConfirm defines a rpc handler method for
+     * MsgConnectionOpenConfirm.
      * </pre>
      */
     public void connectionOpenConfirm(ibc.core.connection.v1.Tx.MsgConnectionOpenConfirm request,
@@ -331,7 +332,8 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * ConnectionOpenConfirm defines a rpc handler method for MsgConnectionOpenConfirm.
+     * ConnectionOpenConfirm defines a rpc handler method for
+     * MsgConnectionOpenConfirm.
      * </pre>
      */
     public void connectionOpenConfirm(ibc.core.connection.v1.Tx.MsgConnectionOpenConfirm request,
@@ -390,7 +392,8 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * ConnectionOpenConfirm defines a rpc handler method for MsgConnectionOpenConfirm.
+     * ConnectionOpenConfirm defines a rpc handler method for
+     * MsgConnectionOpenConfirm.
      * </pre>
      */
     public ibc.core.connection.v1.Tx.MsgConnectionOpenConfirmResponse connectionOpenConfirm(ibc.core.connection.v1.Tx.MsgConnectionOpenConfirm request) {
@@ -451,7 +454,8 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * ConnectionOpenConfirm defines a rpc handler method for MsgConnectionOpenConfirm.
+     * ConnectionOpenConfirm defines a rpc handler method for
+     * MsgConnectionOpenConfirm.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ibc.core.connection.v1.Tx.MsgConnectionOpenConfirmResponse> connectionOpenConfirm(

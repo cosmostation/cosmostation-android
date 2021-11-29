@@ -19,25 +19,31 @@ public final class Genesis {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+     * <code>uint64 last_lock_id = 1;</code>
+     * @return The lastLockId.
+     */
+    long getLastLockId();
+
+    /**
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<osmosis.lockup.Lock.PeriodLock> 
         getLocksList();
     /**
-     * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
      */
     osmosis.lockup.Lock.PeriodLock getLocks(int index);
     /**
-     * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
      */
     int getLocksCount();
     /**
-     * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
         getLocksOrBuilderList();
     /**
-     * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
      */
     osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
         int index);
@@ -93,7 +99,12 @@ public final class Genesis {
             case 0:
               done = true;
               break;
-            case 10: {
+            case 8: {
+
+              lastLockId_ = input.readUInt64();
+              break;
+            }
+            case 18: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 locks_ = new java.util.ArrayList<osmosis.lockup.Lock.PeriodLock>();
                 mutable_bitField0_ |= 0x00000001;
@@ -137,17 +148,28 @@ public final class Genesis {
               osmosis.lockup.Genesis.GenesisState.class, osmosis.lockup.Genesis.GenesisState.Builder.class);
     }
 
-    public static final int LOCKS_FIELD_NUMBER = 1;
+    public static final int LAST_LOCK_ID_FIELD_NUMBER = 1;
+    private long lastLockId_;
+    /**
+     * <code>uint64 last_lock_id = 1;</code>
+     * @return The lastLockId.
+     */
+    @java.lang.Override
+    public long getLastLockId() {
+      return lastLockId_;
+    }
+
+    public static final int LOCKS_FIELD_NUMBER = 2;
     private java.util.List<osmosis.lockup.Lock.PeriodLock> locks_;
     /**
-     * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
       return locks_;
     }
     /**
-     * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
@@ -155,21 +177,21 @@ public final class Genesis {
       return locks_;
     }
     /**
-     * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public int getLocksCount() {
       return locks_.size();
     }
     /**
-     * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
       return locks_.get(index);
     }
     /**
-     * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+     * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
@@ -191,8 +213,11 @@ public final class Genesis {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (lastLockId_ != 0L) {
+        output.writeUInt64(1, lastLockId_);
+      }
       for (int i = 0; i < locks_.size(); i++) {
-        output.writeMessage(1, locks_.get(i));
+        output.writeMessage(2, locks_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -203,9 +228,13 @@ public final class Genesis {
       if (size != -1) return size;
 
       size = 0;
+      if (lastLockId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, lastLockId_);
+      }
       for (int i = 0; i < locks_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, locks_.get(i));
+          .computeMessageSize(2, locks_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -222,6 +251,8 @@ public final class Genesis {
       }
       osmosis.lockup.Genesis.GenesisState other = (osmosis.lockup.Genesis.GenesisState) obj;
 
+      if (getLastLockId()
+          != other.getLastLockId()) return false;
       if (!getLocksList()
           .equals(other.getLocksList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -235,6 +266,9 @@ public final class Genesis {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LAST_LOCK_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLastLockId());
       if (getLocksCount() > 0) {
         hash = (37 * hash) + LOCKS_FIELD_NUMBER;
         hash = (53 * hash) + getLocksList().hashCode();
@@ -377,6 +411,8 @@ public final class Genesis {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        lastLockId_ = 0L;
+
         if (locksBuilder_ == null) {
           locks_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000001);
@@ -410,6 +446,7 @@ public final class Genesis {
       public osmosis.lockup.Genesis.GenesisState buildPartial() {
         osmosis.lockup.Genesis.GenesisState result = new osmosis.lockup.Genesis.GenesisState(this);
         int from_bitField0_ = bitField0_;
+        result.lastLockId_ = lastLockId_;
         if (locksBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0)) {
             locks_ = java.util.Collections.unmodifiableList(locks_);
@@ -467,6 +504,9 @@ public final class Genesis {
 
       public Builder mergeFrom(osmosis.lockup.Genesis.GenesisState other) {
         if (other == osmosis.lockup.Genesis.GenesisState.getDefaultInstance()) return this;
+        if (other.getLastLockId() != 0L) {
+          setLastLockId(other.getLastLockId());
+        }
         if (locksBuilder_ == null) {
           if (!other.locks_.isEmpty()) {
             if (locks_.isEmpty()) {
@@ -523,6 +563,37 @@ public final class Genesis {
       }
       private int bitField0_;
 
+      private long lastLockId_ ;
+      /**
+       * <code>uint64 last_lock_id = 1;</code>
+       * @return The lastLockId.
+       */
+      @java.lang.Override
+      public long getLastLockId() {
+        return lastLockId_;
+      }
+      /**
+       * <code>uint64 last_lock_id = 1;</code>
+       * @param value The lastLockId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLastLockId(long value) {
+        
+        lastLockId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 last_lock_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLastLockId() {
+        
+        lastLockId_ = 0L;
+        onChanged();
+        return this;
+      }
+
       private java.util.List<osmosis.lockup.Lock.PeriodLock> locks_ =
         java.util.Collections.emptyList();
       private void ensureLocksIsMutable() {
@@ -536,7 +607,7 @@ public final class Genesis {
           osmosis.lockup.Lock.PeriodLock, osmosis.lockup.Lock.PeriodLock.Builder, osmosis.lockup.Lock.PeriodLockOrBuilder> locksBuilder_;
 
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
         if (locksBuilder_ == null) {
@@ -546,7 +617,7 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public int getLocksCount() {
         if (locksBuilder_ == null) {
@@ -556,7 +627,7 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
         if (locksBuilder_ == null) {
@@ -566,7 +637,7 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setLocks(
           int index, osmosis.lockup.Lock.PeriodLock value) {
@@ -583,7 +654,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setLocks(
           int index, osmosis.lockup.Lock.PeriodLock.Builder builderForValue) {
@@ -597,7 +668,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addLocks(osmosis.lockup.Lock.PeriodLock value) {
         if (locksBuilder_ == null) {
@@ -613,7 +684,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addLocks(
           int index, osmosis.lockup.Lock.PeriodLock value) {
@@ -630,7 +701,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addLocks(
           osmosis.lockup.Lock.PeriodLock.Builder builderForValue) {
@@ -644,7 +715,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addLocks(
           int index, osmosis.lockup.Lock.PeriodLock.Builder builderForValue) {
@@ -658,7 +729,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllLocks(
           java.lang.Iterable<? extends osmosis.lockup.Lock.PeriodLock> values) {
@@ -673,7 +744,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearLocks() {
         if (locksBuilder_ == null) {
@@ -686,7 +757,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeLocks(int index) {
         if (locksBuilder_ == null) {
@@ -699,14 +770,14 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public osmosis.lockup.Lock.PeriodLock.Builder getLocksBuilder(
           int index) {
         return getLocksFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
           int index) {
@@ -716,7 +787,7 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
            getLocksOrBuilderList() {
@@ -727,14 +798,14 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public osmosis.lockup.Lock.PeriodLock.Builder addLocksBuilder() {
         return getLocksFieldBuilder().addBuilder(
             osmosis.lockup.Lock.PeriodLock.getDefaultInstance());
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public osmosis.lockup.Lock.PeriodLock.Builder addLocksBuilder(
           int index) {
@@ -742,7 +813,7 @@ public final class Genesis {
             index, osmosis.lockup.Lock.PeriodLock.getDefaultInstance());
       }
       /**
-       * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
+       * <code>repeated .osmosis.lockup.PeriodLock locks = 2 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<osmosis.lockup.Lock.PeriodLock.Builder> 
            getLocksBuilderList() {
@@ -830,14 +901,16 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n\034osmosis/lockup/genesis.proto\022\016osmosis." +
-      "lockup\032\031osmosis/lockup/lock.proto\"9\n\014Gen" +
-      "esisState\022)\n\005locks\030\001 \003(\0132\032.osmosis.locku" +
-      "p.PeriodLockB0Z.github.com/osmosis-labs/" +
-      "osmosis/x/lockup/typesb\006proto3"
+      "lockup\032\024gogoproto/gogo.proto\032\031osmosis/lo" +
+      "ckup/lock.proto\"U\n\014GenesisState\022\024\n\014last_" +
+      "lock_id\030\001 \001(\004\022/\n\005locks\030\002 \003(\0132\032.osmosis.l" +
+      "ockup.PeriodLockB\004\310\336\037\000B0Z.github.com/osm" +
+      "osis-labs/osmosis/x/lockup/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           osmosis.lockup.Lock.getDescriptor(),
         });
     internal_static_osmosis_lockup_GenesisState_descriptor =
@@ -845,7 +918,13 @@ public final class Genesis {
     internal_static_osmosis_lockup_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_GenesisState_descriptor,
-        new java.lang.String[] { "Locks", });
+        new java.lang.String[] { "LastLockId", "Locks", });
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
+    com.google.protobuf.GoGoProtos.getDescriptor();
     osmosis.lockup.Lock.getDescriptor();
   }
 

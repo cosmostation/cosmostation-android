@@ -1183,22 +1183,22 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n*ibc/applications/transfer/v1/genesis.p" +
-      "roto\022\034ibc.applications.transfer.v1\032\024gogo" +
-      "proto/gogo.proto\032+ibc/applications/trans" +
-      "fer/v1/transfer.proto\"\326\001\n\014GenesisState\022#" +
+      "roto\022\034ibc.applications.transfer.v1\032+ibc/" +
+      "applications/transfer/v1/transfer.proto\032" +
+      "\024gogoproto/gogo.proto\"\326\001\n\014GenesisState\022#" +
       "\n\007port_id\030\001 \001(\tB\022\362\336\037\016yaml:\"port_id\"\022e\n\014d" +
       "enom_traces\030\002 \003(\0132(.ibc.applications.tra" +
       "nsfer.v1.DenomTraceB%\252\337\037\006Traces\310\336\037\000\362\336\037\023y" +
       "aml:\"denom_traces\"\022:\n\006params\030\003 \001(\0132$.ibc" +
-      ".applications.transfer.v1.ParamsB\004\310\336\037\000B@" +
-      "Z>github.com/cosmos/cosmos-sdk/x/ibc/app" +
-      "lications/transfer/typesb\006proto3"
+      ".applications.transfer.v1.ParamsB\004\310\336\037\000B9" +
+      "Z7github.com/cosmos/ibc-go/v2/modules/ap" +
+      "ps/transfer/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
           ibc.applications.transfer.v1.Transfer.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_ibc_applications_transfer_v1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1208,13 +1208,13 @@ public final class Genesis {
         new java.lang.String[] { "PortId", "DenomTraces", "Params", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
     ibc.applications.transfer.v1.Transfer.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

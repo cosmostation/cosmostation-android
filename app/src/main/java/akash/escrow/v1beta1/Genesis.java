@@ -1208,13 +1208,14 @@ public final class Genesis {
       "crow.v1beta1.AccountB#\310\336\037\000\352\336\037\010accounts\362\336" +
       "\037\017yaml:\"accounts\"\022T\n\010payments\030\002 \003(\0132\035.ak" +
       "ash.escrow.v1beta1.PaymentB#\310\336\037\000\352\336\037\010paym" +
-      "ents\362\336\037\017yaml:\"payments\"B(Z&github.com/ov" +
-      "rclk/akash/x/escrow/typesb\006proto3"
+      "ents\362\336\037\017yaml:\"payments\"B0Z.github.com/ov" +
+      "rclk/akash/x/escrow/types/v1beta1b\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           akash.escrow.v1beta1.Types.getDescriptor(),
         });
     internal_static_akash_escrow_v1beta1_GenesisState_descriptor =
@@ -1225,12 +1226,12 @@ public final class Genesis {
         new java.lang.String[] { "Accounts", "Payments", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     akash.escrow.v1beta1.Types.getDescriptor();
   }
 

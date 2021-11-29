@@ -29,7 +29,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.google.protobuf2.Any;
+import com.google.protobuf.Any;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.QRCodeWriter;
@@ -47,7 +47,7 @@ import cosmos.auth.v1beta1.Auth;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
@@ -890,7 +890,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         //gRPC callback
         else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
-            Types.DefaultNodeInfo tempNodeInfo = (Types.DefaultNodeInfo) result.resultData;
+            tendermint.p2p.Types.NodeInfo tempNodeInfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
             if (tempNodeInfo != null) { getBaseDao().mGRpcNodeInfo = tempNodeInfo;
                 mTaskCount = mTaskCount + 3;
                 new StationParamInfoTask(getBaseApplication(), this, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -966,8 +966,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
-                List<PoolOuterClass.Pool> pools = (List<PoolOuterClass.Pool>)result.resultData;
-                getBaseDao().mGrpcOsmosisPool = new ArrayList<PoolOuterClass.Pool>(pools);
+                List<BalancerPoolOuterClass.BalancerPool> pools = (List<BalancerPoolOuterClass.BalancerPool>)result.resultData;
+                getBaseDao().mGrpcOsmosisPool = new ArrayList<BalancerPoolOuterClass.BalancerPool>(pools);
             }
         }
 
@@ -1001,7 +1001,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 if (getBaseDao().mGRpcNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 } else {
-                    if (getBaseDao().mGRpcAccount != null && !getBaseDao().mGRpcAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
+//                    WLog.w("mGRpcAccount " + getBaseDao().mGRpcAccount.getTypeUrl());
+                    if (getBaseDao().mGRpcAccount != null && !getBaseDao().mGRpcAccount.getTypeUrl().contains("BaseAccount")) {
                         if (mBaseChain.equals(PERSIS_MAIN)) {
                             WUtil.onParsePersisVestingAccount(getBaseDao());
                         } else {

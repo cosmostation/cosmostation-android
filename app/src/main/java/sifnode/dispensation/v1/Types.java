@@ -138,6 +138,10 @@ public final class Types {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -296,6 +300,10 @@ public final class Types {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -382,7 +390,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.GenesisState)
       GenesisStateOrBuilder {
@@ -501,6 +509,7 @@ public final class Types {
      * <code>.sifnode.dispensation.v1.DistributionRecords distribution_records = 1;</code>
      * @return Whether the distributionRecords field is set.
      */
+    @java.lang.Override
     public boolean hasDistributionRecords() {
       return distributionRecords_ != null;
     }
@@ -508,12 +517,14 @@ public final class Types {
      * <code>.sifnode.dispensation.v1.DistributionRecords distribution_records = 1;</code>
      * @return The distributionRecords.
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.DistributionRecords getDistributionRecords() {
       return distributionRecords_ == null ? sifnode.dispensation.v1.Types.DistributionRecords.getDefaultInstance() : distributionRecords_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionRecords distribution_records = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.DistributionRecordsOrBuilder getDistributionRecordsOrBuilder() {
       return getDistributionRecords();
     }
@@ -524,6 +535,7 @@ public final class Types {
      * <code>.sifnode.dispensation.v1.Distributions distributions = 2;</code>
      * @return Whether the distributions field is set.
      */
+    @java.lang.Override
     public boolean hasDistributions() {
       return distributions_ != null;
     }
@@ -531,12 +543,14 @@ public final class Types {
      * <code>.sifnode.dispensation.v1.Distributions distributions = 2;</code>
      * @return The distributions.
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.Distributions getDistributions() {
       return distributions_ == null ? sifnode.dispensation.v1.Types.Distributions.getDefaultInstance() : distributions_;
     }
     /**
      * <code>.sifnode.dispensation.v1.Distributions distributions = 2;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.DistributionsOrBuilder getDistributionsOrBuilder() {
       return getDistributions();
     }
@@ -547,6 +561,7 @@ public final class Types {
      * <code>.sifnode.dispensation.v1.UserClaims claims = 3;</code>
      * @return Whether the claims field is set.
      */
+    @java.lang.Override
     public boolean hasClaims() {
       return claims_ != null;
     }
@@ -554,12 +569,14 @@ public final class Types {
      * <code>.sifnode.dispensation.v1.UserClaims claims = 3;</code>
      * @return The claims.
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.UserClaims getClaims() {
       return claims_ == null ? sifnode.dispensation.v1.Types.UserClaims.getDefaultInstance() : claims_;
     }
     /**
      * <code>.sifnode.dispensation.v1.UserClaims claims = 3;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.UserClaimsOrBuilder getClaimsOrBuilder() {
       return getClaims();
     }
@@ -1449,7 +1466,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.DistributionRecord}
    */
-  public  static final class DistributionRecord extends
+  public static final class DistributionRecord extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.DistributionRecord)
       DistributionRecordOrBuilder {
@@ -1588,14 +1605,14 @@ public final class Types {
      * <code>.sifnode.dispensation.v1.DistributionStatus distribution_status = 1;</code>
      * @return The enum numeric value on the wire for distributionStatus.
      */
-    public int getDistributionStatusValue() {
+    @java.lang.Override public int getDistributionStatusValue() {
       return distributionStatus_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionStatus distribution_status = 1;</code>
      * @return The distributionStatus.
      */
-    public sifnode.dispensation.v1.Types.DistributionStatus getDistributionStatus() {
+    @java.lang.Override public sifnode.dispensation.v1.Types.DistributionStatus getDistributionStatus() {
       @SuppressWarnings("deprecation")
       sifnode.dispensation.v1.Types.DistributionStatus result = sifnode.dispensation.v1.Types.DistributionStatus.valueOf(distributionStatus_);
       return result == null ? sifnode.dispensation.v1.Types.DistributionStatus.UNRECOGNIZED : result;
@@ -1607,14 +1624,14 @@ public final class Types {
      * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 2;</code>
      * @return The enum numeric value on the wire for distributionType.
      */
-    public int getDistributionTypeValue() {
+    @java.lang.Override public int getDistributionTypeValue() {
       return distributionType_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 2;</code>
      * @return The distributionType.
      */
-    public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
+    @java.lang.Override public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
       @SuppressWarnings("deprecation")
       sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(distributionType_);
       return result == null ? sifnode.dispensation.v1.Types.DistributionType.UNRECOGNIZED : result;
@@ -1626,6 +1643,7 @@ public final class Types {
      * <code>string distribution_name = 3;</code>
      * @return The distributionName.
      */
+    @java.lang.Override
     public java.lang.String getDistributionName() {
       java.lang.Object ref = distributionName_;
       if (ref instanceof java.lang.String) {
@@ -1642,6 +1660,7 @@ public final class Types {
      * <code>string distribution_name = 3;</code>
      * @return The bytes for distributionName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDistributionNameBytes() {
       java.lang.Object ref = distributionName_;
@@ -1662,6 +1681,7 @@ public final class Types {
      * <code>string recipient_address = 4;</code>
      * @return The recipientAddress.
      */
+    @java.lang.Override
     public java.lang.String getRecipientAddress() {
       java.lang.Object ref = recipientAddress_;
       if (ref instanceof java.lang.String) {
@@ -1678,6 +1698,7 @@ public final class Types {
      * <code>string recipient_address = 4;</code>
      * @return The bytes for recipientAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRecipientAddressBytes() {
       java.lang.Object ref = recipientAddress_;
@@ -1697,12 +1718,14 @@ public final class Types {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -1710,18 +1733,21 @@ public final class Types {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -1733,6 +1759,7 @@ public final class Types {
      * <code>int64 distribution_start_height = 6;</code>
      * @return The distributionStartHeight.
      */
+    @java.lang.Override
     public long getDistributionStartHeight() {
       return distributionStartHeight_;
     }
@@ -1743,6 +1770,7 @@ public final class Types {
      * <code>int64 distribution_completed_height = 7;</code>
      * @return The distributionCompletedHeight.
      */
+    @java.lang.Override
     public long getDistributionCompletedHeight() {
       return distributionCompletedHeight_;
     }
@@ -1753,6 +1781,7 @@ public final class Types {
      * <code>string authorized_runner = 8;</code>
      * @return The authorizedRunner.
      */
+    @java.lang.Override
     public java.lang.String getAuthorizedRunner() {
       java.lang.Object ref = authorizedRunner_;
       if (ref instanceof java.lang.String) {
@@ -1769,6 +1798,7 @@ public final class Types {
      * <code>string authorized_runner = 8;</code>
      * @return The bytes for authorizedRunner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAuthorizedRunnerBytes() {
       java.lang.Object ref = authorizedRunner_;
@@ -2249,7 +2279,7 @@ public final class Types {
        * <code>.sifnode.dispensation.v1.DistributionStatus distribution_status = 1;</code>
        * @return The enum numeric value on the wire for distributionStatus.
        */
-      public int getDistributionStatusValue() {
+      @java.lang.Override public int getDistributionStatusValue() {
         return distributionStatus_;
       }
       /**
@@ -2258,6 +2288,7 @@ public final class Types {
        * @return This builder for chaining.
        */
       public Builder setDistributionStatusValue(int value) {
+        
         distributionStatus_ = value;
         onChanged();
         return this;
@@ -2266,6 +2297,7 @@ public final class Types {
        * <code>.sifnode.dispensation.v1.DistributionStatus distribution_status = 1;</code>
        * @return The distributionStatus.
        */
+      @java.lang.Override
       public sifnode.dispensation.v1.Types.DistributionStatus getDistributionStatus() {
         @SuppressWarnings("deprecation")
         sifnode.dispensation.v1.Types.DistributionStatus result = sifnode.dispensation.v1.Types.DistributionStatus.valueOf(distributionStatus_);
@@ -2301,7 +2333,7 @@ public final class Types {
        * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 2;</code>
        * @return The enum numeric value on the wire for distributionType.
        */
-      public int getDistributionTypeValue() {
+      @java.lang.Override public int getDistributionTypeValue() {
         return distributionType_;
       }
       /**
@@ -2310,6 +2342,7 @@ public final class Types {
        * @return This builder for chaining.
        */
       public Builder setDistributionTypeValue(int value) {
+        
         distributionType_ = value;
         onChanged();
         return this;
@@ -2318,6 +2351,7 @@ public final class Types {
        * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 2;</code>
        * @return The distributionType.
        */
+      @java.lang.Override
       public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
         @SuppressWarnings("deprecation")
         sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(distributionType_);
@@ -2745,6 +2779,7 @@ public final class Types {
        * <code>int64 distribution_start_height = 6;</code>
        * @return The distributionStartHeight.
        */
+      @java.lang.Override
       public long getDistributionStartHeight() {
         return distributionStartHeight_;
       }
@@ -2775,6 +2810,7 @@ public final class Types {
        * <code>int64 distribution_completed_height = 7;</code>
        * @return The distributionCompletedHeight.
        */
+      @java.lang.Override
       public long getDistributionCompletedHeight() {
         return distributionCompletedHeight_;
       }
@@ -2959,7 +2995,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.DistributionRecords}
    */
-  public  static final class DistributionRecords extends
+  public static final class DistributionRecords extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.DistributionRecords)
       DistributionRecordsOrBuilder {
@@ -3052,12 +3088,14 @@ public final class Types {
     /**
      * <code>repeated .sifnode.dispensation.v1.DistributionRecord distribution_records = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.dispensation.v1.Types.DistributionRecord> getDistributionRecordsList() {
       return distributionRecords_;
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.DistributionRecord distribution_records = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.dispensation.v1.Types.DistributionRecordOrBuilder> 
         getDistributionRecordsOrBuilderList() {
       return distributionRecords_;
@@ -3065,18 +3103,21 @@ public final class Types {
     /**
      * <code>repeated .sifnode.dispensation.v1.DistributionRecord distribution_records = 1;</code>
      */
+    @java.lang.Override
     public int getDistributionRecordsCount() {
       return distributionRecords_.size();
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.DistributionRecord distribution_records = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.DistributionRecord getDistributionRecords(int index) {
       return distributionRecords_.get(index);
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.DistributionRecord distribution_records = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.DistributionRecordOrBuilder getDistributionRecordsOrBuilder(
         int index) {
       return distributionRecords_.get(index);
@@ -3747,7 +3788,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.Distributions}
    */
-  public  static final class Distributions extends
+  public static final class Distributions extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.Distributions)
       DistributionsOrBuilder {
@@ -3840,12 +3881,14 @@ public final class Types {
     /**
      * <code>repeated .sifnode.dispensation.v1.Distribution distributions = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.dispensation.v1.Types.Distribution> getDistributionsList() {
       return distributions_;
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.Distribution distributions = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.dispensation.v1.Types.DistributionOrBuilder> 
         getDistributionsOrBuilderList() {
       return distributions_;
@@ -3853,18 +3896,21 @@ public final class Types {
     /**
      * <code>repeated .sifnode.dispensation.v1.Distribution distributions = 1;</code>
      */
+    @java.lang.Override
     public int getDistributionsCount() {
       return distributions_.size();
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.Distribution distributions = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.Distribution getDistributions(int index) {
       return distributions_.get(index);
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.Distribution distributions = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.DistributionOrBuilder getDistributionsOrBuilder(
         int index) {
       return distributions_.get(index);
@@ -4546,7 +4592,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.Distribution}
    */
-  public  static final class Distribution extends
+  public static final class Distribution extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.Distribution)
       DistributionOrBuilder {
@@ -4647,14 +4693,14 @@ public final class Types {
      * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 1;</code>
      * @return The enum numeric value on the wire for distributionType.
      */
-    public int getDistributionTypeValue() {
+    @java.lang.Override public int getDistributionTypeValue() {
       return distributionType_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 1;</code>
      * @return The distributionType.
      */
-    public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
+    @java.lang.Override public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
       @SuppressWarnings("deprecation")
       sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(distributionType_);
       return result == null ? sifnode.dispensation.v1.Types.DistributionType.UNRECOGNIZED : result;
@@ -4666,6 +4712,7 @@ public final class Types {
      * <code>string distribution_name = 2;</code>
      * @return The distributionName.
      */
+    @java.lang.Override
     public java.lang.String getDistributionName() {
       java.lang.Object ref = distributionName_;
       if (ref instanceof java.lang.String) {
@@ -4682,6 +4729,7 @@ public final class Types {
      * <code>string distribution_name = 2;</code>
      * @return The bytes for distributionName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDistributionNameBytes() {
       java.lang.Object ref = distributionName_;
@@ -4702,6 +4750,7 @@ public final class Types {
      * <code>string runner = 3;</code>
      * @return The runner.
      */
+    @java.lang.Override
     public java.lang.String getRunner() {
       java.lang.Object ref = runner_;
       if (ref instanceof java.lang.String) {
@@ -4718,6 +4767,7 @@ public final class Types {
      * <code>string runner = 3;</code>
      * @return The bytes for runner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRunnerBytes() {
       java.lang.Object ref = runner_;
@@ -5072,7 +5122,7 @@ public final class Types {
        * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 1;</code>
        * @return The enum numeric value on the wire for distributionType.
        */
-      public int getDistributionTypeValue() {
+      @java.lang.Override public int getDistributionTypeValue() {
         return distributionType_;
       }
       /**
@@ -5081,6 +5131,7 @@ public final class Types {
        * @return This builder for chaining.
        */
       public Builder setDistributionTypeValue(int value) {
+        
         distributionType_ = value;
         onChanged();
         return this;
@@ -5089,6 +5140,7 @@ public final class Types {
        * <code>.sifnode.dispensation.v1.DistributionType distribution_type = 1;</code>
        * @return The distributionType.
        */
+      @java.lang.Override
       public sifnode.dispensation.v1.Types.DistributionType getDistributionType() {
         @SuppressWarnings("deprecation")
         sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(distributionType_);
@@ -5365,7 +5417,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.UserClaim}
    */
-  public  static final class UserClaim extends
+  public static final class UserClaim extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.UserClaim)
       UserClaimOrBuilder {
@@ -5466,6 +5518,7 @@ public final class Types {
      * <code>string user_address = 1;</code>
      * @return The userAddress.
      */
+    @java.lang.Override
     public java.lang.String getUserAddress() {
       java.lang.Object ref = userAddress_;
       if (ref instanceof java.lang.String) {
@@ -5482,6 +5535,7 @@ public final class Types {
      * <code>string user_address = 1;</code>
      * @return The bytes for userAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUserAddressBytes() {
       java.lang.Object ref = userAddress_;
@@ -5502,14 +5556,14 @@ public final class Types {
      * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 2;</code>
      * @return The enum numeric value on the wire for userClaimType.
      */
-    public int getUserClaimTypeValue() {
+    @java.lang.Override public int getUserClaimTypeValue() {
       return userClaimType_;
     }
     /**
      * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 2;</code>
      * @return The userClaimType.
      */
-    public sifnode.dispensation.v1.Types.DistributionType getUserClaimType() {
+    @java.lang.Override public sifnode.dispensation.v1.Types.DistributionType getUserClaimType() {
       @SuppressWarnings("deprecation")
       sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(userClaimType_);
       return result == null ? sifnode.dispensation.v1.Types.DistributionType.UNRECOGNIZED : result;
@@ -5521,6 +5575,7 @@ public final class Types {
      * <code>string user_claim_time = 3 [(.gogoproto.customtype) = "github.com/gogo/protobuf/types.Timestamp"];</code>
      * @return The userClaimTime.
      */
+    @java.lang.Override
     public java.lang.String getUserClaimTime() {
       java.lang.Object ref = userClaimTime_;
       if (ref instanceof java.lang.String) {
@@ -5537,6 +5592,7 @@ public final class Types {
      * <code>string user_claim_time = 3 [(.gogoproto.customtype) = "github.com/gogo/protobuf/types.Timestamp"];</code>
      * @return The bytes for userClaimTime.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUserClaimTimeBytes() {
       java.lang.Object ref = userClaimTime_;
@@ -5967,7 +6023,7 @@ public final class Types {
        * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 2;</code>
        * @return The enum numeric value on the wire for userClaimType.
        */
-      public int getUserClaimTypeValue() {
+      @java.lang.Override public int getUserClaimTypeValue() {
         return userClaimType_;
       }
       /**
@@ -5976,6 +6032,7 @@ public final class Types {
        * @return This builder for chaining.
        */
       public Builder setUserClaimTypeValue(int value) {
+        
         userClaimType_ = value;
         onChanged();
         return this;
@@ -5984,6 +6041,7 @@ public final class Types {
        * <code>.sifnode.dispensation.v1.DistributionType user_claim_type = 2;</code>
        * @return The userClaimType.
        */
+      @java.lang.Override
       public sifnode.dispensation.v1.Types.DistributionType getUserClaimType() {
         @SuppressWarnings("deprecation")
         sifnode.dispensation.v1.Types.DistributionType result = sifnode.dispensation.v1.Types.DistributionType.valueOf(userClaimType_);
@@ -6173,7 +6231,7 @@ public final class Types {
   /**
    * Protobuf type {@code sifnode.dispensation.v1.UserClaims}
    */
-  public  static final class UserClaims extends
+  public static final class UserClaims extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.dispensation.v1.UserClaims)
       UserClaimsOrBuilder {
@@ -6266,12 +6324,14 @@ public final class Types {
     /**
      * <code>repeated .sifnode.dispensation.v1.UserClaim user_claims = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.dispensation.v1.Types.UserClaim> getUserClaimsList() {
       return userClaims_;
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.UserClaim user_claims = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.dispensation.v1.Types.UserClaimOrBuilder> 
         getUserClaimsOrBuilderList() {
       return userClaims_;
@@ -6279,18 +6339,21 @@ public final class Types {
     /**
      * <code>repeated .sifnode.dispensation.v1.UserClaim user_claims = 1;</code>
      */
+    @java.lang.Override
     public int getUserClaimsCount() {
       return userClaims_.size();
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.UserClaim user_claims = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.UserClaim getUserClaims(int index) {
       return userClaims_.get(index);
     }
     /**
      * <code>repeated .sifnode.dispensation.v1.UserClaim user_claims = 1;</code>
      */
+    @java.lang.Override
     public sifnode.dispensation.v1.Types.UserClaimOrBuilder getUserClaimsOrBuilder(
         int index) {
       return userClaims_.get(index);
@@ -7021,7 +7084,7 @@ public final class Types {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_sifnode_dispensation_v1_GenesisState_descriptor =
@@ -7068,13 +7131,13 @@ public final class Types {
         new java.lang.String[] { "UserClaims", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

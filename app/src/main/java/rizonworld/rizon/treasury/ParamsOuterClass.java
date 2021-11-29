@@ -89,7 +89,7 @@ public final class ParamsOuterClass {
    *
    * Protobuf type {@code rizonworld.rizon.treasury.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:rizonworld.rizon.treasury.Params)
       ParamsOrBuilder {
@@ -197,6 +197,7 @@ public final class ParamsOuterClass {
      * <code>bool mintable = 1 [(.gogoproto.moretags) = "yaml:&#92;"mintable&#92;""];</code>
      * @return The mintable.
      */
+    @java.lang.Override
     public boolean getMintable() {
       return mintable_;
     }
@@ -211,6 +212,7 @@ public final class ParamsOuterClass {
      * <code>int64 sequence = 2 [(.gogoproto.moretags) = "yaml:&#92;"sequence&#92;""];</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -224,6 +226,7 @@ public final class ParamsOuterClass {
      *
      * <code>repeated .rizonworld.rizon.treasury.Currency currency_list = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"currency_list&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<rizonworld.rizon.treasury.Treasury.Currency> getCurrencyListList() {
       return currencyList_;
     }
@@ -234,6 +237,7 @@ public final class ParamsOuterClass {
      *
      * <code>repeated .rizonworld.rizon.treasury.Currency currency_list = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"currency_list&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends rizonworld.rizon.treasury.Treasury.CurrencyOrBuilder> 
         getCurrencyListOrBuilderList() {
       return currencyList_;
@@ -245,6 +249,7 @@ public final class ParamsOuterClass {
      *
      * <code>repeated .rizonworld.rizon.treasury.Currency currency_list = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"currency_list&#92;""];</code>
      */
+    @java.lang.Override
     public int getCurrencyListCount() {
       return currencyList_.size();
     }
@@ -255,6 +260,7 @@ public final class ParamsOuterClass {
      *
      * <code>repeated .rizonworld.rizon.treasury.Currency currency_list = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"currency_list&#92;""];</code>
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.Treasury.Currency getCurrencyList(int index) {
       return currencyList_.get(index);
     }
@@ -265,6 +271,7 @@ public final class ParamsOuterClass {
      *
      * <code>repeated .rizonworld.rizon.treasury.Currency currency_list = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"currency_list&#92;""];</code>
      */
+    @java.lang.Override
     public rizonworld.rizon.treasury.Treasury.CurrencyOrBuilder getCurrencyListOrBuilder(
         int index) {
       return currencyList_.get(index);
@@ -661,6 +668,7 @@ public final class ParamsOuterClass {
        * <code>bool mintable = 1 [(.gogoproto.moretags) = "yaml:&#92;"mintable&#92;""];</code>
        * @return The mintable.
        */
+      @java.lang.Override
       public boolean getMintable() {
         return mintable_;
       }
@@ -703,6 +711,7 @@ public final class ParamsOuterClass {
        * <code>int64 sequence = 2 [(.gogoproto.moretags) = "yaml:&#92;"sequence&#92;""];</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -1127,7 +1136,7 @@ public final class ParamsOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           rizonworld.rizon.treasury.Treasury.getDescriptor(),
         });
     internal_static_rizonworld_rizon_treasury_Params_descriptor =
@@ -1138,12 +1147,12 @@ public final class ParamsOuterClass {
         new java.lang.String[] { "Mintable", "Sequence", "CurrencyList", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     rizonworld.rizon.treasury.Treasury.getDescriptor();
   }
 

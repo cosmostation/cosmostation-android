@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;
@@ -23,14 +23,13 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListHardFragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.ListPoolFragment;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.HardInterestRate;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
 import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
 import wannabit.io.cosmostaion.model.kava.HardParam;
-import wannabit.io.cosmostaion.model.kava.MyCdp;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
+import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.model.kava.SwapDeposit;
 import wannabit.io.cosmostaion.model.kava.SwapPool;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -86,10 +85,10 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindHardDetailAvailable(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom) {
     }
 
-    public void onBindOsmoMyPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool mypool) {
+    public void onBindOsmoMyPool(Context context, BaseActivity activity, BaseData baseData, BalancerPoolOuterClass.BalancerPool mypool) {
     }
 
-    public void onBindOsmoOtherPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
+    public void onBindOsmoOtherPool(Context context, BaseActivity activity, BaseData baseData, BalancerPoolOuterClass.BalancerPool otherPool) {
     }
 
     public void onBindKavaMyPool(Context context, BaseActivity activity, BaseData baseData, SwapPool myPool, SwapDeposit myDeposit) {

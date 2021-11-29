@@ -33,7 +33,7 @@ public final class Querier {
   /**
    * Protobuf type {@code sifnode.clp.v1.PoolReq}
    */
-  public  static final class PoolReq extends
+  public static final class PoolReq extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.PoolReq)
       PoolReqOrBuilder {
@@ -120,6 +120,7 @@ public final class Querier {
      * <code>string symbol = 1;</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -136,6 +137,7 @@ public final class Querier {
      * <code>string symbol = 1;</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -620,7 +622,7 @@ public final class Querier {
   /**
    * Protobuf type {@code sifnode.clp.v1.PoolRes}
    */
-  public  static final class PoolRes extends
+  public static final class PoolRes extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.PoolRes)
       PoolResOrBuilder {
@@ -725,6 +727,7 @@ public final class Querier {
      * <code>.sifnode.clp.v1.Pool pool = 1;</code>
      * @return Whether the pool field is set.
      */
+    @java.lang.Override
     public boolean hasPool() {
       return pool_ != null;
     }
@@ -732,12 +735,14 @@ public final class Querier {
      * <code>.sifnode.clp.v1.Pool pool = 1;</code>
      * @return The pool.
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.Pool getPool() {
       return pool_ == null ? sifnode.clp.v1.Types.Pool.getDefaultInstance() : pool_;
     }
     /**
      * <code>.sifnode.clp.v1.Pool pool = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.PoolOrBuilder getPoolOrBuilder() {
       return getPool();
     }
@@ -748,6 +753,7 @@ public final class Querier {
      * <code>string clp_module_address = 2;</code>
      * @return The clpModuleAddress.
      */
+    @java.lang.Override
     public java.lang.String getClpModuleAddress() {
       java.lang.Object ref = clpModuleAddress_;
       if (ref instanceof java.lang.String) {
@@ -764,6 +770,7 @@ public final class Querier {
      * <code>string clp_module_address = 2;</code>
      * @return The bytes for clpModuleAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClpModuleAddressBytes() {
       java.lang.Object ref = clpModuleAddress_;
@@ -784,6 +791,7 @@ public final class Querier {
      * <code>int64 height = 3;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -1338,6 +1346,7 @@ public final class Querier {
        * <code>int64 height = 3;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -1437,7 +1446,7 @@ public final class Querier {
   /**
    * Protobuf type {@code sifnode.clp.v1.PoolsReq}
    */
-  public  static final class PoolsReq extends
+  public static final class PoolsReq extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.PoolsReq)
       PoolsReqOrBuilder {
@@ -1530,6 +1539,7 @@ public final class Querier {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1537,12 +1547,14 @@ public final class Querier {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2097,7 +2109,7 @@ public final class Querier {
   /**
    * Protobuf type {@code sifnode.clp.v1.PoolsRes}
    */
-  public  static final class PoolsRes extends
+  public static final class PoolsRes extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.PoolsRes)
       PoolsResOrBuilder {
@@ -2215,12 +2227,14 @@ public final class Querier {
     /**
      * <code>repeated .sifnode.clp.v1.Pool pools = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.clp.v1.Types.Pool> getPoolsList() {
       return pools_;
     }
     /**
      * <code>repeated .sifnode.clp.v1.Pool pools = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.clp.v1.Types.PoolOrBuilder> 
         getPoolsOrBuilderList() {
       return pools_;
@@ -2228,18 +2242,21 @@ public final class Querier {
     /**
      * <code>repeated .sifnode.clp.v1.Pool pools = 1;</code>
      */
+    @java.lang.Override
     public int getPoolsCount() {
       return pools_.size();
     }
     /**
      * <code>repeated .sifnode.clp.v1.Pool pools = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.Pool getPools(int index) {
       return pools_.get(index);
     }
     /**
      * <code>repeated .sifnode.clp.v1.Pool pools = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.PoolOrBuilder getPoolsOrBuilder(
         int index) {
       return pools_.get(index);
@@ -2251,6 +2268,7 @@ public final class Querier {
      * <code>string clp_module_address = 2;</code>
      * @return The clpModuleAddress.
      */
+    @java.lang.Override
     public java.lang.String getClpModuleAddress() {
       java.lang.Object ref = clpModuleAddress_;
       if (ref instanceof java.lang.String) {
@@ -2267,6 +2285,7 @@ public final class Querier {
      * <code>string clp_module_address = 2;</code>
      * @return The bytes for clpModuleAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClpModuleAddressBytes() {
       java.lang.Object ref = clpModuleAddress_;
@@ -2287,6 +2306,7 @@ public final class Querier {
      * <code>int64 height = 3;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -2297,6 +2317,7 @@ public final class Querier {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 4;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2304,12 +2325,14 @@ public final class Querier {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 4;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 4;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3042,6 +3065,7 @@ public final class Querier {
        * <code>int64 height = 3;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -3269,7 +3293,7 @@ public final class Querier {
   /**
    * Protobuf type {@code sifnode.clp.v1.LiquidityProviderReq}
    */
-  public  static final class LiquidityProviderReq extends
+  public static final class LiquidityProviderReq extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.LiquidityProviderReq)
       LiquidityProviderReqOrBuilder {
@@ -3363,6 +3387,7 @@ public final class Querier {
      * <code>string symbol = 1;</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -3379,6 +3404,7 @@ public final class Querier {
      * <code>string symbol = 1;</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -3399,6 +3425,7 @@ public final class Querier {
      * <code>string lp_address = 2;</code>
      * @return The lpAddress.
      */
+    @java.lang.Override
     public java.lang.String getLpAddress() {
       java.lang.Object ref = lpAddress_;
       if (ref instanceof java.lang.String) {
@@ -3415,6 +3442,7 @@ public final class Querier {
      * <code>string lp_address = 2;</code>
      * @return The bytes for lpAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getLpAddressBytes() {
       java.lang.Object ref = lpAddress_;
@@ -4004,7 +4032,7 @@ public final class Querier {
   /**
    * Protobuf type {@code sifnode.clp.v1.LiquidityProviderRes}
    */
-  public  static final class LiquidityProviderRes extends
+  public static final class LiquidityProviderRes extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.LiquidityProviderRes)
       LiquidityProviderResOrBuilder {
@@ -4116,6 +4144,7 @@ public final class Querier {
      * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
      * @return Whether the liquidityProvider field is set.
      */
+    @java.lang.Override
     public boolean hasLiquidityProvider() {
       return liquidityProvider_ != null;
     }
@@ -4123,12 +4152,14 @@ public final class Querier {
      * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
      * @return The liquidityProvider.
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.LiquidityProvider getLiquidityProvider() {
       return liquidityProvider_ == null ? sifnode.clp.v1.Types.LiquidityProvider.getDefaultInstance() : liquidityProvider_;
     }
     /**
      * <code>.sifnode.clp.v1.LiquidityProvider liquidity_provider = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.LiquidityProviderOrBuilder getLiquidityProviderOrBuilder() {
       return getLiquidityProvider();
     }
@@ -4139,6 +4170,7 @@ public final class Querier {
      * <code>string native_asset_balance = 2;</code>
      * @return The nativeAssetBalance.
      */
+    @java.lang.Override
     public java.lang.String getNativeAssetBalance() {
       java.lang.Object ref = nativeAssetBalance_;
       if (ref instanceof java.lang.String) {
@@ -4155,6 +4187,7 @@ public final class Querier {
      * <code>string native_asset_balance = 2;</code>
      * @return The bytes for nativeAssetBalance.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNativeAssetBalanceBytes() {
       java.lang.Object ref = nativeAssetBalance_;
@@ -4175,6 +4208,7 @@ public final class Querier {
      * <code>string external_asset_balance = 3;</code>
      * @return The externalAssetBalance.
      */
+    @java.lang.Override
     public java.lang.String getExternalAssetBalance() {
       java.lang.Object ref = externalAssetBalance_;
       if (ref instanceof java.lang.String) {
@@ -4191,6 +4225,7 @@ public final class Querier {
      * <code>string external_asset_balance = 3;</code>
      * @return The bytes for externalAssetBalance.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getExternalAssetBalanceBytes() {
       java.lang.Object ref = externalAssetBalance_;
@@ -4211,6 +4246,7 @@ public final class Querier {
      * <code>int64 height = 4;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -4858,6 +4894,7 @@ public final class Querier {
        * <code>int64 height = 4;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -4950,11 +4987,26 @@ public final class Querier {
      */
     com.google.protobuf.ByteString
         getLpAddressBytes();
+
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequest getPagination();
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder();
   }
   /**
    * Protobuf type {@code sifnode.clp.v1.AssetListReq}
    */
-  public  static final class AssetListReq extends
+  public static final class AssetListReq extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.AssetListReq)
       AssetListReqOrBuilder {
@@ -5003,6 +5055,19 @@ public final class Querier {
               lpAddress_ = s;
               break;
             }
+            case 18: {
+              cosmos.base.query.v1beta1.Pagination.PageRequest.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -5041,6 +5106,7 @@ public final class Querier {
      * <code>string lp_address = 1;</code>
      * @return The lpAddress.
      */
+    @java.lang.Override
     public java.lang.String getLpAddress() {
       java.lang.Object ref = lpAddress_;
       if (ref instanceof java.lang.String) {
@@ -5057,6 +5123,7 @@ public final class Querier {
      * <code>string lp_address = 1;</code>
      * @return The bytes for lpAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getLpAddressBytes() {
       java.lang.Object ref = lpAddress_;
@@ -5069,6 +5136,32 @@ public final class Querier {
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 2;
+    private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+      return getPagination();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -5088,6 +5181,9 @@ public final class Querier {
       if (!getLpAddressBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, lpAddress_);
       }
+      if (pagination_ != null) {
+        output.writeMessage(2, getPagination());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -5099,6 +5195,10 @@ public final class Querier {
       size = 0;
       if (!getLpAddressBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, lpAddress_);
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPagination());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5117,6 +5217,11 @@ public final class Querier {
 
       if (!getLpAddress()
           .equals(other.getLpAddress())) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -5130,6 +5235,10 @@ public final class Querier {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + LP_ADDRESS_FIELD_NUMBER;
       hash = (53 * hash) + getLpAddress().hashCode();
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -5265,6 +5374,12 @@ public final class Querier {
         super.clear();
         lpAddress_ = "";
 
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
         return this;
       }
 
@@ -5292,6 +5407,11 @@ public final class Querier {
       public sifnode.clp.v1.Querier.AssetListReq buildPartial() {
         sifnode.clp.v1.Querier.AssetListReq result = new sifnode.clp.v1.Querier.AssetListReq(this);
         result.lpAddress_ = lpAddress_;
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -5343,6 +5463,9 @@ public final class Querier {
         if (!other.getLpAddress().isEmpty()) {
           lpAddress_ = other.lpAddress_;
           onChanged();
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -5448,6 +5571,125 @@ public final class Querier {
         onChanged();
         return this;
       }
+
+      private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> paginationBuilder_;
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageRequest.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageRequest.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -5534,11 +5776,26 @@ public final class Querier {
      * @return The height.
      */
     long getHeight();
+
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponse getPagination();
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder();
   }
   /**
    * Protobuf type {@code sifnode.clp.v1.AssetListRes}
    */
-  public  static final class AssetListRes extends
+  public static final class AssetListRes extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.AssetListRes)
       AssetListResOrBuilder {
@@ -5596,6 +5853,19 @@ public final class Querier {
               height_ = input.readInt64();
               break;
             }
+            case 26: {
+              cosmos.base.query.v1beta1.Pagination.PageResponse.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageResponse.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -5636,12 +5906,14 @@ public final class Querier {
     /**
      * <code>repeated .sifnode.clp.v1.Asset assets = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.clp.v1.Types.Asset> getAssetsList() {
       return assets_;
     }
     /**
      * <code>repeated .sifnode.clp.v1.Asset assets = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.clp.v1.Types.AssetOrBuilder> 
         getAssetsOrBuilderList() {
       return assets_;
@@ -5649,18 +5921,21 @@ public final class Querier {
     /**
      * <code>repeated .sifnode.clp.v1.Asset assets = 1;</code>
      */
+    @java.lang.Override
     public int getAssetsCount() {
       return assets_.size();
     }
     /**
      * <code>repeated .sifnode.clp.v1.Asset assets = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.Asset getAssets(int index) {
       return assets_.get(index);
     }
     /**
      * <code>repeated .sifnode.clp.v1.Asset assets = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.AssetOrBuilder getAssetsOrBuilder(
         int index) {
       return assets_.get(index);
@@ -5672,8 +5947,35 @@ public final class Querier {
      * <code>int64 height = 2;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 3;
+    private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
+      return getPagination();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -5696,6 +5998,9 @@ public final class Querier {
       if (height_ != 0L) {
         output.writeInt64(2, height_);
       }
+      if (pagination_ != null) {
+        output.writeMessage(3, getPagination());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -5712,6 +6017,10 @@ public final class Querier {
       if (height_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(2, height_);
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getPagination());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5732,6 +6041,11 @@ public final class Querier {
           .equals(other.getAssetsList())) return false;
       if (getHeight()
           != other.getHeight()) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -5750,6 +6064,10 @@ public final class Querier {
       hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getHeight());
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -5892,6 +6210,12 @@ public final class Querier {
         }
         height_ = 0L;
 
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
         return this;
       }
 
@@ -5929,6 +6253,11 @@ public final class Querier {
           result.assets_ = assetsBuilder_.build();
         }
         result.height_ = height_;
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -6005,6 +6334,9 @@ public final class Querier {
         }
         if (other.getHeight() != 0L) {
           setHeight(other.getHeight());
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -6281,6 +6613,7 @@ public final class Querier {
        * <code>int64 height = 2;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -6304,6 +6637,125 @@ public final class Querier {
         height_ = 0L;
         onChanged();
         return this;
+      }
+
+      private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> paginationBuilder_;
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageResponse.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageResponse.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponse.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -6358,6 +6810,1844 @@ public final class Querier {
 
   }
 
+  public interface LiquidityProviderDataReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.LiquidityProviderDataReq)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string lp_address = 1;</code>
+     * @return The lpAddress.
+     */
+    java.lang.String getLpAddress();
+    /**
+     * <code>string lp_address = 1;</code>
+     * @return The bytes for lpAddress.
+     */
+    com.google.protobuf.ByteString
+        getLpAddressBytes();
+
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequest getPagination();
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.LiquidityProviderDataReq}
+   */
+  public static final class LiquidityProviderDataReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.LiquidityProviderDataReq)
+      LiquidityProviderDataReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use LiquidityProviderDataReq.newBuilder() to construct.
+    private LiquidityProviderDataReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LiquidityProviderDataReq() {
+      lpAddress_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new LiquidityProviderDataReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private LiquidityProviderDataReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              lpAddress_ = s;
+              break;
+            }
+            case 18: {
+              cosmos.base.query.v1beta1.Pagination.PageRequest.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_LiquidityProviderDataReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_LiquidityProviderDataReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Querier.LiquidityProviderDataReq.class, sifnode.clp.v1.Querier.LiquidityProviderDataReq.Builder.class);
+    }
+
+    public static final int LP_ADDRESS_FIELD_NUMBER = 1;
+    private volatile java.lang.Object lpAddress_;
+    /**
+     * <code>string lp_address = 1;</code>
+     * @return The lpAddress.
+     */
+    @java.lang.Override
+    public java.lang.String getLpAddress() {
+      java.lang.Object ref = lpAddress_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        lpAddress_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string lp_address = 1;</code>
+     * @return The bytes for lpAddress.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getLpAddressBytes() {
+      java.lang.Object ref = lpAddress_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        lpAddress_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 2;
+    private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+      return getPagination();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getLpAddressBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, lpAddress_);
+      }
+      if (pagination_ != null) {
+        output.writeMessage(2, getPagination());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getLpAddressBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, lpAddress_);
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPagination());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Querier.LiquidityProviderDataReq)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Querier.LiquidityProviderDataReq other = (sifnode.clp.v1.Querier.LiquidityProviderDataReq) obj;
+
+      if (!getLpAddress()
+          .equals(other.getLpAddress())) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LP_ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getLpAddress().hashCode();
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Querier.LiquidityProviderDataReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.LiquidityProviderDataReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.LiquidityProviderDataReq)
+        sifnode.clp.v1.Querier.LiquidityProviderDataReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_LiquidityProviderDataReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_LiquidityProviderDataReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Querier.LiquidityProviderDataReq.class, sifnode.clp.v1.Querier.LiquidityProviderDataReq.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Querier.LiquidityProviderDataReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        lpAddress_ = "";
+
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_LiquidityProviderDataReq_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.LiquidityProviderDataReq getDefaultInstanceForType() {
+        return sifnode.clp.v1.Querier.LiquidityProviderDataReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.LiquidityProviderDataReq build() {
+        sifnode.clp.v1.Querier.LiquidityProviderDataReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.LiquidityProviderDataReq buildPartial() {
+        sifnode.clp.v1.Querier.LiquidityProviderDataReq result = new sifnode.clp.v1.Querier.LiquidityProviderDataReq(this);
+        result.lpAddress_ = lpAddress_;
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Querier.LiquidityProviderDataReq) {
+          return mergeFrom((sifnode.clp.v1.Querier.LiquidityProviderDataReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Querier.LiquidityProviderDataReq other) {
+        if (other == sifnode.clp.v1.Querier.LiquidityProviderDataReq.getDefaultInstance()) return this;
+        if (!other.getLpAddress().isEmpty()) {
+          lpAddress_ = other.lpAddress_;
+          onChanged();
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Querier.LiquidityProviderDataReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Querier.LiquidityProviderDataReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object lpAddress_ = "";
+      /**
+       * <code>string lp_address = 1;</code>
+       * @return The lpAddress.
+       */
+      public java.lang.String getLpAddress() {
+        java.lang.Object ref = lpAddress_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          lpAddress_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string lp_address = 1;</code>
+       * @return The bytes for lpAddress.
+       */
+      public com.google.protobuf.ByteString
+          getLpAddressBytes() {
+        java.lang.Object ref = lpAddress_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          lpAddress_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string lp_address = 1;</code>
+       * @param value The lpAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLpAddress(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        lpAddress_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string lp_address = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLpAddress() {
+        
+        lpAddress_ = getDefaultInstance().getLpAddress();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string lp_address = 1;</code>
+       * @param value The bytes for lpAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLpAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        lpAddress_ = value;
+        onChanged();
+        return this;
+      }
+
+      private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> paginationBuilder_;
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageRequest.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageRequest.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.LiquidityProviderDataReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.LiquidityProviderDataReq)
+    private static final sifnode.clp.v1.Querier.LiquidityProviderDataReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Querier.LiquidityProviderDataReq();
+    }
+
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<LiquidityProviderDataReq>
+        PARSER = new com.google.protobuf.AbstractParser<LiquidityProviderDataReq>() {
+      @java.lang.Override
+      public LiquidityProviderDataReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new LiquidityProviderDataReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LiquidityProviderDataReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LiquidityProviderDataReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Querier.LiquidityProviderDataReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface LiquidityProviderDataResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.LiquidityProviderDataRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+     */
+    java.util.List<sifnode.clp.v1.Types.LiquidityProviderData> 
+        getLiquidityProviderDataList();
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+     */
+    sifnode.clp.v1.Types.LiquidityProviderData getLiquidityProviderData(int index);
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+     */
+    int getLiquidityProviderDataCount();
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+     */
+    java.util.List<? extends sifnode.clp.v1.Types.LiquidityProviderDataOrBuilder> 
+        getLiquidityProviderDataOrBuilderList();
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+     */
+    sifnode.clp.v1.Types.LiquidityProviderDataOrBuilder getLiquidityProviderDataOrBuilder(
+        int index);
+
+    /**
+     * <code>int64 height = 2;</code>
+     * @return The height.
+     */
+    long getHeight();
+
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequest getPagination();
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder();
+  }
+  /**
+   * Protobuf type {@code sifnode.clp.v1.LiquidityProviderDataRes}
+   */
+  public static final class LiquidityProviderDataRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sifnode.clp.v1.LiquidityProviderDataRes)
+      LiquidityProviderDataResOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use LiquidityProviderDataRes.newBuilder() to construct.
+    private LiquidityProviderDataRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LiquidityProviderDataRes() {
+      liquidityProviderData_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new LiquidityProviderDataRes();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private LiquidityProviderDataRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                liquidityProviderData_ = new java.util.ArrayList<sifnode.clp.v1.Types.LiquidityProviderData>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              liquidityProviderData_.add(
+                  input.readMessage(sifnode.clp.v1.Types.LiquidityProviderData.parser(), extensionRegistry));
+              break;
+            }
+            case 16: {
+
+              height_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              cosmos.base.query.v1beta1.Pagination.PageRequest.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          liquidityProviderData_ = java.util.Collections.unmodifiableList(liquidityProviderData_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_LiquidityProviderDataRes_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_LiquidityProviderDataRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sifnode.clp.v1.Querier.LiquidityProviderDataRes.class, sifnode.clp.v1.Querier.LiquidityProviderDataRes.Builder.class);
+    }
+
+    public static final int LIQUIDITY_PROVIDER_DATA_FIELD_NUMBER = 1;
+    private java.util.List<sifnode.clp.v1.Types.LiquidityProviderData> liquidityProviderData_;
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<sifnode.clp.v1.Types.LiquidityProviderData> getLiquidityProviderDataList() {
+      return liquidityProviderData_;
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends sifnode.clp.v1.Types.LiquidityProviderDataOrBuilder> 
+        getLiquidityProviderDataOrBuilderList() {
+      return liquidityProviderData_;
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+     */
+    @java.lang.Override
+    public int getLiquidityProviderDataCount() {
+      return liquidityProviderData_.size();
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.LiquidityProviderData getLiquidityProviderData(int index) {
+      return liquidityProviderData_.get(index);
+    }
+    /**
+     * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+     */
+    @java.lang.Override
+    public sifnode.clp.v1.Types.LiquidityProviderDataOrBuilder getLiquidityProviderDataOrBuilder(
+        int index) {
+      return liquidityProviderData_.get(index);
+    }
+
+    public static final int HEIGHT_FIELD_NUMBER = 2;
+    private long height_;
+    /**
+     * <code>int64 height = 2;</code>
+     * @return The height.
+     */
+    @java.lang.Override
+    public long getHeight() {
+      return height_;
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 3;
+    private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+      return getPagination();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < liquidityProviderData_.size(); i++) {
+        output.writeMessage(1, liquidityProviderData_.get(i));
+      }
+      if (height_ != 0L) {
+        output.writeInt64(2, height_);
+      }
+      if (pagination_ != null) {
+        output.writeMessage(3, getPagination());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < liquidityProviderData_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, liquidityProviderData_.get(i));
+      }
+      if (height_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, height_);
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getPagination());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sifnode.clp.v1.Querier.LiquidityProviderDataRes)) {
+        return super.equals(obj);
+      }
+      sifnode.clp.v1.Querier.LiquidityProviderDataRes other = (sifnode.clp.v1.Querier.LiquidityProviderDataRes) obj;
+
+      if (!getLiquidityProviderDataList()
+          .equals(other.getLiquidityProviderDataList())) return false;
+      if (getHeight()
+          != other.getHeight()) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getLiquidityProviderDataCount() > 0) {
+        hash = (37 * hash) + LIQUIDITY_PROVIDER_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getLiquidityProviderDataList().hashCode();
+      }
+      hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getHeight());
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sifnode.clp.v1.Querier.LiquidityProviderDataRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sifnode.clp.v1.LiquidityProviderDataRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sifnode.clp.v1.LiquidityProviderDataRes)
+        sifnode.clp.v1.Querier.LiquidityProviderDataResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_LiquidityProviderDataRes_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_LiquidityProviderDataRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sifnode.clp.v1.Querier.LiquidityProviderDataRes.class, sifnode.clp.v1.Querier.LiquidityProviderDataRes.Builder.class);
+      }
+
+      // Construct using sifnode.clp.v1.Querier.LiquidityProviderDataRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getLiquidityProviderDataFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (liquidityProviderDataBuilder_ == null) {
+          liquidityProviderData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          liquidityProviderDataBuilder_.clear();
+        }
+        height_ = 0L;
+
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sifnode.clp.v1.Querier.internal_static_sifnode_clp_v1_LiquidityProviderDataRes_descriptor;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.LiquidityProviderDataRes getDefaultInstanceForType() {
+        return sifnode.clp.v1.Querier.LiquidityProviderDataRes.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.LiquidityProviderDataRes build() {
+        sifnode.clp.v1.Querier.LiquidityProviderDataRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sifnode.clp.v1.Querier.LiquidityProviderDataRes buildPartial() {
+        sifnode.clp.v1.Querier.LiquidityProviderDataRes result = new sifnode.clp.v1.Querier.LiquidityProviderDataRes(this);
+        int from_bitField0_ = bitField0_;
+        if (liquidityProviderDataBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            liquidityProviderData_ = java.util.Collections.unmodifiableList(liquidityProviderData_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.liquidityProviderData_ = liquidityProviderData_;
+        } else {
+          result.liquidityProviderData_ = liquidityProviderDataBuilder_.build();
+        }
+        result.height_ = height_;
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sifnode.clp.v1.Querier.LiquidityProviderDataRes) {
+          return mergeFrom((sifnode.clp.v1.Querier.LiquidityProviderDataRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sifnode.clp.v1.Querier.LiquidityProviderDataRes other) {
+        if (other == sifnode.clp.v1.Querier.LiquidityProviderDataRes.getDefaultInstance()) return this;
+        if (liquidityProviderDataBuilder_ == null) {
+          if (!other.liquidityProviderData_.isEmpty()) {
+            if (liquidityProviderData_.isEmpty()) {
+              liquidityProviderData_ = other.liquidityProviderData_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureLiquidityProviderDataIsMutable();
+              liquidityProviderData_.addAll(other.liquidityProviderData_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.liquidityProviderData_.isEmpty()) {
+            if (liquidityProviderDataBuilder_.isEmpty()) {
+              liquidityProviderDataBuilder_.dispose();
+              liquidityProviderDataBuilder_ = null;
+              liquidityProviderData_ = other.liquidityProviderData_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              liquidityProviderDataBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getLiquidityProviderDataFieldBuilder() : null;
+            } else {
+              liquidityProviderDataBuilder_.addAllMessages(other.liquidityProviderData_);
+            }
+          }
+        }
+        if (other.getHeight() != 0L) {
+          setHeight(other.getHeight());
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sifnode.clp.v1.Querier.LiquidityProviderDataRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sifnode.clp.v1.Querier.LiquidityProviderDataRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<sifnode.clp.v1.Types.LiquidityProviderData> liquidityProviderData_ =
+        java.util.Collections.emptyList();
+      private void ensureLiquidityProviderDataIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          liquidityProviderData_ = new java.util.ArrayList<sifnode.clp.v1.Types.LiquidityProviderData>(liquidityProviderData_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.clp.v1.Types.LiquidityProviderData, sifnode.clp.v1.Types.LiquidityProviderData.Builder, sifnode.clp.v1.Types.LiquidityProviderDataOrBuilder> liquidityProviderDataBuilder_;
+
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public java.util.List<sifnode.clp.v1.Types.LiquidityProviderData> getLiquidityProviderDataList() {
+        if (liquidityProviderDataBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(liquidityProviderData_);
+        } else {
+          return liquidityProviderDataBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public int getLiquidityProviderDataCount() {
+        if (liquidityProviderDataBuilder_ == null) {
+          return liquidityProviderData_.size();
+        } else {
+          return liquidityProviderDataBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityProviderData getLiquidityProviderData(int index) {
+        if (liquidityProviderDataBuilder_ == null) {
+          return liquidityProviderData_.get(index);
+        } else {
+          return liquidityProviderDataBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public Builder setLiquidityProviderData(
+          int index, sifnode.clp.v1.Types.LiquidityProviderData value) {
+        if (liquidityProviderDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLiquidityProviderDataIsMutable();
+          liquidityProviderData_.set(index, value);
+          onChanged();
+        } else {
+          liquidityProviderDataBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public Builder setLiquidityProviderData(
+          int index, sifnode.clp.v1.Types.LiquidityProviderData.Builder builderForValue) {
+        if (liquidityProviderDataBuilder_ == null) {
+          ensureLiquidityProviderDataIsMutable();
+          liquidityProviderData_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          liquidityProviderDataBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public Builder addLiquidityProviderData(sifnode.clp.v1.Types.LiquidityProviderData value) {
+        if (liquidityProviderDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLiquidityProviderDataIsMutable();
+          liquidityProviderData_.add(value);
+          onChanged();
+        } else {
+          liquidityProviderDataBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public Builder addLiquidityProviderData(
+          int index, sifnode.clp.v1.Types.LiquidityProviderData value) {
+        if (liquidityProviderDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLiquidityProviderDataIsMutable();
+          liquidityProviderData_.add(index, value);
+          onChanged();
+        } else {
+          liquidityProviderDataBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public Builder addLiquidityProviderData(
+          sifnode.clp.v1.Types.LiquidityProviderData.Builder builderForValue) {
+        if (liquidityProviderDataBuilder_ == null) {
+          ensureLiquidityProviderDataIsMutable();
+          liquidityProviderData_.add(builderForValue.build());
+          onChanged();
+        } else {
+          liquidityProviderDataBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public Builder addLiquidityProviderData(
+          int index, sifnode.clp.v1.Types.LiquidityProviderData.Builder builderForValue) {
+        if (liquidityProviderDataBuilder_ == null) {
+          ensureLiquidityProviderDataIsMutable();
+          liquidityProviderData_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          liquidityProviderDataBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public Builder addAllLiquidityProviderData(
+          java.lang.Iterable<? extends sifnode.clp.v1.Types.LiquidityProviderData> values) {
+        if (liquidityProviderDataBuilder_ == null) {
+          ensureLiquidityProviderDataIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, liquidityProviderData_);
+          onChanged();
+        } else {
+          liquidityProviderDataBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public Builder clearLiquidityProviderData() {
+        if (liquidityProviderDataBuilder_ == null) {
+          liquidityProviderData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          liquidityProviderDataBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public Builder removeLiquidityProviderData(int index) {
+        if (liquidityProviderDataBuilder_ == null) {
+          ensureLiquidityProviderDataIsMutable();
+          liquidityProviderData_.remove(index);
+          onChanged();
+        } else {
+          liquidityProviderDataBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityProviderData.Builder getLiquidityProviderDataBuilder(
+          int index) {
+        return getLiquidityProviderDataFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityProviderDataOrBuilder getLiquidityProviderDataOrBuilder(
+          int index) {
+        if (liquidityProviderDataBuilder_ == null) {
+          return liquidityProviderData_.get(index);  } else {
+          return liquidityProviderDataBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public java.util.List<? extends sifnode.clp.v1.Types.LiquidityProviderDataOrBuilder> 
+           getLiquidityProviderDataOrBuilderList() {
+        if (liquidityProviderDataBuilder_ != null) {
+          return liquidityProviderDataBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(liquidityProviderData_);
+        }
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityProviderData.Builder addLiquidityProviderDataBuilder() {
+        return getLiquidityProviderDataFieldBuilder().addBuilder(
+            sifnode.clp.v1.Types.LiquidityProviderData.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public sifnode.clp.v1.Types.LiquidityProviderData.Builder addLiquidityProviderDataBuilder(
+          int index) {
+        return getLiquidityProviderDataFieldBuilder().addBuilder(
+            index, sifnode.clp.v1.Types.LiquidityProviderData.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .sifnode.clp.v1.LiquidityProviderData liquidity_provider_data = 1;</code>
+       */
+      public java.util.List<sifnode.clp.v1.Types.LiquidityProviderData.Builder> 
+           getLiquidityProviderDataBuilderList() {
+        return getLiquidityProviderDataFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          sifnode.clp.v1.Types.LiquidityProviderData, sifnode.clp.v1.Types.LiquidityProviderData.Builder, sifnode.clp.v1.Types.LiquidityProviderDataOrBuilder> 
+          getLiquidityProviderDataFieldBuilder() {
+        if (liquidityProviderDataBuilder_ == null) {
+          liquidityProviderDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              sifnode.clp.v1.Types.LiquidityProviderData, sifnode.clp.v1.Types.LiquidityProviderData.Builder, sifnode.clp.v1.Types.LiquidityProviderDataOrBuilder>(
+                  liquidityProviderData_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          liquidityProviderData_ = null;
+        }
+        return liquidityProviderDataBuilder_;
+      }
+
+      private long height_ ;
+      /**
+       * <code>int64 height = 2;</code>
+       * @return The height.
+       */
+      @java.lang.Override
+      public long getHeight() {
+        return height_;
+      }
+      /**
+       * <code>int64 height = 2;</code>
+       * @param value The height to set.
+       * @return This builder for chaining.
+       */
+      public Builder setHeight(long value) {
+        
+        height_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 height = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearHeight() {
+        
+        height_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> paginationBuilder_;
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageRequest.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageRequest.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sifnode.clp.v1.LiquidityProviderDataRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:sifnode.clp.v1.LiquidityProviderDataRes)
+    private static final sifnode.clp.v1.Querier.LiquidityProviderDataRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sifnode.clp.v1.Querier.LiquidityProviderDataRes();
+    }
+
+    public static sifnode.clp.v1.Querier.LiquidityProviderDataRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<LiquidityProviderDataRes>
+        PARSER = new com.google.protobuf.AbstractParser<LiquidityProviderDataRes>() {
+      @java.lang.Override
+      public LiquidityProviderDataRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new LiquidityProviderDataRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LiquidityProviderDataRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LiquidityProviderDataRes> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sifnode.clp.v1.Querier.LiquidityProviderDataRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface LiquidityProviderListReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:sifnode.clp.v1.LiquidityProviderListReq)
       com.google.protobuf.MessageOrBuilder {
@@ -6373,11 +8663,38 @@ public final class Querier {
      */
     com.google.protobuf.ByteString
         getSymbolBytes();
+
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequest getPagination();
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder();
   }
   /**
    * Protobuf type {@code sifnode.clp.v1.LiquidityProviderListReq}
    */
-  public  static final class LiquidityProviderListReq extends
+  public static final class LiquidityProviderListReq extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.LiquidityProviderListReq)
       LiquidityProviderListReqOrBuilder {
@@ -6426,6 +8743,19 @@ public final class Querier {
               symbol_ = s;
               break;
             }
+            case 18: {
+              cosmos.base.query.v1beta1.Pagination.PageRequest.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -6464,6 +8794,7 @@ public final class Querier {
      * <code>string symbol = 1;</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -6480,6 +8811,7 @@ public final class Querier {
      * <code>string symbol = 1;</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -6492,6 +8824,44 @@ public final class Querier {
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 2;
+    private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+      return getPagination();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -6511,6 +8881,9 @@ public final class Querier {
       if (!getSymbolBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, symbol_);
       }
+      if (pagination_ != null) {
+        output.writeMessage(2, getPagination());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -6522,6 +8895,10 @@ public final class Querier {
       size = 0;
       if (!getSymbolBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, symbol_);
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPagination());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6540,6 +8917,11 @@ public final class Querier {
 
       if (!getSymbol()
           .equals(other.getSymbol())) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -6553,6 +8935,10 @@ public final class Querier {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + SYMBOL_FIELD_NUMBER;
       hash = (53 * hash) + getSymbol().hashCode();
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -6688,6 +9074,12 @@ public final class Querier {
         super.clear();
         symbol_ = "";
 
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
         return this;
       }
 
@@ -6715,6 +9107,11 @@ public final class Querier {
       public sifnode.clp.v1.Querier.LiquidityProviderListReq buildPartial() {
         sifnode.clp.v1.Querier.LiquidityProviderListReq result = new sifnode.clp.v1.Querier.LiquidityProviderListReq(this);
         result.symbol_ = symbol_;
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -6766,6 +9163,9 @@ public final class Querier {
         if (!other.getSymbol().isEmpty()) {
           symbol_ = other.symbol_;
           onChanged();
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -6871,6 +9271,161 @@ public final class Querier {
         onChanged();
         return this;
       }
+
+      private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> paginationBuilder_;
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageRequest.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageRequest.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -6957,11 +9512,38 @@ public final class Querier {
      * @return The height.
      */
     long getHeight();
+
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponse getPagination();
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder();
   }
   /**
    * Protobuf type {@code sifnode.clp.v1.LiquidityProviderListRes}
    */
-  public  static final class LiquidityProviderListRes extends
+  public static final class LiquidityProviderListRes extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.LiquidityProviderListRes)
       LiquidityProviderListResOrBuilder {
@@ -7019,6 +9601,19 @@ public final class Querier {
               height_ = input.readInt64();
               break;
             }
+            case 26: {
+              cosmos.base.query.v1beta1.Pagination.PageResponse.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageResponse.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -7059,12 +9654,14 @@ public final class Querier {
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.clp.v1.Types.LiquidityProvider> getLiquidityProvidersList() {
       return liquidityProviders_;
     }
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.clp.v1.Types.LiquidityProviderOrBuilder> 
         getLiquidityProvidersOrBuilderList() {
       return liquidityProviders_;
@@ -7072,18 +9669,21 @@ public final class Querier {
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 1;</code>
      */
+    @java.lang.Override
     public int getLiquidityProvidersCount() {
       return liquidityProviders_.size();
     }
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.LiquidityProvider getLiquidityProviders(int index) {
       return liquidityProviders_.get(index);
     }
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.LiquidityProviderOrBuilder getLiquidityProvidersOrBuilder(
         int index) {
       return liquidityProviders_.get(index);
@@ -7095,8 +9695,47 @@ public final class Querier {
      * <code>int64 height = 2;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 3;
+    private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
+      return getPagination();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -7119,6 +9758,9 @@ public final class Querier {
       if (height_ != 0L) {
         output.writeInt64(2, height_);
       }
+      if (pagination_ != null) {
+        output.writeMessage(3, getPagination());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -7135,6 +9777,10 @@ public final class Querier {
       if (height_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(2, height_);
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getPagination());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -7155,6 +9801,11 @@ public final class Querier {
           .equals(other.getLiquidityProvidersList())) return false;
       if (getHeight()
           != other.getHeight()) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -7173,6 +9824,10 @@ public final class Querier {
       hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getHeight());
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -7315,6 +9970,12 @@ public final class Querier {
         }
         height_ = 0L;
 
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
         return this;
       }
 
@@ -7352,6 +10013,11 @@ public final class Querier {
           result.liquidityProviders_ = liquidityProvidersBuilder_.build();
         }
         result.height_ = height_;
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -7428,6 +10094,9 @@ public final class Querier {
         }
         if (other.getHeight() != 0L) {
           setHeight(other.getHeight());
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -7704,6 +10373,7 @@ public final class Querier {
        * <code>int64 height = 2;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -7727,6 +10397,161 @@ public final class Querier {
         height_ = 0L;
         onChanged();
         return this;
+      }
+
+      private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> paginationBuilder_;
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageResponse.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageResponse.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponse.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -7803,7 +10628,7 @@ public final class Querier {
   /**
    * Protobuf type {@code sifnode.clp.v1.LiquidityProvidersReq}
    */
-  public  static final class LiquidityProvidersReq extends
+  public static final class LiquidityProvidersReq extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.LiquidityProvidersReq)
       LiquidityProvidersReqOrBuilder {
@@ -7896,6 +10721,7 @@ public final class Querier {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -7903,12 +10729,14 @@ public final class Querier {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -8451,7 +11279,7 @@ public final class Querier {
   /**
    * Protobuf type {@code sifnode.clp.v1.LiquidityProvidersRes}
    */
-  public  static final class LiquidityProvidersRes extends
+  public static final class LiquidityProvidersRes extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:sifnode.clp.v1.LiquidityProvidersRes)
       LiquidityProvidersResOrBuilder {
@@ -8562,12 +11390,14 @@ public final class Querier {
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<sifnode.clp.v1.Types.LiquidityProvider> getLiquidityProvidersList() {
       return liquidityProviders_;
     }
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends sifnode.clp.v1.Types.LiquidityProviderOrBuilder> 
         getLiquidityProvidersOrBuilderList() {
       return liquidityProviders_;
@@ -8575,18 +11405,21 @@ public final class Querier {
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 1;</code>
      */
+    @java.lang.Override
     public int getLiquidityProvidersCount() {
       return liquidityProviders_.size();
     }
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.LiquidityProvider getLiquidityProviders(int index) {
       return liquidityProviders_.get(index);
     }
     /**
      * <code>repeated .sifnode.clp.v1.LiquidityProvider liquidity_providers = 1;</code>
      */
+    @java.lang.Override
     public sifnode.clp.v1.Types.LiquidityProviderOrBuilder getLiquidityProvidersOrBuilder(
         int index) {
       return liquidityProviders_.get(index);
@@ -8598,6 +11431,7 @@ public final class Querier {
      * <code>int64 height = 2;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -8608,6 +11442,7 @@ public final class Querier {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -8615,12 +11450,14 @@ public final class Querier {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -9260,6 +12097,7 @@ public final class Querier {
        * <code>int64 height = 2;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -9497,6 +12335,16 @@ public final class Querier {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sifnode_clp_v1_AssetListRes_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_LiquidityProviderDataReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_LiquidityProviderDataReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sifnode_clp_v1_LiquidityProviderDataRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sifnode_clp_v1_LiquidityProviderDataRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sifnode_clp_v1_LiquidityProviderListReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -9544,47 +12392,65 @@ public final class Querier {
       "er\030\001 \001(\0132!.sifnode.clp.v1.LiquidityProvi" +
       "der\022\034\n\024native_asset_balance\030\002 \001(\t\022\036\n\026ext" +
       "ernal_asset_balance\030\003 \001(\t\022\016\n\006height\030\004 \001(" +
-      "\003\",\n\014AssetListReq\022\022\n\nlp_address\030\001 \001(\t:\010\350" +
-      "\240\037\000\210\240\037\000\"E\n\014AssetListRes\022%\n\006assets\030\001 \003(\0132" +
-      "\025.sifnode.clp.v1.Asset\022\016\n\006height\030\002 \001(\003\"4" +
-      "\n\030LiquidityProviderListReq\022\016\n\006symbol\030\001 \001" +
-      "(\t:\010\350\240\037\000\210\240\037\000\"j\n\030LiquidityProviderListRes" +
-      "\022>\n\023liquidity_providers\030\001 \003(\0132!.sifnode." +
-      "clp.v1.LiquidityProvider\022\016\n\006height\030\002 \001(\003" +
-      "\"]\n\025LiquidityProvidersReq\022:\n\npagination\030" +
-      "\002 \001(\0132&.cosmos.base.query.v1beta1.PageRe" +
-      "quest:\010\350\240\037\000\210\240\037\000\"\244\001\n\025LiquidityProvidersRe" +
-      "s\022>\n\023liquidity_providers\030\001 \003(\0132!.sifnode" +
-      ".clp.v1.LiquidityProvider\022\016\n\006height\030\002 \001(" +
-      "\003\022;\n\npagination\030\003 \001(\0132\'.cosmos.base.quer" +
-      "y.v1beta1.PageResponse2\264\006\n\005Query\022c\n\007GetP" +
-      "ool\022\027.sifnode.clp.v1.PoolReq\032\027.sifnode.c" +
-      "lp.v1.PoolRes\"&\202\323\344\223\002 \022\036/sifchain/clp/v1/" +
-      "pool/{symbol}\022^\n\010GetPools\022\030.sifnode.clp." +
-      "v1.PoolsReq\032\030.sifnode.clp.v1.PoolsRes\"\036\202" +
-      "\323\344\223\002\030\022\026/sifchain/clp/v1/pools\022\245\001\n\024GetLiq" +
-      "uidityProvider\022$.sifnode.clp.v1.Liquidit" +
-      "yProviderReq\032$.sifnode.clp.v1.LiquidityP" +
-      "roviderRes\"A\202\323\344\223\002;\0229/sifchain/clp/v1/liq" +
-      "uidity_provider/{symbol}/{lp_address}\022|\n" +
-      "\014GetAssetList\022\034.sifnode.clp.v1.AssetList" +
-      "Req\032\034.sifnode.clp.v1.AssetListRes\"0\202\323\344\223\002" +
-      "*\022(/sifchain/clp/v1/asset_list/{lp_addre" +
-      "ss}\022\223\001\n\025GetLiquidityProviders\022%.sifnode." +
-      "clp.v1.LiquidityProvidersReq\032%.sifnode.c" +
-      "lp.v1.LiquidityProvidersRes\",\202\323\344\223\002&\022$/si" +
-      "fchain/clp/v1/liquidity_providers\022\251\001\n\030Ge" +
-      "tLiquidityProviderList\022(.sifnode.clp.v1." +
-      "LiquidityProviderListReq\032(.sifnode.clp.v" +
-      "1.LiquidityProviderListRes\"9\202\323\344\223\0023\0221/sif" +
-      "chain/clp/v1/liquidity_provider_list/{sy" +
-      "mbol}B)Z\'github.com/Sifchain/sifnode/x/c" +
-      "lp/typesb\006proto3"
+      "\003\"h\n\014AssetListReq\022\022\n\nlp_address\030\001 \001(\t\022:\n" +
+      "\npagination\030\002 \001(\0132&.cosmos.base.query.v1" +
+      "beta1.PageRequest:\010\350\240\037\000\210\240\037\000\"\202\001\n\014AssetLis" +
+      "tRes\022%\n\006assets\030\001 \003(\0132\025.sifnode.clp.v1.As" +
+      "set\022\016\n\006height\030\002 \001(\003\022;\n\npagination\030\003 \001(\0132" +
+      "\'.cosmos.base.query.v1beta1.PageResponse" +
+      "\"t\n\030LiquidityProviderDataReq\022\022\n\nlp_addre" +
+      "ss\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&.cosmos.ba" +
+      "se.query.v1beta1.PageRequest:\010\350\240\037\000\210\240\037\000\"\256" +
+      "\001\n\030LiquidityProviderDataRes\022F\n\027liquidity" +
+      "_provider_data\030\001 \003(\0132%.sifnode.clp.v1.Li" +
+      "quidityProviderData\022\016\n\006height\030\002 \001(\003\022:\n\np" +
+      "agination\030\003 \001(\0132&.cosmos.base.query.v1be" +
+      "ta1.PageRequest\"p\n\030LiquidityProviderList" +
+      "Req\022\016\n\006symbol\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132" +
+      "&.cosmos.base.query.v1beta1.PageRequest:" +
+      "\010\350\240\037\000\210\240\037\000\"\247\001\n\030LiquidityProviderListRes\022>" +
+      "\n\023liquidity_providers\030\001 \003(\0132!.sifnode.cl" +
+      "p.v1.LiquidityProvider\022\016\n\006height\030\002 \001(\003\022;" +
+      "\n\npagination\030\003 \001(\0132\'.cosmos.base.query.v" +
+      "1beta1.PageResponse\"]\n\025LiquidityProvider" +
+      "sReq\022:\n\npagination\030\002 \001(\0132&.cosmos.base.q" +
+      "uery.v1beta1.PageRequest:\010\350\240\037\000\210\240\037\000\"\244\001\n\025L" +
+      "iquidityProvidersRes\022>\n\023liquidity_provid" +
+      "ers\030\001 \003(\0132!.sifnode.clp.v1.LiquidityProv" +
+      "ider\022\016\n\006height\030\002 \001(\003\022;\n\npagination\030\003 \001(\013" +
+      "2\'.cosmos.base.query.v1beta1.PageRespons" +
+      "e2\344\007\n\005Query\022c\n\007GetPool\022\027.sifnode.clp.v1." +
+      "PoolReq\032\027.sifnode.clp.v1.PoolRes\"&\202\323\344\223\002 " +
+      "\022\036/sifchain/clp/v1/pool/{symbol}\022^\n\010GetP" +
+      "ools\022\030.sifnode.clp.v1.PoolsReq\032\030.sifnode" +
+      ".clp.v1.PoolsRes\"\036\202\323\344\223\002\030\022\026/sifchain/clp/" +
+      "v1/pools\022\245\001\n\024GetLiquidityProvider\022$.sifn" +
+      "ode.clp.v1.LiquidityProviderReq\032$.sifnod" +
+      "e.clp.v1.LiquidityProviderRes\"A\202\323\344\223\002;\0229/" +
+      "sifchain/clp/v1/liquidity_provider/{symb" +
+      "ol}/{lp_address}\022\255\001\n\030GetLiquidityProvide" +
+      "rData\022(.sifnode.clp.v1.LiquidityProvider" +
+      "DataReq\032(.sifnode.clp.v1.LiquidityProvid" +
+      "erDataRes\"=\202\323\344\223\0027\0225/sifchain/clp/v1/liqu" +
+      "idity_provider_data/{lp_address}\022|\n\014GetA" +
+      "ssetList\022\034.sifnode.clp.v1.AssetListReq\032\034" +
+      ".sifnode.clp.v1.AssetListRes\"0\202\323\344\223\002*\022(/s" +
+      "ifchain/clp/v1/asset_list/{lp_address}\022\223" +
+      "\001\n\025GetLiquidityProviders\022%.sifnode.clp.v" +
+      "1.LiquidityProvidersReq\032%.sifnode.clp.v1" +
+      ".LiquidityProvidersRes\",\202\323\344\223\002&\022$/sifchai" +
+      "n/clp/v1/liquidity_providers\022\251\001\n\030GetLiqu" +
+      "idityProviderList\022(.sifnode.clp.v1.Liqui" +
+      "dityProviderListReq\032(.sifnode.clp.v1.Liq" +
+      "uidityProviderListRes\"9\202\323\344\223\0023\0221/sifchain" +
+      "/clp/v1/liquidity_provider_list/{symbol}" +
+      "B)Z\'github.com/Sifchain/sifnode/x/clp/ty" +
+      "pesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           sifnode.clp.v1.Types.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
@@ -9630,45 +12496,57 @@ public final class Querier {
     internal_static_sifnode_clp_v1_AssetListReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_AssetListReq_descriptor,
-        new java.lang.String[] { "LpAddress", });
+        new java.lang.String[] { "LpAddress", "Pagination", });
     internal_static_sifnode_clp_v1_AssetListRes_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_sifnode_clp_v1_AssetListRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_AssetListRes_descriptor,
-        new java.lang.String[] { "Assets", "Height", });
-    internal_static_sifnode_clp_v1_LiquidityProviderListReq_descriptor =
+        new java.lang.String[] { "Assets", "Height", "Pagination", });
+    internal_static_sifnode_clp_v1_LiquidityProviderDataReq_descriptor =
       getDescriptor().getMessageTypes().get(8);
+    internal_static_sifnode_clp_v1_LiquidityProviderDataReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_LiquidityProviderDataReq_descriptor,
+        new java.lang.String[] { "LpAddress", "Pagination", });
+    internal_static_sifnode_clp_v1_LiquidityProviderDataRes_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_sifnode_clp_v1_LiquidityProviderDataRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sifnode_clp_v1_LiquidityProviderDataRes_descriptor,
+        new java.lang.String[] { "LiquidityProviderData", "Height", "Pagination", });
+    internal_static_sifnode_clp_v1_LiquidityProviderListReq_descriptor =
+      getDescriptor().getMessageTypes().get(10);
     internal_static_sifnode_clp_v1_LiquidityProviderListReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_LiquidityProviderListReq_descriptor,
-        new java.lang.String[] { "Symbol", });
+        new java.lang.String[] { "Symbol", "Pagination", });
     internal_static_sifnode_clp_v1_LiquidityProviderListRes_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_sifnode_clp_v1_LiquidityProviderListRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_LiquidityProviderListRes_descriptor,
-        new java.lang.String[] { "LiquidityProviders", "Height", });
+        new java.lang.String[] { "LiquidityProviders", "Height", "Pagination", });
     internal_static_sifnode_clp_v1_LiquidityProvidersReq_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_sifnode_clp_v1_LiquidityProvidersReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_LiquidityProvidersReq_descriptor,
         new java.lang.String[] { "Pagination", });
     internal_static_sifnode_clp_v1_LiquidityProvidersRes_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_sifnode_clp_v1_LiquidityProvidersRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_LiquidityProvidersRes_descriptor,
         new java.lang.String[] { "LiquidityProviders", "Height", "Pagination", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     sifnode.clp.v1.Types.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();

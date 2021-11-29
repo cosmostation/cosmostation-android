@@ -10,7 +10,7 @@ package panacea.did.v2;
  *
  * Protobuf type {@code panacea.did.v2.DIDDocumentWithSeq}
  */
-public  final class DIDDocumentWithSeq extends
+public final class DIDDocumentWithSeq extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:panacea.did.v2.DIDDocumentWithSeq)
     DIDDocumentWithSeqOrBuilder {
@@ -108,6 +108,7 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.did.v2.DIDDocument document = 1;</code>
    * @return Whether the document field is set.
    */
+  @java.lang.Override
   public boolean hasDocument() {
     return document_ != null;
   }
@@ -115,12 +116,14 @@ private static final long serialVersionUID = 0L;
    * <code>.panacea.did.v2.DIDDocument document = 1;</code>
    * @return The document.
    */
+  @java.lang.Override
   public panacea.did.v2.DIDDocument getDocument() {
     return document_ == null ? panacea.did.v2.DIDDocument.getDefaultInstance() : document_;
   }
   /**
    * <code>.panacea.did.v2.DIDDocument document = 1;</code>
    */
+  @java.lang.Override
   public panacea.did.v2.DIDDocumentOrBuilder getDocumentOrBuilder() {
     return getDocument();
   }
@@ -131,6 +134,7 @@ private static final long serialVersionUID = 0L;
    * <code>uint64 sequence = 2;</code>
    * @return The sequence.
    */
+  @java.lang.Override
   public long getSequence() {
     return sequence_;
   }
@@ -596,6 +600,7 @@ private static final long serialVersionUID = 0L;
      * <code>uint64 sequence = 2;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }

@@ -33,7 +33,7 @@ public final class BalanceOuterClass {
   /**
    * Protobuf type {@code balance.Balance}
    */
-  public  static final class Balance extends
+  public static final class Balance extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:balance.Balance)
       BalanceOrBuilder {
@@ -123,6 +123,7 @@ public final class BalanceOuterClass {
      * <code>uint32 Type = 1 [(.gogoproto.casttype) = "Type"];</code>
      * @return The type.
      */
+    @java.lang.Override
     public int getType() {
       return type_;
     }
@@ -133,6 +134,7 @@ public final class BalanceOuterClass {
      * <code>uint64 Amount = 2;</code>
      * @return The amount.
      */
+    @java.lang.Override
     public long getAmount() {
       return amount_;
     }
@@ -462,6 +464,7 @@ public final class BalanceOuterClass {
        * <code>uint32 Type = 1 [(.gogoproto.casttype) = "Type"];</code>
        * @return The type.
        */
+      @java.lang.Override
       public int getType() {
         return type_;
       }
@@ -492,6 +495,7 @@ public final class BalanceOuterClass {
        * <code>uint64 Amount = 2;</code>
        * @return The amount.
        */
+      @java.lang.Override
       public long getAmount() {
         return amount_;
       }
@@ -592,7 +596,7 @@ public final class BalanceOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_balance_Balance_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -602,19 +606,19 @@ public final class BalanceOuterClass {
         new java.lang.String[] { "Type", "Amount", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.casttype);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoRegistration);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoSizecache);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoUnkeyed);
-    registry.add(com.google.protobuf2.GoGoProtos.marshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.messagenameAll);
-    registry.add(com.google.protobuf2.GoGoProtos.sizerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.stableMarshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.unmarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.casttype);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoRegistration);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoSizecache);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoUnkeyed);
+    registry.add(com.google.protobuf.GoGoProtos.marshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.messagenameAll);
+    registry.add(com.google.protobuf.GoGoProtos.sizerAll);
+    registry.add(com.google.protobuf.GoGoProtos.stableMarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.unmarshalerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

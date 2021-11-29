@@ -91,7 +91,8 @@ public final class Genesis {
 
     /**
      * <pre>
-     * supply represents the total supply.
+     * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+     * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -100,7 +101,8 @@ public final class Genesis {
         getSupplyList();
     /**
      * <pre>
-     * supply represents the total supply.
+     * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+     * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -108,7 +110,8 @@ public final class Genesis {
     cosmos.base.v1beta1.CoinOuterClass.Coin getSupply(int index);
     /**
      * <pre>
-     * supply represents the total supply.
+     * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+     * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -116,7 +119,8 @@ public final class Genesis {
     int getSupplyCount();
     /**
      * <pre>
-     * supply represents the total supply.
+     * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+     * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -125,7 +129,8 @@ public final class Genesis {
         getSupplyOrBuilderList();
     /**
      * <pre>
-     * supply represents the total supply.
+     * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+     * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -138,7 +143,7 @@ public final class Genesis {
      * denom_metadata defines the metadata of the differents coins.
      * </pre>
      *
-     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<cosmos.bank.v1beta1.Bank.Metadata> 
         getDenomMetadataList();
@@ -147,7 +152,7 @@ public final class Genesis {
      * denom_metadata defines the metadata of the differents coins.
      * </pre>
      *
-     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.bank.v1beta1.Bank.Metadata getDenomMetadata(int index);
     /**
@@ -155,7 +160,7 @@ public final class Genesis {
      * denom_metadata defines the metadata of the differents coins.
      * </pre>
      *
-     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
      */
     int getDenomMetadataCount();
     /**
@@ -163,7 +168,7 @@ public final class Genesis {
      * denom_metadata defines the metadata of the differents coins.
      * </pre>
      *
-     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends cosmos.bank.v1beta1.Bank.MetadataOrBuilder> 
         getDenomMetadataOrBuilderList();
@@ -172,7 +177,7 @@ public final class Genesis {
      * denom_metadata defines the metadata of the differents coins.
      * </pre>
      *
-     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
      */
     cosmos.bank.v1beta1.Bank.MetadataOrBuilder getDenomMetadataOrBuilder(
         int index);
@@ -413,7 +418,8 @@ public final class Genesis {
     private java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> supply_;
     /**
      * <pre>
-     * supply represents the total supply.
+     * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+     * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -424,7 +430,8 @@ public final class Genesis {
     }
     /**
      * <pre>
-     * supply represents the total supply.
+     * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+     * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -436,7 +443,8 @@ public final class Genesis {
     }
     /**
      * <pre>
-     * supply represents the total supply.
+     * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+     * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -447,7 +455,8 @@ public final class Genesis {
     }
     /**
      * <pre>
-     * supply represents the total supply.
+     * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+     * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -458,7 +467,8 @@ public final class Genesis {
     }
     /**
      * <pre>
-     * supply represents the total supply.
+     * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+     * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -476,7 +486,7 @@ public final class Genesis {
      * denom_metadata defines the metadata of the differents coins.
      * </pre>
      *
-     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.bank.v1beta1.Bank.Metadata> getDenomMetadataList() {
@@ -487,7 +497,7 @@ public final class Genesis {
      * denom_metadata defines the metadata of the differents coins.
      * </pre>
      *
-     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.bank.v1beta1.Bank.MetadataOrBuilder> 
@@ -499,7 +509,7 @@ public final class Genesis {
      * denom_metadata defines the metadata of the differents coins.
      * </pre>
      *
-     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public int getDenomMetadataCount() {
@@ -510,7 +520,7 @@ public final class Genesis {
      * denom_metadata defines the metadata of the differents coins.
      * </pre>
      *
-     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.bank.v1beta1.Bank.Metadata getDenomMetadata(int index) {
@@ -521,7 +531,7 @@ public final class Genesis {
      * denom_metadata defines the metadata of the differents coins.
      * </pre>
      *
-     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+     * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public cosmos.bank.v1beta1.Bank.MetadataOrBuilder getDenomMetadataOrBuilder(
@@ -1496,7 +1506,8 @@ public final class Genesis {
 
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1510,7 +1521,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1524,7 +1536,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1538,7 +1551,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1559,7 +1573,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1577,7 +1592,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1597,7 +1613,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1618,7 +1635,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1636,7 +1654,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1654,7 +1673,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1673,7 +1693,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1690,7 +1711,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1707,7 +1729,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1718,7 +1741,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1732,7 +1756,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1747,7 +1772,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1758,7 +1784,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1770,7 +1797,8 @@ public final class Genesis {
       }
       /**
        * <pre>
-       * supply represents the total supply.
+       * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+       * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1811,7 +1839,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.bank.v1beta1.Bank.Metadata> getDenomMetadataList() {
         if (denomMetadataBuilder_ == null) {
@@ -1825,7 +1853,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public int getDenomMetadataCount() {
         if (denomMetadataBuilder_ == null) {
@@ -1839,7 +1867,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.bank.v1beta1.Bank.Metadata getDenomMetadata(int index) {
         if (denomMetadataBuilder_ == null) {
@@ -1853,7 +1881,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setDenomMetadata(
           int index, cosmos.bank.v1beta1.Bank.Metadata value) {
@@ -1874,7 +1902,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setDenomMetadata(
           int index, cosmos.bank.v1beta1.Bank.Metadata.Builder builderForValue) {
@@ -1892,7 +1920,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDenomMetadata(cosmos.bank.v1beta1.Bank.Metadata value) {
         if (denomMetadataBuilder_ == null) {
@@ -1912,7 +1940,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDenomMetadata(
           int index, cosmos.bank.v1beta1.Bank.Metadata value) {
@@ -1933,7 +1961,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDenomMetadata(
           cosmos.bank.v1beta1.Bank.Metadata.Builder builderForValue) {
@@ -1951,7 +1979,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addDenomMetadata(
           int index, cosmos.bank.v1beta1.Bank.Metadata.Builder builderForValue) {
@@ -1969,7 +1997,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllDenomMetadata(
           java.lang.Iterable<? extends cosmos.bank.v1beta1.Bank.Metadata> values) {
@@ -1988,7 +2016,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearDenomMetadata() {
         if (denomMetadataBuilder_ == null) {
@@ -2005,7 +2033,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeDenomMetadata(int index) {
         if (denomMetadataBuilder_ == null) {
@@ -2022,7 +2050,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.bank.v1beta1.Bank.Metadata.Builder getDenomMetadataBuilder(
           int index) {
@@ -2033,7 +2061,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.bank.v1beta1.Bank.MetadataOrBuilder getDenomMetadataOrBuilder(
           int index) {
@@ -2047,7 +2075,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends cosmos.bank.v1beta1.Bank.MetadataOrBuilder> 
            getDenomMetadataOrBuilderList() {
@@ -2062,7 +2090,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.bank.v1beta1.Bank.Metadata.Builder addDenomMetadataBuilder() {
         return getDenomMetadataFieldBuilder().addBuilder(
@@ -2073,7 +2101,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public cosmos.bank.v1beta1.Bank.Metadata.Builder addDenomMetadataBuilder(
           int index) {
@@ -2085,7 +2113,7 @@ public final class Genesis {
        * denom_metadata defines the metadata of the differents coins.
        * </pre>
        *
-       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
+       * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<cosmos.bank.v1beta1.Bank.Metadata.Builder> 
            getDenomMetadataBuilderList() {
@@ -2167,7 +2195,7 @@ public final class Genesis {
      * address is the address of the balance holder.
      * </pre>
      *
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The address.
      */
     java.lang.String getAddress();
@@ -2176,7 +2204,7 @@ public final class Genesis {
      * address is the address of the balance holder.
      * </pre>
      *
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for address.
      */
     com.google.protobuf.ByteString
@@ -2336,7 +2364,7 @@ public final class Genesis {
      * address is the address of the balance holder.
      * </pre>
      *
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The address.
      */
     @java.lang.Override
@@ -2357,7 +2385,7 @@ public final class Genesis {
      * address is the address of the balance holder.
      * </pre>
      *
-     * <code>string address = 1;</code>
+     * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for address.
      */
     @java.lang.Override
@@ -2805,7 +2833,7 @@ public final class Genesis {
        * address is the address of the balance holder.
        * </pre>
        *
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The address.
        */
       public java.lang.String getAddress() {
@@ -2825,7 +2853,7 @@ public final class Genesis {
        * address is the address of the balance holder.
        * </pre>
        *
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for address.
        */
       public com.google.protobuf.ByteString
@@ -2846,7 +2874,7 @@ public final class Genesis {
        * address is the address of the balance holder.
        * </pre>
        *
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The address to set.
        * @return This builder for chaining.
        */
@@ -2865,7 +2893,7 @@ public final class Genesis {
        * address is the address of the balance holder.
        * </pre>
        *
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAddress() {
@@ -2879,7 +2907,7 @@ public final class Genesis {
        * address is the address of the balance holder.
        * </pre>
        *
-       * <code>string address = 1;</code>
+       * <code>string address = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for address to set.
        * @return This builder for chaining.
        */
@@ -3281,26 +3309,28 @@ public final class Genesis {
       "\n!cosmos/bank/v1beta1/genesis.proto\022\023cos" +
       "mos.bank.v1beta1\032\024gogoproto/gogo.proto\032\036" +
       "cosmos/base/v1beta1/coin.proto\032\036cosmos/b" +
-      "ank/v1beta1/bank.proto\"\252\002\n\014GenesisState\022" +
-      "1\n\006params\030\001 \001(\0132\033.cosmos.bank.v1beta1.Pa" +
-      "ramsB\004\310\336\037\000\0224\n\010balances\030\002 \003(\0132\034.cosmos.ba" +
-      "nk.v1beta1.BalanceB\004\310\336\037\000\022[\n\006supply\030\003 \003(\013" +
-      "2\031.cosmos.base.v1beta1.CoinB0\252\337\037(github." +
-      "com/cosmos/cosmos-sdk/types.Coins\310\336\037\000\022T\n" +
-      "\016denom_metadata\030\004 \003(\0132\035.cosmos.bank.v1be" +
-      "ta1.MetadataB\035\362\336\037\025yaml:\"denom_metadata\"\310" +
-      "\336\037\000\"\200\001\n\007Balance\022\017\n\007address\030\001 \001(\t\022Z\n\005coin" +
-      "s\030\002 \003(\0132\031.cosmos.base.v1beta1.CoinB0\252\337\037(" +
-      "github.com/cosmos/cosmos-sdk/types.Coins" +
-      "\310\336\037\000:\010\350\240\037\000\210\240\037\000B+Z)github.com/cosmos/cosm" +
-      "os-sdk/x/bank/typesb\006proto3"
+      "ank/v1beta1/bank.proto\032\031cosmos_proto/cos" +
+      "mos.proto\"\221\002\n\014GenesisState\0221\n\006params\030\001 \001" +
+      "(\0132\033.cosmos.bank.v1beta1.ParamsB\004\310\336\037\000\0224\n" +
+      "\010balances\030\002 \003(\0132\034.cosmos.bank.v1beta1.Ba" +
+      "lanceB\004\310\336\037\000\022[\n\006supply\030\003 \003(\0132\031.cosmos.bas" +
+      "e.v1beta1.CoinB0\252\337\037(github.com/cosmos/co" +
+      "smos-sdk/types.Coins\310\336\037\000\022;\n\016denom_metada" +
+      "ta\030\004 \003(\0132\035.cosmos.bank.v1beta1.MetadataB" +
+      "\004\310\336\037\000\"\232\001\n\007Balance\022)\n\007address\030\001 \001(\tB\030\322\264-\024" +
+      "cosmos.AddressString\022Z\n\005coins\030\002 \003(\0132\031.co" +
+      "smos.base.v1beta1.CoinB0\252\337\037(github.com/c" +
+      "osmos/cosmos-sdk/types.Coins\310\336\037\000:\010\350\240\037\000\210\240" +
+      "\037\000B+Z)github.com/cosmos/cosmos-sdk/x/ban" +
+      "k/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos.bank.v1beta1.Bank.getDescriptor(),
+          cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_cosmos_bank_v1beta1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3316,16 +3346,17 @@ public final class Genesis {
         new java.lang.String[] { "Address", "Coins", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf.GoGoProtos.equal);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos.bank.v1beta1.Bank.getDescriptor();
+    cosmos_proto.Cosmos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

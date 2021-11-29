@@ -443,7 +443,8 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * ChannelCloseConfirm defines a rpc handler method for MsgChannelCloseConfirm.
+     * ChannelCloseConfirm defines a rpc handler method for
+     * MsgChannelCloseConfirm.
      * </pre>
      */
     public void channelCloseConfirm(ibc.core.channel.v1.Tx.MsgChannelCloseConfirm request,
@@ -641,7 +642,8 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * ChannelCloseConfirm defines a rpc handler method for MsgChannelCloseConfirm.
+     * ChannelCloseConfirm defines a rpc handler method for
+     * MsgChannelCloseConfirm.
      * </pre>
      */
     public void channelCloseConfirm(ibc.core.channel.v1.Tx.MsgChannelCloseConfirm request,
@@ -764,7 +766,8 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * ChannelCloseConfirm defines a rpc handler method for MsgChannelCloseConfirm.
+     * ChannelCloseConfirm defines a rpc handler method for
+     * MsgChannelCloseConfirm.
      * </pre>
      */
     public ibc.core.channel.v1.Tx.MsgChannelCloseConfirmResponse channelCloseConfirm(ibc.core.channel.v1.Tx.MsgChannelCloseConfirm request) {
@@ -887,7 +890,8 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * ChannelCloseConfirm defines a rpc handler method for MsgChannelCloseConfirm.
+     * ChannelCloseConfirm defines a rpc handler method for
+     * MsgChannelCloseConfirm.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ibc.core.channel.v1.Tx.MsgChannelCloseConfirmResponse> channelCloseConfirm(

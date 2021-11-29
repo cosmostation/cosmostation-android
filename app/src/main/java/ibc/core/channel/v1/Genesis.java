@@ -3977,14 +3977,14 @@ public final class Genesis {
       "t_channel_sequence\"\"r\n\016PacketSequence\022#\n" +
       "\007port_id\030\001 \001(\tB\022\362\336\037\016yaml:\"port_id\"\022)\n\nch" +
       "annel_id\030\002 \001(\tB\025\362\336\037\021yaml:\"channel_id\"\022\020\n" +
-      "\010sequence\030\003 \001(\004B:Z8github.com/cosmos/cos" +
-      "mos-sdk/x/ibc/core/04-channel/typesb\006pro" +
-      "to3"
+      "\010sequence\030\003 \001(\004B;Z9github.com/cosmos/ibc" +
+      "-go/v2/modules/core/04-channel/typesb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
           ibc.core.channel.v1.ChannelOuterClass.getDescriptor(),
         });
     internal_static_ibc_core_channel_v1_GenesisState_descriptor =
@@ -4001,12 +4001,12 @@ public final class Genesis {
         new java.lang.String[] { "PortId", "ChannelId", "Sequence", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.casttype);
-    registry.add(com.google.protobuf2.GoGoProtos.moretags);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.casttype);
+    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
     ibc.core.channel.v1.ChannelOuterClass.getDescriptor();
   }
 

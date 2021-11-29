@@ -33,7 +33,7 @@ public final class Crypto {
   /**
    * Protobuf type {@code crypto.PublicKey}
    */
-  public  static final class PublicKey extends
+  public static final class PublicKey extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:crypto.PublicKey)
       PublicKeyOrBuilder {
@@ -124,6 +124,7 @@ public final class Crypto {
      * <code>uint32 CurveType = 1 [(.gogoproto.casttype) = "CurveType"];</code>
      * @return The curveType.
      */
+    @java.lang.Override
     public int getCurveType() {
       return curveType_;
     }
@@ -134,6 +135,7 @@ public final class Crypto {
      * <code>bytes PublicKey = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
      * @return The publicKey.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPublicKey() {
       return publicKey_;
     }
@@ -462,6 +464,7 @@ public final class Crypto {
        * <code>uint32 CurveType = 1 [(.gogoproto.casttype) = "CurveType"];</code>
        * @return The curveType.
        */
+      @java.lang.Override
       public int getCurveType() {
         return curveType_;
       }
@@ -492,6 +495,7 @@ public final class Crypto {
        * <code>bytes PublicKey = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/hyperledger/burrow/binary.HexBytes"];</code>
        * @return The publicKey.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPublicKey() {
         return publicKey_;
       }
@@ -601,7 +605,7 @@ public final class Crypto {
   /**
    * Protobuf type {@code crypto.PrivateKey}
    */
-  public  static final class PrivateKey extends
+  public static final class PrivateKey extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:crypto.PrivateKey)
       PrivateKeyOrBuilder {
@@ -698,6 +702,7 @@ public final class Crypto {
      * <code>uint32 CurveType = 1 [(.gogoproto.casttype) = "CurveType"];</code>
      * @return The curveType.
      */
+    @java.lang.Override
     public int getCurveType() {
       return curveType_;
     }
@@ -712,6 +717,7 @@ public final class Crypto {
      * <code>bytes PublicKey = 2;</code>
      * @return The publicKey.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPublicKey() {
       return publicKey_;
     }
@@ -722,6 +728,7 @@ public final class Crypto {
      * <code>bytes PrivateKey = 3;</code>
      * @return The privateKey.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPrivateKey() {
       return privateKey_;
     }
@@ -1067,6 +1074,7 @@ public final class Crypto {
        * <code>uint32 CurveType = 1 [(.gogoproto.casttype) = "CurveType"];</code>
        * @return The curveType.
        */
+      @java.lang.Override
       public int getCurveType() {
         return curveType_;
       }
@@ -1101,6 +1109,7 @@ public final class Crypto {
        * <code>bytes PublicKey = 2;</code>
        * @return The publicKey.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPublicKey() {
         return publicKey_;
       }
@@ -1142,6 +1151,7 @@ public final class Crypto {
        * <code>bytes PrivateKey = 3;</code>
        * @return The privateKey.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPrivateKey() {
         return privateKey_;
       }
@@ -1241,7 +1251,7 @@ public final class Crypto {
   /**
    * Protobuf type {@code crypto.Signature}
    */
-  public  static final class Signature extends
+  public static final class Signature extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:crypto.Signature)
       SignatureOrBuilder {
@@ -1332,6 +1342,7 @@ public final class Crypto {
      * <code>uint32 CurveType = 1 [(.gogoproto.casttype) = "CurveType"];</code>
      * @return The curveType.
      */
+    @java.lang.Override
     public int getCurveType() {
       return curveType_;
     }
@@ -1342,6 +1353,7 @@ public final class Crypto {
      * <code>bytes Signature = 2;</code>
      * @return The signature.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSignature() {
       return signature_;
     }
@@ -1670,6 +1682,7 @@ public final class Crypto {
        * <code>uint32 CurveType = 1 [(.gogoproto.casttype) = "CurveType"];</code>
        * @return The curveType.
        */
+      @java.lang.Override
       public int getCurveType() {
         return curveType_;
       }
@@ -1700,6 +1713,7 @@ public final class Crypto {
        * <code>bytes Signature = 2;</code>
        * @return The signature.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getSignature() {
         return signature_;
       }
@@ -1819,7 +1833,7 @@ public final class Crypto {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_crypto_PublicKey_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1841,20 +1855,20 @@ public final class Crypto {
         new java.lang.String[] { "CurveType", "Signature", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf2.GoGoProtos.casttype);
-    registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoRegistration);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf2.GoGoProtos.marshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.messagenameAll);
-    registry.add(com.google.protobuf2.GoGoProtos.nullable);
-    registry.add(com.google.protobuf2.GoGoProtos.sizerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.stableMarshalerAll);
-    registry.add(com.google.protobuf2.GoGoProtos.unmarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.casttype);
+    registry.add(com.google.protobuf.GoGoProtos.customtype);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoRegistration);
+    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf.GoGoProtos.marshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.messagenameAll);
+    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf.GoGoProtos.sizerAll);
+    registry.add(com.google.protobuf.GoGoProtos.stableMarshalerAll);
+    registry.add(com.google.protobuf.GoGoProtos.unmarshalerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
