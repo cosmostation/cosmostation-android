@@ -227,6 +227,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     mCardView.setVisibility(View.GONE);
                 } else {
                     mCardView.setVisibility(View.VISIBLE);
+                }
+                if (mBaseChain != null) {
                     mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
                 }
             }
@@ -433,7 +435,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         if (mBaseChain.equals(KAVA_MAIN)) {
             BigDecimal available = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
             BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_CLAIM_INCENTIVE, 0);
-            if (available.compareTo(txFee) < 0) {
+            if (available.compareTo(txFee) <= 0) {
                 Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
