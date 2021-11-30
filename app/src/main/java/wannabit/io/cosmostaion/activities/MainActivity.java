@@ -353,7 +353,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onExplorerView() {
-        String url = WUtil.getExplorer(mBaseChain) + "account/" + mAccount.address;
+        String url = "";
+        if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+            url = WUtil.getExplorer(mBaseChain) + "address/" + mAccount.address;
+        } else {
+            url = WUtil.getExplorer(mBaseChain) + "account/" + mAccount.address;
+        }
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
     }
