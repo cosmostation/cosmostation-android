@@ -161,7 +161,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
             if (WDp.isValidChainAddress(getSActivity().mBaseChain, userInput)) {
-                getSActivity().mToAddress = userInput;
+                if (userInput.startsWith("0x") && getSActivity().mBaseChain.equals(OKEX_MAIN) ||
+                        userInput.startsWith("0x") && getSActivity().mBaseChain.equals(OK_TEST)) {
+                    try {
+                        getSActivity().mToAddress = WKey.convertAddressEthToOkex(userInput);
+                    } catch (Exception e) { e.printStackTrace(); }
+                } else {
+                    getSActivity().mToAddress = userInput;
+                }
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();

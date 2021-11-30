@@ -319,13 +319,6 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             mRecipientAddress.setText(getSActivity().mToAddress);
         }
         mRecipientStartName.setVisibility(View.GONE);
-//        if (TextUtils.isEmpty(getSActivity().mStarName)) {
-//            mRecipientStartName.setVisibility(View.GONE);
-//        } else {
-//            mRecipientStartName.setVisibility(View.VISIBLE);
-//            mRecipientStartName.setText(getSActivity().mStarName);
-//        }
-
         mMemo.setText(getSActivity().mTxMemo);
     }
 
