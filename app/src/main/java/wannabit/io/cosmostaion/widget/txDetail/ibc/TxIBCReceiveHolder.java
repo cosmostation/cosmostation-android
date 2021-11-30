@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import ibc.core.channel.v1.Tx;
 import wannabit.io.cosmostaion.R;
@@ -18,6 +20,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxIBCReceiveHolder extends TxHolder {
@@ -49,8 +52,10 @@ public class TxIBCReceiveHolder extends TxHolder {
             itemIbcToAddress.setText(jsonObject.getString("receiver"));
             itemIbcFromAddress.setText(jsonObject.getString("sender"));
 
-            Coin receivedCoin = new Coin(jsonObject.getString("denom"), jsonObject.getString("amount"));
-            WDp.showCoinDp(c, baseData, receivedCoin, itemIbcAmountDenom, itemIbcAmount, baseChain);
+            int divideDecimal = WDp.mainDivideDecimal(jsonObject.getString("denom"));
+            itemIbcAmount.setText(WDp.getDpAmount2(c, new BigDecimal(jsonObject.getString("amount")), divideDecimal, divideDecimal));
+            itemIbcAmountDenom.setText(jsonObject.getString("denom").toUpperCase());
+
         } catch (Exception e) {}
     }
 }
