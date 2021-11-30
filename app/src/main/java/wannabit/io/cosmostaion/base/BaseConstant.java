@@ -1010,4 +1010,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_BITSONG = new BigDecimal("5.9040");
     public final static BigDecimal BLOCK_TIME_OKEX = new BigDecimal("4.0286");
     public final static BigDecimal BLOCK_TIME_BNB = new BigDecimal("0.4124");
+    public final static BigDecimal BLOCK_TIME_COMDEX = new BigDecimal("6.1746");
 }
