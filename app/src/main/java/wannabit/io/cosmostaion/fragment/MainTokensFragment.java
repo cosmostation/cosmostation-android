@@ -1370,11 +1370,13 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
             final OkToken okToken   = getBaseDao().okToken(balance.symbol);
-            holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");
-            holder.itemFullName.setText(okToken.description);
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
+            if (okToken != null) {
+                holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
+                holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");
+                holder.itemFullName.setText(okToken.description);
+                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
+            }
 
             BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
             BigDecimal convertAmount = WDp.convertTokenToOkt(getBaseDao(), balance.symbol);

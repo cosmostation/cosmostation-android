@@ -1227,7 +1227,7 @@ public class WDp {
         } else if (baseChain.equals(CERTIK_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorCertik));
         } else if (baseChain.equals(SECRET_MAIN)) {
-            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorSecret));
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorSecret2));
         } else if (baseChain.equals(AKASH_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorAkash));
         } else if (baseChain.equals(OKEX_MAIN)) {
@@ -1786,26 +1786,30 @@ public class WDp {
     }
 
     public static BigDecimal okExTokenDollorValue(BaseData baseData, OkToken okToken, BigDecimal amount) {
-        if (okToken.original_symbol.equals("usdt") || okToken.original_symbol.equals("usdc") || okToken.original_symbol.equals("usdk")) {
-            return amount;
+        if (okToken != null && okToken.original_symbol != null) {
+            if (okToken.original_symbol.equals("usdt") || okToken.original_symbol.equals("usdc") || okToken.original_symbol.equals("usdk")) {
+                return amount;
 
-        } else if (okToken.original_symbol.equals("okb") && baseData.mOKBPrice != null) {
-            return amount.multiply(baseData.mOKBPrice);
+            } else if (okToken.original_symbol.equals("okb") && baseData.mOKBPrice != null) {
+                return amount.multiply(baseData.mOKBPrice);
 
-        } else if (baseData.mOkTickersList != null) {
-            //TODO display with ticker update!
-            ArrayList<OkTicker> tickers = baseData.mOkTickersList.data;
-            return BigDecimal.ZERO;
-
+            } else if (baseData.mOkTickersList != null) {
+                //TODO display with ticker update!
+                ArrayList<OkTicker> tickers = baseData.mOkTickersList.data;
+                return BigDecimal.ZERO;
+            }
         }
         return BigDecimal.ZERO;
     }
 
     public static BigDecimal convertTokenToOkt(BaseData baseData, String denom) {
         OkToken okToken = baseData.okToken(denom);
-        BigDecimal tokenAmount = baseData.availableAmount(denom).add(baseData.lockedAmount(denom));
-        BigDecimal totalTokenValue = okExTokenDollorValue(baseData, okToken, tokenAmount);
-        return totalTokenValue.divide(perUsdValue(baseData, TOKEN_OK), 18, RoundingMode.DOWN);
+        if (okToken != null) {
+            BigDecimal tokenAmount = baseData.availableAmount(denom).add(baseData.lockedAmount(denom));
+            BigDecimal totalTokenValue = okExTokenDollorValue(baseData, okToken, tokenAmount);
+            return totalTokenValue.divide(perUsdValue(baseData, TOKEN_OK), 18, RoundingMode.DOWN);
+        }
+        return BigDecimal.ZERO;
     }
 
 
