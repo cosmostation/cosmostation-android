@@ -2221,6 +2221,9 @@ public class WUtil {
             } else if (chain.equals(BNB_MAIN)) {
                 return BLOCK_TIME_BNB;
 
+            } else if (chain.equals(COMDEX_MAIN)) {
+                return BLOCK_TIME_COMDEX;
+
             }
         }
         return BigDecimal.ZERO;
@@ -2310,6 +2313,9 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(BITSONG_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/bitsong")));
+
+        } else if (mainActivity.mBaseChain.equals(RIZON_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/rizon")));
         }
         return null;
     }
