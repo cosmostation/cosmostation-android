@@ -450,7 +450,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         } else if (mBaseChain.equals(SIF_MAIN)) {
             BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_SIF_CLAIM_INCENTIVE, 0);
-            if (available.compareTo(txFee) < 0) {
+            if (available.compareTo(txFee) <= 0) {
                 Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
