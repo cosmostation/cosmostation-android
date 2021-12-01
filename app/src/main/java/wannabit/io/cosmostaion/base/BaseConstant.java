@@ -745,11 +745,11 @@ public class BaseConstant {
     public final static String OSMOSIS_GAS_AMOUNT_REDELEGATE            = "300000";
     public final static String OSMOSIS_GAS_AMOUNT_REINVEST              = "300000";
     public final static String OSMOSIS_GAS_AMOUNT_LOW                   = "100000";
-    public final static String OSMOSIS_GAS_AMOUNT_POOL                  = "600000";
-    public final static String OSMOSIS_GAS_AMOUNT_SWAP                  = "300000";
-    public final static String OSMOSIS_GAS_AMOUNT_LOCK                  = "20000000";
-    public final static String OSMOSIS_GAS_AMOUNT_BEGIN_UNBONDING       = "30000000";
-    public final static String OSMOSIS_GAS_AMOUNT_UNLOCK                = "10000000";
+    public final static String OSMOSIS_GAS_AMOUNT_POOL                  = "1500000";
+    public final static String OSMOSIS_GAS_AMOUNT_SWAP                  = "500000";
+    public final static String OSMOSIS_GAS_AMOUNT_LOCK                  = "1500000";
+    public final static String OSMOSIS_GAS_AMOUNT_BEGIN_UNBONDING       = "1500000";
+    public final static String OSMOSIS_GAS_AMOUNT_UNLOCK                = "1500000";
     public final static String OSMOSIS_GAS_AMOUNT_IBC_SEND              = "500000";
 
     public final static String COSMOS_GAS_AMOUNT_SWAP                   = "200000";

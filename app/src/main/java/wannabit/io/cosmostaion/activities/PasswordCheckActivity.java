@@ -110,6 +110,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -834,7 +835,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     txIntent.putExtra("txHash", hash);
                 startActivity(txIntent);
 
-            } else if (mBaseChain.equals(RIZON_TEST)) {
+            } else if (mBaseChain.equals(RIZON_MAIN) || mBaseChain.equals(RIZON_TEST)) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, EventHorizonDetailActivity.class);
                 String hash = String.valueOf(result.resultData);
                 txIntent.putExtra("isSuccess", result.isSuccess);
