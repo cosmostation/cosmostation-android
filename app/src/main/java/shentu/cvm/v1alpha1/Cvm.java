@@ -24,16 +24,14 @@ public final class Cvm {
   static {
     java.lang.String[] descriptorData = {
       "\n\035shentu/cvm/v1alpha1/cvm.proto\022\023shentu." +
-      "cvm.v1alpha1\032\024gogoproto/gogo.proto\032\031cosm" +
-      "os_proto/cosmos.protoB<Z.github.com/cert" +
-      "ikfoundation/shentu/x/cvm/types\330\341\036\000\200\342\036\000\310" +
-      "\341\036\000b\006proto3"
+      "cvm.v1alpha1\032\024gogoproto/gogo.protoB<Z.gi" +
+      "thub.com/certikfoundation/shentu/x/cvm/t" +
+      "ypes\330\341\036\000\200\342\036\000\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
         });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
@@ -43,7 +41,6 @@ public final class Cvm {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

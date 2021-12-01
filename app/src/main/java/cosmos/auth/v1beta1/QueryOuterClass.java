@@ -8762,60 +8762,60 @@ public final class QueryOuterClass {
       "\n\037cosmos/auth/v1beta1/query.proto\022\023cosmo" +
       "s.auth.v1beta1\032*cosmos/base/query/v1beta" +
       "1/pagination.proto\032\024gogoproto/gogo.proto" +
-      "\032\031google/protobuf/any.proto\032\034google/api/" +
-      "annotations.proto\032\036cosmos/auth/v1beta1/a" +
-      "uth.proto\032\031cosmos_proto/cosmos.proto\"R\n\024" +
-      "QueryAccountsRequest\022:\n\npagination\030\001 \001(\013" +
-      "2&.cosmos.base.query.v1beta1.PageRequest" +
-      "\"\212\001\n\025QueryAccountsResponse\0224\n\010accounts\030\001" +
-      " \003(\0132\024.google.protobuf.AnyB\014\312\264-\010AccountI" +
-      "\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.query" +
-      ".v1beta1.PageResponse\"J\n\023QueryAccountReq" +
-      "uest\022)\n\007address\030\001 \001(\tB\030\322\264-\024cosmos.Addres" +
-      "sString:\010\350\240\037\000\210\240\037\000\"\034\n\032QueryModuleAccounts" +
-      "Request\"H\n\023QueryParamsResponse\0221\n\006params" +
-      "\030\001 \001(\0132\033.cosmos.auth.v1beta1.ParamsB\004\310\336\037" +
-      "\000\"K\n\024QueryAccountResponse\0223\n\007account\030\001 \001" +
-      "(\0132\024.google.protobuf.AnyB\014\312\264-\010AccountI\"\024" +
-      "\n\022QueryParamsRequest\"Y\n\033QueryModuleAccou" +
-      "ntsResponse\022:\n\010accounts\030\001 \003(\0132\024.google.p" +
-      "rotobuf.AnyB\022\312\264-\016ModuleAccountI\"\025\n\023Bech3" +
-      "2PrefixRequest\"-\n\024Bech32PrefixResponse\022\025" +
-      "\n\rbech32_prefix\030\001 \001(\t\"4\n\033AddressBytesToS" +
-      "tringRequest\022\025\n\raddress_bytes\030\001 \001(\014\"6\n\034A" +
-      "ddressBytesToStringResponse\022\026\n\016address_s" +
-      "tring\030\001 \001(\t\"5\n\033AddressStringToBytesReque" +
-      "st\022\026\n\016address_string\030\001 \001(\t\"5\n\034AddressStr" +
-      "ingToBytesResponse\022\025\n\raddress_bytes\030\001 \001(" +
-      "\0142\275\010\n\005Query\022\210\001\n\010Accounts\022).cosmos.auth.v" +
-      "1beta1.QueryAccountsRequest\032*.cosmos.aut" +
-      "h.v1beta1.QueryAccountsResponse\"%\202\323\344\223\002\037\022" +
-      "\035/cosmos/auth/v1beta1/accounts\022\217\001\n\007Accou" +
-      "nt\022(.cosmos.auth.v1beta1.QueryAccountReq" +
-      "uest\032).cosmos.auth.v1beta1.QueryAccountR" +
-      "esponse\"/\202\323\344\223\002)\022\'/cosmos/auth/v1beta1/ac" +
-      "counts/{address}\022\200\001\n\006Params\022\'.cosmos.aut" +
-      "h.v1beta1.QueryParamsRequest\032(.cosmos.au" +
-      "th.v1beta1.QueryParamsResponse\"#\202\323\344\223\002\035\022\033" +
-      "/cosmos/auth/v1beta1/params\022\241\001\n\016ModuleAc" +
-      "counts\022/.cosmos.auth.v1beta1.QueryModule" +
-      "AccountsRequest\0320.cosmos.auth.v1beta1.Qu" +
-      "eryModuleAccountsResponse\",\202\323\344\223\002&\022$/cosm" +
-      "os/auth/v1beta1/module_accounts\022\210\001\n\014Bech" +
-      "32Prefix\022(.cosmos.auth.v1beta1.Bech32Pre" +
-      "fixRequest\032).cosmos.auth.v1beta1.Bech32P" +
-      "refixResponse\"#\202\323\344\223\002\035\022\033/cosmos/auth/v1be" +
-      "ta1/bech32\022\260\001\n\024AddressBytesToString\0220.co" +
-      "smos.auth.v1beta1.AddressBytesToStringRe" +
-      "quest\0321.cosmos.auth.v1beta1.AddressBytes" +
-      "ToStringResponse\"3\202\323\344\223\002-\022+/cosmos/auth/v" +
-      "1beta1/bech32/{address_bytes}\022\261\001\n\024Addres" +
-      "sStringToBytes\0220.cosmos.auth.v1beta1.Add" +
-      "ressStringToBytesRequest\0321.cosmos.auth.v" +
-      "1beta1.AddressStringToBytesResponse\"4\202\323\344" +
-      "\223\002.\022,/cosmos/auth/v1beta1/bech32/{addres" +
-      "s_string}B+Z)github.com/cosmos/cosmos-sd" +
-      "k/x/auth/typesb\006proto3"
+      "\032\032google/protobuf2/any.proto\032\034google/api" +
+      "/annotations.proto\032\036cosmos/auth/v1beta1/" +
+      "auth.proto\032\031cosmos_proto/cosmos.proto\"R\n" +
+      "\024QueryAccountsRequest\022:\n\npagination\030\001 \001(" +
+      "\0132&.cosmos.base.query.v1beta1.PageReques" +
+      "t\"\212\001\n\025QueryAccountsResponse\0224\n\010accounts\030" +
+      "\001 \003(\0132\024.google.protobuf.AnyB\014\312\264-\010Account" +
+      "I\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.quer" +
+      "y.v1beta1.PageResponse\"J\n\023QueryAccountRe" +
+      "quest\022)\n\007address\030\001 \001(\tB\030\322\264-\024cosmos.Addre" +
+      "ssString:\010\350\240\037\000\210\240\037\000\"\034\n\032QueryModuleAccount" +
+      "sRequest\"H\n\023QueryParamsResponse\0221\n\006param" +
+      "s\030\001 \001(\0132\033.cosmos.auth.v1beta1.ParamsB\004\310\336" +
+      "\037\000\"K\n\024QueryAccountResponse\0223\n\007account\030\001 " +
+      "\001(\0132\024.google.protobuf.AnyB\014\312\264-\010AccountI\"" +
+      "\024\n\022QueryParamsRequest\"Y\n\033QueryModuleAcco" +
+      "untsResponse\022:\n\010accounts\030\001 \003(\0132\024.google." +
+      "protobuf.AnyB\022\312\264-\016ModuleAccountI\"\025\n\023Bech" +
+      "32PrefixRequest\"-\n\024Bech32PrefixResponse\022" +
+      "\025\n\rbech32_prefix\030\001 \001(\t\"4\n\033AddressBytesTo" +
+      "StringRequest\022\025\n\raddress_bytes\030\001 \001(\014\"6\n\034" +
+      "AddressBytesToStringResponse\022\026\n\016address_" +
+      "string\030\001 \001(\t\"5\n\033AddressStringToBytesRequ" +
+      "est\022\026\n\016address_string\030\001 \001(\t\"5\n\034AddressSt" +
+      "ringToBytesResponse\022\025\n\raddress_bytes\030\001 \001" +
+      "(\0142\275\010\n\005Query\022\210\001\n\010Accounts\022).cosmos.auth." +
+      "v1beta1.QueryAccountsRequest\032*.cosmos.au" +
+      "th.v1beta1.QueryAccountsResponse\"%\202\323\344\223\002\037" +
+      "\022\035/cosmos/auth/v1beta1/accounts\022\217\001\n\007Acco" +
+      "unt\022(.cosmos.auth.v1beta1.QueryAccountRe" +
+      "quest\032).cosmos.auth.v1beta1.QueryAccount" +
+      "Response\"/\202\323\344\223\002)\022\'/cosmos/auth/v1beta1/a" +
+      "ccounts/{address}\022\200\001\n\006Params\022\'.cosmos.au" +
+      "th.v1beta1.QueryParamsRequest\032(.cosmos.a" +
+      "uth.v1beta1.QueryParamsResponse\"#\202\323\344\223\002\035\022" +
+      "\033/cosmos/auth/v1beta1/params\022\241\001\n\016ModuleA" +
+      "ccounts\022/.cosmos.auth.v1beta1.QueryModul" +
+      "eAccountsRequest\0320.cosmos.auth.v1beta1.Q" +
+      "ueryModuleAccountsResponse\",\202\323\344\223\002&\022$/cos" +
+      "mos/auth/v1beta1/module_accounts\022\210\001\n\014Bec" +
+      "h32Prefix\022(.cosmos.auth.v1beta1.Bech32Pr" +
+      "efixRequest\032).cosmos.auth.v1beta1.Bech32" +
+      "PrefixResponse\"#\202\323\344\223\002\035\022\033/cosmos/auth/v1b" +
+      "eta1/bech32\022\260\001\n\024AddressBytesToString\0220.c" +
+      "osmos.auth.v1beta1.AddressBytesToStringR" +
+      "equest\0321.cosmos.auth.v1beta1.AddressByte" +
+      "sToStringResponse\"3\202\323\344\223\002-\022+/cosmos/auth/" +
+      "v1beta1/bech32/{address_bytes}\022\261\001\n\024Addre" +
+      "ssStringToBytes\0220.cosmos.auth.v1beta1.Ad" +
+      "dressStringToBytesRequest\0321.cosmos.auth." +
+      "v1beta1.AddressStringToBytesResponse\"4\202\323" +
+      "\344\223\002.\022,/cosmos/auth/v1beta1/bech32/{addre" +
+      "ss_string}B+Z)github.com/cosmos/cosmos-s" +
+      "dk/x/auth/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

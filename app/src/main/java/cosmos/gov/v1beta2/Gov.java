@@ -9333,81 +9333,81 @@ public final class Gov {
       "\n\034cosmos/gov/v1beta2/gov.proto\022\022cosmos.g" +
       "ov.v1beta2\032\036cosmos/base/v1beta1/coin.pro" +
       "to\032\024gogoproto/gogo.proto\032\037google/protobu" +
-      "f/timestamp.proto\032\031google/protobuf/any.p" +
-      "roto\032\036google/protobuf/duration.proto\032\031co" +
-      "smos_proto/cosmos.proto\"\222\001\n\022WeightedVote" +
-      "Option\022.\n\006option\030\001 \001(\0162\036.cosmos.gov.v1be" +
-      "ta2.VoteOption\022L\n\006weight\030\002 \001(\tB<\322\264-\ncosm" +
-      "os.Dec\332\336\037&github.com/cosmos/cosmos-sdk/t" +
-      "ypes.Dec\310\336\037\000\"\262\001\n\007Deposit\022\023\n\013proposal_id\030" +
-      "\001 \001(\004\022+\n\tdepositor\030\002 \001(\tB\030\322\264-\024cosmos.Add" +
-      "ressString\022[\n\006amount\030\003 \003(\0132\031.cosmos.base" +
-      ".v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos" +
-      "/cosmos-sdk/types.Coins:\010\210\240\037\000\350\240\037\000\"\360\005\n\010Pr" +
-      "oposal\022(\n\013proposal_id\030\001 \001(\004B\023\352\336\037\002id\362\336\037\ty" +
-      "aml:\"id\"\022&\n\010messages\030\002 \003(\0132\024.google.prot" +
-      "obuf.Any\022N\n\006status\030\003 \001(\0162\".cosmos.gov.v1" +
-      "beta2.ProposalStatusB\032\362\336\037\026yaml:\"proposal" +
-      "_status\"\022^\n\022final_tally_result\030\004 \001(\0132\037.c" +
-      "osmos.gov.v1beta2.TallyResultB!\310\336\037\000\362\336\037\031y" +
-      "aml:\"final_tally_result\"\022O\n\013submit_time\030" +
-      "\005 \001(\0132\032.google.protobuf.TimestampB\036\220\337\037\001\310" +
-      "\336\037\000\362\336\037\022yaml:\"submit_time\"\022Y\n\020deposit_end" +
-      "_time\030\006 \001(\0132\032.google.protobuf.TimestampB" +
-      "#\220\337\037\001\310\336\037\000\362\336\037\027yaml:\"deposit_end_time\"\022z\n\r" +
-      "total_deposit\030\007 \003(\0132\031.cosmos.base.v1beta" +
-      "1.CoinBH\310\336\037\000\252\337\037(github.com/cosmos/cosmos" +
-      "-sdk/types.Coins\362\336\037\024yaml:\"total_deposit\"" +
-      "\022[\n\021voting_start_time\030\010 \001(\0132\032.google.pro" +
-      "tobuf.TimestampB$\220\337\037\001\310\336\037\000\362\336\037\030yaml:\"votin" +
-      "g_start_time\"\022W\n\017voting_end_time\030\t \001(\0132\032" +
-      ".google.protobuf.TimestampB\"\220\337\037\001\310\336\037\000\362\336\037\026" +
-      "yaml:\"voting_end_time\":\004\350\240\037\001\"\313\002\n\013TallyRe" +
-      "sult\022I\n\003yes\030\001 \001(\tB<\322\264-\ncosmos.Int\332\336\037&git" +
+      "f/timestamp.proto\032\032google/protobuf2/any." +
+      "proto\032\036google/protobuf/duration.proto\032\031c" +
+      "osmos_proto/cosmos.proto\"\222\001\n\022WeightedVot" +
+      "eOption\022.\n\006option\030\001 \001(\0162\036.cosmos.gov.v1b" +
+      "eta2.VoteOption\022L\n\006weight\030\002 \001(\tB<\322\264-\ncos" +
+      "mos.Dec\332\336\037&github.com/cosmos/cosmos-sdk/" +
+      "types.Dec\310\336\037\000\"\262\001\n\007Deposit\022\023\n\013proposal_id" +
+      "\030\001 \001(\004\022+\n\tdepositor\030\002 \001(\tB\030\322\264-\024cosmos.Ad" +
+      "dressString\022[\n\006amount\030\003 \003(\0132\031.cosmos.bas" +
+      "e.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmo" +
+      "s/cosmos-sdk/types.Coins:\010\210\240\037\000\350\240\037\000\"\360\005\n\010P" +
+      "roposal\022(\n\013proposal_id\030\001 \001(\004B\023\352\336\037\002id\362\336\037\t" +
+      "yaml:\"id\"\022&\n\010messages\030\002 \003(\0132\024.google.pro" +
+      "tobuf.Any\022N\n\006status\030\003 \001(\0162\".cosmos.gov.v" +
+      "1beta2.ProposalStatusB\032\362\336\037\026yaml:\"proposa" +
+      "l_status\"\022^\n\022final_tally_result\030\004 \001(\0132\037." +
+      "cosmos.gov.v1beta2.TallyResultB!\310\336\037\000\362\336\037\031" +
+      "yaml:\"final_tally_result\"\022O\n\013submit_time" +
+      "\030\005 \001(\0132\032.google.protobuf.TimestampB\036\220\337\037\001" +
+      "\310\336\037\000\362\336\037\022yaml:\"submit_time\"\022Y\n\020deposit_en" +
+      "d_time\030\006 \001(\0132\032.google.protobuf.Timestamp" +
+      "B#\220\337\037\001\310\336\037\000\362\336\037\027yaml:\"deposit_end_time\"\022z\n" +
+      "\rtotal_deposit\030\007 \003(\0132\031.cosmos.base.v1bet" +
+      "a1.CoinBH\310\336\037\000\252\337\037(github.com/cosmos/cosmo" +
+      "s-sdk/types.Coins\362\336\037\024yaml:\"total_deposit" +
+      "\"\022[\n\021voting_start_time\030\010 \001(\0132\032.google.pr" +
+      "otobuf.TimestampB$\220\337\037\001\310\336\037\000\362\336\037\030yaml:\"voti" +
+      "ng_start_time\"\022W\n\017voting_end_time\030\t \001(\0132" +
+      "\032.google.protobuf.TimestampB\"\220\337\037\001\310\336\037\000\362\336\037" +
+      "\026yaml:\"voting_end_time\":\004\350\240\037\001\"\313\002\n\013TallyR" +
+      "esult\022I\n\003yes\030\001 \001(\tB<\322\264-\ncosmos.Int\332\336\037&gi" +
+      "thub.com/cosmos/cosmos-sdk/types.Int\310\336\037\000" +
+      "\022M\n\007abstain\030\002 \001(\tB<\322\264-\ncosmos.Int\332\336\037&git" +
       "hub.com/cosmos/cosmos-sdk/types.Int\310\336\037\000\022" +
-      "M\n\007abstain\030\002 \001(\tB<\322\264-\ncosmos.Int\332\336\037&gith" +
-      "ub.com/cosmos/cosmos-sdk/types.Int\310\336\037\000\022H" +
-      "\n\002no\030\003 \001(\tB<\322\264-\ncosmos.Int\332\336\037&github.com" +
-      "/cosmos/cosmos-sdk/types.Int\310\336\037\000\022R\n\014no_w" +
-      "ith_veto\030\004 \001(\tB<\322\264-\ncosmos.Int\332\336\037&github" +
-      ".com/cosmos/cosmos-sdk/types.Int\310\336\037\000:\004\350\240" +
-      "\037\001\"\301\001\n\004Vote\022\023\n\013proposal_id\030\001 \001(\004\022\'\n\005vote" +
-      "r\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\0222\n\006opt" +
-      "ion\030\003 \001(\0162\036.cosmos.gov.v1beta2.VoteOptio" +
-      "nB\002\030\001\022=\n\007options\030\004 \003(\0132&.cosmos.gov.v1be" +
-      "ta2.WeightedVoteOptionB\004\310\336\037\000:\010\230\240\037\000\350\240\037\000\"\353" +
-      "\001\n\rDepositParams\022y\n\013min_deposit\030\001 \003(\0132\031." +
-      "cosmos.base.v1beta1.CoinBI\310\336\037\000\252\337\037(github" +
-      ".com/cosmos/cosmos-sdk/types.Coins\352\336\037\025mi" +
-      "n_deposit,omitempty\022_\n\022max_deposit_perio" +
-      "d\030\002 \001(\0132\031.google.protobuf.DurationB(\310\336\037\000" +
-      "\230\337\037\001\352\336\037\034max_deposit_period,omitempty\"e\n\014" +
-      "VotingParams\022U\n\rvoting_period\030\001 \001(\0132\031.go" +
-      "ogle.protobuf.DurationB#\310\336\037\000\230\337\037\001\352\336\037\027voti" +
-      "ng_period,omitempty\"\237\002\n\013TallyParams\022R\n\006q" +
-      "uorum\030\001 \001(\014BB\332\336\037&github.com/cosmos/cosmo" +
-      "s-sdk/types.Dec\310\336\037\000\352\336\037\020quorum,omitempty\022" +
-      "X\n\tthreshold\030\002 \001(\014BE\332\336\037&github.com/cosmo" +
-      "s/cosmos-sdk/types.Dec\310\336\037\000\352\336\037\023threshold," +
-      "omitempty\022b\n\016veto_threshold\030\003 \001(\014BJ\332\336\037&g" +
-      "ithub.com/cosmos/cosmos-sdk/types.Dec\310\336\037" +
-      "\000\352\336\037\030veto_threshold,omitempty*\346\001\n\nVoteOp" +
-      "tion\022,\n\027VOTE_OPTION_UNSPECIFIED\020\000\032\017\212\235 \013O" +
-      "ptionEmpty\022\"\n\017VOTE_OPTION_YES\020\001\032\r\212\235 \tOpt" +
-      "ionYes\022*\n\023VOTE_OPTION_ABSTAIN\020\002\032\021\212\235 \rOpt" +
-      "ionAbstain\022 \n\016VOTE_OPTION_NO\020\003\032\014\212\235 \010Opti" +
-      "onNo\0222\n\030VOTE_OPTION_NO_WITH_VETO\020\004\032\024\212\235 \020" +
-      "OptionNoWithVeto\032\004\210\243\036\000*\314\002\n\016ProposalStatu" +
-      "s\022.\n\033PROPOSAL_STATUS_UNSPECIFIED\020\000\032\r\212\235 \t" +
-      "StatusNil\022;\n\036PROPOSAL_STATUS_DEPOSIT_PER" +
-      "IOD\020\001\032\027\212\235 \023StatusDepositPeriod\0229\n\035PROPOS" +
-      "AL_STATUS_VOTING_PERIOD\020\002\032\026\212\235 \022StatusVot" +
-      "ingPeriod\022,\n\026PROPOSAL_STATUS_PASSED\020\003\032\020\212" +
-      "\235 \014StatusPassed\0220\n\030PROPOSAL_STATUS_REJEC" +
-      "TED\020\004\032\022\212\235 \016StatusRejected\022,\n\026PROPOSAL_ST" +
-      "ATUS_FAILED\020\005\032\020\212\235 \014StatusFailed\032\004\210\243\036\000B6Z" +
-      "(github.com/cosmos/cosmos-sdk/x/gov/type" +
-      "s\330\341\036\000\200\342\036\000\310\341\036\000b\006proto3"
+      "H\n\002no\030\003 \001(\tB<\322\264-\ncosmos.Int\332\336\037&github.co" +
+      "m/cosmos/cosmos-sdk/types.Int\310\336\037\000\022R\n\014no_" +
+      "with_veto\030\004 \001(\tB<\322\264-\ncosmos.Int\332\336\037&githu" +
+      "b.com/cosmos/cosmos-sdk/types.Int\310\336\037\000:\004\350" +
+      "\240\037\001\"\301\001\n\004Vote\022\023\n\013proposal_id\030\001 \001(\004\022\'\n\005vot" +
+      "er\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\0222\n\006op" +
+      "tion\030\003 \001(\0162\036.cosmos.gov.v1beta2.VoteOpti" +
+      "onB\002\030\001\022=\n\007options\030\004 \003(\0132&.cosmos.gov.v1b" +
+      "eta2.WeightedVoteOptionB\004\310\336\037\000:\010\230\240\037\000\350\240\037\000\"" +
+      "\353\001\n\rDepositParams\022y\n\013min_deposit\030\001 \003(\0132\031" +
+      ".cosmos.base.v1beta1.CoinBI\310\336\037\000\252\337\037(githu" +
+      "b.com/cosmos/cosmos-sdk/types.Coins\352\336\037\025m" +
+      "in_deposit,omitempty\022_\n\022max_deposit_peri" +
+      "od\030\002 \001(\0132\031.google.protobuf.DurationB(\310\336\037" +
+      "\000\230\337\037\001\352\336\037\034max_deposit_period,omitempty\"e\n" +
+      "\014VotingParams\022U\n\rvoting_period\030\001 \001(\0132\031.g" +
+      "oogle.protobuf.DurationB#\310\336\037\000\230\337\037\001\352\336\037\027vot" +
+      "ing_period,omitempty\"\237\002\n\013TallyParams\022R\n\006" +
+      "quorum\030\001 \001(\014BB\332\336\037&github.com/cosmos/cosm" +
+      "os-sdk/types.Dec\310\336\037\000\352\336\037\020quorum,omitempty" +
+      "\022X\n\tthreshold\030\002 \001(\014BE\332\336\037&github.com/cosm" +
+      "os/cosmos-sdk/types.Dec\310\336\037\000\352\336\037\023threshold" +
+      ",omitempty\022b\n\016veto_threshold\030\003 \001(\014BJ\332\336\037&" +
+      "github.com/cosmos/cosmos-sdk/types.Dec\310\336" +
+      "\037\000\352\336\037\030veto_threshold,omitempty*\346\001\n\nVoteO" +
+      "ption\022,\n\027VOTE_OPTION_UNSPECIFIED\020\000\032\017\212\235 \013" +
+      "OptionEmpty\022\"\n\017VOTE_OPTION_YES\020\001\032\r\212\235 \tOp" +
+      "tionYes\022*\n\023VOTE_OPTION_ABSTAIN\020\002\032\021\212\235 \rOp" +
+      "tionAbstain\022 \n\016VOTE_OPTION_NO\020\003\032\014\212\235 \010Opt" +
+      "ionNo\0222\n\030VOTE_OPTION_NO_WITH_VETO\020\004\032\024\212\235 " +
+      "\020OptionNoWithVeto\032\004\210\243\036\000*\314\002\n\016ProposalStat" +
+      "us\022.\n\033PROPOSAL_STATUS_UNSPECIFIED\020\000\032\r\212\235 " +
+      "\tStatusNil\022;\n\036PROPOSAL_STATUS_DEPOSIT_PE" +
+      "RIOD\020\001\032\027\212\235 \023StatusDepositPeriod\0229\n\035PROPO" +
+      "SAL_STATUS_VOTING_PERIOD\020\002\032\026\212\235 \022StatusVo" +
+      "tingPeriod\022,\n\026PROPOSAL_STATUS_PASSED\020\003\032\020" +
+      "\212\235 \014StatusPassed\0220\n\030PROPOSAL_STATUS_REJE" +
+      "CTED\020\004\032\022\212\235 \016StatusRejected\022,\n\026PROPOSAL_S" +
+      "TATUS_FAILED\020\005\032\020\212\235 \014StatusFailed\032\004\210\243\036\000B6" +
+      "Z(github.com/cosmos/cosmos-sdk/x/gov/typ" +
+      "es\330\341\036\000\200\342\036\000\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

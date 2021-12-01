@@ -29,14 +29,13 @@ public final class OwnerOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\032panacea/aol/v2/owner.proto\022\016panacea.ao" +
-      "l.v2\032\024gogoproto/gogo.proto\"\035\n\005Owner\022\024\n\014t" +
-      "otal_topics\030\001 \001(\004B0P\001Z,github.com/medibl" +
-      "oc/panacea-core/x/aol/typesb\006proto3"
+      "l.v2\"\035\n\005Owner\022\024\n\014total_topics\030\001 \001(\004B0P\001Z" +
+      ",github.com/medibloc/panacea-core/x/aol/" +
+      "typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_panacea_aol_v2_Owner_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -44,7 +43,6 @@ public final class OwnerOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_panacea_aol_v2_Owner_descriptor,
         new java.lang.String[] { "TotalTopics", });
-    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

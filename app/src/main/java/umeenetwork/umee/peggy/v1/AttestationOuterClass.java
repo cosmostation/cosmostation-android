@@ -1926,21 +1926,21 @@ public final class AttestationOuterClass {
     java.lang.String[] descriptorData = {
       "\n\037umee/peggy/v1/attestation.proto\022\031umeen" +
       "etwork.umee.peggy.v1\032\024gogoproto/gogo.pro" +
-      "to\032\031google/protobuf/any.proto\"c\n\013Attesta" +
-      "tion\022\020\n\010observed\030\001 \001(\010\022\r\n\005votes\030\002 \003(\t\022\016\n" +
-      "\006height\030\003 \001(\004\022#\n\005claim\030\004 \001(\0132\024.google.pr" +
-      "otobuf.Any\"^\n\nERC20Token\022\020\n\010contract\030\001 \001" +
-      "(\t\022>\n\006amount\030\002 \001(\tB.\332\336\037&github.com/cosmo" +
-      "s/cosmos-sdk/types.Int\310\336\037\000*\237\002\n\tClaimType" +
-      "\022.\n\022CLAIM_TYPE_UNKNOWN\020\000\032\026\212\235 \022CLAIM_TYPE" +
-      "_UNKNOWN\022.\n\022CLAIM_TYPE_DEPOSIT\020\001\032\026\212\235 \022CL" +
-      "AIM_TYPE_DEPOSIT\0220\n\023CLAIM_TYPE_WITHDRAW\020" +
-      "\002\032\027\212\235 \023CLAIM_TYPE_WITHDRAW\022<\n\031CLAIM_TYPE" +
-      "_ERC20_DEPLOYED\020\003\032\035\212\235 \031CLAIM_TYPE_ERC20_" +
-      "DEPLOYED\022<\n\031CLAIM_TYPE_VALSET_UPDATED\020\004\032" +
-      "\035\212\235 \031CLAIM_TYPE_VALSET_UPDATED\032\004\210\243\036\000B,Z*" +
-      "github.com/umee-network/umee/x/peggy/typ" +
-      "esb\006proto3"
+      "to\032\032google/protobuf2/any.proto\"c\n\013Attest" +
+      "ation\022\020\n\010observed\030\001 \001(\010\022\r\n\005votes\030\002 \003(\t\022\016" +
+      "\n\006height\030\003 \001(\004\022#\n\005claim\030\004 \001(\0132\024.google.p" +
+      "rotobuf.Any\"^\n\nERC20Token\022\020\n\010contract\030\001 " +
+      "\001(\t\022>\n\006amount\030\002 \001(\tB.\332\336\037&github.com/cosm" +
+      "os/cosmos-sdk/types.Int\310\336\037\000*\237\002\n\tClaimTyp" +
+      "e\022.\n\022CLAIM_TYPE_UNKNOWN\020\000\032\026\212\235 \022CLAIM_TYP" +
+      "E_UNKNOWN\022.\n\022CLAIM_TYPE_DEPOSIT\020\001\032\026\212\235 \022C" +
+      "LAIM_TYPE_DEPOSIT\0220\n\023CLAIM_TYPE_WITHDRAW" +
+      "\020\002\032\027\212\235 \023CLAIM_TYPE_WITHDRAW\022<\n\031CLAIM_TYP" +
+      "E_ERC20_DEPLOYED\020\003\032\035\212\235 \031CLAIM_TYPE_ERC20" +
+      "_DEPLOYED\022<\n\031CLAIM_TYPE_VALSET_UPDATED\020\004" +
+      "\032\035\212\235 \031CLAIM_TYPE_VALSET_UPDATED\032\004\210\243\036\000B,Z" +
+      "*github.com/umee-network/umee/x/peggy/ty" +
+      "pesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

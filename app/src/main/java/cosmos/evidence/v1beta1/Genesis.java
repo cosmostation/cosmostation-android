@@ -942,11 +942,11 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n%cosmos/evidence/v1beta1/genesis.proto\022" +
-      "\027cosmos.evidence.v1beta1\032\031google/protobu" +
-      "f/any.proto\"6\n\014GenesisState\022&\n\010evidence\030" +
-      "\001 \003(\0132\024.google.protobuf.AnyB/Z-github.co" +
-      "m/cosmos/cosmos-sdk/x/evidence/typesb\006pr" +
-      "oto3"
+      "\027cosmos.evidence.v1beta1\032\032google/protobu" +
+      "f2/any.proto\"6\n\014GenesisState\022&\n\010evidence" +
+      "\030\001 \003(\0132\024.google.protobuf.AnyB/Z-github.c" +
+      "om/cosmos/cosmos-sdk/x/evidence/typesb\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

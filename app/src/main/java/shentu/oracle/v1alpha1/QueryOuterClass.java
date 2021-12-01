@@ -6513,54 +6513,53 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\"shentu/oracle/v1alpha1/query.proto\022\026sh" +
-      "entu.oracle.v1alpha1\032*cosmos/base/query/" +
-      "v1beta1/pagination.proto\032\024gogoproto/gogo" +
-      ".proto\032\034google/api/annotations.proto\032#sh" +
-      "entu/oracle/v1alpha1/oracle.proto\"\'\n\024Que" +
-      "ryOperatorRequest\022\017\n\007address\030\001 \001(\t\"Q\n\025Qu" +
-      "eryOperatorResponse\0228\n\010operator\030\001 \001(\0132 ." +
-      "shentu.oracle.v1alpha1.OperatorB\004\310\336\037\000\"\027\n" +
-      "\025QueryOperatorsRequest\"S\n\026QueryOperators" +
-      "Response\0229\n\toperators\030\001 \003(\0132 .shentu.ora" +
-      "cle.v1alpha1.OperatorB\004\310\336\037\000\"\027\n\025QueryWith" +
-      "drawsRequest\"S\n\026QueryWithdrawsResponse\0229" +
-      "\n\twithdraws\030\001 \003(\0132 .shentu.oracle.v1alph" +
-      "a1.WithdrawB\004\310\336\037\000\"6\n\020QueryTaskRequest\022\020\n" +
-      "\010contract\030\001 \001(\t\022\020\n\010function\030\002 \001(\t\"E\n\021Que" +
-      "ryTaskResponse\0220\n\004task\030\001 \001(\0132\034.shentu.or" +
-      "acle.v1alpha1.TaskB\004\310\336\037\000\"T\n\024QueryRespons" +
-      "eRequest\022\020\n\010contract\030\001 \001(\t\022\020\n\010function\030\002" +
-      " \001(\t\022\030\n\020operator_address\030\003 \001(\t\"Q\n\025QueryR" +
-      "esponseResponse\0228\n\010response\030\001 \001(\0132 .shen" +
-      "tu.oracle.v1alpha1.ResponseB\004\310\336\037\0002\331\006\n\005Qu" +
-      "ery\022\233\001\n\010Operator\022,.shentu.oracle.v1alpha" +
-      "1.QueryOperatorRequest\032-.shentu.oracle.v" +
-      "1alpha1.QueryOperatorResponse\"2\202\323\344\223\002,\022*/" +
-      "shentu/oracle/v1alpha1/operator/{address" +
-      "}\022\225\001\n\tOperators\022-.shentu.oracle.v1alpha1" +
-      ".QueryOperatorsRequest\032..shentu.oracle.v" +
-      "1alpha1.QueryOperatorsResponse\")\202\323\344\223\002#\022!" +
-      "/shentu/oracle/v1alpha1/operators\022\225\001\n\tWi" +
-      "thdraws\022-.shentu.oracle.v1alpha1.QueryWi" +
-      "thdrawsRequest\032..shentu.oracle.v1alpha1." +
-      "QueryWithdrawsResponse\")\202\323\344\223\002#\022!/shentu/" +
-      "oracle/v1alpha1/withdraws\022\251\001\n\004Task\022(.she" +
-      "ntu.oracle.v1alpha1.QueryTaskRequest\032).s" +
-      "hentu.oracle.v1alpha1.QueryTaskResponse\"" +
-      "L\202\323\344\223\002F\022D/shentu/oracle/v1alpha1/contrac" +
-      "t/{contract}/function/{function}/task\022\325\001" +
-      "\n\010Response\022,.shentu.oracle.v1alpha1.Quer" +
-      "yResponseRequest\032-.shentu.oracle.v1alpha" +
-      "1.QueryResponseResponse\"l\202\323\344\223\002f\022d/shentu" +
-      "/oracle/v1alpha1/contract/{contract}/fun" +
-      "ction/{function}/operator/{operator_addr" +
-      "ess}/ResponseB3Z1github.com/certikfounda" +
-      "tion/shentu/x/oracle/typesb\006proto3"
+      "entu.oracle.v1alpha1\032\024gogoproto/gogo.pro" +
+      "to\032\034google/api/annotations.proto\032#shentu" +
+      "/oracle/v1alpha1/oracle.proto\"\'\n\024QueryOp" +
+      "eratorRequest\022\017\n\007address\030\001 \001(\t\"Q\n\025QueryO" +
+      "peratorResponse\0228\n\010operator\030\001 \001(\0132 .shen" +
+      "tu.oracle.v1alpha1.OperatorB\004\310\336\037\000\"\027\n\025Que" +
+      "ryOperatorsRequest\"S\n\026QueryOperatorsResp" +
+      "onse\0229\n\toperators\030\001 \003(\0132 .shentu.oracle." +
+      "v1alpha1.OperatorB\004\310\336\037\000\"\027\n\025QueryWithdraw" +
+      "sRequest\"S\n\026QueryWithdrawsResponse\0229\n\twi" +
+      "thdraws\030\001 \003(\0132 .shentu.oracle.v1alpha1.W" +
+      "ithdrawB\004\310\336\037\000\"6\n\020QueryTaskRequest\022\020\n\010con" +
+      "tract\030\001 \001(\t\022\020\n\010function\030\002 \001(\t\"E\n\021QueryTa" +
+      "skResponse\0220\n\004task\030\001 \001(\0132\034.shentu.oracle" +
+      ".v1alpha1.TaskB\004\310\336\037\000\"T\n\024QueryResponseReq" +
+      "uest\022\020\n\010contract\030\001 \001(\t\022\020\n\010function\030\002 \001(\t" +
+      "\022\030\n\020operator_address\030\003 \001(\t\"Q\n\025QueryRespo" +
+      "nseResponse\0228\n\010response\030\001 \001(\0132 .shentu.o" +
+      "racle.v1alpha1.ResponseB\004\310\336\037\0002\345\006\n\005Query\022" +
+      "\241\001\n\016OracleOperator\022,.shentu.oracle.v1alp" +
+      "ha1.QueryOperatorRequest\032-.shentu.oracle" +
+      ".v1alpha1.QueryOperatorResponse\"2\202\323\344\223\002,\022" +
+      "*/shentu/oracle/v1alpha1/operator/{addre" +
+      "ss}\022\233\001\n\017OracleOperators\022-.shentu.oracle." +
+      "v1alpha1.QueryOperatorsRequest\032..shentu." +
+      "oracle.v1alpha1.QueryOperatorsResponse\")" +
+      "\202\323\344\223\002#\022!/shentu/oracle/v1alpha1/operator" +
+      "s\022\225\001\n\tWithdraws\022-.shentu.oracle.v1alpha1" +
+      ".QueryWithdrawsRequest\032..shentu.oracle.v" +
+      "1alpha1.QueryWithdrawsResponse\")\202\323\344\223\002#\022!" +
+      "/shentu/oracle/v1alpha1/withdraws\022\251\001\n\004Ta" +
+      "sk\022(.shentu.oracle.v1alpha1.QueryTaskReq" +
+      "uest\032).shentu.oracle.v1alpha1.QueryTaskR" +
+      "esponse\"L\202\323\344\223\002F\022D/shentu/oracle/v1alpha1" +
+      "/contract/{contract}/function/{function}" +
+      "/task\022\325\001\n\010Response\022,.shentu.oracle.v1alp" +
+      "ha1.QueryResponseRequest\032-.shentu.oracle" +
+      ".v1alpha1.QueryResponseResponse\"l\202\323\344\223\002f\022" +
+      "d/shentu/oracle/v1alpha1/contract/{contr" +
+      "act}/function/{function}/operator/{opera" +
+      "tor_address}/ResponseB3Z1github.com/cert" +
+      "ikfoundation/shentu/x/oracle/typesb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           shentu.oracle.v1alpha1.Oracle.getDescriptor(),
@@ -6631,7 +6630,6 @@ public final class QueryOuterClass {
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    cosmos.base.query.v1beta1.Pagination.getDescriptor();
     com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     shentu.oracle.v1alpha1.Oracle.getDescriptor();

@@ -3851,27 +3851,25 @@ public final class Types {
   static {
     java.lang.String[] descriptorData = {
       "\n\036injective/peggy/v1/types.proto\022\022inject" +
-      "ive.peggy.v1\032\036cosmos/base/v1beta1/coin.p" +
-      "roto\032\024gogoproto/gogo.proto\":\n\017BridgeVali" +
-      "dator\022\r\n\005power\030\001 \001(\004\022\030\n\020ethereum_address" +
-      "\030\002 \001(\t\"\272\001\n\006Valset\022\r\n\005nonce\030\001 \001(\004\0224\n\007memb" +
-      "ers\030\002 \003(\0132#.injective.peggy.v1.BridgeVal" +
-      "idator\022\016\n\006height\030\003 \001(\004\022E\n\rreward_amount\030" +
-      "\004 \001(\tB.\332\336\037&github.com/cosmos/cosmos-sdk/" +
-      "types.Int\310\336\037\000\022\024\n\014reward_token\030\005 \001(\t\"]\n\037L" +
-      "astObservedEthereumBlockHeight\022\033\n\023cosmos" +
-      "_block_height\030\001 \001(\004\022\035\n\025ethereum_block_he" +
-      "ight\030\002 \001(\004\"M\n\016LastClaimEvent\022\034\n\024ethereum" +
-      "_event_nonce\030\001 \001(\004\022\035\n\025ethereum_event_hei" +
-      "ght\030\002 \001(\004\",\n\014ERC20ToDenom\022\r\n\005erc20\030\001 \001(\t" +
-      "\022\r\n\005denom\030\002 \001(\tBMZKgithub.com/InjectiveL" +
-      "abs/injective-core/injective-chain/modul" +
-      "es/peggy/typesb\006proto3"
+      "ive.peggy.v1\032\024gogoproto/gogo.proto\":\n\017Br" +
+      "idgeValidator\022\r\n\005power\030\001 \001(\004\022\030\n\020ethereum" +
+      "_address\030\002 \001(\t\"\272\001\n\006Valset\022\r\n\005nonce\030\001 \001(\004" +
+      "\0224\n\007members\030\002 \003(\0132#.injective.peggy.v1.B" +
+      "ridgeValidator\022\016\n\006height\030\003 \001(\004\022E\n\rreward" +
+      "_amount\030\004 \001(\tB.\332\336\037&github.com/cosmos/cos" +
+      "mos-sdk/types.Int\310\336\037\000\022\024\n\014reward_token\030\005 " +
+      "\001(\t\"]\n\037LastObservedEthereumBlockHeight\022\033" +
+      "\n\023cosmos_block_height\030\001 \001(\004\022\035\n\025ethereum_" +
+      "block_height\030\002 \001(\004\"M\n\016LastClaimEvent\022\034\n\024" +
+      "ethereum_event_nonce\030\001 \001(\004\022\035\n\025ethereum_e" +
+      "vent_height\030\002 \001(\004\",\n\014ERC20ToDenom\022\r\n\005erc" +
+      "20\030\001 \001(\t\022\r\n\005denom\030\002 \001(\tBMZKgithub.com/In" +
+      "jectiveLabs/injective-core/injective-cha" +
+      "in/modules/peggy/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_injective_peggy_v1_BridgeValidator_descriptor =
@@ -3910,7 +3908,6 @@ public final class Types {
     registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.protobuf.GoGoProtos.getDescriptor();
   }
 

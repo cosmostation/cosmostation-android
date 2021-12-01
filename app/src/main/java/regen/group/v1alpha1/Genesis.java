@@ -3166,24 +3166,22 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n\"regen/group/v1alpha1/genesis.proto\022\024re" +
-      "gen.group.v1alpha1\032\024gogoproto/gogo.proto" +
-      "\032 regen/group/v1alpha1/types.proto\"\333\002\n\014G" +
-      "enesisState\022\021\n\tgroup_seq\030\001 \001(\004\022/\n\006groups" +
-      "\030\002 \003(\0132\037.regen.group.v1alpha1.GroupInfo\022" +
-      "8\n\rgroup_members\030\003 \003(\0132!.regen.group.v1a" +
-      "lpha1.GroupMember\022\031\n\021group_account_seq\030\004" +
-      " \001(\004\022>\n\016group_accounts\030\005 \003(\0132&.regen.gro" +
-      "up.v1alpha1.GroupAccountInfo\022\024\n\014proposal" +
-      "_seq\030\006 \001(\004\0221\n\tproposals\030\007 \003(\0132\036.regen.gr" +
-      "oup.v1alpha1.Proposal\022)\n\005votes\030\010 \003(\0132\032.r" +
-      "egen.group.v1alpha1.VoteB/Z-github.com/r" +
-      "egen-network/regen-ledger/x/groupb\006proto" +
-      "3"
+      "gen.group.v1alpha1\032 regen/group/v1alpha1" +
+      "/types.proto\"\333\002\n\014GenesisState\022\021\n\tgroup_s" +
+      "eq\030\001 \001(\004\022/\n\006groups\030\002 \003(\0132\037.regen.group.v" +
+      "1alpha1.GroupInfo\0228\n\rgroup_members\030\003 \003(\013" +
+      "2!.regen.group.v1alpha1.GroupMember\022\031\n\021g" +
+      "roup_account_seq\030\004 \001(\004\022>\n\016group_accounts" +
+      "\030\005 \003(\0132&.regen.group.v1alpha1.GroupAccou" +
+      "ntInfo\022\024\n\014proposal_seq\030\006 \001(\004\0221\n\tproposal" +
+      "s\030\007 \003(\0132\036.regen.group.v1alpha1.Proposal\022" +
+      ")\n\005votes\030\010 \003(\0132\032.regen.group.v1alpha1.Vo" +
+      "teB/Z-github.com/regen-network/regen-led" +
+      "ger/x/groupb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
           regen.group.v1alpha1.Types.getDescriptor(),
         });
     internal_static_regen_group_v1alpha1_GenesisState_descriptor =
@@ -3192,7 +3190,6 @@ public final class Genesis {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_regen_group_v1alpha1_GenesisState_descriptor,
         new java.lang.String[] { "GroupSeq", "Groups", "GroupMembers", "GroupAccountSeq", "GroupAccounts", "ProposalSeq", "Proposals", "Votes", });
-    com.google.protobuf.GoGoProtos.getDescriptor();
     regen.group.v1alpha1.Types.getDescriptor();
   }
 

@@ -12185,82 +12185,82 @@ public final class QueryOuterClass {
       "\n\036ibc/core/client/v1/query.proto\022\022ibc.co" +
       "re.client.v1\032*cosmos/base/query/v1beta1/" +
       "pagination.proto\032\037ibc/core/client/v1/cli" +
-      "ent.proto\032\031google/protobuf/any.proto\032\034go" +
-      "ogle/api/annotations.proto\032\024gogoproto/go" +
-      "go.proto\",\n\027QueryClientStateRequest\022\021\n\tc" +
-      "lient_id\030\001 \001(\t\"\215\001\n\030QueryClientStateRespo" +
-      "nse\022*\n\014client_state\030\001 \001(\0132\024.google.proto" +
-      "buf.Any\022\r\n\005proof\030\002 \001(\014\0226\n\014proof_height\030\003" +
-      " \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000\"V" +
-      "\n\030QueryClientStatesRequest\022:\n\npagination" +
-      "\030\001 \001(\0132&.cosmos.base.query.v1beta1.PageR" +
-      "equest\"\272\001\n\031QueryClientStatesResponse\022`\n\r" +
-      "client_states\030\001 \003(\0132).ibc.core.client.v1" +
-      ".IdentifiedClientStateB\036\310\336\037\000\252\337\037\026Identifi" +
-      "edClientStates\022;\n\npagination\030\002 \001(\0132\'.cos" +
-      "mos.base.query.v1beta1.PageResponse\"x\n\032Q" +
-      "ueryConsensusStateRequest\022\021\n\tclient_id\030\001" +
-      " \001(\t\022\027\n\017revision_number\030\002 \001(\004\022\027\n\017revisio" +
-      "n_height\030\003 \001(\004\022\025\n\rlatest_height\030\004 \001(\010\"\223\001" +
-      "\n\033QueryConsensusStateResponse\022-\n\017consens" +
-      "us_state\030\001 \001(\0132\024.google.protobuf.Any\022\r\n\005" +
-      "proof\030\002 \001(\014\0226\n\014proof_height\030\003 \001(\0132\032.ibc." +
-      "core.client.v1.HeightB\004\310\336\037\000\"l\n\033QueryCons" +
-      "ensusStatesRequest\022\021\n\tclient_id\030\001 \001(\t\022:\n" +
-      "\npagination\030\002 \001(\0132&.cosmos.base.query.v1" +
-      "beta1.PageRequest\"\251\001\n\034QueryConsensusStat" +
-      "esResponse\022L\n\020consensus_states\030\001 \003(\0132,.i" +
-      "bc.core.client.v1.ConsensusStateWithHeig" +
-      "htB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.ba" +
-      "se.query.v1beta1.PageResponse\"-\n\030QueryCl" +
-      "ientStatusRequest\022\021\n\tclient_id\030\001 \001(\t\"+\n\031" +
-      "QueryClientStatusResponse\022\016\n\006status\030\001 \001(" +
-      "\t\"\032\n\030QueryClientParamsRequest\"G\n\031QueryCl" +
-      "ientParamsResponse\022*\n\006params\030\001 \001(\0132\032.ibc" +
-      ".core.client.v1.Params\"!\n\037QueryUpgradedC" +
-      "lientStateRequest\"W\n QueryUpgradedClient" +
-      "StateResponse\0223\n\025upgraded_client_state\030\001" +
-      " \001(\0132\024.google.protobuf.Any\"$\n\"QueryUpgra" +
-      "dedConsensusStateRequest\"]\n#QueryUpgrade" +
-      "dConsensusStateResponse\0226\n\030upgraded_cons" +
-      "ensus_state\030\001 \001(\0132\024.google.protobuf.Any2" +
-      "\201\013\n\005Query\022\237\001\n\013ClientState\022+.ibc.core.cli" +
-      "ent.v1.QueryClientStateRequest\032,.ibc.cor" +
-      "e.client.v1.QueryClientStateResponse\"5\202\323" +
-      "\344\223\002/\022-/ibc/core/client/v1/client_states/" +
-      "{client_id}\022\226\001\n\014ClientStates\022,.ibc.core." +
-      "client.v1.QueryClientStatesRequest\032-.ibc" +
-      ".core.client.v1.QueryClientStatesRespons" +
-      "e\")\202\323\344\223\002#\022!/ibc/core/client/v1/client_st" +
-      "ates\022\337\001\n\016ConsensusState\022..ibc.core.clien" +
-      "t.v1.QueryConsensusStateRequest\032/.ibc.co" +
-      "re.client.v1.QueryConsensusStateResponse" +
-      "\"l\202\323\344\223\002f\022d/ibc/core/client/v1/consensus_" +
-      "states/{client_id}/revision/{revision_nu" +
-      "mber}/height/{revision_height}\022\256\001\n\017Conse" +
-      "nsusStates\022/.ibc.core.client.v1.QueryCon" +
-      "sensusStatesRequest\0320.ibc.core.client.v1" +
-      ".QueryConsensusStatesResponse\"8\202\323\344\223\0022\0220/" +
-      "ibc/core/client/v1/consensus_states/{cli" +
-      "ent_id}\022\242\001\n\014ClientStatus\022,.ibc.core.clie" +
-      "nt.v1.QueryClientStatusRequest\032-.ibc.cor" +
-      "e.client.v1.QueryClientStatusResponse\"5\202" +
-      "\323\344\223\002/\022-/ibc/core/client/v1/client_status" +
-      "/{client_id}\022\212\001\n\014ClientParams\022,.ibc.core" +
-      ".client.v1.QueryClientParamsRequest\032-.ib" +
-      "c.core.client.v1.QueryClientParamsRespon" +
-      "se\"\035\202\323\344\223\002\027\022\025/ibc/client/v1/params\022\264\001\n\023Up" +
-      "gradedClientState\0223.ibc.core.client.v1.Q" +
-      "ueryUpgradedClientStateRequest\0324.ibc.cor" +
-      "e.client.v1.QueryUpgradedClientStateResp" +
-      "onse\"2\202\323\344\223\002,\022*/ibc/core/client/v1/upgrad" +
-      "ed_client_states\022\300\001\n\026UpgradedConsensusSt" +
-      "ate\0226.ibc.core.client.v1.QueryUpgradedCo" +
-      "nsensusStateRequest\0327.ibc.core.client.v1" +
-      ".QueryUpgradedConsensusStateResponse\"5\202\323" +
-      "\344\223\002/\022-/ibc/core/client/v1/upgraded_conse" +
-      "nsus_statesB:Z8github.com/cosmos/ibc-go/" +
-      "v2/modules/core/02-client/typesb\006proto3"
+      "ent.proto\032\032google/protobuf2/any.proto\032\034g" +
+      "oogle/api/annotations.proto\032\024gogoproto/g" +
+      "ogo.proto\",\n\027QueryClientStateRequest\022\021\n\t" +
+      "client_id\030\001 \001(\t\"\215\001\n\030QueryClientStateResp" +
+      "onse\022*\n\014client_state\030\001 \001(\0132\024.google.prot" +
+      "obuf.Any\022\r\n\005proof\030\002 \001(\014\0226\n\014proof_height\030" +
+      "\003 \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000\"" +
+      "V\n\030QueryClientStatesRequest\022:\n\npaginatio" +
+      "n\030\001 \001(\0132&.cosmos.base.query.v1beta1.Page" +
+      "Request\"\272\001\n\031QueryClientStatesResponse\022`\n" +
+      "\rclient_states\030\001 \003(\0132).ibc.core.client.v" +
+      "1.IdentifiedClientStateB\036\310\336\037\000\252\337\037\026Identif" +
+      "iedClientStates\022;\n\npagination\030\002 \001(\0132\'.co" +
+      "smos.base.query.v1beta1.PageResponse\"x\n\032" +
+      "QueryConsensusStateRequest\022\021\n\tclient_id\030" +
+      "\001 \001(\t\022\027\n\017revision_number\030\002 \001(\004\022\027\n\017revisi" +
+      "on_height\030\003 \001(\004\022\025\n\rlatest_height\030\004 \001(\010\"\223" +
+      "\001\n\033QueryConsensusStateResponse\022-\n\017consen" +
+      "sus_state\030\001 \001(\0132\024.google.protobuf.Any\022\r\n" +
+      "\005proof\030\002 \001(\014\0226\n\014proof_height\030\003 \001(\0132\032.ibc" +
+      ".core.client.v1.HeightB\004\310\336\037\000\"l\n\033QueryCon" +
+      "sensusStatesRequest\022\021\n\tclient_id\030\001 \001(\t\022:" +
+      "\n\npagination\030\002 \001(\0132&.cosmos.base.query.v" +
+      "1beta1.PageRequest\"\251\001\n\034QueryConsensusSta" +
+      "tesResponse\022L\n\020consensus_states\030\001 \003(\0132,." +
+      "ibc.core.client.v1.ConsensusStateWithHei" +
+      "ghtB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.b" +
+      "ase.query.v1beta1.PageResponse\"-\n\030QueryC" +
+      "lientStatusRequest\022\021\n\tclient_id\030\001 \001(\t\"+\n" +
+      "\031QueryClientStatusResponse\022\016\n\006status\030\001 \001" +
+      "(\t\"\032\n\030QueryClientParamsRequest\"G\n\031QueryC" +
+      "lientParamsResponse\022*\n\006params\030\001 \001(\0132\032.ib" +
+      "c.core.client.v1.Params\"!\n\037QueryUpgraded" +
+      "ClientStateRequest\"W\n QueryUpgradedClien" +
+      "tStateResponse\0223\n\025upgraded_client_state\030" +
+      "\001 \001(\0132\024.google.protobuf.Any\"$\n\"QueryUpgr" +
+      "adedConsensusStateRequest\"]\n#QueryUpgrad" +
+      "edConsensusStateResponse\0226\n\030upgraded_con" +
+      "sensus_state\030\001 \001(\0132\024.google.protobuf.Any" +
+      "2\201\013\n\005Query\022\237\001\n\013ClientState\022+.ibc.core.cl" +
+      "ient.v1.QueryClientStateRequest\032,.ibc.co" +
+      "re.client.v1.QueryClientStateResponse\"5\202" +
+      "\323\344\223\002/\022-/ibc/core/client/v1/client_states" +
+      "/{client_id}\022\226\001\n\014ClientStates\022,.ibc.core" +
+      ".client.v1.QueryClientStatesRequest\032-.ib" +
+      "c.core.client.v1.QueryClientStatesRespon" +
+      "se\")\202\323\344\223\002#\022!/ibc/core/client/v1/client_s" +
+      "tates\022\337\001\n\016ConsensusState\022..ibc.core.clie" +
+      "nt.v1.QueryConsensusStateRequest\032/.ibc.c" +
+      "ore.client.v1.QueryConsensusStateRespons" +
+      "e\"l\202\323\344\223\002f\022d/ibc/core/client/v1/consensus" +
+      "_states/{client_id}/revision/{revision_n" +
+      "umber}/height/{revision_height}\022\256\001\n\017Cons" +
+      "ensusStates\022/.ibc.core.client.v1.QueryCo" +
+      "nsensusStatesRequest\0320.ibc.core.client.v" +
+      "1.QueryConsensusStatesResponse\"8\202\323\344\223\0022\0220" +
+      "/ibc/core/client/v1/consensus_states/{cl" +
+      "ient_id}\022\242\001\n\014ClientStatus\022,.ibc.core.cli" +
+      "ent.v1.QueryClientStatusRequest\032-.ibc.co" +
+      "re.client.v1.QueryClientStatusResponse\"5" +
+      "\202\323\344\223\002/\022-/ibc/core/client/v1/client_statu" +
+      "s/{client_id}\022\212\001\n\014ClientParams\022,.ibc.cor" +
+      "e.client.v1.QueryClientParamsRequest\032-.i" +
+      "bc.core.client.v1.QueryClientParamsRespo" +
+      "nse\"\035\202\323\344\223\002\027\022\025/ibc/client/v1/params\022\264\001\n\023U" +
+      "pgradedClientState\0223.ibc.core.client.v1." +
+      "QueryUpgradedClientStateRequest\0324.ibc.co" +
+      "re.client.v1.QueryUpgradedClientStateRes" +
+      "ponse\"2\202\323\344\223\002,\022*/ibc/core/client/v1/upgra" +
+      "ded_client_states\022\300\001\n\026UpgradedConsensusS" +
+      "tate\0226.ibc.core.client.v1.QueryUpgradedC" +
+      "onsensusStateRequest\0327.ibc.core.client.v" +
+      "1.QueryUpgradedConsensusStateResponse\"5\202" +
+      "\323\344\223\002/\022-/ibc/core/client/v1/upgraded_cons" +
+      "ensus_statesB:Z8github.com/cosmos/ibc-go" +
+      "/v2/modules/core/02-client/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

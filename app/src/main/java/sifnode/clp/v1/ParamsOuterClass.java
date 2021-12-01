@@ -526,15 +526,13 @@ public final class ParamsOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\033sifnode/clp/v1/params.proto\022\016sifnode.c" +
-      "lp.v1\032\024gogoproto/gogo.proto\"+\n\006Params\022!\n" +
-      "\031min_create_pool_threshold\030\001 \001(\004B)Z\'gith" +
-      "ub.com/Sifchain/sifnode/x/clp/typesb\006pro" +
-      "to3"
+      "lp.v1\"+\n\006Params\022!\n\031min_create_pool_thres" +
+      "hold\030\001 \001(\004B)Z\'github.com/Sifchain/sifnod" +
+      "e/x/clp/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_sifnode_clp_v1_Params_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -542,7 +540,6 @@ public final class ParamsOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_clp_v1_Params_descriptor,
         new java.lang.String[] { "MinCreatePoolThreshold", });
-    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

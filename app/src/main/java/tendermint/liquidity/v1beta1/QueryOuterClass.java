@@ -15673,280 +15673,124 @@ public final class QueryOuterClass {
       "oto/gogo.proto\032,tendermint/liquidity/v1b" +
       "eta1/liquidity.proto\032\034google/api/annotat" +
       "ions.proto\032*cosmos/base/query/v1beta1/pa" +
-      "gination.proto\032.protoc-gen-openapiv2/opt" +
-      "ions/annotations.proto\",\n\031QueryLiquidity" +
-      "PoolRequest\022\017\n\007pool_id\030\001 \001(\004\"T\n\032QueryLiq" +
-      "uidityPoolResponse\0226\n\004pool\030\001 \001(\0132\".tende" +
-      "rmint.liquidity.v1beta1.PoolB\004\310\336\037\000\"C\n(Qu" +
-      "eryLiquidityPoolByPoolCoinDenomRequest\022\027" +
-      "\n\017pool_coin_denom\030\001 \001(\t\"<\n%QueryLiquidit" +
-      "yPoolByReserveAccRequest\022\023\n\013reserve_acc\030" +
-      "\001 \001(\t\"1\n\036QueryLiquidityPoolBatchRequest\022" +
-      "\017\n\007pool_id\030\001 \001(\004\"_\n\037QueryLiquidityPoolBa" +
-      "tchResponse\022<\n\005batch\030\001 \001(\0132\'.tendermint." +
-      "liquidity.v1beta1.PoolBatchB\004\310\336\037\000\"X\n\032Que" +
-      "ryLiquidityPoolsRequest\022:\n\npagination\030\001 " +
-      "\001(\0132&.cosmos.base.query.v1beta1.PageRequ" +
-      "est\"\223\001\n\033QueryLiquidityPoolsResponse\0227\n\005p" +
-      "ools\030\001 \003(\0132\".tendermint.liquidity.v1beta" +
-      "1.PoolB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmo" +
-      "s.base.query.v1beta1.PageResponse\"\024\n\022Que" +
-      "ryParamsRequest\"Q\n\023QueryParamsResponse\022:" +
-      "\n\006params\030\001 \001(\0132$.tendermint.liquidity.v1" +
-      "beta1.ParamsB\004\310\336\037\000\"l\n\035QueryPoolBatchSwap" +
-      "MsgsRequest\022\017\n\007pool_id\030\001 \001(\004\022:\n\npaginati" +
-      "on\030\002 \001(\0132&.cosmos.base.query.v1beta1.Pag" +
-      "eRequest\"B\n\034QueryPoolBatchSwapMsgRequest" +
-      "\022\017\n\007pool_id\030\001 \001(\004\022\021\n\tmsg_index\030\002 \001(\004\"\236\001\n" +
-      "\036QueryPoolBatchSwapMsgsResponse\022?\n\005swaps" +
-      "\030\001 \003(\0132*.tendermint.liquidity.v1beta1.Sw" +
-      "apMsgStateB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.c" +
-      "osmos.base.query.v1beta1.PageResponse\"_\n" +
-      "\035QueryPoolBatchSwapMsgResponse\022>\n\004swap\030\001" +
-      " \001(\0132*.tendermint.liquidity.v1beta1.Swap" +
-      "MsgStateB\004\310\336\037\000\"o\n QueryPoolBatchDepositM" +
-      "sgsRequest\022\017\n\007pool_id\030\001 \001(\004\022:\n\npaginatio" +
-      "n\030\002 \001(\0132&.cosmos.base.query.v1beta1.Page" +
-      "Request\"E\n\037QueryPoolBatchDepositMsgReque" +
-      "st\022\017\n\007pool_id\030\001 \001(\004\022\021\n\tmsg_index\030\002 \001(\004\"\247" +
-      "\001\n!QueryPoolBatchDepositMsgsResponse\022E\n\010" +
-      "deposits\030\001 \003(\0132-.tendermint.liquidity.v1" +
-      "beta1.DepositMsgStateB\004\310\336\037\000\022;\n\npaginatio" +
-      "n\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Page" +
-      "Response\"h\n QueryPoolBatchDepositMsgResp" +
-      "onse\022D\n\007deposit\030\001 \001(\0132-.tendermint.liqui" +
-      "dity.v1beta1.DepositMsgStateB\004\310\336\037\000\"p\n!Qu" +
-      "eryPoolBatchWithdrawMsgsRequest\022\017\n\007pool_" +
-      "id\030\001 \001(\004\022:\n\npagination\030\002 \001(\0132&.cosmos.ba" +
-      "se.query.v1beta1.PageRequest\"F\n QueryPoo" +
-      "lBatchWithdrawMsgRequest\022\017\n\007pool_id\030\001 \001(" +
-      "\004\022\021\n\tmsg_index\030\002 \001(\004\"\252\001\n\"QueryPoolBatchW" +
-      "ithdrawMsgsResponse\022G\n\twithdraws\030\001 \003(\0132." +
-      ".tendermint.liquidity.v1beta1.WithdrawMs" +
-      "gStateB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmo" +
-      "s.base.query.v1beta1.PageResponse\"k\n!Que" +
-      "ryPoolBatchWithdrawMsgResponse\022F\n\010withdr" +
-      "aw\030\001 \001(\0132..tendermint.liquidity.v1beta1." +
-      "WithdrawMsgStateB\004\310\336\037\0002\200D\n\005Query\022\220\004\n\016Liq" +
-      "uidityPools\0228.tendermint.liquidity.v1bet" +
-      "a1.QueryLiquidityPoolsRequest\0329.tendermi" +
-      "nt.liquidity.v1beta1.QueryLiquidityPools" +
-      "Response\"\210\003\202\323\344\223\002!\022\037/cosmos/liquidity/v1b" +
-      "eta1/pools\222A\335\002\032=Returns a list of all li" +
-      "quidity pools with pagination result.\"s\n" +
-      "-Find out more about the query and error" +
-      " codes\022Bhttps://github.com/tendermint/li" +
-      "quidity/blob/develop/doc/client.mdJ\246\001\n\0035" +
-      "00\022\236\001\n\025Internal Server Error\"\204\001\n\020applica" +
-      "tion/json\022p{\"code\":2,\"message\":\"rpc erro" +
-      "r: code = NotFound desc = There are no p" +
-      "ools present.: key not found\",\"details\":" +
-      "[]}\022\301\005\n\rLiquidityPool\0227.tendermint.liqui" +
-      "dity.v1beta1.QueryLiquidityPoolRequest\0328" +
-      ".tendermint.liquidity.v1beta1.QueryLiqui" +
-      "dityPoolResponse\"\274\004\202\323\344\223\002+\022)/cosmos/liqui" +
-      "dity/v1beta1/pools/{pool_id}\222A\207\004\032;Return" +
-      "s the liquidity pool that corresponds to" +
-      " the pool_id.\"s\n-Find out more about the" +
-      " query and error codes\022Bhttps://github.c" +
-      "om/tendermint/liquidity/blob/develop/doc" +
-      "/client.mdJ\251\001\n\003500\022\241\001\n\025Internal Server E" +
-      "rror\"\207\001\n\020application/json\022s{\"code\":2,\"me" +
-      "ssage\":\"rpc error: code = NotFound desc " +
-      "= liquidity pool 3 doesn\'t exist: key no" +
-      "t found\",\"details\":[]}J\246\001\n\003400\022\236\001\n\013Bad R" +
-      "equest\"\216\001\n\020application/json\022z{\"code\":3,\"" +
-      "message\":\"type mismatch, parameter: pool" +
-      "_id, error: strconv.ParseUint: parsing *" +
-      ": invalid syntax\",\"details\":[]}\022\265\006\n\034Liqu" +
-      "idityPoolByPoolCoinDenom\022F.tendermint.li" +
-      "quidity.v1beta1.QueryLiquidityPoolByPool" +
-      "CoinDenomRequest\0328.tendermint.liquidity." +
-      "v1beta1.QueryLiquidityPoolResponse\"\222\005\202\323\344" +
-      "\223\002C\022A/cosmos/liquidity/v1beta1/pools/poo" +
-      "l_coin_denom/{pool_coin_denom}\222A\305\004\032CIt r" +
-      "eturns the liquidity pool corresponding " +
-      "to the pool_coin_denom.\"s\n-Find out more" +
-      " about the query and error codes\022Bhttps:" +
-      "//github.com/tendermint/liquidity/blob/d" +
-      "evelop/doc/client.mdJ\321\001\n\003500\022\311\001\n\025Interna" +
-      "l Server Error\"\257\001\n\020application/json\022\232\001{\"" +
-      "code\":2,\"message\":\"rpc error: code = Not" +
-      "Found desc = the liquidity pool correspo" +
-      "nding to the pool_coin_denom doesn\'t exi" +
-      "st: key not found\",\"details\":[]}J\264\001\n\003404" +
-      "\022\254\001\n\tNot Found\"\236\001\n\020application/json\022\211\001{\"" +
-      "code\":5,\"message\":\"rpc error: code = Not" +
-      "Found desc = liquidity pool with pool co" +
-      "in denom xx doesn\'t exist: key not found" +
-      "\",\"details\":[]}\022\236\006\n\031LiquidityPoolByReser" +
-      "veAcc\022C.tendermint.liquidity.v1beta1.Que" +
-      "ryLiquidityPoolByReserveAccRequest\0328.ten" +
-      "dermint.liquidity.v1beta1.QueryLiquidity" +
-      "PoolResponse\"\201\005\202\323\344\223\002;\0229/cosmos/liquidity" +
-      "/v1beta1/pools/reserve_acc/{reserve_acc}" +
-      "\222A\274\004\032CIt returns the liquidity pool corr" +
-      "esponding to the reserve account.\"s\n-Fin" +
-      "d out more about the query and error cod" +
-      "es\022Bhttps://github.com/tendermint/liquid" +
-      "ity/blob/develop/doc/client.mdJ\321\001\n\003500\022\311" +
-      "\001\n\025Internal Server Error\"\257\001\n\020application" +
-      "/json\022\232\001{\"code\":2,\"message\":\"rpc error: " +
-      "code = NotFound desc = the liquidity poo" +
-      "l corresponding to the reserve account d" +
-      "oesn\'t exist: key not found\",\"details\":[" +
-      "]}J\253\001\n\003404\022\243\001\n\tNot Found\"\225\001\n\020application" +
-      "/json\022\200\001{\"code\":5,\"message\":\"rpc error: " +
-      "code = NotFound desc = the reserve accou" +
-      "nt address xx is not valid: key not foun" +
-      "d\",\"details\":[]}\022\341\005\n\022LiquidityPoolBatch\022" +
-      "<.tendermint.liquidity.v1beta1.QueryLiqu" +
-      "idityPoolBatchRequest\032=.tendermint.liqui" +
-      "dity.v1beta1.QueryLiquidityPoolBatchResp" +
-      "onse\"\315\004\202\323\344\223\0021\022//cosmos/liquidity/v1beta1" +
-      "/pools/{pool_id}/batch\222A\222\004\032FReturns the " +
-      "current batch of the pool that correspon" +
-      "ds to the pool_id.\"s\n-Find out more abou" +
-      "t the query and error codes\022Bhttps://git" +
-      "hub.com/tendermint/liquidity/blob/develo" +
-      "p/doc/client.mdJ\251\001\n\003500\022\241\001\n\025Internal Ser" +
-      "ver Error\"\207\001\n\020application/json\022s{\"code\":" +
-      "2,\"message\":\"rpc error: code = NotFound " +
-      "desc = liquidity pool 3 doesn\'t exist: k" +
-      "ey not found\",\"details\":[]}J\246\001\n\003400\022\236\001\n\013" +
-      "Bad Request\"\216\001\n\020application/json\022z{\"code" +
-      "\":3,\"message\":\"type mismatch, parameter:" +
-      " pool_id, error: strconv.ParseUint: pars" +
-      "ing *: invalid syntax\",\"details\":[]}\022\372\005\n" +
-      "\021PoolBatchSwapMsgs\022;.tendermint.liquidit" +
-      "y.v1beta1.QueryPoolBatchSwapMsgsRequest\032" +
-      "<.tendermint.liquidity.v1beta1.QueryPool" +
-      "BatchSwapMsgsResponse\"\351\004\202\323\344\223\0027\0225/cosmos/" +
-      "liquidity/v1beta1/pools/{pool_id}/batch/" +
-      "swaps\222A\250\004\032\\Returns a list of all swap me" +
-      "ssages in the current batch of the pool " +
-      "with pagination result.\"s\n-Find out more" +
-      " about the query and error codes\022Bhttps:" +
-      "//github.com/tendermint/liquidity/blob/d" +
-      "evelop/doc/client.mdJ\251\001\n\003500\022\241\001\n\025Interna" +
-      "l Server Error\"\207\001\n\020application/json\022s{\"c" +
-      "ode\":2,\"message\":\"rpc error: code = NotF" +
-      "ound desc = liquidity pool 3 doesn\'t exi" +
-      "st: key not found\",\"details\":[]}J\246\001\n\003400" +
-      "\022\236\001\n\013Bad Request\"\216\001\n\020application/json\022z{" +
-      "\"code\":3,\"message\":\"type mismatch, param" +
-      "eter: pool_id, error: strconv.ParseUint:" +
-      " parsing *: invalid syntax\",\"details\":[]" +
-      "}\022\235\006\n\020PoolBatchSwapMsg\022:.tendermint.liqu" +
-      "idity.v1beta1.QueryPoolBatchSwapMsgReque" +
-      "st\032;.tendermint.liquidity.v1beta1.QueryP" +
-      "oolBatchSwapMsgResponse\"\217\005\202\323\344\223\002C\022A/cosmo" +
+      "gination.proto\",\n\031QueryLiquidityPoolRequ" +
+      "est\022\017\n\007pool_id\030\001 \001(\004\"T\n\032QueryLiquidityPo" +
+      "olResponse\0226\n\004pool\030\001 \001(\0132\".tendermint.li" +
+      "quidity.v1beta1.PoolB\004\310\336\037\000\"C\n(QueryLiqui" +
+      "dityPoolByPoolCoinDenomRequest\022\027\n\017pool_c" +
+      "oin_denom\030\001 \001(\t\"<\n%QueryLiquidityPoolByR" +
+      "eserveAccRequest\022\023\n\013reserve_acc\030\001 \001(\t\"1\n" +
+      "\036QueryLiquidityPoolBatchRequest\022\017\n\007pool_" +
+      "id\030\001 \001(\004\"_\n\037QueryLiquidityPoolBatchRespo" +
+      "nse\022<\n\005batch\030\001 \001(\0132\'.tendermint.liquidit" +
+      "y.v1beta1.PoolBatchB\004\310\336\037\000\"X\n\032QueryLiquid" +
+      "ityPoolsRequest\022:\n\npagination\030\001 \001(\0132&.co" +
+      "smos.base.query.v1beta1.PageRequest\"\223\001\n\033" +
+      "QueryLiquidityPoolsResponse\0227\n\005pools\030\001 \003" +
+      "(\0132\".tendermint.liquidity.v1beta1.PoolB\004" +
+      "\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.q" +
+      "uery.v1beta1.PageResponse\"\024\n\022QueryParams" +
+      "Request\"Q\n\023QueryParamsResponse\022:\n\006params" +
+      "\030\001 \001(\0132$.tendermint.liquidity.v1beta1.Pa" +
+      "ramsB\004\310\336\037\000\"l\n\035QueryPoolBatchSwapMsgsRequ" +
+      "est\022\017\n\007pool_id\030\001 \001(\004\022:\n\npagination\030\002 \001(\013" +
+      "2&.cosmos.base.query.v1beta1.PageRequest" +
+      "\"B\n\034QueryPoolBatchSwapMsgRequest\022\017\n\007pool" +
+      "_id\030\001 \001(\004\022\021\n\tmsg_index\030\002 \001(\004\"\236\001\n\036QueryPo" +
+      "olBatchSwapMsgsResponse\022?\n\005swaps\030\001 \003(\0132*" +
+      ".tendermint.liquidity.v1beta1.SwapMsgSta" +
+      "teB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.ba" +
+      "se.query.v1beta1.PageResponse\"_\n\035QueryPo" +
+      "olBatchSwapMsgResponse\022>\n\004swap\030\001 \001(\0132*.t" +
+      "endermint.liquidity.v1beta1.SwapMsgState" +
+      "B\004\310\336\037\000\"o\n QueryPoolBatchDepositMsgsReque" +
+      "st\022\017\n\007pool_id\030\001 \001(\004\022:\n\npagination\030\002 \001(\0132" +
+      "&.cosmos.base.query.v1beta1.PageRequest\"" +
+      "E\n\037QueryPoolBatchDepositMsgRequest\022\017\n\007po" +
+      "ol_id\030\001 \001(\004\022\021\n\tmsg_index\030\002 \001(\004\"\247\001\n!Query" +
+      "PoolBatchDepositMsgsResponse\022E\n\010deposits" +
+      "\030\001 \003(\0132-.tendermint.liquidity.v1beta1.De" +
+      "positMsgStateB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132" +
+      "\'.cosmos.base.query.v1beta1.PageResponse" +
+      "\"h\n QueryPoolBatchDepositMsgResponse\022D\n\007" +
+      "deposit\030\001 \001(\0132-.tendermint.liquidity.v1b" +
+      "eta1.DepositMsgStateB\004\310\336\037\000\"p\n!QueryPoolB" +
+      "atchWithdrawMsgsRequest\022\017\n\007pool_id\030\001 \001(\004" +
+      "\022:\n\npagination\030\002 \001(\0132&.cosmos.base.query" +
+      ".v1beta1.PageRequest\"F\n QueryPoolBatchWi" +
+      "thdrawMsgRequest\022\017\n\007pool_id\030\001 \001(\004\022\021\n\tmsg" +
+      "_index\030\002 \001(\004\"\252\001\n\"QueryPoolBatchWithdrawM" +
+      "sgsResponse\022G\n\twithdraws\030\001 \003(\0132..tenderm" +
+      "int.liquidity.v1beta1.WithdrawMsgStateB\004" +
+      "\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.q" +
+      "uery.v1beta1.PageResponse\"k\n!QueryPoolBa" +
+      "tchWithdrawMsgResponse\022F\n\010withdraw\030\001 \001(\013" +
+      "2..tendermint.liquidity.v1beta1.Withdraw" +
+      "MsgStateB\004\310\336\037\0002\330\023\n\005Query\022\256\001\n\016LiquidityPo" +
+      "ols\0228.tendermint.liquidity.v1beta1.Query" +
+      "LiquidityPoolsRequest\0329.tendermint.liqui" +
+      "dity.v1beta1.QueryLiquidityPoolsResponse" +
+      "\"\'\202\323\344\223\002!\022\037/cosmos/liquidity/v1beta1/pool" +
+      "s\022\265\001\n\rLiquidityPool\0227.tendermint.liquidi" +
+      "ty.v1beta1.QueryLiquidityPoolRequest\0328.t" +
+      "endermint.liquidity.v1beta1.QueryLiquidi" +
+      "tyPoolResponse\"1\202\323\344\223\002+\022)/cosmos/liquidit" +
+      "y/v1beta1/pools/{pool_id}\022\353\001\n\034LiquidityP" +
+      "oolByPoolCoinDenom\022F.tendermint.liquidit" +
+      "y.v1beta1.QueryLiquidityPoolByPoolCoinDe" +
+      "nomRequest\0328.tendermint.liquidity.v1beta" +
+      "1.QueryLiquidityPoolResponse\"I\202\323\344\223\002C\022A/c" +
+      "osmos/liquidity/v1beta1/pools/pool_coin_" +
+      "denom/{pool_coin_denom}\022\335\001\n\031LiquidityPoo" +
+      "lByReserveAcc\022C.tendermint.liquidity.v1b" +
+      "eta1.QueryLiquidityPoolByReserveAccReque" +
+      "st\0328.tendermint.liquidity.v1beta1.QueryL" +
+      "iquidityPoolResponse\"A\202\323\344\223\002;\0229/cosmos/li" +
+      "quidity/v1beta1/pools/reserve_acc/{reser" +
+      "ve_acc}\022\312\001\n\022LiquidityPoolBatch\022<.tenderm" +
+      "int.liquidity.v1beta1.QueryLiquidityPool" +
+      "BatchRequest\032=.tendermint.liquidity.v1be" +
+      "ta1.QueryLiquidityPoolBatchResponse\"7\202\323\344" +
+      "\223\0021\022//cosmos/liquidity/v1beta1/pools/{po" +
+      "ol_id}/batch\022\315\001\n\021PoolBatchSwapMsgs\022;.ten" +
+      "dermint.liquidity.v1beta1.QueryPoolBatch" +
+      "SwapMsgsRequest\032<.tendermint.liquidity.v" +
+      "1beta1.QueryPoolBatchSwapMsgsResponse\"=\202" +
+      "\323\344\223\0027\0225/cosmos/liquidity/v1beta1/pools/{" +
+      "pool_id}/batch/swaps\022\326\001\n\020PoolBatchSwapMs" +
+      "g\022:.tendermint.liquidity.v1beta1.QueryPo" +
+      "olBatchSwapMsgRequest\032;.tendermint.liqui" +
+      "dity.v1beta1.QueryPoolBatchSwapMsgRespon" +
+      "se\"I\202\323\344\223\002C\022A/cosmos/liquidity/v1beta1/po" +
+      "ols/{pool_id}/batch/swaps/{msg_index}\022\331\001" +
+      "\n\024PoolBatchDepositMsgs\022>.tendermint.liqu" +
+      "idity.v1beta1.QueryPoolBatchDepositMsgsR" +
+      "equest\032?.tendermint.liquidity.v1beta1.Qu" +
+      "eryPoolBatchDepositMsgsResponse\"@\202\323\344\223\002:\022" +
+      "8/cosmos/liquidity/v1beta1/pools/{pool_i" +
+      "d}/batch/deposits\022\342\001\n\023PoolBatchDepositMs" +
+      "g\022=.tendermint.liquidity.v1beta1.QueryPo" +
+      "olBatchDepositMsgRequest\032>.tendermint.li" +
+      "quidity.v1beta1.QueryPoolBatchDepositMsg" +
+      "Response\"L\202\323\344\223\002F\022D/cosmos/liquidity/v1be" +
+      "ta1/pools/{pool_id}/batch/deposits/{msg_" +
+      "index}\022\335\001\n\025PoolBatchWithdrawMsgs\022?.tende" +
+      "rmint.liquidity.v1beta1.QueryPoolBatchWi" +
+      "thdrawMsgsRequest\032@.tendermint.liquidity" +
+      ".v1beta1.QueryPoolBatchWithdrawMsgsRespo" +
+      "nse\"A\202\323\344\223\002;\0229/cosmos/liquidity/v1beta1/p" +
+      "ools/{pool_id}/batch/withdraws\022\346\001\n\024PoolB" +
+      "atchWithdrawMsg\022>.tendermint.liquidity.v" +
+      "1beta1.QueryPoolBatchWithdrawMsgRequest\032" +
+      "?.tendermint.liquidity.v1beta1.QueryPool" +
+      "BatchWithdrawMsgResponse\"M\202\323\344\223\002G\022E/cosmo" +
       "s/liquidity/v1beta1/pools/{pool_id}/batc" +
-      "h/swaps/{msg_index}\222A\302\004\032VReturns the swa" +
-      "p message that corresponds to the msg_in" +
-      "dex in the pool\'s current batch\"s\n-Find " +
-      "out more about the query and error codes" +
-      "\022Bhttps://github.com/tendermint/liquidit" +
-      "y/blob/develop/doc/client.mdJ\307\001\n\003500\022\277\001\n" +
-      "\025Internal Server Error\"\245\001\n\020application/j" +
-      "son\022\220\001{\"root\":{\"code\":2,\"details\":[],\"me" +
-      "ssage\":\"rpc error: code = NotFound desc " +
-      "= the msg given msg_index 1 doesn\'t exis" +
-      "t or deleted: key not found\"}}J\250\001\n\003400\022\240" +
-      "\001\n\013Bad Request\"\220\001\n\020application/json\022|{\"c" +
-      "ode\":3,\"message\":\"type mismatch, paramet" +
-      "er: msg_index, error: strconv.ParseUint:" +
-      " parsing *: invalid syntax\",\"details\":[]" +
-      "}\022\211\006\n\024PoolBatchDepositMsgs\022>.tendermint." +
-      "liquidity.v1beta1.QueryPoolBatchDepositM" +
-      "sgsRequest\032?.tendermint.liquidity.v1beta" +
-      "1.QueryPoolBatchDepositMsgsResponse\"\357\004\202\323" +
-      "\344\223\002:\0228/cosmos/liquidity/v1beta1/pools/{p" +
-      "ool_id}/batch/deposits\222A\253\004\032_Returns a li" +
-      "st of all deposit messages in the curren" +
-      "t batch of the pool with pagination resu" +
-      "lt.\"s\n-Find out more about the query and" +
-      " error codes\022Bhttps://github.com/tenderm" +
-      "int/liquidity/blob/develop/doc/client.md" +
-      "J\251\001\n\003500\022\241\001\n\025Internal Server Error\"\207\001\n\020a" +
-      "pplication/json\022s{\"code\":2,\"message\":\"rp" +
-      "c error: code = NotFound desc = liquidit" +
-      "y pool 3 doesn\'t exist: key not found\",\"" +
-      "details\":[]}J\246\001\n\003400\022\236\001\n\013Bad Request\"\216\001\n" +
-      "\020application/json\022z{\"code\":3,\"message\":\"" +
-      "type mismatch, parameter: pool_id, error" +
-      ": strconv.ParseUint: parsing *: invalid " +
-      "syntax\",\"details\":[]}\022\255\006\n\023PoolBatchDepos" +
-      "itMsg\022=.tendermint.liquidity.v1beta1.Que" +
-      "ryPoolBatchDepositMsgRequest\032>.tendermin" +
-      "t.liquidity.v1beta1.QueryPoolBatchDeposi" +
-      "tMsgResponse\"\226\005\202\323\344\223\002F\022D/cosmos/liquidity" +
-      "/v1beta1/pools/{pool_id}/batch/deposits/" +
-      "{msg_index}\222A\306\004\032ZReturns the deposit mes" +
-      "sage that corresponds to the msg_index i" +
-      "n the pool\'s current batch.\"s\n-Find out " +
-      "more about the query and error codes\022Bht" +
-      "tps://github.com/tendermint/liquidity/bl" +
-      "ob/develop/doc/client.mdJ\307\001\n\003500\022\277\001\n\025Int" +
-      "ernal Server Error\"\245\001\n\020application/json\022" +
-      "\220\001{\"root\":{\"code\":2,\"details\":[],\"messag" +
-      "e\":\"rpc error: code = NotFound desc = th" +
-      "e msg given msg_index 1 doesn\'t exist or" +
-      " deleted: key not found\"}}J\250\001\n\003400\022\240\001\n\013B" +
-      "ad Request\"\220\001\n\020application/json\022|{\"code\"" +
-      ":3,\"message\":\"type mismatch, parameter: " +
-      "msg_index, error: strconv.ParseUint: par" +
-      "sing *: invalid syntax\",\"details\":[]}\022\216\006" +
-      "\n\025PoolBatchWithdrawMsgs\022?.tendermint.liq" +
-      "uidity.v1beta1.QueryPoolBatchWithdrawMsg" +
-      "sRequest\032@.tendermint.liquidity.v1beta1." +
-      "QueryPoolBatchWithdrawMsgsResponse\"\361\004\202\323\344" +
-      "\223\002;\0229/cosmos/liquidity/v1beta1/pools/{po" +
-      "ol_id}/batch/withdraws\222A\254\004\032`Returns a li" +
-      "st of all withdraw messages in the curre" +
-      "nt batch of the pool with pagination res" +
-      "ult.\"s\n-Find out more about the query an" +
-      "d error codes\022Bhttps://github.com/tender" +
-      "mint/liquidity/blob/develop/doc/client.m" +
-      "dJ\251\001\n\003500\022\241\001\n\025Internal Server Error\"\207\001\n\020" +
-      "application/json\022s{\"code\":2,\"message\":\"r" +
-      "pc error: code = NotFound desc = liquidi" +
-      "ty pool 3 doesn\'t exist: key not found\"," +
-      "\"details\":[]}J\246\001\n\003400\022\236\001\n\013Bad Request\"\216\001" +
-      "\n\020application/json\022z{\"code\":3,\"message\":" +
-      "\"type mismatch, parameter: pool_id, erro" +
-      "r: strconv.ParseUint: parsing *: invalid" +
-      " syntax\",\"details\":[]}\022\262\006\n\024PoolBatchWith" +
-      "drawMsg\022>.tendermint.liquidity.v1beta1.Q" +
-      "ueryPoolBatchWithdrawMsgRequest\032?.tender" +
-      "mint.liquidity.v1beta1.QueryPoolBatchWit" +
-      "hdrawMsgResponse\"\230\005\202\323\344\223\002G\022E/cosmos/liqui" +
-      "dity/v1beta1/pools/{pool_id}/batch/withd" +
-      "raws/{msg_index}\222A\307\004\032[Returns the withdr" +
-      "aw message that corresponds to the msg_i" +
-      "ndex in the pool\'s current batch.\"s\n-Fin" +
-      "d out more about the query and error cod" +
-      "es\022Bhttps://github.com/tendermint/liquid" +
-      "ity/blob/develop/doc/client.mdJ\307\001\n\003500\022\277" +
-      "\001\n\025Internal Server Error\"\245\001\n\020application" +
-      "/json\022\220\001{\"root\":{\"code\":2,\"details\":[],\"" +
-      "message\":\"rpc error: code = NotFound des" +
-      "c = the msg given msg_index 1 doesn\'t ex" +
-      "ist or deleted: key not found\"}}J\250\001\n\003400" +
-      "\022\240\001\n\013Bad Request\"\220\001\n\020application/json\022|{" +
-      "\"code\":3,\"message\":\"type mismatch, param" +
-      "eter: msg_index, error: strconv.ParseUin" +
-      "t: parsing *: invalid syntax\",\"details\":" +
-      "[]}\022\303\002\n\006Params\0220.tendermint.liquidity.v1" +
-      "beta1.QueryParamsRequest\0321.tendermint.li" +
-      "quidity.v1beta1.QueryParamsResponse\"\323\001\202\323" +
-      "\344\223\002\"\022 /cosmos/liquidity/v1beta1/params\222A" +
-      "\247\001\032/Returns all parameters of the liquid" +
-      "ity module.\"t\n\036Find out more about the p" +
-      "arams\022Rhttps://github.com/tendermint/liq" +
-      "uidity/blob/develop/x/liquidity/spec/08_" +
-      "params.mdB3Z1github.com/tendermint/liqui" +
-      "dity/x/liquidity/typesb\006proto3"
+      "h/withdraws/{msg_index}\022\227\001\n\006Params\0220.ten" +
+      "dermint.liquidity.v1beta1.QueryParamsReq" +
+      "uest\0321.tendermint.liquidity.v1beta1.Quer" +
+      "yParamsResponse\"(\202\323\344\223\002\"\022 /cosmos/liquidi" +
+      "ty/v1beta1/paramsB5Z3github.com/gravity-" +
+      "devs/liquidity/x/liquidity/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -15955,7 +15799,6 @@ public final class QueryOuterClass {
           tendermint.liquidity.v1beta1.Liquidity.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
-          grpc.gateway.protoc_gen_openapiv2.options.Annotations.getDescriptor(),
         });
     internal_static_tendermint_liquidity_v1beta1_QueryLiquidityPoolRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -16093,14 +15936,12 @@ public final class QueryOuterClass {
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
-    registry.add(grpc.gateway.protoc_gen_openapiv2.options.Annotations.openapiv2Operation);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
     tendermint.liquidity.v1beta1.Liquidity.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
-    grpc.gateway.protoc_gen_openapiv2.options.Annotations.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

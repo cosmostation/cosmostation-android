@@ -16870,83 +16870,83 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n\035regen/group/v1alpha1/tx.proto\022\024regen.g" +
       "roup.v1alpha1\032\024gogoproto/gogo.proto\032\031cos" +
-      "mos_proto/cosmos.proto\032\031google/protobuf/" +
-      "any.proto\032 regen/group/v1alpha1/types.pr" +
-      "oto\"f\n\016MsgCreateGroup\022\r\n\005admin\030\001 \001(\t\0223\n\007" +
-      "members\030\002 \003(\0132\034.regen.group.v1alpha1.Mem" +
-      "berB\004\310\336\037\000\022\020\n\010metadata\030\003 \001(\014\"*\n\026MsgCreate" +
-      "GroupResponse\022\020\n\010group_id\030\001 \001(\004\"t\n\025MsgUp" +
-      "dateGroupMembers\022\r\n\005admin\030\001 \001(\t\022\020\n\010group" +
-      "_id\030\002 \001(\004\022:\n\016member_updates\030\003 \003(\0132\034.rege" +
-      "n.group.v1alpha1.MemberB\004\310\336\037\000\"\037\n\035MsgUpda" +
-      "teGroupMembersResponse\"I\n\023MsgUpdateGroup" +
-      "Admin\022\r\n\005admin\030\001 \001(\t\022\020\n\010group_id\030\002 \001(\004\022\021" +
-      "\n\tnew_admin\030\003 \001(\t\"\035\n\033MsgUpdateGroupAdmin" +
-      "Response\"K\n\026MsgUpdateGroupMetadata\022\r\n\005ad" +
-      "min\030\001 \001(\t\022\020\n\010group_id\030\002 \001(\004\022\020\n\010metadata\030" +
-      "\003 \001(\014\" \n\036MsgUpdateGroupMetadataResponse\"" +
-      "\223\001\n\025MsgCreateGroupAccount\022\r\n\005admin\030\001 \001(\t" +
-      "\022\020\n\010group_id\030\002 \001(\004\022\020\n\010metadata\030\003 \001(\014\022A\n\017" +
-      "decision_policy\030\004 \001(\0132\024.google.protobuf." +
-      "AnyB\022\312\264-\016DecisionPolicy:\004\210\240\037\000\"0\n\035MsgCrea" +
-      "teGroupAccountResponse\022\017\n\007address\030\001 \001(\t\"" +
-      "O\n\032MsgUpdateGroupAccountAdmin\022\r\n\005admin\030\001" +
-      " \001(\t\022\017\n\007address\030\002 \001(\t\022\021\n\tnew_admin\030\003 \001(\t" +
-      "\"$\n\"MsgUpdateGroupAccountAdminResponse\"\216" +
-      "\001\n#MsgUpdateGroupAccountDecisionPolicy\022\r" +
-      "\n\005admin\030\001 \001(\t\022\017\n\007address\030\002 \001(\t\022A\n\017decisi" +
-      "on_policy\030\003 \001(\0132\024.google.protobuf.AnyB\022\312" +
-      "\264-\016DecisionPolicy:\004\210\240\037\000\"-\n+MsgUpdateGrou" +
-      "pAccountDecisionPolicyResponse\"Q\n\035MsgUpd" +
-      "ateGroupAccountMetadata\022\r\n\005admin\030\001 \001(\t\022\017" +
-      "\n\007address\030\002 \001(\t\022\020\n\010metadata\030\003 \001(\014\"\'\n%Msg" +
-      "UpdateGroupAccountMetadataResponse\"\235\001\n\021M" +
-      "sgCreateProposal\022\017\n\007address\030\001 \001(\t\022\021\n\tpro" +
-      "posers\030\002 \003(\t\022\020\n\010metadata\030\003 \001(\014\022\"\n\004msgs\030\004" +
-      " \003(\0132\024.google.protobuf.Any\022(\n\004exec\030\005 \001(\016" +
-      "2\032.regen.group.v1alpha1.Exec:\004\210\240\037\000\"0\n\031Ms" +
-      "gCreateProposalResponse\022\023\n\013proposal_id\030\001" +
-      " \001(\004\"\227\001\n\007MsgVote\022\023\n\013proposal_id\030\001 \001(\004\022\r\n" +
-      "\005voter\030\002 \001(\t\022,\n\006choice\030\003 \001(\0162\034.regen.gro" +
-      "up.v1alpha1.Choice\022\020\n\010metadata\030\004 \001(\014\022(\n\004" +
-      "exec\030\005 \001(\0162\032.regen.group.v1alpha1.Exec\"\021" +
-      "\n\017MsgVoteResponse\".\n\007MsgExec\022\023\n\013proposal" +
-      "_id\030\001 \001(\004\022\016\n\006signer\030\002 \001(\t\"\021\n\017MsgExecResp" +
-      "onse**\n\004Exec\022\024\n\020EXEC_UNSPECIFIED\020\000\022\014\n\010EX" +
-      "EC_TRY\020\0012\211\n\n\003Msg\022a\n\013CreateGroup\022$.regen." +
-      "group.v1alpha1.MsgCreateGroup\032,.regen.gr" +
-      "oup.v1alpha1.MsgCreateGroupResponse\022v\n\022U" +
-      "pdateGroupMembers\022+.regen.group.v1alpha1" +
-      ".MsgUpdateGroupMembers\0323.regen.group.v1a" +
-      "lpha1.MsgUpdateGroupMembersResponse\022p\n\020U" +
-      "pdateGroupAdmin\022).regen.group.v1alpha1.M" +
-      "sgUpdateGroupAdmin\0321.regen.group.v1alpha" +
-      "1.MsgUpdateGroupAdminResponse\022y\n\023UpdateG" +
-      "roupMetadata\022,.regen.group.v1alpha1.MsgU" +
-      "pdateGroupMetadata\0324.regen.group.v1alpha" +
-      "1.MsgUpdateGroupMetadataResponse\022v\n\022Crea" +
-      "teGroupAccount\022+.regen.group.v1alpha1.Ms" +
-      "gCreateGroupAccount\0323.regen.group.v1alph" +
-      "a1.MsgCreateGroupAccountResponse\022\205\001\n\027Upd" +
-      "ateGroupAccountAdmin\0220.regen.group.v1alp" +
-      "ha1.MsgUpdateGroupAccountAdmin\0328.regen.g" +
-      "roup.v1alpha1.MsgUpdateGroupAccountAdmin" +
-      "Response\022\240\001\n UpdateGroupAccountDecisionP" +
-      "olicy\0229.regen.group.v1alpha1.MsgUpdateGr" +
-      "oupAccountDecisionPolicy\032A.regen.group.v" +
-      "1alpha1.MsgUpdateGroupAccountDecisionPol" +
-      "icyResponse\022\216\001\n\032UpdateGroupAccountMetada" +
-      "ta\0223.regen.group.v1alpha1.MsgUpdateGroup" +
-      "AccountMetadata\032;.regen.group.v1alpha1.M" +
-      "sgUpdateGroupAccountMetadataResponse\022j\n\016" +
-      "CreateProposal\022\'.regen.group.v1alpha1.Ms" +
-      "gCreateProposal\032/.regen.group.v1alpha1.M" +
-      "sgCreateProposalResponse\022L\n\004Vote\022\035.regen" +
-      ".group.v1alpha1.MsgVote\032%.regen.group.v1" +
-      "alpha1.MsgVoteResponse\022L\n\004Exec\022\035.regen.g" +
-      "roup.v1alpha1.MsgExec\032%.regen.group.v1al" +
-      "pha1.MsgExecResponseB/Z-github.com/regen" +
-      "-network/regen-ledger/x/groupb\006proto3"
+      "mos_proto/cosmos.proto\032\032google/protobuf2" +
+      "/any.proto\032 regen/group/v1alpha1/types.p" +
+      "roto\"f\n\016MsgCreateGroup\022\r\n\005admin\030\001 \001(\t\0223\n" +
+      "\007members\030\002 \003(\0132\034.regen.group.v1alpha1.Me" +
+      "mberB\004\310\336\037\000\022\020\n\010metadata\030\003 \001(\014\"*\n\026MsgCreat" +
+      "eGroupResponse\022\020\n\010group_id\030\001 \001(\004\"t\n\025MsgU" +
+      "pdateGroupMembers\022\r\n\005admin\030\001 \001(\t\022\020\n\010grou" +
+      "p_id\030\002 \001(\004\022:\n\016member_updates\030\003 \003(\0132\034.reg" +
+      "en.group.v1alpha1.MemberB\004\310\336\037\000\"\037\n\035MsgUpd" +
+      "ateGroupMembersResponse\"I\n\023MsgUpdateGrou" +
+      "pAdmin\022\r\n\005admin\030\001 \001(\t\022\020\n\010group_id\030\002 \001(\004\022" +
+      "\021\n\tnew_admin\030\003 \001(\t\"\035\n\033MsgUpdateGroupAdmi" +
+      "nResponse\"K\n\026MsgUpdateGroupMetadata\022\r\n\005a" +
+      "dmin\030\001 \001(\t\022\020\n\010group_id\030\002 \001(\004\022\020\n\010metadata" +
+      "\030\003 \001(\014\" \n\036MsgUpdateGroupMetadataResponse" +
+      "\"\223\001\n\025MsgCreateGroupAccount\022\r\n\005admin\030\001 \001(" +
+      "\t\022\020\n\010group_id\030\002 \001(\004\022\020\n\010metadata\030\003 \001(\014\022A\n" +
+      "\017decision_policy\030\004 \001(\0132\024.google.protobuf" +
+      ".AnyB\022\312\264-\016DecisionPolicy:\004\210\240\037\000\"0\n\035MsgCre" +
+      "ateGroupAccountResponse\022\017\n\007address\030\001 \001(\t" +
+      "\"O\n\032MsgUpdateGroupAccountAdmin\022\r\n\005admin\030" +
+      "\001 \001(\t\022\017\n\007address\030\002 \001(\t\022\021\n\tnew_admin\030\003 \001(" +
+      "\t\"$\n\"MsgUpdateGroupAccountAdminResponse\"" +
+      "\216\001\n#MsgUpdateGroupAccountDecisionPolicy\022" +
+      "\r\n\005admin\030\001 \001(\t\022\017\n\007address\030\002 \001(\t\022A\n\017decis" +
+      "ion_policy\030\003 \001(\0132\024.google.protobuf.AnyB\022" +
+      "\312\264-\016DecisionPolicy:\004\210\240\037\000\"-\n+MsgUpdateGro" +
+      "upAccountDecisionPolicyResponse\"Q\n\035MsgUp" +
+      "dateGroupAccountMetadata\022\r\n\005admin\030\001 \001(\t\022" +
+      "\017\n\007address\030\002 \001(\t\022\020\n\010metadata\030\003 \001(\014\"\'\n%Ms" +
+      "gUpdateGroupAccountMetadataResponse\"\235\001\n\021" +
+      "MsgCreateProposal\022\017\n\007address\030\001 \001(\t\022\021\n\tpr" +
+      "oposers\030\002 \003(\t\022\020\n\010metadata\030\003 \001(\014\022\"\n\004msgs\030" +
+      "\004 \003(\0132\024.google.protobuf.Any\022(\n\004exec\030\005 \001(" +
+      "\0162\032.regen.group.v1alpha1.Exec:\004\210\240\037\000\"0\n\031M" +
+      "sgCreateProposalResponse\022\023\n\013proposal_id\030" +
+      "\001 \001(\004\"\227\001\n\007MsgVote\022\023\n\013proposal_id\030\001 \001(\004\022\r" +
+      "\n\005voter\030\002 \001(\t\022,\n\006choice\030\003 \001(\0162\034.regen.gr" +
+      "oup.v1alpha1.Choice\022\020\n\010metadata\030\004 \001(\014\022(\n" +
+      "\004exec\030\005 \001(\0162\032.regen.group.v1alpha1.Exec\"" +
+      "\021\n\017MsgVoteResponse\".\n\007MsgExec\022\023\n\013proposa" +
+      "l_id\030\001 \001(\004\022\016\n\006signer\030\002 \001(\t\"\021\n\017MsgExecRes" +
+      "ponse**\n\004Exec\022\024\n\020EXEC_UNSPECIFIED\020\000\022\014\n\010E" +
+      "XEC_TRY\020\0012\211\n\n\003Msg\022a\n\013CreateGroup\022$.regen" +
+      ".group.v1alpha1.MsgCreateGroup\032,.regen.g" +
+      "roup.v1alpha1.MsgCreateGroupResponse\022v\n\022" +
+      "UpdateGroupMembers\022+.regen.group.v1alpha" +
+      "1.MsgUpdateGroupMembers\0323.regen.group.v1" +
+      "alpha1.MsgUpdateGroupMembersResponse\022p\n\020" +
+      "UpdateGroupAdmin\022).regen.group.v1alpha1." +
+      "MsgUpdateGroupAdmin\0321.regen.group.v1alph" +
+      "a1.MsgUpdateGroupAdminResponse\022y\n\023Update" +
+      "GroupMetadata\022,.regen.group.v1alpha1.Msg" +
+      "UpdateGroupMetadata\0324.regen.group.v1alph" +
+      "a1.MsgUpdateGroupMetadataResponse\022v\n\022Cre" +
+      "ateGroupAccount\022+.regen.group.v1alpha1.M" +
+      "sgCreateGroupAccount\0323.regen.group.v1alp" +
+      "ha1.MsgCreateGroupAccountResponse\022\205\001\n\027Up" +
+      "dateGroupAccountAdmin\0220.regen.group.v1al" +
+      "pha1.MsgUpdateGroupAccountAdmin\0328.regen." +
+      "group.v1alpha1.MsgUpdateGroupAccountAdmi" +
+      "nResponse\022\240\001\n UpdateGroupAccountDecision" +
+      "Policy\0229.regen.group.v1alpha1.MsgUpdateG" +
+      "roupAccountDecisionPolicy\032A.regen.group." +
+      "v1alpha1.MsgUpdateGroupAccountDecisionPo" +
+      "licyResponse\022\216\001\n\032UpdateGroupAccountMetad" +
+      "ata\0223.regen.group.v1alpha1.MsgUpdateGrou" +
+      "pAccountMetadata\032;.regen.group.v1alpha1." +
+      "MsgUpdateGroupAccountMetadataResponse\022j\n" +
+      "\016CreateProposal\022\'.regen.group.v1alpha1.M" +
+      "sgCreateProposal\032/.regen.group.v1alpha1." +
+      "MsgCreateProposalResponse\022L\n\004Vote\022\035.rege" +
+      "n.group.v1alpha1.MsgVote\032%.regen.group.v" +
+      "1alpha1.MsgVoteResponse\022L\n\004Exec\022\035.regen." +
+      "group.v1alpha1.MsgExec\032%.regen.group.v1a" +
+      "lpha1.MsgExecResponseB/Z-github.com/rege" +
+      "n-network/regen-ledger/x/groupb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

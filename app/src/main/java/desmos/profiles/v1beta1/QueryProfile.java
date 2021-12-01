@@ -1277,14 +1277,14 @@ public final class QueryProfile {
       "\n+desmos/profiles/v1beta1/query_profile." +
       "proto\022\027desmos.profiles.v1beta1\032\024gogoprot" +
       "o/gogo.proto\032\034google/api/annotations.pro" +
-      "to\032\031google/protobuf/any.proto\032\031cosmos_pr" +
-      "oto/cosmos.proto\032*cosmos/base/query/v1be" +
-      "ta1/pagination.proto\"-\n\023QueryProfileRequ" +
-      "est\022\014\n\004user\030\001 \001(\t:\010\350\240\037\000\210\240\037\000\"K\n\024QueryProf" +
-      "ileResponse\0223\n\007profile\030\001 \001(\0132\024.google.pr" +
-      "otobuf.AnyB\014\312\264-\010AccountIB3Z1github.com/d" +
-      "esmos-labs/desmos/v2/x/profiles/typesb\006p" +
-      "roto3"
+      "to\032\032google/protobuf2/any.proto\032\031cosmos_p" +
+      "roto/cosmos.proto\032*cosmos/base/query/v1b" +
+      "eta1/pagination.proto\"-\n\023QueryProfileReq" +
+      "uest\022\014\n\004user\030\001 \001(\t:\010\350\240\037\000\210\240\037\000\"K\n\024QueryPro" +
+      "fileResponse\0223\n\007profile\030\001 \001(\0132\024.google.p" +
+      "rotobuf.AnyB\014\312\264-\010AccountIB3Z1github.com/" +
+      "desmos-labs/desmos/v2/x/profiles/typesb\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

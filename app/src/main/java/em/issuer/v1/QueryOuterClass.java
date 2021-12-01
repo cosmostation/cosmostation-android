@@ -1245,23 +1245,21 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\030em/issuer/v1/query.proto\022\014em.issuer.v1" +
-      "\032\024gogoproto/gogo.proto\032\036cosmos/base/v1be" +
-      "ta1/coin.proto\032\034google/api/annotations.p" +
-      "roto\032\031em/issuer/v1/issuer.proto\"\025\n\023Query" +
-      "IssuersRequest\"U\n\024QueryIssuersResponse\022=" +
-      "\n\007issuers\030\001 \003(\0132\024.em.issuer.v1.IssuerB\026\362" +
-      "\336\037\016yaml:\"issuers\"\310\336\037\0002}\n\005Query\022t\n\007Issuer" +
-      "s\022!.em.issuer.v1.QueryIssuersRequest\032\".e" +
-      "m.issuer.v1.QueryIssuersResponse\"\"\202\323\344\223\002\034" +
-      "\022\032/e-money/issuer/v1/issuersB-Z+github.c" +
-      "om/e-money/em-ledger/x/issuer/typesb\006pro" +
-      "to3"
+      "\032\024gogoproto/gogo.proto\032\034google/api/annot" +
+      "ations.proto\032\031em/issuer/v1/issuer.proto\"" +
+      "\025\n\023QueryIssuersRequest\"U\n\024QueryIssuersRe" +
+      "sponse\022=\n\007issuers\030\001 \003(\0132\024.em.issuer.v1.I" +
+      "ssuerB\026\362\336\037\016yaml:\"issuers\"\310\336\037\0002}\n\005Query\022t" +
+      "\n\007Issuers\022!.em.issuer.v1.QueryIssuersReq" +
+      "uest\032\".em.issuer.v1.QueryIssuersResponse" +
+      "\"\"\202\323\344\223\002\034\022\032/e-money/issuer/v1/issuersB-Z+" +
+      "github.com/e-money/em-ledger/x/issuer/ty" +
+      "pesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           em.issuer.v1.IssuerOuterClass.getDescriptor(),
         });
@@ -1285,7 +1283,6 @@ public final class QueryOuterClass {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     em.issuer.v1.IssuerOuterClass.getDescriptor();
   }

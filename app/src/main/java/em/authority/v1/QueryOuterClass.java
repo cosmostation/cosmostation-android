@@ -2297,24 +2297,23 @@ public final class QueryOuterClass {
       "ity.v1\032\024gogoproto/gogo.proto\032\036cosmos/bas" +
       "e/v1beta1/coin.proto\032\034google/api/annotat" +
       "ions.proto\032$cosmos/upgrade/v1beta1/upgra" +
-      "de.proto\032\036cosmos/bank/v1beta1/bank.proto" +
-      "\"\027\n\025QueryGasPricesRequest\"\243\001\n\026QueryGasPr" +
-      "icesResponse\022\202\001\n\016min_gas_prices\030\001 \003(\0132\034." +
-      "cosmos.base.v1beta1.DecCoinBL\362\336\037\025yaml:\"m" +
-      "in_gas_prices\"\252\337\037+github.com/cosmos/cosm" +
-      "os-sdk/types.DecCoins\310\336\037\000:\004\230\240\037\000\"\031\n\027Query" +
-      "UpgradePlanRequest\"[\n\030QueryUpgradePlanRe" +
-      "sponse\022?\n\004plan\030\001 \001(\0132\034.cosmos.upgrade.v1" +
-      "beta1.PlanB\023\362\336\037\013yaml:\"plan\"\310\336\037\0002\240\002\n\005Quer" +
-      "y\022\205\001\n\tGasPrices\022&.em.authority.v1.QueryG" +
-      "asPricesRequest\032\'.em.authority.v1.QueryG" +
-      "asPricesResponse\"\'\202\323\344\223\002!\022\037/e-money/autho" +
-      "rity/v1/gasprices\022\216\001\n\013UpgradePlan\022(.em.a" +
-      "uthority.v1.QueryUpgradePlanRequest\032).em" +
-      ".authority.v1.QueryUpgradePlanResponse\"*" +
-      "\202\323\344\223\002$\022\"/e-money/authority/v1/upgrade_pl" +
-      "anB0Z.github.com/e-money/em-ledger/x/aut" +
-      "hority/typesb\006proto3"
+      "de.proto\"\027\n\025QueryGasPricesRequest\"\243\001\n\026Qu" +
+      "eryGasPricesResponse\022\202\001\n\016min_gas_prices\030" +
+      "\001 \003(\0132\034.cosmos.base.v1beta1.DecCoinBL\362\336\037" +
+      "\025yaml:\"min_gas_prices\"\252\337\037+github.com/cos" +
+      "mos/cosmos-sdk/types.DecCoins\310\336\037\000:\004\230\240\037\000\"" +
+      "\031\n\027QueryUpgradePlanRequest\"[\n\030QueryUpgra" +
+      "dePlanResponse\022?\n\004plan\030\001 \001(\0132\034.cosmos.up" +
+      "grade.v1beta1.PlanB\023\362\336\037\013yaml:\"plan\"\310\336\037\0002" +
+      "\240\002\n\005Query\022\205\001\n\tGasPrices\022&.em.authority.v" +
+      "1.QueryGasPricesRequest\032\'.em.authority.v" +
+      "1.QueryGasPricesResponse\"\'\202\323\344\223\002!\022\037/e-mon" +
+      "ey/authority/v1/gasprices\022\216\001\n\013UpgradePla" +
+      "n\022(.em.authority.v1.QueryUpgradePlanRequ" +
+      "est\032).em.authority.v1.QueryUpgradePlanRe" +
+      "sponse\"*\202\323\344\223\002$\022\"/e-money/authority/v1/up" +
+      "grade_planB0Z.github.com/e-money/em-ledg" +
+      "er/x/authority/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2323,7 +2322,6 @@ public final class QueryOuterClass {
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.upgrade.v1beta1.Upgrade.getDescriptor(),
-          cosmos.bank.v1beta1.Bank.getDescriptor(),
         });
     internal_static_em_authority_v1_QueryGasPricesRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2362,7 +2360,6 @@ public final class QueryOuterClass {
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.upgrade.v1beta1.Upgrade.getDescriptor();
-    cosmos.bank.v1beta1.Bank.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

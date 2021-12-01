@@ -12521,76 +12521,76 @@ public final class Solomachine {
       "chine.proto\022\037ibc.lightclients.solomachin" +
       "e.v1\032\'ibc/core/connection/v1/connection." +
       "proto\032!ibc/core/channel/v1/channel.proto" +
-      "\032\024gogoproto/gogo.proto\032\031google/protobuf/" +
-      "any.proto\"\215\002\n\013ClientState\022\020\n\010sequence\030\001 " +
-      "\001(\004\0223\n\017frozen_sequence\030\002 \001(\004B\032\362\336\037\026yaml:\"" +
-      "frozen_sequence\"\022d\n\017consensus_state\030\003 \001(" +
-      "\0132/.ibc.lightclients.solomachine.v1.Cons" +
-      "ensusStateB\032\362\336\037\026yaml:\"consensus_state\"\022K" +
-      "\n\033allow_update_after_proposal\030\004 \001(\010B&\362\336\037" +
-      "\"yaml:\"allow_update_after_proposal\":\004\210\240\037" +
-      "\000\"\177\n\016ConsensusState\022?\n\npublic_key\030\001 \001(\0132" +
-      "\024.google.protobuf.AnyB\025\362\336\037\021yaml:\"public_" +
-      "key\"\022\023\n\013diversifier\030\002 \001(\t\022\021\n\ttimestamp\030\003" +
-      " \001(\004:\004\210\240\037\000\"\304\001\n\006Header\022\020\n\010sequence\030\001 \001(\004\022" +
-      "\021\n\ttimestamp\030\002 \001(\004\022\021\n\tsignature\030\003 \001(\014\022G\n" +
-      "\016new_public_key\030\004 \001(\0132\024.google.protobuf." +
-      "AnyB\031\362\336\037\025yaml:\"new_public_key\"\0223\n\017new_di" +
-      "versifier\030\005 \001(\tB\032\362\336\037\026yaml:\"new_diversifi" +
-      "er\":\004\210\240\037\000\"\227\002\n\014Misbehaviour\022\'\n\tclient_id\030" +
-      "\001 \001(\tB\024\362\336\037\020yaml:\"client_id\"\022\020\n\010sequence\030" +
-      "\002 \001(\004\022b\n\rsignature_one\030\003 \001(\01321.ibc.light" +
-      "clients.solomachine.v1.SignatureAndDataB" +
-      "\030\362\336\037\024yaml:\"signature_one\"\022b\n\rsignature_t" +
-      "wo\030\004 \001(\01321.ibc.lightclients.solomachine." +
-      "v1.SignatureAndDataB\030\362\336\037\024yaml:\"signature" +
-      "_two\":\004\210\240\037\000\"\240\001\n\020SignatureAndData\022\021\n\tsign" +
-      "ature\030\001 \001(\014\022R\n\tdata_type\030\002 \001(\0162).ibc.lig" +
-      "htclients.solomachine.v1.DataTypeB\024\362\336\037\020y" +
-      "aml:\"data_type\"\022\014\n\004data\030\003 \001(\014\022\021\n\ttimesta" +
-      "mp\030\004 \001(\004:\004\210\240\037\000\"f\n\030TimestampedSignatureDa" +
-      "ta\0221\n\016signature_data\030\001 \001(\014B\031\362\336\037\025yaml:\"si" +
-      "gnature_data\"\022\021\n\ttimestamp\030\002 \001(\004:\004\210\240\037\000\"\255" +
-      "\001\n\tSignBytes\022\020\n\010sequence\030\001 \001(\004\022\021\n\ttimest" +
-      "amp\030\002 \001(\004\022\023\n\013diversifier\030\003 \001(\t\022R\n\tdata_t" +
-      "ype\030\004 \001(\0162).ibc.lightclients.solomachine" +
-      ".v1.DataTypeB\024\362\336\037\020yaml:\"data_type\"\022\014\n\004da" +
-      "ta\030\005 \001(\014:\004\210\240\037\000\"\212\001\n\nHeaderData\022A\n\013new_pub" +
-      "_key\030\001 \001(\0132\024.google.protobuf.AnyB\026\362\336\037\022ya" +
-      "ml:\"new_pub_key\"\0223\n\017new_diversifier\030\002 \001(" +
-      "\tB\032\362\336\037\026yaml:\"new_diversifier\":\004\210\240\037\000\"j\n\017C" +
-      "lientStateData\022\014\n\004path\030\001 \001(\014\022C\n\014client_s" +
-      "tate\030\002 \001(\0132\024.google.protobuf.AnyB\027\362\336\037\023ya" +
-      "ml:\"client_state\":\004\210\240\037\000\"s\n\022ConsensusStat" +
-      "eData\022\014\n\004path\030\001 \001(\014\022I\n\017consensus_state\030\002" +
-      " \001(\0132\024.google.protobuf.AnyB\032\362\336\037\026yaml:\"co" +
-      "nsensus_state\":\004\210\240\037\000\"d\n\023ConnectionStateD" +
-      "ata\022\014\n\004path\030\001 \001(\014\0229\n\nconnection\030\002 \001(\0132%." +
-      "ibc.core.connection.v1.ConnectionEnd:\004\210\240" +
-      "\037\000\"U\n\020ChannelStateData\022\014\n\004path\030\001 \001(\014\022-\n\007" +
-      "channel\030\002 \001(\0132\034.ibc.core.channel.v1.Chan" +
-      "nel:\004\210\240\037\000\"8\n\024PacketCommitmentData\022\014\n\004pat" +
-      "h\030\001 \001(\014\022\022\n\ncommitment\030\002 \001(\014\"B\n\031PacketAck" +
-      "nowledgementData\022\014\n\004path\030\001 \001(\014\022\027\n\017acknow" +
-      "ledgement\030\002 \001(\014\"(\n\030PacketReceiptAbsenceD" +
-      "ata\022\014\n\004path\030\001 \001(\014\"U\n\024NextSequenceRecvDat" +
-      "a\022\014\n\004path\030\001 \001(\014\022/\n\rnext_seq_recv\030\002 \001(\004B\030" +
-      "\362\336\037\024yaml:\"next_seq_recv\"*\214\004\n\010DataType\0228\n" +
-      "#DATA_TYPE_UNINITIALIZED_UNSPECIFIED\020\000\032\017" +
-      "\212\235 \013UNSPECIFIED\022&\n\026DATA_TYPE_CLIENT_STAT" +
-      "E\020\001\032\n\212\235 \006CLIENT\022,\n\031DATA_TYPE_CONSENSUS_S" +
-      "TATE\020\002\032\r\212\235 \tCONSENSUS\022.\n\032DATA_TYPE_CONNE" +
-      "CTION_STATE\020\003\032\016\212\235 \nCONNECTION\022(\n\027DATA_TY" +
-      "PE_CHANNEL_STATE\020\004\032\013\212\235 \007CHANNEL\0225\n\033DATA_" +
-      "TYPE_PACKET_COMMITMENT\020\005\032\024\212\235 \020PACKETCOMM" +
-      "ITMENT\022?\n DATA_TYPE_PACKET_ACKNOWLEDGEME" +
-      "NT\020\006\032\031\212\235 \025PACKETACKNOWLEDGEMENT\022>\n DATA_" +
-      "TYPE_PACKET_RECEIPT_ABSENCE\020\007\032\030\212\235 \024PACKE" +
-      "TRECEIPTABSENCE\0226\n\034DATA_TYPE_NEXT_SEQUEN" +
-      "CE_RECV\020\010\032\024\212\235 \020NEXTSEQUENCERECV\022 \n\020DATA_" +
-      "TYPE_HEADER\020\t\032\n\212\235 \006HEADER\032\004\210\243\036\000B@Z>githu" +
-      "b.com/cosmos/ibc-go/v2/modules/core/02-c" +
-      "lient/legacy/v100b\006proto3"
+      "\032\024gogoproto/gogo.proto\032\032google/protobuf2" +
+      "/any.proto\"\215\002\n\013ClientState\022\020\n\010sequence\030\001" +
+      " \001(\004\0223\n\017frozen_sequence\030\002 \001(\004B\032\362\336\037\026yaml:" +
+      "\"frozen_sequence\"\022d\n\017consensus_state\030\003 \001" +
+      "(\0132/.ibc.lightclients.solomachine.v1.Con" +
+      "sensusStateB\032\362\336\037\026yaml:\"consensus_state\"\022" +
+      "K\n\033allow_update_after_proposal\030\004 \001(\010B&\362\336" +
+      "\037\"yaml:\"allow_update_after_proposal\":\004\210\240" +
+      "\037\000\"\177\n\016ConsensusState\022?\n\npublic_key\030\001 \001(\013" +
+      "2\024.google.protobuf.AnyB\025\362\336\037\021yaml:\"public" +
+      "_key\"\022\023\n\013diversifier\030\002 \001(\t\022\021\n\ttimestamp\030" +
+      "\003 \001(\004:\004\210\240\037\000\"\304\001\n\006Header\022\020\n\010sequence\030\001 \001(\004" +
+      "\022\021\n\ttimestamp\030\002 \001(\004\022\021\n\tsignature\030\003 \001(\014\022G" +
+      "\n\016new_public_key\030\004 \001(\0132\024.google.protobuf" +
+      ".AnyB\031\362\336\037\025yaml:\"new_public_key\"\0223\n\017new_d" +
+      "iversifier\030\005 \001(\tB\032\362\336\037\026yaml:\"new_diversif" +
+      "ier\":\004\210\240\037\000\"\227\002\n\014Misbehaviour\022\'\n\tclient_id" +
+      "\030\001 \001(\tB\024\362\336\037\020yaml:\"client_id\"\022\020\n\010sequence" +
+      "\030\002 \001(\004\022b\n\rsignature_one\030\003 \001(\01321.ibc.ligh" +
+      "tclients.solomachine.v1.SignatureAndData" +
+      "B\030\362\336\037\024yaml:\"signature_one\"\022b\n\rsignature_" +
+      "two\030\004 \001(\01321.ibc.lightclients.solomachine" +
+      ".v1.SignatureAndDataB\030\362\336\037\024yaml:\"signatur" +
+      "e_two\":\004\210\240\037\000\"\240\001\n\020SignatureAndData\022\021\n\tsig" +
+      "nature\030\001 \001(\014\022R\n\tdata_type\030\002 \001(\0162).ibc.li" +
+      "ghtclients.solomachine.v1.DataTypeB\024\362\336\037\020" +
+      "yaml:\"data_type\"\022\014\n\004data\030\003 \001(\014\022\021\n\ttimest" +
+      "amp\030\004 \001(\004:\004\210\240\037\000\"f\n\030TimestampedSignatureD" +
+      "ata\0221\n\016signature_data\030\001 \001(\014B\031\362\336\037\025yaml:\"s" +
+      "ignature_data\"\022\021\n\ttimestamp\030\002 \001(\004:\004\210\240\037\000\"" +
+      "\255\001\n\tSignBytes\022\020\n\010sequence\030\001 \001(\004\022\021\n\ttimes" +
+      "tamp\030\002 \001(\004\022\023\n\013diversifier\030\003 \001(\t\022R\n\tdata_" +
+      "type\030\004 \001(\0162).ibc.lightclients.solomachin" +
+      "e.v1.DataTypeB\024\362\336\037\020yaml:\"data_type\"\022\014\n\004d" +
+      "ata\030\005 \001(\014:\004\210\240\037\000\"\212\001\n\nHeaderData\022A\n\013new_pu" +
+      "b_key\030\001 \001(\0132\024.google.protobuf.AnyB\026\362\336\037\022y" +
+      "aml:\"new_pub_key\"\0223\n\017new_diversifier\030\002 \001" +
+      "(\tB\032\362\336\037\026yaml:\"new_diversifier\":\004\210\240\037\000\"j\n\017" +
+      "ClientStateData\022\014\n\004path\030\001 \001(\014\022C\n\014client_" +
+      "state\030\002 \001(\0132\024.google.protobuf.AnyB\027\362\336\037\023y" +
+      "aml:\"client_state\":\004\210\240\037\000\"s\n\022ConsensusSta" +
+      "teData\022\014\n\004path\030\001 \001(\014\022I\n\017consensus_state\030" +
+      "\002 \001(\0132\024.google.protobuf.AnyB\032\362\336\037\026yaml:\"c" +
+      "onsensus_state\":\004\210\240\037\000\"d\n\023ConnectionState" +
+      "Data\022\014\n\004path\030\001 \001(\014\0229\n\nconnection\030\002 \001(\0132%" +
+      ".ibc.core.connection.v1.ConnectionEnd:\004\210" +
+      "\240\037\000\"U\n\020ChannelStateData\022\014\n\004path\030\001 \001(\014\022-\n" +
+      "\007channel\030\002 \001(\0132\034.ibc.core.channel.v1.Cha" +
+      "nnel:\004\210\240\037\000\"8\n\024PacketCommitmentData\022\014\n\004pa" +
+      "th\030\001 \001(\014\022\022\n\ncommitment\030\002 \001(\014\"B\n\031PacketAc" +
+      "knowledgementData\022\014\n\004path\030\001 \001(\014\022\027\n\017ackno" +
+      "wledgement\030\002 \001(\014\"(\n\030PacketReceiptAbsence" +
+      "Data\022\014\n\004path\030\001 \001(\014\"U\n\024NextSequenceRecvDa" +
+      "ta\022\014\n\004path\030\001 \001(\014\022/\n\rnext_seq_recv\030\002 \001(\004B" +
+      "\030\362\336\037\024yaml:\"next_seq_recv\"*\214\004\n\010DataType\0228" +
+      "\n#DATA_TYPE_UNINITIALIZED_UNSPECIFIED\020\000\032" +
+      "\017\212\235 \013UNSPECIFIED\022&\n\026DATA_TYPE_CLIENT_STA" +
+      "TE\020\001\032\n\212\235 \006CLIENT\022,\n\031DATA_TYPE_CONSENSUS_" +
+      "STATE\020\002\032\r\212\235 \tCONSENSUS\022.\n\032DATA_TYPE_CONN" +
+      "ECTION_STATE\020\003\032\016\212\235 \nCONNECTION\022(\n\027DATA_T" +
+      "YPE_CHANNEL_STATE\020\004\032\013\212\235 \007CHANNEL\0225\n\033DATA" +
+      "_TYPE_PACKET_COMMITMENT\020\005\032\024\212\235 \020PACKETCOM" +
+      "MITMENT\022?\n DATA_TYPE_PACKET_ACKNOWLEDGEM" +
+      "ENT\020\006\032\031\212\235 \025PACKETACKNOWLEDGEMENT\022>\n DATA" +
+      "_TYPE_PACKET_RECEIPT_ABSENCE\020\007\032\030\212\235 \024PACK" +
+      "ETRECEIPTABSENCE\0226\n\034DATA_TYPE_NEXT_SEQUE" +
+      "NCE_RECV\020\010\032\024\212\235 \020NEXTSEQUENCERECV\022 \n\020DATA" +
+      "_TYPE_HEADER\020\t\032\n\212\235 \006HEADER\032\004\210\243\036\000B@Z>gith" +
+      "ub.com/cosmos/ibc-go/v2/modules/core/02-" +
+      "client/legacy/v100b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

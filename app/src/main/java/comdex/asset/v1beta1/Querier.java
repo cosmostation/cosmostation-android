@@ -7656,58 +7656,58 @@ public final class Querier {
       "mdex.asset.v1beta1\032*cosmos/base/query/v1" +
       "beta1/pagination.proto\032\024gogoproto/gogo.p" +
       "roto\032\034google/api/annotations.proto\032 comd" +
-      "ex/asset/v1beta1/asset.proto\032\037comdex/ass" +
-      "et/v1beta1/pair.proto\032!comdex/asset/v1be" +
-      "ta1/params.proto\"g\n\022QueryAssetsRequest\022Q" +
-      "\n\npagination\030\001 \001(\0132&.cosmos.base.query.v" +
-      "1beta1.PageRequestB\025\362\336\037\021yaml:\"pagination" +
-      "\"\"\255\001\n\023QueryAssetsResponse\022B\n\006assets\030\001 \003(" +
-      "\0132\033.comdex.asset.v1beta1.AssetB\025\310\336\037\000\362\336\037\r" +
-      "yaml:\"assets\"\022R\n\npagination\030\002 \001(\0132\'.cosm" +
-      "os.base.query.v1beta1.PageResponseB\025\362\336\037\021" +
-      "yaml:\"pagination\"\"\037\n\021QueryAssetRequest\022\n" +
-      "\n\002id\030\001 \001(\004\"V\n\022QueryAssetResponse\022@\n\005asse" +
-      "t\030\001 \001(\0132\033.comdex.asset.v1beta1.AssetB\024\310\336" +
-      "\037\000\362\336\037\014yaml:\"asset\"\"\226\002\n\010PairInfo\022\n\n\002id\030\001 " +
-      "\001(\004\022%\n\010asset_in\030\002 \001(\004B\023\362\336\037\017yaml:\"asset_i" +
-      "n\"\022\"\n\010denom_in\030\003 \001(\tB\020\362\336\037\014yaml:\"denom\"\022\'" +
-      "\n\tasset_out\030\004 \001(\004B\024\362\336\037\020yaml:\"asset_out\"\022" +
-      "#\n\tdenom_out\030\005 \001(\tB\020\362\336\037\014yaml:\"denom\"\022e\n\021" +
-      "liquidation_ratio\030\006 \001(\tBJ\332\336\037&github.com/" +
-      "cosmos/cosmos-sdk/types.Dec\310\336\037\000\362\336\037\030yaml:" +
-      "\"liquidation_ratio\"\"f\n\021QueryPairsRequest" +
-      "\022Q\n\npagination\030\001 \001(\0132&.cosmos.base.query" +
-      ".v1beta1.PageRequestB\025\362\336\037\021yaml:\"paginati" +
-      "on\"\"\261\001\n\022QueryPairsResponse\022G\n\tpairsInfo\030" +
-      "\001 \003(\0132\036.comdex.asset.v1beta1.PairInfoB\024\310" +
-      "\336\037\000\362\336\037\014yaml:\"pairs\"\022R\n\npagination\030\002 \001(\0132" +
-      "\'.cosmos.base.query.v1beta1.PageResponse" +
-      "B\025\362\336\037\021yaml:\"pagination\"\"\036\n\020QueryPairRequ" +
-      "est\022\n\n\002id\030\001 \001(\004\"Z\n\021QueryPairResponse\022E\n\010" +
-      "pairInfo\030\001 \001(\0132\036.comdex.asset.v1beta1.Pa" +
-      "irInfoB\023\310\336\037\000\362\336\037\013yaml:\"pair\"\"\024\n\022QueryPara" +
-      "msRequest\"Z\n\023QueryParamsResponse\022C\n\006para" +
-      "ms\030\001 \001(\0132\034.comdex.asset.v1beta1.ParamsB\025" +
-      "\362\336\037\ryaml:\"params\"\310\336\037\0002\301\005\n\014QueryService\022\210" +
-      "\001\n\013QueryAssets\022(.comdex.asset.v1beta1.Qu" +
-      "eryAssetsRequest\032).comdex.asset.v1beta1." +
-      "QueryAssetsResponse\"$\202\323\344\223\002\036\022\034/comdex/ass" +
-      "et/v1beta1/assets\022\212\001\n\nQueryAsset\022\'.comde" +
-      "x.asset.v1beta1.QueryAssetRequest\032(.comd" +
-      "ex.asset.v1beta1.QueryAssetResponse\")\202\323\344" +
-      "\223\002#\022!/comdex/asset/v1beta1/assets/{id}\022\204" +
-      "\001\n\nQueryPairs\022\'.comdex.asset.v1beta1.Que" +
-      "ryPairsRequest\032(.comdex.asset.v1beta1.Qu" +
-      "eryPairsResponse\"#\202\323\344\223\002\035\022\033/comdex/asset/" +
-      "v1beta1/pairs\022\206\001\n\tQueryPair\022&.comdex.ass" +
-      "et.v1beta1.QueryPairRequest\032\'.comdex.ass" +
-      "et.v1beta1.QueryPairResponse\"(\202\323\344\223\002\"\022 /c" +
-      "omdex/asset/v1beta1/pairs/{id}\022\210\001\n\013Query" +
-      "Params\022(.comdex.asset.v1beta1.QueryParam" +
-      "sRequest\032).comdex.asset.v1beta1.QueryPar" +
-      "amsResponse\"$\202\323\344\223\002\036\022\034/comdex/asset/v1bet" +
-      "a1/paramsB9Z/github.com/comdex-official/" +
-      "comdex/x/asset/types\250\342\036\000\310\341\036\000b\006proto3"
+      "ex/asset/v1beta1/asset.proto\032!comdex/ass" +
+      "et/v1beta1/params.proto\"g\n\022QueryAssetsRe" +
+      "quest\022Q\n\npagination\030\001 \001(\0132&.cosmos.base." +
+      "query.v1beta1.PageRequestB\025\362\336\037\021yaml:\"pag" +
+      "ination\"\"\255\001\n\023QueryAssetsResponse\022B\n\006asse" +
+      "ts\030\001 \003(\0132\033.comdex.asset.v1beta1.AssetB\025\310" +
+      "\336\037\000\362\336\037\ryaml:\"assets\"\022R\n\npagination\030\002 \001(\013" +
+      "2\'.cosmos.base.query.v1beta1.PageRespons" +
+      "eB\025\362\336\037\021yaml:\"pagination\"\"\037\n\021QueryAssetRe" +
+      "quest\022\n\n\002id\030\001 \001(\004\"V\n\022QueryAssetResponse\022" +
+      "@\n\005asset\030\001 \001(\0132\033.comdex.asset.v1beta1.As" +
+      "setB\024\310\336\037\000\362\336\037\014yaml:\"asset\"\"\226\002\n\010PairInfo\022\n" +
+      "\n\002id\030\001 \001(\004\022%\n\010asset_in\030\002 \001(\004B\023\362\336\037\017yaml:\"" +
+      "asset_in\"\022\"\n\010denom_in\030\003 \001(\tB\020\362\336\037\014yaml:\"d" +
+      "enom\"\022\'\n\tasset_out\030\004 \001(\004B\024\362\336\037\020yaml:\"asse" +
+      "t_out\"\022#\n\tdenom_out\030\005 \001(\tB\020\362\336\037\014yaml:\"den" +
+      "om\"\022e\n\021liquidation_ratio\030\006 \001(\tBJ\332\336\037&gith" +
+      "ub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\362\336" +
+      "\037\030yaml:\"liquidation_ratio\"\"f\n\021QueryPairs" +
+      "Request\022Q\n\npagination\030\001 \001(\0132&.cosmos.bas" +
+      "e.query.v1beta1.PageRequestB\025\362\336\037\021yaml:\"p" +
+      "agination\"\"\261\001\n\022QueryPairsResponse\022G\n\tpai" +
+      "rsInfo\030\001 \003(\0132\036.comdex.asset.v1beta1.Pair" +
+      "InfoB\024\310\336\037\000\362\336\037\014yaml:\"pairs\"\022R\n\npagination" +
+      "\030\002 \001(\0132\'.cosmos.base.query.v1beta1.PageR" +
+      "esponseB\025\362\336\037\021yaml:\"pagination\"\"\036\n\020QueryP" +
+      "airRequest\022\n\n\002id\030\001 \001(\004\"Z\n\021QueryPairRespo" +
+      "nse\022E\n\010pairInfo\030\001 \001(\0132\036.comdex.asset.v1b" +
+      "eta1.PairInfoB\023\310\336\037\000\362\336\037\013yaml:\"pair\"\"\024\n\022Qu" +
+      "eryParamsRequest\"Z\n\023QueryParamsResponse\022" +
+      "C\n\006params\030\001 \001(\0132\034.comdex.asset.v1beta1.P" +
+      "aramsB\025\362\336\037\ryaml:\"params\"\310\336\037\0002\301\005\n\014QuerySe" +
+      "rvice\022\210\001\n\013QueryAssets\022(.comdex.asset.v1b" +
+      "eta1.QueryAssetsRequest\032).comdex.asset.v" +
+      "1beta1.QueryAssetsResponse\"$\202\323\344\223\002\036\022\034/com" +
+      "dex/asset/v1beta1/assets\022\212\001\n\nQueryAsset\022" +
+      "\'.comdex.asset.v1beta1.QueryAssetRequest" +
+      "\032(.comdex.asset.v1beta1.QueryAssetRespon" +
+      "se\")\202\323\344\223\002#\022!/comdex/asset/v1beta1/assets" +
+      "/{id}\022\204\001\n\nQueryPairs\022\'.comdex.asset.v1be" +
+      "ta1.QueryPairsRequest\032(.comdex.asset.v1b" +
+      "eta1.QueryPairsResponse\"#\202\323\344\223\002\035\022\033/comdex" +
+      "/asset/v1beta1/pairs\022\206\001\n\tQueryPair\022&.com" +
+      "dex.asset.v1beta1.QueryPairRequest\032\'.com" +
+      "dex.asset.v1beta1.QueryPairResponse\"(\202\323\344" +
+      "\223\002\"\022 /comdex/asset/v1beta1/pairs/{id}\022\210\001" +
+      "\n\013QueryParams\022(.comdex.asset.v1beta1.Que" +
+      "ryParamsRequest\032).comdex.asset.v1beta1.Q" +
+      "ueryParamsResponse\"$\202\323\344\223\002\036\022\034/comdex/asse" +
+      "t/v1beta1/paramsB9Z/github.com/comdex-of" +
+      "ficial/comdex/x/asset/types\250\342\036\000\310\341\036\000b\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7716,7 +7716,6 @@ public final class Querier {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           comdex.asset.v1beta1.AssetOuterClass.getDescriptor(),
-          comdex.asset.v1beta1.PairOuterClass.getDescriptor(),
           comdex.asset.v1beta1.ParamsOuterClass.getDescriptor(),
         });
     internal_static_comdex_asset_v1beta1_QueryAssetsRequest_descriptor =
@@ -7799,7 +7798,6 @@ public final class Querier {
     com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     comdex.asset.v1beta1.AssetOuterClass.getDescriptor();
-    comdex.asset.v1beta1.PairOuterClass.getDescriptor();
     comdex.asset.v1beta1.ParamsOuterClass.getDescriptor();
   }
 

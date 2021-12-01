@@ -7926,51 +7926,47 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n\rbcna/tx.proto\022\030BitCannaGlobal.bcna.bcn" +
-      "a\032\025bcna/bitcannaid.proto\032\026bcna/supplycha" +
-      "in.proto\"G\n\023MsgCreateBitcannaid\022\017\n\007creat" +
-      "or\030\001 \001(\t\022\016\n\006bcnaid\030\002 \001(\t\022\017\n\007address\030\003 \001(" +
-      "\t\")\n\033MsgCreateBitcannaidResponse\022\n\n\002id\030\001" +
-      " \001(\004\"S\n\023MsgUpdateBitcannaid\022\017\n\007creator\030\001" +
-      " \001(\t\022\n\n\002id\030\002 \001(\004\022\016\n\006bcnaid\030\003 \001(\t\022\017\n\007addr" +
-      "ess\030\004 \001(\t\"\035\n\033MsgUpdateBitcannaidResponse" +
-      "\"2\n\023MsgDeleteBitcannaid\022\017\n\007creator\030\001 \001(\t" +
-      "\022\n\n\002id\030\002 \001(\004\"\035\n\033MsgDeleteBitcannaidRespo" +
-      "nse\"Z\n\024MsgCreateSupplychain\022\017\n\007creator\030\001" +
-      " \001(\t\022\017\n\007product\030\002 \001(\t\022\014\n\004info\030\003 \001(\t\022\022\n\ns" +
-      "upplyinfo\030\004 \001(\t\"*\n\034MsgCreateSupplychainR" +
-      "esponse\022\n\n\002id\030\001 \001(\004\"f\n\024MsgUpdateSupplych" +
-      "ain\022\017\n\007creator\030\001 \001(\t\022\n\n\002id\030\002 \001(\004\022\017\n\007prod" +
-      "uct\030\003 \001(\t\022\014\n\004info\030\004 \001(\t\022\022\n\nsupplyinfo\030\005 " +
-      "\001(\t\"\036\n\034MsgUpdateSupplychainResponse\"3\n\024M" +
-      "sgDeleteSupplychain\022\017\n\007creator\030\001 \001(\t\022\n\n\002" +
-      "id\030\002 \001(\004\"\036\n\034MsgDeleteSupplychainResponse" +
-      "2\352\005\n\003Msg\022x\n\020CreateBitcannaid\022-.BitCannaG" +
-      "lobal.bcna.bcna.MsgCreateBitcannaid\0325.Bi" +
-      "tCannaGlobal.bcna.bcna.MsgCreateBitcanna" +
-      "idResponse\022x\n\020UpdateBitcannaid\022-.BitCann" +
-      "aGlobal.bcna.bcna.MsgUpdateBitcannaid\0325." +
-      "BitCannaGlobal.bcna.bcna.MsgUpdateBitcan" +
-      "naidResponse\022x\n\020DeleteBitcannaid\022-.BitCa" +
-      "nnaGlobal.bcna.bcna.MsgDeleteBitcannaid\032" +
-      "5.BitCannaGlobal.bcna.bcna.MsgDeleteBitc" +
-      "annaidResponse\022{\n\021CreateSupplychain\022..Bi" +
-      "tCannaGlobal.bcna.bcna.MsgCreateSupplych" +
-      "ain\0326.BitCannaGlobal.bcna.bcna.MsgCreate" +
-      "SupplychainResponse\022{\n\021UpdateSupplychain" +
-      "\022..BitCannaGlobal.bcna.bcna.MsgUpdateSup" +
-      "plychain\0326.BitCannaGlobal.bcna.bcna.MsgU" +
-      "pdateSupplychainResponse\022{\n\021DeleteSupply" +
-      "chain\022..BitCannaGlobal.bcna.bcna.MsgDele" +
-      "teSupplychain\0326.BitCannaGlobal.bcna.bcna" +
-      ".MsgDeleteSupplychainResponseB-Z+github." +
-      "com/BitCannaGlobal/bcna/x/bcna/typesb\006pr" +
-      "oto3"
+      "a\"G\n\023MsgCreateBitcannaid\022\017\n\007creator\030\001 \001(" +
+      "\t\022\016\n\006bcnaid\030\002 \001(\t\022\017\n\007address\030\003 \001(\t\")\n\033Ms" +
+      "gCreateBitcannaidResponse\022\n\n\002id\030\001 \001(\004\"S\n" +
+      "\023MsgUpdateBitcannaid\022\017\n\007creator\030\001 \001(\t\022\n\n" +
+      "\002id\030\002 \001(\004\022\016\n\006bcnaid\030\003 \001(\t\022\017\n\007address\030\004 \001" +
+      "(\t\"\035\n\033MsgUpdateBitcannaidResponse\"2\n\023Msg" +
+      "DeleteBitcannaid\022\017\n\007creator\030\001 \001(\t\022\n\n\002id\030" +
+      "\002 \001(\004\"\035\n\033MsgDeleteBitcannaidResponse\"Z\n\024" +
+      "MsgCreateSupplychain\022\017\n\007creator\030\001 \001(\t\022\017\n" +
+      "\007product\030\002 \001(\t\022\014\n\004info\030\003 \001(\t\022\022\n\nsupplyin" +
+      "fo\030\004 \001(\t\"*\n\034MsgCreateSupplychainResponse" +
+      "\022\n\n\002id\030\001 \001(\004\"f\n\024MsgUpdateSupplychain\022\017\n\007" +
+      "creator\030\001 \001(\t\022\n\n\002id\030\002 \001(\004\022\017\n\007product\030\003 \001" +
+      "(\t\022\014\n\004info\030\004 \001(\t\022\022\n\nsupplyinfo\030\005 \001(\t\"\036\n\034" +
+      "MsgUpdateSupplychainResponse\"3\n\024MsgDelet" +
+      "eSupplychain\022\017\n\007creator\030\001 \001(\t\022\n\n\002id\030\002 \001(" +
+      "\004\"\036\n\034MsgDeleteSupplychainResponse2\352\005\n\003Ms" +
+      "g\022x\n\020CreateBitcannaid\022-.BitCannaGlobal.b" +
+      "cna.bcna.MsgCreateBitcannaid\0325.BitCannaG" +
+      "lobal.bcna.bcna.MsgCreateBitcannaidRespo" +
+      "nse\022x\n\020UpdateBitcannaid\022-.BitCannaGlobal" +
+      ".bcna.bcna.MsgUpdateBitcannaid\0325.BitCann" +
+      "aGlobal.bcna.bcna.MsgUpdateBitcannaidRes" +
+      "ponse\022x\n\020DeleteBitcannaid\022-.BitCannaGlob" +
+      "al.bcna.bcna.MsgDeleteBitcannaid\0325.BitCa" +
+      "nnaGlobal.bcna.bcna.MsgDeleteBitcannaidR" +
+      "esponse\022{\n\021CreateSupplychain\022..BitCannaG" +
+      "lobal.bcna.bcna.MsgCreateSupplychain\0326.B" +
+      "itCannaGlobal.bcna.bcna.MsgCreateSupplyc" +
+      "hainResponse\022{\n\021UpdateSupplychain\022..BitC" +
+      "annaGlobal.bcna.bcna.MsgUpdateSupplychai" +
+      "n\0326.BitCannaGlobal.bcna.bcna.MsgUpdateSu" +
+      "pplychainResponse\022{\n\021DeleteSupplychain\022." +
+      ".BitCannaGlobal.bcna.bcna.MsgDeleteSuppl" +
+      "ychain\0326.BitCannaGlobal.bcna.bcna.MsgDel" +
+      "eteSupplychainResponseB-Z+github.com/Bit" +
+      "CannaGlobal/bcna/x/bcna/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          BitCannaGlobal.bcna.bcna.BitcannaidOuterClass.getDescriptor(),
-          BitCannaGlobal.bcna.bcna.SupplychainOuterClass.getDescriptor(),
         });
     internal_static_BitCannaGlobal_bcna_bcna_MsgCreateBitcannaid_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -8044,8 +8040,6 @@ public final class Tx {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_BitCannaGlobal_bcna_bcna_MsgDeleteSupplychainResponse_descriptor,
         new java.lang.String[] { });
-    BitCannaGlobal.bcna.bcna.BitcannaidOuterClass.getDescriptor();
-    BitCannaGlobal.bcna.bcna.SupplychainOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

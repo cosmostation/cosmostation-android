@@ -4795,31 +4795,31 @@ public final class ModelsChainLinks {
     java.lang.String[] descriptorData = {
       "\n0desmos/profiles/v1beta1/models_chain_l" +
       "inks.proto\022\027desmos.profiles.v1beta1\032\024gog" +
-      "oproto/gogo.proto\032\031google/protobuf/any.p" +
-      "roto\032\037google/protobuf/timestamp.proto\032\031c" +
-      "osmos_proto/cosmos.proto\"\365\002\n\tChainLink\022\035" +
-      "\n\004user\030\001 \001(\tB\017\362\336\037\013yaml:\"user\"\022H\n\007address" +
-      "\030\002 \001(\0132\024.google.protobuf.AnyB!\362\336\037\016yaml:\"" +
-      "address\"\312\264-\013AddressData\022C\n\005proof\030\003 \001(\0132\036" +
-      ".desmos.profiles.v1beta1.ProofB\024\310\336\037\000\362\336\037\014" +
-      "yaml:\"proof\"\022W\n\014chain_config\030\004 \001(\0132$.des" +
-      "mos.profiles.v1beta1.ChainConfigB\033\310\336\037\000\362\336" +
-      "\037\023yaml:\"chain_config\"\022S\n\rcreation_time\030\005" +
-      " \001(\0132\032.google.protobuf.TimestampB \220\337\037\001\362\336" +
-      "\037\024yaml:\"creation_time\"\310\336\037\000:\014\210\240\037\000\350\240\037\001\230\240\037\001" +
-      "\":\n\013ChainConfig\022\035\n\004name\030\001 \001(\tB\017\362\336\037\013yaml:" +
-      "\"name\":\014\210\240\037\000\350\240\037\001\230\240\037\001\"\244\001\n\005Proof\0229\n\007pub_ke" +
-      "y\030\001 \001(\0132\024.google.protobuf.AnyB\022\362\336\037\016yaml:" +
-      "\"pub_key\"\022\'\n\tsignature\030\002 \001(\tB\024\362\336\037\020yaml:\"" +
-      "signature\"\022)\n\nplain_text\030\003 \001(\tB\025\362\336\037\021yaml" +
-      ":\"plain_text\":\014\210\240\037\000\350\240\037\001\230\240\037\001\"p\n\rBech32Add" +
-      "ress\022\037\n\005value\030\001 \001(\tB\020\362\336\037\014yaml:\"value\"\022!\n" +
-      "\006prefix\030\002 \001(\tB\021\362\336\037\ryaml:\"prefix\":\033\210\240\037\000\350\240" +
-      "\037\001\230\240\037\001\312\264-\013AddressData\"M\n\rBase58Address\022\037" +
-      "\n\005value\030\001 \001(\tB\020\362\336\037\014yaml:\"value\":\033\210\240\037\000\350\240\037" +
-      "\001\230\240\037\001\312\264-\013AddressDataB3Z1github.com/desmo" +
-      "s-labs/desmos/v2/x/profiles/typesb\006proto" +
-      "3"
+      "oproto/gogo.proto\032\032google/protobuf2/any." +
+      "proto\032\037google/protobuf/timestamp.proto\032\031" +
+      "cosmos_proto/cosmos.proto\"\365\002\n\tChainLink\022" +
+      "\035\n\004user\030\001 \001(\tB\017\362\336\037\013yaml:\"user\"\022H\n\007addres" +
+      "s\030\002 \001(\0132\024.google.protobuf.AnyB!\362\336\037\016yaml:" +
+      "\"address\"\312\264-\013AddressData\022C\n\005proof\030\003 \001(\0132" +
+      "\036.desmos.profiles.v1beta1.ProofB\024\310\336\037\000\362\336\037" +
+      "\014yaml:\"proof\"\022W\n\014chain_config\030\004 \001(\0132$.de" +
+      "smos.profiles.v1beta1.ChainConfigB\033\310\336\037\000\362" +
+      "\336\037\023yaml:\"chain_config\"\022S\n\rcreation_time\030" +
+      "\005 \001(\0132\032.google.protobuf.TimestampB \220\337\037\001\362" +
+      "\336\037\024yaml:\"creation_time\"\310\336\037\000:\014\210\240\037\000\350\240\037\001\230\240\037" +
+      "\001\":\n\013ChainConfig\022\035\n\004name\030\001 \001(\tB\017\362\336\037\013yaml" +
+      ":\"name\":\014\210\240\037\000\350\240\037\001\230\240\037\001\"\244\001\n\005Proof\0229\n\007pub_k" +
+      "ey\030\001 \001(\0132\024.google.protobuf.AnyB\022\362\336\037\016yaml" +
+      ":\"pub_key\"\022\'\n\tsignature\030\002 \001(\tB\024\362\336\037\020yaml:" +
+      "\"signature\"\022)\n\nplain_text\030\003 \001(\tB\025\362\336\037\021yam" +
+      "l:\"plain_text\":\014\210\240\037\000\350\240\037\001\230\240\037\001\"p\n\rBech32Ad" +
+      "dress\022\037\n\005value\030\001 \001(\tB\020\362\336\037\014yaml:\"value\"\022!" +
+      "\n\006prefix\030\002 \001(\tB\021\362\336\037\ryaml:\"prefix\":\033\210\240\037\000\350" +
+      "\240\037\001\230\240\037\001\312\264-\013AddressData\"M\n\rBase58Address\022" +
+      "\037\n\005value\030\001 \001(\tB\020\362\336\037\014yaml:\"value\":\033\210\240\037\000\350\240" +
+      "\037\001\230\240\037\001\312\264-\013AddressDataB3Z1github.com/desm" +
+      "os-labs/desmos/v2/x/profiles/typesb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

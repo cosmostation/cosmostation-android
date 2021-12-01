@@ -4845,27 +4845,27 @@ public final class QueryAppLinks {
       "\n-desmos/profiles/v1beta1/query_app_link" +
       "s.proto\022\027desmos.profiles.v1beta1\032\024gogopr" +
       "oto/gogo.proto\032\034google/api/annotations.p" +
-      "roto\032\031google/protobuf/any.proto\032.desmos/" +
-      "profiles/v1beta1/models_app_links.proto\032" +
-      "\031cosmos_proto/cosmos.proto\032*cosmos/base/" +
-      "query/v1beta1/pagination.proto\"V\n\037QueryU" +
-      "serApplicationLinkRequest\022\014\n\004user\030\001 \001(\t\022" +
-      "\023\n\013application\030\002 \001(\t\022\020\n\010username\030\003 \001(\t\"`" +
-      "\n QueryUserApplicationLinkResponse\022<\n\004li" +
-      "nk\030\001 \001(\0132(.desmos.profiles.v1beta1.Appli" +
-      "cationLinkB\004\310\336\037\000\"h\n\034QueryApplicationLink" +
-      "sRequest\022\014\n\004user\030\001 \001(\t\022:\n\npagination\030\002 \001" +
-      "(\0132&.cosmos.base.query.v1beta1.PageReque" +
-      "st\"\233\001\n\035QueryApplicationLinksResponse\022=\n\005" +
-      "links\030\001 \003(\0132(.desmos.profiles.v1beta1.Ap" +
-      "plicationLinkB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132" +
-      "\'.cosmos.base.query.v1beta1.PageResponse" +
-      "\":\n%QueryApplicationLinkByClientIDReques" +
-      "t\022\021\n\tclient_id\030\001 \001(\t\"f\n&QueryApplication" +
-      "LinkByClientIDResponse\022<\n\004link\030\001 \001(\0132(.d" +
-      "esmos.profiles.v1beta1.ApplicationLinkB\004" +
-      "\310\336\037\000B3Z1github.com/desmos-labs/desmos/v2" +
-      "/x/profiles/typesb\006proto3"
+      "roto\032\032google/protobuf2/any.proto\032.desmos" +
+      "/profiles/v1beta1/models_app_links.proto" +
+      "\032\031cosmos_proto/cosmos.proto\032*cosmos/base" +
+      "/query/v1beta1/pagination.proto\"V\n\037Query" +
+      "UserApplicationLinkRequest\022\014\n\004user\030\001 \001(\t" +
+      "\022\023\n\013application\030\002 \001(\t\022\020\n\010username\030\003 \001(\t\"" +
+      "`\n QueryUserApplicationLinkResponse\022<\n\004l" +
+      "ink\030\001 \001(\0132(.desmos.profiles.v1beta1.Appl" +
+      "icationLinkB\004\310\336\037\000\"h\n\034QueryApplicationLin" +
+      "ksRequest\022\014\n\004user\030\001 \001(\t\022:\n\npagination\030\002 " +
+      "\001(\0132&.cosmos.base.query.v1beta1.PageRequ" +
+      "est\"\233\001\n\035QueryApplicationLinksResponse\022=\n" +
+      "\005links\030\001 \003(\0132(.desmos.profiles.v1beta1.A" +
+      "pplicationLinkB\004\310\336\037\000\022;\n\npagination\030\002 \001(\013" +
+      "2\'.cosmos.base.query.v1beta1.PageRespons" +
+      "e\":\n%QueryApplicationLinkByClientIDReque" +
+      "st\022\021\n\tclient_id\030\001 \001(\t\"f\n&QueryApplicatio" +
+      "nLinkByClientIDResponse\022<\n\004link\030\001 \001(\0132(." +
+      "desmos.profiles.v1beta1.ApplicationLinkB" +
+      "\004\310\336\037\000B3Z1github.com/desmos-labs/desmos/v" +
+      "2/x/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

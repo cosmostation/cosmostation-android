@@ -1118,16 +1118,14 @@ public final class SupplychainOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\026bcna/supplychain.proto\022\030BitCannaGlobal" +
-      ".bcna.bcna\032\024gogoproto/gogo.proto\"]\n\013Supp" +
-      "lychain\022\n\n\002id\030\001 \001(\004\022\017\n\007product\030\002 \001(\t\022\014\n\004" +
-      "info\030\003 \001(\t\022\022\n\nsupplyinfo\030\004 \001(\t\022\017\n\007creato" +
-      "r\030\005 \001(\tB-Z+github.com/BitCannaGlobal/bcn" +
-      "a/x/bcna/typesb\006proto3"
+      ".bcna.bcna\"]\n\013Supplychain\022\n\n\002id\030\001 \001(\004\022\017\n" +
+      "\007product\030\002 \001(\t\022\014\n\004info\030\003 \001(\t\022\022\n\nsupplyin" +
+      "fo\030\004 \001(\t\022\017\n\007creator\030\005 \001(\tB-Z+github.com/" +
+      "BitCannaGlobal/bcna/x/bcna/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_BitCannaGlobal_bcna_bcna_Supplychain_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1135,7 +1133,6 @@ public final class SupplychainOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_BitCannaGlobal_bcna_bcna_Supplychain_descriptor,
         new java.lang.String[] { "Id", "Product", "Info", "Supplyinfo", "Creator", });
-    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -968,16 +968,14 @@ public final class BitcannaidOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\025bcna/bitcannaid.proto\022\030BitCannaGlobal." +
-      "bcna.bcna\032\024gogoproto/gogo.proto\"J\n\nBitca" +
-      "nnaid\022\n\n\002id\030\001 \001(\004\022\016\n\006bcnaid\030\002 \001(\t\022\017\n\007add" +
-      "ress\030\003 \001(\t\022\017\n\007creator\030\004 \001(\tB-Z+github.co" +
-      "m/BitCannaGlobal/bcna/x/bcna/typesb\006prot" +
-      "o3"
+      "bcna.bcna\"J\n\nBitcannaid\022\n\n\002id\030\001 \001(\004\022\016\n\006b" +
+      "cnaid\030\002 \001(\t\022\017\n\007address\030\003 \001(\t\022\017\n\007creator\030" +
+      "\004 \001(\tB-Z+github.com/BitCannaGlobal/bcna/" +
+      "x/bcna/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_BitCannaGlobal_bcna_bcna_Bitcannaid_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -985,7 +983,6 @@ public final class BitcannaidOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_BitCannaGlobal_bcna_bcna_Bitcannaid_descriptor,
         new java.lang.String[] { "Id", "Bcnaid", "Address", "Creator", });
-    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

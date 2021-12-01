@@ -1511,25 +1511,24 @@ public final class Claim {
     java.lang.String[] descriptorData = {
       "\n!osmosis/claim/v1beta1/claim.proto\022\025osm" +
       "osis.claim.v1beta1\032\024gogoproto/gogo.proto" +
-      "\032\036cosmos/base/v1beta1/coin.proto\032!cosmos" +
-      "/bank/v1beta1/genesis.proto\"\200\002\n\013ClaimRec" +
-      "ord\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yaml:\"address\"" +
-      "\022\220\001\n\030initial_claimable_amount\030\002 \003(\0132\031.co" +
-      "smos.base.v1beta1.CoinBS\252\337\037(github.com/c" +
-      "osmos/cosmos-sdk/types.Coins\310\336\037\000\362\336\037\037yaml" +
-      ":\"initial_claimable_amount\"\0229\n\020action_co" +
-      "mpleted\030\003 \003(\010B\037\362\336\037\027yaml:\"action_complete" +
-      "d\"\310\336\037\000*_\n\006Action\022\026\n\022ActionAddLiquidity\020\000" +
-      "\022\016\n\nActionSwap\020\001\022\016\n\nActionVote\020\002\022\027\n\023Acti" +
-      "onDelegateStake\020\003\032\004\210\243\036\000B/Z-github.com/os" +
-      "mosis-labs/osmosis/x/claim/typesb\006proto3"
+      "\032\036cosmos/base/v1beta1/coin.proto\"\200\002\n\013Cla" +
+      "imRecord\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yaml:\"add" +
+      "ress\"\022\220\001\n\030initial_claimable_amount\030\002 \003(\013" +
+      "2\031.cosmos.base.v1beta1.CoinBS\252\337\037(github." +
+      "com/cosmos/cosmos-sdk/types.Coins\310\336\037\000\362\336\037" +
+      "\037yaml:\"initial_claimable_amount\"\0229\n\020acti" +
+      "on_completed\030\003 \003(\010B\037\362\336\037\027yaml:\"action_com" +
+      "pleted\"\310\336\037\000*_\n\006Action\022\026\n\022ActionAddLiquid" +
+      "ity\020\000\022\016\n\nActionSwap\020\001\022\016\n\nActionVote\020\002\022\027\n" +
+      "\023ActionDelegateStake\020\003\032\004\210\243\036\000B/Z-github.c" +
+      "om/osmosis-labs/osmosis/x/claim/typesb\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          cosmos.bank.v1beta1.Genesis.getDescriptor(),
         });
     internal_static_osmosis_claim_v1beta1_ClaimRecord_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1547,7 +1546,6 @@ public final class Claim {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    cosmos.bank.v1beta1.Genesis.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

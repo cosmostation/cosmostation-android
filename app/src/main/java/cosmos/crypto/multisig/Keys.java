@@ -905,11 +905,11 @@ public final class Keys {
     java.lang.String[] descriptorData = {
       "\n!cosmos/crypto/multisig/keys.proto\022\026cos" +
       "mos.crypto.multisig\032\024gogoproto/gogo.prot" +
-      "o\032\031google/protobuf/any.proto\"d\n\021LegacyAm" +
-      "inoPubKey\022\021\n\tthreshold\030\001 \001(\r\0226\n\013public_k" +
-      "eys\030\002 \003(\0132\024.google.protobuf.AnyB\013\342\336\037\007Pub" +
-      "Keys:\004\210\240\037\000B3Z1github.com/cosmos/cosmos-s" +
-      "dk/crypto/keys/multisigb\006proto3"
+      "o\032\032google/protobuf2/any.proto\"d\n\021LegacyA" +
+      "minoPubKey\022\021\n\tthreshold\030\001 \001(\r\0226\n\013public_" +
+      "keys\030\002 \003(\0132\024.google.protobuf.AnyB\013\342\336\037\007Pu" +
+      "bKeys:\004\210\240\037\000B3Z1github.com/cosmos/cosmos-" +
+      "sdk/crypto/keys/multisigb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

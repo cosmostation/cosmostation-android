@@ -6960,60 +6960,58 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\030em/market/v1/query.proto\022\014em.market.v1" +
-      "\032\024gogoproto/gogo.proto\032\036cosmos/base/v1be" +
-      "ta1/coin.proto\032\034google/api/annotations.p" +
-      "roto\032\037google/protobuf/timestamp.proto\032\031e" +
-      "m/market/v1/market.proto\"<\n\025QueryByAccou" +
-      "ntRequest\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yaml:\"ad" +
-      "dress\"\"Z\n\026QueryByAccountResponse\022:\n\006orde" +
-      "rs\030\001 \003(\0132\023.em.market.v1.OrderB\025\362\336\037\ryaml:" +
-      "\"orders\"\310\336\037\001:\004\230\240\037\000\"\031\n\027QueryInstrumentsRe" +
-      "quest\"\332\003\n\030QueryInstrumentsResponse\022_\n\013in" +
-      "struments\030\001 \003(\0132..em.market.v1.QueryInst" +
-      "rumentsResponse.ElementB\032\362\336\037\022yaml:\"instr" +
-      "uments\"\310\336\037\000\032\326\002\n\007Element\022!\n\006source\030\001 \001(\tB" +
-      "\021\362\336\037\ryaml:\"source\"\022+\n\013destination\030\002 \001(\tB" +
-      "\026\362\336\037\022yaml:\"destination\"\022S\n\nlast_price\030\003 " +
-      "\001(\tB?\362\336\037\021yaml:\"last_price\"\332\336\037&github.com" +
-      "/cosmos/cosmos-sdk/types.Dec\022S\n\nbest_pri" +
-      "ce\030\004 \001(\tB?\362\336\037\021yaml:\"best_price\"\332\336\037&githu" +
-      "b.com/cosmos/cosmos-sdk/types.Dec\022K\n\013las" +
-      "t_traded\030\005 \001(\0132\032.google.protobuf.Timesta" +
-      "mpB\032\362\336\037\022yaml:\"last_traded\"\220\337\037\001:\004\230\240\037\000:\004\230\240" +
-      "\037\000\"=\n\026QueryInstrumentRequest\022\016\n\006source\030\001" +
-      " \001(\t\022\023\n\013destination\030\002 \001(\t\"\270\001\n\027QueryInstr" +
-      "umentResponse\022!\n\006source\030\001 \001(\tB\021\362\336\037\ryaml:" +
-      "\"source\"\022+\n\013destination\030\002 \001(\tB\026\362\336\037\022yaml:" +
-      "\"destination\"\022G\n\006orders\030\003 \003(\0132 .em.marke" +
-      "t.v1.QueryOrderResponseB\025\362\336\037\ryaml:\"order" +
-      "s\"\310\336\037\000:\004\230\240\037\000\"\344\002\n\022QueryOrderResponse\022\037\n\002i" +
-      "d\030\001 \001(\004B\023\342\336\037\002ID\362\336\037\tyaml:\"id\"\022\037\n\005owner\030\002 " +
-      "\001(\tB\020\362\336\037\014yaml:\"owner\"\0225\n\020source_remainin" +
-      "g\030\003 \001(\tB\033\362\336\037\027yaml:\"source_remaining\"\0227\n\017" +
-      "client_order_id\030\004 \001(\tB\036\362\336\037\026yaml:\"client_" +
-      "order_id\"\310\336\037\001\022M\n\005price\030\005 \001(\tB>\362\336\037\014yaml:\"" +
-      "price\"\332\336\037&github.com/cosmos/cosmos-sdk/t" +
-      "ypes.Dec\310\336\037\000\022G\n\007created\030\006 \001(\0132\032.google.p" +
-      "rotobuf.TimestampB\032\362\336\037\016yaml:\"created\"\310\336\037" +
-      "\000\220\337\037\001:\004\230\240\037\0002\257\003\n\005Query\022\204\001\n\tByAccount\022#.em" +
-      ".market.v1.QueryByAccountRequest\032$.em.ma" +
-      "rket.v1.QueryByAccountResponse\",\202\323\344\223\002&\022$" +
-      "/e-money/market/v1/account/{address}\022\204\001\n" +
-      "\013Instruments\022%.em.market.v1.QueryInstrum" +
-      "entsRequest\032&.em.market.v1.QueryInstrume" +
-      "ntsResponse\"&\202\323\344\223\002 \022\036/e-money/market/v1/" +
-      "instruments\022\227\001\n\nInstrument\022$.em.market.v" +
-      "1.QueryInstrumentRequest\032%.em.market.v1." +
-      "QueryInstrumentResponse\"<\202\323\344\223\0026\0224/e-mone" +
-      "y/market/v1/instrument/{source}/{destina" +
-      "tion}B-Z+github.com/e-money/em-ledger/x/" +
-      "market/typesb\006proto3"
+      "\032\024gogoproto/gogo.proto\032\034google/api/annot" +
+      "ations.proto\032\037google/protobuf/timestamp." +
+      "proto\032\031em/market/v1/market.proto\"<\n\025Quer" +
+      "yByAccountRequest\022#\n\007address\030\001 \001(\tB\022\362\336\037\016" +
+      "yaml:\"address\"\"Z\n\026QueryByAccountResponse" +
+      "\022:\n\006orders\030\001 \003(\0132\023.em.market.v1.OrderB\025\362" +
+      "\336\037\ryaml:\"orders\"\310\336\037\001:\004\230\240\037\000\"\031\n\027QueryInstr" +
+      "umentsRequest\"\332\003\n\030QueryInstrumentsRespon" +
+      "se\022_\n\013instruments\030\001 \003(\0132..em.market.v1.Q" +
+      "ueryInstrumentsResponse.ElementB\032\362\336\037\022yam" +
+      "l:\"instruments\"\310\336\037\000\032\326\002\n\007Element\022!\n\006sourc" +
+      "e\030\001 \001(\tB\021\362\336\037\ryaml:\"source\"\022+\n\013destinatio" +
+      "n\030\002 \001(\tB\026\362\336\037\022yaml:\"destination\"\022S\n\nlast_" +
+      "price\030\003 \001(\tB?\362\336\037\021yaml:\"last_price\"\332\336\037&gi" +
+      "thub.com/cosmos/cosmos-sdk/types.Dec\022S\n\n" +
+      "best_price\030\004 \001(\tB?\362\336\037\021yaml:\"best_price\"\332" +
+      "\336\037&github.com/cosmos/cosmos-sdk/types.De" +
+      "c\022K\n\013last_traded\030\005 \001(\0132\032.google.protobuf" +
+      ".TimestampB\032\362\336\037\022yaml:\"last_traded\"\220\337\037\001:\004" +
+      "\230\240\037\000:\004\230\240\037\000\"=\n\026QueryInstrumentRequest\022\016\n\006" +
+      "source\030\001 \001(\t\022\023\n\013destination\030\002 \001(\t\"\270\001\n\027Qu" +
+      "eryInstrumentResponse\022!\n\006source\030\001 \001(\tB\021\362" +
+      "\336\037\ryaml:\"source\"\022+\n\013destination\030\002 \001(\tB\026\362" +
+      "\336\037\022yaml:\"destination\"\022G\n\006orders\030\003 \003(\0132 ." +
+      "em.market.v1.QueryOrderResponseB\025\362\336\037\ryam" +
+      "l:\"orders\"\310\336\037\000:\004\230\240\037\000\"\344\002\n\022QueryOrderRespo" +
+      "nse\022\037\n\002id\030\001 \001(\004B\023\342\336\037\002ID\362\336\037\tyaml:\"id\"\022\037\n\005" +
+      "owner\030\002 \001(\tB\020\362\336\037\014yaml:\"owner\"\0225\n\020source_" +
+      "remaining\030\003 \001(\tB\033\362\336\037\027yaml:\"source_remain" +
+      "ing\"\0227\n\017client_order_id\030\004 \001(\tB\036\362\336\037\026yaml:" +
+      "\"client_order_id\"\310\336\037\001\022M\n\005price\030\005 \001(\tB>\362\336" +
+      "\037\014yaml:\"price\"\332\336\037&github.com/cosmos/cosm" +
+      "os-sdk/types.Dec\310\336\037\000\022G\n\007created\030\006 \001(\0132\032." +
+      "google.protobuf.TimestampB\032\362\336\037\016yaml:\"cre" +
+      "ated\"\310\336\037\000\220\337\037\001:\004\230\240\037\0002\257\003\n\005Query\022\204\001\n\tByAcco" +
+      "unt\022#.em.market.v1.QueryByAccountRequest" +
+      "\032$.em.market.v1.QueryByAccountResponse\"," +
+      "\202\323\344\223\002&\022$/e-money/market/v1/account/{addr" +
+      "ess}\022\204\001\n\013Instruments\022%.em.market.v1.Quer" +
+      "yInstrumentsRequest\032&.em.market.v1.Query" +
+      "InstrumentsResponse\"&\202\323\344\223\002 \022\036/e-money/ma" +
+      "rket/v1/instruments\022\227\001\n\nInstrument\022$.em." +
+      "market.v1.QueryInstrumentRequest\032%.em.ma" +
+      "rket.v1.QueryInstrumentResponse\"<\202\323\344\223\0026\022" +
+      "4/e-money/market/v1/instrument/{source}/" +
+      "{destination}B-Z+github.com/e-money/em-l" +
+      "edger/x/market/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           em.market.v1.Market.getDescriptor(),
@@ -7078,7 +7076,6 @@ public final class QueryOuterClass {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     em.market.v1.Market.getDescriptor();

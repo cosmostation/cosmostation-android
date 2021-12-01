@@ -29,15 +29,14 @@ public final class WriterOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\033panacea/aol/v2/writer.proto\022\016panacea.a" +
-      "ol.v2\032\024gogoproto/gogo.proto\"F\n\006Writer\022\017\n" +
-      "\007moniker\030\001 \001(\t\022\023\n\013description\030\002 \001(\t\022\026\n\016n" +
-      "ano_timestamp\030\003 \001(\003B0P\001Z,github.com/medi" +
-      "bloc/panacea-core/x/aol/typesb\006proto3"
+      "ol.v2\"F\n\006Writer\022\017\n\007moniker\030\001 \001(\t\022\023\n\013desc" +
+      "ription\030\002 \001(\t\022\026\n\016nano_timestamp\030\003 \001(\003B0P" +
+      "\001Z,github.com/medibloc/panacea-core/x/ao" +
+      "l/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_panacea_aol_v2_Writer_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -45,7 +44,6 @@ public final class WriterOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_panacea_aol_v2_Writer_descriptor,
         new java.lang.String[] { "Moniker", "Description", "NanoTimestamp", });
-    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

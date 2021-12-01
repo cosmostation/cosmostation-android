@@ -6097,44 +6097,43 @@ public final class BalancerPoolOuterClass {
       "o\022\024osmosis.gamm.v1beta1\032\031cosmos_proto/co" +
       "smos.proto\032\024gogoproto/gogo.proto\032\036google" +
       "/protobuf/duration.proto\032\037google/protobu" +
-      "f/timestamp.proto\032\036cosmos/auth/v1beta1/a" +
-      "uth.proto\032\036cosmos/base/v1beta1/coin.prot" +
-      "o\"\234\001\n\tPoolAsset\022>\n\005token\030\001 \001(\0132\031.cosmos." +
-      "base.v1beta1.CoinB\024\362\336\037\014yaml:\"token\"\310\336\037\000\022" +
-      "O\n\006weight\030\002 \001(\tB?\332\336\037&github.com/cosmos/c" +
-      "osmos-sdk/types.Int\362\336\037\ryaml:\"weight\"\310\336\037\000" +
-      "\"\213\003\n\030SmoothWeightChangeParams\022M\n\nstart_t" +
-      "ime\030\001 \001(\0132\032.google.protobuf.TimestampB\035\220" +
-      "\337\037\001\310\336\037\000\362\336\037\021yaml:\"start_time\"\022^\n\010duration" +
-      "\030\002 \001(\0132\031.google.protobuf.DurationB1\310\336\037\000\230" +
-      "\337\037\001\352\336\037\022duration,omitempty\362\336\037\017yaml:\"durat" +
-      "ion\"\022`\n\022initialPoolWeights\030\003 \003(\0132\037.osmos" +
-      "is.gamm.v1beta1.PoolAssetB#\362\336\037\033yaml:\"ini" +
-      "tial_pool_weights\"\310\336\037\000\022^\n\021targetPoolWeig" +
-      "hts\030\004 \003(\0132\037.osmosis.gamm.v1beta1.PoolAss" +
-      "etB\"\362\336\037\032yaml:\"target_pool_weights\"\310\336\037\000\"\272" +
-      "\002\n\022BalancerPoolParams\022R\n\007swapFee\030\001 \001(\tBA" +
-      "\332\336\037&github.com/cosmos/cosmos-sdk/types.D" +
-      "ec\362\336\037\017yaml:\"swap_fee\"\310\336\037\000\022R\n\007exitFee\030\002 \001" +
-      "(\tBA\332\336\037&github.com/cosmos/cosmos-sdk/typ" +
-      "es.Dec\362\336\037\017yaml:\"exit_fee\"\310\336\037\000\022|\n\030smoothW" +
-      "eightChangeParams\030\003 \001(\0132..osmosis.gamm.v" +
-      "1beta1.SmoothWeightChangeParamsB*\362\336\037\"yam" +
-      "l:\"smooth_weight_change_params\"\310\336\037\001\"\356\003\n\014" +
-      "BalancerPool\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yaml:" +
-      "\"address\"\022\n\n\002id\030\002 \001(\004\022a\n\npoolParams\030\003 \001(" +
-      "\0132(.osmosis.gamm.v1beta1.BalancerPoolPar" +
-      "amsB#\362\336\037\033yaml:\"balancer_pool_params\"\310\336\037\000" +
-      "\022=\n\024future_pool_governor\030\004 \001(\tB\037\362\336\037\033yaml" +
-      ":\"future_pool_governor\"\022K\n\013totalShares\030\005" +
-      " \001(\0132\031.cosmos.base.v1beta1.CoinB\033\362\336\037\023yam" +
-      "l:\"total_shares\"\310\336\037\000\022O\n\npoolAssets\030\006 \003(\013" +
-      "2\037.osmosis.gamm.v1beta1.PoolAssetB\032\362\336\037\022y" +
-      "aml:\"pool_assets\"\310\336\037\000\022Z\n\013totalWeight\030\007 \001" +
-      "(\tBE\332\336\037&github.com/cosmos/cosmos-sdk/typ" +
-      "es.Int\362\336\037\023yaml:\"total_weight\"\310\336\037\000:\021\210\240\037\000\230" +
-      "\240\037\000\312\264-\005PoolIB.Z,github.com/osmosis-labs/" +
-      "osmosis/x/gamm/typesb\006proto3"
+      "f/timestamp.proto\032\036cosmos/base/v1beta1/c" +
+      "oin.proto\"\234\001\n\tPoolAsset\022>\n\005token\030\001 \001(\0132\031" +
+      ".cosmos.base.v1beta1.CoinB\024\362\336\037\014yaml:\"tok" +
+      "en\"\310\336\037\000\022O\n\006weight\030\002 \001(\tB?\332\336\037&github.com/" +
+      "cosmos/cosmos-sdk/types.Int\362\336\037\ryaml:\"wei" +
+      "ght\"\310\336\037\000\"\213\003\n\030SmoothWeightChangeParams\022M\n" +
+      "\nstart_time\030\001 \001(\0132\032.google.protobuf.Time" +
+      "stampB\035\220\337\037\001\310\336\037\000\362\336\037\021yaml:\"start_time\"\022^\n\010" +
+      "duration\030\002 \001(\0132\031.google.protobuf.Duratio" +
+      "nB1\310\336\037\000\230\337\037\001\352\336\037\022duration,omitempty\362\336\037\017yam" +
+      "l:\"duration\"\022`\n\022initialPoolWeights\030\003 \003(\013" +
+      "2\037.osmosis.gamm.v1beta1.PoolAssetB#\362\336\037\033y" +
+      "aml:\"initial_pool_weights\"\310\336\037\000\022^\n\021target" +
+      "PoolWeights\030\004 \003(\0132\037.osmosis.gamm.v1beta1" +
+      ".PoolAssetB\"\362\336\037\032yaml:\"target_pool_weight" +
+      "s\"\310\336\037\000\"\272\002\n\022BalancerPoolParams\022R\n\007swapFee" +
+      "\030\001 \001(\tBA\332\336\037&github.com/cosmos/cosmos-sdk" +
+      "/types.Dec\362\336\037\017yaml:\"swap_fee\"\310\336\037\000\022R\n\007exi" +
+      "tFee\030\002 \001(\tBA\332\336\037&github.com/cosmos/cosmos" +
+      "-sdk/types.Dec\362\336\037\017yaml:\"exit_fee\"\310\336\037\000\022|\n" +
+      "\030smoothWeightChangeParams\030\003 \001(\0132..osmosi" +
+      "s.gamm.v1beta1.SmoothWeightChangeParamsB" +
+      "*\362\336\037\"yaml:\"smooth_weight_change_params\"\310" +
+      "\336\037\001\"\356\003\n\014BalancerPool\022#\n\007address\030\001 \001(\tB\022\362" +
+      "\336\037\016yaml:\"address\"\022\n\n\002id\030\002 \001(\004\022a\n\npoolPar" +
+      "ams\030\003 \001(\0132(.osmosis.gamm.v1beta1.Balance" +
+      "rPoolParamsB#\362\336\037\033yaml:\"balancer_pool_par" +
+      "ams\"\310\336\037\000\022=\n\024future_pool_governor\030\004 \001(\tB\037" +
+      "\362\336\037\033yaml:\"future_pool_governor\"\022K\n\013total" +
+      "Shares\030\005 \001(\0132\031.cosmos.base.v1beta1.CoinB" +
+      "\033\362\336\037\023yaml:\"total_shares\"\310\336\037\000\022O\n\npoolAsse" +
+      "ts\030\006 \003(\0132\037.osmosis.gamm.v1beta1.PoolAsse" +
+      "tB\032\362\336\037\022yaml:\"pool_assets\"\310\336\037\000\022Z\n\013totalWe" +
+      "ight\030\007 \001(\tBE\332\336\037&github.com/cosmos/cosmos" +
+      "-sdk/types.Int\362\336\037\023yaml:\"total_weight\"\310\336\037" +
+      "\000:\021\210\240\037\000\230\240\037\000\312\264-\005PoolIB.Z,github.com/osmos" +
+      "is-labs/osmosis/x/gamm/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6143,7 +6142,6 @@ public final class BalancerPoolOuterClass {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
-          cosmos.auth.v1beta1.Auth.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_osmosis_gamm_v1beta1_PoolAsset_descriptor =
@@ -6187,7 +6185,6 @@ public final class BalancerPoolOuterClass {
     com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
-    cosmos.auth.v1beta1.Auth.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

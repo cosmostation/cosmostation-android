@@ -5717,45 +5717,44 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n\035shentu/cert/v1alpha1/tx.proto\022\024shentu." +
-      "cert.v1alpha1\032\024gogoproto/gogo.proto\032\031goo" +
-      "gle/protobuf/any.proto\032\031cosmos_proto/cos" +
-      "mos.proto\032\037shentu/cert/v1alpha1/cert.pro" +
-      "to\"\275\001\n\023MsgProposeCertifier\022%\n\010proposer\030\001" +
-      " \001(\tB\023\362\336\037\017yaml:\"proposer\"\022\037\n\005alias\030\002 \001(\t" +
-      "B\020\362\336\037\014yaml:\"alias\"\022\'\n\tcertifier\030\003 \001(\tB\024\362" +
-      "\336\037\020yaml:\"certifier\"\022+\n\013description\030\004 \001(\t" +
-      "B\026\362\336\037\022yaml:\"description\":\010\350\240\037\000\210\240\037\000\"\035\n\033Ms" +
-      "gProposeCertifierResponse\"\200\002\n\023MsgIssueCe" +
-      "rtificate\0222\n\007content\030\001 \001(\0132\024.google.prot" +
-      "obuf.AnyB\013\312\264-\007Content\022%\n\010compiler\030\002 \001(\tB" +
-      "\023\362\336\037\017yaml:\"compiler\"\022.\n\rbytecode_hash\030\003 " +
-      "\001(\tB\027\362\336\037\023yaml:\"bytecodehash\"\022+\n\013descript" +
-      "ion\030\004 \001(\tB\026\362\336\037\022yaml:\"description\"\022\'\n\tcer" +
-      "tifier\030\005 \001(\tB\024\362\336\037\020yaml:\"certifier\":\010\350\240\037\000" +
-      "\210\240\037\000\"\035\n\033MsgIssueCertificateResponse\"\215\001\n\024" +
-      "MsgRevokeCertificate\022#\n\007revoker\030\001 \001(\tB\022\362" +
-      "\336\037\016yaml:\"revoker\"\022\031\n\002id\030\002 \001(\004B\r\362\336\037\tyaml:" +
-      "\"id\"\022+\n\013description\030\003 \001(\tB\026\362\336\037\022yaml:\"des" +
-      "cription\":\010\350\240\037\000\210\240\037\000\"\036\n\034MsgRevokeCertific" +
-      "ateResponse\"\270\001\n\022MsgCertifyPlatform\022\'\n\tce" +
-      "rtifier\030\001 \001(\tB\024\362\336\037\020yaml:\"certifier\"\022H\n\020v" +
-      "alidator_pubkey\030\002 \001(\0132\024.google.protobuf." +
-      "AnyB\030\312\264-\024cosmos.crypto.PubKey\022%\n\010platfor" +
-      "m\030\003 \001(\tB\023\362\336\037\017yaml:\"platform\":\010\350\240\037\000\210\240\037\000\"\034" +
-      "\n\032MsgCertifyPlatformResponse2\315\003\n\003Msg\022p\n\020" +
-      "ProposeCertifier\022).shentu.cert.v1alpha1." +
-      "MsgProposeCertifier\0321.shentu.cert.v1alph" +
-      "a1.MsgProposeCertifierResponse\022p\n\020IssueC" +
-      "ertificate\022).shentu.cert.v1alpha1.MsgIss" +
-      "ueCertificate\0321.shentu.cert.v1alpha1.Msg" +
-      "IssueCertificateResponse\022s\n\021RevokeCertif" +
-      "icate\022*.shentu.cert.v1alpha1.MsgRevokeCe" +
-      "rtificate\0322.shentu.cert.v1alpha1.MsgRevo" +
-      "keCertificateResponse\022m\n\017CertifyPlatform" +
-      "\022(.shentu.cert.v1alpha1.MsgCertifyPlatfo" +
-      "rm\0320.shentu.cert.v1alpha1.MsgCertifyPlat" +
-      "formResponseB1Z/github.com/certikfoundat" +
-      "ion/shentu/x/cert/typesb\006proto3"
+      "cert.v1alpha1\032\024gogoproto/gogo.proto\032\032goo" +
+      "gle/protobuf2/any.proto\032\031cosmos_proto/co" +
+      "smos.proto\"\275\001\n\023MsgProposeCertifier\022%\n\010pr" +
+      "oposer\030\001 \001(\tB\023\362\336\037\017yaml:\"proposer\"\022\037\n\005ali" +
+      "as\030\002 \001(\tB\020\362\336\037\014yaml:\"alias\"\022\'\n\tcertifier\030" +
+      "\003 \001(\tB\024\362\336\037\020yaml:\"certifier\"\022+\n\013descripti" +
+      "on\030\004 \001(\tB\026\362\336\037\022yaml:\"description\":\010\350\240\037\000\210\240" +
+      "\037\000\"\035\n\033MsgProposeCertifierResponse\"\200\002\n\023Ms" +
+      "gIssueCertificate\0222\n\007content\030\001 \001(\0132\024.goo" +
+      "gle.protobuf.AnyB\013\312\264-\007Content\022%\n\010compile" +
+      "r\030\002 \001(\tB\023\362\336\037\017yaml:\"compiler\"\022.\n\rbytecode" +
+      "_hash\030\003 \001(\tB\027\362\336\037\023yaml:\"bytecodehash\"\022+\n\013" +
+      "description\030\004 \001(\tB\026\362\336\037\022yaml:\"description" +
+      "\"\022\'\n\tcertifier\030\005 \001(\tB\024\362\336\037\020yaml:\"certifie" +
+      "r\":\010\350\240\037\000\210\240\037\000\"\035\n\033MsgIssueCertificateRespo" +
+      "nse\"\215\001\n\024MsgRevokeCertificate\022#\n\007revoker\030" +
+      "\001 \001(\tB\022\362\336\037\016yaml:\"revoker\"\022\031\n\002id\030\002 \001(\004B\r\362" +
+      "\336\037\tyaml:\"id\"\022+\n\013description\030\003 \001(\tB\026\362\336\037\022y" +
+      "aml:\"description\":\010\350\240\037\000\210\240\037\000\"\036\n\034MsgRevoke" +
+      "CertificateResponse\"\270\001\n\022MsgCertifyPlatfo" +
+      "rm\022\'\n\tcertifier\030\001 \001(\tB\024\362\336\037\020yaml:\"certifi" +
+      "er\"\022H\n\020validator_pubkey\030\002 \001(\0132\024.google.p" +
+      "rotobuf.AnyB\030\312\264-\024cosmos.crypto.PubKey\022%\n" +
+      "\010platform\030\003 \001(\tB\023\362\336\037\017yaml:\"platform\":\010\350\240" +
+      "\037\000\210\240\037\000\"\034\n\032MsgCertifyPlatformResponse2\315\003\n" +
+      "\003Msg\022p\n\020ProposeCertifier\022).shentu.cert.v" +
+      "1alpha1.MsgProposeCertifier\0321.shentu.cer" +
+      "t.v1alpha1.MsgProposeCertifierResponse\022p" +
+      "\n\020IssueCertificate\022).shentu.cert.v1alpha" +
+      "1.MsgIssueCertificate\0321.shentu.cert.v1al" +
+      "pha1.MsgIssueCertificateResponse\022s\n\021Revo" +
+      "keCertificate\022*.shentu.cert.v1alpha1.Msg" +
+      "RevokeCertificate\0322.shentu.cert.v1alpha1" +
+      ".MsgRevokeCertificateResponse\022m\n\017Certify" +
+      "Platform\022(.shentu.cert.v1alpha1.MsgCerti" +
+      "fyPlatform\0320.shentu.cert.v1alpha1.MsgCer" +
+      "tifyPlatformResponseB1Z/github.com/certi" +
+      "kfoundation/shentu/x/cert/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5763,7 +5762,6 @@ public final class Tx {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.protobuf.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
-          shentu.cert.v1alpha1.Cert.getDescriptor(),
         });
     internal_static_shentu_cert_v1alpha1_MsgProposeCertifier_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5824,7 +5822,6 @@ public final class Tx {
     com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.protobuf.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
-    shentu.cert.v1alpha1.Cert.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

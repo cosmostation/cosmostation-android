@@ -12378,81 +12378,81 @@ public final class Query {
   static {
     java.lang.String[] descriptorData = {
       "\n*cosmos/base/tendermint/v1beta1/query.p" +
-      "roto\022\036cosmos.base.tendermint.v1beta1\032\031go" +
-      "ogle/protobuf/any.proto\032\034google/api/anno" +
-      "tations.proto\032\032tendermint/p2p/types.prot" +
-      "o\032\034tendermint/types/block.proto\032\034tenderm" +
-      "int/types/types.proto\032*cosmos/base/query" +
-      "/v1beta1/pagination.proto\032\031cosmos_proto/" +
-      "cosmos.proto\"l\n\036GetValidatorSetByHeightR" +
-      "equest\022\016\n\006height\030\001 \001(\003\022:\n\npagination\030\002 \001" +
-      "(\0132&.cosmos.base.query.v1beta1.PageReque" +
-      "st\"\263\001\n\037GetValidatorSetByHeightResponse\022\024" +
-      "\n\014block_height\030\001 \001(\003\022=\n\nvalidators\030\002 \003(\013" +
-      "2).cosmos.base.tendermint.v1beta1.Valida" +
-      "tor\022;\n\npagination\030\003 \001(\0132\'.cosmos.base.qu" +
-      "ery.v1beta1.PageResponse\"Z\n\034GetLatestVal" +
-      "idatorSetRequest\022:\n\npagination\030\001 \001(\0132&.c" +
-      "osmos.base.query.v1beta1.PageRequest\"\261\001\n" +
-      "\035GetLatestValidatorSetResponse\022\024\n\014block_" +
-      "height\030\001 \001(\003\022=\n\nvalidators\030\002 \003(\0132).cosmo" +
-      "s.base.tendermint.v1beta1.Validator\022;\n\np" +
-      "agination\030\003 \001(\0132\'.cosmos.base.query.v1be" +
-      "ta1.PageResponse\"\216\001\n\tValidator\022)\n\007addres" +
-      "s\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022%\n\007pub" +
-      "_key\030\002 \001(\0132\024.google.protobuf.Any\022\024\n\014voti" +
-      "ng_power\030\003 \001(\003\022\031\n\021proposer_priority\030\004 \001(" +
-      "\003\")\n\027GetBlockByHeightRequest\022\016\n\006height\030\001" +
-      " \001(\003\"o\n\030GetBlockByHeightResponse\022+\n\010bloc" +
-      "k_id\030\001 \001(\0132\031.tendermint.types.BlockID\022&\n" +
-      "\005block\030\002 \001(\0132\027.tendermint.types.Block\"\027\n" +
-      "\025GetLatestBlockRequest\"m\n\026GetLatestBlock" +
-      "Response\022+\n\010block_id\030\001 \001(\0132\031.tendermint." +
-      "types.BlockID\022&\n\005block\030\002 \001(\0132\027.tendermin" +
-      "t.types.Block\"\023\n\021GetSyncingRequest\"%\n\022Ge" +
-      "tSyncingResponse\022\017\n\007syncing\030\001 \001(\010\"\024\n\022Get" +
-      "NodeInfoRequest\"\214\001\n\023GetNodeInfoResponse\022" +
-      "+\n\tnode_info\030\001 \001(\0132\030.tendermint.p2p.Node" +
-      "Info\022H\n\023application_version\030\002 \001(\0132+.cosm" +
-      "os.base.tendermint.v1beta1.VersionInfo\"\322" +
-      "\001\n\013VersionInfo\022\014\n\004name\030\001 \001(\t\022\020\n\010app_name" +
-      "\030\002 \001(\t\022\017\n\007version\030\003 \001(\t\022\022\n\ngit_commit\030\004 " +
-      "\001(\t\022\022\n\nbuild_tags\030\005 \001(\t\022\022\n\ngo_version\030\006 " +
-      "\001(\t\022:\n\nbuild_deps\030\007 \003(\0132&.cosmos.base.te" +
-      "ndermint.v1beta1.Module\022\032\n\022cosmos_sdk_ve" +
-      "rsion\030\010 \001(\t\"4\n\006Module\022\014\n\004path\030\001 \001(\t\022\017\n\007v" +
-      "ersion\030\002 \001(\t\022\013\n\003sum\030\003 \001(\t2\210\t\n\007Service\022\251\001" +
-      "\n\013GetNodeInfo\0222.cosmos.base.tendermint.v" +
-      "1beta1.GetNodeInfoRequest\0323.cosmos.base." +
-      "tendermint.v1beta1.GetNodeInfoResponse\"1" +
-      "\202\323\344\223\002+\022)/cosmos/base/tendermint/v1beta1/" +
-      "node_info\022\244\001\n\nGetSyncing\0221.cosmos.base.t" +
-      "endermint.v1beta1.GetSyncingRequest\0322.co" +
-      "smos.base.tendermint.v1beta1.GetSyncingR" +
-      "esponse\"/\202\323\344\223\002)\022\'/cosmos/base/tendermint" +
-      "/v1beta1/syncing\022\266\001\n\016GetLatestBlock\0225.co" +
-      "smos.base.tendermint.v1beta1.GetLatestBl" +
-      "ockRequest\0326.cosmos.base.tendermint.v1be" +
-      "ta1.GetLatestBlockResponse\"5\202\323\344\223\002/\022-/cos" +
-      "mos/base/tendermint/v1beta1/blocks/lates" +
-      "t\022\276\001\n\020GetBlockByHeight\0227.cosmos.base.ten" +
-      "dermint.v1beta1.GetBlockByHeightRequest\032" +
-      "8.cosmos.base.tendermint.v1beta1.GetBloc" +
-      "kByHeightResponse\"7\202\323\344\223\0021\022//cosmos/base/" +
-      "tendermint/v1beta1/blocks/{height}\022\322\001\n\025G" +
-      "etLatestValidatorSet\022<.cosmos.base.tende" +
-      "rmint.v1beta1.GetLatestValidatorSetReque" +
-      "st\032=.cosmos.base.tendermint.v1beta1.GetL" +
-      "atestValidatorSetResponse\"<\202\323\344\223\0026\0224/cosm" +
-      "os/base/tendermint/v1beta1/validatorsets" +
-      "/latest\022\332\001\n\027GetValidatorSetByHeight\022>.co" +
-      "smos.base.tendermint.v1beta1.GetValidato" +
-      "rSetByHeightRequest\032?.cosmos.base.tender" +
-      "mint.v1beta1.GetValidatorSetByHeightResp" +
-      "onse\">\202\323\344\223\0028\0226/cosmos/base/tendermint/v1" +
-      "beta1/validatorsets/{height}B4Z2github.c" +
-      "om/cosmos/cosmos-sdk/client/grpc/tmservi" +
-      "ceb\006proto3"
+      "roto\022\036cosmos.base.tendermint.v1beta1\032\032go" +
+      "ogle/protobuf2/any.proto\032\034google/api/ann" +
+      "otations.proto\032\032tendermint/p2p/types.pro" +
+      "to\032\034tendermint/types/block.proto\032\034tender" +
+      "mint/types/types.proto\032*cosmos/base/quer" +
+      "y/v1beta1/pagination.proto\032\031cosmos_proto" +
+      "/cosmos.proto\"l\n\036GetValidatorSetByHeight" +
+      "Request\022\016\n\006height\030\001 \001(\003\022:\n\npagination\030\002 " +
+      "\001(\0132&.cosmos.base.query.v1beta1.PageRequ" +
+      "est\"\263\001\n\037GetValidatorSetByHeightResponse\022" +
+      "\024\n\014block_height\030\001 \001(\003\022=\n\nvalidators\030\002 \003(" +
+      "\0132).cosmos.base.tendermint.v1beta1.Valid" +
+      "ator\022;\n\npagination\030\003 \001(\0132\'.cosmos.base.q" +
+      "uery.v1beta1.PageResponse\"Z\n\034GetLatestVa" +
+      "lidatorSetRequest\022:\n\npagination\030\001 \001(\0132&." +
+      "cosmos.base.query.v1beta1.PageRequest\"\261\001" +
+      "\n\035GetLatestValidatorSetResponse\022\024\n\014block" +
+      "_height\030\001 \001(\003\022=\n\nvalidators\030\002 \003(\0132).cosm" +
+      "os.base.tendermint.v1beta1.Validator\022;\n\n" +
+      "pagination\030\003 \001(\0132\'.cosmos.base.query.v1b" +
+      "eta1.PageResponse\"\216\001\n\tValidator\022)\n\007addre" +
+      "ss\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022%\n\007pu" +
+      "b_key\030\002 \001(\0132\024.google.protobuf.Any\022\024\n\014vot" +
+      "ing_power\030\003 \001(\003\022\031\n\021proposer_priority\030\004 \001" +
+      "(\003\")\n\027GetBlockByHeightRequest\022\016\n\006height\030" +
+      "\001 \001(\003\"o\n\030GetBlockByHeightResponse\022+\n\010blo" +
+      "ck_id\030\001 \001(\0132\031.tendermint.types.BlockID\022&" +
+      "\n\005block\030\002 \001(\0132\027.tendermint.types.Block\"\027" +
+      "\n\025GetLatestBlockRequest\"m\n\026GetLatestBloc" +
+      "kResponse\022+\n\010block_id\030\001 \001(\0132\031.tendermint" +
+      ".types.BlockID\022&\n\005block\030\002 \001(\0132\027.tendermi" +
+      "nt.types.Block\"\023\n\021GetSyncingRequest\"%\n\022G" +
+      "etSyncingResponse\022\017\n\007syncing\030\001 \001(\010\"\024\n\022Ge" +
+      "tNodeInfoRequest\"\214\001\n\023GetNodeInfoResponse" +
+      "\022+\n\tnode_info\030\001 \001(\0132\030.tendermint.p2p.Nod" +
+      "eInfo\022H\n\023application_version\030\002 \001(\0132+.cos" +
+      "mos.base.tendermint.v1beta1.VersionInfo\"" +
+      "\322\001\n\013VersionInfo\022\014\n\004name\030\001 \001(\t\022\020\n\010app_nam" +
+      "e\030\002 \001(\t\022\017\n\007version\030\003 \001(\t\022\022\n\ngit_commit\030\004" +
+      " \001(\t\022\022\n\nbuild_tags\030\005 \001(\t\022\022\n\ngo_version\030\006" +
+      " \001(\t\022:\n\nbuild_deps\030\007 \003(\0132&.cosmos.base.t" +
+      "endermint.v1beta1.Module\022\032\n\022cosmos_sdk_v" +
+      "ersion\030\010 \001(\t\"4\n\006Module\022\014\n\004path\030\001 \001(\t\022\017\n\007" +
+      "version\030\002 \001(\t\022\013\n\003sum\030\003 \001(\t2\210\t\n\007Service\022\251" +
+      "\001\n\013GetNodeInfo\0222.cosmos.base.tendermint." +
+      "v1beta1.GetNodeInfoRequest\0323.cosmos.base" +
+      ".tendermint.v1beta1.GetNodeInfoResponse\"" +
+      "1\202\323\344\223\002+\022)/cosmos/base/tendermint/v1beta1" +
+      "/node_info\022\244\001\n\nGetSyncing\0221.cosmos.base." +
+      "tendermint.v1beta1.GetSyncingRequest\0322.c" +
+      "osmos.base.tendermint.v1beta1.GetSyncing" +
+      "Response\"/\202\323\344\223\002)\022\'/cosmos/base/tendermin" +
+      "t/v1beta1/syncing\022\266\001\n\016GetLatestBlock\0225.c" +
+      "osmos.base.tendermint.v1beta1.GetLatestB" +
+      "lockRequest\0326.cosmos.base.tendermint.v1b" +
+      "eta1.GetLatestBlockResponse\"5\202\323\344\223\002/\022-/co" +
+      "smos/base/tendermint/v1beta1/blocks/late" +
+      "st\022\276\001\n\020GetBlockByHeight\0227.cosmos.base.te" +
+      "ndermint.v1beta1.GetBlockByHeightRequest" +
+      "\0328.cosmos.base.tendermint.v1beta1.GetBlo" +
+      "ckByHeightResponse\"7\202\323\344\223\0021\022//cosmos/base" +
+      "/tendermint/v1beta1/blocks/{height}\022\322\001\n\025" +
+      "GetLatestValidatorSet\022<.cosmos.base.tend" +
+      "ermint.v1beta1.GetLatestValidatorSetRequ" +
+      "est\032=.cosmos.base.tendermint.v1beta1.Get" +
+      "LatestValidatorSetResponse\"<\202\323\344\223\0026\0224/cos" +
+      "mos/base/tendermint/v1beta1/validatorset" +
+      "s/latest\022\332\001\n\027GetValidatorSetByHeight\022>.c" +
+      "osmos.base.tendermint.v1beta1.GetValidat" +
+      "orSetByHeightRequest\032?.cosmos.base.tende" +
+      "rmint.v1beta1.GetValidatorSetByHeightRes" +
+      "ponse\">\202\323\344\223\0028\0226/cosmos/base/tendermint/v" +
+      "1beta1/validatorsets/{height}B4Z2github." +
+      "com/cosmos/cosmos-sdk/client/grpc/tmserv" +
+      "iceb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

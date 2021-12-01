@@ -4148,26 +4148,26 @@ public final class QueryRelationships {
       "\n1desmos/profiles/v1beta1/query_relation" +
       "ships.proto\022\027desmos.profiles.v1beta1\032\024go" +
       "goproto/gogo.proto\032\034google/api/annotatio" +
-      "ns.proto\032\031google/protobuf/any.proto\0322des" +
-      "mos/profiles/v1beta1/models_relationship" +
-      "s.proto\032\031cosmos_proto/cosmos.proto\032*cosm" +
-      "os/base/query/v1beta1/pagination.proto\"\204" +
-      "\001\n\031QueryRelationshipsRequest\022\014\n\004user\030\001 \001" +
-      "(\t\022\023\n\013subspace_id\030\002 \001(\t\022:\n\npagination\030\003 " +
-      "\001(\0132&.cosmos.base.query.v1beta1.PageRequ" +
-      "est:\010\350\240\037\000\210\240\037\000\"\235\001\n\032QueryRelationshipsResp" +
-      "onse\022B\n\rrelationships\030\001 \003(\0132%.desmos.pro" +
-      "files.v1beta1.RelationshipB\004\310\336\037\000\022;\n\npagi" +
-      "nation\030\002 \001(\0132\'.cosmos.base.query.v1beta1" +
-      ".PageResponse\"}\n\022QueryBlocksRequest\022\014\n\004u" +
-      "ser\030\001 \001(\t\022\023\n\013subspace_id\030\002 \001(\t\022:\n\npagina" +
-      "tion\030\003 \001(\0132&.cosmos.base.query.v1beta1.P" +
-      "ageRequest:\010\350\240\037\000\210\240\037\000\"\214\001\n\023QueryBlocksResp" +
-      "onse\0228\n\006blocks\030\001 \003(\0132\".desmos.profiles.v" +
-      "1beta1.UserBlockB\004\310\336\037\000\022;\n\npagination\030\002 \001" +
-      "(\0132\'.cosmos.base.query.v1beta1.PageRespo" +
-      "nseB3Z1github.com/desmos-labs/desmos/v2/" +
-      "x/profiles/typesb\006proto3"
+      "ns.proto\032\032google/protobuf2/any.proto\0322de" +
+      "smos/profiles/v1beta1/models_relationshi" +
+      "ps.proto\032\031cosmos_proto/cosmos.proto\032*cos" +
+      "mos/base/query/v1beta1/pagination.proto\"" +
+      "\204\001\n\031QueryRelationshipsRequest\022\014\n\004user\030\001 " +
+      "\001(\t\022\023\n\013subspace_id\030\002 \001(\t\022:\n\npagination\030\003" +
+      " \001(\0132&.cosmos.base.query.v1beta1.PageReq" +
+      "uest:\010\350\240\037\000\210\240\037\000\"\235\001\n\032QueryRelationshipsRes" +
+      "ponse\022B\n\rrelationships\030\001 \003(\0132%.desmos.pr" +
+      "ofiles.v1beta1.RelationshipB\004\310\336\037\000\022;\n\npag" +
+      "ination\030\002 \001(\0132\'.cosmos.base.query.v1beta" +
+      "1.PageResponse\"}\n\022QueryBlocksRequest\022\014\n\004" +
+      "user\030\001 \001(\t\022\023\n\013subspace_id\030\002 \001(\t\022:\n\npagin" +
+      "ation\030\003 \001(\0132&.cosmos.base.query.v1beta1." +
+      "PageRequest:\010\350\240\037\000\210\240\037\000\"\214\001\n\023QueryBlocksRes" +
+      "ponse\0228\n\006blocks\030\001 \003(\0132\".desmos.profiles." +
+      "v1beta1.UserBlockB\004\310\336\037\000\022;\n\npagination\030\002 " +
+      "\001(\0132\'.cosmos.base.query.v1beta1.PageResp" +
+      "onseB3Z1github.com/desmos-labs/desmos/v2" +
+      "/x/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -4872,49 +4872,47 @@ public final class Oracle {
     java.lang.String[] descriptorData = {
       "\n umee/oracle/v1beta1/oracle.proto\022\037umee" +
       "network.umee.oracle.v1beta1\032\024gogoproto/g" +
-      "ogo.proto\032\036cosmos/base/v1beta1/coin.prot" +
-      "o\"\245\005\n\006Params\022+\n\013vote_period\030\001 \001(\004B\026\362\336\037\022y" +
-      "aml:\"vote_period\"\022_\n\016vote_threshold\030\002 \001(" +
-      "\tBG\362\336\037\025yaml:\"vote_threshold\"\332\336\037&github.c" +
-      "om/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022Y\n\013re" +
-      "ward_band\030\003 \001(\tBD\362\336\037\022yaml:\"reward_band\"\332" +
-      "\336\037&github.com/cosmos/cosmos-sdk/types.De" +
-      "c\310\336\037\000\022I\n\032reward_distribution_window\030\004 \001(" +
-      "\004B%\362\336\037!yaml:\"reward_distribution_window\"" +
-      "\022`\n\twhitelist\030\005 \003(\0132&.umeenetwork.umee.o" +
-      "racle.v1beta1.DenomB%\362\336\037\020yaml:\"whitelist" +
-      "\"\252\337\037\tDenomList\310\336\037\000\022_\n\016slash_fraction\030\006 \001" +
-      "(\tBG\362\336\037\025yaml:\"slash_fraction\"\332\336\037&github." +
-      "com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022-\n\014s" +
-      "lash_window\030\007 \001(\004B\027\362\336\037\023yaml:\"slash_windo" +
-      "w\"\022k\n\024min_valid_per_window\030\010 \001(\tBM\362\336\037\033ya" +
-      "ml:\"min_valid_per_window\"\332\336\037&github.com/" +
-      "cosmos/cosmos-sdk/types.Dec\310\336\037\000:\010\350\240\037\001\230\240\037" +
-      "\000\"\213\001\n\005Denom\022\035\n\004name\030\001 \001(\tB\017\362\336\037\013yaml:\"nam" +
-      "e\"\022U\n\ttobin_tax\030\002 \001(\tBB\362\336\037\020yaml:\"tobin_t" +
-      "ax\"\332\336\037&github.com/cosmos/cosmos-sdk/type" +
-      "s.Dec\310\336\037\000:\014\350\240\037\000\210\240\037\000\230\240\037\000\"\233\001\n\034AggregateExc" +
-      "hangeRatePrevote\022\035\n\004hash\030\001 \001(\tB\017\362\336\037\013yaml" +
-      ":\"hash\"\022\037\n\005voter\030\002 \001(\tB\020\362\336\037\014yaml:\"voter\"" +
-      "\022-\n\014submit_block\030\003 \001(\004B\027\362\336\037\023yaml:\"submit" +
-      "_block\":\014\350\240\037\000\210\240\037\000\230\240\037\000\"\330\001\n\031AggregateExcha" +
-      "ngeRateVote\022\213\001\n\024exchange_rate_tuples\030\001 \003" +
-      "(\01322.umeenetwork.umee.oracle.v1beta1.Exc" +
-      "hangeRateTupleB9\362\336\037\033yaml:\"exchange_rate_" +
-      "tuples\"\252\337\037\022ExchangeRateTuples\310\336\037\000\022\037\n\005vot" +
-      "er\030\002 \001(\tB\020\362\336\037\014yaml:\"voter\":\014\350\240\037\000\210\240\037\000\230\240\037\000" +
-      "\"\241\001\n\021ExchangeRateTuple\022\037\n\005denom\030\001 \001(\tB\020\362" +
-      "\336\037\014yaml:\"denom\"\022]\n\rexchange_rate\030\002 \001(\tBF" +
-      "\362\336\037\024yaml:\"exchange_rate\"\332\336\037&github.com/c" +
-      "osmos/cosmos-sdk/types.Dec\310\336\037\000:\014\350\240\037\000\210\240\037\000" +
-      "\230\240\037\000B-Z+github.com/umee-network/umee/x/o" +
-      "racle/typesb\006proto3"
+      "ogo.proto\"\245\005\n\006Params\022+\n\013vote_period\030\001 \001(" +
+      "\004B\026\362\336\037\022yaml:\"vote_period\"\022_\n\016vote_thresh" +
+      "old\030\002 \001(\tBG\362\336\037\025yaml:\"vote_threshold\"\332\336\037&" +
+      "github.com/cosmos/cosmos-sdk/types.Dec\310\336" +
+      "\037\000\022Y\n\013reward_band\030\003 \001(\tBD\362\336\037\022yaml:\"rewar" +
+      "d_band\"\332\336\037&github.com/cosmos/cosmos-sdk/" +
+      "types.Dec\310\336\037\000\022I\n\032reward_distribution_win" +
+      "dow\030\004 \001(\004B%\362\336\037!yaml:\"reward_distribution" +
+      "_window\"\022`\n\twhitelist\030\005 \003(\0132&.umeenetwor" +
+      "k.umee.oracle.v1beta1.DenomB%\362\336\037\020yaml:\"w" +
+      "hitelist\"\252\337\037\tDenomList\310\336\037\000\022_\n\016slash_frac" +
+      "tion\030\006 \001(\tBG\362\336\037\025yaml:\"slash_fraction\"\332\336\037" +
+      "&github.com/cosmos/cosmos-sdk/types.Dec\310" +
+      "\336\037\000\022-\n\014slash_window\030\007 \001(\004B\027\362\336\037\023yaml:\"sla" +
+      "sh_window\"\022k\n\024min_valid_per_window\030\010 \001(\t" +
+      "BM\362\336\037\033yaml:\"min_valid_per_window\"\332\336\037&git" +
+      "hub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000:" +
+      "\010\350\240\037\001\230\240\037\000\"\213\001\n\005Denom\022\035\n\004name\030\001 \001(\tB\017\362\336\037\013y" +
+      "aml:\"name\"\022U\n\ttobin_tax\030\002 \001(\tBB\362\336\037\020yaml:" +
+      "\"tobin_tax\"\332\336\037&github.com/cosmos/cosmos-" +
+      "sdk/types.Dec\310\336\037\000:\014\350\240\037\000\210\240\037\000\230\240\037\000\"\233\001\n\034Aggr" +
+      "egateExchangeRatePrevote\022\035\n\004hash\030\001 \001(\tB\017" +
+      "\362\336\037\013yaml:\"hash\"\022\037\n\005voter\030\002 \001(\tB\020\362\336\037\014yaml" +
+      ":\"voter\"\022-\n\014submit_block\030\003 \001(\004B\027\362\336\037\023yaml" +
+      ":\"submit_block\":\014\350\240\037\000\210\240\037\000\230\240\037\000\"\330\001\n\031Aggreg" +
+      "ateExchangeRateVote\022\213\001\n\024exchange_rate_tu" +
+      "ples\030\001 \003(\01322.umeenetwork.umee.oracle.v1b" +
+      "eta1.ExchangeRateTupleB9\362\336\037\033yaml:\"exchan" +
+      "ge_rate_tuples\"\252\337\037\022ExchangeRateTuples\310\336\037" +
+      "\000\022\037\n\005voter\030\002 \001(\tB\020\362\336\037\014yaml:\"voter\":\014\350\240\037\000" +
+      "\210\240\037\000\230\240\037\000\"\241\001\n\021ExchangeRateTuple\022\037\n\005denom\030" +
+      "\001 \001(\tB\020\362\336\037\014yaml:\"denom\"\022]\n\rexchange_rate" +
+      "\030\002 \001(\tBF\362\336\037\024yaml:\"exchange_rate\"\332\336\037&gith" +
+      "ub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000:\014" +
+      "\350\240\037\000\210\240\037\000\230\240\037\000B-Z+github.com/umee-network/" +
+      "umee/x/oracle/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_umeenetwork_umee_oracle_v1beta1_Params_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -4958,7 +4956,6 @@ public final class Oracle {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

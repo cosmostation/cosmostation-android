@@ -4656,37 +4656,36 @@ public final class QueryOuterClass {
       "\n\031em/queries/v1/query.proto\022\rem.queries." +
       "v1\032\024gogoproto/gogo.proto\032\036cosmos/base/v1" +
       "beta1/coin.proto\032\034google/api/annotations" +
-      ".proto\032\037google/protobuf/timestamp.proto\"" +
-      "\031\n\027QueryCirculatingRequest\"\206\001\n\030QueryCirc" +
-      "ulatingResponse\022j\n\005total\030\001 \003(\0132\031.cosmos." +
-      "base.v1beta1.CoinB@\362\336\037\014yaml:\"total\"\252\337\037(g" +
-      "ithub.com/cosmos/cosmos-sdk/types.Coins\310" +
-      "\336\037\000\"<\n\025QuerySpendableRequest\022#\n\007address\030" +
-      "\001 \001(\tB\022\362\336\037\016yaml:\"address\"\"\210\001\n\026QuerySpend" +
-      "ableResponse\022n\n\007balance\030\001 \003(\0132\031.cosmos.b" +
-      "ase.v1beta1.CoinBB\362\336\037\016yaml:\"balance\"\252\337\037(" +
-      "github.com/cosmos/cosmos-sdk/types.Coins" +
-      "\310\336\037\000\"0\n\030QueryMissedBlocksRequest\022\024\n\014cons" +
-      "_address\030\001 \001(\t\"^\n\031QueryMissedBlocksRespo" +
-      "nse\022A\n\022missed_blocks_info\030\001 \001(\0132\037.em.que" +
-      "ries.v1.MissedBlocksInfoB\004\310\336\037\000\"\262\001\n\020Misse" +
-      "dBlocksInfo\022\024\n\014cons_address\030\001 \001(\t\022?\n\025mis" +
-      "sed_blocks_counter\030\002 \001(\003B \362\336\037\034yaml:\"miss" +
-      "ed_blocks_counter\"\022=\n\024total_blocks_count" +
-      "er\030\003 \001(\003B\037\362\336\037\033yaml:\"total_blocks_counter" +
-      "\":\010\350\240\037\001\230\240\037\0012\265\003\n\005Query\022\204\001\n\013Circulating\022&." +
-      "em.queries.v1.QueryCirculatingRequest\032\'." +
-      "em.queries.v1.QueryCirculatingResponse\"$" +
-      "\202\323\344\223\002\036\022\034/e-money/bank/v1/circulating\022\233\001\n" +
-      "\014MissedBlocks\022\'.em.queries.v1.QueryMisse" +
-      "dBlocksRequest\032(.em.queries.v1.QueryMiss" +
-      "edBlocksResponse\"8\202\323\344\223\0022\0220/e-money/slash" +
-      "ing/v1/missedblocks/{cons_address}\022\206\001\n\tS" +
-      "pendable\022$.em.queries.v1.QuerySpendableR" +
-      "equest\032%.em.queries.v1.QuerySpendableRes" +
-      "ponse\",\202\323\344\223\002&\022$/e-money/bank/v1/spendabl" +
-      "e/{address}B.Z,github.com/e-money/em-led" +
-      "ger/x/queries/typesb\006proto3"
+      ".proto\"\031\n\027QueryCirculatingRequest\"\206\001\n\030Qu" +
+      "eryCirculatingResponse\022j\n\005total\030\001 \003(\0132\031." +
+      "cosmos.base.v1beta1.CoinB@\362\336\037\014yaml:\"tota" +
+      "l\"\252\337\037(github.com/cosmos/cosmos-sdk/types" +
+      ".Coins\310\336\037\000\"<\n\025QuerySpendableRequest\022#\n\007a" +
+      "ddress\030\001 \001(\tB\022\362\336\037\016yaml:\"address\"\"\210\001\n\026Que" +
+      "rySpendableResponse\022n\n\007balance\030\001 \003(\0132\031.c" +
+      "osmos.base.v1beta1.CoinBB\362\336\037\016yaml:\"balan" +
+      "ce\"\252\337\037(github.com/cosmos/cosmos-sdk/type" +
+      "s.Coins\310\336\037\000\"0\n\030QueryMissedBlocksRequest\022" +
+      "\024\n\014cons_address\030\001 \001(\t\"^\n\031QueryMissedBloc" +
+      "ksResponse\022A\n\022missed_blocks_info\030\001 \001(\0132\037" +
+      ".em.queries.v1.MissedBlocksInfoB\004\310\336\037\000\"\262\001" +
+      "\n\020MissedBlocksInfo\022\024\n\014cons_address\030\001 \001(\t" +
+      "\022?\n\025missed_blocks_counter\030\002 \001(\003B \362\336\037\034yam" +
+      "l:\"missed_blocks_counter\"\022=\n\024total_block" +
+      "s_counter\030\003 \001(\003B\037\362\336\037\033yaml:\"total_blocks_" +
+      "counter\":\010\350\240\037\001\230\240\037\0012\265\003\n\005Query\022\204\001\n\013Circula" +
+      "ting\022&.em.queries.v1.QueryCirculatingReq" +
+      "uest\032\'.em.queries.v1.QueryCirculatingRes" +
+      "ponse\"$\202\323\344\223\002\036\022\034/e-money/bank/v1/circulat" +
+      "ing\022\233\001\n\014MissedBlocks\022\'.em.queries.v1.Que" +
+      "ryMissedBlocksRequest\032(.em.queries.v1.Qu" +
+      "eryMissedBlocksResponse\"8\202\323\344\223\0022\0220/e-mone" +
+      "y/slashing/v1/missedblocks/{cons_address" +
+      "}\022\206\001\n\tSpendable\022$.em.queries.v1.QuerySpe" +
+      "ndableRequest\032%.em.queries.v1.QuerySpend" +
+      "ableResponse\",\202\323\344\223\002&\022$/e-money/bank/v1/s" +
+      "pendable/{address}B.Z,github.com/e-money" +
+      "/em-ledger/x/queries/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4694,7 +4693,6 @@ public final class QueryOuterClass {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_em_queries_v1_QueryCirculatingRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -4751,7 +4749,6 @@ public final class QueryOuterClass {
     com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.TimestampProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

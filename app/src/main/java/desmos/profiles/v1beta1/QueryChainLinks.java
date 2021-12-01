@@ -3572,22 +3572,22 @@ public final class QueryChainLinks {
       "\n/desmos/profiles/v1beta1/query_chain_li" +
       "nks.proto\022\027desmos.profiles.v1beta1\032\024gogo" +
       "proto/gogo.proto\032\034google/api/annotations" +
-      ".proto\032\031google/protobuf/any.proto\0320desmo" +
-      "s/profiles/v1beta1/models_chain_links.pr" +
-      "oto\032\031cosmos_proto/cosmos.proto\032*cosmos/b" +
-      "ase/query/v1beta1/pagination.proto\"M\n\031Qu" +
-      "eryUserChainLinkRequest\022\014\n\004user\030\001 \001(\t\022\022\n" +
-      "\nchain_name\030\002 \001(\t\022\016\n\006target\030\003 \001(\t\"T\n\032Que" +
-      "ryUserChainLinkResponse\0226\n\004link\030\001 \001(\0132\"." +
-      "desmos.profiles.v1beta1.ChainLinkB\004\310\336\037\000\"" +
-      "b\n\026QueryChainLinksRequest\022\014\n\004user\030\001 \001(\t\022" +
-      ":\n\npagination\030\002 \001(\0132&.cosmos.base.query." +
-      "v1beta1.PageRequest\"\217\001\n\027QueryChainLinksR" +
-      "esponse\0227\n\005links\030\001 \003(\0132\".desmos.profiles" +
-      ".v1beta1.ChainLinkB\004\310\336\037\000\022;\n\npagination\030\002" +
-      " \001(\0132\'.cosmos.base.query.v1beta1.PageRes" +
-      "ponseB3Z1github.com/desmos-labs/desmos/v" +
-      "2/x/profiles/typesb\006proto3"
+      ".proto\032\032google/protobuf2/any.proto\0320desm" +
+      "os/profiles/v1beta1/models_chain_links.p" +
+      "roto\032\031cosmos_proto/cosmos.proto\032*cosmos/" +
+      "base/query/v1beta1/pagination.proto\"M\n\031Q" +
+      "ueryUserChainLinkRequest\022\014\n\004user\030\001 \001(\t\022\022" +
+      "\n\nchain_name\030\002 \001(\t\022\016\n\006target\030\003 \001(\t\"T\n\032Qu" +
+      "eryUserChainLinkResponse\0226\n\004link\030\001 \001(\0132\"" +
+      ".desmos.profiles.v1beta1.ChainLinkB\004\310\336\037\000" +
+      "\"b\n\026QueryChainLinksRequest\022\014\n\004user\030\001 \001(\t" +
+      "\022:\n\npagination\030\002 \001(\0132&.cosmos.base.query" +
+      ".v1beta1.PageRequest\"\217\001\n\027QueryChainLinks" +
+      "Response\0227\n\005links\030\001 \003(\0132\".desmos.profile" +
+      "s.v1beta1.ChainLinkB\004\310\336\037\000\022;\n\npagination\030" +
+      "\002 \001(\0132\'.cosmos.base.query.v1beta1.PageRe" +
+      "sponseB3Z1github.com/desmos-labs/desmos/" +
+      "v2/x/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

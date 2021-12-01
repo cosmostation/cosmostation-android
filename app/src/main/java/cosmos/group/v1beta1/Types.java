@@ -12141,69 +12141,69 @@ public final class Types {
       "os.group.v1beta1\032\024gogoproto/gogo.proto\032\036" +
       "google/protobuf/duration.proto\032\037google/p" +
       "rotobuf/timestamp.proto\032\031cosmos_proto/co" +
-      "smos.proto\032\031google/protobuf/any.proto\"U\n" +
-      "\006Member\022)\n\007address\030\001 \001(\tB\030\322\264-\024cosmos.Add" +
-      "ressString\022\016\n\006weight\030\002 \001(\t\022\020\n\010metadata\030\003" +
-      " \001(\014\">\n\007Members\0223\n\007members\030\001 \003(\0132\034.cosmo" +
-      "s.group.v1beta1.MemberB\004\310\336\037\000\"v\n\027Threshol" +
-      "dDecisionPolicy\022\021\n\tthreshold\030\001 \001(\t\0224\n\007ti" +
-      "meout\030\002 \001(\0132\031.google.protobuf.DurationB\010" +
-      "\230\337\037\001\310\336\037\000:\022\312\264-\016DecisionPolicy\"\177\n\tGroupInf" +
-      "o\022\020\n\010group_id\030\001 \001(\004\022\'\n\005admin\030\002 \001(\tB\030\322\264-\024" +
-      "cosmos.AddressString\022\020\n\010metadata\030\003 \001(\014\022\017" +
-      "\n\007version\030\004 \001(\004\022\024\n\014total_weight\030\005 \001(\t\"M\n" +
-      "\013GroupMember\022\020\n\010group_id\030\001 \001(\004\022,\n\006member" +
-      "\030\002 \001(\0132\034.cosmos.group.v1beta1.Member\"\200\002\n" +
-      "\020GroupAccountInfo\022)\n\007address\030\001 \001(\tB\030\322\264-\024" +
-      "cosmos.AddressString\022\020\n\010group_id\030\002 \001(\004\022\'" +
-      "\n\005admin\030\003 \001(\tB\030\322\264-\024cosmos.AddressString\022" +
-      "\020\n\010metadata\030\004 \001(\014\022\017\n\007version\030\005 \001(\004\022A\n\017de" +
-      "cision_policy\030\006 \001(\0132\024.google.protobuf.An" +
-      "yB\022\312\264-\016DecisionPolicy\022\026\n\016derivation_key\030" +
-      "\007 \001(\014:\010\350\240\037\001\210\240\037\000\"\225\n\n\010Proposal\022\023\n\013proposal" +
-      "_id\030\001 \001(\004\022)\n\007address\030\002 \001(\tB\030\322\264-\024cosmos.A" +
-      "ddressString\022\020\n\010metadata\030\003 \001(\014\022+\n\tpropos" +
-      "ers\030\004 \003(\tB\030\322\264-\024cosmos.AddressString\022:\n\014s" +
-      "ubmitted_at\030\005 \001(\0132\032.google.protobuf.Time" +
-      "stampB\010\310\336\037\000\220\337\037\001\022\025\n\rgroup_version\030\006 \001(\004\022\035" +
-      "\n\025group_account_version\030\007 \001(\004\0225\n\006status\030" +
-      "\010 \001(\0162%.cosmos.group.v1beta1.Proposal.St" +
-      "atus\0225\n\006result\030\t \001(\0162%.cosmos.group.v1be" +
-      "ta1.Proposal.Result\0225\n\nvote_state\030\n \001(\0132" +
-      "\033.cosmos.group.v1beta1.TallyB\004\310\336\037\000\0225\n\007ti" +
-      "meout\030\013 \001(\0132\032.google.protobuf.TimestampB" +
-      "\010\310\336\037\000\220\337\037\001\022F\n\017executor_result\030\014 \001(\0162-.cos" +
-      "mos.group.v1beta1.Proposal.ExecutorResul" +
-      "t\022\"\n\004msgs\030\r \003(\0132\024.google.protobuf.Any\"\320\001" +
-      "\n\006Status\0221\n\022STATUS_UNSPECIFIED\020\000\032\031\212\235 \025Pr" +
-      "oposalStatusInvalid\0221\n\020STATUS_SUBMITTED\020" +
-      "\001\032\033\212\235 \027ProposalStatusSubmitted\022+\n\rSTATUS" +
-      "_CLOSED\020\002\032\030\212\235 \024ProposalStatusClosed\022-\n\016S" +
-      "TATUS_ABORTED\020\003\032\031\212\235 \025ProposalStatusAbort" +
-      "ed\032\004\210\243\036\000\"\332\001\n\006Result\0221\n\022RESULT_UNSPECIFIE" +
-      "D\020\000\032\031\212\235 \025ProposalResultInvalid\0225\n\022RESULT" +
-      "_UNFINALIZED\020\001\032\035\212\235 \031ProposalResultUnfina" +
-      "lized\022/\n\017RESULT_ACCEPTED\020\002\032\032\212\235 \026Proposal" +
-      "ResultAccepted\022/\n\017RESULT_REJECTED\020\003\032\032\212\235 " +
-      "\026ProposalResultRejected\032\004\210\243\036\000\"\231\002\n\016Execut" +
-      "orResult\022B\n\033EXECUTOR_RESULT_UNSPECIFIED\020" +
-      "\000\032!\212\235 \035ProposalExecutorResultInvalid\022=\n\027" +
-      "EXECUTOR_RESULT_NOT_RUN\020\001\032 \212\235 \034ProposalE" +
-      "xecutorResultNotRun\022>\n\027EXECUTOR_RESULT_S" +
-      "UCCESS\020\002\032!\212\235 \035ProposalExecutorResultSucc" +
-      "ess\022>\n\027EXECUTOR_RESULT_FAILURE\020\003\032!\212\235 \035Pr" +
-      "oposalExecutorResultFailure\032\004\210\243\036\000:\004\210\240\037\000\"" +
-      "]\n\005Tally\022\021\n\tyes_count\030\001 \001(\t\022\020\n\010no_count\030" +
-      "\002 \001(\t\022\025\n\rabstain_count\030\003 \001(\t\022\022\n\nveto_cou" +
-      "nt\030\004 \001(\t:\004\210\240\037\000\"\300\001\n\004Vote\022\023\n\013proposal_id\030\001" +
-      " \001(\004\022\'\n\005voter\030\002 \001(\tB\030\322\264-\024cosmos.AddressS" +
-      "tring\022,\n\006choice\030\003 \001(\0162\034.cosmos.group.v1b" +
-      "eta1.Choice\022\020\n\010metadata\030\004 \001(\014\022:\n\014submitt" +
-      "ed_at\030\005 \001(\0132\032.google.protobuf.TimestampB" +
-      "\010\310\336\037\000\220\337\037\001*d\n\006Choice\022\026\n\022CHOICE_UNSPECIFIE" +
-      "D\020\000\022\r\n\tCHOICE_NO\020\001\022\016\n\nCHOICE_YES\020\002\022\022\n\016CH" +
-      "OICE_ABSTAIN\020\003\022\017\n\013CHOICE_VETO\020\004B&Z$githu" +
-      "b.com/cosmos/cosmos-sdk/x/groupb\006proto3"
+      "smos.proto\032\032google/protobuf2/any.proto\"U" +
+      "\n\006Member\022)\n\007address\030\001 \001(\tB\030\322\264-\024cosmos.Ad" +
+      "dressString\022\016\n\006weight\030\002 \001(\t\022\020\n\010metadata\030" +
+      "\003 \001(\014\">\n\007Members\0223\n\007members\030\001 \003(\0132\034.cosm" +
+      "os.group.v1beta1.MemberB\004\310\336\037\000\"v\n\027Thresho" +
+      "ldDecisionPolicy\022\021\n\tthreshold\030\001 \001(\t\0224\n\007t" +
+      "imeout\030\002 \001(\0132\031.google.protobuf.DurationB" +
+      "\010\230\337\037\001\310\336\037\000:\022\312\264-\016DecisionPolicy\"\177\n\tGroupIn" +
+      "fo\022\020\n\010group_id\030\001 \001(\004\022\'\n\005admin\030\002 \001(\tB\030\322\264-" +
+      "\024cosmos.AddressString\022\020\n\010metadata\030\003 \001(\014\022" +
+      "\017\n\007version\030\004 \001(\004\022\024\n\014total_weight\030\005 \001(\t\"M" +
+      "\n\013GroupMember\022\020\n\010group_id\030\001 \001(\004\022,\n\006membe" +
+      "r\030\002 \001(\0132\034.cosmos.group.v1beta1.Member\"\200\002" +
+      "\n\020GroupAccountInfo\022)\n\007address\030\001 \001(\tB\030\322\264-" +
+      "\024cosmos.AddressString\022\020\n\010group_id\030\002 \001(\004\022" +
+      "\'\n\005admin\030\003 \001(\tB\030\322\264-\024cosmos.AddressString" +
+      "\022\020\n\010metadata\030\004 \001(\014\022\017\n\007version\030\005 \001(\004\022A\n\017d" +
+      "ecision_policy\030\006 \001(\0132\024.google.protobuf.A" +
+      "nyB\022\312\264-\016DecisionPolicy\022\026\n\016derivation_key" +
+      "\030\007 \001(\014:\010\350\240\037\001\210\240\037\000\"\225\n\n\010Proposal\022\023\n\013proposa" +
+      "l_id\030\001 \001(\004\022)\n\007address\030\002 \001(\tB\030\322\264-\024cosmos." +
+      "AddressString\022\020\n\010metadata\030\003 \001(\014\022+\n\tpropo" +
+      "sers\030\004 \003(\tB\030\322\264-\024cosmos.AddressString\022:\n\014" +
+      "submitted_at\030\005 \001(\0132\032.google.protobuf.Tim" +
+      "estampB\010\310\336\037\000\220\337\037\001\022\025\n\rgroup_version\030\006 \001(\004\022" +
+      "\035\n\025group_account_version\030\007 \001(\004\0225\n\006status" +
+      "\030\010 \001(\0162%.cosmos.group.v1beta1.Proposal.S" +
+      "tatus\0225\n\006result\030\t \001(\0162%.cosmos.group.v1b" +
+      "eta1.Proposal.Result\0225\n\nvote_state\030\n \001(\013" +
+      "2\033.cosmos.group.v1beta1.TallyB\004\310\336\037\000\0225\n\007t" +
+      "imeout\030\013 \001(\0132\032.google.protobuf.Timestamp" +
+      "B\010\310\336\037\000\220\337\037\001\022F\n\017executor_result\030\014 \001(\0162-.co" +
+      "smos.group.v1beta1.Proposal.ExecutorResu" +
+      "lt\022\"\n\004msgs\030\r \003(\0132\024.google.protobuf.Any\"\320" +
+      "\001\n\006Status\0221\n\022STATUS_UNSPECIFIED\020\000\032\031\212\235 \025P" +
+      "roposalStatusInvalid\0221\n\020STATUS_SUBMITTED" +
+      "\020\001\032\033\212\235 \027ProposalStatusSubmitted\022+\n\rSTATU" +
+      "S_CLOSED\020\002\032\030\212\235 \024ProposalStatusClosed\022-\n\016" +
+      "STATUS_ABORTED\020\003\032\031\212\235 \025ProposalStatusAbor" +
+      "ted\032\004\210\243\036\000\"\332\001\n\006Result\0221\n\022RESULT_UNSPECIFI" +
+      "ED\020\000\032\031\212\235 \025ProposalResultInvalid\0225\n\022RESUL" +
+      "T_UNFINALIZED\020\001\032\035\212\235 \031ProposalResultUnfin" +
+      "alized\022/\n\017RESULT_ACCEPTED\020\002\032\032\212\235 \026Proposa" +
+      "lResultAccepted\022/\n\017RESULT_REJECTED\020\003\032\032\212\235" +
+      " \026ProposalResultRejected\032\004\210\243\036\000\"\231\002\n\016Execu" +
+      "torResult\022B\n\033EXECUTOR_RESULT_UNSPECIFIED" +
+      "\020\000\032!\212\235 \035ProposalExecutorResultInvalid\022=\n" +
+      "\027EXECUTOR_RESULT_NOT_RUN\020\001\032 \212\235 \034Proposal" +
+      "ExecutorResultNotRun\022>\n\027EXECUTOR_RESULT_" +
+      "SUCCESS\020\002\032!\212\235 \035ProposalExecutorResultSuc" +
+      "cess\022>\n\027EXECUTOR_RESULT_FAILURE\020\003\032!\212\235 \035P" +
+      "roposalExecutorResultFailure\032\004\210\243\036\000:\004\210\240\037\000" +
+      "\"]\n\005Tally\022\021\n\tyes_count\030\001 \001(\t\022\020\n\010no_count" +
+      "\030\002 \001(\t\022\025\n\rabstain_count\030\003 \001(\t\022\022\n\nveto_co" +
+      "unt\030\004 \001(\t:\004\210\240\037\000\"\300\001\n\004Vote\022\023\n\013proposal_id\030" +
+      "\001 \001(\004\022\'\n\005voter\030\002 \001(\tB\030\322\264-\024cosmos.Address" +
+      "String\022,\n\006choice\030\003 \001(\0162\034.cosmos.group.v1" +
+      "beta1.Choice\022\020\n\010metadata\030\004 \001(\014\022:\n\014submit" +
+      "ted_at\030\005 \001(\0132\032.google.protobuf.Timestamp" +
+      "B\010\310\336\037\000\220\337\037\001*d\n\006Choice\022\026\n\022CHOICE_UNSPECIFI" +
+      "ED\020\000\022\r\n\tCHOICE_NO\020\001\022\016\n\nCHOICE_YES\020\002\022\022\n\016C" +
+      "HOICE_ABSTAIN\020\003\022\017\n\013CHOICE_VETO\020\004B&Z$gith" +
+      "ub.com/cosmos/cosmos-sdk/x/groupb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

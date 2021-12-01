@@ -10633,66 +10633,64 @@ public final class Cert {
   static {
     java.lang.String[] descriptorData = {
       "\n\037shentu/cert/v1alpha1/cert.proto\022\024shent" +
-      "u.cert.v1alpha1\032\024gogoproto/gogo.proto\032\036c" +
-      "osmos/base/v1beta1/coin.proto\032\031cosmos_pr" +
-      "oto/cosmos.proto\032\031google/protobuf/any.pr" +
-      "oto\"\257\001\n\tCertifier\022#\n\007address\030\001 \001(\tB\022\362\336\037\016" +
-      "yaml:\"address\"\022\037\n\005alias\030\002 \001(\tB\020\362\336\037\014yaml:" +
-      "\"alias\"\022%\n\010proposer\030\003 \001(\tB\023\362\336\037\017yaml:\"pro" +
-      "poser\"\022+\n\013description\030\004 \001(\tB\026\362\336\037\022yaml:\"d" +
-      "escription\":\010\350\240\037\000\210\240\037\000\"v\n\022CompilationCont" +
-      "ent\022%\n\010compiler\030\001 \001(\tB\023\362\336\037\017yaml:\"compile" +
-      "r\"\022/\n\rbytecode_hash\030\002 \001(\tB\030\362\336\037\024yaml:\"byt" +
-      "ecode_hash\":\010\350\240\037\000\210\240\037\000\"\273\002\n\013Certificate\0221\n" +
-      "\016certificate_id\030\001 \001(\004B\031\362\336\037\025yaml:\"certifi" +
-      "cate_id\"\0222\n\007content\030\002 \001(\0132\024.google.proto" +
-      "buf.AnyB\013\312\264-\007Content\022e\n\023compilation_cont" +
-      "ent\030\003 \001(\0132(.shentu.cert.v1alpha1.Compila" +
-      "tionContentB\036\362\336\037\032yaml:\"compilation_conte" +
-      "nt\"\022+\n\013description\030\004 \001(\tB\026\362\336\037\022yaml:\"desc" +
-      "ription\"\022\'\n\tcertifier\030\005 \001(\tB\024\362\336\037\020yaml:\"c" +
-      "ertifier\":\010\350\240\037\000\210\240\037\000\"7\n\007Library\022\017\n\007addres" +
-      "s\030\001 \001(\t\022\021\n\tpublisher\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"+\n\013" +
-      "Compilation\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Conten" +
-      "t\"(\n\010Auditing\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Cont" +
-      "ent\"%\n\005Proof\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Conte" +
-      "nt\".\n\016OracleOperator\022\017\n\007content\030\001 \001(\t:\013\312" +
-      "\264-\007Content\"1\n\021ShieldPoolCreator\022\017\n\007conte" +
-      "nt\030\001 \001(\t:\013\312\264-\007Content\"(\n\010Identity\022\017\n\007con" +
-      "tent\030\001 \001(\t:\013\312\264-\007Content\"\'\n\007General\022\017\n\007co" +
-      "ntent\030\001 \001(\t:\013\312\264-\007Content\"s\n\010Platform\022H\n\020" +
-      "validator_pubkey\030\001 \001(\0132\024.google.protobuf" +
-      ".AnyB\030\312\264-\024cosmos.crypto.PubKey\022\023\n\013descri" +
-      "ption\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"\327\002\n\027CertifierUpdat" +
-      "eProposal\022\037\n\005title\030\001 \001(\tB\020\362\336\037\014yaml:\"titl" +
-      "e\"\022%\n\010proposer\030\002 \001(\tB\023\362\336\037\017yaml:\"proposer" +
-      "\"\022\037\n\005alias\030\003 \001(\tB\020\362\336\037\014yaml:\"alias\"\022\'\n\tce" +
-      "rtifier\030\004 \001(\tB\024\362\336\037\020yaml:\"certifier\"\022+\n\013d" +
-      "escription\030\005 \001(\tB\026\362\336\037\022yaml:\"description\"" +
-      "\022>\n\radd_or_remove\030\006 \001(\010B\'\362\336\037\024yaml:\"add_o" +
-      "r_remove\"\372\336\037\013AddOrRemove:=\350\240\037\000\210\240\037\000\312\264-1*g" +
-      "ithub.com/cosmos/cosmos-sdk/x/gov/types." +
-      "Content\"$\n\006KVPair\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030" +
-      "\002 \001(\t*\334\003\n\017CertificateType\0221\n\025CERT_TYPE_U" +
-      "NSPECIFIED\020\000\032\026\212\235 \022CertificateTypeNil\0229\n\025" +
-      "CERT_TYPE_COMPILATION\020\001\032\036\212\235 \032Certificate" +
-      "TypeCompilation\0223\n\022CERT_TYPE_AUDITING\020\002\032" +
-      "\033\212\235 \027CertificateTypeAuditing\022-\n\017CERT_TYP" +
-      "E_PROOF\020\003\032\030\212\235 \024CertificateTypeProof\022@\n\031C" +
-      "ERT_TYPE_ORACLE_OPERATOR\020\004\032!\212\235 \035Certific" +
-      "ateTypeOracleOperator\022G\n\035CERT_TYPE_SHIEL" +
-      "D_POOL_CREATOR\020\005\032$\212\235  CertificateTypeShi" +
-      "eldPoolCreator\0223\n\022CERT_TYPE_IDENTITY\020\006\032\033" +
-      "\212\235 \027CertificateTypeIdentity\0221\n\021CERT_TYPE" +
-      "_GENERAL\020\007\032\032\212\235 \026CertificateTypeGeneral\032\004" +
-      "\210\243\036\000B1Z/github.com/certikfoundation/shen" +
-      "tu/x/cert/typesb\006proto3"
+      "u.cert.v1alpha1\032\024gogoproto/gogo.proto\032\031c" +
+      "osmos_proto/cosmos.proto\032\032google/protobu" +
+      "f2/any.proto\"\257\001\n\tCertifier\022#\n\007address\030\001 " +
+      "\001(\tB\022\362\336\037\016yaml:\"address\"\022\037\n\005alias\030\002 \001(\tB\020" +
+      "\362\336\037\014yaml:\"alias\"\022%\n\010proposer\030\003 \001(\tB\023\362\336\037\017" +
+      "yaml:\"proposer\"\022+\n\013description\030\004 \001(\tB\026\362\336" +
+      "\037\022yaml:\"description\":\010\350\240\037\000\210\240\037\000\"v\n\022Compil" +
+      "ationContent\022%\n\010compiler\030\001 \001(\tB\023\362\336\037\017yaml" +
+      ":\"compiler\"\022/\n\rbytecode_hash\030\002 \001(\tB\030\362\336\037\024" +
+      "yaml:\"bytecode_hash\":\010\350\240\037\000\210\240\037\000\"\273\002\n\013Certi" +
+      "ficate\0221\n\016certificate_id\030\001 \001(\004B\031\362\336\037\025yaml" +
+      ":\"certificate_id\"\0222\n\007content\030\002 \001(\0132\024.goo" +
+      "gle.protobuf.AnyB\013\312\264-\007Content\022e\n\023compila" +
+      "tion_content\030\003 \001(\0132(.shentu.cert.v1alpha" +
+      "1.CompilationContentB\036\362\336\037\032yaml:\"compilat" +
+      "ion_content\"\022+\n\013description\030\004 \001(\tB\026\362\336\037\022y" +
+      "aml:\"description\"\022\'\n\tcertifier\030\005 \001(\tB\024\362\336" +
+      "\037\020yaml:\"certifier\":\010\350\240\037\000\210\240\037\000\"7\n\007Library\022" +
+      "\017\n\007address\030\001 \001(\t\022\021\n\tpublisher\030\002 \001(\t:\010\350\240\037" +
+      "\000\210\240\037\000\"+\n\013Compilation\022\017\n\007content\030\001 \001(\t:\013\312" +
+      "\264-\007Content\"(\n\010Auditing\022\017\n\007content\030\001 \001(\t:" +
+      "\013\312\264-\007Content\"%\n\005Proof\022\017\n\007content\030\001 \001(\t:\013" +
+      "\312\264-\007Content\".\n\016OracleOperator\022\017\n\007content" +
+      "\030\001 \001(\t:\013\312\264-\007Content\"1\n\021ShieldPoolCreator" +
+      "\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Content\"(\n\010Identi" +
+      "ty\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Content\"\'\n\007Gene" +
+      "ral\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Content\"s\n\010Pla" +
+      "tform\022H\n\020validator_pubkey\030\001 \001(\0132\024.google" +
+      ".protobuf.AnyB\030\312\264-\024cosmos.crypto.PubKey\022" +
+      "\023\n\013description\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"\327\002\n\027Certi" +
+      "fierUpdateProposal\022\037\n\005title\030\001 \001(\tB\020\362\336\037\014y" +
+      "aml:\"title\"\022%\n\010proposer\030\002 \001(\tB\023\362\336\037\017yaml:" +
+      "\"proposer\"\022\037\n\005alias\030\003 \001(\tB\020\362\336\037\014yaml:\"ali" +
+      "as\"\022\'\n\tcertifier\030\004 \001(\tB\024\362\336\037\020yaml:\"certif" +
+      "ier\"\022+\n\013description\030\005 \001(\tB\026\362\336\037\022yaml:\"des" +
+      "cription\"\022>\n\radd_or_remove\030\006 \001(\010B\'\362\336\037\024ya" +
+      "ml:\"add_or_remove\"\372\336\037\013AddOrRemove:=\350\240\037\000\210" +
+      "\240\037\000\312\264-1*github.com/cosmos/cosmos-sdk/x/g" +
+      "ov/types.Content\"$\n\006KVPair\022\013\n\003key\030\001 \001(\t\022" +
+      "\r\n\005value\030\002 \001(\t*\334\003\n\017CertificateType\0221\n\025CE" +
+      "RT_TYPE_UNSPECIFIED\020\000\032\026\212\235 \022CertificateTy" +
+      "peNil\0229\n\025CERT_TYPE_COMPILATION\020\001\032\036\212\235 \032Ce" +
+      "rtificateTypeCompilation\0223\n\022CERT_TYPE_AU" +
+      "DITING\020\002\032\033\212\235 \027CertificateTypeAuditing\022-\n" +
+      "\017CERT_TYPE_PROOF\020\003\032\030\212\235 \024CertificateTypeP" +
+      "roof\022@\n\031CERT_TYPE_ORACLE_OPERATOR\020\004\032!\212\235 " +
+      "\035CertificateTypeOracleOperator\022G\n\035CERT_T" +
+      "YPE_SHIELD_POOL_CREATOR\020\005\032$\212\235  Certifica" +
+      "teTypeShieldPoolCreator\0223\n\022CERT_TYPE_IDE" +
+      "NTITY\020\006\032\033\212\235 \027CertificateTypeIdentity\0221\n\021" +
+      "CERT_TYPE_GENERAL\020\007\032\032\212\235 \026CertificateType" +
+      "General\032\004\210\243\036\000B1Z/github.com/certikfounda" +
+      "tion/shentu/x/cert/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           com.google.protobuf.AnyProto.getDescriptor(),
         });
@@ -10793,7 +10791,6 @@ public final class Cert {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     com.google.protobuf.AnyProto.getDescriptor();
   }

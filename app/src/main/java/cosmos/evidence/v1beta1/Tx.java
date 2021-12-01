@@ -1336,17 +1336,17 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n cosmos/evidence/v1beta1/tx.proto\022\027cosm" +
       "os.evidence.v1beta1\032\024gogoproto/gogo.prot" +
-      "o\032\031google/protobuf/any.proto\032\031cosmos_pro" +
-      "to/cosmos.proto\"\200\001\n\021MsgSubmitEvidence\022+\n" +
-      "\tsubmitter\030\001 \001(\tB\030\322\264-\024cosmos.AddressStri" +
-      "ng\0224\n\010evidence\030\002 \001(\0132\024.google.protobuf.A" +
-      "nyB\014\312\264-\010Evidence:\010\350\240\037\000\210\240\037\000\")\n\031MsgSubmitE" +
-      "videnceResponse\022\014\n\004hash\030\004 \001(\0142w\n\003Msg\022p\n\016" +
-      "SubmitEvidence\022*.cosmos.evidence.v1beta1" +
-      ".MsgSubmitEvidence\0322.cosmos.evidence.v1b" +
-      "eta1.MsgSubmitEvidenceResponseB3Z-github" +
-      ".com/cosmos/cosmos-sdk/x/evidence/types\250" +
-      "\342\036\001b\006proto3"
+      "o\032\032google/protobuf2/any.proto\032\031cosmos_pr" +
+      "oto/cosmos.proto\"\200\001\n\021MsgSubmitEvidence\022+" +
+      "\n\tsubmitter\030\001 \001(\tB\030\322\264-\024cosmos.AddressStr" +
+      "ing\0224\n\010evidence\030\002 \001(\0132\024.google.protobuf." +
+      "AnyB\014\312\264-\010Evidence:\010\350\240\037\000\210\240\037\000\")\n\031MsgSubmit" +
+      "EvidenceResponse\022\014\n\004hash\030\004 \001(\0142w\n\003Msg\022p\n" +
+      "\016SubmitEvidence\022*.cosmos.evidence.v1beta" +
+      "1.MsgSubmitEvidence\0322.cosmos.evidence.v1" +
+      "beta1.MsgSubmitEvidenceResponseB3Z-githu" +
+      "b.com/cosmos/cosmos-sdk/x/evidence/types" +
+      "\250\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

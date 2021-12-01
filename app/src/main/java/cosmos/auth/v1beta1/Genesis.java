@@ -1205,13 +1205,13 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n!cosmos/auth/v1beta1/genesis.proto\022\023cos" +
-      "mos.auth.v1beta1\032\031google/protobuf/any.pr" +
-      "oto\032\024gogoproto/gogo.proto\032\036cosmos/auth/v" +
-      "1beta1/auth.proto\"i\n\014GenesisState\0221\n\006par" +
-      "ams\030\001 \001(\0132\033.cosmos.auth.v1beta1.ParamsB\004" +
-      "\310\336\037\000\022&\n\010accounts\030\002 \003(\0132\024.google.protobuf" +
-      ".AnyB+Z)github.com/cosmos/cosmos-sdk/x/a" +
-      "uth/typesb\006proto3"
+      "mos.auth.v1beta1\032\032google/protobuf2/any.p" +
+      "roto\032\024gogoproto/gogo.proto\032\036cosmos/auth/" +
+      "v1beta1/auth.proto\"i\n\014GenesisState\0221\n\006pa" +
+      "rams\030\001 \001(\0132\033.cosmos.auth.v1beta1.ParamsB" +
+      "\004\310\336\037\000\022&\n\010accounts\030\002 \003(\0132\024.google.protobu" +
+      "f.AnyB+Z)github.com/cosmos/cosmos-sdk/x/" +
+      "auth/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

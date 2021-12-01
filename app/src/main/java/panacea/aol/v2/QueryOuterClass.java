@@ -75,61 +75,59 @@ public final class QueryOuterClass {
     java.lang.String[] descriptorData = {
       "\n\032panacea/aol/v2/query.proto\022\016panacea.ao" +
       "l.v2\032\034google/api/annotations.proto\032*cosm" +
-      "os/base/query/v1beta1/pagination.proto\032\032" +
-      "panacea/aol/v2/owner.proto\032\033panacea/aol/" +
-      "v2/record.proto\032\033panacea/aol/v2/writer.p" +
-      "roto\032\032panacea/aol/v2/topic.proto\">\n\021Quer" +
-      "yTopicRequest\022\025\n\rowner_address\030\001 \001(\t\022\022\n\n" +
-      "topic_name\030\002 \001(\t\":\n\022QueryTopicResponse\022$" +
-      "\n\005topic\030\001 \001(\0132\025.panacea.aol.v2.Topic\"g\n\022" +
-      "QueryTopicsRequest\022\025\n\rowner_address\030\001 \001(" +
-      "\t\022:\n\npagination\030\002 \001(\0132&.cosmos.base.quer" +
-      "y.v1beta1.PageRequest\"g\n\023QueryTopicsResp" +
-      "onse\022\023\n\013topic_names\030\001 \003(\t\022;\n\npagination\030" +
-      "\002 \001(\0132\'.cosmos.base.query.v1beta1.PageRe" +
-      "sponse\"W\n\022QueryWriterRequest\022\025\n\rowner_ad" +
-      "dress\030\001 \001(\t\022\022\n\ntopic_name\030\002 \001(\t\022\026\n\016write" +
-      "r_address\030\003 \001(\t\"=\n\023QueryWriterResponse\022&" +
-      "\n\006writer\030\001 \001(\0132\026.panacea.aol.v2.Writer\"|" +
-      "\n\023QueryWritersRequest\022\025\n\rowner_address\030\001" +
-      " \001(\t\022\022\n\ntopic_name\030\002 \001(\t\022:\n\npagination\030\003" +
-      " \001(\0132&.cosmos.base.query.v1beta1.PageReq" +
-      "uest\"m\n\024QueryWritersResponse\022\030\n\020writer_a" +
-      "ddresses\030\001 \003(\t\022;\n\npagination\030\002 \001(\0132\'.cos" +
-      "mos.base.query.v1beta1.PageResponse\"O\n\022Q" +
-      "ueryRecordRequest\022\025\n\rowner_address\030\001 \001(\t" +
-      "\022\022\n\ntopic_name\030\002 \001(\t\022\016\n\006offset\030\003 \001(\004\"=\n\023" +
-      "QueryRecordResponse\022&\n\006record\030\001 \001(\0132\026.pa" +
-      "nacea.aol.v2.Record2\244\006\n\005Query\022\222\001\n\005Topic\022" +
-      "!.panacea.aol.v2.QueryTopicRequest\032\".pan" +
-      "acea.aol.v2.QueryTopicResponse\"B\202\323\344\223\002<\022:" +
-      "/panacea/aol/v2/owners/{owner_address}/t" +
-      "opics/{topic_name}\022\210\001\n\006Topics\022\".panacea." +
-      "aol.v2.QueryTopicsRequest\032#.panacea.aol." +
-      "v2.QueryTopicsResponse\"5\202\323\344\223\002/\022-/panacea" +
-      "/aol/v2/owners/{owner_address}/topics\022\256\001" +
-      "\n\006Writer\022\".panacea.aol.v2.QueryWriterReq" +
-      "uest\032#.panacea.aol.v2.QueryWriterRespons" +
-      "e\"[\202\323\344\223\002U\022S/panacea/aol/v2/owners/{owner" +
-      "_address}/topics/{topic_name}/writers/{w" +
-      "riter_address}\022\240\001\n\007Writers\022#.panacea.aol" +
-      ".v2.QueryWritersRequest\032$.panacea.aol.v2" +
-      ".QueryWritersResponse\"J\202\323\344\223\002D\022B/panacea/" +
-      "aol/v2/owners/{owner_address}/topics/{to" +
-      "pic_name}/writers\022\246\001\n\006Record\022\".panacea.a" +
-      "ol.v2.QueryRecordRequest\032#.panacea.aol.v" +
-      "2.QueryRecordResponse\"S\202\323\344\223\002M\022K/panacea/" +
-      "aol/v2/owners/{owner_address}/topics/{to" +
-      "pic_name}/records/{offset}B0P\001Z,github.c" +
-      "om/medibloc/panacea-core/x/aol/typesb\006pr" +
-      "oto3"
+      "os/base/query/v1beta1/pagination.proto\032\033" +
+      "panacea/aol/v2/record.proto\032\033panacea/aol" +
+      "/v2/writer.proto\032\032panacea/aol/v2/topic.p" +
+      "roto\">\n\021QueryTopicRequest\022\025\n\rowner_addre" +
+      "ss\030\001 \001(\t\022\022\n\ntopic_name\030\002 \001(\t\":\n\022QueryTop" +
+      "icResponse\022$\n\005topic\030\001 \001(\0132\025.panacea.aol." +
+      "v2.Topic\"g\n\022QueryTopicsRequest\022\025\n\rowner_" +
+      "address\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&.cosm" +
+      "os.base.query.v1beta1.PageRequest\"g\n\023Que" +
+      "ryTopicsResponse\022\023\n\013topic_names\030\001 \003(\t\022;\n" +
+      "\npagination\030\002 \001(\0132\'.cosmos.base.query.v1" +
+      "beta1.PageResponse\"W\n\022QueryWriterRequest" +
+      "\022\025\n\rowner_address\030\001 \001(\t\022\022\n\ntopic_name\030\002 " +
+      "\001(\t\022\026\n\016writer_address\030\003 \001(\t\"=\n\023QueryWrit" +
+      "erResponse\022&\n\006writer\030\001 \001(\0132\026.panacea.aol" +
+      ".v2.Writer\"|\n\023QueryWritersRequest\022\025\n\rown" +
+      "er_address\030\001 \001(\t\022\022\n\ntopic_name\030\002 \001(\t\022:\n\n" +
+      "pagination\030\003 \001(\0132&.cosmos.base.query.v1b" +
+      "eta1.PageRequest\"m\n\024QueryWritersResponse" +
+      "\022\030\n\020writer_addresses\030\001 \003(\t\022;\n\npagination" +
+      "\030\002 \001(\0132\'.cosmos.base.query.v1beta1.PageR" +
+      "esponse\"O\n\022QueryRecordRequest\022\025\n\rowner_a" +
+      "ddress\030\001 \001(\t\022\022\n\ntopic_name\030\002 \001(\t\022\016\n\006offs" +
+      "et\030\003 \001(\004\"=\n\023QueryRecordResponse\022&\n\006recor" +
+      "d\030\001 \001(\0132\026.panacea.aol.v2.Record2\244\006\n\005Quer" +
+      "y\022\222\001\n\005Topic\022!.panacea.aol.v2.QueryTopicR" +
+      "equest\032\".panacea.aol.v2.QueryTopicRespon" +
+      "se\"B\202\323\344\223\002<\022:/panacea/aol/v2/owners/{owne" +
+      "r_address}/topics/{topic_name}\022\210\001\n\006Topic" +
+      "s\022\".panacea.aol.v2.QueryTopicsRequest\032#." +
+      "panacea.aol.v2.QueryTopicsResponse\"5\202\323\344\223" +
+      "\002/\022-/panacea/aol/v2/owners/{owner_addres" +
+      "s}/topics\022\256\001\n\006Writer\022\".panacea.aol.v2.Qu" +
+      "eryWriterRequest\032#.panacea.aol.v2.QueryW" +
+      "riterResponse\"[\202\323\344\223\002U\022S/panacea/aol/v2/o" +
+      "wners/{owner_address}/topics/{topic_name" +
+      "}/writers/{writer_address}\022\240\001\n\007Writers\022#" +
+      ".panacea.aol.v2.QueryWritersRequest\032$.pa" +
+      "nacea.aol.v2.QueryWritersResponse\"J\202\323\344\223\002" +
+      "D\022B/panacea/aol/v2/owners/{owner_address" +
+      "}/topics/{topic_name}/writers\022\246\001\n\006Record" +
+      "\022\".panacea.aol.v2.QueryRecordRequest\032#.p" +
+      "anacea.aol.v2.QueryRecordResponse\"S\202\323\344\223\002" +
+      "M\022K/panacea/aol/v2/owners/{owner_address" +
+      "}/topics/{topic_name}/records/{offset}B0" +
+      "P\001Z,github.com/medibloc/panacea-core/x/a" +
+      "ol/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
-          panacea.aol.v2.OwnerOuterClass.getDescriptor(),
           panacea.aol.v2.RecordOuterClass.getDescriptor(),
           panacea.aol.v2.WriterOuterClass.getDescriptor(),
           panacea.aol.v2.TopicOuterClass.getDescriptor(),
@@ -201,7 +199,6 @@ public final class QueryOuterClass {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
-    panacea.aol.v2.OwnerOuterClass.getDescriptor();
     panacea.aol.v2.RecordOuterClass.getDescriptor();
     panacea.aol.v2.WriterOuterClass.getDescriptor();
     panacea.aol.v2.TopicOuterClass.getDescriptor();

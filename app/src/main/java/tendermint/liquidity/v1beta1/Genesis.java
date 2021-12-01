@@ -3273,9 +3273,9 @@ public final class Genesis {
       "rams\030\001 \001(\0132$.tendermint.liquidity.v1beta" +
       "1.ParamsB\004\310\336\037\000\022T\n\014pool_records\030\002 \003(\0132(.t" +
       "endermint.liquidity.v1beta1.PoolRecordB\024" +
-      "\310\336\037\000\362\336\037\014yaml:\"pools\":\010\350\240\037\000\210\240\037\000B3Z1github" +
-      ".com/tendermint/liquidity/x/liquidity/ty" +
-      "pesb\006proto3"
+      "\310\336\037\000\362\336\037\014yaml:\"pools\":\010\350\240\037\000\210\240\037\000B5Z3github" +
+      ".com/gravity-devs/liquidity/x/liquidity/" +
+      "typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

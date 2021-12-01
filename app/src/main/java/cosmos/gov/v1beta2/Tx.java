@@ -5969,41 +5969,41 @@ public final class Tx {
       "v.v1beta2\032\036cosmos/base/v1beta1/coin.prot" +
       "o\032\034cosmos/gov/v1beta2/gov.proto\032\031cosmos_" +
       "proto/cosmos.proto\032\024gogoproto/gogo.proto" +
-      "\032\031google/protobuf/any.proto\"\337\001\n\021MsgSubmi" +
-      "tProposal\022&\n\010messages\030\001 \003(\0132\024.google.pro" +
-      "tobuf.Any\022d\n\017initial_deposit\030\002 \003(\0132\031.cos" +
-      "mos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.co" +
-      "m/cosmos/cosmos-sdk/types.Coins\022*\n\010propo" +
-      "ser\030\003 \001(\tB\030\322\264-\024cosmos.AddressString:\020\350\240\037" +
-      "\000\230\240\037\000\200\334 \000\210\240\037\000\"A\n\031MsgSubmitProposalRespon" +
-      "se\022$\n\013proposal_id\030\001 \001(\004B\017\352\336\037\013proposal_id" +
-      "\"\260\001\n\007MsgVote\022:\n\013proposal_id\030\001 \001(\004B%\352\336\037\013p" +
-      "roposal_id\362\336\037\022yaml:\"proposal_id\"\022\'\n\005vote" +
-      "r\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022.\n\006opt" +
-      "ion\030\003 \001(\0162\036.cosmos.gov.v1beta2.VoteOptio" +
-      "n:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\021\n\017MsgVoteResponse\"\270" +
-      "\001\n\017MsgVoteWeighted\022+\n\013proposal_id\030\001 \001(\004B" +
-      "\026\362\336\037\022yaml:\"proposal_id\"\022\'\n\005voter\030\002 \001(\tB\030" +
-      "\322\264-\024cosmos.AddressString\022=\n\007options\030\003 \003(" +
-      "\0132&.cosmos.gov.v1beta2.WeightedVoteOptio" +
-      "nB\004\310\336\037\000:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\031\n\027MsgVoteWeig" +
-      "htedResponse\"\316\001\n\nMsgDeposit\022$\n\013proposal_" +
-      "id\030\001 \001(\004B\017\352\336\037\013proposal_id\022+\n\tdepositor\030\002" +
-      " \001(\tB\030\322\264-\024cosmos.AddressString\022[\n\006amount" +
-      "\030\003 \003(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252" +
-      "\337\037(github.com/cosmos/cosmos-sdk/types.Co" +
-      "ins:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\024\n\022MsgDepositRespo" +
-      "nse2\354\002\n\003Msg\022f\n\016SubmitProposal\022%.cosmos.g" +
-      "ov.v1beta2.MsgSubmitProposal\032-.cosmos.go" +
-      "v.v1beta2.MsgSubmitProposalResponse\022H\n\004V" +
-      "ote\022\033.cosmos.gov.v1beta2.MsgVote\032#.cosmo" +
-      "s.gov.v1beta2.MsgVoteResponse\022`\n\014VoteWei" +
-      "ghted\022#.cosmos.gov.v1beta2.MsgVoteWeight" +
-      "ed\032+.cosmos.gov.v1beta2.MsgVoteWeightedR" +
-      "esponse\022Q\n\007Deposit\022\036.cosmos.gov.v1beta2." +
-      "MsgDeposit\032&.cosmos.gov.v1beta2.MsgDepos" +
-      "itResponseB*Z(github.com/cosmos/cosmos-s" +
-      "dk/x/gov/typesb\006proto3"
+      "\032\032google/protobuf2/any.proto\"\337\001\n\021MsgSubm" +
+      "itProposal\022&\n\010messages\030\001 \003(\0132\024.google.pr" +
+      "otobuf.Any\022d\n\017initial_deposit\030\002 \003(\0132\031.co" +
+      "smos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.c" +
+      "om/cosmos/cosmos-sdk/types.Coins\022*\n\010prop" +
+      "oser\030\003 \001(\tB\030\322\264-\024cosmos.AddressString:\020\350\240" +
+      "\037\000\230\240\037\000\200\334 \000\210\240\037\000\"A\n\031MsgSubmitProposalRespo" +
+      "nse\022$\n\013proposal_id\030\001 \001(\004B\017\352\336\037\013proposal_i" +
+      "d\"\260\001\n\007MsgVote\022:\n\013proposal_id\030\001 \001(\004B%\352\336\037\013" +
+      "proposal_id\362\336\037\022yaml:\"proposal_id\"\022\'\n\005vot" +
+      "er\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022.\n\006op" +
+      "tion\030\003 \001(\0162\036.cosmos.gov.v1beta2.VoteOpti" +
+      "on:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\021\n\017MsgVoteResponse\"" +
+      "\270\001\n\017MsgVoteWeighted\022+\n\013proposal_id\030\001 \001(\004" +
+      "B\026\362\336\037\022yaml:\"proposal_id\"\022\'\n\005voter\030\002 \001(\tB" +
+      "\030\322\264-\024cosmos.AddressString\022=\n\007options\030\003 \003" +
+      "(\0132&.cosmos.gov.v1beta2.WeightedVoteOpti" +
+      "onB\004\310\336\037\000:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\031\n\027MsgVoteWei" +
+      "ghtedResponse\"\316\001\n\nMsgDeposit\022$\n\013proposal" +
+      "_id\030\001 \001(\004B\017\352\336\037\013proposal_id\022+\n\tdepositor\030" +
+      "\002 \001(\tB\030\322\264-\024cosmos.AddressString\022[\n\006amoun" +
+      "t\030\003 \003(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000" +
+      "\252\337\037(github.com/cosmos/cosmos-sdk/types.C" +
+      "oins:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\024\n\022MsgDepositResp" +
+      "onse2\354\002\n\003Msg\022f\n\016SubmitProposal\022%.cosmos." +
+      "gov.v1beta2.MsgSubmitProposal\032-.cosmos.g" +
+      "ov.v1beta2.MsgSubmitProposalResponse\022H\n\004" +
+      "Vote\022\033.cosmos.gov.v1beta2.MsgVote\032#.cosm" +
+      "os.gov.v1beta2.MsgVoteResponse\022`\n\014VoteWe" +
+      "ighted\022#.cosmos.gov.v1beta2.MsgVoteWeigh" +
+      "ted\032+.cosmos.gov.v1beta2.MsgVoteWeighted" +
+      "Response\022Q\n\007Deposit\022\036.cosmos.gov.v1beta2" +
+      ".MsgDeposit\032&.cosmos.gov.v1beta2.MsgDepo" +
+      "sitResponseB*Z(github.com/cosmos/cosmos-" +
+      "sdk/x/gov/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

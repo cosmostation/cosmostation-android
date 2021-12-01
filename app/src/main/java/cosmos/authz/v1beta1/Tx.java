@@ -4444,28 +4444,28 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n\035cosmos/authz/v1beta1/tx.proto\022\024cosmos." +
       "authz.v1beta1\032\031cosmos_proto/cosmos.proto" +
-      "\032\024gogoproto/gogo.proto\032\031google/protobuf/" +
-      "any.proto\032 cosmos/authz/v1beta1/authz.pr" +
-      "oto\"\222\001\n\010MsgGrant\022)\n\007granter\030\001 \001(\tB\030\322\264-\024c" +
-      "osmos.AddressString\022)\n\007grantee\030\002 \001(\tB\030\322\264" +
-      "-\024cosmos.AddressString\0220\n\005grant\030\003 \001(\0132\033." +
-      "cosmos.authz.v1beta1.GrantB\004\310\336\037\000\"\"\n\017MsgE" +
-      "xecResponse\022\017\n\007results\030\001 \003(\014\"z\n\007MsgExec\022" +
-      ")\n\007grantee\030\001 \001(\tB\030\322\264-\024cosmos.AddressStri" +
-      "ng\022D\n\004msgs\030\002 \003(\0132\024.google.protobuf.AnyB " +
-      "\312\264-\034sdk.Msg, authz.Authorization\"\022\n\020MsgG" +
-      "rantResponse\"w\n\tMsgRevoke\022)\n\007granter\030\001 \001" +
-      "(\tB\030\322\264-\024cosmos.AddressString\022)\n\007grantee\030" +
-      "\002 \001(\tB\030\322\264-\024cosmos.AddressString\022\024\n\014msg_t" +
-      "ype_url\030\003 \001(\t\"\023\n\021MsgRevokeResponse2\370\001\n\003M" +
-      "sg\022O\n\005Grant\022\036.cosmos.authz.v1beta1.MsgGr" +
-      "ant\032&.cosmos.authz.v1beta1.MsgGrantRespo" +
-      "nse\022L\n\004Exec\022\035.cosmos.authz.v1beta1.MsgEx" +
-      "ec\032%.cosmos.authz.v1beta1.MsgExecRespons" +
-      "e\022R\n\006Revoke\022\037.cosmos.authz.v1beta1.MsgRe" +
-      "voke\032\'.cosmos.authz.v1beta1.MsgRevokeRes" +
-      "ponseB*Z$github.com/cosmos/cosmos-sdk/x/" +
-      "authz\310\341\036\000b\006proto3"
+      "\032\024gogoproto/gogo.proto\032\032google/protobuf2" +
+      "/any.proto\032 cosmos/authz/v1beta1/authz.p" +
+      "roto\"\222\001\n\010MsgGrant\022)\n\007granter\030\001 \001(\tB\030\322\264-\024" +
+      "cosmos.AddressString\022)\n\007grantee\030\002 \001(\tB\030\322" +
+      "\264-\024cosmos.AddressString\0220\n\005grant\030\003 \001(\0132\033" +
+      ".cosmos.authz.v1beta1.GrantB\004\310\336\037\000\"\"\n\017Msg" +
+      "ExecResponse\022\017\n\007results\030\001 \003(\014\"z\n\007MsgExec" +
+      "\022)\n\007grantee\030\001 \001(\tB\030\322\264-\024cosmos.AddressStr" +
+      "ing\022D\n\004msgs\030\002 \003(\0132\024.google.protobuf.AnyB" +
+      " \312\264-\034sdk.Msg, authz.Authorization\"\022\n\020Msg" +
+      "GrantResponse\"w\n\tMsgRevoke\022)\n\007granter\030\001 " +
+      "\001(\tB\030\322\264-\024cosmos.AddressString\022)\n\007grantee" +
+      "\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022\024\n\014msg_" +
+      "type_url\030\003 \001(\t\"\023\n\021MsgRevokeResponse2\370\001\n\003" +
+      "Msg\022O\n\005Grant\022\036.cosmos.authz.v1beta1.MsgG" +
+      "rant\032&.cosmos.authz.v1beta1.MsgGrantResp" +
+      "onse\022L\n\004Exec\022\035.cosmos.authz.v1beta1.MsgE" +
+      "xec\032%.cosmos.authz.v1beta1.MsgExecRespon" +
+      "se\022R\n\006Revoke\022\037.cosmos.authz.v1beta1.MsgR" +
+      "evoke\032\'.cosmos.authz.v1beta1.MsgRevokeRe" +
+      "sponseB*Z$github.com/cosmos/cosmos-sdk/x" +
+      "/authz\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -19313,125 +19313,123 @@ public final class QueryOuterClass {
       "\n regen/group/v1alpha1/query.proto\022\024rege" +
       "n.group.v1alpha1\032 regen/group/v1alpha1/t" +
       "ypes.proto\032\034google/api/annotations.proto" +
-      "\032\024gogoproto/gogo.proto\032*cosmos/base/quer" +
-      "y/v1beta1/pagination.proto\")\n\025QueryGroup" +
-      "InfoRequest\022\020\n\010group_id\030\001 \001(\004\"G\n\026QueryGr" +
-      "oupInfoResponse\022-\n\004info\030\001 \001(\0132\037.regen.gr" +
-      "oup.v1alpha1.GroupInfo\"/\n\034QueryGroupAcco" +
-      "untInfoRequest\022\017\n\007address\030\001 \001(\t\"U\n\035Query" +
-      "GroupAccountInfoResponse\0224\n\004info\030\001 \001(\0132&" +
-      ".regen.group.v1alpha1.GroupAccountInfo\"h" +
-      "\n\030QueryGroupMembersRequest\022\020\n\010group_id\030\001" +
+      "\032*cosmos/base/query/v1beta1/pagination.p" +
+      "roto\")\n\025QueryGroupInfoRequest\022\020\n\010group_i" +
+      "d\030\001 \001(\004\"G\n\026QueryGroupInfoResponse\022-\n\004inf" +
+      "o\030\001 \001(\0132\037.regen.group.v1alpha1.GroupInfo" +
+      "\"/\n\034QueryGroupAccountInfoRequest\022\017\n\007addr" +
+      "ess\030\001 \001(\t\"U\n\035QueryGroupAccountInfoRespon" +
+      "se\0224\n\004info\030\001 \001(\0132&.regen.group.v1alpha1." +
+      "GroupAccountInfo\"h\n\030QueryGroupMembersReq" +
+      "uest\022\020\n\010group_id\030\001 \001(\004\022:\n\npagination\030\002 \001" +
+      "(\0132&.cosmos.base.query.v1beta1.PageReque" +
+      "st\"\214\001\n\031QueryGroupMembersResponse\0222\n\007memb" +
+      "ers\030\001 \003(\0132!.regen.group.v1alpha1.GroupMe" +
+      "mber\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.q" +
+      "uery.v1beta1.PageResponse\"f\n\031QueryGroups" +
+      "ByAdminRequest\022\r\n\005admin\030\001 \001(\t\022:\n\npaginat" +
+      "ion\030\002 \001(\0132&.cosmos.base.query.v1beta1.Pa" +
+      "geRequest\"\212\001\n\032QueryGroupsByAdminResponse" +
+      "\022/\n\006groups\030\001 \003(\0132\037.regen.group.v1alpha1." +
+      "GroupInfo\022;\n\npagination\030\002 \001(\0132\'.cosmos.b" +
+      "ase.query.v1beta1.PageResponse\"p\n QueryG" +
+      "roupAccountsByGroupRequest\022\020\n\010group_id\030\001" +
       " \001(\004\022:\n\npagination\030\002 \001(\0132&.cosmos.base.q" +
-      "uery.v1beta1.PageRequest\"\214\001\n\031QueryGroupM" +
-      "embersResponse\0222\n\007members\030\001 \003(\0132!.regen." +
-      "group.v1alpha1.GroupMember\022;\n\npagination" +
-      "\030\002 \001(\0132\'.cosmos.base.query.v1beta1.PageR" +
-      "esponse\"f\n\031QueryGroupsByAdminRequest\022\r\n\005" +
-      "admin\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&.cosmos" +
-      ".base.query.v1beta1.PageRequest\"\212\001\n\032Quer" +
-      "yGroupsByAdminResponse\022/\n\006groups\030\001 \003(\0132\037" +
-      ".regen.group.v1alpha1.GroupInfo\022;\n\npagin" +
-      "ation\030\002 \001(\0132\'.cosmos.base.query.v1beta1." +
-      "PageResponse\"p\n QueryGroupAccountsByGrou" +
-      "pRequest\022\020\n\010group_id\030\001 \001(\004\022:\n\npagination" +
-      "\030\002 \001(\0132&.cosmos.base.query.v1beta1.PageR" +
-      "equest\"\240\001\n!QueryGroupAccountsByGroupResp" +
-      "onse\022>\n\016group_accounts\030\001 \003(\0132&.regen.gro" +
-      "up.v1alpha1.GroupAccountInfo\022;\n\npaginati" +
-      "on\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Pag" +
-      "eResponse\"m\n QueryGroupAccountsByAdminRe" +
-      "quest\022\r\n\005admin\030\001 \001(\t\022:\n\npagination\030\002 \001(\013" +
-      "2&.cosmos.base.query.v1beta1.PageRequest" +
-      "\"\240\001\n!QueryGroupAccountsByAdminResponse\022>" +
-      "\n\016group_accounts\030\001 \003(\0132&.regen.group.v1a" +
-      "lpha1.GroupAccountInfo\022;\n\npagination\030\002 \001" +
-      "(\0132\'.cosmos.base.query.v1beta1.PageRespo" +
-      "nse\"+\n\024QueryProposalRequest\022\023\n\013proposal_" +
-      "id\030\001 \001(\004\"I\n\025QueryProposalResponse\0220\n\010pro" +
-      "posal\030\001 \001(\0132\036.regen.group.v1alpha1.Propo" +
-      "sal\"r\n#QueryProposalsByGroupAccountReque" +
-      "st\022\017\n\007address\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132" +
-      "&.cosmos.base.query.v1beta1.PageRequest\"" +
-      "\226\001\n$QueryProposalsByGroupAccountResponse" +
-      "\0221\n\tproposals\030\001 \003(\0132\036.regen.group.v1alph" +
-      "a1.Proposal\022;\n\npagination\030\002 \001(\0132\'.cosmos" +
-      ".base.query.v1beta1.PageResponse\"E\n\037Quer" +
-      "yVoteByProposalVoterRequest\022\023\n\013proposal_" +
-      "id\030\001 \001(\004\022\r\n\005voter\030\002 \001(\t\"L\n QueryVoteByPr" +
-      "oposalVoterResponse\022(\n\004vote\030\001 \001(\0132\032.rege" +
-      "n.group.v1alpha1.Vote\"n\n\033QueryVotesByPro" +
-      "posalRequest\022\023\n\013proposal_id\030\001 \001(\004\022:\n\npag" +
-      "ination\030\002 \001(\0132&.cosmos.base.query.v1beta" +
-      "1.PageRequest\"\206\001\n\034QueryVotesByProposalRe" +
-      "sponse\022)\n\005votes\030\001 \003(\0132\032.regen.group.v1al" +
-      "pha1.Vote\022;\n\npagination\030\002 \001(\0132\'.cosmos.b" +
-      "ase.query.v1beta1.PageResponse\"e\n\030QueryV" +
-      "otesByVoterRequest\022\r\n\005voter\030\001 \001(\t\022:\n\npag" +
-      "ination\030\002 \001(\0132&.cosmos.base.query.v1beta" +
-      "1.PageRequest\"\203\001\n\031QueryVotesByVoterRespo" +
-      "nse\022)\n\005votes\030\001 \003(\0132\032.regen.group.v1alpha" +
-      "1.Vote\022;\n\npagination\030\002 \001(\0132\'.cosmos.base" +
-      ".query.v1beta1.PageResponse2\315\017\n\005Query\022\234\001" +
-      "\n\tGroupInfo\022+.regen.group.v1alpha1.Query" +
-      "GroupInfoRequest\032,.regen.group.v1alpha1." +
-      "QueryGroupInfoResponse\"4\202\323\344\223\002.\022,/regen/g" +
-      "roup/v1alpha1/groups/{group_id}/info\022\264\001\n" +
-      "\020GroupAccountInfo\0222.regen.group.v1alpha1" +
-      ".QueryGroupAccountInfoRequest\0323.regen.gr" +
-      "oup.v1alpha1.QueryGroupAccountInfoRespon" +
-      "se\"7\202\323\344\223\0021\022//regen/group/v1alpha1/groups" +
-      "/accounts/{address}\022\250\001\n\014GroupMembers\022..r" +
-      "egen.group.v1alpha1.QueryGroupMembersReq" +
-      "uest\032/.regen.group.v1alpha1.QueryGroupMe" +
-      "mbersResponse\"7\202\323\344\223\0021\022//regen/group/v1al" +
-      "pha1/groups/{group_id}/members\022\247\001\n\rGroup" +
-      "sByAdmin\022/.regen.group.v1alpha1.QueryGro" +
-      "upsByAdminRequest\0320.regen.group.v1alpha1" +
-      ".QueryGroupsByAdminResponse\"3\202\323\344\223\002-\022+/re" +
-      "gen/group/v1alpha1/groups/admins/{admin}" +
-      "\022\301\001\n\024GroupAccountsByGroup\0226.regen.group." +
-      "v1alpha1.QueryGroupAccountsByGroupReques" +
-      "t\0327.regen.group.v1alpha1.QueryGroupAccou" +
-      "ntsByGroupResponse\"8\202\323\344\223\0022\0220/regen/group" +
-      "/v1alpha1/groups/{group_id}/accounts\022\276\001\n" +
-      "\024GroupAccountsByAdmin\0226.regen.group.v1al" +
-      "pha1.QueryGroupAccountsByAdminRequest\0327." +
-      "regen.group.v1alpha1.QueryGroupAccountsB" +
-      "yAdminResponse\"5\202\323\344\223\002/\022-/regen/group/v1a" +
-      "lpha1/admins/{admin}/accounts\022\232\001\n\010Propos" +
-      "al\022*.regen.group.v1alpha1.QueryProposalR" +
-      "equest\032+.regen.group.v1alpha1.QueryPropo" +
-      "salResponse\"5\202\323\344\223\002/\022-/regen/group/v1alph" +
-      "a1/proposals/{proposal_id}\022\322\001\n\027Proposals" +
-      "ByGroupAccount\0229.regen.group.v1alpha1.Qu" +
-      "eryProposalsByGroupAccountRequest\032:.rege" +
-      "n.group.v1alpha1.QueryProposalsByGroupAc" +
-      "countResponse\"@\202\323\344\223\002:\0228/regen/group/v1al" +
-      "pha1/group-accounts/{address}/proposals\022" +
-      "\311\001\n\023VoteByProposalVoter\0225.regen.group.v1" +
-      "alpha1.QueryVoteByProposalVoterRequest\0326" +
-      ".regen.group.v1alpha1.QueryVoteByProposa" +
-      "lVoterResponse\"C\202\323\344\223\002=\022;/regen/group/v1a" +
-      "lpha1/proposals/{proposal_id}/votes/{vot" +
-      "er}\022\265\001\n\017VotesByProposal\0221.regen.group.v1" +
-      "alpha1.QueryVotesByProposalRequest\0322.reg" +
-      "en.group.v1alpha1.QueryVotesByProposalRe" +
-      "sponse\";\202\323\344\223\0025\0223/regen/group/v1alpha1/pr" +
-      "oposals/{proposal_id}/votes\022\235\001\n\014VotesByV" +
-      "oter\022..regen.group.v1alpha1.QueryVotesBy" +
-      "VoterRequest\032/.regen.group.v1alpha1.Quer" +
-      "yVotesByVoterResponse\",\202\323\344\223\002&\022$/regen/gr" +
-      "oup/v1alpha1/voters/{voter}B/Z-github.co" +
-      "m/regen-network/regen-ledger/x/groupb\006pr" +
-      "oto3"
+      "uery.v1beta1.PageRequest\"\240\001\n!QueryGroupA" +
+      "ccountsByGroupResponse\022>\n\016group_accounts" +
+      "\030\001 \003(\0132&.regen.group.v1alpha1.GroupAccou" +
+      "ntInfo\022;\n\npagination\030\002 \001(\0132\'.cosmos.base" +
+      ".query.v1beta1.PageResponse\"m\n QueryGrou" +
+      "pAccountsByAdminRequest\022\r\n\005admin\030\001 \001(\t\022:" +
+      "\n\npagination\030\002 \001(\0132&.cosmos.base.query.v" +
+      "1beta1.PageRequest\"\240\001\n!QueryGroupAccount" +
+      "sByAdminResponse\022>\n\016group_accounts\030\001 \003(\013" +
+      "2&.regen.group.v1alpha1.GroupAccountInfo" +
+      "\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.query" +
+      ".v1beta1.PageResponse\"+\n\024QueryProposalRe" +
+      "quest\022\023\n\013proposal_id\030\001 \001(\004\"I\n\025QueryPropo" +
+      "salResponse\0220\n\010proposal\030\001 \001(\0132\036.regen.gr" +
+      "oup.v1alpha1.Proposal\"r\n#QueryProposalsB" +
+      "yGroupAccountRequest\022\017\n\007address\030\001 \001(\t\022:\n" +
+      "\npagination\030\002 \001(\0132&.cosmos.base.query.v1" +
+      "beta1.PageRequest\"\226\001\n$QueryProposalsByGr" +
+      "oupAccountResponse\0221\n\tproposals\030\001 \003(\0132\036." +
+      "regen.group.v1alpha1.Proposal\022;\n\npaginat" +
+      "ion\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Pa" +
+      "geResponse\"E\n\037QueryVoteByProposalVoterRe" +
+      "quest\022\023\n\013proposal_id\030\001 \001(\004\022\r\n\005voter\030\002 \001(" +
+      "\t\"L\n QueryVoteByProposalVoterResponse\022(\n" +
+      "\004vote\030\001 \001(\0132\032.regen.group.v1alpha1.Vote\"" +
+      "n\n\033QueryVotesByProposalRequest\022\023\n\013propos" +
+      "al_id\030\001 \001(\004\022:\n\npagination\030\002 \001(\0132&.cosmos" +
+      ".base.query.v1beta1.PageRequest\"\206\001\n\034Quer" +
+      "yVotesByProposalResponse\022)\n\005votes\030\001 \003(\0132" +
+      "\032.regen.group.v1alpha1.Vote\022;\n\npaginatio" +
+      "n\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Page" +
+      "Response\"e\n\030QueryVotesByVoterRequest\022\r\n\005" +
+      "voter\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&.cosmos" +
+      ".base.query.v1beta1.PageRequest\"\203\001\n\031Quer" +
+      "yVotesByVoterResponse\022)\n\005votes\030\001 \003(\0132\032.r" +
+      "egen.group.v1alpha1.Vote\022;\n\npagination\030\002" +
+      " \001(\0132\'.cosmos.base.query.v1beta1.PageRes" +
+      "ponse2\315\017\n\005Query\022\234\001\n\tGroupInfo\022+.regen.gr" +
+      "oup.v1alpha1.QueryGroupInfoRequest\032,.reg" +
+      "en.group.v1alpha1.QueryGroupInfoResponse" +
+      "\"4\202\323\344\223\002.\022,/regen/group/v1alpha1/groups/{" +
+      "group_id}/info\022\264\001\n\020GroupAccountInfo\0222.re" +
+      "gen.group.v1alpha1.QueryGroupAccountInfo" +
+      "Request\0323.regen.group.v1alpha1.QueryGrou" +
+      "pAccountInfoResponse\"7\202\323\344\223\0021\022//regen/gro" +
+      "up/v1alpha1/groups/accounts/{address}\022\250\001" +
+      "\n\014GroupMembers\022..regen.group.v1alpha1.Qu" +
+      "eryGroupMembersRequest\032/.regen.group.v1a" +
+      "lpha1.QueryGroupMembersResponse\"7\202\323\344\223\0021\022" +
+      "//regen/group/v1alpha1/groups/{group_id}" +
+      "/members\022\247\001\n\rGroupsByAdmin\022/.regen.group" +
+      ".v1alpha1.QueryGroupsByAdminRequest\0320.re" +
+      "gen.group.v1alpha1.QueryGroupsByAdminRes" +
+      "ponse\"3\202\323\344\223\002-\022+/regen/group/v1alpha1/gro" +
+      "ups/admins/{admin}\022\301\001\n\024GroupAccountsByGr" +
+      "oup\0226.regen.group.v1alpha1.QueryGroupAcc" +
+      "ountsByGroupRequest\0327.regen.group.v1alph" +
+      "a1.QueryGroupAccountsByGroupResponse\"8\202\323" +
+      "\344\223\0022\0220/regen/group/v1alpha1/groups/{grou" +
+      "p_id}/accounts\022\276\001\n\024GroupAccountsByAdmin\022" +
+      "6.regen.group.v1alpha1.QueryGroupAccount" +
+      "sByAdminRequest\0327.regen.group.v1alpha1.Q" +
+      "ueryGroupAccountsByAdminResponse\"5\202\323\344\223\002/" +
+      "\022-/regen/group/v1alpha1/admins/{admin}/a" +
+      "ccounts\022\232\001\n\010Proposal\022*.regen.group.v1alp" +
+      "ha1.QueryProposalRequest\032+.regen.group.v" +
+      "1alpha1.QueryProposalResponse\"5\202\323\344\223\002/\022-/" +
+      "regen/group/v1alpha1/proposals/{proposal" +
+      "_id}\022\322\001\n\027ProposalsByGroupAccount\0229.regen" +
+      ".group.v1alpha1.QueryProposalsByGroupAcc" +
+      "ountRequest\032:.regen.group.v1alpha1.Query" +
+      "ProposalsByGroupAccountResponse\"@\202\323\344\223\002:\022" +
+      "8/regen/group/v1alpha1/group-accounts/{a" +
+      "ddress}/proposals\022\311\001\n\023VoteByProposalVote" +
+      "r\0225.regen.group.v1alpha1.QueryVoteByProp" +
+      "osalVoterRequest\0326.regen.group.v1alpha1." +
+      "QueryVoteByProposalVoterResponse\"C\202\323\344\223\002=" +
+      "\022;/regen/group/v1alpha1/proposals/{propo" +
+      "sal_id}/votes/{voter}\022\265\001\n\017VotesByProposa" +
+      "l\0221.regen.group.v1alpha1.QueryVotesByPro" +
+      "posalRequest\0322.regen.group.v1alpha1.Quer" +
+      "yVotesByProposalResponse\";\202\323\344\223\0025\0223/regen" +
+      "/group/v1alpha1/proposals/{proposal_id}/" +
+      "votes\022\235\001\n\014VotesByVoter\022..regen.group.v1a" +
+      "lpha1.QueryVotesByVoterRequest\032/.regen.g" +
+      "roup.v1alpha1.QueryVotesByVoterResponse\"" +
+      ",\202\323\344\223\002&\022$/regen/group/v1alpha1/voters/{v" +
+      "oter}B/Z-github.com/regen-network/regen-" +
+      "ledger/x/groupb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           regen.group.v1alpha1.Types.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
         });
     internal_static_regen_group_v1alpha1_QueryGroupInfoRequest_descriptor =
@@ -19573,7 +19571,6 @@ public final class QueryOuterClass {
         .internalUpdateFileDescriptor(descriptor, registry);
     regen.group.v1alpha1.Types.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
   }
 

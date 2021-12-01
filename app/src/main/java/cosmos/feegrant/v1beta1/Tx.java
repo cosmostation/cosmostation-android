@@ -2757,24 +2757,24 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n cosmos/feegrant/v1beta1/tx.proto\022\027cosm" +
-      "os.feegrant.v1beta1\032\031google/protobuf/any" +
-      ".proto\032\031cosmos_proto/cosmos.proto\"\245\001\n\021Ms" +
-      "gGrantAllowance\022)\n\007granter\030\001 \001(\tB\030\322\264-\024co" +
-      "smos.AddressString\022)\n\007grantee\030\002 \001(\tB\030\322\264-" +
-      "\024cosmos.AddressString\022:\n\tallowance\030\003 \001(\013" +
-      "2\024.google.protobuf.AnyB\021\312\264-\rFeeAllowance" +
-      "I\"\033\n\031MsgGrantAllowanceResponse\"j\n\022MsgRev" +
-      "okeAllowance\022)\n\007granter\030\001 \001(\tB\030\322\264-\024cosmo" +
-      "s.AddressString\022)\n\007grantee\030\002 \001(\tB\030\322\264-\024co" +
-      "smos.AddressString\"\034\n\032MsgRevokeAllowance" +
-      "Response2\354\001\n\003Msg\022p\n\016GrantAllowance\022*.cos" +
-      "mos.feegrant.v1beta1.MsgGrantAllowance\0322" +
-      ".cosmos.feegrant.v1beta1.MsgGrantAllowan" +
-      "ceResponse\022s\n\017RevokeAllowance\022+.cosmos.f" +
-      "eegrant.v1beta1.MsgRevokeAllowance\0323.cos" +
-      "mos.feegrant.v1beta1.MsgRevokeAllowanceR" +
-      "esponseB)Z\'github.com/cosmos/cosmos-sdk/" +
-      "x/feegrantb\006proto3"
+      "os.feegrant.v1beta1\032\032google/protobuf2/an" +
+      "y.proto\032\031cosmos_proto/cosmos.proto\"\245\001\n\021M" +
+      "sgGrantAllowance\022)\n\007granter\030\001 \001(\tB\030\322\264-\024c" +
+      "osmos.AddressString\022)\n\007grantee\030\002 \001(\tB\030\322\264" +
+      "-\024cosmos.AddressString\022:\n\tallowance\030\003 \001(" +
+      "\0132\024.google.protobuf.AnyB\021\312\264-\rFeeAllowanc" +
+      "eI\"\033\n\031MsgGrantAllowanceResponse\"j\n\022MsgRe" +
+      "vokeAllowance\022)\n\007granter\030\001 \001(\tB\030\322\264-\024cosm" +
+      "os.AddressString\022)\n\007grantee\030\002 \001(\tB\030\322\264-\024c" +
+      "osmos.AddressString\"\034\n\032MsgRevokeAllowanc" +
+      "eResponse2\354\001\n\003Msg\022p\n\016GrantAllowance\022*.co" +
+      "smos.feegrant.v1beta1.MsgGrantAllowance\032" +
+      "2.cosmos.feegrant.v1beta1.MsgGrantAllowa" +
+      "nceResponse\022s\n\017RevokeAllowance\022+.cosmos." +
+      "feegrant.v1beta1.MsgRevokeAllowance\0323.co" +
+      "smos.feegrant.v1beta1.MsgRevokeAllowance" +
+      "ResponseB)Z\'github.com/cosmos/cosmos-sdk" +
+      "/x/feegrantb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

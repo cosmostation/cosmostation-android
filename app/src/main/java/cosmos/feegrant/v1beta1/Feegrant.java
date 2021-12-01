@@ -5578,34 +5578,34 @@ public final class Feegrant {
     java.lang.String[] descriptorData = {
       "\n&cosmos/feegrant/v1beta1/feegrant.proto" +
       "\022\027cosmos.feegrant.v1beta1\032\024gogoproto/gog" +
-      "o.proto\032\031google/protobuf/any.proto\032\031cosm" +
-      "os_proto/cosmos.proto\032\036cosmos/base/v1bet" +
-      "a1/coin.proto\032\037google/protobuf/timestamp" +
-      ".proto\032\036google/protobuf/duration.proto\"\273" +
-      "\001\n\016BasicAllowance\022`\n\013spend_limit\030\001 \003(\0132\031" +
-      ".cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(githu" +
-      "b.com/cosmos/cosmos-sdk/types.Coins\0224\n\ne" +
-      "xpiration\030\002 \001(\0132\032.google.protobuf.Timest" +
-      "ampB\004\220\337\037\001:\021\312\264-\rFeeAllowanceI\"\245\003\n\021Periodi" +
-      "cAllowance\022<\n\005basic\030\001 \001(\0132\'.cosmos.feegr" +
-      "ant.v1beta1.BasicAllowanceB\004\310\336\037\000\0223\n\006peri" +
-      "od\030\002 \001(\0132\031.google.protobuf.DurationB\010\230\337\037" +
-      "\001\310\336\037\000\022g\n\022period_spend_limit\030\003 \003(\0132\031.cosm" +
-      "os.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com" +
-      "/cosmos/cosmos-sdk/types.Coins\022e\n\020period" +
-      "_can_spend\030\004 \003(\0132\031.cosmos.base.v1beta1.C" +
-      "oinB0\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sd" +
-      "k/types.Coins\022:\n\014period_reset\030\005 \001(\0132\032.go" +
-      "ogle.protobuf.TimestampB\010\220\337\037\001\310\336\037\000:\021\312\264-\rF" +
-      "eeAllowanceI\"\202\001\n\023AllowedMsgAllowance\022:\n\t" +
-      "allowance\030\001 \001(\0132\024.google.protobuf.AnyB\021\312" +
-      "\264-\rFeeAllowanceI\022\030\n\020allowed_messages\030\002 \003" +
-      "(\t:\025\210\240\037\000\312\264-\rFeeAllowanceI\"\231\001\n\005Grant\022)\n\007g" +
-      "ranter\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022)" +
-      "\n\007grantee\030\002 \001(\tB\030\322\264-\024cosmos.AddressStrin" +
-      "g\022:\n\tallowance\030\003 \001(\0132\024.google.protobuf.A" +
-      "nyB\021\312\264-\rFeeAllowanceIB)Z\'github.com/cosm" +
-      "os/cosmos-sdk/x/feegrantb\006proto3"
+      "o.proto\032\032google/protobuf2/any.proto\032\031cos" +
+      "mos_proto/cosmos.proto\032\036cosmos/base/v1be" +
+      "ta1/coin.proto\032\037google/protobuf/timestam" +
+      "p.proto\032\036google/protobuf/duration.proto\"" +
+      "\273\001\n\016BasicAllowance\022`\n\013spend_limit\030\001 \003(\0132" +
+      "\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(gith" +
+      "ub.com/cosmos/cosmos-sdk/types.Coins\0224\n\n" +
+      "expiration\030\002 \001(\0132\032.google.protobuf.Times" +
+      "tampB\004\220\337\037\001:\021\312\264-\rFeeAllowanceI\"\245\003\n\021Period" +
+      "icAllowance\022<\n\005basic\030\001 \001(\0132\'.cosmos.feeg" +
+      "rant.v1beta1.BasicAllowanceB\004\310\336\037\000\0223\n\006per" +
+      "iod\030\002 \001(\0132\031.google.protobuf.DurationB\010\230\337" +
+      "\037\001\310\336\037\000\022g\n\022period_spend_limit\030\003 \003(\0132\031.cos" +
+      "mos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.co" +
+      "m/cosmos/cosmos-sdk/types.Coins\022e\n\020perio" +
+      "d_can_spend\030\004 \003(\0132\031.cosmos.base.v1beta1." +
+      "CoinB0\310\336\037\000\252\337\037(github.com/cosmos/cosmos-s" +
+      "dk/types.Coins\022:\n\014period_reset\030\005 \001(\0132\032.g" +
+      "oogle.protobuf.TimestampB\010\220\337\037\001\310\336\037\000:\021\312\264-\r" +
+      "FeeAllowanceI\"\202\001\n\023AllowedMsgAllowance\022:\n" +
+      "\tallowance\030\001 \001(\0132\024.google.protobuf.AnyB\021" +
+      "\312\264-\rFeeAllowanceI\022\030\n\020allowed_messages\030\002 " +
+      "\003(\t:\025\210\240\037\000\312\264-\rFeeAllowanceI\"\231\001\n\005Grant\022)\n\007" +
+      "granter\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022" +
+      ")\n\007grantee\030\002 \001(\tB\030\322\264-\024cosmos.AddressStri" +
+      "ng\022:\n\tallowance\030\003 \001(\0132\024.google.protobuf." +
+      "AnyB\021\312\264-\rFeeAllowanceIB)Z\'github.com/cos" +
+      "mos/cosmos-sdk/x/feegrantb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

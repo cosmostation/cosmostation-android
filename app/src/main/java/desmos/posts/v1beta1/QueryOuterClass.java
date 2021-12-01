@@ -13208,96 +13208,94 @@ public final class QueryOuterClass {
     java.lang.String[] descriptorData = {
       "\n desmos/posts/v1beta1/query.proto\022\024desm" +
       "os.posts.v1beta1\032\024gogoproto/gogo.proto\032\034" +
-      "google/api/annotations.proto\032\037google/pro" +
-      "tobuf/timestamp.proto\032*cosmos/base/query" +
-      "/v1beta1/pagination.proto\032 desmos/posts/" +
-      "v1beta1/posts.proto\032$desmos/posts/v1beta" +
-      "1/reactions.proto\032 desmos/posts/v1beta1/" +
-      "polls.proto\032!desmos/posts/v1beta1/params" +
-      ".proto\032!desmos/posts/v1beta1/report.prot" +
-      "o\"d\n\021QueryPostsRequest\022\023\n\013subspace_id\030\001 " +
-      "\001(\t\022:\n\npagination\030\002 \001(\0132&.cosmos.base.qu" +
-      "ery.v1beta1.PageRequest\"\202\001\n\022QueryPostsRe" +
-      "sponse\022/\n\005posts\030\001 \003(\0132\032.desmos.posts.v1b" +
-      "eta1.PostB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.co" +
-      "smos.base.query.v1beta1.PageResponse\"<\n\020" +
-      "QueryPostRequest\022\036\n\007post_id\030\001 \001(\tB\r\362\336\037\ty" +
-      "aml:\"id\":\010\350\240\037\000\210\240\037\000\"C\n\021QueryPostResponse\022" +
-      ".\n\004post\030\001 \001(\0132\032.desmos.posts.v1beta1.Pos" +
-      "tB\004\310\336\037\000\"\222\001\n\027QueryUserAnswersRequest\022#\n\007p" +
-      "ost_id\030\001 \001(\tB\022\362\336\037\016yaml:\"post_id\"\022\014\n\004user" +
-      "\030\002 \001(\t\022:\n\npagination\030\003 \001(\0132&.cosmos.base" +
-      ".query.v1beta1.PageRequest:\010\350\240\037\000\210\240\037\000\"\220\001\n" +
-      "\030QueryUserAnswersResponse\0227\n\007answers\030\001 \003" +
-      "(\0132 .desmos.posts.v1beta1.UserAnswerB\004\310\336" +
-      "\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.que" +
-      "ry.v1beta1.PageResponse\"r\n\037QueryRegister" +
-      "edReactionsRequest\022\023\n\013subspace_id\030\001 \001(\t\022" +
-      ":\n\npagination\030\002 \001(\0132&.cosmos.base.query." +
-      "v1beta1.PageRequest\"\242\001\n QueryRegisteredR" +
-      "eactionsResponse\022A\n\treactions\030\001 \003(\0132(.de" +
-      "smos.posts.v1beta1.RegisteredReactionB\004\310" +
-      "\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.qu" +
-      "ery.v1beta1.PageResponse\"\024\n\022QueryParamsR" +
-      "equest\"I\n\023QueryParamsResponse\0222\n\006params\030" +
-      "\001 \001(\0132\034.desmos.posts.v1beta1.ParamsB\004\310\336\037" +
-      "\000\"0\n\023QueryReportsRequest\022\017\n\007post_id\030\001 \001(" +
-      "\t:\010\350\240\037\000\210\240\037\000\"K\n\024QueryReportsResponse\0223\n\007r" +
-      "eports\030\001 \003(\0132\034.desmos.posts.v1beta1.Repo" +
-      "rtB\004\310\336\037\000\"|\n\031QueryPostReactionsRequest\022#\n" +
-      "\007post_id\030\001 \001(\tB\022\362\336\037\016yaml:\"post_id\"\022:\n\npa" +
-      "gination\030\002 \001(\0132&.cosmos.base.query.v1bet" +
-      "a1.PageRequest\"\226\001\n\032QueryPostReactionsRes" +
-      "ponse\022;\n\treactions\030\001 \003(\0132\".desmos.posts." +
-      "v1beta1.PostReactionB\004\310\336\037\000\022;\n\npagination" +
-      "\030\002 \001(\0132\'.cosmos.base.query.v1beta1.PageR" +
-      "esponse\"g\n\030QueryPostCommentsRequest\022\017\n\007p" +
-      "ost_id\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&.cosmo" +
-      "s.base.query.v1beta1.PageRequest\"\214\001\n\031Que" +
-      "ryPostCommentsResponse\0222\n\010comments\030\001 \003(\013" +
-      "2\032.desmos.posts.v1beta1.PostB\004\310\336\037\000\022;\n\npa" +
-      "gination\030\002 \001(\0132\'.cosmos.base.query.v1bet" +
-      "a1.PageResponse2\360\t\n\005Query\022\177\n\005Posts\022\'.des" +
-      "mos.posts.v1beta1.QueryPostsRequest\032(.de" +
-      "smos.posts.v1beta1.QueryPostsResponse\"#\202" +
-      "\323\344\223\002\035\022\033/desmos/posts/v1beta1/posts\022\206\001\n\004P" +
-      "ost\022&.desmos.posts.v1beta1.QueryPostRequ" +
-      "est\032\'.desmos.posts.v1beta1.QueryPostResp" +
-      "onse\"-\202\323\344\223\002\'\022%/desmos/posts/v1beta1/post" +
-      "s/{post_id}\022\221\001\n\007Reports\022).desmos.posts.v" +
-      "1beta1.QueryReportsRequest\032*.desmos.post" +
-      "s.v1beta1.QueryReportsResponse\"/\202\323\344\223\002)\022\'" +
-      "/desmos/posts/v1beta1/reports/{post_id}\022" +
-      "\243\001\n\013UserAnswers\022-.desmos.posts.v1beta1.Q" +
-      "ueryUserAnswersRequest\032..desmos.posts.v1" +
-      "beta1.QueryUserAnswersResponse\"5\202\323\344\223\002/\022-" +
-      "/desmos/posts/v1beta1/posts/{post_id}/an" +
-      "swers\022\276\001\n\023RegisteredReactions\0225.desmos.p" +
-      "osts.v1beta1.QueryRegisteredReactionsReq" +
-      "uest\0326.desmos.posts.v1beta1.QueryRegiste" +
-      "redReactionsResponse\"8\202\323\344\223\0022\0220/desmos/po" +
-      "sts/v1beta1/posts/registered-reactions\022\211" +
-      "\001\n\006Params\022(.desmos.posts.v1beta1.QueryPa" +
-      "ramsRequest\032).desmos.posts.v1beta1.Query" +
-      "ParamsResponse\"*\202\323\344\223\002$\022\"/desmos/posts/v1" +
-      "beta1/posts/params\022\247\001\n\014PostComments\022..de" +
-      "smos.posts.v1beta1.QueryPostCommentsRequ" +
-      "est\032/.desmos.posts.v1beta1.QueryPostComm" +
-      "entsResponse\"6\202\323\344\223\0020\022./desmos/posts/v1be" +
-      "ta1/posts/{post_id}/comments\022\253\001\n\rPostRea" +
-      "ctions\022/.desmos.posts.v1beta1.QueryPostR" +
-      "eactionsRequest\0320.desmos.posts.v1beta1.Q" +
-      "ueryPostReactionsResponse\"7\202\323\344\223\0021\022//desm" +
-      "os/posts/v1beta1/posts/{post_id}/reactio" +
-      "nsB8Z6github.com/desmos-labs/desmos/v2/x" +
-      "/staging/posts/typesb\006proto3"
+      "google/api/annotations.proto\032*cosmos/bas" +
+      "e/query/v1beta1/pagination.proto\032 desmos" +
+      "/posts/v1beta1/posts.proto\032$desmos/posts" +
+      "/v1beta1/reactions.proto\032 desmos/posts/v" +
+      "1beta1/polls.proto\032!desmos/posts/v1beta1" +
+      "/params.proto\032!desmos/posts/v1beta1/repo" +
+      "rt.proto\"d\n\021QueryPostsRequest\022\023\n\013subspac" +
+      "e_id\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&.cosmos." +
+      "base.query.v1beta1.PageRequest\"\202\001\n\022Query" +
+      "PostsResponse\022/\n\005posts\030\001 \003(\0132\032.desmos.po" +
+      "sts.v1beta1.PostB\004\310\336\037\000\022;\n\npagination\030\002 \001" +
+      "(\0132\'.cosmos.base.query.v1beta1.PageRespo" +
+      "nse\"<\n\020QueryPostRequest\022\036\n\007post_id\030\001 \001(\t" +
+      "B\r\362\336\037\tyaml:\"id\":\010\350\240\037\000\210\240\037\000\"C\n\021QueryPostRe" +
+      "sponse\022.\n\004post\030\001 \001(\0132\032.desmos.posts.v1be" +
+      "ta1.PostB\004\310\336\037\000\"\222\001\n\027QueryUserAnswersReque" +
+      "st\022#\n\007post_id\030\001 \001(\tB\022\362\336\037\016yaml:\"post_id\"\022" +
+      "\014\n\004user\030\002 \001(\t\022:\n\npagination\030\003 \001(\0132&.cosm" +
+      "os.base.query.v1beta1.PageRequest:\010\350\240\037\000\210" +
+      "\240\037\000\"\220\001\n\030QueryUserAnswersResponse\0227\n\007answ" +
+      "ers\030\001 \003(\0132 .desmos.posts.v1beta1.UserAns" +
+      "werB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.b" +
+      "ase.query.v1beta1.PageResponse\"r\n\037QueryR" +
+      "egisteredReactionsRequest\022\023\n\013subspace_id" +
+      "\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&.cosmos.base" +
+      ".query.v1beta1.PageRequest\"\242\001\n QueryRegi" +
+      "steredReactionsResponse\022A\n\treactions\030\001 \003" +
+      "(\0132(.desmos.posts.v1beta1.RegisteredReac" +
+      "tionB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos." +
+      "base.query.v1beta1.PageResponse\"\024\n\022Query" +
+      "ParamsRequest\"I\n\023QueryParamsResponse\0222\n\006" +
+      "params\030\001 \001(\0132\034.desmos.posts.v1beta1.Para" +
+      "msB\004\310\336\037\000\"0\n\023QueryReportsRequest\022\017\n\007post_" +
+      "id\030\001 \001(\t:\010\350\240\037\000\210\240\037\000\"K\n\024QueryReportsRespon" +
+      "se\0223\n\007reports\030\001 \003(\0132\034.desmos.posts.v1bet" +
+      "a1.ReportB\004\310\336\037\000\"|\n\031QueryPostReactionsReq" +
+      "uest\022#\n\007post_id\030\001 \001(\tB\022\362\336\037\016yaml:\"post_id" +
+      "\"\022:\n\npagination\030\002 \001(\0132&.cosmos.base.quer" +
+      "y.v1beta1.PageRequest\"\226\001\n\032QueryPostReact" +
+      "ionsResponse\022;\n\treactions\030\001 \003(\0132\".desmos" +
+      ".posts.v1beta1.PostReactionB\004\310\336\037\000\022;\n\npag" +
+      "ination\030\002 \001(\0132\'.cosmos.base.query.v1beta" +
+      "1.PageResponse\"g\n\030QueryPostCommentsReque" +
+      "st\022\017\n\007post_id\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132" +
+      "&.cosmos.base.query.v1beta1.PageRequest\"" +
+      "\214\001\n\031QueryPostCommentsResponse\0222\n\010comment" +
+      "s\030\001 \003(\0132\032.desmos.posts.v1beta1.PostB\004\310\336\037" +
+      "\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.quer" +
+      "y.v1beta1.PageResponse2\360\t\n\005Query\022\177\n\005Post" +
+      "s\022\'.desmos.posts.v1beta1.QueryPostsReque" +
+      "st\032(.desmos.posts.v1beta1.QueryPostsResp" +
+      "onse\"#\202\323\344\223\002\035\022\033/desmos/posts/v1beta1/post" +
+      "s\022\206\001\n\004Post\022&.desmos.posts.v1beta1.QueryP" +
+      "ostRequest\032\'.desmos.posts.v1beta1.QueryP" +
+      "ostResponse\"-\202\323\344\223\002\'\022%/desmos/posts/v1bet" +
+      "a1/posts/{post_id}\022\221\001\n\007Reports\022).desmos." +
+      "posts.v1beta1.QueryReportsRequest\032*.desm" +
+      "os.posts.v1beta1.QueryReportsResponse\"/\202" +
+      "\323\344\223\002)\022\'/desmos/posts/v1beta1/reports/{po" +
+      "st_id}\022\243\001\n\013UserAnswers\022-.desmos.posts.v1" +
+      "beta1.QueryUserAnswersRequest\032..desmos.p" +
+      "osts.v1beta1.QueryUserAnswersResponse\"5\202" +
+      "\323\344\223\002/\022-/desmos/posts/v1beta1/posts/{post" +
+      "_id}/answers\022\276\001\n\023RegisteredReactions\0225.d" +
+      "esmos.posts.v1beta1.QueryRegisteredReact" +
+      "ionsRequest\0326.desmos.posts.v1beta1.Query" +
+      "RegisteredReactionsResponse\"8\202\323\344\223\0022\0220/de" +
+      "smos/posts/v1beta1/posts/registered-reac" +
+      "tions\022\211\001\n\006Params\022(.desmos.posts.v1beta1." +
+      "QueryParamsRequest\032).desmos.posts.v1beta" +
+      "1.QueryParamsResponse\"*\202\323\344\223\002$\022\"/desmos/p" +
+      "osts/v1beta1/posts/params\022\247\001\n\014PostCommen" +
+      "ts\022..desmos.posts.v1beta1.QueryPostComme" +
+      "ntsRequest\032/.desmos.posts.v1beta1.QueryP" +
+      "ostCommentsResponse\"6\202\323\344\223\0020\022./desmos/pos" +
+      "ts/v1beta1/posts/{post_id}/comments\022\253\001\n\r" +
+      "PostReactions\022/.desmos.posts.v1beta1.Que" +
+      "ryPostReactionsRequest\0320.desmos.posts.v1" +
+      "beta1.QueryPostReactionsResponse\"7\202\323\344\223\0021" +
+      "\022//desmos/posts/v1beta1/posts/{post_id}/" +
+      "reactionsB8Z6github.com/desmos-labs/desm" +
+      "os/v2/x/staging/posts/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.TimestampProto.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           desmos.posts.v1beta1.Posts.getDescriptor(),
           desmos.posts.v1beta1.Reactions.getDescriptor(),
@@ -13412,7 +13410,6 @@ public final class QueryOuterClass {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.TimestampProto.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     desmos.posts.v1beta1.Posts.getDescriptor();
     desmos.posts.v1beta1.Reactions.getDescriptor();

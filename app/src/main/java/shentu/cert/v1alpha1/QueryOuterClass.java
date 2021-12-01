@@ -6824,51 +6824,50 @@ public final class QueryOuterClass {
       "tu.cert.v1alpha1\032\024gogoproto/gogo.proto\032*" +
       "cosmos/base/query/v1beta1/pagination.pro" +
       "to\032\034google/api/annotations.proto\032\037shentu" +
-      "/cert/v1alpha1/cert.proto\032\"shentu/cert/v" +
-      "1alpha1/genesis.proto\032\031google/protobuf/a" +
-      "ny.proto\032\031cosmos_proto/cosmos.proto\"7\n\025Q" +
-      "ueryCertifierRequest\022\017\n\007address\030\001 \001(\t\022\r\n" +
-      "\005alias\030\002 \001(\t\"R\n\026QueryCertifierResponse\0228" +
-      "\n\tcertifier\030\001 \001(\0132\037.shentu.cert.v1alpha1" +
-      ".CertifierB\004\310\336\037\000\"\030\n\026QueryCertifiersReque" +
-      "st\"T\n\027QueryCertifiersResponse\0229\n\ncertifi" +
-      "ers\030\001 \003(\0132\037.shentu.cert.v1alpha1.Certifi" +
-      "erB\004\310\336\037\000\"V\n\024QueryPlatformRequest\022>\n\006pubk" +
-      "ey\030\001 \001(\0132\024.google.protobuf.AnyB\030\312\264-\024cosm" +
-      "os.crypto.PubKey\"O\n\025QueryPlatformRespons" +
-      "e\0226\n\010platform\030\001 \001(\0132\036.shentu.cert.v1alph" +
-      "a1.PlatformB\004\310\336\037\000\"1\n\027QueryCertificateReq" +
-      "uest\022\026\n\016certificate_id\030\001 \001(\004\"X\n\030QueryCer" +
-      "tificateResponse\022<\n\013certificate\030\001 \001(\0132!." +
-      "shentu.cert.v1alpha1.CertificateB\004\310\336\037\000\"\203" +
-      "\001\n\030QueryCertificatesRequest\022\021\n\tcertifier" +
-      "\030\001 \001(\t\022\030\n\020certificate_type\030\002 \001(\t\022:\n\npagi" +
-      "nation\030\004 \001(\0132&.cosmos.base.query.v1beta1" +
-      ".PageRequest\"v\n\031QueryCertificatesRespons" +
-      "e\022\r\n\005total\030\001 \001(\004\022J\n\014certificates\030\002 \003(\0132." +
-      ".shentu.cert.v1alpha1.QueryCertificateRe" +
-      "sponseB\004\310\336\037\0002\236\006\n\005Query\022\247\001\n\tCertifier\022+.s" +
-      "hentu.cert.v1alpha1.QueryCertifierReques" +
-      "t\032,.shentu.cert.v1alpha1.QueryCertifierR" +
-      "esponse\"?\202\323\344\223\0029\0227/shentu/cert/v1alpha1/c" +
-      "ertifier/{address}/alias/{alias}\022\223\001\n\nCer" +
-      "tifiers\022,.shentu.cert.v1alpha1.QueryCert" +
-      "ifiersRequest\032-.shentu.cert.v1alpha1.Que" +
-      "ryCertifiersResponse\"(\202\323\344\223\002\"\022 /shentu/ce" +
-      "rt/v1alpha1/certifiers\022\213\001\n\010Platform\022*.sh" +
-      "entu.cert.v1alpha1.QueryPlatformRequest\032" +
-      "+.shentu.cert.v1alpha1.QueryPlatformResp" +
-      "onse\"&\202\323\344\223\002 \022\036/shentu/cert/v1alpha1/plat" +
-      "form\022\250\001\n\013Certificate\022-.shentu.cert.v1alp" +
-      "ha1.QueryCertificateRequest\032..shentu.cer" +
-      "t.v1alpha1.QueryCertificateResponse\":\202\323\344" +
-      "\223\0024\0222/shentu/cert/v1alpha1/certificate/{" +
-      "certificate_id}\022\233\001\n\014Certificates\022..shent" +
-      "u.cert.v1alpha1.QueryCertificatesRequest" +
-      "\032/.shentu.cert.v1alpha1.QueryCertificate" +
-      "sResponse\"*\202\323\344\223\002$\022\"/shentu/cert/v1alpha1" +
-      "/certificatesB1Z/github.com/certikfounda" +
-      "tion/shentu/x/cert/typesb\006proto3"
+      "/cert/v1alpha1/cert.proto\032\032google/protob" +
+      "uf2/any.proto\032\031cosmos_proto/cosmos.proto" +
+      "\"7\n\025QueryCertifierRequest\022\017\n\007address\030\001 \001" +
+      "(\t\022\r\n\005alias\030\002 \001(\t\"R\n\026QueryCertifierRespo" +
+      "nse\0228\n\tcertifier\030\001 \001(\0132\037.shentu.cert.v1a" +
+      "lpha1.CertifierB\004\310\336\037\000\"\030\n\026QueryCertifiers" +
+      "Request\"T\n\027QueryCertifiersResponse\0229\n\nce" +
+      "rtifiers\030\001 \003(\0132\037.shentu.cert.v1alpha1.Ce" +
+      "rtifierB\004\310\336\037\000\"V\n\024QueryPlatformRequest\022>\n" +
+      "\006pubkey\030\001 \001(\0132\024.google.protobuf.AnyB\030\312\264-" +
+      "\024cosmos.crypto.PubKey\"O\n\025QueryPlatformRe" +
+      "sponse\0226\n\010platform\030\001 \001(\0132\036.shentu.cert.v" +
+      "1alpha1.PlatformB\004\310\336\037\000\"1\n\027QueryCertifica" +
+      "teRequest\022\026\n\016certificate_id\030\001 \001(\004\"X\n\030Que" +
+      "ryCertificateResponse\022<\n\013certificate\030\001 \001" +
+      "(\0132!.shentu.cert.v1alpha1.CertificateB\004\310" +
+      "\336\037\000\"\203\001\n\030QueryCertificatesRequest\022\021\n\tcert" +
+      "ifier\030\001 \001(\t\022\030\n\020certificate_type\030\002 \001(\t\022:\n" +
+      "\npagination\030\004 \001(\0132&.cosmos.base.query.v1" +
+      "beta1.PageRequest\"v\n\031QueryCertificatesRe" +
+      "sponse\022\r\n\005total\030\001 \001(\004\022J\n\014certificates\030\002 " +
+      "\003(\0132..shentu.cert.v1alpha1.QueryCertific" +
+      "ateResponseB\004\310\336\037\0002\236\006\n\005Query\022\247\001\n\tCertifie" +
+      "r\022+.shentu.cert.v1alpha1.QueryCertifierR" +
+      "equest\032,.shentu.cert.v1alpha1.QueryCerti" +
+      "fierResponse\"?\202\323\344\223\0029\0227/shentu/cert/v1alp" +
+      "ha1/certifier/{address}/alias/{alias}\022\223\001" +
+      "\n\nCertifiers\022,.shentu.cert.v1alpha1.Quer" +
+      "yCertifiersRequest\032-.shentu.cert.v1alpha" +
+      "1.QueryCertifiersResponse\"(\202\323\344\223\002\"\022 /shen" +
+      "tu/cert/v1alpha1/certifiers\022\213\001\n\010Platform" +
+      "\022*.shentu.cert.v1alpha1.QueryPlatformReq" +
+      "uest\032+.shentu.cert.v1alpha1.QueryPlatfor" +
+      "mResponse\"&\202\323\344\223\002 \022\036/shentu/cert/v1alpha1" +
+      "/platform\022\250\001\n\013Certificate\022-.shentu.cert." +
+      "v1alpha1.QueryCertificateRequest\032..shent" +
+      "u.cert.v1alpha1.QueryCertificateResponse" +
+      "\":\202\323\344\223\0024\0222/shentu/cert/v1alpha1/certific" +
+      "ate/{certificate_id}\022\233\001\n\014Certificates\022.." +
+      "shentu.cert.v1alpha1.QueryCertificatesRe" +
+      "quest\032/.shentu.cert.v1alpha1.QueryCertif" +
+      "icatesResponse\"*\202\323\344\223\002$\022\"/shentu/cert/v1a" +
+      "lpha1/certificatesB1Z/github.com/certikf" +
+      "oundation/shentu/x/cert/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6877,7 +6876,6 @@ public final class QueryOuterClass {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           shentu.cert.v1alpha1.Cert.getDescriptor(),
-          shentu.cert.v1alpha1.Genesis.getDescriptor(),
           com.google.protobuf.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
         });
@@ -6952,7 +6950,6 @@ public final class QueryOuterClass {
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     shentu.cert.v1alpha1.Cert.getDescriptor();
-    shentu.cert.v1alpha1.Genesis.getDescriptor();
     com.google.protobuf.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
   }

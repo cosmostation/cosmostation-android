@@ -2333,24 +2333,24 @@ public final class ModelsPackets {
     java.lang.String[] descriptorData = {
       "\n,desmos/profiles/v1beta1/models_packets" +
       ".proto\022\027desmos.profiles.v1beta1\032\024gogopro" +
-      "to/gogo.proto\032\031google/protobuf/any.proto" +
-      "\032\031cosmos_proto/cosmos.proto\0320desmos/prof" +
-      "iles/v1beta1/models_chain_links.proto\"\316\003" +
-      "\n\032LinkChainAccountPacketData\022V\n\016source_a" +
-      "ddress\030\001 \001(\0132\024.google.protobuf.AnyB(\362\336\037\025" +
-      "yaml:\"source_address\"\312\264-\013AddressData\022Q\n\014" +
-      "source_proof\030\002 \001(\0132\036.desmos.profiles.v1b" +
-      "eta1.ProofB\033\310\336\037\000\362\336\037\023yaml:\"source_proof\"\022" +
-      "e\n\023source_chain_config\030\003 \001(\0132$.desmos.pr" +
-      "ofiles.v1beta1.ChainConfigB\"\310\336\037\000\362\336\037\032yaml" +
-      ":\"source_chain_config\"\022;\n\023destination_ad" +
-      "dress\030\004 \001(\tB\036\362\336\037\032yaml:\"destination_addre" +
-      "ss\"\022[\n\021destination_proof\030\005 \001(\0132\036.desmos." +
-      "profiles.v1beta1.ProofB \310\336\037\000\362\336\037\030yaml:\"de" +
-      "stination_proof\":\004\210\240\037\000\"9\n\031LinkChainAccou" +
-      "ntPacketAck\022\026\n\016source_address\030\001 \001(\t:\004\210\240\037" +
-      "\000B3Z1github.com/desmos-labs/desmos/v2/x/" +
-      "profiles/typesb\006proto3"
+      "to/gogo.proto\032\032google/protobuf2/any.prot" +
+      "o\032\031cosmos_proto/cosmos.proto\0320desmos/pro" +
+      "files/v1beta1/models_chain_links.proto\"\316" +
+      "\003\n\032LinkChainAccountPacketData\022V\n\016source_" +
+      "address\030\001 \001(\0132\024.google.protobuf.AnyB(\362\336\037" +
+      "\025yaml:\"source_address\"\312\264-\013AddressData\022Q\n" +
+      "\014source_proof\030\002 \001(\0132\036.desmos.profiles.v1" +
+      "beta1.ProofB\033\310\336\037\000\362\336\037\023yaml:\"source_proof\"" +
+      "\022e\n\023source_chain_config\030\003 \001(\0132$.desmos.p" +
+      "rofiles.v1beta1.ChainConfigB\"\310\336\037\000\362\336\037\032yam" +
+      "l:\"source_chain_config\"\022;\n\023destination_a" +
+      "ddress\030\004 \001(\tB\036\362\336\037\032yaml:\"destination_addr" +
+      "ess\"\022[\n\021destination_proof\030\005 \001(\0132\036.desmos" +
+      ".profiles.v1beta1.ProofB \310\336\037\000\362\336\037\030yaml:\"d" +
+      "estination_proof\":\004\210\240\037\000\"9\n\031LinkChainAcco" +
+      "untPacketAck\022\026\n\016source_address\030\001 \001(\t:\004\210\240" +
+      "\037\000B3Z1github.com/desmos-labs/desmos/v2/x" +
+      "/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

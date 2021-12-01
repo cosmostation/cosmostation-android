@@ -8448,73 +8448,73 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n\037ibc/core/connection/v1/tx.proto\022\026ibc.c" +
       "ore.connection.v1\032\024gogoproto/gogo.proto\032" +
-      "\031google/protobuf/any.proto\032\037ibc/core/cli" +
-      "ent/v1/client.proto\032\'ibc/core/connection" +
-      "/v1/connection.proto\"\375\001\n\025MsgConnectionOp" +
-      "enInit\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020yaml:\"cli" +
-      "ent_id\"\022@\n\014counterparty\030\002 \001(\0132$.ibc.core" +
-      ".connection.v1.CounterpartyB\004\310\336\037\000\0220\n\007ver" +
-      "sion\030\003 \001(\0132\037.ibc.core.connection.v1.Vers" +
-      "ion\022-\n\014delay_period\030\004 \001(\004B\027\362\336\037\023yaml:\"del" +
-      "ay_period\"\022\016\n\006signer\030\005 \001(\t:\010\350\240\037\000\210\240\037\000\"\037\n\035" +
-      "MsgConnectionOpenInitResponse\"\351\005\n\024MsgCon" +
-      "nectionOpenTry\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020y" +
-      "aml:\"client_id\"\022A\n\026previous_connection_i" +
-      "d\030\002 \001(\tB!\362\336\037\035yaml:\"previous_connection_i" +
-      "d\"\022C\n\014client_state\030\003 \001(\0132\024.google.protob" +
-      "uf.AnyB\027\362\336\037\023yaml:\"client_state\"\022@\n\014count" +
-      "erparty\030\004 \001(\0132$.ibc.core.connection.v1.C" +
-      "ounterpartyB\004\310\336\037\000\022-\n\014delay_period\030\005 \001(\004B" +
-      "\027\362\336\037\023yaml:\"delay_period\"\022`\n\025counterparty" +
-      "_versions\030\006 \003(\0132\037.ibc.core.connection.v1" +
-      ".VersionB \362\336\037\034yaml:\"counterparty_version" +
-      "s\"\022M\n\014proof_height\030\007 \001(\0132\032.ibc.core.clie" +
+      "\032google/protobuf2/any.proto\032\037ibc/core/cl" +
+      "ient/v1/client.proto\032\'ibc/core/connectio" +
+      "n/v1/connection.proto\"\375\001\n\025MsgConnectionO" +
+      "penInit\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020yaml:\"cl" +
+      "ient_id\"\022@\n\014counterparty\030\002 \001(\0132$.ibc.cor" +
+      "e.connection.v1.CounterpartyB\004\310\336\037\000\0220\n\007ve" +
+      "rsion\030\003 \001(\0132\037.ibc.core.connection.v1.Ver" +
+      "sion\022-\n\014delay_period\030\004 \001(\004B\027\362\336\037\023yaml:\"de" +
+      "lay_period\"\022\016\n\006signer\030\005 \001(\t:\010\350\240\037\000\210\240\037\000\"\037\n" +
+      "\035MsgConnectionOpenInitResponse\"\351\005\n\024MsgCo" +
+      "nnectionOpenTry\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020" +
+      "yaml:\"client_id\"\022A\n\026previous_connection_" +
+      "id\030\002 \001(\tB!\362\336\037\035yaml:\"previous_connection_" +
+      "id\"\022C\n\014client_state\030\003 \001(\0132\024.google.proto" +
+      "buf.AnyB\027\362\336\037\023yaml:\"client_state\"\022@\n\014coun" +
+      "terparty\030\004 \001(\0132$.ibc.core.connection.v1." +
+      "CounterpartyB\004\310\336\037\000\022-\n\014delay_period\030\005 \001(\004" +
+      "B\027\362\336\037\023yaml:\"delay_period\"\022`\n\025counterpart" +
+      "y_versions\030\006 \003(\0132\037.ibc.core.connection.v" +
+      "1.VersionB \362\336\037\034yaml:\"counterparty_versio" +
+      "ns\"\022M\n\014proof_height\030\007 \001(\0132\032.ibc.core.cli" +
+      "ent.v1.HeightB\033\362\336\037\023yaml:\"proof_height\"\310\336" +
+      "\037\000\022)\n\nproof_init\030\010 \001(\014B\025\362\336\037\021yaml:\"proof_" +
+      "init\"\022-\n\014proof_client\030\t \001(\014B\027\362\336\037\023yaml:\"p" +
+      "roof_client\"\0223\n\017proof_consensus\030\n \001(\014B\032\362" +
+      "\336\037\026yaml:\"proof_consensus\"\022U\n\020consensus_h" +
+      "eight\030\013 \001(\0132\032.ibc.core.client.v1.HeightB" +
+      "\037\362\336\037\027yaml:\"consensus_height\"\310\336\037\000\022\016\n\006sign" +
+      "er\030\014 \001(\t:\010\350\240\037\000\210\240\037\000\"\036\n\034MsgConnectionOpenT" +
+      "ryResponse\"\326\004\n\024MsgConnectionOpenAck\022/\n\rc" +
+      "onnection_id\030\001 \001(\tB\030\362\336\037\024yaml:\"connection" +
+      "_id\"\022I\n\032counterparty_connection_id\030\002 \001(\t" +
+      "B%\362\336\037!yaml:\"counterparty_connection_id\"\022" +
+      "0\n\007version\030\003 \001(\0132\037.ibc.core.connection.v" +
+      "1.Version\022C\n\014client_state\030\004 \001(\0132\024.google" +
+      ".protobuf.AnyB\027\362\336\037\023yaml:\"client_state\"\022M" +
+      "\n\014proof_height\030\005 \001(\0132\032.ibc.core.client.v" +
+      "1.HeightB\033\362\336\037\023yaml:\"proof_height\"\310\336\037\000\022\'\n" +
+      "\tproof_try\030\006 \001(\014B\024\362\336\037\020yaml:\"proof_try\"\022-" +
+      "\n\014proof_client\030\007 \001(\014B\027\362\336\037\023yaml:\"proof_cl" +
+      "ient\"\0223\n\017proof_consensus\030\010 \001(\014B\032\362\336\037\026yaml" +
+      ":\"proof_consensus\"\022U\n\020consensus_height\030\t" +
+      " \001(\0132\032.ibc.core.client.v1.HeightB\037\362\336\037\027ya" +
+      "ml:\"consensus_height\"\310\336\037\000\022\016\n\006signer\030\n \001(" +
+      "\t:\010\350\240\037\000\210\240\037\000\"\036\n\034MsgConnectionOpenAckRespo" +
+      "nse\"\335\001\n\030MsgConnectionOpenConfirm\022/\n\rconn" +
+      "ection_id\030\001 \001(\tB\030\362\336\037\024yaml:\"connection_id" +
+      "\"\022\'\n\tproof_ack\030\002 \001(\014B\024\362\336\037\020yaml:\"proof_ac" +
+      "k\"\022M\n\014proof_height\030\003 \001(\0132\032.ibc.core.clie" +
       "nt.v1.HeightB\033\362\336\037\023yaml:\"proof_height\"\310\336\037" +
-      "\000\022)\n\nproof_init\030\010 \001(\014B\025\362\336\037\021yaml:\"proof_i" +
-      "nit\"\022-\n\014proof_client\030\t \001(\014B\027\362\336\037\023yaml:\"pr" +
-      "oof_client\"\0223\n\017proof_consensus\030\n \001(\014B\032\362\336" +
-      "\037\026yaml:\"proof_consensus\"\022U\n\020consensus_he" +
-      "ight\030\013 \001(\0132\032.ibc.core.client.v1.HeightB\037" +
-      "\362\336\037\027yaml:\"consensus_height\"\310\336\037\000\022\016\n\006signe" +
-      "r\030\014 \001(\t:\010\350\240\037\000\210\240\037\000\"\036\n\034MsgConnectionOpenTr" +
-      "yResponse\"\326\004\n\024MsgConnectionOpenAck\022/\n\rco" +
-      "nnection_id\030\001 \001(\tB\030\362\336\037\024yaml:\"connection_" +
-      "id\"\022I\n\032counterparty_connection_id\030\002 \001(\tB" +
-      "%\362\336\037!yaml:\"counterparty_connection_id\"\0220" +
-      "\n\007version\030\003 \001(\0132\037.ibc.core.connection.v1" +
-      ".Version\022C\n\014client_state\030\004 \001(\0132\024.google." +
-      "protobuf.AnyB\027\362\336\037\023yaml:\"client_state\"\022M\n" +
-      "\014proof_height\030\005 \001(\0132\032.ibc.core.client.v1" +
-      ".HeightB\033\362\336\037\023yaml:\"proof_height\"\310\336\037\000\022\'\n\t" +
-      "proof_try\030\006 \001(\014B\024\362\336\037\020yaml:\"proof_try\"\022-\n" +
-      "\014proof_client\030\007 \001(\014B\027\362\336\037\023yaml:\"proof_cli" +
-      "ent\"\0223\n\017proof_consensus\030\010 \001(\014B\032\362\336\037\026yaml:" +
-      "\"proof_consensus\"\022U\n\020consensus_height\030\t " +
-      "\001(\0132\032.ibc.core.client.v1.HeightB\037\362\336\037\027yam" +
-      "l:\"consensus_height\"\310\336\037\000\022\016\n\006signer\030\n \001(\t" +
-      ":\010\350\240\037\000\210\240\037\000\"\036\n\034MsgConnectionOpenAckRespon" +
-      "se\"\335\001\n\030MsgConnectionOpenConfirm\022/\n\rconne" +
-      "ction_id\030\001 \001(\tB\030\362\336\037\024yaml:\"connection_id\"" +
-      "\022\'\n\tproof_ack\030\002 \001(\014B\024\362\336\037\020yaml:\"proof_ack" +
-      "\"\022M\n\014proof_height\030\003 \001(\0132\032.ibc.core.clien" +
-      "t.v1.HeightB\033\362\336\037\023yaml:\"proof_height\"\310\336\037\000" +
-      "\022\016\n\006signer\030\004 \001(\t:\010\350\240\037\000\210\240\037\000\"\"\n MsgConnect" +
-      "ionOpenConfirmResponse2\371\003\n\003Msg\022z\n\022Connec" +
-      "tionOpenInit\022-.ibc.core.connection.v1.Ms" +
-      "gConnectionOpenInit\0325.ibc.core.connectio" +
-      "n.v1.MsgConnectionOpenInitResponse\022w\n\021Co" +
-      "nnectionOpenTry\022,.ibc.core.connection.v1" +
-      ".MsgConnectionOpenTry\0324.ibc.core.connect" +
-      "ion.v1.MsgConnectionOpenTryResponse\022w\n\021C" +
-      "onnectionOpenAck\022,.ibc.core.connection.v" +
-      "1.MsgConnectionOpenAck\0324.ibc.core.connec" +
-      "tion.v1.MsgConnectionOpenAckResponse\022\203\001\n" +
-      "\025ConnectionOpenConfirm\0220.ibc.core.connec" +
-      "tion.v1.MsgConnectionOpenConfirm\0328.ibc.c" +
-      "ore.connection.v1.MsgConnectionOpenConfi" +
-      "rmResponseB>Z<github.com/cosmos/ibc-go/v" +
-      "2/modules/core/03-connection/typesb\006prot" +
-      "o3"
+      "\000\022\016\n\006signer\030\004 \001(\t:\010\350\240\037\000\210\240\037\000\"\"\n MsgConnec" +
+      "tionOpenConfirmResponse2\371\003\n\003Msg\022z\n\022Conne" +
+      "ctionOpenInit\022-.ibc.core.connection.v1.M" +
+      "sgConnectionOpenInit\0325.ibc.core.connecti" +
+      "on.v1.MsgConnectionOpenInitResponse\022w\n\021C" +
+      "onnectionOpenTry\022,.ibc.core.connection.v" +
+      "1.MsgConnectionOpenTry\0324.ibc.core.connec" +
+      "tion.v1.MsgConnectionOpenTryResponse\022w\n\021" +
+      "ConnectionOpenAck\022,.ibc.core.connection." +
+      "v1.MsgConnectionOpenAck\0324.ibc.core.conne" +
+      "ction.v1.MsgConnectionOpenAckResponse\022\203\001" +
+      "\n\025ConnectionOpenConfirm\0220.ibc.core.conne" +
+      "ction.v1.MsgConnectionOpenConfirm\0328.ibc." +
+      "core.connection.v1.MsgConnectionOpenConf" +
+      "irmResponseB>Z<github.com/cosmos/ibc-go/" +
+      "v2/modules/core/03-connection/typesb\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

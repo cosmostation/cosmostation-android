@@ -1484,14 +1484,14 @@ public final class Authz {
       "\n cosmos/authz/v1beta1/authz.proto\022\024cosm" +
       "os.authz.v1beta1\032\031cosmos_proto/cosmos.pr" +
       "oto\032\037google/protobuf/timestamp.proto\032\024go" +
-      "goproto/gogo.proto\032\031google/protobuf/any." +
-      "proto\"6\n\024GenericAuthorization\022\013\n\003msg\030\001 \001" +
-      "(\t:\021\312\264-\rAuthorization\"\201\001\n\005Grant\022>\n\rautho" +
-      "rization\030\001 \001(\0132\024.google.protobuf.AnyB\021\312\264" +
-      "-\rAuthorization\0228\n\nexpiration\030\002 \001(\0132\032.go" +
-      "ogle.protobuf.TimestampB\010\220\337\037\001\310\336\037\000B*Z$git" +
-      "hub.com/cosmos/cosmos-sdk/x/authz\310\341\036\000b\006p" +
-      "roto3"
+      "goproto/gogo.proto\032\032google/protobuf2/any" +
+      ".proto\"6\n\024GenericAuthorization\022\013\n\003msg\030\001 " +
+      "\001(\t:\021\312\264-\rAuthorization\"\201\001\n\005Grant\022>\n\rauth" +
+      "orization\030\001 \001(\0132\024.google.protobuf.AnyB\021\312" +
+      "\264-\rAuthorization\0228\n\nexpiration\030\002 \001(\0132\032.g" +
+      "oogle.protobuf.TimestampB\010\220\337\037\001\310\336\037\000B*Z$gi" +
+      "thub.com/cosmos/cosmos-sdk/x/authz\310\341\036\000b\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

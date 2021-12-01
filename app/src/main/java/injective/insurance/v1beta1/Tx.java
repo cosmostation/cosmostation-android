@@ -5286,34 +5286,33 @@ public final class Tx {
       "injective.insurance.v1beta1\032\024gogoproto/g" +
       "ogo.proto\032\036cosmos/base/v1beta1/coin.prot" +
       "o\032%injective/oracle/v1beta1/oracle.proto" +
-      "\032+injective/insurance/v1beta1/insurance." +
-      "proto\"\207\002\n\026MsgCreateInsuranceFund\022\016\n\006send" +
-      "er\030\001 \001(\t\022\016\n\006ticker\030\002 \001(\t\022\023\n\013quote_denom\030" +
-      "\003 \001(\t\022\023\n\013oracle_base\030\004 \001(\t\022\024\n\014oracle_quo" +
-      "te\030\005 \001(\t\0229\n\013oracle_type\030\006 \001(\0162$.injectiv" +
-      "e.oracle.v1beta1.OracleType\022\016\n\006expiry\030\007 " +
-      "\001(\003\0228\n\017initial_deposit\030\010 \001(\0132\031.cosmos.ba" +
-      "se.v1beta1.CoinB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\" \n\036MsgCr" +
-      "eateInsuranceFundResponse\"n\n\rMsgUnderwri" +
-      "te\022\016\n\006sender\030\001 \001(\t\022\021\n\tmarket_id\030\002 \001(\t\0220\n" +
-      "\007deposit\030\003 \001(\0132\031.cosmos.base.v1beta1.Coi" +
-      "nB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\027\n\025MsgUnderwriteRespon" +
-      "se\"t\n\024MsgRequestRedemption\022\016\n\006sender\030\001 \001" +
-      "(\t\022\021\n\tmarket_id\030\002 \001(\t\022/\n\006amount\030\003 \001(\0132\031." +
-      "cosmos.base.v1beta1.CoinB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000" +
-      "\"\036\n\034MsgRequestRedemptionResponse2\201\003\n\003Msg" +
-      "\022\207\001\n\023CreateInsuranceFund\0223.injective.ins" +
-      "urance.v1beta1.MsgCreateInsuranceFund\032;." +
-      "injective.insurance.v1beta1.MsgCreateIns" +
-      "uranceFundResponse\022l\n\nUnderwrite\022*.injec" +
-      "tive.insurance.v1beta1.MsgUnderwrite\0322.i" +
-      "njective.insurance.v1beta1.MsgUnderwrite" +
-      "Response\022\201\001\n\021RequestRedemption\0221.injecti" +
-      "ve.insurance.v1beta1.MsgRequestRedemptio" +
-      "n\0329.injective.insurance.v1beta1.MsgReque" +
-      "stRedemptionResponseBQZOgithub.com/Injec" +
-      "tiveLabs/injective-core/injective-chain/" +
-      "modules/insurance/typesb\006proto3"
+      "\"\207\002\n\026MsgCreateInsuranceFund\022\016\n\006sender\030\001 " +
+      "\001(\t\022\016\n\006ticker\030\002 \001(\t\022\023\n\013quote_denom\030\003 \001(\t" +
+      "\022\023\n\013oracle_base\030\004 \001(\t\022\024\n\014oracle_quote\030\005 " +
+      "\001(\t\0229\n\013oracle_type\030\006 \001(\0162$.injective.ora" +
+      "cle.v1beta1.OracleType\022\016\n\006expiry\030\007 \001(\003\0228" +
+      "\n\017initial_deposit\030\010 \001(\0132\031.cosmos.base.v1" +
+      "beta1.CoinB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\" \n\036MsgCreateI" +
+      "nsuranceFundResponse\"n\n\rMsgUnderwrite\022\016\n" +
+      "\006sender\030\001 \001(\t\022\021\n\tmarket_id\030\002 \001(\t\0220\n\007depo" +
+      "sit\030\003 \001(\0132\031.cosmos.base.v1beta1.CoinB\004\310\336" +
+      "\037\000:\010\350\240\037\000\210\240\037\000\"\027\n\025MsgUnderwriteResponse\"t\n" +
+      "\024MsgRequestRedemption\022\016\n\006sender\030\001 \001(\t\022\021\n" +
+      "\tmarket_id\030\002 \001(\t\022/\n\006amount\030\003 \001(\0132\031.cosmo" +
+      "s.base.v1beta1.CoinB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\036\n\034M" +
+      "sgRequestRedemptionResponse2\201\003\n\003Msg\022\207\001\n\023" +
+      "CreateInsuranceFund\0223.injective.insuranc" +
+      "e.v1beta1.MsgCreateInsuranceFund\032;.injec" +
+      "tive.insurance.v1beta1.MsgCreateInsuranc" +
+      "eFundResponse\022l\n\nUnderwrite\022*.injective." +
+      "insurance.v1beta1.MsgUnderwrite\0322.inject" +
+      "ive.insurance.v1beta1.MsgUnderwriteRespo" +
+      "nse\022\201\001\n\021RequestRedemption\0221.injective.in" +
+      "surance.v1beta1.MsgRequestRedemption\0329.i" +
+      "njective.insurance.v1beta1.MsgRequestRed" +
+      "emptionResponseBQZOgithub.com/InjectiveL" +
+      "abs/injective-core/injective-chain/modul" +
+      "es/insurance/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5321,7 +5320,6 @@ public final class Tx {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           injective.oracle.v1beta1.Oracle.getDescriptor(),
-          injective.insurance.v1beta1.Insurance.getDescriptor(),
         });
     internal_static_injective_insurance_v1beta1_MsgCreateInsuranceFund_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5369,7 +5367,6 @@ public final class Tx {
     com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     injective.oracle.v1beta1.Oracle.getDescriptor();
-    injective.insurance.v1beta1.Insurance.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

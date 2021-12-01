@@ -8187,63 +8187,62 @@ public final class QueryOuterClass {
       "injective.oracle.v1beta1\032\034google/api/ann" +
       "otations.proto\032%injective/oracle/v1beta1" +
       "/oracle.proto\032&injective/oracle/v1beta1/" +
-      "genesis.proto\032\024gogoproto/gogo.proto\032\036cos" +
-      "mos/base/v1beta1/coin.proto\"\024\n\022QueryPara" +
-      "msRequest\"M\n\023QueryParamsResponse\0226\n\006para" +
-      "ms\030\001 \001(\0132 .injective.oracle.v1beta1.Para" +
-      "msB\004\310\336\037\000\"\032\n\030QueryBandRelayersRequest\"-\n\031" +
-      "QueryBandRelayersResponse\022\020\n\010relayers\030\001 " +
-      "\003(\t\"\035\n\033QueryBandPriceStatesRequest\"^\n\034Qu" +
-      "eryBandPriceStatesResponse\022>\n\014price_stat" +
-      "es\030\001 \003(\0132(.injective.oracle.v1beta1.Band" +
-      "PriceState\" \n\036QueryBandIBCPriceStatesReq" +
-      "uest\"a\n\037QueryBandIBCPriceStatesResponse\022" +
-      ">\n\014price_states\030\001 \003(\0132(.injective.oracle" +
-      ".v1beta1.BandPriceState\"\"\n QueryPriceFee" +
-      "dPriceStatesRequest\"c\n!QueryPriceFeedPri" +
-      "ceStatesResponse\022>\n\014price_states\030\001 \003(\0132(" +
-      ".injective.oracle.v1beta1.PriceFeedState" +
-      "\"!\n\037QueryCoinbasePriceStatesRequest\"f\n Q" +
-      "ueryCoinbasePriceStatesResponse\022B\n\014price" +
-      "_states\030\001 \003(\0132,.injective.oracle.v1beta1" +
-      ".CoinbasePriceState\"\031\n\027QueryModuleStateR" +
-      "equest\"Q\n\030QueryModuleStateResponse\0225\n\005st" +
-      "ate\030\001 \001(\0132&.injective.oracle.v1beta1.Gen" +
-      "esisState2\202\n\n\005Query\022\217\001\n\006Params\022,.injecti" +
-      "ve.oracle.v1beta1.QueryParamsRequest\032-.i" +
-      "njective.oracle.v1beta1.QueryParamsRespo" +
-      "nse\"(\202\323\344\223\002\"\022 /injective/oracle/v1beta1/p" +
-      "arams\022\250\001\n\014BandRelayers\0222.injective.oracl" +
-      "e.v1beta1.QueryBandRelayersRequest\0323.inj" +
-      "ective.oracle.v1beta1.QueryBandRelayersR" +
-      "esponse\"/\202\323\344\223\002)\022\'/injective/oracle/v1bet" +
-      "a1/band_relayers\022\265\001\n\017BandPriceStates\0225.i" +
-      "njective.oracle.v1beta1.QueryBandPriceSt" +
-      "atesRequest\0326.injective.oracle.v1beta1.Q" +
-      "ueryBandPriceStatesResponse\"3\202\323\344\223\002-\022+/in" +
-      "jective/oracle/v1beta1/band_price_states" +
-      "\022\302\001\n\022BandIBCPriceStates\0228.injective.orac" +
-      "le.v1beta1.QueryBandIBCPriceStatesReques" +
-      "t\0329.injective.oracle.v1beta1.QueryBandIB" +
-      "CPriceStatesResponse\"7\202\323\344\223\0021\022//injective" +
-      "/oracle/v1beta1/band_ibc_price_states\022\311\001" +
-      "\n\024PriceFeedPriceStates\022:.injective.oracl" +
-      "e.v1beta1.QueryPriceFeedPriceStatesReque" +
-      "st\032;.injective.oracle.v1beta1.QueryPrice" +
-      "FeedPriceStatesResponse\"8\202\323\344\223\0022\0220/inject" +
-      "ive/oracle/v1beta1/pricefeed_price_state" +
-      "s\022\305\001\n\023CoinbasePriceStates\0229.injective.or" +
-      "acle.v1beta1.QueryCoinbasePriceStatesReq" +
-      "uest\032:.injective.oracle.v1beta1.QueryCoi" +
-      "nbasePriceStatesResponse\"7\202\323\344\223\0021\022//injec" +
-      "tive/oracle/v1beta1/coinbase_price_state" +
-      "s\022\252\001\n\021OracleModuleState\0221.injective.orac" +
-      "le.v1beta1.QueryModuleStateRequest\0322.inj" +
-      "ective.oracle.v1beta1.QueryModuleStateRe" +
-      "sponse\".\202\323\344\223\002(\022&/injective/oracle/v1beta" +
-      "1/module_stateBNZLgithub.com/InjectiveLa" +
-      "bs/injective-core/injective-chain/module" +
-      "s/oracle/typesb\006proto3"
+      "genesis.proto\032\024gogoproto/gogo.proto\"\024\n\022Q" +
+      "ueryParamsRequest\"M\n\023QueryParamsResponse" +
+      "\0226\n\006params\030\001 \001(\0132 .injective.oracle.v1be" +
+      "ta1.ParamsB\004\310\336\037\000\"\032\n\030QueryBandRelayersReq" +
+      "uest\"-\n\031QueryBandRelayersResponse\022\020\n\010rel" +
+      "ayers\030\001 \003(\t\"\035\n\033QueryBandPriceStatesReque" +
+      "st\"^\n\034QueryBandPriceStatesResponse\022>\n\014pr" +
+      "ice_states\030\001 \003(\0132(.injective.oracle.v1be" +
+      "ta1.BandPriceState\" \n\036QueryBandIBCPriceS" +
+      "tatesRequest\"a\n\037QueryBandIBCPriceStatesR" +
+      "esponse\022>\n\014price_states\030\001 \003(\0132(.injectiv" +
+      "e.oracle.v1beta1.BandPriceState\"\"\n Query" +
+      "PriceFeedPriceStatesRequest\"c\n!QueryPric" +
+      "eFeedPriceStatesResponse\022>\n\014price_states" +
+      "\030\001 \003(\0132(.injective.oracle.v1beta1.PriceF" +
+      "eedState\"!\n\037QueryCoinbasePriceStatesRequ" +
+      "est\"f\n QueryCoinbasePriceStatesResponse\022" +
+      "B\n\014price_states\030\001 \003(\0132,.injective.oracle" +
+      ".v1beta1.CoinbasePriceState\"\031\n\027QueryModu" +
+      "leStateRequest\"Q\n\030QueryModuleStateRespon" +
+      "se\0225\n\005state\030\001 \001(\0132&.injective.oracle.v1b" +
+      "eta1.GenesisState2\202\n\n\005Query\022\217\001\n\006Params\022," +
+      ".injective.oracle.v1beta1.QueryParamsReq" +
+      "uest\032-.injective.oracle.v1beta1.QueryPar" +
+      "amsResponse\"(\202\323\344\223\002\"\022 /injective/oracle/v" +
+      "1beta1/params\022\250\001\n\014BandRelayers\0222.injecti" +
+      "ve.oracle.v1beta1.QueryBandRelayersReque" +
+      "st\0323.injective.oracle.v1beta1.QueryBandR" +
+      "elayersResponse\"/\202\323\344\223\002)\022\'/injective/orac" +
+      "le/v1beta1/band_relayers\022\265\001\n\017BandPriceSt" +
+      "ates\0225.injective.oracle.v1beta1.QueryBan" +
+      "dPriceStatesRequest\0326.injective.oracle.v" +
+      "1beta1.QueryBandPriceStatesResponse\"3\202\323\344" +
+      "\223\002-\022+/injective/oracle/v1beta1/band_pric" +
+      "e_states\022\302\001\n\022BandIBCPriceStates\0228.inject" +
+      "ive.oracle.v1beta1.QueryBandIBCPriceStat" +
+      "esRequest\0329.injective.oracle.v1beta1.Que" +
+      "ryBandIBCPriceStatesResponse\"7\202\323\344\223\0021\022//i" +
+      "njective/oracle/v1beta1/band_ibc_price_s" +
+      "tates\022\311\001\n\024PriceFeedPriceStates\022:.injecti" +
+      "ve.oracle.v1beta1.QueryPriceFeedPriceSta" +
+      "tesRequest\032;.injective.oracle.v1beta1.Qu" +
+      "eryPriceFeedPriceStatesResponse\"8\202\323\344\223\0022\022" +
+      "0/injective/oracle/v1beta1/pricefeed_pri" +
+      "ce_states\022\305\001\n\023CoinbasePriceStates\0229.inje" +
+      "ctive.oracle.v1beta1.QueryCoinbasePriceS" +
+      "tatesRequest\032:.injective.oracle.v1beta1." +
+      "QueryCoinbasePriceStatesResponse\"7\202\323\344\223\0021" +
+      "\022//injective/oracle/v1beta1/coinbase_pri" +
+      "ce_states\022\252\001\n\021OracleModuleState\0221.inject" +
+      "ive.oracle.v1beta1.QueryModuleStateReque" +
+      "st\0322.injective.oracle.v1beta1.QueryModul" +
+      "eStateResponse\".\202\323\344\223\002(\022&/injective/oracl" +
+      "e/v1beta1/module_stateBNZLgithub.com/Inj" +
+      "ectiveLabs/injective-core/injective-chai" +
+      "n/modules/oracle/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8252,7 +8251,6 @@ public final class QueryOuterClass {
           injective.oracle.v1beta1.Oracle.getDescriptor(),
           injective.oracle.v1beta1.Genesis.getDescriptor(),
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_injective_oracle_v1beta1_QueryParamsRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -8348,7 +8346,6 @@ public final class QueryOuterClass {
     injective.oracle.v1beta1.Oracle.getDescriptor();
     injective.oracle.v1beta1.Genesis.getDescriptor();
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

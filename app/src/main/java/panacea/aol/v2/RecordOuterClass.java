@@ -29,16 +29,14 @@ public final class RecordOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\033panacea/aol/v2/record.proto\022\016panacea.a" +
-      "ol.v2\032\024gogoproto/gogo.proto\"T\n\006Record\022\013\n" +
-      "\003key\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\026\n\016nano_timest" +
-      "amp\030\003 \001(\003\022\026\n\016writer_address\030\004 \001(\tB0P\001Z,g" +
-      "ithub.com/medibloc/panacea-core/x/aol/ty" +
-      "pesb\006proto3"
+      "ol.v2\"T\n\006Record\022\013\n\003key\030\001 \001(\014\022\r\n\005value\030\002 " +
+      "\001(\014\022\026\n\016nano_timestamp\030\003 \001(\003\022\026\n\016writer_ad" +
+      "dress\030\004 \001(\tB0P\001Z,github.com/medibloc/pan" +
+      "acea-core/x/aol/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_panacea_aol_v2_Record_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -46,7 +44,6 @@ public final class RecordOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_panacea_aol_v2_Record_descriptor,
         new java.lang.String[] { "Key", "Value", "NanoTimestamp", "WriterAddress", });
-    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -3851,26 +3851,25 @@ public final class Types {
   static {
     java.lang.String[] descriptorData = {
       "\n\031umee/peggy/v1/types.proto\022\031umeenetwork" +
-      ".umee.peggy.v1\032\036cosmos/base/v1beta1/coin" +
-      ".proto\032\024gogoproto/gogo.proto\":\n\017BridgeVa" +
-      "lidator\022\r\n\005power\030\001 \001(\004\022\030\n\020ethereum_addre" +
-      "ss\030\002 \001(\t\"\301\001\n\006Valset\022\r\n\005nonce\030\001 \001(\004\022;\n\007me" +
-      "mbers\030\002 \003(\0132*.umeenetwork.umee.peggy.v1." +
-      "BridgeValidator\022\016\n\006height\030\003 \001(\004\022E\n\rrewar" +
-      "d_amount\030\004 \001(\tB.\332\336\037&github.com/cosmos/co" +
-      "smos-sdk/types.Int\310\336\037\000\022\024\n\014reward_token\030\005" +
-      " \001(\t\"]\n\037LastObservedEthereumBlockHeight\022" +
-      "\033\n\023cosmos_block_height\030\001 \001(\004\022\035\n\025ethereum" +
-      "_block_height\030\002 \001(\004\"M\n\016LastClaimEvent\022\034\n" +
-      "\024ethereum_event_nonce\030\001 \001(\004\022\035\n\025ethereum_" +
-      "event_height\030\002 \001(\004\",\n\014ERC20ToDenom\022\r\n\005er" +
-      "c20\030\001 \001(\t\022\r\n\005denom\030\002 \001(\tB,Z*github.com/u" +
-      "mee-network/umee/x/peggy/typesb\006proto3"
+      ".umee.peggy.v1\032\024gogoproto/gogo.proto\":\n\017" +
+      "BridgeValidator\022\r\n\005power\030\001 \001(\004\022\030\n\020ethere" +
+      "um_address\030\002 \001(\t\"\301\001\n\006Valset\022\r\n\005nonce\030\001 \001" +
+      "(\004\022;\n\007members\030\002 \003(\0132*.umeenetwork.umee.p" +
+      "eggy.v1.BridgeValidator\022\016\n\006height\030\003 \001(\004\022" +
+      "E\n\rreward_amount\030\004 \001(\tB.\332\336\037&github.com/c" +
+      "osmos/cosmos-sdk/types.Int\310\336\037\000\022\024\n\014reward" +
+      "_token\030\005 \001(\t\"]\n\037LastObservedEthereumBloc" +
+      "kHeight\022\033\n\023cosmos_block_height\030\001 \001(\004\022\035\n\025" +
+      "ethereum_block_height\030\002 \001(\004\"M\n\016LastClaim" +
+      "Event\022\034\n\024ethereum_event_nonce\030\001 \001(\004\022\035\n\025e" +
+      "thereum_event_height\030\002 \001(\004\",\n\014ERC20ToDen" +
+      "om\022\r\n\005erc20\030\001 \001(\t\022\r\n\005denom\030\002 \001(\tB,Z*gith" +
+      "ub.com/umee-network/umee/x/peggy/typesb\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_umeenetwork_umee_peggy_v1_BridgeValidator_descriptor =
@@ -3909,7 +3908,6 @@ public final class Types {
     registry.add(com.google.protobuf.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.protobuf.GoGoProtos.getDescriptor();
   }
 

@@ -12141,65 +12141,65 @@ public final class Types {
       "n.group.v1alpha1\032\024gogoproto/gogo.proto\032\036" +
       "google/protobuf/duration.proto\032\037google/p" +
       "rotobuf/timestamp.proto\032\031cosmos_proto/co" +
-      "smos.proto\032\031google/protobuf/any.proto\";\n" +
-      "\006Member\022\017\n\007address\030\001 \001(\t\022\016\n\006weight\030\002 \001(\t" +
-      "\022\020\n\010metadata\030\003 \001(\014\">\n\007Members\0223\n\007members" +
-      "\030\001 \003(\0132\034.regen.group.v1alpha1.MemberB\004\310\336" +
-      "\037\000\"r\n\027ThresholdDecisionPolicy\022\021\n\tthresho" +
-      "ld\030\001 \001(\t\0220\n\007timeout\030\002 \001(\0132\031.google.proto" +
-      "buf.DurationB\004\310\336\037\000:\022\312\264-\016DecisionPolicy\"e" +
-      "\n\tGroupInfo\022\020\n\010group_id\030\001 \001(\004\022\r\n\005admin\030\002" +
-      " \001(\t\022\020\n\010metadata\030\003 \001(\014\022\017\n\007version\030\004 \001(\004\022" +
-      "\024\n\014total_weight\030\005 \001(\t\"M\n\013GroupMember\022\020\n\010" +
-      "group_id\030\001 \001(\004\022,\n\006member\030\002 \001(\0132\034.regen.g" +
-      "roup.v1alpha1.Member\"\314\001\n\020GroupAccountInf" +
-      "o\022\017\n\007address\030\001 \001(\t\022\020\n\010group_id\030\002 \001(\004\022\r\n\005" +
-      "admin\030\003 \001(\t\022\020\n\010metadata\030\004 \001(\014\022\017\n\007version" +
-      "\030\005 \001(\004\022A\n\017decision_policy\030\006 \001(\0132\024.google" +
-      ".protobuf.AnyB\022\312\264-\016DecisionPolicy\022\026\n\016der" +
-      "ivation_key\030\007 \001(\014:\010\350\240\037\001\210\240\037\000\"\331\t\n\010Proposal" +
-      "\022\023\n\013proposal_id\030\001 \001(\004\022\017\n\007address\030\002 \001(\t\022\020" +
-      "\n\010metadata\030\003 \001(\014\022\021\n\tproposers\030\004 \003(\t\0226\n\014s" +
-      "ubmitted_at\030\005 \001(\0132\032.google.protobuf.Time" +
-      "stampB\004\310\336\037\000\022\025\n\rgroup_version\030\006 \001(\004\022\035\n\025gr" +
-      "oup_account_version\030\007 \001(\004\0225\n\006status\030\010 \001(" +
-      "\0162%.regen.group.v1alpha1.Proposal.Status" +
-      "\0225\n\006result\030\t \001(\0162%.regen.group.v1alpha1." +
-      "Proposal.Result\0225\n\nvote_state\030\n \001(\0132\033.re" +
-      "gen.group.v1alpha1.TallyB\004\310\336\037\000\0221\n\007timeou" +
-      "t\030\013 \001(\0132\032.google.protobuf.TimestampB\004\310\336\037" +
-      "\000\022F\n\017executor_result\030\014 \001(\0162-.regen.group" +
-      ".v1alpha1.Proposal.ExecutorResult\022\"\n\004msg" +
-      "s\030\r \003(\0132\024.google.protobuf.Any\"\320\001\n\006Status" +
-      "\0221\n\022STATUS_UNSPECIFIED\020\000\032\031\212\235 \025ProposalSt" +
-      "atusInvalid\0221\n\020STATUS_SUBMITTED\020\001\032\033\212\235 \027P" +
-      "roposalStatusSubmitted\022+\n\rSTATUS_CLOSED\020" +
-      "\002\032\030\212\235 \024ProposalStatusClosed\022-\n\016STATUS_AB" +
-      "ORTED\020\003\032\031\212\235 \025ProposalStatusAborted\032\004\210\243\036\000" +
-      "\"\332\001\n\006Result\0221\n\022RESULT_UNSPECIFIED\020\000\032\031\212\235 " +
-      "\025ProposalResultInvalid\0225\n\022RESULT_UNFINAL" +
-      "IZED\020\001\032\035\212\235 \031ProposalResultUnfinalized\022/\n" +
-      "\017RESULT_ACCEPTED\020\002\032\032\212\235 \026ProposalResultAc" +
-      "cepted\022/\n\017RESULT_REJECTED\020\003\032\032\212\235 \026Proposa" +
-      "lResultRejected\032\004\210\243\036\000\"\231\002\n\016ExecutorResult" +
-      "\022B\n\033EXECUTOR_RESULT_UNSPECIFIED\020\000\032!\212\235 \035P" +
-      "roposalExecutorResultInvalid\022=\n\027EXECUTOR" +
-      "_RESULT_NOT_RUN\020\001\032 \212\235 \034ProposalExecutorR" +
-      "esultNotRun\022>\n\027EXECUTOR_RESULT_SUCCESS\020\002" +
-      "\032!\212\235 \035ProposalExecutorResultSuccess\022>\n\027E" +
-      "XECUTOR_RESULT_FAILURE\020\003\032!\212\235 \035ProposalEx" +
-      "ecutorResultFailure\032\004\210\243\036\000:\004\210\240\037\000\"]\n\005Tally" +
-      "\022\021\n\tyes_count\030\001 \001(\t\022\020\n\010no_count\030\002 \001(\t\022\025\n" +
-      "\rabstain_count\030\003 \001(\t\022\022\n\nveto_count\030\004 \001(\t" +
-      ":\004\210\240\037\000\"\242\001\n\004Vote\022\023\n\013proposal_id\030\001 \001(\004\022\r\n\005" +
-      "voter\030\002 \001(\t\022,\n\006choice\030\003 \001(\0162\034.regen.grou" +
-      "p.v1alpha1.Choice\022\020\n\010metadata\030\004 \001(\014\0226\n\014s" +
-      "ubmitted_at\030\005 \001(\0132\032.google.protobuf.Time" +
-      "stampB\004\310\336\037\000*d\n\006Choice\022\026\n\022CHOICE_UNSPECIF" +
-      "IED\020\000\022\r\n\tCHOICE_NO\020\001\022\016\n\nCHOICE_YES\020\002\022\022\n\016" +
-      "CHOICE_ABSTAIN\020\003\022\017\n\013CHOICE_VETO\020\004B/Z-git" +
-      "hub.com/regen-network/regen-ledger/x/gro" +
-      "upb\006proto3"
+      "smos.proto\032\032google/protobuf2/any.proto\";" +
+      "\n\006Member\022\017\n\007address\030\001 \001(\t\022\016\n\006weight\030\002 \001(" +
+      "\t\022\020\n\010metadata\030\003 \001(\014\">\n\007Members\0223\n\007member" +
+      "s\030\001 \003(\0132\034.regen.group.v1alpha1.MemberB\004\310" +
+      "\336\037\000\"r\n\027ThresholdDecisionPolicy\022\021\n\tthresh" +
+      "old\030\001 \001(\t\0220\n\007timeout\030\002 \001(\0132\031.google.prot" +
+      "obuf.DurationB\004\310\336\037\000:\022\312\264-\016DecisionPolicy\"" +
+      "e\n\tGroupInfo\022\020\n\010group_id\030\001 \001(\004\022\r\n\005admin\030" +
+      "\002 \001(\t\022\020\n\010metadata\030\003 \001(\014\022\017\n\007version\030\004 \001(\004" +
+      "\022\024\n\014total_weight\030\005 \001(\t\"M\n\013GroupMember\022\020\n" +
+      "\010group_id\030\001 \001(\004\022,\n\006member\030\002 \001(\0132\034.regen." +
+      "group.v1alpha1.Member\"\314\001\n\020GroupAccountIn" +
+      "fo\022\017\n\007address\030\001 \001(\t\022\020\n\010group_id\030\002 \001(\004\022\r\n" +
+      "\005admin\030\003 \001(\t\022\020\n\010metadata\030\004 \001(\014\022\017\n\007versio" +
+      "n\030\005 \001(\004\022A\n\017decision_policy\030\006 \001(\0132\024.googl" +
+      "e.protobuf.AnyB\022\312\264-\016DecisionPolicy\022\026\n\016de" +
+      "rivation_key\030\007 \001(\014:\010\350\240\037\001\210\240\037\000\"\331\t\n\010Proposa" +
+      "l\022\023\n\013proposal_id\030\001 \001(\004\022\017\n\007address\030\002 \001(\t\022" +
+      "\020\n\010metadata\030\003 \001(\014\022\021\n\tproposers\030\004 \003(\t\0226\n\014" +
+      "submitted_at\030\005 \001(\0132\032.google.protobuf.Tim" +
+      "estampB\004\310\336\037\000\022\025\n\rgroup_version\030\006 \001(\004\022\035\n\025g" +
+      "roup_account_version\030\007 \001(\004\0225\n\006status\030\010 \001" +
+      "(\0162%.regen.group.v1alpha1.Proposal.Statu" +
+      "s\0225\n\006result\030\t \001(\0162%.regen.group.v1alpha1" +
+      ".Proposal.Result\0225\n\nvote_state\030\n \001(\0132\033.r" +
+      "egen.group.v1alpha1.TallyB\004\310\336\037\000\0221\n\007timeo" +
+      "ut\030\013 \001(\0132\032.google.protobuf.TimestampB\004\310\336" +
+      "\037\000\022F\n\017executor_result\030\014 \001(\0162-.regen.grou" +
+      "p.v1alpha1.Proposal.ExecutorResult\022\"\n\004ms" +
+      "gs\030\r \003(\0132\024.google.protobuf.Any\"\320\001\n\006Statu" +
+      "s\0221\n\022STATUS_UNSPECIFIED\020\000\032\031\212\235 \025ProposalS" +
+      "tatusInvalid\0221\n\020STATUS_SUBMITTED\020\001\032\033\212\235 \027" +
+      "ProposalStatusSubmitted\022+\n\rSTATUS_CLOSED" +
+      "\020\002\032\030\212\235 \024ProposalStatusClosed\022-\n\016STATUS_A" +
+      "BORTED\020\003\032\031\212\235 \025ProposalStatusAborted\032\004\210\243\036" +
+      "\000\"\332\001\n\006Result\0221\n\022RESULT_UNSPECIFIED\020\000\032\031\212\235" +
+      " \025ProposalResultInvalid\0225\n\022RESULT_UNFINA" +
+      "LIZED\020\001\032\035\212\235 \031ProposalResultUnfinalized\022/" +
+      "\n\017RESULT_ACCEPTED\020\002\032\032\212\235 \026ProposalResultA" +
+      "ccepted\022/\n\017RESULT_REJECTED\020\003\032\032\212\235 \026Propos" +
+      "alResultRejected\032\004\210\243\036\000\"\231\002\n\016ExecutorResul" +
+      "t\022B\n\033EXECUTOR_RESULT_UNSPECIFIED\020\000\032!\212\235 \035" +
+      "ProposalExecutorResultInvalid\022=\n\027EXECUTO" +
+      "R_RESULT_NOT_RUN\020\001\032 \212\235 \034ProposalExecutor" +
+      "ResultNotRun\022>\n\027EXECUTOR_RESULT_SUCCESS\020" +
+      "\002\032!\212\235 \035ProposalExecutorResultSuccess\022>\n\027" +
+      "EXECUTOR_RESULT_FAILURE\020\003\032!\212\235 \035ProposalE" +
+      "xecutorResultFailure\032\004\210\243\036\000:\004\210\240\037\000\"]\n\005Tall" +
+      "y\022\021\n\tyes_count\030\001 \001(\t\022\020\n\010no_count\030\002 \001(\t\022\025" +
+      "\n\rabstain_count\030\003 \001(\t\022\022\n\nveto_count\030\004 \001(" +
+      "\t:\004\210\240\037\000\"\242\001\n\004Vote\022\023\n\013proposal_id\030\001 \001(\004\022\r\n" +
+      "\005voter\030\002 \001(\t\022,\n\006choice\030\003 \001(\0162\034.regen.gro" +
+      "up.v1alpha1.Choice\022\020\n\010metadata\030\004 \001(\014\0226\n\014" +
+      "submitted_at\030\005 \001(\0132\032.google.protobuf.Tim" +
+      "estampB\004\310\336\037\000*d\n\006Choice\022\026\n\022CHOICE_UNSPECI" +
+      "FIED\020\000\022\r\n\tCHOICE_NO\020\001\022\016\n\nCHOICE_YES\020\002\022\022\n" +
+      "\016CHOICE_ABSTAIN\020\003\022\017\n\013CHOICE_VETO\020\004B/Z-gi" +
+      "thub.com/regen-network/regen-ledger/x/gr" +
+      "oupb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

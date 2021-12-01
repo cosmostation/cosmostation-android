@@ -2745,23 +2745,23 @@ public final class Auth {
     java.lang.String[] descriptorData = {
       "\n\036cosmos/auth/v1beta1/auth.proto\022\023cosmos" +
       ".auth.v1beta1\032\031cosmos_proto/cosmos.proto" +
-      "\032\024gogoproto/gogo.proto\032\031google/protobuf/" +
-      "any.proto\"\275\001\n\013BaseAccount\022)\n\007address\030\001 \001" +
-      "(\tB\030\322\264-\024cosmos.AddressString\022?\n\007pub_key\030" +
-      "\002 \001(\0132\024.google.protobuf.AnyB\030\352\336\037\024public_" +
-      "key,omitempty\022\026\n\016account_number\030\003 \001(\004\022\020\n" +
-      "\010sequence\030\004 \001(\004:\030\210\240\037\000\230\240\037\000\350\240\037\000\312\264-\010Account" +
-      "I\"\214\001\n\rModuleAccount\022<\n\014base_account\030\001 \001(" +
-      "\0132 .cosmos.auth.v1beta1.BaseAccountB\004\320\336\037" +
-      "\001\022\014\n\004name\030\002 \001(\t\022\023\n\013permissions\030\003 \003(\t:\032\210\240" +
-      "\037\000\230\240\037\000\312\264-\016ModuleAccountI\"\336\001\n\006Params\022\033\n\023m" +
-      "ax_memo_characters\030\001 \001(\004\022\024\n\014tx_sig_limit" +
-      "\030\002 \001(\004\022\035\n\025tx_size_cost_per_byte\030\003 \001(\004\0229\n" +
-      "\027sig_verify_cost_ed25519\030\004 \001(\004B\030\342\336\037\024SigV" +
-      "erifyCostED25519\022=\n\031sig_verify_cost_secp" +
-      "256k1\030\005 \001(\004B\032\342\336\037\026SigVerifyCostSecp256k1:" +
-      "\010\350\240\037\001\230\240\037\000B+Z)github.com/cosmos/cosmos-sd" +
-      "k/x/auth/typesb\006proto3"
+      "\032\024gogoproto/gogo.proto\032\032google/protobuf2" +
+      "/any.proto\"\275\001\n\013BaseAccount\022)\n\007address\030\001 " +
+      "\001(\tB\030\322\264-\024cosmos.AddressString\022?\n\007pub_key" +
+      "\030\002 \001(\0132\024.google.protobuf.AnyB\030\352\336\037\024public" +
+      "_key,omitempty\022\026\n\016account_number\030\003 \001(\004\022\020" +
+      "\n\010sequence\030\004 \001(\004:\030\210\240\037\000\230\240\037\000\350\240\037\000\312\264-\010Accoun" +
+      "tI\"\214\001\n\rModuleAccount\022<\n\014base_account\030\001 \001" +
+      "(\0132 .cosmos.auth.v1beta1.BaseAccountB\004\320\336" +
+      "\037\001\022\014\n\004name\030\002 \001(\t\022\023\n\013permissions\030\003 \003(\t:\032\210" +
+      "\240\037\000\230\240\037\000\312\264-\016ModuleAccountI\"\336\001\n\006Params\022\033\n\023" +
+      "max_memo_characters\030\001 \001(\004\022\024\n\014tx_sig_limi" +
+      "t\030\002 \001(\004\022\035\n\025tx_size_cost_per_byte\030\003 \001(\004\0229" +
+      "\n\027sig_verify_cost_ed25519\030\004 \001(\004B\030\342\336\037\024Sig" +
+      "VerifyCostED25519\022=\n\031sig_verify_cost_sec" +
+      "p256k1\030\005 \001(\004B\032\342\336\037\026SigVerifyCostSecp256k1" +
+      ":\010\350\240\037\001\230\240\037\000B+Z)github.com/cosmos/cosmos-s" +
+      "dk/x/auth/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -1041,24 +1041,23 @@ public final class QueryOuterClass {
       "o\022\033secret.registration.v1beta1\032\024gogoprot" +
       "o/gogo.proto\032\033google/protobuf/empty.prot" +
       "o\032\034google/api/annotations.proto\032%secret/" +
-      "registration/v1beta1/msg.proto\032)secret/r" +
-      "egistration/v1beta1/genesis.proto\",\n\031Que" +
-      "ryEncryptedSeedRequest\022\017\n\007pub_key\030\001 \001(\014\"" +
-      "4\n\032QueryEncryptedSeedResponse\022\026\n\016encrypt" +
-      "ed_seed\030\001 \001(\0142\250\003\n\005Query\022g\n\005TxKey\022\026.googl" +
-      "e.protobuf.Empty\032 .secret.registration.v" +
-      "1beta1.Key\"$\202\323\344\223\002\036\022\034/registration/v1beta" +
-      "1/tx-key\022{\n\017RegistrationKey\022\026.google.pro" +
-      "tobuf.Empty\032 .secret.registration.v1beta" +
-      "1.Key\".\202\323\344\223\002(\022&/registration/v1beta1/reg" +
-      "istration-key\022\270\001\n\rEncryptedSeed\0226.secret" +
-      ".registration.v1beta1.QueryEncryptedSeed" +
-      "Request\0327.secret.registration.v1beta1.Qu" +
-      "eryEncryptedSeedResponse\"6\202\323\344\223\0020\022./regis" +
-      "tration/v1beta1/encrypted-seed/{pub_key}" +
-      "BJZ@github.com/enigmampc/SecretNetwork/x" +
-      "/registration/internal/types\310\341\036\000\250\342\036\001b\006pr" +
-      "oto3"
+      "registration/v1beta1/msg.proto\",\n\031QueryE" +
+      "ncryptedSeedRequest\022\017\n\007pub_key\030\001 \001(\014\"4\n\032" +
+      "QueryEncryptedSeedResponse\022\026\n\016encrypted_" +
+      "seed\030\001 \001(\0142\250\003\n\005Query\022g\n\005TxKey\022\026.google.p" +
+      "rotobuf.Empty\032 .secret.registration.v1be" +
+      "ta1.Key\"$\202\323\344\223\002\036\022\034/registration/v1beta1/t" +
+      "x-key\022{\n\017RegistrationKey\022\026.google.protob" +
+      "uf.Empty\032 .secret.registration.v1beta1.K" +
+      "ey\".\202\323\344\223\002(\022&/registration/v1beta1/regist" +
+      "ration-key\022\270\001\n\rEncryptedSeed\0226.secret.re" +
+      "gistration.v1beta1.QueryEncryptedSeedReq" +
+      "uest\0327.secret.registration.v1beta1.Query" +
+      "EncryptedSeedResponse\"6\202\323\344\223\0020\022./registra" +
+      "tion/v1beta1/encrypted-seed/{pub_key}BJZ" +
+      "@github.com/enigmampc/SecretNetwork/x/re" +
+      "gistration/internal/types\310\341\036\000\250\342\036\001b\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1067,7 +1066,6 @@ public final class QueryOuterClass {
           com.google.protobuf.EmptyProto.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           secret.registration.v1beta1.Msg.getDescriptor(),
-          secret.registration.v1beta1.Genesis.getDescriptor(),
         });
     internal_static_secret_registration_v1beta1_QueryEncryptedSeedRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1092,7 +1090,6 @@ public final class QueryOuterClass {
     com.google.protobuf.EmptyProto.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     secret.registration.v1beta1.Msg.getDescriptor();
-    secret.registration.v1beta1.Genesis.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

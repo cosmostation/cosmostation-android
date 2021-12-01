@@ -2048,30 +2048,28 @@ public final class Inflation {
   static {
     java.lang.String[] descriptorData = {
       "\n\037em/inflation/v1/inflation.proto\022\017em.in" +
-      "flation.v1\032\024gogoproto/gogo.proto\032\036cosmos" +
-      "/base/v1beta1/coin.proto\032\037google/protobu" +
-      "f/timestamp.proto\"\327\001\n\016InflationAsset\022\037\n\005" +
-      "denom\030\001 \001(\tB\020\362\336\037\014yaml:\"denom\"\022U\n\tinflati" +
-      "on\030\002 \001(\tBB\362\336\037\020yaml:\"inflation\"\332\336\037&github" +
-      ".com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022M\n\005" +
-      "accum\030\003 \001(\tB>\362\336\037\014yaml:\"accum\"\332\336\037&github." +
-      "com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\"\302\002\n\016" +
-      "InflationState\022d\n\014last_applied\030\001 \001(\0132\032.g" +
-      "oogle.protobuf.TimestampB2\342\336\037\017LastApplie" +
-      "dTime\362\336\037\023yaml:\"last_applied\"\220\337\037\001\310\336\037\000\022i\n\023" +
-      "last_applied_height\030\002 \001(\tBL\362\336\037\032yaml:\"las" +
-      "t_applied_height\"\332\336\037&github.com/cosmos/c" +
-      "osmos-sdk/types.Int\310\336\037\000\022Y\n\006assets\030\003 \003(\0132" +
-      "\037.em.inflation.v1.InflationAssetB(\342\336\037\017In" +
-      "flationAssets\362\336\037\ryaml:\"assets\"\310\336\037\000:\004\230\240\037\000" +
-      "B0Z.github.com/e-money/em-ledger/x/infla" +
-      "tion/typesb\006proto3"
+      "flation.v1\032\024gogoproto/gogo.proto\032\037google" +
+      "/protobuf/timestamp.proto\"\327\001\n\016InflationA" +
+      "sset\022\037\n\005denom\030\001 \001(\tB\020\362\336\037\014yaml:\"denom\"\022U\n" +
+      "\tinflation\030\002 \001(\tBB\362\336\037\020yaml:\"inflation\"\332\336" +
+      "\037&github.com/cosmos/cosmos-sdk/types.Dec" +
+      "\310\336\037\000\022M\n\005accum\030\003 \001(\tB>\362\336\037\014yaml:\"accum\"\332\336\037" +
+      "&github.com/cosmos/cosmos-sdk/types.Dec\310" +
+      "\336\037\000\"\302\002\n\016InflationState\022d\n\014last_applied\030\001" +
+      " \001(\0132\032.google.protobuf.TimestampB2\342\336\037\017La" +
+      "stAppliedTime\362\336\037\023yaml:\"last_applied\"\220\337\037\001" +
+      "\310\336\037\000\022i\n\023last_applied_height\030\002 \001(\tBL\362\336\037\032y" +
+      "aml:\"last_applied_height\"\332\336\037&github.com/" +
+      "cosmos/cosmos-sdk/types.Int\310\336\037\000\022Y\n\006asset" +
+      "s\030\003 \003(\0132\037.em.inflation.v1.InflationAsset" +
+      "B(\342\336\037\017InflationAssets\362\336\037\ryaml:\"assets\"\310\336" +
+      "\037\000:\004\230\240\037\000B0Z.github.com/e-money/em-ledger" +
+      "/x/inflation/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_em_inflation_v1_InflationAsset_descriptor =
@@ -2097,7 +2095,6 @@ public final class Inflation {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 

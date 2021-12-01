@@ -1926,22 +1926,22 @@ public final class AttestationOuterClass {
     java.lang.String[] descriptorData = {
       "\n$injective/peggy/v1/attestation.proto\022\022" +
       "injective.peggy.v1\032\024gogoproto/gogo.proto" +
-      "\032\031google/protobuf/any.proto\"c\n\013Attestati" +
-      "on\022\020\n\010observed\030\001 \001(\010\022\r\n\005votes\030\002 \003(\t\022\016\n\006h" +
-      "eight\030\003 \001(\004\022#\n\005claim\030\004 \001(\0132\024.google.prot" +
-      "obuf.Any\"^\n\nERC20Token\022\020\n\010contract\030\001 \001(\t" +
-      "\022>\n\006amount\030\002 \001(\tB.\332\336\037&github.com/cosmos/" +
-      "cosmos-sdk/types.Int\310\336\037\000*\237\002\n\tClaimType\022." +
-      "\n\022CLAIM_TYPE_UNKNOWN\020\000\032\026\212\235 \022CLAIM_TYPE_U" +
-      "NKNOWN\022.\n\022CLAIM_TYPE_DEPOSIT\020\001\032\026\212\235 \022CLAI" +
-      "M_TYPE_DEPOSIT\0220\n\023CLAIM_TYPE_WITHDRAW\020\002\032" +
-      "\027\212\235 \023CLAIM_TYPE_WITHDRAW\022<\n\031CLAIM_TYPE_E" +
-      "RC20_DEPLOYED\020\003\032\035\212\235 \031CLAIM_TYPE_ERC20_DE" +
-      "PLOYED\022<\n\031CLAIM_TYPE_VALSET_UPDATED\020\004\032\035\212" +
-      "\235 \031CLAIM_TYPE_VALSET_UPDATED\032\004\210\243\036\000BMZKgi" +
-      "thub.com/InjectiveLabs/injective-core/in" +
-      "jective-chain/modules/peggy/typesb\006proto" +
-      "3"
+      "\032\032google/protobuf2/any.proto\"c\n\013Attestat" +
+      "ion\022\020\n\010observed\030\001 \001(\010\022\r\n\005votes\030\002 \003(\t\022\016\n\006" +
+      "height\030\003 \001(\004\022#\n\005claim\030\004 \001(\0132\024.google.pro" +
+      "tobuf.Any\"^\n\nERC20Token\022\020\n\010contract\030\001 \001(" +
+      "\t\022>\n\006amount\030\002 \001(\tB.\332\336\037&github.com/cosmos" +
+      "/cosmos-sdk/types.Int\310\336\037\000*\237\002\n\tClaimType\022" +
+      ".\n\022CLAIM_TYPE_UNKNOWN\020\000\032\026\212\235 \022CLAIM_TYPE_" +
+      "UNKNOWN\022.\n\022CLAIM_TYPE_DEPOSIT\020\001\032\026\212\235 \022CLA" +
+      "IM_TYPE_DEPOSIT\0220\n\023CLAIM_TYPE_WITHDRAW\020\002" +
+      "\032\027\212\235 \023CLAIM_TYPE_WITHDRAW\022<\n\031CLAIM_TYPE_" +
+      "ERC20_DEPLOYED\020\003\032\035\212\235 \031CLAIM_TYPE_ERC20_D" +
+      "EPLOYED\022<\n\031CLAIM_TYPE_VALSET_UPDATED\020\004\032\035" +
+      "\212\235 \031CLAIM_TYPE_VALSET_UPDATED\032\004\210\243\036\000BMZKg" +
+      "ithub.com/InjectiveLabs/injective-core/i" +
+      "njective-chain/modules/peggy/typesb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -4546,27 +4546,27 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
      */
-    java.util.List<cosmos.nft.v1beta1.Nft.NFT> 
+    java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFT> 
         getNftsList();
     /**
-     * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
      */
-    cosmos.nft.v1beta1.Nft.NFT getNfts(int index);
+    cosmos.nft.v1beta1.Nft.CosmosNFT getNfts(int index);
     /**
-     * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
      */
     int getNftsCount();
     /**
-     * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
      */
-    java.util.List<? extends cosmos.nft.v1beta1.Nft.NFTOrBuilder> 
+    java.util.List<? extends cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder> 
         getNftsOrBuilderList();
     /**
-     * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
      */
-    cosmos.nft.v1beta1.Nft.NFTOrBuilder getNftsOrBuilder(
+    cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder getNftsOrBuilder(
         int index);
 
     /**
@@ -4637,11 +4637,11 @@ public final class QueryOuterClass {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                nfts_ = new java.util.ArrayList<cosmos.nft.v1beta1.Nft.NFT>();
+                nfts_ = new java.util.ArrayList<cosmos.nft.v1beta1.Nft.CosmosNFT>();
                 mutable_bitField0_ |= 0x00000001;
               }
               nfts_.add(
-                  input.readMessage(cosmos.nft.v1beta1.Nft.NFT.parser(), extensionRegistry));
+                  input.readMessage(cosmos.nft.v1beta1.Nft.CosmosNFT.parser(), extensionRegistry));
               break;
             }
             case 18: {
@@ -4693,41 +4693,41 @@ public final class QueryOuterClass {
     }
 
     public static final int NFTS_FIELD_NUMBER = 1;
-    private java.util.List<cosmos.nft.v1beta1.Nft.NFT> nfts_;
+    private java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFT> nfts_;
     /**
-     * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<cosmos.nft.v1beta1.Nft.NFT> getNftsList() {
+    public java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFT> getNftsList() {
       return nfts_;
     }
     /**
-     * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends cosmos.nft.v1beta1.Nft.NFTOrBuilder> 
+    public java.util.List<? extends cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder> 
         getNftsOrBuilderList() {
       return nfts_;
     }
     /**
-     * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
      */
     @java.lang.Override
     public int getNftsCount() {
       return nfts_.size();
     }
     /**
-     * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
      */
     @java.lang.Override
-    public cosmos.nft.v1beta1.Nft.NFT getNfts(int index) {
+    public cosmos.nft.v1beta1.Nft.CosmosNFT getNfts(int index) {
       return nfts_.get(index);
     }
     /**
-     * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
      */
     @java.lang.Override
-    public cosmos.nft.v1beta1.Nft.NFTOrBuilder getNftsOrBuilder(
+    public cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder getNftsOrBuilder(
         int index) {
       return nfts_.get(index);
     }
@@ -5134,22 +5134,22 @@ public final class QueryOuterClass {
       }
       private int bitField0_;
 
-      private java.util.List<cosmos.nft.v1beta1.Nft.NFT> nfts_ =
+      private java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFT> nfts_ =
         java.util.Collections.emptyList();
       private void ensureNftsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          nfts_ = new java.util.ArrayList<cosmos.nft.v1beta1.Nft.NFT>(nfts_);
+          nfts_ = new java.util.ArrayList<cosmos.nft.v1beta1.Nft.CosmosNFT>(nfts_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmos.nft.v1beta1.Nft.NFT, cosmos.nft.v1beta1.Nft.NFT.Builder, cosmos.nft.v1beta1.Nft.NFTOrBuilder> nftsBuilder_;
+          cosmos.nft.v1beta1.Nft.CosmosNFT, cosmos.nft.v1beta1.Nft.CosmosNFT.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder> nftsBuilder_;
 
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
-      public java.util.List<cosmos.nft.v1beta1.Nft.NFT> getNftsList() {
+      public java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFT> getNftsList() {
         if (nftsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(nfts_);
         } else {
@@ -5157,7 +5157,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
       public int getNftsCount() {
         if (nftsBuilder_ == null) {
@@ -5167,9 +5167,9 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.NFT getNfts(int index) {
+      public cosmos.nft.v1beta1.Nft.CosmosNFT getNfts(int index) {
         if (nftsBuilder_ == null) {
           return nfts_.get(index);
         } else {
@@ -5177,10 +5177,10 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
       public Builder setNfts(
-          int index, cosmos.nft.v1beta1.Nft.NFT value) {
+          int index, cosmos.nft.v1beta1.Nft.CosmosNFT value) {
         if (nftsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5194,10 +5194,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
       public Builder setNfts(
-          int index, cosmos.nft.v1beta1.Nft.NFT.Builder builderForValue) {
+          int index, cosmos.nft.v1beta1.Nft.CosmosNFT.Builder builderForValue) {
         if (nftsBuilder_ == null) {
           ensureNftsIsMutable();
           nfts_.set(index, builderForValue.build());
@@ -5208,9 +5208,9 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
-      public Builder addNfts(cosmos.nft.v1beta1.Nft.NFT value) {
+      public Builder addNfts(cosmos.nft.v1beta1.Nft.CosmosNFT value) {
         if (nftsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5224,10 +5224,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
       public Builder addNfts(
-          int index, cosmos.nft.v1beta1.Nft.NFT value) {
+          int index, cosmos.nft.v1beta1.Nft.CosmosNFT value) {
         if (nftsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5241,10 +5241,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
       public Builder addNfts(
-          cosmos.nft.v1beta1.Nft.NFT.Builder builderForValue) {
+          cosmos.nft.v1beta1.Nft.CosmosNFT.Builder builderForValue) {
         if (nftsBuilder_ == null) {
           ensureNftsIsMutable();
           nfts_.add(builderForValue.build());
@@ -5255,10 +5255,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
       public Builder addNfts(
-          int index, cosmos.nft.v1beta1.Nft.NFT.Builder builderForValue) {
+          int index, cosmos.nft.v1beta1.Nft.CosmosNFT.Builder builderForValue) {
         if (nftsBuilder_ == null) {
           ensureNftsIsMutable();
           nfts_.add(index, builderForValue.build());
@@ -5269,10 +5269,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
       public Builder addAllNfts(
-          java.lang.Iterable<? extends cosmos.nft.v1beta1.Nft.NFT> values) {
+          java.lang.Iterable<? extends cosmos.nft.v1beta1.Nft.CosmosNFT> values) {
         if (nftsBuilder_ == null) {
           ensureNftsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -5284,7 +5284,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
       public Builder clearNfts() {
         if (nftsBuilder_ == null) {
@@ -5297,7 +5297,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
       public Builder removeNfts(int index) {
         if (nftsBuilder_ == null) {
@@ -5310,16 +5310,16 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.NFT.Builder getNftsBuilder(
+      public cosmos.nft.v1beta1.Nft.CosmosNFT.Builder getNftsBuilder(
           int index) {
         return getNftsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.NFTOrBuilder getNftsOrBuilder(
+      public cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder getNftsOrBuilder(
           int index) {
         if (nftsBuilder_ == null) {
           return nfts_.get(index);  } else {
@@ -5327,9 +5327,9 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
-      public java.util.List<? extends cosmos.nft.v1beta1.Nft.NFTOrBuilder> 
+      public java.util.List<? extends cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder> 
            getNftsOrBuilderList() {
         if (nftsBuilder_ != null) {
           return nftsBuilder_.getMessageOrBuilderList();
@@ -5338,33 +5338,33 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.NFT.Builder addNftsBuilder() {
+      public cosmos.nft.v1beta1.Nft.CosmosNFT.Builder addNftsBuilder() {
         return getNftsFieldBuilder().addBuilder(
-            cosmos.nft.v1beta1.Nft.NFT.getDefaultInstance());
+            cosmos.nft.v1beta1.Nft.CosmosNFT.getDefaultInstance());
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.NFT.Builder addNftsBuilder(
+      public cosmos.nft.v1beta1.Nft.CosmosNFT.Builder addNftsBuilder(
           int index) {
         return getNftsFieldBuilder().addBuilder(
-            index, cosmos.nft.v1beta1.Nft.NFT.getDefaultInstance());
+            index, cosmos.nft.v1beta1.Nft.CosmosNFT.getDefaultInstance());
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.NFT nfts = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFT nfts = 1;</code>
        */
-      public java.util.List<cosmos.nft.v1beta1.Nft.NFT.Builder> 
+      public java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFT.Builder> 
            getNftsBuilderList() {
         return getNftsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmos.nft.v1beta1.Nft.NFT, cosmos.nft.v1beta1.Nft.NFT.Builder, cosmos.nft.v1beta1.Nft.NFTOrBuilder> 
+          cosmos.nft.v1beta1.Nft.CosmosNFT, cosmos.nft.v1beta1.Nft.CosmosNFT.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder> 
           getNftsFieldBuilder() {
         if (nftsBuilder_ == null) {
           nftsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              cosmos.nft.v1beta1.Nft.NFT, cosmos.nft.v1beta1.Nft.NFT.Builder, cosmos.nft.v1beta1.Nft.NFTOrBuilder>(
+              cosmos.nft.v1beta1.Nft.CosmosNFT, cosmos.nft.v1beta1.Nft.CosmosNFT.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder>(
                   nfts_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -6276,19 +6276,19 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
      * @return Whether the nft field is set.
      */
     boolean hasNft();
     /**
-     * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
      * @return The nft.
      */
-    cosmos.nft.v1beta1.Nft.NFT getNft();
+    cosmos.nft.v1beta1.Nft.CosmosNFT getNft();
     /**
-     * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
      */
-    cosmos.nft.v1beta1.Nft.NFTOrBuilder getNftOrBuilder();
+    cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder getNftOrBuilder();
   }
   /**
    * <pre>
@@ -6340,11 +6340,11 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              cosmos.nft.v1beta1.Nft.NFT.Builder subBuilder = null;
+              cosmos.nft.v1beta1.Nft.CosmosNFT.Builder subBuilder = null;
               if (nft_ != null) {
                 subBuilder = nft_.toBuilder();
               }
-              nft_ = input.readMessage(cosmos.nft.v1beta1.Nft.NFT.parser(), extensionRegistry);
+              nft_ = input.readMessage(cosmos.nft.v1beta1.Nft.CosmosNFT.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(nft_);
                 nft_ = subBuilder.buildPartial();
@@ -6385,9 +6385,9 @@ public final class QueryOuterClass {
     }
 
     public static final int NFT_FIELD_NUMBER = 1;
-    private cosmos.nft.v1beta1.Nft.NFT nft_;
+    private cosmos.nft.v1beta1.Nft.CosmosNFT nft_;
     /**
-     * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
      * @return Whether the nft field is set.
      */
     @java.lang.Override
@@ -6395,18 +6395,18 @@ public final class QueryOuterClass {
       return nft_ != null;
     }
     /**
-     * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
      * @return The nft.
      */
     @java.lang.Override
-    public cosmos.nft.v1beta1.Nft.NFT getNft() {
-      return nft_ == null ? cosmos.nft.v1beta1.Nft.NFT.getDefaultInstance() : nft_;
+    public cosmos.nft.v1beta1.Nft.CosmosNFT getNft() {
+      return nft_ == null ? cosmos.nft.v1beta1.Nft.CosmosNFT.getDefaultInstance() : nft_;
     }
     /**
-     * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
      */
     @java.lang.Override
-    public cosmos.nft.v1beta1.Nft.NFTOrBuilder getNftOrBuilder() {
+    public cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder getNftOrBuilder() {
       return getNft();
     }
 
@@ -6729,31 +6729,31 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private cosmos.nft.v1beta1.Nft.NFT nft_;
+      private cosmos.nft.v1beta1.Nft.CosmosNFT nft_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          cosmos.nft.v1beta1.Nft.NFT, cosmos.nft.v1beta1.Nft.NFT.Builder, cosmos.nft.v1beta1.Nft.NFTOrBuilder> nftBuilder_;
+          cosmos.nft.v1beta1.Nft.CosmosNFT, cosmos.nft.v1beta1.Nft.CosmosNFT.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder> nftBuilder_;
       /**
-       * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
        * @return Whether the nft field is set.
        */
       public boolean hasNft() {
         return nftBuilder_ != null || nft_ != null;
       }
       /**
-       * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
        * @return The nft.
        */
-      public cosmos.nft.v1beta1.Nft.NFT getNft() {
+      public cosmos.nft.v1beta1.Nft.CosmosNFT getNft() {
         if (nftBuilder_ == null) {
-          return nft_ == null ? cosmos.nft.v1beta1.Nft.NFT.getDefaultInstance() : nft_;
+          return nft_ == null ? cosmos.nft.v1beta1.Nft.CosmosNFT.getDefaultInstance() : nft_;
         } else {
           return nftBuilder_.getMessage();
         }
       }
       /**
-       * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
        */
-      public Builder setNft(cosmos.nft.v1beta1.Nft.NFT value) {
+      public Builder setNft(cosmos.nft.v1beta1.Nft.CosmosNFT value) {
         if (nftBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6767,10 +6767,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
        */
       public Builder setNft(
-          cosmos.nft.v1beta1.Nft.NFT.Builder builderForValue) {
+          cosmos.nft.v1beta1.Nft.CosmosNFT.Builder builderForValue) {
         if (nftBuilder_ == null) {
           nft_ = builderForValue.build();
           onChanged();
@@ -6781,13 +6781,13 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
        */
-      public Builder mergeNft(cosmos.nft.v1beta1.Nft.NFT value) {
+      public Builder mergeNft(cosmos.nft.v1beta1.Nft.CosmosNFT value) {
         if (nftBuilder_ == null) {
           if (nft_ != null) {
             nft_ =
-              cosmos.nft.v1beta1.Nft.NFT.newBuilder(nft_).mergeFrom(value).buildPartial();
+              cosmos.nft.v1beta1.Nft.CosmosNFT.newBuilder(nft_).mergeFrom(value).buildPartial();
           } else {
             nft_ = value;
           }
@@ -6799,7 +6799,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
        */
       public Builder clearNft() {
         if (nftBuilder_ == null) {
@@ -6813,33 +6813,33 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.NFT.Builder getNftBuilder() {
+      public cosmos.nft.v1beta1.Nft.CosmosNFT.Builder getNftBuilder() {
         
         onChanged();
         return getNftFieldBuilder().getBuilder();
       }
       /**
-       * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.NFTOrBuilder getNftOrBuilder() {
+      public cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder getNftOrBuilder() {
         if (nftBuilder_ != null) {
           return nftBuilder_.getMessageOrBuilder();
         } else {
           return nft_ == null ?
-              cosmos.nft.v1beta1.Nft.NFT.getDefaultInstance() : nft_;
+              cosmos.nft.v1beta1.Nft.CosmosNFT.getDefaultInstance() : nft_;
         }
       }
       /**
-       * <code>.cosmos.nft.v1beta1.NFT nft = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFT nft = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          cosmos.nft.v1beta1.Nft.NFT, cosmos.nft.v1beta1.Nft.NFT.Builder, cosmos.nft.v1beta1.Nft.NFTOrBuilder> 
+          cosmos.nft.v1beta1.Nft.CosmosNFT, cosmos.nft.v1beta1.Nft.CosmosNFT.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder> 
           getNftFieldBuilder() {
         if (nftBuilder_ == null) {
           nftBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              cosmos.nft.v1beta1.Nft.NFT, cosmos.nft.v1beta1.Nft.NFT.Builder, cosmos.nft.v1beta1.Nft.NFTOrBuilder>(
+              cosmos.nft.v1beta1.Nft.CosmosNFT, cosmos.nft.v1beta1.Nft.CosmosNFT.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder>(
                   getNft(),
                   getParentForChildren(),
                   isClean());
@@ -7481,19 +7481,19 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
      * @return Whether the class field is set.
      */
     boolean hasClass_();
     /**
-     * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
      * @return The class.
      */
-    cosmos.nft.v1beta1.Nft.Class getClass_();
+    cosmos.nft.v1beta1.Nft.CosmosNFTClass getClass_();
     /**
-     * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
      */
-    cosmos.nft.v1beta1.Nft.ClassOrBuilder getClass_OrBuilder();
+    cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder getClass_OrBuilder();
   }
   /**
    * <pre>
@@ -7545,11 +7545,11 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              cosmos.nft.v1beta1.Nft.Class.Builder subBuilder = null;
+              cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder subBuilder = null;
               if (class__ != null) {
                 subBuilder = class__.toBuilder();
               }
-              class__ = input.readMessage(cosmos.nft.v1beta1.Nft.Class.parser(), extensionRegistry);
+              class__ = input.readMessage(cosmos.nft.v1beta1.Nft.CosmosNFTClass.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(class__);
                 class__ = subBuilder.buildPartial();
@@ -7590,9 +7590,9 @@ public final class QueryOuterClass {
     }
 
     public static final int CLASS_FIELD_NUMBER = 1;
-    private cosmos.nft.v1beta1.Nft.Class class__;
+    private cosmos.nft.v1beta1.Nft.CosmosNFTClass class__;
     /**
-     * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
      * @return Whether the class field is set.
      */
     @java.lang.Override
@@ -7600,18 +7600,18 @@ public final class QueryOuterClass {
       return class__ != null;
     }
     /**
-     * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
      * @return The class.
      */
     @java.lang.Override
-    public cosmos.nft.v1beta1.Nft.Class getClass_() {
-      return class__ == null ? cosmos.nft.v1beta1.Nft.Class.getDefaultInstance() : class__;
+    public cosmos.nft.v1beta1.Nft.CosmosNFTClass getClass_() {
+      return class__ == null ? cosmos.nft.v1beta1.Nft.CosmosNFTClass.getDefaultInstance() : class__;
     }
     /**
-     * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+     * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
      */
     @java.lang.Override
-    public cosmos.nft.v1beta1.Nft.ClassOrBuilder getClass_OrBuilder() {
+    public cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder getClass_OrBuilder() {
       return getClass_();
     }
 
@@ -7934,31 +7934,31 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private cosmos.nft.v1beta1.Nft.Class class__;
+      private cosmos.nft.v1beta1.Nft.CosmosNFTClass class__;
       private com.google.protobuf.SingleFieldBuilderV3<
-          cosmos.nft.v1beta1.Nft.Class, cosmos.nft.v1beta1.Nft.Class.Builder, cosmos.nft.v1beta1.Nft.ClassOrBuilder> class_Builder_;
+          cosmos.nft.v1beta1.Nft.CosmosNFTClass, cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder> class_Builder_;
       /**
-       * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
        * @return Whether the class field is set.
        */
       public boolean hasClass_() {
         return class_Builder_ != null || class__ != null;
       }
       /**
-       * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
        * @return The class.
        */
-      public cosmos.nft.v1beta1.Nft.Class getClass_() {
+      public cosmos.nft.v1beta1.Nft.CosmosNFTClass getClass_() {
         if (class_Builder_ == null) {
-          return class__ == null ? cosmos.nft.v1beta1.Nft.Class.getDefaultInstance() : class__;
+          return class__ == null ? cosmos.nft.v1beta1.Nft.CosmosNFTClass.getDefaultInstance() : class__;
         } else {
           return class_Builder_.getMessage();
         }
       }
       /**
-       * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
        */
-      public Builder setClass_(cosmos.nft.v1beta1.Nft.Class value) {
+      public Builder setClass_(cosmos.nft.v1beta1.Nft.CosmosNFTClass value) {
         if (class_Builder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7972,10 +7972,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
        */
       public Builder setClass_(
-          cosmos.nft.v1beta1.Nft.Class.Builder builderForValue) {
+          cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder builderForValue) {
         if (class_Builder_ == null) {
           class__ = builderForValue.build();
           onChanged();
@@ -7986,13 +7986,13 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
        */
-      public Builder mergeClass_(cosmos.nft.v1beta1.Nft.Class value) {
+      public Builder mergeClass_(cosmos.nft.v1beta1.Nft.CosmosNFTClass value) {
         if (class_Builder_ == null) {
           if (class__ != null) {
             class__ =
-              cosmos.nft.v1beta1.Nft.Class.newBuilder(class__).mergeFrom(value).buildPartial();
+              cosmos.nft.v1beta1.Nft.CosmosNFTClass.newBuilder(class__).mergeFrom(value).buildPartial();
           } else {
             class__ = value;
           }
@@ -8004,7 +8004,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
        */
       public Builder clearClass_() {
         if (class_Builder_ == null) {
@@ -8018,33 +8018,33 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.Class.Builder getClass_Builder() {
+      public cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder getClass_Builder() {
         
         onChanged();
         return getClass_FieldBuilder().getBuilder();
       }
       /**
-       * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.ClassOrBuilder getClass_OrBuilder() {
+      public cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder getClass_OrBuilder() {
         if (class_Builder_ != null) {
           return class_Builder_.getMessageOrBuilder();
         } else {
           return class__ == null ?
-              cosmos.nft.v1beta1.Nft.Class.getDefaultInstance() : class__;
+              cosmos.nft.v1beta1.Nft.CosmosNFTClass.getDefaultInstance() : class__;
         }
       }
       /**
-       * <code>.cosmos.nft.v1beta1.Class class = 1;</code>
+       * <code>.cosmos.nft.v1beta1.CosmosNFTClass class = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          cosmos.nft.v1beta1.Nft.Class, cosmos.nft.v1beta1.Nft.Class.Builder, cosmos.nft.v1beta1.Nft.ClassOrBuilder> 
+          cosmos.nft.v1beta1.Nft.CosmosNFTClass, cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder> 
           getClass_FieldBuilder() {
         if (class_Builder_ == null) {
           class_Builder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              cosmos.nft.v1beta1.Nft.Class, cosmos.nft.v1beta1.Nft.Class.Builder, cosmos.nft.v1beta1.Nft.ClassOrBuilder>(
+              cosmos.nft.v1beta1.Nft.CosmosNFTClass, cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder>(
                   getClass_(),
                   getParentForChildren(),
                   isClean());
@@ -8799,27 +8799,27 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
      */
-    java.util.List<cosmos.nft.v1beta1.Nft.Class> 
+    java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFTClass> 
         getClassesList();
     /**
-     * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
      */
-    cosmos.nft.v1beta1.Nft.Class getClasses(int index);
+    cosmos.nft.v1beta1.Nft.CosmosNFTClass getClasses(int index);
     /**
-     * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
      */
     int getClassesCount();
     /**
-     * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
      */
-    java.util.List<? extends cosmos.nft.v1beta1.Nft.ClassOrBuilder> 
+    java.util.List<? extends cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder> 
         getClassesOrBuilderList();
     /**
-     * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
      */
-    cosmos.nft.v1beta1.Nft.ClassOrBuilder getClassesOrBuilder(
+    cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder getClassesOrBuilder(
         int index);
 
     /**
@@ -8890,11 +8890,11 @@ public final class QueryOuterClass {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                classes_ = new java.util.ArrayList<cosmos.nft.v1beta1.Nft.Class>();
+                classes_ = new java.util.ArrayList<cosmos.nft.v1beta1.Nft.CosmosNFTClass>();
                 mutable_bitField0_ |= 0x00000001;
               }
               classes_.add(
-                  input.readMessage(cosmos.nft.v1beta1.Nft.Class.parser(), extensionRegistry));
+                  input.readMessage(cosmos.nft.v1beta1.Nft.CosmosNFTClass.parser(), extensionRegistry));
               break;
             }
             case 18: {
@@ -8946,41 +8946,41 @@ public final class QueryOuterClass {
     }
 
     public static final int CLASSES_FIELD_NUMBER = 1;
-    private java.util.List<cosmos.nft.v1beta1.Nft.Class> classes_;
+    private java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFTClass> classes_;
     /**
-     * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<cosmos.nft.v1beta1.Nft.Class> getClassesList() {
+    public java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFTClass> getClassesList() {
       return classes_;
     }
     /**
-     * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends cosmos.nft.v1beta1.Nft.ClassOrBuilder> 
+    public java.util.List<? extends cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder> 
         getClassesOrBuilderList() {
       return classes_;
     }
     /**
-     * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
      */
     @java.lang.Override
     public int getClassesCount() {
       return classes_.size();
     }
     /**
-     * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
      */
     @java.lang.Override
-    public cosmos.nft.v1beta1.Nft.Class getClasses(int index) {
+    public cosmos.nft.v1beta1.Nft.CosmosNFTClass getClasses(int index) {
       return classes_.get(index);
     }
     /**
-     * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+     * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
      */
     @java.lang.Override
-    public cosmos.nft.v1beta1.Nft.ClassOrBuilder getClassesOrBuilder(
+    public cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder getClassesOrBuilder(
         int index) {
       return classes_.get(index);
     }
@@ -9387,22 +9387,22 @@ public final class QueryOuterClass {
       }
       private int bitField0_;
 
-      private java.util.List<cosmos.nft.v1beta1.Nft.Class> classes_ =
+      private java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFTClass> classes_ =
         java.util.Collections.emptyList();
       private void ensureClassesIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          classes_ = new java.util.ArrayList<cosmos.nft.v1beta1.Nft.Class>(classes_);
+          classes_ = new java.util.ArrayList<cosmos.nft.v1beta1.Nft.CosmosNFTClass>(classes_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmos.nft.v1beta1.Nft.Class, cosmos.nft.v1beta1.Nft.Class.Builder, cosmos.nft.v1beta1.Nft.ClassOrBuilder> classesBuilder_;
+          cosmos.nft.v1beta1.Nft.CosmosNFTClass, cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder> classesBuilder_;
 
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
-      public java.util.List<cosmos.nft.v1beta1.Nft.Class> getClassesList() {
+      public java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFTClass> getClassesList() {
         if (classesBuilder_ == null) {
           return java.util.Collections.unmodifiableList(classes_);
         } else {
@@ -9410,7 +9410,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
       public int getClassesCount() {
         if (classesBuilder_ == null) {
@@ -9420,9 +9420,9 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.Class getClasses(int index) {
+      public cosmos.nft.v1beta1.Nft.CosmosNFTClass getClasses(int index) {
         if (classesBuilder_ == null) {
           return classes_.get(index);
         } else {
@@ -9430,10 +9430,10 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
       public Builder setClasses(
-          int index, cosmos.nft.v1beta1.Nft.Class value) {
+          int index, cosmos.nft.v1beta1.Nft.CosmosNFTClass value) {
         if (classesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9447,10 +9447,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
       public Builder setClasses(
-          int index, cosmos.nft.v1beta1.Nft.Class.Builder builderForValue) {
+          int index, cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder builderForValue) {
         if (classesBuilder_ == null) {
           ensureClassesIsMutable();
           classes_.set(index, builderForValue.build());
@@ -9461,9 +9461,9 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
-      public Builder addClasses(cosmos.nft.v1beta1.Nft.Class value) {
+      public Builder addClasses(cosmos.nft.v1beta1.Nft.CosmosNFTClass value) {
         if (classesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9477,10 +9477,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
       public Builder addClasses(
-          int index, cosmos.nft.v1beta1.Nft.Class value) {
+          int index, cosmos.nft.v1beta1.Nft.CosmosNFTClass value) {
         if (classesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9494,10 +9494,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
       public Builder addClasses(
-          cosmos.nft.v1beta1.Nft.Class.Builder builderForValue) {
+          cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder builderForValue) {
         if (classesBuilder_ == null) {
           ensureClassesIsMutable();
           classes_.add(builderForValue.build());
@@ -9508,10 +9508,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
       public Builder addClasses(
-          int index, cosmos.nft.v1beta1.Nft.Class.Builder builderForValue) {
+          int index, cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder builderForValue) {
         if (classesBuilder_ == null) {
           ensureClassesIsMutable();
           classes_.add(index, builderForValue.build());
@@ -9522,10 +9522,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
       public Builder addAllClasses(
-          java.lang.Iterable<? extends cosmos.nft.v1beta1.Nft.Class> values) {
+          java.lang.Iterable<? extends cosmos.nft.v1beta1.Nft.CosmosNFTClass> values) {
         if (classesBuilder_ == null) {
           ensureClassesIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -9537,7 +9537,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
       public Builder clearClasses() {
         if (classesBuilder_ == null) {
@@ -9550,7 +9550,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
       public Builder removeClasses(int index) {
         if (classesBuilder_ == null) {
@@ -9563,16 +9563,16 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.Class.Builder getClassesBuilder(
+      public cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder getClassesBuilder(
           int index) {
         return getClassesFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.ClassOrBuilder getClassesOrBuilder(
+      public cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder getClassesOrBuilder(
           int index) {
         if (classesBuilder_ == null) {
           return classes_.get(index);  } else {
@@ -9580,9 +9580,9 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
-      public java.util.List<? extends cosmos.nft.v1beta1.Nft.ClassOrBuilder> 
+      public java.util.List<? extends cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder> 
            getClassesOrBuilderList() {
         if (classesBuilder_ != null) {
           return classesBuilder_.getMessageOrBuilderList();
@@ -9591,33 +9591,33 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.Class.Builder addClassesBuilder() {
+      public cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder addClassesBuilder() {
         return getClassesFieldBuilder().addBuilder(
-            cosmos.nft.v1beta1.Nft.Class.getDefaultInstance());
+            cosmos.nft.v1beta1.Nft.CosmosNFTClass.getDefaultInstance());
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
-      public cosmos.nft.v1beta1.Nft.Class.Builder addClassesBuilder(
+      public cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder addClassesBuilder(
           int index) {
         return getClassesFieldBuilder().addBuilder(
-            index, cosmos.nft.v1beta1.Nft.Class.getDefaultInstance());
+            index, cosmos.nft.v1beta1.Nft.CosmosNFTClass.getDefaultInstance());
       }
       /**
-       * <code>repeated .cosmos.nft.v1beta1.Class classes = 1;</code>
+       * <code>repeated .cosmos.nft.v1beta1.CosmosNFTClass classes = 1;</code>
        */
-      public java.util.List<cosmos.nft.v1beta1.Nft.Class.Builder> 
+      public java.util.List<cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder> 
            getClassesBuilderList() {
         return getClassesFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmos.nft.v1beta1.Nft.Class, cosmos.nft.v1beta1.Nft.Class.Builder, cosmos.nft.v1beta1.Nft.ClassOrBuilder> 
+          cosmos.nft.v1beta1.Nft.CosmosNFTClass, cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder> 
           getClassesFieldBuilder() {
         if (classesBuilder_ == null) {
           classesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              cosmos.nft.v1beta1.Nft.Class, cosmos.nft.v1beta1.Nft.Class.Builder, cosmos.nft.v1beta1.Nft.ClassOrBuilder>(
+              cosmos.nft.v1beta1.Nft.CosmosNFTClass, cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder, cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder>(
                   classes_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -9890,42 +9890,43 @@ public final class QueryOuterClass {
       "nse\022\016\n\006amount\030\001 \001(\004\"v\n\027QueryNFTsOfClassR" +
       "equest\022\020\n\010class_id\030\001 \001(\t\022\r\n\005owner\030\002 \001(\t\022" +
       ":\n\npagination\030\003 \001(\0132&.cosmos.base.query." +
-      "v1beta1.PageRequest\"~\n\030QueryNFTsOfClassR" +
-      "esponse\022%\n\004nfts\030\001 \003(\0132\027.cosmos.nft.v1bet" +
-      "a1.NFT\022;\n\npagination\030\002 \001(\0132\'.cosmos.base" +
-      ".query.v1beta1.PageResponse\"/\n\017QueryNFTR" +
-      "equest\022\020\n\010class_id\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\"8\n\020" +
-      "QueryNFTResponse\022$\n\003nft\030\001 \001(\0132\027.cosmos.n" +
-      "ft.v1beta1.NFT\"%\n\021QueryClassRequest\022\020\n\010c" +
-      "lass_id\030\001 \001(\t\">\n\022QueryClassResponse\022(\n\005c" +
-      "lass\030\001 \001(\0132\031.cosmos.nft.v1beta1.Class\"Q\n" +
-      "\023QueryClassesRequest\022:\n\npagination\030\001 \001(\013" +
-      "2&.cosmos.base.query.v1beta1.PageRequest" +
-      "\"\177\n\024QueryClassesResponse\022*\n\007classes\030\001 \003(" +
-      "\0132\031.cosmos.nft.v1beta1.Class\022;\n\npaginati" +
-      "on\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Pag" +
-      "eResponse2\337\007\n\005Query\022\224\001\n\007Balance\022\'.cosmos" +
-      ".nft.v1beta1.QueryBalanceRequest\032(.cosmo" +
-      "s.nft.v1beta1.QueryBalanceResponse\"6\202\323\344\223" +
-      "\0020\022./cosmos/nft/v1beta1/balance/{owner}/" +
-      "{class_id}\022\211\001\n\005Owner\022%.cosmos.nft.v1beta" +
-      "1.QueryOwnerRequest\032&.cosmos.nft.v1beta1" +
-      ".QueryOwnerResponse\"1\202\323\344\223\002+\022)/cosmos/nft" +
-      "/v1beta1/owner/{class_id}/{id}\022\210\001\n\006Suppl" +
-      "y\022&.cosmos.nft.v1beta1.QuerySupplyReques" +
-      "t\032\'.cosmos.nft.v1beta1.QuerySupplyRespon" +
-      "se\"-\202\323\344\223\002\'\022%/cosmos/nft/v1beta1/supply/{" +
-      "class_id}\022\225\001\n\013NFTsOfClass\022+.cosmos.nft.v" +
-      "1beta1.QueryNFTsOfClassRequest\032,.cosmos." +
-      "nft.v1beta1.QueryNFTsOfClassResponse\"+\202\323" +
-      "\344\223\002%\022#/cosmos/nft/v1beta1/nfts/{class_id" +
-      "}\022\202\001\n\003NFT\022#.cosmos.nft.v1beta1.QueryNFTR" +
-      "equest\032$.cosmos.nft.v1beta1.QueryNFTResp" +
-      "onse\"0\202\323\344\223\002*\022(/cosmos/nft/v1beta1/nfts/{" +
-      "class_id}/{id}\022\206\001\n\005Class\022%.cosmos.nft.v1" +
-      "beta1.QueryClassRequest\032&.cosmos.nft.v1b" +
-      "eta1.QueryClassResponse\".\202\323\344\223\002(\022&/cosmos" +
-      "/nft/v1beta1/classes/{class_id}\022\201\001\n\007Clas" +
+      "v1beta1.PageRequest\"\204\001\n\030QueryNFTsOfClass" +
+      "Response\022+\n\004nfts\030\001 \003(\0132\035.cosmos.nft.v1be" +
+      "ta1.CosmosNFT\022;\n\npagination\030\002 \001(\0132\'.cosm" +
+      "os.base.query.v1beta1.PageResponse\"/\n\017Qu" +
+      "eryNFTRequest\022\020\n\010class_id\030\001 \001(\t\022\n\n\002id\030\002 " +
+      "\001(\t\">\n\020QueryNFTResponse\022*\n\003nft\030\001 \001(\0132\035.c" +
+      "osmos.nft.v1beta1.CosmosNFT\"%\n\021QueryClas" +
+      "sRequest\022\020\n\010class_id\030\001 \001(\t\"G\n\022QueryClass" +
+      "Response\0221\n\005class\030\001 \001(\0132\".cosmos.nft.v1b" +
+      "eta1.CosmosNFTClass\"Q\n\023QueryClassesReque" +
+      "st\022:\n\npagination\030\001 \001(\0132&.cosmos.base.que" +
+      "ry.v1beta1.PageRequest\"\210\001\n\024QueryClassesR" +
+      "esponse\0223\n\007classes\030\001 \003(\0132\".cosmos.nft.v1" +
+      "beta1.CosmosNFTClass\022;\n\npagination\030\002 \001(\013" +
+      "2\'.cosmos.base.query.v1beta1.PageRespons" +
+      "e2\347\007\n\005Query\022\224\001\n\007Balance\022\'.cosmos.nft.v1b" +
+      "eta1.QueryBalanceRequest\032(.cosmos.nft.v1" +
+      "beta1.QueryBalanceResponse\"6\202\323\344\223\0020\022./cos" +
+      "mos/nft/v1beta1/balance/{owner}/{class_i" +
+      "d}\022\211\001\n\005Owner\022%.cosmos.nft.v1beta1.QueryO" +
+      "wnerRequest\032&.cosmos.nft.v1beta1.QueryOw" +
+      "nerResponse\"1\202\323\344\223\002+\022)/cosmos/nft/v1beta1" +
+      "/owner/{class_id}/{id}\022\210\001\n\006Supply\022&.cosm" +
+      "os.nft.v1beta1.QuerySupplyRequest\032\'.cosm" +
+      "os.nft.v1beta1.QuerySupplyResponse\"-\202\323\344\223" +
+      "\002\'\022%/cosmos/nft/v1beta1/supply/{class_id" +
+      "}\022\225\001\n\013NFTsOfClass\022+.cosmos.nft.v1beta1.Q" +
+      "ueryNFTsOfClassRequest\032,.cosmos.nft.v1be" +
+      "ta1.QueryNFTsOfClassResponse\"+\202\323\344\223\002%\022#/c" +
+      "osmos/nft/v1beta1/nfts/{class_id}\022\202\001\n\003NF" +
+      "T\022#.cosmos.nft.v1beta1.QueryNFTRequest\032$" +
+      ".cosmos.nft.v1beta1.QueryNFTResponse\"0\202\323" +
+      "\344\223\002*\022(/cosmos/nft/v1beta1/nfts/{class_id" +
+      "}/{id}\022\212\001\n\tNFTsClass\022%.cosmos.nft.v1beta" +
+      "1.QueryClassRequest\032&.cosmos.nft.v1beta1" +
+      ".QueryClassResponse\".\202\323\344\223\002(\022&/cosmos/nft" +
+      "/v1beta1/classes/{class_id}\022\205\001\n\013NFTsClas" +
       "ses\022\'.cosmos.nft.v1beta1.QueryClassesReq" +
       "uest\032(.cosmos.nft.v1beta1.QueryClassesRe" +
       "sponse\"#\202\323\344\223\002\035\022\033/cosmos/nft/v1beta1/clas" +

@@ -9870,75 +9870,73 @@ public final class QueryOuterClass {
     java.lang.String[] descriptorData = {
       "\n\037shentu/cvm/v1alpha1/query.proto\022\023shent" +
       "u.cvm.v1alpha1\032\024gogoproto/gogo.proto\032\034go" +
-      "ogle/api/annotations.proto\032\035shentu/cvm/v" +
-      "1alpha1/cvm.proto\032\036cosmos/auth/v1beta1/a" +
-      "uth.proto\032\020burrow/acm.proto\"7\n\020QueryCode" +
-      "Request\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yaml:\"addr" +
-      "ess\"\"2\n\021QueryCodeResponse\022\035\n\004code\030\001 \001(\tB" +
-      "\017\362\336\037\013yaml:\"code\"\"6\n\017QueryAbiRequest\022#\n\007a" +
-      "ddress\030\001 \001(\tB\022\362\336\037\016yaml:\"address\"\"/\n\020Quer" +
-      "yAbiResponse\022\033\n\003abi\030\001 \001(\tB\016\362\336\037\nyaml:\"abi" +
-      "\"\"W\n\023QueryStorageRequest\022#\n\007address\030\001 \001(" +
-      "\tB\022\362\336\037\016yaml:\"address\"\022\033\n\003key\030\002 \001(\tB\016\362\336\037\n" +
-      "yaml:\"key\"\"7\n\024QueryStorageResponse\022\037\n\005va" +
-      "lue\030\001 \001(\014B\020\362\336\037\014yaml:\"value\"\">\n\027QueryAddr" +
-      "essMetaRequest\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yam" +
-      "l:\"address\"\"B\n\030QueryAddressMetaResponse\022" +
-      "&\n\tmeta_hash\030\001 \001(\tB\023\362\336\037\017yaml:\"metaHash\"\"" +
-      "1\n\020QueryMetaRequest\022\035\n\004hash\030\001 \001(\tB\017\362\336\037\013y" +
-      "aml:\"hash\"\"2\n\021QueryMetaResponse\022\035\n\004meta\030" +
-      "\001 \001(\tB\017\362\336\037\013yaml:\"meta\"\":\n\023QueryAccountRe" +
-      "quest\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yaml:\"addres" +
-      "s\"\"\235\001\n\nCVMAccount\022S\n\014base_account\030\001 \001(\0132" +
-      " .cosmos.auth.v1beta1.BaseAccountB\033\320\336\037\001\362" +
-      "\336\037\023yaml:\"base_account\"\022\035\n\004code\030\002 \001(\tB\017\362\336" +
-      "\037\013yaml:\"code\"\022\033\n\003abi\030\003 \001(\tB\016\362\336\037\nyaml:\"ab" +
-      "i\"\"\317\001\n\020QueryViewRequest\022!\n\006caller\030\001 \001(\tB" +
-      "\021\362\336\037\ryaml:\"caller\"\022!\n\006callee\030\002 \001(\tB\021\362\336\037\r" +
-      "yaml:\"callee\"\022%\n\010abi_spec\030\003 \001(\014B\023\362\336\037\017yam" +
-      "l:\"abi_spec\"\022/\n\rfunction_name\030\004 \001(\tB\030\362\336\037" +
-      "\024yaml:\"function_name\"\022\035\n\004data\030\005 \001(\014B\017\362\336\037" +
-      "\013yaml:\"data\"\"a\n\021QueryViewResponse\022L\n\013ret" +
-      "urn_vars\030\001 \003(\0132\037.shentu.cvm.v1alpha1.Ret" +
-      "urnVarsB\026\362\336\037\022yaml:\"return_vars\"\"L\n\nRetur" +
-      "nVars\022\035\n\004name\030\001 \001(\tB\017\362\336\037\013yaml:\"name\"\022\037\n\005" +
-      "value\030\002 \001(\tB\020\362\336\037\014yaml:\"value\"2\341\007\n\005Query\022" +
-      "\214\001\n\004Code\022%.shentu.cvm.v1alpha1.QueryCode" +
-      "Request\032&.shentu.cvm.v1alpha1.QueryCodeR" +
-      "esponse\"5\202\323\344\223\002/\022-/shentu/cvm/v1alpha1/co" +
-      "ntracts/{address}/code\022\210\001\n\003Abi\022$.shentu." +
-      "cvm.v1alpha1.QueryAbiRequest\032%.shentu.cv" +
-      "m.v1alpha1.QueryAbiResponse\"4\202\323\344\223\002.\022,/sh" +
-      "entu/cvm/v1alpha1/contracts/{address}/ab" +
-      "i\022\230\001\n\007Storage\022(.shentu.cvm.v1alpha1.Quer" +
-      "yStorageRequest\032).shentu.cvm.v1alpha1.Qu" +
-      "eryStorageResponse\"8\202\323\344\223\0022\0220/shentu/cvm/" +
-      "v1alpha1/contracts/{address}/storage\022\241\001\n" +
-      "\013AddressMeta\022,.shentu.cvm.v1alpha1.Query" +
-      "AddressMetaRequest\032-.shentu.cvm.v1alpha1" +
-      ".QueryAddressMetaResponse\"5\202\323\344\223\002/\022-/shen" +
-      "tu/cvm/v1alpha1/contracts/{address}/meta" +
-      "\022\177\n\004Meta\022%.shentu.cvm.v1alpha1.QueryMeta" +
-      "Request\032&.shentu.cvm.v1alpha1.QueryMetaR" +
-      "esponse\"(\202\323\344\223\002\"\022 /shentu/cvm/v1alpha1/me" +
-      "ta/{hash}\022q\n\007Account\022(.shentu.cvm.v1alph" +
-      "a1.QueryAccountRequest\032\014.acm.Account\".\202\323" +
-      "\344\223\002(\022&/shentu/cvm/v1alpha1/account/{addr" +
-      "ess}\022\212\001\n\004View\022%.shentu.cvm.v1alpha1.Quer" +
-      "yViewRequest\032&.shentu.cvm.v1alpha1.Query" +
-      "ViewResponse\"3\202\323\344\223\002-\022+/shentu/cvm/v1alph" +
-      "a1/view/{caller}/{callee}B0Z.github.com/" +
-      "certikfoundation/shentu/x/cvm/typesb\006pro" +
-      "to3"
+      "ogle/api/annotations.proto\032\036cosmos/auth/" +
+      "v1beta1/auth.proto\032\027shentu/burrow/acm.pr" +
+      "oto\"7\n\020QueryCodeRequest\022#\n\007address\030\001 \001(\t" +
+      "B\022\362\336\037\016yaml:\"address\"\"2\n\021QueryCodeRespons" +
+      "e\022\035\n\004code\030\001 \001(\tB\017\362\336\037\013yaml:\"code\"\"6\n\017Quer" +
+      "yAbiRequest\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yaml:\"" +
+      "address\"\"/\n\020QueryAbiResponse\022\033\n\003abi\030\001 \001(" +
+      "\tB\016\362\336\037\nyaml:\"abi\"\"W\n\023QueryStorageRequest" +
+      "\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yaml:\"address\"\022\033\n" +
+      "\003key\030\002 \001(\tB\016\362\336\037\nyaml:\"key\"\"7\n\024QueryStora" +
+      "geResponse\022\037\n\005value\030\001 \001(\014B\020\362\336\037\014yaml:\"val" +
+      "ue\"\">\n\027QueryAddressMetaRequest\022#\n\007addres" +
+      "s\030\001 \001(\tB\022\362\336\037\016yaml:\"address\"\"B\n\030QueryAddr" +
+      "essMetaResponse\022&\n\tmeta_hash\030\001 \001(\tB\023\362\336\037\017" +
+      "yaml:\"metaHash\"\"1\n\020QueryMetaRequest\022\035\n\004h" +
+      "ash\030\001 \001(\tB\017\362\336\037\013yaml:\"hash\"\"2\n\021QueryMetaR" +
+      "esponse\022\035\n\004meta\030\001 \001(\tB\017\362\336\037\013yaml:\"meta\"\":" +
+      "\n\023QueryAccountRequest\022#\n\007address\030\001 \001(\tB\022" +
+      "\362\336\037\016yaml:\"address\"\"\235\001\n\nCVMAccount\022S\n\014bas" +
+      "e_account\030\001 \001(\0132 .cosmos.auth.v1beta1.Ba" +
+      "seAccountB\033\320\336\037\001\362\336\037\023yaml:\"base_account\"\022\035" +
+      "\n\004code\030\002 \001(\tB\017\362\336\037\013yaml:\"code\"\022\033\n\003abi\030\003 \001" +
+      "(\tB\016\362\336\037\nyaml:\"abi\"\"\317\001\n\020QueryViewRequest\022" +
+      "!\n\006caller\030\001 \001(\tB\021\362\336\037\ryaml:\"caller\"\022!\n\006ca" +
+      "llee\030\002 \001(\tB\021\362\336\037\ryaml:\"callee\"\022%\n\010abi_spe" +
+      "c\030\003 \001(\014B\023\362\336\037\017yaml:\"abi_spec\"\022/\n\rfunction" +
+      "_name\030\004 \001(\tB\030\362\336\037\024yaml:\"function_name\"\022\035\n" +
+      "\004data\030\005 \001(\014B\017\362\336\037\013yaml:\"data\"\"a\n\021QueryVie" +
+      "wResponse\022L\n\013return_vars\030\001 \003(\0132\037.shentu." +
+      "cvm.v1alpha1.ReturnVarsB\026\362\336\037\022yaml:\"retur" +
+      "n_vars\"\"L\n\nReturnVars\022\035\n\004name\030\001 \001(\tB\017\362\336\037" +
+      "\013yaml:\"name\"\022\037\n\005value\030\002 \001(\tB\020\362\336\037\014yaml:\"v" +
+      "alue\"2\341\007\n\005Query\022\214\001\n\004Code\022%.shentu.cvm.v1" +
+      "alpha1.QueryCodeRequest\032&.shentu.cvm.v1a" +
+      "lpha1.QueryCodeResponse\"5\202\323\344\223\002/\022-/shentu" +
+      "/cvm/v1alpha1/contracts/{address}/code\022\210" +
+      "\001\n\003Abi\022$.shentu.cvm.v1alpha1.QueryAbiReq" +
+      "uest\032%.shentu.cvm.v1alpha1.QueryAbiRespo" +
+      "nse\"4\202\323\344\223\002.\022,/shentu/cvm/v1alpha1/contra" +
+      "cts/{address}/abi\022\230\001\n\007Storage\022(.shentu.c" +
+      "vm.v1alpha1.QueryStorageRequest\032).shentu" +
+      ".cvm.v1alpha1.QueryStorageResponse\"8\202\323\344\223" +
+      "\0022\0220/shentu/cvm/v1alpha1/contracts/{addr" +
+      "ess}/storage\022\241\001\n\013AddressMeta\022,.shentu.cv" +
+      "m.v1alpha1.QueryAddressMetaRequest\032-.she" +
+      "ntu.cvm.v1alpha1.QueryAddressMetaRespons" +
+      "e\"5\202\323\344\223\002/\022-/shentu/cvm/v1alpha1/contract" +
+      "s/{address}/meta\022\177\n\004Meta\022%.shentu.cvm.v1" +
+      "alpha1.QueryMetaRequest\032&.shentu.cvm.v1a" +
+      "lpha1.QueryMetaResponse\"(\202\323\344\223\002\"\022 /shentu" +
+      "/cvm/v1alpha1/meta/{hash}\022q\n\007Account\022(.s" +
+      "hentu.cvm.v1alpha1.QueryAccountRequest\032\014" +
+      ".acm.Account\".\202\323\344\223\002(\022&/shentu/cvm/v1alph" +
+      "a1/account/{address}\022\212\001\n\004View\022%.shentu.c" +
+      "vm.v1alpha1.QueryViewRequest\032&.shentu.cv" +
+      "m.v1alpha1.QueryViewResponse\"3\202\323\344\223\002-\022+/s" +
+      "hentu/cvm/v1alpha1/view/{caller}/{callee" +
+      "}B0Z.github.com/certikfoundation/shentu/" +
+      "x/cvm/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
-          shentu.cvm.v1alpha1.Cvm.getDescriptor(),
           cosmos.auth.v1beta1.Auth.getDescriptor(),
-          acm.Acm.getDescriptor(),
+          shentu.burrow.v1alpha1.Acm.getDescriptor(),
         });
     internal_static_shentu_cvm_v1alpha1_QueryCodeRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -10039,9 +10037,8 @@ public final class QueryOuterClass {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
-    shentu.cvm.v1alpha1.Cvm.getDescriptor();
     cosmos.auth.v1beta1.Auth.getDescriptor();
-    acm.Acm.getDescriptor();
+    shentu.burrow.v1alpha1.Acm.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

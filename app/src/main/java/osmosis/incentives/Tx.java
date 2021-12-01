@@ -3695,29 +3695,28 @@ public final class Tx {
       "\n\033osmosis/incentives/tx.proto\022\022osmosis.i" +
       "ncentives\032\024gogoproto/gogo.proto\032\037google/" +
       "protobuf/timestamp.proto\032\036cosmos/base/v1" +
-      "beta1/coin.proto\032\036osmosis/incentives/gau" +
-      "ge.proto\032\031osmosis/lockup/lock.proto\"\314\002\n\016" +
-      "MsgCreateGauge\022\024\n\014is_perpetual\030\001 \001(\010\022\037\n\005" +
-      "owner\030\002 \001(\tB\020\362\336\037\014yaml:\"owner\"\022;\n\rdistrib" +
-      "ute_to\030\003 \001(\0132\036.osmosis.lockup.QueryCondi" +
-      "tionB\004\310\336\037\000\022Z\n\005coins\030\004 \003(\0132\031.cosmos.base." +
-      "v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/" +
-      "cosmos-sdk/types.Coins\022L\n\nstart_time\030\005 \001" +
-      "(\0132\032.google.protobuf.TimestampB\034\220\337\037\001\310\336\037\000" +
-      "\362\336\037\020yaml:\"timestamp\"\022\034\n\024num_epochs_paid_" +
-      "over\030\006 \001(\004\"\030\n\026MsgCreateGaugeResponse\"\240\001\n" +
-      "\rMsgAddToGauge\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:" +
-      "\"owner\"\022\020\n\010gauge_id\030\002 \001(\004\022\\\n\007rewards\030\003 \003" +
-      "(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(g" +
-      "ithub.com/cosmos/cosmos-sdk/types.Coins\"" +
-      "\027\n\025MsgAddToGaugeResponse2\300\001\n\003Msg\022]\n\013Crea" +
-      "teGauge\022\".osmosis.incentives.MsgCreateGa" +
-      "uge\032*.osmosis.incentives.MsgCreateGaugeR" +
-      "esponse\022Z\n\nAddToGauge\022!.osmosis.incentiv" +
-      "es.MsgAddToGauge\032).osmosis.incentives.Ms" +
-      "gAddToGaugeResponseB4Z2github.com/osmosi" +
-      "s-labs/osmosis/x/incentives/typesb\006proto" +
-      "3"
+      "beta1/coin.proto\032\031osmosis/lockup/lock.pr" +
+      "oto\"\314\002\n\016MsgCreateGauge\022\024\n\014is_perpetual\030\001" +
+      " \001(\010\022\037\n\005owner\030\002 \001(\tB\020\362\336\037\014yaml:\"owner\"\022;\n" +
+      "\rdistribute_to\030\003 \001(\0132\036.osmosis.lockup.Qu" +
+      "eryConditionB\004\310\336\037\000\022Z\n\005coins\030\004 \003(\0132\031.cosm" +
+      "os.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com" +
+      "/cosmos/cosmos-sdk/types.Coins\022L\n\nstart_" +
+      "time\030\005 \001(\0132\032.google.protobuf.TimestampB\034" +
+      "\220\337\037\001\310\336\037\000\362\336\037\020yaml:\"timestamp\"\022\034\n\024num_epoc" +
+      "hs_paid_over\030\006 \001(\004\"\030\n\026MsgCreateGaugeResp" +
+      "onse\"\240\001\n\rMsgAddToGauge\022\037\n\005owner\030\001 \001(\tB\020\362" +
+      "\336\037\014yaml:\"owner\"\022\020\n\010gauge_id\030\002 \001(\004\022\\\n\007rew" +
+      "ards\030\003 \003(\0132\031.cosmos.base.v1beta1.CoinB0\310" +
+      "\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/type" +
+      "s.Coins\"\027\n\025MsgAddToGaugeResponse2\300\001\n\003Msg" +
+      "\022]\n\013CreateGauge\022\".osmosis.incentives.Msg" +
+      "CreateGauge\032*.osmosis.incentives.MsgCrea" +
+      "teGaugeResponse\022Z\n\nAddToGauge\022!.osmosis." +
+      "incentives.MsgAddToGauge\032).osmosis.incen" +
+      "tives.MsgAddToGaugeResponseB4Z2github.co" +
+      "m/osmosis-labs/osmosis/x/incentives/type" +
+      "sb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3725,7 +3724,6 @@ public final class Tx {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          osmosis.incentives.GaugeOuterClass.getDescriptor(),
           osmosis.lockup.Lock.getDescriptor(),
         });
     internal_static_osmosis_incentives_MsgCreateGauge_descriptor =
@@ -3763,7 +3761,6 @@ public final class Tx {
     com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    osmosis.incentives.GaugeOuterClass.getDescriptor();
     osmosis.lockup.Lock.getDescriptor();
   }
 

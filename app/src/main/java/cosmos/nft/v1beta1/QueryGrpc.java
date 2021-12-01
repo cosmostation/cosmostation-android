@@ -186,65 +186,65 @@ public final class QueryGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest,
-      cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse> getClassMethod;
+      cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse> getNFTsClassMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Class",
+      fullMethodName = SERVICE_NAME + '/' + "NFTsClass",
       requestType = cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest.class,
       responseType = cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest,
-      cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse> getClassMethod() {
-    io.grpc.MethodDescriptor<cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest, cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse> getClassMethod;
-    if ((getClassMethod = QueryGrpc.getClassMethod) == null) {
+      cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse> getNFTsClassMethod() {
+    io.grpc.MethodDescriptor<cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest, cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse> getNFTsClassMethod;
+    if ((getNFTsClassMethod = QueryGrpc.getNFTsClassMethod) == null) {
       synchronized (QueryGrpc.class) {
-        if ((getClassMethod = QueryGrpc.getClassMethod) == null) {
-          QueryGrpc.getClassMethod = getClassMethod =
+        if ((getNFTsClassMethod = QueryGrpc.getNFTsClassMethod) == null) {
+          QueryGrpc.getNFTsClassMethod = getNFTsClassMethod =
               io.grpc.MethodDescriptor.<cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest, cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Class"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "NFTsClass"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("Class"))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("NFTsClass"))
               .build();
         }
       }
     }
-    return getClassMethod;
+    return getNFTsClassMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest,
-      cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse> getClassesMethod;
+      cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse> getNFTsClassesMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Classes",
+      fullMethodName = SERVICE_NAME + '/' + "NFTsClasses",
       requestType = cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest.class,
       responseType = cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest,
-      cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse> getClassesMethod() {
-    io.grpc.MethodDescriptor<cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest, cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse> getClassesMethod;
-    if ((getClassesMethod = QueryGrpc.getClassesMethod) == null) {
+      cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse> getNFTsClassesMethod() {
+    io.grpc.MethodDescriptor<cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest, cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse> getNFTsClassesMethod;
+    if ((getNFTsClassesMethod = QueryGrpc.getNFTsClassesMethod) == null) {
       synchronized (QueryGrpc.class) {
-        if ((getClassesMethod = QueryGrpc.getClassesMethod) == null) {
-          QueryGrpc.getClassesMethod = getClassesMethod =
+        if ((getNFTsClassesMethod = QueryGrpc.getNFTsClassesMethod) == null) {
+          QueryGrpc.getNFTsClassesMethod = getNFTsClassesMethod =
               io.grpc.MethodDescriptor.<cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest, cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Classes"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "NFTsClasses"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("Classes"))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("NFTsClasses"))
               .build();
         }
       }
     }
-    return getClassesMethod;
+    return getNFTsClassesMethod;
   }
 
   /**
@@ -353,9 +353,9 @@ public final class QueryGrpc {
      * Class queries an NFT class based on its id
      * </pre>
      */
-    public void class_(cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest request,
+    public void nFTsClass(cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest request,
         io.grpc.stub.StreamObserver<cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getClassMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getNFTsClassMethod(), responseObserver);
     }
 
     /**
@@ -363,9 +363,9 @@ public final class QueryGrpc {
      * Classes queries all NFT classes
      * </pre>
      */
-    public void classes(cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest request,
+    public void nFTsClasses(cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest request,
         io.grpc.stub.StreamObserver<cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getClassesMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getNFTsClassesMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -406,19 +406,19 @@ public final class QueryGrpc {
                 cosmos.nft.v1beta1.QueryOuterClass.QueryNFTResponse>(
                   this, METHODID_NFT)))
           .addMethod(
-            getClassMethod(),
+            getNFTsClassMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest,
                 cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse>(
-                  this, METHODID_CLASS)))
+                  this, METHODID_NFTS_CLASS)))
           .addMethod(
-            getClassesMethod(),
+            getNFTsClassesMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest,
                 cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse>(
-                  this, METHODID_CLASSES)))
+                  this, METHODID_NFTS_CLASSES)))
           .build();
     }
   }
@@ -500,10 +500,10 @@ public final class QueryGrpc {
      * Class queries an NFT class based on its id
      * </pre>
      */
-    public void class_(cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest request,
+    public void nFTsClass(cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest request,
         io.grpc.stub.StreamObserver<cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getClassMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getNFTsClassMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -511,10 +511,10 @@ public final class QueryGrpc {
      * Classes queries all NFT classes
      * </pre>
      */
-    public void classes(cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest request,
+    public void nFTsClasses(cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest request,
         io.grpc.stub.StreamObserver<cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getClassesMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getNFTsClassesMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -590,9 +590,9 @@ public final class QueryGrpc {
      * Class queries an NFT class based on its id
      * </pre>
      */
-    public cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse class_(cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest request) {
+    public cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse nFTsClass(cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest request) {
       return blockingUnaryCall(
-          getChannel(), getClassMethod(), getCallOptions(), request);
+          getChannel(), getNFTsClassMethod(), getCallOptions(), request);
     }
 
     /**
@@ -600,9 +600,9 @@ public final class QueryGrpc {
      * Classes queries all NFT classes
      * </pre>
      */
-    public cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse classes(cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest request) {
+    public cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse nFTsClasses(cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest request) {
       return blockingUnaryCall(
-          getChannel(), getClassesMethod(), getCallOptions(), request);
+          getChannel(), getNFTsClassesMethod(), getCallOptions(), request);
     }
   }
 
@@ -683,10 +683,10 @@ public final class QueryGrpc {
      * Class queries an NFT class based on its id
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse> class_(
+    public com.google.common.util.concurrent.ListenableFuture<cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse> nFTsClass(
         cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(getClassMethod(), getCallOptions()), request);
+          getChannel().newCall(getNFTsClassMethod(), getCallOptions()), request);
     }
 
     /**
@@ -694,10 +694,10 @@ public final class QueryGrpc {
      * Classes queries all NFT classes
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse> classes(
+    public com.google.common.util.concurrent.ListenableFuture<cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse> nFTsClasses(
         cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(getClassesMethod(), getCallOptions()), request);
+          getChannel().newCall(getNFTsClassesMethod(), getCallOptions()), request);
     }
   }
 
@@ -706,8 +706,8 @@ public final class QueryGrpc {
   private static final int METHODID_SUPPLY = 2;
   private static final int METHODID_NFTS_OF_CLASS = 3;
   private static final int METHODID_NFT = 4;
-  private static final int METHODID_CLASS = 5;
-  private static final int METHODID_CLASSES = 6;
+  private static final int METHODID_NFTS_CLASS = 5;
+  private static final int METHODID_NFTS_CLASSES = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -746,12 +746,12 @@ public final class QueryGrpc {
           serviceImpl.nFT((cosmos.nft.v1beta1.QueryOuterClass.QueryNFTRequest) request,
               (io.grpc.stub.StreamObserver<cosmos.nft.v1beta1.QueryOuterClass.QueryNFTResponse>) responseObserver);
           break;
-        case METHODID_CLASS:
-          serviceImpl.class_((cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest) request,
+        case METHODID_NFTS_CLASS:
+          serviceImpl.nFTsClass((cosmos.nft.v1beta1.QueryOuterClass.QueryClassRequest) request,
               (io.grpc.stub.StreamObserver<cosmos.nft.v1beta1.QueryOuterClass.QueryClassResponse>) responseObserver);
           break;
-        case METHODID_CLASSES:
-          serviceImpl.classes((cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest) request,
+        case METHODID_NFTS_CLASSES:
+          serviceImpl.nFTsClasses((cosmos.nft.v1beta1.QueryOuterClass.QueryClassesRequest) request,
               (io.grpc.stub.StreamObserver<cosmos.nft.v1beta1.QueryOuterClass.QueryClassesResponse>) responseObserver);
           break;
         default:
@@ -820,8 +820,8 @@ public final class QueryGrpc {
               .addMethod(getSupplyMethod())
               .addMethod(getNFTsOfClassMethod())
               .addMethod(getNFTMethod())
-              .addMethod(getClassMethod())
-              .addMethod(getClassesMethod())
+              .addMethod(getNFTsClassMethod())
+              .addMethod(getNFTsClassesMethod())
               .build();
         }
       }

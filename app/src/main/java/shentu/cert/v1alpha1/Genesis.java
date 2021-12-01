@@ -2010,29 +2010,24 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n\"shentu/cert/v1alpha1/genesis.proto\022\024sh" +
       "entu.cert.v1alpha1\032\024gogoproto/gogo.proto" +
-      "\032\031google/protobuf/any.proto\032\036cosmos/base" +
-      "/v1beta1/coin.proto\032\031cosmos_proto/cosmos" +
-      ".proto\032\037shentu/cert/v1alpha1/cert.proto\"" +
-      "\224\003\n\014GenesisState\022N\n\ncertifiers\030\001 \003(\0132\037.s" +
-      "hentu.cert.v1alpha1.CertifierB\031\362\336\037\021yaml:" +
-      "\"certifiers\"\310\336\037\000\022K\n\tplatforms\030\002 \003(\0132\036.sh" +
-      "entu.cert.v1alpha1.PlatformB\030\362\336\037\020yaml:\"p" +
-      "latforms\"\310\336\037\000\022T\n\014certificates\030\003 \003(\0132!.sh" +
-      "entu.cert.v1alpha1.CertificateB\033\362\336\037\023yaml" +
-      ":\"certificates\"\310\336\037\000\022J\n\tlibraries\030\004 \003(\0132\035" +
-      ".shentu.cert.v1alpha1.LibraryB\030\362\336\037\020yaml:" +
-      "\"libraries\"\310\336\037\000\022;\n\023next_certificate_id\030\005" +
-      " \001(\004B\036\362\336\037\032yaml:\"next_certificate_id\":\010\350\240" +
-      "\037\000\210\240\037\000B1Z/github.com/certikfoundation/sh" +
-      "entu/x/cert/typesb\006proto3"
+      "\032\037shentu/cert/v1alpha1/cert.proto\"\224\003\n\014Ge" +
+      "nesisState\022N\n\ncertifiers\030\001 \003(\0132\037.shentu." +
+      "cert.v1alpha1.CertifierB\031\362\336\037\021yaml:\"certi" +
+      "fiers\"\310\336\037\000\022K\n\tplatforms\030\002 \003(\0132\036.shentu.c" +
+      "ert.v1alpha1.PlatformB\030\362\336\037\020yaml:\"platfor" +
+      "ms\"\310\336\037\000\022T\n\014certificates\030\003 \003(\0132!.shentu.c" +
+      "ert.v1alpha1.CertificateB\033\362\336\037\023yaml:\"cert" +
+      "ificates\"\310\336\037\000\022J\n\tlibraries\030\004 \003(\0132\035.shent" +
+      "u.cert.v1alpha1.LibraryB\030\362\336\037\020yaml:\"libra" +
+      "ries\"\310\336\037\000\022;\n\023next_certificate_id\030\005 \001(\004B\036" +
+      "\362\336\037\032yaml:\"next_certificate_id\":\010\350\240\037\000\210\240\037\000" +
+      "B1Z/github.com/certikfoundation/shentu/x" +
+      "/cert/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
           shentu.cert.v1alpha1.Cert.getDescriptor(),
         });
     internal_static_shentu_cert_v1alpha1_GenesisState_descriptor =
@@ -2050,9 +2045,6 @@ public final class Genesis {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
     shentu.cert.v1alpha1.Cert.getDescriptor();
   }
 

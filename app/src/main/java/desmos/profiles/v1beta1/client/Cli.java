@@ -1262,19 +1262,19 @@ public final class Cli {
     java.lang.String[] descriptorData = {
       "\n(desmos/profiles/v1beta1/client/cli.pro" +
       "to\022\036desmos.profiles.v1beta1.client\032\024gogo" +
-      "proto/gogo.proto\032\031google/protobuf/any.pr" +
-      "oto\032\037google/protobuf/timestamp.proto\032\031co" +
-      "smos_proto/cosmos.proto\0320desmos/profiles" +
-      "/v1beta1/models_chain_links.proto\"\201\002\n\rCh" +
-      "ainLinkJSON\022H\n\007address\030\001 \001(\0132\024.google.pr" +
-      "otobuf.AnyB!\362\336\037\016yaml:\"address\"\312\264-\013Addres" +
-      "sData\022C\n\005proof\030\002 \001(\0132\036.desmos.profiles.v" +
-      "1beta1.ProofB\024\310\336\037\000\362\336\037\014yaml:\"proof\"\022W\n\014ch" +
-      "ain_config\030\003 \001(\0132$.desmos.profiles.v1bet" +
-      "a1.ChainConfigB\033\310\336\037\000\362\336\037\023yaml:\"chain_conf" +
-      "ig\":\010\350\240\037\001\230\240\037\001B:Z8github.com/desmos-labs/" +
-      "desmos/v2/x/profiles/client/utilsb\006proto" +
-      "3"
+      "proto/gogo.proto\032\032google/protobuf2/any.p" +
+      "roto\032\037google/protobuf/timestamp.proto\032\031c" +
+      "osmos_proto/cosmos.proto\0320desmos/profile" +
+      "s/v1beta1/models_chain_links.proto\"\201\002\n\rC" +
+      "hainLinkJSON\022H\n\007address\030\001 \001(\0132\024.google.p" +
+      "rotobuf.AnyB!\362\336\037\016yaml:\"address\"\312\264-\013Addre" +
+      "ssData\022C\n\005proof\030\002 \001(\0132\036.desmos.profiles." +
+      "v1beta1.ProofB\024\310\336\037\000\362\336\037\014yaml:\"proof\"\022W\n\014c" +
+      "hain_config\030\003 \001(\0132$.desmos.profiles.v1be" +
+      "ta1.ChainConfigB\033\310\336\037\000\362\336\037\023yaml:\"chain_con" +
+      "fig\":\010\350\240\037\001\230\240\037\001B:Z8github.com/desmos-labs" +
+      "/desmos/v2/x/profiles/client/utilsb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

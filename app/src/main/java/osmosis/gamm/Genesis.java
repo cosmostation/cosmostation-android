@@ -1910,18 +1910,18 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n\"osmosis/gamm/v1beta1/genesis.proto\022\014os" +
-      "mosis.gamm\032\024gogoproto/gogo.proto\032\031google" +
-      "/protobuf/any.proto\032\031cosmos_proto/cosmos" +
-      ".proto\032\036cosmos/base/v1beta1/coin.proto\"\215" +
-      "\001\n\006Params\022\202\001\n\021pool_creation_fee\030\001 \003(\0132\031." +
-      "cosmos.base.v1beta1.CoinBL\252\337\037(github.com" +
-      "/cosmos/cosmos-sdk/types.Coins\362\336\037\030yaml:\"" +
-      "pool_creation_fee\"\310\336\037\000\"\204\001\n\014GenesisState\022" +
-      ".\n\005pools\030\001 \003(\0132\024.google.protobuf.AnyB\t\312\264" +
-      "-\005PoolI\022\030\n\020next_pool_number\030\002 \001(\004\022*\n\006par" +
-      "ams\030\003 \001(\0132\024.osmosis.gamm.ParamsB\004\310\336\037\000B.Z" +
-      ",github.com/osmosis-labs/osmosis/x/gamm/" +
-      "typesb\006proto3"
+      "mosis.gamm\032\024gogoproto/gogo.proto\032\032google" +
+      "/protobuf2/any.proto\032\031cosmos_proto/cosmo" +
+      "s.proto\032\036cosmos/base/v1beta1/coin.proto\"" +
+      "\215\001\n\006Params\022\202\001\n\021pool_creation_fee\030\001 \003(\0132\031" +
+      ".cosmos.base.v1beta1.CoinBL\252\337\037(github.co" +
+      "m/cosmos/cosmos-sdk/types.Coins\362\336\037\030yaml:" +
+      "\"pool_creation_fee\"\310\336\037\000\"\204\001\n\014GenesisState" +
+      "\022.\n\005pools\030\001 \003(\0132\024.google.protobuf.AnyB\t\312" +
+      "\264-\005PoolI\022\030\n\020next_pool_number\030\002 \001(\004\022*\n\006pa" +
+      "rams\030\003 \001(\0132\024.osmosis.gamm.ParamsB\004\310\336\037\000B." +
+      "Z,github.com/osmosis-labs/osmosis/x/gamm" +
+      "/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

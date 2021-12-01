@@ -1440,7 +1440,7 @@ public final class Tx {
      *
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
-    java.util.List<payload.Payload.ContractMeta> 
+    java.util.List<shentu.burrow.v1alpha1.Payload.ContractMeta> 
         getMetaList();
     /**
      * <pre>
@@ -1449,7 +1449,7 @@ public final class Tx {
      *
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
-    payload.Payload.ContractMeta getMeta(int index);
+    shentu.burrow.v1alpha1.Payload.ContractMeta getMeta(int index);
     /**
      * <pre>
      * Meta is the metadata for the contract.
@@ -1465,7 +1465,7 @@ public final class Tx {
      *
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
-    java.util.List<? extends payload.Payload.ContractMetaOrBuilder> 
+    java.util.List<? extends shentu.burrow.v1alpha1.Payload.ContractMetaOrBuilder> 
         getMetaOrBuilderList();
     /**
      * <pre>
@@ -1474,7 +1474,7 @@ public final class Tx {
      *
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
-    payload.Payload.ContractMetaOrBuilder getMetaOrBuilder(
+    shentu.burrow.v1alpha1.Payload.ContractMetaOrBuilder getMetaOrBuilder(
         int index);
 
     /**
@@ -1571,11 +1571,11 @@ public final class Tx {
             }
             case 42: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                meta_ = new java.util.ArrayList<payload.Payload.ContractMeta>();
+                meta_ = new java.util.ArrayList<shentu.burrow.v1alpha1.Payload.ContractMeta>();
                 mutable_bitField0_ |= 0x00000001;
               }
               meta_.add(
-                  input.readMessage(payload.Payload.ContractMeta.parser(), extensionRegistry));
+                  input.readMessage(shentu.burrow.v1alpha1.Payload.ContractMeta.parser(), extensionRegistry));
               break;
             }
             case 48: {
@@ -1746,7 +1746,7 @@ public final class Tx {
     }
 
     public static final int META_FIELD_NUMBER = 5;
-    private java.util.List<payload.Payload.ContractMeta> meta_;
+    private java.util.List<shentu.burrow.v1alpha1.Payload.ContractMeta> meta_;
     /**
      * <pre>
      * Meta is the metadata for the contract.
@@ -1755,7 +1755,7 @@ public final class Tx {
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
     @java.lang.Override
-    public java.util.List<payload.Payload.ContractMeta> getMetaList() {
+    public java.util.List<shentu.burrow.v1alpha1.Payload.ContractMeta> getMetaList() {
       return meta_;
     }
     /**
@@ -1766,7 +1766,7 @@ public final class Tx {
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
     @java.lang.Override
-    public java.util.List<? extends payload.Payload.ContractMetaOrBuilder> 
+    public java.util.List<? extends shentu.burrow.v1alpha1.Payload.ContractMetaOrBuilder> 
         getMetaOrBuilderList() {
       return meta_;
     }
@@ -1789,7 +1789,7 @@ public final class Tx {
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
     @java.lang.Override
-    public payload.Payload.ContractMeta getMeta(int index) {
+    public shentu.burrow.v1alpha1.Payload.ContractMeta getMeta(int index) {
       return meta_.get(index);
     }
     /**
@@ -1800,7 +1800,7 @@ public final class Tx {
      * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
      */
     @java.lang.Override
-    public payload.Payload.ContractMetaOrBuilder getMetaOrBuilder(
+    public shentu.burrow.v1alpha1.Payload.ContractMetaOrBuilder getMetaOrBuilder(
         int index) {
       return meta_.get(index);
     }
@@ -2563,17 +2563,17 @@ public final class Tx {
         return this;
       }
 
-      private java.util.List<payload.Payload.ContractMeta> meta_ =
+      private java.util.List<shentu.burrow.v1alpha1.Payload.ContractMeta> meta_ =
         java.util.Collections.emptyList();
       private void ensureMetaIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          meta_ = new java.util.ArrayList<payload.Payload.ContractMeta>(meta_);
+          meta_ = new java.util.ArrayList<shentu.burrow.v1alpha1.Payload.ContractMeta>(meta_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          payload.Payload.ContractMeta, payload.Payload.ContractMeta.Builder, payload.Payload.ContractMetaOrBuilder> metaBuilder_;
+          shentu.burrow.v1alpha1.Payload.ContractMeta, shentu.burrow.v1alpha1.Payload.ContractMeta.Builder, shentu.burrow.v1alpha1.Payload.ContractMetaOrBuilder> metaBuilder_;
 
       /**
        * <pre>
@@ -2582,7 +2582,7 @@ public final class Tx {
        *
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
-      public java.util.List<payload.Payload.ContractMeta> getMetaList() {
+      public java.util.List<shentu.burrow.v1alpha1.Payload.ContractMeta> getMetaList() {
         if (metaBuilder_ == null) {
           return java.util.Collections.unmodifiableList(meta_);
         } else {
@@ -2610,7 +2610,7 @@ public final class Tx {
        *
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
-      public payload.Payload.ContractMeta getMeta(int index) {
+      public shentu.burrow.v1alpha1.Payload.ContractMeta getMeta(int index) {
         if (metaBuilder_ == null) {
           return meta_.get(index);
         } else {
@@ -2625,7 +2625,7 @@ public final class Tx {
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
       public Builder setMeta(
-          int index, payload.Payload.ContractMeta value) {
+          int index, shentu.burrow.v1alpha1.Payload.ContractMeta value) {
         if (metaBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2646,7 +2646,7 @@ public final class Tx {
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
       public Builder setMeta(
-          int index, payload.Payload.ContractMeta.Builder builderForValue) {
+          int index, shentu.burrow.v1alpha1.Payload.ContractMeta.Builder builderForValue) {
         if (metaBuilder_ == null) {
           ensureMetaIsMutable();
           meta_.set(index, builderForValue.build());
@@ -2663,7 +2663,7 @@ public final class Tx {
        *
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
-      public Builder addMeta(payload.Payload.ContractMeta value) {
+      public Builder addMeta(shentu.burrow.v1alpha1.Payload.ContractMeta value) {
         if (metaBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2684,7 +2684,7 @@ public final class Tx {
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
       public Builder addMeta(
-          int index, payload.Payload.ContractMeta value) {
+          int index, shentu.burrow.v1alpha1.Payload.ContractMeta value) {
         if (metaBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2705,7 +2705,7 @@ public final class Tx {
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
       public Builder addMeta(
-          payload.Payload.ContractMeta.Builder builderForValue) {
+          shentu.burrow.v1alpha1.Payload.ContractMeta.Builder builderForValue) {
         if (metaBuilder_ == null) {
           ensureMetaIsMutable();
           meta_.add(builderForValue.build());
@@ -2723,7 +2723,7 @@ public final class Tx {
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
       public Builder addMeta(
-          int index, payload.Payload.ContractMeta.Builder builderForValue) {
+          int index, shentu.burrow.v1alpha1.Payload.ContractMeta.Builder builderForValue) {
         if (metaBuilder_ == null) {
           ensureMetaIsMutable();
           meta_.add(index, builderForValue.build());
@@ -2741,7 +2741,7 @@ public final class Tx {
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
       public Builder addAllMeta(
-          java.lang.Iterable<? extends payload.Payload.ContractMeta> values) {
+          java.lang.Iterable<? extends shentu.burrow.v1alpha1.Payload.ContractMeta> values) {
         if (metaBuilder_ == null) {
           ensureMetaIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -2793,7 +2793,7 @@ public final class Tx {
        *
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
-      public payload.Payload.ContractMeta.Builder getMetaBuilder(
+      public shentu.burrow.v1alpha1.Payload.ContractMeta.Builder getMetaBuilder(
           int index) {
         return getMetaFieldBuilder().getBuilder(index);
       }
@@ -2804,7 +2804,7 @@ public final class Tx {
        *
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
-      public payload.Payload.ContractMetaOrBuilder getMetaOrBuilder(
+      public shentu.burrow.v1alpha1.Payload.ContractMetaOrBuilder getMetaOrBuilder(
           int index) {
         if (metaBuilder_ == null) {
           return meta_.get(index);  } else {
@@ -2818,7 +2818,7 @@ public final class Tx {
        *
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
-      public java.util.List<? extends payload.Payload.ContractMetaOrBuilder> 
+      public java.util.List<? extends shentu.burrow.v1alpha1.Payload.ContractMetaOrBuilder> 
            getMetaOrBuilderList() {
         if (metaBuilder_ != null) {
           return metaBuilder_.getMessageOrBuilderList();
@@ -2833,9 +2833,9 @@ public final class Tx {
        *
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
-      public payload.Payload.ContractMeta.Builder addMetaBuilder() {
+      public shentu.burrow.v1alpha1.Payload.ContractMeta.Builder addMetaBuilder() {
         return getMetaFieldBuilder().addBuilder(
-            payload.Payload.ContractMeta.getDefaultInstance());
+            shentu.burrow.v1alpha1.Payload.ContractMeta.getDefaultInstance());
       }
       /**
        * <pre>
@@ -2844,10 +2844,10 @@ public final class Tx {
        *
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
-      public payload.Payload.ContractMeta.Builder addMetaBuilder(
+      public shentu.burrow.v1alpha1.Payload.ContractMeta.Builder addMetaBuilder(
           int index) {
         return getMetaFieldBuilder().addBuilder(
-            index, payload.Payload.ContractMeta.getDefaultInstance());
+            index, shentu.burrow.v1alpha1.Payload.ContractMeta.getDefaultInstance());
       }
       /**
        * <pre>
@@ -2856,16 +2856,16 @@ public final class Tx {
        *
        * <code>repeated .payload.ContractMeta meta = 5 [(.gogoproto.moretags) = "yaml:&#92;"meta&#92;""];</code>
        */
-      public java.util.List<payload.Payload.ContractMeta.Builder> 
+      public java.util.List<shentu.burrow.v1alpha1.Payload.ContractMeta.Builder> 
            getMetaBuilderList() {
         return getMetaFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          payload.Payload.ContractMeta, payload.Payload.ContractMeta.Builder, payload.Payload.ContractMetaOrBuilder> 
+          shentu.burrow.v1alpha1.Payload.ContractMeta, shentu.burrow.v1alpha1.Payload.ContractMeta.Builder, shentu.burrow.v1alpha1.Payload.ContractMetaOrBuilder> 
           getMetaFieldBuilder() {
         if (metaBuilder_ == null) {
           metaBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              payload.Payload.ContractMeta, payload.Payload.ContractMeta.Builder, payload.Payload.ContractMetaOrBuilder>(
+              shentu.burrow.v1alpha1.Payload.ContractMeta, shentu.burrow.v1alpha1.Payload.ContractMeta.Builder, shentu.burrow.v1alpha1.Payload.ContractMetaOrBuilder>(
                   meta_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -3535,35 +3535,33 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n\034shentu/cvm/v1alpha1/tx.proto\022\023shentu.c" +
-      "vm.v1alpha1\032\024gogoproto/gogo.proto\032\035shent" +
-      "u/cvm/v1alpha1/cvm.proto\032\024burrow/payload" +
-      ".proto\"\217\001\n\007MsgCall\022!\n\006caller\030\001 \001(\tB\021\362\336\037\r" +
-      "yaml:\"caller\"\022!\n\006callee\030\002 \001(\tB\021\362\336\037\ryaml:" +
-      "\"callee\"\022\037\n\005value\030\003 \001(\004B\020\362\336\037\014yaml:\"value" +
-      "\"\022\035\n\004data\030\004 \001(\014B\017\362\336\037\013yaml:\"data\"\"4\n\017MsgC" +
-      "allResponse\022!\n\006result\030\001 \001(\014B\021\362\336\037\ryaml:\"r" +
-      "esult\"\"\223\002\n\tMsgDeploy\022!\n\006caller\030\001 \001(\tB\021\362\336" +
-      "\037\ryaml:\"caller\"\022\037\n\005value\030\002 \001(\004B\020\362\336\037\014yaml" +
-      ":\"value\"\022\035\n\004code\030\003 \001(\014B\017\362\336\037\013yaml:\"code\"\022" +
-      "\033\n\003abi\030\004 \001(\tB\016\362\336\037\nyaml:\"abi\"\0224\n\004meta\030\005 \003" +
-      "(\0132\025.payload.ContractMetaB\017\362\336\037\013yaml:\"met" +
-      "a\"\022%\n\010is_eWASM\030\006 \001(\010B\023\362\336\037\017yaml:\"is_EWASM" +
-      "\"\022)\n\nis_runtime\030\007 \001(\010B\025\362\336\037\021yaml:\"is_runt" +
-      "ime\"\"6\n\021MsgDeployResponse\022!\n\006result\030\001 \001(" +
-      "\014B\021\362\336\037\ryaml:\"result\"2\243\001\n\003Msg\022J\n\004Call\022\034.s" +
-      "hentu.cvm.v1alpha1.MsgCall\032$.shentu.cvm." +
-      "v1alpha1.MsgCallResponse\022P\n\006Deploy\022\036.she" +
-      "ntu.cvm.v1alpha1.MsgDeploy\032&.shentu.cvm." +
-      "v1alpha1.MsgDeployResponseB0Z.github.com" +
-      "/certikfoundation/shentu/x/cvm/typesb\006pr" +
-      "oto3"
+      "vm.v1alpha1\032\024gogoproto/gogo.proto\032\033shent" +
+      "u/burrow/payload.proto\"\217\001\n\007MsgCall\022!\n\006ca" +
+      "ller\030\001 \001(\tB\021\362\336\037\ryaml:\"caller\"\022!\n\006callee\030" +
+      "\002 \001(\tB\021\362\336\037\ryaml:\"callee\"\022\037\n\005value\030\003 \001(\004B" +
+      "\020\362\336\037\014yaml:\"value\"\022\035\n\004data\030\004 \001(\014B\017\362\336\037\013yam" +
+      "l:\"data\"\"4\n\017MsgCallResponse\022!\n\006result\030\001 " +
+      "\001(\014B\021\362\336\037\ryaml:\"result\"\"\223\002\n\tMsgDeploy\022!\n\006" +
+      "caller\030\001 \001(\tB\021\362\336\037\ryaml:\"caller\"\022\037\n\005value" +
+      "\030\002 \001(\004B\020\362\336\037\014yaml:\"value\"\022\035\n\004code\030\003 \001(\014B\017" +
+      "\362\336\037\013yaml:\"code\"\022\033\n\003abi\030\004 \001(\tB\016\362\336\037\nyaml:\"" +
+      "abi\"\0224\n\004meta\030\005 \003(\0132\025.payload.ContractMet" +
+      "aB\017\362\336\037\013yaml:\"meta\"\022%\n\010is_eWASM\030\006 \001(\010B\023\362\336" +
+      "\037\017yaml:\"is_EWASM\"\022)\n\nis_runtime\030\007 \001(\010B\025\362" +
+      "\336\037\021yaml:\"is_runtime\"\"6\n\021MsgDeployRespons" +
+      "e\022!\n\006result\030\001 \001(\014B\021\362\336\037\ryaml:\"result\"2\243\001\n" +
+      "\003Msg\022J\n\004Call\022\034.shentu.cvm.v1alpha1.MsgCa" +
+      "ll\032$.shentu.cvm.v1alpha1.MsgCallResponse" +
+      "\022P\n\006Deploy\022\036.shentu.cvm.v1alpha1.MsgDepl" +
+      "oy\032&.shentu.cvm.v1alpha1.MsgDeployRespon" +
+      "seB0Z.github.com/certikfoundation/shentu" +
+      "/x/cvm/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          shentu.cvm.v1alpha1.Cvm.getDescriptor(),
-          payload.Payload.getDescriptor(),
+          shentu.burrow.v1alpha1.Payload.getDescriptor(),
         });
     internal_static_shentu_cvm_v1alpha1_MsgCall_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3595,8 +3593,7 @@ public final class Tx {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    shentu.cvm.v1alpha1.Cvm.getDescriptor();
-    payload.Payload.getDescriptor();
+    shentu.burrow.v1alpha1.Payload.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

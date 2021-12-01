@@ -2799,23 +2799,23 @@ public final class MsgsProfile {
     java.lang.String[] descriptorData = {
       "\n*desmos/profiles/v1beta1/msgs_profile.p" +
       "roto\022\027desmos.profiles.v1beta1\032\024gogoproto" +
-      "/gogo.proto\032\031google/protobuf/any.proto\032\031" +
-      "cosmos_proto/cosmos.proto\032,desmos/profil" +
-      "es/v1beta1/models_profile.proto\0322desmos/" +
-      "profiles/v1beta1/models_relationships.pr" +
-      "oto\0322desmos/profiles/v1beta1/models_dtag" +
-      "_requests.proto\"\220\002\n\016MsgSaveProfile\022%\n\004dt" +
-      "ag\030\001 \001(\tB\027\362\336\037\013yaml:\"dtag\"\342\336\037\004DTag\022%\n\010nic" +
-      "kname\030\002 \001(\tB\023\362\336\037\017yaml:\"nickname\"\022\033\n\003bio\030" +
-      "\003 \001(\tB\016\362\336\037\nyaml:\"bio\"\0223\n\017profile_picture" +
-      "\030\004 \001(\tB\032\362\336\037\026yaml:\"profile_picture\"\022/\n\rco" +
-      "ver_picture\030\005 \001(\tB\030\362\336\037\024yaml:\"cover_pictu" +
-      "re\"\022#\n\007creator\030\006 \001(\tB\022\362\336\037\016yaml:\"creator\"" +
-      ":\010\350\240\037\000\210\240\037\000\"\030\n\026MsgSaveProfileResponse\"A\n\020" +
-      "MsgDeleteProfile\022#\n\007creator\030\001 \001(\tB\022\362\336\037\016y" +
-      "aml:\"creator\":\010\350\240\037\000\210\240\037\000\"\032\n\030MsgDeleteProf" +
-      "ileResponseB3Z1github.com/desmos-labs/de" +
-      "smos/v2/x/profiles/typesb\006proto3"
+      "/gogo.proto\032\032google/protobuf2/any.proto\032" +
+      "\031cosmos_proto/cosmos.proto\032,desmos/profi" +
+      "les/v1beta1/models_profile.proto\0322desmos" +
+      "/profiles/v1beta1/models_relationships.p" +
+      "roto\0322desmos/profiles/v1beta1/models_dta" +
+      "g_requests.proto\"\220\002\n\016MsgSaveProfile\022%\n\004d" +
+      "tag\030\001 \001(\tB\027\362\336\037\013yaml:\"dtag\"\342\336\037\004DTag\022%\n\010ni" +
+      "ckname\030\002 \001(\tB\023\362\336\037\017yaml:\"nickname\"\022\033\n\003bio" +
+      "\030\003 \001(\tB\016\362\336\037\nyaml:\"bio\"\0223\n\017profile_pictur" +
+      "e\030\004 \001(\tB\032\362\336\037\026yaml:\"profile_picture\"\022/\n\rc" +
+      "over_picture\030\005 \001(\tB\030\362\336\037\024yaml:\"cover_pict" +
+      "ure\"\022#\n\007creator\030\006 \001(\tB\022\362\336\037\016yaml:\"creator" +
+      "\":\010\350\240\037\000\210\240\037\000\"\030\n\026MsgSaveProfileResponse\"A\n" +
+      "\020MsgDeleteProfile\022#\n\007creator\030\001 \001(\tB\022\362\336\037\016" +
+      "yaml:\"creator\":\010\350\240\037\000\210\240\037\000\"\032\n\030MsgDeletePro" +
+      "fileResponseB3Z1github.com/desmos-labs/d" +
+      "esmos/v2/x/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

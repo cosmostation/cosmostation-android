@@ -24,19 +24,13 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\033panacea/burn/v2/query.proto\022\017panacea.b" +
-      "urn.v2\032\034google/api/annotations.proto\032*co" +
-      "smos/base/query/v1beta1/pagination.proto" +
-      "2\007\n\005QueryB1P\001Z-github.com/medibloc/panac" +
-      "ea-core/x/burn/typesb\006proto3"
+      "urn.v22\007\n\005QueryB1P\001Z-github.com/medibloc" +
+      "/panacea-core/x/burn/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.api.AnnotationsProto.getDescriptor(),
-          cosmos.base.query.v1beta1.Pagination.getDescriptor(),
         });
-    com.google.api.AnnotationsProto.getDescriptor();
-    cosmos.base.query.v1beta1.Pagination.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

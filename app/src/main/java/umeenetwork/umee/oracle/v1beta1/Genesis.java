@@ -5017,37 +5017,35 @@ public final class Genesis {
       "\n!umee/oracle/v1beta1/genesis.proto\022\037ume" +
       "enetwork.umee.oracle.v1beta1\032\024gogoproto/" +
       "gogo.proto\032 umee/oracle/v1beta1/oracle.p" +
-      "roto\032\036cosmos/base/v1beta1/coin.proto\"\363\004\n" +
-      "\014GenesisState\022=\n\006params\030\001 \001(\0132\'.umeenetw" +
-      "ork.umee.oracle.v1beta1.ParamsB\004\310\336\037\000\022S\n\022" +
-      "feeder_delegations\030\002 \003(\01321.umeenetwork.u" +
-      "mee.oracle.v1beta1.FeederDelegationB\004\310\336\037" +
-      "\000\022f\n\016exchange_rates\030\003 \003(\01322.umeenetwork." +
-      "umee.oracle.v1beta1.ExchangeRateTupleB\032\252" +
-      "\337\037\022ExchangeRateTuples\310\336\037\000\022I\n\rmiss_counte" +
-      "rs\030\004 \003(\0132,.umeenetwork.umee.oracle.v1bet" +
-      "a1.MissCounterB\004\310\336\037\000\022m\n aggregate_exchan" +
-      "ge_rate_prevotes\030\005 \003(\0132=.umeenetwork.ume" +
-      "e.oracle.v1beta1.AggregateExchangeRatePr" +
-      "evoteB\004\310\336\037\000\022g\n\035aggregate_exchange_rate_v" +
-      "otes\030\006 \003(\0132:.umeenetwork.umee.oracle.v1b" +
-      "eta1.AggregateExchangeRateVoteB\004\310\336\037\000\022D\n\013" +
-      "tobin_taxes\030\007 \003(\0132).umeenetwork.umee.ora" +
-      "cle.v1beta1.TobinTaxB\004\310\336\037\000\"E\n\020FeederDele" +
-      "gation\022\026\n\016feeder_address\030\001 \001(\t\022\031\n\021valida" +
-      "tor_address\030\002 \001(\t\">\n\013MissCounter\022\031\n\021vali" +
-      "dator_address\030\001 \001(\t\022\024\n\014miss_counter\030\002 \001(" +
-      "\004\"\\\n\010TobinTax\022\r\n\005denom\030\001 \001(\t\022A\n\ttobin_ta" +
-      "x\030\002 \001(\tB.\332\336\037&github.com/cosmos/cosmos-sd" +
-      "k/types.Dec\310\336\037\000B-Z+github.com/umee-netwo" +
-      "rk/umee/x/oracle/typesb\006proto3"
+      "roto\"\363\004\n\014GenesisState\022=\n\006params\030\001 \001(\0132\'." +
+      "umeenetwork.umee.oracle.v1beta1.ParamsB\004" +
+      "\310\336\037\000\022S\n\022feeder_delegations\030\002 \003(\01321.umeen" +
+      "etwork.umee.oracle.v1beta1.FeederDelegat" +
+      "ionB\004\310\336\037\000\022f\n\016exchange_rates\030\003 \003(\01322.umee" +
+      "network.umee.oracle.v1beta1.ExchangeRate" +
+      "TupleB\032\252\337\037\022ExchangeRateTuples\310\336\037\000\022I\n\rmis" +
+      "s_counters\030\004 \003(\0132,.umeenetwork.umee.orac" +
+      "le.v1beta1.MissCounterB\004\310\336\037\000\022m\n aggregat" +
+      "e_exchange_rate_prevotes\030\005 \003(\0132=.umeenet" +
+      "work.umee.oracle.v1beta1.AggregateExchan" +
+      "geRatePrevoteB\004\310\336\037\000\022g\n\035aggregate_exchang" +
+      "e_rate_votes\030\006 \003(\0132:.umeenetwork.umee.or" +
+      "acle.v1beta1.AggregateExchangeRateVoteB\004" +
+      "\310\336\037\000\022D\n\013tobin_taxes\030\007 \003(\0132).umeenetwork." +
+      "umee.oracle.v1beta1.TobinTaxB\004\310\336\037\000\"E\n\020Fe" +
+      "ederDelegation\022\026\n\016feeder_address\030\001 \001(\t\022\031" +
+      "\n\021validator_address\030\002 \001(\t\">\n\013MissCounter" +
+      "\022\031\n\021validator_address\030\001 \001(\t\022\024\n\014miss_coun" +
+      "ter\030\002 \001(\004\"\\\n\010TobinTax\022\r\n\005denom\030\001 \001(\t\022A\n\t" +
+      "tobin_tax\030\002 \001(\tB.\332\336\037&github.com/cosmos/c" +
+      "osmos-sdk/types.Dec\310\336\037\000B-Z+github.com/um" +
+      "ee-network/umee/x/oracle/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           umeenetwork.umee.oracle.v1beta1.Oracle.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_umeenetwork_umee_oracle_v1beta1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5082,7 +5080,6 @@ public final class Genesis {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
     umeenetwork.umee.oracle.v1beta1.Oracle.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

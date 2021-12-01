@@ -16870,98 +16870,98 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n\035cosmos/group/v1beta1/tx.proto\022\024cosmos." +
       "group.v1beta1\032\024gogoproto/gogo.proto\032\031cos" +
-      "mos_proto/cosmos.proto\032\031google/protobuf/" +
-      "any.proto\032 cosmos/group/v1beta1/types.pr" +
-      "oto\"\207\001\n\025MsgCreateGroupRequest\022\'\n\005admin\030\001" +
-      " \001(\tB\030\322\264-\024cosmos.AddressString\0223\n\007member" +
-      "s\030\002 \003(\0132\034.cosmos.group.v1beta1.MemberB\004\310" +
-      "\336\037\000\022\020\n\010metadata\030\003 \001(\014\"*\n\026MsgCreateGroupR" +
-      "esponse\022\020\n\010group_id\030\001 \001(\004\"\225\001\n\034MsgUpdateG" +
-      "roupMembersRequest\022\'\n\005admin\030\001 \001(\tB\030\322\264-\024c" +
-      "osmos.AddressString\022\020\n\010group_id\030\002 \001(\004\022:\n" +
-      "\016member_updates\030\003 \003(\0132\034.cosmos.group.v1b" +
-      "eta1.MemberB\004\310\336\037\000\"\037\n\035MsgUpdateGroupMembe" +
-      "rsResponse\"\204\001\n\032MsgUpdateGroupAdminReques" +
-      "t\022\'\n\005admin\030\001 \001(\tB\030\322\264-\024cosmos.AddressStri" +
-      "ng\022\020\n\010group_id\030\002 \001(\004\022+\n\tnew_admin\030\003 \001(\tB" +
-      "\030\322\264-\024cosmos.AddressString\"\035\n\033MsgUpdateGr" +
-      "oupAdminResponse\"l\n\035MsgUpdateGroupMetada" +
-      "taRequest\022\'\n\005admin\030\001 \001(\tB\030\322\264-\024cosmos.Add" +
-      "ressString\022\020\n\010group_id\030\002 \001(\004\022\020\n\010metadata" +
-      "\030\003 \001(\014\" \n\036MsgUpdateGroupMetadataResponse" +
-      "\"\264\001\n\034MsgCreateGroupAccountRequest\022\'\n\005adm" +
-      "in\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022\020\n\010gr" +
-      "oup_id\030\002 \001(\004\022\020\n\010metadata\030\003 \001(\014\022A\n\017decisi" +
-      "on_policy\030\004 \001(\0132\024.google.protobuf.AnyB\022\312" +
-      "\264-\016DecisionPolicy:\004\210\240\037\000\"J\n\035MsgCreateGrou" +
-      "pAccountResponse\022)\n\007address\030\001 \001(\tB\030\322\264-\024c" +
-      "osmos.AddressString\"\244\001\n!MsgUpdateGroupAc" +
-      "countAdminRequest\022\'\n\005admin\030\001 \001(\tB\030\322\264-\024co" +
-      "smos.AddressString\022)\n\007address\030\002 \001(\tB\030\322\264-" +
-      "\024cosmos.AddressString\022+\n\tnew_admin\030\003 \001(\t" +
-      "B\030\322\264-\024cosmos.AddressString\"$\n\"MsgUpdateG" +
-      "roupAccountAdminResponse\"\311\001\n*MsgUpdateGr" +
-      "oupAccountDecisionPolicyRequest\022\'\n\005admin" +
-      "\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022)\n\007addr" +
-      "ess\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022A\n\017d" +
-      "ecision_policy\030\003 \001(\0132\024.google.protobuf.A" +
-      "nyB\022\312\264-\016DecisionPolicy:\004\210\240\037\000\"-\n+MsgUpdat" +
-      "eGroupAccountDecisionPolicyResponse\"\214\001\n$" +
-      "MsgUpdateGroupAccountMetadataRequest\022\'\n\005" +
-      "admin\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022)\n" +
-      "\007address\030\002 \001(\tB\030\322\264-\024cosmos.AddressString" +
-      "\022\020\n\010metadata\030\003 \001(\014\"\'\n%MsgUpdateGroupAcco" +
-      "untMetadataResponse\"\276\001\n\030MsgCreateProposa" +
-      "lRequest\022)\n\007address\030\001 \001(\tB\030\322\264-\024cosmos.Ad" +
-      "dressString\022\021\n\tproposers\030\002 \003(\t\022\020\n\010metada" +
-      "ta\030\003 \001(\014\022\"\n\004msgs\030\004 \003(\0132\024.google.protobuf" +
-      ".Any\022(\n\004exec\030\005 \001(\0162\032.cosmos.group.v1beta" +
-      "1.Exec:\004\210\240\037\000\"0\n\031MsgCreateProposalRespons" +
-      "e\022\023\n\013proposal_id\030\001 \001(\004\"\270\001\n\016MsgVoteReques" +
-      "t\022\023\n\013proposal_id\030\001 \001(\004\022\'\n\005voter\030\002 \001(\tB\030\322" +
-      "\264-\024cosmos.AddressString\022,\n\006choice\030\003 \001(\0162" +
-      "\034.cosmos.group.v1beta1.Choice\022\020\n\010metadat" +
-      "a\030\004 \001(\014\022(\n\004exec\030\005 \001(\0162\032.cosmos.group.v1b" +
-      "eta1.Exec\"\021\n\017MsgVoteResponse\"O\n\016MsgExecR" +
-      "equest\022\023\n\013proposal_id\030\001 \001(\004\022(\n\006signer\030\002 " +
-      "\001(\tB\030\322\264-\024cosmos.AddressString\"\021\n\017MsgExec" +
-      "Response**\n\004Exec\022\024\n\020EXEC_UNSPECIFIED\020\000\022\014" +
-      "\n\010EXEC_TRY\020\0012\327\n\n\003Msg\022h\n\013CreateGroup\022+.co" +
-      "smos.group.v1beta1.MsgCreateGroupRequest" +
-      "\032,.cosmos.group.v1beta1.MsgCreateGroupRe" +
-      "sponse\022}\n\022UpdateGroupMembers\0222.cosmos.gr" +
-      "oup.v1beta1.MsgUpdateGroupMembersRequest" +
-      "\0323.cosmos.group.v1beta1.MsgUpdateGroupMe" +
-      "mbersResponse\022w\n\020UpdateGroupAdmin\0220.cosm" +
-      "os.group.v1beta1.MsgUpdateGroupAdminRequ" +
-      "est\0321.cosmos.group.v1beta1.MsgUpdateGrou" +
-      "pAdminResponse\022\200\001\n\023UpdateGroupMetadata\0223" +
-      ".cosmos.group.v1beta1.MsgUpdateGroupMeta" +
-      "dataRequest\0324.cosmos.group.v1beta1.MsgUp" +
-      "dateGroupMetadataResponse\022}\n\022CreateGroup" +
-      "Account\0222.cosmos.group.v1beta1.MsgCreate" +
-      "GroupAccountRequest\0323.cosmos.group.v1bet" +
-      "a1.MsgCreateGroupAccountResponse\022\214\001\n\027Upd" +
-      "ateGroupAccountAdmin\0227.cosmos.group.v1be" +
-      "ta1.MsgUpdateGroupAccountAdminRequest\0328." +
-      "cosmos.group.v1beta1.MsgUpdateGroupAccou" +
-      "ntAdminResponse\022\247\001\n UpdateGroupAccountDe" +
-      "cisionPolicy\022@.cosmos.group.v1beta1.MsgU" +
-      "pdateGroupAccountDecisionPolicyRequest\032A" +
+      "mos_proto/cosmos.proto\032\032google/protobuf2" +
+      "/any.proto\032 cosmos/group/v1beta1/types.p" +
+      "roto\"\207\001\n\025MsgCreateGroupRequest\022\'\n\005admin\030" +
+      "\001 \001(\tB\030\322\264-\024cosmos.AddressString\0223\n\007membe" +
+      "rs\030\002 \003(\0132\034.cosmos.group.v1beta1.MemberB\004" +
+      "\310\336\037\000\022\020\n\010metadata\030\003 \001(\014\"*\n\026MsgCreateGroup" +
+      "Response\022\020\n\010group_id\030\001 \001(\004\"\225\001\n\034MsgUpdate" +
+      "GroupMembersRequest\022\'\n\005admin\030\001 \001(\tB\030\322\264-\024" +
+      "cosmos.AddressString\022\020\n\010group_id\030\002 \001(\004\022:" +
+      "\n\016member_updates\030\003 \003(\0132\034.cosmos.group.v1" +
+      "beta1.MemberB\004\310\336\037\000\"\037\n\035MsgUpdateGroupMemb" +
+      "ersResponse\"\204\001\n\032MsgUpdateGroupAdminReque" +
+      "st\022\'\n\005admin\030\001 \001(\tB\030\322\264-\024cosmos.AddressStr" +
+      "ing\022\020\n\010group_id\030\002 \001(\004\022+\n\tnew_admin\030\003 \001(\t" +
+      "B\030\322\264-\024cosmos.AddressString\"\035\n\033MsgUpdateG" +
+      "roupAdminResponse\"l\n\035MsgUpdateGroupMetad" +
+      "ataRequest\022\'\n\005admin\030\001 \001(\tB\030\322\264-\024cosmos.Ad" +
+      "dressString\022\020\n\010group_id\030\002 \001(\004\022\020\n\010metadat" +
+      "a\030\003 \001(\014\" \n\036MsgUpdateGroupMetadataRespons" +
+      "e\"\264\001\n\034MsgCreateGroupAccountRequest\022\'\n\005ad" +
+      "min\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022\020\n\010g" +
+      "roup_id\030\002 \001(\004\022\020\n\010metadata\030\003 \001(\014\022A\n\017decis" +
+      "ion_policy\030\004 \001(\0132\024.google.protobuf.AnyB\022" +
+      "\312\264-\016DecisionPolicy:\004\210\240\037\000\"J\n\035MsgCreateGro" +
+      "upAccountResponse\022)\n\007address\030\001 \001(\tB\030\322\264-\024" +
+      "cosmos.AddressString\"\244\001\n!MsgUpdateGroupA" +
+      "ccountAdminRequest\022\'\n\005admin\030\001 \001(\tB\030\322\264-\024c" +
+      "osmos.AddressString\022)\n\007address\030\002 \001(\tB\030\322\264" +
+      "-\024cosmos.AddressString\022+\n\tnew_admin\030\003 \001(" +
+      "\tB\030\322\264-\024cosmos.AddressString\"$\n\"MsgUpdate" +
+      "GroupAccountAdminResponse\"\311\001\n*MsgUpdateG" +
+      "roupAccountDecisionPolicyRequest\022\'\n\005admi" +
+      "n\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022)\n\007add" +
+      "ress\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022A\n\017" +
+      "decision_policy\030\003 \001(\0132\024.google.protobuf." +
+      "AnyB\022\312\264-\016DecisionPolicy:\004\210\240\037\000\"-\n+MsgUpda" +
+      "teGroupAccountDecisionPolicyResponse\"\214\001\n" +
+      "$MsgUpdateGroupAccountMetadataRequest\022\'\n" +
+      "\005admin\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022)" +
+      "\n\007address\030\002 \001(\tB\030\322\264-\024cosmos.AddressStrin" +
+      "g\022\020\n\010metadata\030\003 \001(\014\"\'\n%MsgUpdateGroupAcc" +
+      "ountMetadataResponse\"\276\001\n\030MsgCreatePropos" +
+      "alRequest\022)\n\007address\030\001 \001(\tB\030\322\264-\024cosmos.A" +
+      "ddressString\022\021\n\tproposers\030\002 \003(\t\022\020\n\010metad" +
+      "ata\030\003 \001(\014\022\"\n\004msgs\030\004 \003(\0132\024.google.protobu" +
+      "f.Any\022(\n\004exec\030\005 \001(\0162\032.cosmos.group.v1bet" +
+      "a1.Exec:\004\210\240\037\000\"0\n\031MsgCreateProposalRespon" +
+      "se\022\023\n\013proposal_id\030\001 \001(\004\"\270\001\n\016MsgVoteReque" +
+      "st\022\023\n\013proposal_id\030\001 \001(\004\022\'\n\005voter\030\002 \001(\tB\030" +
+      "\322\264-\024cosmos.AddressString\022,\n\006choice\030\003 \001(\016" +
+      "2\034.cosmos.group.v1beta1.Choice\022\020\n\010metada" +
+      "ta\030\004 \001(\014\022(\n\004exec\030\005 \001(\0162\032.cosmos.group.v1" +
+      "beta1.Exec\"\021\n\017MsgVoteResponse\"O\n\016MsgExec" +
+      "Request\022\023\n\013proposal_id\030\001 \001(\004\022(\n\006signer\030\002" +
+      " \001(\tB\030\322\264-\024cosmos.AddressString\"\021\n\017MsgExe" +
+      "cResponse**\n\004Exec\022\024\n\020EXEC_UNSPECIFIED\020\000\022" +
+      "\014\n\010EXEC_TRY\020\0012\327\n\n\003Msg\022h\n\013CreateGroup\022+.c" +
+      "osmos.group.v1beta1.MsgCreateGroupReques" +
+      "t\032,.cosmos.group.v1beta1.MsgCreateGroupR" +
+      "esponse\022}\n\022UpdateGroupMembers\0222.cosmos.g" +
+      "roup.v1beta1.MsgUpdateGroupMembersReques" +
+      "t\0323.cosmos.group.v1beta1.MsgUpdateGroupM" +
+      "embersResponse\022w\n\020UpdateGroupAdmin\0220.cos" +
+      "mos.group.v1beta1.MsgUpdateGroupAdminReq" +
+      "uest\0321.cosmos.group.v1beta1.MsgUpdateGro" +
+      "upAdminResponse\022\200\001\n\023UpdateGroupMetadata\022" +
+      "3.cosmos.group.v1beta1.MsgUpdateGroupMet" +
+      "adataRequest\0324.cosmos.group.v1beta1.MsgU" +
+      "pdateGroupMetadataResponse\022}\n\022CreateGrou" +
+      "pAccount\0222.cosmos.group.v1beta1.MsgCreat" +
+      "eGroupAccountRequest\0323.cosmos.group.v1be" +
+      "ta1.MsgCreateGroupAccountResponse\022\214\001\n\027Up" +
+      "dateGroupAccountAdmin\0227.cosmos.group.v1b" +
+      "eta1.MsgUpdateGroupAccountAdminRequest\0328" +
       ".cosmos.group.v1beta1.MsgUpdateGroupAcco" +
-      "untDecisionPolicyResponse\022\225\001\n\032UpdateGrou" +
-      "pAccountMetadata\022:.cosmos.group.v1beta1." +
-      "MsgUpdateGroupAccountMetadataRequest\032;.c" +
-      "osmos.group.v1beta1.MsgUpdateGroupAccoun" +
-      "tMetadataResponse\022q\n\016CreateProposal\022..co" +
-      "smos.group.v1beta1.MsgCreateProposalRequ" +
-      "est\032/.cosmos.group.v1beta1.MsgCreateProp" +
-      "osalResponse\022S\n\004Vote\022$.cosmos.group.v1be" +
-      "ta1.MsgVoteRequest\032%.cosmos.group.v1beta" +
-      "1.MsgVoteResponse\022S\n\004Exec\022$.cosmos.group" +
-      ".v1beta1.MsgExecRequest\032%.cosmos.group.v" +
-      "1beta1.MsgExecResponseB&Z$github.com/cos" +
-      "mos/cosmos-sdk/x/groupb\006proto3"
+      "untAdminResponse\022\247\001\n UpdateGroupAccountD" +
+      "ecisionPolicy\022@.cosmos.group.v1beta1.Msg" +
+      "UpdateGroupAccountDecisionPolicyRequest\032" +
+      "A.cosmos.group.v1beta1.MsgUpdateGroupAcc" +
+      "ountDecisionPolicyResponse\022\225\001\n\032UpdateGro" +
+      "upAccountMetadata\022:.cosmos.group.v1beta1" +
+      ".MsgUpdateGroupAccountMetadataRequest\032;." +
+      "cosmos.group.v1beta1.MsgUpdateGroupAccou" +
+      "ntMetadataResponse\022q\n\016CreateProposal\022..c" +
+      "osmos.group.v1beta1.MsgCreateProposalReq" +
+      "uest\032/.cosmos.group.v1beta1.MsgCreatePro" +
+      "posalResponse\022S\n\004Vote\022$.cosmos.group.v1b" +
+      "eta1.MsgVoteRequest\032%.cosmos.group.v1bet" +
+      "a1.MsgVoteResponse\022S\n\004Exec\022$.cosmos.grou" +
+      "p.v1beta1.MsgExecRequest\032%.cosmos.group." +
+      "v1beta1.MsgExecResponseB&Z$github.com/co" +
+      "smos/cosmos-sdk/x/groupb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

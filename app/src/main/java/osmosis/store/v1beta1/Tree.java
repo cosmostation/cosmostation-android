@@ -2095,21 +2095,19 @@ public final class Tree {
   static {
     java.lang.String[] descriptorData = {
       "\n osmosis/store/v1beta1/tree.proto\022\025osmo" +
-      "sis.store.v1beta1\032\024gogoproto/gogo.proto\032" +
-      "\036cosmos/base/v1beta1/coin.proto\"6\n\004Node\022" +
-      ".\n\010children\030\001 \003(\0132\034.osmosis.store.v1beta" +
-      "1.Child\"\\\n\005Child\022\r\n\005index\030\001 \001(\014\022D\n\014accum" +
-      "ulation\030\002 \001(\tB.\332\336\037&github.com/cosmos/cos" +
-      "mos-sdk/types.Int\310\336\037\000\"2\n\004Leaf\022*\n\004leaf\030\001 " +
-      "\001(\0132\034.osmosis.store.v1beta1.ChildB\'Z%git" +
-      "hub.com/osmosis-labs/osmosis/storeb\006prot" +
-      "o3"
+      "sis.store.v1beta1\032\024gogoproto/gogo.proto\"" +
+      "6\n\004Node\022.\n\010children\030\001 \003(\0132\034.osmosis.stor" +
+      "e.v1beta1.Child\"\\\n\005Child\022\r\n\005index\030\001 \001(\014\022" +
+      "D\n\014accumulation\030\002 \001(\tB.\332\336\037&github.com/co" +
+      "smos/cosmos-sdk/types.Int\310\336\037\000\"2\n\004Leaf\022*\n" +
+      "\004leaf\030\001 \001(\0132\034.osmosis.store.v1beta1.Chil" +
+      "dB\'Z%github.com/osmosis-labs/osmosis/sto" +
+      "reb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_osmosis_store_v1beta1_Node_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2136,7 +2134,6 @@ public final class Tree {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

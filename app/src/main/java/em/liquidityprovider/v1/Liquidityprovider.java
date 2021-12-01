@@ -1045,24 +1045,20 @@ public final class Liquidityprovider {
     java.lang.String[] descriptorData = {
       "\n/em/liquidityprovider/v1/liquidityprovi" +
       "der.proto\022\027em.liquidityprovider.v1\032\024gogo" +
-      "proto/gogo.proto\032\031cosmos_proto/cosmos.pr" +
-      "oto\032\036cosmos/base/v1beta1/coin.proto\032\031goo" +
-      "gle/protobuf/any.proto\"\277\001\n\030LiquidityProv" +
-      "iderAccount\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yaml:\"" +
-      "address\"\022p\n\010mintable\030\002 \003(\0132\031.cosmos.base" +
-      ".v1beta1.CoinBC\362\336\037\017yaml:\"mintable\"\252\337\037(gi" +
-      "thub.com/cosmos/cosmos-sdk/types.Coins\310\336" +
-      "\037\000:\014\210\240\037\000\230\240\037\000\350\240\037\000B8Z6github.com/e-money/e" +
-      "m-ledger/x/liquidityprovider/typesb\006prot" +
-      "o3"
+      "proto/gogo.proto\032\036cosmos/base/v1beta1/co" +
+      "in.proto\"\277\001\n\030LiquidityProviderAccount\022#\n" +
+      "\007address\030\001 \001(\tB\022\362\336\037\016yaml:\"address\"\022p\n\010mi" +
+      "ntable\030\002 \003(\0132\031.cosmos.base.v1beta1.CoinB" +
+      "C\362\336\037\017yaml:\"mintable\"\252\337\037(github.com/cosmo" +
+      "s/cosmos-sdk/types.Coins\310\336\037\000:\014\210\240\037\000\230\240\037\000\350\240" +
+      "\037\000B8Z6github.com/e-money/em-ledger/x/liq" +
+      "uidityprovider/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
         });
     internal_static_em_liquidityprovider_v1_LiquidityProviderAccount_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1081,9 +1077,7 @@ public final class Liquidityprovider {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -1383,23 +1383,21 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n\"injective/auction/v1beta1/tx.proto\022\031in" +
       "jective.auction.v1beta1\032\024gogoproto/gogo." +
-      "proto\032\036cosmos/base/v1beta1/coin.proto\032\'i" +
-      "njective/auction/v1beta1/auction.proto\"f" +
-      "\n\006MsgBid\022\016\n\006sender\030\001 \001(\t\0223\n\nbid_amount\030\002" +
-      " \001(\0132\031.cosmos.base.v1beta1.CoinB\004\310\336\037\000\022\r\n" +
-      "\005round\030\003 \001(\004:\010\350\240\037\000\210\240\037\000\"\020\n\016MsgBidResponse" +
-      "2Z\n\003Msg\022S\n\003Bid\022!.injective.auction.v1bet" +
-      "a1.MsgBid\032).injective.auction.v1beta1.Ms" +
-      "gBidResponseBOZMgithub.com/InjectiveLabs" +
-      "/injective-core/injective-chain/modules/" +
-      "auction/typesb\006proto3"
+      "proto\032\036cosmos/base/v1beta1/coin.proto\"f\n" +
+      "\006MsgBid\022\016\n\006sender\030\001 \001(\t\0223\n\nbid_amount\030\002 " +
+      "\001(\0132\031.cosmos.base.v1beta1.CoinB\004\310\336\037\000\022\r\n\005" +
+      "round\030\003 \001(\004:\010\350\240\037\000\210\240\037\000\"\020\n\016MsgBidResponse2" +
+      "Z\n\003Msg\022S\n\003Bid\022!.injective.auction.v1beta" +
+      "1.MsgBid\032).injective.auction.v1beta1.Msg" +
+      "BidResponseBOZMgithub.com/InjectiveLabs/" +
+      "injective-core/injective-chain/modules/a" +
+      "uction/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          injective.auction.v1beta1.Auction.getDescriptor(),
         });
     internal_static_injective_auction_v1beta1_MsgBid_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1422,7 +1420,6 @@ public final class Tx {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    injective.auction.v1beta1.Auction.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

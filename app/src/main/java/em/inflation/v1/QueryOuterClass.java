@@ -1073,24 +1073,22 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\033em/inflation/v1/query.proto\022\017em.inflat" +
-      "ion.v1\032\024gogoproto/gogo.proto\032\036cosmos/bas" +
-      "e/v1beta1/coin.proto\032\034google/api/annotat" +
-      "ions.proto\032\037em/inflation/v1/inflation.pr" +
-      "oto\"\027\n\025QueryInflationRequest\"^\n\026QueryInf" +
-      "lationResponse\022D\n\005state\030\001 \001(\0132\037.em.infla" +
-      "tion.v1.InflationStateB\024\362\336\037\014yaml:\"state\"" +
-      "\310\336\037\0002\213\001\n\005Query\022\201\001\n\tInflation\022&.em.inflat" +
-      "ion.v1.QueryInflationRequest\032\'.em.inflat" +
-      "ion.v1.QueryInflationResponse\"#\202\323\344\223\002\035\022\033/" +
-      "e-money/inflation/v1/stateB0Z.github.com" +
-      "/e-money/em-ledger/x/inflation/typesb\006pr" +
-      "oto3"
+      "ion.v1\032\024gogoproto/gogo.proto\032\034google/api" +
+      "/annotations.proto\032\037em/inflation/v1/infl" +
+      "ation.proto\"\027\n\025QueryInflationRequest\"^\n\026" +
+      "QueryInflationResponse\022D\n\005state\030\001 \001(\0132\037." +
+      "em.inflation.v1.InflationStateB\024\362\336\037\014yaml" +
+      ":\"state\"\310\336\037\0002\213\001\n\005Query\022\201\001\n\tInflation\022&.e" +
+      "m.inflation.v1.QueryInflationRequest\032\'.e" +
+      "m.inflation.v1.QueryInflationResponse\"#\202" +
+      "\323\344\223\002\035\022\033/e-money/inflation/v1/stateB0Z.gi" +
+      "thub.com/e-money/em-ledger/x/inflation/t" +
+      "ypesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           em.inflation.v1.Inflation.getDescriptor(),
         });
@@ -1114,7 +1112,6 @@ public final class QueryOuterClass {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     em.inflation.v1.Inflation.getDescriptor();
   }

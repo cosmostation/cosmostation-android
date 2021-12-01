@@ -1714,26 +1714,24 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n\035shentu/bank/v1alpha1/tx.proto\022\024shentu." +
       "bank.v1alpha1\032\024gogoproto/gogo.proto\032\036cos" +
-      "mos/base/v1beta1/coin.proto\032\036cosmos/bank" +
-      "/v1beta1/bank.proto\"\207\002\n\rMsgLockedSend\022-\n" +
-      "\014from_address\030\001 \001(\tB\027\362\336\037\023yaml:\"from_addr" +
-      "ess\"\022)\n\nto_address\030\002 \001(\tB\025\362\336\037\021yaml:\"to_a" +
-      "ddress\"\0225\n\020unlocker_address\030\003 \001(\tB\033\362\336\037\027y" +
-      "aml:\"unlocker_address\"\022[\n\006amount\030\004 \003(\0132\031" +
-      ".cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(githu" +
-      "b.com/cosmos/cosmos-sdk/types.Coins:\010\350\240\037" +
-      "\000\210\240\037\000\"\027\n\025MsgLockedSendResponse2e\n\003Msg\022^\n" +
-      "\nLockedSend\022#.shentu.bank.v1alpha1.MsgLo" +
-      "ckedSend\032+.shentu.bank.v1alpha1.MsgLocke" +
-      "dSendResponseB1Z/github.com/certikfounda" +
-      "tion/shentu/x/bank/typesb\006proto3"
+      "mos/base/v1beta1/coin.proto\"\207\002\n\rMsgLocke" +
+      "dSend\022-\n\014from_address\030\001 \001(\tB\027\362\336\037\023yaml:\"f" +
+      "rom_address\"\022)\n\nto_address\030\002 \001(\tB\025\362\336\037\021ya" +
+      "ml:\"to_address\"\0225\n\020unlocker_address\030\003 \001(" +
+      "\tB\033\362\336\037\027yaml:\"unlocker_address\"\022[\n\006amount" +
+      "\030\004 \003(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252" +
+      "\337\037(github.com/cosmos/cosmos-sdk/types.Co" +
+      "ins:\010\350\240\037\000\210\240\037\000\"\027\n\025MsgLockedSendResponse2e" +
+      "\n\003Msg\022^\n\nLockedSend\022#.shentu.bank.v1alph" +
+      "a1.MsgLockedSend\032+.shentu.bank.v1alpha1." +
+      "MsgLockedSendResponseB1Z/github.com/cert" +
+      "ikfoundation/shentu/x/bank/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          cosmos.bank.v1beta1.Bank.getDescriptor(),
         });
     internal_static_shentu_bank_v1alpha1_MsgLockedSend_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1758,7 +1756,6 @@ public final class Tx {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    cosmos.bank.v1beta1.Bank.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

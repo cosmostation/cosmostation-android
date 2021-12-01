@@ -4592,46 +4592,45 @@ public final class Types {
     java.lang.String[] descriptorData = {
       "\n\037regen/data/v1alpha2/types.proto\022\023regen" +
       ".data.v1alpha2\032\037google/protobuf/timestam" +
-      "p.proto\032\036google/protobuf/duration.proto\"" +
-      "\370\003\n\013ContentHash\0223\n\003raw\030\001 \001(\0132$.regen.dat" +
-      "a.v1alpha2.ContentHash.RawH\000\0227\n\005graph\030\002 " +
-      "\001(\0132&.regen.data.v1alpha2.ContentHash.Gr" +
-      "aphH\000\032\207\001\n\003Raw\022\014\n\004hash\030\001 \001(\014\022>\n\020digest_al" +
-      "gorithm\030\002 \001(\0162$.regen.data.v1alpha2.Dige" +
-      "stAlgorithm\0222\n\nmedia_type\030\003 \001(\0162\036.regen." +
-      "data.v1alpha2.MediaType\032\351\001\n\005Graph\022\014\n\004has" +
-      "h\030\001 \001(\014\022>\n\020digest_algorithm\030\002 \001(\0162$.rege" +
-      "n.data.v1alpha2.DigestAlgorithm\022W\n\032canon" +
-      "icalization_algorithm\030\003 \001(\01623.regen.data" +
-      ".v1alpha2.GraphCanonicalizationAlgorithm" +
-      "\0229\n\013merkle_tree\030\004 \001(\0162$.regen.data.v1alp" +
-      "ha2.GraphMerkleTreeB\005\n\003sum\"L\n\013SignerEntr" +
-      "y\022\016\n\006signer\030\001 \001(\t\022-\n\ttimestamp\030\002 \001(\0132\032.g" +
-      "oogle.protobuf.Timestamp*\211\003\n\tMediaType\022\032" +
-      "\n\026MEDIA_TYPE_UNSPECIFIED\020\000\022\031\n\025MEDIA_TYPE" +
-      "_TEXT_PLAIN\020\001\022\023\n\017MEDIA_TYPE_JSON\020\002\022\022\n\016ME" +
-      "DIA_TYPE_CSV\020\003\022\022\n\016MEDIA_TYPE_XML\020\004\022\022\n\016ME" +
-      "DIA_TYPE_PDF\020\005\022\023\n\017MEDIA_TYPE_TIFF\020\020\022\022\n\016M" +
-      "EDIA_TYPE_JPG\020\021\022\022\n\016MEDIA_TYPE_PNG\020\022\022\022\n\016M" +
-      "EDIA_TYPE_SVG\020\023\022\023\n\017MEDIA_TYPE_WEBP\020\024\022\023\n\017" +
-      "MEDIA_TYPE_AVIF\020\025\022\022\n\016MEDIA_TYPE_GIF\020\026\022\023\n" +
-      "\017MEDIA_TYPE_APNG\020\027\022\023\n\017MEDIA_TYPE_MPEG\020 \022" +
-      "\022\n\016MEDIA_TYPE_MP4\020!\022\023\n\017MEDIA_TYPE_WEBM\020\"" +
-      "\022\022\n\016MEDIA_TYPE_OGG\020#*\202\001\n\036GraphCanonicali" +
-      "zationAlgorithm\0220\n,GRAPH_CANONICALIZATIO" +
-      "N_ALGORITHM_UNSPECIFIED\020\000\022.\n*GRAPH_CANON" +
-      "ICALIZATION_ALGORITHM_URDNA2015\020\001*9\n\017Gra" +
-      "phMerkleTree\022&\n\"GRAPH_MERKLE_TREE_NONE_U" +
-      "NSPECIFIED\020\000*U\n\017DigestAlgorithm\022 \n\034DIGES" +
-      "T_ALGORITHM_UNSPECIFIED\020\000\022 \n\034DIGEST_ALGO" +
-      "RITHM_BLAKE2B_256\020\001B.Z,github.com/regen-" +
-      "network/regen-ledger/x/datab\006proto3"
+      "p.proto\"\370\003\n\013ContentHash\0223\n\003raw\030\001 \001(\0132$.r" +
+      "egen.data.v1alpha2.ContentHash.RawH\000\0227\n\005" +
+      "graph\030\002 \001(\0132&.regen.data.v1alpha2.Conten" +
+      "tHash.GraphH\000\032\207\001\n\003Raw\022\014\n\004hash\030\001 \001(\014\022>\n\020d" +
+      "igest_algorithm\030\002 \001(\0162$.regen.data.v1alp" +
+      "ha2.DigestAlgorithm\0222\n\nmedia_type\030\003 \001(\0162" +
+      "\036.regen.data.v1alpha2.MediaType\032\351\001\n\005Grap" +
+      "h\022\014\n\004hash\030\001 \001(\014\022>\n\020digest_algorithm\030\002 \001(" +
+      "\0162$.regen.data.v1alpha2.DigestAlgorithm\022" +
+      "W\n\032canonicalization_algorithm\030\003 \001(\01623.re" +
+      "gen.data.v1alpha2.GraphCanonicalizationA" +
+      "lgorithm\0229\n\013merkle_tree\030\004 \001(\0162$.regen.da" +
+      "ta.v1alpha2.GraphMerkleTreeB\005\n\003sum\"L\n\013Si" +
+      "gnerEntry\022\016\n\006signer\030\001 \001(\t\022-\n\ttimestamp\030\002" +
+      " \001(\0132\032.google.protobuf.Timestamp*\211\003\n\tMed" +
+      "iaType\022\032\n\026MEDIA_TYPE_UNSPECIFIED\020\000\022\031\n\025ME" +
+      "DIA_TYPE_TEXT_PLAIN\020\001\022\023\n\017MEDIA_TYPE_JSON" +
+      "\020\002\022\022\n\016MEDIA_TYPE_CSV\020\003\022\022\n\016MEDIA_TYPE_XML" +
+      "\020\004\022\022\n\016MEDIA_TYPE_PDF\020\005\022\023\n\017MEDIA_TYPE_TIF" +
+      "F\020\020\022\022\n\016MEDIA_TYPE_JPG\020\021\022\022\n\016MEDIA_TYPE_PN" +
+      "G\020\022\022\022\n\016MEDIA_TYPE_SVG\020\023\022\023\n\017MEDIA_TYPE_WE" +
+      "BP\020\024\022\023\n\017MEDIA_TYPE_AVIF\020\025\022\022\n\016MEDIA_TYPE_" +
+      "GIF\020\026\022\023\n\017MEDIA_TYPE_APNG\020\027\022\023\n\017MEDIA_TYPE" +
+      "_MPEG\020 \022\022\n\016MEDIA_TYPE_MP4\020!\022\023\n\017MEDIA_TYP" +
+      "E_WEBM\020\"\022\022\n\016MEDIA_TYPE_OGG\020#*\202\001\n\036GraphCa" +
+      "nonicalizationAlgorithm\0220\n,GRAPH_CANONIC" +
+      "ALIZATION_ALGORITHM_UNSPECIFIED\020\000\022.\n*GRA" +
+      "PH_CANONICALIZATION_ALGORITHM_URDNA2015\020" +
+      "\001*9\n\017GraphMerkleTree\022&\n\"GRAPH_MERKLE_TRE" +
+      "E_NONE_UNSPECIFIED\020\000*U\n\017DigestAlgorithm\022" +
+      " \n\034DIGEST_ALGORITHM_UNSPECIFIED\020\000\022 \n\034DIG" +
+      "EST_ALGORITHM_BLAKE2B_256\020\001B.Z,github.co" +
+      "m/regen-network/regen-ledger/x/datab\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.TimestampProto.getDescriptor(),
-          com.google.protobuf.DurationProto.getDescriptor(),
         });
     internal_static_regen_data_v1alpha2_ContentHash_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -4658,7 +4657,6 @@ public final class Types {
         internal_static_regen_data_v1alpha2_SignerEntry_descriptor,
         new java.lang.String[] { "Signer", "Timestamp", });
     com.google.protobuf.TimestampProto.getDescriptor();
-    com.google.protobuf.DurationProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

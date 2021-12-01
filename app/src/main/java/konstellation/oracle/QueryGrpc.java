@@ -22,7 +22,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.33.1)",
-    comments = "Source: kon_oracle/query.proto")
+    comments = "Source: konstellation/oracle/query.proto")
 public final class QueryGrpc {
 
   private QueryGrpc() {}

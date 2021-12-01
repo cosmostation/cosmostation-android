@@ -5989,45 +5989,41 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n!injective/oracle/v1beta1/tx.proto\022\030inj" +
       "ective.oracle.v1beta1\032\024gogoproto/gogo.pr" +
-      "oto\032\036cosmos/base/v1beta1/coin.proto\032%inj" +
-      "ective/oracle/v1beta1/oracle.proto\"\216\001\n\026M" +
-      "sgRelayPriceFeedPrice\022\016\n\006sender\030\001 \001(\t\022\014\n" +
-      "\004base\030\002 \003(\t\022\r\n\005quote\030\003 \003(\t\022=\n\005price\030\004 \003(" +
-      "\tB.\332\336\037&github.com/cosmos/cosmos-sdk/type" +
-      "s.Dec\310\336\037\000:\010\350\240\037\000\210\240\037\000\" \n\036MsgRelayPriceFeed" +
-      "PriceResponse\"o\n\021MsgRelayBandRates\022\017\n\007re" +
-      "layer\030\001 \001(\t\022\017\n\007symbols\030\002 \003(\t\022\r\n\005rates\030\003 " +
-      "\003(\004\022\025\n\rresolve_times\030\004 \003(\004\022\022\n\nrequestIDs" +
-      "\030\005 \003(\004\"\033\n\031MsgRelayBandRatesResponse\"Z\n\030M" +
-      "sgRelayCoinbaseMessages\022\016\n\006sender\030\001 \001(\t\022" +
-      "\020\n\010messages\030\002 \003(\014\022\022\n\nsignatures\030\003 \003(\014:\010\350" +
-      "\240\037\000\210\240\037\000\"\"\n MsgRelayCoinbaseMessagesRespo" +
-      "nse\"F\n\026MsgRequestBandIBCRates\022\016\n\006sender\030" +
-      "\001 \001(\t\022\022\n\nrequest_id\030\002 \001(\004:\010\350\240\037\000\210\240\037\000\" \n\036M" +
-      "sgRequestBandIBCRatesResponse2\213\004\n\003Msg\022\201\001" +
-      "\n\023RelayPriceFeedPrice\0220.injective.oracle" +
-      ".v1beta1.MsgRelayPriceFeedPrice\0328.inject" +
-      "ive.oracle.v1beta1.MsgRelayPriceFeedPric" +
-      "eResponse\022r\n\016RelayBandRates\022+.injective." +
-      "oracle.v1beta1.MsgRelayBandRates\0323.injec" +
-      "tive.oracle.v1beta1.MsgRelayBandRatesRes" +
-      "ponse\022\201\001\n\023RequestBandIBCRates\0220.injectiv" +
-      "e.oracle.v1beta1.MsgRequestBandIBCRates\032" +
-      "8.injective.oracle.v1beta1.MsgRequestBan" +
-      "dIBCRatesResponse\022\207\001\n\025RelayCoinbaseMessa" +
-      "ges\0222.injective.oracle.v1beta1.MsgRelayC" +
-      "oinbaseMessages\032:.injective.oracle.v1bet" +
-      "a1.MsgRelayCoinbaseMessagesResponseBNZLg" +
-      "ithub.com/InjectiveLabs/injective-core/i" +
-      "njective-chain/modules/oracle/typesb\006pro" +
-      "to3"
+      "oto\"\216\001\n\026MsgRelayPriceFeedPrice\022\016\n\006sender" +
+      "\030\001 \001(\t\022\014\n\004base\030\002 \003(\t\022\r\n\005quote\030\003 \003(\t\022=\n\005p" +
+      "rice\030\004 \003(\tB.\332\336\037&github.com/cosmos/cosmos" +
+      "-sdk/types.Dec\310\336\037\000:\010\350\240\037\000\210\240\037\000\" \n\036MsgRelay" +
+      "PriceFeedPriceResponse\"o\n\021MsgRelayBandRa" +
+      "tes\022\017\n\007relayer\030\001 \001(\t\022\017\n\007symbols\030\002 \003(\t\022\r\n" +
+      "\005rates\030\003 \003(\004\022\025\n\rresolve_times\030\004 \003(\004\022\022\n\nr" +
+      "equestIDs\030\005 \003(\004\"\033\n\031MsgRelayBandRatesResp" +
+      "onse\"Z\n\030MsgRelayCoinbaseMessages\022\016\n\006send" +
+      "er\030\001 \001(\t\022\020\n\010messages\030\002 \003(\014\022\022\n\nsignatures" +
+      "\030\003 \003(\014:\010\350\240\037\000\210\240\037\000\"\"\n MsgRelayCoinbaseMess" +
+      "agesResponse\"F\n\026MsgRequestBandIBCRates\022\016" +
+      "\n\006sender\030\001 \001(\t\022\022\n\nrequest_id\030\002 \001(\004:\010\350\240\037\000" +
+      "\210\240\037\000\" \n\036MsgRequestBandIBCRatesResponse2\213" +
+      "\004\n\003Msg\022\201\001\n\023RelayPriceFeedPrice\0220.injecti" +
+      "ve.oracle.v1beta1.MsgRelayPriceFeedPrice" +
+      "\0328.injective.oracle.v1beta1.MsgRelayPric" +
+      "eFeedPriceResponse\022r\n\016RelayBandRates\022+.i" +
+      "njective.oracle.v1beta1.MsgRelayBandRate" +
+      "s\0323.injective.oracle.v1beta1.MsgRelayBan" +
+      "dRatesResponse\022\201\001\n\023RequestBandIBCRates\0220" +
+      ".injective.oracle.v1beta1.MsgRequestBand" +
+      "IBCRates\0328.injective.oracle.v1beta1.MsgR" +
+      "equestBandIBCRatesResponse\022\207\001\n\025RelayCoin" +
+      "baseMessages\0222.injective.oracle.v1beta1." +
+      "MsgRelayCoinbaseMessages\032:.injective.ora" +
+      "cle.v1beta1.MsgRelayCoinbaseMessagesResp" +
+      "onseBNZLgithub.com/InjectiveLabs/injecti" +
+      "ve-core/injective-chain/modules/oracle/t" +
+      "ypesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          injective.oracle.v1beta1.Oracle.getDescriptor(),
         });
     internal_static_injective_oracle_v1beta1_MsgRelayPriceFeedPrice_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -6086,8 +6082,6 @@ public final class Tx {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    injective.oracle.v1beta1.Oracle.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

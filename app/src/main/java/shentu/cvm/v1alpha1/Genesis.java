@@ -4476,12 +4476,12 @@ public final class Genesis {
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
-    java.util.List<acm.Acm.ContractMeta> 
+    java.util.List<shentu.burrow.v1alpha1.Acm.ContractMeta> 
         getMetasList();
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
-    acm.Acm.ContractMeta getMetas(int index);
+    shentu.burrow.v1alpha1.Acm.ContractMeta getMetas(int index);
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
@@ -4489,12 +4489,12 @@ public final class Genesis {
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
-    java.util.List<? extends acm.Acm.ContractMetaOrBuilder> 
+    java.util.List<? extends shentu.burrow.v1alpha1.Acm.ContractMetaOrBuilder> 
         getMetasOrBuilderList();
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
-    acm.Acm.ContractMetaOrBuilder getMetasOrBuilder(
+    shentu.burrow.v1alpha1.Acm.ContractMetaOrBuilder getMetasOrBuilder(
         int index);
   }
   /**
@@ -4546,11 +4546,11 @@ public final class Genesis {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                metas_ = new java.util.ArrayList<acm.Acm.ContractMeta>();
+                metas_ = new java.util.ArrayList<shentu.burrow.v1alpha1.Acm.ContractMeta>();
                 mutable_bitField0_ |= 0x00000001;
               }
               metas_.add(
-                  input.readMessage(acm.Acm.ContractMeta.parser(), extensionRegistry));
+                  input.readMessage(shentu.burrow.v1alpha1.Acm.ContractMeta.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -4589,19 +4589,19 @@ public final class Genesis {
     }
 
     public static final int METAS_FIELD_NUMBER = 1;
-    private java.util.List<acm.Acm.ContractMeta> metas_;
+    private java.util.List<shentu.burrow.v1alpha1.Acm.ContractMeta> metas_;
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<acm.Acm.ContractMeta> getMetasList() {
+    public java.util.List<shentu.burrow.v1alpha1.Acm.ContractMeta> getMetasList() {
       return metas_;
     }
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends acm.Acm.ContractMetaOrBuilder> 
+    public java.util.List<? extends shentu.burrow.v1alpha1.Acm.ContractMetaOrBuilder> 
         getMetasOrBuilderList() {
       return metas_;
     }
@@ -4616,14 +4616,14 @@ public final class Genesis {
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
     @java.lang.Override
-    public acm.Acm.ContractMeta getMetas(int index) {
+    public shentu.burrow.v1alpha1.Acm.ContractMeta getMetas(int index) {
       return metas_.get(index);
     }
     /**
      * <code>repeated .acm.ContractMeta metas = 1;</code>
      */
     @java.lang.Override
-    public acm.Acm.ContractMetaOrBuilder getMetasOrBuilder(
+    public shentu.burrow.v1alpha1.Acm.ContractMetaOrBuilder getMetasOrBuilder(
         int index) {
       return metas_.get(index);
     }
@@ -4970,22 +4970,22 @@ public final class Genesis {
       }
       private int bitField0_;
 
-      private java.util.List<acm.Acm.ContractMeta> metas_ =
+      private java.util.List<shentu.burrow.v1alpha1.Acm.ContractMeta> metas_ =
         java.util.Collections.emptyList();
       private void ensureMetasIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          metas_ = new java.util.ArrayList<acm.Acm.ContractMeta>(metas_);
+          metas_ = new java.util.ArrayList<shentu.burrow.v1alpha1.Acm.ContractMeta>(metas_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          acm.Acm.ContractMeta, acm.Acm.ContractMeta.Builder, acm.Acm.ContractMetaOrBuilder> metasBuilder_;
+          shentu.burrow.v1alpha1.Acm.ContractMeta, shentu.burrow.v1alpha1.Acm.ContractMeta.Builder, shentu.burrow.v1alpha1.Acm.ContractMetaOrBuilder> metasBuilder_;
 
       /**
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
-      public java.util.List<acm.Acm.ContractMeta> getMetasList() {
+      public java.util.List<shentu.burrow.v1alpha1.Acm.ContractMeta> getMetasList() {
         if (metasBuilder_ == null) {
           return java.util.Collections.unmodifiableList(metas_);
         } else {
@@ -5005,7 +5005,7 @@ public final class Genesis {
       /**
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
-      public acm.Acm.ContractMeta getMetas(int index) {
+      public shentu.burrow.v1alpha1.Acm.ContractMeta getMetas(int index) {
         if (metasBuilder_ == null) {
           return metas_.get(index);
         } else {
@@ -5016,7 +5016,7 @@ public final class Genesis {
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
       public Builder setMetas(
-          int index, acm.Acm.ContractMeta value) {
+          int index, shentu.burrow.v1alpha1.Acm.ContractMeta value) {
         if (metasBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5033,7 +5033,7 @@ public final class Genesis {
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
       public Builder setMetas(
-          int index, acm.Acm.ContractMeta.Builder builderForValue) {
+          int index, shentu.burrow.v1alpha1.Acm.ContractMeta.Builder builderForValue) {
         if (metasBuilder_ == null) {
           ensureMetasIsMutable();
           metas_.set(index, builderForValue.build());
@@ -5046,7 +5046,7 @@ public final class Genesis {
       /**
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
-      public Builder addMetas(acm.Acm.ContractMeta value) {
+      public Builder addMetas(shentu.burrow.v1alpha1.Acm.ContractMeta value) {
         if (metasBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5063,7 +5063,7 @@ public final class Genesis {
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
       public Builder addMetas(
-          int index, acm.Acm.ContractMeta value) {
+          int index, shentu.burrow.v1alpha1.Acm.ContractMeta value) {
         if (metasBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5080,7 +5080,7 @@ public final class Genesis {
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
       public Builder addMetas(
-          acm.Acm.ContractMeta.Builder builderForValue) {
+          shentu.burrow.v1alpha1.Acm.ContractMeta.Builder builderForValue) {
         if (metasBuilder_ == null) {
           ensureMetasIsMutable();
           metas_.add(builderForValue.build());
@@ -5094,7 +5094,7 @@ public final class Genesis {
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
       public Builder addMetas(
-          int index, acm.Acm.ContractMeta.Builder builderForValue) {
+          int index, shentu.burrow.v1alpha1.Acm.ContractMeta.Builder builderForValue) {
         if (metasBuilder_ == null) {
           ensureMetasIsMutable();
           metas_.add(index, builderForValue.build());
@@ -5108,7 +5108,7 @@ public final class Genesis {
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
       public Builder addAllMetas(
-          java.lang.Iterable<? extends acm.Acm.ContractMeta> values) {
+          java.lang.Iterable<? extends shentu.burrow.v1alpha1.Acm.ContractMeta> values) {
         if (metasBuilder_ == null) {
           ensureMetasIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -5148,14 +5148,14 @@ public final class Genesis {
       /**
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
-      public acm.Acm.ContractMeta.Builder getMetasBuilder(
+      public shentu.burrow.v1alpha1.Acm.ContractMeta.Builder getMetasBuilder(
           int index) {
         return getMetasFieldBuilder().getBuilder(index);
       }
       /**
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
-      public acm.Acm.ContractMetaOrBuilder getMetasOrBuilder(
+      public shentu.burrow.v1alpha1.Acm.ContractMetaOrBuilder getMetasOrBuilder(
           int index) {
         if (metasBuilder_ == null) {
           return metas_.get(index);  } else {
@@ -5165,7 +5165,7 @@ public final class Genesis {
       /**
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
-      public java.util.List<? extends acm.Acm.ContractMetaOrBuilder> 
+      public java.util.List<? extends shentu.burrow.v1alpha1.Acm.ContractMetaOrBuilder> 
            getMetasOrBuilderList() {
         if (metasBuilder_ != null) {
           return metasBuilder_.getMessageOrBuilderList();
@@ -5176,31 +5176,31 @@ public final class Genesis {
       /**
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
-      public acm.Acm.ContractMeta.Builder addMetasBuilder() {
+      public shentu.burrow.v1alpha1.Acm.ContractMeta.Builder addMetasBuilder() {
         return getMetasFieldBuilder().addBuilder(
-            acm.Acm.ContractMeta.getDefaultInstance());
+            shentu.burrow.v1alpha1.Acm.ContractMeta.getDefaultInstance());
       }
       /**
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
-      public acm.Acm.ContractMeta.Builder addMetasBuilder(
+      public shentu.burrow.v1alpha1.Acm.ContractMeta.Builder addMetasBuilder(
           int index) {
         return getMetasFieldBuilder().addBuilder(
-            index, acm.Acm.ContractMeta.getDefaultInstance());
+            index, shentu.burrow.v1alpha1.Acm.ContractMeta.getDefaultInstance());
       }
       /**
        * <code>repeated .acm.ContractMeta metas = 1;</code>
        */
-      public java.util.List<acm.Acm.ContractMeta.Builder> 
+      public java.util.List<shentu.burrow.v1alpha1.Acm.ContractMeta.Builder> 
            getMetasBuilderList() {
         return getMetasFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          acm.Acm.ContractMeta, acm.Acm.ContractMeta.Builder, acm.Acm.ContractMetaOrBuilder> 
+          shentu.burrow.v1alpha1.Acm.ContractMeta, shentu.burrow.v1alpha1.Acm.ContractMeta.Builder, shentu.burrow.v1alpha1.Acm.ContractMetaOrBuilder> 
           getMetasFieldBuilder() {
         if (metasBuilder_ == null) {
           metasBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              acm.Acm.ContractMeta, acm.Acm.ContractMeta.Builder, acm.Acm.ContractMetaOrBuilder>(
+              shentu.burrow.v1alpha1.Acm.ContractMeta, shentu.burrow.v1alpha1.Acm.ContractMeta.Builder, shentu.burrow.v1alpha1.Acm.ContractMetaOrBuilder>(
                   metas_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -5949,44 +5949,42 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n!shentu/cvm/v1alpha1/genesis.proto\022\023she" +
-      "ntu.cvm.v1alpha1\032\024gogoproto/gogo.proto\032\035" +
-      "shentu/cvm/v1alpha1/cvm.proto\032\020burrow/ac" +
-      "m.proto\"\277\001\n\014GenesisState\022%\n\010gas_rate\030\001 \001" +
-      "(\004B\023\362\336\037\017yaml:\"gas_rate\"\022C\n\tcontracts\030\002 \003" +
-      "(\0132\035.shentu.cvm.v1alpha1.ContractB\021\252\337\037\tC" +
-      "ontracts\310\336\037\000\022C\n\tmetadatas\030\003 \003(\0132\035.shentu" +
-      ".cvm.v1alpha1.MetadataB\021\252\337\037\tMetadatas\310\336\037" +
-      "\000\"\327\002\n\010Contract\022W\n\007Address\030\001 \001(\014BF\332\336\037,git" +
-      "hub.com/hyperledger/burrow/crypto.Addres" +
-      "s\362\336\037\016yaml:\"address\"\310\336\037\000\022?\n\004code\030\002 \001(\0132\034." +
-      "shentu.cvm.v1alpha1.CVMCodeB\023\310\336\037\000\362\336\037\013yam" +
-      "l:\"code\"\022E\n\007storage\030\003 \003(\0132\034.shentu.cvm.v" +
-      "1alpha1.StorageB\026\310\336\037\000\362\336\037\016yaml:\"storage\"\022" +
-      "\033\n\003abi\030\004 \001(\014B\016\362\336\037\nyaml:\"abi\"\022M\n\004meta\030\005 \003" +
-      "(\0132!.shentu.cvm.v1alpha1.ContractMetaB\034\310" +
-      "\336\037\000\362\336\037\024yaml:\"contract_meta\"\"\203\001\n\007CVMCode\022" +
-      "\'\n\tcode_type\030\001 \001(\003B\024\362\336\037\020yaml:\"code_type\"" +
-      "\022O\n\004code\030\002 \001(\014BA\332\336\037*github.com/hyperledg" +
-      "er/burrow/acm.Bytecode\362\336\037\013yaml:\"code\"\310\336\037" +
-      "\000\"{\n\007Storage\022O\n\003key\030\001 \001(\014BB\332\336\037,github.co" +
-      "m/hyperledger/burrow/binary.Word256\362\336\037\ny" +
-      "aml:\"key\"\310\336\037\000\022\037\n\005value\030\002 \001(\014B\020\362\336\037\014yaml:\"" +
-      "value\"\"h\n\014ContractMeta\022\'\n\tcode_hash\030\001 \001(" +
-      "\014B\024\362\336\037\020yaml:\"code_hash\"\022/\n\rmetadata_hash" +
-      "\030\002 \001(\014B\030\362\336\037\024yaml:\"metadata_hash\"\"1\n\rCont" +
-      "ractMetas\022 \n\005metas\030\001 \003(\0132\021.acm.ContractM" +
-      "eta\"P\n\010Metadata\022\035\n\004hash\030\001 \001(\014B\017\362\336\037\013yaml:" +
-      "\"hash\"\022%\n\010metadata\030\002 \001(\tB\023\362\336\037\017yaml:\"meta" +
-      "data\"BHZ.github.com/certikfoundation/she" +
-      "ntu/x/cvm/types\330\342\036\001\310\342\036\001\320\342\036\001\340\342\036\001\300\343\036\001\310\343\036\001b" +
-      "\006proto3"
+      "ntu.cvm.v1alpha1\032\024gogoproto/gogo.proto\032\027" +
+      "shentu/burrow/acm.proto\"\277\001\n\014GenesisState" +
+      "\022%\n\010gas_rate\030\001 \001(\004B\023\362\336\037\017yaml:\"gas_rate\"\022" +
+      "C\n\tcontracts\030\002 \003(\0132\035.shentu.cvm.v1alpha1" +
+      ".ContractB\021\252\337\037\tContracts\310\336\037\000\022C\n\tmetadata" +
+      "s\030\003 \003(\0132\035.shentu.cvm.v1alpha1.MetadataB\021" +
+      "\252\337\037\tMetadatas\310\336\037\000\"\327\002\n\010Contract\022W\n\007Addres" +
+      "s\030\001 \001(\014BF\332\336\037,github.com/hyperledger/burr" +
+      "ow/crypto.Address\362\336\037\016yaml:\"address\"\310\336\037\000\022" +
+      "?\n\004code\030\002 \001(\0132\034.shentu.cvm.v1alpha1.CVMC" +
+      "odeB\023\310\336\037\000\362\336\037\013yaml:\"code\"\022E\n\007storage\030\003 \003(" +
+      "\0132\034.shentu.cvm.v1alpha1.StorageB\026\310\336\037\000\362\336\037" +
+      "\016yaml:\"storage\"\022\033\n\003abi\030\004 \001(\014B\016\362\336\037\nyaml:\"" +
+      "abi\"\022M\n\004meta\030\005 \003(\0132!.shentu.cvm.v1alpha1" +
+      ".ContractMetaB\034\310\336\037\000\362\336\037\024yaml:\"contract_me" +
+      "ta\"\"\203\001\n\007CVMCode\022\'\n\tcode_type\030\001 \001(\003B\024\362\336\037\020" +
+      "yaml:\"code_type\"\022O\n\004code\030\002 \001(\014BA\332\336\037*gith" +
+      "ub.com/hyperledger/burrow/acm.Bytecode\362\336" +
+      "\037\013yaml:\"code\"\310\336\037\000\"{\n\007Storage\022O\n\003key\030\001 \001(" +
+      "\014BB\332\336\037,github.com/hyperledger/burrow/bin" +
+      "ary.Word256\362\336\037\nyaml:\"key\"\310\336\037\000\022\037\n\005value\030\002" +
+      " \001(\014B\020\362\336\037\014yaml:\"value\"\"h\n\014ContractMeta\022\'" +
+      "\n\tcode_hash\030\001 \001(\014B\024\362\336\037\020yaml:\"code_hash\"\022" +
+      "/\n\rmetadata_hash\030\002 \001(\014B\030\362\336\037\024yaml:\"metada" +
+      "ta_hash\"\"1\n\rContractMetas\022 \n\005metas\030\001 \003(\013" +
+      "2\021.acm.ContractMeta\"P\n\010Metadata\022\035\n\004hash\030" +
+      "\001 \001(\014B\017\362\336\037\013yaml:\"hash\"\022%\n\010metadata\030\002 \001(\t" +
+      "B\023\362\336\037\017yaml:\"metadata\"BHZ.github.com/cert" +
+      "ikfoundation/shentu/x/cvm/types\330\342\036\001\310\342\036\001\320" +
+      "\342\036\001\340\342\036\001\300\343\036\001\310\343\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          shentu.cvm.v1alpha1.Cvm.getDescriptor(),
-          acm.Acm.getDescriptor(),
+          shentu.burrow.v1alpha1.Acm.getDescriptor(),
         });
     internal_static_shentu_cvm_v1alpha1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -6045,8 +6043,7 @@ public final class Genesis {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    shentu.cvm.v1alpha1.Cvm.getDescriptor();
-    acm.Acm.getDescriptor();
+    shentu.burrow.v1alpha1.Acm.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

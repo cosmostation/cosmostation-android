@@ -31,65 +31,65 @@ public final class QueryGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest,
-      shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse> getOperatorMethod;
+      shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse> getOracleOperatorMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Operator",
+      fullMethodName = SERVICE_NAME + '/' + "OracleOperator",
       requestType = shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest.class,
       responseType = shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest,
-      shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse> getOperatorMethod() {
-    io.grpc.MethodDescriptor<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest, shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse> getOperatorMethod;
-    if ((getOperatorMethod = QueryGrpc.getOperatorMethod) == null) {
+      shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse> getOracleOperatorMethod() {
+    io.grpc.MethodDescriptor<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest, shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse> getOracleOperatorMethod;
+    if ((getOracleOperatorMethod = QueryGrpc.getOracleOperatorMethod) == null) {
       synchronized (QueryGrpc.class) {
-        if ((getOperatorMethod = QueryGrpc.getOperatorMethod) == null) {
-          QueryGrpc.getOperatorMethod = getOperatorMethod =
+        if ((getOracleOperatorMethod = QueryGrpc.getOracleOperatorMethod) == null) {
+          QueryGrpc.getOracleOperatorMethod = getOracleOperatorMethod =
               io.grpc.MethodDescriptor.<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest, shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Operator"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "OracleOperator"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("Operator"))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("OracleOperator"))
               .build();
         }
       }
     }
-    return getOperatorMethod;
+    return getOracleOperatorMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest,
-      shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse> getOperatorsMethod;
+      shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse> getOracleOperatorsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Operators",
+      fullMethodName = SERVICE_NAME + '/' + "OracleOperators",
       requestType = shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest.class,
       responseType = shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest,
-      shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse> getOperatorsMethod() {
-    io.grpc.MethodDescriptor<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest, shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse> getOperatorsMethod;
-    if ((getOperatorsMethod = QueryGrpc.getOperatorsMethod) == null) {
+      shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse> getOracleOperatorsMethod() {
+    io.grpc.MethodDescriptor<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest, shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse> getOracleOperatorsMethod;
+    if ((getOracleOperatorsMethod = QueryGrpc.getOracleOperatorsMethod) == null) {
       synchronized (QueryGrpc.class) {
-        if ((getOperatorsMethod = QueryGrpc.getOperatorsMethod) == null) {
-          QueryGrpc.getOperatorsMethod = getOperatorsMethod =
+        if ((getOracleOperatorsMethod = QueryGrpc.getOracleOperatorsMethod) == null) {
+          QueryGrpc.getOracleOperatorsMethod = getOracleOperatorsMethod =
               io.grpc.MethodDescriptor.<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest, shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Operators"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "OracleOperators"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("Operators"))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("OracleOperators"))
               .build();
         }
       }
     }
-    return getOperatorsMethod;
+    return getOracleOperatorsMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<shentu.oracle.v1alpha1.QueryOuterClass.QueryWithdrawsRequest,
@@ -238,16 +238,16 @@ public final class QueryGrpc {
 
     /**
      */
-    public void operator(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest request,
+    public void oracleOperator(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest request,
         io.grpc.stub.StreamObserver<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getOperatorMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getOracleOperatorMethod(), responseObserver);
     }
 
     /**
      */
-    public void operators(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest request,
+    public void oracleOperators(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest request,
         io.grpc.stub.StreamObserver<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getOperatorsMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getOracleOperatorsMethod(), responseObserver);
     }
 
     /**
@@ -274,19 +274,19 @@ public final class QueryGrpc {
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getOperatorMethod(),
+            getOracleOperatorMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest,
                 shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse>(
-                  this, METHODID_OPERATOR)))
+                  this, METHODID_ORACLE_OPERATOR)))
           .addMethod(
-            getOperatorsMethod(),
+            getOracleOperatorsMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest,
                 shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse>(
-                  this, METHODID_OPERATORS)))
+                  this, METHODID_ORACLE_OPERATORS)))
           .addMethod(
             getWithdrawsMethod(),
             asyncUnaryCall(
@@ -331,18 +331,18 @@ public final class QueryGrpc {
 
     /**
      */
-    public void operator(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest request,
+    public void oracleOperator(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest request,
         io.grpc.stub.StreamObserver<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getOperatorMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getOracleOperatorMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void operators(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest request,
+    public void oracleOperators(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest request,
         io.grpc.stub.StreamObserver<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getOperatorsMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getOracleOperatorsMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -389,16 +389,16 @@ public final class QueryGrpc {
 
     /**
      */
-    public shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse operator(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest request) {
+    public shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse oracleOperator(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest request) {
       return blockingUnaryCall(
-          getChannel(), getOperatorMethod(), getCallOptions(), request);
+          getChannel(), getOracleOperatorMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse operators(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest request) {
+    public shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse oracleOperators(shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest request) {
       return blockingUnaryCall(
-          getChannel(), getOperatorsMethod(), getCallOptions(), request);
+          getChannel(), getOracleOperatorsMethod(), getCallOptions(), request);
     }
 
     /**
@@ -442,18 +442,18 @@ public final class QueryGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse> operator(
+    public com.google.common.util.concurrent.ListenableFuture<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse> oracleOperator(
         shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(getOperatorMethod(), getCallOptions()), request);
+          getChannel().newCall(getOracleOperatorMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse> operators(
+    public com.google.common.util.concurrent.ListenableFuture<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse> oracleOperators(
         shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(getOperatorsMethod(), getCallOptions()), request);
+          getChannel().newCall(getOracleOperatorsMethod(), getCallOptions()), request);
     }
 
     /**
@@ -481,8 +481,8 @@ public final class QueryGrpc {
     }
   }
 
-  private static final int METHODID_OPERATOR = 0;
-  private static final int METHODID_OPERATORS = 1;
+  private static final int METHODID_ORACLE_OPERATOR = 0;
+  private static final int METHODID_ORACLE_OPERATORS = 1;
   private static final int METHODID_WITHDRAWS = 2;
   private static final int METHODID_TASK = 3;
   private static final int METHODID_RESPONSE = 4;
@@ -504,12 +504,12 @@ public final class QueryGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_OPERATOR:
-          serviceImpl.operator((shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest) request,
+        case METHODID_ORACLE_OPERATOR:
+          serviceImpl.oracleOperator((shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorRequest) request,
               (io.grpc.stub.StreamObserver<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorResponse>) responseObserver);
           break;
-        case METHODID_OPERATORS:
-          serviceImpl.operators((shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest) request,
+        case METHODID_ORACLE_OPERATORS:
+          serviceImpl.oracleOperators((shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsRequest) request,
               (io.grpc.stub.StreamObserver<shentu.oracle.v1alpha1.QueryOuterClass.QueryOperatorsResponse>) responseObserver);
           break;
         case METHODID_WITHDRAWS:
@@ -585,8 +585,8 @@ public final class QueryGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new QueryFileDescriptorSupplier())
-              .addMethod(getOperatorMethod())
-              .addMethod(getOperatorsMethod())
+              .addMethod(getOracleOperatorMethod())
+              .addMethod(getOracleOperatorsMethod())
               .addMethod(getWithdrawsMethod())
               .addMethod(getTaskMethod())
               .addMethod(getResponseMethod())

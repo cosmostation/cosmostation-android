@@ -5071,29 +5071,29 @@ public final class Signing {
     java.lang.String[] descriptorData = {
       "\n\'cosmos/tx/signing/v1beta1/signing.prot" +
       "o\022\031cosmos.tx.signing.v1beta1\032-cosmos/cry" +
-      "pto/multisig/v1beta1/multisig.proto\032\031goo" +
-      "gle/protobuf/any.proto\"Z\n\024SignatureDescr" +
-      "iptors\022B\n\nsignatures\030\001 \003(\0132..cosmos.tx.s" +
-      "igning.v1beta1.SignatureDescriptor\"\244\004\n\023S" +
-      "ignatureDescriptor\022(\n\npublic_key\030\001 \001(\0132\024" +
-      ".google.protobuf.Any\022A\n\004data\030\002 \001(\01323.cos" +
-      "mos.tx.signing.v1beta1.SignatureDescript" +
-      "or.Data\022\020\n\010sequence\030\003 \001(\004\032\215\003\n\004Data\022L\n\006si" +
-      "ngle\030\001 \001(\0132:.cosmos.tx.signing.v1beta1.S" +
-      "ignatureDescriptor.Data.SingleH\000\022J\n\005mult" +
-      "i\030\002 \001(\01329.cosmos.tx.signing.v1beta1.Sign" +
-      "atureDescriptor.Data.MultiH\000\032N\n\006Single\0221" +
-      "\n\004mode\030\001 \001(\0162#.cosmos.tx.signing.v1beta1" +
-      ".SignMode\022\021\n\tsignature\030\002 \001(\014\032\223\001\n\005Multi\022A" +
-      "\n\010bitarray\030\001 \001(\0132/.cosmos.crypto.multisi" +
-      "g.v1beta1.CompactBitArray\022G\n\nsignatures\030" +
-      "\002 \003(\01323.cosmos.tx.signing.v1beta1.Signat" +
-      "ureDescriptor.DataB\005\n\003sum*\215\001\n\010SignMode\022\031" +
-      "\n\025SIGN_MODE_UNSPECIFIED\020\000\022\024\n\020SIGN_MODE_D" +
-      "IRECT\020\001\022\025\n\021SIGN_MODE_TEXTUAL\020\002\022\030\n\024SIGN_M" +
-      "ODE_DIRECT_AUX\020\003\022\037\n\033SIGN_MODE_LEGACY_AMI" +
-      "NO_JSON\020\177B/Z-github.com/cosmos/cosmos-sd" +
-      "k/types/tx/signingb\006proto3"
+      "pto/multisig/v1beta1/multisig.proto\032\032goo" +
+      "gle/protobuf2/any.proto\"Z\n\024SignatureDesc" +
+      "riptors\022B\n\nsignatures\030\001 \003(\0132..cosmos.tx." +
+      "signing.v1beta1.SignatureDescriptor\"\244\004\n\023" +
+      "SignatureDescriptor\022(\n\npublic_key\030\001 \001(\0132" +
+      "\024.google.protobuf.Any\022A\n\004data\030\002 \001(\01323.co" +
+      "smos.tx.signing.v1beta1.SignatureDescrip" +
+      "tor.Data\022\020\n\010sequence\030\003 \001(\004\032\215\003\n\004Data\022L\n\006s" +
+      "ingle\030\001 \001(\0132:.cosmos.tx.signing.v1beta1." +
+      "SignatureDescriptor.Data.SingleH\000\022J\n\005mul" +
+      "ti\030\002 \001(\01329.cosmos.tx.signing.v1beta1.Sig" +
+      "natureDescriptor.Data.MultiH\000\032N\n\006Single\022" +
+      "1\n\004mode\030\001 \001(\0162#.cosmos.tx.signing.v1beta" +
+      "1.SignMode\022\021\n\tsignature\030\002 \001(\014\032\223\001\n\005Multi\022" +
+      "A\n\010bitarray\030\001 \001(\0132/.cosmos.crypto.multis" +
+      "ig.v1beta1.CompactBitArray\022G\n\nsignatures" +
+      "\030\002 \003(\01323.cosmos.tx.signing.v1beta1.Signa" +
+      "tureDescriptor.DataB\005\n\003sum*\215\001\n\010SignMode\022" +
+      "\031\n\025SIGN_MODE_UNSPECIFIED\020\000\022\024\n\020SIGN_MODE_" +
+      "DIRECT\020\001\022\025\n\021SIGN_MODE_TEXTUAL\020\002\022\030\n\024SIGN_" +
+      "MODE_DIRECT_AUX\020\003\022\037\n\033SIGN_MODE_LEGACY_AM" +
+      "INO_JSON\020\177B/Z-github.com/cosmos/cosmos-s" +
+      "dk/types/tx/signingb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

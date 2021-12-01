@@ -26515,164 +26515,164 @@ public final class QueryOuterClass {
       "ore.channel.v1\032\037ibc/core/client/v1/clien" +
       "t.proto\032*cosmos/base/query/v1beta1/pagin" +
       "ation.proto\032!ibc/core/channel/v1/channel" +
-      ".proto\032\034google/api/annotations.proto\032\031go" +
-      "ogle/protobuf/any.proto\032\024gogoproto/gogo." +
-      "proto\":\n\023QueryChannelRequest\022\017\n\007port_id\030" +
-      "\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\"\214\001\n\024QueryChann" +
-      "elResponse\022-\n\007channel\030\001 \001(\0132\034.ibc.core.c" +
-      "hannel.v1.Channel\022\r\n\005proof\030\002 \001(\014\0226\n\014proo" +
-      "f_height\030\003 \001(\0132\032.ibc.core.client.v1.Heig" +
-      "htB\004\310\336\037\000\"R\n\024QueryChannelsRequest\022:\n\npagi" +
-      "nation\030\001 \001(\0132&.cosmos.base.query.v1beta1" +
-      ".PageRequest\"\300\001\n\025QueryChannelsResponse\0228" +
+      ".proto\032\034google/api/annotations.proto\032\032go" +
+      "ogle/protobuf2/any.proto\032\024gogoproto/gogo" +
+      ".proto\":\n\023QueryChannelRequest\022\017\n\007port_id" +
+      "\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\"\214\001\n\024QueryChan" +
+      "nelResponse\022-\n\007channel\030\001 \001(\0132\034.ibc.core." +
+      "channel.v1.Channel\022\r\n\005proof\030\002 \001(\014\0226\n\014pro" +
+      "of_height\030\003 \001(\0132\032.ibc.core.client.v1.Hei" +
+      "ghtB\004\310\336\037\000\"R\n\024QueryChannelsRequest\022:\n\npag" +
+      "ination\030\001 \001(\0132&.cosmos.base.query.v1beta" +
+      "1.PageRequest\"\300\001\n\025QueryChannelsResponse\022" +
+      "8\n\010channels\030\001 \003(\0132&.ibc.core.channel.v1." +
+      "IdentifiedChannel\022;\n\npagination\030\002 \001(\0132\'." +
+      "cosmos.base.query.v1beta1.PageResponse\0220" +
+      "\n\006height\030\003 \001(\0132\032.ibc.core.client.v1.Heig" +
+      "htB\004\310\336\037\000\"p\n\036QueryConnectionChannelsReque" +
+      "st\022\022\n\nconnection\030\001 \001(\t\022:\n\npagination\030\002 \001" +
+      "(\0132&.cosmos.base.query.v1beta1.PageReque" +
+      "st\"\312\001\n\037QueryConnectionChannelsResponse\0228" +
       "\n\010channels\030\001 \003(\0132&.ibc.core.channel.v1.I" +
       "dentifiedChannel\022;\n\npagination\030\002 \001(\0132\'.c" +
       "osmos.base.query.v1beta1.PageResponse\0220\n" +
       "\006height\030\003 \001(\0132\032.ibc.core.client.v1.Heigh" +
-      "tB\004\310\336\037\000\"p\n\036QueryConnectionChannelsReques" +
-      "t\022\022\n\nconnection\030\001 \001(\t\022:\n\npagination\030\002 \001(" +
-      "\0132&.cosmos.base.query.v1beta1.PageReques" +
-      "t\"\312\001\n\037QueryConnectionChannelsResponse\0228\n" +
-      "\010channels\030\001 \003(\0132&.ibc.core.channel.v1.Id" +
-      "entifiedChannel\022;\n\npagination\030\002 \001(\0132\'.co" +
-      "smos.base.query.v1beta1.PageResponse\0220\n\006" +
-      "height\030\003 \001(\0132\032.ibc.core.client.v1.Height" +
-      "B\004\310\336\037\000\"E\n\036QueryChannelClientStateRequest" +
-      "\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\"\264\001" +
-      "\n\037QueryChannelClientStateResponse\022J\n\027ide" +
-      "ntified_client_state\030\001 \001(\0132).ibc.core.cl" +
-      "ient.v1.IdentifiedClientState\022\r\n\005proof\030\002" +
-      " \001(\014\0226\n\014proof_height\030\003 \001(\0132\032.ibc.core.cl" +
-      "ient.v1.HeightB\004\310\336\037\000\"z\n!QueryChannelCons" +
-      "ensusStateRequest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nch" +
-      "annel_id\030\002 \001(\t\022\027\n\017revision_number\030\003 \001(\004\022" +
-      "\027\n\017revision_height\030\004 \001(\004\"\255\001\n\"QueryChanne" +
-      "lConsensusStateResponse\022-\n\017consensus_sta" +
-      "te\030\001 \001(\0132\024.google.protobuf.Any\022\021\n\tclient" +
-      "_id\030\002 \001(\t\022\r\n\005proof\030\003 \001(\014\0226\n\014proof_height" +
-      "\030\004 \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000" +
-      "\"U\n\034QueryPacketCommitmentRequest\022\017\n\007port" +
-      "_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022\020\n\010sequenc" +
-      "e\030\003 \001(\004\"z\n\035QueryPacketCommitmentResponse" +
-      "\022\022\n\ncommitment\030\001 \001(\014\022\r\n\005proof\030\002 \001(\014\0226\n\014p" +
-      "roof_height\030\003 \001(\0132\032.ibc.core.client.v1.H" +
-      "eightB\004\310\336\037\000\"\200\001\n\035QueryPacketCommitmentsRe" +
-      "quest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001" +
-      "(\t\022:\n\npagination\030\003 \001(\0132&.cosmos.base.que" +
-      "ry.v1beta1.PageRequest\"\306\001\n\036QueryPacketCo" +
-      "mmitmentsResponse\0225\n\013commitments\030\001 \003(\0132 " +
-      ".ibc.core.channel.v1.PacketState\022;\n\npagi" +
-      "nation\030\002 \001(\0132\'.cosmos.base.query.v1beta1" +
-      ".PageResponse\0220\n\006height\030\003 \001(\0132\032.ibc.core" +
-      ".client.v1.HeightB\004\310\336\037\000\"R\n\031QueryPacketRe" +
-      "ceiptRequest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel" +
-      "_id\030\002 \001(\t\022\020\n\010sequence\030\003 \001(\004\"u\n\032QueryPack" +
-      "etReceiptResponse\022\020\n\010received\030\002 \001(\010\022\r\n\005p" +
-      "roof\030\003 \001(\014\0226\n\014proof_height\030\004 \001(\0132\032.ibc.c" +
-      "ore.client.v1.HeightB\004\310\336\037\000\"Z\n!QueryPacke" +
-      "tAcknowledgementRequest\022\017\n\007port_id\030\001 \001(\t" +
-      "\022\022\n\nchannel_id\030\002 \001(\t\022\020\n\010sequence\030\003 \001(\004\"\204" +
-      "\001\n\"QueryPacketAcknowledgementResponse\022\027\n" +
-      "\017acknowledgement\030\001 \001(\014\022\r\n\005proof\030\002 \001(\014\0226\n" +
-      "\014proof_height\030\003 \001(\0132\032.ibc.core.client.v1" +
-      ".HeightB\004\310\336\037\000\"\252\001\n\"QueryPacketAcknowledge" +
-      "mentsRequest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel" +
-      "_id\030\002 \001(\t\022:\n\npagination\030\003 \001(\0132&.cosmos.b" +
-      "ase.query.v1beta1.PageRequest\022#\n\033packet_" +
-      "commitment_sequences\030\004 \003(\004\"\320\001\n#QueryPack" +
-      "etAcknowledgementsResponse\022:\n\020acknowledg" +
-      "ements\030\001 \003(\0132 .ibc.core.channel.v1.Packe" +
-      "tState\022;\n\npagination\030\002 \001(\0132\'.cosmos.base" +
-      ".query.v1beta1.PageResponse\0220\n\006height\030\003 " +
-      "\001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000\"i\n" +
-      "\035QueryUnreceivedPacketsRequest\022\017\n\007port_i" +
-      "d\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022#\n\033packet_co" +
-      "mmitment_sequences\030\003 \003(\004\"e\n\036QueryUnrecei" +
-      "vedPacketsResponse\022\021\n\tsequences\030\001 \003(\004\0220\n" +
-      "\006height\030\002 \001(\0132\032.ibc.core.client.v1.Heigh" +
-      "tB\004\310\336\037\000\"_\n\032QueryUnreceivedAcksRequest\022\017\n" +
-      "\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022\034\n\024pa" +
-      "cket_ack_sequences\030\003 \003(\004\"b\n\033QueryUnrecei" +
-      "vedAcksResponse\022\021\n\tsequences\030\001 \003(\004\0220\n\006he" +
-      "ight\030\002 \001(\0132\032.ibc.core.client.v1.HeightB\004" +
-      "\310\336\037\000\"F\n\037QueryNextSequenceReceiveRequest\022" +
-      "\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\"\210\001\n" +
-      " QueryNextSequenceReceiveResponse\022\035\n\025nex" +
-      "t_sequence_receive\030\001 \001(\004\022\r\n\005proof\030\002 \001(\014\022" +
-      "6\n\014proof_height\030\003 \001(\0132\032.ibc.core.client." +
-      "v1.HeightB\004\310\336\037\0002\213\026\n\005Query\022\242\001\n\007Channel\022(." +
-      "ibc.core.channel.v1.QueryChannelRequest\032" +
-      ").ibc.core.channel.v1.QueryChannelRespon" +
-      "se\"B\202\323\344\223\002<\022:/ibc/core/channel/v1/channel" +
-      "s/{channel_id}/ports/{port_id}\022\210\001\n\010Chann" +
-      "els\022).ibc.core.channel.v1.QueryChannelsR" +
-      "equest\032*.ibc.core.channel.v1.QueryChanne" +
-      "lsResponse\"%\202\323\344\223\002\037\022\035/ibc/core/channel/v1" +
-      "/channels\022\277\001\n\022ConnectionChannels\0223.ibc.c" +
-      "ore.channel.v1.QueryConnectionChannelsRe" +
-      "quest\0324.ibc.core.channel.v1.QueryConnect" +
-      "ionChannelsResponse\">\202\323\344\223\0028\0226/ibc/core/c" +
-      "hannel/v1/connections/{connection}/chann" +
-      "els\022\320\001\n\022ChannelClientState\0223.ibc.core.ch" +
-      "annel.v1.QueryChannelClientStateRequest\032" +
-      "4.ibc.core.channel.v1.QueryChannelClient" +
-      "StateResponse\"O\202\323\344\223\002I\022G/ibc/core/channel" +
-      "/v1/channels/{channel_id}/ports/{port_id" +
-      "}/client_state\022\222\002\n\025ChannelConsensusState" +
-      "\0226.ibc.core.channel.v1.QueryChannelConse" +
-      "nsusStateRequest\0327.ibc.core.channel.v1.Q" +
-      "ueryChannelConsensusStateResponse\"\207\001\202\323\344\223" +
-      "\002\200\001\022~/ibc/core/channel/v1/channels/{chan" +
-      "nel_id}/ports/{port_id}/consensus_state/" +
-      "revision/{revision_number}/height/{revis" +
-      "ion_height}\022\333\001\n\020PacketCommitment\0221.ibc.c" +
-      "ore.channel.v1.QueryPacketCommitmentRequ" +
-      "est\0322.ibc.core.channel.v1.QueryPacketCom" +
-      "mitmentResponse\"`\202\323\344\223\002Z\022X/ibc/core/chann" +
-      "el/v1/channels/{channel_id}/ports/{port_" +
-      "id}/packet_commitments/{sequence}\022\323\001\n\021Pa" +
-      "cketCommitments\0222.ibc.core.channel.v1.Qu" +
-      "eryPacketCommitmentsRequest\0323.ibc.core.c" +
-      "hannel.v1.QueryPacketCommitmentsResponse" +
-      "\"U\202\323\344\223\002O\022M/ibc/core/channel/v1/channels/" +
-      "{channel_id}/ports/{port_id}/packet_comm" +
-      "itments\022\317\001\n\rPacketReceipt\022..ibc.core.cha" +
-      "nnel.v1.QueryPacketReceiptRequest\032/.ibc." +
-      "core.channel.v1.QueryPacketReceiptRespon" +
-      "se\"]\202\323\344\223\002W\022U/ibc/core/channel/v1/channel" +
-      "s/{channel_id}/ports/{port_id}/packet_re" +
-      "ceipts/{sequence}\022\343\001\n\025PacketAcknowledgem" +
-      "ent\0226.ibc.core.channel.v1.QueryPacketAck" +
-      "nowledgementRequest\0327.ibc.core.channel.v" +
-      "1.QueryPacketAcknowledgementResponse\"Y\202\323" +
-      "\344\223\002S\022Q/ibc/core/channel/v1/channels/{cha" +
-      "nnel_id}/ports/{port_id}/packet_acks/{se" +
-      "quence}\022\347\001\n\026PacketAcknowledgements\0227.ibc" +
-      ".core.channel.v1.QueryPacketAcknowledgem" +
-      "entsRequest\0328.ibc.core.channel.v1.QueryP" +
-      "acketAcknowledgementsResponse\"Z\202\323\344\223\002T\022R/" +
-      "ibc/core/channel/v1/channels/{channel_id" +
-      "}/ports/{port_id}/packet_acknowledgement" +
-      "s\022\206\002\n\021UnreceivedPackets\0222.ibc.core.chann" +
-      "el.v1.QueryUnreceivedPacketsRequest\0323.ib" +
-      "c.core.channel.v1.QueryUnreceivedPackets" +
-      "Response\"\207\001\202\323\344\223\002\200\001\022~/ibc/core/channel/v1" +
-      "/channels/{channel_id}/ports/{port_id}/p" +
-      "acket_commitments/{packet_commitment_seq" +
-      "uences}/unreceived_packets\022\361\001\n\016Unreceive" +
-      "dAcks\022/.ibc.core.channel.v1.QueryUnrecei" +
-      "vedAcksRequest\0320.ibc.core.channel.v1.Que" +
-      "ryUnreceivedAcksResponse\"|\202\323\344\223\002v\022t/ibc/c" +
-      "ore/channel/v1/channels/{channel_id}/por" +
-      "ts/{port_id}/packet_commitments/{packet_" +
-      "ack_sequences}/unreceived_acks\022\324\001\n\023NextS" +
-      "equenceReceive\0224.ibc.core.channel.v1.Que" +
-      "ryNextSequenceReceiveRequest\0325.ibc.core." +
-      "channel.v1.QueryNextSequenceReceiveRespo" +
-      "nse\"P\202\323\344\223\002J\022H/ibc/core/channel/v1/channe" +
-      "ls/{channel_id}/ports/{port_id}/next_seq" +
-      "uenceB;Z9github.com/cosmos/ibc-go/v2/mod" +
-      "ules/core/04-channel/typesb\006proto3"
+      "tB\004\310\336\037\000\"E\n\036QueryChannelClientStateReques" +
+      "t\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\"\264" +
+      "\001\n\037QueryChannelClientStateResponse\022J\n\027id" +
+      "entified_client_state\030\001 \001(\0132).ibc.core.c" +
+      "lient.v1.IdentifiedClientState\022\r\n\005proof\030" +
+      "\002 \001(\014\0226\n\014proof_height\030\003 \001(\0132\032.ibc.core.c" +
+      "lient.v1.HeightB\004\310\336\037\000\"z\n!QueryChannelCon" +
+      "sensusStateRequest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nc" +
+      "hannel_id\030\002 \001(\t\022\027\n\017revision_number\030\003 \001(\004" +
+      "\022\027\n\017revision_height\030\004 \001(\004\"\255\001\n\"QueryChann" +
+      "elConsensusStateResponse\022-\n\017consensus_st" +
+      "ate\030\001 \001(\0132\024.google.protobuf.Any\022\021\n\tclien" +
+      "t_id\030\002 \001(\t\022\r\n\005proof\030\003 \001(\014\0226\n\014proof_heigh" +
+      "t\030\004 \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037" +
+      "\000\"U\n\034QueryPacketCommitmentRequest\022\017\n\007por" +
+      "t_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022\020\n\010sequen" +
+      "ce\030\003 \001(\004\"z\n\035QueryPacketCommitmentRespons" +
+      "e\022\022\n\ncommitment\030\001 \001(\014\022\r\n\005proof\030\002 \001(\014\0226\n\014" +
+      "proof_height\030\003 \001(\0132\032.ibc.core.client.v1." +
+      "HeightB\004\310\336\037\000\"\200\001\n\035QueryPacketCommitmentsR" +
+      "equest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 " +
+      "\001(\t\022:\n\npagination\030\003 \001(\0132&.cosmos.base.qu" +
+      "ery.v1beta1.PageRequest\"\306\001\n\036QueryPacketC" +
+      "ommitmentsResponse\0225\n\013commitments\030\001 \003(\0132" +
+      " .ibc.core.channel.v1.PacketState\022;\n\npag" +
+      "ination\030\002 \001(\0132\'.cosmos.base.query.v1beta" +
+      "1.PageResponse\0220\n\006height\030\003 \001(\0132\032.ibc.cor" +
+      "e.client.v1.HeightB\004\310\336\037\000\"R\n\031QueryPacketR" +
+      "eceiptRequest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchanne" +
+      "l_id\030\002 \001(\t\022\020\n\010sequence\030\003 \001(\004\"u\n\032QueryPac" +
+      "ketReceiptResponse\022\020\n\010received\030\002 \001(\010\022\r\n\005" +
+      "proof\030\003 \001(\014\0226\n\014proof_height\030\004 \001(\0132\032.ibc." +
+      "core.client.v1.HeightB\004\310\336\037\000\"Z\n!QueryPack" +
+      "etAcknowledgementRequest\022\017\n\007port_id\030\001 \001(" +
+      "\t\022\022\n\nchannel_id\030\002 \001(\t\022\020\n\010sequence\030\003 \001(\004\"" +
+      "\204\001\n\"QueryPacketAcknowledgementResponse\022\027" +
+      "\n\017acknowledgement\030\001 \001(\014\022\r\n\005proof\030\002 \001(\014\0226" +
+      "\n\014proof_height\030\003 \001(\0132\032.ibc.core.client.v" +
+      "1.HeightB\004\310\336\037\000\"\252\001\n\"QueryPacketAcknowledg" +
+      "ementsRequest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchanne" +
+      "l_id\030\002 \001(\t\022:\n\npagination\030\003 \001(\0132&.cosmos." +
+      "base.query.v1beta1.PageRequest\022#\n\033packet" +
+      "_commitment_sequences\030\004 \003(\004\"\320\001\n#QueryPac" +
+      "ketAcknowledgementsResponse\022:\n\020acknowled" +
+      "gements\030\001 \003(\0132 .ibc.core.channel.v1.Pack" +
+      "etState\022;\n\npagination\030\002 \001(\0132\'.cosmos.bas" +
+      "e.query.v1beta1.PageResponse\0220\n\006height\030\003" +
+      " \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000\"i" +
+      "\n\035QueryUnreceivedPacketsRequest\022\017\n\007port_" +
+      "id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022#\n\033packet_c" +
+      "ommitment_sequences\030\003 \003(\004\"e\n\036QueryUnrece" +
+      "ivedPacketsResponse\022\021\n\tsequences\030\001 \003(\004\0220" +
+      "\n\006height\030\002 \001(\0132\032.ibc.core.client.v1.Heig" +
+      "htB\004\310\336\037\000\"_\n\032QueryUnreceivedAcksRequest\022\017" +
+      "\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022\034\n\024p" +
+      "acket_ack_sequences\030\003 \003(\004\"b\n\033QueryUnrece" +
+      "ivedAcksResponse\022\021\n\tsequences\030\001 \003(\004\0220\n\006h" +
+      "eight\030\002 \001(\0132\032.ibc.core.client.v1.HeightB" +
+      "\004\310\336\037\000\"F\n\037QueryNextSequenceReceiveRequest" +
+      "\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\"\210\001" +
+      "\n QueryNextSequenceReceiveResponse\022\035\n\025ne" +
+      "xt_sequence_receive\030\001 \001(\004\022\r\n\005proof\030\002 \001(\014" +
+      "\0226\n\014proof_height\030\003 \001(\0132\032.ibc.core.client" +
+      ".v1.HeightB\004\310\336\037\0002\213\026\n\005Query\022\242\001\n\007Channel\022(" +
+      ".ibc.core.channel.v1.QueryChannelRequest" +
+      "\032).ibc.core.channel.v1.QueryChannelRespo" +
+      "nse\"B\202\323\344\223\002<\022:/ibc/core/channel/v1/channe" +
+      "ls/{channel_id}/ports/{port_id}\022\210\001\n\010Chan" +
+      "nels\022).ibc.core.channel.v1.QueryChannels" +
+      "Request\032*.ibc.core.channel.v1.QueryChann" +
+      "elsResponse\"%\202\323\344\223\002\037\022\035/ibc/core/channel/v" +
+      "1/channels\022\277\001\n\022ConnectionChannels\0223.ibc." +
+      "core.channel.v1.QueryConnectionChannelsR" +
+      "equest\0324.ibc.core.channel.v1.QueryConnec" +
+      "tionChannelsResponse\">\202\323\344\223\0028\0226/ibc/core/" +
+      "channel/v1/connections/{connection}/chan" +
+      "nels\022\320\001\n\022ChannelClientState\0223.ibc.core.c" +
+      "hannel.v1.QueryChannelClientStateRequest" +
+      "\0324.ibc.core.channel.v1.QueryChannelClien" +
+      "tStateResponse\"O\202\323\344\223\002I\022G/ibc/core/channe" +
+      "l/v1/channels/{channel_id}/ports/{port_i" +
+      "d}/client_state\022\222\002\n\025ChannelConsensusStat" +
+      "e\0226.ibc.core.channel.v1.QueryChannelCons" +
+      "ensusStateRequest\0327.ibc.core.channel.v1." +
+      "QueryChannelConsensusStateResponse\"\207\001\202\323\344" +
+      "\223\002\200\001\022~/ibc/core/channel/v1/channels/{cha" +
+      "nnel_id}/ports/{port_id}/consensus_state" +
+      "/revision/{revision_number}/height/{revi" +
+      "sion_height}\022\333\001\n\020PacketCommitment\0221.ibc." +
+      "core.channel.v1.QueryPacketCommitmentReq" +
+      "uest\0322.ibc.core.channel.v1.QueryPacketCo" +
+      "mmitmentResponse\"`\202\323\344\223\002Z\022X/ibc/core/chan" +
+      "nel/v1/channels/{channel_id}/ports/{port" +
+      "_id}/packet_commitments/{sequence}\022\323\001\n\021P" +
+      "acketCommitments\0222.ibc.core.channel.v1.Q" +
+      "ueryPacketCommitmentsRequest\0323.ibc.core." +
+      "channel.v1.QueryPacketCommitmentsRespons" +
+      "e\"U\202\323\344\223\002O\022M/ibc/core/channel/v1/channels" +
+      "/{channel_id}/ports/{port_id}/packet_com" +
+      "mitments\022\317\001\n\rPacketReceipt\022..ibc.core.ch" +
+      "annel.v1.QueryPacketReceiptRequest\032/.ibc" +
+      ".core.channel.v1.QueryPacketReceiptRespo" +
+      "nse\"]\202\323\344\223\002W\022U/ibc/core/channel/v1/channe" +
+      "ls/{channel_id}/ports/{port_id}/packet_r" +
+      "eceipts/{sequence}\022\343\001\n\025PacketAcknowledge" +
+      "ment\0226.ibc.core.channel.v1.QueryPacketAc" +
+      "knowledgementRequest\0327.ibc.core.channel." +
+      "v1.QueryPacketAcknowledgementResponse\"Y\202" +
+      "\323\344\223\002S\022Q/ibc/core/channel/v1/channels/{ch" +
+      "annel_id}/ports/{port_id}/packet_acks/{s" +
+      "equence}\022\347\001\n\026PacketAcknowledgements\0227.ib" +
+      "c.core.channel.v1.QueryPacketAcknowledge" +
+      "mentsRequest\0328.ibc.core.channel.v1.Query" +
+      "PacketAcknowledgementsResponse\"Z\202\323\344\223\002T\022R" +
+      "/ibc/core/channel/v1/channels/{channel_i" +
+      "d}/ports/{port_id}/packet_acknowledgemen" +
+      "ts\022\206\002\n\021UnreceivedPackets\0222.ibc.core.chan" +
+      "nel.v1.QueryUnreceivedPacketsRequest\0323.i" +
+      "bc.core.channel.v1.QueryUnreceivedPacket" +
+      "sResponse\"\207\001\202\323\344\223\002\200\001\022~/ibc/core/channel/v" +
+      "1/channels/{channel_id}/ports/{port_id}/" +
+      "packet_commitments/{packet_commitment_se" +
+      "quences}/unreceived_packets\022\361\001\n\016Unreceiv" +
+      "edAcks\022/.ibc.core.channel.v1.QueryUnrece" +
+      "ivedAcksRequest\0320.ibc.core.channel.v1.Qu" +
+      "eryUnreceivedAcksResponse\"|\202\323\344\223\002v\022t/ibc/" +
+      "core/channel/v1/channels/{channel_id}/po" +
+      "rts/{port_id}/packet_commitments/{packet" +
+      "_ack_sequences}/unreceived_acks\022\324\001\n\023Next" +
+      "SequenceReceive\0224.ibc.core.channel.v1.Qu" +
+      "eryNextSequenceReceiveRequest\0325.ibc.core" +
+      ".channel.v1.QueryNextSequenceReceiveResp" +
+      "onse\"P\202\323\344\223\002J\022H/ibc/core/channel/v1/chann" +
+      "els/{channel_id}/ports/{port_id}/next_se" +
+      "quenceB;Z9github.com/cosmos/ibc-go/v2/mo" +
+      "dules/core/04-channel/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

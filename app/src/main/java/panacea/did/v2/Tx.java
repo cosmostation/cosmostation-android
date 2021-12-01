@@ -54,33 +54,31 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n\027panacea/did/v2/tx.proto\022\016panacea.did.v" +
-      "2\032\024gogoproto/gogo.proto\032\030panacea/did/v2/" +
-      "did.proto\"\223\001\n\014MsgCreateDID\022\013\n\003did\030\001 \001(\t\022" +
-      "-\n\010document\030\002 \001(\0132\033.panacea.did.v2.DIDDo" +
-      "cument\022\036\n\026verification_method_id\030\003 \001(\t\022\021" +
-      "\n\tsignature\030\004 \001(\014\022\024\n\014from_address\030\005 \001(\t\"" +
-      "\026\n\024MsgCreateDIDResponse\"\223\001\n\014MsgUpdateDID" +
-      "\022\013\n\003did\030\001 \001(\t\022-\n\010document\030\002 \001(\0132\033.panace" +
-      "a.did.v2.DIDDocument\022\036\n\026verification_met" +
-      "hod_id\030\003 \001(\t\022\021\n\tsignature\030\004 \001(\014\022\024\n\014from_" +
-      "address\030\005 \001(\t\"\026\n\024MsgUpdateDIDResponse\"h\n" +
-      "\020MsgDeactivateDID\022\013\n\003did\030\001 \001(\t\022\036\n\026verifi" +
-      "cation_method_id\030\002 \001(\t\022\021\n\tsignature\030\003 \001(" +
-      "\014\022\024\n\014from_address\030\004 \001(\t\"\032\n\030MsgDeactivate" +
-      "DIDResponse2\204\002\n\003Msg\022O\n\tCreateDID\022\034.panac" +
-      "ea.did.v2.MsgCreateDID\032$.panacea.did.v2." +
-      "MsgCreateDIDResponse\022O\n\tUpdateDID\022\034.pana" +
-      "cea.did.v2.MsgUpdateDID\032$.panacea.did.v2" +
-      ".MsgUpdateDIDResponse\022[\n\rDeactivateDID\022 " +
-      ".panacea.did.v2.MsgDeactivateDID\032(.panac" +
-      "ea.did.v2.MsgDeactivateDIDResponseB0P\001Z," +
-      "github.com/medibloc/panacea-core/x/did/t" +
-      "ypesb\006proto3"
+      "2\032\030panacea/did/v2/did.proto\"\223\001\n\014MsgCreat" +
+      "eDID\022\013\n\003did\030\001 \001(\t\022-\n\010document\030\002 \001(\0132\033.pa" +
+      "nacea.did.v2.DIDDocument\022\036\n\026verification" +
+      "_method_id\030\003 \001(\t\022\021\n\tsignature\030\004 \001(\014\022\024\n\014f" +
+      "rom_address\030\005 \001(\t\"\026\n\024MsgCreateDIDRespons" +
+      "e\"\223\001\n\014MsgUpdateDID\022\013\n\003did\030\001 \001(\t\022-\n\010docum" +
+      "ent\030\002 \001(\0132\033.panacea.did.v2.DIDDocument\022\036" +
+      "\n\026verification_method_id\030\003 \001(\t\022\021\n\tsignat" +
+      "ure\030\004 \001(\014\022\024\n\014from_address\030\005 \001(\t\"\026\n\024MsgUp" +
+      "dateDIDResponse\"h\n\020MsgDeactivateDID\022\013\n\003d" +
+      "id\030\001 \001(\t\022\036\n\026verification_method_id\030\002 \001(\t" +
+      "\022\021\n\tsignature\030\003 \001(\014\022\024\n\014from_address\030\004 \001(" +
+      "\t\"\032\n\030MsgDeactivateDIDResponse2\204\002\n\003Msg\022O\n" +
+      "\tCreateDID\022\034.panacea.did.v2.MsgCreateDID" +
+      "\032$.panacea.did.v2.MsgCreateDIDResponse\022O" +
+      "\n\tUpdateDID\022\034.panacea.did.v2.MsgUpdateDI" +
+      "D\032$.panacea.did.v2.MsgUpdateDIDResponse\022" +
+      "[\n\rDeactivateDID\022 .panacea.did.v2.MsgDea" +
+      "ctivateDID\032(.panacea.did.v2.MsgDeactivat" +
+      "eDIDResponseB0P\001Z,github.com/medibloc/pa" +
+      "nacea-core/x/did/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
           panacea.did.v2.Did.getDescriptor(),
         });
     internal_static_panacea_did_v2_MsgCreateDID_descriptor =
@@ -119,7 +117,6 @@ public final class Tx {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_panacea_did_v2_MsgDeactivateDIDResponse_descriptor,
         new java.lang.String[] { });
-    com.google.protobuf.GoGoProtos.getDescriptor();
     panacea.did.v2.Did.getDescriptor();
   }
 

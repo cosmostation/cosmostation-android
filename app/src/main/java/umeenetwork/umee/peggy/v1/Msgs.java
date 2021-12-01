@@ -17055,103 +17055,103 @@ public final class Msgs {
       "umee.peggy.v1\032\036cosmos/base/v1beta1/coin." +
       "proto\032\024gogoproto/gogo.proto\032\034google/api/" +
       "annotations.proto\032\031umee/peggy/v1/types.p" +
-      "roto\032\031google/protobuf/any.proto\"o\n\033MsgSe" +
-      "tOrchestratorAddresses\022\016\n\006sender\030\001 \001(\t\022\024" +
-      "\n\014orchestrator\030\002 \001(\t\022\023\n\013eth_address\030\003 \001(" +
-      "\t\022\025\n\reth_signature\030\004 \001(\014\"%\n#MsgSetOrches" +
-      "tratorAddressesResponse\"K\n\037SetOrchestrat" +
-      "orAddressesSignMsg\022\031\n\021validator_address\030" +
-      "\001 \001(\t\022\r\n\005nonce\030\002 \001(\004\"_\n\020MsgValsetConfirm" +
-      "\022\r\n\005nonce\030\001 \001(\004\022\024\n\014orchestrator\030\002 \001(\t\022\023\n" +
-      "\013eth_address\030\003 \001(\t\022\021\n\tsignature\030\004 \001(\t\"\032\n" +
-      "\030MsgValsetConfirmResponse\"\226\001\n\014MsgSendToE" +
-      "th\022\016\n\006sender\030\001 \001(\t\022\020\n\010eth_dest\030\002 \001(\t\022/\n\006" +
-      "amount\030\003 \001(\0132\031.cosmos.base.v1beta1.CoinB" +
-      "\004\310\336\037\000\0223\n\nbridge_fee\030\004 \001(\0132\031.cosmos.base." +
-      "v1beta1.CoinB\004\310\336\037\000\"\026\n\024MsgSendToEthRespon" +
-      "se\"6\n\017MsgRequestBatch\022\024\n\014orchestrator\030\001 " +
-      "\001(\t\022\r\n\005denom\030\002 \001(\t\"\031\n\027MsgRequestBatchRes" +
-      "ponse\"u\n\017MsgConfirmBatch\022\r\n\005nonce\030\001 \001(\004\022" +
-      "\026\n\016token_contract\030\002 \001(\t\022\022\n\neth_signer\030\003 " +
-      "\001(\t\022\024\n\014orchestrator\030\004 \001(\t\022\021\n\tsignature\030\005" +
-      " \001(\t\"\031\n\027MsgConfirmBatchResponse\"\334\001\n\017MsgD" +
-      "epositClaim\022\023\n\013event_nonce\030\001 \001(\004\022\024\n\014bloc" +
-      "k_height\030\002 \001(\004\022\026\n\016token_contract\030\003 \001(\t\022>" +
-      "\n\006amount\030\004 \001(\tB.\332\336\037&github.com/cosmos/co" +
-      "smos-sdk/types.Int\310\336\037\000\022\027\n\017ethereum_sende" +
-      "r\030\005 \001(\t\022\027\n\017cosmos_receiver\030\006 \001(\t\022\024\n\014orch" +
-      "estrator\030\007 \001(\t\"\031\n\027MsgDepositClaimRespons" +
-      "e\"\200\001\n\020MsgWithdrawClaim\022\023\n\013event_nonce\030\001 " +
-      "\001(\004\022\024\n\014block_height\030\002 \001(\004\022\023\n\013batch_nonce" +
-      "\030\003 \001(\004\022\026\n\016token_contract\030\004 \001(\t\022\024\n\014orches" +
-      "trator\030\005 \001(\t\"\032\n\030MsgWithdrawClaimResponse" +
-      "\"\266\001\n\025MsgERC20DeployedClaim\022\023\n\013event_nonc" +
-      "e\030\001 \001(\004\022\024\n\014block_height\030\002 \001(\004\022\024\n\014cosmos_" +
-      "denom\030\003 \001(\t\022\026\n\016token_contract\030\004 \001(\t\022\014\n\004n" +
-      "ame\030\005 \001(\t\022\016\n\006symbol\030\006 \001(\t\022\020\n\010decimals\030\007 " +
-      "\001(\004\022\024\n\014orchestrator\030\010 \001(\t\"\037\n\035MsgERC20Dep" +
-      "loyedClaimResponse\"<\n\022MsgCancelSendToEth" +
-      "\022\026\n\016transaction_id\030\001 \001(\004\022\016\n\006sender\030\002 \001(\t" +
-      "\"\034\n\032MsgCancelSendToEthResponse\"i\n\035MsgSub" +
-      "mitBadSignatureEvidence\022%\n\007subject\030\001 \001(\013" +
-      "2\024.google.protobuf.Any\022\021\n\tsignature\030\002 \001(" +
-      "\t\022\016\n\006sender\030\003 \001(\t\"\'\n%MsgSubmitBadSignatu" +
-      "reEvidenceResponse\"\210\002\n\025MsgValsetUpdatedC" +
-      "laim\022\023\n\013event_nonce\030\001 \001(\004\022\024\n\014valset_nonc" +
-      "e\030\002 \001(\004\022\024\n\014block_height\030\003 \001(\004\022;\n\007members" +
-      "\030\004 \003(\0132*.umeenetwork.umee.peggy.v1.Bridg" +
-      "eValidator\022E\n\rreward_amount\030\005 \001(\tB.\332\336\037&g" +
-      "ithub.com/cosmos/cosmos-sdk/types.Int\310\336\037" +
-      "\000\022\024\n\014reward_token\030\006 \001(\t\022\024\n\014orchestrator\030" +
-      "\007 \001(\t\"\037\n\035MsgValsetUpdatedClaimResponse2\247" +
-      "\016\n\003Msg\022\230\001\n\rValsetConfirm\022+.umeenetwork.u" +
-      "mee.peggy.v1.MsgValsetConfirm\0323.umeenetw" +
-      "ork.umee.peggy.v1.MsgValsetConfirmRespon" +
-      "se\"%\202\323\344\223\002\037\"\035/umee/peggy/v1/valset_confir" +
-      "m\022\211\001\n\tSendToEth\022\'.umeenetwork.umee.peggy" +
-      ".v1.MsgSendToEth\032/.umeenetwork.umee.pegg" +
-      "y.v1.MsgSendToEthResponse\"\"\202\323\344\223\002\034\"\032/umee" +
-      "/peggy/v1/send_to_eth\022\224\001\n\014RequestBatch\022*" +
-      ".umeenetwork.umee.peggy.v1.MsgRequestBat" +
-      "ch\0322.umeenetwork.umee.peggy.v1.MsgReques" +
-      "tBatchResponse\"$\202\323\344\223\002\036\"\034/umee/peggy/v1/r" +
-      "equest_batch\022\224\001\n\014ConfirmBatch\022*.umeenetw" +
-      "ork.umee.peggy.v1.MsgConfirmBatch\0322.umee" +
-      "network.umee.peggy.v1.MsgConfirmBatchRes" +
-      "ponse\"$\202\323\344\223\002\036\"\034/umee/peggy/v1/confirm_ba" +
-      "tch\022\224\001\n\014DepositClaim\022*.umeenetwork.umee." +
-      "peggy.v1.MsgDepositClaim\0322.umeenetwork.u" +
-      "mee.peggy.v1.MsgDepositClaimResponse\"$\202\323" +
-      "\344\223\002\036\"\034/umee/peggy/v1/deposit_claim\022\230\001\n\rW" +
-      "ithdrawClaim\022+.umeenetwork.umee.peggy.v1" +
-      ".MsgWithdrawClaim\0323.umeenetwork.umee.peg" +
-      "gy.v1.MsgWithdrawClaimResponse\"%\202\323\344\223\002\037\"\035" +
-      "/umee/peggy/v1/withdraw_claim\022\254\001\n\021Valset" +
-      "UpdateClaim\0220.umeenetwork.umee.peggy.v1." +
-      "MsgValsetUpdatedClaim\0328.umeenetwork.umee" +
-      ".peggy.v1.MsgValsetUpdatedClaimResponse\"" +
-      "+\202\323\344\223\002%\"#/umee/peggy/v1/valset_updated_c" +
-      "laim\022\255\001\n\022ERC20DeployedClaim\0220.umeenetwor" +
-      "k.umee.peggy.v1.MsgERC20DeployedClaim\0328." +
-      "umeenetwork.umee.peggy.v1.MsgERC20Deploy" +
-      "edClaimResponse\"+\202\323\344\223\002%\"#/umee/peggy/v1/" +
-      "erc20_deployed_claim\022\303\001\n\030SetOrchestrator" +
-      "Addresses\0226.umeenetwork.umee.peggy.v1.Ms" +
-      "gSetOrchestratorAddresses\032>.umeenetwork." +
-      "umee.peggy.v1.MsgSetOrchestratorAddresse" +
-      "sResponse\"/\202\323\344\223\002)\"\'/umee/peggy/v1/set_or" +
-      "chestrator_address\022\242\001\n\017CancelSendToEth\022-" +
-      ".umeenetwork.umee.peggy.v1.MsgCancelSend" +
-      "ToEth\0325.umeenetwork.umee.peggy.v1.MsgCan" +
-      "celSendToEthResponse\")\202\323\344\223\002#\"!/umee/pegg" +
-      "y/v1/cancel_send_to_eth\022\316\001\n\032SubmitBadSig" +
-      "natureEvidence\0228.umeenetwork.umee.peggy." +
-      "v1.MsgSubmitBadSignatureEvidence\032@.umeen" +
-      "etwork.umee.peggy.v1.MsgSubmitBadSignatu" +
-      "reEvidenceResponse\"4\202\323\344\223\002.\",/umee/peggy/" +
-      "v1/submit_bad_signature_evidenceB,Z*gith" +
-      "ub.com/umee-network/umee/x/peggy/typesb\006" +
-      "proto3"
+      "roto\032\032google/protobuf2/any.proto\"o\n\033MsgS" +
+      "etOrchestratorAddresses\022\016\n\006sender\030\001 \001(\t\022" +
+      "\024\n\014orchestrator\030\002 \001(\t\022\023\n\013eth_address\030\003 \001" +
+      "(\t\022\025\n\reth_signature\030\004 \001(\014\"%\n#MsgSetOrche" +
+      "stratorAddressesResponse\"K\n\037SetOrchestra" +
+      "torAddressesSignMsg\022\031\n\021validator_address" +
+      "\030\001 \001(\t\022\r\n\005nonce\030\002 \001(\004\"_\n\020MsgValsetConfir" +
+      "m\022\r\n\005nonce\030\001 \001(\004\022\024\n\014orchestrator\030\002 \001(\t\022\023" +
+      "\n\013eth_address\030\003 \001(\t\022\021\n\tsignature\030\004 \001(\t\"\032" +
+      "\n\030MsgValsetConfirmResponse\"\226\001\n\014MsgSendTo" +
+      "Eth\022\016\n\006sender\030\001 \001(\t\022\020\n\010eth_dest\030\002 \001(\t\022/\n" +
+      "\006amount\030\003 \001(\0132\031.cosmos.base.v1beta1.Coin" +
+      "B\004\310\336\037\000\0223\n\nbridge_fee\030\004 \001(\0132\031.cosmos.base" +
+      ".v1beta1.CoinB\004\310\336\037\000\"\026\n\024MsgSendToEthRespo" +
+      "nse\"6\n\017MsgRequestBatch\022\024\n\014orchestrator\030\001" +
+      " \001(\t\022\r\n\005denom\030\002 \001(\t\"\031\n\027MsgRequestBatchRe" +
+      "sponse\"u\n\017MsgConfirmBatch\022\r\n\005nonce\030\001 \001(\004" +
+      "\022\026\n\016token_contract\030\002 \001(\t\022\022\n\neth_signer\030\003" +
+      " \001(\t\022\024\n\014orchestrator\030\004 \001(\t\022\021\n\tsignature\030" +
+      "\005 \001(\t\"\031\n\027MsgConfirmBatchResponse\"\334\001\n\017Msg" +
+      "DepositClaim\022\023\n\013event_nonce\030\001 \001(\004\022\024\n\014blo" +
+      "ck_height\030\002 \001(\004\022\026\n\016token_contract\030\003 \001(\t\022" +
+      ">\n\006amount\030\004 \001(\tB.\332\336\037&github.com/cosmos/c" +
+      "osmos-sdk/types.Int\310\336\037\000\022\027\n\017ethereum_send" +
+      "er\030\005 \001(\t\022\027\n\017cosmos_receiver\030\006 \001(\t\022\024\n\014orc" +
+      "hestrator\030\007 \001(\t\"\031\n\027MsgDepositClaimRespon" +
+      "se\"\200\001\n\020MsgWithdrawClaim\022\023\n\013event_nonce\030\001" +
+      " \001(\004\022\024\n\014block_height\030\002 \001(\004\022\023\n\013batch_nonc" +
+      "e\030\003 \001(\004\022\026\n\016token_contract\030\004 \001(\t\022\024\n\014orche" +
+      "strator\030\005 \001(\t\"\032\n\030MsgWithdrawClaimRespons" +
+      "e\"\266\001\n\025MsgERC20DeployedClaim\022\023\n\013event_non" +
+      "ce\030\001 \001(\004\022\024\n\014block_height\030\002 \001(\004\022\024\n\014cosmos" +
+      "_denom\030\003 \001(\t\022\026\n\016token_contract\030\004 \001(\t\022\014\n\004" +
+      "name\030\005 \001(\t\022\016\n\006symbol\030\006 \001(\t\022\020\n\010decimals\030\007" +
+      " \001(\004\022\024\n\014orchestrator\030\010 \001(\t\"\037\n\035MsgERC20De" +
+      "ployedClaimResponse\"<\n\022MsgCancelSendToEt" +
+      "h\022\026\n\016transaction_id\030\001 \001(\004\022\016\n\006sender\030\002 \001(" +
+      "\t\"\034\n\032MsgCancelSendToEthResponse\"i\n\035MsgSu" +
+      "bmitBadSignatureEvidence\022%\n\007subject\030\001 \001(" +
+      "\0132\024.google.protobuf.Any\022\021\n\tsignature\030\002 \001" +
+      "(\t\022\016\n\006sender\030\003 \001(\t\"\'\n%MsgSubmitBadSignat" +
+      "ureEvidenceResponse\"\210\002\n\025MsgValsetUpdated" +
+      "Claim\022\023\n\013event_nonce\030\001 \001(\004\022\024\n\014valset_non" +
+      "ce\030\002 \001(\004\022\024\n\014block_height\030\003 \001(\004\022;\n\007member" +
+      "s\030\004 \003(\0132*.umeenetwork.umee.peggy.v1.Brid" +
+      "geValidator\022E\n\rreward_amount\030\005 \001(\tB.\332\336\037&" +
+      "github.com/cosmos/cosmos-sdk/types.Int\310\336" +
+      "\037\000\022\024\n\014reward_token\030\006 \001(\t\022\024\n\014orchestrator" +
+      "\030\007 \001(\t\"\037\n\035MsgValsetUpdatedClaimResponse2" +
+      "\247\016\n\003Msg\022\230\001\n\rValsetConfirm\022+.umeenetwork." +
+      "umee.peggy.v1.MsgValsetConfirm\0323.umeenet" +
+      "work.umee.peggy.v1.MsgValsetConfirmRespo" +
+      "nse\"%\202\323\344\223\002\037\"\035/umee/peggy/v1/valset_confi" +
+      "rm\022\211\001\n\tSendToEth\022\'.umeenetwork.umee.pegg" +
+      "y.v1.MsgSendToEth\032/.umeenetwork.umee.peg" +
+      "gy.v1.MsgSendToEthResponse\"\"\202\323\344\223\002\034\"\032/ume" +
+      "e/peggy/v1/send_to_eth\022\224\001\n\014RequestBatch\022" +
+      "*.umeenetwork.umee.peggy.v1.MsgRequestBa" +
+      "tch\0322.umeenetwork.umee.peggy.v1.MsgReque" +
+      "stBatchResponse\"$\202\323\344\223\002\036\"\034/umee/peggy/v1/" +
+      "request_batch\022\224\001\n\014ConfirmBatch\022*.umeenet" +
+      "work.umee.peggy.v1.MsgConfirmBatch\0322.ume" +
+      "enetwork.umee.peggy.v1.MsgConfirmBatchRe" +
+      "sponse\"$\202\323\344\223\002\036\"\034/umee/peggy/v1/confirm_b" +
+      "atch\022\224\001\n\014DepositClaim\022*.umeenetwork.umee" +
+      ".peggy.v1.MsgDepositClaim\0322.umeenetwork." +
+      "umee.peggy.v1.MsgDepositClaimResponse\"$\202" +
+      "\323\344\223\002\036\"\034/umee/peggy/v1/deposit_claim\022\230\001\n\r" +
+      "WithdrawClaim\022+.umeenetwork.umee.peggy.v" +
+      "1.MsgWithdrawClaim\0323.umeenetwork.umee.pe" +
+      "ggy.v1.MsgWithdrawClaimResponse\"%\202\323\344\223\002\037\"" +
+      "\035/umee/peggy/v1/withdraw_claim\022\254\001\n\021Valse" +
+      "tUpdateClaim\0220.umeenetwork.umee.peggy.v1" +
+      ".MsgValsetUpdatedClaim\0328.umeenetwork.ume" +
+      "e.peggy.v1.MsgValsetUpdatedClaimResponse" +
+      "\"+\202\323\344\223\002%\"#/umee/peggy/v1/valset_updated_" +
+      "claim\022\255\001\n\022ERC20DeployedClaim\0220.umeenetwo" +
+      "rk.umee.peggy.v1.MsgERC20DeployedClaim\0328" +
+      ".umeenetwork.umee.peggy.v1.MsgERC20Deplo" +
+      "yedClaimResponse\"+\202\323\344\223\002%\"#/umee/peggy/v1" +
+      "/erc20_deployed_claim\022\303\001\n\030SetOrchestrato" +
+      "rAddresses\0226.umeenetwork.umee.peggy.v1.M" +
+      "sgSetOrchestratorAddresses\032>.umeenetwork" +
+      ".umee.peggy.v1.MsgSetOrchestratorAddress" +
+      "esResponse\"/\202\323\344\223\002)\"\'/umee/peggy/v1/set_o" +
+      "rchestrator_address\022\242\001\n\017CancelSendToEth\022" +
+      "-.umeenetwork.umee.peggy.v1.MsgCancelSen" +
+      "dToEth\0325.umeenetwork.umee.peggy.v1.MsgCa" +
+      "ncelSendToEthResponse\")\202\323\344\223\002#\"!/umee/peg" +
+      "gy/v1/cancel_send_to_eth\022\316\001\n\032SubmitBadSi" +
+      "gnatureEvidence\0228.umeenetwork.umee.peggy" +
+      ".v1.MsgSubmitBadSignatureEvidence\032@.umee" +
+      "network.umee.peggy.v1.MsgSubmitBadSignat" +
+      "ureEvidenceResponse\"4\202\323\344\223\002.\",/umee/peggy" +
+      "/v1/submit_bad_signature_evidenceB,Z*git" +
+      "hub.com/umee-network/umee/x/peggy/typesb" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

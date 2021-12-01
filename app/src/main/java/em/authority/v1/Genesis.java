@@ -973,21 +973,19 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n\035em/authority/v1/genesis.proto\022\017em.auth" +
       "ority.v1\032\024gogoproto/gogo.proto\032\036cosmos/b" +
-      "ase/v1beta1/coin.proto\032\037em/authority/v1/" +
-      "authority.proto\"\300\001\n\014GenesisState\022+\n\003key\030" +
-      "\001 \001(\tB\036\342\336\037\014AuthorityKey\362\336\037\nyaml:\"key\"\022\202\001" +
-      "\n\016min_gas_prices\030\002 \003(\0132\034.cosmos.base.v1b" +
-      "eta1.DecCoinBL\362\336\037\025yaml:\"min_gas_prices\"\252" +
-      "\337\037+github.com/cosmos/cosmos-sdk/types.De" +
-      "cCoins\310\336\037\000B0Z.github.com/e-money/em-ledg" +
-      "er/x/authority/typesb\006proto3"
+      "ase/v1beta1/coin.proto\"\300\001\n\014GenesisState\022" +
+      "+\n\003key\030\001 \001(\tB\036\342\336\037\014AuthorityKey\362\336\037\nyaml:\"" +
+      "key\"\022\202\001\n\016min_gas_prices\030\002 \003(\0132\034.cosmos.b" +
+      "ase.v1beta1.DecCoinBL\362\336\037\025yaml:\"min_gas_p" +
+      "rices\"\252\337\037+github.com/cosmos/cosmos-sdk/t" +
+      "ypes.DecCoins\310\336\037\000B0Z.github.com/e-money/" +
+      "em-ledger/x/authority/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          em.authority.v1.AuthorityOuterClass.getDescriptor(),
         });
     internal_static_em_authority_v1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1005,7 +1003,6 @@ public final class Genesis {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    em.authority.v1.AuthorityOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

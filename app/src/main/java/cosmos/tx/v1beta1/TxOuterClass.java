@@ -16264,54 +16264,54 @@ public final class TxOuterClass {
       "v1beta1\032\024gogoproto/gogo.proto\032-cosmos/cr" +
       "ypto/multisig/v1beta1/multisig.proto\032\036co" +
       "smos/base/v1beta1/coin.proto\032\'cosmos/tx/" +
-      "signing/v1beta1/signing.proto\032\031google/pr" +
-      "otobuf/any.proto\032\031cosmos_proto/cosmos.pr" +
-      "oto\"q\n\002Tx\022\'\n\004body\030\001 \001(\0132\031.cosmos.tx.v1be" +
-      "ta1.TxBody\022.\n\tauth_info\030\002 \001(\0132\033.cosmos.t" +
-      "x.v1beta1.AuthInfo\022\022\n\nsignatures\030\003 \003(\014\"H" +
-      "\n\005TxRaw\022\022\n\nbody_bytes\030\001 \001(\014\022\027\n\017auth_info" +
-      "_bytes\030\002 \001(\014\022\022\n\nsignatures\030\003 \003(\014\"`\n\007Sign" +
-      "Doc\022\022\n\nbody_bytes\030\001 \001(\014\022\027\n\017auth_info_byt" +
-      "es\030\002 \001(\014\022\020\n\010chain_id\030\003 \001(\t\022\026\n\016account_nu" +
-      "mber\030\004 \001(\004\"\261\001\n\020SignDocDirectAux\022\022\n\nbody_" +
-      "bytes\030\001 \001(\014\022(\n\npublic_key\030\002 \001(\0132\024.google" +
-      ".protobuf.Any\022\020\n\010chain_id\030\003 \001(\t\022\026\n\016accou" +
-      "nt_number\030\004 \001(\004\022\020\n\010sequence\030\005 \001(\004\022#\n\003tip" +
-      "\030\006 \001(\0132\026.cosmos.tx.v1beta1.Tip\"\307\001\n\006TxBod" +
-      "y\022&\n\010messages\030\001 \003(\0132\024.google.protobuf.An" +
-      "y\022\014\n\004memo\030\002 \001(\t\022\026\n\016timeout_height\030\003 \001(\004\022" +
-      "0\n\021extension_options\030\377\007 \003(\0132\024.google.pro" +
-      "tobuf.Any\022=\n\036non_critical_extension_opti" +
-      "ons\030\377\017 \003(\0132\024.google.protobuf.Any\"\211\001\n\010Aut" +
-      "hInfo\0223\n\014signer_infos\030\001 \003(\0132\035.cosmos.tx." +
-      "v1beta1.SignerInfo\022#\n\003fee\030\002 \001(\0132\026.cosmos" +
-      ".tx.v1beta1.Fee\022#\n\003tip\030\003 \001(\0132\026.cosmos.tx" +
-      ".v1beta1.Tip\"x\n\nSignerInfo\022(\n\npublic_key" +
-      "\030\001 \001(\0132\024.google.protobuf.Any\022.\n\tmode_inf" +
-      "o\030\002 \001(\0132\033.cosmos.tx.v1beta1.ModeInfo\022\020\n\010" +
-      "sequence\030\003 \001(\004\"\265\002\n\010ModeInfo\0224\n\006single\030\001 " +
-      "\001(\0132\".cosmos.tx.v1beta1.ModeInfo.SingleH" +
-      "\000\0222\n\005multi\030\002 \001(\0132!.cosmos.tx.v1beta1.Mod" +
-      "eInfo.MultiH\000\032;\n\006Single\0221\n\004mode\030\001 \001(\0162#." +
-      "cosmos.tx.signing.v1beta1.SignMode\032{\n\005Mu" +
-      "lti\022A\n\010bitarray\030\001 \001(\0132/.cosmos.crypto.mu" +
-      "ltisig.v1beta1.CompactBitArray\022/\n\nmode_i" +
-      "nfos\030\002 \003(\0132\033.cosmos.tx.v1beta1.ModeInfoB" +
-      "\005\n\003sum\"\311\001\n\003Fee\022[\n\006amount\030\001 \003(\0132\031.cosmos." +
-      "base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/co" +
-      "smos/cosmos-sdk/types.Coins\022\021\n\tgas_limit" +
-      "\030\002 \001(\004\022\'\n\005payer\030\003 \001(\tB\030\322\264-\024cosmos.Addres" +
-      "sString\022)\n\007granter\030\004 \001(\tB\030\322\264-\024cosmos.Add" +
-      "ressString\"\214\001\n\003Tip\022[\n\006amount\030\001 \003(\0132\031.cos" +
-      "mos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.co" +
-      "m/cosmos/cosmos-sdk/types.Coins\022(\n\006tippe" +
-      "r\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\"\261\001\n\rAu" +
-      "xSignerData\022)\n\007address\030\001 \001(\tB\030\322\264-\024cosmos" +
-      ".AddressString\0225\n\010sign_doc\030\002 \001(\0132#.cosmo" +
-      "s.tx.v1beta1.SignDocDirectAux\0221\n\004mode\030\003 " +
-      "\001(\0162#.cosmos.tx.signing.v1beta1.SignMode" +
-      "\022\013\n\003sig\030\004 \001(\014B\'Z%github.com/cosmos/cosmo" +
-      "s-sdk/types/txb\006proto3"
+      "signing/v1beta1/signing.proto\032\032google/pr" +
+      "otobuf2/any.proto\032\031cosmos_proto/cosmos.p" +
+      "roto\"q\n\002Tx\022\'\n\004body\030\001 \001(\0132\031.cosmos.tx.v1b" +
+      "eta1.TxBody\022.\n\tauth_info\030\002 \001(\0132\033.cosmos." +
+      "tx.v1beta1.AuthInfo\022\022\n\nsignatures\030\003 \003(\014\"" +
+      "H\n\005TxRaw\022\022\n\nbody_bytes\030\001 \001(\014\022\027\n\017auth_inf" +
+      "o_bytes\030\002 \001(\014\022\022\n\nsignatures\030\003 \003(\014\"`\n\007Sig" +
+      "nDoc\022\022\n\nbody_bytes\030\001 \001(\014\022\027\n\017auth_info_by" +
+      "tes\030\002 \001(\014\022\020\n\010chain_id\030\003 \001(\t\022\026\n\016account_n" +
+      "umber\030\004 \001(\004\"\261\001\n\020SignDocDirectAux\022\022\n\nbody" +
+      "_bytes\030\001 \001(\014\022(\n\npublic_key\030\002 \001(\0132\024.googl" +
+      "e.protobuf.Any\022\020\n\010chain_id\030\003 \001(\t\022\026\n\016acco" +
+      "unt_number\030\004 \001(\004\022\020\n\010sequence\030\005 \001(\004\022#\n\003ti" +
+      "p\030\006 \001(\0132\026.cosmos.tx.v1beta1.Tip\"\307\001\n\006TxBo" +
+      "dy\022&\n\010messages\030\001 \003(\0132\024.google.protobuf.A" +
+      "ny\022\014\n\004memo\030\002 \001(\t\022\026\n\016timeout_height\030\003 \001(\004" +
+      "\0220\n\021extension_options\030\377\007 \003(\0132\024.google.pr" +
+      "otobuf.Any\022=\n\036non_critical_extension_opt" +
+      "ions\030\377\017 \003(\0132\024.google.protobuf.Any\"\211\001\n\010Au" +
+      "thInfo\0223\n\014signer_infos\030\001 \003(\0132\035.cosmos.tx" +
+      ".v1beta1.SignerInfo\022#\n\003fee\030\002 \001(\0132\026.cosmo" +
+      "s.tx.v1beta1.Fee\022#\n\003tip\030\003 \001(\0132\026.cosmos.t" +
+      "x.v1beta1.Tip\"x\n\nSignerInfo\022(\n\npublic_ke" +
+      "y\030\001 \001(\0132\024.google.protobuf.Any\022.\n\tmode_in" +
+      "fo\030\002 \001(\0132\033.cosmos.tx.v1beta1.ModeInfo\022\020\n" +
+      "\010sequence\030\003 \001(\004\"\265\002\n\010ModeInfo\0224\n\006single\030\001" +
+      " \001(\0132\".cosmos.tx.v1beta1.ModeInfo.Single" +
+      "H\000\0222\n\005multi\030\002 \001(\0132!.cosmos.tx.v1beta1.Mo" +
+      "deInfo.MultiH\000\032;\n\006Single\0221\n\004mode\030\001 \001(\0162#" +
+      ".cosmos.tx.signing.v1beta1.SignMode\032{\n\005M" +
+      "ulti\022A\n\010bitarray\030\001 \001(\0132/.cosmos.crypto.m" +
+      "ultisig.v1beta1.CompactBitArray\022/\n\nmode_" +
+      "infos\030\002 \003(\0132\033.cosmos.tx.v1beta1.ModeInfo" +
+      "B\005\n\003sum\"\311\001\n\003Fee\022[\n\006amount\030\001 \003(\0132\031.cosmos" +
+      ".base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/c" +
+      "osmos/cosmos-sdk/types.Coins\022\021\n\tgas_limi" +
+      "t\030\002 \001(\004\022\'\n\005payer\030\003 \001(\tB\030\322\264-\024cosmos.Addre" +
+      "ssString\022)\n\007granter\030\004 \001(\tB\030\322\264-\024cosmos.Ad" +
+      "dressString\"\214\001\n\003Tip\022[\n\006amount\030\001 \003(\0132\031.co" +
+      "smos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.c" +
+      "om/cosmos/cosmos-sdk/types.Coins\022(\n\006tipp" +
+      "er\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\"\261\001\n\rA" +
+      "uxSignerData\022)\n\007address\030\001 \001(\tB\030\322\264-\024cosmo" +
+      "s.AddressString\0225\n\010sign_doc\030\002 \001(\0132#.cosm" +
+      "os.tx.v1beta1.SignDocDirectAux\0221\n\004mode\030\003" +
+      " \001(\0162#.cosmos.tx.signing.v1beta1.SignMod" +
+      "e\022\013\n\003sig\030\004 \001(\014B\'Z%github.com/cosmos/cosm" +
+      "os-sdk/types/txb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -5190,30 +5190,30 @@ public final class MsgsDtagRequests {
     java.lang.String[] descriptorData = {
       "\n0desmos/profiles/v1beta1/msgs_dtag_requ" +
       "ests.proto\022\027desmos.profiles.v1beta1\032\024gog" +
-      "oproto/gogo.proto\032\031google/protobuf/any.p" +
-      "roto\032\031cosmos_proto/cosmos.proto\032,desmos/" +
-      "profiles/v1beta1/models_profile.proto\0322d" +
-      "esmos/profiles/v1beta1/models_relationsh" +
-      "ips.proto\0322desmos/profiles/v1beta1/model" +
-      "s_dtag_requests.proto\"l\n\026MsgRequestDTagT" +
-      "ransfer\022%\n\010receiver\030\001 \001(\tB\023\362\336\037\017yaml:\"rec" +
-      "eiver\"\022!\n\006sender\030\002 \001(\tB\021\362\336\037\ryaml:\"sender" +
-      "\":\010\350\240\037\000\210\240\037\000\" \n\036MsgRequestDTagTransferRes" +
-      "ponse\"r\n\034MsgCancelDTagTransferRequest\022%\n" +
-      "\010receiver\030\001 \001(\tB\023\362\336\037\017yaml:\"receiver\"\022!\n\006" +
-      "sender\030\002 \001(\tB\021\362\336\037\ryaml:\"sender\":\010\350\240\037\000\210\240\037" +
-      "\000\"&\n$MsgCancelDTagTransferRequestRespons" +
-      "e\"\244\001\n\034MsgAcceptDTagTransferRequest\0220\n\010ne" +
-      "w_dtag\030\001 \001(\tB\036\362\336\037\017yaml:\"new_dtag\"\342\336\037\007New" +
-      "DTag\022!\n\006sender\030\002 \001(\tB\021\362\336\037\ryaml:\"sender\"\022" +
-      "%\n\010receiver\030\003 \001(\tB\023\362\336\037\017yaml:\"receiver\":\010" +
-      "\350\240\037\000\210\240\037\000\"&\n$MsgAcceptDTagTransferRequest" +
-      "Response\"r\n\034MsgRefuseDTagTransferRequest" +
-      "\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022%\n\010r" +
-      "eceiver\030\002 \001(\tB\023\362\336\037\017yaml:\"receiver\":\010\350\240\037\000" +
-      "\210\240\037\000\"&\n$MsgRefuseDTagTransferRequestResp" +
-      "onseB3Z1github.com/desmos-labs/desmos/v2" +
-      "/x/profiles/typesb\006proto3"
+      "oproto/gogo.proto\032\032google/protobuf2/any." +
+      "proto\032\031cosmos_proto/cosmos.proto\032,desmos" +
+      "/profiles/v1beta1/models_profile.proto\0322" +
+      "desmos/profiles/v1beta1/models_relations" +
+      "hips.proto\0322desmos/profiles/v1beta1/mode" +
+      "ls_dtag_requests.proto\"l\n\026MsgRequestDTag" +
+      "Transfer\022%\n\010receiver\030\001 \001(\tB\023\362\336\037\017yaml:\"re" +
+      "ceiver\"\022!\n\006sender\030\002 \001(\tB\021\362\336\037\ryaml:\"sende" +
+      "r\":\010\350\240\037\000\210\240\037\000\" \n\036MsgRequestDTagTransferRe" +
+      "sponse\"r\n\034MsgCancelDTagTransferRequest\022%" +
+      "\n\010receiver\030\001 \001(\tB\023\362\336\037\017yaml:\"receiver\"\022!\n" +
+      "\006sender\030\002 \001(\tB\021\362\336\037\ryaml:\"sender\":\010\350\240\037\000\210\240" +
+      "\037\000\"&\n$MsgCancelDTagTransferRequestRespon" +
+      "se\"\244\001\n\034MsgAcceptDTagTransferRequest\0220\n\010n" +
+      "ew_dtag\030\001 \001(\tB\036\362\336\037\017yaml:\"new_dtag\"\342\336\037\007Ne" +
+      "wDTag\022!\n\006sender\030\002 \001(\tB\021\362\336\037\ryaml:\"sender\"" +
+      "\022%\n\010receiver\030\003 \001(\tB\023\362\336\037\017yaml:\"receiver\":" +
+      "\010\350\240\037\000\210\240\037\000\"&\n$MsgAcceptDTagTransferReques" +
+      "tResponse\"r\n\034MsgRefuseDTagTransferReques" +
+      "t\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022%\n\010" +
+      "receiver\030\002 \001(\tB\023\362\336\037\017yaml:\"receiver\":\010\350\240\037" +
+      "\000\210\240\037\000\"&\n$MsgRefuseDTagTransferRequestRes" +
+      "ponseB3Z1github.com/desmos-labs/desmos/v" +
+      "2/x/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

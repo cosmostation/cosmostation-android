@@ -2128,20 +2128,20 @@ public final class QueryDtagRequests {
       "\n1desmos/profiles/v1beta1/query_dtag_req" +
       "uests.proto\022\027desmos.profiles.v1beta1\032\024go" +
       "goproto/gogo.proto\032\034google/api/annotatio" +
-      "ns.proto\032\031google/protobuf/any.proto\0322des" +
-      "mos/profiles/v1beta1/models_dtag_request" +
-      "s.proto\032\031cosmos_proto/cosmos.proto\032*cosm" +
-      "os/base/query/v1beta1/pagination.proto\"\202" +
-      "\001\n(QueryIncomingDTagTransferRequestsRequ" +
-      "est\022\020\n\010receiver\030\001 \001(\t\022:\n\npagination\030\002 \001(" +
-      "\0132&.cosmos.base.query.v1beta1.PageReques" +
-      "t:\010\350\240\037\000\210\240\037\000\"\256\001\n)QueryIncomingDTagTransfe" +
-      "rRequestsResponse\022D\n\010requests\030\001 \003(\0132,.de" +
-      "smos.profiles.v1beta1.DTagTransferReques" +
-      "tB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.bas" +
-      "e.query.v1beta1.PageResponseB3Z1github.c" +
-      "om/desmos-labs/desmos/v2/x/profiles/type" +
-      "sb\006proto3"
+      "ns.proto\032\032google/protobuf2/any.proto\0322de" +
+      "smos/profiles/v1beta1/models_dtag_reques" +
+      "ts.proto\032\031cosmos_proto/cosmos.proto\032*cos" +
+      "mos/base/query/v1beta1/pagination.proto\"" +
+      "\202\001\n(QueryIncomingDTagTransferRequestsReq" +
+      "uest\022\020\n\010receiver\030\001 \001(\t\022:\n\npagination\030\002 \001" +
+      "(\0132&.cosmos.base.query.v1beta1.PageReque" +
+      "st:\010\350\240\037\000\210\240\037\000\"\256\001\n)QueryIncomingDTagTransf" +
+      "erRequestsResponse\022D\n\010requests\030\001 \003(\0132,.d" +
+      "esmos.profiles.v1beta1.DTagTransferReque" +
+      "stB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.ba" +
+      "se.query.v1beta1.PageResponseB3Z1github." +
+      "com/desmos-labs/desmos/v2/x/profiles/typ" +
+      "esb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

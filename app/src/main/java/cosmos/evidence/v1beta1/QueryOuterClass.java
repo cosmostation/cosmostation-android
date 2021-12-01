@@ -3124,28 +3124,28 @@ public final class QueryOuterClass {
       "\n#cosmos/evidence/v1beta1/query.proto\022\027c" +
       "osmos.evidence.v1beta1\032*cosmos/base/quer" +
       "y/v1beta1/pagination.proto\032\024gogoproto/go" +
-      "go.proto\032\031google/protobuf/any.proto\032\034goo" +
-      "gle/api/annotations.proto\"g\n\024QueryEviden" +
-      "ceRequest\022O\n\revidence_hash\030\001 \001(\014B8\372\336\0374gi" +
-      "thub.com/tendermint/tendermint/libs/byte" +
-      "s.HexBytes\"?\n\025QueryEvidenceResponse\022&\n\010e" +
-      "vidence\030\001 \001(\0132\024.google.protobuf.Any\"U\n\027Q" +
-      "ueryAllEvidenceRequest\022:\n\npagination\030\001 \001" +
-      "(\0132&.cosmos.base.query.v1beta1.PageReque" +
-      "st\"\177\n\030QueryAllEvidenceResponse\022&\n\010eviden" +
-      "ce\030\001 \003(\0132\024.google.protobuf.Any\022;\n\npagina" +
-      "tion\030\002 \001(\0132\'.cosmos.base.query.v1beta1.P" +
-      "ageResponse2\316\002\n\005Query\022\244\001\n\010Evidence\022-.cos" +
-      "mos.evidence.v1beta1.QueryEvidenceReques" +
-      "t\032..cosmos.evidence.v1beta1.QueryEvidenc" +
-      "eResponse\"9\202\323\344\223\0023\0221/cosmos/evidence/v1be" +
-      "ta1/evidence/{evidence_hash}\022\235\001\n\013AllEvid" +
-      "ence\0220.cosmos.evidence.v1beta1.QueryAllE" +
-      "videnceRequest\0321.cosmos.evidence.v1beta1" +
-      ".QueryAllEvidenceResponse\")\202\323\344\223\002#\022!/cosm" +
-      "os/evidence/v1beta1/evidenceB/Z-github.c" +
-      "om/cosmos/cosmos-sdk/x/evidence/typesb\006p" +
-      "roto3"
+      "go.proto\032\032google/protobuf2/any.proto\032\034go" +
+      "ogle/api/annotations.proto\"g\n\024QueryEvide" +
+      "nceRequest\022O\n\revidence_hash\030\001 \001(\014B8\372\336\0374g" +
+      "ithub.com/tendermint/tendermint/libs/byt" +
+      "es.HexBytes\"?\n\025QueryEvidenceResponse\022&\n\010" +
+      "evidence\030\001 \001(\0132\024.google.protobuf.Any\"U\n\027" +
+      "QueryAllEvidenceRequest\022:\n\npagination\030\001 " +
+      "\001(\0132&.cosmos.base.query.v1beta1.PageRequ" +
+      "est\"\177\n\030QueryAllEvidenceResponse\022&\n\010evide" +
+      "nce\030\001 \003(\0132\024.google.protobuf.Any\022;\n\npagin" +
+      "ation\030\002 \001(\0132\'.cosmos.base.query.v1beta1." +
+      "PageResponse2\316\002\n\005Query\022\244\001\n\010Evidence\022-.co" +
+      "smos.evidence.v1beta1.QueryEvidenceReque" +
+      "st\032..cosmos.evidence.v1beta1.QueryEviden" +
+      "ceResponse\"9\202\323\344\223\0023\0221/cosmos/evidence/v1b" +
+      "eta1/evidence/{evidence_hash}\022\235\001\n\013AllEvi" +
+      "dence\0220.cosmos.evidence.v1beta1.QueryAll" +
+      "EvidenceRequest\0321.cosmos.evidence.v1beta" +
+      "1.QueryAllEvidenceResponse\")\202\323\344\223\002#\022!/cos" +
+      "mos/evidence/v1beta1/evidenceB/Z-github." +
+      "com/cosmos/cosmos-sdk/x/evidence/typesb\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

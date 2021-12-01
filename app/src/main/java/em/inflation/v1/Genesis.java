@@ -710,19 +710,17 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n\035em/inflation/v1/genesis.proto\022\017em.infl" +
-      "ation.v1\032\024gogoproto/gogo.proto\032\036cosmos/b" +
-      "ase/v1beta1/coin.proto\032\037em/inflation/v1/" +
-      "inflation.proto\"h\n\014GenesisState\022X\n\006asset" +
-      "s\030\001 \001(\0132\037.em.inflation.v1.InflationState" +
-      "B\'\342\336\037\016InflationState\362\336\037\ryaml:\"assets\"\310\336\037" +
-      "\000B0Z.github.com/e-money/em-ledger/x/infl" +
-      "ation/typesb\006proto3"
+      "ation.v1\032\024gogoproto/gogo.proto\032\037em/infla" +
+      "tion/v1/inflation.proto\"h\n\014GenesisState\022" +
+      "X\n\006assets\030\001 \001(\0132\037.em.inflation.v1.Inflat" +
+      "ionStateB\'\342\336\037\016InflationState\362\336\037\ryaml:\"as" +
+      "sets\"\310\336\037\000B0Z.github.com/e-money/em-ledge" +
+      "r/x/inflation/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           em.inflation.v1.Inflation.getDescriptor(),
         });
     internal_static_em_inflation_v1_GenesisState_descriptor =
@@ -739,7 +737,6 @@ public final class Genesis {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     em.inflation.v1.Inflation.getDescriptor();
   }
 

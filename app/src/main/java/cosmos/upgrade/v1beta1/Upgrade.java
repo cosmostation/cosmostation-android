@@ -3951,21 +3951,21 @@ public final class Upgrade {
   static {
     java.lang.String[] descriptorData = {
       "\n$cosmos/upgrade/v1beta1/upgrade.proto\022\026" +
-      "cosmos.upgrade.v1beta1\032\031google/protobuf/" +
-      "any.proto\032\024gogoproto/gogo.proto\032\037google/" +
-      "protobuf/timestamp.proto\"\253\001\n\004Plan\022\014\n\004nam" +
-      "e\030\001 \001(\t\0224\n\004time\030\002 \001(\0132\032.google.protobuf." +
-      "TimestampB\n\030\001\220\337\037\001\310\336\037\000\022\016\n\006height\030\003 \001(\003\022\014\n" +
-      "\004info\030\004 \001(\t\0227\n\025upgraded_client_state\030\005 \001" +
-      "(\0132\024.google.protobuf.AnyB\002\030\001:\010\350\240\037\001\230\240\037\000\"y" +
-      "\n\027SoftwareUpgradeProposal\022\r\n\005title\030\001 \001(\t" +
-      "\022\023\n\013description\030\002 \001(\t\0220\n\004plan\030\003 \001(\0132\034.co" +
-      "smos.upgrade.v1beta1.PlanB\004\310\336\037\000:\010\350\240\037\001\230\240\037" +
-      "\000\"M\n\035CancelSoftwareUpgradeProposal\022\r\n\005ti" +
-      "tle\030\001 \001(\t\022\023\n\013description\030\002 \001(\t:\010\350\240\037\001\230\240\037\000" +
-      "\"8\n\rModuleVersion\022\014\n\004name\030\001 \001(\t\022\017\n\007versi" +
-      "on\030\002 \001(\004:\010\350\240\037\001\230\240\037\001B2Z,github.com/cosmos/" +
-      "cosmos-sdk/x/upgrade/types\310\341\036\000b\006proto3"
+      "cosmos.upgrade.v1beta1\032\032google/protobuf2" +
+      "/any.proto\032\024gogoproto/gogo.proto\032\037google" +
+      "/protobuf/timestamp.proto\"\253\001\n\004Plan\022\014\n\004na" +
+      "me\030\001 \001(\t\0224\n\004time\030\002 \001(\0132\032.google.protobuf" +
+      ".TimestampB\n\030\001\220\337\037\001\310\336\037\000\022\016\n\006height\030\003 \001(\003\022\014" +
+      "\n\004info\030\004 \001(\t\0227\n\025upgraded_client_state\030\005 " +
+      "\001(\0132\024.google.protobuf.AnyB\002\030\001:\010\350\240\037\001\230\240\037\000\"" +
+      "y\n\027SoftwareUpgradeProposal\022\r\n\005title\030\001 \001(" +
+      "\t\022\023\n\013description\030\002 \001(\t\0220\n\004plan\030\003 \001(\0132\034.c" +
+      "osmos.upgrade.v1beta1.PlanB\004\310\336\037\000:\010\350\240\037\001\230\240" +
+      "\037\000\"M\n\035CancelSoftwareUpgradeProposal\022\r\n\005t" +
+      "itle\030\001 \001(\t\022\023\n\013description\030\002 \001(\t:\010\350\240\037\001\230\240\037" +
+      "\000\"8\n\rModuleVersion\022\014\n\004name\030\001 \001(\t\022\017\n\007vers" +
+      "ion\030\002 \001(\004:\010\350\240\037\001\230\240\037\001B2Z,github.com/cosmos" +
+      "/cosmos-sdk/x/upgrade/types\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

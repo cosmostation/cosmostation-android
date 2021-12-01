@@ -2094,29 +2094,21 @@ public final class ModelsRelationships {
     java.lang.String[] descriptorData = {
       "\n2desmos/profiles/v1beta1/models_relatio" +
       "nships.proto\022\027desmos.profiles.v1beta1\032\024g" +
-      "ogoproto/gogo.proto\032\031google/protobuf/any" +
-      ".proto\032\037google/protobuf/timestamp.proto\032" +
-      "\031cosmos_proto/cosmos.proto\0320desmos/profi" +
-      "les/v1beta1/models_chain_links.proto\"\215\001\n" +
-      "\014Relationship\022#\n\007creator\030\001 \001(\tB\022\362\336\037\016yaml" +
-      ":\"creator\"\022\'\n\trecipient\030\002 \001(\tB\024\362\336\037\020yaml:" +
-      "\"recipient\"\022%\n\010subspace\030\003 \001(\tB\023\362\336\037\017yaml:" +
-      "\"subspace\":\010\350\240\037\001\230\240\037\001\"\251\001\n\tUserBlock\022#\n\007bl" +
-      "ocker\030\001 \001(\tB\022\362\336\037\016yaml:\"blocker\"\022#\n\007block" +
-      "ed\030\002 \001(\tB\022\362\336\037\016yaml:\"blocked\"\022!\n\006reason\030\003" +
-      " \001(\tB\021\362\336\037\ryaml:\"reason\"\022%\n\010subspace\030\004 \001(" +
-      "\tB\023\362\336\037\017yaml:\"subspace\":\010\350\240\037\001\230\240\037\001B3Z1gith" +
-      "ub.com/desmos-labs/desmos/v2/x/profiles/" +
-      "typesb\006proto3"
+      "ogoproto/gogo.proto\"\215\001\n\014Relationship\022#\n\007" +
+      "creator\030\001 \001(\tB\022\362\336\037\016yaml:\"creator\"\022\'\n\trec" +
+      "ipient\030\002 \001(\tB\024\362\336\037\020yaml:\"recipient\"\022%\n\010su" +
+      "bspace\030\003 \001(\tB\023\362\336\037\017yaml:\"subspace\":\010\350\240\037\001\230" +
+      "\240\037\001\"\251\001\n\tUserBlock\022#\n\007blocker\030\001 \001(\tB\022\362\336\037\016" +
+      "yaml:\"blocker\"\022#\n\007blocked\030\002 \001(\tB\022\362\336\037\016yam" +
+      "l:\"blocked\"\022!\n\006reason\030\003 \001(\tB\021\362\336\037\ryaml:\"r" +
+      "eason\"\022%\n\010subspace\030\004 \001(\tB\023\362\336\037\017yaml:\"subs" +
+      "pace\":\010\350\240\037\001\230\240\037\001B3Z1github.com/desmos-lab" +
+      "s/desmos/v2/x/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
-          com.google.protobuf.TimestampProto.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor(),
         });
     internal_static_desmos_profiles_v1beta1_Relationship_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2138,10 +2130,6 @@ public final class ModelsRelationships {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
-    com.google.protobuf.TimestampProto.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
-    desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

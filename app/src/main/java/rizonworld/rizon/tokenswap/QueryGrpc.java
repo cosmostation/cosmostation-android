@@ -22,7 +22,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.33.1)",
-    comments = "Source: tokenswap/query.proto")
+    comments = "Source: rizon/tokenswap/query.proto")
 public final class QueryGrpc {
 
   private QueryGrpc() {}

@@ -9153,68 +9153,68 @@ public final class QueryOuterClass {
       "to\032*cosmos/base/query/v1beta1/pagination" +
       ".proto\032\037ibc/core/client/v1/client.proto\032" +
       "\'ibc/core/connection/v1/connection.proto" +
-      "\032\034google/api/annotations.proto\032\031google/p" +
-      "rotobuf/any.proto\"/\n\026QueryConnectionRequ" +
-      "est\022\025\n\rconnection_id\030\001 \001(\t\"\233\001\n\027QueryConn" +
-      "ectionResponse\0229\n\nconnection\030\001 \001(\0132%.ibc" +
-      ".core.connection.v1.ConnectionEnd\022\r\n\005pro" +
-      "of\030\002 \001(\014\0226\n\014proof_height\030\003 \001(\0132\032.ibc.cor" +
-      "e.client.v1.HeightB\004\310\336\037\000\"U\n\027QueryConnect" +
-      "ionsRequest\022:\n\npagination\030\001 \001(\0132&.cosmos" +
-      ".base.query.v1beta1.PageRequest\"\314\001\n\030Quer" +
-      "yConnectionsResponse\022A\n\013connections\030\001 \003(" +
-      "\0132,.ibc.core.connection.v1.IdentifiedCon" +
-      "nection\022;\n\npagination\030\002 \001(\0132\'.cosmos.bas" +
-      "e.query.v1beta1.PageResponse\0220\n\006height\030\003" +
-      " \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000\"2" +
-      "\n\035QueryClientConnectionsRequest\022\021\n\tclien" +
-      "t_id\030\001 \001(\t\"\201\001\n\036QueryClientConnectionsRes" +
-      "ponse\022\030\n\020connection_paths\030\001 \003(\t\022\r\n\005proof" +
-      "\030\002 \001(\014\0226\n\014proof_height\030\003 \001(\0132\032.ibc.core." +
-      "client.v1.HeightB\004\310\336\037\000\"T\n!QueryConnectio" +
-      "nClientStateRequest\022/\n\rconnection_id\030\001 \001" +
-      "(\tB\030\362\336\037\024yaml:\"connection_id\"\"\267\001\n\"QueryCo" +
-      "nnectionClientStateResponse\022J\n\027identifie" +
-      "d_client_state\030\001 \001(\0132).ibc.core.client.v" +
-      "1.IdentifiedClientState\022\r\n\005proof\030\002 \001(\014\0226" +
-      "\n\014proof_height\030\003 \001(\0132\032.ibc.core.client.v" +
-      "1.HeightB\004\310\336\037\000\"\211\001\n$QueryConnectionConsen" +
-      "susStateRequest\022/\n\rconnection_id\030\001 \001(\tB\030" +
-      "\362\336\037\024yaml:\"connection_id\"\022\027\n\017revision_num" +
-      "ber\030\002 \001(\004\022\027\n\017revision_height\030\003 \001(\004\"\260\001\n%Q" +
-      "ueryConnectionConsensusStateResponse\022-\n\017" +
-      "consensus_state\030\001 \001(\0132\024.google.protobuf." +
-      "Any\022\021\n\tclient_id\030\002 \001(\t\022\r\n\005proof\030\003 \001(\014\0226\n" +
-      "\014proof_height\030\004 \001(\0132\032.ibc.core.client.v1" +
-      ".HeightB\004\310\336\037\0002\217\010\n\005Query\022\252\001\n\nConnection\022." +
-      ".ibc.core.connection.v1.QueryConnectionR" +
-      "equest\032/.ibc.core.connection.v1.QueryCon" +
-      "nectionResponse\";\202\323\344\223\0025\0223/ibc/core/conne" +
-      "ction/v1/connections/{connection_id}\022\235\001\n" +
-      "\013Connections\022/.ibc.core.connection.v1.Qu" +
-      "eryConnectionsRequest\0320.ibc.core.connect" +
-      "ion.v1.QueryConnectionsResponse\"+\202\323\344\223\002%\022" +
-      "#/ibc/core/connection/v1/connections\022\302\001\n" +
-      "\021ClientConnections\0225.ibc.core.connection" +
-      ".v1.QueryClientConnectionsRequest\0326.ibc." +
-      "core.connection.v1.QueryClientConnection" +
-      "sResponse\">\202\323\344\223\0028\0226/ibc/core/connection/" +
-      "v1/client_connections/{client_id}\022\330\001\n\025Co" +
-      "nnectionClientState\0229.ibc.core.connectio" +
-      "n.v1.QueryConnectionClientStateRequest\032:" +
-      ".ibc.core.connection.v1.QueryConnectionC" +
-      "lientStateResponse\"H\202\323\344\223\002B\022@/ibc/core/co" +
-      "nnection/v1/connections/{connection_id}/" +
-      "client_state\022\230\002\n\030ConnectionConsensusStat" +
-      "e\022<.ibc.core.connection.v1.QueryConnecti" +
-      "onConsensusStateRequest\032=.ibc.core.conne" +
-      "ction.v1.QueryConnectionConsensusStateRe" +
-      "sponse\"\177\202\323\344\223\002y\022w/ibc/core/connection/v1/" +
-      "connections/{connection_id}/consensus_st" +
-      "ate/revision/{revision_number}/height/{r" +
-      "evision_height}B>Z<github.com/cosmos/ibc" +
-      "-go/v2/modules/core/03-connection/typesb" +
-      "\006proto3"
+      "\032\034google/api/annotations.proto\032\032google/p" +
+      "rotobuf2/any.proto\"/\n\026QueryConnectionReq" +
+      "uest\022\025\n\rconnection_id\030\001 \001(\t\"\233\001\n\027QueryCon" +
+      "nectionResponse\0229\n\nconnection\030\001 \001(\0132%.ib" +
+      "c.core.connection.v1.ConnectionEnd\022\r\n\005pr" +
+      "oof\030\002 \001(\014\0226\n\014proof_height\030\003 \001(\0132\032.ibc.co" +
+      "re.client.v1.HeightB\004\310\336\037\000\"U\n\027QueryConnec" +
+      "tionsRequest\022:\n\npagination\030\001 \001(\0132&.cosmo" +
+      "s.base.query.v1beta1.PageRequest\"\314\001\n\030Que" +
+      "ryConnectionsResponse\022A\n\013connections\030\001 \003" +
+      "(\0132,.ibc.core.connection.v1.IdentifiedCo" +
+      "nnection\022;\n\npagination\030\002 \001(\0132\'.cosmos.ba" +
+      "se.query.v1beta1.PageResponse\0220\n\006height\030" +
+      "\003 \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000\"" +
+      "2\n\035QueryClientConnectionsRequest\022\021\n\tclie" +
+      "nt_id\030\001 \001(\t\"\201\001\n\036QueryClientConnectionsRe" +
+      "sponse\022\030\n\020connection_paths\030\001 \003(\t\022\r\n\005proo" +
+      "f\030\002 \001(\014\0226\n\014proof_height\030\003 \001(\0132\032.ibc.core" +
+      ".client.v1.HeightB\004\310\336\037\000\"T\n!QueryConnecti" +
+      "onClientStateRequest\022/\n\rconnection_id\030\001 " +
+      "\001(\tB\030\362\336\037\024yaml:\"connection_id\"\"\267\001\n\"QueryC" +
+      "onnectionClientStateResponse\022J\n\027identifi" +
+      "ed_client_state\030\001 \001(\0132).ibc.core.client." +
+      "v1.IdentifiedClientState\022\r\n\005proof\030\002 \001(\014\022" +
+      "6\n\014proof_height\030\003 \001(\0132\032.ibc.core.client." +
+      "v1.HeightB\004\310\336\037\000\"\211\001\n$QueryConnectionConse" +
+      "nsusStateRequest\022/\n\rconnection_id\030\001 \001(\tB" +
+      "\030\362\336\037\024yaml:\"connection_id\"\022\027\n\017revision_nu" +
+      "mber\030\002 \001(\004\022\027\n\017revision_height\030\003 \001(\004\"\260\001\n%" +
+      "QueryConnectionConsensusStateResponse\022-\n" +
+      "\017consensus_state\030\001 \001(\0132\024.google.protobuf" +
+      ".Any\022\021\n\tclient_id\030\002 \001(\t\022\r\n\005proof\030\003 \001(\014\0226" +
+      "\n\014proof_height\030\004 \001(\0132\032.ibc.core.client.v" +
+      "1.HeightB\004\310\336\037\0002\217\010\n\005Query\022\252\001\n\nConnection\022" +
+      "..ibc.core.connection.v1.QueryConnection" +
+      "Request\032/.ibc.core.connection.v1.QueryCo" +
+      "nnectionResponse\";\202\323\344\223\0025\0223/ibc/core/conn" +
+      "ection/v1/connections/{connection_id}\022\235\001" +
+      "\n\013Connections\022/.ibc.core.connection.v1.Q" +
+      "ueryConnectionsRequest\0320.ibc.core.connec" +
+      "tion.v1.QueryConnectionsResponse\"+\202\323\344\223\002%" +
+      "\022#/ibc/core/connection/v1/connections\022\302\001" +
+      "\n\021ClientConnections\0225.ibc.core.connectio" +
+      "n.v1.QueryClientConnectionsRequest\0326.ibc" +
+      ".core.connection.v1.QueryClientConnectio" +
+      "nsResponse\">\202\323\344\223\0028\0226/ibc/core/connection" +
+      "/v1/client_connections/{client_id}\022\330\001\n\025C" +
+      "onnectionClientState\0229.ibc.core.connecti" +
+      "on.v1.QueryConnectionClientStateRequest\032" +
+      ":.ibc.core.connection.v1.QueryConnection" +
+      "ClientStateResponse\"H\202\323\344\223\002B\022@/ibc/core/c" +
+      "onnection/v1/connections/{connection_id}" +
+      "/client_state\022\230\002\n\030ConnectionConsensusSta" +
+      "te\022<.ibc.core.connection.v1.QueryConnect" +
+      "ionConsensusStateRequest\032=.ibc.core.conn" +
+      "ection.v1.QueryConnectionConsensusStateR" +
+      "esponse\"\177\202\323\344\223\002y\022w/ibc/core/connection/v1" +
+      "/connections/{connection_id}/consensus_s" +
+      "tate/revision/{revision_number}/height/{" +
+      "revision_height}B>Z<github.com/cosmos/ib" +
+      "c-go/v2/modules/core/03-connection/types" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

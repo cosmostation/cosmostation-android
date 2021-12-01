@@ -19069,148 +19069,146 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\"shentu/shield/v1alpha1/query.proto\022\026sh" +
-      "entu.shield.v1alpha1\032*cosmos/base/query/" +
-      "v1beta1/pagination.proto\032\024gogoproto/gogo" +
-      ".proto\032\034google/api/annotations.proto\032#sh" +
-      "entu/shield/v1alpha1/shield.proto\032$shent" +
-      "u/shield/v1alpha1/genesis.proto\"#\n\020Query" +
-      "PoolRequest\022\017\n\007pool_id\030\001 \001(\004\"E\n\021QueryPoo" +
-      "lResponse\0220\n\004pool\030\001 \001(\0132\034.shentu.shield." +
-      "v1alpha1.PoolB\004\310\336\037\000\"&\n\023QuerySponsorReque" +
-      "st\022\017\n\007sponsor\030\001 \001(\t\"I\n\024QuerySponsorRespo" +
-      "nse\0221\n\005pools\030\001 \003(\0132\034.shentu.shield.v1alp" +
-      "ha1.PoolB\004\310\336\037\000\"\023\n\021QueryPoolsRequest\"G\n\022Q" +
-      "ueryPoolsResponse\0221\n\005pools\030\001 \003(\0132\034.shent" +
-      "u.shield.v1alpha1.PoolB\004\310\336\037\000\"0\n\035QueryPoo" +
-      "lPurchaseListsRequest\022\017\n\007pool_id\030\001 \001(\004\"." +
-      "\n\031QueryPurchaseListsRequest\022\021\n\tpurchaser" +
-      "\030\001 \001(\t\"`\n\032QueryPurchaseListsResponse\022B\n\016" +
-      "purchase_lists\030\001 \003(\0132$.shentu.shield.v1a" +
-      "lpha1.PurchaseListB\004\310\336\037\000\">\n\030QueryPurchas" +
-      "eListRequest\022\017\n\007pool_id\030\001 \001(\004\022\021\n\tpurchas" +
-      "er\030\002 \001(\t\"^\n\031QueryPurchaseListResponse\022A\n" +
-      "\rpurchase_list\030\001 \001(\0132$.shentu.shield.v1a" +
-      "lpha1.PurchaseListB\004\310\336\037\000\"\027\n\025QueryPurchas" +
-      "esRequest\"S\n\026QueryPurchasesResponse\0229\n\tp" +
-      "urchases\030\001 \003(\0132 .shentu.shield.v1alpha1." +
-      "PurchaseB\004\310\336\037\000\"\'\n\024QueryProviderRequest\022\017" +
-      "\n\007address\030\001 \001(\t\"Q\n\025QueryProviderResponse" +
-      "\0228\n\010provider\030\001 \001(\0132 .shentu.shield.v1alp" +
-      "ha1.ProviderB\004\310\336\037\000\"\027\n\025QueryProvidersRequ" +
-      "est\"S\n\026QueryProvidersResponse\0229\n\tprovide" +
-      "rs\030\001 \003(\0132 .shentu.shield.v1alpha1.Provid" +
-      "erB\004\310\336\037\000\"\030\n\026QueryPoolParamsRequest\"S\n\027Qu" +
-      "eryPoolParamsResponse\0228\n\006params\030\001 \001(\0132\"." +
-      "shentu.shield.v1alpha1.PoolParamsB\004\310\336\037\000\"" +
-      "\031\n\027QueryClaimParamsRequest\"]\n\030QueryClaim" +
-      "ParamsResponse\022A\n\006params\030\001 \001(\0132+.shentu." +
-      "shield.v1alpha1.ClaimProposalParamsB\004\310\336\037" +
-      "\000\"\032\n\030QueryShieldStatusRequest\"\225\005\n\031QueryS" +
-      "hieldStatusResponse\022c\n\020total_collateral\030" +
-      "\001 \001(\tBI\362\336\037\027yaml:\"total_collateral\"\332\336\037&gi" +
-      "thub.com/cosmos/cosmos-sdk/types.Int\310\336\037\000" +
-      "\022[\n\014total_shield\030\002 \001(\tBE\362\336\037\023yaml:\"total_" +
-      "shield\"\332\336\037&github.com/cosmos/cosmos-sdk/" +
-      "types.Int\310\336\037\000\022e\n\021total_withdrawing\030\003 \001(\t" +
-      "BJ\362\336\037\030yaml:\"total_withdrawing\"\332\336\037&github" +
-      ".com/cosmos/cosmos-sdk/types.Int\310\336\037\000\022h\n\024" +
-      "current_service_fees\030\004 \001(\0132%.shentu.shie" +
-      "ld.v1alpha1.MixedDecCoinsB#\362\336\037\033yaml:\"cur" +
-      "rent_service_fees\"\310\336\037\000\022l\n\026remaining_serv" +
-      "ice_fees\030\005 \001(\0132%.shentu.shield.v1alpha1." +
-      "MixedDecCoinsB%\362\336\037\035yaml:\"remaining_servi" +
-      "ce_fees\"\310\336\037\000\022w\n\032global_shield_staking_po" +
-      "ol\030\006 \001(\tBS\362\336\037!yaml:\"global_shield_stakin" +
-      "g_pool\"\332\336\037&github.com/cosmos/cosmos-sdk/" +
-      "types.Int\310\336\037\000\"?\n\031QueryShieldStakingReque" +
-      "st\022\017\n\007pool_id\030\001 \001(\004\022\021\n\tpurchaser\030\002 \001(\t\"a" +
-      "\n\032QueryShieldStakingResponse\022C\n\016shield_s" +
-      "taking\030\001 \001(\0132%.shentu.shield.v1alpha1.Sh" +
-      "ieldStakingB\004\310\336\037\000\"\037\n\035QueryShieldStakingR" +
-      "ateRequest\"m\n\036QueryShieldStakingRateResp" +
-      "onse\022K\n\004rate\030\001 \001(\tB=\362\336\037\013yaml:\"rate\"\332\336\037&g" +
-      "ithub.com/cosmos/cosmos-sdk/types.Dec\310\336\037" +
-      "\000\"0\n\031QueryReimbursementRequest\022\023\n\013propos" +
-      "al_id\030\001 \001(\004\"`\n\032QueryReimbursementRespons" +
-      "e\022B\n\rreimbursement\030\001 \001(\0132%.shentu.shield" +
-      ".v1alpha1.ReimbursementB\004\310\336\037\000\"\034\n\032QueryRe" +
-      "imbursementsRequest\"g\n\033QueryReimbursemen" +
-      "tsResponse\022H\n\005pairs\030\001 \003(\01323.shentu.shiel" +
-      "d.v1alpha1.ProposalIDReimbursementPairB\004" +
-      "\310\336\037\0002\365\024\n\005Query\022\213\001\n\004Pool\022(.shentu.shield." +
-      "v1alpha1.QueryPoolRequest\032).shentu.shiel" +
-      "d.v1alpha1.QueryPoolResponse\".\202\323\344\223\002(\022&/s" +
-      "hentu/shield/v1alpha1/pool/{pool_id}\022\227\001\n" +
-      "\007Sponsor\022+.shentu.shield.v1alpha1.QueryS" +
-      "ponsorRequest\032,.shentu.shield.v1alpha1.Q" +
-      "uerySponsorResponse\"1\202\323\344\223\002+\022)/shentu/shi" +
-      "eld/v1alpha1/sponsor/{sponsor}\022\205\001\n\005Pools" +
-      "\022).shentu.shield.v1alpha1.QueryPoolsRequ" +
-      "est\032*.shentu.shield.v1alpha1.QueryPoolsR" +
-      "esponse\"%\202\323\344\223\002\037\022\035/shentu/shield/v1alpha1" +
-      "/pools\022\275\001\n\021PoolPurchaseLists\0225.shentu.sh" +
-      "ield.v1alpha1.QueryPoolPurchaseListsRequ" +
-      "est\0322.shentu.shield.v1alpha1.QueryPurcha" +
-      "seListsResponse\"=\202\323\344\223\0027\0225/shentu/shield/" +
-      "v1alpha1/pool_purchase_lists/{pool_id}\022\262" +
-      "\001\n\rPurchaseLists\0221.shentu.shield.v1alpha" +
-      "1.QueryPurchaseListsRequest\0322.shentu.shi" +
-      "eld.v1alpha1.QueryPurchaseListsResponse\"" +
-      ":\202\323\344\223\0024\0222/shentu/shield/v1alpha1/purchas" +
-      "e_lists/{purchaser}\022\270\001\n\014PurchaseList\0220.s" +
-      "hentu.shield.v1alpha1.QueryPurchaseListR" +
-      "equest\0321.shentu.shield.v1alpha1.QueryPur" +
-      "chaseListResponse\"C\202\323\344\223\002=\022;/shentu/shiel" +
-      "d/v1alpha1/purchase_list/{pool_id}/{purc" +
-      "haser}\022\225\001\n\tPurchases\022-.shentu.shield.v1a" +
-      "lpha1.QueryPurchasesRequest\032..shentu.shi" +
-      "eld.v1alpha1.QueryPurchasesResponse\")\202\323\344" +
-      "\223\002#\022!/shentu/shield/v1alpha1/purchases\022\233" +
-      "\001\n\010Provider\022,.shentu.shield.v1alpha1.Que" +
-      "ryProviderRequest\032-.shentu.shield.v1alph" +
-      "a1.QueryProviderResponse\"2\202\323\344\223\002,\022*/shent" +
-      "u/shield/v1alpha1/provider/{address}\022\225\001\n" +
-      "\tProviders\022-.shentu.shield.v1alpha1.Quer" +
-      "yProvidersRequest\032..shentu.shield.v1alph" +
-      "a1.QueryProvidersResponse\")\202\323\344\223\002#\022!/shen" +
-      "tu/shield/v1alpha1/providers\022\232\001\n\nPoolPar" +
-      "ams\022..shentu.shield.v1alpha1.QueryPoolPa" +
-      "ramsRequest\032/.shentu.shield.v1alpha1.Que" +
-      "ryPoolParamsResponse\"+\202\323\344\223\002%\022#/shentu/sh" +
-      "ield/v1alpha1/pool_params\022\236\001\n\013ClaimParam" +
-      "s\022/.shentu.shield.v1alpha1.QueryClaimPar" +
-      "amsRequest\0320.shentu.shield.v1alpha1.Quer" +
-      "yClaimParamsResponse\",\202\323\344\223\002&\022$/shentu/sh" +
-      "ield/v1alpha1/claim_params\022\233\001\n\014ShieldSta" +
-      "tus\0220.shentu.shield.v1alpha1.QueryShield" +
-      "StatusRequest\0321.shentu.shield.v1alpha1.Q" +
-      "ueryShieldStatusResponse\"&\202\323\344\223\002 \022\036/shent" +
-      "u/shield/v1alpha1/status\022\274\001\n\rShieldStaki" +
-      "ng\0221.shentu.shield.v1alpha1.QueryShieldS" +
-      "takingRequest\0322.shentu.shield.v1alpha1.Q" +
-      "ueryShieldStakingResponse\"D\202\323\344\223\002>\022</shen" +
-      "tu/shield/v1alpha1/shield_staking/{pool_" +
-      "id}/{purchaser}\022\267\001\n\021ShieldStakingRate\0225." +
-      "shentu.shield.v1alpha1.QueryShieldStakin" +
-      "gRateRequest\0326.shentu.shield.v1alpha1.Qu" +
-      "eryShieldStakingRateResponse\"3\202\323\344\223\002-\022+/s" +
-      "hentu/shield/v1alpha1/shield_staking_rat" +
-      "e\022\274\001\n\rReimbursement\0221.shentu.shield.v1al" +
-      "pha1.QueryReimbursementRequest\0322.shentu." +
-      "shield.v1alpha1.QueryReimbursementRespon" +
-      "se\"D\202\323\344\223\002>\022</shentu/shield/v1alpha1/prop" +
-      "osal/{proposal_id}/reimbursement\022\251\001\n\016Rei" +
-      "mbursements\0222.shentu.shield.v1alpha1.Que" +
-      "ryReimbursementsRequest\0323.shentu.shield." +
-      "v1alpha1.QueryReimbursementsResponse\".\202\323" +
-      "\344\223\002(\022&/shentu/shield/v1alpha1/reimbursem" +
-      "entsB3Z1github.com/certikfoundation/shen" +
-      "tu/x/shield/typesb\006proto3"
+      "entu.shield.v1alpha1\032\024gogoproto/gogo.pro" +
+      "to\032\034google/api/annotations.proto\032#shentu" +
+      "/shield/v1alpha1/shield.proto\032$shentu/sh" +
+      "ield/v1alpha1/genesis.proto\"#\n\020QueryPool" +
+      "Request\022\017\n\007pool_id\030\001 \001(\004\"E\n\021QueryPoolRes" +
+      "ponse\0220\n\004pool\030\001 \001(\0132\034.shentu.shield.v1al" +
+      "pha1.PoolB\004\310\336\037\000\"&\n\023QuerySponsorRequest\022\017" +
+      "\n\007sponsor\030\001 \001(\t\"I\n\024QuerySponsorResponse\022" +
+      "1\n\005pools\030\001 \003(\0132\034.shentu.shield.v1alpha1." +
+      "PoolB\004\310\336\037\000\"\023\n\021QueryPoolsRequest\"G\n\022Query" +
+      "PoolsResponse\0221\n\005pools\030\001 \003(\0132\034.shentu.sh" +
+      "ield.v1alpha1.PoolB\004\310\336\037\000\"0\n\035QueryPoolPur" +
+      "chaseListsRequest\022\017\n\007pool_id\030\001 \001(\004\".\n\031Qu" +
+      "eryPurchaseListsRequest\022\021\n\tpurchaser\030\001 \001" +
+      "(\t\"`\n\032QueryPurchaseListsResponse\022B\n\016purc" +
+      "hase_lists\030\001 \003(\0132$.shentu.shield.v1alpha" +
+      "1.PurchaseListB\004\310\336\037\000\">\n\030QueryPurchaseLis" +
+      "tRequest\022\017\n\007pool_id\030\001 \001(\004\022\021\n\tpurchaser\030\002" +
+      " \001(\t\"^\n\031QueryPurchaseListResponse\022A\n\rpur" +
+      "chase_list\030\001 \001(\0132$.shentu.shield.v1alpha" +
+      "1.PurchaseListB\004\310\336\037\000\"\027\n\025QueryPurchasesRe" +
+      "quest\"S\n\026QueryPurchasesResponse\0229\n\tpurch" +
+      "ases\030\001 \003(\0132 .shentu.shield.v1alpha1.Purc" +
+      "haseB\004\310\336\037\000\"\'\n\024QueryProviderRequest\022\017\n\007ad" +
+      "dress\030\001 \001(\t\"Q\n\025QueryProviderResponse\0228\n\010" +
+      "provider\030\001 \001(\0132 .shentu.shield.v1alpha1." +
+      "ProviderB\004\310\336\037\000\"\027\n\025QueryProvidersRequest\"" +
+      "S\n\026QueryProvidersResponse\0229\n\tproviders\030\001" +
+      " \003(\0132 .shentu.shield.v1alpha1.ProviderB\004" +
+      "\310\336\037\000\"\030\n\026QueryPoolParamsRequest\"S\n\027QueryP" +
+      "oolParamsResponse\0228\n\006params\030\001 \001(\0132\".shen" +
+      "tu.shield.v1alpha1.PoolParamsB\004\310\336\037\000\"\031\n\027Q" +
+      "ueryClaimParamsRequest\"]\n\030QueryClaimPara" +
+      "msResponse\022A\n\006params\030\001 \001(\0132+.shentu.shie" +
+      "ld.v1alpha1.ClaimProposalParamsB\004\310\336\037\000\"\032\n" +
+      "\030QueryShieldStatusRequest\"\225\005\n\031QueryShiel" +
+      "dStatusResponse\022c\n\020total_collateral\030\001 \001(" +
+      "\tBI\362\336\037\027yaml:\"total_collateral\"\332\336\037&github" +
+      ".com/cosmos/cosmos-sdk/types.Int\310\336\037\000\022[\n\014" +
+      "total_shield\030\002 \001(\tBE\362\336\037\023yaml:\"total_shie" +
+      "ld\"\332\336\037&github.com/cosmos/cosmos-sdk/type" +
+      "s.Int\310\336\037\000\022e\n\021total_withdrawing\030\003 \001(\tBJ\362\336" +
+      "\037\030yaml:\"total_withdrawing\"\332\336\037&github.com" +
+      "/cosmos/cosmos-sdk/types.Int\310\336\037\000\022h\n\024curr" +
+      "ent_service_fees\030\004 \001(\0132%.shentu.shield.v" +
+      "1alpha1.MixedDecCoinsB#\362\336\037\033yaml:\"current" +
+      "_service_fees\"\310\336\037\000\022l\n\026remaining_service_" +
+      "fees\030\005 \001(\0132%.shentu.shield.v1alpha1.Mixe" +
+      "dDecCoinsB%\362\336\037\035yaml:\"remaining_service_f" +
+      "ees\"\310\336\037\000\022w\n\032global_shield_staking_pool\030\006" +
+      " \001(\tBS\362\336\037!yaml:\"global_shield_staking_po" +
+      "ol\"\332\336\037&github.com/cosmos/cosmos-sdk/type" +
+      "s.Int\310\336\037\000\"?\n\031QueryShieldStakingRequest\022\017" +
+      "\n\007pool_id\030\001 \001(\004\022\021\n\tpurchaser\030\002 \001(\t\"a\n\032Qu" +
+      "eryShieldStakingResponse\022C\n\016shield_staki" +
+      "ng\030\001 \001(\0132%.shentu.shield.v1alpha1.Shield" +
+      "StakingB\004\310\336\037\000\"\037\n\035QueryShieldStakingRateR" +
+      "equest\"m\n\036QueryShieldStakingRateResponse" +
+      "\022K\n\004rate\030\001 \001(\tB=\362\336\037\013yaml:\"rate\"\332\336\037&githu" +
+      "b.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\"0\n" +
+      "\031QueryReimbursementRequest\022\023\n\013proposal_i" +
+      "d\030\001 \001(\004\"`\n\032QueryReimbursementResponse\022B\n" +
+      "\rreimbursement\030\001 \001(\0132%.shentu.shield.v1a" +
+      "lpha1.ReimbursementB\004\310\336\037\000\"\034\n\032QueryReimbu" +
+      "rsementsRequest\"g\n\033QueryReimbursementsRe" +
+      "sponse\022H\n\005pairs\030\001 \003(\01323.shentu.shield.v1" +
+      "alpha1.ProposalIDReimbursementPairB\004\310\336\037\000" +
+      "2\365\024\n\005Query\022\213\001\n\004Pool\022(.shentu.shield.v1al" +
+      "pha1.QueryPoolRequest\032).shentu.shield.v1" +
+      "alpha1.QueryPoolResponse\".\202\323\344\223\002(\022&/shent" +
+      "u/shield/v1alpha1/pool/{pool_id}\022\227\001\n\007Spo" +
+      "nsor\022+.shentu.shield.v1alpha1.QuerySpons" +
+      "orRequest\032,.shentu.shield.v1alpha1.Query" +
+      "SponsorResponse\"1\202\323\344\223\002+\022)/shentu/shield/" +
+      "v1alpha1/sponsor/{sponsor}\022\205\001\n\005Pools\022).s" +
+      "hentu.shield.v1alpha1.QueryPoolsRequest\032" +
+      "*.shentu.shield.v1alpha1.QueryPoolsRespo" +
+      "nse\"%\202\323\344\223\002\037\022\035/shentu/shield/v1alpha1/poo" +
+      "ls\022\275\001\n\021PoolPurchaseLists\0225.shentu.shield" +
+      ".v1alpha1.QueryPoolPurchaseListsRequest\032" +
+      "2.shentu.shield.v1alpha1.QueryPurchaseLi" +
+      "stsResponse\"=\202\323\344\223\0027\0225/shentu/shield/v1al" +
+      "pha1/pool_purchase_lists/{pool_id}\022\262\001\n\rP" +
+      "urchaseLists\0221.shentu.shield.v1alpha1.Qu" +
+      "eryPurchaseListsRequest\0322.shentu.shield." +
+      "v1alpha1.QueryPurchaseListsResponse\":\202\323\344" +
+      "\223\0024\0222/shentu/shield/v1alpha1/purchase_li" +
+      "sts/{purchaser}\022\270\001\n\014PurchaseList\0220.shent" +
+      "u.shield.v1alpha1.QueryPurchaseListReque" +
+      "st\0321.shentu.shield.v1alpha1.QueryPurchas" +
+      "eListResponse\"C\202\323\344\223\002=\022;/shentu/shield/v1" +
+      "alpha1/purchase_list/{pool_id}/{purchase" +
+      "r}\022\225\001\n\tPurchases\022-.shentu.shield.v1alpha" +
+      "1.QueryPurchasesRequest\032..shentu.shield." +
+      "v1alpha1.QueryPurchasesResponse\")\202\323\344\223\002#\022" +
+      "!/shentu/shield/v1alpha1/purchases\022\233\001\n\010P" +
+      "rovider\022,.shentu.shield.v1alpha1.QueryPr" +
+      "oviderRequest\032-.shentu.shield.v1alpha1.Q" +
+      "ueryProviderResponse\"2\202\323\344\223\002,\022*/shentu/sh" +
+      "ield/v1alpha1/provider/{address}\022\225\001\n\tPro" +
+      "viders\022-.shentu.shield.v1alpha1.QueryPro" +
+      "vidersRequest\032..shentu.shield.v1alpha1.Q" +
+      "ueryProvidersResponse\")\202\323\344\223\002#\022!/shentu/s" +
+      "hield/v1alpha1/providers\022\232\001\n\nPoolParams\022" +
+      "..shentu.shield.v1alpha1.QueryPoolParams" +
+      "Request\032/.shentu.shield.v1alpha1.QueryPo" +
+      "olParamsResponse\"+\202\323\344\223\002%\022#/shentu/shield" +
+      "/v1alpha1/pool_params\022\236\001\n\013ClaimParams\022/." +
+      "shentu.shield.v1alpha1.QueryClaimParamsR" +
+      "equest\0320.shentu.shield.v1alpha1.QueryCla" +
+      "imParamsResponse\",\202\323\344\223\002&\022$/shentu/shield" +
+      "/v1alpha1/claim_params\022\233\001\n\014ShieldStatus\022" +
+      "0.shentu.shield.v1alpha1.QueryShieldStat" +
+      "usRequest\0321.shentu.shield.v1alpha1.Query" +
+      "ShieldStatusResponse\"&\202\323\344\223\002 \022\036/shentu/sh" +
+      "ield/v1alpha1/status\022\274\001\n\rShieldStaking\0221" +
+      ".shentu.shield.v1alpha1.QueryShieldStaki" +
+      "ngRequest\0322.shentu.shield.v1alpha1.Query" +
+      "ShieldStakingResponse\"D\202\323\344\223\002>\022</shentu/s" +
+      "hield/v1alpha1/shield_staking/{pool_id}/" +
+      "{purchaser}\022\267\001\n\021ShieldStakingRate\0225.shen" +
+      "tu.shield.v1alpha1.QueryShieldStakingRat" +
+      "eRequest\0326.shentu.shield.v1alpha1.QueryS" +
+      "hieldStakingRateResponse\"3\202\323\344\223\002-\022+/shent" +
+      "u/shield/v1alpha1/shield_staking_rate\022\274\001" +
+      "\n\rReimbursement\0221.shentu.shield.v1alpha1" +
+      ".QueryReimbursementRequest\0322.shentu.shie" +
+      "ld.v1alpha1.QueryReimbursementResponse\"D" +
+      "\202\323\344\223\002>\022</shentu/shield/v1alpha1/proposal" +
+      "/{proposal_id}/reimbursement\022\251\001\n\016Reimbur" +
+      "sements\0222.shentu.shield.v1alpha1.QueryRe" +
+      "imbursementsRequest\0323.shentu.shield.v1al" +
+      "pha1.QueryReimbursementsResponse\".\202\323\344\223\002(" +
+      "\022&/shentu/shield/v1alpha1/reimbursements" +
+      "B3Z1github.com/certikfoundation/shentu/x" +
+      "/shield/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           com.google.protobuf.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           shentu.shield.v1alpha1.Shield.getDescriptor(),
@@ -19410,7 +19408,6 @@ public final class QueryOuterClass {
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    cosmos.base.query.v1beta1.Pagination.getDescriptor();
     com.google.protobuf.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     shentu.shield.v1alpha1.Shield.getDescriptor();

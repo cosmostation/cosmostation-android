@@ -2163,17 +2163,15 @@ public final class Events {
   static {
     java.lang.String[] descriptorData = {
       "\n regen/data/v1alpha2/events.proto\022\023rege" +
-      "n.data.v1alpha2\032\037regen/data/v1alpha2/typ" +
-      "es.proto\"\036\n\017EventAnchorData\022\013\n\003iri\030\001 \001(\t" +
-      "\"-\n\rEventSignData\022\013\n\003iri\030\001 \001(\t\022\017\n\007signer" +
-      "s\030\002 \003(\t\" \n\021EventStoreRawData\022\013\n\003iri\030\001 \001(" +
-      "\tB.Z,github.com/regen-network/regen-ledg" +
-      "er/x/datab\006proto3"
+      "n.data.v1alpha2\"\036\n\017EventAnchorData\022\013\n\003ir" +
+      "i\030\001 \001(\t\"-\n\rEventSignData\022\013\n\003iri\030\001 \001(\t\022\017\n" +
+      "\007signers\030\002 \003(\t\" \n\021EventStoreRawData\022\013\n\003i" +
+      "ri\030\001 \001(\tB.Z,github.com/regen-network/reg" +
+      "en-ledger/x/datab\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          regen.data.v1alpha2.Types.getDescriptor(),
         });
     internal_static_regen_data_v1alpha2_EventAnchorData_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2193,7 +2191,6 @@ public final class Events {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_regen_data_v1alpha2_EventStoreRawData_descriptor,
         new java.lang.String[] { "Iri", });
-    regen.data.v1alpha2.Types.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

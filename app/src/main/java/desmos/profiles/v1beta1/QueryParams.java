@@ -1091,14 +1091,14 @@ public final class QueryParams {
       "\n*desmos/profiles/v1beta1/query_params.p" +
       "roto\022\027desmos.profiles.v1beta1\032\024gogoproto" +
       "/gogo.proto\032\034google/api/annotations.prot" +
-      "o\032\031google/protobuf/any.proto\032+desmos/pro" +
-      "files/v1beta1/models_params.proto\032\031cosmo" +
-      "s_proto/cosmos.proto\032*cosmos/base/query/" +
-      "v1beta1/pagination.proto\"\024\n\022QueryParamsR" +
-      "equest\"L\n\023QueryParamsResponse\0225\n\006params\030" +
-      "\001 \001(\0132\037.desmos.profiles.v1beta1.ParamsB\004" +
-      "\310\336\037\000B3Z1github.com/desmos-labs/desmos/v2" +
-      "/x/profiles/typesb\006proto3"
+      "o\032\032google/protobuf2/any.proto\032+desmos/pr" +
+      "ofiles/v1beta1/models_params.proto\032\031cosm" +
+      "os_proto/cosmos.proto\032*cosmos/base/query" +
+      "/v1beta1/pagination.proto\"\024\n\022QueryParams" +
+      "Request\"L\n\023QueryParamsResponse\0225\n\006params" +
+      "\030\001 \001(\0132\037.desmos.profiles.v1beta1.ParamsB" +
+      "\004\310\336\037\000B3Z1github.com/desmos-labs/desmos/v" +
+      "2/x/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

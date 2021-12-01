@@ -14,8 +14,8 @@ public final class Nft {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface ClassOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmos.nft.v1beta1.Class)
+  public interface CosmosNFTClassOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.nft.v1beta1.CosmosNFTClass)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -170,18 +170,18 @@ public final class Nft {
    * Class defines the class of the nft type.
    * </pre>
    *
-   * Protobuf type {@code cosmos.nft.v1beta1.Class}
+   * Protobuf type {@code cosmos.nft.v1beta1.CosmosNFTClass}
    */
-  public static final class Class extends
+  public static final class CosmosNFTClass extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmos.nft.v1beta1.Class)
-      ClassOrBuilder {
+      // @@protoc_insertion_point(message_implements:cosmos.nft.v1beta1.CosmosNFTClass)
+      CosmosNFTClassOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use Class.newBuilder() to construct.
-    private Class(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use CosmosNFTClass.newBuilder() to construct.
+    private CosmosNFTClass(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Class() {
+    private CosmosNFTClass() {
       id_ = "";
       name_ = "";
       symbol_ = "";
@@ -194,7 +194,7 @@ public final class Nft {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new Class();
+      return new CosmosNFTClass();
     }
 
     @java.lang.Override
@@ -202,7 +202,7 @@ public final class Nft {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private Class(
+    private CosmosNFTClass(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -290,15 +290,15 @@ public final class Nft {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_Class_descriptor;
+      return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_CosmosNFTClass_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_Class_fieldAccessorTable
+      return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_CosmosNFTClass_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              cosmos.nft.v1beta1.Nft.Class.class, cosmos.nft.v1beta1.Nft.Class.Builder.class);
+              cosmos.nft.v1beta1.Nft.CosmosNFTClass.class, cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder.class);
     }
 
     public static final int ID_FIELD_NUMBER = 1;
@@ -691,10 +691,10 @@ public final class Nft {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof cosmos.nft.v1beta1.Nft.Class)) {
+      if (!(obj instanceof cosmos.nft.v1beta1.Nft.CosmosNFTClass)) {
         return super.equals(obj);
       }
-      cosmos.nft.v1beta1.Nft.Class other = (cosmos.nft.v1beta1.Nft.Class) obj;
+      cosmos.nft.v1beta1.Nft.CosmosNFTClass other = (cosmos.nft.v1beta1.Nft.CosmosNFTClass) obj;
 
       if (!getId()
           .equals(other.getId())) return false;
@@ -745,69 +745,69 @@ public final class Nft {
       return hash;
     }
 
-    public static cosmos.nft.v1beta1.Nft.Class parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static cosmos.nft.v1beta1.Nft.Class parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static cosmos.nft.v1beta1.Nft.Class parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static cosmos.nft.v1beta1.Nft.Class parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static cosmos.nft.v1beta1.Nft.Class parseFrom(byte[] data)
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static cosmos.nft.v1beta1.Nft.Class parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static cosmos.nft.v1beta1.Nft.Class parseFrom(java.io.InputStream input)
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static cosmos.nft.v1beta1.Nft.Class parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static cosmos.nft.v1beta1.Nft.Class parseDelimitedFrom(java.io.InputStream input)
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static cosmos.nft.v1beta1.Nft.Class parseDelimitedFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static cosmos.nft.v1beta1.Nft.Class parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static cosmos.nft.v1beta1.Nft.Class parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -820,7 +820,7 @@ public final class Nft {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(cosmos.nft.v1beta1.Nft.Class prototype) {
+    public static Builder newBuilder(cosmos.nft.v1beta1.Nft.CosmosNFTClass prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -840,26 +840,26 @@ public final class Nft {
      * Class defines the class of the nft type.
      * </pre>
      *
-     * Protobuf type {@code cosmos.nft.v1beta1.Class}
+     * Protobuf type {@code cosmos.nft.v1beta1.CosmosNFTClass}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmos.nft.v1beta1.Class)
-        cosmos.nft.v1beta1.Nft.ClassOrBuilder {
+        // @@protoc_insertion_point(builder_implements:cosmos.nft.v1beta1.CosmosNFTClass)
+        cosmos.nft.v1beta1.Nft.CosmosNFTClassOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_Class_descriptor;
+        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_CosmosNFTClass_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_Class_fieldAccessorTable
+        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_CosmosNFTClass_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                cosmos.nft.v1beta1.Nft.Class.class, cosmos.nft.v1beta1.Nft.Class.Builder.class);
+                cosmos.nft.v1beta1.Nft.CosmosNFTClass.class, cosmos.nft.v1beta1.Nft.CosmosNFTClass.Builder.class);
       }
 
-      // Construct using cosmos.nft.v1beta1.Nft.Class.newBuilder()
+      // Construct using cosmos.nft.v1beta1.Nft.CosmosNFTClass.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -901,17 +901,17 @@ public final class Nft {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_Class_descriptor;
+        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_CosmosNFTClass_descriptor;
       }
 
       @java.lang.Override
-      public cosmos.nft.v1beta1.Nft.Class getDefaultInstanceForType() {
-        return cosmos.nft.v1beta1.Nft.Class.getDefaultInstance();
+      public cosmos.nft.v1beta1.Nft.CosmosNFTClass getDefaultInstanceForType() {
+        return cosmos.nft.v1beta1.Nft.CosmosNFTClass.getDefaultInstance();
       }
 
       @java.lang.Override
-      public cosmos.nft.v1beta1.Nft.Class build() {
-        cosmos.nft.v1beta1.Nft.Class result = buildPartial();
+      public cosmos.nft.v1beta1.Nft.CosmosNFTClass build() {
+        cosmos.nft.v1beta1.Nft.CosmosNFTClass result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -919,8 +919,8 @@ public final class Nft {
       }
 
       @java.lang.Override
-      public cosmos.nft.v1beta1.Nft.Class buildPartial() {
-        cosmos.nft.v1beta1.Nft.Class result = new cosmos.nft.v1beta1.Nft.Class(this);
+      public cosmos.nft.v1beta1.Nft.CosmosNFTClass buildPartial() {
+        cosmos.nft.v1beta1.Nft.CosmosNFTClass result = new cosmos.nft.v1beta1.Nft.CosmosNFTClass(this);
         result.id_ = id_;
         result.name_ = name_;
         result.symbol_ = symbol_;
@@ -970,16 +970,16 @@ public final class Nft {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cosmos.nft.v1beta1.Nft.Class) {
-          return mergeFrom((cosmos.nft.v1beta1.Nft.Class)other);
+        if (other instanceof cosmos.nft.v1beta1.Nft.CosmosNFTClass) {
+          return mergeFrom((cosmos.nft.v1beta1.Nft.CosmosNFTClass)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(cosmos.nft.v1beta1.Nft.Class other) {
-        if (other == cosmos.nft.v1beta1.Nft.Class.getDefaultInstance()) return this;
+      public Builder mergeFrom(cosmos.nft.v1beta1.Nft.CosmosNFTClass other) {
+        if (other == cosmos.nft.v1beta1.Nft.CosmosNFTClass.getDefaultInstance()) return this;
         if (!other.getId().isEmpty()) {
           id_ = other.id_;
           onChanged();
@@ -1022,11 +1022,11 @@ public final class Nft {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        cosmos.nft.v1beta1.Nft.Class parsedMessage = null;
+        cosmos.nft.v1beta1.Nft.CosmosNFTClass parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cosmos.nft.v1beta1.Nft.Class) e.getUnfinishedMessage();
+          parsedMessage = (cosmos.nft.v1beta1.Nft.CosmosNFTClass) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1779,48 +1779,48 @@ public final class Nft {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:cosmos.nft.v1beta1.Class)
+      // @@protoc_insertion_point(builder_scope:cosmos.nft.v1beta1.CosmosNFTClass)
     }
 
-    // @@protoc_insertion_point(class_scope:cosmos.nft.v1beta1.Class)
-    private static final cosmos.nft.v1beta1.Nft.Class DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:cosmos.nft.v1beta1.CosmosNFTClass)
+    private static final cosmos.nft.v1beta1.Nft.CosmosNFTClass DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new cosmos.nft.v1beta1.Nft.Class();
+      DEFAULT_INSTANCE = new cosmos.nft.v1beta1.Nft.CosmosNFTClass();
     }
 
-    public static cosmos.nft.v1beta1.Nft.Class getDefaultInstance() {
+    public static cosmos.nft.v1beta1.Nft.CosmosNFTClass getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<Class>
-        PARSER = new com.google.protobuf.AbstractParser<Class>() {
+    private static final com.google.protobuf.Parser<CosmosNFTClass>
+        PARSER = new com.google.protobuf.AbstractParser<CosmosNFTClass>() {
       @java.lang.Override
-      public Class parsePartialFrom(
+      public CosmosNFTClass parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Class(input, extensionRegistry);
+        return new CosmosNFTClass(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<Class> parser() {
+    public static com.google.protobuf.Parser<CosmosNFTClass> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Class> getParserForType() {
+    public com.google.protobuf.Parser<CosmosNFTClass> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public cosmos.nft.v1beta1.Nft.Class getDefaultInstanceForType() {
+    public cosmos.nft.v1beta1.Nft.CosmosNFTClass getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface NFTOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmos.nft.v1beta1.NFT)
+  public interface CosmosNFTOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.nft.v1beta1.CosmosNFT)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1935,18 +1935,18 @@ public final class Nft {
    * NFT defines the NFT.
    * </pre>
    *
-   * Protobuf type {@code cosmos.nft.v1beta1.NFT}
+   * Protobuf type {@code cosmos.nft.v1beta1.CosmosNFT}
    */
-  public static final class NFT extends
+  public static final class CosmosNFT extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmos.nft.v1beta1.NFT)
-      NFTOrBuilder {
+      // @@protoc_insertion_point(message_implements:cosmos.nft.v1beta1.CosmosNFT)
+      CosmosNFTOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use NFT.newBuilder() to construct.
-    private NFT(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use CosmosNFT.newBuilder() to construct.
+    private CosmosNFT(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private NFT() {
+    private CosmosNFT() {
       classId_ = "";
       id_ = "";
       uri_ = "";
@@ -1957,7 +1957,7 @@ public final class Nft {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new NFT();
+      return new CosmosNFT();
     }
 
     @java.lang.Override
@@ -1965,7 +1965,7 @@ public final class Nft {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private NFT(
+    private CosmosNFT(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2041,15 +2041,15 @@ public final class Nft {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_NFT_descriptor;
+      return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_CosmosNFT_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_NFT_fieldAccessorTable
+      return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_CosmosNFT_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              cosmos.nft.v1beta1.Nft.NFT.class, cosmos.nft.v1beta1.Nft.NFT.Builder.class);
+              cosmos.nft.v1beta1.Nft.CosmosNFT.class, cosmos.nft.v1beta1.Nft.CosmosNFT.Builder.class);
     }
 
     public static final int CLASS_ID_FIELD_NUMBER = 1;
@@ -2338,10 +2338,10 @@ public final class Nft {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof cosmos.nft.v1beta1.Nft.NFT)) {
+      if (!(obj instanceof cosmos.nft.v1beta1.Nft.CosmosNFT)) {
         return super.equals(obj);
       }
-      cosmos.nft.v1beta1.Nft.NFT other = (cosmos.nft.v1beta1.Nft.NFT) obj;
+      cosmos.nft.v1beta1.Nft.CosmosNFT other = (cosmos.nft.v1beta1.Nft.CosmosNFT) obj;
 
       if (!getClassId()
           .equals(other.getClassId())) return false;
@@ -2384,69 +2384,69 @@ public final class Nft {
       return hash;
     }
 
-    public static cosmos.nft.v1beta1.Nft.NFT parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static cosmos.nft.v1beta1.Nft.NFT parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static cosmos.nft.v1beta1.Nft.NFT parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static cosmos.nft.v1beta1.Nft.NFT parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static cosmos.nft.v1beta1.Nft.NFT parseFrom(byte[] data)
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static cosmos.nft.v1beta1.Nft.NFT parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static cosmos.nft.v1beta1.Nft.NFT parseFrom(java.io.InputStream input)
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static cosmos.nft.v1beta1.Nft.NFT parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static cosmos.nft.v1beta1.Nft.NFT parseDelimitedFrom(java.io.InputStream input)
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static cosmos.nft.v1beta1.Nft.NFT parseDelimitedFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static cosmos.nft.v1beta1.Nft.NFT parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static cosmos.nft.v1beta1.Nft.NFT parseFrom(
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2459,7 +2459,7 @@ public final class Nft {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(cosmos.nft.v1beta1.Nft.NFT prototype) {
+    public static Builder newBuilder(cosmos.nft.v1beta1.Nft.CosmosNFT prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -2479,26 +2479,26 @@ public final class Nft {
      * NFT defines the NFT.
      * </pre>
      *
-     * Protobuf type {@code cosmos.nft.v1beta1.NFT}
+     * Protobuf type {@code cosmos.nft.v1beta1.CosmosNFT}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmos.nft.v1beta1.NFT)
-        cosmos.nft.v1beta1.Nft.NFTOrBuilder {
+        // @@protoc_insertion_point(builder_implements:cosmos.nft.v1beta1.CosmosNFT)
+        cosmos.nft.v1beta1.Nft.CosmosNFTOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_NFT_descriptor;
+        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_CosmosNFT_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_NFT_fieldAccessorTable
+        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_CosmosNFT_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                cosmos.nft.v1beta1.Nft.NFT.class, cosmos.nft.v1beta1.Nft.NFT.Builder.class);
+                cosmos.nft.v1beta1.Nft.CosmosNFT.class, cosmos.nft.v1beta1.Nft.CosmosNFT.Builder.class);
       }
 
-      // Construct using cosmos.nft.v1beta1.Nft.NFT.newBuilder()
+      // Construct using cosmos.nft.v1beta1.Nft.CosmosNFT.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2536,17 +2536,17 @@ public final class Nft {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_NFT_descriptor;
+        return cosmos.nft.v1beta1.Nft.internal_static_cosmos_nft_v1beta1_CosmosNFT_descriptor;
       }
 
       @java.lang.Override
-      public cosmos.nft.v1beta1.Nft.NFT getDefaultInstanceForType() {
-        return cosmos.nft.v1beta1.Nft.NFT.getDefaultInstance();
+      public cosmos.nft.v1beta1.Nft.CosmosNFT getDefaultInstanceForType() {
+        return cosmos.nft.v1beta1.Nft.CosmosNFT.getDefaultInstance();
       }
 
       @java.lang.Override
-      public cosmos.nft.v1beta1.Nft.NFT build() {
-        cosmos.nft.v1beta1.Nft.NFT result = buildPartial();
+      public cosmos.nft.v1beta1.Nft.CosmosNFT build() {
+        cosmos.nft.v1beta1.Nft.CosmosNFT result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2554,8 +2554,8 @@ public final class Nft {
       }
 
       @java.lang.Override
-      public cosmos.nft.v1beta1.Nft.NFT buildPartial() {
-        cosmos.nft.v1beta1.Nft.NFT result = new cosmos.nft.v1beta1.Nft.NFT(this);
+      public cosmos.nft.v1beta1.Nft.CosmosNFT buildPartial() {
+        cosmos.nft.v1beta1.Nft.CosmosNFT result = new cosmos.nft.v1beta1.Nft.CosmosNFT(this);
         result.classId_ = classId_;
         result.id_ = id_;
         result.uri_ = uri_;
@@ -2603,16 +2603,16 @@ public final class Nft {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cosmos.nft.v1beta1.Nft.NFT) {
-          return mergeFrom((cosmos.nft.v1beta1.Nft.NFT)other);
+        if (other instanceof cosmos.nft.v1beta1.Nft.CosmosNFT) {
+          return mergeFrom((cosmos.nft.v1beta1.Nft.CosmosNFT)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(cosmos.nft.v1beta1.Nft.NFT other) {
-        if (other == cosmos.nft.v1beta1.Nft.NFT.getDefaultInstance()) return this;
+      public Builder mergeFrom(cosmos.nft.v1beta1.Nft.CosmosNFT other) {
+        if (other == cosmos.nft.v1beta1.Nft.CosmosNFT.getDefaultInstance()) return this;
         if (!other.getClassId().isEmpty()) {
           classId_ = other.classId_;
           onChanged();
@@ -2647,11 +2647,11 @@ public final class Nft {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        cosmos.nft.v1beta1.Nft.NFT parsedMessage = null;
+        cosmos.nft.v1beta1.Nft.CosmosNFT parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cosmos.nft.v1beta1.Nft.NFT) e.getUnfinishedMessage();
+          parsedMessage = (cosmos.nft.v1beta1.Nft.CosmosNFT) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3212,56 +3212,56 @@ public final class Nft {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:cosmos.nft.v1beta1.NFT)
+      // @@protoc_insertion_point(builder_scope:cosmos.nft.v1beta1.CosmosNFT)
     }
 
-    // @@protoc_insertion_point(class_scope:cosmos.nft.v1beta1.NFT)
-    private static final cosmos.nft.v1beta1.Nft.NFT DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:cosmos.nft.v1beta1.CosmosNFT)
+    private static final cosmos.nft.v1beta1.Nft.CosmosNFT DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new cosmos.nft.v1beta1.Nft.NFT();
+      DEFAULT_INSTANCE = new cosmos.nft.v1beta1.Nft.CosmosNFT();
     }
 
-    public static cosmos.nft.v1beta1.Nft.NFT getDefaultInstance() {
+    public static cosmos.nft.v1beta1.Nft.CosmosNFT getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<NFT>
-        PARSER = new com.google.protobuf.AbstractParser<NFT>() {
+    private static final com.google.protobuf.Parser<CosmosNFT>
+        PARSER = new com.google.protobuf.AbstractParser<CosmosNFT>() {
       @java.lang.Override
-      public NFT parsePartialFrom(
+      public CosmosNFT parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new NFT(input, extensionRegistry);
+        return new CosmosNFT(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<NFT> parser() {
+    public static com.google.protobuf.Parser<CosmosNFT> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<NFT> getParserForType() {
+    public com.google.protobuf.Parser<CosmosNFT> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public cosmos.nft.v1beta1.Nft.NFT getDefaultInstanceForType() {
+    public cosmos.nft.v1beta1.Nft.CosmosNFT getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmos_nft_v1beta1_Class_descriptor;
+    internal_static_cosmos_nft_v1beta1_CosmosNFTClass_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmos_nft_v1beta1_Class_fieldAccessorTable;
+      internal_static_cosmos_nft_v1beta1_CosmosNFTClass_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmos_nft_v1beta1_NFT_descriptor;
+    internal_static_cosmos_nft_v1beta1_CosmosNFT_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmos_nft_v1beta1_NFT_fieldAccessorTable;
+      internal_static_cosmos_nft_v1beta1_CosmosNFT_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3272,32 +3272,32 @@ public final class Nft {
   static {
     java.lang.String[] descriptorData = {
       "\n\034cosmos/nft/v1beta1/nft.proto\022\022cosmos.n" +
-      "ft.v1beta1\032\031google/protobuf/any.proto\"\211\001" +
-      "\n\005Class\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\016\n\006sym" +
-      "bol\030\003 \001(\t\022\023\n\013description\030\004 \001(\t\022\013\n\003uri\030\005 " +
-      "\001(\t\022\020\n\010uri_hash\030\006 \001(\t\022\"\n\004data\030\007 \001(\0132\024.go" +
-      "ogle.protobuf.Any\"f\n\003NFT\022\020\n\010class_id\030\001 \001" +
-      "(\t\022\n\n\002id\030\002 \001(\t\022\013\n\003uri\030\003 \001(\t\022\020\n\010uri_hash\030" +
-      "\004 \001(\t\022\"\n\004data\030\n \001(\0132\024.google.protobuf.An" +
-      "yB$Z\"github.com/cosmos/cosmos-sdk/x/nftb" +
-      "\006proto3"
+      "ft.v1beta1\032\032google/protobuf2/any.proto\"\222" +
+      "\001\n\016CosmosNFTClass\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 " +
+      "\001(\t\022\016\n\006symbol\030\003 \001(\t\022\023\n\013description\030\004 \001(\t" +
+      "\022\013\n\003uri\030\005 \001(\t\022\020\n\010uri_hash\030\006 \001(\t\022\"\n\004data\030" +
+      "\007 \001(\0132\024.google.protobuf.Any\"l\n\tCosmosNFT" +
+      "\022\020\n\010class_id\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\022\013\n\003uri\030\003 " +
+      "\001(\t\022\020\n\010uri_hash\030\004 \001(\t\022\"\n\004data\030\n \001(\0132\024.go" +
+      "ogle.protobuf.AnyB$Z\"github.com/cosmos/c" +
+      "osmos-sdk/x/nftb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.AnyProto.getDescriptor(),
         });
-    internal_static_cosmos_nft_v1beta1_Class_descriptor =
+    internal_static_cosmos_nft_v1beta1_CosmosNFTClass_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_cosmos_nft_v1beta1_Class_fieldAccessorTable = new
+    internal_static_cosmos_nft_v1beta1_CosmosNFTClass_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmos_nft_v1beta1_Class_descriptor,
+        internal_static_cosmos_nft_v1beta1_CosmosNFTClass_descriptor,
         new java.lang.String[] { "Id", "Name", "Symbol", "Description", "Uri", "UriHash", "Data", });
-    internal_static_cosmos_nft_v1beta1_NFT_descriptor =
+    internal_static_cosmos_nft_v1beta1_CosmosNFT_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_cosmos_nft_v1beta1_NFT_fieldAccessorTable = new
+    internal_static_cosmos_nft_v1beta1_CosmosNFT_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmos_nft_v1beta1_NFT_descriptor,
+        internal_static_cosmos_nft_v1beta1_CosmosNFT_descriptor,
         new java.lang.String[] { "ClassId", "Id", "Uri", "UriHash", "Data", });
     com.google.protobuf.AnyProto.getDescriptor();
   }

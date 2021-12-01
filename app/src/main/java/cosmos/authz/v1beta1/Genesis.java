@@ -1968,18 +1968,18 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n\"cosmos/authz/v1beta1/genesis.proto\022\024co" +
       "smos.authz.v1beta1\032\037google/protobuf/time" +
-      "stamp.proto\032\031google/protobuf/any.proto\032\024" +
-      "gogoproto/gogo.proto\032\031cosmos_proto/cosmo" +
-      "s.proto\"U\n\014GenesisState\022E\n\rauthorization" +
-      "\030\001 \003(\0132(.cosmos.authz.v1beta1.GrantAutho" +
-      "rizationB\004\310\336\037\000\"\344\001\n\022GrantAuthorization\022)\n" +
-      "\007granter\030\001 \001(\tB\030\322\264-\024cosmos.AddressString" +
-      "\022)\n\007grantee\030\002 \001(\tB\030\322\264-\024cosmos.AddressStr" +
-      "ing\022>\n\rauthorization\030\003 \001(\0132\024.google.prot" +
-      "obuf.AnyB\021\312\264-\rAuthorization\0228\n\nexpiratio" +
-      "n\030\004 \001(\0132\032.google.protobuf.TimestampB\010\310\336\037" +
-      "\000\220\337\037\001B&Z$github.com/cosmos/cosmos-sdk/x/" +
-      "authzb\006proto3"
+      "stamp.proto\032\032google/protobuf2/any.proto\032" +
+      "\024gogoproto/gogo.proto\032\031cosmos_proto/cosm" +
+      "os.proto\"U\n\014GenesisState\022E\n\rauthorizatio" +
+      "n\030\001 \003(\0132(.cosmos.authz.v1beta1.GrantAuth" +
+      "orizationB\004\310\336\037\000\"\344\001\n\022GrantAuthorization\022)" +
+      "\n\007granter\030\001 \001(\tB\030\322\264-\024cosmos.AddressStrin" +
+      "g\022)\n\007grantee\030\002 \001(\tB\030\322\264-\024cosmos.AddressSt" +
+      "ring\022>\n\rauthorization\030\003 \001(\0132\024.google.pro" +
+      "tobuf.AnyB\021\312\264-\rAuthorization\0228\n\nexpirati" +
+      "on\030\004 \001(\0132\032.google.protobuf.TimestampB\010\310\336" +
+      "\037\000\220\337\037\001B&Z$github.com/cosmos/cosmos-sdk/x" +
+      "/authzb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

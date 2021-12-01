@@ -3317,24 +3317,24 @@ public final class MsgsChainLinks {
     java.lang.String[] descriptorData = {
       "\n.desmos/profiles/v1beta1/msgs_chain_lin" +
       "ks.proto\022\027desmos.profiles.v1beta1\032\024gogop" +
-      "roto/gogo.proto\032\031google/protobuf/any.pro" +
-      "to\032\031cosmos_proto/cosmos.proto\0320desmos/pr" +
-      "ofiles/v1beta1/models_chain_links.proto\"" +
-      "\273\002\n\023MsgLinkChainAccount\022U\n\rchain_address" +
-      "\030\001 \001(\0132\024.google.protobuf.AnyB(\362\336\037\025yaml:\"" +
-      "source_address\"\312\264-\013AddressData\022J\n\005proof\030" +
-      "\002 \001(\0132\036.desmos.profiles.v1beta1.ProofB\033\310" +
-      "\336\037\000\362\336\037\023yaml:\"source_proof\"\022^\n\014chain_conf" +
-      "ig\030\003 \001(\0132$.desmos.profiles.v1beta1.Chain" +
-      "ConfigB\"\310\336\037\000\362\336\037\032yaml:\"source_chain_confi" +
-      "g\"\022!\n\006signer\030\004 \001(\tB\021\362\336\037\ryaml:\"signer\"\"\035\n" +
-      "\033MsgLinkChainAccountResponse\"\206\001\n\025MsgUnli" +
-      "nkChainAccount\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:" +
-      "\"owner\"\022)\n\nchain_name\030\002 \001(\tB\025\362\336\037\021yaml:\"c" +
-      "hain_name\"\022!\n\006target\030\003 \001(\tB\021\362\336\037\ryaml:\"ta" +
-      "rget\"\"\037\n\035MsgUnlinkChainAccountResponseB3" +
-      "Z1github.com/desmos-labs/desmos/v2/x/pro" +
-      "files/typesb\006proto3"
+      "roto/gogo.proto\032\032google/protobuf2/any.pr" +
+      "oto\032\031cosmos_proto/cosmos.proto\0320desmos/p" +
+      "rofiles/v1beta1/models_chain_links.proto" +
+      "\"\273\002\n\023MsgLinkChainAccount\022U\n\rchain_addres" +
+      "s\030\001 \001(\0132\024.google.protobuf.AnyB(\362\336\037\025yaml:" +
+      "\"source_address\"\312\264-\013AddressData\022J\n\005proof" +
+      "\030\002 \001(\0132\036.desmos.profiles.v1beta1.ProofB\033" +
+      "\310\336\037\000\362\336\037\023yaml:\"source_proof\"\022^\n\014chain_con" +
+      "fig\030\003 \001(\0132$.desmos.profiles.v1beta1.Chai" +
+      "nConfigB\"\310\336\037\000\362\336\037\032yaml:\"source_chain_conf" +
+      "ig\"\022!\n\006signer\030\004 \001(\tB\021\362\336\037\ryaml:\"signer\"\"\035" +
+      "\n\033MsgLinkChainAccountResponse\"\206\001\n\025MsgUnl" +
+      "inkChainAccount\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml" +
+      ":\"owner\"\022)\n\nchain_name\030\002 \001(\tB\025\362\336\037\021yaml:\"" +
+      "chain_name\"\022!\n\006target\030\003 \001(\tB\021\362\336\037\ryaml:\"t" +
+      "arget\"\"\037\n\035MsgUnlinkChainAccountResponseB" +
+      "3Z1github.com/desmos-labs/desmos/v2/x/pr" +
+      "ofiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

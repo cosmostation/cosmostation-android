@@ -4806,31 +4806,29 @@ public final class Types {
   static {
     java.lang.String[] descriptorData = {
       "\n$sifnode/tokenregistry/v1/types.proto\022\030" +
-      "sifnode.tokenregistry.v1\032\024gogoproto/gogo" +
-      ".proto\"[\n\014GenesisState\022\025\n\radmin_account\030" +
-      "\001 \001(\t\0224\n\010registry\030\002 \001(\0132\".sifnode.tokenr" +
-      "egistry.v1.Registry\"D\n\010Registry\0228\n\007entri" +
-      "es\030\001 \003(\0132\'.sifnode.tokenregistry.v1.Regi" +
-      "stryEntry\"\250\003\n\rRegistryEntry\022\020\n\010decimals\030" +
-      "\002 \001(\003\022\r\n\005denom\030\003 \001(\t\022\022\n\nbase_denom\030\004 \001(\t" +
-      "\022\014\n\004path\030\005 \001(\t\022\026\n\016ibc_channel_id\030\006 \001(\t\022#" +
-      "\n\033ibc_counterparty_channel_id\030\007 \001(\t\022\024\n\014d" +
-      "isplay_name\030\010 \001(\t\022\026\n\016display_symbol\030\t \001(" +
-      "\t\022\017\n\007network\030\n \001(\t\022\017\n\007address\030\013 \001(\t\022\027\n\017e" +
-      "xternal_symbol\030\014 \001(\t\022\026\n\016transfer_limit\030\r" +
-      " \001(\t\0229\n\013permissions\030\017 \003(\0162$.sifnode.toke" +
-      "nregistry.v1.Permission\022\022\n\nunit_denom\030\020 " +
-      "\001(\t\022\036\n\026ibc_counterparty_denom\030\021 \001(\t\022!\n\031i" +
-      "bc_counterparty_chain_id\030\022 \001(\tJ\004\010\001\020\002*D\n\n" +
-      "Permission\022\017\n\013UNSPECIFIED\020\000\022\007\n\003CLP\020\001\022\r\n\t" +
-      "IBCEXPORT\020\002\022\r\n\tIBCIMPORT\020\003B3Z1github.com" +
-      "/Sifchain/sifnode/x/tokenregistry/typesb" +
-      "\006proto3"
+      "sifnode.tokenregistry.v1\"[\n\014GenesisState" +
+      "\022\025\n\radmin_account\030\001 \001(\t\0224\n\010registry\030\002 \001(" +
+      "\0132\".sifnode.tokenregistry.v1.Registry\"D\n" +
+      "\010Registry\0228\n\007entries\030\001 \003(\0132\'.sifnode.tok" +
+      "enregistry.v1.RegistryEntry\"\250\003\n\rRegistry" +
+      "Entry\022\020\n\010decimals\030\002 \001(\003\022\r\n\005denom\030\003 \001(\t\022\022" +
+      "\n\nbase_denom\030\004 \001(\t\022\014\n\004path\030\005 \001(\t\022\026\n\016ibc_" +
+      "channel_id\030\006 \001(\t\022#\n\033ibc_counterparty_cha" +
+      "nnel_id\030\007 \001(\t\022\024\n\014display_name\030\010 \001(\t\022\026\n\016d" +
+      "isplay_symbol\030\t \001(\t\022\017\n\007network\030\n \001(\t\022\017\n\007" +
+      "address\030\013 \001(\t\022\027\n\017external_symbol\030\014 \001(\t\022\026" +
+      "\n\016transfer_limit\030\r \001(\t\0229\n\013permissions\030\017 " +
+      "\003(\0162$.sifnode.tokenregistry.v1.Permissio" +
+      "n\022\022\n\nunit_denom\030\020 \001(\t\022\036\n\026ibc_counterpart" +
+      "y_denom\030\021 \001(\t\022!\n\031ibc_counterparty_chain_" +
+      "id\030\022 \001(\tJ\004\010\001\020\002*D\n\nPermission\022\017\n\013UNSPECIF" +
+      "IED\020\000\022\007\n\003CLP\020\001\022\r\n\tIBCEXPORT\020\002\022\r\n\tIBCIMPO" +
+      "RT\020\003B3Z1github.com/Sifchain/sifnode/x/to" +
+      "kenregistry/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
         });
     internal_static_sifnode_tokenregistry_v1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -4850,7 +4848,6 @@ public final class Types {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sifnode_tokenregistry_v1_RegistryEntry_descriptor,
         new java.lang.String[] { "Decimals", "Denom", "BaseDenom", "Path", "IbcChannelId", "IbcCounterpartyChannelId", "DisplayName", "DisplaySymbol", "Network", "Address", "ExternalSymbol", "TransferLimit", "Permissions", "UnitDenom", "IbcCounterpartyDenom", "IbcCounterpartyChainId", });
-    com.google.protobuf.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

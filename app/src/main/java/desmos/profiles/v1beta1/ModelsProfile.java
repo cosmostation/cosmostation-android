@@ -2608,23 +2608,21 @@ public final class ModelsProfile {
     java.lang.String[] descriptorData = {
       "\n,desmos/profiles/v1beta1/models_profile" +
       ".proto\022\027desmos.profiles.v1beta1\032\024gogopro" +
-      "to/gogo.proto\032\031google/protobuf/any.proto" +
-      "\032\037google/protobuf/timestamp.proto\032\031cosmo" +
-      "s_proto/cosmos.proto\0320desmos/profiles/v1" +
-      "beta1/models_chain_links.proto\"\326\002\n\007Profi" +
-      "le\0223\n\007account\030\001 \001(\0132\024.google.protobuf.An" +
-      "yB\014\312\264-\010AccountI\022%\n\004dtag\030\002 \001(\tB\027\362\336\037\013yaml:" +
-      "\"dtag\"\342\336\037\004DTag\022%\n\010nickname\030\003 \001(\tB\023\362\336\037\017ya" +
-      "ml:\"nickname\"\022\033\n\003bio\030\004 \001(\tB\016\362\336\037\nyaml:\"bi" +
-      "o\"\022L\n\010pictures\030\005 \001(\0132!.desmos.profiles.v" +
-      "1beta1.PicturesB\027\310\336\037\000\362\336\037\017yaml:\"pictures\"" +
-      "\022S\n\rcreation_date\030\006 \001(\0132\032.google.protobu" +
-      "f.TimestampB \220\337\037\001\362\336\037\024yaml:\"creation_date" +
-      "\"\310\336\037\000:\010\210\240\037\000\230\240\037\000\"Z\n\010Pictures\022#\n\007profile\030\001" +
-      " \001(\tB\022\362\336\037\016yaml:\"profile\"\022\037\n\005cover\030\002 \001(\tB" +
-      "\020\362\336\037\014yaml:\"cover\":\010\350\240\037\001\230\240\037\001B3Z1github.co" +
-      "m/desmos-labs/desmos/v2/x/profiles/types" +
-      "b\006proto3"
+      "to/gogo.proto\032\032google/protobuf2/any.prot" +
+      "o\032\037google/protobuf/timestamp.proto\032\031cosm" +
+      "os_proto/cosmos.proto\"\326\002\n\007Profile\0223\n\007acc" +
+      "ount\030\001 \001(\0132\024.google.protobuf.AnyB\014\312\264-\010Ac" +
+      "countI\022%\n\004dtag\030\002 \001(\tB\027\362\336\037\013yaml:\"dtag\"\342\336\037" +
+      "\004DTag\022%\n\010nickname\030\003 \001(\tB\023\362\336\037\017yaml:\"nickn" +
+      "ame\"\022\033\n\003bio\030\004 \001(\tB\016\362\336\037\nyaml:\"bio\"\022L\n\010pic" +
+      "tures\030\005 \001(\0132!.desmos.profiles.v1beta1.Pi" +
+      "cturesB\027\310\336\037\000\362\336\037\017yaml:\"pictures\"\022S\n\rcreat" +
+      "ion_date\030\006 \001(\0132\032.google.protobuf.Timesta" +
+      "mpB \220\337\037\001\362\336\037\024yaml:\"creation_date\"\310\336\037\000:\010\210\240" +
+      "\037\000\230\240\037\000\"Z\n\010Pictures\022#\n\007profile\030\001 \001(\tB\022\362\336\037" +
+      "\016yaml:\"profile\"\022\037\n\005cover\030\002 \001(\tB\020\362\336\037\014yaml" +
+      ":\"cover\":\010\350\240\037\001\230\240\037\001B3Z1github.com/desmos-" +
+      "labs/desmos/v2/x/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2633,7 +2631,6 @@ public final class ModelsProfile {
           com.google.protobuf.AnyProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor(),
         });
     internal_static_desmos_profiles_v1beta1_Profile_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2663,7 +2660,6 @@ public final class ModelsProfile {
     com.google.protobuf.AnyProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
-    desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

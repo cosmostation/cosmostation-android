@@ -13693,103 +13693,103 @@ public final class QueryOuterClass {
       "\035osmosis/gamm/v1beta1/tx.proto\032\036cosmos/b" +
       "ase/v1beta1/coin.proto\032*cosmos/base/quer" +
       "y/v1beta1/pagination.proto\032\034google/api/a" +
-      "nnotations.proto\032\031google/protobuf/any.pr" +
-      "oto\032\031cosmos_proto/cosmos.proto\"6\n\020QueryP" +
-      "oolRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"po" +
-      "ol_id\"\"B\n\021QueryPoolResponse\022-\n\004pool\030\001 \001(" +
-      "\0132\024.google.protobuf.AnyB\t\312\264-\005PoolI\"O\n\021Qu" +
-      "eryPoolsRequest\022:\n\npagination\030\002 \001(\0132&.co" +
-      "smos.base.query.v1beta1.PageRequest\"\201\001\n\022" +
-      "QueryPoolsResponse\022.\n\005pools\030\001 \003(\0132\024.goog" +
-      "le.protobuf.AnyB\t\312\264-\005PoolI\022;\n\npagination" +
-      "\030\002 \001(\0132\'.cosmos.base.query.v1beta1.PageR" +
-      "esponse\"\026\n\024QueryNumPoolsRequest\"?\n\025Query" +
-      "NumPoolsResponse\022&\n\010numPools\030\001 \001(\004B\024\362\336\037\020" +
-      "yaml:\"num_pools\"\"<\n\026QueryPoolParamsReque" +
-      "st\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\"k" +
-      "\n\027QueryPoolParamsResponse\022F\n\022balancerPoo" +
-      "lParams\030\001 \001(\0132(.osmosis.gamm.v1beta1.Bal" +
-      "ancerPoolParamsH\000B\010\n\006params\"=\n\027QueryTota" +
-      "lSharesRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml" +
-      ":\"pool_id\"\"g\n\030QueryTotalSharesResponse\022K" +
-      "\n\013totalShares\030\001 \001(\0132\031.cosmos.base.v1beta" +
-      "1.CoinB\033\362\336\037\023yaml:\"total_shares\"\310\336\037\000\"<\n\026Q" +
-      "ueryPoolAssetsRequest\022\"\n\006poolId\030\001 \001(\004B\022\362" +
-      "\336\037\016yaml:\"pool_id\"\"T\n\027QueryPoolAssetsResp" +
-      "onse\0229\n\npoolAssets\030\001 \003(\0132\037.osmosis.gamm." +
-      "v1beta1.PoolAssetB\004\310\336\037\000\"\316\001\n\025QuerySpotPri" +
-      "ceRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"poo" +
-      "l_id\"\022/\n\014tokenInDenom\030\002 \001(\tB\031\362\336\037\025yaml:\"t" +
-      "oken_in_denom\"\0221\n\rtokenOutDenom\030\003 \001(\tB\032\362" +
-      "\336\037\026yaml:\"token_out_denom\"\022-\n\013withSwapFee" +
-      "\030\004 \001(\010B\030\362\336\037\024yaml:\"with_swap_fee\"\"B\n\026Quer" +
-      "ySpotPriceResponse\022(\n\tspotPrice\030\001 \001(\tB\025\362" +
-      "\336\037\021yaml:\"spot_price\"\"\334\001\n\035QuerySwapExactA" +
-      "mountInRequest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml" +
-      ":\"sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"poo" +
-      "l_id\"\022$\n\007tokenIn\030\003 \001(\tB\023\362\336\037\017yaml:\"token_" +
-      "in\"\022N\n\006routes\030\004 \003(\0132\'.osmosis.gamm.v1bet" +
-      "a1.SwapAmountInRouteB\025\362\336\037\ryaml:\"routes\"\310" +
-      "\336\037\000\"\203\001\n\036QuerySwapExactAmountInResponse\022a" +
-      "\n\016tokenOutAmount\030\001 \001(\tBI\332\336\037&github.com/c" +
-      "osmos/cosmos-sdk/types.Int\362\336\037\027yaml:\"toke" +
-      "n_out_amount\"\310\336\037\000\"\340\001\n\036QuerySwapExactAmou" +
-      "ntOutRequest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"" +
-      "sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"pool_" +
-      "id\"\022O\n\006routes\030\003 \003(\0132(.osmosis.gamm.v1bet" +
-      "a1.SwapAmountOutRouteB\025\362\336\037\ryaml:\"routes\"" +
-      "\310\336\037\000\022&\n\010tokenOut\030\004 \001(\tB\024\362\336\037\020yaml:\"token_" +
-      "out\"\"\202\001\n\037QuerySwapExactAmountOutResponse" +
-      "\022_\n\rtokenInAmount\030\001 \001(\tBH\332\336\037&github.com/" +
-      "cosmos/cosmos-sdk/types.Int\362\336\037\026yaml:\"tok" +
-      "en_in_amount\"\310\336\037\000\"\034\n\032QueryTotalLiquidity" +
-      "Request\"\221\001\n\033QueryTotalLiquidityResponse\022" +
-      "r\n\tliquidity\030\001 \003(\0132\031.cosmos.base.v1beta1" +
-      ".CoinBD\252\337\037(github.com/cosmos/cosmos-sdk/" +
-      "types.Coins\362\336\037\020yaml:\"liquidity\"\310\336\037\0002\362\014\n\005" +
-      "Query\022\177\n\005Pools\022\'.osmosis.gamm.v1beta1.Qu" +
-      "eryPoolsRequest\032(.osmosis.gamm.v1beta1.Q" +
-      "ueryPoolsResponse\"#\202\323\344\223\002\035\022\033/osmosis/gamm" +
-      "/v1beta1/pools\022\214\001\n\010NumPools\022*.osmosis.ga" +
-      "mm.v1beta1.QueryNumPoolsRequest\032+.osmosi" +
-      "s.gamm.v1beta1.QueryNumPoolsResponse\"\'\202\323" +
-      "\344\223\002!\022\037/osmosis/gamm/v1beta1/num_pools\022\244\001" +
-      "\n\016TotalLiquidity\0220.osmosis.gamm.v1beta1." +
-      "QueryTotalLiquidityRequest\0321.osmosis.gam" +
-      "m.v1beta1.QueryTotalLiquidityResponse\"-\202" +
-      "\323\344\223\002\'\022%/osmosis/gamm/v1beta1/total_liqui" +
-      "dity\022\205\001\n\004Pool\022&.osmosis.gamm.v1beta1.Que" +
-      "ryPoolRequest\032\'.osmosis.gamm.v1beta1.Que" +
-      "ryPoolResponse\",\202\323\344\223\002&\022$/osmosis/gamm/v1" +
-      "beta1/pools/{poolId}\022\236\001\n\nPoolParams\022,.os" +
-      "mosis.gamm.v1beta1.QueryPoolParamsReques" +
-      "t\032-.osmosis.gamm.v1beta1.QueryPoolParams" +
-      "Response\"3\202\323\344\223\002-\022+/osmosis/gamm/v1beta1/" +
-      "pools/{poolId}/params\022\247\001\n\013TotalShares\022-." +
-      "osmosis.gamm.v1beta1.QueryTotalSharesReq" +
-      "uest\032..osmosis.gamm.v1beta1.QueryTotalSh" +
-      "aresResponse\"9\202\323\344\223\0023\0221/osmosis/gamm/v1be" +
-      "ta1/pools/{poolId}/total_shares\022\236\001\n\nPool" +
-      "Assets\022,.osmosis.gamm.v1beta1.QueryPoolA" +
-      "ssetsRequest\032-.osmosis.gamm.v1beta1.Quer" +
-      "yPoolAssetsResponse\"3\202\323\344\223\002-\022+/osmosis/ga" +
-      "mm/v1beta1/pools/{poolId}/tokens\022\233\001\n\tSpo" +
-      "tPrice\022+.osmosis.gamm.v1beta1.QuerySpotP" +
-      "riceRequest\032,.osmosis.gamm.v1beta1.Query" +
-      "SpotPriceResponse\"3\202\323\344\223\002-\022+/osmosis/gamm" +
-      "/v1beta1/pools/{poolId}/prices\022\314\001\n\031Estim" +
-      "ateSwapExactAmountIn\0223.osmosis.gamm.v1be" +
-      "ta1.QuerySwapExactAmountInRequest\0324.osmo" +
-      "sis.gamm.v1beta1.QuerySwapExactAmountInR" +
-      "esponse\"D\202\323\344\223\002>\022</osmosis/gamm/v1beta1/{" +
-      "poolId}/estimate/swap_exact_amount_in\022\320\001" +
-      "\n\032EstimateSwapExactAmountOut\0224.osmosis.g" +
-      "amm.v1beta1.QuerySwapExactAmountOutReque" +
-      "st\0325.osmosis.gamm.v1beta1.QuerySwapExact" +
-      "AmountOutResponse\"E\202\323\344\223\002?\022=/osmosis/gamm" +
-      "/v1beta1/{poolId}/estimate/swap_exact_am" +
-      "ount_outB.Z,github.com/osmosis-labs/osmo" +
-      "sis/x/gamm/typesb\006proto3"
+      "nnotations.proto\032\032google/protobuf2/any.p" +
+      "roto\032\031cosmos_proto/cosmos.proto\"6\n\020Query" +
+      "PoolRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"p" +
+      "ool_id\"\"B\n\021QueryPoolResponse\022-\n\004pool\030\001 \001" +
+      "(\0132\024.google.protobuf.AnyB\t\312\264-\005PoolI\"O\n\021Q" +
+      "ueryPoolsRequest\022:\n\npagination\030\002 \001(\0132&.c" +
+      "osmos.base.query.v1beta1.PageRequest\"\201\001\n" +
+      "\022QueryPoolsResponse\022.\n\005pools\030\001 \003(\0132\024.goo" +
+      "gle.protobuf.AnyB\t\312\264-\005PoolI\022;\n\npaginatio" +
+      "n\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Page" +
+      "Response\"\026\n\024QueryNumPoolsRequest\"?\n\025Quer" +
+      "yNumPoolsResponse\022&\n\010numPools\030\001 \001(\004B\024\362\336\037" +
+      "\020yaml:\"num_pools\"\"<\n\026QueryPoolParamsRequ" +
+      "est\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\"" +
+      "k\n\027QueryPoolParamsResponse\022F\n\022balancerPo" +
+      "olParams\030\001 \001(\0132(.osmosis.gamm.v1beta1.Ba" +
+      "lancerPoolParamsH\000B\010\n\006params\"=\n\027QueryTot" +
+      "alSharesRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yam" +
+      "l:\"pool_id\"\"g\n\030QueryTotalSharesResponse\022" +
+      "K\n\013totalShares\030\001 \001(\0132\031.cosmos.base.v1bet" +
+      "a1.CoinB\033\362\336\037\023yaml:\"total_shares\"\310\336\037\000\"<\n\026" +
+      "QueryPoolAssetsRequest\022\"\n\006poolId\030\001 \001(\004B\022" +
+      "\362\336\037\016yaml:\"pool_id\"\"T\n\027QueryPoolAssetsRes" +
+      "ponse\0229\n\npoolAssets\030\001 \003(\0132\037.osmosis.gamm" +
+      ".v1beta1.PoolAssetB\004\310\336\037\000\"\316\001\n\025QuerySpotPr" +
+      "iceRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"po" +
+      "ol_id\"\022/\n\014tokenInDenom\030\002 \001(\tB\031\362\336\037\025yaml:\"" +
+      "token_in_denom\"\0221\n\rtokenOutDenom\030\003 \001(\tB\032" +
+      "\362\336\037\026yaml:\"token_out_denom\"\022-\n\013withSwapFe" +
+      "e\030\004 \001(\010B\030\362\336\037\024yaml:\"with_swap_fee\"\"B\n\026Que" +
+      "rySpotPriceResponse\022(\n\tspotPrice\030\001 \001(\tB\025" +
+      "\362\336\037\021yaml:\"spot_price\"\"\334\001\n\035QuerySwapExact" +
+      "AmountInRequest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryam" +
+      "l:\"sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"po" +
+      "ol_id\"\022$\n\007tokenIn\030\003 \001(\tB\023\362\336\037\017yaml:\"token" +
+      "_in\"\022N\n\006routes\030\004 \003(\0132\'.osmosis.gamm.v1be" +
+      "ta1.SwapAmountInRouteB\025\362\336\037\ryaml:\"routes\"" +
+      "\310\336\037\000\"\203\001\n\036QuerySwapExactAmountInResponse\022" +
+      "a\n\016tokenOutAmount\030\001 \001(\tBI\332\336\037&github.com/" +
+      "cosmos/cosmos-sdk/types.Int\362\336\037\027yaml:\"tok" +
+      "en_out_amount\"\310\336\037\000\"\340\001\n\036QuerySwapExactAmo" +
+      "untOutRequest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:" +
+      "\"sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"pool" +
+      "_id\"\022O\n\006routes\030\003 \003(\0132(.osmosis.gamm.v1be" +
+      "ta1.SwapAmountOutRouteB\025\362\336\037\ryaml:\"routes" +
+      "\"\310\336\037\000\022&\n\010tokenOut\030\004 \001(\tB\024\362\336\037\020yaml:\"token" +
+      "_out\"\"\202\001\n\037QuerySwapExactAmountOutRespons" +
+      "e\022_\n\rtokenInAmount\030\001 \001(\tBH\332\336\037&github.com" +
+      "/cosmos/cosmos-sdk/types.Int\362\336\037\026yaml:\"to" +
+      "ken_in_amount\"\310\336\037\000\"\034\n\032QueryTotalLiquidit" +
+      "yRequest\"\221\001\n\033QueryTotalLiquidityResponse" +
+      "\022r\n\tliquidity\030\001 \003(\0132\031.cosmos.base.v1beta" +
+      "1.CoinBD\252\337\037(github.com/cosmos/cosmos-sdk" +
+      "/types.Coins\362\336\037\020yaml:\"liquidity\"\310\336\037\0002\362\014\n" +
+      "\005Query\022\177\n\005Pools\022\'.osmosis.gamm.v1beta1.Q" +
+      "ueryPoolsRequest\032(.osmosis.gamm.v1beta1." +
+      "QueryPoolsResponse\"#\202\323\344\223\002\035\022\033/osmosis/gam" +
+      "m/v1beta1/pools\022\214\001\n\010NumPools\022*.osmosis.g" +
+      "amm.v1beta1.QueryNumPoolsRequest\032+.osmos" +
+      "is.gamm.v1beta1.QueryNumPoolsResponse\"\'\202" +
+      "\323\344\223\002!\022\037/osmosis/gamm/v1beta1/num_pools\022\244" +
+      "\001\n\016TotalLiquidity\0220.osmosis.gamm.v1beta1" +
+      ".QueryTotalLiquidityRequest\0321.osmosis.ga" +
+      "mm.v1beta1.QueryTotalLiquidityResponse\"-" +
+      "\202\323\344\223\002\'\022%/osmosis/gamm/v1beta1/total_liqu" +
+      "idity\022\205\001\n\004Pool\022&.osmosis.gamm.v1beta1.Qu" +
+      "eryPoolRequest\032\'.osmosis.gamm.v1beta1.Qu" +
+      "eryPoolResponse\",\202\323\344\223\002&\022$/osmosis/gamm/v" +
+      "1beta1/pools/{poolId}\022\236\001\n\nPoolParams\022,.o" +
+      "smosis.gamm.v1beta1.QueryPoolParamsReque" +
+      "st\032-.osmosis.gamm.v1beta1.QueryPoolParam" +
+      "sResponse\"3\202\323\344\223\002-\022+/osmosis/gamm/v1beta1" +
+      "/pools/{poolId}/params\022\247\001\n\013TotalShares\022-" +
+      ".osmosis.gamm.v1beta1.QueryTotalSharesRe" +
+      "quest\032..osmosis.gamm.v1beta1.QueryTotalS" +
+      "haresResponse\"9\202\323\344\223\0023\0221/osmosis/gamm/v1b" +
+      "eta1/pools/{poolId}/total_shares\022\236\001\n\nPoo" +
+      "lAssets\022,.osmosis.gamm.v1beta1.QueryPool" +
+      "AssetsRequest\032-.osmosis.gamm.v1beta1.Que" +
+      "ryPoolAssetsResponse\"3\202\323\344\223\002-\022+/osmosis/g" +
+      "amm/v1beta1/pools/{poolId}/tokens\022\233\001\n\tSp" +
+      "otPrice\022+.osmosis.gamm.v1beta1.QuerySpot" +
+      "PriceRequest\032,.osmosis.gamm.v1beta1.Quer" +
+      "ySpotPriceResponse\"3\202\323\344\223\002-\022+/osmosis/gam" +
+      "m/v1beta1/pools/{poolId}/prices\022\314\001\n\031Esti" +
+      "mateSwapExactAmountIn\0223.osmosis.gamm.v1b" +
+      "eta1.QuerySwapExactAmountInRequest\0324.osm" +
+      "osis.gamm.v1beta1.QuerySwapExactAmountIn" +
+      "Response\"D\202\323\344\223\002>\022</osmosis/gamm/v1beta1/" +
+      "{poolId}/estimate/swap_exact_amount_in\022\320" +
+      "\001\n\032EstimateSwapExactAmountOut\0224.osmosis." +
+      "gamm.v1beta1.QuerySwapExactAmountOutRequ" +
+      "est\0325.osmosis.gamm.v1beta1.QuerySwapExac" +
+      "tAmountOutResponse\"E\202\323\344\223\002?\022=/osmosis/gam" +
+      "m/v1beta1/{poolId}/estimate/swap_exact_a" +
+      "mount_outB.Z,github.com/osmosis-labs/osm" +
+      "osis/x/gamm/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

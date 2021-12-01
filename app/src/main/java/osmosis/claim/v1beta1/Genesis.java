@@ -1469,29 +1469,23 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n#osmosis/claim/v1beta1/genesis.proto\022\025o" +
       "smosis.claim.v1beta1\032\024gogoproto/gogo.pro" +
-      "to\032\036cosmos/base/v1beta1/coin.proto\032!cosm" +
-      "os/bank/v1beta1/genesis.proto\032\036google/pr" +
-      "otobuf/duration.proto\032\037google/protobuf/t" +
-      "imestamp.proto\032!osmosis/claim/v1beta1/cl" +
-      "aim.proto\032\"osmosis/claim/v1beta1/params." +
-      "proto\"\217\002\n\014GenesisState\022`\n\026module_account" +
-      "_balance\030\001 \001(\0132\031.cosmos.base.v1beta1.Coi" +
-      "nB%\362\336\037\035yaml:\"module_account_balance\"\310\336\037\000" +
-      "\022D\n\006params\030\002 \001(\0132\035.osmosis.claim.v1beta1" +
-      ".ParamsB\025\362\336\037\ryaml:\"params\"\310\336\037\000\022W\n\rclaim_" +
-      "records\030\003 \003(\0132\".osmosis.claim.v1beta1.Cl" +
-      "aimRecordB\034\362\336\037\024yaml:\"claim_records\"\310\336\037\000B" +
-      "/Z-github.com/osmosis-labs/osmosis/x/cla" +
-      "im/typesb\006proto3"
+      "to\032\036cosmos/base/v1beta1/coin.proto\032!osmo" +
+      "sis/claim/v1beta1/claim.proto\032\"osmosis/c" +
+      "laim/v1beta1/params.proto\"\217\002\n\014GenesisSta" +
+      "te\022`\n\026module_account_balance\030\001 \001(\0132\031.cos" +
+      "mos.base.v1beta1.CoinB%\362\336\037\035yaml:\"module_" +
+      "account_balance\"\310\336\037\000\022D\n\006params\030\002 \001(\0132\035.o" +
+      "smosis.claim.v1beta1.ParamsB\025\362\336\037\ryaml:\"p" +
+      "arams\"\310\336\037\000\022W\n\rclaim_records\030\003 \003(\0132\".osmo" +
+      "sis.claim.v1beta1.ClaimRecordB\034\362\336\037\024yaml:" +
+      "\"claim_records\"\310\336\037\000B/Z-github.com/osmosi" +
+      "s-labs/osmosis/x/claim/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          cosmos.bank.v1beta1.Genesis.getDescriptor(),
-          com.google.protobuf.DurationProto.getDescriptor(),
-          com.google.protobuf.TimestampProto.getDescriptor(),
           osmosis.claim.v1beta1.Claim.getDescriptor(),
           osmosis.claim.v1beta1.ParamsOuterClass.getDescriptor(),
         });
@@ -1509,9 +1503,6 @@ public final class Genesis {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    cosmos.bank.v1beta1.Genesis.getDescriptor();
-    com.google.protobuf.DurationProto.getDescriptor();
-    com.google.protobuf.TimestampProto.getDescriptor();
     osmosis.claim.v1beta1.Claim.getDescriptor();
     osmosis.claim.v1beta1.ParamsOuterClass.getDescriptor();
   }

@@ -8301,72 +8301,72 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n\025em/market/v1/tx.proto\022\014em.market.v1\032\024g" +
       "ogoproto/gogo.proto\032\036cosmos/base/v1beta1" +
-      "/coin.proto\032\031em/market/v1/market.proto\032\037" +
-      "google/protobuf/timestamp.proto\"\302\002\n\020MsgA" +
-      "ddLimitOrder\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:\"o" +
-      "wner\"\0223\n\017client_order_id\030\002 \001(\tB\032\362\336\037\026yaml" +
-      ":\"client_order_id\"\022J\n\rtime_in_force\030\003 \001(" +
-      "\0162\031.em.market.v1.TimeInForceB\030\362\336\037\024yaml:\"" +
-      "time_in_force\"\022@\n\006source\030\004 \001(\0132\031.cosmos." +
-      "base.v1beta1.CoinB\025\362\336\037\ryaml:\"source\"\310\336\037\000" +
-      "\022J\n\013destination\030\005 \001(\0132\031.cosmos.base.v1be" +
-      "ta1.CoinB\032\362\336\037\022yaml:\"destination\"\310\336\037\000\"\032\n\030" +
-      "MsgAddLimitOrderResponse\"\230\003\n\021MsgAddMarke" +
+      "/coin.proto\032\031em/market/v1/market.proto\"\302" +
+      "\002\n\020MsgAddLimitOrder\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014" +
+      "yaml:\"owner\"\0223\n\017client_order_id\030\002 \001(\tB\032\362" +
+      "\336\037\026yaml:\"client_order_id\"\022J\n\rtime_in_for" +
+      "ce\030\003 \001(\0162\031.em.market.v1.TimeInForceB\030\362\336\037" +
+      "\024yaml:\"time_in_force\"\022@\n\006source\030\004 \001(\0132\031." +
+      "cosmos.base.v1beta1.CoinB\025\362\336\037\ryaml:\"sour" +
+      "ce\"\310\336\037\000\022J\n\013destination\030\005 \001(\0132\031.cosmos.ba" +
+      "se.v1beta1.CoinB\032\362\336\037\022yaml:\"destination\"\310" +
+      "\336\037\000\"\032\n\030MsgAddLimitOrderResponse\"\230\003\n\021MsgA" +
+      "ddMarketOrder\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:\"" +
+      "owner\"\0223\n\017client_order_id\030\002 \001(\tB\032\362\336\037\026yam" +
+      "l:\"client_order_id\"\022J\n\rtime_in_force\030\003 \001" +
+      "(\0162\031.em.market.v1.TimeInForceB\030\362\336\037\024yaml:" +
+      "\"time_in_force\"\022!\n\006source\030\004 \001(\tB\021\362\336\037\ryam" +
+      "l:\"source\"\022J\n\013destination\030\005 \001(\0132\031.cosmos" +
+      ".base.v1beta1.CoinB\032\362\336\037\022yaml:\"destinatio" +
+      "n\"\310\336\037\000\022r\n\020maximum_slippage\030\006 \001(\tBX\342\336\037\013Ma" +
+      "xSlippage\362\336\037\027yaml:\"maximum_slippage\"\332\336\037&" +
+      "github.com/cosmos/cosmos-sdk/types.Dec\310\336" +
+      "\037\000\"\033\n\031MsgAddMarketOrderResponse\"f\n\016MsgCa" +
+      "ncelOrder\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:\"owne" +
+      "r\"\0223\n\017client_order_id\030\002 \001(\tB\032\362\336\037\026yaml:\"c" +
+      "lient_order_id\"\"\030\n\026MsgCancelOrderRespons" +
+      "e\"\304\003\n\032MsgCancelReplaceLimitOrder\022\037\n\005owne" +
+      "r\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\022Z\n\030original_cl" +
+      "ient_order_id\030\002 \001(\tB8\342\336\037\021OrigClientOrder" +
+      "Id\362\336\037\037yaml:\"original_client_order_id\"\022O\n" +
+      "\023new_client_order_id\030\003 \001(\tB2\342\336\037\020NewClien" +
+      "tOrderId\362\336\037\032yaml:\"new_client_order_id\"\022J" +
+      "\n\rtime_in_force\030\004 \001(\0162\031.em.market.v1.Tim" +
+      "eInForceB\030\362\336\037\024yaml:\"time_in_force\"\022@\n\006so" +
+      "urce\030\005 \001(\0132\031.cosmos.base.v1beta1.CoinB\025\362" +
+      "\336\037\ryaml:\"source\"\310\336\037\000\022J\n\013destination\030\006 \001(" +
+      "\0132\031.cosmos.base.v1beta1.CoinB\032\362\336\037\022yaml:\"" +
+      "destination\"\310\336\037\000\"$\n\"MsgCancelReplaceLimi" +
+      "tOrderResponse\"\232\004\n\033MsgCancelReplaceMarke" +
       "tOrder\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\022" +
-      "3\n\017client_order_id\030\002 \001(\tB\032\362\336\037\026yaml:\"clie" +
-      "nt_order_id\"\022J\n\rtime_in_force\030\003 \001(\0162\031.em" +
+      "Z\n\030original_client_order_id\030\002 \001(\tB8\342\336\037\021O" +
+      "rigClientOrderId\362\336\037\037yaml:\"original_clien" +
+      "t_order_id\"\022O\n\023new_client_order_id\030\003 \001(\t" +
+      "B2\342\336\037\020NewClientOrderId\362\336\037\032yaml:\"new_clie" +
+      "nt_order_id\"\022J\n\rtime_in_force\030\004 \001(\0162\031.em" +
       ".market.v1.TimeInForceB\030\362\336\037\024yaml:\"time_i" +
-      "n_force\"\022!\n\006source\030\004 \001(\tB\021\362\336\037\ryaml:\"sour" +
-      "ce\"\022J\n\013destination\030\005 \001(\0132\031.cosmos.base.v" +
+      "n_force\"\022!\n\006source\030\005 \001(\tB\021\362\336\037\ryaml:\"sour" +
+      "ce\"\022J\n\013destination\030\006 \001(\0132\031.cosmos.base.v" +
       "1beta1.CoinB\032\362\336\037\022yaml:\"destination\"\310\336\037\000\022" +
-      "r\n\020maximum_slippage\030\006 \001(\tBX\342\336\037\013MaxSlippa" +
+      "r\n\020maximum_slippage\030\007 \001(\tBX\342\336\037\013MaxSlippa" +
       "ge\362\336\037\027yaml:\"maximum_slippage\"\332\336\037&github." +
-      "com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\"\033\n\031M" +
-      "sgAddMarketOrderResponse\"f\n\016MsgCancelOrd" +
-      "er\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\0223\n\017c" +
-      "lient_order_id\030\002 \001(\tB\032\362\336\037\026yaml:\"client_o" +
-      "rder_id\"\"\030\n\026MsgCancelOrderResponse\"\304\003\n\032M" +
-      "sgCancelReplaceLimitOrder\022\037\n\005owner\030\001 \001(\t" +
-      "B\020\362\336\037\014yaml:\"owner\"\022Z\n\030original_client_or" +
-      "der_id\030\002 \001(\tB8\342\336\037\021OrigClientOrderId\362\336\037\037y" +
-      "aml:\"original_client_order_id\"\022O\n\023new_cl" +
-      "ient_order_id\030\003 \001(\tB2\342\336\037\020NewClientOrderI" +
-      "d\362\336\037\032yaml:\"new_client_order_id\"\022J\n\rtime_" +
-      "in_force\030\004 \001(\0162\031.em.market.v1.TimeInForc" +
-      "eB\030\362\336\037\024yaml:\"time_in_force\"\022@\n\006source\030\005 " +
-      "\001(\0132\031.cosmos.base.v1beta1.CoinB\025\362\336\037\ryaml" +
-      ":\"source\"\310\336\037\000\022J\n\013destination\030\006 \001(\0132\031.cos" +
-      "mos.base.v1beta1.CoinB\032\362\336\037\022yaml:\"destina" +
-      "tion\"\310\336\037\000\"$\n\"MsgCancelReplaceLimitOrderR" +
-      "esponse\"\232\004\n\033MsgCancelReplaceMarketOrder\022" +
-      "\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\022Z\n\030orig" +
-      "inal_client_order_id\030\002 \001(\tB8\342\336\037\021OrigClie" +
-      "ntOrderId\362\336\037\037yaml:\"original_client_order" +
-      "_id\"\022O\n\023new_client_order_id\030\003 \001(\tB2\342\336\037\020N" +
-      "ewClientOrderId\362\336\037\032yaml:\"new_client_orde" +
-      "r_id\"\022J\n\rtime_in_force\030\004 \001(\0162\031.em.market" +
-      ".v1.TimeInForceB\030\362\336\037\024yaml:\"time_in_force" +
-      "\"\022!\n\006source\030\005 \001(\tB\021\362\336\037\ryaml:\"source\"\022J\n\013" +
-      "destination\030\006 \001(\0132\031.cosmos.base.v1beta1." +
-      "CoinB\032\362\336\037\022yaml:\"destination\"\310\336\037\000\022r\n\020maxi" +
-      "mum_slippage\030\007 \001(\tBX\342\336\037\013MaxSlippage\362\336\037\027y" +
-      "aml:\"maximum_slippage\"\332\336\037&github.com/cos" +
-      "mos/cosmos-sdk/types.Dec\310\336\037\000\"%\n#MsgCance" +
-      "lReplaceMarketOrderResponse2\376\003\n\003Msg\022W\n\rA" +
-      "ddLimitOrder\022\036.em.market.v1.MsgAddLimitO" +
-      "rder\032&.em.market.v1.MsgAddLimitOrderResp" +
-      "onse\022Z\n\016AddMarketOrder\022\037.em.market.v1.Ms" +
-      "gAddMarketOrder\032\'.em.market.v1.MsgAddMar" +
-      "ketOrderResponse\022Q\n\013CancelOrder\022\034.em.mar" +
-      "ket.v1.MsgCancelOrder\032$.em.market.v1.Msg" +
-      "CancelOrderResponse\022u\n\027CancelReplaceLimi" +
-      "tOrder\022(.em.market.v1.MsgCancelReplaceLi" +
-      "mitOrder\0320.em.market.v1.MsgCancelReplace" +
-      "LimitOrderResponse\022x\n\030CancelReplaceMarke" +
-      "tOrder\022).em.market.v1.MsgCancelReplaceMa" +
-      "rketOrder\0321.em.market.v1.MsgCancelReplac" +
-      "eMarketOrderResponseB-Z+github.com/e-mon" +
-      "ey/em-ledger/x/market/typesb\006proto3"
+      "com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\"%\n#M" +
+      "sgCancelReplaceMarketOrderResponse2\376\003\n\003M" +
+      "sg\022W\n\rAddLimitOrder\022\036.em.market.v1.MsgAd" +
+      "dLimitOrder\032&.em.market.v1.MsgAddLimitOr" +
+      "derResponse\022Z\n\016AddMarketOrder\022\037.em.marke" +
+      "t.v1.MsgAddMarketOrder\032\'.em.market.v1.Ms" +
+      "gAddMarketOrderResponse\022Q\n\013CancelOrder\022\034" +
+      ".em.market.v1.MsgCancelOrder\032$.em.market" +
+      ".v1.MsgCancelOrderResponse\022u\n\027CancelRepl" +
+      "aceLimitOrder\022(.em.market.v1.MsgCancelRe" +
+      "placeLimitOrder\0320.em.market.v1.MsgCancel" +
+      "ReplaceLimitOrderResponse\022x\n\030CancelRepla" +
+      "ceMarketOrder\022).em.market.v1.MsgCancelRe" +
+      "placeMarketOrder\0321.em.market.v1.MsgCance" +
+      "lReplaceMarketOrderResponseB-Z+github.co" +
+      "m/e-money/em-ledger/x/market/typesb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8374,7 +8374,6 @@ public final class Tx {
           com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           em.market.v1.Market.getDescriptor(),
-          com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_em_market_v1_MsgAddLimitOrder_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -8447,7 +8446,6 @@ public final class Tx {
     com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     em.market.v1.Market.getDescriptor();
-    com.google.protobuf.TimestampProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

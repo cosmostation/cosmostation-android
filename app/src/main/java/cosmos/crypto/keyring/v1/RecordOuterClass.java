@@ -4414,21 +4414,21 @@ public final class RecordOuterClass {
     java.lang.String[] descriptorData = {
       "\n%cosmos/crypto/keyring/v1/record.proto\022" +
       "\030cosmos.crypto.keyring.v1\032\024gogoproto/gog" +
-      "o.proto\032\031google/protobuf/any.proto\032\034cosm" +
-      "os/crypto/hd/v1/hd.proto\"\305\003\n\006Record\022\014\n\004n" +
-      "ame\030\001 \001(\t\022%\n\007pub_key\030\002 \001(\0132\024.google.prot" +
-      "obuf.Any\0227\n\005local\030\003 \001(\0132&.cosmos.crypto." +
-      "keyring.v1.Record.LocalH\000\0229\n\006ledger\030\004 \001(" +
-      "\0132\'.cosmos.crypto.keyring.v1.Record.Ledg" +
-      "erH\000\0227\n\005multi\030\005 \001(\0132&.cosmos.crypto.keyr" +
-      "ing.v1.Record.MultiH\000\022;\n\007offline\030\006 \001(\0132(" +
-      ".cosmos.crypto.keyring.v1.Record.Offline" +
-      "H\000\032F\n\005Local\022&\n\010priv_key\030\001 \001(\0132\024.google.p" +
-      "rotobuf.Any\022\025\n\rpriv_key_type\030\002 \001(\t\0328\n\006Le" +
-      "dger\022.\n\004path\030\001 \001(\0132 .cosmos.crypto.hd.v1" +
-      ".BIP44Params\032\007\n\005Multi\032\t\n\007OfflineB\006\n\004item" +
-      "B1Z+github.com/cosmos/cosmos-sdk/crypto/" +
-      "keyring\310\341\036\000b\006proto3"
+      "o.proto\032\032google/protobuf2/any.proto\032\034cos" +
+      "mos/crypto/hd/v1/hd.proto\"\305\003\n\006Record\022\014\n\004" +
+      "name\030\001 \001(\t\022%\n\007pub_key\030\002 \001(\0132\024.google.pro" +
+      "tobuf.Any\0227\n\005local\030\003 \001(\0132&.cosmos.crypto" +
+      ".keyring.v1.Record.LocalH\000\0229\n\006ledger\030\004 \001" +
+      "(\0132\'.cosmos.crypto.keyring.v1.Record.Led" +
+      "gerH\000\0227\n\005multi\030\005 \001(\0132&.cosmos.crypto.key" +
+      "ring.v1.Record.MultiH\000\022;\n\007offline\030\006 \001(\0132" +
+      "(.cosmos.crypto.keyring.v1.Record.Offlin" +
+      "eH\000\032F\n\005Local\022&\n\010priv_key\030\001 \001(\0132\024.google." +
+      "protobuf.Any\022\025\n\rpriv_key_type\030\002 \001(\t\0328\n\006L" +
+      "edger\022.\n\004path\030\001 \001(\0132 .cosmos.crypto.hd.v" +
+      "1.BIP44Params\032\007\n\005Multi\032\t\n\007OfflineB\006\n\004ite" +
+      "mB1Z+github.com/cosmos/cosmos-sdk/crypto" +
+      "/keyring\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

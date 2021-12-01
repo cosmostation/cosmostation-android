@@ -25,7 +25,7 @@ public final class Liquidity {
      * {"id":1,"name":"ConstantProductLiquidityPool","min_reserve_coin_num":2,"max_reserve_coin_num":2,"description":""}
      * </pre>
      *
-     * <code>uint32 id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint32 id = 1 [(.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
     int getId();
@@ -35,7 +35,7 @@ public final class Liquidity {
      * name of the pool type.
      * </pre>
      *
-     * <code>string name = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The name.
      */
     java.lang.String getName();
@@ -44,7 +44,7 @@ public final class Liquidity {
      * name of the pool type.
      * </pre>
      *
-     * <code>string name = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The bytes for name.
      */
     com.google.protobuf.ByteString
@@ -55,7 +55,7 @@ public final class Liquidity {
      * minimum number of reserveCoins for LiquidityPoolType, only 2 reserve coins are supported.
      * </pre>
      *
-     * <code>uint32 min_reserve_coin_num = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint32 min_reserve_coin_num = 3 [(.gogoproto.moretags) = "yaml:&#92;"min_reserve_coin_num&#92;""];</code>
      * @return The minReserveCoinNum.
      */
     int getMinReserveCoinNum();
@@ -65,7 +65,7 @@ public final class Liquidity {
      * maximum number of reserveCoins for LiquidityPoolType, only 2 reserve coins are supported.
      * </pre>
      *
-     * <code>uint32 max_reserve_coin_num = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint32 max_reserve_coin_num = 4 [(.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_num&#92;""];</code>
      * @return The maxReserveCoinNum.
      */
     int getMaxReserveCoinNum();
@@ -209,7 +209,7 @@ public final class Liquidity {
      * {"id":1,"name":"ConstantProductLiquidityPool","min_reserve_coin_num":2,"max_reserve_coin_num":2,"description":""}
      * </pre>
      *
-     * <code>uint32 id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint32 id = 1 [(.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
     @java.lang.Override
@@ -224,7 +224,7 @@ public final class Liquidity {
      * name of the pool type.
      * </pre>
      *
-     * <code>string name = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The name.
      */
     @java.lang.Override
@@ -245,7 +245,7 @@ public final class Liquidity {
      * name of the pool type.
      * </pre>
      *
-     * <code>string name = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The bytes for name.
      */
     @java.lang.Override
@@ -270,7 +270,7 @@ public final class Liquidity {
      * minimum number of reserveCoins for LiquidityPoolType, only 2 reserve coins are supported.
      * </pre>
      *
-     * <code>uint32 min_reserve_coin_num = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint32 min_reserve_coin_num = 3 [(.gogoproto.moretags) = "yaml:&#92;"min_reserve_coin_num&#92;""];</code>
      * @return The minReserveCoinNum.
      */
     @java.lang.Override
@@ -285,7 +285,7 @@ public final class Liquidity {
      * maximum number of reserveCoins for LiquidityPoolType, only 2 reserve coins are supported.
      * </pre>
      *
-     * <code>uint32 max_reserve_coin_num = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint32 max_reserve_coin_num = 4 [(.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_num&#92;""];</code>
      * @return The maxReserveCoinNum.
      */
     @java.lang.Override
@@ -721,7 +721,7 @@ public final class Liquidity {
        * {"id":1,"name":"ConstantProductLiquidityPool","min_reserve_coin_num":2,"max_reserve_coin_num":2,"description":""}
        * </pre>
        *
-       * <code>uint32 id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 id = 1 [(.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        * @return The id.
        */
       @java.lang.Override
@@ -735,7 +735,7 @@ public final class Liquidity {
        * {"id":1,"name":"ConstantProductLiquidityPool","min_reserve_coin_num":2,"max_reserve_coin_num":2,"description":""}
        * </pre>
        *
-       * <code>uint32 id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 id = 1 [(.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        * @param value The id to set.
        * @return This builder for chaining.
        */
@@ -752,7 +752,7 @@ public final class Liquidity {
        * {"id":1,"name":"ConstantProductLiquidityPool","min_reserve_coin_num":2,"max_reserve_coin_num":2,"description":""}
        * </pre>
        *
-       * <code>uint32 id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 id = 1 [(.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearId() {
@@ -768,7 +768,7 @@ public final class Liquidity {
        * name of the pool type.
        * </pre>
        *
-       * <code>string name = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
        * @return The name.
        */
       public java.lang.String getName() {
@@ -788,7 +788,7 @@ public final class Liquidity {
        * name of the pool type.
        * </pre>
        *
-       * <code>string name = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
        * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
@@ -809,7 +809,7 @@ public final class Liquidity {
        * name of the pool type.
        * </pre>
        *
-       * <code>string name = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
        * @param value The name to set.
        * @return This builder for chaining.
        */
@@ -828,7 +828,7 @@ public final class Liquidity {
        * name of the pool type.
        * </pre>
        *
-       * <code>string name = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearName() {
@@ -842,7 +842,7 @@ public final class Liquidity {
        * name of the pool type.
        * </pre>
        *
-       * <code>string name = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
        * @param value The bytes for name to set.
        * @return This builder for chaining.
        */
@@ -864,7 +864,7 @@ public final class Liquidity {
        * minimum number of reserveCoins for LiquidityPoolType, only 2 reserve coins are supported.
        * </pre>
        *
-       * <code>uint32 min_reserve_coin_num = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 min_reserve_coin_num = 3 [(.gogoproto.moretags) = "yaml:&#92;"min_reserve_coin_num&#92;""];</code>
        * @return The minReserveCoinNum.
        */
       @java.lang.Override
@@ -876,7 +876,7 @@ public final class Liquidity {
        * minimum number of reserveCoins for LiquidityPoolType, only 2 reserve coins are supported.
        * </pre>
        *
-       * <code>uint32 min_reserve_coin_num = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 min_reserve_coin_num = 3 [(.gogoproto.moretags) = "yaml:&#92;"min_reserve_coin_num&#92;""];</code>
        * @param value The minReserveCoinNum to set.
        * @return This builder for chaining.
        */
@@ -891,7 +891,7 @@ public final class Liquidity {
        * minimum number of reserveCoins for LiquidityPoolType, only 2 reserve coins are supported.
        * </pre>
        *
-       * <code>uint32 min_reserve_coin_num = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 min_reserve_coin_num = 3 [(.gogoproto.moretags) = "yaml:&#92;"min_reserve_coin_num&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearMinReserveCoinNum() {
@@ -907,7 +907,7 @@ public final class Liquidity {
        * maximum number of reserveCoins for LiquidityPoolType, only 2 reserve coins are supported.
        * </pre>
        *
-       * <code>uint32 max_reserve_coin_num = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 max_reserve_coin_num = 4 [(.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_num&#92;""];</code>
        * @return The maxReserveCoinNum.
        */
       @java.lang.Override
@@ -919,7 +919,7 @@ public final class Liquidity {
        * maximum number of reserveCoins for LiquidityPoolType, only 2 reserve coins are supported.
        * </pre>
        *
-       * <code>uint32 max_reserve_coin_num = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 max_reserve_coin_num = 4 [(.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_num&#92;""];</code>
        * @param value The maxReserveCoinNum to set.
        * @return This builder for chaining.
        */
@@ -934,7 +934,7 @@ public final class Liquidity {
        * maximum number of reserveCoins for LiquidityPoolType, only 2 reserve coins are supported.
        * </pre>
        *
-       * <code>uint32 max_reserve_coin_num = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 max_reserve_coin_num = 4 [(.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_num&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearMaxReserveCoinNum() {
@@ -1145,7 +1145,7 @@ public final class Liquidity {
      * Minimum number of coins to be deposited to the liquidity pool on pool creation.
      * </pre>
      *
-     * <code>string min_init_deposit_amount = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string min_init_deposit_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_init_deposit_amount&#92;""];</code>
      * @return The minInitDepositAmount.
      */
     java.lang.String getMinInitDepositAmount();
@@ -1154,7 +1154,7 @@ public final class Liquidity {
      * Minimum number of coins to be deposited to the liquidity pool on pool creation.
      * </pre>
      *
-     * <code>string min_init_deposit_amount = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string min_init_deposit_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_init_deposit_amount&#92;""];</code>
      * @return The bytes for minInitDepositAmount.
      */
     com.google.protobuf.ByteString
@@ -1165,7 +1165,7 @@ public final class Liquidity {
      * Initial mint amount of pool coins upon pool creation.
      * </pre>
      *
-     * <code>string init_pool_coin_mint_amount = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string init_pool_coin_mint_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"init_pool_coin_mint_amount&#92;""];</code>
      * @return The initPoolCoinMintAmount.
      */
     java.lang.String getInitPoolCoinMintAmount();
@@ -1174,7 +1174,7 @@ public final class Liquidity {
      * Initial mint amount of pool coins upon pool creation.
      * </pre>
      *
-     * <code>string init_pool_coin_mint_amount = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string init_pool_coin_mint_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"init_pool_coin_mint_amount&#92;""];</code>
      * @return The bytes for initPoolCoinMintAmount.
      */
     com.google.protobuf.ByteString
@@ -1185,7 +1185,7 @@ public final class Liquidity {
      * Limit the size of each liquidity pool to minimize risk. In development, set to 0 for no limit. In production, set a limit.
      * </pre>
      *
-     * <code>string max_reserve_coin_amount = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string max_reserve_coin_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_amount&#92;""];</code>
      * @return The maxReserveCoinAmount.
      */
     java.lang.String getMaxReserveCoinAmount();
@@ -1194,7 +1194,7 @@ public final class Liquidity {
      * Limit the size of each liquidity pool to minimize risk. In development, set to 0 for no limit. In production, set a limit.
      * </pre>
      *
-     * <code>string max_reserve_coin_amount = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string max_reserve_coin_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_amount&#92;""];</code>
      * @return The bytes for maxReserveCoinAmount.
      */
     com.google.protobuf.ByteString
@@ -1205,7 +1205,7 @@ public final class Liquidity {
      * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> 
         getPoolCreationFeeList();
@@ -1214,7 +1214,7 @@ public final class Liquidity {
      * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getPoolCreationFee(int index);
     /**
@@ -1222,7 +1222,7 @@ public final class Liquidity {
      * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     int getPoolCreationFeeCount();
     /**
@@ -1230,7 +1230,7 @@ public final class Liquidity {
      * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getPoolCreationFeeOrBuilderList();
@@ -1239,7 +1239,7 @@ public final class Liquidity {
      * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPoolCreationFeeOrBuilder(
         int index);
@@ -1249,7 +1249,7 @@ public final class Liquidity {
      * Swap fee rate for every executed swap.
      * </pre>
      *
-     * <code>string swap_fee_rate = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string swap_fee_rate = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_fee_rate&#92;""];</code>
      * @return The swapFeeRate.
      */
     java.lang.String getSwapFeeRate();
@@ -1258,7 +1258,7 @@ public final class Liquidity {
      * Swap fee rate for every executed swap.
      * </pre>
      *
-     * <code>string swap_fee_rate = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string swap_fee_rate = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_fee_rate&#92;""];</code>
      * @return The bytes for swapFeeRate.
      */
     com.google.protobuf.ByteString
@@ -1269,7 +1269,7 @@ public final class Liquidity {
      * Reserve coin withdrawal with less proportion by withdrawFeeRate.
      * </pre>
      *
-     * <code>string withdraw_fee_rate = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string withdraw_fee_rate = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"withdraw_fee_rate&#92;""];</code>
      * @return The withdrawFeeRate.
      */
     java.lang.String getWithdrawFeeRate();
@@ -1278,7 +1278,7 @@ public final class Liquidity {
      * Reserve coin withdrawal with less proportion by withdrawFeeRate.
      * </pre>
      *
-     * <code>string withdraw_fee_rate = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string withdraw_fee_rate = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"withdraw_fee_rate&#92;""];</code>
      * @return The bytes for withdrawFeeRate.
      */
     com.google.protobuf.ByteString
@@ -1289,7 +1289,7 @@ public final class Liquidity {
      * Maximum ratio of reserve coins that can be ordered at a swap order.
      * </pre>
      *
-     * <code>string max_order_amount_ratio = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string max_order_amount_ratio = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"max_order_amount_ratio&#92;""];</code>
      * @return The maxOrderAmountRatio.
      */
     java.lang.String getMaxOrderAmountRatio();
@@ -1298,7 +1298,7 @@ public final class Liquidity {
      * Maximum ratio of reserve coins that can be ordered at a swap order.
      * </pre>
      *
-     * <code>string max_order_amount_ratio = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string max_order_amount_ratio = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"max_order_amount_ratio&#92;""];</code>
      * @return The bytes for maxOrderAmountRatio.
      */
     com.google.protobuf.ByteString
@@ -1309,7 +1309,7 @@ public final class Liquidity {
      * The smallest unit batch height for every liquidity pool.
      * </pre>
      *
-     * <code>uint32 unit_batch_height = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint32 unit_batch_height = 9 [(.gogoproto.moretags) = "yaml:&#92;"unit_batch_height&#92;""];</code>
      * @return The unitBatchHeight.
      */
     int getUnitBatchHeight();
@@ -1319,7 +1319,7 @@ public final class Liquidity {
      * Circuit breaker enables or disables transaction messages in liquidity module.
      * </pre>
      *
-     * <code>bool circuit_breaker_enabled = 10 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool circuit_breaker_enabled = 10 [(.gogoproto.moretags) = "yaml:&#92;"circuit_breaker_enabled&#92;""];</code>
      * @return The circuitBreakerEnabled.
      */
     boolean getCircuitBreakerEnabled();
@@ -1551,7 +1551,7 @@ public final class Liquidity {
      * Minimum number of coins to be deposited to the liquidity pool on pool creation.
      * </pre>
      *
-     * <code>string min_init_deposit_amount = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string min_init_deposit_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_init_deposit_amount&#92;""];</code>
      * @return The minInitDepositAmount.
      */
     @java.lang.Override
@@ -1572,7 +1572,7 @@ public final class Liquidity {
      * Minimum number of coins to be deposited to the liquidity pool on pool creation.
      * </pre>
      *
-     * <code>string min_init_deposit_amount = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string min_init_deposit_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_init_deposit_amount&#92;""];</code>
      * @return The bytes for minInitDepositAmount.
      */
     @java.lang.Override
@@ -1597,7 +1597,7 @@ public final class Liquidity {
      * Initial mint amount of pool coins upon pool creation.
      * </pre>
      *
-     * <code>string init_pool_coin_mint_amount = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string init_pool_coin_mint_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"init_pool_coin_mint_amount&#92;""];</code>
      * @return The initPoolCoinMintAmount.
      */
     @java.lang.Override
@@ -1618,7 +1618,7 @@ public final class Liquidity {
      * Initial mint amount of pool coins upon pool creation.
      * </pre>
      *
-     * <code>string init_pool_coin_mint_amount = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string init_pool_coin_mint_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"init_pool_coin_mint_amount&#92;""];</code>
      * @return The bytes for initPoolCoinMintAmount.
      */
     @java.lang.Override
@@ -1643,7 +1643,7 @@ public final class Liquidity {
      * Limit the size of each liquidity pool to minimize risk. In development, set to 0 for no limit. In production, set a limit.
      * </pre>
      *
-     * <code>string max_reserve_coin_amount = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string max_reserve_coin_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_amount&#92;""];</code>
      * @return The maxReserveCoinAmount.
      */
     @java.lang.Override
@@ -1664,7 +1664,7 @@ public final class Liquidity {
      * Limit the size of each liquidity pool to minimize risk. In development, set to 0 for no limit. In production, set a limit.
      * </pre>
      *
-     * <code>string max_reserve_coin_amount = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string max_reserve_coin_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_amount&#92;""];</code>
      * @return The bytes for maxReserveCoinAmount.
      */
     @java.lang.Override
@@ -1689,7 +1689,7 @@ public final class Liquidity {
      * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getPoolCreationFeeList() {
@@ -1700,7 +1700,7 @@ public final class Liquidity {
      * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -1712,7 +1712,7 @@ public final class Liquidity {
      * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     @java.lang.Override
     public int getPoolCreationFeeCount() {
@@ -1723,7 +1723,7 @@ public final class Liquidity {
      * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getPoolCreationFee(int index) {
@@ -1734,7 +1734,7 @@ public final class Liquidity {
      * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPoolCreationFeeOrBuilder(
@@ -1749,7 +1749,7 @@ public final class Liquidity {
      * Swap fee rate for every executed swap.
      * </pre>
      *
-     * <code>string swap_fee_rate = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string swap_fee_rate = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_fee_rate&#92;""];</code>
      * @return The swapFeeRate.
      */
     @java.lang.Override
@@ -1770,7 +1770,7 @@ public final class Liquidity {
      * Swap fee rate for every executed swap.
      * </pre>
      *
-     * <code>string swap_fee_rate = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string swap_fee_rate = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_fee_rate&#92;""];</code>
      * @return The bytes for swapFeeRate.
      */
     @java.lang.Override
@@ -1795,7 +1795,7 @@ public final class Liquidity {
      * Reserve coin withdrawal with less proportion by withdrawFeeRate.
      * </pre>
      *
-     * <code>string withdraw_fee_rate = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string withdraw_fee_rate = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"withdraw_fee_rate&#92;""];</code>
      * @return The withdrawFeeRate.
      */
     @java.lang.Override
@@ -1816,7 +1816,7 @@ public final class Liquidity {
      * Reserve coin withdrawal with less proportion by withdrawFeeRate.
      * </pre>
      *
-     * <code>string withdraw_fee_rate = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string withdraw_fee_rate = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"withdraw_fee_rate&#92;""];</code>
      * @return The bytes for withdrawFeeRate.
      */
     @java.lang.Override
@@ -1841,7 +1841,7 @@ public final class Liquidity {
      * Maximum ratio of reserve coins that can be ordered at a swap order.
      * </pre>
      *
-     * <code>string max_order_amount_ratio = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string max_order_amount_ratio = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"max_order_amount_ratio&#92;""];</code>
      * @return The maxOrderAmountRatio.
      */
     @java.lang.Override
@@ -1862,7 +1862,7 @@ public final class Liquidity {
      * Maximum ratio of reserve coins that can be ordered at a swap order.
      * </pre>
      *
-     * <code>string max_order_amount_ratio = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string max_order_amount_ratio = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"max_order_amount_ratio&#92;""];</code>
      * @return The bytes for maxOrderAmountRatio.
      */
     @java.lang.Override
@@ -1887,7 +1887,7 @@ public final class Liquidity {
      * The smallest unit batch height for every liquidity pool.
      * </pre>
      *
-     * <code>uint32 unit_batch_height = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint32 unit_batch_height = 9 [(.gogoproto.moretags) = "yaml:&#92;"unit_batch_height&#92;""];</code>
      * @return The unitBatchHeight.
      */
     @java.lang.Override
@@ -1902,7 +1902,7 @@ public final class Liquidity {
      * Circuit breaker enables or disables transaction messages in liquidity module.
      * </pre>
      *
-     * <code>bool circuit_breaker_enabled = 10 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool circuit_breaker_enabled = 10 [(.gogoproto.moretags) = "yaml:&#92;"circuit_breaker_enabled&#92;""];</code>
      * @return The circuitBreakerEnabled.
      */
     @java.lang.Override
@@ -2766,7 +2766,7 @@ public final class Liquidity {
        * Minimum number of coins to be deposited to the liquidity pool on pool creation.
        * </pre>
        *
-       * <code>string min_init_deposit_amount = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string min_init_deposit_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_init_deposit_amount&#92;""];</code>
        * @return The minInitDepositAmount.
        */
       public java.lang.String getMinInitDepositAmount() {
@@ -2786,7 +2786,7 @@ public final class Liquidity {
        * Minimum number of coins to be deposited to the liquidity pool on pool creation.
        * </pre>
        *
-       * <code>string min_init_deposit_amount = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string min_init_deposit_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_init_deposit_amount&#92;""];</code>
        * @return The bytes for minInitDepositAmount.
        */
       public com.google.protobuf.ByteString
@@ -2807,7 +2807,7 @@ public final class Liquidity {
        * Minimum number of coins to be deposited to the liquidity pool on pool creation.
        * </pre>
        *
-       * <code>string min_init_deposit_amount = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string min_init_deposit_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_init_deposit_amount&#92;""];</code>
        * @param value The minInitDepositAmount to set.
        * @return This builder for chaining.
        */
@@ -2826,7 +2826,7 @@ public final class Liquidity {
        * Minimum number of coins to be deposited to the liquidity pool on pool creation.
        * </pre>
        *
-       * <code>string min_init_deposit_amount = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string min_init_deposit_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_init_deposit_amount&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearMinInitDepositAmount() {
@@ -2840,7 +2840,7 @@ public final class Liquidity {
        * Minimum number of coins to be deposited to the liquidity pool on pool creation.
        * </pre>
        *
-       * <code>string min_init_deposit_amount = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string min_init_deposit_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_init_deposit_amount&#92;""];</code>
        * @param value The bytes for minInitDepositAmount to set.
        * @return This builder for chaining.
        */
@@ -2862,7 +2862,7 @@ public final class Liquidity {
        * Initial mint amount of pool coins upon pool creation.
        * </pre>
        *
-       * <code>string init_pool_coin_mint_amount = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string init_pool_coin_mint_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"init_pool_coin_mint_amount&#92;""];</code>
        * @return The initPoolCoinMintAmount.
        */
       public java.lang.String getInitPoolCoinMintAmount() {
@@ -2882,7 +2882,7 @@ public final class Liquidity {
        * Initial mint amount of pool coins upon pool creation.
        * </pre>
        *
-       * <code>string init_pool_coin_mint_amount = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string init_pool_coin_mint_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"init_pool_coin_mint_amount&#92;""];</code>
        * @return The bytes for initPoolCoinMintAmount.
        */
       public com.google.protobuf.ByteString
@@ -2903,7 +2903,7 @@ public final class Liquidity {
        * Initial mint amount of pool coins upon pool creation.
        * </pre>
        *
-       * <code>string init_pool_coin_mint_amount = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string init_pool_coin_mint_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"init_pool_coin_mint_amount&#92;""];</code>
        * @param value The initPoolCoinMintAmount to set.
        * @return This builder for chaining.
        */
@@ -2922,7 +2922,7 @@ public final class Liquidity {
        * Initial mint amount of pool coins upon pool creation.
        * </pre>
        *
-       * <code>string init_pool_coin_mint_amount = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string init_pool_coin_mint_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"init_pool_coin_mint_amount&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearInitPoolCoinMintAmount() {
@@ -2936,7 +2936,7 @@ public final class Liquidity {
        * Initial mint amount of pool coins upon pool creation.
        * </pre>
        *
-       * <code>string init_pool_coin_mint_amount = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string init_pool_coin_mint_amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"init_pool_coin_mint_amount&#92;""];</code>
        * @param value The bytes for initPoolCoinMintAmount to set.
        * @return This builder for chaining.
        */
@@ -2958,7 +2958,7 @@ public final class Liquidity {
        * Limit the size of each liquidity pool to minimize risk. In development, set to 0 for no limit. In production, set a limit.
        * </pre>
        *
-       * <code>string max_reserve_coin_amount = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string max_reserve_coin_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_amount&#92;""];</code>
        * @return The maxReserveCoinAmount.
        */
       public java.lang.String getMaxReserveCoinAmount() {
@@ -2978,7 +2978,7 @@ public final class Liquidity {
        * Limit the size of each liquidity pool to minimize risk. In development, set to 0 for no limit. In production, set a limit.
        * </pre>
        *
-       * <code>string max_reserve_coin_amount = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string max_reserve_coin_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_amount&#92;""];</code>
        * @return The bytes for maxReserveCoinAmount.
        */
       public com.google.protobuf.ByteString
@@ -2999,7 +2999,7 @@ public final class Liquidity {
        * Limit the size of each liquidity pool to minimize risk. In development, set to 0 for no limit. In production, set a limit.
        * </pre>
        *
-       * <code>string max_reserve_coin_amount = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string max_reserve_coin_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_amount&#92;""];</code>
        * @param value The maxReserveCoinAmount to set.
        * @return This builder for chaining.
        */
@@ -3018,7 +3018,7 @@ public final class Liquidity {
        * Limit the size of each liquidity pool to minimize risk. In development, set to 0 for no limit. In production, set a limit.
        * </pre>
        *
-       * <code>string max_reserve_coin_amount = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string max_reserve_coin_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_amount&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearMaxReserveCoinAmount() {
@@ -3032,7 +3032,7 @@ public final class Liquidity {
        * Limit the size of each liquidity pool to minimize risk. In development, set to 0 for no limit. In production, set a limit.
        * </pre>
        *
-       * <code>string max_reserve_coin_amount = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string max_reserve_coin_amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"max_reserve_coin_amount&#92;""];</code>
        * @param value The bytes for maxReserveCoinAmount to set.
        * @return This builder for chaining.
        */
@@ -3065,7 +3065,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getPoolCreationFeeList() {
         if (poolCreationFeeBuilder_ == null) {
@@ -3079,7 +3079,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public int getPoolCreationFeeCount() {
         if (poolCreationFeeBuilder_ == null) {
@@ -3093,7 +3093,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getPoolCreationFee(int index) {
         if (poolCreationFeeBuilder_ == null) {
@@ -3107,7 +3107,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder setPoolCreationFee(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -3128,7 +3128,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder setPoolCreationFee(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -3146,7 +3146,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder addPoolCreationFee(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (poolCreationFeeBuilder_ == null) {
@@ -3166,7 +3166,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder addPoolCreationFee(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -3187,7 +3187,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder addPoolCreationFee(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -3205,7 +3205,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder addPoolCreationFee(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -3223,7 +3223,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder addAllPoolCreationFee(
           java.lang.Iterable<? extends cosmos.base.v1beta1.CoinOuterClass.Coin> values) {
@@ -3242,7 +3242,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder clearPoolCreationFee() {
         if (poolCreationFeeBuilder_ == null) {
@@ -3259,7 +3259,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder removePoolCreationFee(int index) {
         if (poolCreationFeeBuilder_ == null) {
@@ -3276,7 +3276,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getPoolCreationFeeBuilder(
           int index) {
@@ -3287,7 +3287,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPoolCreationFeeOrBuilder(
           int index) {
@@ -3301,7 +3301,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
            getPoolCreationFeeOrBuilderList() {
@@ -3316,7 +3316,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder addPoolCreationFeeBuilder() {
         return getPoolCreationFeeFieldBuilder().addBuilder(
@@ -3327,7 +3327,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder addPoolCreationFeeBuilder(
           int index) {
@@ -3339,7 +3339,7 @@ public final class Liquidity {
        * Fee paid to create a Liquidity Pool. Set a fee to prevent spamming.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin pool_creation_fee = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_creation_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin.Builder> 
            getPoolCreationFeeBuilderList() {
@@ -3366,7 +3366,7 @@ public final class Liquidity {
        * Swap fee rate for every executed swap.
        * </pre>
        *
-       * <code>string swap_fee_rate = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string swap_fee_rate = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_fee_rate&#92;""];</code>
        * @return The swapFeeRate.
        */
       public java.lang.String getSwapFeeRate() {
@@ -3386,7 +3386,7 @@ public final class Liquidity {
        * Swap fee rate for every executed swap.
        * </pre>
        *
-       * <code>string swap_fee_rate = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string swap_fee_rate = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_fee_rate&#92;""];</code>
        * @return The bytes for swapFeeRate.
        */
       public com.google.protobuf.ByteString
@@ -3407,7 +3407,7 @@ public final class Liquidity {
        * Swap fee rate for every executed swap.
        * </pre>
        *
-       * <code>string swap_fee_rate = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string swap_fee_rate = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_fee_rate&#92;""];</code>
        * @param value The swapFeeRate to set.
        * @return This builder for chaining.
        */
@@ -3426,7 +3426,7 @@ public final class Liquidity {
        * Swap fee rate for every executed swap.
        * </pre>
        *
-       * <code>string swap_fee_rate = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string swap_fee_rate = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_fee_rate&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearSwapFeeRate() {
@@ -3440,7 +3440,7 @@ public final class Liquidity {
        * Swap fee rate for every executed swap.
        * </pre>
        *
-       * <code>string swap_fee_rate = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string swap_fee_rate = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_fee_rate&#92;""];</code>
        * @param value The bytes for swapFeeRate to set.
        * @return This builder for chaining.
        */
@@ -3462,7 +3462,7 @@ public final class Liquidity {
        * Reserve coin withdrawal with less proportion by withdrawFeeRate.
        * </pre>
        *
-       * <code>string withdraw_fee_rate = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string withdraw_fee_rate = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"withdraw_fee_rate&#92;""];</code>
        * @return The withdrawFeeRate.
        */
       public java.lang.String getWithdrawFeeRate() {
@@ -3482,7 +3482,7 @@ public final class Liquidity {
        * Reserve coin withdrawal with less proportion by withdrawFeeRate.
        * </pre>
        *
-       * <code>string withdraw_fee_rate = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string withdraw_fee_rate = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"withdraw_fee_rate&#92;""];</code>
        * @return The bytes for withdrawFeeRate.
        */
       public com.google.protobuf.ByteString
@@ -3503,7 +3503,7 @@ public final class Liquidity {
        * Reserve coin withdrawal with less proportion by withdrawFeeRate.
        * </pre>
        *
-       * <code>string withdraw_fee_rate = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string withdraw_fee_rate = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"withdraw_fee_rate&#92;""];</code>
        * @param value The withdrawFeeRate to set.
        * @return This builder for chaining.
        */
@@ -3522,7 +3522,7 @@ public final class Liquidity {
        * Reserve coin withdrawal with less proportion by withdrawFeeRate.
        * </pre>
        *
-       * <code>string withdraw_fee_rate = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string withdraw_fee_rate = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"withdraw_fee_rate&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearWithdrawFeeRate() {
@@ -3536,7 +3536,7 @@ public final class Liquidity {
        * Reserve coin withdrawal with less proportion by withdrawFeeRate.
        * </pre>
        *
-       * <code>string withdraw_fee_rate = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string withdraw_fee_rate = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"withdraw_fee_rate&#92;""];</code>
        * @param value The bytes for withdrawFeeRate to set.
        * @return This builder for chaining.
        */
@@ -3558,7 +3558,7 @@ public final class Liquidity {
        * Maximum ratio of reserve coins that can be ordered at a swap order.
        * </pre>
        *
-       * <code>string max_order_amount_ratio = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string max_order_amount_ratio = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"max_order_amount_ratio&#92;""];</code>
        * @return The maxOrderAmountRatio.
        */
       public java.lang.String getMaxOrderAmountRatio() {
@@ -3578,7 +3578,7 @@ public final class Liquidity {
        * Maximum ratio of reserve coins that can be ordered at a swap order.
        * </pre>
        *
-       * <code>string max_order_amount_ratio = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string max_order_amount_ratio = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"max_order_amount_ratio&#92;""];</code>
        * @return The bytes for maxOrderAmountRatio.
        */
       public com.google.protobuf.ByteString
@@ -3599,7 +3599,7 @@ public final class Liquidity {
        * Maximum ratio of reserve coins that can be ordered at a swap order.
        * </pre>
        *
-       * <code>string max_order_amount_ratio = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string max_order_amount_ratio = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"max_order_amount_ratio&#92;""];</code>
        * @param value The maxOrderAmountRatio to set.
        * @return This builder for chaining.
        */
@@ -3618,7 +3618,7 @@ public final class Liquidity {
        * Maximum ratio of reserve coins that can be ordered at a swap order.
        * </pre>
        *
-       * <code>string max_order_amount_ratio = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string max_order_amount_ratio = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"max_order_amount_ratio&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearMaxOrderAmountRatio() {
@@ -3632,7 +3632,7 @@ public final class Liquidity {
        * Maximum ratio of reserve coins that can be ordered at a swap order.
        * </pre>
        *
-       * <code>string max_order_amount_ratio = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string max_order_amount_ratio = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"max_order_amount_ratio&#92;""];</code>
        * @param value The bytes for maxOrderAmountRatio to set.
        * @return This builder for chaining.
        */
@@ -3654,7 +3654,7 @@ public final class Liquidity {
        * The smallest unit batch height for every liquidity pool.
        * </pre>
        *
-       * <code>uint32 unit_batch_height = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 unit_batch_height = 9 [(.gogoproto.moretags) = "yaml:&#92;"unit_batch_height&#92;""];</code>
        * @return The unitBatchHeight.
        */
       @java.lang.Override
@@ -3666,7 +3666,7 @@ public final class Liquidity {
        * The smallest unit batch height for every liquidity pool.
        * </pre>
        *
-       * <code>uint32 unit_batch_height = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 unit_batch_height = 9 [(.gogoproto.moretags) = "yaml:&#92;"unit_batch_height&#92;""];</code>
        * @param value The unitBatchHeight to set.
        * @return This builder for chaining.
        */
@@ -3681,7 +3681,7 @@ public final class Liquidity {
        * The smallest unit batch height for every liquidity pool.
        * </pre>
        *
-       * <code>uint32 unit_batch_height = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 unit_batch_height = 9 [(.gogoproto.moretags) = "yaml:&#92;"unit_batch_height&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearUnitBatchHeight() {
@@ -3697,7 +3697,7 @@ public final class Liquidity {
        * Circuit breaker enables or disables transaction messages in liquidity module.
        * </pre>
        *
-       * <code>bool circuit_breaker_enabled = 10 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool circuit_breaker_enabled = 10 [(.gogoproto.moretags) = "yaml:&#92;"circuit_breaker_enabled&#92;""];</code>
        * @return The circuitBreakerEnabled.
        */
       @java.lang.Override
@@ -3709,7 +3709,7 @@ public final class Liquidity {
        * Circuit breaker enables or disables transaction messages in liquidity module.
        * </pre>
        *
-       * <code>bool circuit_breaker_enabled = 10 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool circuit_breaker_enabled = 10 [(.gogoproto.moretags) = "yaml:&#92;"circuit_breaker_enabled&#92;""];</code>
        * @param value The circuitBreakerEnabled to set.
        * @return This builder for chaining.
        */
@@ -3724,7 +3724,7 @@ public final class Liquidity {
        * Circuit breaker enables or disables transaction messages in liquidity module.
        * </pre>
        *
-       * <code>bool circuit_breaker_enabled = 10 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool circuit_breaker_enabled = 10 [(.gogoproto.moretags) = "yaml:&#92;"circuit_breaker_enabled&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearCircuitBreakerEnabled() {
@@ -3795,7 +3795,7 @@ public final class Liquidity {
      * id of the pool
      * </pre>
      *
-     * <code>uint64 id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 id = 1 [(.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
     long getId();
@@ -3805,7 +3805,7 @@ public final class Liquidity {
      * id of the pool_type
      * </pre>
      *
-     * <code>uint32 type_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint32 type_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"type_id&#92;""];</code>
      * @return The typeId.
      */
     int getTypeId();
@@ -3815,7 +3815,7 @@ public final class Liquidity {
      * denoms of reserve coin pair of the pool
      * </pre>
      *
-     * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
      * @return A list containing the reserveCoinDenoms.
      */
     java.util.List<java.lang.String>
@@ -3825,7 +3825,7 @@ public final class Liquidity {
      * denoms of reserve coin pair of the pool
      * </pre>
      *
-     * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
      * @return The count of reserveCoinDenoms.
      */
     int getReserveCoinDenomsCount();
@@ -3834,7 +3834,7 @@ public final class Liquidity {
      * denoms of reserve coin pair of the pool
      * </pre>
      *
-     * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
      * @param index The index of the element to return.
      * @return The reserveCoinDenoms at the given index.
      */
@@ -3844,7 +3844,7 @@ public final class Liquidity {
      * denoms of reserve coin pair of the pool
      * </pre>
      *
-     * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
      * @param index The index of the value to return.
      * @return The bytes of the reserveCoinDenoms at the given index.
      */
@@ -3856,7 +3856,7 @@ public final class Liquidity {
      * reserve account address of the pool
      * </pre>
      *
-     * <code>string reserve_account_address = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string reserve_account_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"reserve_account_address&#92;""];</code>
      * @return The reserveAccountAddress.
      */
     java.lang.String getReserveAccountAddress();
@@ -3865,7 +3865,7 @@ public final class Liquidity {
      * reserve account address of the pool
      * </pre>
      *
-     * <code>string reserve_account_address = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string reserve_account_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"reserve_account_address&#92;""];</code>
      * @return The bytes for reserveAccountAddress.
      */
     com.google.protobuf.ByteString
@@ -3876,7 +3876,7 @@ public final class Liquidity {
      * denom of pool coin of the pool
      * </pre>
      *
-     * <code>string pool_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string pool_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"pool_coin_denom&#92;""];</code>
      * @return The poolCoinDenom.
      */
     java.lang.String getPoolCoinDenom();
@@ -3885,7 +3885,7 @@ public final class Liquidity {
      * denom of pool coin of the pool
      * </pre>
      *
-     * <code>string pool_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string pool_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"pool_coin_denom&#92;""];</code>
      * @return The bytes for poolCoinDenom.
      */
     com.google.protobuf.ByteString
@@ -4017,7 +4017,7 @@ public final class Liquidity {
      * id of the pool
      * </pre>
      *
-     * <code>uint64 id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 id = 1 [(.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
     @java.lang.Override
@@ -4032,7 +4032,7 @@ public final class Liquidity {
      * id of the pool_type
      * </pre>
      *
-     * <code>uint32 type_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint32 type_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"type_id&#92;""];</code>
      * @return The typeId.
      */
     @java.lang.Override
@@ -4047,7 +4047,7 @@ public final class Liquidity {
      * denoms of reserve coin pair of the pool
      * </pre>
      *
-     * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
      * @return A list containing the reserveCoinDenoms.
      */
     public com.google.protobuf.ProtocolStringList
@@ -4059,7 +4059,7 @@ public final class Liquidity {
      * denoms of reserve coin pair of the pool
      * </pre>
      *
-     * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
      * @return The count of reserveCoinDenoms.
      */
     public int getReserveCoinDenomsCount() {
@@ -4070,7 +4070,7 @@ public final class Liquidity {
      * denoms of reserve coin pair of the pool
      * </pre>
      *
-     * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
      * @param index The index of the element to return.
      * @return The reserveCoinDenoms at the given index.
      */
@@ -4082,7 +4082,7 @@ public final class Liquidity {
      * denoms of reserve coin pair of the pool
      * </pre>
      *
-     * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
      * @param index The index of the value to return.
      * @return The bytes of the reserveCoinDenoms at the given index.
      */
@@ -4098,7 +4098,7 @@ public final class Liquidity {
      * reserve account address of the pool
      * </pre>
      *
-     * <code>string reserve_account_address = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string reserve_account_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"reserve_account_address&#92;""];</code>
      * @return The reserveAccountAddress.
      */
     @java.lang.Override
@@ -4119,7 +4119,7 @@ public final class Liquidity {
      * reserve account address of the pool
      * </pre>
      *
-     * <code>string reserve_account_address = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string reserve_account_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"reserve_account_address&#92;""];</code>
      * @return The bytes for reserveAccountAddress.
      */
     @java.lang.Override
@@ -4144,7 +4144,7 @@ public final class Liquidity {
      * denom of pool coin of the pool
      * </pre>
      *
-     * <code>string pool_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string pool_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"pool_coin_denom&#92;""];</code>
      * @return The poolCoinDenom.
      */
     @java.lang.Override
@@ -4165,7 +4165,7 @@ public final class Liquidity {
      * denom of pool coin of the pool
      * </pre>
      *
-     * <code>string pool_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>string pool_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"pool_coin_denom&#92;""];</code>
      * @return The bytes for poolCoinDenom.
      */
     @java.lang.Override
@@ -4583,7 +4583,7 @@ public final class Liquidity {
        * id of the pool
        * </pre>
        *
-       * <code>uint64 id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 id = 1 [(.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        * @return The id.
        */
       @java.lang.Override
@@ -4595,7 +4595,7 @@ public final class Liquidity {
        * id of the pool
        * </pre>
        *
-       * <code>uint64 id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 id = 1 [(.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        * @param value The id to set.
        * @return This builder for chaining.
        */
@@ -4610,7 +4610,7 @@ public final class Liquidity {
        * id of the pool
        * </pre>
        *
-       * <code>uint64 id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 id = 1 [(.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearId() {
@@ -4626,7 +4626,7 @@ public final class Liquidity {
        * id of the pool_type
        * </pre>
        *
-       * <code>uint32 type_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 type_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"type_id&#92;""];</code>
        * @return The typeId.
        */
       @java.lang.Override
@@ -4638,7 +4638,7 @@ public final class Liquidity {
        * id of the pool_type
        * </pre>
        *
-       * <code>uint32 type_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 type_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"type_id&#92;""];</code>
        * @param value The typeId to set.
        * @return This builder for chaining.
        */
@@ -4653,7 +4653,7 @@ public final class Liquidity {
        * id of the pool_type
        * </pre>
        *
-       * <code>uint32 type_id = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint32 type_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"type_id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearTypeId() {
@@ -4675,7 +4675,7 @@ public final class Liquidity {
        * denoms of reserve coin pair of the pool
        * </pre>
        *
-       * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
        * @return A list containing the reserveCoinDenoms.
        */
       public com.google.protobuf.ProtocolStringList
@@ -4687,7 +4687,7 @@ public final class Liquidity {
        * denoms of reserve coin pair of the pool
        * </pre>
        *
-       * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
        * @return The count of reserveCoinDenoms.
        */
       public int getReserveCoinDenomsCount() {
@@ -4698,7 +4698,7 @@ public final class Liquidity {
        * denoms of reserve coin pair of the pool
        * </pre>
        *
-       * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
        * @param index The index of the element to return.
        * @return The reserveCoinDenoms at the given index.
        */
@@ -4710,7 +4710,7 @@ public final class Liquidity {
        * denoms of reserve coin pair of the pool
        * </pre>
        *
-       * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
        * @param index The index of the value to return.
        * @return The bytes of the reserveCoinDenoms at the given index.
        */
@@ -4723,7 +4723,7 @@ public final class Liquidity {
        * denoms of reserve coin pair of the pool
        * </pre>
        *
-       * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
        * @param index The index to set the value at.
        * @param value The reserveCoinDenoms to set.
        * @return This builder for chaining.
@@ -4743,7 +4743,7 @@ public final class Liquidity {
        * denoms of reserve coin pair of the pool
        * </pre>
        *
-       * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
        * @param value The reserveCoinDenoms to add.
        * @return This builder for chaining.
        */
@@ -4762,7 +4762,7 @@ public final class Liquidity {
        * denoms of reserve coin pair of the pool
        * </pre>
        *
-       * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
        * @param values The reserveCoinDenoms to add.
        * @return This builder for chaining.
        */
@@ -4779,7 +4779,7 @@ public final class Liquidity {
        * denoms of reserve coin pair of the pool
        * </pre>
        *
-       * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearReserveCoinDenoms() {
@@ -4793,7 +4793,7 @@ public final class Liquidity {
        * denoms of reserve coin pair of the pool
        * </pre>
        *
-       * <code>repeated string reserve_coin_denoms = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated string reserve_coin_denoms = 3 [(.gogoproto.moretags) = "yaml:&#92;"reserve_coin_denoms&#92;""];</code>
        * @param value The bytes of the reserveCoinDenoms to add.
        * @return This builder for chaining.
        */
@@ -4815,7 +4815,7 @@ public final class Liquidity {
        * reserve account address of the pool
        * </pre>
        *
-       * <code>string reserve_account_address = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string reserve_account_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"reserve_account_address&#92;""];</code>
        * @return The reserveAccountAddress.
        */
       public java.lang.String getReserveAccountAddress() {
@@ -4835,7 +4835,7 @@ public final class Liquidity {
        * reserve account address of the pool
        * </pre>
        *
-       * <code>string reserve_account_address = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string reserve_account_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"reserve_account_address&#92;""];</code>
        * @return The bytes for reserveAccountAddress.
        */
       public com.google.protobuf.ByteString
@@ -4856,7 +4856,7 @@ public final class Liquidity {
        * reserve account address of the pool
        * </pre>
        *
-       * <code>string reserve_account_address = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string reserve_account_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"reserve_account_address&#92;""];</code>
        * @param value The reserveAccountAddress to set.
        * @return This builder for chaining.
        */
@@ -4875,7 +4875,7 @@ public final class Liquidity {
        * reserve account address of the pool
        * </pre>
        *
-       * <code>string reserve_account_address = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string reserve_account_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"reserve_account_address&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearReserveAccountAddress() {
@@ -4889,7 +4889,7 @@ public final class Liquidity {
        * reserve account address of the pool
        * </pre>
        *
-       * <code>string reserve_account_address = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string reserve_account_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"reserve_account_address&#92;""];</code>
        * @param value The bytes for reserveAccountAddress to set.
        * @return This builder for chaining.
        */
@@ -4911,7 +4911,7 @@ public final class Liquidity {
        * denom of pool coin of the pool
        * </pre>
        *
-       * <code>string pool_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string pool_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"pool_coin_denom&#92;""];</code>
        * @return The poolCoinDenom.
        */
       public java.lang.String getPoolCoinDenom() {
@@ -4931,7 +4931,7 @@ public final class Liquidity {
        * denom of pool coin of the pool
        * </pre>
        *
-       * <code>string pool_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string pool_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"pool_coin_denom&#92;""];</code>
        * @return The bytes for poolCoinDenom.
        */
       public com.google.protobuf.ByteString
@@ -4952,7 +4952,7 @@ public final class Liquidity {
        * denom of pool coin of the pool
        * </pre>
        *
-       * <code>string pool_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string pool_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"pool_coin_denom&#92;""];</code>
        * @param value The poolCoinDenom to set.
        * @return This builder for chaining.
        */
@@ -4971,7 +4971,7 @@ public final class Liquidity {
        * denom of pool coin of the pool
        * </pre>
        *
-       * <code>string pool_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string pool_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"pool_coin_denom&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolCoinDenom() {
@@ -4985,7 +4985,7 @@ public final class Liquidity {
        * denom of pool coin of the pool
        * </pre>
        *
-       * <code>string pool_coin_denom = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>string pool_coin_denom = 5 [(.gogoproto.moretags) = "yaml:&#92;"pool_coin_denom&#92;""];</code>
        * @param value The bytes for poolCoinDenom to set.
        * @return This builder for chaining.
        */
@@ -5062,7 +5062,7 @@ public final class Liquidity {
      * id of the pool
      * </pre>
      *
-     * <code>uint64 pool_id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     long getPoolId();
@@ -5072,7 +5072,7 @@ public final class Liquidity {
      * pool coin issued at the pool
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
      * @return Whether the poolCoinTotalSupply field is set.
      */
     boolean hasPoolCoinTotalSupply();
@@ -5081,7 +5081,7 @@ public final class Liquidity {
      * pool coin issued at the pool
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
      * @return The poolCoinTotalSupply.
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getPoolCoinTotalSupply();
@@ -5090,7 +5090,7 @@ public final class Liquidity {
      * pool coin issued at the pool
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPoolCoinTotalSupplyOrBuilder();
 
@@ -5099,7 +5099,7 @@ public final class Liquidity {
      * reserve coins deposited in the pool
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> 
         getReserveCoinsList();
@@ -5108,7 +5108,7 @@ public final class Liquidity {
      * reserve coins deposited in the pool
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getReserveCoins(int index);
     /**
@@ -5116,7 +5116,7 @@ public final class Liquidity {
      * reserve coins deposited in the pool
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     int getReserveCoinsCount();
     /**
@@ -5124,7 +5124,7 @@ public final class Liquidity {
      * reserve coins deposited in the pool
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getReserveCoinsOrBuilderList();
@@ -5133,7 +5133,7 @@ public final class Liquidity {
      * reserve coins deposited in the pool
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getReserveCoinsOrBuilder(
         int index);
@@ -5258,7 +5258,7 @@ public final class Liquidity {
      * id of the pool
      * </pre>
      *
-     * <code>uint64 pool_id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     @java.lang.Override
@@ -5273,7 +5273,7 @@ public final class Liquidity {
      * pool coin issued at the pool
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
      * @return Whether the poolCoinTotalSupply field is set.
      */
     @java.lang.Override
@@ -5285,7 +5285,7 @@ public final class Liquidity {
      * pool coin issued at the pool
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
      * @return The poolCoinTotalSupply.
      */
     @java.lang.Override
@@ -5297,7 +5297,7 @@ public final class Liquidity {
      * pool coin issued at the pool
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPoolCoinTotalSupplyOrBuilder() {
@@ -5311,7 +5311,7 @@ public final class Liquidity {
      * reserve coins deposited in the pool
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getReserveCoinsList() {
@@ -5322,7 +5322,7 @@ public final class Liquidity {
      * reserve coins deposited in the pool
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -5334,7 +5334,7 @@ public final class Liquidity {
      * reserve coins deposited in the pool
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     @java.lang.Override
     public int getReserveCoinsCount() {
@@ -5345,7 +5345,7 @@ public final class Liquidity {
      * reserve coins deposited in the pool
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getReserveCoins(int index) {
@@ -5356,7 +5356,7 @@ public final class Liquidity {
      * reserve coins deposited in the pool
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getReserveCoinsOrBuilder(
@@ -5764,7 +5764,7 @@ public final class Liquidity {
        * id of the pool
        * </pre>
        *
-       * <code>uint64 pool_id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
       @java.lang.Override
@@ -5776,7 +5776,7 @@ public final class Liquidity {
        * id of the pool
        * </pre>
        *
-       * <code>uint64 pool_id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -5791,7 +5791,7 @@ public final class Liquidity {
        * id of the pool
        * </pre>
        *
-       * <code>uint64 pool_id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -5809,7 +5809,7 @@ public final class Liquidity {
        * pool coin issued at the pool
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
        * @return Whether the poolCoinTotalSupply field is set.
        */
       public boolean hasPoolCoinTotalSupply() {
@@ -5820,7 +5820,7 @@ public final class Liquidity {
        * pool coin issued at the pool
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
        * @return The poolCoinTotalSupply.
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getPoolCoinTotalSupply() {
@@ -5835,7 +5835,7 @@ public final class Liquidity {
        * pool coin issued at the pool
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
        */
       public Builder setPoolCoinTotalSupply(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (poolCoinTotalSupplyBuilder_ == null) {
@@ -5855,7 +5855,7 @@ public final class Liquidity {
        * pool coin issued at the pool
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
        */
       public Builder setPoolCoinTotalSupply(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -5873,7 +5873,7 @@ public final class Liquidity {
        * pool coin issued at the pool
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
        */
       public Builder mergePoolCoinTotalSupply(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (poolCoinTotalSupplyBuilder_ == null) {
@@ -5895,7 +5895,7 @@ public final class Liquidity {
        * pool coin issued at the pool
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
        */
       public Builder clearPoolCoinTotalSupply() {
         if (poolCoinTotalSupplyBuilder_ == null) {
@@ -5913,7 +5913,7 @@ public final class Liquidity {
        * pool coin issued at the pool
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getPoolCoinTotalSupplyBuilder() {
         
@@ -5925,7 +5925,7 @@ public final class Liquidity {
        * pool coin issued at the pool
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPoolCoinTotalSupplyOrBuilder() {
         if (poolCoinTotalSupplyBuilder_ != null) {
@@ -5940,7 +5940,7 @@ public final class Liquidity {
        * pool coin issued at the pool
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin pool_coin_total_supply = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_coin_total_supply&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -5973,7 +5973,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getReserveCoinsList() {
         if (reserveCoinsBuilder_ == null) {
@@ -5987,7 +5987,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public int getReserveCoinsCount() {
         if (reserveCoinsBuilder_ == null) {
@@ -6001,7 +6001,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getReserveCoins(int index) {
         if (reserveCoinsBuilder_ == null) {
@@ -6015,7 +6015,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder setReserveCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -6036,7 +6036,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder setReserveCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -6054,7 +6054,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder addReserveCoins(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (reserveCoinsBuilder_ == null) {
@@ -6074,7 +6074,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder addReserveCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin value) {
@@ -6095,7 +6095,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder addReserveCoins(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -6113,7 +6113,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder addReserveCoins(
           int index, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -6131,7 +6131,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder addAllReserveCoins(
           java.lang.Iterable<? extends cosmos.base.v1beta1.CoinOuterClass.Coin> values) {
@@ -6150,7 +6150,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder clearReserveCoins() {
         if (reserveCoinsBuilder_ == null) {
@@ -6167,7 +6167,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public Builder removeReserveCoins(int index) {
         if (reserveCoinsBuilder_ == null) {
@@ -6184,7 +6184,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getReserveCoinsBuilder(
           int index) {
@@ -6195,7 +6195,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getReserveCoinsOrBuilder(
           int index) {
@@ -6209,7 +6209,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
            getReserveCoinsOrBuilderList() {
@@ -6224,7 +6224,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder addReserveCoinsBuilder() {
         return getReserveCoinsFieldBuilder().addBuilder(
@@ -6235,7 +6235,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder addReserveCoinsBuilder(
           int index) {
@@ -6247,7 +6247,7 @@ public final class Liquidity {
        * reserve coins deposited in the pool
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin reserve_coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserve_coins&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
        */
       public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin.Builder> 
            getReserveCoinsBuilderList() {
@@ -6329,7 +6329,7 @@ public final class Liquidity {
      * id of the pool
      * </pre>
      *
-     * <code>uint64 pool_id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     long getPoolId();
@@ -6339,7 +6339,7 @@ public final class Liquidity {
      * index of this batch
      * </pre>
      *
-     * <code>uint64 index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 index = 2 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
      * @return The index.
      */
     long getIndex();
@@ -6349,7 +6349,7 @@ public final class Liquidity {
      * height where this batch is started
      * </pre>
      *
-     * <code>int64 begin_height = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>int64 begin_height = 3 [(.gogoproto.moretags) = "yaml:&#92;"begin_height&#92;""];</code>
      * @return The beginHeight.
      */
     long getBeginHeight();
@@ -6359,7 +6359,7 @@ public final class Liquidity {
      * last index of DepositMsgStates
      * </pre>
      *
-     * <code>uint64 deposit_msg_index = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 deposit_msg_index = 4 [(.gogoproto.moretags) = "yaml:&#92;"deposit_msg_index&#92;""];</code>
      * @return The depositMsgIndex.
      */
     long getDepositMsgIndex();
@@ -6369,7 +6369,7 @@ public final class Liquidity {
      * last index of WithdrawMsgStates
      * </pre>
      *
-     * <code>uint64 withdraw_msg_index = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 withdraw_msg_index = 5 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_msg_index&#92;""];</code>
      * @return The withdrawMsgIndex.
      */
     long getWithdrawMsgIndex();
@@ -6379,7 +6379,7 @@ public final class Liquidity {
      * last index of SwapMsgStates
      * </pre>
      *
-     * <code>uint64 swap_msg_index = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 swap_msg_index = 6 [(.gogoproto.moretags) = "yaml:&#92;"swap_msg_index&#92;""];</code>
      * @return The swapMsgIndex.
      */
     long getSwapMsgIndex();
@@ -6389,7 +6389,7 @@ public final class Liquidity {
      * true if executed, false if not executed 
      * </pre>
      *
-     * <code>bool executed = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool executed = 7 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
      * @return The executed.
      */
     boolean getExecuted();
@@ -6518,7 +6518,7 @@ public final class Liquidity {
      * id of the pool
      * </pre>
      *
-     * <code>uint64 pool_id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 pool_id = 1 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
     @java.lang.Override
@@ -6533,7 +6533,7 @@ public final class Liquidity {
      * index of this batch
      * </pre>
      *
-     * <code>uint64 index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 index = 2 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
      * @return The index.
      */
     @java.lang.Override
@@ -6548,7 +6548,7 @@ public final class Liquidity {
      * height where this batch is started
      * </pre>
      *
-     * <code>int64 begin_height = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>int64 begin_height = 3 [(.gogoproto.moretags) = "yaml:&#92;"begin_height&#92;""];</code>
      * @return The beginHeight.
      */
     @java.lang.Override
@@ -6563,7 +6563,7 @@ public final class Liquidity {
      * last index of DepositMsgStates
      * </pre>
      *
-     * <code>uint64 deposit_msg_index = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 deposit_msg_index = 4 [(.gogoproto.moretags) = "yaml:&#92;"deposit_msg_index&#92;""];</code>
      * @return The depositMsgIndex.
      */
     @java.lang.Override
@@ -6578,7 +6578,7 @@ public final class Liquidity {
      * last index of WithdrawMsgStates
      * </pre>
      *
-     * <code>uint64 withdraw_msg_index = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 withdraw_msg_index = 5 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_msg_index&#92;""];</code>
      * @return The withdrawMsgIndex.
      */
     @java.lang.Override
@@ -6593,7 +6593,7 @@ public final class Liquidity {
      * last index of SwapMsgStates
      * </pre>
      *
-     * <code>uint64 swap_msg_index = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 swap_msg_index = 6 [(.gogoproto.moretags) = "yaml:&#92;"swap_msg_index&#92;""];</code>
      * @return The swapMsgIndex.
      */
     @java.lang.Override
@@ -6608,7 +6608,7 @@ public final class Liquidity {
      * true if executed, false if not executed 
      * </pre>
      *
-     * <code>bool executed = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool executed = 7 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
      * @return The executed.
      */
     @java.lang.Override
@@ -7038,7 +7038,7 @@ public final class Liquidity {
        * id of the pool
        * </pre>
        *
-       * <code>uint64 pool_id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
       @java.lang.Override
@@ -7050,7 +7050,7 @@ public final class Liquidity {
        * id of the pool
        * </pre>
        *
-       * <code>uint64 pool_id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @param value The poolId to set.
        * @return This builder for chaining.
        */
@@ -7065,7 +7065,7 @@ public final class Liquidity {
        * id of the pool
        * </pre>
        *
-       * <code>uint64 pool_id = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 pool_id = 1 [(.gogoproto.jsontag) = "pool_id", (.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearPoolId() {
@@ -7081,7 +7081,7 @@ public final class Liquidity {
        * index of this batch
        * </pre>
        *
-       * <code>uint64 index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 index = 2 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
        * @return The index.
        */
       @java.lang.Override
@@ -7093,7 +7093,7 @@ public final class Liquidity {
        * index of this batch
        * </pre>
        *
-       * <code>uint64 index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 index = 2 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
        * @param value The index to set.
        * @return This builder for chaining.
        */
@@ -7108,7 +7108,7 @@ public final class Liquidity {
        * index of this batch
        * </pre>
        *
-       * <code>uint64 index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 index = 2 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearIndex() {
@@ -7124,7 +7124,7 @@ public final class Liquidity {
        * height where this batch is started
        * </pre>
        *
-       * <code>int64 begin_height = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 begin_height = 3 [(.gogoproto.moretags) = "yaml:&#92;"begin_height&#92;""];</code>
        * @return The beginHeight.
        */
       @java.lang.Override
@@ -7136,7 +7136,7 @@ public final class Liquidity {
        * height where this batch is started
        * </pre>
        *
-       * <code>int64 begin_height = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 begin_height = 3 [(.gogoproto.moretags) = "yaml:&#92;"begin_height&#92;""];</code>
        * @param value The beginHeight to set.
        * @return This builder for chaining.
        */
@@ -7151,7 +7151,7 @@ public final class Liquidity {
        * height where this batch is started
        * </pre>
        *
-       * <code>int64 begin_height = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 begin_height = 3 [(.gogoproto.moretags) = "yaml:&#92;"begin_height&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearBeginHeight() {
@@ -7167,7 +7167,7 @@ public final class Liquidity {
        * last index of DepositMsgStates
        * </pre>
        *
-       * <code>uint64 deposit_msg_index = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 deposit_msg_index = 4 [(.gogoproto.moretags) = "yaml:&#92;"deposit_msg_index&#92;""];</code>
        * @return The depositMsgIndex.
        */
       @java.lang.Override
@@ -7179,7 +7179,7 @@ public final class Liquidity {
        * last index of DepositMsgStates
        * </pre>
        *
-       * <code>uint64 deposit_msg_index = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 deposit_msg_index = 4 [(.gogoproto.moretags) = "yaml:&#92;"deposit_msg_index&#92;""];</code>
        * @param value The depositMsgIndex to set.
        * @return This builder for chaining.
        */
@@ -7194,7 +7194,7 @@ public final class Liquidity {
        * last index of DepositMsgStates
        * </pre>
        *
-       * <code>uint64 deposit_msg_index = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 deposit_msg_index = 4 [(.gogoproto.moretags) = "yaml:&#92;"deposit_msg_index&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearDepositMsgIndex() {
@@ -7210,7 +7210,7 @@ public final class Liquidity {
        * last index of WithdrawMsgStates
        * </pre>
        *
-       * <code>uint64 withdraw_msg_index = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 withdraw_msg_index = 5 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_msg_index&#92;""];</code>
        * @return The withdrawMsgIndex.
        */
       @java.lang.Override
@@ -7222,7 +7222,7 @@ public final class Liquidity {
        * last index of WithdrawMsgStates
        * </pre>
        *
-       * <code>uint64 withdraw_msg_index = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 withdraw_msg_index = 5 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_msg_index&#92;""];</code>
        * @param value The withdrawMsgIndex to set.
        * @return This builder for chaining.
        */
@@ -7237,7 +7237,7 @@ public final class Liquidity {
        * last index of WithdrawMsgStates
        * </pre>
        *
-       * <code>uint64 withdraw_msg_index = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 withdraw_msg_index = 5 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_msg_index&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearWithdrawMsgIndex() {
@@ -7253,7 +7253,7 @@ public final class Liquidity {
        * last index of SwapMsgStates
        * </pre>
        *
-       * <code>uint64 swap_msg_index = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 swap_msg_index = 6 [(.gogoproto.moretags) = "yaml:&#92;"swap_msg_index&#92;""];</code>
        * @return The swapMsgIndex.
        */
       @java.lang.Override
@@ -7265,7 +7265,7 @@ public final class Liquidity {
        * last index of SwapMsgStates
        * </pre>
        *
-       * <code>uint64 swap_msg_index = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 swap_msg_index = 6 [(.gogoproto.moretags) = "yaml:&#92;"swap_msg_index&#92;""];</code>
        * @param value The swapMsgIndex to set.
        * @return This builder for chaining.
        */
@@ -7280,7 +7280,7 @@ public final class Liquidity {
        * last index of SwapMsgStates
        * </pre>
        *
-       * <code>uint64 swap_msg_index = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 swap_msg_index = 6 [(.gogoproto.moretags) = "yaml:&#92;"swap_msg_index&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearSwapMsgIndex() {
@@ -7296,7 +7296,7 @@ public final class Liquidity {
        * true if executed, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 7 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @return The executed.
        */
       @java.lang.Override
@@ -7308,7 +7308,7 @@ public final class Liquidity {
        * true if executed, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 7 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @param value The executed to set.
        * @return This builder for chaining.
        */
@@ -7323,7 +7323,7 @@ public final class Liquidity {
        * true if executed, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 7 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearExecuted() {
@@ -7394,7 +7394,7 @@ public final class Liquidity {
      * height where this message is appended to the batch
      * </pre>
      *
-     * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
      * @return The msgHeight.
      */
     long getMsgHeight();
@@ -7404,7 +7404,7 @@ public final class Liquidity {
      * index of this deposit message in this liquidity pool
      * </pre>
      *
-     * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
      * @return The msgIndex.
      */
     long getMsgIndex();
@@ -7414,7 +7414,7 @@ public final class Liquidity {
      * true if executed on this batch, false if not executed 
      * </pre>
      *
-     * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
      * @return The executed.
      */
     boolean getExecuted();
@@ -7424,7 +7424,7 @@ public final class Liquidity {
      * true if executed successfully on this batch, false if failed
      * </pre>
      *
-     * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
      * @return The succeeded.
      */
     boolean getSucceeded();
@@ -7434,7 +7434,7 @@ public final class Liquidity {
      * true if ready to be deleted on kvstore, false if not ready to be deleted
      * </pre>
      *
-     * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
      * @return The toBeDeleted.
      */
     boolean getToBeDeleted();
@@ -7592,7 +7592,7 @@ public final class Liquidity {
      * height where this message is appended to the batch
      * </pre>
      *
-     * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
      * @return The msgHeight.
      */
     @java.lang.Override
@@ -7607,7 +7607,7 @@ public final class Liquidity {
      * index of this deposit message in this liquidity pool
      * </pre>
      *
-     * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
      * @return The msgIndex.
      */
     @java.lang.Override
@@ -7622,7 +7622,7 @@ public final class Liquidity {
      * true if executed on this batch, false if not executed 
      * </pre>
      *
-     * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
      * @return The executed.
      */
     @java.lang.Override
@@ -7637,7 +7637,7 @@ public final class Liquidity {
      * true if executed successfully on this batch, false if failed
      * </pre>
      *
-     * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
      * @return The succeeded.
      */
     @java.lang.Override
@@ -7652,7 +7652,7 @@ public final class Liquidity {
      * true if ready to be deleted on kvstore, false if not ready to be deleted
      * </pre>
      *
-     * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
      * @return The toBeDeleted.
      */
     @java.lang.Override
@@ -8113,7 +8113,7 @@ public final class Liquidity {
        * height where this message is appended to the batch
        * </pre>
        *
-       * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
        * @return The msgHeight.
        */
       @java.lang.Override
@@ -8125,7 +8125,7 @@ public final class Liquidity {
        * height where this message is appended to the batch
        * </pre>
        *
-       * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
        * @param value The msgHeight to set.
        * @return This builder for chaining.
        */
@@ -8140,7 +8140,7 @@ public final class Liquidity {
        * height where this message is appended to the batch
        * </pre>
        *
-       * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearMsgHeight() {
@@ -8156,7 +8156,7 @@ public final class Liquidity {
        * index of this deposit message in this liquidity pool
        * </pre>
        *
-       * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
        * @return The msgIndex.
        */
       @java.lang.Override
@@ -8168,7 +8168,7 @@ public final class Liquidity {
        * index of this deposit message in this liquidity pool
        * </pre>
        *
-       * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
        * @param value The msgIndex to set.
        * @return This builder for chaining.
        */
@@ -8183,7 +8183,7 @@ public final class Liquidity {
        * index of this deposit message in this liquidity pool
        * </pre>
        *
-       * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearMsgIndex() {
@@ -8199,7 +8199,7 @@ public final class Liquidity {
        * true if executed on this batch, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @return The executed.
        */
       @java.lang.Override
@@ -8211,7 +8211,7 @@ public final class Liquidity {
        * true if executed on this batch, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @param value The executed to set.
        * @return This builder for chaining.
        */
@@ -8226,7 +8226,7 @@ public final class Liquidity {
        * true if executed on this batch, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearExecuted() {
@@ -8242,7 +8242,7 @@ public final class Liquidity {
        * true if executed successfully on this batch, false if failed
        * </pre>
        *
-       * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
        * @return The succeeded.
        */
       @java.lang.Override
@@ -8254,7 +8254,7 @@ public final class Liquidity {
        * true if executed successfully on this batch, false if failed
        * </pre>
        *
-       * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
        * @param value The succeeded to set.
        * @return This builder for chaining.
        */
@@ -8269,7 +8269,7 @@ public final class Liquidity {
        * true if executed successfully on this batch, false if failed
        * </pre>
        *
-       * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearSucceeded() {
@@ -8285,7 +8285,7 @@ public final class Liquidity {
        * true if ready to be deleted on kvstore, false if not ready to be deleted
        * </pre>
        *
-       * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
        * @return The toBeDeleted.
        */
       @java.lang.Override
@@ -8297,7 +8297,7 @@ public final class Liquidity {
        * true if ready to be deleted on kvstore, false if not ready to be deleted
        * </pre>
        *
-       * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
        * @param value The toBeDeleted to set.
        * @return This builder for chaining.
        */
@@ -8312,7 +8312,7 @@ public final class Liquidity {
        * true if ready to be deleted on kvstore, false if not ready to be deleted
        * </pre>
        *
-       * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearToBeDeleted() {
@@ -8538,7 +8538,7 @@ public final class Liquidity {
      * height where this message is appended to the batch
      * </pre>
      *
-     * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
      * @return The msgHeight.
      */
     long getMsgHeight();
@@ -8548,7 +8548,7 @@ public final class Liquidity {
      * index of this withdraw message in this liquidity pool
      * </pre>
      *
-     * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
      * @return The msgIndex.
      */
     long getMsgIndex();
@@ -8558,7 +8558,7 @@ public final class Liquidity {
      * true if executed on this batch, false if not executed 
      * </pre>
      *
-     * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
      * @return The executed.
      */
     boolean getExecuted();
@@ -8568,7 +8568,7 @@ public final class Liquidity {
      * true if executed successfully on this batch, false if failed
      * </pre>
      *
-     * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
      * @return The succeeded.
      */
     boolean getSucceeded();
@@ -8578,7 +8578,7 @@ public final class Liquidity {
      * true if ready to be deleted on kvstore, false if not ready to be deleted
      * </pre>
      *
-     * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
      * @return The toBeDeleted.
      */
     boolean getToBeDeleted();
@@ -8736,7 +8736,7 @@ public final class Liquidity {
      * height where this message is appended to the batch
      * </pre>
      *
-     * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
      * @return The msgHeight.
      */
     @java.lang.Override
@@ -8751,7 +8751,7 @@ public final class Liquidity {
      * index of this withdraw message in this liquidity pool
      * </pre>
      *
-     * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
      * @return The msgIndex.
      */
     @java.lang.Override
@@ -8766,7 +8766,7 @@ public final class Liquidity {
      * true if executed on this batch, false if not executed 
      * </pre>
      *
-     * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
      * @return The executed.
      */
     @java.lang.Override
@@ -8781,7 +8781,7 @@ public final class Liquidity {
      * true if executed successfully on this batch, false if failed
      * </pre>
      *
-     * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
      * @return The succeeded.
      */
     @java.lang.Override
@@ -8796,7 +8796,7 @@ public final class Liquidity {
      * true if ready to be deleted on kvstore, false if not ready to be deleted
      * </pre>
      *
-     * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
      * @return The toBeDeleted.
      */
     @java.lang.Override
@@ -9257,7 +9257,7 @@ public final class Liquidity {
        * height where this message is appended to the batch
        * </pre>
        *
-       * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
        * @return The msgHeight.
        */
       @java.lang.Override
@@ -9269,7 +9269,7 @@ public final class Liquidity {
        * height where this message is appended to the batch
        * </pre>
        *
-       * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
        * @param value The msgHeight to set.
        * @return This builder for chaining.
        */
@@ -9284,7 +9284,7 @@ public final class Liquidity {
        * height where this message is appended to the batch
        * </pre>
        *
-       * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearMsgHeight() {
@@ -9300,7 +9300,7 @@ public final class Liquidity {
        * index of this withdraw message in this liquidity pool
        * </pre>
        *
-       * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
        * @return The msgIndex.
        */
       @java.lang.Override
@@ -9312,7 +9312,7 @@ public final class Liquidity {
        * index of this withdraw message in this liquidity pool
        * </pre>
        *
-       * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
        * @param value The msgIndex to set.
        * @return This builder for chaining.
        */
@@ -9327,7 +9327,7 @@ public final class Liquidity {
        * index of this withdraw message in this liquidity pool
        * </pre>
        *
-       * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearMsgIndex() {
@@ -9343,7 +9343,7 @@ public final class Liquidity {
        * true if executed on this batch, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @return The executed.
        */
       @java.lang.Override
@@ -9355,7 +9355,7 @@ public final class Liquidity {
        * true if executed on this batch, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @param value The executed to set.
        * @return This builder for chaining.
        */
@@ -9370,7 +9370,7 @@ public final class Liquidity {
        * true if executed on this batch, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearExecuted() {
@@ -9386,7 +9386,7 @@ public final class Liquidity {
        * true if executed successfully on this batch, false if failed
        * </pre>
        *
-       * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
        * @return The succeeded.
        */
       @java.lang.Override
@@ -9398,7 +9398,7 @@ public final class Liquidity {
        * true if executed successfully on this batch, false if failed
        * </pre>
        *
-       * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
        * @param value The succeeded to set.
        * @return This builder for chaining.
        */
@@ -9413,7 +9413,7 @@ public final class Liquidity {
        * true if executed successfully on this batch, false if failed
        * </pre>
        *
-       * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearSucceeded() {
@@ -9429,7 +9429,7 @@ public final class Liquidity {
        * true if ready to be deleted on kvstore, false if not ready to be deleted
        * </pre>
        *
-       * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
        * @return The toBeDeleted.
        */
       @java.lang.Override
@@ -9441,7 +9441,7 @@ public final class Liquidity {
        * true if ready to be deleted on kvstore, false if not ready to be deleted
        * </pre>
        *
-       * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
        * @param value The toBeDeleted to set.
        * @return This builder for chaining.
        */
@@ -9456,7 +9456,7 @@ public final class Liquidity {
        * true if ready to be deleted on kvstore, false if not ready to be deleted
        * </pre>
        *
-       * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearToBeDeleted() {
@@ -9682,7 +9682,7 @@ public final class Liquidity {
      * height where this message is appended to the batch
      * </pre>
      *
-     * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
      * @return The msgHeight.
      */
     long getMsgHeight();
@@ -9692,7 +9692,7 @@ public final class Liquidity {
      * index of this swap message in this liquidity pool
      * </pre>
      *
-     * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
      * @return The msgIndex.
      */
     long getMsgIndex();
@@ -9702,7 +9702,7 @@ public final class Liquidity {
      * true if executed on this batch, false if not executed 
      * </pre>
      *
-     * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
      * @return The executed.
      */
     boolean getExecuted();
@@ -9712,7 +9712,7 @@ public final class Liquidity {
      * true if executed successfully on this batch, false if failed
      * </pre>
      *
-     * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
      * @return The succeeded.
      */
     boolean getSucceeded();
@@ -9722,7 +9722,7 @@ public final class Liquidity {
      * true if ready to be deleted on kvstore, false if not ready to be deleted
      * </pre>
      *
-     * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
      * @return The toBeDeleted.
      */
     boolean getToBeDeleted();
@@ -9732,7 +9732,7 @@ public final class Liquidity {
      * swap orders are cancelled when current height is equal to or higher than ExpiryHeight
      * </pre>
      *
-     * <code>int64 order_expiry_height = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>int64 order_expiry_height = 6 [(.gogoproto.moretags) = "yaml:&#92;"order_expiry_height&#92;""];</code>
      * @return The orderExpiryHeight.
      */
     long getOrderExpiryHeight();
@@ -9742,7 +9742,7 @@ public final class Liquidity {
      * offer coin exchanged until now
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
      * @return Whether the exchangedOfferCoin field is set.
      */
     boolean hasExchangedOfferCoin();
@@ -9751,7 +9751,7 @@ public final class Liquidity {
      * offer coin exchanged until now
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
      * @return The exchangedOfferCoin.
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getExchangedOfferCoin();
@@ -9760,7 +9760,7 @@ public final class Liquidity {
      * offer coin exchanged until now
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getExchangedOfferCoinOrBuilder();
 
@@ -9769,7 +9769,7 @@ public final class Liquidity {
      * offer coin currently remaining to be exchanged
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
      * @return Whether the remainingOfferCoin field is set.
      */
     boolean hasRemainingOfferCoin();
@@ -9778,7 +9778,7 @@ public final class Liquidity {
      * offer coin currently remaining to be exchanged
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
      * @return The remainingOfferCoin.
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getRemainingOfferCoin();
@@ -9787,7 +9787,7 @@ public final class Liquidity {
      * offer coin currently remaining to be exchanged
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getRemainingOfferCoinOrBuilder();
 
@@ -9796,7 +9796,7 @@ public final class Liquidity {
      * reserve fee for pays fee in half offer coin
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
      * @return Whether the reservedOfferCoinFee field is set.
      */
     boolean hasReservedOfferCoinFee();
@@ -9805,7 +9805,7 @@ public final class Liquidity {
      * reserve fee for pays fee in half offer coin
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
      * @return The reservedOfferCoinFee.
      */
     cosmos.base.v1beta1.CoinOuterClass.Coin getReservedOfferCoinFee();
@@ -9814,7 +9814,7 @@ public final class Liquidity {
      * reserve fee for pays fee in half offer coin
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
      */
     cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getReservedOfferCoinFeeOrBuilder();
 
@@ -10015,7 +10015,7 @@ public final class Liquidity {
      * height where this message is appended to the batch
      * </pre>
      *
-     * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
      * @return The msgHeight.
      */
     @java.lang.Override
@@ -10030,7 +10030,7 @@ public final class Liquidity {
      * index of this swap message in this liquidity pool
      * </pre>
      *
-     * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
      * @return The msgIndex.
      */
     @java.lang.Override
@@ -10045,7 +10045,7 @@ public final class Liquidity {
      * true if executed on this batch, false if not executed 
      * </pre>
      *
-     * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
      * @return The executed.
      */
     @java.lang.Override
@@ -10060,7 +10060,7 @@ public final class Liquidity {
      * true if executed successfully on this batch, false if failed
      * </pre>
      *
-     * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
      * @return The succeeded.
      */
     @java.lang.Override
@@ -10075,7 +10075,7 @@ public final class Liquidity {
      * true if ready to be deleted on kvstore, false if not ready to be deleted
      * </pre>
      *
-     * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
      * @return The toBeDeleted.
      */
     @java.lang.Override
@@ -10090,7 +10090,7 @@ public final class Liquidity {
      * swap orders are cancelled when current height is equal to or higher than ExpiryHeight
      * </pre>
      *
-     * <code>int64 order_expiry_height = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>int64 order_expiry_height = 6 [(.gogoproto.moretags) = "yaml:&#92;"order_expiry_height&#92;""];</code>
      * @return The orderExpiryHeight.
      */
     @java.lang.Override
@@ -10105,7 +10105,7 @@ public final class Liquidity {
      * offer coin exchanged until now
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
      * @return Whether the exchangedOfferCoin field is set.
      */
     @java.lang.Override
@@ -10117,7 +10117,7 @@ public final class Liquidity {
      * offer coin exchanged until now
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
      * @return The exchangedOfferCoin.
      */
     @java.lang.Override
@@ -10129,7 +10129,7 @@ public final class Liquidity {
      * offer coin exchanged until now
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getExchangedOfferCoinOrBuilder() {
@@ -10143,7 +10143,7 @@ public final class Liquidity {
      * offer coin currently remaining to be exchanged
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
      * @return Whether the remainingOfferCoin field is set.
      */
     @java.lang.Override
@@ -10155,7 +10155,7 @@ public final class Liquidity {
      * offer coin currently remaining to be exchanged
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
      * @return The remainingOfferCoin.
      */
     @java.lang.Override
@@ -10167,7 +10167,7 @@ public final class Liquidity {
      * offer coin currently remaining to be exchanged
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getRemainingOfferCoinOrBuilder() {
@@ -10181,7 +10181,7 @@ public final class Liquidity {
      * reserve fee for pays fee in half offer coin
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
      * @return Whether the reservedOfferCoinFee field is set.
      */
     @java.lang.Override
@@ -10193,7 +10193,7 @@ public final class Liquidity {
      * reserve fee for pays fee in half offer coin
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
      * @return The reservedOfferCoinFee.
      */
     @java.lang.Override
@@ -10205,7 +10205,7 @@ public final class Liquidity {
      * reserve fee for pays fee in half offer coin
      * </pre>
      *
-     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+     * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
      */
     @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getReservedOfferCoinFeeOrBuilder() {
@@ -10773,7 +10773,7 @@ public final class Liquidity {
        * height where this message is appended to the batch
        * </pre>
        *
-       * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
        * @return The msgHeight.
        */
       @java.lang.Override
@@ -10785,7 +10785,7 @@ public final class Liquidity {
        * height where this message is appended to the batch
        * </pre>
        *
-       * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
        * @param value The msgHeight to set.
        * @return This builder for chaining.
        */
@@ -10800,7 +10800,7 @@ public final class Liquidity {
        * height where this message is appended to the batch
        * </pre>
        *
-       * <code>int64 msg_height = 1 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 msg_height = 1 [(.gogoproto.moretags) = "yaml:&#92;"msg_height&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearMsgHeight() {
@@ -10816,7 +10816,7 @@ public final class Liquidity {
        * index of this swap message in this liquidity pool
        * </pre>
        *
-       * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
        * @return The msgIndex.
        */
       @java.lang.Override
@@ -10828,7 +10828,7 @@ public final class Liquidity {
        * index of this swap message in this liquidity pool
        * </pre>
        *
-       * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
        * @param value The msgIndex to set.
        * @return This builder for chaining.
        */
@@ -10843,7 +10843,7 @@ public final class Liquidity {
        * index of this swap message in this liquidity pool
        * </pre>
        *
-       * <code>uint64 msg_index = 2 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>uint64 msg_index = 2 [(.gogoproto.moretags) = "yaml:&#92;"msg_index&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearMsgIndex() {
@@ -10859,7 +10859,7 @@ public final class Liquidity {
        * true if executed on this batch, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @return The executed.
        */
       @java.lang.Override
@@ -10871,7 +10871,7 @@ public final class Liquidity {
        * true if executed on this batch, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @param value The executed to set.
        * @return This builder for chaining.
        */
@@ -10886,7 +10886,7 @@ public final class Liquidity {
        * true if executed on this batch, false if not executed 
        * </pre>
        *
-       * <code>bool executed = 3 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool executed = 3 [(.gogoproto.moretags) = "yaml:&#92;"executed&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearExecuted() {
@@ -10902,7 +10902,7 @@ public final class Liquidity {
        * true if executed successfully on this batch, false if failed
        * </pre>
        *
-       * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
        * @return The succeeded.
        */
       @java.lang.Override
@@ -10914,7 +10914,7 @@ public final class Liquidity {
        * true if executed successfully on this batch, false if failed
        * </pre>
        *
-       * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
        * @param value The succeeded to set.
        * @return This builder for chaining.
        */
@@ -10929,7 +10929,7 @@ public final class Liquidity {
        * true if executed successfully on this batch, false if failed
        * </pre>
        *
-       * <code>bool succeeded = 4 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool succeeded = 4 [(.gogoproto.moretags) = "yaml:&#92;"succeeded&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearSucceeded() {
@@ -10945,7 +10945,7 @@ public final class Liquidity {
        * true if ready to be deleted on kvstore, false if not ready to be deleted
        * </pre>
        *
-       * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
        * @return The toBeDeleted.
        */
       @java.lang.Override
@@ -10957,7 +10957,7 @@ public final class Liquidity {
        * true if ready to be deleted on kvstore, false if not ready to be deleted
        * </pre>
        *
-       * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
        * @param value The toBeDeleted to set.
        * @return This builder for chaining.
        */
@@ -10972,7 +10972,7 @@ public final class Liquidity {
        * true if ready to be deleted on kvstore, false if not ready to be deleted
        * </pre>
        *
-       * <code>bool to_be_deleted = 5 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>bool to_be_deleted = 5 [(.gogoproto.moretags) = "yaml:&#92;"to_be_deleted&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearToBeDeleted() {
@@ -10988,7 +10988,7 @@ public final class Liquidity {
        * swap orders are cancelled when current height is equal to or higher than ExpiryHeight
        * </pre>
        *
-       * <code>int64 order_expiry_height = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 order_expiry_height = 6 [(.gogoproto.moretags) = "yaml:&#92;"order_expiry_height&#92;""];</code>
        * @return The orderExpiryHeight.
        */
       @java.lang.Override
@@ -11000,7 +11000,7 @@ public final class Liquidity {
        * swap orders are cancelled when current height is equal to or higher than ExpiryHeight
        * </pre>
        *
-       * <code>int64 order_expiry_height = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 order_expiry_height = 6 [(.gogoproto.moretags) = "yaml:&#92;"order_expiry_height&#92;""];</code>
        * @param value The orderExpiryHeight to set.
        * @return This builder for chaining.
        */
@@ -11015,7 +11015,7 @@ public final class Liquidity {
        * swap orders are cancelled when current height is equal to or higher than ExpiryHeight
        * </pre>
        *
-       * <code>int64 order_expiry_height = 6 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>int64 order_expiry_height = 6 [(.gogoproto.moretags) = "yaml:&#92;"order_expiry_height&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearOrderExpiryHeight() {
@@ -11033,7 +11033,7 @@ public final class Liquidity {
        * offer coin exchanged until now
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
        * @return Whether the exchangedOfferCoin field is set.
        */
       public boolean hasExchangedOfferCoin() {
@@ -11044,7 +11044,7 @@ public final class Liquidity {
        * offer coin exchanged until now
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
        * @return The exchangedOfferCoin.
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getExchangedOfferCoin() {
@@ -11059,7 +11059,7 @@ public final class Liquidity {
        * offer coin exchanged until now
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
        */
       public Builder setExchangedOfferCoin(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (exchangedOfferCoinBuilder_ == null) {
@@ -11079,7 +11079,7 @@ public final class Liquidity {
        * offer coin exchanged until now
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
        */
       public Builder setExchangedOfferCoin(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -11097,7 +11097,7 @@ public final class Liquidity {
        * offer coin exchanged until now
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
        */
       public Builder mergeExchangedOfferCoin(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (exchangedOfferCoinBuilder_ == null) {
@@ -11119,7 +11119,7 @@ public final class Liquidity {
        * offer coin exchanged until now
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
        */
       public Builder clearExchangedOfferCoin() {
         if (exchangedOfferCoinBuilder_ == null) {
@@ -11137,7 +11137,7 @@ public final class Liquidity {
        * offer coin exchanged until now
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getExchangedOfferCoinBuilder() {
         
@@ -11149,7 +11149,7 @@ public final class Liquidity {
        * offer coin exchanged until now
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getExchangedOfferCoinOrBuilder() {
         if (exchangedOfferCoinBuilder_ != null) {
@@ -11164,7 +11164,7 @@ public final class Liquidity {
        * offer coin exchanged until now
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin exchanged_offer_coin = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"exchanged_offer_coin&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -11188,7 +11188,7 @@ public final class Liquidity {
        * offer coin currently remaining to be exchanged
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
        * @return Whether the remainingOfferCoin field is set.
        */
       public boolean hasRemainingOfferCoin() {
@@ -11199,7 +11199,7 @@ public final class Liquidity {
        * offer coin currently remaining to be exchanged
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
        * @return The remainingOfferCoin.
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getRemainingOfferCoin() {
@@ -11214,7 +11214,7 @@ public final class Liquidity {
        * offer coin currently remaining to be exchanged
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
        */
       public Builder setRemainingOfferCoin(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (remainingOfferCoinBuilder_ == null) {
@@ -11234,7 +11234,7 @@ public final class Liquidity {
        * offer coin currently remaining to be exchanged
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
        */
       public Builder setRemainingOfferCoin(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -11252,7 +11252,7 @@ public final class Liquidity {
        * offer coin currently remaining to be exchanged
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
        */
       public Builder mergeRemainingOfferCoin(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (remainingOfferCoinBuilder_ == null) {
@@ -11274,7 +11274,7 @@ public final class Liquidity {
        * offer coin currently remaining to be exchanged
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
        */
       public Builder clearRemainingOfferCoin() {
         if (remainingOfferCoinBuilder_ == null) {
@@ -11292,7 +11292,7 @@ public final class Liquidity {
        * offer coin currently remaining to be exchanged
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getRemainingOfferCoinBuilder() {
         
@@ -11304,7 +11304,7 @@ public final class Liquidity {
        * offer coin currently remaining to be exchanged
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getRemainingOfferCoinOrBuilder() {
         if (remainingOfferCoinBuilder_ != null) {
@@ -11319,7 +11319,7 @@ public final class Liquidity {
        * offer coin currently remaining to be exchanged
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin remaining_offer_coin = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"remaining_offer_coin&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -11343,7 +11343,7 @@ public final class Liquidity {
        * reserve fee for pays fee in half offer coin
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
        * @return Whether the reservedOfferCoinFee field is set.
        */
       public boolean hasReservedOfferCoinFee() {
@@ -11354,7 +11354,7 @@ public final class Liquidity {
        * reserve fee for pays fee in half offer coin
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
        * @return The reservedOfferCoinFee.
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin getReservedOfferCoinFee() {
@@ -11369,7 +11369,7 @@ public final class Liquidity {
        * reserve fee for pays fee in half offer coin
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
        */
       public Builder setReservedOfferCoinFee(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (reservedOfferCoinFeeBuilder_ == null) {
@@ -11389,7 +11389,7 @@ public final class Liquidity {
        * reserve fee for pays fee in half offer coin
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
        */
       public Builder setReservedOfferCoinFee(
           cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
@@ -11407,7 +11407,7 @@ public final class Liquidity {
        * reserve fee for pays fee in half offer coin
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
        */
       public Builder mergeReservedOfferCoinFee(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
         if (reservedOfferCoinFeeBuilder_ == null) {
@@ -11429,7 +11429,7 @@ public final class Liquidity {
        * reserve fee for pays fee in half offer coin
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
        */
       public Builder clearReservedOfferCoinFee() {
         if (reservedOfferCoinFeeBuilder_ == null) {
@@ -11447,7 +11447,7 @@ public final class Liquidity {
        * reserve fee for pays fee in half offer coin
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getReservedOfferCoinFeeBuilder() {
         
@@ -11459,7 +11459,7 @@ public final class Liquidity {
        * reserve fee for pays fee in half offer coin
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
        */
       public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getReservedOfferCoinFeeOrBuilder() {
         if (reservedOfferCoinFeeBuilder_ != null) {
@@ -11474,7 +11474,7 @@ public final class Liquidity {
        * reserve fee for pays fee in half offer coin
        * </pre>
        *
-       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = { ... }</code>
+       * <code>.cosmos.base.v1beta1.Coin reserved_offer_coin_fee = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"reserved_offer_coin_fee&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
@@ -11750,128 +11750,96 @@ public final class Liquidity {
       ".proto\022\034tendermint.liquidity.v1beta1\032%te" +
       "ndermint/liquidity/v1beta1/tx.proto\032\024gog" +
       "oproto/gogo.proto\032\036cosmos/base/v1beta1/c" +
-      "oin.proto\032.protoc-gen-openapiv2/options/" +
-      "annotations.proto\"\313\002\n\010PoolType\022*\n\002id\030\001 \001" +
-      "(\rB\036\362\336\037\tyaml:\"id\"\222A\016J\003\"1\"\242\002\006uint32\022@\n\004na" +
-      "me\030\002 \001(\tB2\362\336\037\013yaml:\"name\"\222A J\036\"ConstantP" +
-      "roductLiquidityPool\"\022N\n\024min_reserve_coin" +
-      "_num\030\003 \001(\rB0\362\336\037\033yaml:\"min_reserve_coin_n" +
-      "um\"\222A\016J\003\"2\"\242\002\006uint32\022N\n\024max_reserve_coin" +
-      "_num\030\004 \001(\rB0\362\336\037\033yaml:\"max_reserve_coin_n" +
-      "um\"\222A\016J\003\"2\"\242\002\006uint32\022+\n\013description\030\005 \001(" +
-      "\tB\026\362\336\037\022yaml:\"description\":\004\350\240\037\001\"\367\t\n\006Para" +
-      "ms\022U\n\npool_types\030\001 \003(\0132&.tendermint.liqu" +
-      "idity.v1beta1.PoolTypeB\031\362\336\037\021yaml:\"pool_t" +
-      "ypes\"\310\336\037\000\022\211\001\n\027min_init_deposit_amount\030\002 " +
-      "\001(\tBh\362\336\037\036yaml:\"min_init_deposit_amount\"\332" +
-      "\336\037&github.com/cosmos/cosmos-sdk/types.In" +
-      "t\310\336\037\000\222A\025J\t\"1000000\"\242\002\007sdk.Int\022\217\001\n\032init_p" +
-      "ool_coin_mint_amount\030\003 \001(\tBk\362\336\037!yaml:\"in" +
+      "oin.proto\"\365\001\n\010PoolType\022\031\n\002id\030\001 \001(\rB\r\362\336\037\t" +
+      "yaml:\"id\"\022\035\n\004name\030\002 \001(\tB\017\362\336\037\013yaml:\"name\"" +
+      "\022=\n\024min_reserve_coin_num\030\003 \001(\rB\037\362\336\037\033yaml" +
+      ":\"min_reserve_coin_num\"\022=\n\024max_reserve_c" +
+      "oin_num\030\004 \001(\rB\037\362\336\037\033yaml:\"max_reserve_coi" +
+      "n_num\"\022+\n\013description\030\005 \001(\tB\026\362\336\037\022yaml:\"d" +
+      "escription\":\004\350\240\037\001\"\202\010\n\006Params\022U\n\npool_typ" +
+      "es\030\001 \003(\0132&.tendermint.liquidity.v1beta1." +
+      "PoolTypeB\031\362\336\037\021yaml:\"pool_types\"\310\336\037\000\022q\n\027m" +
+      "in_init_deposit_amount\030\002 \001(\tBP\362\336\037\036yaml:\"" +
+      "min_init_deposit_amount\"\332\336\037&github.com/c" +
+      "osmos/cosmos-sdk/types.Int\310\336\037\000\022w\n\032init_p" +
+      "ool_coin_mint_amount\030\003 \001(\tBS\362\336\037!yaml:\"in" +
       "it_pool_coin_mint_amount\"\332\336\037&github.com/" +
-      "cosmos/cosmos-sdk/types.Int\310\336\037\000\222A\025J\t\"100" +
-      "0000\"\242\002\007sdk.Int\022\217\001\n\027max_reserve_coin_amo" +
-      "unt\030\004 \001(\tBn\362\336\037\036yaml:\"max_reserve_coin_am" +
-      "ount\"\332\336\037&github.com/cosmos/cosmos-sdk/ty" +
-      "pes.Int\310\336\037\000\222A\033J\017\"1000000000000\"\242\002\007sdk.In" +
-      "t\022\277\001\n\021pool_creation_fee\030\005 \003(\0132\031.cosmos.b" +
-      "ase.v1beta1.CoinB\210\001\362\336\037\030yaml:\"pool_creati" +
-      "on_fee\"\310\336\037\000\252\337\037(github.com/cosmos/cosmos-" +
-      "sdk/types.Coins\222A9J+[{\"denom\": \"uatom\", " +
-      "\"amount\": \"100000000\"}]\242\002\tsdk.Coins\022s\n\rs" +
-      "wap_fee_rate\030\006 \001(\tB\\\362\336\037\024yaml:\"swap_fee_r" +
-      "ate\"\332\336\037&github.com/cosmos/cosmos-sdk/typ" +
-      "es.Dec\310\336\037\000\222A\023J\007\"0.003\"\242\002\007sdk.Dec\022{\n\021with" +
-      "draw_fee_rate\030\007 \001(\tB`\362\336\037\030yaml:\"withdraw_" +
-      "fee_rate\"\332\336\037&github.com/cosmos/cosmos-sd" +
-      "k/types.Dec\310\336\037\000\222A\023J\007\"0.003\"\242\002\007sdk.Dec\022\205\001" +
-      "\n\026max_order_amount_ratio\030\010 \001(\tBe\362\336\037\035yaml" +
-      ":\"max_order_amount_ratio\"\332\336\037&github.com/" +
-      "cosmos/cosmos-sdk/types.Dec\310\336\037\000\222A\023J\007\"0.0" +
-      "03\"\242\002\007sdk.Dec\022H\n\021unit_batch_height\030\t \001(\r" +
-      "B-\362\336\037\030yaml:\"unit_batch_height\"\222A\016J\003\"1\"\242\002" +
-      "\006uint32\022V\n\027circuit_breaker_enabled\030\n \001(\010" +
-      "B5\362\336\037\036yaml:\"circuit_breaker_enabled\"\222A\020J" +
-      "\007\"false\"\242\002\004bool:\010\350\240\037\001\230\240\037\000\"\330\003\n\004Pool\0220\n\002id" +
-      "\030\001 \001(\004B$\362\336\037\tyaml:\"id\"\352\336\037\002id\222A\016J\003\"1\"\242\002\006ui" +
-      "nt64\0224\n\007type_id\030\002 \001(\rB#\362\336\037\016yaml:\"type_id" +
-      "\"\222A\016J\003\"1\"\242\002\006uint32\022S\n\023reserve_coin_denom" +
-      "s\030\003 \003(\tB6\362\336\037\032yaml:\"reserve_coin_denoms\"\222" +
-      "A\025J\023[\"denomX\",\"denomY\"]\022\210\001\n\027reserve_acco" +
-      "unt_address\030\004 \001(\tBg\362\336\037\036yaml:\"reserve_acc" +
-      "ount_address\"\222ABJ/\"cosmos16ddqestwukv0jz" +
-      "cyfn3fdfq9h2wrs83cr4rfm3\"\242\002\016sdk.AccAddre" +
-      "ss\022~\n\017pool_coin_denom\030\005 \001(\tBe\362\336\037\026yaml:\"p" +
-      "ool_coin_denom\"\222AHJF\"poolD35A0CC16EE598F" +
-      "90B044CE296A405BA9C381E38837599D96F2F70C" +
-      "2F02A23A4\":\010\350\240\037\001\230\240\037\001\"\226\004\n\014PoolMetadata\022?\n" +
-      "\007pool_id\030\001 \001(\004B.\362\336\037\016yaml:\"pool_id\"\352\336\037\007po" +
-      "ol_id\222A\016J\003\"1\"\242\002\006uint64\022\327\001\n\026pool_coin_tot" +
+      "cosmos/cosmos-sdk/types.Int\310\336\037\000\022q\n\027max_r" +
+      "eserve_coin_amount\030\004 \001(\tBP\362\336\037\036yaml:\"max_" +
+      "reserve_coin_amount\"\332\336\037&github.com/cosmo" +
+      "s/cosmos-sdk/types.Int\310\336\037\000\022\202\001\n\021pool_crea" +
+      "tion_fee\030\005 \003(\0132\031.cosmos.base.v1beta1.Coi" +
+      "nBL\362\336\037\030yaml:\"pool_creation_fee\"\310\336\037\000\252\337\037(g" +
+      "ithub.com/cosmos/cosmos-sdk/types.Coins\022" +
+      "]\n\rswap_fee_rate\030\006 \001(\tBF\362\336\037\024yaml:\"swap_f" +
+      "ee_rate\"\332\336\037&github.com/cosmos/cosmos-sdk" +
+      "/types.Dec\310\336\037\000\022e\n\021withdraw_fee_rate\030\007 \001(" +
+      "\tBJ\362\336\037\030yaml:\"withdraw_fee_rate\"\332\336\037&githu" +
+      "b.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022o\n" +
+      "\026max_order_amount_ratio\030\010 \001(\tBO\362\336\037\035yaml:" +
+      "\"max_order_amount_ratio\"\332\336\037&github.com/c" +
+      "osmos/cosmos-sdk/types.Dec\310\336\037\000\0227\n\021unit_b" +
+      "atch_height\030\t \001(\rB\034\362\336\037\030yaml:\"unit_batch_" +
+      "height\"\022C\n\027circuit_breaker_enabled\030\n \001(\010" +
+      "B\"\362\336\037\036yaml:\"circuit_breaker_enabled\":\010\350\240" +
+      "\037\001\230\240\037\000\"\215\002\n\004Pool\022\037\n\002id\030\001 \001(\004B\023\362\336\037\tyaml:\"i" +
+      "d\"\352\336\037\002id\022#\n\007type_id\030\002 \001(\rB\022\362\336\037\016yaml:\"typ" +
+      "e_id\"\022;\n\023reserve_coin_denoms\030\003 \003(\tB\036\362\336\037\032" +
+      "yaml:\"reserve_coin_denoms\"\022C\n\027reserve_ac" +
+      "count_address\030\004 \001(\tB\"\362\336\037\036yaml:\"reserve_a" +
+      "ccount_address\"\0223\n\017pool_coin_denom\030\005 \001(\t" +
+      "B\032\362\336\037\026yaml:\"pool_coin_denom\":\010\350\240\037\001\230\240\037\001\"\246" +
+      "\002\n\014PoolMetadata\022.\n\007pool_id\030\001 \001(\004B\035\362\336\037\016ya" +
+      "ml:\"pool_id\"\352\336\037\007pool_id\022`\n\026pool_coin_tot" +
       "al_supply\030\002 \001(\0132\031.cosmos.base.v1beta1.Co" +
-      "inB\233\001\362\336\037\035yaml:\"pool_coin_total_supply\"\310\336" +
-      "\037\000\222AsJf{\"denom\": \"poolD35A0CC16EE598F90B" +
-      "044CE296A405BA9C381E38837599D96F2F70C2F0" +
-      "2A23A4\", \"amount\": \"1000000\"}\242\002\010sdk.Coin" +
-      "\022\340\001\n\rreserve_coins\030\003 \003(\0132\031.cosmos.base.v" +
-      "1beta1.CoinB\255\001\362\336\037\024yaml:\"reserve_coins\"\310\336" +
-      "\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types" +
-      ".Coins\222AbJT[{\"denom\": \"denomX\", \"amount\"" +
-      ": \"1000000\"}, {\"denom\": \"denomY\", \"amoun" +
-      "t\": \"2000000\"}]\242\002\tsdk.Coins:\010\350\240\037\001\230\240\037\001\"\324\003" +
-      "\n\tPoolBatch\022?\n\007pool_id\030\001 \001(\004B.\362\336\037\016yaml:\"" +
-      "pool_id\"\352\336\037\007pool_id\222A\016J\003\"1\"\242\002\006uint64\0220\n\005" +
-      "index\030\002 \001(\004B!\362\336\037\014yaml:\"index\"\222A\016J\003\"1\"\242\002\006" +
-      "uint64\022@\n\014begin_height\030\003 \001(\003B*\362\336\037\023yaml:\"" +
-      "begin_height\"\222A\020J\006\"1000\"\242\002\005int64\022H\n\021depo" +
-      "sit_msg_index\030\004 \001(\004B-\362\336\037\030yaml:\"deposit_m" +
-      "sg_index\"\222A\016J\003\"1\"\242\002\006uint64\022J\n\022withdraw_m" +
-      "sg_index\030\005 \001(\004B.\362\336\037\031yaml:\"withdraw_msg_i" +
-      "ndex\"\222A\016J\003\"1\"\242\002\006uint64\022B\n\016swap_msg_index" +
-      "\030\006 \001(\004B*\362\336\037\025yaml:\"swap_msg_index\"\222A\016J\003\"1" +
-      "\"\242\002\006uint64\022.\n\010executed\030\007 \001(\010B\034\362\336\037\017yaml:\"" +
-      "executed\"\222A\006J\004true:\010\350\240\037\001\230\240\037\001\"\367\002\n\017Deposit" +
-      "MsgState\022<\n\nmsg_height\030\001 \001(\003B(\362\336\037\021yaml:\"" +
-      "msg_height\"\222A\020J\006\"1000\"\242\002\005int64\0228\n\tmsg_in" +
-      "dex\030\002 \001(\004B%\362\336\037\020yaml:\"msg_index\"\222A\016J\003\"1\"\242" +
-      "\002\006uint64\022.\n\010executed\030\003 \001(\010B\034\362\336\037\017yaml:\"ex" +
-      "ecuted\"\222A\006J\004true\0220\n\tsucceeded\030\004 \001(\010B\035\362\336\037" +
-      "\020yaml:\"succeeded\"\222A\006J\004true\0228\n\rto_be_dele" +
-      "ted\030\005 \001(\010B!\362\336\037\024yaml:\"to_be_deleted\"\222A\006J\004" +
-      "true\022P\n\003msg\030\006 \001(\01323.tendermint.liquidity" +
-      ".v1beta1.MsgDepositWithinBatchB\016\362\336\037\nyaml" +
-      ":\"msg\"\"\371\002\n\020WithdrawMsgState\022<\n\nmsg_heigh" +
-      "t\030\001 \001(\003B(\362\336\037\021yaml:\"msg_height\"\222A\020J\006\"1000" +
-      "\"\242\002\005int64\0228\n\tmsg_index\030\002 \001(\004B%\362\336\037\020yaml:\"" +
-      "msg_index\"\222A\016J\003\"1\"\242\002\006uint64\022.\n\010executed\030" +
-      "\003 \001(\010B\034\362\336\037\017yaml:\"executed\"\222A\006J\004true\0220\n\ts" +
-      "ucceeded\030\004 \001(\010B\035\362\336\037\020yaml:\"succeeded\"\222A\006J" +
-      "\004true\0228\n\rto_be_deleted\030\005 \001(\010B!\362\336\037\024yaml:\"" +
-      "to_be_deleted\"\222A\006J\004true\022Q\n\003msg\030\006 \001(\01324.t" +
-      "endermint.liquidity.v1beta1.MsgWithdrawW" +
-      "ithinBatchB\016\362\336\037\nyaml:\"msg\"\"\207\007\n\014SwapMsgSt" +
-      "ate\022<\n\nmsg_height\030\001 \001(\003B(\362\336\037\021yaml:\"msg_h" +
-      "eight\"\222A\020J\006\"1000\"\242\002\005int64\0228\n\tmsg_index\030\002" +
-      " \001(\004B%\362\336\037\020yaml:\"msg_index\"\222A\016J\003\"1\"\242\002\006uin" +
-      "t64\022.\n\010executed\030\003 \001(\010B\034\362\336\037\017yaml:\"execute" +
-      "d\"\222A\006J\004true\0220\n\tsucceeded\030\004 \001(\010B\035\362\336\037\020yaml" +
-      ":\"succeeded\"\222A\006J\004true\0228\n\rto_be_deleted\030\005" +
-      " \001(\010B!\362\336\037\024yaml:\"to_be_deleted\"\222A\006J\004true\022" +
-      "N\n\023order_expiry_height\030\006 \001(\003B1\362\336\037\032yaml:\"" +
-      "order_expiry_height\"\222A\020J\006\"1000\"\242\002\005int64\022" +
-      "\223\001\n\024exchanged_offer_coin\030\007 \001(\0132\031.cosmos." +
-      "base.v1beta1.CoinBZ\310\336\037\000\362\336\037\033yaml:\"exchang" +
-      "ed_offer_coin\"\222A4J\'{\"denom\": \"denomX\", \"" +
-      "amount\": \"600000\"}\242\002\010sdk.Coin\022\223\001\n\024remain" +
+      "inB%\362\336\037\035yaml:\"pool_coin_total_supply\"\310\336\037" +
+      "\000\022z\n\rreserve_coins\030\003 \003(\0132\031.cosmos.base.v" +
+      "1beta1.CoinBH\362\336\037\024yaml:\"reserve_coins\"\310\336\037" +
+      "\000\252\337\037(github.com/cosmos/cosmos-sdk/types." +
+      "Coins:\010\350\240\037\001\230\240\037\001\"\343\002\n\tPoolBatch\022.\n\007pool_id" +
+      "\030\001 \001(\004B\035\362\336\037\016yaml:\"pool_id\"\352\336\037\007pool_id\022\037\n" +
+      "\005index\030\002 \001(\004B\020\362\336\037\014yaml:\"index\"\022-\n\014begin_" +
+      "height\030\003 \001(\003B\027\362\336\037\023yaml:\"begin_height\"\0227\n" +
+      "\021deposit_msg_index\030\004 \001(\004B\034\362\336\037\030yaml:\"depo" +
+      "sit_msg_index\"\0229\n\022withdraw_msg_index\030\005 \001" +
+      "(\004B\035\362\336\037\031yaml:\"withdraw_msg_index\"\0221\n\016swa" +
+      "p_msg_index\030\006 \001(\004B\031\362\336\037\025yaml:\"swap_msg_in" +
+      "dex\"\022%\n\010executed\030\007 \001(\010B\023\362\336\037\017yaml:\"execut" +
+      "ed\":\010\350\240\037\001\230\240\037\001\"\270\002\n\017DepositMsgState\022)\n\nmsg" +
+      "_height\030\001 \001(\003B\025\362\336\037\021yaml:\"msg_height\"\022\'\n\t" +
+      "msg_index\030\002 \001(\004B\024\362\336\037\020yaml:\"msg_index\"\022%\n" +
+      "\010executed\030\003 \001(\010B\023\362\336\037\017yaml:\"executed\"\022\'\n\t" +
+      "succeeded\030\004 \001(\010B\024\362\336\037\020yaml:\"succeeded\"\022/\n" +
+      "\rto_be_deleted\030\005 \001(\010B\030\362\336\037\024yaml:\"to_be_de" +
+      "leted\"\022P\n\003msg\030\006 \001(\01323.tendermint.liquidi" +
+      "ty.v1beta1.MsgDepositWithinBatchB\016\362\336\037\nya" +
+      "ml:\"msg\"\"\272\002\n\020WithdrawMsgState\022)\n\nmsg_hei" +
+      "ght\030\001 \001(\003B\025\362\336\037\021yaml:\"msg_height\"\022\'\n\tmsg_" +
+      "index\030\002 \001(\004B\024\362\336\037\020yaml:\"msg_index\"\022%\n\010exe" +
+      "cuted\030\003 \001(\010B\023\362\336\037\017yaml:\"executed\"\022\'\n\tsucc" +
+      "eeded\030\004 \001(\010B\024\362\336\037\020yaml:\"succeeded\"\022/\n\rto_" +
+      "be_deleted\030\005 \001(\010B\030\362\336\037\024yaml:\"to_be_delete" +
+      "d\"\022Q\n\003msg\030\006 \001(\01324.tendermint.liquidity.v" +
+      "1beta1.MsgWithdrawWithinBatchB\016\362\336\037\nyaml:" +
+      "\"msg\"\"\217\005\n\014SwapMsgState\022)\n\nmsg_height\030\001 \001" +
+      "(\003B\025\362\336\037\021yaml:\"msg_height\"\022\'\n\tmsg_index\030\002" +
+      " \001(\004B\024\362\336\037\020yaml:\"msg_index\"\022%\n\010executed\030\003" +
+      " \001(\010B\023\362\336\037\017yaml:\"executed\"\022\'\n\tsucceeded\030\004" +
+      " \001(\010B\024\362\336\037\020yaml:\"succeeded\"\022/\n\rto_be_dele" +
+      "ted\030\005 \001(\010B\030\362\336\037\024yaml:\"to_be_deleted\"\022;\n\023o" +
+      "rder_expiry_height\030\006 \001(\003B\036\362\336\037\032yaml:\"orde" +
+      "r_expiry_height\"\022\\\n\024exchanged_offer_coin" +
+      "\030\007 \001(\0132\031.cosmos.base.v1beta1.CoinB#\310\336\037\000\362" +
+      "\336\037\033yaml:\"exchanged_offer_coin\"\022\\\n\024remain" +
       "ing_offer_coin\030\010 \001(\0132\031.cosmos.base.v1bet" +
-      "a1.CoinBZ\310\336\037\000\362\336\037\033yaml:\"remaining_offer_c" +
-      "oin\"\222A4J\'{\"denom\": \"denomX\", \"amount\": \"" +
-      "400000\"}\242\002\010sdk.Coin\022\227\001\n\027reserved_offer_c" +
-      "oin_fee\030\t \001(\0132\031.cosmos.base.v1beta1.Coin" +
-      "B[\310\336\037\000\362\336\037\036yaml:\"reserved_offer_coin_fee\"" +
-      "\222A2J%{\"denom\": \"denomX\", \"amount\": \"5000" +
-      "\"}\242\002\010sdk.Coin\022M\n\003msg\030\n \001(\01320.tendermint." +
-      "liquidity.v1beta1.MsgSwapWithinBatchB\016\362\336" +
-      "\037\nyaml:\"msg\"B7Z1github.com/tendermint/li" +
-      "quidity/x/liquidity/types\310\341\036\000b\006proto3"
+      "a1.CoinB#\310\336\037\000\362\336\037\033yaml:\"remaining_offer_c" +
+      "oin\"\022b\n\027reserved_offer_coin_fee\030\t \001(\0132\031." +
+      "cosmos.base.v1beta1.CoinB&\310\336\037\000\362\336\037\036yaml:\"" +
+      "reserved_offer_coin_fee\"\022M\n\003msg\030\n \001(\01320." +
+      "tendermint.liquidity.v1beta1.MsgSwapWith" +
+      "inBatchB\016\362\336\037\nyaml:\"msg\"B9Z3github.com/gr" +
+      "avity-devs/liquidity/x/liquidity/types\310\341" +
+      "\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -11879,7 +11847,6 @@ public final class Liquidity {
           tendermint.liquidity.v1beta1.Tx.getDescriptor(),
           com.google.protobuf.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          grpc.gateway.protoc_gen_openapiv2.options.Annotations.getDescriptor(),
         });
     internal_static_tendermint_liquidity_v1beta1_PoolType_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -11939,13 +11906,11 @@ public final class Liquidity {
     registry.add(com.google.protobuf.GoGoProtos.jsontag);
     registry.add(com.google.protobuf.GoGoProtos.moretags);
     registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(grpc.gateway.protoc_gen_openapiv2.options.Annotations.openapiv2Field);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     tendermint.liquidity.v1beta1.Tx.getDescriptor();
     com.google.protobuf.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    grpc.gateway.protoc_gen_openapiv2.options.Annotations.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
