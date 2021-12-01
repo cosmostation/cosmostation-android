@@ -1587,6 +1587,26 @@ public class WDp {
                 return "secret";
             } else if (baseChain.equals(BITSONG_MAIN)) {
                 return "bitsong";
+            } else if (baseChain.equals(ALTHEA_MAIN)) {
+                return "althea";
+            } else if (baseChain.equals(INJ_MAIN)) {
+                return "injective";
+            }
+
+            else if (baseChain.equals(BNB_MAIN)) {
+                return "bnb";
+            } else if (baseChain.equals(OKEX_MAIN)) {
+                return "okex";
+            }
+
+            else if (baseChain.equals(COSMOS_TEST)) {
+                return "cosmos-testnet";
+            } else if (baseChain.equals(RIZON_TEST)) {
+                return "rizon-testnet";
+            } else if (baseChain.equals(AXELAR_TEST)) {
+                return "axelar";
+            } else if (baseChain.equals(UMEE_TEST)) {
+                return "umee";
             }
         }
         return null;
