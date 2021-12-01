@@ -996,13 +996,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 //                WLog.w("mGRpcOtherValidators " + getBaseDao().mGRpcOtherValidators.size());
 //                WLog.w("mGRpcAllValidators " + getBaseDao().mGRpcAllValidators.size());
 //                WLog.w("mGRpcMyValidators " + getBaseDao().mGRpcMyValidators.size());
-                WLog.w("mIbcPaths " + getBaseDao().mIbcPaths.size());
-                WLog.w("mIbcTokens " + getBaseDao().mIbcTokens.size());
+//                WLog.w("mIbcPaths " + getBaseDao().mIbcPaths.size());
+//                WLog.w("mIbcTokens " + getBaseDao().mIbcTokens.size());
                 if (getBaseDao().mGRpcNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 } else {
 //                    WLog.w("mGRpcAccount " + getBaseDao().mGRpcAccount.getTypeUrl());
-                    if (getBaseDao().mGRpcAccount != null && !getBaseDao().mGRpcAccount.getTypeUrl().contains("BaseAccount")) {
+                    if (getBaseDao().mGRpcAccount != null && !getBaseDao().mGRpcAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
                         if (mBaseChain.equals(PERSIS_MAIN)) {
                             WUtil.onParsePersisVestingAccount(getBaseDao());
                         } else {
