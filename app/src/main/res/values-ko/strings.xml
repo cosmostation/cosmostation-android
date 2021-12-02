@@ -143,7 +143,7 @@
     <string name="str_submit_time">의제 제출 시간</string>
     <string name="str_voting_start_time">투표 시작 시간</string>
     <string name="str_voting_end_time">투표 종료 시간</string>
-    <string name="str_request_amount">요첨 금액</string>
+    <string name="str_request_amount">요청 금액</string>
     <string name="str_current_turnout">현재 투표율</string>
     <string name="str_voting_description">설명</string>
     <string name="str_no_history">거래 내역이 없습니다.</string>

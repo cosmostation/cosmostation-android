@@ -40,6 +40,12 @@ public class ResProposal {
     @SerializedName("notification_status")
     public String notification_status;
 
+    @SerializedName("content")
+    public Content content;
+
+    @SerializedName("moniker")
+    public String moniker;
+
     @SerializedName("initial_deposit")
     public Coin initialDeposit;
 
@@ -48,6 +54,25 @@ public class ResProposal {
 
     @SerializedName("voteMeta")
     public VoteMeta voteMeta;
+
+    public class Content {
+        @SerializedName("type")
+        public String type;
+
+        @SerializedName("recipient")
+        public String recipient;
+
+        @SerializedName("recipient_list")
+        public ArrayList<Recipient> recipients;
+
+        @SerializedName("amount")
+        public ArrayList<Coin> amount;
+
+        public class Recipient {
+            @SerializedName("amount")
+            public ArrayList<Coin> amount;
+        }
+    }
 
     public class VoteMeta {
         @SerializedName("yes")

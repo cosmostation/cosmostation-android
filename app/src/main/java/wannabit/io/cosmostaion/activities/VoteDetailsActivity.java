@@ -22,12 +22,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import cosmos.gov.v1beta1.Gov;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.network.res.ResProposal;
@@ -37,6 +39,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.ProposalMyVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -263,8 +266,17 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             final VoteInfoHolder holder = (VoteInfoHolder)viewHolder;
             if (mApiProposal != null) {
                 WDp.getProposalStatus(VoteDetailsActivity.this, mApiProposal, holder.itemStatusImg, holder.itemStatusTxt);
+                if (mApiProposal.proposer == null) {
+                    holder.itemProposerLayer.setVisibility(View.GONE);
+                } else {
+                    holder.itemProposerLayer.setVisibility(View.VISIBLE);
+                    if (mApiProposal.moniker.isEmpty()){
+                        holder.itemProposer.setText(mApiProposal.proposer);
+                    } else {
+                        holder.itemProposer.setText(mApiProposal.moniker);
+                    }
+                }
                 holder.itemTitle.setText("# " + mApiProposal.id + ". " + mApiProposal.title);
-                holder.itemProposerLayer.setVisibility(View.GONE);
                 holder.itemType.setText(mApiProposal.proposal_type);
                 if (mApiProposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_DEPOSIT_PERIOD") || mApiProposal.proposal_status.equalsIgnoreCase("DepositPeriod")) {
                     holder.itemStartTime.setText(R.string.str_vote_wait_deposit);
@@ -274,7 +286,23 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     holder.itemFinishTime.setText(WDp.getTimeVoteformat(VoteDetailsActivity.this, mApiProposal.voting_end_time));
                 }
                 holder.itemMsg.setText(mApiProposal.description);
-
+                if (isGRPC(mBaseChain)) {
+                    if (mApiProposal.content != null && mApiProposal.content.amount != null) {
+                        holder.itemRequestLayer.setVisibility(View.VISIBLE);
+                        ArrayList<Coin> requestCoin = mApiProposal.content.amount;
+                        WDp.showCoinDp(getBaseContext(), getBaseDao(), requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount, mBaseChain);
+                    } else {
+                        holder.itemRequestLayer.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (mApiProposal.content != null && mApiProposal.content.recipients != null && mApiProposal.content.recipients.get(0).amount != null) {
+                        holder.itemRequestLayer.setVisibility(View.VISIBLE);
+                        ArrayList<Coin> requestCoin = mApiProposal.content.recipients.get(0).amount;
+                        WDp.showCoinDp(getBaseContext(), getBaseDao(), requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount, mBaseChain);
+                    } else {
+                        holder.itemRequestLayer.setVisibility(View.GONE);
+                    }
+                }
             }
 
             holder.itemWebBtn.setOnClickListener(new View.OnClickListener() {
@@ -400,14 +428,14 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         }
 
         public class VoteInfoHolder extends RecyclerView.ViewHolder {
-            private ImageView itemStatusImg;
-            private TextView itemStatusTxt;
-            private RelativeLayout itemProposerLayer;
-            private ImageView itemWebBtn;
-            private TextView itemTitle, itemType, itemStartTime, itemFinishTime, itemMsg;
-            private ImageView itemExpendBtn;
-            private RelativeLayout itemRequestLayer;
-            private TextView itemRequestAmount, itemRequestAmountDenom;
+            private ImageView       itemStatusImg;
+            private TextView        itemStatusTxt;
+            private RelativeLayout  itemProposerLayer;
+            private ImageView       itemWebBtn;
+            private TextView        itemProposer, itemTitle, itemType, itemStartTime, itemFinishTime, itemMsg;
+            private ImageView       itemExpendBtn;
+            private RelativeLayout  itemRequestLayer;
+            private TextView        itemRequestAmount, itemRequestAmountDenom;
 
             public VoteInfoHolder(@NonNull View itemView) {
                 super(itemView);
@@ -416,6 +444,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 itemProposerLayer = itemView.findViewById(R.id.vote_proposer_layer);
                 itemWebBtn = itemView.findViewById(R.id.vote_detail);
                 itemTitle = itemView.findViewById(R.id.vote_title);
+                itemProposer = itemView.findViewById(R.id.vote_proposer);
                 itemType = itemView.findViewById(R.id.vote_type);
                 itemStartTime = itemView.findViewById(R.id.vote_startTime);
                 itemFinishTime = itemView.findViewById(R.id.vote_endTime);
