@@ -64,6 +64,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
@@ -105,6 +106,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COMDEX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DESMOS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_GRABRIDGE;
@@ -993,6 +995,17 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 18));
           
+        } else if (coin.denom.equals(TOKEN_DESMOS)) {
+            holder.itemSymbol.setText(getString(R.string.str_desmos_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), DESMOS_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Desmos Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_desmos));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_DESMOS);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
         } else if (coin.denom.equals(TOKEN_BITSONG)) {
             holder.itemSymbol.setText(getString(R.string.str_bitsong_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BITSONG_MAIN));
