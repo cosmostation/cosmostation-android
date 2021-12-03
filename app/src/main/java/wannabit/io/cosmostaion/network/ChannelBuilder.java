@@ -16,6 +16,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
@@ -113,6 +114,9 @@ public class ChannelBuilder {
     private final static String GRPC_BITSONG_MAIN = "lcd-bitsong-app.cosmostation.io";
     private final static int PORT_BITSONG_MAIN = 9090;
 
+    private final static String GRPC_DESMOS_MAIN = "lcd-desmos-app.cosmostation.io";
+    private final static int PORT_DESMOS_MAIN = 9090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -192,6 +196,8 @@ public class ChannelBuilder {
             return getInjMain();
         } else if (chain.equals(BITSONG_MAIN)) {
             return getBitsongMain();
+        } else if (chain.equals(DESMOS_MAIN)) {
+            return getDesmosMain();
 
         }
 
@@ -549,6 +555,19 @@ public class ChannelBuilder {
             }
         }
         return channel_bitsong_main;
+    }
+
+    //Channel for desmos main
+    private static ManagedChannel channel_desmos_main = null;
+    public static ManagedChannel getDesmosMain() {
+        if (channel_desmos_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_desmos_main = ManagedChannelBuilder.forAddress(GRPC_DESMOS_MAIN, PORT_DESMOS_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_desmos_main;
     }
 
     //Channel for stargate testnet
