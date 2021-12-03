@@ -15,6 +15,7 @@ import org.bitcoinj.crypto.HDKeyDerivation;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.crypto.MnemonicException;
 import org.bouncycastle.crypto.digests.RIPEMD160Digest;
+import org.bouncycastle.jcajce.provider.symmetric.DES;
 import org.bouncycastle.util.encoders.Hex;
 import org.web3j.crypto.Keys;
 
@@ -48,6 +49,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
@@ -172,6 +174,9 @@ public class WKey {
 
         } else if (chain.equals(BITSONG_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(639, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
+        } else if (chain.equals(DESMOS_MAIN)) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(852, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
@@ -410,6 +415,8 @@ public class WKey {
                 result = bech32Encode("inj".getBytes(), converted);
             } else if (chain.equals(BITSONG_MAIN)){
                 result = bech32Encode("bitsong".getBytes(), converted);
+            } else if (chain.equals(DESMOS_MAIN)){
+                result = bech32Encode("desmos".getBytes(), converted);
             } else if (chain.equals(UMEE_TEST)){
                 result = bech32Encode("umee".getBytes(), converted);
             } else if (chain.equals(AXELAR_TEST)){
@@ -483,6 +490,8 @@ public class WKey {
             return bech32Encode("inj".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BITSONG_MAIN)) {
             return bech32Encode("bitsong".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(DESMOS_MAIN)) {
+            return bech32Encode("desmos".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umee".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AXELAR_TEST)) {
@@ -549,6 +558,8 @@ public class WKey {
             return bech32Encode("injvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BITSONG_MAIN)) {
             return bech32Encode("bitsongvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(DESMOS_MAIN)) {
+            return bech32Encode("desmosvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umeevaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AXELAR_TEST)) {
