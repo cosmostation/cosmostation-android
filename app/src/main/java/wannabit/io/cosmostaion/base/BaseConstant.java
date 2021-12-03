@@ -829,9 +829,13 @@ public class BaseConstant {
     public final static String SECRET_GAS_RATE_LOW                      = "0.25";
     public final static String SECRET_GAS_RATE_AVERAGE                  = "0.25";
 
-    public final static String BITSONG_GAS_RATE_TINY                     = "0.025";
-    public final static String BITSONG_GAS_RATE_LOW                      = "0.025";
-    public final static String BITSONG_GAS_RATE_AVERAGE                  = "0.025";
+    public final static String BITSONG_GAS_RATE_TINY                    = "0.025";
+    public final static String BITSONG_GAS_RATE_LOW                     = "0.025";
+    public final static String BITSONG_GAS_RATE_AVERAGE                 = "0.025";
+
+    public final static String INJ_GAS_RATE_TINY                        = "500000000.00";
+    public final static String INJ_GAS_RATE_LOW                         = "500000000.00";
+    public final static String INJ_GAS_RATE_AVERAGE                     = "500000000.00";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";

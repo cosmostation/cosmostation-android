@@ -263,6 +263,13 @@ public class WKey {
         return Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(pubKey.toByteString()).build();
     }
 
+    // For injective gRpc Keys
+    public static Any generateGrpcEthPubKeyFromPriv(String privateKey) {
+        ECKey ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+        injective.crypto.v1beta1.ethsecp256k1.Keys.PubKey pubKey = injective.crypto.v1beta1.ethsecp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
+        return Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").setValue(pubKey.toByteString()).build();
+    }
+
 
     // Ethermint Style Key gen (OKex)
     public static String createNewAddressSecp256k1(String mainPrefix, byte[] publickKey) throws Exception {

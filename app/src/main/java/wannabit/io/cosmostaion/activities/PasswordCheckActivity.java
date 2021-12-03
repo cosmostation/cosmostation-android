@@ -686,19 +686,21 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING) {
             ArrayList<Long> tempList = new ArrayList<>();
-            for (Lock.PeriodLock lockup: mOsmosisLockups) {
+            for (Lock.PeriodLock lockup : mOsmosisLockups) {
                 tempList.add(lockup.getID());
             }
             new OsmosisBeginUnbondingGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_TX_OSMOSIS_UNLOCK) {
-            ArrayList<Long> tempList = new ArrayList<>();
-            for (Lock.PeriodLock lockup: mOsmosisLockups) {
-                tempList.add(lockup.getID());
-            }
-            new OsmosisUnLockGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+//        } else if (mPurpose == CONST_PW_TX_OSMOSIS_UNLOCK) {
+//            ArrayList<Long> tempList = new ArrayList<>();
+//            for (Lock.PeriodLock lockup: mOsmosisLockups) {
+//                tempList.add(lockup.getID());
+//            }
+//            new OsmosisUnLockGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
+//                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+//        }
+
         }
 
         else if (mPurpose == CONST_PW_TX_GDEX_SWAP) {

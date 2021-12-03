@@ -410,19 +410,21 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
             } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING) {
                 ArrayList<Long> tempList = new ArrayList<>();
-                for (Lock.PeriodLock lockup: getSActivity().mOsmosisLockups) {
+                for (Lock.PeriodLock lockup : getSActivity().mOsmosisLockups) {
                     tempList.add(lockup.getID());
                 }
                 new SimulOsmosisBeginUnbondingGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         tempList, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-            } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_UNLOCK) {
-                ArrayList<Long> tempList = new ArrayList<>();
-                for (Lock.PeriodLock lockup: getSActivity().mOsmosisLockups) {
-                    tempList.add(lockup.getID());
-                }
-                new SimulOsmosisUnLockGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
-                        tempList, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_UNLOCK) {
+//                ArrayList<Long> tempList = new ArrayList<>();
+//                for (Lock.PeriodLock lockup: getSActivity().mOsmosisLockups) {
+//                    tempList.add(lockup.getID());
+//                }
+//                new SimulOsmosisUnLockGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
+//                        tempList, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            }
+
             }
 
             else if (getSActivity().mTxType == CONST_PW_TX_GDEX_SWAP) {

@@ -1423,13 +1423,12 @@ public class WDp {
                 return COMDEX_MAIN;
             } else if (chainId.contains("bitsong-")) {
                 return BITSONG_MAIN;
+            } else if (chainId.contains("inj-")) {
+                return INJ_MAIN;
             }
 
             else if (chainId.contains("gravitybridge-")) {
                 return GRABRIDGE_MAIN;
-            }
-            else if (chainId.contains("inj-")) {
-                return INJ_MAIN;
             }
         }
         return null;
@@ -1527,6 +1526,10 @@ public class WDp {
                 }
             } else if (baseChain.equals(BITSONG_MAIN)) {
                 if (!address.startsWith("bitsong1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(INJ_MAIN)) {
+                if (!address.startsWith("inj1")) {
                     textView.setText("");
                 }
             }

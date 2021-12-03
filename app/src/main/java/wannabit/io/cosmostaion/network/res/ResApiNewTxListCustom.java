@@ -350,8 +350,9 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("/osmosis.lockup.MsgBeginUnlockingAll")) {
                     result = c.getString(R.string.str_osmosis_begin_unlucking_all);
 
-                } else if (msgType.contains("MsgUnlockPeriodLock")) {
-                    result = c.getString(R.string.str_osmosis_preriodlock_unlock);
+//                } else if (msgType.contains("MsgUnlockPeriodLock")) {
+//                    result = c.getString(R.string.str_osmosis_preriodlock_unlock);
+//                }
                 }
 
                 else if (msgType.contains("MsgSwapWithinBatch")) {
