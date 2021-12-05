@@ -836,8 +836,8 @@ public class BaseConstant {
     public final static String BITSONG_GAS_RATE_AVERAGE                 = "0.025";
 
     public final static String DESMOS_GAS_RATE_TINY                    = "0.001";
-    public final static String DESMOS_GAS_RATE_LOW                     = "0.001";
-    public final static String DESMOS_GAS_RATE_AVERAGE                 = "0.001";
+    public final static String DESMOS_GAS_RATE_LOW                     = "0.010";
+    public final static String DESMOS_GAS_RATE_AVERAGE                 = "0.025";
 
     public final static String INJ_GAS_RATE_TINY                        = "500000000.00";
     public final static String INJ_GAS_RATE_LOW                         = "500000000.00";
