@@ -586,6 +586,21 @@ public class ApiClient {
         }
         return api_bitsong;
     }
+
+    //Services for desmos mainnet api
+    private static HistoryApi api_desmos = null;
+    public static HistoryApi getDesmosApi(Context c) {
+        if (api_desmos == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_desmos))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_desmos = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_desmos;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;

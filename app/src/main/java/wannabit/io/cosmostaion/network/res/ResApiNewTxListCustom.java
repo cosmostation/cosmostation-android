@@ -350,8 +350,9 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("/osmosis.lockup.MsgBeginUnlockingAll")) {
                     result = c.getString(R.string.str_osmosis_begin_unlucking_all);
 
-                } else if (msgType.contains("MsgUnlockPeriodLock")) {
-                    result = c.getString(R.string.str_osmosis_preriodlock_unlock);
+//                } else if (msgType.contains("MsgUnlockPeriodLock")) {
+//                    result = c.getString(R.string.str_osmosis_preriodlock_unlock);
+//                }
                 }
 
                 else if (msgType.contains("MsgSwapWithinBatch")) {
@@ -438,7 +439,7 @@ public class ResApiNewTxListCustom {
                     for (int i = 0; i < data.logs.size(); i ++) {
                         try {
                             String value = "";
-                            if (chain.equals(BaseChain.JUNO_MAIN) || chain.equals(BaseChain.COMDEX_MAIN)) {
+                            if (chain.equals(BaseChain.JUNO_MAIN) || chain.equals(BaseChain.COMDEX_MAIN) || chain.equals(BaseChain.DESMOS_MAIN)) {
                                 value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(1).
                                         getJSONArray("attributes").getJSONObject(1).getString("value");
                             } else {

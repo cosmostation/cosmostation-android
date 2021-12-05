@@ -46,6 +46,7 @@
     <color name="colorTransBgComdex">#24005ac5</color>
     <color name="colorTransBgInj">#2400bbdd</color>
     <color name="colorTransBgBitsong">#24ff005c</color>
+    <color name="colorTransBgDesmos">#24ed6c53</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -166,6 +167,9 @@
 
     <color name="colorBitsong">#ff005c</color>
     <color name="colorBitsong2">#870b38</color>
+
+    <color name="colorDesmos">#ed6c53</color>
+    <color name="colorDesmos2">#8e4537</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

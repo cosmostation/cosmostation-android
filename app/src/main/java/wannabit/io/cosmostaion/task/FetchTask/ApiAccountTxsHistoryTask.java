@@ -251,10 +251,17 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            }
-
-            else if (mChain.equals(BaseChain.BITSONG_MAIN)) {
+            } else if (mChain.equals(BaseChain.BITSONG_MAIN)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBitsongApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(BaseChain.DESMOS_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getDesmosApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

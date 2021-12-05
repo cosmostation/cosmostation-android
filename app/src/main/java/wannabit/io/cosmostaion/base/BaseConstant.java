@@ -569,6 +569,7 @@ public class BaseConstant {
     public final static String TOKEN_COMDEX         = "ucmdx";
     public final static String TOKEN_INJ            = "inj";
     public final static String TOKEN_BITSONG        = "ubtsg";
+    public final static String TOKEN_DESMOS         = "udsm";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
@@ -620,6 +621,7 @@ public class BaseConstant {
     public final static String KEY_ETH_LEDGER_LEGACY_PATH   = "44'/60'/0'/";
     public final static String KEY_INJ_PATH                 = "44'/60'/0'/0/";
     public final static String KEY_BITSONG_PATH             = "44'/639'/0'/0/";
+    public final static String KEY_DESMOS_PATH              = "44'/852'/0'/0/";
     public final static String characterFilter              = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -829,9 +831,17 @@ public class BaseConstant {
     public final static String SECRET_GAS_RATE_LOW                      = "0.25";
     public final static String SECRET_GAS_RATE_AVERAGE                  = "0.25";
 
-    public final static String BITSONG_GAS_RATE_TINY                     = "0.025";
-    public final static String BITSONG_GAS_RATE_LOW                      = "0.025";
-    public final static String BITSONG_GAS_RATE_AVERAGE                  = "0.025";
+    public final static String BITSONG_GAS_RATE_TINY                    = "0.025";
+    public final static String BITSONG_GAS_RATE_LOW                     = "0.025";
+    public final static String BITSONG_GAS_RATE_AVERAGE                 = "0.025";
+
+    public final static String DESMOS_GAS_RATE_TINY                    = "0.001";
+    public final static String DESMOS_GAS_RATE_LOW                     = "0.010";
+    public final static String DESMOS_GAS_RATE_AVERAGE                 = "0.025";
+
+    public final static String INJ_GAS_RATE_TINY                        = "500000000.00";
+    public final static String INJ_GAS_RATE_LOW                         = "500000000.00";
+    public final static String INJ_GAS_RATE_AVERAGE                     = "500000000.00";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
@@ -885,6 +895,7 @@ public class BaseConstant {
     public final static String COMDEX_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/comdex/";
     public final static String INJ_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/injective/";
     public final static String BITSONG_VAL_URL          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bitsong/";
+    public final static String DESMOS_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/desmos/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -926,6 +937,7 @@ public class BaseConstant {
     public final static String EXPLORER_COMDEX_MAIN     = "https://www.mintscan.io/comdex/";
     public final static String EXPLORER_INJ_MAIN        = "https://www.mintscan.io/injective/";
     public final static String EXPLORER_BITSONG_MAIN    = "https://www.mintscan.io/bitsong/";
+    public final static String EXPLORER_DESMOS_MAIN     = "https://www.mintscan.io/desmos/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 
@@ -966,6 +978,7 @@ public class BaseConstant {
     public final static String COMDEX_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/comdex/relay-comdex-unknown.png";
     public final static String SECRET_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/secret/relay-secret-unknown.png";
     public final static String BITSONG_UNKNOWN_RELAYER  = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/bitsong/relay-bitsong-unknown.png";
+    public final static String DESMOS_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/desmos/relay-desmos-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
 
@@ -1011,4 +1024,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_OKEX = new BigDecimal("4.0286");
     public final static BigDecimal BLOCK_TIME_BNB = new BigDecimal("0.4124");
     public final static BigDecimal BLOCK_TIME_COMDEX = new BigDecimal("6.1746");
+    public final static BigDecimal BLOCK_TIME_DESMOS = new BigDecimal("6.1605");
 }

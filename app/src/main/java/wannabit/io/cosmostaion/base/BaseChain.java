@@ -68,6 +68,7 @@ public enum BaseChain {
     COMDEX_MAIN("comdex-mainnet"),
     INJ_MAIN("injective-mainnet"),
     BITSONG_MAIN("bitsong-mainnet"),
+    DESMOS_MAIN("desmos-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -219,6 +220,9 @@ public enum BaseChain {
         if(chainName.equals(BITSONG_MAIN.chainName)) {
             return BITSONG_MAIN;
         }
+        if(chainName.equals(DESMOS_MAIN.chainName)) {
+            return DESMOS_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -304,9 +308,10 @@ public enum BaseChain {
         result.add(BITCANNA_MAIN);
         result.add(STARGAZE_MAIN);
         result.add(COMDEX_MAIN);
+//        result.add(INJ_MAIN);
         result.add(SECRET_MAIN);
         result.add(BITSONG_MAIN);
-//        result.add(INJ_MAIN);
+//        result.add(DESMOS_MAIN);
 
 //        result.add(ALTHEA_MAIN);
 //        result.add(GRABRIDGE_MAIN);
