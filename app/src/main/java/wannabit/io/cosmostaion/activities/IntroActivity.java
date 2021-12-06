@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +26,7 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_DisabledApp;
 import wannabit.io.cosmostaion.dialog.Dialog_NetworkError;
 import wannabit.io.cosmostaion.dialog.Dialog_Update;
@@ -40,9 +40,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     private ImageView       bgImg, bgImgGr;
     private ShimmerTextView logoTitle;
-    private LinearLayout    bottomLayer1, bottomLayer2, bottomDetail, btnImportMnemonic, btnWatchAddress;
-    private Button          mCreate, mImport;
-    private LinearLayout    mNmemonicLayer, mWatchLayer;
+    private LinearLayout    bottomLayer1, bottomLayer2;
+    private Button          mStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,27 +52,11 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         logoTitle           = findViewById(R.id.logo_title);
         bottomLayer1        = findViewById(R.id.bottom_layer1);
         bottomLayer2        = findViewById(R.id.bottom_layer2);
-        bottomDetail        = findViewById(R.id.import_detail);
-        btnImportMnemonic   = findViewById(R.id.btn_import_mnemonic);
-        btnWatchAddress     = findViewById(R.id.btn_watch_address);
-        mImport             = findViewById(R.id.btn_import);
-        mCreate             = findViewById(R.id.btn_create);
+        mStart              = findViewById(R.id.btn_start);
         mNeedLeaveTime = false;
 
-        mNmemonicLayer = findViewById(R.id.import_mnemonic_layer);
-        mWatchLayer = findViewById(R.id.import_watch_layer);
+        mStart.setOnClickListener(this);
 
-
-        mImport.setOnClickListener(this);
-        mCreate.setOnClickListener(this);
-        btnImportMnemonic.setOnClickListener(this);
-        btnWatchAddress.setOnClickListener(this);
-
-//        WLog.w("UUID  " + new DeviceUuidFactory(this).getDeviceUuidS());
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-//            WLog.w("" + ((ActivityManager)getSystemService(Context.ACTIVITY_SERVICE)).isBackgroundRestricted());
-//        }
-//        WLog.w("FCM token Already : " + FirebaseInstanceId.getInstance().getInstanceId().getResult().getToken());
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -160,25 +143,12 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mImport)) {
-            mImport.setVisibility(View.GONE);
-            bottomDetail.setVisibility(View.VISIBLE);
-
-            Animation fadein = AnimationUtils.loadAnimation(this, R.anim.fade_in4);
-            mNmemonicLayer.startAnimation(fadein);
-            mWatchLayer.startAnimation(fadein);
-
-
-        } else if (v.equals(mCreate)) {
-            startActivity(new Intent(IntroActivity.this, CreateActivity.class));
-
-        } else if (v.equals(btnImportMnemonic)) {
-            startActivity(new Intent(IntroActivity.this, RestoreActivity.class));
-
-        } else if (v.equals(btnWatchAddress)) {
-            startActivity(new Intent(IntroActivity.this, WatchingAccountAddActivity.class));
+        if (v.equals(mStart)) {
+            Bundle bundle = new Bundle();
+            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
+            dialog.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
         }
-
     }
 
 
@@ -210,31 +180,6 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         });
 
     }
-
-
-    private void onChangeImageWithFadeInAndOut( Context context, final ImageView imageView, final int resID ){
-
-        final Animation fadeInAnimation = AnimationUtils.loadAnimation( context, R.anim.fade_in );
-        Animation fadeOutAnimation = AnimationUtils.loadAnimation( context, R.anim.fade_out );
-        fadeOutAnimation.setAnimationListener( new Animation.AnimationListener() {
-
-            @Override
-            public void onAnimationStart(Animation animation) { }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) { }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                imageView.setImageResource( resID );
-                imageView.startAnimation( fadeInAnimation );
-            }
-        });
-
-        imageView.startAnimation( fadeOutAnimation );
-
-    }
-
 
     private void onNetworkDialog() {
         Dialog_NetworkError dialog = new Dialog_NetworkError();

@@ -62,6 +62,7 @@
     <string name="str_clear_all">전체 삭제</string>
     <string name="str_create">지갑 생성</string>
     <string name="str_check_mnemonic_c">복구 단어 확인</string>
+    <string name="str_start">시작하기</string>
     <string name="str_check">확인</string>
     <string name="str_confirm">확인</string>
     <string name="str_warning">경고</string>
