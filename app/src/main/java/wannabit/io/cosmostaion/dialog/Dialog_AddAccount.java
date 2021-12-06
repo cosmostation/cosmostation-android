@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.CreateActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
+import wannabit.io.cosmostaion.activities.RestoreKeyActivity;
 import wannabit.io.cosmostaion.activities.WatchingAccountAddActivity;
 
 public class Dialog_AddAccount extends DialogFragment {
@@ -47,7 +48,12 @@ public class Dialog_AddAccount extends DialogFragment {
         btn_import_key.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                return;
+                Intent restoreIntent = new Intent(getActivity(), RestoreKeyActivity.class);
+                if (getArguments() != null && getArguments().getString("chain") != null) {
+                    restoreIntent.putExtra("chain", getArguments().getString("chain"));
+                }
+                startActivity(restoreIntent);
+                getDialog().dismiss();
             }
         });
 

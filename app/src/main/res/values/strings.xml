@@ -250,8 +250,9 @@
     <string name="str_edit">Edit</string>
     <string name="str_display_chains">Displayed Chains</string>
     <string name="str_hide_chains">Hidden Chains</string>
+    <string name="str_restore_key">Restore With PrivateKey</string>
     <string name="str_qr">QrCode</string>
-    <string name="str_import">IMPORT</string>
+    <string name="str_import">Restore With Mnemonic</string>
     <string name="str_clear_all">Clear All</string>
     <string name="str_create">CREATE</string>
     <string name="str_check_mnemonic_c">CHECK MNEMONICS</string>
@@ -334,6 +335,8 @@
     <string name="str_watch_address_path_c">WATCH ADDRESS</string>
     <string name="str_address_pubkey">Insert address.</string>
     <string name="str_watch_msg">With watch mode, you can check the status of your account. \nTo enable transactions, add your mnemonics later.</string>
+    <string name="str_insert_private_key">Insert Private Key</string>
+    <string name="str_key_msg">Please enter your private key.\nThe private key is a 66-digit string starting with 0x.</string>
     <string name="str_proposal_type">Proposal Type</string>
     <string name="str_submit_time">Submit Time</string>
     <string name="str_voting_start_time">Voting Start Time</string>

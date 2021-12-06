@@ -57,8 +57,9 @@
     <string name="str_edit">Edit</string>
     <string name="str_display_chains">Displayed Chains</string>
     <string name="str_hide_chains">Hidden Chains</string>
+    <string name="str_restore_key">개인키로 지갑복원</string>
     <string name="str_qr">QR 코드</string>
-    <string name="str_import">지갑 복원</string>
+    <string name="str_import">복구단어로 지갑복원</string>
     <string name="str_clear_all">전체 삭제</string>
     <string name="str_create">지갑 생성</string>
     <string name="str_check_mnemonic_c">복구 단어 확인</string>
@@ -73,7 +74,7 @@
     <string name="str_start_wallet">Start Wallet</string>
     <string name="str_import2">복원하기</string>
     <string name="str_mnemonic">니모닉</string>
-    <string name="str_private_key">Private Key</string>
+    <string name="str_private_key">개인키</string>
     <string name="str_watch">관찰하기</string>
     <string name="str_address">주소</string>
     <string name="str_paste">붙여넣기</string>
@@ -141,6 +142,8 @@
     <string name="str_watch_address_path_c">주소 관찰</string>
     <string name="str_address_pubkey">주소 입력.</string>
     <string name="str_watch_msg">관찰 모드로 복구 단어 입력 없이 지갑의 상태를 확인할 수 있습니다.\n추후 설정에서 복구 단어를 입력하면 전송 등의 활동이 가능합니다.</string>
+    <string name="str_insert_private_key">개인키 입력</string>
+    <string name="str_key_msg">개인키(프라이빗키)를 입력해주세요.\n개인키는 0x로 시작하는 66자리의 문자열 입니다.</string>
     <string name="str_proposal_type">의제 타입</string>
     <string name="str_submit_time">의제 제출 시간</string>
     <string name="str_voting_start_time">투표 시작 시간</string>
