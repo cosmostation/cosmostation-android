@@ -15,7 +15,6 @@ import org.bitcoinj.crypto.HDKeyDerivation;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.crypto.MnemonicException;
 import org.bouncycastle.crypto.digests.RIPEMD160Digest;
-import org.bouncycastle.jcajce.provider.symmetric.DES;
 import org.bouncycastle.util.encoders.Hex;
 import org.web3j.crypto.Keys;
 
@@ -27,10 +26,11 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
 
 import static org.bitcoinj.core.ECKey.CURVE;
@@ -131,6 +131,17 @@ public class WKey {
         } else {
             return true;
         }
+    }
+
+    public static boolean isValidStringPrivateKey (String input) {
+        boolean result = false;
+        String regex = "^(0x|0X)?[a-fA-F0-9]{64}";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(input);
+        if (m.matches()) {
+            result = true;
+        }
+        return result;
     }
 
     public static List<ChildNumber> getParentPath(BaseChain chain, boolean newBip) {

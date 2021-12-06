@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.activities;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -21,7 +22,13 @@ import com.google.zxing.integration.android.IntentResult;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.UserTask.GeneratePkeyAccountTask;
+import wannabit.io.cosmostaion.task.UserTask.OverridePkeyAccountTask;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class RestoreKeyActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -72,6 +79,30 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    private void onGenPkeyAccount(String pKey, String address) {
+        onShowWaitDialog();
+        new GeneratePkeyAccountTask(getBaseApplication(), mChain, this, pKey, address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void onOverridePkeyAccount(String pKey, Account account) {
+        new OverridePkeyAccountTask(getBaseApplication(), mChain,this, pKey, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if(isFinishing()) return;
+        if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
+            if(result.isSuccess) {
+                onStartMainActivity(0);
+            }
+
+        } else if (result.taskType == BaseConstant.TASK_OVERRIDE_ACCOUNT) {
+            if(result.isSuccess) {
+                onStartMainActivity(0);
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if(v.equals(mCancel)) {
@@ -79,6 +110,28 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
 
         } else if (v.equals(mNext)) {
             mUserInput = mInput.getText().toString().trim();
+            if (!WKey.isValidStringPrivateKey(mUserInput)) {
+                Toast.makeText(this, R.string.error_invalid_private_Key, Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                String address = "";
+                if (mUserInput.startsWith("0x") || mUserInput.startsWith("0X")) {
+                    address = WKey.getDpAddress(mChain, WKey.generatePubKeyHexFromPriv(mUserInput.substring(2)));
+                } else {
+                    address = WKey.getDpAddress(mChain, WKey.generatePubKeyHexFromPriv(mUserInput));
+                }
+                Account account = getBaseDao().onSelectExistAccount(address, mChain);
+                if (account != null) {
+                    if (account.hasPrivateKey) {
+                        Toast.makeText(this, R.string.error_already_imported_address, Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        onOverridePkeyAccount(mUserInput, account);
+                    }
+                } else {
+                    onGenPkeyAccount(mUserInput, address);
+                }
+            }
 
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = new IntentIntegrator(this);

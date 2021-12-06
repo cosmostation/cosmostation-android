@@ -86,6 +86,10 @@ public class Account {
         this.customPath = customPath;
     }
 
+    public String getPrivateKeySha1() {
+        return uuid + "privateKey";
+    }
+
     public ArrayList<Balance> getBalances() {
         return balances;
     }

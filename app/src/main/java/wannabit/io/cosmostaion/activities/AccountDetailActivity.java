@@ -229,9 +229,9 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mAccountState.setText(getString(R.string.str_with_privatekey));
             mPathLayer.setVisibility(View.GONE);
             mImportMsg.setVisibility(View.GONE);
-            mBtnCheck.setVisibility(View.GONE);
-            mBtnCheckKey.setVisibility(View.VISIBLE);
-            mBtnCheckKey.setText(getString(R.string.str_check_private_key));
+            mBtnCheck.setVisibility(View.VISIBLE);
+            mBtnCheckKey.setVisibility(View.GONE);
+            mBtnCheck.setText(getString(R.string.str_check_private_key));
 
         } else {
             mAccountState.setText(getString(R.string.str_only_address));
