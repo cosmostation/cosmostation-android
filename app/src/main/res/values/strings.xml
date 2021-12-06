@@ -202,7 +202,7 @@
     <string name="str_secret_main_net">Secret</string>
     <string name="str_certik_main_net">Certik</string>
     <string name="str_akash_main_net">Akash</string>
-    <string name="str_okex_main_net">Okex</string>
+    <string name="str_okex_main_net">OEX</string>
     <string name="str_sentinel_main_net">Sentinel</string>
     <string name="str_fetch_main_net">Fetch.ai</string>
     <string name="str_crypto_main_net">Crypto.org</string>
@@ -430,10 +430,10 @@
     <string name="str_kava_net_test_2" translatable="false">Kava Testnet</string>
     <string name="str_iov_net_test" translatable="false">(Starname Testnet)</string>
     <string name="str_iov_net_test_2" translatable="false">Starname Testnet</string>
-    <string name="str_ok_net" translatable="false">(Okex)</string>
-    <string name="str_ok_net2" translatable="false">Okex</string>
-    <string name="str_ok_net_test" translatable="false">(Okex Testnet)</string>
-    <string name="str_ok_net_test_2" translatable="false">Okex Testnet</string>
+    <string name="str_ok_net" translatable="false">(OEC)</string>
+    <string name="str_ok_net2" translatable="false">OEC</string>
+    <string name="str_ok_net_test" translatable="false">(OEC Testnet)</string>
+    <string name="str_ok_net_test_2" translatable="false">OEC Testnet</string>
     <string name="str_certik_chain" translatable="false">(Certik)</string>
     <string name="str_certik_chain_2" translatable="false">Certik</string>
     <string name="str_certik_chain_test" translatable="false">(Certik Testnet)</string>
@@ -508,7 +508,7 @@
     <string name="str_certik_test" translatable="false">CERTIK TEST</string>
     <string name="str_secret_main" translatable="false">SECRET</string>
     <string name="str_akash_main" translatable="false">AKASH</string>
-    <string name="str_okex_main" translatable="false">EX</string>
+    <string name="str_okex_main" translatable="false">OEC</string>
     <string name="str_persis_main" translatable="false">PERSISTENCE</string>
     <string name="str_sentinel_main" translatable="false">SENTINEL</string>
     <string name="str_fetch_main" translatable="false">FETCH.AI</string>
@@ -606,7 +606,7 @@
     <string name="str_front_guide_title_kava"><![CDATA[KAVA CHAIN]]></string>
     <string name="str_front_guide_title_iov"><![CDATA[Starname Service]]></string>
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
-    <string name="str_front_guide_title_ok"><![CDATA[OKEX CHAIN]]></string>
+    <string name="str_front_guide_title_ok"><![CDATA[OEC CHAIN]]></string>
     <string name="str_front_guide_title_certik"><![CDATA[CERTIK CHAIN]]></string>
     <string name="str_front_guide_title_akash"><![CDATA[AKASH NETWORK]]></string>
     <string name="str_front_guide_title_secret"><![CDATA[SECRET NETWORK]]></string>
@@ -637,7 +637,7 @@
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
     <string name="str_front_guide_msg_iov">Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.</string>
-    <string name="str_front_guide_msg_ok">OKEX Chain is a public decentralized exchange powered by Tendermint.</string>
+    <string name="str_front_guide_msg_ok">OEC Chain is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_front_guide_msg_certik"><![CDATA[A public platform based on the Certik Foundation\'s unique Formal Verification security system.]]></string>
     <string name="str_front_guide_msg_akash"><![CDATA[The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.]]></string>

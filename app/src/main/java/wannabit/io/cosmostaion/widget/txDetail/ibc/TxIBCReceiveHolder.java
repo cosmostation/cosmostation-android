@@ -29,6 +29,7 @@ public class TxIBCReceiveHolder extends TxHolder {
     RelativeLayout itemIbcSingleCoinLayer;
     TextView itemIbcAmount, itemIbcAmountDenom;
 
+    int divideDecimal = 6;
 
     public TxIBCReceiveHolder(@NonNull View itemView) {
         super(itemView);
@@ -52,9 +53,16 @@ public class TxIBCReceiveHolder extends TxHolder {
             itemIbcToAddress.setText(jsonObject.getString("receiver"));
             itemIbcFromAddress.setText(jsonObject.getString("sender"));
 
-            int divideDecimal = WDp.mainDivideDecimal(jsonObject.getString("denom"));
+            String denom = jsonObject.getString("denom");
+            if (denom.startsWith("transfer/")) {
+                String ibcDenom = denom.split("/")[2];
+                divideDecimal = WDp.mainDivideDecimal(ibcDenom);
+                itemIbcAmountDenom.setText(ibcDenom.toUpperCase());
+            } else {
+                divideDecimal = WDp.mainDivideDecimal(denom);
+                itemIbcAmountDenom.setText(denom.toUpperCase());
+            }
             itemIbcAmount.setText(WDp.getDpAmount2(c, new BigDecimal(jsonObject.getString("amount")), divideDecimal, divideDecimal));
-            itemIbcAmountDenom.setText(jsonObject.getString("denom").toUpperCase());
 
         } catch (Exception e) {}
     }
