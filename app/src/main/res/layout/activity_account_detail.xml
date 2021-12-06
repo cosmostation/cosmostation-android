@@ -356,16 +356,33 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/space_36"
         android:gravity="center_horizontal">
-        <Button
-            android:id="@+id/btn_check"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_45"
-            android:minHeight="@dimen/space_45"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
-            android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_photon"
-            android:text="@string/str_check_mnemonic"/>
+            android:layout_marginRight="@dimen/space_16">
+            <Button
+                android:id="@+id/btn_check"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_45"
+                android:minHeight="@dimen/space_45"
+                android:background="@drawable/btn_trans_with_border"
+                android:layout_weight="1"
+                style="@style/font_ss_14_photon"
+                android:text="@string/str_check_mnemonic"/>
+            <Button
+                android:id="@+id/btn_check_key"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_45"
+                android:minHeight="@dimen/space_45"
+                android:layout_marginLeft="@dimen/space_6"
+                android:background="@drawable/btn_trans_with_border"
+                android:layout_weight="1"
+                style="@style/font_ss_14_photon"
+                android:text="@string/str_check_private_key" />
+        </LinearLayout>
         <Button
             android:id="@+id/btn_delete"
             android:layout_width="match_parent"

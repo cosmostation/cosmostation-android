@@ -195,9 +195,11 @@
     <string name="str_version">버전</string>
     <string name="str_will_support_with_mainnet">준비 중입니다.</string>
     <string name="str_will_support_after_mainnet">준비 중입니다.</string>
-    <string name="str_with_mnemonic">전송가능 지갑</string>
+    <string name="str_with_mnemonic">전송가능 지갑(복구단어)</string>
+    <string name="str_with_privatekey">전송가능 지갑(개인키)</string>
     <string name="str_only_address">관찰용 지갑</string>
     <string name="str_check_mnemonic">복구 단어 확인</string>
+    <string name="str_check_private_key">개인키 확인</string>
     <string name="str_delete_wallet">지갑 삭제</string>
     <string name="str_wallet_address">지갑 주소</string>
     <string name="str_wallet_info">지갑 정보</string>
@@ -207,6 +209,7 @@
     <string name="str_import_path">경로</string>
     <string name="str_import_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.</string>
     <string name="str_import_mnemonic">복구 단어 입력</string>
+    <string name="str_import_key">개인키 입력</string>
     <string name="str_share">공유</string>
     <string name="str_copy">복사</string>
     <string name="str_copied">클립보드에 복사하였습니다.</string>

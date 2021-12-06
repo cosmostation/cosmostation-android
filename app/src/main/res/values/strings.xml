@@ -389,8 +389,10 @@
     <string name="str_will_support_with_mainnet">Will support with Main Net.</string>
     <string name="str_will_support_after_mainnet">Will support after Main Net.</string>
     <string name="str_with_mnemonic">With Mnemonics</string>
+    <string name="str_with_privatekey">With Private Key</string>
     <string name="str_only_address">Only Address</string>
     <string name="str_check_mnemonic">Check Mnemonic</string>
+    <string name="str_check_private_key">Check PrivateKey</string>
     <string name="str_delete_wallet">Delete Wallet</string>
     <string name="str_wallet_address">Wallet address</string>
     <string name="str_wallet_info">Wallet Information</string>
@@ -400,6 +402,7 @@
     <string name="str_import_path">Key Path</string>
     <string name="str_import_msg">Currently in watch mode.\nAll transactions are made available after registering your mnemonic phrase.</string>
     <string name="str_import_mnemonic">Import Mnemonic</string>
+    <string name="str_import_key">Import PrivateKey</string>
     <string name="str_share">Share</string>
     <string name="str_copy">Copy</string>
     <string name="str_copied">Copied to clipboard</string>
