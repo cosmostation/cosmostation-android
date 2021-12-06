@@ -138,7 +138,7 @@
     <string name="url_api_althea_test" translatable="false">https://api-office.cosmostation.io/althea-testnet2v1/</string>
 
 
-    <string name="url_api_umee_test" translatable="false">https://api-office.cosmostation.io/umee-betanet-1/</string>
+    <string name="url_api_umee_test" translatable="false">https://api-office.cosmostation.io/umee-betanet-v5/</string>
 
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
