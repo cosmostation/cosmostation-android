@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/ok_icon"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:text="TOKT"
+                    android:text="OKT"
                     style="@style/font_ss_14_ok"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
