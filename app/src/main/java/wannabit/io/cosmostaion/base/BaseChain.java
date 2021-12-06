@@ -294,7 +294,7 @@ public enum BaseChain {
         result.add(CERTIK_MAIN);
         result.add(COMDEX_MAIN);
         result.add(CRYPTO_MAIN);
-//        result.add(DESMOS_MAIN);
+        result.add(DESMOS_MAIN);
         result.add(EMONEY_MAIN);
         result.add(FETCHAI_MAIN);
 //        result.add(INJ_MAIN);
