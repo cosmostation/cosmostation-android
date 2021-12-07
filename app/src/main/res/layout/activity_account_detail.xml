@@ -372,16 +372,21 @@
                 android:layout_weight="1"
                 style="@style/font_ss_14_photon"
                 android:text="@string/str_check_mnemonic"/>
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/space_8" />
             <Button
                 android:id="@+id/btn_check_key"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
                 android:minHeight="@dimen/space_45"
-                android:layout_marginLeft="@dimen/space_6"
                 android:background="@drawable/btn_trans_with_border"
                 android:layout_weight="1"
                 style="@style/font_ss_14_photon"
-                android:text="@string/str_check_private_key" />
+                android:text="@string/str_check_private_key"
+                />
         </LinearLayout>
         <Button
             android:id="@+id/btn_delete"

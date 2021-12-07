@@ -63,6 +63,7 @@
     <string name="str_clear_all">전체 삭제</string>
     <string name="str_create">지갑 생성</string>
     <string name="str_check_mnemonic_c">복구 단어 확인</string>
+    <string name="str_check_private_key_c">개인키 확인</string>
     <string name="str_start">시작하기</string>
     <string name="str_check">확인</string>
     <string name="str_confirm">확인</string>
@@ -212,6 +213,7 @@
     <string name="str_import_key">개인키 입력</string>
     <string name="str_share">공유</string>
     <string name="str_copy">복사</string>
+    <string name="str_copy_to">클립보드에 복사</string>
     <string name="str_copied">클립보드에 복사하였습니다.</string>
     <string name="str_safe_copied">안전 모드로 복사되었습니다.</string>
     <string name="str_add_mnemonics">복구 단어 입력</string>
@@ -1093,6 +1095,8 @@
     <string name="str_connected_address_replace">연결 주소 변경</string>
     <string name="str_safe_copy_title">복구단어 안전 복사</string>
     <string name="str_safe_copy_msg">최근 여러 어플리케이션들이 클립보드 하이재킹을 시도하고 있습니다. 복사 붙여넣기시 클립보드에 임시 저장되는 니모닉은 하이재킹 앱들의 손쉬운 표적이 됩니다. 현재의 니모닉을 이용하여 다른지갑을 생성하시길 원한다면 \"안전 복사\"를 선택하세요. 오직 이 단말기의 코스모스테이션 앱에서만 정상적으로 붙여넣기가 지원됩니다.(앱 종료시 자동적으로 사라집니다.) \n\n다른 이유로 외부에 니모닉을 사용하기 위해서는 \"원본 복사\"를 선택하세요. 이경우 안전에 유의하시길 바랍니다.</string>
+    <string name="str_safe_copy_pkey_title">복구단어 안전 복사</string>
+    <string name="str_safe_copy_pkey_msg">최근 여러 어플리케이션들이 클립보드 하이재킹을 시도하고 있습니다. 복사 붙여넣기시 클립보드에 임시 저장되는 개인키는 하이재킹 앱들의 손쉬운 표적이 됩니다. 현재의 개인키를 이용하여 다른지갑을 생성하시길 원한다면 \"안전 복사\"를 선택하세요. 오직 이 단말기의 코스모스테이션 앱에서만 정상적으로 붙여넣기가 지원됩니다.(앱 종료시 자동적으로 사라집니다.) \n\n다른 이유로 외부에 개인키를 사용하기 위해서는 \"원본 복사\"를 선택하세요. 이경우 안전에 유의하시길 바랍니다.</string>
     <string name="str_safe_copy">안전 복사</string>
     <string name="str_raw_copy">원본 복사</string>
     <string name="str_starname_walletconnect_alert_title">지갑 주소 내보내기</string>

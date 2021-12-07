@@ -53,6 +53,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar         mToolbar;
+    private View            mView;
     private Button          mBtnCheck, mBtnCheckKey, mBtnDelete;
 
     private CardView        mCardName;
@@ -80,6 +81,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.activity_account_detail);
         mToolbar                = findViewById(R.id.tool_bar);
         mBtnCheck               = findViewById(R.id.btn_check);
+        mView                   = findViewById(R.id.view);
         mBtnCheckKey            = findViewById(R.id.btn_check_key);
         mBtnDelete              = findViewById(R.id.btn_delete);
         mCardName               = findViewById(R.id.card_name);
@@ -229,9 +231,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mAccountState.setText(getString(R.string.str_with_privatekey));
             mPathLayer.setVisibility(View.GONE);
             mImportMsg.setVisibility(View.GONE);
-            mBtnCheck.setVisibility(View.VISIBLE);
-            mBtnCheckKey.setVisibility(View.GONE);
-            mBtnCheck.setText(getString(R.string.str_check_private_key));
+            mBtnCheck.setVisibility(View.GONE);
+            mView.setVisibility(View.GONE);
+            mBtnCheckKey.setVisibility(View.VISIBLE);
+            mBtnCheckKey.setText(getString(R.string.str_check_private_key));
 
         } else {
             mAccountState.setText(getString(R.string.str_only_address));
@@ -297,7 +300,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else if (v.equals(mBtnCheckKey)) {
             if(mAccount.hasPrivateKey) {
                 Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
-//                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
+                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_PRIVATE_KEY);
                 intent.putExtra("checkid", mAccount.id);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);

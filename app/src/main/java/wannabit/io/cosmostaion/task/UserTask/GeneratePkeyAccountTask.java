@@ -58,7 +58,7 @@ public class GeneratePkeyAccountTask extends CommonTask {
 
     private Account onGenAccount() {
         Account newAccount          = Account.getNewInstance();
-        EncResult encR              = CryptoHelper.doEncryptData(mPKey, newAccount.getPrivateKeySha1(), false);
+        EncResult encR              = CryptoHelper.doEncryptData(newAccount.getPrivateKeySha1(), mPKey, false);
 
         newAccount.baseChain        = mBaseChain.getChain();
         newAccount.address          = mAddress;

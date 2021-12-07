@@ -256,6 +256,7 @@
     <string name="str_clear_all">Clear All</string>
     <string name="str_create">CREATE</string>
     <string name="str_check_mnemonic_c">CHECK MNEMONICS</string>
+    <string name="str_check_private_key_c">CHECK PRIVATE KEY</string>
     <string name="str_start">START</string>
     <string name="str_check">Check</string>
     <string name="str_confirm">Confirm</string>
@@ -405,6 +406,7 @@
     <string name="str_import_key">Import PrivateKey</string>
     <string name="str_share">Share</string>
     <string name="str_copy">Copy</string>
+    <string name="str_copy_to">Copy to clipboard</string>
     <string name="str_copied">Copied to clipboard</string>
     <string name="str_safe_copied">Mnemonic copied safely</string>
     <string name="str_add_mnemonics">Add Mnemonics</string>
@@ -1417,6 +1419,8 @@
     <string name="str_connected_address_replace">Connected Addresses Replace</string>
     <string name="str_safe_copy_title">Mnemonic Safe Copy</string>
     <string name="str_safe_copy_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The mnemonic phrase temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your mnemonic phrase to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your mneominc phrase outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.</string>
+    <string name="str_safe_copy_pkey_title">Private Key Safe Copy</string>
+    <string name="str_safe_copy_pkey_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The private key temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your private key to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your private key outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.</string>
     <string name="str_safe_copy">Safe Copy</string>
     <string name="str_raw_copy">Raw Copy</string>
     <string name="str_starname_walletconnect_alert_title">Export Address for Starname</string>

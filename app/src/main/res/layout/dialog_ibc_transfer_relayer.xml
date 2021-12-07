@@ -23,7 +23,7 @@
             android:gravity="center"
             android:layout_marginTop="@dimen/space_16"
             style="@style/font_ss_17_gray8"
-            android:text="@string/str_select_ibc_destination" />
+            android:text="@string/str_select_ibc_relayer" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"

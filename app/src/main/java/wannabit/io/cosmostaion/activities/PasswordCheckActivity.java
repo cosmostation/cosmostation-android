@@ -69,6 +69,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
+import wannabit.io.cosmostaion.task.UserTask.CheckPrivateKeyTask;
 import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
@@ -115,6 +116,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_PRIVATE_KEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
@@ -168,6 +170,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_PRIVATE_KEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
@@ -508,6 +511,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             onShowWaitDialog();
             new CheckMnemonicTask(getBaseApplication(), this, getBaseDao().onSelectAccount(""+mIdToCheck)).execute(mUserInput);
 
+        } else if (mPurpose == CONST_PW_CHECK_PRIVATE_KEY) {
+            onShowWaitDialog();
+            new CheckPrivateKeyTask(getBaseApplication(), this, getBaseDao().onSelectAccount(""+mIdToCheck)).execute(mUserInput);
+
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REDELEGATE) {
             onShowWaitDialog();
             if (isGRPC(mBaseChain)) {
@@ -810,6 +817,19 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (result.taskType == TASK_CHECK_MNEMONIC) {
             if(result.isSuccess) {
                 Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicCheckActivity.class);
+                checkintent.putExtra("checkid", mIdToCheck);
+                checkintent.putExtra("entropy", String.valueOf(result.resultData));
+                startActivity(checkintent);
+
+            } else {
+                onShakeView();
+                onInitView();
+                Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
+            }
+
+        } else if (result.taskType == TASK_CHECK_PRIVATE_KEY) {
+            if(result.isSuccess) {
+                Intent checkintent = new Intent(PasswordCheckActivity.this, PrivateKeyCheckActivity.class);
                 checkintent.putExtra("checkid", mIdToCheck);
                 checkintent.putExtra("entropy", String.valueOf(result.resultData));
                 startActivity(checkintent);

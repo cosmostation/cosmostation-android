@@ -85,7 +85,7 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
     }
 
     private void onOverridePkeyAccount(String pKey, Account account) {
-        new OverridePkeyAccountTask(getBaseApplication(), mChain,this, pKey, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OverridePkeyAccountTask(getBaseApplication(),this, pKey, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
