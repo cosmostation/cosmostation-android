@@ -6455,7 +6455,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           umeenetwork.umee.peggy.v1.Types.getDescriptor(),
           umeenetwork.umee.peggy.v1.Msgs.getDescriptor(),
           umeenetwork.umee.peggy.v1.Batch.getDescriptor(),
@@ -6476,12 +6476,12 @@ public final class Genesis {
         new java.lang.String[] { "Params", "LastObservedNonce", "Valsets", "ValsetConfirms", "Batches", "BatchConfirms", "Attestations", "OrchestratorAddresses", "Erc20ToDenoms", "UnbatchedTransfers", "LastObservedEthereumHeight", "LastOutgoingBatchId", "LastOutgoingPoolId", "LastObservedValset", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stringer);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stringer);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     umeenetwork.umee.peggy.v1.Types.getDescriptor();
     umeenetwork.umee.peggy.v1.Msgs.getDescriptor();
     umeenetwork.umee.peggy.v1.Batch.getDescriptor();

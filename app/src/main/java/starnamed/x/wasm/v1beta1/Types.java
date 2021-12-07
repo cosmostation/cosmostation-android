@@ -3455,7 +3455,7 @@ public final class Types {
      * persistence model.
      * </pre>
      *
-     * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+     * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
      * @return Whether the extension field is set.
      */
     boolean hasExtension();
@@ -3465,19 +3465,19 @@ public final class Types {
      * persistence model.
      * </pre>
      *
-     * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+     * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
      * @return The extension.
      */
-    com.google.protobuf.Any getExtension();
+    com.google.protobuf2.Any getExtension();
     /**
      * <pre>
      * Extension is an extension point to store custom metadata within the
      * persistence model.
      * </pre>
      *
-     * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+     * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getExtensionOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getExtensionOrBuilder();
   }
   /**
    * <pre>
@@ -3575,11 +3575,11 @@ public final class Types {
               break;
             }
             case 58: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (extension_ != null) {
                 subBuilder = extension_.toBuilder();
               }
-              extension_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              extension_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(extension_);
                 extension_ = subBuilder.buildPartial();
@@ -3855,14 +3855,14 @@ public final class Types {
     }
 
     public static final int EXTENSION_FIELD_NUMBER = 7;
-    private com.google.protobuf.Any extension_;
+    private com.google.protobuf2.Any extension_;
     /**
      * <pre>
      * Extension is an extension point to store custom metadata within the
      * persistence model.
      * </pre>
      *
-     * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+     * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
      * @return Whether the extension field is set.
      */
     @java.lang.Override
@@ -3875,12 +3875,12 @@ public final class Types {
      * persistence model.
      * </pre>
      *
-     * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+     * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
      * @return The extension.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getExtension() {
-      return extension_ == null ? com.google.protobuf.Any.getDefaultInstance() : extension_;
+    public com.google.protobuf2.Any getExtension() {
+      return extension_ == null ? com.google.protobuf2.Any.getDefaultInstance() : extension_;
     }
     /**
      * <pre>
@@ -3888,10 +3888,10 @@ public final class Types {
      * persistence model.
      * </pre>
      *
-     * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+     * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getExtensionOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getExtensionOrBuilder() {
       return getExtension();
     }
 
@@ -4910,16 +4910,16 @@ public final class Types {
         return this;
       }
 
-      private com.google.protobuf.Any extension_;
+      private com.google.protobuf2.Any extension_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> extensionBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> extensionBuilder_;
       /**
        * <pre>
        * Extension is an extension point to store custom metadata within the
        * persistence model.
        * </pre>
        *
-       * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+       * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
        * @return Whether the extension field is set.
        */
       public boolean hasExtension() {
@@ -4931,12 +4931,12 @@ public final class Types {
        * persistence model.
        * </pre>
        *
-       * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+       * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
        * @return The extension.
        */
-      public com.google.protobuf.Any getExtension() {
+      public com.google.protobuf2.Any getExtension() {
         if (extensionBuilder_ == null) {
-          return extension_ == null ? com.google.protobuf.Any.getDefaultInstance() : extension_;
+          return extension_ == null ? com.google.protobuf2.Any.getDefaultInstance() : extension_;
         } else {
           return extensionBuilder_.getMessage();
         }
@@ -4947,9 +4947,9 @@ public final class Types {
        * persistence model.
        * </pre>
        *
-       * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+       * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
        */
-      public Builder setExtension(com.google.protobuf.Any value) {
+      public Builder setExtension(com.google.protobuf2.Any value) {
         if (extensionBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4968,10 +4968,10 @@ public final class Types {
        * persistence model.
        * </pre>
        *
-       * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+       * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
        */
       public Builder setExtension(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (extensionBuilder_ == null) {
           extension_ = builderForValue.build();
           onChanged();
@@ -4987,13 +4987,13 @@ public final class Types {
        * persistence model.
        * </pre>
        *
-       * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+       * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
        */
-      public Builder mergeExtension(com.google.protobuf.Any value) {
+      public Builder mergeExtension(com.google.protobuf2.Any value) {
         if (extensionBuilder_ == null) {
           if (extension_ != null) {
             extension_ =
-              com.google.protobuf.Any.newBuilder(extension_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(extension_).mergeFrom(value).buildPartial();
           } else {
             extension_ = value;
           }
@@ -5010,7 +5010,7 @@ public final class Types {
        * persistence model.
        * </pre>
        *
-       * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+       * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
        */
       public Builder clearExtension() {
         if (extensionBuilder_ == null) {
@@ -5029,9 +5029,9 @@ public final class Types {
        * persistence model.
        * </pre>
        *
-       * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+       * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
        */
-      public com.google.protobuf.Any.Builder getExtensionBuilder() {
+      public com.google.protobuf2.Any.Builder getExtensionBuilder() {
         
         onChanged();
         return getExtensionFieldBuilder().getBuilder();
@@ -5042,14 +5042,14 @@ public final class Types {
        * persistence model.
        * </pre>
        *
-       * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+       * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getExtensionOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getExtensionOrBuilder() {
         if (extensionBuilder_ != null) {
           return extensionBuilder_.getMessageOrBuilder();
         } else {
           return extension_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : extension_;
+              com.google.protobuf2.Any.getDefaultInstance() : extension_;
         }
       }
       /**
@@ -5058,14 +5058,14 @@ public final class Types {
        * persistence model.
        * </pre>
        *
-       * <code>.google.protobuf.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
+       * <code>.google.protobuf2.Any extension = 7 [(.cosmos_proto.accepts_interface) = "ContractInfoExtension"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getExtensionFieldBuilder() {
         if (extensionBuilder_ == null) {
           extensionBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getExtension(),
                   getParentForChildren(),
                   isClean());
@@ -7385,48 +7385,48 @@ public final class Types {
       "\204\001\n\010CodeInfo\022\021\n\tcode_hash\030\001 \001(\014\022\017\n\007creat" +
       "or\030\002 \001(\t\022H\n\022instantiate_config\030\005 \001(\0132&.s" +
       "tarnamed.x.wasm.v1beta1.AccessConfigB\004\310\336" +
-      "\037\000J\004\010\003\020\004J\004\010\004\020\005\"\207\002\n\014ContractInfo\022\033\n\007code_" +
+      "\037\000J\004\010\003\020\004J\004\010\004\020\005\"\210\002\n\014ContractInfo\022\033\n\007code_" +
       "id\030\001 \001(\004B\n\342\336\037\006CodeID\022\017\n\007creator\030\002 \001(\t\022\r\n" +
       "\005admin\030\003 \001(\t\022\r\n\005label\030\004 \001(\t\022=\n\007created\030\005" +
       " \001(\0132,.starnamed.x.wasm.v1beta1.Absolute" +
       "TxPosition\022\"\n\013ibc_port_id\030\006 \001(\tB\r\342\336\037\tIBC" +
-      "PortID\022B\n\textension\030\007 \001(\0132\024.google.proto" +
-      "buf.AnyB\031\312\264-\025ContractInfoExtension:\004\350\240\037\001" +
-      "\"\352\001\n\030ContractCodeHistoryEntry\022M\n\toperati" +
-      "on\030\001 \001(\0162:.starnamed.x.wasm.v1beta1.Cont" +
-      "ractCodeHistoryOperationType\022\033\n\007code_id\030" +
-      "\002 \001(\004B\n\342\336\037\006CodeID\022=\n\007updated\030\003 \001(\0132,.sta" +
-      "rnamed.x.wasm.v1beta1.AbsoluteTxPosition" +
-      "\022#\n\003msg\030\004 \001(\014B\026\372\336\037\022RawContractMessage\"<\n" +
-      "\022AbsoluteTxPosition\022\024\n\014block_height\030\001 \001(" +
-      "\004\022\020\n\010tx_index\030\002 \001(\004\"]\n\005Model\022E\n\003key\030\001 \001(" +
-      "\014B8\372\336\0374github.com/tendermint/tendermint/" +
-      "libs/bytes.HexBytes\022\r\n\005value\030\002 \001(\014*\351\001\n\nA" +
-      "ccessType\0226\n\027ACCESS_TYPE_UNSPECIFIED\020\000\032\031" +
-      "\212\235 \025AccessTypeUnspecified\022,\n\022ACCESS_TYPE" +
-      "_NOBODY\020\001\032\024\212\235 \020AccessTypeNobody\0227\n\030ACCES" +
-      "S_TYPE_ONLY_ADDRESS\020\002\032\031\212\235 \025AccessTypeOnl" +
-      "yAddress\0222\n\025ACCESS_TYPE_EVERYBODY\020\003\032\027\212\235 " +
-      "\023AccessTypeEverybody\032\010\210\243\036\000\250\244\036\000*\246\003\n Contr" +
-      "actCodeHistoryOperationType\022e\n0CONTRACT_" +
-      "CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED\020" +
-      "\000\032/\212\235 +ContractCodeHistoryOperationTypeU" +
-      "nspecified\022W\n)CONTRACT_CODE_HISTORY_OPER" +
-      "ATION_TYPE_INIT\020\001\032(\212\235 $ContractCodeHisto" +
-      "ryOperationTypeInit\022]\n,CONTRACT_CODE_HIS" +
-      "TORY_OPERATION_TYPE_MIGRATE\020\002\032+\212\235 \'Contr" +
-      "actCodeHistoryOperationTypeMigrate\022]\n,CO" +
-      "NTRACT_CODE_HISTORY_OPERATION_TYPE_GENES" +
-      "IS\020\003\032+\212\235 \'ContractCodeHistoryOperationTy" +
-      "peGenesis\032\004\210\243\036\000B3Z)github.com/iov-one/st" +
-      "arnamed/x/wasm/types\310\341\036\000\250\342\036\001b\006proto3"
+      "PortID\022C\n\textension\030\007 \001(\0132\025.google.proto" +
+      "buf2.AnyB\031\312\264-\025ContractInfoExtension:\004\350\240\037" +
+      "\001\"\352\001\n\030ContractCodeHistoryEntry\022M\n\toperat" +
+      "ion\030\001 \001(\0162:.starnamed.x.wasm.v1beta1.Con" +
+      "tractCodeHistoryOperationType\022\033\n\007code_id" +
+      "\030\002 \001(\004B\n\342\336\037\006CodeID\022=\n\007updated\030\003 \001(\0132,.st" +
+      "arnamed.x.wasm.v1beta1.AbsoluteTxPositio" +
+      "n\022#\n\003msg\030\004 \001(\014B\026\372\336\037\022RawContractMessage\"<" +
+      "\n\022AbsoluteTxPosition\022\024\n\014block_height\030\001 \001" +
+      "(\004\022\020\n\010tx_index\030\002 \001(\004\"]\n\005Model\022E\n\003key\030\001 \001" +
+      "(\014B8\372\336\0374github.com/tendermint/tendermint" +
+      "/libs/bytes.HexBytes\022\r\n\005value\030\002 \001(\014*\351\001\n\n" +
+      "AccessType\0226\n\027ACCESS_TYPE_UNSPECIFIED\020\000\032" +
+      "\031\212\235 \025AccessTypeUnspecified\022,\n\022ACCESS_TYP" +
+      "E_NOBODY\020\001\032\024\212\235 \020AccessTypeNobody\0227\n\030ACCE" +
+      "SS_TYPE_ONLY_ADDRESS\020\002\032\031\212\235 \025AccessTypeOn" +
+      "lyAddress\0222\n\025ACCESS_TYPE_EVERYBODY\020\003\032\027\212\235" +
+      " \023AccessTypeEverybody\032\010\210\243\036\000\250\244\036\000*\246\003\n Cont" +
+      "ractCodeHistoryOperationType\022e\n0CONTRACT" +
+      "_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED" +
+      "\020\000\032/\212\235 +ContractCodeHistoryOperationType" +
+      "Unspecified\022W\n)CONTRACT_CODE_HISTORY_OPE" +
+      "RATION_TYPE_INIT\020\001\032(\212\235 $ContractCodeHist" +
+      "oryOperationTypeInit\022]\n,CONTRACT_CODE_HI" +
+      "STORY_OPERATION_TYPE_MIGRATE\020\002\032+\212\235 \'Cont" +
+      "ractCodeHistoryOperationTypeMigrate\022]\n,C" +
+      "ONTRACT_CODE_HISTORY_OPERATION_TYPE_GENE" +
+      "SIS\020\003\032+\212\235 \'ContractCodeHistoryOperationT" +
+      "ypeGenesis\032\004\210\243\036\000B3Z)github.com/iov-one/s" +
+      "tarnamed/x/wasm/types\310\341\036\000\250\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos_proto.Cosmos.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_starnamed_x_wasm_v1beta1_AccessTypeParam_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -7479,22 +7479,22 @@ public final class Types {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.casttype);
-    registry.add(com.google.protobuf.GoGoProtos.customname);
-    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.equalAll);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumStringer);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.casttype);
+    registry.add(com.google.protobuf2.GoGoProtos.customname);
+    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.equalAll);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos_proto.Cosmos.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
