@@ -4099,7 +4099,7 @@ public final class QueryOuterClass {
           com.google.api.AnnotationsProto.getDescriptor(),
           injective.auction.v1beta1.Auction.getDescriptor(),
           injective.auction.v1beta1.Genesis.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_injective_auction_v1beta1_QueryAuctionParamsRequest_descriptor =
@@ -4140,16 +4140,16 @@ public final class QueryOuterClass {
         new java.lang.String[] { "State", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.api.AnnotationsProto.getDescriptor();
     injective.auction.v1beta1.Auction.getDescriptor();
     injective.auction.v1beta1.Genesis.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

@@ -2280,7 +2280,7 @@ public final class CommitInfoOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_cosmos_base_store_v1beta1_CommitInfo_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2302,11 +2302,11 @@ public final class CommitInfoOuterClass {
         new java.lang.String[] { "Version", "Hash", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

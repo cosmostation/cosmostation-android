@@ -2127,30 +2127,25 @@ public final class QueryDtagRequests {
     java.lang.String[] descriptorData = {
       "\n1desmos/profiles/v1beta1/query_dtag_req" +
       "uests.proto\022\027desmos.profiles.v1beta1\032\024go" +
-      "goproto/gogo.proto\032\034google/api/annotatio" +
-      "ns.proto\032\032google/protobuf2/any.proto\0322de" +
-      "smos/profiles/v1beta1/models_dtag_reques" +
-      "ts.proto\032\031cosmos_proto/cosmos.proto\032*cos" +
-      "mos/base/query/v1beta1/pagination.proto\"" +
-      "\202\001\n(QueryIncomingDTagTransferRequestsReq" +
-      "uest\022\020\n\010receiver\030\001 \001(\t\022:\n\npagination\030\002 \001" +
-      "(\0132&.cosmos.base.query.v1beta1.PageReque" +
-      "st:\010\350\240\037\000\210\240\037\000\"\256\001\n)QueryIncomingDTagTransf" +
-      "erRequestsResponse\022D\n\010requests\030\001 \003(\0132,.d" +
-      "esmos.profiles.v1beta1.DTagTransferReque" +
-      "stB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.ba" +
-      "se.query.v1beta1.PageResponseB3Z1github." +
-      "com/desmos-labs/desmos/v2/x/profiles/typ" +
-      "esb\006proto3"
+      "goproto/gogo.proto\0322desmos/profiles/v1be" +
+      "ta1/models_dtag_requests.proto\032*cosmos/b" +
+      "ase/query/v1beta1/pagination.proto\"\202\001\n(Q" +
+      "ueryIncomingDTagTransferRequestsRequest\022" +
+      "\020\n\010receiver\030\001 \001(\t\022:\n\npagination\030\002 \001(\0132&." +
+      "cosmos.base.query.v1beta1.PageRequest:\010\350" +
+      "\240\037\000\210\240\037\000\"\256\001\n)QueryIncomingDTagTransferReq" +
+      "uestsResponse\022D\n\010requests\030\001 \003(\0132,.desmos" +
+      ".profiles.v1beta1.DTagTransferRequestB\004\310" +
+      "\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.qu" +
+      "ery.v1beta1.PageResponseB3Z1github.com/d" +
+      "esmos-labs/desmos/v2/x/profiles/typesb\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
         });
     internal_static_desmos_profiles_v1beta1_QueryIncomingDTagTransferRequestsRequest_descriptor =
@@ -2167,16 +2162,13 @@ public final class QueryDtagRequests {
         new java.lang.String[] { "Requests", "Pagination", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
   }
 

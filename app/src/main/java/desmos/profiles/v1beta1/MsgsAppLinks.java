@@ -3739,7 +3739,7 @@ public final class MsgsAppLinks {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           desmos.profiles.v1beta1.ModelsAppLinks.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           ibc.core.client.v1.Client.getDescriptor(),
         });
     internal_static_desmos_profiles_v1beta1_MsgLinkApplication_descriptor =
@@ -3768,14 +3768,14 @@ public final class MsgsAppLinks {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     desmos.profiles.v1beta1.ModelsAppLinks.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     ibc.core.client.v1.Client.getDescriptor();
   }
 

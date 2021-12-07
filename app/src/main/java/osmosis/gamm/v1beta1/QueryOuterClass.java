@@ -516,19 +516,19 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      * @return Whether the pool field is set.
      */
     boolean hasPool();
     /**
-     * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      * @return The pool.
      */
-    com.google.protobuf.Any getPool();
+    com.google.protobuf2.Any getPool();
     /**
-     * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getPoolOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getPoolOrBuilder();
   }
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryPoolResponse}
@@ -576,11 +576,11 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (pool_ != null) {
                 subBuilder = pool_.toBuilder();
               }
-              pool_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              pool_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(pool_);
                 pool_ = subBuilder.buildPartial();
@@ -621,9 +621,9 @@ public final class QueryOuterClass {
     }
 
     public static final int POOL_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any pool_;
+    private com.google.protobuf2.Any pool_;
     /**
-     * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      * @return Whether the pool field is set.
      */
     @java.lang.Override
@@ -631,18 +631,18 @@ public final class QueryOuterClass {
       return pool_ != null;
     }
     /**
-     * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      * @return The pool.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPool() {
-      return pool_ == null ? com.google.protobuf.Any.getDefaultInstance() : pool_;
+    public com.google.protobuf2.Any getPool() {
+      return pool_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pool_;
     }
     /**
-     * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPoolOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getPoolOrBuilder() {
       return getPool();
     }
 
@@ -961,31 +961,31 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any pool_;
+      private com.google.protobuf2.Any pool_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> poolBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> poolBuilder_;
       /**
-       * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        * @return Whether the pool field is set.
        */
       public boolean hasPool() {
         return poolBuilder_ != null || pool_ != null;
       }
       /**
-       * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        * @return The pool.
        */
-      public com.google.protobuf.Any getPool() {
+      public com.google.protobuf2.Any getPool() {
         if (poolBuilder_ == null) {
-          return pool_ == null ? com.google.protobuf.Any.getDefaultInstance() : pool_;
+          return pool_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pool_;
         } else {
           return poolBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public Builder setPool(com.google.protobuf.Any value) {
+      public Builder setPool(com.google.protobuf2.Any value) {
         if (poolBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -999,10 +999,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder setPool(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (poolBuilder_ == null) {
           pool_ = builderForValue.build();
           onChanged();
@@ -1013,13 +1013,13 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public Builder mergePool(com.google.protobuf.Any value) {
+      public Builder mergePool(com.google.protobuf2.Any value) {
         if (poolBuilder_ == null) {
           if (pool_ != null) {
             pool_ =
-              com.google.protobuf.Any.newBuilder(pool_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(pool_).mergeFrom(value).buildPartial();
           } else {
             pool_ = value;
           }
@@ -1031,7 +1031,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder clearPool() {
         if (poolBuilder_ == null) {
@@ -1045,33 +1045,33 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.Any.Builder getPoolBuilder() {
+      public com.google.protobuf2.Any.Builder getPoolBuilder() {
         
         onChanged();
         return getPoolFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPoolOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPoolOrBuilder() {
         if (poolBuilder_ != null) {
           return poolBuilder_.getMessageOrBuilder();
         } else {
           return pool_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : pool_;
+              com.google.protobuf2.Any.getDefaultInstance() : pool_;
         }
       }
       /**
-       * <code>.google.protobuf.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPoolFieldBuilder() {
         if (poolBuilder_ == null) {
           poolBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getPool(),
                   getParentForChildren(),
                   isClean());
@@ -1826,27 +1826,27 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getPoolsList();
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
-    com.google.protobuf.Any getPools(int index);
+    com.google.protobuf2.Any getPools(int index);
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     int getPoolsCount();
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getPoolsOrBuilderList();
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getPoolsOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getPoolsOrBuilder(
         int index);
 
     /**
@@ -1925,11 +1925,11 @@ public final class QueryOuterClass {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                pools_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                pools_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000001;
               }
               pools_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             case 18: {
@@ -1981,41 +1981,41 @@ public final class QueryOuterClass {
     }
 
     public static final int POOLS_FIELD_NUMBER = 1;
-    private java.util.List<com.google.protobuf.Any> pools_;
+    private java.util.List<com.google.protobuf2.Any> pools_;
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     @java.lang.Override
-    public java.util.List<com.google.protobuf.Any> getPoolsList() {
+    public java.util.List<com.google.protobuf2.Any> getPoolsList() {
       return pools_;
     }
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getPoolsOrBuilderList() {
       return pools_;
     }
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     @java.lang.Override
     public int getPoolsCount() {
       return pools_.size();
     }
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPools(int index) {
+    public com.google.protobuf2.Any getPools(int index) {
       return pools_.get(index);
     }
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPoolsOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getPoolsOrBuilder(
         int index) {
       return pools_.get(index);
     }
@@ -2430,22 +2430,22 @@ public final class QueryOuterClass {
       }
       private int bitField0_;
 
-      private java.util.List<com.google.protobuf.Any> pools_ =
+      private java.util.List<com.google.protobuf2.Any> pools_ =
         java.util.Collections.emptyList();
       private void ensurePoolsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          pools_ = new java.util.ArrayList<com.google.protobuf.Any>(pools_);
+          pools_ = new java.util.ArrayList<com.google.protobuf2.Any>(pools_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> poolsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> poolsBuilder_;
 
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public java.util.List<com.google.protobuf.Any> getPoolsList() {
+      public java.util.List<com.google.protobuf2.Any> getPoolsList() {
         if (poolsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(pools_);
         } else {
@@ -2453,7 +2453,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public int getPoolsCount() {
         if (poolsBuilder_ == null) {
@@ -2463,9 +2463,9 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.Any getPools(int index) {
+      public com.google.protobuf2.Any getPools(int index) {
         if (poolsBuilder_ == null) {
           return pools_.get(index);
         } else {
@@ -2473,10 +2473,10 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder setPools(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (poolsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2490,10 +2490,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder setPools(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (poolsBuilder_ == null) {
           ensurePoolsIsMutable();
           pools_.set(index, builderForValue.build());
@@ -2504,9 +2504,9 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public Builder addPools(com.google.protobuf.Any value) {
+      public Builder addPools(com.google.protobuf2.Any value) {
         if (poolsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2520,10 +2520,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder addPools(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (poolsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2537,10 +2537,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder addPools(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (poolsBuilder_ == null) {
           ensurePoolsIsMutable();
           pools_.add(builderForValue.build());
@@ -2551,10 +2551,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder addPools(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (poolsBuilder_ == null) {
           ensurePoolsIsMutable();
           pools_.add(index, builderForValue.build());
@@ -2565,10 +2565,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder addAllPools(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (poolsBuilder_ == null) {
           ensurePoolsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -2580,7 +2580,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder clearPools() {
         if (poolsBuilder_ == null) {
@@ -2593,7 +2593,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder removePools(int index) {
         if (poolsBuilder_ == null) {
@@ -2606,16 +2606,16 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.Any.Builder getPoolsBuilder(
+      public com.google.protobuf2.Any.Builder getPoolsBuilder(
           int index) {
         return getPoolsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPoolsOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getPoolsOrBuilder(
           int index) {
         if (poolsBuilder_ == null) {
           return pools_.get(index);  } else {
@@ -2623,9 +2623,9 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getPoolsOrBuilderList() {
         if (poolsBuilder_ != null) {
           return poolsBuilder_.getMessageOrBuilderList();
@@ -2634,33 +2634,33 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.Any.Builder addPoolsBuilder() {
+      public com.google.protobuf2.Any.Builder addPoolsBuilder() {
         return getPoolsFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.Any.Builder addPoolsBuilder(
+      public com.google.protobuf2.Any.Builder addPoolsBuilder(
           int index) {
         return getPoolsFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getPoolsBuilderList() {
         return getPoolsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPoolsFieldBuilder() {
         if (poolsBuilder_ == null) {
           poolsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   pools_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -13696,111 +13696,111 @@ public final class QueryOuterClass {
       "nnotations.proto\032\032google/protobuf2/any.p" +
       "roto\032\031cosmos_proto/cosmos.proto\"6\n\020Query" +
       "PoolRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"p" +
-      "ool_id\"\"B\n\021QueryPoolResponse\022-\n\004pool\030\001 \001" +
-      "(\0132\024.google.protobuf.AnyB\t\312\264-\005PoolI\"O\n\021Q" +
-      "ueryPoolsRequest\022:\n\npagination\030\002 \001(\0132&.c" +
-      "osmos.base.query.v1beta1.PageRequest\"\201\001\n" +
-      "\022QueryPoolsResponse\022.\n\005pools\030\001 \003(\0132\024.goo" +
-      "gle.protobuf.AnyB\t\312\264-\005PoolI\022;\n\npaginatio" +
-      "n\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Page" +
-      "Response\"\026\n\024QueryNumPoolsRequest\"?\n\025Quer" +
-      "yNumPoolsResponse\022&\n\010numPools\030\001 \001(\004B\024\362\336\037" +
-      "\020yaml:\"num_pools\"\"<\n\026QueryPoolParamsRequ" +
-      "est\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\"" +
-      "k\n\027QueryPoolParamsResponse\022F\n\022balancerPo" +
-      "olParams\030\001 \001(\0132(.osmosis.gamm.v1beta1.Ba" +
-      "lancerPoolParamsH\000B\010\n\006params\"=\n\027QueryTot" +
-      "alSharesRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yam" +
-      "l:\"pool_id\"\"g\n\030QueryTotalSharesResponse\022" +
-      "K\n\013totalShares\030\001 \001(\0132\031.cosmos.base.v1bet" +
-      "a1.CoinB\033\362\336\037\023yaml:\"total_shares\"\310\336\037\000\"<\n\026" +
-      "QueryPoolAssetsRequest\022\"\n\006poolId\030\001 \001(\004B\022" +
-      "\362\336\037\016yaml:\"pool_id\"\"T\n\027QueryPoolAssetsRes" +
-      "ponse\0229\n\npoolAssets\030\001 \003(\0132\037.osmosis.gamm" +
-      ".v1beta1.PoolAssetB\004\310\336\037\000\"\316\001\n\025QuerySpotPr" +
-      "iceRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"po" +
-      "ol_id\"\022/\n\014tokenInDenom\030\002 \001(\tB\031\362\336\037\025yaml:\"" +
-      "token_in_denom\"\0221\n\rtokenOutDenom\030\003 \001(\tB\032" +
-      "\362\336\037\026yaml:\"token_out_denom\"\022-\n\013withSwapFe" +
-      "e\030\004 \001(\010B\030\362\336\037\024yaml:\"with_swap_fee\"\"B\n\026Que" +
-      "rySpotPriceResponse\022(\n\tspotPrice\030\001 \001(\tB\025" +
-      "\362\336\037\021yaml:\"spot_price\"\"\334\001\n\035QuerySwapExact" +
-      "AmountInRequest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryam" +
+      "ool_id\"\"C\n\021QueryPoolResponse\022.\n\004pool\030\001 \001" +
+      "(\0132\025.google.protobuf2.AnyB\t\312\264-\005PoolI\"O\n\021" +
+      "QueryPoolsRequest\022:\n\npagination\030\002 \001(\0132&." +
+      "cosmos.base.query.v1beta1.PageRequest\"\202\001" +
+      "\n\022QueryPoolsResponse\022/\n\005pools\030\001 \003(\0132\025.go" +
+      "ogle.protobuf2.AnyB\t\312\264-\005PoolI\022;\n\npaginat" +
+      "ion\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Pa" +
+      "geResponse\"\026\n\024QueryNumPoolsRequest\"?\n\025Qu" +
+      "eryNumPoolsResponse\022&\n\010numPools\030\001 \001(\004B\024\362" +
+      "\336\037\020yaml:\"num_pools\"\"<\n\026QueryPoolParamsRe" +
+      "quest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id" +
+      "\"\"k\n\027QueryPoolParamsResponse\022F\n\022balancer" +
+      "PoolParams\030\001 \001(\0132(.osmosis.gamm.v1beta1." +
+      "BalancerPoolParamsH\000B\010\n\006params\"=\n\027QueryT" +
+      "otalSharesRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016y" +
+      "aml:\"pool_id\"\"g\n\030QueryTotalSharesRespons" +
+      "e\022K\n\013totalShares\030\001 \001(\0132\031.cosmos.base.v1b" +
+      "eta1.CoinB\033\362\336\037\023yaml:\"total_shares\"\310\336\037\000\"<" +
+      "\n\026QueryPoolAssetsRequest\022\"\n\006poolId\030\001 \001(\004" +
+      "B\022\362\336\037\016yaml:\"pool_id\"\"T\n\027QueryPoolAssetsR" +
+      "esponse\0229\n\npoolAssets\030\001 \003(\0132\037.osmosis.ga" +
+      "mm.v1beta1.PoolAssetB\004\310\336\037\000\"\316\001\n\025QuerySpot" +
+      "PriceRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"" +
+      "pool_id\"\022/\n\014tokenInDenom\030\002 \001(\tB\031\362\336\037\025yaml" +
+      ":\"token_in_denom\"\0221\n\rtokenOutDenom\030\003 \001(\t" +
+      "B\032\362\336\037\026yaml:\"token_out_denom\"\022-\n\013withSwap" +
+      "Fee\030\004 \001(\010B\030\362\336\037\024yaml:\"with_swap_fee\"\"B\n\026Q" +
+      "uerySpotPriceResponse\022(\n\tspotPrice\030\001 \001(\t" +
+      "B\025\362\336\037\021yaml:\"spot_price\"\"\334\001\n\035QuerySwapExa" +
+      "ctAmountInRequest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ry" +
+      "aml:\"sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"" +
+      "pool_id\"\022$\n\007tokenIn\030\003 \001(\tB\023\362\336\037\017yaml:\"tok" +
+      "en_in\"\022N\n\006routes\030\004 \003(\0132\'.osmosis.gamm.v1" +
+      "beta1.SwapAmountInRouteB\025\362\336\037\ryaml:\"route" +
+      "s\"\310\336\037\000\"\203\001\n\036QuerySwapExactAmountInRespons" +
+      "e\022a\n\016tokenOutAmount\030\001 \001(\tBI\332\336\037&github.co" +
+      "m/cosmos/cosmos-sdk/types.Int\362\336\037\027yaml:\"t" +
+      "oken_out_amount\"\310\336\037\000\"\340\001\n\036QuerySwapExactA" +
+      "mountOutRequest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryam" +
       "l:\"sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"po" +
-      "ol_id\"\022$\n\007tokenIn\030\003 \001(\tB\023\362\336\037\017yaml:\"token" +
-      "_in\"\022N\n\006routes\030\004 \003(\0132\'.osmosis.gamm.v1be" +
-      "ta1.SwapAmountInRouteB\025\362\336\037\ryaml:\"routes\"" +
-      "\310\336\037\000\"\203\001\n\036QuerySwapExactAmountInResponse\022" +
-      "a\n\016tokenOutAmount\030\001 \001(\tBI\332\336\037&github.com/" +
-      "cosmos/cosmos-sdk/types.Int\362\336\037\027yaml:\"tok" +
-      "en_out_amount\"\310\336\037\000\"\340\001\n\036QuerySwapExactAmo" +
-      "untOutRequest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:" +
-      "\"sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"pool" +
-      "_id\"\022O\n\006routes\030\003 \003(\0132(.osmosis.gamm.v1be" +
-      "ta1.SwapAmountOutRouteB\025\362\336\037\ryaml:\"routes" +
-      "\"\310\336\037\000\022&\n\010tokenOut\030\004 \001(\tB\024\362\336\037\020yaml:\"token" +
-      "_out\"\"\202\001\n\037QuerySwapExactAmountOutRespons" +
-      "e\022_\n\rtokenInAmount\030\001 \001(\tBH\332\336\037&github.com" +
-      "/cosmos/cosmos-sdk/types.Int\362\336\037\026yaml:\"to" +
-      "ken_in_amount\"\310\336\037\000\"\034\n\032QueryTotalLiquidit" +
-      "yRequest\"\221\001\n\033QueryTotalLiquidityResponse" +
-      "\022r\n\tliquidity\030\001 \003(\0132\031.cosmos.base.v1beta" +
-      "1.CoinBD\252\337\037(github.com/cosmos/cosmos-sdk" +
-      "/types.Coins\362\336\037\020yaml:\"liquidity\"\310\336\037\0002\362\014\n" +
-      "\005Query\022\177\n\005Pools\022\'.osmosis.gamm.v1beta1.Q" +
-      "ueryPoolsRequest\032(.osmosis.gamm.v1beta1." +
-      "QueryPoolsResponse\"#\202\323\344\223\002\035\022\033/osmosis/gam" +
-      "m/v1beta1/pools\022\214\001\n\010NumPools\022*.osmosis.g" +
-      "amm.v1beta1.QueryNumPoolsRequest\032+.osmos" +
-      "is.gamm.v1beta1.QueryNumPoolsResponse\"\'\202" +
-      "\323\344\223\002!\022\037/osmosis/gamm/v1beta1/num_pools\022\244" +
-      "\001\n\016TotalLiquidity\0220.osmosis.gamm.v1beta1" +
-      ".QueryTotalLiquidityRequest\0321.osmosis.ga" +
-      "mm.v1beta1.QueryTotalLiquidityResponse\"-" +
-      "\202\323\344\223\002\'\022%/osmosis/gamm/v1beta1/total_liqu" +
-      "idity\022\205\001\n\004Pool\022&.osmosis.gamm.v1beta1.Qu" +
-      "eryPoolRequest\032\'.osmosis.gamm.v1beta1.Qu" +
-      "eryPoolResponse\",\202\323\344\223\002&\022$/osmosis/gamm/v" +
-      "1beta1/pools/{poolId}\022\236\001\n\nPoolParams\022,.o" +
-      "smosis.gamm.v1beta1.QueryPoolParamsReque" +
-      "st\032-.osmosis.gamm.v1beta1.QueryPoolParam" +
-      "sResponse\"3\202\323\344\223\002-\022+/osmosis/gamm/v1beta1" +
-      "/pools/{poolId}/params\022\247\001\n\013TotalShares\022-" +
-      ".osmosis.gamm.v1beta1.QueryTotalSharesRe" +
-      "quest\032..osmosis.gamm.v1beta1.QueryTotalS" +
-      "haresResponse\"9\202\323\344\223\0023\0221/osmosis/gamm/v1b" +
-      "eta1/pools/{poolId}/total_shares\022\236\001\n\nPoo" +
-      "lAssets\022,.osmosis.gamm.v1beta1.QueryPool" +
-      "AssetsRequest\032-.osmosis.gamm.v1beta1.Que" +
-      "ryPoolAssetsResponse\"3\202\323\344\223\002-\022+/osmosis/g" +
-      "amm/v1beta1/pools/{poolId}/tokens\022\233\001\n\tSp" +
-      "otPrice\022+.osmosis.gamm.v1beta1.QuerySpot" +
-      "PriceRequest\032,.osmosis.gamm.v1beta1.Quer" +
-      "ySpotPriceResponse\"3\202\323\344\223\002-\022+/osmosis/gam" +
-      "m/v1beta1/pools/{poolId}/prices\022\314\001\n\031Esti" +
-      "mateSwapExactAmountIn\0223.osmosis.gamm.v1b" +
-      "eta1.QuerySwapExactAmountInRequest\0324.osm" +
-      "osis.gamm.v1beta1.QuerySwapExactAmountIn" +
-      "Response\"D\202\323\344\223\002>\022</osmosis/gamm/v1beta1/" +
-      "{poolId}/estimate/swap_exact_amount_in\022\320" +
-      "\001\n\032EstimateSwapExactAmountOut\0224.osmosis." +
-      "gamm.v1beta1.QuerySwapExactAmountOutRequ" +
-      "est\0325.osmosis.gamm.v1beta1.QuerySwapExac" +
-      "tAmountOutResponse\"E\202\323\344\223\002?\022=/osmosis/gam" +
-      "m/v1beta1/{poolId}/estimate/swap_exact_a" +
-      "mount_outB.Z,github.com/osmosis-labs/osm" +
-      "osis/x/gamm/typesb\006proto3"
+      "ol_id\"\022O\n\006routes\030\003 \003(\0132(.osmosis.gamm.v1" +
+      "beta1.SwapAmountOutRouteB\025\362\336\037\ryaml:\"rout" +
+      "es\"\310\336\037\000\022&\n\010tokenOut\030\004 \001(\tB\024\362\336\037\020yaml:\"tok" +
+      "en_out\"\"\202\001\n\037QuerySwapExactAmountOutRespo" +
+      "nse\022_\n\rtokenInAmount\030\001 \001(\tBH\332\336\037&github.c" +
+      "om/cosmos/cosmos-sdk/types.Int\362\336\037\026yaml:\"" +
+      "token_in_amount\"\310\336\037\000\"\034\n\032QueryTotalLiquid" +
+      "ityRequest\"\221\001\n\033QueryTotalLiquidityRespon" +
+      "se\022r\n\tliquidity\030\001 \003(\0132\031.cosmos.base.v1be" +
+      "ta1.CoinBD\252\337\037(github.com/cosmos/cosmos-s" +
+      "dk/types.Coins\362\336\037\020yaml:\"liquidity\"\310\336\037\0002\362" +
+      "\014\n\005Query\022\177\n\005Pools\022\'.osmosis.gamm.v1beta1" +
+      ".QueryPoolsRequest\032(.osmosis.gamm.v1beta" +
+      "1.QueryPoolsResponse\"#\202\323\344\223\002\035\022\033/osmosis/g" +
+      "amm/v1beta1/pools\022\214\001\n\010NumPools\022*.osmosis" +
+      ".gamm.v1beta1.QueryNumPoolsRequest\032+.osm" +
+      "osis.gamm.v1beta1.QueryNumPoolsResponse\"" +
+      "\'\202\323\344\223\002!\022\037/osmosis/gamm/v1beta1/num_pools" +
+      "\022\244\001\n\016TotalLiquidity\0220.osmosis.gamm.v1bet" +
+      "a1.QueryTotalLiquidityRequest\0321.osmosis." +
+      "gamm.v1beta1.QueryTotalLiquidityResponse" +
+      "\"-\202\323\344\223\002\'\022%/osmosis/gamm/v1beta1/total_li" +
+      "quidity\022\205\001\n\004Pool\022&.osmosis.gamm.v1beta1." +
+      "QueryPoolRequest\032\'.osmosis.gamm.v1beta1." +
+      "QueryPoolResponse\",\202\323\344\223\002&\022$/osmosis/gamm" +
+      "/v1beta1/pools/{poolId}\022\236\001\n\nPoolParams\022," +
+      ".osmosis.gamm.v1beta1.QueryPoolParamsReq" +
+      "uest\032-.osmosis.gamm.v1beta1.QueryPoolPar" +
+      "amsResponse\"3\202\323\344\223\002-\022+/osmosis/gamm/v1bet" +
+      "a1/pools/{poolId}/params\022\247\001\n\013TotalShares" +
+      "\022-.osmosis.gamm.v1beta1.QueryTotalShares" +
+      "Request\032..osmosis.gamm.v1beta1.QueryTota" +
+      "lSharesResponse\"9\202\323\344\223\0023\0221/osmosis/gamm/v" +
+      "1beta1/pools/{poolId}/total_shares\022\236\001\n\nP" +
+      "oolAssets\022,.osmosis.gamm.v1beta1.QueryPo" +
+      "olAssetsRequest\032-.osmosis.gamm.v1beta1.Q" +
+      "ueryPoolAssetsResponse\"3\202\323\344\223\002-\022+/osmosis" +
+      "/gamm/v1beta1/pools/{poolId}/tokens\022\233\001\n\t" +
+      "SpotPrice\022+.osmosis.gamm.v1beta1.QuerySp" +
+      "otPriceRequest\032,.osmosis.gamm.v1beta1.Qu" +
+      "erySpotPriceResponse\"3\202\323\344\223\002-\022+/osmosis/g" +
+      "amm/v1beta1/pools/{poolId}/prices\022\314\001\n\031Es" +
+      "timateSwapExactAmountIn\0223.osmosis.gamm.v" +
+      "1beta1.QuerySwapExactAmountInRequest\0324.o" +
+      "smosis.gamm.v1beta1.QuerySwapExactAmount" +
+      "InResponse\"D\202\323\344\223\002>\022</osmosis/gamm/v1beta" +
+      "1/{poolId}/estimate/swap_exact_amount_in" +
+      "\022\320\001\n\032EstimateSwapExactAmountOut\0224.osmosi" +
+      "s.gamm.v1beta1.QuerySwapExactAmountOutRe" +
+      "quest\0325.osmosis.gamm.v1beta1.QuerySwapEx" +
+      "actAmountOutResponse\"E\202\323\344\223\002?\022=/osmosis/g" +
+      "amm/v1beta1/{poolId}/estimate/swap_exact" +
+      "_amount_outB.Z,github.com/osmosis-labs/o" +
+      "smosis/x/gamm/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           osmosis.gamm.v1beta1.BalancerPoolOuterClass.getDescriptor(),
           osmosis.gamm.v1beta1.Tx.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_osmosis_gamm_v1beta1_QueryPoolRequest_descriptor =
@@ -13926,20 +13926,20 @@ public final class QueryOuterClass {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     osmosis.gamm.v1beta1.BalancerPoolOuterClass.getDescriptor();
     osmosis.gamm.v1beta1.Tx.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
   }
 

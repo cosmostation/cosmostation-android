@@ -3571,32 +3571,27 @@ public final class QueryChainLinks {
     java.lang.String[] descriptorData = {
       "\n/desmos/profiles/v1beta1/query_chain_li" +
       "nks.proto\022\027desmos.profiles.v1beta1\032\024gogo" +
-      "proto/gogo.proto\032\034google/api/annotations" +
-      ".proto\032\032google/protobuf2/any.proto\0320desm" +
-      "os/profiles/v1beta1/models_chain_links.p" +
-      "roto\032\031cosmos_proto/cosmos.proto\032*cosmos/" +
-      "base/query/v1beta1/pagination.proto\"M\n\031Q" +
-      "ueryUserChainLinkRequest\022\014\n\004user\030\001 \001(\t\022\022" +
-      "\n\nchain_name\030\002 \001(\t\022\016\n\006target\030\003 \001(\t\"T\n\032Qu" +
-      "eryUserChainLinkResponse\0226\n\004link\030\001 \001(\0132\"" +
-      ".desmos.profiles.v1beta1.ChainLinkB\004\310\336\037\000" +
-      "\"b\n\026QueryChainLinksRequest\022\014\n\004user\030\001 \001(\t" +
-      "\022:\n\npagination\030\002 \001(\0132&.cosmos.base.query" +
-      ".v1beta1.PageRequest\"\217\001\n\027QueryChainLinks" +
-      "Response\0227\n\005links\030\001 \003(\0132\".desmos.profile" +
-      "s.v1beta1.ChainLinkB\004\310\336\037\000\022;\n\npagination\030" +
-      "\002 \001(\0132\'.cosmos.base.query.v1beta1.PageRe" +
-      "sponseB3Z1github.com/desmos-labs/desmos/" +
-      "v2/x/profiles/typesb\006proto3"
+      "proto/gogo.proto\0320desmos/profiles/v1beta" +
+      "1/models_chain_links.proto\032*cosmos/base/" +
+      "query/v1beta1/pagination.proto\"M\n\031QueryU" +
+      "serChainLinkRequest\022\014\n\004user\030\001 \001(\t\022\022\n\ncha" +
+      "in_name\030\002 \001(\t\022\016\n\006target\030\003 \001(\t\"T\n\032QueryUs" +
+      "erChainLinkResponse\0226\n\004link\030\001 \001(\0132\".desm" +
+      "os.profiles.v1beta1.ChainLinkB\004\310\336\037\000\"b\n\026Q" +
+      "ueryChainLinksRequest\022\014\n\004user\030\001 \001(\t\022:\n\np" +
+      "agination\030\002 \001(\0132&.cosmos.base.query.v1be" +
+      "ta1.PageRequest\"\217\001\n\027QueryChainLinksRespo" +
+      "nse\0227\n\005links\030\001 \003(\0132\".desmos.profiles.v1b" +
+      "eta1.ChainLinkB\004\310\336\037\000\022;\n\npagination\030\002 \001(\013" +
+      "2\'.cosmos.base.query.v1beta1.PageRespons" +
+      "eB3Z1github.com/desmos-labs/desmos/v2/x/" +
+      "profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
         });
     internal_static_desmos_profiles_v1beta1_QueryUserChainLinkRequest_descriptor =
@@ -3625,14 +3620,11 @@ public final class QueryChainLinks {
         new java.lang.String[] { "Links", "Pagination", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
   }
 

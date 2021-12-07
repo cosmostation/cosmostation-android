@@ -24322,7 +24322,7 @@ public final class Oracle {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
     internal_static_injective_oracle_v1beta1_Params_descriptor =
@@ -24477,14 +24477,14 @@ public final class Oracle {
         new java.lang.String[] { "BandIbcEnabled", "IbcRequestInterval", "IbcSourceChannel", "IbcVersion", "IbcPortId", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }
 

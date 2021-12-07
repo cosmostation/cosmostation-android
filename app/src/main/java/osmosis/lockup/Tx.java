@@ -4207,7 +4207,7 @@ public final class Tx {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           osmosis.lockup.Lock.getDescriptor(),
@@ -4250,14 +4250,14 @@ public final class Tx {
         new java.lang.String[] { "Success", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     osmosis.lockup.Lock.getDescriptor();

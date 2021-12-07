@@ -750,7 +750,7 @@ public final class Account {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.auth.v1beta1.Auth.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_injective_types_v1beta1_EthAccount_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -761,16 +761,16 @@ public final class Account {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.implementsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.embed);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.embed);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.auth.v1beta1.Auth.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

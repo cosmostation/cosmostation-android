@@ -44,7 +44,7 @@ public final class ModelsChainLinks {
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return Whether the address field is set.
      */
     boolean hasAddress();
@@ -54,19 +54,19 @@ public final class ModelsChainLinks {
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return The address.
      */
-    com.google.protobuf.Any getAddress();
+    com.google.protobuf2.Any getAddress();
     /**
      * <pre>
      * Address contains the data of the external chain address to be connected
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getAddressOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getAddressOrBuilder();
 
     /**
      * <pre>
@@ -207,11 +207,11 @@ public final class ModelsChainLinks {
               break;
             }
             case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (address_ != null) {
                 subBuilder = address_.toBuilder();
               }
-              address_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              address_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(address_);
                 address_ = subBuilder.buildPartial();
@@ -337,14 +337,14 @@ public final class ModelsChainLinks {
     }
 
     public static final int ADDRESS_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any address_;
+    private com.google.protobuf2.Any address_;
     /**
      * <pre>
      * Address contains the data of the external chain address to be connected
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return Whether the address field is set.
      */
     @java.lang.Override
@@ -357,12 +357,12 @@ public final class ModelsChainLinks {
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return The address.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getAddress() {
-      return address_ == null ? com.google.protobuf.Any.getDefaultInstance() : address_;
+    public com.google.protobuf2.Any getAddress() {
+      return address_ == null ? com.google.protobuf2.Any.getDefaultInstance() : address_;
     }
     /**
      * <pre>
@@ -370,10 +370,10 @@ public final class ModelsChainLinks {
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getAddressOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getAddressOrBuilder() {
       return getAddress();
     }
 
@@ -1014,16 +1014,16 @@ public final class ModelsChainLinks {
         return this;
       }
 
-      private com.google.protobuf.Any address_;
+      private com.google.protobuf2.Any address_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> addressBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> addressBuilder_;
       /**
        * <pre>
        * Address contains the data of the external chain address to be connected
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        * @return Whether the address field is set.
        */
       public boolean hasAddress() {
@@ -1035,12 +1035,12 @@ public final class ModelsChainLinks {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        * @return The address.
        */
-      public com.google.protobuf.Any getAddress() {
+      public com.google.protobuf2.Any getAddress() {
         if (addressBuilder_ == null) {
-          return address_ == null ? com.google.protobuf.Any.getDefaultInstance() : address_;
+          return address_ == null ? com.google.protobuf2.Any.getDefaultInstance() : address_;
         } else {
           return addressBuilder_.getMessage();
         }
@@ -1051,9 +1051,9 @@ public final class ModelsChainLinks {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public Builder setAddress(com.google.protobuf.Any value) {
+      public Builder setAddress(com.google.protobuf2.Any value) {
         if (addressBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1072,10 +1072,10 @@ public final class ModelsChainLinks {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
       public Builder setAddress(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (addressBuilder_ == null) {
           address_ = builderForValue.build();
           onChanged();
@@ -1091,13 +1091,13 @@ public final class ModelsChainLinks {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public Builder mergeAddress(com.google.protobuf.Any value) {
+      public Builder mergeAddress(com.google.protobuf2.Any value) {
         if (addressBuilder_ == null) {
           if (address_ != null) {
             address_ =
-              com.google.protobuf.Any.newBuilder(address_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(address_).mergeFrom(value).buildPartial();
           } else {
             address_ = value;
           }
@@ -1114,7 +1114,7 @@ public final class ModelsChainLinks {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
       public Builder clearAddress() {
         if (addressBuilder_ == null) {
@@ -1133,9 +1133,9 @@ public final class ModelsChainLinks {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public com.google.protobuf.Any.Builder getAddressBuilder() {
+      public com.google.protobuf2.Any.Builder getAddressBuilder() {
         
         onChanged();
         return getAddressFieldBuilder().getBuilder();
@@ -1146,14 +1146,14 @@ public final class ModelsChainLinks {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getAddressOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getAddressOrBuilder() {
         if (addressBuilder_ != null) {
           return addressBuilder_.getMessageOrBuilder();
         } else {
           return address_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : address_;
+              com.google.protobuf2.Any.getDefaultInstance() : address_;
         }
       }
       /**
@@ -1162,14 +1162,14 @@ public final class ModelsChainLinks {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getAddressFieldBuilder() {
         if (addressBuilder_ == null) {
           addressBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getAddress(),
                   getParentForChildren(),
                   isClean());
@@ -2281,7 +2281,7 @@ public final class ModelsChainLinks {
      * prove the ownership
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+     * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
      * @return Whether the pubKey field is set.
      */
     boolean hasPubKey();
@@ -2291,19 +2291,19 @@ public final class ModelsChainLinks {
      * prove the ownership
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+     * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
      * @return The pubKey.
      */
-    com.google.protobuf.Any getPubKey();
+    com.google.protobuf2.Any getPubKey();
     /**
      * <pre>
      * PubKey represents the public key associated with the address for which to
      * prove the ownership
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+     * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder();
 
     /**
      * <pre>
@@ -2398,11 +2398,11 @@ public final class ModelsChainLinks {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (pubKey_ != null) {
                 subBuilder = pubKey_.toBuilder();
               }
-              pubKey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              pubKey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(pubKey_);
                 pubKey_ = subBuilder.buildPartial();
@@ -2455,14 +2455,14 @@ public final class ModelsChainLinks {
     }
 
     public static final int PUB_KEY_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any pubKey_;
+    private com.google.protobuf2.Any pubKey_;
     /**
      * <pre>
      * PubKey represents the public key associated with the address for which to
      * prove the ownership
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+     * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
      * @return Whether the pubKey field is set.
      */
     @java.lang.Override
@@ -2475,12 +2475,12 @@ public final class ModelsChainLinks {
      * prove the ownership
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+     * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
      * @return The pubKey.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPubKey() {
-      return pubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+    public com.google.protobuf2.Any getPubKey() {
+      return pubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
     }
     /**
      * <pre>
@@ -2488,10 +2488,10 @@ public final class ModelsChainLinks {
      * prove the ownership
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+     * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder() {
       return getPubKey();
     }
 
@@ -2941,16 +2941,16 @@ public final class ModelsChainLinks {
         return this;
       }
 
-      private com.google.protobuf.Any pubKey_;
+      private com.google.protobuf2.Any pubKey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> pubKeyBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> pubKeyBuilder_;
       /**
        * <pre>
        * PubKey represents the public key associated with the address for which to
        * prove the ownership
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+       * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
        * @return Whether the pubKey field is set.
        */
       public boolean hasPubKey() {
@@ -2962,12 +2962,12 @@ public final class ModelsChainLinks {
        * prove the ownership
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+       * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
        * @return The pubKey.
        */
-      public com.google.protobuf.Any getPubKey() {
+      public com.google.protobuf2.Any getPubKey() {
         if (pubKeyBuilder_ == null) {
-          return pubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+          return pubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
         } else {
           return pubKeyBuilder_.getMessage();
         }
@@ -2978,9 +2978,9 @@ public final class ModelsChainLinks {
        * prove the ownership
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+       * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
        */
-      public Builder setPubKey(com.google.protobuf.Any value) {
+      public Builder setPubKey(com.google.protobuf2.Any value) {
         if (pubKeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2999,10 +2999,10 @@ public final class ModelsChainLinks {
        * prove the ownership
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+       * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
        */
       public Builder setPubKey(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (pubKeyBuilder_ == null) {
           pubKey_ = builderForValue.build();
           onChanged();
@@ -3018,13 +3018,13 @@ public final class ModelsChainLinks {
        * prove the ownership
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+       * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
        */
-      public Builder mergePubKey(com.google.protobuf.Any value) {
+      public Builder mergePubKey(com.google.protobuf2.Any value) {
         if (pubKeyBuilder_ == null) {
           if (pubKey_ != null) {
             pubKey_ =
-              com.google.protobuf.Any.newBuilder(pubKey_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(pubKey_).mergeFrom(value).buildPartial();
           } else {
             pubKey_ = value;
           }
@@ -3041,7 +3041,7 @@ public final class ModelsChainLinks {
        * prove the ownership
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+       * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
        */
       public Builder clearPubKey() {
         if (pubKeyBuilder_ == null) {
@@ -3060,9 +3060,9 @@ public final class ModelsChainLinks {
        * prove the ownership
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+       * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getPubKeyBuilder() {
+      public com.google.protobuf2.Any.Builder getPubKeyBuilder() {
         
         onChanged();
         return getPubKeyFieldBuilder().getBuilder();
@@ -3073,14 +3073,14 @@ public final class ModelsChainLinks {
        * prove the ownership
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+       * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder() {
         if (pubKeyBuilder_ != null) {
           return pubKeyBuilder_.getMessageOrBuilder();
         } else {
           return pubKey_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+              com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
         }
       }
       /**
@@ -3089,14 +3089,14 @@ public final class ModelsChainLinks {
        * prove the ownership
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
+       * <code>.google.protobuf2.Any pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"pub_key&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPubKeyFieldBuilder() {
         if (pubKeyBuilder_ == null) {
           pubKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getPubKey(),
                   getParentForChildren(),
                   isClean());
@@ -4797,35 +4797,35 @@ public final class ModelsChainLinks {
       "inks.proto\022\027desmos.profiles.v1beta1\032\024gog" +
       "oproto/gogo.proto\032\032google/protobuf2/any." +
       "proto\032\037google/protobuf/timestamp.proto\032\031" +
-      "cosmos_proto/cosmos.proto\"\365\002\n\tChainLink\022" +
-      "\035\n\004user\030\001 \001(\tB\017\362\336\037\013yaml:\"user\"\022H\n\007addres" +
-      "s\030\002 \001(\0132\024.google.protobuf.AnyB!\362\336\037\016yaml:" +
-      "\"address\"\312\264-\013AddressData\022C\n\005proof\030\003 \001(\0132" +
-      "\036.desmos.profiles.v1beta1.ProofB\024\310\336\037\000\362\336\037" +
-      "\014yaml:\"proof\"\022W\n\014chain_config\030\004 \001(\0132$.de" +
-      "smos.profiles.v1beta1.ChainConfigB\033\310\336\037\000\362" +
-      "\336\037\023yaml:\"chain_config\"\022S\n\rcreation_time\030" +
-      "\005 \001(\0132\032.google.protobuf.TimestampB \220\337\037\001\362" +
-      "\336\037\024yaml:\"creation_time\"\310\336\037\000:\014\210\240\037\000\350\240\037\001\230\240\037" +
-      "\001\":\n\013ChainConfig\022\035\n\004name\030\001 \001(\tB\017\362\336\037\013yaml" +
-      ":\"name\":\014\210\240\037\000\350\240\037\001\230\240\037\001\"\244\001\n\005Proof\0229\n\007pub_k" +
-      "ey\030\001 \001(\0132\024.google.protobuf.AnyB\022\362\336\037\016yaml" +
-      ":\"pub_key\"\022\'\n\tsignature\030\002 \001(\tB\024\362\336\037\020yaml:" +
-      "\"signature\"\022)\n\nplain_text\030\003 \001(\tB\025\362\336\037\021yam" +
-      "l:\"plain_text\":\014\210\240\037\000\350\240\037\001\230\240\037\001\"p\n\rBech32Ad" +
-      "dress\022\037\n\005value\030\001 \001(\tB\020\362\336\037\014yaml:\"value\"\022!" +
-      "\n\006prefix\030\002 \001(\tB\021\362\336\037\ryaml:\"prefix\":\033\210\240\037\000\350" +
-      "\240\037\001\230\240\037\001\312\264-\013AddressData\"M\n\rBase58Address\022" +
-      "\037\n\005value\030\001 \001(\tB\020\362\336\037\014yaml:\"value\":\033\210\240\037\000\350\240" +
-      "\037\001\230\240\037\001\312\264-\013AddressDataB3Z1github.com/desm" +
-      "os-labs/desmos/v2/x/profiles/typesb\006prot" +
-      "o3"
+      "cosmos_proto/cosmos.proto\"\366\002\n\tChainLink\022" +
+      "\035\n\004user\030\001 \001(\tB\017\362\336\037\013yaml:\"user\"\022I\n\007addres" +
+      "s\030\002 \001(\0132\025.google.protobuf2.AnyB!\362\336\037\016yaml" +
+      ":\"address\"\312\264-\013AddressData\022C\n\005proof\030\003 \001(\013" +
+      "2\036.desmos.profiles.v1beta1.ProofB\024\310\336\037\000\362\336" +
+      "\037\014yaml:\"proof\"\022W\n\014chain_config\030\004 \001(\0132$.d" +
+      "esmos.profiles.v1beta1.ChainConfigB\033\310\336\037\000" +
+      "\362\336\037\023yaml:\"chain_config\"\022S\n\rcreation_time" +
+      "\030\005 \001(\0132\032.google.protobuf.TimestampB \220\337\037\001" +
+      "\362\336\037\024yaml:\"creation_time\"\310\336\037\000:\014\210\240\037\000\350\240\037\001\230\240" +
+      "\037\001\":\n\013ChainConfig\022\035\n\004name\030\001 \001(\tB\017\362\336\037\013yam" +
+      "l:\"name\":\014\210\240\037\000\350\240\037\001\230\240\037\001\"\245\001\n\005Proof\022:\n\007pub_" +
+      "key\030\001 \001(\0132\025.google.protobuf2.AnyB\022\362\336\037\016ya" +
+      "ml:\"pub_key\"\022\'\n\tsignature\030\002 \001(\tB\024\362\336\037\020yam" +
+      "l:\"signature\"\022)\n\nplain_text\030\003 \001(\tB\025\362\336\037\021y" +
+      "aml:\"plain_text\":\014\210\240\037\000\350\240\037\001\230\240\037\001\"p\n\rBech32" +
+      "Address\022\037\n\005value\030\001 \001(\tB\020\362\336\037\014yaml:\"value\"" +
+      "\022!\n\006prefix\030\002 \001(\tB\021\362\336\037\ryaml:\"prefix\":\033\210\240\037" +
+      "\000\350\240\037\001\230\240\037\001\312\264-\013AddressData\"M\n\rBase58Addres" +
+      "s\022\037\n\005value\030\001 \001(\tB\020\362\336\037\014yaml:\"value\":\033\210\240\037\000" +
+      "\350\240\037\001\230\240\037\001\312\264-\013AddressDataB3Z1github.com/de" +
+      "smos-labs/desmos/v2/x/profiles/typesb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
         });
@@ -4863,16 +4863,16 @@ public final class ModelsChainLinks {
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
     registry.add(cosmos_proto.Cosmos.implementsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
   }

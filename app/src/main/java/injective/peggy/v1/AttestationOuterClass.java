@@ -196,19 +196,19 @@ public final class AttestationOuterClass {
     long getHeight();
 
     /**
-     * <code>.google.protobuf.Any claim = 4;</code>
+     * <code>.google.protobuf2.Any claim = 4;</code>
      * @return Whether the claim field is set.
      */
     boolean hasClaim();
     /**
-     * <code>.google.protobuf.Any claim = 4;</code>
+     * <code>.google.protobuf2.Any claim = 4;</code>
      * @return The claim.
      */
-    com.google.protobuf.Any getClaim();
+    com.google.protobuf2.Any getClaim();
     /**
-     * <code>.google.protobuf.Any claim = 4;</code>
+     * <code>.google.protobuf2.Any claim = 4;</code>
      */
-    com.google.protobuf.AnyOrBuilder getClaimOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getClaimOrBuilder();
   }
   /**
    * <pre>
@@ -294,11 +294,11 @@ public final class AttestationOuterClass {
               break;
             }
             case 34: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (claim_ != null) {
                 subBuilder = claim_.toBuilder();
               }
-              claim_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              claim_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(claim_);
                 claim_ = subBuilder.buildPartial();
@@ -399,9 +399,9 @@ public final class AttestationOuterClass {
     }
 
     public static final int CLAIM_FIELD_NUMBER = 4;
-    private com.google.protobuf.Any claim_;
+    private com.google.protobuf2.Any claim_;
     /**
-     * <code>.google.protobuf.Any claim = 4;</code>
+     * <code>.google.protobuf2.Any claim = 4;</code>
      * @return Whether the claim field is set.
      */
     @java.lang.Override
@@ -409,18 +409,18 @@ public final class AttestationOuterClass {
       return claim_ != null;
     }
     /**
-     * <code>.google.protobuf.Any claim = 4;</code>
+     * <code>.google.protobuf2.Any claim = 4;</code>
      * @return The claim.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getClaim() {
-      return claim_ == null ? com.google.protobuf.Any.getDefaultInstance() : claim_;
+    public com.google.protobuf2.Any getClaim() {
+      return claim_ == null ? com.google.protobuf2.Any.getDefaultInstance() : claim_;
     }
     /**
-     * <code>.google.protobuf.Any claim = 4;</code>
+     * <code>.google.protobuf2.Any claim = 4;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getClaimOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getClaimOrBuilder() {
       return getClaim();
     }
 
@@ -1000,31 +1000,31 @@ public final class AttestationOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any claim_;
+      private com.google.protobuf2.Any claim_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> claimBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> claimBuilder_;
       /**
-       * <code>.google.protobuf.Any claim = 4;</code>
+       * <code>.google.protobuf2.Any claim = 4;</code>
        * @return Whether the claim field is set.
        */
       public boolean hasClaim() {
         return claimBuilder_ != null || claim_ != null;
       }
       /**
-       * <code>.google.protobuf.Any claim = 4;</code>
+       * <code>.google.protobuf2.Any claim = 4;</code>
        * @return The claim.
        */
-      public com.google.protobuf.Any getClaim() {
+      public com.google.protobuf2.Any getClaim() {
         if (claimBuilder_ == null) {
-          return claim_ == null ? com.google.protobuf.Any.getDefaultInstance() : claim_;
+          return claim_ == null ? com.google.protobuf2.Any.getDefaultInstance() : claim_;
         } else {
           return claimBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any claim = 4;</code>
+       * <code>.google.protobuf2.Any claim = 4;</code>
        */
-      public Builder setClaim(com.google.protobuf.Any value) {
+      public Builder setClaim(com.google.protobuf2.Any value) {
         if (claimBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1038,10 +1038,10 @@ public final class AttestationOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any claim = 4;</code>
+       * <code>.google.protobuf2.Any claim = 4;</code>
        */
       public Builder setClaim(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (claimBuilder_ == null) {
           claim_ = builderForValue.build();
           onChanged();
@@ -1052,13 +1052,13 @@ public final class AttestationOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any claim = 4;</code>
+       * <code>.google.protobuf2.Any claim = 4;</code>
        */
-      public Builder mergeClaim(com.google.protobuf.Any value) {
+      public Builder mergeClaim(com.google.protobuf2.Any value) {
         if (claimBuilder_ == null) {
           if (claim_ != null) {
             claim_ =
-              com.google.protobuf.Any.newBuilder(claim_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(claim_).mergeFrom(value).buildPartial();
           } else {
             claim_ = value;
           }
@@ -1070,7 +1070,7 @@ public final class AttestationOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any claim = 4;</code>
+       * <code>.google.protobuf2.Any claim = 4;</code>
        */
       public Builder clearClaim() {
         if (claimBuilder_ == null) {
@@ -1084,33 +1084,33 @@ public final class AttestationOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any claim = 4;</code>
+       * <code>.google.protobuf2.Any claim = 4;</code>
        */
-      public com.google.protobuf.Any.Builder getClaimBuilder() {
+      public com.google.protobuf2.Any.Builder getClaimBuilder() {
         
         onChanged();
         return getClaimFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any claim = 4;</code>
+       * <code>.google.protobuf2.Any claim = 4;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getClaimOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getClaimOrBuilder() {
         if (claimBuilder_ != null) {
           return claimBuilder_.getMessageOrBuilder();
         } else {
           return claim_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : claim_;
+              com.google.protobuf2.Any.getDefaultInstance() : claim_;
         }
       }
       /**
-       * <code>.google.protobuf.Any claim = 4;</code>
+       * <code>.google.protobuf2.Any claim = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getClaimFieldBuilder() {
         if (claimBuilder_ == null) {
           claimBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getClaim(),
                   getParentForChildren(),
                   isClean());
@@ -1926,28 +1926,28 @@ public final class AttestationOuterClass {
     java.lang.String[] descriptorData = {
       "\n$injective/peggy/v1/attestation.proto\022\022" +
       "injective.peggy.v1\032\024gogoproto/gogo.proto" +
-      "\032\032google/protobuf2/any.proto\"c\n\013Attestat" +
+      "\032\032google/protobuf2/any.proto\"d\n\013Attestat" +
       "ion\022\020\n\010observed\030\001 \001(\010\022\r\n\005votes\030\002 \003(\t\022\016\n\006" +
-      "height\030\003 \001(\004\022#\n\005claim\030\004 \001(\0132\024.google.pro" +
-      "tobuf.Any\"^\n\nERC20Token\022\020\n\010contract\030\001 \001(" +
-      "\t\022>\n\006amount\030\002 \001(\tB.\332\336\037&github.com/cosmos" +
-      "/cosmos-sdk/types.Int\310\336\037\000*\237\002\n\tClaimType\022" +
-      ".\n\022CLAIM_TYPE_UNKNOWN\020\000\032\026\212\235 \022CLAIM_TYPE_" +
-      "UNKNOWN\022.\n\022CLAIM_TYPE_DEPOSIT\020\001\032\026\212\235 \022CLA" +
-      "IM_TYPE_DEPOSIT\0220\n\023CLAIM_TYPE_WITHDRAW\020\002" +
-      "\032\027\212\235 \023CLAIM_TYPE_WITHDRAW\022<\n\031CLAIM_TYPE_" +
-      "ERC20_DEPLOYED\020\003\032\035\212\235 \031CLAIM_TYPE_ERC20_D" +
-      "EPLOYED\022<\n\031CLAIM_TYPE_VALSET_UPDATED\020\004\032\035" +
-      "\212\235 \031CLAIM_TYPE_VALSET_UPDATED\032\004\210\243\036\000BMZKg" +
-      "ithub.com/InjectiveLabs/injective-core/i" +
-      "njective-chain/modules/peggy/typesb\006prot" +
-      "o3"
+      "height\030\003 \001(\004\022$\n\005claim\030\004 \001(\0132\025.google.pro" +
+      "tobuf2.Any\"^\n\nERC20Token\022\020\n\010contract\030\001 \001" +
+      "(\t\022>\n\006amount\030\002 \001(\tB.\332\336\037&github.com/cosmo" +
+      "s/cosmos-sdk/types.Int\310\336\037\000*\237\002\n\tClaimType" +
+      "\022.\n\022CLAIM_TYPE_UNKNOWN\020\000\032\026\212\235 \022CLAIM_TYPE" +
+      "_UNKNOWN\022.\n\022CLAIM_TYPE_DEPOSIT\020\001\032\026\212\235 \022CL" +
+      "AIM_TYPE_DEPOSIT\0220\n\023CLAIM_TYPE_WITHDRAW\020" +
+      "\002\032\027\212\235 \023CLAIM_TYPE_WITHDRAW\022<\n\031CLAIM_TYPE" +
+      "_ERC20_DEPLOYED\020\003\032\035\212\235 \031CLAIM_TYPE_ERC20_" +
+      "DEPLOYED\022<\n\031CLAIM_TYPE_VALSET_UPDATED\020\004\032" +
+      "\035\212\235 \031CLAIM_TYPE_VALSET_UPDATED\032\004\210\243\036\000BMZK" +
+      "github.com/InjectiveLabs/injective-core/" +
+      "injective-chain/modules/peggy/typesb\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_injective_peggy_v1_Attestation_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1963,14 +1963,14 @@ public final class AttestationOuterClass {
         new java.lang.String[] { "Contract", "Amount", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

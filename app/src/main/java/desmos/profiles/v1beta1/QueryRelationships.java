@@ -4147,36 +4147,31 @@ public final class QueryRelationships {
     java.lang.String[] descriptorData = {
       "\n1desmos/profiles/v1beta1/query_relation" +
       "ships.proto\022\027desmos.profiles.v1beta1\032\024go" +
-      "goproto/gogo.proto\032\034google/api/annotatio" +
-      "ns.proto\032\032google/protobuf2/any.proto\0322de" +
-      "smos/profiles/v1beta1/models_relationshi" +
-      "ps.proto\032\031cosmos_proto/cosmos.proto\032*cos" +
-      "mos/base/query/v1beta1/pagination.proto\"" +
-      "\204\001\n\031QueryRelationshipsRequest\022\014\n\004user\030\001 " +
-      "\001(\t\022\023\n\013subspace_id\030\002 \001(\t\022:\n\npagination\030\003" +
-      " \001(\0132&.cosmos.base.query.v1beta1.PageReq" +
-      "uest:\010\350\240\037\000\210\240\037\000\"\235\001\n\032QueryRelationshipsRes" +
-      "ponse\022B\n\rrelationships\030\001 \003(\0132%.desmos.pr" +
-      "ofiles.v1beta1.RelationshipB\004\310\336\037\000\022;\n\npag" +
-      "ination\030\002 \001(\0132\'.cosmos.base.query.v1beta" +
-      "1.PageResponse\"}\n\022QueryBlocksRequest\022\014\n\004" +
-      "user\030\001 \001(\t\022\023\n\013subspace_id\030\002 \001(\t\022:\n\npagin" +
-      "ation\030\003 \001(\0132&.cosmos.base.query.v1beta1." +
-      "PageRequest:\010\350\240\037\000\210\240\037\000\"\214\001\n\023QueryBlocksRes" +
-      "ponse\0228\n\006blocks\030\001 \003(\0132\".desmos.profiles." +
-      "v1beta1.UserBlockB\004\310\336\037\000\022;\n\npagination\030\002 " +
-      "\001(\0132\'.cosmos.base.query.v1beta1.PageResp" +
-      "onseB3Z1github.com/desmos-labs/desmos/v2" +
-      "/x/profiles/typesb\006proto3"
+      "goproto/gogo.proto\0322desmos/profiles/v1be" +
+      "ta1/models_relationships.proto\032*cosmos/b" +
+      "ase/query/v1beta1/pagination.proto\"\204\001\n\031Q" +
+      "ueryRelationshipsRequest\022\014\n\004user\030\001 \001(\t\022\023" +
+      "\n\013subspace_id\030\002 \001(\t\022:\n\npagination\030\003 \001(\0132" +
+      "&.cosmos.base.query.v1beta1.PageRequest:" +
+      "\010\350\240\037\000\210\240\037\000\"\235\001\n\032QueryRelationshipsResponse" +
+      "\022B\n\rrelationships\030\001 \003(\0132%.desmos.profile" +
+      "s.v1beta1.RelationshipB\004\310\336\037\000\022;\n\npaginati" +
+      "on\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Pag" +
+      "eResponse\"}\n\022QueryBlocksRequest\022\014\n\004user\030" +
+      "\001 \001(\t\022\023\n\013subspace_id\030\002 \001(\t\022:\n\npagination" +
+      "\030\003 \001(\0132&.cosmos.base.query.v1beta1.PageR" +
+      "equest:\010\350\240\037\000\210\240\037\000\"\214\001\n\023QueryBlocksResponse" +
+      "\0228\n\006blocks\030\001 \003(\0132\".desmos.profiles.v1bet" +
+      "a1.UserBlockB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'" +
+      ".cosmos.base.query.v1beta1.PageResponseB" +
+      "3Z1github.com/desmos-labs/desmos/v2/x/pr" +
+      "ofiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           desmos.profiles.v1beta1.ModelsRelationships.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
         });
     internal_static_desmos_profiles_v1beta1_QueryRelationshipsRequest_descriptor =
@@ -4205,16 +4200,13 @@ public final class QueryRelationships {
         new java.lang.String[] { "Blocks", "Pagination", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     desmos.profiles.v1beta1.ModelsRelationships.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
   }
 

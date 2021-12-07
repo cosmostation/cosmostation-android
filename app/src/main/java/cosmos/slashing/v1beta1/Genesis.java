@@ -4366,7 +4366,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos.slashing.v1beta1.Slashing.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
         });
@@ -4397,10 +4397,10 @@ public final class Genesis {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.scalar);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos.slashing.v1beta1.Slashing.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
   }

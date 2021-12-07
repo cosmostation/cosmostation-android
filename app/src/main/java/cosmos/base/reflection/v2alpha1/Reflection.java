@@ -6520,7 +6520,7 @@ public final class Reflection {
     /**
      * <pre>
      * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-     * google.protobuf.Any field
+     * google.protobuf2.Any field
      * </pre>
      *
      * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -6530,7 +6530,7 @@ public final class Reflection {
     /**
      * <pre>
      * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-     * google.protobuf.Any field
+     * google.protobuf2.Any field
      * </pre>
      *
      * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -6539,7 +6539,7 @@ public final class Reflection {
     /**
      * <pre>
      * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-     * google.protobuf.Any field
+     * google.protobuf2.Any field
      * </pre>
      *
      * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -6548,7 +6548,7 @@ public final class Reflection {
     /**
      * <pre>
      * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-     * google.protobuf.Any field
+     * google.protobuf2.Any field
      * </pre>
      *
      * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -6558,7 +6558,7 @@ public final class Reflection {
     /**
      * <pre>
      * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-     * google.protobuf.Any field
+     * google.protobuf2.Any field
      * </pre>
      *
      * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -6776,7 +6776,7 @@ public final class Reflection {
     /**
      * <pre>
      * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-     * google.protobuf.Any field
+     * google.protobuf2.Any field
      * </pre>
      *
      * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -6788,7 +6788,7 @@ public final class Reflection {
     /**
      * <pre>
      * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-     * google.protobuf.Any field
+     * google.protobuf2.Any field
      * </pre>
      *
      * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -6801,7 +6801,7 @@ public final class Reflection {
     /**
      * <pre>
      * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-     * google.protobuf.Any field
+     * google.protobuf2.Any field
      * </pre>
      *
      * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -6813,7 +6813,7 @@ public final class Reflection {
     /**
      * <pre>
      * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-     * google.protobuf.Any field
+     * google.protobuf2.Any field
      * </pre>
      *
      * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -6825,7 +6825,7 @@ public final class Reflection {
     /**
      * <pre>
      * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-     * google.protobuf.Any field
+     * google.protobuf2.Any field
      * </pre>
      *
      * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7425,7 +7425,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7440,7 +7440,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7455,7 +7455,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7470,7 +7470,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7492,7 +7492,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7511,7 +7511,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7532,7 +7532,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7554,7 +7554,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7573,7 +7573,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7592,7 +7592,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7612,7 +7612,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7630,7 +7630,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7648,7 +7648,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7660,7 +7660,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7675,7 +7675,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7691,7 +7691,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7703,7 +7703,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -7716,7 +7716,7 @@ public final class Reflection {
       /**
        * <pre>
        * interface_accepting_messages contains information regarding the proto messages which contain the interface as
-       * google.protobuf.Any field
+       * google.protobuf2.Any field
        * </pre>
        *
        * <code>repeated .cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor interface_accepting_messages = 2;</code>
@@ -8131,7 +8131,7 @@ public final class Reflection {
     /**
      * <pre>
      * type_url defines the type URL used when marshalling the type as any
-     * this is required so we can provide type safe google.protobuf.Any marshalling and
+     * this is required so we can provide type safe google.protobuf2.Any marshalling and
      * unmarshalling, making sure that we don't accept just 'any' type
      * in our interface fields
      * </pre>
@@ -8143,7 +8143,7 @@ public final class Reflection {
     /**
      * <pre>
      * type_url defines the type URL used when marshalling the type as any
-     * this is required so we can provide type safe google.protobuf.Any marshalling and
+     * this is required so we can provide type safe google.protobuf2.Any marshalling and
      * unmarshalling, making sure that we don't accept just 'any' type
      * in our interface fields
      * </pre>
@@ -8300,7 +8300,7 @@ public final class Reflection {
     /**
      * <pre>
      * type_url defines the type URL used when marshalling the type as any
-     * this is required so we can provide type safe google.protobuf.Any marshalling and
+     * this is required so we can provide type safe google.protobuf2.Any marshalling and
      * unmarshalling, making sure that we don't accept just 'any' type
      * in our interface fields
      * </pre>
@@ -8324,7 +8324,7 @@ public final class Reflection {
     /**
      * <pre>
      * type_url defines the type URL used when marshalling the type as any
-     * this is required so we can provide type safe google.protobuf.Any marshalling and
+     * this is required so we can provide type safe google.protobuf2.Any marshalling and
      * unmarshalling, making sure that we don't accept just 'any' type
      * in our interface fields
      * </pre>
@@ -8770,7 +8770,7 @@ public final class Reflection {
       /**
        * <pre>
        * type_url defines the type URL used when marshalling the type as any
-       * this is required so we can provide type safe google.protobuf.Any marshalling and
+       * this is required so we can provide type safe google.protobuf2.Any marshalling and
        * unmarshalling, making sure that we don't accept just 'any' type
        * in our interface fields
        * </pre>
@@ -8793,7 +8793,7 @@ public final class Reflection {
       /**
        * <pre>
        * type_url defines the type URL used when marshalling the type as any
-       * this is required so we can provide type safe google.protobuf.Any marshalling and
+       * this is required so we can provide type safe google.protobuf2.Any marshalling and
        * unmarshalling, making sure that we don't accept just 'any' type
        * in our interface fields
        * </pre>
@@ -8817,7 +8817,7 @@ public final class Reflection {
       /**
        * <pre>
        * type_url defines the type URL used when marshalling the type as any
-       * this is required so we can provide type safe google.protobuf.Any marshalling and
+       * this is required so we can provide type safe google.protobuf2.Any marshalling and
        * unmarshalling, making sure that we don't accept just 'any' type
        * in our interface fields
        * </pre>
@@ -8839,7 +8839,7 @@ public final class Reflection {
       /**
        * <pre>
        * type_url defines the type URL used when marshalling the type as any
-       * this is required so we can provide type safe google.protobuf.Any marshalling and
+       * this is required so we can provide type safe google.protobuf2.Any marshalling and
        * unmarshalling, making sure that we don't accept just 'any' type
        * in our interface fields
        * </pre>
@@ -8856,7 +8856,7 @@ public final class Reflection {
       /**
        * <pre>
        * type_url defines the type URL used when marshalling the type as any
-       * this is required so we can provide type safe google.protobuf.Any marshalling and
+       * this is required so we can provide type safe google.protobuf2.Any marshalling and
        * unmarshalling, making sure that we don't accept just 'any' type
        * in our interface fields
        * </pre>
@@ -8956,7 +8956,7 @@ public final class Reflection {
     /**
      * <pre>
      * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-     * which contains the interface as google.protobuf.Any (the interface is the same, but
+     * which contains the interface as google.protobuf2.Any (the interface is the same, but
      * it can be in multiple fields of the same proto message)
      * </pre>
      *
@@ -8968,7 +8968,7 @@ public final class Reflection {
     /**
      * <pre>
      * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-     * which contains the interface as google.protobuf.Any (the interface is the same, but
+     * which contains the interface as google.protobuf2.Any (the interface is the same, but
      * it can be in multiple fields of the same proto message)
      * </pre>
      *
@@ -8979,7 +8979,7 @@ public final class Reflection {
     /**
      * <pre>
      * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-     * which contains the interface as google.protobuf.Any (the interface is the same, but
+     * which contains the interface as google.protobuf2.Any (the interface is the same, but
      * it can be in multiple fields of the same proto message)
      * </pre>
      *
@@ -8991,7 +8991,7 @@ public final class Reflection {
     /**
      * <pre>
      * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-     * which contains the interface as google.protobuf.Any (the interface is the same, but
+     * which contains the interface as google.protobuf2.Any (the interface is the same, but
      * it can be in multiple fields of the same proto message)
      * </pre>
      *
@@ -9005,7 +9005,7 @@ public final class Reflection {
   /**
    * <pre>
    * InterfaceAcceptingMessageDescriptor describes a protobuf message which contains
-   * an interface represented as a google.protobuf.Any
+   * an interface represented as a google.protobuf2.Any
    * </pre>
    *
    * Protobuf type {@code cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor}
@@ -9156,7 +9156,7 @@ public final class Reflection {
     /**
      * <pre>
      * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-     * which contains the interface as google.protobuf.Any (the interface is the same, but
+     * which contains the interface as google.protobuf2.Any (the interface is the same, but
      * it can be in multiple fields of the same proto message)
      * </pre>
      *
@@ -9170,7 +9170,7 @@ public final class Reflection {
     /**
      * <pre>
      * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-     * which contains the interface as google.protobuf.Any (the interface is the same, but
+     * which contains the interface as google.protobuf2.Any (the interface is the same, but
      * it can be in multiple fields of the same proto message)
      * </pre>
      *
@@ -9183,7 +9183,7 @@ public final class Reflection {
     /**
      * <pre>
      * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-     * which contains the interface as google.protobuf.Any (the interface is the same, but
+     * which contains the interface as google.protobuf2.Any (the interface is the same, but
      * it can be in multiple fields of the same proto message)
      * </pre>
      *
@@ -9197,7 +9197,7 @@ public final class Reflection {
     /**
      * <pre>
      * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-     * which contains the interface as google.protobuf.Any (the interface is the same, but
+     * which contains the interface as google.protobuf2.Any (the interface is the same, but
      * it can be in multiple fields of the same proto message)
      * </pre>
      *
@@ -9384,7 +9384,7 @@ public final class Reflection {
     /**
      * <pre>
      * InterfaceAcceptingMessageDescriptor describes a protobuf message which contains
-     * an interface represented as a google.protobuf.Any
+     * an interface represented as a google.protobuf2.Any
      * </pre>
      *
      * Protobuf type {@code cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor}
@@ -9659,7 +9659,7 @@ public final class Reflection {
       /**
        * <pre>
        * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-       * which contains the interface as google.protobuf.Any (the interface is the same, but
+       * which contains the interface as google.protobuf2.Any (the interface is the same, but
        * it can be in multiple fields of the same proto message)
        * </pre>
        *
@@ -9673,7 +9673,7 @@ public final class Reflection {
       /**
        * <pre>
        * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-       * which contains the interface as google.protobuf.Any (the interface is the same, but
+       * which contains the interface as google.protobuf2.Any (the interface is the same, but
        * it can be in multiple fields of the same proto message)
        * </pre>
        *
@@ -9686,7 +9686,7 @@ public final class Reflection {
       /**
        * <pre>
        * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-       * which contains the interface as google.protobuf.Any (the interface is the same, but
+       * which contains the interface as google.protobuf2.Any (the interface is the same, but
        * it can be in multiple fields of the same proto message)
        * </pre>
        *
@@ -9700,7 +9700,7 @@ public final class Reflection {
       /**
        * <pre>
        * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-       * which contains the interface as google.protobuf.Any (the interface is the same, but
+       * which contains the interface as google.protobuf2.Any (the interface is the same, but
        * it can be in multiple fields of the same proto message)
        * </pre>
        *
@@ -9715,7 +9715,7 @@ public final class Reflection {
       /**
        * <pre>
        * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-       * which contains the interface as google.protobuf.Any (the interface is the same, but
+       * which contains the interface as google.protobuf2.Any (the interface is the same, but
        * it can be in multiple fields of the same proto message)
        * </pre>
        *
@@ -9737,7 +9737,7 @@ public final class Reflection {
       /**
        * <pre>
        * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-       * which contains the interface as google.protobuf.Any (the interface is the same, but
+       * which contains the interface as google.protobuf2.Any (the interface is the same, but
        * it can be in multiple fields of the same proto message)
        * </pre>
        *
@@ -9758,7 +9758,7 @@ public final class Reflection {
       /**
        * <pre>
        * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-       * which contains the interface as google.protobuf.Any (the interface is the same, but
+       * which contains the interface as google.protobuf2.Any (the interface is the same, but
        * it can be in multiple fields of the same proto message)
        * </pre>
        *
@@ -9777,7 +9777,7 @@ public final class Reflection {
       /**
        * <pre>
        * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-       * which contains the interface as google.protobuf.Any (the interface is the same, but
+       * which contains the interface as google.protobuf2.Any (the interface is the same, but
        * it can be in multiple fields of the same proto message)
        * </pre>
        *
@@ -9793,7 +9793,7 @@ public final class Reflection {
       /**
        * <pre>
        * field_descriptor_names is a list of the protobuf name (not fullname) of the field
-       * which contains the interface as google.protobuf.Any (the interface is the same, but
+       * which contains the interface as google.protobuf2.Any (the interface is the same, but
        * it can be in multiple fields of the same proto message)
        * </pre>
        *

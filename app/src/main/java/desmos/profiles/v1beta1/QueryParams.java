@@ -1090,25 +1090,18 @@ public final class QueryParams {
     java.lang.String[] descriptorData = {
       "\n*desmos/profiles/v1beta1/query_params.p" +
       "roto\022\027desmos.profiles.v1beta1\032\024gogoproto" +
-      "/gogo.proto\032\034google/api/annotations.prot" +
-      "o\032\032google/protobuf2/any.proto\032+desmos/pr" +
-      "ofiles/v1beta1/models_params.proto\032\031cosm" +
-      "os_proto/cosmos.proto\032*cosmos/base/query" +
-      "/v1beta1/pagination.proto\"\024\n\022QueryParams" +
-      "Request\"L\n\023QueryParamsResponse\0225\n\006params" +
-      "\030\001 \001(\0132\037.desmos.profiles.v1beta1.ParamsB" +
-      "\004\310\336\037\000B3Z1github.com/desmos-labs/desmos/v" +
-      "2/x/profiles/typesb\006proto3"
+      "/gogo.proto\032+desmos/profiles/v1beta1/mod" +
+      "els_params.proto\"\024\n\022QueryParamsRequest\"L" +
+      "\n\023QueryParamsResponse\0225\n\006params\030\001 \001(\0132\037." +
+      "desmos.profiles.v1beta1.ParamsB\004\310\336\037\000B3Z1" +
+      "github.com/desmos-labs/desmos/v2/x/profi" +
+      "les/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           desmos.profiles.v1beta1.ModelsParams.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
-          cosmos.base.query.v1beta1.Pagination.getDescriptor(),
         });
     internal_static_desmos_profiles_v1beta1_QueryParamsRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1124,15 +1117,11 @@ public final class QueryParams {
         new java.lang.String[] { "Params", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     desmos.profiles.v1beta1.ModelsParams.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
-    cosmos.base.query.v1beta1.Pagination.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

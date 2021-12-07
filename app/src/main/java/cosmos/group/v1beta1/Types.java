@@ -4839,7 +4839,7 @@ public final class Types {
      * decision_policy specifies the group account's decision policy.
      * </pre>
      *
-     * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+     * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
      * @return Whether the decisionPolicy field is set.
      */
     boolean hasDecisionPolicy();
@@ -4848,18 +4848,18 @@ public final class Types {
      * decision_policy specifies the group account's decision policy.
      * </pre>
      *
-     * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+     * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
      * @return The decisionPolicy.
      */
-    com.google.protobuf.Any getDecisionPolicy();
+    com.google.protobuf2.Any getDecisionPolicy();
     /**
      * <pre>
      * decision_policy specifies the group account's decision policy.
      * </pre>
      *
-     * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+     * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getDecisionPolicyOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getDecisionPolicyOrBuilder();
 
     /**
      * <pre>
@@ -4953,11 +4953,11 @@ public final class Types {
               break;
             }
             case 50: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (decisionPolicy_ != null) {
                 subBuilder = decisionPolicy_.toBuilder();
               }
-              decisionPolicy_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              decisionPolicy_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(decisionPolicy_);
                 decisionPolicy_ = subBuilder.buildPartial();
@@ -5141,13 +5141,13 @@ public final class Types {
     }
 
     public static final int DECISION_POLICY_FIELD_NUMBER = 6;
-    private com.google.protobuf.Any decisionPolicy_;
+    private com.google.protobuf2.Any decisionPolicy_;
     /**
      * <pre>
      * decision_policy specifies the group account's decision policy.
      * </pre>
      *
-     * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+     * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
      * @return Whether the decisionPolicy field is set.
      */
     @java.lang.Override
@@ -5159,22 +5159,22 @@ public final class Types {
      * decision_policy specifies the group account's decision policy.
      * </pre>
      *
-     * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+     * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
      * @return The decisionPolicy.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getDecisionPolicy() {
-      return decisionPolicy_ == null ? com.google.protobuf.Any.getDefaultInstance() : decisionPolicy_;
+    public com.google.protobuf2.Any getDecisionPolicy() {
+      return decisionPolicy_ == null ? com.google.protobuf2.Any.getDefaultInstance() : decisionPolicy_;
     }
     /**
      * <pre>
      * decision_policy specifies the group account's decision policy.
      * </pre>
      *
-     * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+     * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getDecisionPolicyOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getDecisionPolicyOrBuilder() {
       return getDecisionPolicy();
     }
 
@@ -5944,15 +5944,15 @@ public final class Types {
         return this;
       }
 
-      private com.google.protobuf.Any decisionPolicy_;
+      private com.google.protobuf2.Any decisionPolicy_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> decisionPolicyBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> decisionPolicyBuilder_;
       /**
        * <pre>
        * decision_policy specifies the group account's decision policy.
        * </pre>
        *
-       * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+       * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
        * @return Whether the decisionPolicy field is set.
        */
       public boolean hasDecisionPolicy() {
@@ -5963,12 +5963,12 @@ public final class Types {
        * decision_policy specifies the group account's decision policy.
        * </pre>
        *
-       * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+       * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
        * @return The decisionPolicy.
        */
-      public com.google.protobuf.Any getDecisionPolicy() {
+      public com.google.protobuf2.Any getDecisionPolicy() {
         if (decisionPolicyBuilder_ == null) {
-          return decisionPolicy_ == null ? com.google.protobuf.Any.getDefaultInstance() : decisionPolicy_;
+          return decisionPolicy_ == null ? com.google.protobuf2.Any.getDefaultInstance() : decisionPolicy_;
         } else {
           return decisionPolicyBuilder_.getMessage();
         }
@@ -5978,9 +5978,9 @@ public final class Types {
        * decision_policy specifies the group account's decision policy.
        * </pre>
        *
-       * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+       * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
        */
-      public Builder setDecisionPolicy(com.google.protobuf.Any value) {
+      public Builder setDecisionPolicy(com.google.protobuf2.Any value) {
         if (decisionPolicyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5998,10 +5998,10 @@ public final class Types {
        * decision_policy specifies the group account's decision policy.
        * </pre>
        *
-       * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+       * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
        */
       public Builder setDecisionPolicy(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (decisionPolicyBuilder_ == null) {
           decisionPolicy_ = builderForValue.build();
           onChanged();
@@ -6016,13 +6016,13 @@ public final class Types {
        * decision_policy specifies the group account's decision policy.
        * </pre>
        *
-       * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+       * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
        */
-      public Builder mergeDecisionPolicy(com.google.protobuf.Any value) {
+      public Builder mergeDecisionPolicy(com.google.protobuf2.Any value) {
         if (decisionPolicyBuilder_ == null) {
           if (decisionPolicy_ != null) {
             decisionPolicy_ =
-              com.google.protobuf.Any.newBuilder(decisionPolicy_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(decisionPolicy_).mergeFrom(value).buildPartial();
           } else {
             decisionPolicy_ = value;
           }
@@ -6038,7 +6038,7 @@ public final class Types {
        * decision_policy specifies the group account's decision policy.
        * </pre>
        *
-       * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+       * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
        */
       public Builder clearDecisionPolicy() {
         if (decisionPolicyBuilder_ == null) {
@@ -6056,9 +6056,9 @@ public final class Types {
        * decision_policy specifies the group account's decision policy.
        * </pre>
        *
-       * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+       * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
        */
-      public com.google.protobuf.Any.Builder getDecisionPolicyBuilder() {
+      public com.google.protobuf2.Any.Builder getDecisionPolicyBuilder() {
         
         onChanged();
         return getDecisionPolicyFieldBuilder().getBuilder();
@@ -6068,14 +6068,14 @@ public final class Types {
        * decision_policy specifies the group account's decision policy.
        * </pre>
        *
-       * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+       * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getDecisionPolicyOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getDecisionPolicyOrBuilder() {
         if (decisionPolicyBuilder_ != null) {
           return decisionPolicyBuilder_.getMessageOrBuilder();
         } else {
           return decisionPolicy_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : decisionPolicy_;
+              com.google.protobuf2.Any.getDefaultInstance() : decisionPolicy_;
         }
       }
       /**
@@ -6083,14 +6083,14 @@ public final class Types {
        * decision_policy specifies the group account's decision policy.
        * </pre>
        *
-       * <code>.google.protobuf.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
+       * <code>.google.protobuf2.Any decision_policy = 6 [(.cosmos_proto.accepts_interface) = "DecisionPolicy"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getDecisionPolicyFieldBuilder() {
         if (decisionPolicyBuilder_ == null) {
           decisionPolicyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getDecisionPolicy(),
                   getParentForChildren(),
                   isClean());
@@ -6458,24 +6458,24 @@ public final class Types {
      * msgs is a list of Msgs that will be executed if the proposal passes.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 13;</code>
+     * <code>repeated .google.protobuf2.Any msgs = 13;</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getMsgsList();
     /**
      * <pre>
      * msgs is a list of Msgs that will be executed if the proposal passes.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 13;</code>
+     * <code>repeated .google.protobuf2.Any msgs = 13;</code>
      */
-    com.google.protobuf.Any getMsgs(int index);
+    com.google.protobuf2.Any getMsgs(int index);
     /**
      * <pre>
      * msgs is a list of Msgs that will be executed if the proposal passes.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 13;</code>
+     * <code>repeated .google.protobuf2.Any msgs = 13;</code>
      */
     int getMsgsCount();
     /**
@@ -6483,18 +6483,18 @@ public final class Types {
      * msgs is a list of Msgs that will be executed if the proposal passes.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 13;</code>
+     * <code>repeated .google.protobuf2.Any msgs = 13;</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getMsgsOrBuilderList();
     /**
      * <pre>
      * msgs is a list of Msgs that will be executed if the proposal passes.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 13;</code>
+     * <code>repeated .google.protobuf2.Any msgs = 13;</code>
      */
-    com.google.protobuf.AnyOrBuilder getMsgsOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getMsgsOrBuilder(
         int index);
   }
   /**
@@ -6651,11 +6651,11 @@ public final class Types {
             }
             case 106: {
               if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-                msgs_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                msgs_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000002;
               }
               msgs_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -7545,16 +7545,16 @@ public final class Types {
     }
 
     public static final int MSGS_FIELD_NUMBER = 13;
-    private java.util.List<com.google.protobuf.Any> msgs_;
+    private java.util.List<com.google.protobuf2.Any> msgs_;
     /**
      * <pre>
      * msgs is a list of Msgs that will be executed if the proposal passes.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 13;</code>
+     * <code>repeated .google.protobuf2.Any msgs = 13;</code>
      */
     @java.lang.Override
-    public java.util.List<com.google.protobuf.Any> getMsgsList() {
+    public java.util.List<com.google.protobuf2.Any> getMsgsList() {
       return msgs_;
     }
     /**
@@ -7562,10 +7562,10 @@ public final class Types {
      * msgs is a list of Msgs that will be executed if the proposal passes.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 13;</code>
+     * <code>repeated .google.protobuf2.Any msgs = 13;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getMsgsOrBuilderList() {
       return msgs_;
     }
@@ -7574,7 +7574,7 @@ public final class Types {
      * msgs is a list of Msgs that will be executed if the proposal passes.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 13;</code>
+     * <code>repeated .google.protobuf2.Any msgs = 13;</code>
      */
     @java.lang.Override
     public int getMsgsCount() {
@@ -7585,10 +7585,10 @@ public final class Types {
      * msgs is a list of Msgs that will be executed if the proposal passes.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 13;</code>
+     * <code>repeated .google.protobuf2.Any msgs = 13;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Any getMsgs(int index) {
+    public com.google.protobuf2.Any getMsgs(int index) {
       return msgs_.get(index);
     }
     /**
@@ -7596,10 +7596,10 @@ public final class Types {
      * msgs is a list of Msgs that will be executed if the proposal passes.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 13;</code>
+     * <code>repeated .google.protobuf2.Any msgs = 13;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getMsgsOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getMsgsOrBuilder(
         int index) {
       return msgs_.get(index);
     }
@@ -9346,26 +9346,26 @@ public final class Types {
         return this;
       }
 
-      private java.util.List<com.google.protobuf.Any> msgs_ =
+      private java.util.List<com.google.protobuf2.Any> msgs_ =
         java.util.Collections.emptyList();
       private void ensureMsgsIsMutable() {
         if (!((bitField0_ & 0x00000002) != 0)) {
-          msgs_ = new java.util.ArrayList<com.google.protobuf.Any>(msgs_);
+          msgs_ = new java.util.ArrayList<com.google.protobuf2.Any>(msgs_);
           bitField0_ |= 0x00000002;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> msgsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> msgsBuilder_;
 
       /**
        * <pre>
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
-      public java.util.List<com.google.protobuf.Any> getMsgsList() {
+      public java.util.List<com.google.protobuf2.Any> getMsgsList() {
         if (msgsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(msgs_);
         } else {
@@ -9377,7 +9377,7 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
       public int getMsgsCount() {
         if (msgsBuilder_ == null) {
@@ -9391,9 +9391,9 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
-      public com.google.protobuf.Any getMsgs(int index) {
+      public com.google.protobuf2.Any getMsgs(int index) {
         if (msgsBuilder_ == null) {
           return msgs_.get(index);
         } else {
@@ -9405,10 +9405,10 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
       public Builder setMsgs(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (msgsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9426,10 +9426,10 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
       public Builder setMsgs(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (msgsBuilder_ == null) {
           ensureMsgsIsMutable();
           msgs_.set(index, builderForValue.build());
@@ -9444,9 +9444,9 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
-      public Builder addMsgs(com.google.protobuf.Any value) {
+      public Builder addMsgs(com.google.protobuf2.Any value) {
         if (msgsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9464,10 +9464,10 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
       public Builder addMsgs(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (msgsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9485,10 +9485,10 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
       public Builder addMsgs(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (msgsBuilder_ == null) {
           ensureMsgsIsMutable();
           msgs_.add(builderForValue.build());
@@ -9503,10 +9503,10 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
       public Builder addMsgs(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (msgsBuilder_ == null) {
           ensureMsgsIsMutable();
           msgs_.add(index, builderForValue.build());
@@ -9521,10 +9521,10 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
       public Builder addAllMsgs(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (msgsBuilder_ == null) {
           ensureMsgsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -9540,7 +9540,7 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
       public Builder clearMsgs() {
         if (msgsBuilder_ == null) {
@@ -9557,7 +9557,7 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
       public Builder removeMsgs(int index) {
         if (msgsBuilder_ == null) {
@@ -9574,9 +9574,9 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
-      public com.google.protobuf.Any.Builder getMsgsBuilder(
+      public com.google.protobuf2.Any.Builder getMsgsBuilder(
           int index) {
         return getMsgsFieldBuilder().getBuilder(index);
       }
@@ -9585,9 +9585,9 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getMsgsOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getMsgsOrBuilder(
           int index) {
         if (msgsBuilder_ == null) {
           return msgs_.get(index);  } else {
@@ -9599,9 +9599,9 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getMsgsOrBuilderList() {
         if (msgsBuilder_ != null) {
           return msgsBuilder_.getMessageOrBuilderList();
@@ -9614,41 +9614,41 @@ public final class Types {
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
-      public com.google.protobuf.Any.Builder addMsgsBuilder() {
+      public com.google.protobuf2.Any.Builder addMsgsBuilder() {
         return getMsgsFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
-      public com.google.protobuf.Any.Builder addMsgsBuilder(
+      public com.google.protobuf2.Any.Builder addMsgsBuilder(
           int index) {
         return getMsgsFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
        * msgs is a list of Msgs that will be executed if the proposal passes.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 13;</code>
+       * <code>repeated .google.protobuf2.Any msgs = 13;</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getMsgsBuilderList() {
         return getMsgsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getMsgsFieldBuilder() {
         if (msgsBuilder_ == null) {
           msgsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   msgs_,
                   ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
@@ -12153,66 +12153,67 @@ public final class Types {
       "\024cosmos.AddressString\022\020\n\010metadata\030\003 \001(\014\022" +
       "\017\n\007version\030\004 \001(\004\022\024\n\014total_weight\030\005 \001(\t\"M" +
       "\n\013GroupMember\022\020\n\010group_id\030\001 \001(\004\022,\n\006membe" +
-      "r\030\002 \001(\0132\034.cosmos.group.v1beta1.Member\"\200\002" +
+      "r\030\002 \001(\0132\034.cosmos.group.v1beta1.Member\"\201\002" +
       "\n\020GroupAccountInfo\022)\n\007address\030\001 \001(\tB\030\322\264-" +
       "\024cosmos.AddressString\022\020\n\010group_id\030\002 \001(\004\022" +
       "\'\n\005admin\030\003 \001(\tB\030\322\264-\024cosmos.AddressString" +
-      "\022\020\n\010metadata\030\004 \001(\014\022\017\n\007version\030\005 \001(\004\022A\n\017d" +
-      "ecision_policy\030\006 \001(\0132\024.google.protobuf.A" +
-      "nyB\022\312\264-\016DecisionPolicy\022\026\n\016derivation_key" +
-      "\030\007 \001(\014:\010\350\240\037\001\210\240\037\000\"\225\n\n\010Proposal\022\023\n\013proposa" +
-      "l_id\030\001 \001(\004\022)\n\007address\030\002 \001(\tB\030\322\264-\024cosmos." +
-      "AddressString\022\020\n\010metadata\030\003 \001(\014\022+\n\tpropo" +
-      "sers\030\004 \003(\tB\030\322\264-\024cosmos.AddressString\022:\n\014" +
-      "submitted_at\030\005 \001(\0132\032.google.protobuf.Tim" +
-      "estampB\010\310\336\037\000\220\337\037\001\022\025\n\rgroup_version\030\006 \001(\004\022" +
-      "\035\n\025group_account_version\030\007 \001(\004\0225\n\006status" +
-      "\030\010 \001(\0162%.cosmos.group.v1beta1.Proposal.S" +
-      "tatus\0225\n\006result\030\t \001(\0162%.cosmos.group.v1b" +
-      "eta1.Proposal.Result\0225\n\nvote_state\030\n \001(\013" +
-      "2\033.cosmos.group.v1beta1.TallyB\004\310\336\037\000\0225\n\007t" +
-      "imeout\030\013 \001(\0132\032.google.protobuf.Timestamp" +
-      "B\010\310\336\037\000\220\337\037\001\022F\n\017executor_result\030\014 \001(\0162-.co" +
-      "smos.group.v1beta1.Proposal.ExecutorResu" +
-      "lt\022\"\n\004msgs\030\r \003(\0132\024.google.protobuf.Any\"\320" +
-      "\001\n\006Status\0221\n\022STATUS_UNSPECIFIED\020\000\032\031\212\235 \025P" +
-      "roposalStatusInvalid\0221\n\020STATUS_SUBMITTED" +
-      "\020\001\032\033\212\235 \027ProposalStatusSubmitted\022+\n\rSTATU" +
-      "S_CLOSED\020\002\032\030\212\235 \024ProposalStatusClosed\022-\n\016" +
-      "STATUS_ABORTED\020\003\032\031\212\235 \025ProposalStatusAbor" +
-      "ted\032\004\210\243\036\000\"\332\001\n\006Result\0221\n\022RESULT_UNSPECIFI" +
-      "ED\020\000\032\031\212\235 \025ProposalResultInvalid\0225\n\022RESUL" +
-      "T_UNFINALIZED\020\001\032\035\212\235 \031ProposalResultUnfin" +
-      "alized\022/\n\017RESULT_ACCEPTED\020\002\032\032\212\235 \026Proposa" +
-      "lResultAccepted\022/\n\017RESULT_REJECTED\020\003\032\032\212\235" +
-      " \026ProposalResultRejected\032\004\210\243\036\000\"\231\002\n\016Execu" +
-      "torResult\022B\n\033EXECUTOR_RESULT_UNSPECIFIED" +
-      "\020\000\032!\212\235 \035ProposalExecutorResultInvalid\022=\n" +
-      "\027EXECUTOR_RESULT_NOT_RUN\020\001\032 \212\235 \034Proposal" +
-      "ExecutorResultNotRun\022>\n\027EXECUTOR_RESULT_" +
-      "SUCCESS\020\002\032!\212\235 \035ProposalExecutorResultSuc" +
-      "cess\022>\n\027EXECUTOR_RESULT_FAILURE\020\003\032!\212\235 \035P" +
-      "roposalExecutorResultFailure\032\004\210\243\036\000:\004\210\240\037\000" +
-      "\"]\n\005Tally\022\021\n\tyes_count\030\001 \001(\t\022\020\n\010no_count" +
-      "\030\002 \001(\t\022\025\n\rabstain_count\030\003 \001(\t\022\022\n\nveto_co" +
-      "unt\030\004 \001(\t:\004\210\240\037\000\"\300\001\n\004Vote\022\023\n\013proposal_id\030" +
-      "\001 \001(\004\022\'\n\005voter\030\002 \001(\tB\030\322\264-\024cosmos.Address" +
-      "String\022,\n\006choice\030\003 \001(\0162\034.cosmos.group.v1" +
-      "beta1.Choice\022\020\n\010metadata\030\004 \001(\014\022:\n\014submit" +
-      "ted_at\030\005 \001(\0132\032.google.protobuf.Timestamp" +
-      "B\010\310\336\037\000\220\337\037\001*d\n\006Choice\022\026\n\022CHOICE_UNSPECIFI" +
-      "ED\020\000\022\r\n\tCHOICE_NO\020\001\022\016\n\nCHOICE_YES\020\002\022\022\n\016C" +
-      "HOICE_ABSTAIN\020\003\022\017\n\013CHOICE_VETO\020\004B&Z$gith" +
-      "ub.com/cosmos/cosmos-sdk/x/groupb\006proto3"
+      "\022\020\n\010metadata\030\004 \001(\014\022\017\n\007version\030\005 \001(\004\022B\n\017d" +
+      "ecision_policy\030\006 \001(\0132\025.google.protobuf2." +
+      "AnyB\022\312\264-\016DecisionPolicy\022\026\n\016derivation_ke" +
+      "y\030\007 \001(\014:\010\350\240\037\001\210\240\037\000\"\226\n\n\010Proposal\022\023\n\013propos" +
+      "al_id\030\001 \001(\004\022)\n\007address\030\002 \001(\tB\030\322\264-\024cosmos" +
+      ".AddressString\022\020\n\010metadata\030\003 \001(\014\022+\n\tprop" +
+      "osers\030\004 \003(\tB\030\322\264-\024cosmos.AddressString\022:\n" +
+      "\014submitted_at\030\005 \001(\0132\032.google.protobuf.Ti" +
+      "mestampB\010\310\336\037\000\220\337\037\001\022\025\n\rgroup_version\030\006 \001(\004" +
+      "\022\035\n\025group_account_version\030\007 \001(\004\0225\n\006statu" +
+      "s\030\010 \001(\0162%.cosmos.group.v1beta1.Proposal." +
+      "Status\0225\n\006result\030\t \001(\0162%.cosmos.group.v1" +
+      "beta1.Proposal.Result\0225\n\nvote_state\030\n \001(" +
+      "\0132\033.cosmos.group.v1beta1.TallyB\004\310\336\037\000\0225\n\007" +
+      "timeout\030\013 \001(\0132\032.google.protobuf.Timestam" +
+      "pB\010\310\336\037\000\220\337\037\001\022F\n\017executor_result\030\014 \001(\0162-.c" +
+      "osmos.group.v1beta1.Proposal.ExecutorRes" +
+      "ult\022#\n\004msgs\030\r \003(\0132\025.google.protobuf2.Any" +
+      "\"\320\001\n\006Status\0221\n\022STATUS_UNSPECIFIED\020\000\032\031\212\235 " +
+      "\025ProposalStatusInvalid\0221\n\020STATUS_SUBMITT" +
+      "ED\020\001\032\033\212\235 \027ProposalStatusSubmitted\022+\n\rSTA" +
+      "TUS_CLOSED\020\002\032\030\212\235 \024ProposalStatusClosed\022-" +
+      "\n\016STATUS_ABORTED\020\003\032\031\212\235 \025ProposalStatusAb" +
+      "orted\032\004\210\243\036\000\"\332\001\n\006Result\0221\n\022RESULT_UNSPECI" +
+      "FIED\020\000\032\031\212\235 \025ProposalResultInvalid\0225\n\022RES" +
+      "ULT_UNFINALIZED\020\001\032\035\212\235 \031ProposalResultUnf" +
+      "inalized\022/\n\017RESULT_ACCEPTED\020\002\032\032\212\235 \026Propo" +
+      "salResultAccepted\022/\n\017RESULT_REJECTED\020\003\032\032" +
+      "\212\235 \026ProposalResultRejected\032\004\210\243\036\000\"\231\002\n\016Exe" +
+      "cutorResult\022B\n\033EXECUTOR_RESULT_UNSPECIFI" +
+      "ED\020\000\032!\212\235 \035ProposalExecutorResultInvalid\022" +
+      "=\n\027EXECUTOR_RESULT_NOT_RUN\020\001\032 \212\235 \034Propos" +
+      "alExecutorResultNotRun\022>\n\027EXECUTOR_RESUL" +
+      "T_SUCCESS\020\002\032!\212\235 \035ProposalExecutorResultS" +
+      "uccess\022>\n\027EXECUTOR_RESULT_FAILURE\020\003\032!\212\235 " +
+      "\035ProposalExecutorResultFailure\032\004\210\243\036\000:\004\210\240" +
+      "\037\000\"]\n\005Tally\022\021\n\tyes_count\030\001 \001(\t\022\020\n\010no_cou" +
+      "nt\030\002 \001(\t\022\025\n\rabstain_count\030\003 \001(\t\022\022\n\nveto_" +
+      "count\030\004 \001(\t:\004\210\240\037\000\"\300\001\n\004Vote\022\023\n\013proposal_i" +
+      "d\030\001 \001(\004\022\'\n\005voter\030\002 \001(\tB\030\322\264-\024cosmos.Addre" +
+      "ssString\022,\n\006choice\030\003 \001(\0162\034.cosmos.group." +
+      "v1beta1.Choice\022\020\n\010metadata\030\004 \001(\014\022:\n\014subm" +
+      "itted_at\030\005 \001(\0132\032.google.protobuf.Timesta" +
+      "mpB\010\310\336\037\000\220\337\037\001*d\n\006Choice\022\026\n\022CHOICE_UNSPECI" +
+      "FIED\020\000\022\r\n\tCHOICE_NO\020\001\022\016\n\nCHOICE_YES\020\002\022\022\n" +
+      "\016CHOICE_ABSTAIN\020\003\022\017\n\013CHOICE_VETO\020\004B&Z$gi" +
+      "thub.com/cosmos/cosmos-sdk/x/groupb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_cosmos_group_v1beta1_Member_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -12273,20 +12274,20 @@ public final class Types {
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
     registry.add(cosmos_proto.Cosmos.implementsInterface);
     registry.add(cosmos_proto.Cosmos.scalar);
-    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdduration);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

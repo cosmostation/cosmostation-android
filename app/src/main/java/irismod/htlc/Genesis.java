@@ -1622,7 +1622,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           irismod.htlc.Htlc.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
         });
@@ -1634,12 +1634,12 @@ public final class Genesis {
         new java.lang.String[] { "Params", "Htlcs", "Supplies", "PreviousBlockTime", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     irismod.htlc.Htlc.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
   }

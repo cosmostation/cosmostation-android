@@ -3819,7 +3819,7 @@ public final class Did {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_did_DidCredential_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3847,11 +3847,11 @@ public final class Did {
         new java.lang.String[] { "Seed", "SignKey", "EncryptionPrivateKey", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

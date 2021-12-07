@@ -526,7 +526,7 @@ public final class Events {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_comdex_asset_v1beta1_EventAddPair_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -536,11 +536,11 @@ public final class Events {
         new java.lang.String[] { "Id", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.equalAll);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf2.GoGoProtos.equalAll);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

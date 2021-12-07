@@ -6037,19 +6037,19 @@ public final class Payments {
         getPeriodsAccumulatedBytes();
 
     /**
-     * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+     * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
      * @return Whether the period field is set.
      */
     boolean hasPeriod();
     /**
-     * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+     * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
      * @return The period.
      */
-    com.google.protobuf.Any getPeriod();
+    com.google.protobuf2.Any getPeriod();
     /**
-     * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+     * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getPeriodOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getPeriodOrBuilder();
   }
   /**
    * <pre>
@@ -6136,11 +6136,11 @@ public final class Payments {
               break;
             }
             case 50: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (period_ != null) {
                 subBuilder = period_.toBuilder();
               }
-              period_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              period_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(period_);
                 period_ = subBuilder.buildPartial();
@@ -6371,9 +6371,9 @@ public final class Payments {
     }
 
     public static final int PERIOD_FIELD_NUMBER = 6;
-    private com.google.protobuf.Any period_;
+    private com.google.protobuf2.Any period_;
     /**
-     * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+     * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
      * @return Whether the period field is set.
      */
     @java.lang.Override
@@ -6381,18 +6381,18 @@ public final class Payments {
       return period_ != null;
     }
     /**
-     * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+     * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
      * @return The period.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPeriod() {
-      return period_ == null ? com.google.protobuf.Any.getDefaultInstance() : period_;
+    public com.google.protobuf2.Any getPeriod() {
+      return period_ == null ? com.google.protobuf2.Any.getDefaultInstance() : period_;
     }
     /**
-     * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+     * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPeriodOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getPeriodOrBuilder() {
       return getPeriod();
     }
 
@@ -7180,31 +7180,31 @@ public final class Payments {
         return this;
       }
 
-      private com.google.protobuf.Any period_;
+      private com.google.protobuf2.Any period_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> periodBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> periodBuilder_;
       /**
-       * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+       * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
        * @return Whether the period field is set.
        */
       public boolean hasPeriod() {
         return periodBuilder_ != null || period_ != null;
       }
       /**
-       * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+       * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
        * @return The period.
        */
-      public com.google.protobuf.Any getPeriod() {
+      public com.google.protobuf2.Any getPeriod() {
         if (periodBuilder_ == null) {
-          return period_ == null ? com.google.protobuf.Any.getDefaultInstance() : period_;
+          return period_ == null ? com.google.protobuf2.Any.getDefaultInstance() : period_;
         } else {
           return periodBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+       * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
        */
-      public Builder setPeriod(com.google.protobuf.Any value) {
+      public Builder setPeriod(com.google.protobuf2.Any value) {
         if (periodBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7218,10 +7218,10 @@ public final class Payments {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+       * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
        */
       public Builder setPeriod(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (periodBuilder_ == null) {
           period_ = builderForValue.build();
           onChanged();
@@ -7232,13 +7232,13 @@ public final class Payments {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+       * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
        */
-      public Builder mergePeriod(com.google.protobuf.Any value) {
+      public Builder mergePeriod(com.google.protobuf2.Any value) {
         if (periodBuilder_ == null) {
           if (period_ != null) {
             period_ =
-              com.google.protobuf.Any.newBuilder(period_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(period_).mergeFrom(value).buildPartial();
           } else {
             period_ = value;
           }
@@ -7250,7 +7250,7 @@ public final class Payments {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+       * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
        */
       public Builder clearPeriod() {
         if (periodBuilder_ == null) {
@@ -7264,33 +7264,33 @@ public final class Payments {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+       * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getPeriodBuilder() {
+      public com.google.protobuf2.Any.Builder getPeriodBuilder() {
         
         onChanged();
         return getPeriodFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+       * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPeriodOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPeriodOrBuilder() {
         if (periodBuilder_ != null) {
           return periodBuilder_.getMessageOrBuilder();
         } else {
           return period_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : period_;
+              com.google.protobuf2.Any.getDefaultInstance() : period_;
         }
       }
       /**
-       * <code>.google.protobuf.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
+       * <code>.google.protobuf2.Any period = 6 [(.gogoproto.moretags) = "yaml:&#92;"period&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPeriodFieldBuilder() {
         if (periodBuilder_ == null) {
           periodBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getPeriod(),
                   getParentForChildren(),
                   isClean());
@@ -9414,7 +9414,7 @@ public final class Payments {
       "ise\"\022)\n\nauthorised\030\t \001(\010B\025\362\336\037\021yaml:\"auth" +
       "orised\"\022Z\n\013discount_id\030\n \001(\tBE\332\336\037\'github" +
       ".com/cosmos/cosmos-sdk/types.Uint\310\336\037\000\362\336\037" +
-      "\022yaml:\"discount_id\"\"\317\003\n\014Subscription\022\031\n\002" +
+      "\022yaml:\"discount_id\"\"\320\003\n\014Subscription\022\031\n\002" +
       "id\030\001 \001(\tB\r\362\336\037\tyaml:\"id\"\022;\n\023payment_contr" +
       "act_id\030\002 \001(\tB\036\362\336\037\032yaml:\"payment_contract" +
       "_id\"\022`\n\016periods_so_far\030\003 \001(\tBH\332\336\037\'github" +
@@ -9424,28 +9424,28 @@ public final class Payments {
       "pes.Uint\310\336\037\000\362\336\037\022yaml:\"max_periods\"\022j\n\023pe" +
       "riods_accumulated\030\005 \001(\tBM\332\336\037\'github.com/" +
       "cosmos/cosmos-sdk/types.Uint\310\336\037\000\362\336\037\032yaml" +
-      ":\"periods_accumulated\"\0227\n\006period\030\006 \001(\0132\024" +
-      ".google.protobuf.AnyB\021\362\336\037\ryaml:\"period\":" +
-      "\004\210\240\037\000\"y\n\013BlockPeriod\022/\n\rperiod_length\030\001 " +
-      "\001(\003B\030\362\336\037\024yaml:\"period_length\"\0229\n\022period_" +
-      "start_block\030\002 \001(\003B\035\362\336\037\031yaml:\"period_star" +
-      "t_block\"\"\307\001\n\nTimePeriod\022\\\n\022period_durati" +
-      "on_ns\030\001 \001(\0132\031.google.protobuf.DurationB%" +
-      "\310\336\037\000\230\337\037\001\362\336\037\031yaml:\"period_duration_ns\"\022[\n" +
-      "\021period_start_time\030\002 \001(\0132\032.google.protob" +
-      "uf.TimestampB$\310\336\037\000\220\337\037\001\362\336\037\030yaml:\"period_s" +
-      "tart_time\"\"x\n\nTestPeriod\022/\n\rperiod_lengt" +
-      "h\030\001 \001(\003B\030\362\336\037\024yaml:\"period_length\"\0229\n\022per" +
-      "iod_start_block\030\002 \001(\003B\035\362\336\037\031yaml:\"period_" +
-      "start_block\"BH\n\014ixo.paymentsZ8github.com" +
-      "/ixofoundation/ixo-blockchain/x/payments" +
-      "/typesb\006proto3"
+      ":\"periods_accumulated\"\0228\n\006period\030\006 \001(\0132\025" +
+      ".google.protobuf2.AnyB\021\362\336\037\ryaml:\"period\"" +
+      ":\004\210\240\037\000\"y\n\013BlockPeriod\022/\n\rperiod_length\030\001" +
+      " \001(\003B\030\362\336\037\024yaml:\"period_length\"\0229\n\022period" +
+      "_start_block\030\002 \001(\003B\035\362\336\037\031yaml:\"period_sta" +
+      "rt_block\"\"\307\001\n\nTimePeriod\022\\\n\022period_durat" +
+      "ion_ns\030\001 \001(\0132\031.google.protobuf.DurationB" +
+      "%\310\336\037\000\230\337\037\001\362\336\037\031yaml:\"period_duration_ns\"\022[" +
+      "\n\021period_start_time\030\002 \001(\0132\032.google.proto" +
+      "buf.TimestampB$\310\336\037\000\220\337\037\001\362\336\037\030yaml:\"period_" +
+      "start_time\"\"x\n\nTestPeriod\022/\n\rperiod_leng" +
+      "th\030\001 \001(\003B\030\362\336\037\024yaml:\"period_length\"\0229\n\022pe" +
+      "riod_start_block\030\002 \001(\003B\035\362\336\037\031yaml:\"period" +
+      "_start_block\"BH\n\014ixo.paymentsZ8github.co" +
+      "m/ixofoundation/ixo-blockchain/x/payment" +
+      "s/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
@@ -9500,17 +9500,17 @@ public final class Payments {
         new java.lang.String[] { "PeriodLength", "PeriodStartBlock", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdduration);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();

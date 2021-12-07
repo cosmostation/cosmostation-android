@@ -595,19 +595,19 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+     * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
      * @return Whether the diddoc field is set.
      */
     boolean hasDiddoc();
     /**
-     * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+     * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
      * @return The diddoc.
      */
-    com.google.protobuf.Any getDiddoc();
+    com.google.protobuf2.Any getDiddoc();
     /**
-     * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+     * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getDiddocOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getDiddocOrBuilder();
   }
   /**
    * <pre>
@@ -659,11 +659,11 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (diddoc_ != null) {
                 subBuilder = diddoc_.toBuilder();
               }
-              diddoc_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              diddoc_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(diddoc_);
                 diddoc_ = subBuilder.buildPartial();
@@ -704,9 +704,9 @@ public final class QueryOuterClass {
     }
 
     public static final int DIDDOC_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any diddoc_;
+    private com.google.protobuf2.Any diddoc_;
     /**
-     * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+     * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
      * @return Whether the diddoc field is set.
      */
     @java.lang.Override
@@ -714,18 +714,18 @@ public final class QueryOuterClass {
       return diddoc_ != null;
     }
     /**
-     * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+     * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
      * @return The diddoc.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getDiddoc() {
-      return diddoc_ == null ? com.google.protobuf.Any.getDefaultInstance() : diddoc_;
+    public com.google.protobuf2.Any getDiddoc() {
+      return diddoc_ == null ? com.google.protobuf2.Any.getDefaultInstance() : diddoc_;
     }
     /**
-     * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+     * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getDiddocOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getDiddocOrBuilder() {
       return getDiddoc();
     }
 
@@ -1048,31 +1048,31 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any diddoc_;
+      private com.google.protobuf2.Any diddoc_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> diddocBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> diddocBuilder_;
       /**
-       * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+       * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
        * @return Whether the diddoc field is set.
        */
       public boolean hasDiddoc() {
         return diddocBuilder_ != null || diddoc_ != null;
       }
       /**
-       * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+       * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
        * @return The diddoc.
        */
-      public com.google.protobuf.Any getDiddoc() {
+      public com.google.protobuf2.Any getDiddoc() {
         if (diddocBuilder_ == null) {
-          return diddoc_ == null ? com.google.protobuf.Any.getDefaultInstance() : diddoc_;
+          return diddoc_ == null ? com.google.protobuf2.Any.getDefaultInstance() : diddoc_;
         } else {
           return diddocBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+       * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
        */
-      public Builder setDiddoc(com.google.protobuf.Any value) {
+      public Builder setDiddoc(com.google.protobuf2.Any value) {
         if (diddocBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1086,10 +1086,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+       * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
        */
       public Builder setDiddoc(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (diddocBuilder_ == null) {
           diddoc_ = builderForValue.build();
           onChanged();
@@ -1100,13 +1100,13 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+       * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
        */
-      public Builder mergeDiddoc(com.google.protobuf.Any value) {
+      public Builder mergeDiddoc(com.google.protobuf2.Any value) {
         if (diddocBuilder_ == null) {
           if (diddoc_ != null) {
             diddoc_ =
-              com.google.protobuf.Any.newBuilder(diddoc_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(diddoc_).mergeFrom(value).buildPartial();
           } else {
             diddoc_ = value;
           }
@@ -1118,7 +1118,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+       * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
        */
       public Builder clearDiddoc() {
         if (diddocBuilder_ == null) {
@@ -1132,33 +1132,33 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+       * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getDiddocBuilder() {
+      public com.google.protobuf2.Any.Builder getDiddocBuilder() {
         
         onChanged();
         return getDiddocFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+       * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getDiddocOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getDiddocOrBuilder() {
         if (diddocBuilder_ != null) {
           return diddocBuilder_.getMessageOrBuilder();
         } else {
           return diddoc_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : diddoc_;
+              com.google.protobuf2.Any.getDefaultInstance() : diddoc_;
         }
       }
       /**
-       * <code>.google.protobuf.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
+       * <code>.google.protobuf2.Any diddoc = 1 [(.gogoproto.moretags) = "json:&#92;"did_doc&#92;" yaml:&#92;"did_doc&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getDiddocFieldBuilder() {
         if (diddocBuilder_ == null) {
           diddocBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getDiddoc(),
                   getParentForChildren(),
                   isClean());
@@ -2722,27 +2722,27 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getDiddocsList();
     /**
-     * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
      */
-    com.google.protobuf.Any getDiddocs(int index);
+    com.google.protobuf2.Any getDiddocs(int index);
     /**
-     * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
      */
     int getDiddocsCount();
     /**
-     * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getDiddocsOrBuilderList();
     /**
-     * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getDiddocsOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getDiddocsOrBuilder(
         int index);
   }
   /**
@@ -2798,11 +2798,11 @@ public final class QueryOuterClass {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                diddocs_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                diddocs_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000001;
               }
               diddocs_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -2841,41 +2841,41 @@ public final class QueryOuterClass {
     }
 
     public static final int DIDDOCS_FIELD_NUMBER = 1;
-    private java.util.List<com.google.protobuf.Any> diddocs_;
+    private java.util.List<com.google.protobuf2.Any> diddocs_;
     /**
-     * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
      */
     @java.lang.Override
-    public java.util.List<com.google.protobuf.Any> getDiddocsList() {
+    public java.util.List<com.google.protobuf2.Any> getDiddocsList() {
       return diddocs_;
     }
     /**
-     * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getDiddocsOrBuilderList() {
       return diddocs_;
     }
     /**
-     * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
      */
     @java.lang.Override
     public int getDiddocsCount() {
       return diddocs_.size();
     }
     /**
-     * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Any getDiddocs(int index) {
+    public com.google.protobuf2.Any getDiddocs(int index) {
       return diddocs_.get(index);
     }
     /**
-     * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getDiddocsOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getDiddocsOrBuilder(
         int index) {
       return diddocs_.get(index);
     }
@@ -3226,22 +3226,22 @@ public final class QueryOuterClass {
       }
       private int bitField0_;
 
-      private java.util.List<com.google.protobuf.Any> diddocs_ =
+      private java.util.List<com.google.protobuf2.Any> diddocs_ =
         java.util.Collections.emptyList();
       private void ensureDiddocsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          diddocs_ = new java.util.ArrayList<com.google.protobuf.Any>(diddocs_);
+          diddocs_ = new java.util.ArrayList<com.google.protobuf2.Any>(diddocs_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> diddocsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> diddocsBuilder_;
 
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
-      public java.util.List<com.google.protobuf.Any> getDiddocsList() {
+      public java.util.List<com.google.protobuf2.Any> getDiddocsList() {
         if (diddocsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(diddocs_);
         } else {
@@ -3249,7 +3249,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
       public int getDiddocsCount() {
         if (diddocsBuilder_ == null) {
@@ -3259,9 +3259,9 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
-      public com.google.protobuf.Any getDiddocs(int index) {
+      public com.google.protobuf2.Any getDiddocs(int index) {
         if (diddocsBuilder_ == null) {
           return diddocs_.get(index);
         } else {
@@ -3269,10 +3269,10 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder setDiddocs(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (diddocsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3286,10 +3286,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder setDiddocs(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (diddocsBuilder_ == null) {
           ensureDiddocsIsMutable();
           diddocs_.set(index, builderForValue.build());
@@ -3300,9 +3300,9 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
-      public Builder addDiddocs(com.google.protobuf.Any value) {
+      public Builder addDiddocs(com.google.protobuf2.Any value) {
         if (diddocsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3316,10 +3316,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder addDiddocs(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (diddocsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3333,10 +3333,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder addDiddocs(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (diddocsBuilder_ == null) {
           ensureDiddocsIsMutable();
           diddocs_.add(builderForValue.build());
@@ -3347,10 +3347,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder addDiddocs(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (diddocsBuilder_ == null) {
           ensureDiddocsIsMutable();
           diddocs_.add(index, builderForValue.build());
@@ -3361,10 +3361,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder addAllDiddocs(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (diddocsBuilder_ == null) {
           ensureDiddocsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -3376,7 +3376,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder clearDiddocs() {
         if (diddocsBuilder_ == null) {
@@ -3389,7 +3389,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder removeDiddocs(int index) {
         if (diddocsBuilder_ == null) {
@@ -3402,16 +3402,16 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getDiddocsBuilder(
+      public com.google.protobuf2.Any.Builder getDiddocsBuilder(
           int index) {
         return getDiddocsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getDiddocsOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getDiddocsOrBuilder(
           int index) {
         if (diddocsBuilder_ == null) {
           return diddocs_.get(index);  } else {
@@ -3419,9 +3419,9 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getDiddocsOrBuilderList() {
         if (diddocsBuilder_ != null) {
           return diddocsBuilder_.getMessageOrBuilderList();
@@ -3430,33 +3430,33 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder addDiddocsBuilder() {
+      public com.google.protobuf2.Any.Builder addDiddocsBuilder() {
         return getDiddocsFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder addDiddocsBuilder(
+      public com.google.protobuf2.Any.Builder addDiddocsBuilder(
           int index) {
         return getDiddocsFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any diddocs = 1 [(.gogoproto.moretags) = "json:&#92;"did_docs&#92;" yaml:&#92;"did_docs&#92;""];</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getDiddocsBuilderList() {
         return getDiddocsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getDiddocsFieldBuilder() {
         if (diddocsBuilder_ == null) {
           diddocsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   diddocs_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -5885,46 +5885,46 @@ public final class QueryOuterClass {
       "go.proto\032\034google/api/annotations.proto\032\032" +
       "google/protobuf2/any.proto\"<\n\022QueryDidDo" +
       "cRequest\022&\n\003did\030\001 \001(\tB\031\362\336\037\025json:\"did\" ya" +
-      "ml:\"did\"\"^\n\023QueryDidDocResponse\022G\n\006diddo" +
-      "c\030\001 \001(\0132\024.google.protobuf.AnyB!\362\336\037\035json:" +
-      "\"did_doc\" yaml:\"did_doc\"\"\025\n\023QueryAllDids" +
-      "Request\"A\n\024QueryAllDidsResponse\022)\n\004dids\030" +
-      "\001 \003(\tB\033\362\336\037\027json:\"dids\" yaml:\"dids\"\"\030\n\026Qu" +
-      "eryAllDidDocsRequest\"e\n\027QueryAllDidDocsR" +
-      "esponse\022J\n\007diddocs\030\001 \003(\0132\024.google.protob" +
-      "uf.AnyB#\362\336\037\037json:\"did_docs\" yaml:\"did_do" +
-      "cs\"\"D\n\032QueryAddressFromDidRequest\022&\n\003did" +
-      "\030\001 \001(\tB\031\362\336\037\025json:\"did\" yaml:\"did\"\"Q\n\033Que" +
-      "ryAddressFromDidResponse\0222\n\007address\030\001 \001(" +
-      "\tB!\362\336\037\035json:\"address\" yaml:\"address\"\"]\n*" +
-      "QueryAddressFromBase58EncodedPubkeyReque" +
-      "st\022/\n\006pubKey\030\001 \001(\tB\037\362\336\037\033json:\"pubKey\" ya" +
-      "ml:\"pubKey\"\"a\n+QueryAddressFromBase58Enc" +
-      "odedPubkeyResponse\0222\n\007address\030\001 \001(\tB!\362\336\037" +
-      "\035json:\"address\" yaml:\"address\"2\260\004\n\005Query" +
-      "\022S\n\006DidDoc\022\027.did.QueryDidDocRequest\032\030.di" +
-      "d.QueryDidDocResponse\"\026\202\323\344\223\002\020\022\016/ixo/did/" +
-      "{did}\022P\n\007AllDids\022\030.did.QueryAllDidsReque" +
-      "st\032\031.did.QueryAllDidsResponse\"\020\202\323\344\223\002\n\022\010/" +
-      "ixo/did\022`\n\nAllDidDocs\022\033.did.QueryAllDidD" +
-      "ocsRequest\032\034.did.QueryAllDidDocsResponse" +
-      "\"\027\202\323\344\223\002\021\022\017/ixo/allDidDocs\022t\n\016AddressFrom" +
-      "Did\022\037.did.QueryAddressFromDidRequest\032 .d" +
-      "id.QueryAddressFromDidResponse\"\037\202\323\344\223\002\031\022\027" +
-      "/ixo/didToAddr/{did=**}\022\247\001\n\036AddressFromB" +
-      "ase58EncodedPubkey\022/.did.QueryAddressFro" +
-      "mBase58EncodedPubkeyRequest\0320.did.QueryA" +
-      "ddressFromBase58EncodedPubkeyResponse\"\"\202" +
-      "\323\344\223\002\034\022\032/ixo/pubKeyToAddr/{pubKey}B>\n\007ixo" +
-      ".didZ3github.com/ixofoundation/ixo-block" +
-      "chain/x/did/typesb\006proto3"
+      "ml:\"did\"\"_\n\023QueryDidDocResponse\022H\n\006diddo" +
+      "c\030\001 \001(\0132\025.google.protobuf2.AnyB!\362\336\037\035json" +
+      ":\"did_doc\" yaml:\"did_doc\"\"\025\n\023QueryAllDid" +
+      "sRequest\"A\n\024QueryAllDidsResponse\022)\n\004dids" +
+      "\030\001 \003(\tB\033\362\336\037\027json:\"dids\" yaml:\"dids\"\"\030\n\026Q" +
+      "ueryAllDidDocsRequest\"f\n\027QueryAllDidDocs" +
+      "Response\022K\n\007diddocs\030\001 \003(\0132\025.google.proto" +
+      "buf2.AnyB#\362\336\037\037json:\"did_docs\" yaml:\"did_" +
+      "docs\"\"D\n\032QueryAddressFromDidRequest\022&\n\003d" +
+      "id\030\001 \001(\tB\031\362\336\037\025json:\"did\" yaml:\"did\"\"Q\n\033Q" +
+      "ueryAddressFromDidResponse\0222\n\007address\030\001 " +
+      "\001(\tB!\362\336\037\035json:\"address\" yaml:\"address\"\"]" +
+      "\n*QueryAddressFromBase58EncodedPubkeyReq" +
+      "uest\022/\n\006pubKey\030\001 \001(\tB\037\362\336\037\033json:\"pubKey\" " +
+      "yaml:\"pubKey\"\"a\n+QueryAddressFromBase58E" +
+      "ncodedPubkeyResponse\0222\n\007address\030\001 \001(\tB!\362" +
+      "\336\037\035json:\"address\" yaml:\"address\"2\260\004\n\005Que" +
+      "ry\022S\n\006DidDoc\022\027.did.QueryDidDocRequest\032\030." +
+      "did.QueryDidDocResponse\"\026\202\323\344\223\002\020\022\016/ixo/di" +
+      "d/{did}\022P\n\007AllDids\022\030.did.QueryAllDidsReq" +
+      "uest\032\031.did.QueryAllDidsResponse\"\020\202\323\344\223\002\n\022" +
+      "\010/ixo/did\022`\n\nAllDidDocs\022\033.did.QueryAllDi" +
+      "dDocsRequest\032\034.did.QueryAllDidDocsRespon" +
+      "se\"\027\202\323\344\223\002\021\022\017/ixo/allDidDocs\022t\n\016AddressFr" +
+      "omDid\022\037.did.QueryAddressFromDidRequest\032 " +
+      ".did.QueryAddressFromDidResponse\"\037\202\323\344\223\002\031" +
+      "\022\027/ixo/didToAddr/{did=**}\022\247\001\n\036AddressFro" +
+      "mBase58EncodedPubkey\022/.did.QueryAddressF" +
+      "romBase58EncodedPubkeyRequest\0320.did.Quer" +
+      "yAddressFromBase58EncodedPubkeyResponse\"" +
+      "\"\202\323\344\223\002\034\022\032/ixo/pubKeyToAddr/{pubKey}B>\n\007i" +
+      "xo.didZ3github.com/ixofoundation/ixo-blo" +
+      "ckchain/x/did/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_did_QueryDidDocRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5988,13 +5988,13 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Address", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

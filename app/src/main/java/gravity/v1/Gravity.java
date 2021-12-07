@@ -19,19 +19,19 @@ public final class Gravity {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      * @return Whether the event field is set.
      */
     boolean hasEvent();
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      * @return The event.
      */
-    com.google.protobuf.Any getEvent();
+    com.google.protobuf2.Any getEvent();
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getEventOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getEventOrBuilder();
 
     /**
      * <code>repeated string votes = 2;</code>
@@ -118,11 +118,11 @@ public final class Gravity {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (event_ != null) {
                 subBuilder = event_.toBuilder();
               }
-              event_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              event_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(event_);
                 event_ = subBuilder.buildPartial();
@@ -180,9 +180,9 @@ public final class Gravity {
     }
 
     public static final int EVENT_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any event_;
+    private com.google.protobuf2.Any event_;
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      * @return Whether the event field is set.
      */
     @java.lang.Override
@@ -190,18 +190,18 @@ public final class Gravity {
       return event_ != null;
     }
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      * @return The event.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getEvent() {
-      return event_ == null ? com.google.protobuf.Any.getDefaultInstance() : event_;
+    public com.google.protobuf2.Any getEvent() {
+      return event_ == null ? com.google.protobuf2.Any.getDefaultInstance() : event_;
     }
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getEventOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getEventOrBuilder() {
       return getEvent();
     }
 
@@ -626,31 +626,31 @@ public final class Gravity {
       }
       private int bitField0_;
 
-      private com.google.protobuf.Any event_;
+      private com.google.protobuf2.Any event_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> eventBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> eventBuilder_;
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        * @return Whether the event field is set.
        */
       public boolean hasEvent() {
         return eventBuilder_ != null || event_ != null;
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        * @return The event.
        */
-      public com.google.protobuf.Any getEvent() {
+      public com.google.protobuf2.Any getEvent() {
         if (eventBuilder_ == null) {
-          return event_ == null ? com.google.protobuf.Any.getDefaultInstance() : event_;
+          return event_ == null ? com.google.protobuf2.Any.getDefaultInstance() : event_;
         } else {
           return eventBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
-      public Builder setEvent(com.google.protobuf.Any value) {
+      public Builder setEvent(com.google.protobuf2.Any value) {
         if (eventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -664,10 +664,10 @@ public final class Gravity {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
       public Builder setEvent(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (eventBuilder_ == null) {
           event_ = builderForValue.build();
           onChanged();
@@ -678,13 +678,13 @@ public final class Gravity {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
-      public Builder mergeEvent(com.google.protobuf.Any value) {
+      public Builder mergeEvent(com.google.protobuf2.Any value) {
         if (eventBuilder_ == null) {
           if (event_ != null) {
             event_ =
-              com.google.protobuf.Any.newBuilder(event_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(event_).mergeFrom(value).buildPartial();
           } else {
             event_ = value;
           }
@@ -696,7 +696,7 @@ public final class Gravity {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
       public Builder clearEvent() {
         if (eventBuilder_ == null) {
@@ -710,33 +710,33 @@ public final class Gravity {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
-      public com.google.protobuf.Any.Builder getEventBuilder() {
+      public com.google.protobuf2.Any.Builder getEventBuilder() {
         
         onChanged();
         return getEventFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getEventOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getEventOrBuilder() {
         if (eventBuilder_ != null) {
           return eventBuilder_.getMessageOrBuilder();
         } else {
           return event_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : event_;
+              com.google.protobuf2.Any.getDefaultInstance() : event_;
         }
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getEventFieldBuilder() {
         if (eventBuilder_ == null) {
           eventBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getEvent(),
                   getParentForChildren(),
                   isClean());
@@ -8554,43 +8554,43 @@ public final class Gravity {
     java.lang.String[] descriptorData = {
       "\n\030gravity/v1/gravity.proto\022\ngravity.v1\032\031" +
       "cosmos_proto/cosmos.proto\032\024gogoproto/gog" +
-      "o.proto\032\032google/protobuf2/any.proto\"r\n\027E" +
-      "thereumEventVoteRecord\0226\n\005event\030\001 \001(\0132\024." +
-      "google.protobuf.AnyB\021\312\264-\rEthereumEvent\022\r" +
-      "\n\005votes\030\002 \003(\t\022\020\n\010accepted\030\003 \001(\010\"K\n\031Lates" +
-      "tEthereumBlockHeight\022\027\n\017ethereum_height\030" +
-      "\001 \001(\004\022\025\n\rcosmos_height\030\002 \001(\004\"9\n\016Ethereum" +
-      "Signer\022\r\n\005power\030\001 \001(\004\022\030\n\020ethereum_addres" +
-      "s\030\002 \001(\t\"n\n\013SignerSetTx\022\r\n\005nonce\030\001 \001(\004\022\016\n" +
-      "\006height\030\002 \001(\004\022@\n\007signers\030\003 \003(\0132\032.gravity" +
-      ".v1.EthereumSignerB\023\252\337\037\017EthereumSigners\"" +
-      "\211\001\n\007BatchTx\022\023\n\013batch_nonce\030\001 \001(\004\022\017\n\007time" +
-      "out\030\002 \001(\004\0220\n\014transactions\030\003 \003(\0132\032.gravit" +
-      "y.v1.SendToEthereum\022\026\n\016token_contract\030\004 " +
-      "\001(\t\022\016\n\006height\030\005 \001(\004\"\254\001\n\016SendToEthereum\022\n" +
-      "\n\002id\030\001 \001(\004\022\016\n\006sender\030\002 \001(\t\022\032\n\022ethereum_r" +
-      "ecipient\030\003 \001(\t\0221\n\013erc20_token\030\004 \001(\0132\026.gr" +
-      "avity.v1.ERC20TokenB\004\310\336\037\000\022/\n\terc20_fee\030\005" +
-      " \001(\0132\026.gravity.v1.ERC20TokenB\004\310\336\037\000\"\237\002\n\016C" +
-      "ontractCallTx\022\032\n\022invalidation_nonce\030\001 \001(" +
-      "\004\022T\n\022invalidation_scope\030\002 \001(\014B8\372\336\0374githu" +
-      "b.com/tendermint/tendermint/libs/bytes.H" +
-      "exBytes\022\017\n\007address\030\003 \001(\t\022\017\n\007payload\030\004 \001(" +
-      "\014\022\017\n\007timeout\030\005 \001(\004\022,\n\006tokens\030\006 \003(\0132\026.gra" +
-      "vity.v1.ERC20TokenB\004\310\336\037\000\022*\n\004fees\030\007 \003(\0132\026" +
-      ".gravity.v1.ERC20TokenB\004\310\336\037\000\022\016\n\006height\030\010" +
-      " \001(\004\"^\n\nERC20Token\022\020\n\010contract\030\001 \001(\t\022>\n\006" +
-      "amount\030\002 \001(\tB.\332\336\037&github.com/cosmos/cosm" +
-      "os-sdk/types.Int\310\336\037\000\"\024\n\005IDSet\022\013\n\003ids\030\001 \003" +
-      "(\004B9Z7github.com/cosmos/gravity-bridge/m" +
-      "odule/x/gravity/typesb\006proto3"
+      "o.proto\032\032google/protobuf2/any.proto\"s\n\027E" +
+      "thereumEventVoteRecord\0227\n\005event\030\001 \001(\0132\025." +
+      "google.protobuf2.AnyB\021\312\264-\rEthereumEvent\022" +
+      "\r\n\005votes\030\002 \003(\t\022\020\n\010accepted\030\003 \001(\010\"K\n\031Late" +
+      "stEthereumBlockHeight\022\027\n\017ethereum_height" +
+      "\030\001 \001(\004\022\025\n\rcosmos_height\030\002 \001(\004\"9\n\016Ethereu" +
+      "mSigner\022\r\n\005power\030\001 \001(\004\022\030\n\020ethereum_addre" +
+      "ss\030\002 \001(\t\"n\n\013SignerSetTx\022\r\n\005nonce\030\001 \001(\004\022\016" +
+      "\n\006height\030\002 \001(\004\022@\n\007signers\030\003 \003(\0132\032.gravit" +
+      "y.v1.EthereumSignerB\023\252\337\037\017EthereumSigners" +
+      "\"\211\001\n\007BatchTx\022\023\n\013batch_nonce\030\001 \001(\004\022\017\n\007tim" +
+      "eout\030\002 \001(\004\0220\n\014transactions\030\003 \003(\0132\032.gravi" +
+      "ty.v1.SendToEthereum\022\026\n\016token_contract\030\004" +
+      " \001(\t\022\016\n\006height\030\005 \001(\004\"\254\001\n\016SendToEthereum\022" +
+      "\n\n\002id\030\001 \001(\004\022\016\n\006sender\030\002 \001(\t\022\032\n\022ethereum_" +
+      "recipient\030\003 \001(\t\0221\n\013erc20_token\030\004 \001(\0132\026.g" +
+      "ravity.v1.ERC20TokenB\004\310\336\037\000\022/\n\terc20_fee\030" +
+      "\005 \001(\0132\026.gravity.v1.ERC20TokenB\004\310\336\037\000\"\237\002\n\016" +
+      "ContractCallTx\022\032\n\022invalidation_nonce\030\001 \001" +
+      "(\004\022T\n\022invalidation_scope\030\002 \001(\014B8\372\336\0374gith" +
+      "ub.com/tendermint/tendermint/libs/bytes." +
+      "HexBytes\022\017\n\007address\030\003 \001(\t\022\017\n\007payload\030\004 \001" +
+      "(\014\022\017\n\007timeout\030\005 \001(\004\022,\n\006tokens\030\006 \003(\0132\026.gr" +
+      "avity.v1.ERC20TokenB\004\310\336\037\000\022*\n\004fees\030\007 \003(\0132" +
+      "\026.gravity.v1.ERC20TokenB\004\310\336\037\000\022\016\n\006height\030" +
+      "\010 \001(\004\"^\n\nERC20Token\022\020\n\010contract\030\001 \001(\t\022>\n" +
+      "\006amount\030\002 \001(\tB.\332\336\037&github.com/cosmos/cos" +
+      "mos-sdk/types.Int\310\336\037\000\"\024\n\005IDSet\022\013\n\003ids\030\001 " +
+      "\003(\004B9Z7github.com/cosmos/gravity-bridge/" +
+      "module/x/gravity/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos_proto.Cosmos.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_gravity_v1_EthereumEventVoteRecord_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -8649,15 +8649,15 @@ public final class Gravity {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.casttype);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.casttype);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos_proto.Cosmos.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

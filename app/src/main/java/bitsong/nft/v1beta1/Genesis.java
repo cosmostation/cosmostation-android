@@ -840,7 +840,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           bitsong.nft.v1beta1.Nft.getDescriptor(),
         });
     internal_static_bitsong_nft_v1beta1_GenesisState_descriptor =
@@ -851,10 +851,10 @@ public final class Genesis {
         new java.lang.String[] { "Collections", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     bitsong.nft.v1beta1.Nft.getDescriptor();
   }
 

@@ -3875,7 +3875,7 @@ public final class Msgs {
      * TODO: can we make this take an array?
      * </pre>
      *
-     * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+     * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
      * @return Whether the confirmation field is set.
      */
     boolean hasConfirmation();
@@ -3884,18 +3884,18 @@ public final class Msgs {
      * TODO: can we make this take an array?
      * </pre>
      *
-     * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+     * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
      * @return The confirmation.
      */
-    com.google.protobuf.Any getConfirmation();
+    com.google.protobuf2.Any getConfirmation();
     /**
      * <pre>
      * TODO: can we make this take an array?
      * </pre>
      *
-     * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+     * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getConfirmationOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getConfirmationOrBuilder();
 
     /**
      * <code>string signer = 2;</code>
@@ -3961,11 +3961,11 @@ public final class Msgs {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (confirmation_ != null) {
                 subBuilder = confirmation_.toBuilder();
               }
-              confirmation_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              confirmation_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(confirmation_);
                 confirmation_ = subBuilder.buildPartial();
@@ -4012,13 +4012,13 @@ public final class Msgs {
     }
 
     public static final int CONFIRMATION_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any confirmation_;
+    private com.google.protobuf2.Any confirmation_;
     /**
      * <pre>
      * TODO: can we make this take an array?
      * </pre>
      *
-     * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+     * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
      * @return Whether the confirmation field is set.
      */
     @java.lang.Override
@@ -4030,22 +4030,22 @@ public final class Msgs {
      * TODO: can we make this take an array?
      * </pre>
      *
-     * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+     * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
      * @return The confirmation.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getConfirmation() {
-      return confirmation_ == null ? com.google.protobuf.Any.getDefaultInstance() : confirmation_;
+    public com.google.protobuf2.Any getConfirmation() {
+      return confirmation_ == null ? com.google.protobuf2.Any.getDefaultInstance() : confirmation_;
     }
     /**
      * <pre>
      * TODO: can we make this take an array?
      * </pre>
      *
-     * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+     * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getConfirmationOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getConfirmationOrBuilder() {
       return getConfirmation();
     }
 
@@ -4424,15 +4424,15 @@ public final class Msgs {
         return this;
       }
 
-      private com.google.protobuf.Any confirmation_;
+      private com.google.protobuf2.Any confirmation_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> confirmationBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> confirmationBuilder_;
       /**
        * <pre>
        * TODO: can we make this take an array?
        * </pre>
        *
-       * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+       * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
        * @return Whether the confirmation field is set.
        */
       public boolean hasConfirmation() {
@@ -4443,12 +4443,12 @@ public final class Msgs {
        * TODO: can we make this take an array?
        * </pre>
        *
-       * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+       * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
        * @return The confirmation.
        */
-      public com.google.protobuf.Any getConfirmation() {
+      public com.google.protobuf2.Any getConfirmation() {
         if (confirmationBuilder_ == null) {
-          return confirmation_ == null ? com.google.protobuf.Any.getDefaultInstance() : confirmation_;
+          return confirmation_ == null ? com.google.protobuf2.Any.getDefaultInstance() : confirmation_;
         } else {
           return confirmationBuilder_.getMessage();
         }
@@ -4458,9 +4458,9 @@ public final class Msgs {
        * TODO: can we make this take an array?
        * </pre>
        *
-       * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+       * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
        */
-      public Builder setConfirmation(com.google.protobuf.Any value) {
+      public Builder setConfirmation(com.google.protobuf2.Any value) {
         if (confirmationBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4478,10 +4478,10 @@ public final class Msgs {
        * TODO: can we make this take an array?
        * </pre>
        *
-       * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+       * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
        */
       public Builder setConfirmation(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (confirmationBuilder_ == null) {
           confirmation_ = builderForValue.build();
           onChanged();
@@ -4496,13 +4496,13 @@ public final class Msgs {
        * TODO: can we make this take an array?
        * </pre>
        *
-       * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+       * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
        */
-      public Builder mergeConfirmation(com.google.protobuf.Any value) {
+      public Builder mergeConfirmation(com.google.protobuf2.Any value) {
         if (confirmationBuilder_ == null) {
           if (confirmation_ != null) {
             confirmation_ =
-              com.google.protobuf.Any.newBuilder(confirmation_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(confirmation_).mergeFrom(value).buildPartial();
           } else {
             confirmation_ = value;
           }
@@ -4518,7 +4518,7 @@ public final class Msgs {
        * TODO: can we make this take an array?
        * </pre>
        *
-       * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+       * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
        */
       public Builder clearConfirmation() {
         if (confirmationBuilder_ == null) {
@@ -4536,9 +4536,9 @@ public final class Msgs {
        * TODO: can we make this take an array?
        * </pre>
        *
-       * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+       * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
        */
-      public com.google.protobuf.Any.Builder getConfirmationBuilder() {
+      public com.google.protobuf2.Any.Builder getConfirmationBuilder() {
         
         onChanged();
         return getConfirmationFieldBuilder().getBuilder();
@@ -4548,14 +4548,14 @@ public final class Msgs {
        * TODO: can we make this take an array?
        * </pre>
        *
-       * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+       * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getConfirmationOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getConfirmationOrBuilder() {
         if (confirmationBuilder_ != null) {
           return confirmationBuilder_.getMessageOrBuilder();
         } else {
           return confirmation_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : confirmation_;
+              com.google.protobuf2.Any.getDefaultInstance() : confirmation_;
         }
       }
       /**
@@ -4563,14 +4563,14 @@ public final class Msgs {
        * TODO: can we make this take an array?
        * </pre>
        *
-       * <code>.google.protobuf.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
+       * <code>.google.protobuf2.Any confirmation = 1 [(.cosmos_proto.accepts_interface) = "EthereumTxConfirmation"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getConfirmationFieldBuilder() {
         if (confirmationBuilder_ == null) {
           confirmationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getConfirmation(),
                   getParentForChildren(),
                   isClean());
@@ -7521,19 +7521,19 @@ public final class Msgs {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      * @return Whether the event field is set.
      */
     boolean hasEvent();
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      * @return The event.
      */
-    com.google.protobuf.Any getEvent();
+    com.google.protobuf2.Any getEvent();
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getEventOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getEventOrBuilder();
 
     /**
      * <code>string signer = 2;</code>
@@ -7598,11 +7598,11 @@ public final class Msgs {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (event_ != null) {
                 subBuilder = event_.toBuilder();
               }
-              event_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              event_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(event_);
                 event_ = subBuilder.buildPartial();
@@ -7649,9 +7649,9 @@ public final class Msgs {
     }
 
     public static final int EVENT_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any event_;
+    private com.google.protobuf2.Any event_;
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      * @return Whether the event field is set.
      */
     @java.lang.Override
@@ -7659,18 +7659,18 @@ public final class Msgs {
       return event_ != null;
     }
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      * @return The event.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getEvent() {
-      return event_ == null ? com.google.protobuf.Any.getDefaultInstance() : event_;
+    public com.google.protobuf2.Any getEvent() {
+      return event_ == null ? com.google.protobuf2.Any.getDefaultInstance() : event_;
     }
     /**
-     * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+     * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getEventOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getEventOrBuilder() {
       return getEvent();
     }
 
@@ -8048,31 +8048,31 @@ public final class Msgs {
         return this;
       }
 
-      private com.google.protobuf.Any event_;
+      private com.google.protobuf2.Any event_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> eventBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> eventBuilder_;
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        * @return Whether the event field is set.
        */
       public boolean hasEvent() {
         return eventBuilder_ != null || event_ != null;
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        * @return The event.
        */
-      public com.google.protobuf.Any getEvent() {
+      public com.google.protobuf2.Any getEvent() {
         if (eventBuilder_ == null) {
-          return event_ == null ? com.google.protobuf.Any.getDefaultInstance() : event_;
+          return event_ == null ? com.google.protobuf2.Any.getDefaultInstance() : event_;
         } else {
           return eventBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
-      public Builder setEvent(com.google.protobuf.Any value) {
+      public Builder setEvent(com.google.protobuf2.Any value) {
         if (eventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -8086,10 +8086,10 @@ public final class Msgs {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
       public Builder setEvent(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (eventBuilder_ == null) {
           event_ = builderForValue.build();
           onChanged();
@@ -8100,13 +8100,13 @@ public final class Msgs {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
-      public Builder mergeEvent(com.google.protobuf.Any value) {
+      public Builder mergeEvent(com.google.protobuf2.Any value) {
         if (eventBuilder_ == null) {
           if (event_ != null) {
             event_ =
-              com.google.protobuf.Any.newBuilder(event_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(event_).mergeFrom(value).buildPartial();
           } else {
             event_ = value;
           }
@@ -8118,7 +8118,7 @@ public final class Msgs {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
       public Builder clearEvent() {
         if (eventBuilder_ == null) {
@@ -8132,33 +8132,33 @@ public final class Msgs {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
-      public com.google.protobuf.Any.Builder getEventBuilder() {
+      public com.google.protobuf2.Any.Builder getEventBuilder() {
         
         onChanged();
         return getEventFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getEventOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getEventOrBuilder() {
         if (eventBuilder_ != null) {
           return eventBuilder_.getMessageOrBuilder();
         } else {
           return event_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : event_;
+              com.google.protobuf2.Any.getDefaultInstance() : event_;
         }
       }
       /**
-       * <code>.google.protobuf.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
+       * <code>.google.protobuf2.Any event = 1 [(.cosmos_proto.accepts_interface) = "EthereumEvent"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getEventFieldBuilder() {
         if (eventBuilder_ == null) {
           eventBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getEvent(),
                   getParentForChildren(),
                   isClean());
@@ -15798,67 +15798,67 @@ public final class Msgs {
       "hereum\022\n\n\002id\030\001 \001(\004\022\016\n\006sender\030\002 \001(\t\"!\n\037Ms" +
       "gCancelSendToEthereumResponse\"2\n\021MsgRequ" +
       "estBatchTx\022\r\n\005denom\030\001 \001(\t\022\016\n\006signer\030\002 \001(" +
-      "\t\"\033\n\031MsgRequestBatchTxResponse\"\177\n\037MsgSub" +
-      "mitEthereumTxConfirmation\022F\n\014confirmatio" +
-      "n\030\001 \001(\0132\024.google.protobuf.AnyB\032\312\264-\026Ether" +
-      "eumTxConfirmation\022\016\n\006signer\030\002 \001(\t:\004\210\240\037\000\"" +
-      "\200\001\n\032ContractCallTxConfirmation\022\032\n\022invali" +
-      "dation_scope\030\001 \001(\014\022\032\n\022invalidation_nonce" +
-      "\030\002 \001(\004\022\027\n\017ethereum_signer\030\003 \001(\t\022\021\n\tsigna" +
-      "ture\030\004 \001(\014\"n\n\023BatchTxConfirmation\022\026\n\016tok" +
-      "en_contract\030\001 \001(\t\022\023\n\013batch_nonce\030\002 \001(\004\022\027" +
-      "\n\017ethereum_signer\030\003 \001(\t\022\021\n\tsignature\030\004 \001" +
-      "(\014\"_\n\027SignerSetTxConfirmation\022\030\n\020signer_" +
-      "set_nonce\030\001 \001(\004\022\027\n\017ethereum_signer\030\002 \001(\t" +
-      "\022\021\n\tsignature\030\003 \001(\014\")\n\'MsgSubmitEthereum" +
-      "TxConfirmationResponse\"f\n\026MsgSubmitEther" +
-      "eumEvent\0226\n\005event\030\001 \001(\0132\024.google.protobu" +
-      "f.AnyB\021\312\264-\rEthereumEvent\022\016\n\006signer\030\002 \001(\t" +
-      ":\004\210\240\037\000\" \n\036MsgSubmitEthereumEventResponse" +
-      "\"{\n\017MsgDelegateKeys\022\031\n\021validator_address" +
-      "\030\001 \001(\t\022\034\n\024orchestrator_address\030\002 \001(\t\022\030\n\020" +
-      "ethereum_address\030\003 \001(\t\022\025\n\reth_signature\030" +
-      "\004 \001(\014\"\031\n\027MsgDelegateKeysResponse\"?\n\023Dele" +
-      "gateKeysSignMsg\022\031\n\021validator_address\030\001 \001" +
-      "(\t\022\r\n\005nonce\030\002 \001(\004\"\321\001\n\021SendToCosmosEvent\022" +
-      "\023\n\013event_nonce\030\001 \001(\004\022\026\n\016token_contract\030\002" +
-      " \001(\t\022>\n\006amount\030\003 \001(\tB.\332\336\037&github.com/cos" +
-      "mos/cosmos-sdk/types.Int\310\336\037\000\022\027\n\017ethereum" +
-      "_sender\030\004 \001(\t\022\027\n\017cosmos_receiver\030\005 \001(\t\022\027" +
-      "\n\017ethereum_height\030\006 \001(\004:\004\350\240\037\001\"o\n\022BatchEx" +
-      "ecutedEvent\022\026\n\016token_contract\030\001 \001(\t\022\023\n\013e" +
-      "vent_nonce\030\002 \001(\004\022\027\n\017ethereum_height\030\003 \001(" +
-      "\004\022\023\n\013batch_nonce\030\004 \001(\004\"\273\001\n\031ContractCallE" +
-      "xecutedEvent\022\023\n\013event_nonce\030\001 \001(\004\022T\n\022inv" +
-      "alidation_scope\030\002 \001(\014B8\372\336\0374github.com/te" +
-      "ndermint/tendermint/libs/bytes.HexBytes\022" +
-      "\032\n\022invalidation_nonce\030\003 \001(\004\022\027\n\017ethereum_" +
-      "height\030\004 \001(\004\"\262\001\n\022ERC20DeployedEvent\022\023\n\013e" +
-      "vent_nonce\030\001 \001(\004\022\024\n\014cosmos_denom\030\002 \001(\t\022\026" +
-      "\n\016token_contract\030\003 \001(\t\022\022\n\nerc20_name\030\004 \001" +
-      "(\t\022\024\n\014erc20_symbol\030\005 \001(\t\022\026\n\016erc20_decima" +
-      "ls\030\006 \001(\004\022\027\n\017ethereum_height\030\007 \001(\004\"\222\001\n\030Si" +
-      "gnerSetTxExecutedEvent\022\023\n\013event_nonce\030\001 " +
-      "\001(\004\022\033\n\023signer_set_tx_nonce\030\002 \001(\004\022\027\n\017ethe" +
-      "reum_height\030\003 \001(\004\022+\n\007members\030\004 \003(\0132\032.gra" +
-      "vity.v1.EthereumSigner2\352\004\n\003Msg\022X\n\016SendTo" +
-      "Ethereum\022\035.gravity.v1.MsgSendToEthereum\032" +
-      "%.gravity.v1.MsgSendToEthereumResponse\"\000" +
-      "\022j\n\024CancelSendToEthereum\022#.gravity.v1.Ms" +
-      "gCancelSendToEthereum\032+.gravity.v1.MsgCa" +
-      "ncelSendToEthereumResponse\"\000\022X\n\016RequestB" +
-      "atchTx\022\035.gravity.v1.MsgRequestBatchTx\032%." +
-      "gravity.v1.MsgRequestBatchTxResponse\"\000\022\202" +
-      "\001\n\034SubmitEthereumTxConfirmation\022+.gravit" +
-      "y.v1.MsgSubmitEthereumTxConfirmation\0323.g" +
-      "ravity.v1.MsgSubmitEthereumTxConfirmatio" +
-      "nResponse\"\000\022g\n\023SubmitEthereumEvent\022\".gra" +
-      "vity.v1.MsgSubmitEthereumEvent\032*.gravity" +
-      ".v1.MsgSubmitEthereumEventResponse\"\000\022U\n\017" +
-      "SetDelegateKeys\022\033.gravity.v1.MsgDelegate" +
-      "Keys\032#.gravity.v1.MsgDelegateKeysRespons" +
-      "e\"\000B9Z7github.com/cosmos/gravity-bridge/" +
-      "module/x/gravity/typesb\006proto3"
+      "\t\"\033\n\031MsgRequestBatchTxResponse\"\200\001\n\037MsgSu" +
+      "bmitEthereumTxConfirmation\022G\n\014confirmati" +
+      "on\030\001 \001(\0132\025.google.protobuf2.AnyB\032\312\264-\026Eth" +
+      "ereumTxConfirmation\022\016\n\006signer\030\002 \001(\t:\004\210\240\037" +
+      "\000\"\200\001\n\032ContractCallTxConfirmation\022\032\n\022inva" +
+      "lidation_scope\030\001 \001(\014\022\032\n\022invalidation_non" +
+      "ce\030\002 \001(\004\022\027\n\017ethereum_signer\030\003 \001(\t\022\021\n\tsig" +
+      "nature\030\004 \001(\014\"n\n\023BatchTxConfirmation\022\026\n\016t" +
+      "oken_contract\030\001 \001(\t\022\023\n\013batch_nonce\030\002 \001(\004" +
+      "\022\027\n\017ethereum_signer\030\003 \001(\t\022\021\n\tsignature\030\004" +
+      " \001(\014\"_\n\027SignerSetTxConfirmation\022\030\n\020signe" +
+      "r_set_nonce\030\001 \001(\004\022\027\n\017ethereum_signer\030\002 \001" +
+      "(\t\022\021\n\tsignature\030\003 \001(\014\")\n\'MsgSubmitEthere" +
+      "umTxConfirmationResponse\"g\n\026MsgSubmitEth" +
+      "ereumEvent\0227\n\005event\030\001 \001(\0132\025.google.proto" +
+      "buf2.AnyB\021\312\264-\rEthereumEvent\022\016\n\006signer\030\002 " +
+      "\001(\t:\004\210\240\037\000\" \n\036MsgSubmitEthereumEventRespo" +
+      "nse\"{\n\017MsgDelegateKeys\022\031\n\021validator_addr" +
+      "ess\030\001 \001(\t\022\034\n\024orchestrator_address\030\002 \001(\t\022" +
+      "\030\n\020ethereum_address\030\003 \001(\t\022\025\n\reth_signatu" +
+      "re\030\004 \001(\014\"\031\n\027MsgDelegateKeysResponse\"?\n\023D" +
+      "elegateKeysSignMsg\022\031\n\021validator_address\030" +
+      "\001 \001(\t\022\r\n\005nonce\030\002 \001(\004\"\321\001\n\021SendToCosmosEve" +
+      "nt\022\023\n\013event_nonce\030\001 \001(\004\022\026\n\016token_contrac" +
+      "t\030\002 \001(\t\022>\n\006amount\030\003 \001(\tB.\332\336\037&github.com/" +
+      "cosmos/cosmos-sdk/types.Int\310\336\037\000\022\027\n\017ether" +
+      "eum_sender\030\004 \001(\t\022\027\n\017cosmos_receiver\030\005 \001(" +
+      "\t\022\027\n\017ethereum_height\030\006 \001(\004:\004\350\240\037\001\"o\n\022Batc" +
+      "hExecutedEvent\022\026\n\016token_contract\030\001 \001(\t\022\023" +
+      "\n\013event_nonce\030\002 \001(\004\022\027\n\017ethereum_height\030\003" +
+      " \001(\004\022\023\n\013batch_nonce\030\004 \001(\004\"\273\001\n\031ContractCa" +
+      "llExecutedEvent\022\023\n\013event_nonce\030\001 \001(\004\022T\n\022" +
+      "invalidation_scope\030\002 \001(\014B8\372\336\0374github.com" +
+      "/tendermint/tendermint/libs/bytes.HexByt" +
+      "es\022\032\n\022invalidation_nonce\030\003 \001(\004\022\027\n\017ethere" +
+      "um_height\030\004 \001(\004\"\262\001\n\022ERC20DeployedEvent\022\023" +
+      "\n\013event_nonce\030\001 \001(\004\022\024\n\014cosmos_denom\030\002 \001(" +
+      "\t\022\026\n\016token_contract\030\003 \001(\t\022\022\n\nerc20_name\030" +
+      "\004 \001(\t\022\024\n\014erc20_symbol\030\005 \001(\t\022\026\n\016erc20_dec" +
+      "imals\030\006 \001(\004\022\027\n\017ethereum_height\030\007 \001(\004\"\222\001\n" +
+      "\030SignerSetTxExecutedEvent\022\023\n\013event_nonce" +
+      "\030\001 \001(\004\022\033\n\023signer_set_tx_nonce\030\002 \001(\004\022\027\n\017e" +
+      "thereum_height\030\003 \001(\004\022+\n\007members\030\004 \003(\0132\032." +
+      "gravity.v1.EthereumSigner2\352\004\n\003Msg\022X\n\016Sen" +
+      "dToEthereum\022\035.gravity.v1.MsgSendToEthere" +
+      "um\032%.gravity.v1.MsgSendToEthereumRespons" +
+      "e\"\000\022j\n\024CancelSendToEthereum\022#.gravity.v1" +
+      ".MsgCancelSendToEthereum\032+.gravity.v1.Ms" +
+      "gCancelSendToEthereumResponse\"\000\022X\n\016Reque" +
+      "stBatchTx\022\035.gravity.v1.MsgRequestBatchTx" +
+      "\032%.gravity.v1.MsgRequestBatchTxResponse\"" +
+      "\000\022\202\001\n\034SubmitEthereumTxConfirmation\022+.gra" +
+      "vity.v1.MsgSubmitEthereumTxConfirmation\032" +
+      "3.gravity.v1.MsgSubmitEthereumTxConfirma" +
+      "tionResponse\"\000\022g\n\023SubmitEthereumEvent\022\"." +
+      "gravity.v1.MsgSubmitEthereumEvent\032*.grav" +
+      "ity.v1.MsgSubmitEthereumEventResponse\"\000\022" +
+      "U\n\017SetDelegateKeys\022\033.gravity.v1.MsgDeleg" +
+      "ateKeys\032#.gravity.v1.MsgDelegateKeysResp" +
+      "onse\"\000B9Z7github.com/cosmos/gravity-brid" +
+      "ge/module/x/gravity/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -15866,8 +15866,8 @@ public final class Msgs {
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           gravity.v1.Gravity.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_gravity_v1_MsgSendToEthereum_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -15998,18 +15998,18 @@ public final class Msgs {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.casttype);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.casttype);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     gravity.v1.Gravity.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

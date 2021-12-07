@@ -2847,19 +2847,19 @@ public final class Gov {
     long getProposalId();
 
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return Whether the content field is set.
      */
     boolean hasContent();
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return The content.
      */
-    com.google.protobuf.Any getContent();
+    com.google.protobuf2.Any getContent();
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getContentOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getContentOrBuilder();
 
     /**
      * <code>.cosmos.gov.v1beta1.ProposalStatus status = 3;</code>
@@ -3029,11 +3029,11 @@ public final class Gov {
               break;
             }
             case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (content_ != null) {
                 subBuilder = content_.toBuilder();
               }
-              content_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              content_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(content_);
                 content_ = subBuilder.buildPartial();
@@ -3168,9 +3168,9 @@ public final class Gov {
     }
 
     public static final int CONTENT_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any content_;
+    private com.google.protobuf2.Any content_;
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return Whether the content field is set.
      */
     @java.lang.Override
@@ -3178,18 +3178,18 @@ public final class Gov {
       return content_ != null;
     }
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return The content.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getContent() {
-      return content_ == null ? com.google.protobuf.Any.getDefaultInstance() : content_;
+    public com.google.protobuf2.Any getContent() {
+      return content_ == null ? com.google.protobuf2.Any.getDefaultInstance() : content_;
     }
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getContentOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getContentOrBuilder() {
       return getContent();
     }
 
@@ -3973,31 +3973,31 @@ public final class Gov {
         return this;
       }
 
-      private com.google.protobuf.Any content_;
+      private com.google.protobuf2.Any content_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> contentBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> contentBuilder_;
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        * @return Whether the content field is set.
        */
       public boolean hasContent() {
         return contentBuilder_ != null || content_ != null;
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        * @return The content.
        */
-      public com.google.protobuf.Any getContent() {
+      public com.google.protobuf2.Any getContent() {
         if (contentBuilder_ == null) {
-          return content_ == null ? com.google.protobuf.Any.getDefaultInstance() : content_;
+          return content_ == null ? com.google.protobuf2.Any.getDefaultInstance() : content_;
         } else {
           return contentBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public Builder setContent(com.google.protobuf.Any value) {
+      public Builder setContent(com.google.protobuf2.Any value) {
         if (contentBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4011,10 +4011,10 @@ public final class Gov {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
       public Builder setContent(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (contentBuilder_ == null) {
           content_ = builderForValue.build();
           onChanged();
@@ -4025,13 +4025,13 @@ public final class Gov {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public Builder mergeContent(com.google.protobuf.Any value) {
+      public Builder mergeContent(com.google.protobuf2.Any value) {
         if (contentBuilder_ == null) {
           if (content_ != null) {
             content_ =
-              com.google.protobuf.Any.newBuilder(content_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(content_).mergeFrom(value).buildPartial();
           } else {
             content_ = value;
           }
@@ -4043,7 +4043,7 @@ public final class Gov {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
       public Builder clearContent() {
         if (contentBuilder_ == null) {
@@ -4057,33 +4057,33 @@ public final class Gov {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public com.google.protobuf.Any.Builder getContentBuilder() {
+      public com.google.protobuf2.Any.Builder getContentBuilder() {
         
         onChanged();
         return getContentFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getContentOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getContentOrBuilder() {
         if (contentBuilder_ != null) {
           return contentBuilder_.getMessageOrBuilder();
         } else {
           return content_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : content_;
+              com.google.protobuf2.Any.getDefaultInstance() : content_;
         }
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getContentFieldBuilder() {
         if (contentBuilder_ == null) {
           contentBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getContent(),
                   getParentForChildren(),
                   isClean());
@@ -10023,74 +10023,74 @@ public final class Gov {
       "epositor\030\002 \001(\tB\030\322\264-\024cosmos.AddressString" +
       "\022[\n\006amount\030\003 \003(\0132\031.cosmos.base.v1beta1.C" +
       "oinB0\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sd" +
-      "k/types.Coins:\010\210\240\037\000\350\240\037\000\"\267\004\n\010Proposal\022\033\n\013" +
-      "proposal_id\030\001 \001(\004B\006\352\336\037\002id\0222\n\007content\030\002 \001" +
-      "(\0132\024.google.protobuf.AnyB\013\312\264-\007Content\0222\n" +
-      "\006status\030\003 \001(\0162\".cosmos.gov.v1beta1.Propo" +
-      "salStatus\022A\n\022final_tally_result\030\004 \001(\0132\037." +
-      "cosmos.gov.v1beta1.TallyResultB\004\310\336\037\000\0229\n\013" +
-      "submit_time\030\005 \001(\0132\032.google.protobuf.Time" +
-      "stampB\010\220\337\037\001\310\336\037\000\022>\n\020deposit_end_time\030\006 \001(" +
-      "\0132\032.google.protobuf.TimestampB\010\220\337\037\001\310\336\037\000\022" +
-      "b\n\rtotal_deposit\030\007 \003(\0132\031.cosmos.base.v1b" +
-      "eta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/cos" +
-      "mos-sdk/types.Coins\022?\n\021voting_start_time" +
-      "\030\010 \001(\0132\032.google.protobuf.TimestampB\010\220\337\037\001" +
-      "\310\336\037\000\022=\n\017voting_end_time\030\t \001(\0132\032.google.p" +
-      "rotobuf.TimestampB\010\220\337\037\001\310\336\037\000:\004\350\240\037\001\"\313\002\n\013Ta" +
-      "llyResult\022I\n\003yes\030\001 \001(\tB<\322\264-\ncosmos.Int\332\336" +
+      "k/types.Coins:\010\210\240\037\000\350\240\037\000\"\270\004\n\010Proposal\022\033\n\013" +
+      "proposal_id\030\001 \001(\004B\006\352\336\037\002id\0223\n\007content\030\002 \001" +
+      "(\0132\025.google.protobuf2.AnyB\013\312\264-\007Content\0222" +
+      "\n\006status\030\003 \001(\0162\".cosmos.gov.v1beta1.Prop" +
+      "osalStatus\022A\n\022final_tally_result\030\004 \001(\0132\037" +
+      ".cosmos.gov.v1beta1.TallyResultB\004\310\336\037\000\0229\n" +
+      "\013submit_time\030\005 \001(\0132\032.google.protobuf.Tim" +
+      "estampB\010\220\337\037\001\310\336\037\000\022>\n\020deposit_end_time\030\006 \001" +
+      "(\0132\032.google.protobuf.TimestampB\010\220\337\037\001\310\336\037\000" +
+      "\022b\n\rtotal_deposit\030\007 \003(\0132\031.cosmos.base.v1" +
+      "beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/co" +
+      "smos-sdk/types.Coins\022?\n\021voting_start_tim" +
+      "e\030\010 \001(\0132\032.google.protobuf.TimestampB\010\220\337\037" +
+      "\001\310\336\037\000\022=\n\017voting_end_time\030\t \001(\0132\032.google." +
+      "protobuf.TimestampB\010\220\337\037\001\310\336\037\000:\004\350\240\037\001\"\313\002\n\013T" +
+      "allyResult\022I\n\003yes\030\001 \001(\tB<\322\264-\ncosmos.Int\332" +
+      "\336\037&github.com/cosmos/cosmos-sdk/types.In" +
+      "t\310\336\037\000\022M\n\007abstain\030\002 \001(\tB<\322\264-\ncosmos.Int\332\336" +
       "\037&github.com/cosmos/cosmos-sdk/types.Int" +
-      "\310\336\037\000\022M\n\007abstain\030\002 \001(\tB<\322\264-\ncosmos.Int\332\336\037" +
-      "&github.com/cosmos/cosmos-sdk/types.Int\310" +
-      "\336\037\000\022H\n\002no\030\003 \001(\tB<\322\264-\ncosmos.Int\332\336\037&githu" +
-      "b.com/cosmos/cosmos-sdk/types.Int\310\336\037\000\022R\n" +
-      "\014no_with_veto\030\004 \001(\tB<\322\264-\ncosmos.Int\332\336\037&g" +
-      "ithub.com/cosmos/cosmos-sdk/types.Int\310\336\037" +
-      "\000:\004\350\240\037\001\"\301\001\n\004Vote\022\023\n\013proposal_id\030\001 \001(\004\022\'\n" +
-      "\005voter\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\0222" +
-      "\n\006option\030\003 \001(\0162\036.cosmos.gov.v1beta1.Vote" +
-      "OptionB\002\030\001\022=\n\007options\030\004 \003(\0132&.cosmos.gov" +
-      ".v1beta1.WeightedVoteOptionB\004\310\336\037\000:\010\230\240\037\000\350" +
-      "\240\037\000\"\353\001\n\rDepositParams\022y\n\013min_deposit\030\001 \003" +
-      "(\0132\031.cosmos.base.v1beta1.CoinBI\310\336\037\000\252\337\037(g" +
-      "ithub.com/cosmos/cosmos-sdk/types.Coins\352" +
-      "\336\037\025min_deposit,omitempty\022_\n\022max_deposit_" +
-      "period\030\002 \001(\0132\031.google.protobuf.DurationB" +
-      "(\310\336\037\000\230\337\037\001\352\336\037\034max_deposit_period,omitempt" +
-      "y\"e\n\014VotingParams\022U\n\rvoting_period\030\001 \001(\013" +
-      "2\031.google.protobuf.DurationB#\310\336\037\000\230\337\037\001\352\336\037" +
-      "\027voting_period,omitempty\"\237\002\n\013TallyParams" +
-      "\022R\n\006quorum\030\001 \001(\014BB\332\336\037&github.com/cosmos/" +
-      "cosmos-sdk/types.Dec\310\336\037\000\352\336\037\020quorum,omite" +
-      "mpty\022X\n\tthreshold\030\002 \001(\014BE\332\336\037&github.com/" +
-      "cosmos/cosmos-sdk/types.Dec\310\336\037\000\352\336\037\023thres" +
-      "hold,omitempty\022b\n\016veto_threshold\030\003 \001(\014BJ" +
-      "\332\336\037&github.com/cosmos/cosmos-sdk/types.D" +
-      "ec\310\336\037\000\352\336\037\030veto_threshold,omitempty*\346\001\n\nV" +
-      "oteOption\022,\n\027VOTE_OPTION_UNSPECIFIED\020\000\032\017" +
-      "\212\235 \013OptionEmpty\022\"\n\017VOTE_OPTION_YES\020\001\032\r\212\235" +
-      " \tOptionYes\022*\n\023VOTE_OPTION_ABSTAIN\020\002\032\021\212\235" +
-      " \rOptionAbstain\022 \n\016VOTE_OPTION_NO\020\003\032\014\212\235 " +
-      "\010OptionNo\0222\n\030VOTE_OPTION_NO_WITH_VETO\020\004\032" +
-      "\024\212\235 \020OptionNoWithVeto\032\004\210\243\036\000*\314\002\n\016Proposal" +
-      "Status\022.\n\033PROPOSAL_STATUS_UNSPECIFIED\020\000\032" +
-      "\r\212\235 \tStatusNil\022;\n\036PROPOSAL_STATUS_DEPOSI" +
-      "T_PERIOD\020\001\032\027\212\235 \023StatusDepositPeriod\0229\n\035P" +
-      "ROPOSAL_STATUS_VOTING_PERIOD\020\002\032\026\212\235 \022Stat" +
-      "usVotingPeriod\022,\n\026PROPOSAL_STATUS_PASSED" +
-      "\020\003\032\020\212\235 \014StatusPassed\0220\n\030PROPOSAL_STATUS_" +
-      "REJECTED\020\004\032\022\212\235 \016StatusRejected\022,\n\026PROPOS" +
-      "AL_STATUS_FAILED\020\005\032\020\212\235 \014StatusFailed\032\004\210\243" +
-      "\036\000B6Z(github.com/cosmos/cosmos-sdk/x/gov" +
-      "/types\330\341\036\000\200\342\036\000\310\341\036\000b\006proto3"
+      "\310\336\037\000\022H\n\002no\030\003 \001(\tB<\322\264-\ncosmos.Int\332\336\037&gith" +
+      "ub.com/cosmos/cosmos-sdk/types.Int\310\336\037\000\022R" +
+      "\n\014no_with_veto\030\004 \001(\tB<\322\264-\ncosmos.Int\332\336\037&" +
+      "github.com/cosmos/cosmos-sdk/types.Int\310\336" +
+      "\037\000:\004\350\240\037\001\"\301\001\n\004Vote\022\023\n\013proposal_id\030\001 \001(\004\022\'" +
+      "\n\005voter\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022" +
+      "2\n\006option\030\003 \001(\0162\036.cosmos.gov.v1beta1.Vot" +
+      "eOptionB\002\030\001\022=\n\007options\030\004 \003(\0132&.cosmos.go" +
+      "v.v1beta1.WeightedVoteOptionB\004\310\336\037\000:\010\230\240\037\000" +
+      "\350\240\037\000\"\353\001\n\rDepositParams\022y\n\013min_deposit\030\001 " +
+      "\003(\0132\031.cosmos.base.v1beta1.CoinBI\310\336\037\000\252\337\037(" +
+      "github.com/cosmos/cosmos-sdk/types.Coins" +
+      "\352\336\037\025min_deposit,omitempty\022_\n\022max_deposit" +
+      "_period\030\002 \001(\0132\031.google.protobuf.Duration" +
+      "B(\310\336\037\000\230\337\037\001\352\336\037\034max_deposit_period,omitemp" +
+      "ty\"e\n\014VotingParams\022U\n\rvoting_period\030\001 \001(" +
+      "\0132\031.google.protobuf.DurationB#\310\336\037\000\230\337\037\001\352\336" +
+      "\037\027voting_period,omitempty\"\237\002\n\013TallyParam" +
+      "s\022R\n\006quorum\030\001 \001(\014BB\332\336\037&github.com/cosmos" +
+      "/cosmos-sdk/types.Dec\310\336\037\000\352\336\037\020quorum,omit" +
+      "empty\022X\n\tthreshold\030\002 \001(\014BE\332\336\037&github.com" +
+      "/cosmos/cosmos-sdk/types.Dec\310\336\037\000\352\336\037\023thre" +
+      "shold,omitempty\022b\n\016veto_threshold\030\003 \001(\014B" +
+      "J\332\336\037&github.com/cosmos/cosmos-sdk/types." +
+      "Dec\310\336\037\000\352\336\037\030veto_threshold,omitempty*\346\001\n\n" +
+      "VoteOption\022,\n\027VOTE_OPTION_UNSPECIFIED\020\000\032" +
+      "\017\212\235 \013OptionEmpty\022\"\n\017VOTE_OPTION_YES\020\001\032\r\212" +
+      "\235 \tOptionYes\022*\n\023VOTE_OPTION_ABSTAIN\020\002\032\021\212" +
+      "\235 \rOptionAbstain\022 \n\016VOTE_OPTION_NO\020\003\032\014\212\235" +
+      " \010OptionNo\0222\n\030VOTE_OPTION_NO_WITH_VETO\020\004" +
+      "\032\024\212\235 \020OptionNoWithVeto\032\004\210\243\036\000*\314\002\n\016Proposa" +
+      "lStatus\022.\n\033PROPOSAL_STATUS_UNSPECIFIED\020\000" +
+      "\032\r\212\235 \tStatusNil\022;\n\036PROPOSAL_STATUS_DEPOS" +
+      "IT_PERIOD\020\001\032\027\212\235 \023StatusDepositPeriod\0229\n\035" +
+      "PROPOSAL_STATUS_VOTING_PERIOD\020\002\032\026\212\235 \022Sta" +
+      "tusVotingPeriod\022,\n\026PROPOSAL_STATUS_PASSE" +
+      "D\020\003\032\020\212\235 \014StatusPassed\0220\n\030PROPOSAL_STATUS" +
+      "_REJECTED\020\004\032\022\212\235 \016StatusRejected\022,\n\026PROPO" +
+      "SAL_STATUS_FAILED\020\005\032\020\212\235 \014StatusFailed\032\004\210" +
+      "\243\036\000B6Z(github.com/cosmos/cosmos-sdk/x/go" +
+      "v/types\330\341\036\000\200\342\036\000\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
         });
@@ -10153,26 +10153,26 @@ public final class Gov {
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
     registry.add(cosmos_proto.Cosmos.implementsInterface);
     registry.add(cosmos_proto.Cosmos.scalar);
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringerAll);
-    registry.add(com.google.protobuf.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdduration);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
-    registry.add(com.google.protobuf.GoGoProtos.stringerAll);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringerAll);
+    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.stringerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
   }

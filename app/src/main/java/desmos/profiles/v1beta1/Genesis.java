@@ -2673,38 +2673,36 @@ public final class Genesis {
       "\n%desmos/profiles/v1beta1/genesis.proto\022" +
       "\027desmos.profiles.v1beta1\032\024gogoproto/gogo" +
       ".proto\032+desmos/profiles/v1beta1/models_p" +
-      "arams.proto\032,desmos/profiles/v1beta1/mod" +
-      "els_profile.proto\0322desmos/profiles/v1bet" +
-      "a1/models_relationships.proto\0322desmos/pr" +
-      "ofiles/v1beta1/models_dtag_requests.prot" +
-      "o\0320desmos/profiles/v1beta1/models_chain_" +
-      "links.proto\032.desmos/profiles/v1beta1/mod" +
-      "els_app_links.proto\"\207\005\n\014GenesisState\022\213\001\n" +
-      "\026dtag_transfer_requests\030\001 \003(\0132,.desmos.p" +
-      "rofiles.v1beta1.DTagTransferRequestB=\310\336\037" +
-      "\000\362\336\037\035yaml:\"dtag_transfer_requests\"\342\336\037\024DT" +
-      "agTransferRequests\022Z\n\rrelationships\030\002 \003(" +
-      "\0132%.desmos.profiles.v1beta1.Relationship" +
-      "B\034\362\336\037\024yaml:\"relationships\"\310\336\037\000\022I\n\006blocks" +
-      "\030\003 \003(\0132\".desmos.profiles.v1beta1.UserBlo" +
-      "ckB\025\362\336\037\ryaml:\"blocks\"\310\336\037\000\022F\n\006params\030\004 \001(" +
-      "\0132\037.desmos.profiles.v1beta1.ParamsB\025\310\336\037\000" +
-      "\362\336\037\ryaml:\"params\"\0228\n\013ibc_port_id\030\005 \001(\tB#" +
-      "\362\336\037\022yaml:\"ibc_port_id\"\342\336\037\tIBCPortID\022S\n\013c" +
-      "hain_links\030\006 \003(\0132\".desmos.profiles.v1bet" +
-      "a1.ChainLinkB\032\310\336\037\000\362\336\037\022yaml:\"chain_links\"" +
-      "\022e\n\021application_links\030\007 \003(\0132(.desmos.pro" +
-      "files.v1beta1.ApplicationLinkB \310\336\037\000\362\336\037\030y" +
-      "aml:\"application_links\":\004\210\240\037\000B3Z1github." +
-      "com/desmos-labs/desmos/v2/x/profiles/typ" +
-      "esb\006proto3"
+      "arams.proto\0322desmos/profiles/v1beta1/mod" +
+      "els_relationships.proto\0322desmos/profiles" +
+      "/v1beta1/models_dtag_requests.proto\0320des" +
+      "mos/profiles/v1beta1/models_chain_links." +
+      "proto\032.desmos/profiles/v1beta1/models_ap" +
+      "p_links.proto\"\207\005\n\014GenesisState\022\213\001\n\026dtag_" +
+      "transfer_requests\030\001 \003(\0132,.desmos.profile" +
+      "s.v1beta1.DTagTransferRequestB=\310\336\037\000\362\336\037\035y" +
+      "aml:\"dtag_transfer_requests\"\342\336\037\024DTagTran" +
+      "sferRequests\022Z\n\rrelationships\030\002 \003(\0132%.de" +
+      "smos.profiles.v1beta1.RelationshipB\034\362\336\037\024" +
+      "yaml:\"relationships\"\310\336\037\000\022I\n\006blocks\030\003 \003(\013" +
+      "2\".desmos.profiles.v1beta1.UserBlockB\025\362\336" +
+      "\037\ryaml:\"blocks\"\310\336\037\000\022F\n\006params\030\004 \001(\0132\037.de" +
+      "smos.profiles.v1beta1.ParamsB\025\310\336\037\000\362\336\037\rya" +
+      "ml:\"params\"\0228\n\013ibc_port_id\030\005 \001(\tB#\362\336\037\022ya" +
+      "ml:\"ibc_port_id\"\342\336\037\tIBCPortID\022S\n\013chain_l" +
+      "inks\030\006 \003(\0132\".desmos.profiles.v1beta1.Cha" +
+      "inLinkB\032\310\336\037\000\362\336\037\022yaml:\"chain_links\"\022e\n\021ap" +
+      "plication_links\030\007 \003(\0132(.desmos.profiles." +
+      "v1beta1.ApplicationLinkB \310\336\037\000\362\336\037\030yaml:\"a" +
+      "pplication_links\":\004\210\240\037\000B3Z1github.com/de" +
+      "smos-labs/desmos/v2/x/profiles/typesb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           desmos.profiles.v1beta1.ModelsParams.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsProfile.getDescriptor(),
           desmos.profiles.v1beta1.ModelsRelationships.getDescriptor(),
           desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor(),
           desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor(),
@@ -2718,15 +2716,14 @@ public final class Genesis {
         new java.lang.String[] { "DtagTransferRequests", "Relationships", "Blocks", "Params", "IbcPortId", "ChainLinks", "ApplicationLinks", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.customname);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.customname);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     desmos.profiles.v1beta1.ModelsParams.getDescriptor();
-    desmos.profiles.v1beta1.ModelsProfile.getDescriptor();
     desmos.profiles.v1beta1.ModelsRelationships.getDescriptor();
     desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor();
     desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor();

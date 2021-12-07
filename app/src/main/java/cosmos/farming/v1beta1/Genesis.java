@@ -4296,7 +4296,7 @@ public final class Genesis {
      * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
      * </pre>
      *
-     * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
      * @return Whether the plan field is set.
      */
     boolean hasPlan();
@@ -4305,18 +4305,18 @@ public final class Genesis {
      * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
      * </pre>
      *
-     * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
      * @return The plan.
      */
-    com.google.protobuf.Any getPlan();
+    com.google.protobuf2.Any getPlan();
     /**
      * <pre>
      * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
      * </pre>
      *
-     * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getPlanOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getPlanOrBuilder();
 
     /**
      * <pre>
@@ -4419,11 +4419,11 @@ public final class Genesis {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (plan_ != null) {
                 subBuilder = plan_.toBuilder();
               }
-              plan_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              plan_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(plan_);
                 plan_ = subBuilder.buildPartial();
@@ -4476,13 +4476,13 @@ public final class Genesis {
     }
 
     public static final int PLAN_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any plan_;
+    private com.google.protobuf2.Any plan_;
     /**
      * <pre>
      * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
      * </pre>
      *
-     * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
      * @return Whether the plan field is set.
      */
     @java.lang.Override
@@ -4494,22 +4494,22 @@ public final class Genesis {
      * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
      * </pre>
      *
-     * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
      * @return The plan.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPlan() {
-      return plan_ == null ? com.google.protobuf.Any.getDefaultInstance() : plan_;
+    public com.google.protobuf2.Any getPlan() {
+      return plan_ == null ? com.google.protobuf2.Any.getDefaultInstance() : plan_;
     }
     /**
      * <pre>
      * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
      * </pre>
      *
-     * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPlanOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getPlanOrBuilder() {
       return getPlan();
     }
 
@@ -4954,15 +4954,15 @@ public final class Genesis {
       }
       private int bitField0_;
 
-      private com.google.protobuf.Any plan_;
+      private com.google.protobuf2.Any plan_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> planBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> planBuilder_;
       /**
        * <pre>
        * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
        * </pre>
        *
-       * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
        * @return Whether the plan field is set.
        */
       public boolean hasPlan() {
@@ -4973,12 +4973,12 @@ public final class Genesis {
        * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
        * </pre>
        *
-       * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
        * @return The plan.
        */
-      public com.google.protobuf.Any getPlan() {
+      public com.google.protobuf2.Any getPlan() {
         if (planBuilder_ == null) {
-          return plan_ == null ? com.google.protobuf.Any.getDefaultInstance() : plan_;
+          return plan_ == null ? com.google.protobuf2.Any.getDefaultInstance() : plan_;
         } else {
           return planBuilder_.getMessage();
         }
@@ -4988,9 +4988,9 @@ public final class Genesis {
        * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
        * </pre>
        *
-       * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public Builder setPlan(com.google.protobuf.Any value) {
+      public Builder setPlan(com.google.protobuf2.Any value) {
         if (planBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5008,10 +5008,10 @@ public final class Genesis {
        * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
        * </pre>
        *
-       * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder setPlan(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (planBuilder_ == null) {
           plan_ = builderForValue.build();
           onChanged();
@@ -5026,13 +5026,13 @@ public final class Genesis {
        * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
        * </pre>
        *
-       * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public Builder mergePlan(com.google.protobuf.Any value) {
+      public Builder mergePlan(com.google.protobuf2.Any value) {
         if (planBuilder_ == null) {
           if (plan_ != null) {
             plan_ =
-              com.google.protobuf.Any.newBuilder(plan_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(plan_).mergeFrom(value).buildPartial();
           } else {
             plan_ = value;
           }
@@ -5048,7 +5048,7 @@ public final class Genesis {
        * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
        * </pre>
        *
-       * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder clearPlan() {
         if (planBuilder_ == null) {
@@ -5066,9 +5066,9 @@ public final class Genesis {
        * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
        * </pre>
        *
-       * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public com.google.protobuf.Any.Builder getPlanBuilder() {
+      public com.google.protobuf2.Any.Builder getPlanBuilder() {
         
         onChanged();
         return getPlanFieldBuilder().getBuilder();
@@ -5078,14 +5078,14 @@ public final class Genesis {
        * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
        * </pre>
        *
-       * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPlanOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPlanOrBuilder() {
         if (planBuilder_ != null) {
           return planBuilder_.getMessageOrBuilder();
         } else {
           return plan_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : plan_;
+              com.google.protobuf2.Any.getDefaultInstance() : plan_;
         }
       }
       /**
@@ -5093,14 +5093,14 @@ public final class Genesis {
        * plan specifies the plan interface; it can be FixedAmountPlan or RatioPlan
        * </pre>
        *
-       * <code>.google.protobuf.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.gogoproto.nullable) = false, (.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPlanFieldBuilder() {
         if (planBuilder_ == null) {
           planBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getPlan(),
                   getParentForChildren(),
                   isClean());
@@ -10985,50 +10985,50 @@ public final class Genesis {
       "\037\000\022S\n\017last_epoch_time\030\n \001(\0132\032.google.pro" +
       "tobuf.TimestampB\036\220\337\037\001\362\336\037\026yaml:\"last_epoc" +
       "h_time\"\022\032\n\022current_epoch_days\030\013 \001(\r:\010\350\240\037" +
-      "\000\210\240\037\000\"\320\001\n\nPlanRecord\0221\n\004plan\030\001 \001(\0132\024.goo" +
-      "gle.protobuf.AnyB\r\310\336\037\000\312\264-\005PlanI\022\204\001\n\022farm" +
-      "ing_pool_coins\030\002 \003(\0132\031.cosmos.base.v1bet" +
-      "a1.CoinBM\362\336\037\031yaml:\"farming_pool_coins\"\252\337" +
-      "\037(github.com/cosmos/cosmos-sdk/types.Coi" +
-      "ns\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\234\001\n\rStakingRecord\0229\n\022st" +
-      "aking_coin_denom\030\001 \001(\tB\035\362\336\037\031yaml:\"stakin" +
-      "g_coin_denom\"\022\016\n\006farmer\030\002 \001(\t\0226\n\007staking" +
-      "\030\003 \001(\0132\037.cosmos.farming.v1beta1.StakingB" +
-      "\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\310\001\n\023QueuedStakingRecord\022" +
-      "9\n\022staking_coin_denom\030\001 \001(\tB\035\362\336\037\031yaml:\"s" +
-      "taking_coin_denom\"\022\016\n\006farmer\030\002 \001(\t\022\\\n\016qu" +
-      "eued_staking\030\003 \001(\0132%.cosmos.farming.v1be" +
-      "ta1.QueuedStakingB\035\310\336\037\000\362\336\037\025yaml:\"queued_" +
-      "staking\":\010\350\240\037\000\210\240\037\000\"\247\002\n\023TotalStakingsReco" +
-      "rd\0229\n\022staking_coin_denom\030\001 \001(\tB\035\362\336\037\031yaml" +
-      ":\"staking_coin_denom\"\022>\n\006amount\030\002 \001(\tB.\332" +
-      "\336\037&github.com/cosmos/cosmos-sdk/types.In" +
-      "t\310\336\037\000\022\212\001\n\025staking_reserve_coins\030\t \003(\0132\031." +
-      "cosmos.base.v1beta1.CoinBP\362\336\037\034yaml:\"stak" +
-      "ing_reserve_coins\"\252\337\037(github.com/cosmos/" +
-      "cosmos-sdk/types.Coins\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\327\001\n" +
-      "\027HistoricalRewardsRecord\0229\n\022staking_coin" +
-      "_denom\030\001 \001(\tB\035\362\336\037\031yaml:\"staking_coin_den" +
-      "om\"\022\r\n\005epoch\030\002 \001(\004\022h\n\022historical_rewards" +
-      "\030\003 \001(\0132).cosmos.farming.v1beta1.Historic" +
-      "alRewardsB!\310\336\037\000\362\336\037\031yaml:\"historical_rewa" +
-      "rds\":\010\350\240\037\000\210\240\037\000\"\314\001\n\030OutstandingRewardsRec" +
+      "\000\210\240\037\000\"\321\001\n\nPlanRecord\0222\n\004plan\030\001 \001(\0132\025.goo" +
+      "gle.protobuf2.AnyB\r\310\336\037\000\312\264-\005PlanI\022\204\001\n\022far" +
+      "ming_pool_coins\030\002 \003(\0132\031.cosmos.base.v1be" +
+      "ta1.CoinBM\362\336\037\031yaml:\"farming_pool_coins\"\252" +
+      "\337\037(github.com/cosmos/cosmos-sdk/types.Co" +
+      "ins\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\234\001\n\rStakingRecord\0229\n\022s" +
+      "taking_coin_denom\030\001 \001(\tB\035\362\336\037\031yaml:\"staki" +
+      "ng_coin_denom\"\022\016\n\006farmer\030\002 \001(\t\0226\n\007stakin" +
+      "g\030\003 \001(\0132\037.cosmos.farming.v1beta1.Staking" +
+      "B\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\310\001\n\023QueuedStakingRecord" +
+      "\0229\n\022staking_coin_denom\030\001 \001(\tB\035\362\336\037\031yaml:\"" +
+      "staking_coin_denom\"\022\016\n\006farmer\030\002 \001(\t\022\\\n\016q" +
+      "ueued_staking\030\003 \001(\0132%.cosmos.farming.v1b" +
+      "eta1.QueuedStakingB\035\310\336\037\000\362\336\037\025yaml:\"queued" +
+      "_staking\":\010\350\240\037\000\210\240\037\000\"\247\002\n\023TotalStakingsRec" +
       "ord\0229\n\022staking_coin_denom\030\001 \001(\tB\035\362\336\037\031yam" +
-      "l:\"staking_coin_denom\"\022k\n\023outstanding_re" +
-      "wards\030\002 \001(\0132*.cosmos.farming.v1beta1.Out" +
-      "standingRewardsB\"\310\336\037\000\362\336\037\032yaml:\"outstandi" +
-      "ng_rewards\":\010\350\240\037\000\210\240\037\000\"\212\001\n\022CurrentEpochRe" +
+      "l:\"staking_coin_denom\"\022>\n\006amount\030\002 \001(\tB." +
+      "\332\336\037&github.com/cosmos/cosmos-sdk/types.I" +
+      "nt\310\336\037\000\022\212\001\n\025staking_reserve_coins\030\t \003(\0132\031" +
+      ".cosmos.base.v1beta1.CoinBP\362\336\037\034yaml:\"sta" +
+      "king_reserve_coins\"\252\337\037(github.com/cosmos" +
+      "/cosmos-sdk/types.Coins\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\327\001" +
+      "\n\027HistoricalRewardsRecord\0229\n\022staking_coi" +
+      "n_denom\030\001 \001(\tB\035\362\336\037\031yaml:\"staking_coin_de" +
+      "nom\"\022\r\n\005epoch\030\002 \001(\004\022h\n\022historical_reward" +
+      "s\030\003 \001(\0132).cosmos.farming.v1beta1.Histori" +
+      "calRewardsB!\310\336\037\000\362\336\037\031yaml:\"historical_rew" +
+      "ards\":\010\350\240\037\000\210\240\037\000\"\314\001\n\030OutstandingRewardsRe" +
       "cord\0229\n\022staking_coin_denom\030\001 \001(\tB\035\362\336\037\031ya" +
-      "ml:\"staking_coin_denom\"\022/\n\rcurrent_epoch" +
-      "\030\002 \001(\004B\030\362\336\037\024yaml:\"current_epoch\":\010\350\240\037\000\210\240" +
-      "\037\000B3Z-github.com/tendermint/farming/x/fa" +
-      "rming/types\250\342\036\001b\006proto3"
+      "ml:\"staking_coin_denom\"\022k\n\023outstanding_r" +
+      "ewards\030\002 \001(\0132*.cosmos.farming.v1beta1.Ou" +
+      "tstandingRewardsB\"\310\336\037\000\362\336\037\032yaml:\"outstand" +
+      "ing_rewards\":\010\350\240\037\000\210\240\037\000\"\212\001\n\022CurrentEpochR" +
+      "ecord\0229\n\022staking_coin_denom\030\001 \001(\tB\035\362\336\037\031y" +
+      "aml:\"staking_coin_denom\"\022/\n\rcurrent_epoc" +
+      "h\030\002 \001(\004B\030\362\336\037\024yaml:\"current_epoch\":\010\350\240\037\000\210" +
+      "\240\037\000B3Z-github.com/tendermint/farming/x/f" +
+      "arming/types\250\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.AnyProto.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos.farming.v1beta1.Farming.getDescriptor(),
@@ -11085,18 +11085,18 @@ public final class Genesis {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.equalAll);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.equalAll);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.AnyProto.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos.farming.v1beta1.Farming.getDescriptor();

@@ -24,7 +24,7 @@ public final class Cli {
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return Whether the address field is set.
      */
     boolean hasAddress();
@@ -34,19 +34,19 @@ public final class Cli {
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return The address.
      */
-    com.google.protobuf.Any getAddress();
+    com.google.protobuf2.Any getAddress();
     /**
      * <pre>
      * Address contains the data of the external chain address to be connected
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getAddressOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getAddressOrBuilder();
 
     /**
      * <pre>
@@ -153,11 +153,11 @@ public final class Cli {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (address_ != null) {
                 subBuilder = address_.toBuilder();
               }
-              address_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              address_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(address_);
                 address_ = subBuilder.buildPartial();
@@ -224,14 +224,14 @@ public final class Cli {
     }
 
     public static final int ADDRESS_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any address_;
+    private com.google.protobuf2.Any address_;
     /**
      * <pre>
      * Address contains the data of the external chain address to be connected
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return Whether the address field is set.
      */
     @java.lang.Override
@@ -244,12 +244,12 @@ public final class Cli {
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return The address.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getAddress() {
-      return address_ == null ? com.google.protobuf.Any.getDefaultInstance() : address_;
+    public com.google.protobuf2.Any getAddress() {
+      return address_ == null ? com.google.protobuf2.Any.getDefaultInstance() : address_;
     }
     /**
      * <pre>
@@ -257,10 +257,10 @@ public final class Cli {
      * with the Desmos profile
      * </pre>
      *
-     * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getAddressOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getAddressOrBuilder() {
       return getAddress();
     }
 
@@ -720,16 +720,16 @@ public final class Cli {
         return this;
       }
 
-      private com.google.protobuf.Any address_;
+      private com.google.protobuf2.Any address_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> addressBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> addressBuilder_;
       /**
        * <pre>
        * Address contains the data of the external chain address to be connected
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        * @return Whether the address field is set.
        */
       public boolean hasAddress() {
@@ -741,12 +741,12 @@ public final class Cli {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        * @return The address.
        */
-      public com.google.protobuf.Any getAddress() {
+      public com.google.protobuf2.Any getAddress() {
         if (addressBuilder_ == null) {
-          return address_ == null ? com.google.protobuf.Any.getDefaultInstance() : address_;
+          return address_ == null ? com.google.protobuf2.Any.getDefaultInstance() : address_;
         } else {
           return addressBuilder_.getMessage();
         }
@@ -757,9 +757,9 @@ public final class Cli {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public Builder setAddress(com.google.protobuf.Any value) {
+      public Builder setAddress(com.google.protobuf2.Any value) {
         if (addressBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -778,10 +778,10 @@ public final class Cli {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
       public Builder setAddress(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (addressBuilder_ == null) {
           address_ = builderForValue.build();
           onChanged();
@@ -797,13 +797,13 @@ public final class Cli {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public Builder mergeAddress(com.google.protobuf.Any value) {
+      public Builder mergeAddress(com.google.protobuf2.Any value) {
         if (addressBuilder_ == null) {
           if (address_ != null) {
             address_ =
-              com.google.protobuf.Any.newBuilder(address_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(address_).mergeFrom(value).buildPartial();
           } else {
             address_ = value;
           }
@@ -820,7 +820,7 @@ public final class Cli {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
       public Builder clearAddress() {
         if (addressBuilder_ == null) {
@@ -839,9 +839,9 @@ public final class Cli {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public com.google.protobuf.Any.Builder getAddressBuilder() {
+      public com.google.protobuf2.Any.Builder getAddressBuilder() {
         
         onChanged();
         return getAddressFieldBuilder().getBuilder();
@@ -852,14 +852,14 @@ public final class Cli {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getAddressOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getAddressOrBuilder() {
         if (addressBuilder_ != null) {
           return addressBuilder_.getMessageOrBuilder();
         } else {
           return address_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : address_;
+              com.google.protobuf2.Any.getDefaultInstance() : address_;
         }
       }
       /**
@@ -868,14 +868,14 @@ public final class Cli {
        * with the Desmos profile
        * </pre>
        *
-       * <code>.google.protobuf.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getAddressFieldBuilder() {
         if (addressBuilder_ == null) {
           addressBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getAddress(),
                   getParentForChildren(),
                   isClean());
@@ -1263,25 +1263,23 @@ public final class Cli {
       "\n(desmos/profiles/v1beta1/client/cli.pro" +
       "to\022\036desmos.profiles.v1beta1.client\032\024gogo" +
       "proto/gogo.proto\032\032google/protobuf2/any.p" +
-      "roto\032\037google/protobuf/timestamp.proto\032\031c" +
-      "osmos_proto/cosmos.proto\0320desmos/profile" +
-      "s/v1beta1/models_chain_links.proto\"\201\002\n\rC" +
-      "hainLinkJSON\022H\n\007address\030\001 \001(\0132\024.google.p" +
-      "rotobuf.AnyB!\362\336\037\016yaml:\"address\"\312\264-\013Addre" +
-      "ssData\022C\n\005proof\030\002 \001(\0132\036.desmos.profiles." +
-      "v1beta1.ProofB\024\310\336\037\000\362\336\037\014yaml:\"proof\"\022W\n\014c" +
-      "hain_config\030\003 \001(\0132$.desmos.profiles.v1be" +
-      "ta1.ChainConfigB\033\310\336\037\000\362\336\037\023yaml:\"chain_con" +
-      "fig\":\010\350\240\037\001\230\240\037\001B:Z8github.com/desmos-labs" +
-      "/desmos/v2/x/profiles/client/utilsb\006prot" +
-      "o3"
+      "roto\032\031cosmos_proto/cosmos.proto\0320desmos/" +
+      "profiles/v1beta1/models_chain_links.prot" +
+      "o\"\202\002\n\rChainLinkJSON\022I\n\007address\030\001 \001(\0132\025.g" +
+      "oogle.protobuf2.AnyB!\362\336\037\016yaml:\"address\"\312" +
+      "\264-\013AddressData\022C\n\005proof\030\002 \001(\0132\036.desmos.p" +
+      "rofiles.v1beta1.ProofB\024\310\336\037\000\362\336\037\014yaml:\"pro" +
+      "of\"\022W\n\014chain_config\030\003 \001(\0132$.desmos.profi" +
+      "les.v1beta1.ChainConfigB\033\310\336\037\000\362\336\037\023yaml:\"c" +
+      "hain_config\":\010\350\240\037\001\230\240\037\001B:Z8github.com/des" +
+      "mos-labs/desmos/v2/x/profiles/client/uti" +
+      "lsb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
-          com.google.protobuf.TimestampProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor(),
         });
@@ -1294,15 +1292,14 @@ public final class Cli {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
-    com.google.protobuf.TimestampProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor();
   }

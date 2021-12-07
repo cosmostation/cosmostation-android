@@ -9147,7 +9147,7 @@ public final class QueryOuterClass {
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return Whether the consensusState field is set.
      */
     boolean hasConsensusState();
@@ -9156,18 +9156,18 @@ public final class QueryOuterClass {
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return The consensusState.
      */
-    com.google.protobuf.Any getConsensusState();
+    com.google.protobuf2.Any getConsensusState();
     /**
      * <pre>
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      */
-    com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder();
 
     /**
      * <pre>
@@ -9279,11 +9279,11 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (consensusState_ != null) {
                 subBuilder = consensusState_.toBuilder();
               }
-              consensusState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              consensusState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(consensusState_);
                 consensusState_ = subBuilder.buildPartial();
@@ -9348,13 +9348,13 @@ public final class QueryOuterClass {
     }
 
     public static final int CONSENSUS_STATE_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any consensusState_;
+    private com.google.protobuf2.Any consensusState_;
     /**
      * <pre>
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return Whether the consensusState field is set.
      */
     @java.lang.Override
@@ -9366,22 +9366,22 @@ public final class QueryOuterClass {
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return The consensusState.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getConsensusState() {
-      return consensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+    public com.google.protobuf2.Any getConsensusState() {
+      return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
     }
     /**
      * <pre>
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
 
@@ -9868,15 +9868,15 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any consensusState_;
+      private com.google.protobuf2.Any consensusState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> consensusStateBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> consensusStateBuilder_;
       /**
        * <pre>
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        * @return Whether the consensusState field is set.
        */
       public boolean hasConsensusState() {
@@ -9887,12 +9887,12 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        * @return The consensusState.
        */
-      public com.google.protobuf.Any getConsensusState() {
+      public com.google.protobuf2.Any getConsensusState() {
         if (consensusStateBuilder_ == null) {
-          return consensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+          return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
         } else {
           return consensusStateBuilder_.getMessage();
         }
@@ -9902,9 +9902,9 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
-      public Builder setConsensusState(com.google.protobuf.Any value) {
+      public Builder setConsensusState(com.google.protobuf2.Any value) {
         if (consensusStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9922,10 +9922,10 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
       public Builder setConsensusState(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (consensusStateBuilder_ == null) {
           consensusState_ = builderForValue.build();
           onChanged();
@@ -9940,13 +9940,13 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
-      public Builder mergeConsensusState(com.google.protobuf.Any value) {
+      public Builder mergeConsensusState(com.google.protobuf2.Any value) {
         if (consensusStateBuilder_ == null) {
           if (consensusState_ != null) {
             consensusState_ =
-              com.google.protobuf.Any.newBuilder(consensusState_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(consensusState_).mergeFrom(value).buildPartial();
           } else {
             consensusState_ = value;
           }
@@ -9962,7 +9962,7 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
       public Builder clearConsensusState() {
         if (consensusStateBuilder_ == null) {
@@ -9980,9 +9980,9 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
-      public com.google.protobuf.Any.Builder getConsensusStateBuilder() {
+      public com.google.protobuf2.Any.Builder getConsensusStateBuilder() {
         
         onChanged();
         return getConsensusStateFieldBuilder().getBuilder();
@@ -9992,14 +9992,14 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
         if (consensusStateBuilder_ != null) {
           return consensusStateBuilder_.getMessageOrBuilder();
         } else {
           return consensusState_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+              com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
         }
       }
       /**
@@ -10007,14 +10007,14 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getConsensusStateFieldBuilder() {
         if (consensusStateBuilder_ == null) {
           consensusStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getConsensusState(),
                   getParentForChildren(),
                   isClean());
@@ -26546,133 +26546,133 @@ public final class QueryOuterClass {
       "lient.v1.HeightB\004\310\336\037\000\"z\n!QueryChannelCon" +
       "sensusStateRequest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nc" +
       "hannel_id\030\002 \001(\t\022\027\n\017revision_number\030\003 \001(\004" +
-      "\022\027\n\017revision_height\030\004 \001(\004\"\255\001\n\"QueryChann" +
-      "elConsensusStateResponse\022-\n\017consensus_st" +
-      "ate\030\001 \001(\0132\024.google.protobuf.Any\022\021\n\tclien" +
-      "t_id\030\002 \001(\t\022\r\n\005proof\030\003 \001(\014\0226\n\014proof_heigh" +
-      "t\030\004 \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037" +
-      "\000\"U\n\034QueryPacketCommitmentRequest\022\017\n\007por" +
-      "t_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022\020\n\010sequen" +
-      "ce\030\003 \001(\004\"z\n\035QueryPacketCommitmentRespons" +
-      "e\022\022\n\ncommitment\030\001 \001(\014\022\r\n\005proof\030\002 \001(\014\0226\n\014" +
-      "proof_height\030\003 \001(\0132\032.ibc.core.client.v1." +
-      "HeightB\004\310\336\037\000\"\200\001\n\035QueryPacketCommitmentsR" +
-      "equest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 " +
-      "\001(\t\022:\n\npagination\030\003 \001(\0132&.cosmos.base.qu" +
-      "ery.v1beta1.PageRequest\"\306\001\n\036QueryPacketC" +
-      "ommitmentsResponse\0225\n\013commitments\030\001 \003(\0132" +
-      " .ibc.core.channel.v1.PacketState\022;\n\npag" +
-      "ination\030\002 \001(\0132\'.cosmos.base.query.v1beta" +
-      "1.PageResponse\0220\n\006height\030\003 \001(\0132\032.ibc.cor" +
-      "e.client.v1.HeightB\004\310\336\037\000\"R\n\031QueryPacketR" +
-      "eceiptRequest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchanne" +
-      "l_id\030\002 \001(\t\022\020\n\010sequence\030\003 \001(\004\"u\n\032QueryPac" +
-      "ketReceiptResponse\022\020\n\010received\030\002 \001(\010\022\r\n\005" +
-      "proof\030\003 \001(\014\0226\n\014proof_height\030\004 \001(\0132\032.ibc." +
-      "core.client.v1.HeightB\004\310\336\037\000\"Z\n!QueryPack" +
-      "etAcknowledgementRequest\022\017\n\007port_id\030\001 \001(" +
-      "\t\022\022\n\nchannel_id\030\002 \001(\t\022\020\n\010sequence\030\003 \001(\004\"" +
-      "\204\001\n\"QueryPacketAcknowledgementResponse\022\027" +
-      "\n\017acknowledgement\030\001 \001(\014\022\r\n\005proof\030\002 \001(\014\0226" +
-      "\n\014proof_height\030\003 \001(\0132\032.ibc.core.client.v" +
-      "1.HeightB\004\310\336\037\000\"\252\001\n\"QueryPacketAcknowledg" +
-      "ementsRequest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchanne" +
-      "l_id\030\002 \001(\t\022:\n\npagination\030\003 \001(\0132&.cosmos." +
-      "base.query.v1beta1.PageRequest\022#\n\033packet" +
-      "_commitment_sequences\030\004 \003(\004\"\320\001\n#QueryPac" +
-      "ketAcknowledgementsResponse\022:\n\020acknowled" +
-      "gements\030\001 \003(\0132 .ibc.core.channel.v1.Pack" +
-      "etState\022;\n\npagination\030\002 \001(\0132\'.cosmos.bas" +
-      "e.query.v1beta1.PageResponse\0220\n\006height\030\003" +
-      " \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000\"i" +
-      "\n\035QueryUnreceivedPacketsRequest\022\017\n\007port_" +
-      "id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022#\n\033packet_c" +
-      "ommitment_sequences\030\003 \003(\004\"e\n\036QueryUnrece" +
-      "ivedPacketsResponse\022\021\n\tsequences\030\001 \003(\004\0220" +
-      "\n\006height\030\002 \001(\0132\032.ibc.core.client.v1.Heig" +
-      "htB\004\310\336\037\000\"_\n\032QueryUnreceivedAcksRequest\022\017" +
-      "\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022\034\n\024p" +
-      "acket_ack_sequences\030\003 \003(\004\"b\n\033QueryUnrece" +
-      "ivedAcksResponse\022\021\n\tsequences\030\001 \003(\004\0220\n\006h" +
-      "eight\030\002 \001(\0132\032.ibc.core.client.v1.HeightB" +
-      "\004\310\336\037\000\"F\n\037QueryNextSequenceReceiveRequest" +
-      "\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\"\210\001" +
-      "\n QueryNextSequenceReceiveResponse\022\035\n\025ne" +
-      "xt_sequence_receive\030\001 \001(\004\022\r\n\005proof\030\002 \001(\014" +
-      "\0226\n\014proof_height\030\003 \001(\0132\032.ibc.core.client" +
-      ".v1.HeightB\004\310\336\037\0002\213\026\n\005Query\022\242\001\n\007Channel\022(" +
-      ".ibc.core.channel.v1.QueryChannelRequest" +
-      "\032).ibc.core.channel.v1.QueryChannelRespo" +
-      "nse\"B\202\323\344\223\002<\022:/ibc/core/channel/v1/channe" +
-      "ls/{channel_id}/ports/{port_id}\022\210\001\n\010Chan" +
-      "nels\022).ibc.core.channel.v1.QueryChannels" +
-      "Request\032*.ibc.core.channel.v1.QueryChann" +
-      "elsResponse\"%\202\323\344\223\002\037\022\035/ibc/core/channel/v" +
-      "1/channels\022\277\001\n\022ConnectionChannels\0223.ibc." +
-      "core.channel.v1.QueryConnectionChannelsR" +
-      "equest\0324.ibc.core.channel.v1.QueryConnec" +
-      "tionChannelsResponse\">\202\323\344\223\0028\0226/ibc/core/" +
-      "channel/v1/connections/{connection}/chan" +
-      "nels\022\320\001\n\022ChannelClientState\0223.ibc.core.c" +
-      "hannel.v1.QueryChannelClientStateRequest" +
-      "\0324.ibc.core.channel.v1.QueryChannelClien" +
-      "tStateResponse\"O\202\323\344\223\002I\022G/ibc/core/channe" +
-      "l/v1/channels/{channel_id}/ports/{port_i" +
-      "d}/client_state\022\222\002\n\025ChannelConsensusStat" +
-      "e\0226.ibc.core.channel.v1.QueryChannelCons" +
-      "ensusStateRequest\0327.ibc.core.channel.v1." +
-      "QueryChannelConsensusStateResponse\"\207\001\202\323\344" +
-      "\223\002\200\001\022~/ibc/core/channel/v1/channels/{cha" +
-      "nnel_id}/ports/{port_id}/consensus_state" +
-      "/revision/{revision_number}/height/{revi" +
-      "sion_height}\022\333\001\n\020PacketCommitment\0221.ibc." +
-      "core.channel.v1.QueryPacketCommitmentReq" +
-      "uest\0322.ibc.core.channel.v1.QueryPacketCo" +
-      "mmitmentResponse\"`\202\323\344\223\002Z\022X/ibc/core/chan" +
-      "nel/v1/channels/{channel_id}/ports/{port" +
-      "_id}/packet_commitments/{sequence}\022\323\001\n\021P" +
-      "acketCommitments\0222.ibc.core.channel.v1.Q" +
-      "ueryPacketCommitmentsRequest\0323.ibc.core." +
-      "channel.v1.QueryPacketCommitmentsRespons" +
-      "e\"U\202\323\344\223\002O\022M/ibc/core/channel/v1/channels" +
-      "/{channel_id}/ports/{port_id}/packet_com" +
-      "mitments\022\317\001\n\rPacketReceipt\022..ibc.core.ch" +
-      "annel.v1.QueryPacketReceiptRequest\032/.ibc" +
-      ".core.channel.v1.QueryPacketReceiptRespo" +
-      "nse\"]\202\323\344\223\002W\022U/ibc/core/channel/v1/channe" +
-      "ls/{channel_id}/ports/{port_id}/packet_r" +
-      "eceipts/{sequence}\022\343\001\n\025PacketAcknowledge" +
-      "ment\0226.ibc.core.channel.v1.QueryPacketAc" +
-      "knowledgementRequest\0327.ibc.core.channel." +
-      "v1.QueryPacketAcknowledgementResponse\"Y\202" +
-      "\323\344\223\002S\022Q/ibc/core/channel/v1/channels/{ch" +
-      "annel_id}/ports/{port_id}/packet_acks/{s" +
-      "equence}\022\347\001\n\026PacketAcknowledgements\0227.ib" +
-      "c.core.channel.v1.QueryPacketAcknowledge" +
-      "mentsRequest\0328.ibc.core.channel.v1.Query" +
-      "PacketAcknowledgementsResponse\"Z\202\323\344\223\002T\022R" +
-      "/ibc/core/channel/v1/channels/{channel_i" +
-      "d}/ports/{port_id}/packet_acknowledgemen" +
-      "ts\022\206\002\n\021UnreceivedPackets\0222.ibc.core.chan" +
-      "nel.v1.QueryUnreceivedPacketsRequest\0323.i" +
-      "bc.core.channel.v1.QueryUnreceivedPacket" +
-      "sResponse\"\207\001\202\323\344\223\002\200\001\022~/ibc/core/channel/v" +
-      "1/channels/{channel_id}/ports/{port_id}/" +
-      "packet_commitments/{packet_commitment_se" +
-      "quences}/unreceived_packets\022\361\001\n\016Unreceiv" +
-      "edAcks\022/.ibc.core.channel.v1.QueryUnrece" +
-      "ivedAcksRequest\0320.ibc.core.channel.v1.Qu" +
-      "eryUnreceivedAcksResponse\"|\202\323\344\223\002v\022t/ibc/" +
-      "core/channel/v1/channels/{channel_id}/po" +
-      "rts/{port_id}/packet_commitments/{packet" +
-      "_ack_sequences}/unreceived_acks\022\324\001\n\023Next" +
-      "SequenceReceive\0224.ibc.core.channel.v1.Qu" +
-      "eryNextSequenceReceiveRequest\0325.ibc.core" +
-      ".channel.v1.QueryNextSequenceReceiveResp" +
-      "onse\"P\202\323\344\223\002J\022H/ibc/core/channel/v1/chann" +
-      "els/{channel_id}/ports/{port_id}/next_se" +
-      "quenceB;Z9github.com/cosmos/ibc-go/v2/mo" +
-      "dules/core/04-channel/typesb\006proto3"
+      "\022\027\n\017revision_height\030\004 \001(\004\"\256\001\n\"QueryChann" +
+      "elConsensusStateResponse\022.\n\017consensus_st" +
+      "ate\030\001 \001(\0132\025.google.protobuf2.Any\022\021\n\tclie" +
+      "nt_id\030\002 \001(\t\022\r\n\005proof\030\003 \001(\014\0226\n\014proof_heig" +
+      "ht\030\004 \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336" +
+      "\037\000\"U\n\034QueryPacketCommitmentRequest\022\017\n\007po" +
+      "rt_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022\020\n\010seque" +
+      "nce\030\003 \001(\004\"z\n\035QueryPacketCommitmentRespon" +
+      "se\022\022\n\ncommitment\030\001 \001(\014\022\r\n\005proof\030\002 \001(\014\0226\n" +
+      "\014proof_height\030\003 \001(\0132\032.ibc.core.client.v1" +
+      ".HeightB\004\310\336\037\000\"\200\001\n\035QueryPacketCommitments" +
+      "Request\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002" +
+      " \001(\t\022:\n\npagination\030\003 \001(\0132&.cosmos.base.q" +
+      "uery.v1beta1.PageRequest\"\306\001\n\036QueryPacket" +
+      "CommitmentsResponse\0225\n\013commitments\030\001 \003(\013" +
+      "2 .ibc.core.channel.v1.PacketState\022;\n\npa" +
+      "gination\030\002 \001(\0132\'.cosmos.base.query.v1bet" +
+      "a1.PageResponse\0220\n\006height\030\003 \001(\0132\032.ibc.co" +
+      "re.client.v1.HeightB\004\310\336\037\000\"R\n\031QueryPacket" +
+      "ReceiptRequest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchann" +
+      "el_id\030\002 \001(\t\022\020\n\010sequence\030\003 \001(\004\"u\n\032QueryPa" +
+      "cketReceiptResponse\022\020\n\010received\030\002 \001(\010\022\r\n" +
+      "\005proof\030\003 \001(\014\0226\n\014proof_height\030\004 \001(\0132\032.ibc" +
+      ".core.client.v1.HeightB\004\310\336\037\000\"Z\n!QueryPac" +
+      "ketAcknowledgementRequest\022\017\n\007port_id\030\001 \001" +
+      "(\t\022\022\n\nchannel_id\030\002 \001(\t\022\020\n\010sequence\030\003 \001(\004" +
+      "\"\204\001\n\"QueryPacketAcknowledgementResponse\022" +
+      "\027\n\017acknowledgement\030\001 \001(\014\022\r\n\005proof\030\002 \001(\014\022" +
+      "6\n\014proof_height\030\003 \001(\0132\032.ibc.core.client." +
+      "v1.HeightB\004\310\336\037\000\"\252\001\n\"QueryPacketAcknowled" +
+      "gementsRequest\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchann" +
+      "el_id\030\002 \001(\t\022:\n\npagination\030\003 \001(\0132&.cosmos" +
+      ".base.query.v1beta1.PageRequest\022#\n\033packe" +
+      "t_commitment_sequences\030\004 \003(\004\"\320\001\n#QueryPa" +
+      "cketAcknowledgementsResponse\022:\n\020acknowle" +
+      "dgements\030\001 \003(\0132 .ibc.core.channel.v1.Pac" +
+      "ketState\022;\n\npagination\030\002 \001(\0132\'.cosmos.ba" +
+      "se.query.v1beta1.PageResponse\0220\n\006height\030" +
+      "\003 \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000\"" +
+      "i\n\035QueryUnreceivedPacketsRequest\022\017\n\007port" +
+      "_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022#\n\033packet_" +
+      "commitment_sequences\030\003 \003(\004\"e\n\036QueryUnrec" +
+      "eivedPacketsResponse\022\021\n\tsequences\030\001 \003(\004\022" +
+      "0\n\006height\030\002 \001(\0132\032.ibc.core.client.v1.Hei" +
+      "ghtB\004\310\336\037\000\"_\n\032QueryUnreceivedAcksRequest\022" +
+      "\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\022\034\n\024" +
+      "packet_ack_sequences\030\003 \003(\004\"b\n\033QueryUnrec" +
+      "eivedAcksResponse\022\021\n\tsequences\030\001 \003(\004\0220\n\006" +
+      "height\030\002 \001(\0132\032.ibc.core.client.v1.Height" +
+      "B\004\310\336\037\000\"F\n\037QueryNextSequenceReceiveReques" +
+      "t\022\017\n\007port_id\030\001 \001(\t\022\022\n\nchannel_id\030\002 \001(\t\"\210" +
+      "\001\n QueryNextSequenceReceiveResponse\022\035\n\025n" +
+      "ext_sequence_receive\030\001 \001(\004\022\r\n\005proof\030\002 \001(" +
+      "\014\0226\n\014proof_height\030\003 \001(\0132\032.ibc.core.clien" +
+      "t.v1.HeightB\004\310\336\037\0002\213\026\n\005Query\022\242\001\n\007Channel\022" +
+      "(.ibc.core.channel.v1.QueryChannelReques" +
+      "t\032).ibc.core.channel.v1.QueryChannelResp" +
+      "onse\"B\202\323\344\223\002<\022:/ibc/core/channel/v1/chann" +
+      "els/{channel_id}/ports/{port_id}\022\210\001\n\010Cha" +
+      "nnels\022).ibc.core.channel.v1.QueryChannel" +
+      "sRequest\032*.ibc.core.channel.v1.QueryChan" +
+      "nelsResponse\"%\202\323\344\223\002\037\022\035/ibc/core/channel/" +
+      "v1/channels\022\277\001\n\022ConnectionChannels\0223.ibc" +
+      ".core.channel.v1.QueryConnectionChannels" +
+      "Request\0324.ibc.core.channel.v1.QueryConne" +
+      "ctionChannelsResponse\">\202\323\344\223\0028\0226/ibc/core" +
+      "/channel/v1/connections/{connection}/cha" +
+      "nnels\022\320\001\n\022ChannelClientState\0223.ibc.core." +
+      "channel.v1.QueryChannelClientStateReques" +
+      "t\0324.ibc.core.channel.v1.QueryChannelClie" +
+      "ntStateResponse\"O\202\323\344\223\002I\022G/ibc/core/chann" +
+      "el/v1/channels/{channel_id}/ports/{port_" +
+      "id}/client_state\022\222\002\n\025ChannelConsensusSta" +
+      "te\0226.ibc.core.channel.v1.QueryChannelCon" +
+      "sensusStateRequest\0327.ibc.core.channel.v1" +
+      ".QueryChannelConsensusStateResponse\"\207\001\202\323" +
+      "\344\223\002\200\001\022~/ibc/core/channel/v1/channels/{ch" +
+      "annel_id}/ports/{port_id}/consensus_stat" +
+      "e/revision/{revision_number}/height/{rev" +
+      "ision_height}\022\333\001\n\020PacketCommitment\0221.ibc" +
+      ".core.channel.v1.QueryPacketCommitmentRe" +
+      "quest\0322.ibc.core.channel.v1.QueryPacketC" +
+      "ommitmentResponse\"`\202\323\344\223\002Z\022X/ibc/core/cha" +
+      "nnel/v1/channels/{channel_id}/ports/{por" +
+      "t_id}/packet_commitments/{sequence}\022\323\001\n\021" +
+      "PacketCommitments\0222.ibc.core.channel.v1." +
+      "QueryPacketCommitmentsRequest\0323.ibc.core" +
+      ".channel.v1.QueryPacketCommitmentsRespon" +
+      "se\"U\202\323\344\223\002O\022M/ibc/core/channel/v1/channel" +
+      "s/{channel_id}/ports/{port_id}/packet_co" +
+      "mmitments\022\317\001\n\rPacketReceipt\022..ibc.core.c" +
+      "hannel.v1.QueryPacketReceiptRequest\032/.ib" +
+      "c.core.channel.v1.QueryPacketReceiptResp" +
+      "onse\"]\202\323\344\223\002W\022U/ibc/core/channel/v1/chann" +
+      "els/{channel_id}/ports/{port_id}/packet_" +
+      "receipts/{sequence}\022\343\001\n\025PacketAcknowledg" +
+      "ement\0226.ibc.core.channel.v1.QueryPacketA" +
+      "cknowledgementRequest\0327.ibc.core.channel" +
+      ".v1.QueryPacketAcknowledgementResponse\"Y" +
+      "\202\323\344\223\002S\022Q/ibc/core/channel/v1/channels/{c" +
+      "hannel_id}/ports/{port_id}/packet_acks/{" +
+      "sequence}\022\347\001\n\026PacketAcknowledgements\0227.i" +
+      "bc.core.channel.v1.QueryPacketAcknowledg" +
+      "ementsRequest\0328.ibc.core.channel.v1.Quer" +
+      "yPacketAcknowledgementsResponse\"Z\202\323\344\223\002T\022" +
+      "R/ibc/core/channel/v1/channels/{channel_" +
+      "id}/ports/{port_id}/packet_acknowledgeme" +
+      "nts\022\206\002\n\021UnreceivedPackets\0222.ibc.core.cha" +
+      "nnel.v1.QueryUnreceivedPacketsRequest\0323." +
+      "ibc.core.channel.v1.QueryUnreceivedPacke" +
+      "tsResponse\"\207\001\202\323\344\223\002\200\001\022~/ibc/core/channel/" +
+      "v1/channels/{channel_id}/ports/{port_id}" +
+      "/packet_commitments/{packet_commitment_s" +
+      "equences}/unreceived_packets\022\361\001\n\016Unrecei" +
+      "vedAcks\022/.ibc.core.channel.v1.QueryUnrec" +
+      "eivedAcksRequest\0320.ibc.core.channel.v1.Q" +
+      "ueryUnreceivedAcksResponse\"|\202\323\344\223\002v\022t/ibc" +
+      "/core/channel/v1/channels/{channel_id}/p" +
+      "orts/{port_id}/packet_commitments/{packe" +
+      "t_ack_sequences}/unreceived_acks\022\324\001\n\023Nex" +
+      "tSequenceReceive\0224.ibc.core.channel.v1.Q" +
+      "ueryNextSequenceReceiveRequest\0325.ibc.cor" +
+      "e.channel.v1.QueryNextSequenceReceiveRes" +
+      "ponse\"P\202\323\344\223\002J\022H/ibc/core/channel/v1/chan" +
+      "nels/{channel_id}/ports/{port_id}/next_s" +
+      "equenceB;Z9github.com/cosmos/ibc-go/v2/m" +
+      "odules/core/04-channel/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -26681,8 +26681,8 @@ public final class QueryOuterClass {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           ibc.core.channel.v1.ChannelOuterClass.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_ibc_core_channel_v1_QueryChannelRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -26842,7 +26842,7 @@ public final class QueryOuterClass {
         new java.lang.String[] { "NextSequenceReceive", "Proof", "ProofHeight", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
@@ -26850,8 +26850,8 @@ public final class QueryOuterClass {
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     ibc.core.channel.v1.ChannelOuterClass.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

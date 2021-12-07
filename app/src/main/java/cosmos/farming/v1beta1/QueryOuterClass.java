@@ -2457,24 +2457,24 @@ public final class QueryOuterClass {
      * plans are the existing plans
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getPlansList();
     /**
      * <pre>
      * plans are the existing plans
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
-    com.google.protobuf.Any getPlans(int index);
+    com.google.protobuf2.Any getPlans(int index);
     /**
      * <pre>
      * plans are the existing plans
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
     int getPlansCount();
     /**
@@ -2482,18 +2482,18 @@ public final class QueryOuterClass {
      * plans are the existing plans
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getPlansOrBuilderList();
     /**
      * <pre>
      * plans are the existing plans
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getPlansOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getPlansOrBuilder(
         int index);
 
     /**
@@ -2576,11 +2576,11 @@ public final class QueryOuterClass {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                plans_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                plans_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000001;
               }
               plans_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             case 18: {
@@ -2632,16 +2632,16 @@ public final class QueryOuterClass {
     }
 
     public static final int PLANS_FIELD_NUMBER = 1;
-    private java.util.List<com.google.protobuf.Any> plans_;
+    private java.util.List<com.google.protobuf2.Any> plans_;
     /**
      * <pre>
      * plans are the existing plans
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
     @java.lang.Override
-    public java.util.List<com.google.protobuf.Any> getPlansList() {
+    public java.util.List<com.google.protobuf2.Any> getPlansList() {
       return plans_;
     }
     /**
@@ -2649,10 +2649,10 @@ public final class QueryOuterClass {
      * plans are the existing plans
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getPlansOrBuilderList() {
       return plans_;
     }
@@ -2661,7 +2661,7 @@ public final class QueryOuterClass {
      * plans are the existing plans
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
     @java.lang.Override
     public int getPlansCount() {
@@ -2672,10 +2672,10 @@ public final class QueryOuterClass {
      * plans are the existing plans
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPlans(int index) {
+    public com.google.protobuf2.Any getPlans(int index) {
       return plans_.get(index);
     }
     /**
@@ -2683,10 +2683,10 @@ public final class QueryOuterClass {
      * plans are the existing plans
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPlansOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getPlansOrBuilder(
         int index) {
       return plans_.get(index);
     }
@@ -3105,26 +3105,26 @@ public final class QueryOuterClass {
       }
       private int bitField0_;
 
-      private java.util.List<com.google.protobuf.Any> plans_ =
+      private java.util.List<com.google.protobuf2.Any> plans_ =
         java.util.Collections.emptyList();
       private void ensurePlansIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          plans_ = new java.util.ArrayList<com.google.protobuf.Any>(plans_);
+          plans_ = new java.util.ArrayList<com.google.protobuf2.Any>(plans_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> plansBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> plansBuilder_;
 
       /**
        * <pre>
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public java.util.List<com.google.protobuf.Any> getPlansList() {
+      public java.util.List<com.google.protobuf2.Any> getPlansList() {
         if (plansBuilder_ == null) {
           return java.util.Collections.unmodifiableList(plans_);
         } else {
@@ -3136,7 +3136,7 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public int getPlansCount() {
         if (plansBuilder_ == null) {
@@ -3150,9 +3150,9 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public com.google.protobuf.Any getPlans(int index) {
+      public com.google.protobuf2.Any getPlans(int index) {
         if (plansBuilder_ == null) {
           return plans_.get(index);
         } else {
@@ -3164,10 +3164,10 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder setPlans(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (plansBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3185,10 +3185,10 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder setPlans(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (plansBuilder_ == null) {
           ensurePlansIsMutable();
           plans_.set(index, builderForValue.build());
@@ -3203,9 +3203,9 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public Builder addPlans(com.google.protobuf.Any value) {
+      public Builder addPlans(com.google.protobuf2.Any value) {
         if (plansBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3223,10 +3223,10 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder addPlans(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (plansBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3244,10 +3244,10 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder addPlans(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (plansBuilder_ == null) {
           ensurePlansIsMutable();
           plans_.add(builderForValue.build());
@@ -3262,10 +3262,10 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder addPlans(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (plansBuilder_ == null) {
           ensurePlansIsMutable();
           plans_.add(index, builderForValue.build());
@@ -3280,10 +3280,10 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder addAllPlans(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (plansBuilder_ == null) {
           ensurePlansIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -3299,7 +3299,7 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder clearPlans() {
         if (plansBuilder_ == null) {
@@ -3316,7 +3316,7 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder removePlans(int index) {
         if (plansBuilder_ == null) {
@@ -3333,9 +3333,9 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public com.google.protobuf.Any.Builder getPlansBuilder(
+      public com.google.protobuf2.Any.Builder getPlansBuilder(
           int index) {
         return getPlansFieldBuilder().getBuilder(index);
       }
@@ -3344,9 +3344,9 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPlansOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getPlansOrBuilder(
           int index) {
         if (plansBuilder_ == null) {
           return plans_.get(index);  } else {
@@ -3358,9 +3358,9 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getPlansOrBuilderList() {
         if (plansBuilder_ != null) {
           return plansBuilder_.getMessageOrBuilderList();
@@ -3373,41 +3373,41 @@ public final class QueryOuterClass {
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public com.google.protobuf.Any.Builder addPlansBuilder() {
+      public com.google.protobuf2.Any.Builder addPlansBuilder() {
         return getPlansFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public com.google.protobuf.Any.Builder addPlansBuilder(
+      public com.google.protobuf2.Any.Builder addPlansBuilder(
           int index) {
         return getPlansFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
        * plans are the existing plans
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>repeated .google.protobuf2.Any plans = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getPlansBuilderList() {
         return getPlansFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPlansFieldBuilder() {
         if (plansBuilder_ == null) {
           plansBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   plans_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -4126,19 +4126,19 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      * @return Whether the plan field is set.
      */
     boolean hasPlan();
     /**
-     * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      * @return The plan.
      */
-    com.google.protobuf.Any getPlan();
+    com.google.protobuf2.Any getPlan();
     /**
-     * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getPlanOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getPlanOrBuilder();
   }
   /**
    * <pre>
@@ -4190,11 +4190,11 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (plan_ != null) {
                 subBuilder = plan_.toBuilder();
               }
-              plan_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              plan_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(plan_);
                 plan_ = subBuilder.buildPartial();
@@ -4235,9 +4235,9 @@ public final class QueryOuterClass {
     }
 
     public static final int PLAN_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any plan_;
+    private com.google.protobuf2.Any plan_;
     /**
-     * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      * @return Whether the plan field is set.
      */
     @java.lang.Override
@@ -4245,18 +4245,18 @@ public final class QueryOuterClass {
       return plan_ != null;
     }
     /**
-     * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      * @return The plan.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPlan() {
-      return plan_ == null ? com.google.protobuf.Any.getDefaultInstance() : plan_;
+    public com.google.protobuf2.Any getPlan() {
+      return plan_ == null ? com.google.protobuf2.Any.getDefaultInstance() : plan_;
     }
     /**
-     * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+     * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPlanOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getPlanOrBuilder() {
       return getPlan();
     }
 
@@ -4579,31 +4579,31 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any plan_;
+      private com.google.protobuf2.Any plan_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> planBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> planBuilder_;
       /**
-       * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        * @return Whether the plan field is set.
        */
       public boolean hasPlan() {
         return planBuilder_ != null || plan_ != null;
       }
       /**
-       * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        * @return The plan.
        */
-      public com.google.protobuf.Any getPlan() {
+      public com.google.protobuf2.Any getPlan() {
         if (planBuilder_ == null) {
-          return plan_ == null ? com.google.protobuf.Any.getDefaultInstance() : plan_;
+          return plan_ == null ? com.google.protobuf2.Any.getDefaultInstance() : plan_;
         } else {
           return planBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public Builder setPlan(com.google.protobuf.Any value) {
+      public Builder setPlan(com.google.protobuf2.Any value) {
         if (planBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4617,10 +4617,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder setPlan(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (planBuilder_ == null) {
           plan_ = builderForValue.build();
           onChanged();
@@ -4631,13 +4631,13 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public Builder mergePlan(com.google.protobuf.Any value) {
+      public Builder mergePlan(com.google.protobuf2.Any value) {
         if (planBuilder_ == null) {
           if (plan_ != null) {
             plan_ =
-              com.google.protobuf.Any.newBuilder(plan_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(plan_).mergeFrom(value).buildPartial();
           } else {
             plan_ = value;
           }
@@ -4649,7 +4649,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       public Builder clearPlan() {
         if (planBuilder_ == null) {
@@ -4663,33 +4663,33 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public com.google.protobuf.Any.Builder getPlanBuilder() {
+      public com.google.protobuf2.Any.Builder getPlanBuilder() {
         
         onChanged();
         return getPlanFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPlanOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPlanOrBuilder() {
         if (planBuilder_ != null) {
           return planBuilder_.getMessageOrBuilder();
         } else {
           return plan_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : plan_;
+              com.google.protobuf2.Any.getDefaultInstance() : plan_;
         }
       }
       /**
-       * <code>.google.protobuf.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
+       * <code>.google.protobuf2.Any plan = 1 [(.cosmos_proto.accepts_interface) = "PlanI"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPlanFieldBuilder() {
         if (planBuilder_ == null) {
           planBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getPlan(),
                   getParentForChildren(),
                   isClean());
@@ -10343,60 +10343,60 @@ public final class QueryOuterClass {
       "_address\030\002 \001(\t\022\033\n\023termination_address\030\003 " +
       "\001(\t\022\032\n\022staking_coin_denom\030\004 \001(\t\022\022\n\ntermi" +
       "nated\030\005 \001(\t\022:\n\npagination\030\006 \001(\0132&.cosmos" +
-      ".base.query.v1beta1.PageRequest\"\201\001\n\022Quer" +
-      "yPlansResponse\022.\n\005plans\030\001 \003(\0132\024.google.p" +
-      "rotobuf.AnyB\t\312\264-\005PlanI\022;\n\npagination\030\002 \001" +
-      "(\0132\'.cosmos.base.query.v1beta1.PageRespo" +
-      "nse\"#\n\020QueryPlanRequest\022\017\n\007plan_id\030\001 \001(\004" +
-      "\"B\n\021QueryPlanResponse\022-\n\004plan\030\001 \001(\0132\024.go" +
-      "ogle.protobuf.AnyB\t\312\264-\005PlanI\"B\n\024QuerySta" +
-      "kingsRequest\022\016\n\006farmer\030\001 \001(\t\022\032\n\022staking_" +
-      "coin_denom\030\002 \001(\t\"\335\001\n\025QueryStakingsRespon" +
-      "se\022a\n\014staked_coins\030\001 \003(\0132\031.cosmos.base.v" +
-      "1beta1.CoinB0\252\337\037(github.com/cosmos/cosmo" +
-      "s-sdk/types.Coins\310\336\037\000\022a\n\014queued_coins\030\002 " +
-      "\003(\0132\031.cosmos.base.v1beta1.CoinB0\252\337\037(gith" +
-      "ub.com/cosmos/cosmos-sdk/types.Coins\310\336\037\000" +
-      "\"7\n\031QueryTotalStakingsRequest\022\032\n\022staking" +
-      "_coin_denom\030\001 \001(\t\"\\\n\032QueryTotalStakingsR" +
-      "esponse\022>\n\006amount\030\001 \001(\tB.\332\336\037&github.com/" +
-      "cosmos/cosmos-sdk/types.Int\310\336\037\000\"A\n\023Query" +
-      "RewardsRequest\022\016\n\006farmer\030\001 \001(\t\022\032\n\022stakin" +
-      "g_coin_denom\030\002 \001(\t\"t\n\024QueryRewardsRespon" +
-      "se\022\\\n\007rewards\030\001 \003(\0132\031.cosmos.base.v1beta" +
-      "1.CoinB0\252\337\037(github.com/cosmos/cosmos-sdk" +
-      "/types.Coins\310\336\037\000\"\036\n\034QueryCurrentEpochDay" +
-      "sRequest\";\n\035QueryCurrentEpochDaysRespons" +
-      "e\022\032\n\022current_epoch_days\030\001 \001(\r2\324\010\n\005Query\022" +
-      "\211\001\n\006Params\022*.cosmos.farming.v1beta1.Quer" +
-      "yParamsRequest\032+.cosmos.farming.v1beta1." +
-      "QueryParamsResponse\"&\202\323\344\223\002 \022\036/cosmos/far" +
-      "ming/v1beta1/params\022\205\001\n\005Plans\022).cosmos.f" +
-      "arming.v1beta1.QueryPlansRequest\032*.cosmo" +
-      "s.farming.v1beta1.QueryPlansResponse\"%\202\323" +
-      "\344\223\002\037\022\035/cosmos/farming/v1beta1/plans\022\214\001\n\004" +
-      "Plan\022(.cosmos.farming.v1beta1.QueryPlanR" +
-      "equest\032).cosmos.farming.v1beta1.QueryPla" +
-      "nResponse\"/\202\323\344\223\002)\022\'/cosmos/farming/v1bet" +
-      "a1/plans/{plan_id}\022\232\001\n\010Stakings\022,.cosmos" +
-      ".farming.v1beta1.QueryStakingsRequest\032-." +
-      "cosmos.farming.v1beta1.QueryStakingsResp" +
-      "onse\"1\202\323\344\223\002+\022)/cosmos/farming/v1beta1/st" +
-      "akings/{farmer}\022\273\001\n\rTotalStakings\0221.cosm" +
-      "os.farming.v1beta1.QueryTotalStakingsReq" +
-      "uest\0322.cosmos.farming.v1beta1.QueryTotal" +
-      "StakingsResponse\"C\202\323\344\223\002=\022;/cosmos/farmin" +
-      "g/v1beta1/total_stakings/{staking_coin_d" +
-      "enom}\022\226\001\n\007Rewards\022+.cosmos.farming.v1bet" +
-      "a1.QueryRewardsRequest\032,.cosmos.farming." +
-      "v1beta1.QueryRewardsResponse\"0\202\323\344\223\002*\022(/c" +
-      "osmos/farming/v1beta1/rewards/{farmer}\022\263" +
-      "\001\n\020CurrentEpochDays\0224.cosmos.farming.v1b" +
-      "eta1.QueryCurrentEpochDaysRequest\0325.cosm" +
-      "os.farming.v1beta1.QueryCurrentEpochDays" +
-      "Response\"2\202\323\344\223\002,\022*/cosmos/farming/v1beta" +
-      "1/current_epoch_daysB/Z-github.com/tende" +
-      "rmint/farming/x/farming/typesb\006proto3"
+      ".base.query.v1beta1.PageRequest\"\202\001\n\022Quer" +
+      "yPlansResponse\022/\n\005plans\030\001 \003(\0132\025.google.p" +
+      "rotobuf2.AnyB\t\312\264-\005PlanI\022;\n\npagination\030\002 " +
+      "\001(\0132\'.cosmos.base.query.v1beta1.PageResp" +
+      "onse\"#\n\020QueryPlanRequest\022\017\n\007plan_id\030\001 \001(" +
+      "\004\"C\n\021QueryPlanResponse\022.\n\004plan\030\001 \001(\0132\025.g" +
+      "oogle.protobuf2.AnyB\t\312\264-\005PlanI\"B\n\024QueryS" +
+      "takingsRequest\022\016\n\006farmer\030\001 \001(\t\022\032\n\022stakin" +
+      "g_coin_denom\030\002 \001(\t\"\335\001\n\025QueryStakingsResp" +
+      "onse\022a\n\014staked_coins\030\001 \003(\0132\031.cosmos.base" +
+      ".v1beta1.CoinB0\252\337\037(github.com/cosmos/cos" +
+      "mos-sdk/types.Coins\310\336\037\000\022a\n\014queued_coins\030" +
+      "\002 \003(\0132\031.cosmos.base.v1beta1.CoinB0\252\337\037(gi" +
+      "thub.com/cosmos/cosmos-sdk/types.Coins\310\336" +
+      "\037\000\"7\n\031QueryTotalStakingsRequest\022\032\n\022staki" +
+      "ng_coin_denom\030\001 \001(\t\"\\\n\032QueryTotalStaking" +
+      "sResponse\022>\n\006amount\030\001 \001(\tB.\332\336\037&github.co" +
+      "m/cosmos/cosmos-sdk/types.Int\310\336\037\000\"A\n\023Que" +
+      "ryRewardsRequest\022\016\n\006farmer\030\001 \001(\t\022\032\n\022stak" +
+      "ing_coin_denom\030\002 \001(\t\"t\n\024QueryRewardsResp" +
+      "onse\022\\\n\007rewards\030\001 \003(\0132\031.cosmos.base.v1be" +
+      "ta1.CoinB0\252\337\037(github.com/cosmos/cosmos-s" +
+      "dk/types.Coins\310\336\037\000\"\036\n\034QueryCurrentEpochD" +
+      "aysRequest\";\n\035QueryCurrentEpochDaysRespo" +
+      "nse\022\032\n\022current_epoch_days\030\001 \001(\r2\324\010\n\005Quer" +
+      "y\022\211\001\n\006Params\022*.cosmos.farming.v1beta1.Qu" +
+      "eryParamsRequest\032+.cosmos.farming.v1beta" +
+      "1.QueryParamsResponse\"&\202\323\344\223\002 \022\036/cosmos/f" +
+      "arming/v1beta1/params\022\205\001\n\005Plans\022).cosmos" +
+      ".farming.v1beta1.QueryPlansRequest\032*.cos" +
+      "mos.farming.v1beta1.QueryPlansResponse\"%" +
+      "\202\323\344\223\002\037\022\035/cosmos/farming/v1beta1/plans\022\214\001" +
+      "\n\004Plan\022(.cosmos.farming.v1beta1.QueryPla" +
+      "nRequest\032).cosmos.farming.v1beta1.QueryP" +
+      "lanResponse\"/\202\323\344\223\002)\022\'/cosmos/farming/v1b" +
+      "eta1/plans/{plan_id}\022\232\001\n\010Stakings\022,.cosm" +
+      "os.farming.v1beta1.QueryStakingsRequest\032" +
+      "-.cosmos.farming.v1beta1.QueryStakingsRe" +
+      "sponse\"1\202\323\344\223\002+\022)/cosmos/farming/v1beta1/" +
+      "stakings/{farmer}\022\273\001\n\rTotalStakings\0221.co" +
+      "smos.farming.v1beta1.QueryTotalStakingsR" +
+      "equest\0322.cosmos.farming.v1beta1.QueryTot" +
+      "alStakingsResponse\"C\202\323\344\223\002=\022;/cosmos/farm" +
+      "ing/v1beta1/total_stakings/{staking_coin" +
+      "_denom}\022\226\001\n\007Rewards\022+.cosmos.farming.v1b" +
+      "eta1.QueryRewardsRequest\032,.cosmos.farmin" +
+      "g.v1beta1.QueryRewardsResponse\"0\202\323\344\223\002*\022(" +
+      "/cosmos/farming/v1beta1/rewards/{farmer}" +
+      "\022\263\001\n\020CurrentEpochDays\0224.cosmos.farming.v" +
+      "1beta1.QueryCurrentEpochDaysRequest\0325.co" +
+      "smos.farming.v1beta1.QueryCurrentEpochDa" +
+      "ysResponse\"2\202\323\344\223\002,\022*/cosmos/farming/v1be" +
+      "ta1/current_epoch_daysB/Z-github.com/ten" +
+      "dermint/farming/x/farming/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -10405,8 +10405,8 @@ public final class QueryOuterClass {
           cosmos_proto.Cosmos.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
         });
     internal_static_cosmos_farming_v1beta1_QueryParamsRequest_descriptor =
@@ -10496,9 +10496,9 @@ public final class QueryOuterClass {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
@@ -10506,8 +10506,8 @@ public final class QueryOuterClass {
     cosmos_proto.Cosmos.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
   }
 

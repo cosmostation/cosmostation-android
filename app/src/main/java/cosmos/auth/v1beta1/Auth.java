@@ -31,19 +31,19 @@ public final class Auth {
         getAddressBytes();
 
     /**
-     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      * @return Whether the pubKey field is set.
      */
     boolean hasPubKey();
     /**
-     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      * @return The pubKey.
      */
-    com.google.protobuf.Any getPubKey();
+    com.google.protobuf2.Any getPubKey();
     /**
-     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder();
 
     /**
      * <code>uint64 account_number = 3;</code>
@@ -116,11 +116,11 @@ public final class Auth {
               break;
             }
             case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (pubKey_ != null) {
                 subBuilder = pubKey_.toBuilder();
               }
-              pubKey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              pubKey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(pubKey_);
                 pubKey_ = subBuilder.buildPartial();
@@ -209,9 +209,9 @@ public final class Auth {
     }
 
     public static final int PUB_KEY_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any pubKey_;
+    private com.google.protobuf2.Any pubKey_;
     /**
-     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      * @return Whether the pubKey field is set.
      */
     @java.lang.Override
@@ -219,18 +219,18 @@ public final class Auth {
       return pubKey_ != null;
     }
     /**
-     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      * @return The pubKey.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPubKey() {
-      return pubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+    public com.google.protobuf2.Any getPubKey() {
+      return pubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
     }
     /**
-     * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+     * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder() {
       return getPubKey();
     }
 
@@ -706,31 +706,31 @@ public final class Auth {
         return this;
       }
 
-      private com.google.protobuf.Any pubKey_;
+      private com.google.protobuf2.Any pubKey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> pubKeyBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> pubKeyBuilder_;
       /**
-       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        * @return Whether the pubKey field is set.
        */
       public boolean hasPubKey() {
         return pubKeyBuilder_ != null || pubKey_ != null;
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        * @return The pubKey.
        */
-      public com.google.protobuf.Any getPubKey() {
+      public com.google.protobuf2.Any getPubKey() {
         if (pubKeyBuilder_ == null) {
-          return pubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+          return pubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
         } else {
           return pubKeyBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
-      public Builder setPubKey(com.google.protobuf.Any value) {
+      public Builder setPubKey(com.google.protobuf2.Any value) {
         if (pubKeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -744,10 +744,10 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
       public Builder setPubKey(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (pubKeyBuilder_ == null) {
           pubKey_ = builderForValue.build();
           onChanged();
@@ -758,13 +758,13 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
-      public Builder mergePubKey(com.google.protobuf.Any value) {
+      public Builder mergePubKey(com.google.protobuf2.Any value) {
         if (pubKeyBuilder_ == null) {
           if (pubKey_ != null) {
             pubKey_ =
-              com.google.protobuf.Any.newBuilder(pubKey_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(pubKey_).mergeFrom(value).buildPartial();
           } else {
             pubKey_ = value;
           }
@@ -776,7 +776,7 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
       public Builder clearPubKey() {
         if (pubKeyBuilder_ == null) {
@@ -790,33 +790,33 @@ public final class Auth {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
-      public com.google.protobuf.Any.Builder getPubKeyBuilder() {
+      public com.google.protobuf2.Any.Builder getPubKeyBuilder() {
         
         onChanged();
         return getPubKeyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder() {
         if (pubKeyBuilder_ != null) {
           return pubKeyBuilder_.getMessageOrBuilder();
         } else {
           return pubKey_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+              com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
         }
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
+       * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPubKeyFieldBuilder() {
         if (pubKeyBuilder_ == null) {
           pubKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getPubKey(),
                   getParentForChildren(),
                   isClean());
@@ -2746,29 +2746,29 @@ public final class Auth {
       "\n\036cosmos/auth/v1beta1/auth.proto\022\023cosmos" +
       ".auth.v1beta1\032\031cosmos_proto/cosmos.proto" +
       "\032\024gogoproto/gogo.proto\032\032google/protobuf2" +
-      "/any.proto\"\275\001\n\013BaseAccount\022)\n\007address\030\001 " +
-      "\001(\tB\030\322\264-\024cosmos.AddressString\022?\n\007pub_key" +
-      "\030\002 \001(\0132\024.google.protobuf.AnyB\030\352\336\037\024public" +
-      "_key,omitempty\022\026\n\016account_number\030\003 \001(\004\022\020" +
-      "\n\010sequence\030\004 \001(\004:\030\210\240\037\000\230\240\037\000\350\240\037\000\312\264-\010Accoun" +
-      "tI\"\214\001\n\rModuleAccount\022<\n\014base_account\030\001 \001" +
-      "(\0132 .cosmos.auth.v1beta1.BaseAccountB\004\320\336" +
-      "\037\001\022\014\n\004name\030\002 \001(\t\022\023\n\013permissions\030\003 \003(\t:\032\210" +
-      "\240\037\000\230\240\037\000\312\264-\016ModuleAccountI\"\336\001\n\006Params\022\033\n\023" +
-      "max_memo_characters\030\001 \001(\004\022\024\n\014tx_sig_limi" +
-      "t\030\002 \001(\004\022\035\n\025tx_size_cost_per_byte\030\003 \001(\004\0229" +
-      "\n\027sig_verify_cost_ed25519\030\004 \001(\004B\030\342\336\037\024Sig" +
-      "VerifyCostED25519\022=\n\031sig_verify_cost_sec" +
-      "p256k1\030\005 \001(\004B\032\342\336\037\026SigVerifyCostSecp256k1" +
-      ":\010\350\240\037\001\230\240\037\000B+Z)github.com/cosmos/cosmos-s" +
-      "dk/x/auth/typesb\006proto3"
+      "/any.proto\"\276\001\n\013BaseAccount\022)\n\007address\030\001 " +
+      "\001(\tB\030\322\264-\024cosmos.AddressString\022@\n\007pub_key" +
+      "\030\002 \001(\0132\025.google.protobuf2.AnyB\030\352\336\037\024publi" +
+      "c_key,omitempty\022\026\n\016account_number\030\003 \001(\004\022" +
+      "\020\n\010sequence\030\004 \001(\004:\030\210\240\037\000\230\240\037\000\350\240\037\000\312\264-\010Accou" +
+      "ntI\"\214\001\n\rModuleAccount\022<\n\014base_account\030\001 " +
+      "\001(\0132 .cosmos.auth.v1beta1.BaseAccountB\004\320" +
+      "\336\037\001\022\014\n\004name\030\002 \001(\t\022\023\n\013permissions\030\003 \003(\t:\032" +
+      "\210\240\037\000\230\240\037\000\312\264-\016ModuleAccountI\"\336\001\n\006Params\022\033\n" +
+      "\023max_memo_characters\030\001 \001(\004\022\024\n\014tx_sig_lim" +
+      "it\030\002 \001(\004\022\035\n\025tx_size_cost_per_byte\030\003 \001(\004\022" +
+      "9\n\027sig_verify_cost_ed25519\030\004 \001(\004B\030\342\336\037\024Si" +
+      "gVerifyCostED25519\022=\n\031sig_verify_cost_se" +
+      "cp256k1\030\005 \001(\004B\032\342\336\037\026SigVerifyCostSecp256k" +
+      "1:\010\350\240\037\001\230\240\037\000B+Z)github.com/cosmos/cosmos-" +
+      "sdk/x/auth/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos_proto.Cosmos.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_cosmos_auth_v1beta1_BaseAccount_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2792,17 +2792,17 @@ public final class Auth {
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.implementsInterface);
     registry.add(cosmos_proto.Cosmos.scalar);
-    registry.add(com.google.protobuf.GoGoProtos.customname);
-    registry.add(com.google.protobuf.GoGoProtos.embed);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf2.GoGoProtos.customname);
+    registry.add(com.google.protobuf2.GoGoProtos.embed);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos_proto.Cosmos.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

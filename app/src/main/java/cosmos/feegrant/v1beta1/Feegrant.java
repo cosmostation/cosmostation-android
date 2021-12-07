@@ -3518,7 +3518,7 @@ public final class Feegrant {
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      * @return Whether the allowance field is set.
      */
     boolean hasAllowance();
@@ -3527,18 +3527,18 @@ public final class Feegrant {
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      * @return The allowance.
      */
-    com.google.protobuf.Any getAllowance();
+    com.google.protobuf2.Any getAllowance();
     /**
      * <pre>
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getAllowanceOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getAllowanceOrBuilder();
 
     /**
      * <pre>
@@ -3633,11 +3633,11 @@ public final class Feegrant {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (allowance_ != null) {
                 subBuilder = allowance_.toBuilder();
               }
-              allowance_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              allowance_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(allowance_);
                 allowance_ = subBuilder.buildPartial();
@@ -3690,13 +3690,13 @@ public final class Feegrant {
     }
 
     public static final int ALLOWANCE_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any allowance_;
+    private com.google.protobuf2.Any allowance_;
     /**
      * <pre>
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      * @return Whether the allowance field is set.
      */
     @java.lang.Override
@@ -3708,22 +3708,22 @@ public final class Feegrant {
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      * @return The allowance.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getAllowance() {
-      return allowance_ == null ? com.google.protobuf.Any.getDefaultInstance() : allowance_;
+    public com.google.protobuf2.Any getAllowance() {
+      return allowance_ == null ? com.google.protobuf2.Any.getDefaultInstance() : allowance_;
     }
     /**
      * <pre>
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getAllowanceOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getAllowanceOrBuilder() {
       return getAllowance();
     }
 
@@ -4133,15 +4133,15 @@ public final class Feegrant {
       }
       private int bitField0_;
 
-      private com.google.protobuf.Any allowance_;
+      private com.google.protobuf2.Any allowance_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> allowanceBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> allowanceBuilder_;
       /**
        * <pre>
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        * @return Whether the allowance field is set.
        */
       public boolean hasAllowance() {
@@ -4152,12 +4152,12 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        * @return The allowance.
        */
-      public com.google.protobuf.Any getAllowance() {
+      public com.google.protobuf2.Any getAllowance() {
         if (allowanceBuilder_ == null) {
-          return allowance_ == null ? com.google.protobuf.Any.getDefaultInstance() : allowance_;
+          return allowance_ == null ? com.google.protobuf2.Any.getDefaultInstance() : allowance_;
         } else {
           return allowanceBuilder_.getMessage();
         }
@@ -4167,9 +4167,9 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
-      public Builder setAllowance(com.google.protobuf.Any value) {
+      public Builder setAllowance(com.google.protobuf2.Any value) {
         if (allowanceBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4187,10 +4187,10 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
       public Builder setAllowance(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (allowanceBuilder_ == null) {
           allowance_ = builderForValue.build();
           onChanged();
@@ -4205,13 +4205,13 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
-      public Builder mergeAllowance(com.google.protobuf.Any value) {
+      public Builder mergeAllowance(com.google.protobuf2.Any value) {
         if (allowanceBuilder_ == null) {
           if (allowance_ != null) {
             allowance_ =
-              com.google.protobuf.Any.newBuilder(allowance_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(allowance_).mergeFrom(value).buildPartial();
           } else {
             allowance_ = value;
           }
@@ -4227,7 +4227,7 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
       public Builder clearAllowance() {
         if (allowanceBuilder_ == null) {
@@ -4245,9 +4245,9 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
-      public com.google.protobuf.Any.Builder getAllowanceBuilder() {
+      public com.google.protobuf2.Any.Builder getAllowanceBuilder() {
         
         onChanged();
         return getAllowanceFieldBuilder().getBuilder();
@@ -4257,14 +4257,14 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getAllowanceOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getAllowanceOrBuilder() {
         if (allowanceBuilder_ != null) {
           return allowanceBuilder_.getMessageOrBuilder();
         } else {
           return allowance_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : allowance_;
+              com.google.protobuf2.Any.getDefaultInstance() : allowance_;
         }
       }
       /**
@@ -4272,14 +4272,14 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 1 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getAllowanceFieldBuilder() {
         if (allowanceBuilder_ == null) {
           allowanceBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getAllowance(),
                   getParentForChildren(),
                   isClean());
@@ -4535,7 +4535,7 @@ public final class Feegrant {
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      * @return Whether the allowance field is set.
      */
     boolean hasAllowance();
@@ -4544,18 +4544,18 @@ public final class Feegrant {
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      * @return The allowance.
      */
-    com.google.protobuf.Any getAllowance();
+    com.google.protobuf2.Any getAllowance();
     /**
      * <pre>
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getAllowanceOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getAllowanceOrBuilder();
   }
   /**
    * <pre>
@@ -4621,11 +4621,11 @@ public final class Feegrant {
               break;
             }
             case 26: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (allowance_ != null) {
                 subBuilder = allowance_.toBuilder();
               }
-              allowance_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              allowance_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(allowance_);
                 allowance_ = subBuilder.buildPartial();
@@ -4758,13 +4758,13 @@ public final class Feegrant {
     }
 
     public static final int ALLOWANCE_FIELD_NUMBER = 3;
-    private com.google.protobuf.Any allowance_;
+    private com.google.protobuf2.Any allowance_;
     /**
      * <pre>
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      * @return Whether the allowance field is set.
      */
     @java.lang.Override
@@ -4776,22 +4776,22 @@ public final class Feegrant {
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      * @return The allowance.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getAllowance() {
-      return allowance_ == null ? com.google.protobuf.Any.getDefaultInstance() : allowance_;
+    public com.google.protobuf2.Any getAllowance() {
+      return allowance_ == null ? com.google.protobuf2.Any.getDefaultInstance() : allowance_;
     }
     /**
      * <pre>
      * allowance can be any of basic and filtered fee allowance.
      * </pre>
      *
-     * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+     * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getAllowanceOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getAllowanceOrBuilder() {
       return getAllowance();
     }
 
@@ -5340,15 +5340,15 @@ public final class Feegrant {
         return this;
       }
 
-      private com.google.protobuf.Any allowance_;
+      private com.google.protobuf2.Any allowance_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> allowanceBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> allowanceBuilder_;
       /**
        * <pre>
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        * @return Whether the allowance field is set.
        */
       public boolean hasAllowance() {
@@ -5359,12 +5359,12 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        * @return The allowance.
        */
-      public com.google.protobuf.Any getAllowance() {
+      public com.google.protobuf2.Any getAllowance() {
         if (allowanceBuilder_ == null) {
-          return allowance_ == null ? com.google.protobuf.Any.getDefaultInstance() : allowance_;
+          return allowance_ == null ? com.google.protobuf2.Any.getDefaultInstance() : allowance_;
         } else {
           return allowanceBuilder_.getMessage();
         }
@@ -5374,9 +5374,9 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
-      public Builder setAllowance(com.google.protobuf.Any value) {
+      public Builder setAllowance(com.google.protobuf2.Any value) {
         if (allowanceBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5394,10 +5394,10 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
       public Builder setAllowance(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (allowanceBuilder_ == null) {
           allowance_ = builderForValue.build();
           onChanged();
@@ -5412,13 +5412,13 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
-      public Builder mergeAllowance(com.google.protobuf.Any value) {
+      public Builder mergeAllowance(com.google.protobuf2.Any value) {
         if (allowanceBuilder_ == null) {
           if (allowance_ != null) {
             allowance_ =
-              com.google.protobuf.Any.newBuilder(allowance_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(allowance_).mergeFrom(value).buildPartial();
           } else {
             allowance_ = value;
           }
@@ -5434,7 +5434,7 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
       public Builder clearAllowance() {
         if (allowanceBuilder_ == null) {
@@ -5452,9 +5452,9 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
-      public com.google.protobuf.Any.Builder getAllowanceBuilder() {
+      public com.google.protobuf2.Any.Builder getAllowanceBuilder() {
         
         onChanged();
         return getAllowanceFieldBuilder().getBuilder();
@@ -5464,14 +5464,14 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getAllowanceOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getAllowanceOrBuilder() {
         if (allowanceBuilder_ != null) {
           return allowanceBuilder_.getMessageOrBuilder();
         } else {
           return allowance_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : allowance_;
+              com.google.protobuf2.Any.getDefaultInstance() : allowance_;
         }
       }
       /**
@@ -5479,14 +5479,14 @@ public final class Feegrant {
        * allowance can be any of basic and filtered fee allowance.
        * </pre>
        *
-       * <code>.google.protobuf.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
+       * <code>.google.protobuf2.Any allowance = 3 [(.cosmos_proto.accepts_interface) = "FeeAllowanceI"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getAllowanceFieldBuilder() {
         if (allowanceBuilder_ == null) {
           allowanceBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getAllowance(),
                   getParentForChildren(),
                   isClean());
@@ -5597,21 +5597,21 @@ public final class Feegrant {
       "CoinB0\310\336\037\000\252\337\037(github.com/cosmos/cosmos-s" +
       "dk/types.Coins\022:\n\014period_reset\030\005 \001(\0132\032.g" +
       "oogle.protobuf.TimestampB\010\220\337\037\001\310\336\037\000:\021\312\264-\r" +
-      "FeeAllowanceI\"\202\001\n\023AllowedMsgAllowance\022:\n" +
-      "\tallowance\030\001 \001(\0132\024.google.protobuf.AnyB\021" +
-      "\312\264-\rFeeAllowanceI\022\030\n\020allowed_messages\030\002 " +
-      "\003(\t:\025\210\240\037\000\312\264-\rFeeAllowanceI\"\231\001\n\005Grant\022)\n\007" +
-      "granter\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\022" +
-      ")\n\007grantee\030\002 \001(\tB\030\322\264-\024cosmos.AddressStri" +
-      "ng\022:\n\tallowance\030\003 \001(\0132\024.google.protobuf." +
-      "AnyB\021\312\264-\rFeeAllowanceIB)Z\'github.com/cos" +
-      "mos/cosmos-sdk/x/feegrantb\006proto3"
+      "FeeAllowanceI\"\203\001\n\023AllowedMsgAllowance\022;\n" +
+      "\tallowance\030\001 \001(\0132\025.google.protobuf2.AnyB" +
+      "\021\312\264-\rFeeAllowanceI\022\030\n\020allowed_messages\030\002" +
+      " \003(\t:\025\210\240\037\000\312\264-\rFeeAllowanceI\"\232\001\n\005Grant\022)\n" +
+      "\007granter\030\001 \001(\tB\030\322\264-\024cosmos.AddressString" +
+      "\022)\n\007grantee\030\002 \001(\tB\030\322\264-\024cosmos.AddressStr" +
+      "ing\022;\n\tallowance\030\003 \001(\0132\025.google.protobuf" +
+      "2.AnyB\021\312\264-\rFeeAllowanceIB)Z\'github.com/c" +
+      "osmos/cosmos-sdk/x/feegrantb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
@@ -5646,15 +5646,15 @@ public final class Feegrant {
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
     registry.add(cosmos_proto.Cosmos.implementsInterface);
     registry.add(cosmos_proto.Cosmos.scalar);
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdduration);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();

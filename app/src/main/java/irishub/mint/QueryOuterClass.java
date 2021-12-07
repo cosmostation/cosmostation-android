@@ -1309,7 +1309,7 @@ public final class QueryOuterClass {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           irishub.mint.Mint.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
         });
     internal_static_irishub_mint_QueryParamsRequest_descriptor =
@@ -1326,13 +1326,13 @@ public final class QueryOuterClass {
         new java.lang.String[] { "Params", "Res", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     irishub.mint.Mint.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
   }
 

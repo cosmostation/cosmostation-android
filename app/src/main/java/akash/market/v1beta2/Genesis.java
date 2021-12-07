@@ -1421,7 +1421,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           akash.market.v1beta2.OrderOuterClass.getDescriptor(),
           akash.market.v1beta2.LeaseOuterClass.getDescriptor(),
           akash.market.v1beta2.ParamsOuterClass.getDescriptor(),
@@ -1434,12 +1434,12 @@ public final class Genesis {
         new java.lang.String[] { "Orders", "Leases", "Params", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     akash.market.v1beta2.OrderOuterClass.getDescriptor();
     akash.market.v1beta2.LeaseOuterClass.getDescriptor();
     akash.market.v1beta2.ParamsOuterClass.getDescriptor();

@@ -24,86 +24,68 @@ public final class MsgServer {
   static {
     java.lang.String[] descriptorData = {
       "\n(desmos/profiles/v1beta1/msg_server.pro" +
-      "to\022\027desmos.profiles.v1beta1\032\024gogoproto/g" +
-      "ogo.proto\032\032google/protobuf2/any.proto\032\031c" +
-      "osmos_proto/cosmos.proto\032,desmos/profile" +
-      "s/v1beta1/models_profile.proto\0322desmos/p" +
-      "rofiles/v1beta1/models_relationships.pro" +
-      "to\0322desmos/profiles/v1beta1/models_dtag_" +
-      "requests.proto\032*desmos/profiles/v1beta1/" +
-      "msgs_profile.proto\0320desmos/profiles/v1be" +
-      "ta1/msgs_relationships.proto\0320desmos/pro" +
-      "files/v1beta1/msgs_dtag_requests.proto\032." +
-      "desmos/profiles/v1beta1/msgs_chain_links" +
-      ".proto\032,desmos/profiles/v1beta1/msgs_app" +
-      "_links.proto2\310\r\n\003Msg\022g\n\013SaveProfile\022\'.de" +
-      "smos.profiles.v1beta1.MsgSaveProfile\032/.d" +
-      "esmos.profiles.v1beta1.MsgSaveProfileRes" +
-      "ponse\022m\n\rDeleteProfile\022).desmos.profiles" +
-      ".v1beta1.MsgDeleteProfile\0321.desmos.profi" +
-      "les.v1beta1.MsgDeleteProfileResponse\022\177\n\023" +
-      "RequestDTagTransfer\022/.desmos.profiles.v1" +
-      "beta1.MsgRequestDTagTransfer\0327.desmos.pr" +
-      "ofiles.v1beta1.MsgRequestDTagTransferRes" +
-      "ponse\022\221\001\n\031CancelDTagTransferRequest\0225.de" +
-      "smos.profiles.v1beta1.MsgCancelDTagTrans" +
-      "ferRequest\032=.desmos.profiles.v1beta1.Msg" +
-      "CancelDTagTransferRequestResponse\022\221\001\n\031Ac" +
-      "ceptDTagTransferRequest\0225.desmos.profile" +
-      "s.v1beta1.MsgAcceptDTagTransferRequest\032=" +
-      ".desmos.profiles.v1beta1.MsgAcceptDTagTr" +
-      "ansferRequestResponse\022\221\001\n\031RefuseDTagTran" +
-      "sferRequest\0225.desmos.profiles.v1beta1.Ms" +
-      "gRefuseDTagTransferRequest\032=.desmos.prof" +
-      "iles.v1beta1.MsgRefuseDTagTransferReques" +
-      "tResponse\022|\n\022CreateRelationship\022..desmos" +
-      ".profiles.v1beta1.MsgCreateRelationship\032" +
-      "6.desmos.profiles.v1beta1.MsgCreateRelat" +
-      "ionshipResponse\022|\n\022DeleteRelationship\022.." +
-      "desmos.profiles.v1beta1.MsgDeleteRelatio" +
-      "nship\0326.desmos.profiles.v1beta1.MsgDelet" +
-      "eRelationshipResponse\022a\n\tBlockUser\022%.des" +
-      "mos.profiles.v1beta1.MsgBlockUser\032-.desm" +
-      "os.profiles.v1beta1.MsgBlockUserResponse" +
-      "\022g\n\013UnblockUser\022\'.desmos.profiles.v1beta" +
-      "1.MsgUnblockUser\032/.desmos.profiles.v1bet" +
-      "a1.MsgUnblockUserResponse\022v\n\020LinkChainAc" +
-      "count\022,.desmos.profiles.v1beta1.MsgLinkC" +
-      "hainAccount\0324.desmos.profiles.v1beta1.Ms" +
-      "gLinkChainAccountResponse\022|\n\022UnlinkChain" +
-      "Account\022..desmos.profiles.v1beta1.MsgUnl" +
-      "inkChainAccount\0326.desmos.profiles.v1beta" +
-      "1.MsgUnlinkChainAccountResponse\022s\n\017LinkA" +
-      "pplication\022+.desmos.profiles.v1beta1.Msg" +
-      "LinkApplication\0323.desmos.profiles.v1beta" +
-      "1.MsgLinkApplicationResponse\022y\n\021UnlinkAp" +
-      "plication\022-.desmos.profiles.v1beta1.MsgU" +
-      "nlinkApplication\0325.desmos.profiles.v1bet" +
-      "a1.MsgUnlinkApplicationResponseB3Z1githu" +
-      "b.com/desmos-labs/desmos/v2/x/profiles/t" +
-      "ypesb\006proto3"
+      "to\022\027desmos.profiles.v1beta1\032*desmos/prof" +
+      "iles/v1beta1/msgs_profile.proto\0320desmos/" +
+      "profiles/v1beta1/msgs_relationships.prot" +
+      "o\0320desmos/profiles/v1beta1/msgs_dtag_req" +
+      "uests.proto\032.desmos/profiles/v1beta1/msg" +
+      "s_chain_links.proto\032,desmos/profiles/v1b" +
+      "eta1/msgs_app_links.proto2\310\r\n\003Msg\022g\n\013Sav" +
+      "eProfile\022\'.desmos.profiles.v1beta1.MsgSa" +
+      "veProfile\032/.desmos.profiles.v1beta1.MsgS" +
+      "aveProfileResponse\022m\n\rDeleteProfile\022).de" +
+      "smos.profiles.v1beta1.MsgDeleteProfile\0321" +
+      ".desmos.profiles.v1beta1.MsgDeleteProfil" +
+      "eResponse\022\177\n\023RequestDTagTransfer\022/.desmo" +
+      "s.profiles.v1beta1.MsgRequestDTagTransfe" +
+      "r\0327.desmos.profiles.v1beta1.MsgRequestDT" +
+      "agTransferResponse\022\221\001\n\031CancelDTagTransfe" +
+      "rRequest\0225.desmos.profiles.v1beta1.MsgCa" +
+      "ncelDTagTransferRequest\032=.desmos.profile" +
+      "s.v1beta1.MsgCancelDTagTransferRequestRe" +
+      "sponse\022\221\001\n\031AcceptDTagTransferRequest\0225.d" +
+      "esmos.profiles.v1beta1.MsgAcceptDTagTran" +
+      "sferRequest\032=.desmos.profiles.v1beta1.Ms" +
+      "gAcceptDTagTransferRequestResponse\022\221\001\n\031R" +
+      "efuseDTagTransferRequest\0225.desmos.profil" +
+      "es.v1beta1.MsgRefuseDTagTransferRequest\032" +
+      "=.desmos.profiles.v1beta1.MsgRefuseDTagT" +
+      "ransferRequestResponse\022|\n\022CreateRelation" +
+      "ship\022..desmos.profiles.v1beta1.MsgCreate" +
+      "Relationship\0326.desmos.profiles.v1beta1.M" +
+      "sgCreateRelationshipResponse\022|\n\022DeleteRe" +
+      "lationship\022..desmos.profiles.v1beta1.Msg" +
+      "DeleteRelationship\0326.desmos.profiles.v1b" +
+      "eta1.MsgDeleteRelationshipResponse\022a\n\tBl" +
+      "ockUser\022%.desmos.profiles.v1beta1.MsgBlo" +
+      "ckUser\032-.desmos.profiles.v1beta1.MsgBloc" +
+      "kUserResponse\022g\n\013UnblockUser\022\'.desmos.pr" +
+      "ofiles.v1beta1.MsgUnblockUser\032/.desmos.p" +
+      "rofiles.v1beta1.MsgUnblockUserResponse\022v" +
+      "\n\020LinkChainAccount\022,.desmos.profiles.v1b" +
+      "eta1.MsgLinkChainAccount\0324.desmos.profil" +
+      "es.v1beta1.MsgLinkChainAccountResponse\022|" +
+      "\n\022UnlinkChainAccount\022..desmos.profiles.v" +
+      "1beta1.MsgUnlinkChainAccount\0326.desmos.pr" +
+      "ofiles.v1beta1.MsgUnlinkChainAccountResp" +
+      "onse\022s\n\017LinkApplication\022+.desmos.profile" +
+      "s.v1beta1.MsgLinkApplication\0323.desmos.pr" +
+      "ofiles.v1beta1.MsgLinkApplicationRespons" +
+      "e\022y\n\021UnlinkApplication\022-.desmos.profiles" +
+      ".v1beta1.MsgUnlinkApplication\0325.desmos.p" +
+      "rofiles.v1beta1.MsgUnlinkApplicationResp" +
+      "onseB3Z1github.com/desmos-labs/desmos/v2" +
+      "/x/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsProfile.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsRelationships.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor(),
           desmos.profiles.v1beta1.MsgsProfile.getDescriptor(),
           desmos.profiles.v1beta1.MsgsRelationships.getDescriptor(),
           desmos.profiles.v1beta1.MsgsDtagRequests.getDescriptor(),
           desmos.profiles.v1beta1.MsgsChainLinks.getDescriptor(),
           desmos.profiles.v1beta1.MsgsAppLinks.getDescriptor(),
         });
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
-    desmos.profiles.v1beta1.ModelsProfile.getDescriptor();
-    desmos.profiles.v1beta1.ModelsRelationships.getDescriptor();
-    desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor();
     desmos.profiles.v1beta1.MsgsProfile.getDescriptor();
     desmos.profiles.v1beta1.MsgsRelationships.getDescriptor();
     desmos.profiles.v1beta1.MsgsDtagRequests.getDescriptor();

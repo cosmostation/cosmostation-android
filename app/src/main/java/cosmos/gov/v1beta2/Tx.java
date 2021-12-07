@@ -19,27 +19,27 @@ public final class Tx {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getMessagesList();
     /**
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    com.google.protobuf.Any getMessages(int index);
+    com.google.protobuf2.Any getMessages(int index);
     /**
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
     int getMessagesCount();
     /**
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getMessagesOrBuilderList();
     /**
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    com.google.protobuf.AnyOrBuilder getMessagesOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getMessagesOrBuilder(
         int index);
 
     /**
@@ -134,11 +134,11 @@ public final class Tx {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                messages_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                messages_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000001;
               }
               messages_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             case 18: {
@@ -195,41 +195,41 @@ public final class Tx {
     }
 
     public static final int MESSAGES_FIELD_NUMBER = 1;
-    private java.util.List<com.google.protobuf.Any> messages_;
+    private java.util.List<com.google.protobuf2.Any> messages_;
     /**
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<com.google.protobuf.Any> getMessagesList() {
+    public java.util.List<com.google.protobuf2.Any> getMessagesList() {
       return messages_;
     }
     /**
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getMessagesOrBuilderList() {
       return messages_;
     }
     /**
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
     @java.lang.Override
     public int getMessagesCount() {
       return messages_.size();
     }
     /**
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Any getMessages(int index) {
+    public com.google.protobuf2.Any getMessages(int index) {
       return messages_.get(index);
     }
     /**
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getMessagesOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getMessagesOrBuilder(
         int index) {
       return messages_.get(index);
     }
@@ -731,22 +731,22 @@ public final class Tx {
       }
       private int bitField0_;
 
-      private java.util.List<com.google.protobuf.Any> messages_ =
+      private java.util.List<com.google.protobuf2.Any> messages_ =
         java.util.Collections.emptyList();
       private void ensureMessagesIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          messages_ = new java.util.ArrayList<com.google.protobuf.Any>(messages_);
+          messages_ = new java.util.ArrayList<com.google.protobuf2.Any>(messages_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> messagesBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> messagesBuilder_;
 
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public java.util.List<com.google.protobuf.Any> getMessagesList() {
+      public java.util.List<com.google.protobuf2.Any> getMessagesList() {
         if (messagesBuilder_ == null) {
           return java.util.Collections.unmodifiableList(messages_);
         } else {
@@ -754,7 +754,7 @@ public final class Tx {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public int getMessagesCount() {
         if (messagesBuilder_ == null) {
@@ -764,9 +764,9 @@ public final class Tx {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public com.google.protobuf.Any getMessages(int index) {
+      public com.google.protobuf2.Any getMessages(int index) {
         if (messagesBuilder_ == null) {
           return messages_.get(index);
         } else {
@@ -774,10 +774,10 @@ public final class Tx {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder setMessages(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (messagesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -791,10 +791,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder setMessages(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (messagesBuilder_ == null) {
           ensureMessagesIsMutable();
           messages_.set(index, builderForValue.build());
@@ -805,9 +805,9 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public Builder addMessages(com.google.protobuf.Any value) {
+      public Builder addMessages(com.google.protobuf2.Any value) {
         if (messagesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -821,10 +821,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder addMessages(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (messagesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -838,10 +838,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder addMessages(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (messagesBuilder_ == null) {
           ensureMessagesIsMutable();
           messages_.add(builderForValue.build());
@@ -852,10 +852,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder addMessages(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (messagesBuilder_ == null) {
           ensureMessagesIsMutable();
           messages_.add(index, builderForValue.build());
@@ -866,10 +866,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder addAllMessages(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (messagesBuilder_ == null) {
           ensureMessagesIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -881,7 +881,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder clearMessages() {
         if (messagesBuilder_ == null) {
@@ -894,7 +894,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder removeMessages(int index) {
         if (messagesBuilder_ == null) {
@@ -907,16 +907,16 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public com.google.protobuf.Any.Builder getMessagesBuilder(
+      public com.google.protobuf2.Any.Builder getMessagesBuilder(
           int index) {
         return getMessagesFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getMessagesOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getMessagesOrBuilder(
           int index) {
         if (messagesBuilder_ == null) {
           return messages_.get(index);  } else {
@@ -924,9 +924,9 @@ public final class Tx {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getMessagesOrBuilderList() {
         if (messagesBuilder_ != null) {
           return messagesBuilder_.getMessageOrBuilderList();
@@ -935,33 +935,33 @@ public final class Tx {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public com.google.protobuf.Any.Builder addMessagesBuilder() {
+      public com.google.protobuf2.Any.Builder addMessagesBuilder() {
         return getMessagesFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public com.google.protobuf.Any.Builder addMessagesBuilder(
+      public com.google.protobuf2.Any.Builder addMessagesBuilder(
           int index) {
         return getMessagesFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getMessagesBuilderList() {
         return getMessagesFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getMessagesFieldBuilder() {
         if (messagesBuilder_ == null) {
           messagesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   messages_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -5969,41 +5969,41 @@ public final class Tx {
       "v.v1beta2\032\036cosmos/base/v1beta1/coin.prot" +
       "o\032\034cosmos/gov/v1beta2/gov.proto\032\031cosmos_" +
       "proto/cosmos.proto\032\024gogoproto/gogo.proto" +
-      "\032\032google/protobuf2/any.proto\"\337\001\n\021MsgSubm" +
-      "itProposal\022&\n\010messages\030\001 \003(\0132\024.google.pr" +
-      "otobuf.Any\022d\n\017initial_deposit\030\002 \003(\0132\031.co" +
-      "smos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.c" +
-      "om/cosmos/cosmos-sdk/types.Coins\022*\n\010prop" +
-      "oser\030\003 \001(\tB\030\322\264-\024cosmos.AddressString:\020\350\240" +
-      "\037\000\230\240\037\000\200\334 \000\210\240\037\000\"A\n\031MsgSubmitProposalRespo" +
-      "nse\022$\n\013proposal_id\030\001 \001(\004B\017\352\336\037\013proposal_i" +
-      "d\"\260\001\n\007MsgVote\022:\n\013proposal_id\030\001 \001(\004B%\352\336\037\013" +
-      "proposal_id\362\336\037\022yaml:\"proposal_id\"\022\'\n\005vot" +
-      "er\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022.\n\006op" +
-      "tion\030\003 \001(\0162\036.cosmos.gov.v1beta2.VoteOpti" +
-      "on:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\021\n\017MsgVoteResponse\"" +
-      "\270\001\n\017MsgVoteWeighted\022+\n\013proposal_id\030\001 \001(\004" +
-      "B\026\362\336\037\022yaml:\"proposal_id\"\022\'\n\005voter\030\002 \001(\tB" +
-      "\030\322\264-\024cosmos.AddressString\022=\n\007options\030\003 \003" +
-      "(\0132&.cosmos.gov.v1beta2.WeightedVoteOpti" +
-      "onB\004\310\336\037\000:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\031\n\027MsgVoteWei" +
-      "ghtedResponse\"\316\001\n\nMsgDeposit\022$\n\013proposal" +
-      "_id\030\001 \001(\004B\017\352\336\037\013proposal_id\022+\n\tdepositor\030" +
-      "\002 \001(\tB\030\322\264-\024cosmos.AddressString\022[\n\006amoun" +
-      "t\030\003 \003(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000" +
-      "\252\337\037(github.com/cosmos/cosmos-sdk/types.C" +
-      "oins:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\024\n\022MsgDepositResp" +
-      "onse2\354\002\n\003Msg\022f\n\016SubmitProposal\022%.cosmos." +
-      "gov.v1beta2.MsgSubmitProposal\032-.cosmos.g" +
-      "ov.v1beta2.MsgSubmitProposalResponse\022H\n\004" +
-      "Vote\022\033.cosmos.gov.v1beta2.MsgVote\032#.cosm" +
-      "os.gov.v1beta2.MsgVoteResponse\022`\n\014VoteWe" +
-      "ighted\022#.cosmos.gov.v1beta2.MsgVoteWeigh" +
-      "ted\032+.cosmos.gov.v1beta2.MsgVoteWeighted" +
-      "Response\022Q\n\007Deposit\022\036.cosmos.gov.v1beta2" +
-      ".MsgDeposit\032&.cosmos.gov.v1beta2.MsgDepo" +
-      "sitResponseB*Z(github.com/cosmos/cosmos-" +
-      "sdk/x/gov/typesb\006proto3"
+      "\032\032google/protobuf2/any.proto\"\340\001\n\021MsgSubm" +
+      "itProposal\022\'\n\010messages\030\001 \003(\0132\025.google.pr" +
+      "otobuf2.Any\022d\n\017initial_deposit\030\002 \003(\0132\031.c" +
+      "osmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github." +
+      "com/cosmos/cosmos-sdk/types.Coins\022*\n\010pro" +
+      "poser\030\003 \001(\tB\030\322\264-\024cosmos.AddressString:\020\350" +
+      "\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"A\n\031MsgSubmitProposalResp" +
+      "onse\022$\n\013proposal_id\030\001 \001(\004B\017\352\336\037\013proposal_" +
+      "id\"\260\001\n\007MsgVote\022:\n\013proposal_id\030\001 \001(\004B%\352\336\037" +
+      "\013proposal_id\362\336\037\022yaml:\"proposal_id\"\022\'\n\005vo" +
+      "ter\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022.\n\006o" +
+      "ption\030\003 \001(\0162\036.cosmos.gov.v1beta2.VoteOpt" +
+      "ion:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\021\n\017MsgVoteResponse" +
+      "\"\270\001\n\017MsgVoteWeighted\022+\n\013proposal_id\030\001 \001(" +
+      "\004B\026\362\336\037\022yaml:\"proposal_id\"\022\'\n\005voter\030\002 \001(\t" +
+      "B\030\322\264-\024cosmos.AddressString\022=\n\007options\030\003 " +
+      "\003(\0132&.cosmos.gov.v1beta2.WeightedVoteOpt" +
+      "ionB\004\310\336\037\000:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\031\n\027MsgVoteWe" +
+      "ightedResponse\"\316\001\n\nMsgDeposit\022$\n\013proposa" +
+      "l_id\030\001 \001(\004B\017\352\336\037\013proposal_id\022+\n\tdepositor" +
+      "\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022[\n\006amou" +
+      "nt\030\003 \003(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037" +
+      "\000\252\337\037(github.com/cosmos/cosmos-sdk/types." +
+      "Coins:\020\350\240\037\000\230\240\037\000\200\334 \000\210\240\037\000\"\024\n\022MsgDepositRes" +
+      "ponse2\354\002\n\003Msg\022f\n\016SubmitProposal\022%.cosmos" +
+      ".gov.v1beta2.MsgSubmitProposal\032-.cosmos." +
+      "gov.v1beta2.MsgSubmitProposalResponse\022H\n" +
+      "\004Vote\022\033.cosmos.gov.v1beta2.MsgVote\032#.cos" +
+      "mos.gov.v1beta2.MsgVoteResponse\022`\n\014VoteW" +
+      "eighted\022#.cosmos.gov.v1beta2.MsgVoteWeig" +
+      "hted\032+.cosmos.gov.v1beta2.MsgVoteWeighte" +
+      "dResponse\022Q\n\007Deposit\022\036.cosmos.gov.v1beta" +
+      "2.MsgDeposit\032&.cosmos.gov.v1beta2.MsgDep" +
+      "ositResponseB*Z(github.com/cosmos/cosmos" +
+      "-sdk/x/gov/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6011,8 +6011,8 @@ public final class Tx {
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos.gov.v1beta2.Gov.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_cosmos_gov_v1beta2_MsgSubmitProposal_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -6065,21 +6065,21 @@ public final class Tx {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.scalar);
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stringer);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stringer);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos.gov.v1beta2.Gov.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

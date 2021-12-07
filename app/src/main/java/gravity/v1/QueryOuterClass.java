@@ -33283,7 +33283,7 @@ public final class QueryOuterClass {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           gravity.v1.Genesis.getDescriptor(),
           gravity.v1.Gravity.getDescriptor(),
           gravity.v1.Msgs.getDescriptor(),
@@ -33584,13 +33584,13 @@ public final class QueryOuterClass {
         new java.lang.String[] { "SendToEthereums", "Pagination", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     gravity.v1.Genesis.getDescriptor();
     gravity.v1.Gravity.getDescriptor();
     gravity.v1.Msgs.getDescriptor();

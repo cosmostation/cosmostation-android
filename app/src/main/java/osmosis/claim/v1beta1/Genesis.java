@@ -1484,7 +1484,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           osmosis.claim.v1beta1.Claim.getDescriptor(),
           osmosis.claim.v1beta1.ParamsOuterClass.getDescriptor(),
@@ -1497,11 +1497,11 @@ public final class Genesis {
         new java.lang.String[] { "ModuleAccountBalance", "Params", "ClaimRecords", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     osmosis.claim.v1beta1.Claim.getDescriptor();
     osmosis.claim.v1beta1.ParamsOuterClass.getDescriptor();
