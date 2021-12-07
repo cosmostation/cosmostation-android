@@ -623,7 +623,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_copy"
+        android:layout_above="@+id/bottom_layer"
         android:orientation="vertical"
         android:padding="@dimen/space_40"
         android:gravity="center_horizontal">
@@ -650,17 +650,35 @@
             android:text="@string/str_create_warn1"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_copy"
+    <LinearLayout
+        android:id="@+id/bottom_layer"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_45"
-        android:minHeight="@dimen/space_45"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_36"
-        android:background="@drawable/btn_trans_with_border"
-        style="@style/font_ss_14_photon"
-        android:textAllCaps="false"
-        android:text="@string/str_copy"/>
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btn_copy"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:minHeight="@dimen/space_45"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_photon"
+            android:textAllCaps="false"
+            android:text="@string/str_copy"/>
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginBottom="@dimen/space_36"
+            android:layout_marginTop="@dimen/space_8"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_white"
+            android:textAllCaps="false"
+            android:text="@string/str_ok"/>
+    </LinearLayout>
 </RelativeLayout>
