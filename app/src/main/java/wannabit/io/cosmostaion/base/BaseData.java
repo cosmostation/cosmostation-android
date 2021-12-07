@@ -23,7 +23,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.google.protobuf.Any;
+import com.google.protobuf2.Any;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import net.sqlcipher.Cursor;

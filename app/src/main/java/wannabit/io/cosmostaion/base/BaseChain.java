@@ -307,11 +307,11 @@ public enum BaseChain {
         result.add(PERSIS_MAIN);
         result.add(REGEN_MAIN);
         result.add(RIZON_MAIN);
-        result.add(STARGAZE_MAIN);
-        result.add(IOV_MAIN);
+        result.add(SECRET_MAIN);
         result.add(SENTINEL_MAIN);
         result.add(SIF_MAIN);
-        result.add(SECRET_MAIN);
+        result.add(STARGAZE_MAIN);
+        result.add(IOV_MAIN);
 
 //        result.add(ALTHEA_MAIN);
 //        result.add(GRABRIDGE_MAIN);

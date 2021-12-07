@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.protobuf.Any;
+import com.google.protobuf2.Any;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Type;
 import com.google.zxing.common.BitMatrix;

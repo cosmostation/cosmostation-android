@@ -90,7 +90,7 @@ import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
 
-import com.google.protobuf.Any;
+import com.google.protobuf2.Any;
 
 public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener, Dialog_MoreWait.OnTxWaitListener {
     private Toolbar         mToolbar;
