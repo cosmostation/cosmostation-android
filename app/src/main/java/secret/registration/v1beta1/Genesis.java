@@ -1246,7 +1246,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           secret.registration.v1beta1.Types.getDescriptor(),
           secret.registration.v1beta1.Msg.getDescriptor(),
         });
@@ -1258,12 +1258,12 @@ public final class Genesis {
         new java.lang.String[] { "Registration", "NodeExchMasterCertificate", "IoMasterCertificate", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.equalAll);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
-    registry.add(com.google.protobuf.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf2.GoGoProtos.equalAll);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     secret.registration.v1beta1.Types.getDescriptor();
     secret.registration.v1beta1.Msg.getDescriptor();
   }

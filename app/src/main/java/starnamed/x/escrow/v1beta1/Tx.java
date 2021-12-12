@@ -43,19 +43,19 @@ public final class Tx {
         getFeePayerBytes();
 
     /**
-     * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      * @return Whether the object field is set.
      */
     boolean hasObject();
     /**
-     * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      * @return The object.
      */
-    com.google.protobuf.Any getObject();
+    com.google.protobuf2.Any getObject();
     /**
-     * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getObjectOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getObjectOrBuilder();
 
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin price = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -153,11 +153,11 @@ public final class Tx {
               break;
             }
             case 26: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (object_ != null) {
                 subBuilder = object_.toBuilder();
               }
-              object_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              object_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(object_);
                 object_ = subBuilder.buildPartial();
@@ -291,9 +291,9 @@ public final class Tx {
     }
 
     public static final int OBJECT_FIELD_NUMBER = 3;
-    private com.google.protobuf.Any object_;
+    private com.google.protobuf2.Any object_;
     /**
-     * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      * @return Whether the object field is set.
      */
     @java.lang.Override
@@ -301,18 +301,18 @@ public final class Tx {
       return object_ != null;
     }
     /**
-     * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      * @return The object.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getObject() {
-      return object_ == null ? com.google.protobuf.Any.getDefaultInstance() : object_;
+    public com.google.protobuf2.Any getObject() {
+      return object_ == null ? com.google.protobuf2.Any.getDefaultInstance() : object_;
     }
     /**
-     * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getObjectOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getObjectOrBuilder() {
       return getObject();
     }
 
@@ -947,31 +947,31 @@ public final class Tx {
         return this;
       }
 
-      private com.google.protobuf.Any object_;
+      private com.google.protobuf2.Any object_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> objectBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> objectBuilder_;
       /**
-       * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        * @return Whether the object field is set.
        */
       public boolean hasObject() {
         return objectBuilder_ != null || object_ != null;
       }
       /**
-       * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        * @return The object.
        */
-      public com.google.protobuf.Any getObject() {
+      public com.google.protobuf2.Any getObject() {
         if (objectBuilder_ == null) {
-          return object_ == null ? com.google.protobuf.Any.getDefaultInstance() : object_;
+          return object_ == null ? com.google.protobuf2.Any.getDefaultInstance() : object_;
         } else {
           return objectBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
-      public Builder setObject(com.google.protobuf.Any value) {
+      public Builder setObject(com.google.protobuf2.Any value) {
         if (objectBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -985,10 +985,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
       public Builder setObject(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (objectBuilder_ == null) {
           object_ = builderForValue.build();
           onChanged();
@@ -999,13 +999,13 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
-      public Builder mergeObject(com.google.protobuf.Any value) {
+      public Builder mergeObject(com.google.protobuf2.Any value) {
         if (objectBuilder_ == null) {
           if (object_ != null) {
             object_ =
-              com.google.protobuf.Any.newBuilder(object_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(object_).mergeFrom(value).buildPartial();
           } else {
             object_ = value;
           }
@@ -1017,7 +1017,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
       public Builder clearObject() {
         if (objectBuilder_ == null) {
@@ -1031,33 +1031,33 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
-      public com.google.protobuf.Any.Builder getObjectBuilder() {
+      public com.google.protobuf2.Any.Builder getObjectBuilder() {
         
         onChanged();
         return getObjectFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getObjectOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getObjectOrBuilder() {
         if (objectBuilder_ != null) {
           return objectBuilder_.getMessageOrBuilder();
         } else {
           return object_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : object_;
+              com.google.protobuf2.Any.getDefaultInstance() : object_;
         }
       }
       /**
-       * <code>.google.protobuf.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 3 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getObjectFieldBuilder() {
         if (objectBuilder_ == null) {
           objectBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getObject(),
                   getParentForChildren(),
                   isClean());
@@ -6863,47 +6863,47 @@ public final class Tx {
       "starnamed.x.escrow.v1beta1\032\036cosmos/base/" +
       "v1beta1/coin.proto\032\024gogoproto/gogo.proto" +
       "\032\032google/protobuf2/any.proto\032\031cosmos_pro" +
-      "to/cosmos.proto\"\340\001\n\017MsgCreateEscrow\022\016\n\006s" +
-      "eller\030\001 \001(\t\022\021\n\tfee_payer\030\002 \001(\t\022<\n\006object" +
-      "\030\003 \001(\0132\024.google.protobuf.AnyB\026\312\264-\022Transf" +
-      "erableObject\022Z\n\005price\030\004 \003(\0132\031.cosmos.bas" +
-      "e.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmo" +
-      "s/cosmos-sdk/types.Coins\022\020\n\010deadline\030\005 \001" +
-      "(\004\"%\n\027MsgCreateEscrowResponse\022\n\n\002id\030\001 \001(" +
-      "\t\"\277\001\n\017MsgUpdateEscrow\022\n\n\002id\030\001 \001(\t\022\017\n\007upd" +
-      "ater\030\002 \001(\t\022\021\n\tfee_payer\030\003 \001(\t\022\016\n\006seller\030" +
-      "\004 \001(\t\022Z\n\005price\030\005 \003(\0132\031.cosmos.base.v1bet" +
-      "a1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/cosmo" +
-      "s-sdk/types.Coins\022\020\n\010deadline\030\006 \001(\004\"\031\n\027M" +
-      "sgUpdateEscrowResponse\"\241\001\n\023MsgTransferTo" +
-      "Escrow\022\n\n\002id\030\001 \001(\t\022\016\n\006sender\030\002 \001(\t\022\021\n\tfe" +
-      "e_payer\030\003 \001(\t\022[\n\006amount\030\004 \003(\0132\031.cosmos.b" +
-      "ase.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/cos" +
-      "mos/cosmos-sdk/types.Coins\"\035\n\033MsgTransfe" +
-      "rToEscrowResponse\"@\n\017MsgRefundEscrow\022\n\n\002" +
-      "id\030\001 \001(\t\022\016\n\006sender\030\002 \001(\t\022\021\n\tfee_payer\030\003 " +
-      "\001(\t\"\031\n\027MsgRefundEscrowResponse2\331\003\n\003Msg\022p" +
-      "\n\014CreateEscrow\022+.starnamed.x.escrow.v1be" +
-      "ta1.MsgCreateEscrow\0323.starnamed.x.escrow" +
-      ".v1beta1.MsgCreateEscrowResponse\022p\n\014Upda" +
-      "teEscrow\022+.starnamed.x.escrow.v1beta1.Ms" +
-      "gUpdateEscrow\0323.starnamed.x.escrow.v1bet" +
-      "a1.MsgUpdateEscrowResponse\022|\n\020TransferTo" +
-      "Escrow\022/.starnamed.x.escrow.v1beta1.MsgT" +
-      "ransferToEscrow\0327.starnamed.x.escrow.v1b" +
-      "eta1.MsgTransferToEscrowResponse\022p\n\014Refu" +
-      "ndEscrow\022+.starnamed.x.escrow.v1beta1.Ms" +
-      "gRefundEscrow\0323.starnamed.x.escrow.v1bet" +
-      "a1.MsgRefundEscrowResponseB1Z+github.com" +
-      "/iov-one/starnamed/x/escrow/types\310\341\036\000b\006p" +
-      "roto3"
+      "to/cosmos.proto\"\341\001\n\017MsgCreateEscrow\022\016\n\006s" +
+      "eller\030\001 \001(\t\022\021\n\tfee_payer\030\002 \001(\t\022=\n\006object" +
+      "\030\003 \001(\0132\025.google.protobuf2.AnyB\026\312\264-\022Trans" +
+      "ferableObject\022Z\n\005price\030\004 \003(\0132\031.cosmos.ba" +
+      "se.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosm" +
+      "os/cosmos-sdk/types.Coins\022\020\n\010deadline\030\005 " +
+      "\001(\004\"%\n\027MsgCreateEscrowResponse\022\n\n\002id\030\001 \001" +
+      "(\t\"\277\001\n\017MsgUpdateEscrow\022\n\n\002id\030\001 \001(\t\022\017\n\007up" +
+      "dater\030\002 \001(\t\022\021\n\tfee_payer\030\003 \001(\t\022\016\n\006seller" +
+      "\030\004 \001(\t\022Z\n\005price\030\005 \003(\0132\031.cosmos.base.v1be" +
+      "ta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/cosm" +
+      "os-sdk/types.Coins\022\020\n\010deadline\030\006 \001(\004\"\031\n\027" +
+      "MsgUpdateEscrowResponse\"\241\001\n\023MsgTransferT" +
+      "oEscrow\022\n\n\002id\030\001 \001(\t\022\016\n\006sender\030\002 \001(\t\022\021\n\tf" +
+      "ee_payer\030\003 \001(\t\022[\n\006amount\030\004 \003(\0132\031.cosmos." +
+      "base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/co" +
+      "smos/cosmos-sdk/types.Coins\"\035\n\033MsgTransf" +
+      "erToEscrowResponse\"@\n\017MsgRefundEscrow\022\n\n" +
+      "\002id\030\001 \001(\t\022\016\n\006sender\030\002 \001(\t\022\021\n\tfee_payer\030\003" +
+      " \001(\t\"\031\n\027MsgRefundEscrowResponse2\331\003\n\003Msg\022" +
+      "p\n\014CreateEscrow\022+.starnamed.x.escrow.v1b" +
+      "eta1.MsgCreateEscrow\0323.starnamed.x.escro" +
+      "w.v1beta1.MsgCreateEscrowResponse\022p\n\014Upd" +
+      "ateEscrow\022+.starnamed.x.escrow.v1beta1.M" +
+      "sgUpdateEscrow\0323.starnamed.x.escrow.v1be" +
+      "ta1.MsgUpdateEscrowResponse\022|\n\020TransferT" +
+      "oEscrow\022/.starnamed.x.escrow.v1beta1.Msg" +
+      "TransferToEscrow\0327.starnamed.x.escrow.v1" +
+      "beta1.MsgTransferToEscrowResponse\022p\n\014Ref" +
+      "undEscrow\022+.starnamed.x.escrow.v1beta1.M" +
+      "sgRefundEscrow\0323.starnamed.x.escrow.v1be" +
+      "ta1.MsgRefundEscrowResponseB1Z+github.co" +
+      "m/iov-one/starnamed/x/escrow/types\310\341\036\000b\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_starnamed_x_escrow_v1beta1_MsgCreateEscrow_descriptor =
@@ -6957,14 +6957,14 @@ public final class Tx {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
   }
 

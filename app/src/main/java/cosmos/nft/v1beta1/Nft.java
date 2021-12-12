@@ -143,7 +143,7 @@ public final class Nft {
      * data is the metadata of NFT classification,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 7;</code>
+     * <code>.google.protobuf2.Any data = 7;</code>
      * @return Whether the data field is set.
      */
     boolean hasData();
@@ -152,18 +152,18 @@ public final class Nft {
      * data is the metadata of NFT classification,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 7;</code>
+     * <code>.google.protobuf2.Any data = 7;</code>
      * @return The data.
      */
-    com.google.protobuf.Any getData();
+    com.google.protobuf2.Any getData();
     /**
      * <pre>
      * data is the metadata of NFT classification,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 7;</code>
+     * <code>.google.protobuf2.Any data = 7;</code>
      */
-    com.google.protobuf.AnyOrBuilder getDataOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getDataOrBuilder();
   }
   /**
    * <pre>
@@ -257,11 +257,11 @@ public final class Nft {
               break;
             }
             case 58: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (data_ != null) {
                 subBuilder = data_.toBuilder();
               }
-              data_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              data_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(data_);
                 data_ = subBuilder.buildPartial();
@@ -578,13 +578,13 @@ public final class Nft {
     }
 
     public static final int DATA_FIELD_NUMBER = 7;
-    private com.google.protobuf.Any data_;
+    private com.google.protobuf2.Any data_;
     /**
      * <pre>
      * data is the metadata of NFT classification,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 7;</code>
+     * <code>.google.protobuf2.Any data = 7;</code>
      * @return Whether the data field is set.
      */
     @java.lang.Override
@@ -596,22 +596,22 @@ public final class Nft {
      * data is the metadata of NFT classification,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 7;</code>
+     * <code>.google.protobuf2.Any data = 7;</code>
      * @return The data.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getData() {
-      return data_ == null ? com.google.protobuf.Any.getDefaultInstance() : data_;
+    public com.google.protobuf2.Any getData() {
+      return data_ == null ? com.google.protobuf2.Any.getDefaultInstance() : data_;
     }
     /**
      * <pre>
      * data is the metadata of NFT classification,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 7;</code>
+     * <code>.google.protobuf2.Any data = 7;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getDataOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getDataOrBuilder() {
       return getData();
     }
 
@@ -1612,15 +1612,15 @@ public final class Nft {
         return this;
       }
 
-      private com.google.protobuf.Any data_;
+      private com.google.protobuf2.Any data_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> dataBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> dataBuilder_;
       /**
        * <pre>
        * data is the metadata of NFT classification,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 7;</code>
+       * <code>.google.protobuf2.Any data = 7;</code>
        * @return Whether the data field is set.
        */
       public boolean hasData() {
@@ -1631,12 +1631,12 @@ public final class Nft {
        * data is the metadata of NFT classification,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 7;</code>
+       * <code>.google.protobuf2.Any data = 7;</code>
        * @return The data.
        */
-      public com.google.protobuf.Any getData() {
+      public com.google.protobuf2.Any getData() {
         if (dataBuilder_ == null) {
-          return data_ == null ? com.google.protobuf.Any.getDefaultInstance() : data_;
+          return data_ == null ? com.google.protobuf2.Any.getDefaultInstance() : data_;
         } else {
           return dataBuilder_.getMessage();
         }
@@ -1646,9 +1646,9 @@ public final class Nft {
        * data is the metadata of NFT classification,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 7;</code>
+       * <code>.google.protobuf2.Any data = 7;</code>
        */
-      public Builder setData(com.google.protobuf.Any value) {
+      public Builder setData(com.google.protobuf2.Any value) {
         if (dataBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1666,10 +1666,10 @@ public final class Nft {
        * data is the metadata of NFT classification,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 7;</code>
+       * <code>.google.protobuf2.Any data = 7;</code>
        */
       public Builder setData(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (dataBuilder_ == null) {
           data_ = builderForValue.build();
           onChanged();
@@ -1684,13 +1684,13 @@ public final class Nft {
        * data is the metadata of NFT classification,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 7;</code>
+       * <code>.google.protobuf2.Any data = 7;</code>
        */
-      public Builder mergeData(com.google.protobuf.Any value) {
+      public Builder mergeData(com.google.protobuf2.Any value) {
         if (dataBuilder_ == null) {
           if (data_ != null) {
             data_ =
-              com.google.protobuf.Any.newBuilder(data_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(data_).mergeFrom(value).buildPartial();
           } else {
             data_ = value;
           }
@@ -1706,7 +1706,7 @@ public final class Nft {
        * data is the metadata of NFT classification,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 7;</code>
+       * <code>.google.protobuf2.Any data = 7;</code>
        */
       public Builder clearData() {
         if (dataBuilder_ == null) {
@@ -1724,9 +1724,9 @@ public final class Nft {
        * data is the metadata of NFT classification,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 7;</code>
+       * <code>.google.protobuf2.Any data = 7;</code>
        */
-      public com.google.protobuf.Any.Builder getDataBuilder() {
+      public com.google.protobuf2.Any.Builder getDataBuilder() {
         
         onChanged();
         return getDataFieldBuilder().getBuilder();
@@ -1736,14 +1736,14 @@ public final class Nft {
        * data is the metadata of NFT classification,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 7;</code>
+       * <code>.google.protobuf2.Any data = 7;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getDataOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getDataOrBuilder() {
         if (dataBuilder_ != null) {
           return dataBuilder_.getMessageOrBuilder();
         } else {
           return data_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : data_;
+              com.google.protobuf2.Any.getDefaultInstance() : data_;
         }
       }
       /**
@@ -1751,14 +1751,14 @@ public final class Nft {
        * data is the metadata of NFT classification,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 7;</code>
+       * <code>.google.protobuf2.Any data = 7;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getDataFieldBuilder() {
         if (dataBuilder_ == null) {
           dataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getData(),
                   getParentForChildren(),
                   isClean());
@@ -1908,7 +1908,7 @@ public final class Nft {
      * data is the metadata of the NFT,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 10;</code>
+     * <code>.google.protobuf2.Any data = 10;</code>
      * @return Whether the data field is set.
      */
     boolean hasData();
@@ -1917,18 +1917,18 @@ public final class Nft {
      * data is the metadata of the NFT,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 10;</code>
+     * <code>.google.protobuf2.Any data = 10;</code>
      * @return The data.
      */
-    com.google.protobuf.Any getData();
+    com.google.protobuf2.Any getData();
     /**
      * <pre>
      * data is the metadata of the NFT,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 10;</code>
+     * <code>.google.protobuf2.Any data = 10;</code>
      */
-    com.google.protobuf.AnyOrBuilder getDataOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getDataOrBuilder();
   }
   /**
    * <pre>
@@ -2008,11 +2008,11 @@ public final class Nft {
               break;
             }
             case 82: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (data_ != null) {
                 subBuilder = data_.toBuilder();
               }
-              data_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              data_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(data_);
                 data_ = subBuilder.buildPartial();
@@ -2237,13 +2237,13 @@ public final class Nft {
     }
 
     public static final int DATA_FIELD_NUMBER = 10;
-    private com.google.protobuf.Any data_;
+    private com.google.protobuf2.Any data_;
     /**
      * <pre>
      * data is the metadata of the NFT,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 10;</code>
+     * <code>.google.protobuf2.Any data = 10;</code>
      * @return Whether the data field is set.
      */
     @java.lang.Override
@@ -2255,22 +2255,22 @@ public final class Nft {
      * data is the metadata of the NFT,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 10;</code>
+     * <code>.google.protobuf2.Any data = 10;</code>
      * @return The data.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getData() {
-      return data_ == null ? com.google.protobuf.Any.getDefaultInstance() : data_;
+    public com.google.protobuf2.Any getData() {
+      return data_ == null ? com.google.protobuf2.Any.getDefaultInstance() : data_;
     }
     /**
      * <pre>
      * data is the metadata of the NFT,optional
      * </pre>
      *
-     * <code>.google.protobuf.Any data = 10;</code>
+     * <code>.google.protobuf2.Any data = 10;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getDataOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getDataOrBuilder() {
       return getData();
     }
 
@@ -3045,15 +3045,15 @@ public final class Nft {
         return this;
       }
 
-      private com.google.protobuf.Any data_;
+      private com.google.protobuf2.Any data_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> dataBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> dataBuilder_;
       /**
        * <pre>
        * data is the metadata of the NFT,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 10;</code>
+       * <code>.google.protobuf2.Any data = 10;</code>
        * @return Whether the data field is set.
        */
       public boolean hasData() {
@@ -3064,12 +3064,12 @@ public final class Nft {
        * data is the metadata of the NFT,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 10;</code>
+       * <code>.google.protobuf2.Any data = 10;</code>
        * @return The data.
        */
-      public com.google.protobuf.Any getData() {
+      public com.google.protobuf2.Any getData() {
         if (dataBuilder_ == null) {
-          return data_ == null ? com.google.protobuf.Any.getDefaultInstance() : data_;
+          return data_ == null ? com.google.protobuf2.Any.getDefaultInstance() : data_;
         } else {
           return dataBuilder_.getMessage();
         }
@@ -3079,9 +3079,9 @@ public final class Nft {
        * data is the metadata of the NFT,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 10;</code>
+       * <code>.google.protobuf2.Any data = 10;</code>
        */
-      public Builder setData(com.google.protobuf.Any value) {
+      public Builder setData(com.google.protobuf2.Any value) {
         if (dataBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3099,10 +3099,10 @@ public final class Nft {
        * data is the metadata of the NFT,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 10;</code>
+       * <code>.google.protobuf2.Any data = 10;</code>
        */
       public Builder setData(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (dataBuilder_ == null) {
           data_ = builderForValue.build();
           onChanged();
@@ -3117,13 +3117,13 @@ public final class Nft {
        * data is the metadata of the NFT,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 10;</code>
+       * <code>.google.protobuf2.Any data = 10;</code>
        */
-      public Builder mergeData(com.google.protobuf.Any value) {
+      public Builder mergeData(com.google.protobuf2.Any value) {
         if (dataBuilder_ == null) {
           if (data_ != null) {
             data_ =
-              com.google.protobuf.Any.newBuilder(data_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(data_).mergeFrom(value).buildPartial();
           } else {
             data_ = value;
           }
@@ -3139,7 +3139,7 @@ public final class Nft {
        * data is the metadata of the NFT,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 10;</code>
+       * <code>.google.protobuf2.Any data = 10;</code>
        */
       public Builder clearData() {
         if (dataBuilder_ == null) {
@@ -3157,9 +3157,9 @@ public final class Nft {
        * data is the metadata of the NFT,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 10;</code>
+       * <code>.google.protobuf2.Any data = 10;</code>
        */
-      public com.google.protobuf.Any.Builder getDataBuilder() {
+      public com.google.protobuf2.Any.Builder getDataBuilder() {
         
         onChanged();
         return getDataFieldBuilder().getBuilder();
@@ -3169,14 +3169,14 @@ public final class Nft {
        * data is the metadata of the NFT,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 10;</code>
+       * <code>.google.protobuf2.Any data = 10;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getDataOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getDataOrBuilder() {
         if (dataBuilder_ != null) {
           return dataBuilder_.getMessageOrBuilder();
         } else {
           return data_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : data_;
+              com.google.protobuf2.Any.getDefaultInstance() : data_;
         }
       }
       /**
@@ -3184,14 +3184,14 @@ public final class Nft {
        * data is the metadata of the NFT,optional
        * </pre>
        *
-       * <code>.google.protobuf.Any data = 10;</code>
+       * <code>.google.protobuf2.Any data = 10;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getDataFieldBuilder() {
         if (dataBuilder_ == null) {
           dataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getData(),
                   getParentForChildren(),
                   isClean());
@@ -3272,20 +3272,20 @@ public final class Nft {
   static {
     java.lang.String[] descriptorData = {
       "\n\034cosmos/nft/v1beta1/nft.proto\022\022cosmos.n" +
-      "ft.v1beta1\032\032google/protobuf2/any.proto\"\222" +
+      "ft.v1beta1\032\032google/protobuf2/any.proto\"\223" +
       "\001\n\016CosmosNFTClass\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 " +
       "\001(\t\022\016\n\006symbol\030\003 \001(\t\022\023\n\013description\030\004 \001(\t" +
-      "\022\013\n\003uri\030\005 \001(\t\022\020\n\010uri_hash\030\006 \001(\t\022\"\n\004data\030" +
-      "\007 \001(\0132\024.google.protobuf.Any\"l\n\tCosmosNFT" +
-      "\022\020\n\010class_id\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\022\013\n\003uri\030\003 " +
-      "\001(\t\022\020\n\010uri_hash\030\004 \001(\t\022\"\n\004data\030\n \001(\0132\024.go" +
-      "ogle.protobuf.AnyB$Z\"github.com/cosmos/c" +
-      "osmos-sdk/x/nftb\006proto3"
+      "\022\013\n\003uri\030\005 \001(\t\022\020\n\010uri_hash\030\006 \001(\t\022#\n\004data\030" +
+      "\007 \001(\0132\025.google.protobuf2.Any\"m\n\tCosmosNF" +
+      "T\022\020\n\010class_id\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\022\013\n\003uri\030\003" +
+      " \001(\t\022\020\n\010uri_hash\030\004 \001(\t\022#\n\004data\030\n \001(\0132\025.g" +
+      "oogle.protobuf2.AnyB$Z\"github.com/cosmos" +
+      "/cosmos-sdk/x/nftb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_cosmos_nft_v1beta1_CosmosNFTClass_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3299,7 +3299,7 @@ public final class Nft {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_nft_v1beta1_CosmosNFT_descriptor,
         new java.lang.String[] { "ClassId", "Id", "Uri", "UriHash", "Data", });
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

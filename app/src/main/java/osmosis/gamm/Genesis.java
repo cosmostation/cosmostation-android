@@ -820,27 +820,27 @@ public final class Genesis {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getPoolsList();
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
-    com.google.protobuf.Any getPools(int index);
+    com.google.protobuf2.Any getPools(int index);
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     int getPoolsCount();
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getPoolsOrBuilderList();
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getPoolsOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getPoolsOrBuilder(
         int index);
 
     /**
@@ -917,11 +917,11 @@ public final class Genesis {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                pools_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                pools_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000001;
               }
               pools_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             case 16: {
@@ -978,41 +978,41 @@ public final class Genesis {
     }
 
     public static final int POOLS_FIELD_NUMBER = 1;
-    private java.util.List<com.google.protobuf.Any> pools_;
+    private java.util.List<com.google.protobuf2.Any> pools_;
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     @java.lang.Override
-    public java.util.List<com.google.protobuf.Any> getPoolsList() {
+    public java.util.List<com.google.protobuf2.Any> getPoolsList() {
       return pools_;
     }
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getPoolsOrBuilderList() {
       return pools_;
     }
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     @java.lang.Override
     public int getPoolsCount() {
       return pools_.size();
     }
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPools(int index) {
+    public com.google.protobuf2.Any getPools(int index) {
       return pools_.get(index);
     }
     /**
-     * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+     * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPoolsOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getPoolsOrBuilder(
         int index) {
       return pools_.get(index);
     }
@@ -1448,22 +1448,22 @@ public final class Genesis {
       }
       private int bitField0_;
 
-      private java.util.List<com.google.protobuf.Any> pools_ =
+      private java.util.List<com.google.protobuf2.Any> pools_ =
         java.util.Collections.emptyList();
       private void ensurePoolsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          pools_ = new java.util.ArrayList<com.google.protobuf.Any>(pools_);
+          pools_ = new java.util.ArrayList<com.google.protobuf2.Any>(pools_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> poolsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> poolsBuilder_;
 
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public java.util.List<com.google.protobuf.Any> getPoolsList() {
+      public java.util.List<com.google.protobuf2.Any> getPoolsList() {
         if (poolsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(pools_);
         } else {
@@ -1471,7 +1471,7 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public int getPoolsCount() {
         if (poolsBuilder_ == null) {
@@ -1481,9 +1481,9 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.Any getPools(int index) {
+      public com.google.protobuf2.Any getPools(int index) {
         if (poolsBuilder_ == null) {
           return pools_.get(index);
         } else {
@@ -1491,10 +1491,10 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder setPools(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (poolsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1508,10 +1508,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder setPools(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (poolsBuilder_ == null) {
           ensurePoolsIsMutable();
           pools_.set(index, builderForValue.build());
@@ -1522,9 +1522,9 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public Builder addPools(com.google.protobuf.Any value) {
+      public Builder addPools(com.google.protobuf2.Any value) {
         if (poolsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1538,10 +1538,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder addPools(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (poolsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1555,10 +1555,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder addPools(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (poolsBuilder_ == null) {
           ensurePoolsIsMutable();
           pools_.add(builderForValue.build());
@@ -1569,10 +1569,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder addPools(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (poolsBuilder_ == null) {
           ensurePoolsIsMutable();
           pools_.add(index, builderForValue.build());
@@ -1583,10 +1583,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder addAllPools(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (poolsBuilder_ == null) {
           ensurePoolsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -1598,7 +1598,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder clearPools() {
         if (poolsBuilder_ == null) {
@@ -1611,7 +1611,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
       public Builder removePools(int index) {
         if (poolsBuilder_ == null) {
@@ -1624,16 +1624,16 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.Any.Builder getPoolsBuilder(
+      public com.google.protobuf2.Any.Builder getPoolsBuilder(
           int index) {
         return getPoolsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPoolsOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getPoolsOrBuilder(
           int index) {
         if (poolsBuilder_ == null) {
           return pools_.get(index);  } else {
@@ -1641,9 +1641,9 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getPoolsOrBuilderList() {
         if (poolsBuilder_ != null) {
           return poolsBuilder_.getMessageOrBuilderList();
@@ -1652,33 +1652,33 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.Any.Builder addPoolsBuilder() {
+      public com.google.protobuf2.Any.Builder addPoolsBuilder() {
         return getPoolsFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public com.google.protobuf.Any.Builder addPoolsBuilder(
+      public com.google.protobuf2.Any.Builder addPoolsBuilder(
           int index) {
         return getPoolsFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
+       * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getPoolsBuilderList() {
         return getPoolsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPoolsFieldBuilder() {
         if (poolsBuilder_ == null) {
           poolsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   pools_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -1916,18 +1916,18 @@ public final class Genesis {
       "\215\001\n\006Params\022\202\001\n\021pool_creation_fee\030\001 \003(\0132\031" +
       ".cosmos.base.v1beta1.CoinBL\252\337\037(github.co" +
       "m/cosmos/cosmos-sdk/types.Coins\362\336\037\030yaml:" +
-      "\"pool_creation_fee\"\310\336\037\000\"\204\001\n\014GenesisState" +
-      "\022.\n\005pools\030\001 \003(\0132\024.google.protobuf.AnyB\t\312" +
-      "\264-\005PoolI\022\030\n\020next_pool_number\030\002 \001(\004\022*\n\006pa" +
-      "rams\030\003 \001(\0132\024.osmosis.gamm.ParamsB\004\310\336\037\000B." +
-      "Z,github.com/osmosis-labs/osmosis/x/gamm" +
-      "/typesb\006proto3"
+      "\"pool_creation_fee\"\310\336\037\000\"\205\001\n\014GenesisState" +
+      "\022/\n\005pools\030\001 \003(\0132\025.google.protobuf2.AnyB\t" +
+      "\312\264-\005PoolI\022\030\n\020next_pool_number\030\002 \001(\004\022*\n\006p" +
+      "arams\030\003 \001(\0132\024.osmosis.gamm.ParamsB\004\310\336\037\000B" +
+      ".Z,github.com/osmosis-labs/osmosis/x/gam" +
+      "m/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
         });
@@ -1946,13 +1946,13 @@ public final class Genesis {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
   }

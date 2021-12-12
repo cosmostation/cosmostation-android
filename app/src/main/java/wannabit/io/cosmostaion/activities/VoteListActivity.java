@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.protobuf.Any;
+import com.google.protobuf2.Any;
 
 import java.util.ArrayList;
 import java.util.List;

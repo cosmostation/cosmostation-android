@@ -1573,9 +1573,9 @@ public final class Tx {
      * triple and validate it.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+     * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getMsgsList();
     /**
      * <pre>
@@ -1584,9 +1584,9 @@ public final class Tx {
      * triple and validate it.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+     * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
      */
-    com.google.protobuf.Any getMsgs(int index);
+    com.google.protobuf2.Any getMsgs(int index);
     /**
      * <pre>
      * Authorization Msg requests to execute. Each msg must implement Authorization interface
@@ -1594,7 +1594,7 @@ public final class Tx {
      * triple and validate it.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+     * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
      */
     int getMsgsCount();
     /**
@@ -1604,9 +1604,9 @@ public final class Tx {
      * triple and validate it.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+     * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getMsgsOrBuilderList();
     /**
      * <pre>
@@ -1615,9 +1615,9 @@ public final class Tx {
      * triple and validate it.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+     * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getMsgsOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getMsgsOrBuilder(
         int index);
   }
   /**
@@ -1682,11 +1682,11 @@ public final class Tx {
             }
             case 18: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                msgs_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                msgs_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000001;
               }
               msgs_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -1763,7 +1763,7 @@ public final class Tx {
     }
 
     public static final int MSGS_FIELD_NUMBER = 2;
-    private java.util.List<com.google.protobuf.Any> msgs_;
+    private java.util.List<com.google.protobuf2.Any> msgs_;
     /**
      * <pre>
      * Authorization Msg requests to execute. Each msg must implement Authorization interface
@@ -1771,10 +1771,10 @@ public final class Tx {
      * triple and validate it.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+     * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
      */
     @java.lang.Override
-    public java.util.List<com.google.protobuf.Any> getMsgsList() {
+    public java.util.List<com.google.protobuf2.Any> getMsgsList() {
       return msgs_;
     }
     /**
@@ -1784,10 +1784,10 @@ public final class Tx {
      * triple and validate it.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+     * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getMsgsOrBuilderList() {
       return msgs_;
     }
@@ -1798,7 +1798,7 @@ public final class Tx {
      * triple and validate it.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+     * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
      */
     @java.lang.Override
     public int getMsgsCount() {
@@ -1811,10 +1811,10 @@ public final class Tx {
      * triple and validate it.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+     * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Any getMsgs(int index) {
+    public com.google.protobuf2.Any getMsgs(int index) {
       return msgs_.get(index);
     }
     /**
@@ -1824,10 +1824,10 @@ public final class Tx {
      * triple and validate it.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+     * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getMsgsOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getMsgsOrBuilder(
         int index) {
       return msgs_.get(index);
     }
@@ -2273,17 +2273,17 @@ public final class Tx {
         return this;
       }
 
-      private java.util.List<com.google.protobuf.Any> msgs_ =
+      private java.util.List<com.google.protobuf2.Any> msgs_ =
         java.util.Collections.emptyList();
       private void ensureMsgsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          msgs_ = new java.util.ArrayList<com.google.protobuf.Any>(msgs_);
+          msgs_ = new java.util.ArrayList<com.google.protobuf2.Any>(msgs_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> msgsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> msgsBuilder_;
 
       /**
        * <pre>
@@ -2292,9 +2292,9 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
-      public java.util.List<com.google.protobuf.Any> getMsgsList() {
+      public java.util.List<com.google.protobuf2.Any> getMsgsList() {
         if (msgsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(msgs_);
         } else {
@@ -2308,7 +2308,7 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
       public int getMsgsCount() {
         if (msgsBuilder_ == null) {
@@ -2324,9 +2324,9 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
-      public com.google.protobuf.Any getMsgs(int index) {
+      public com.google.protobuf2.Any getMsgs(int index) {
         if (msgsBuilder_ == null) {
           return msgs_.get(index);
         } else {
@@ -2340,10 +2340,10 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
       public Builder setMsgs(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (msgsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2363,10 +2363,10 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
       public Builder setMsgs(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (msgsBuilder_ == null) {
           ensureMsgsIsMutable();
           msgs_.set(index, builderForValue.build());
@@ -2383,9 +2383,9 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
-      public Builder addMsgs(com.google.protobuf.Any value) {
+      public Builder addMsgs(com.google.protobuf2.Any value) {
         if (msgsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2405,10 +2405,10 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
       public Builder addMsgs(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (msgsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2428,10 +2428,10 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
       public Builder addMsgs(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (msgsBuilder_ == null) {
           ensureMsgsIsMutable();
           msgs_.add(builderForValue.build());
@@ -2448,10 +2448,10 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
       public Builder addMsgs(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (msgsBuilder_ == null) {
           ensureMsgsIsMutable();
           msgs_.add(index, builderForValue.build());
@@ -2468,10 +2468,10 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
       public Builder addAllMsgs(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (msgsBuilder_ == null) {
           ensureMsgsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -2489,7 +2489,7 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
       public Builder clearMsgs() {
         if (msgsBuilder_ == null) {
@@ -2508,7 +2508,7 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
       public Builder removeMsgs(int index) {
         if (msgsBuilder_ == null) {
@@ -2527,9 +2527,9 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
-      public com.google.protobuf.Any.Builder getMsgsBuilder(
+      public com.google.protobuf2.Any.Builder getMsgsBuilder(
           int index) {
         return getMsgsFieldBuilder().getBuilder(index);
       }
@@ -2540,9 +2540,9 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getMsgsOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getMsgsOrBuilder(
           int index) {
         if (msgsBuilder_ == null) {
           return msgs_.get(index);  } else {
@@ -2556,9 +2556,9 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getMsgsOrBuilderList() {
         if (msgsBuilder_ != null) {
           return msgsBuilder_.getMessageOrBuilderList();
@@ -2573,11 +2573,11 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
-      public com.google.protobuf.Any.Builder addMsgsBuilder() {
+      public com.google.protobuf2.Any.Builder addMsgsBuilder() {
         return getMsgsFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
@@ -2586,12 +2586,12 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
-      public com.google.protobuf.Any.Builder addMsgsBuilder(
+      public com.google.protobuf2.Any.Builder addMsgsBuilder(
           int index) {
         return getMsgsFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
@@ -2600,18 +2600,18 @@ public final class Tx {
        * triple and validate it.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
+       * <code>repeated .google.protobuf2.Any msgs = 2 [(.cosmos_proto.accepts_interface) = "sdk.Msg, authz.Authorization"];</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getMsgsBuilderList() {
         return getMsgsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getMsgsFieldBuilder() {
         if (msgsBuilder_ == null) {
           msgsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   msgs_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -4450,29 +4450,29 @@ public final class Tx {
       "cosmos.AddressString\022)\n\007grantee\030\002 \001(\tB\030\322" +
       "\264-\024cosmos.AddressString\0220\n\005grant\030\003 \001(\0132\033" +
       ".cosmos.authz.v1beta1.GrantB\004\310\336\037\000\"\"\n\017Msg" +
-      "ExecResponse\022\017\n\007results\030\001 \003(\014\"z\n\007MsgExec" +
+      "ExecResponse\022\017\n\007results\030\001 \003(\014\"{\n\007MsgExec" +
       "\022)\n\007grantee\030\001 \001(\tB\030\322\264-\024cosmos.AddressStr" +
-      "ing\022D\n\004msgs\030\002 \003(\0132\024.google.protobuf.AnyB" +
-      " \312\264-\034sdk.Msg, authz.Authorization\"\022\n\020Msg" +
-      "GrantResponse\"w\n\tMsgRevoke\022)\n\007granter\030\001 " +
-      "\001(\tB\030\322\264-\024cosmos.AddressString\022)\n\007grantee" +
-      "\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022\024\n\014msg_" +
-      "type_url\030\003 \001(\t\"\023\n\021MsgRevokeResponse2\370\001\n\003" +
-      "Msg\022O\n\005Grant\022\036.cosmos.authz.v1beta1.MsgG" +
-      "rant\032&.cosmos.authz.v1beta1.MsgGrantResp" +
-      "onse\022L\n\004Exec\022\035.cosmos.authz.v1beta1.MsgE" +
-      "xec\032%.cosmos.authz.v1beta1.MsgExecRespon" +
-      "se\022R\n\006Revoke\022\037.cosmos.authz.v1beta1.MsgR" +
-      "evoke\032\'.cosmos.authz.v1beta1.MsgRevokeRe" +
-      "sponseB*Z$github.com/cosmos/cosmos-sdk/x" +
-      "/authz\310\341\036\000b\006proto3"
+      "ing\022E\n\004msgs\030\002 \003(\0132\025.google.protobuf2.Any" +
+      "B \312\264-\034sdk.Msg, authz.Authorization\"\022\n\020Ms" +
+      "gGrantResponse\"w\n\tMsgRevoke\022)\n\007granter\030\001" +
+      " \001(\tB\030\322\264-\024cosmos.AddressString\022)\n\007grante" +
+      "e\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022\024\n\014msg" +
+      "_type_url\030\003 \001(\t\"\023\n\021MsgRevokeResponse2\370\001\n" +
+      "\003Msg\022O\n\005Grant\022\036.cosmos.authz.v1beta1.Msg" +
+      "Grant\032&.cosmos.authz.v1beta1.MsgGrantRes" +
+      "ponse\022L\n\004Exec\022\035.cosmos.authz.v1beta1.Msg" +
+      "Exec\032%.cosmos.authz.v1beta1.MsgExecRespo" +
+      "nse\022R\n\006Revoke\022\037.cosmos.authz.v1beta1.Msg" +
+      "Revoke\032\'.cosmos.authz.v1beta1.MsgRevokeR" +
+      "esponseB*Z$github.com/cosmos/cosmos-sdk/" +
+      "x/authz\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos_proto.Cosmos.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos.authz.v1beta1.Authz.getDescriptor(),
         });
     internal_static_cosmos_authz_v1beta1_MsgGrant_descriptor =
@@ -4515,13 +4515,13 @@ public final class Tx {
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
     registry.add(cosmos_proto.Cosmos.scalar);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos_proto.Cosmos.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     cosmos.authz.v1beta1.Authz.getDescriptor();
   }
 

@@ -1923,19 +1923,19 @@ public final class Cert {
     long getCertificateId();
 
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return Whether the content field is set.
      */
     boolean hasContent();
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return The content.
      */
-    com.google.protobuf.Any getContent();
+    com.google.protobuf2.Any getContent();
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getContentOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getContentOrBuilder();
 
     /**
      * <code>.shentu.cert.v1alpha1.CompilationContent compilation_content = 3 [(.gogoproto.moretags) = "yaml:&#92;"compilation_content&#92;""];</code>
@@ -2029,11 +2029,11 @@ public final class Cert {
               break;
             }
             case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (content_ != null) {
                 subBuilder = content_.toBuilder();
               }
-              content_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              content_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(content_);
                 content_ = subBuilder.buildPartial();
@@ -2110,9 +2110,9 @@ public final class Cert {
     }
 
     public static final int CONTENT_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any content_;
+    private com.google.protobuf2.Any content_;
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return Whether the content field is set.
      */
     @java.lang.Override
@@ -2120,18 +2120,18 @@ public final class Cert {
       return content_ != null;
     }
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return The content.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getContent() {
-      return content_ == null ? com.google.protobuf.Any.getDefaultInstance() : content_;
+    public com.google.protobuf2.Any getContent() {
+      return content_ == null ? com.google.protobuf2.Any.getDefaultInstance() : content_;
     }
     /**
-     * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+     * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getContentOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getContentOrBuilder() {
       return getContent();
     }
 
@@ -2665,31 +2665,31 @@ public final class Cert {
         return this;
       }
 
-      private com.google.protobuf.Any content_;
+      private com.google.protobuf2.Any content_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> contentBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> contentBuilder_;
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        * @return Whether the content field is set.
        */
       public boolean hasContent() {
         return contentBuilder_ != null || content_ != null;
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        * @return The content.
        */
-      public com.google.protobuf.Any getContent() {
+      public com.google.protobuf2.Any getContent() {
         if (contentBuilder_ == null) {
-          return content_ == null ? com.google.protobuf.Any.getDefaultInstance() : content_;
+          return content_ == null ? com.google.protobuf2.Any.getDefaultInstance() : content_;
         } else {
           return contentBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public Builder setContent(com.google.protobuf.Any value) {
+      public Builder setContent(com.google.protobuf2.Any value) {
         if (contentBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2703,10 +2703,10 @@ public final class Cert {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
       public Builder setContent(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (contentBuilder_ == null) {
           content_ = builderForValue.build();
           onChanged();
@@ -2717,13 +2717,13 @@ public final class Cert {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public Builder mergeContent(com.google.protobuf.Any value) {
+      public Builder mergeContent(com.google.protobuf2.Any value) {
         if (contentBuilder_ == null) {
           if (content_ != null) {
             content_ =
-              com.google.protobuf.Any.newBuilder(content_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(content_).mergeFrom(value).buildPartial();
           } else {
             content_ = value;
           }
@@ -2735,7 +2735,7 @@ public final class Cert {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
       public Builder clearContent() {
         if (contentBuilder_ == null) {
@@ -2749,33 +2749,33 @@ public final class Cert {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public com.google.protobuf.Any.Builder getContentBuilder() {
+      public com.google.protobuf2.Any.Builder getContentBuilder() {
         
         onChanged();
         return getContentFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getContentOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getContentOrBuilder() {
         if (contentBuilder_ != null) {
           return contentBuilder_.getMessageOrBuilder();
         } else {
           return content_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : content_;
+              com.google.protobuf2.Any.getDefaultInstance() : content_;
         }
       }
       /**
-       * <code>.google.protobuf.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
+       * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getContentFieldBuilder() {
         if (contentBuilder_ == null) {
           contentBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getContent(),
                   getParentForChildren(),
                   isClean());
@@ -7814,19 +7814,19 @@ public final class Cert {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return Whether the validatorPubkey field is set.
      */
     boolean hasValidatorPubkey();
     /**
-     * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return The validatorPubkey.
      */
-    com.google.protobuf.Any getValidatorPubkey();
+    com.google.protobuf2.Any getValidatorPubkey();
     /**
-     * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getValidatorPubkeyOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getValidatorPubkeyOrBuilder();
 
     /**
      * <code>string description = 2;</code>
@@ -7891,11 +7891,11 @@ public final class Cert {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (validatorPubkey_ != null) {
                 subBuilder = validatorPubkey_.toBuilder();
               }
-              validatorPubkey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              validatorPubkey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(validatorPubkey_);
                 validatorPubkey_ = subBuilder.buildPartial();
@@ -7942,9 +7942,9 @@ public final class Cert {
     }
 
     public static final int VALIDATOR_PUBKEY_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any validatorPubkey_;
+    private com.google.protobuf2.Any validatorPubkey_;
     /**
-     * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return Whether the validatorPubkey field is set.
      */
     @java.lang.Override
@@ -7952,18 +7952,18 @@ public final class Cert {
       return validatorPubkey_ != null;
     }
     /**
-     * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return The validatorPubkey.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getValidatorPubkey() {
-      return validatorPubkey_ == null ? com.google.protobuf.Any.getDefaultInstance() : validatorPubkey_;
+    public com.google.protobuf2.Any getValidatorPubkey() {
+      return validatorPubkey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : validatorPubkey_;
     }
     /**
-     * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getValidatorPubkeyOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getValidatorPubkeyOrBuilder() {
       return getValidatorPubkey();
     }
 
@@ -8341,31 +8341,31 @@ public final class Cert {
         return this;
       }
 
-      private com.google.protobuf.Any validatorPubkey_;
+      private com.google.protobuf2.Any validatorPubkey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> validatorPubkeyBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> validatorPubkeyBuilder_;
       /**
-       * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        * @return Whether the validatorPubkey field is set.
        */
       public boolean hasValidatorPubkey() {
         return validatorPubkeyBuilder_ != null || validatorPubkey_ != null;
       }
       /**
-       * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        * @return The validatorPubkey.
        */
-      public com.google.protobuf.Any getValidatorPubkey() {
+      public com.google.protobuf2.Any getValidatorPubkey() {
         if (validatorPubkeyBuilder_ == null) {
-          return validatorPubkey_ == null ? com.google.protobuf.Any.getDefaultInstance() : validatorPubkey_;
+          return validatorPubkey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : validatorPubkey_;
         } else {
           return validatorPubkeyBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public Builder setValidatorPubkey(com.google.protobuf.Any value) {
+      public Builder setValidatorPubkey(com.google.protobuf2.Any value) {
         if (validatorPubkeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -8379,10 +8379,10 @@ public final class Cert {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       public Builder setValidatorPubkey(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (validatorPubkeyBuilder_ == null) {
           validatorPubkey_ = builderForValue.build();
           onChanged();
@@ -8393,13 +8393,13 @@ public final class Cert {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public Builder mergeValidatorPubkey(com.google.protobuf.Any value) {
+      public Builder mergeValidatorPubkey(com.google.protobuf2.Any value) {
         if (validatorPubkeyBuilder_ == null) {
           if (validatorPubkey_ != null) {
             validatorPubkey_ =
-              com.google.protobuf.Any.newBuilder(validatorPubkey_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(validatorPubkey_).mergeFrom(value).buildPartial();
           } else {
             validatorPubkey_ = value;
           }
@@ -8411,7 +8411,7 @@ public final class Cert {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       public Builder clearValidatorPubkey() {
         if (validatorPubkeyBuilder_ == null) {
@@ -8425,33 +8425,33 @@ public final class Cert {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public com.google.protobuf.Any.Builder getValidatorPubkeyBuilder() {
+      public com.google.protobuf2.Any.Builder getValidatorPubkeyBuilder() {
         
         onChanged();
         return getValidatorPubkeyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getValidatorPubkeyOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getValidatorPubkeyOrBuilder() {
         if (validatorPubkeyBuilder_ != null) {
           return validatorPubkeyBuilder_.getMessageOrBuilder();
         } else {
           return validatorPubkey_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : validatorPubkey_;
+              com.google.protobuf2.Any.getDefaultInstance() : validatorPubkey_;
         }
       }
       /**
-       * <code>.google.protobuf.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any validator_pubkey = 1 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getValidatorPubkeyFieldBuilder() {
         if (validatorPubkeyBuilder_ == null) {
           validatorPubkeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getValidatorPubkey(),
                   getParentForChildren(),
                   isClean());
@@ -10642,57 +10642,57 @@ public final class Cert {
       "\037\022yaml:\"description\":\010\350\240\037\000\210\240\037\000\"v\n\022Compil" +
       "ationContent\022%\n\010compiler\030\001 \001(\tB\023\362\336\037\017yaml" +
       ":\"compiler\"\022/\n\rbytecode_hash\030\002 \001(\tB\030\362\336\037\024" +
-      "yaml:\"bytecode_hash\":\010\350\240\037\000\210\240\037\000\"\273\002\n\013Certi" +
+      "yaml:\"bytecode_hash\":\010\350\240\037\000\210\240\037\000\"\274\002\n\013Certi" +
       "ficate\0221\n\016certificate_id\030\001 \001(\004B\031\362\336\037\025yaml" +
-      ":\"certificate_id\"\0222\n\007content\030\002 \001(\0132\024.goo" +
-      "gle.protobuf.AnyB\013\312\264-\007Content\022e\n\023compila" +
-      "tion_content\030\003 \001(\0132(.shentu.cert.v1alpha" +
-      "1.CompilationContentB\036\362\336\037\032yaml:\"compilat" +
-      "ion_content\"\022+\n\013description\030\004 \001(\tB\026\362\336\037\022y" +
-      "aml:\"description\"\022\'\n\tcertifier\030\005 \001(\tB\024\362\336" +
-      "\037\020yaml:\"certifier\":\010\350\240\037\000\210\240\037\000\"7\n\007Library\022" +
-      "\017\n\007address\030\001 \001(\t\022\021\n\tpublisher\030\002 \001(\t:\010\350\240\037" +
-      "\000\210\240\037\000\"+\n\013Compilation\022\017\n\007content\030\001 \001(\t:\013\312" +
-      "\264-\007Content\"(\n\010Auditing\022\017\n\007content\030\001 \001(\t:" +
-      "\013\312\264-\007Content\"%\n\005Proof\022\017\n\007content\030\001 \001(\t:\013" +
-      "\312\264-\007Content\".\n\016OracleOperator\022\017\n\007content" +
-      "\030\001 \001(\t:\013\312\264-\007Content\"1\n\021ShieldPoolCreator" +
-      "\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Content\"(\n\010Identi" +
-      "ty\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Content\"\'\n\007Gene" +
-      "ral\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Content\"s\n\010Pla" +
-      "tform\022H\n\020validator_pubkey\030\001 \001(\0132\024.google" +
-      ".protobuf.AnyB\030\312\264-\024cosmos.crypto.PubKey\022" +
-      "\023\n\013description\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"\327\002\n\027Certi" +
-      "fierUpdateProposal\022\037\n\005title\030\001 \001(\tB\020\362\336\037\014y" +
-      "aml:\"title\"\022%\n\010proposer\030\002 \001(\tB\023\362\336\037\017yaml:" +
-      "\"proposer\"\022\037\n\005alias\030\003 \001(\tB\020\362\336\037\014yaml:\"ali" +
-      "as\"\022\'\n\tcertifier\030\004 \001(\tB\024\362\336\037\020yaml:\"certif" +
-      "ier\"\022+\n\013description\030\005 \001(\tB\026\362\336\037\022yaml:\"des" +
-      "cription\"\022>\n\radd_or_remove\030\006 \001(\010B\'\362\336\037\024ya" +
-      "ml:\"add_or_remove\"\372\336\037\013AddOrRemove:=\350\240\037\000\210" +
-      "\240\037\000\312\264-1*github.com/cosmos/cosmos-sdk/x/g" +
-      "ov/types.Content\"$\n\006KVPair\022\013\n\003key\030\001 \001(\t\022" +
-      "\r\n\005value\030\002 \001(\t*\334\003\n\017CertificateType\0221\n\025CE" +
-      "RT_TYPE_UNSPECIFIED\020\000\032\026\212\235 \022CertificateTy" +
-      "peNil\0229\n\025CERT_TYPE_COMPILATION\020\001\032\036\212\235 \032Ce" +
-      "rtificateTypeCompilation\0223\n\022CERT_TYPE_AU" +
-      "DITING\020\002\032\033\212\235 \027CertificateTypeAuditing\022-\n" +
-      "\017CERT_TYPE_PROOF\020\003\032\030\212\235 \024CertificateTypeP" +
-      "roof\022@\n\031CERT_TYPE_ORACLE_OPERATOR\020\004\032!\212\235 " +
-      "\035CertificateTypeOracleOperator\022G\n\035CERT_T" +
-      "YPE_SHIELD_POOL_CREATOR\020\005\032$\212\235  Certifica" +
-      "teTypeShieldPoolCreator\0223\n\022CERT_TYPE_IDE" +
-      "NTITY\020\006\032\033\212\235 \027CertificateTypeIdentity\0221\n\021" +
-      "CERT_TYPE_GENERAL\020\007\032\032\212\235 \026CertificateType" +
-      "General\032\004\210\243\036\000B1Z/github.com/certikfounda" +
-      "tion/shentu/x/cert/typesb\006proto3"
+      ":\"certificate_id\"\0223\n\007content\030\002 \001(\0132\025.goo" +
+      "gle.protobuf2.AnyB\013\312\264-\007Content\022e\n\023compil" +
+      "ation_content\030\003 \001(\0132(.shentu.cert.v1alph" +
+      "a1.CompilationContentB\036\362\336\037\032yaml:\"compila" +
+      "tion_content\"\022+\n\013description\030\004 \001(\tB\026\362\336\037\022" +
+      "yaml:\"description\"\022\'\n\tcertifier\030\005 \001(\tB\024\362" +
+      "\336\037\020yaml:\"certifier\":\010\350\240\037\000\210\240\037\000\"7\n\007Library" +
+      "\022\017\n\007address\030\001 \001(\t\022\021\n\tpublisher\030\002 \001(\t:\010\350\240" +
+      "\037\000\210\240\037\000\"+\n\013Compilation\022\017\n\007content\030\001 \001(\t:\013" +
+      "\312\264-\007Content\"(\n\010Auditing\022\017\n\007content\030\001 \001(\t" +
+      ":\013\312\264-\007Content\"%\n\005Proof\022\017\n\007content\030\001 \001(\t:" +
+      "\013\312\264-\007Content\".\n\016OracleOperator\022\017\n\007conten" +
+      "t\030\001 \001(\t:\013\312\264-\007Content\"1\n\021ShieldPoolCreato" +
+      "r\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Content\"(\n\010Ident" +
+      "ity\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Content\"\'\n\007Gen" +
+      "eral\022\017\n\007content\030\001 \001(\t:\013\312\264-\007Content\"t\n\010Pl" +
+      "atform\022I\n\020validator_pubkey\030\001 \001(\0132\025.googl" +
+      "e.protobuf2.AnyB\030\312\264-\024cosmos.crypto.PubKe" +
+      "y\022\023\n\013description\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"\327\002\n\027Cer" +
+      "tifierUpdateProposal\022\037\n\005title\030\001 \001(\tB\020\362\336\037" +
+      "\014yaml:\"title\"\022%\n\010proposer\030\002 \001(\tB\023\362\336\037\017yam" +
+      "l:\"proposer\"\022\037\n\005alias\030\003 \001(\tB\020\362\336\037\014yaml:\"a" +
+      "lias\"\022\'\n\tcertifier\030\004 \001(\tB\024\362\336\037\020yaml:\"cert" +
+      "ifier\"\022+\n\013description\030\005 \001(\tB\026\362\336\037\022yaml:\"d" +
+      "escription\"\022>\n\radd_or_remove\030\006 \001(\010B\'\362\336\037\024" +
+      "yaml:\"add_or_remove\"\372\336\037\013AddOrRemove:=\350\240\037" +
+      "\000\210\240\037\000\312\264-1*github.com/cosmos/cosmos-sdk/x" +
+      "/gov/types.Content\"$\n\006KVPair\022\013\n\003key\030\001 \001(" +
+      "\t\022\r\n\005value\030\002 \001(\t*\334\003\n\017CertificateType\0221\n\025" +
+      "CERT_TYPE_UNSPECIFIED\020\000\032\026\212\235 \022Certificate" +
+      "TypeNil\0229\n\025CERT_TYPE_COMPILATION\020\001\032\036\212\235 \032" +
+      "CertificateTypeCompilation\0223\n\022CERT_TYPE_" +
+      "AUDITING\020\002\032\033\212\235 \027CertificateTypeAuditing\022" +
+      "-\n\017CERT_TYPE_PROOF\020\003\032\030\212\235 \024CertificateTyp" +
+      "eProof\022@\n\031CERT_TYPE_ORACLE_OPERATOR\020\004\032!\212" +
+      "\235 \035CertificateTypeOracleOperator\022G\n\035CERT" +
+      "_TYPE_SHIELD_POOL_CREATOR\020\005\032$\212\235  Certifi" +
+      "cateTypeShieldPoolCreator\0223\n\022CERT_TYPE_I" +
+      "DENTITY\020\006\032\033\212\235 \027CertificateTypeIdentity\0221" +
+      "\n\021CERT_TYPE_GENERAL\020\007\032\032\212\235 \026CertificateTy" +
+      "peGeneral\032\004\210\243\036\000B1Z/github.com/certikfoun" +
+      "dation/shentu/x/cert/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_shentu_cert_v1alpha1_Certifier_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -10782,17 +10782,17 @@ public final class Cert {
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
     registry.add(cosmos_proto.Cosmos.implementsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.casttype);
-    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.casttype);
+    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -12972,19 +12972,19 @@ public final class Msgs {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Any subject = 1;</code>
+     * <code>.google.protobuf2.Any subject = 1;</code>
      * @return Whether the subject field is set.
      */
     boolean hasSubject();
     /**
-     * <code>.google.protobuf.Any subject = 1;</code>
+     * <code>.google.protobuf2.Any subject = 1;</code>
      * @return The subject.
      */
-    com.google.protobuf.Any getSubject();
+    com.google.protobuf2.Any getSubject();
     /**
-     * <code>.google.protobuf.Any subject = 1;</code>
+     * <code>.google.protobuf2.Any subject = 1;</code>
      */
-    com.google.protobuf.AnyOrBuilder getSubjectOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getSubjectOrBuilder();
 
     /**
      * <code>string signature = 2;</code>
@@ -13064,11 +13064,11 @@ public final class Msgs {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (subject_ != null) {
                 subBuilder = subject_.toBuilder();
               }
-              subject_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              subject_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(subject_);
                 subject_ = subBuilder.buildPartial();
@@ -13121,9 +13121,9 @@ public final class Msgs {
     }
 
     public static final int SUBJECT_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any subject_;
+    private com.google.protobuf2.Any subject_;
     /**
-     * <code>.google.protobuf.Any subject = 1;</code>
+     * <code>.google.protobuf2.Any subject = 1;</code>
      * @return Whether the subject field is set.
      */
     @java.lang.Override
@@ -13131,18 +13131,18 @@ public final class Msgs {
       return subject_ != null;
     }
     /**
-     * <code>.google.protobuf.Any subject = 1;</code>
+     * <code>.google.protobuf2.Any subject = 1;</code>
      * @return The subject.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getSubject() {
-      return subject_ == null ? com.google.protobuf.Any.getDefaultInstance() : subject_;
+    public com.google.protobuf2.Any getSubject() {
+      return subject_ == null ? com.google.protobuf2.Any.getDefaultInstance() : subject_;
     }
     /**
-     * <code>.google.protobuf.Any subject = 1;</code>
+     * <code>.google.protobuf2.Any subject = 1;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getSubjectOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getSubjectOrBuilder() {
       return getSubject();
     }
 
@@ -13577,31 +13577,31 @@ public final class Msgs {
         return this;
       }
 
-      private com.google.protobuf.Any subject_;
+      private com.google.protobuf2.Any subject_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> subjectBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> subjectBuilder_;
       /**
-       * <code>.google.protobuf.Any subject = 1;</code>
+       * <code>.google.protobuf2.Any subject = 1;</code>
        * @return Whether the subject field is set.
        */
       public boolean hasSubject() {
         return subjectBuilder_ != null || subject_ != null;
       }
       /**
-       * <code>.google.protobuf.Any subject = 1;</code>
+       * <code>.google.protobuf2.Any subject = 1;</code>
        * @return The subject.
        */
-      public com.google.protobuf.Any getSubject() {
+      public com.google.protobuf2.Any getSubject() {
         if (subjectBuilder_ == null) {
-          return subject_ == null ? com.google.protobuf.Any.getDefaultInstance() : subject_;
+          return subject_ == null ? com.google.protobuf2.Any.getDefaultInstance() : subject_;
         } else {
           return subjectBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any subject = 1;</code>
+       * <code>.google.protobuf2.Any subject = 1;</code>
        */
-      public Builder setSubject(com.google.protobuf.Any value) {
+      public Builder setSubject(com.google.protobuf2.Any value) {
         if (subjectBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -13615,10 +13615,10 @@ public final class Msgs {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any subject = 1;</code>
+       * <code>.google.protobuf2.Any subject = 1;</code>
        */
       public Builder setSubject(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (subjectBuilder_ == null) {
           subject_ = builderForValue.build();
           onChanged();
@@ -13629,13 +13629,13 @@ public final class Msgs {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any subject = 1;</code>
+       * <code>.google.protobuf2.Any subject = 1;</code>
        */
-      public Builder mergeSubject(com.google.protobuf.Any value) {
+      public Builder mergeSubject(com.google.protobuf2.Any value) {
         if (subjectBuilder_ == null) {
           if (subject_ != null) {
             subject_ =
-              com.google.protobuf.Any.newBuilder(subject_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(subject_).mergeFrom(value).buildPartial();
           } else {
             subject_ = value;
           }
@@ -13647,7 +13647,7 @@ public final class Msgs {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any subject = 1;</code>
+       * <code>.google.protobuf2.Any subject = 1;</code>
        */
       public Builder clearSubject() {
         if (subjectBuilder_ == null) {
@@ -13661,33 +13661,33 @@ public final class Msgs {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any subject = 1;</code>
+       * <code>.google.protobuf2.Any subject = 1;</code>
        */
-      public com.google.protobuf.Any.Builder getSubjectBuilder() {
+      public com.google.protobuf2.Any.Builder getSubjectBuilder() {
         
         onChanged();
         return getSubjectFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any subject = 1;</code>
+       * <code>.google.protobuf2.Any subject = 1;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getSubjectOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getSubjectOrBuilder() {
         if (subjectBuilder_ != null) {
           return subjectBuilder_.getMessageOrBuilder();
         } else {
           return subject_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : subject_;
+              com.google.protobuf2.Any.getDefaultInstance() : subject_;
         }
       }
       /**
-       * <code>.google.protobuf.Any subject = 1;</code>
+       * <code>.google.protobuf2.Any subject = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getSubjectFieldBuilder() {
         if (subjectBuilder_ == null) {
           subjectBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getSubject(),
                   getParentForChildren(),
                   isClean());
@@ -16360,72 +16360,72 @@ public final class Msgs {
       "tor\030\010 \001(\t\"\037\n\035MsgERC20DeployedClaimRespon" +
       "se\"<\n\022MsgCancelSendToEth\022\026\n\016transaction_" +
       "id\030\001 \001(\004\022\016\n\006sender\030\002 \001(\t\"\034\n\032MsgCancelSen" +
-      "dToEthResponse\"i\n\035MsgSubmitBadSignatureE" +
-      "vidence\022%\n\007subject\030\001 \001(\0132\024.google.protob" +
-      "uf.Any\022\021\n\tsignature\030\002 \001(\t\022\016\n\006sender\030\003 \001(" +
-      "\t\"\'\n%MsgSubmitBadSignatureEvidenceRespon" +
-      "se\"\201\002\n\025MsgValsetUpdatedClaim\022\023\n\013event_no" +
-      "nce\030\001 \001(\004\022\024\n\014valset_nonce\030\002 \001(\004\022\024\n\014block" +
-      "_height\030\003 \001(\004\0224\n\007members\030\004 \003(\0132#.injecti" +
-      "ve.peggy.v1.BridgeValidator\022E\n\rreward_am" +
-      "ount\030\005 \001(\tB.\332\336\037&github.com/cosmos/cosmos" +
-      "-sdk/types.Int\310\336\037\000\022\024\n\014reward_token\030\006 \001(\t" +
-      "\022\024\n\014orchestrator\030\007 \001(\t\"\037\n\035MsgValsetUpdat" +
-      "edClaimResponse2\304\r\n\003Msg\022\217\001\n\rValsetConfir" +
-      "m\022$.injective.peggy.v1.MsgValsetConfirm\032" +
-      ",.injective.peggy.v1.MsgValsetConfirmRes" +
-      "ponse\"*\202\323\344\223\002$\"\"/injective/peggy/v1/valse" +
-      "t_confirm\022\200\001\n\tSendToEth\022 .injective.pegg" +
-      "y.v1.MsgSendToEth\032(.injective.peggy.v1.M" +
-      "sgSendToEthResponse\"\'\202\323\344\223\002!\"\037/injective/" +
-      "peggy/v1/send_to_eth\022\213\001\n\014RequestBatch\022#." +
-      "injective.peggy.v1.MsgRequestBatch\032+.inj" +
-      "ective.peggy.v1.MsgRequestBatchResponse\"" +
-      ")\202\323\344\223\002#\"!/injective/peggy/v1/request_bat" +
-      "ch\022\213\001\n\014ConfirmBatch\022#.injective.peggy.v1" +
-      ".MsgConfirmBatch\032+.injective.peggy.v1.Ms" +
-      "gConfirmBatchResponse\")\202\323\344\223\002#\"!/injectiv" +
-      "e/peggy/v1/confirm_batch\022\213\001\n\014DepositClai" +
-      "m\022#.injective.peggy.v1.MsgDepositClaim\032+" +
-      ".injective.peggy.v1.MsgDepositClaimRespo" +
-      "nse\")\202\323\344\223\002#\"!/injective/peggy/v1/deposit" +
-      "_claim\022\217\001\n\rWithdrawClaim\022$.injective.peg" +
-      "gy.v1.MsgWithdrawClaim\032,.injective.peggy" +
-      ".v1.MsgWithdrawClaimResponse\"*\202\323\344\223\002$\"\"/i" +
-      "njective/peggy/v1/withdraw_claim\022\243\001\n\021Val" +
-      "setUpdateClaim\022).injective.peggy.v1.MsgV" +
-      "alsetUpdatedClaim\0321.injective.peggy.v1.M" +
-      "sgValsetUpdatedClaimResponse\"0\202\323\344\223\002*\"(/i" +
-      "njective/peggy/v1/valset_updated_claim\022\244" +
-      "\001\n\022ERC20DeployedClaim\022).injective.peggy." +
-      "v1.MsgERC20DeployedClaim\0321.injective.peg" +
-      "gy.v1.MsgERC20DeployedClaimResponse\"0\202\323\344" +
-      "\223\002*\"(/injective/peggy/v1/erc20_deployed_" +
-      "claim\022\272\001\n\030SetOrchestratorAddresses\022/.inj" +
-      "ective.peggy.v1.MsgSetOrchestratorAddres" +
-      "ses\0327.injective.peggy.v1.MsgSetOrchestra" +
-      "torAddressesResponse\"4\202\323\344\223\002.\",/injective" +
-      "/peggy/v1/set_orchestrator_address\022\231\001\n\017C" +
-      "ancelSendToEth\022&.injective.peggy.v1.MsgC" +
-      "ancelSendToEth\032..injective.peggy.v1.MsgC" +
-      "ancelSendToEthResponse\".\202\323\344\223\002(\"&/injecti" +
-      "ve/peggy/v1/cancel_send_to_eth\022\305\001\n\032Submi" +
-      "tBadSignatureEvidence\0221.injective.peggy." +
-      "v1.MsgSubmitBadSignatureEvidence\0329.injec" +
-      "tive.peggy.v1.MsgSubmitBadSignatureEvide" +
-      "nceResponse\"9\202\323\344\223\0023\"1/injective/peggy/v1" +
-      "/submit_bad_signature_evidenceBMZKgithub" +
-      ".com/InjectiveLabs/injective-core/inject" +
-      "ive-chain/modules/peggy/typesb\006proto3"
+      "dToEthResponse\"j\n\035MsgSubmitBadSignatureE" +
+      "vidence\022&\n\007subject\030\001 \001(\0132\025.google.protob" +
+      "uf2.Any\022\021\n\tsignature\030\002 \001(\t\022\016\n\006sender\030\003 \001" +
+      "(\t\"\'\n%MsgSubmitBadSignatureEvidenceRespo" +
+      "nse\"\201\002\n\025MsgValsetUpdatedClaim\022\023\n\013event_n" +
+      "once\030\001 \001(\004\022\024\n\014valset_nonce\030\002 \001(\004\022\024\n\014bloc" +
+      "k_height\030\003 \001(\004\0224\n\007members\030\004 \003(\0132#.inject" +
+      "ive.peggy.v1.BridgeValidator\022E\n\rreward_a" +
+      "mount\030\005 \001(\tB.\332\336\037&github.com/cosmos/cosmo" +
+      "s-sdk/types.Int\310\336\037\000\022\024\n\014reward_token\030\006 \001(" +
+      "\t\022\024\n\014orchestrator\030\007 \001(\t\"\037\n\035MsgValsetUpda" +
+      "tedClaimResponse2\304\r\n\003Msg\022\217\001\n\rValsetConfi" +
+      "rm\022$.injective.peggy.v1.MsgValsetConfirm" +
+      "\032,.injective.peggy.v1.MsgValsetConfirmRe" +
+      "sponse\"*\202\323\344\223\002$\"\"/injective/peggy/v1/vals" +
+      "et_confirm\022\200\001\n\tSendToEth\022 .injective.peg" +
+      "gy.v1.MsgSendToEth\032(.injective.peggy.v1." +
+      "MsgSendToEthResponse\"\'\202\323\344\223\002!\"\037/injective" +
+      "/peggy/v1/send_to_eth\022\213\001\n\014RequestBatch\022#" +
+      ".injective.peggy.v1.MsgRequestBatch\032+.in" +
+      "jective.peggy.v1.MsgRequestBatchResponse" +
+      "\")\202\323\344\223\002#\"!/injective/peggy/v1/request_ba" +
+      "tch\022\213\001\n\014ConfirmBatch\022#.injective.peggy.v" +
+      "1.MsgConfirmBatch\032+.injective.peggy.v1.M" +
+      "sgConfirmBatchResponse\")\202\323\344\223\002#\"!/injecti" +
+      "ve/peggy/v1/confirm_batch\022\213\001\n\014DepositCla" +
+      "im\022#.injective.peggy.v1.MsgDepositClaim\032" +
+      "+.injective.peggy.v1.MsgDepositClaimResp" +
+      "onse\")\202\323\344\223\002#\"!/injective/peggy/v1/deposi" +
+      "t_claim\022\217\001\n\rWithdrawClaim\022$.injective.pe" +
+      "ggy.v1.MsgWithdrawClaim\032,.injective.pegg" +
+      "y.v1.MsgWithdrawClaimResponse\"*\202\323\344\223\002$\"\"/" +
+      "injective/peggy/v1/withdraw_claim\022\243\001\n\021Va" +
+      "lsetUpdateClaim\022).injective.peggy.v1.Msg" +
+      "ValsetUpdatedClaim\0321.injective.peggy.v1." +
+      "MsgValsetUpdatedClaimResponse\"0\202\323\344\223\002*\"(/" +
+      "injective/peggy/v1/valset_updated_claim\022" +
+      "\244\001\n\022ERC20DeployedClaim\022).injective.peggy" +
+      ".v1.MsgERC20DeployedClaim\0321.injective.pe" +
+      "ggy.v1.MsgERC20DeployedClaimResponse\"0\202\323" +
+      "\344\223\002*\"(/injective/peggy/v1/erc20_deployed" +
+      "_claim\022\272\001\n\030SetOrchestratorAddresses\022/.in" +
+      "jective.peggy.v1.MsgSetOrchestratorAddre" +
+      "sses\0327.injective.peggy.v1.MsgSetOrchestr" +
+      "atorAddressesResponse\"4\202\323\344\223\002.\",/injectiv" +
+      "e/peggy/v1/set_orchestrator_address\022\231\001\n\017" +
+      "CancelSendToEth\022&.injective.peggy.v1.Msg" +
+      "CancelSendToEth\032..injective.peggy.v1.Msg" +
+      "CancelSendToEthResponse\".\202\323\344\223\002(\"&/inject" +
+      "ive/peggy/v1/cancel_send_to_eth\022\305\001\n\032Subm" +
+      "itBadSignatureEvidence\0221.injective.peggy" +
+      ".v1.MsgSubmitBadSignatureEvidence\0329.inje" +
+      "ctive.peggy.v1.MsgSubmitBadSignatureEvid" +
+      "enceResponse\"9\202\323\344\223\0023\"1/injective/peggy/v" +
+      "1/submit_bad_signature_evidenceBMZKgithu" +
+      "b.com/InjectiveLabs/injective-core/injec" +
+      "tive-chain/modules/peggy/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           injective.peggy.v1.Types.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_injective_peggy_v1_MsgSetOrchestratorAddresses_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -16561,16 +16561,16 @@ public final class Msgs {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     injective.peggy.v1.Types.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

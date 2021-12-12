@@ -595,19 +595,19 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      * @return Whether the token field is set.
      */
     boolean hasToken();
     /**
-     * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      * @return The token.
      */
-    com.google.protobuf.Any getToken();
+    com.google.protobuf2.Any getToken();
     /**
-     * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getTokenOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getTokenOrBuilder();
   }
   /**
    * <pre>
@@ -659,11 +659,11 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (token_ != null) {
                 subBuilder = token_.toBuilder();
               }
-              token_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              token_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(token_);
                 token_ = subBuilder.buildPartial();
@@ -704,9 +704,9 @@ public final class QueryOuterClass {
     }
 
     public static final int TOKEN_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any token_;
+    private com.google.protobuf2.Any token_;
     /**
-     * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      * @return Whether the token field is set.
      */
     @java.lang.Override
@@ -714,18 +714,18 @@ public final class QueryOuterClass {
       return token_ != null;
     }
     /**
-     * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      * @return The token.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getToken() {
-      return token_ == null ? com.google.protobuf.Any.getDefaultInstance() : token_;
+    public com.google.protobuf2.Any getToken() {
+      return token_ == null ? com.google.protobuf2.Any.getDefaultInstance() : token_;
     }
     /**
-     * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getTokenOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getTokenOrBuilder() {
       return getToken();
     }
 
@@ -1048,31 +1048,31 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any token_;
+      private com.google.protobuf2.Any token_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> tokenBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> tokenBuilder_;
       /**
-       * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        * @return Whether the token field is set.
        */
       public boolean hasToken() {
         return tokenBuilder_ != null || token_ != null;
       }
       /**
-       * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        * @return The token.
        */
-      public com.google.protobuf.Any getToken() {
+      public com.google.protobuf2.Any getToken() {
         if (tokenBuilder_ == null) {
-          return token_ == null ? com.google.protobuf.Any.getDefaultInstance() : token_;
+          return token_ == null ? com.google.protobuf2.Any.getDefaultInstance() : token_;
         } else {
           return tokenBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public Builder setToken(com.google.protobuf.Any value) {
+      public Builder setToken(com.google.protobuf2.Any value) {
         if (tokenBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1086,10 +1086,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       public Builder setToken(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (tokenBuilder_ == null) {
           token_ = builderForValue.build();
           onChanged();
@@ -1100,13 +1100,13 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public Builder mergeToken(com.google.protobuf.Any value) {
+      public Builder mergeToken(com.google.protobuf2.Any value) {
         if (tokenBuilder_ == null) {
           if (token_ != null) {
             token_ =
-              com.google.protobuf.Any.newBuilder(token_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(token_).mergeFrom(value).buildPartial();
           } else {
             token_ = value;
           }
@@ -1118,7 +1118,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       public Builder clearToken() {
         if (tokenBuilder_ == null) {
@@ -1132,33 +1132,33 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public com.google.protobuf.Any.Builder getTokenBuilder() {
+      public com.google.protobuf2.Any.Builder getTokenBuilder() {
         
         onChanged();
         return getTokenFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getTokenOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getTokenOrBuilder() {
         if (tokenBuilder_ != null) {
           return tokenBuilder_.getMessageOrBuilder();
         } else {
           return token_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : token_;
+              com.google.protobuf2.Any.getDefaultInstance() : token_;
         }
       }
       /**
-       * <code>.google.protobuf.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getTokenFieldBuilder() {
         if (tokenBuilder_ == null) {
           tokenBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getToken(),
                   getParentForChildren(),
                   isClean());
@@ -2063,27 +2063,27 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getTokensList();
     /**
-     * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
-    com.google.protobuf.Any getTokens(int index);
+    com.google.protobuf2.Any getTokens(int index);
     /**
-     * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
     int getTokensCount();
     /**
-     * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getTokensOrBuilderList();
     /**
-     * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getTokensOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getTokensOrBuilder(
         int index);
 
     /**
@@ -2154,11 +2154,11 @@ public final class QueryOuterClass {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                tokens_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                tokens_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000001;
               }
               tokens_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             case 18: {
@@ -2210,41 +2210,41 @@ public final class QueryOuterClass {
     }
 
     public static final int TOKENS_FIELD_NUMBER = 1;
-    private java.util.List<com.google.protobuf.Any> tokens_;
+    private java.util.List<com.google.protobuf2.Any> tokens_;
     /**
-     * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
     @java.lang.Override
-    public java.util.List<com.google.protobuf.Any> getTokensList() {
+    public java.util.List<com.google.protobuf2.Any> getTokensList() {
       return tokens_;
     }
     /**
-     * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getTokensOrBuilderList() {
       return tokens_;
     }
     /**
-     * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
     @java.lang.Override
     public int getTokensCount() {
       return tokens_.size();
     }
     /**
-     * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Any getTokens(int index) {
+    public com.google.protobuf2.Any getTokens(int index) {
       return tokens_.get(index);
     }
     /**
-     * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+     * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getTokensOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getTokensOrBuilder(
         int index) {
       return tokens_.get(index);
     }
@@ -2651,22 +2651,22 @@ public final class QueryOuterClass {
       }
       private int bitField0_;
 
-      private java.util.List<com.google.protobuf.Any> tokens_ =
+      private java.util.List<com.google.protobuf2.Any> tokens_ =
         java.util.Collections.emptyList();
       private void ensureTokensIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          tokens_ = new java.util.ArrayList<com.google.protobuf.Any>(tokens_);
+          tokens_ = new java.util.ArrayList<com.google.protobuf2.Any>(tokens_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> tokensBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> tokensBuilder_;
 
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public java.util.List<com.google.protobuf.Any> getTokensList() {
+      public java.util.List<com.google.protobuf2.Any> getTokensList() {
         if (tokensBuilder_ == null) {
           return java.util.Collections.unmodifiableList(tokens_);
         } else {
@@ -2674,7 +2674,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       public int getTokensCount() {
         if (tokensBuilder_ == null) {
@@ -2684,9 +2684,9 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public com.google.protobuf.Any getTokens(int index) {
+      public com.google.protobuf2.Any getTokens(int index) {
         if (tokensBuilder_ == null) {
           return tokens_.get(index);
         } else {
@@ -2694,10 +2694,10 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       public Builder setTokens(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (tokensBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2711,10 +2711,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       public Builder setTokens(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (tokensBuilder_ == null) {
           ensureTokensIsMutable();
           tokens_.set(index, builderForValue.build());
@@ -2725,9 +2725,9 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public Builder addTokens(com.google.protobuf.Any value) {
+      public Builder addTokens(com.google.protobuf2.Any value) {
         if (tokensBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2741,10 +2741,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       public Builder addTokens(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (tokensBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2758,10 +2758,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       public Builder addTokens(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (tokensBuilder_ == null) {
           ensureTokensIsMutable();
           tokens_.add(builderForValue.build());
@@ -2772,10 +2772,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       public Builder addTokens(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (tokensBuilder_ == null) {
           ensureTokensIsMutable();
           tokens_.add(index, builderForValue.build());
@@ -2786,10 +2786,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       public Builder addAllTokens(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (tokensBuilder_ == null) {
           ensureTokensIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -2801,7 +2801,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       public Builder clearTokens() {
         if (tokensBuilder_ == null) {
@@ -2814,7 +2814,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
       public Builder removeTokens(int index) {
         if (tokensBuilder_ == null) {
@@ -2827,16 +2827,16 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public com.google.protobuf.Any.Builder getTokensBuilder(
+      public com.google.protobuf2.Any.Builder getTokensBuilder(
           int index) {
         return getTokensFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getTokensOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getTokensOrBuilder(
           int index) {
         if (tokensBuilder_ == null) {
           return tokens_.get(index);  } else {
@@ -2844,9 +2844,9 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getTokensOrBuilderList() {
         if (tokensBuilder_ != null) {
           return tokensBuilder_.getMessageOrBuilderList();
@@ -2855,33 +2855,33 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public com.google.protobuf.Any.Builder addTokensBuilder() {
+      public com.google.protobuf2.Any.Builder addTokensBuilder() {
         return getTokensFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public com.google.protobuf.Any.Builder addTokensBuilder(
+      public com.google.protobuf2.Any.Builder addTokensBuilder(
           int index) {
         return getTokensFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
+       * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getTokensBuilderList() {
         return getTokensFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getTokensFieldBuilder() {
         if (tokensBuilder_ == null) {
           tokensBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   tokens_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -7092,45 +7092,45 @@ public final class QueryOuterClass {
       "go.proto\032\034google/api/annotations.proto\032\032" +
       "google/protobuf2/any.proto\032\032iris_mod/tok" +
       "en/token.proto\"\"\n\021QueryTokenRequest\022\r\n\005d" +
-      "enom\030\001 \001(\t\"G\n\022QueryTokenResponse\0221\n\005Toke" +
-      "n\030\001 \001(\0132\024.google.protobuf.AnyB\014\312\264-\010Conte" +
-      "ntI\"_\n\022QueryTokensRequest\022\r\n\005owner\030\001 \001(\t" +
-      "\022:\n\npagination\030\002 \001(\0132&.cosmos.base.query" +
-      ".v1beta1.PageRequest\"\206\001\n\023QueryTokensResp" +
-      "onse\0222\n\006Tokens\030\001 \003(\0132\024.google.protobuf.A" +
-      "nyB\014\312\264-\010ContentI\022;\n\npagination\030\002 \001(\0132\'.c" +
-      "osmos.base.query.v1beta1.PageResponse\"\"\n" +
-      "\020QueryFeesRequest\022\016\n\006symbol\030\001 \001(\t\"\206\002\n\021Qu" +
-      "eryFeesResponse\022\r\n\005exist\030\001 \001(\010\022q\n\tissue_" +
-      "fee\030\002 \001(\0132\031.cosmos.base.v1beta1.CoinBC\310\336" +
-      "\037\000\362\336\037\020yaml:\"issue_fee\"\372\336\037\'github.com/cos" +
-      "mos/cosmos-sdk/types.Coin\022o\n\010mint_fee\030\003 " +
-      "\001(\0132\031.cosmos.base.v1beta1.CoinBB\310\336\037\000\362\336\037\017" +
-      "yaml:\"mint_fee\"\372\336\037\'github.com/cosmos/cos" +
-      "mos-sdk/types.Coin\"\024\n\022QueryParamsRequest" +
-      "\"x\n\023QueryParamsResponse\022+\n\006params\030\001 \001(\0132" +
-      "\025.irismod.token.ParamsB\004\310\336\037\000\0224\n\003res\030\002 \001(" +
-      "\0132\'.cosmos.base.query.v1beta1.PageRespon" +
-      "se\"\027\n\025QueryTotalBurnRequest\"O\n\026QueryTota" +
-      "lBurnResponse\0225\n\014burned_coins\030\001 \003(\0132\031.co" +
-      "smos.base.v1beta1.CoinB\004\310\336\037\0002\321\004\n\005Query\022s" +
-      "\n\005Token\022 .irismod.token.QueryTokenReques" +
-      "t\032!.irismod.token.QueryTokenResponse\"%\202\323" +
-      "\344\223\002\037\022\035/irismod/token/tokens/{denom}\022n\n\006T" +
-      "okens\022!.irismod.token.QueryTokensRequest" +
-      "\032\".irismod.token.QueryTokensResponse\"\035\202\323" +
-      "\344\223\002\027\022\025/irismod/token/tokens\022v\n\004Fees\022\037.ir" +
-      "ismod.token.QueryFeesRequest\032 .irismod.t" +
-      "oken.QueryFeesResponse\"+\202\323\344\223\002%\022#/irismod" +
-      "/token/tokens/{symbol}/fees\022n\n\006Params\022!." +
-      "irismod.token.QueryParamsRequest\032\".irism" +
-      "od.token.QueryParamsResponse\"\035\202\323\344\223\002\027\022\025/i" +
-      "rismod/token/params\022{\n\tTotalBurn\022$.irism" +
-      "od.token.QueryTotalBurnRequest\032%.irismod" +
-      ".token.QueryTotalBurnResponse\"!\202\323\344\223\002\033\022\031/" +
-      "irismod/token/total_burnB0Z.github.com/i" +
-      "risnet/irismod/modules/token/typesb\006prot" +
-      "o3"
+      "enom\030\001 \001(\t\"H\n\022QueryTokenResponse\0222\n\005Toke" +
+      "n\030\001 \001(\0132\025.google.protobuf2.AnyB\014\312\264-\010Cont" +
+      "entI\"_\n\022QueryTokensRequest\022\r\n\005owner\030\001 \001(" +
+      "\t\022:\n\npagination\030\002 \001(\0132&.cosmos.base.quer" +
+      "y.v1beta1.PageRequest\"\207\001\n\023QueryTokensRes" +
+      "ponse\0223\n\006Tokens\030\001 \003(\0132\025.google.protobuf2" +
+      ".AnyB\014\312\264-\010ContentI\022;\n\npagination\030\002 \001(\0132\'" +
+      ".cosmos.base.query.v1beta1.PageResponse\"" +
+      "\"\n\020QueryFeesRequest\022\016\n\006symbol\030\001 \001(\t\"\206\002\n\021" +
+      "QueryFeesResponse\022\r\n\005exist\030\001 \001(\010\022q\n\tissu" +
+      "e_fee\030\002 \001(\0132\031.cosmos.base.v1beta1.CoinBC" +
+      "\310\336\037\000\362\336\037\020yaml:\"issue_fee\"\372\336\037\'github.com/c" +
+      "osmos/cosmos-sdk/types.Coin\022o\n\010mint_fee\030" +
+      "\003 \001(\0132\031.cosmos.base.v1beta1.CoinBB\310\336\037\000\362\336" +
+      "\037\017yaml:\"mint_fee\"\372\336\037\'github.com/cosmos/c" +
+      "osmos-sdk/types.Coin\"\024\n\022QueryParamsReque" +
+      "st\"x\n\023QueryParamsResponse\022+\n\006params\030\001 \001(" +
+      "\0132\025.irismod.token.ParamsB\004\310\336\037\000\0224\n\003res\030\002 " +
+      "\001(\0132\'.cosmos.base.query.v1beta1.PageResp" +
+      "onse\"\027\n\025QueryTotalBurnRequest\"O\n\026QueryTo" +
+      "talBurnResponse\0225\n\014burned_coins\030\001 \003(\0132\031." +
+      "cosmos.base.v1beta1.CoinB\004\310\336\037\0002\321\004\n\005Query" +
+      "\022s\n\005Token\022 .irismod.token.QueryTokenRequ" +
+      "est\032!.irismod.token.QueryTokenResponse\"%" +
+      "\202\323\344\223\002\037\022\035/irismod/token/tokens/{denom}\022n\n" +
+      "\006Tokens\022!.irismod.token.QueryTokensReque" +
+      "st\032\".irismod.token.QueryTokensResponse\"\035" +
+      "\202\323\344\223\002\027\022\025/irismod/token/tokens\022v\n\004Fees\022\037." +
+      "irismod.token.QueryFeesRequest\032 .irismod" +
+      ".token.QueryFeesResponse\"+\202\323\344\223\002%\022#/irism" +
+      "od/token/tokens/{symbol}/fees\022n\n\006Params\022" +
+      "!.irismod.token.QueryParamsRequest\032\".iri" +
+      "smod.token.QueryParamsResponse\"\035\202\323\344\223\002\027\022\025" +
+      "/irismod/token/params\022{\n\tTotalBurn\022$.iri" +
+      "smod.token.QueryTotalBurnRequest\032%.irism" +
+      "od.token.QueryTotalBurnResponse\"!\202\323\344\223\002\033\022" +
+      "\031/irismod/token/total_burnB0Z.github.com" +
+      "/irisnet/irismod/modules/token/typesb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7138,9 +7138,9 @@ public final class QueryOuterClass {
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           irismod.token.TokenOuterClass.getDescriptor(),
         });
     internal_static_irismod_token_QueryTokenRequest_descriptor =
@@ -7206,18 +7206,18 @@ public final class QueryOuterClass {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.casttype);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.casttype);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     irismod.token.TokenOuterClass.getDescriptor();
   }
 

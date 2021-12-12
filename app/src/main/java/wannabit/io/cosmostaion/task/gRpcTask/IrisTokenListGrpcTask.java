@@ -19,7 +19,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_IRIS_TOKEN_LIST;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
-import com.google.protobuf.Any;
+import com.google.protobuf2.Any;
 
 public class IrisTokenListGrpcTask extends CommonTask {
     private BaseChain mChain;

@@ -43,7 +43,7 @@ public final class RecordOuterClass {
      * pub_key represents a public key in any format
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      * @return Whether the pubKey field is set.
      */
     boolean hasPubKey();
@@ -52,18 +52,18 @@ public final class RecordOuterClass {
      * pub_key represents a public key in any format
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      * @return The pubKey.
      */
-    com.google.protobuf.Any getPubKey();
+    com.google.protobuf2.Any getPubKey();
     /**
      * <pre>
      * pub_key represents a public key in any format
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      */
-    com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder();
 
     /**
      * <pre>
@@ -232,11 +232,11 @@ public final class RecordOuterClass {
               break;
             }
             case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (pubKey_ != null) {
                 subBuilder = pubKey_.toBuilder();
               }
-              pubKey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              pubKey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(pubKey_);
                 pubKey_ = subBuilder.buildPartial();
@@ -337,19 +337,19 @@ public final class RecordOuterClass {
         com.google.protobuf.MessageOrBuilder {
 
       /**
-       * <code>.google.protobuf.Any priv_key = 1;</code>
+       * <code>.google.protobuf2.Any priv_key = 1;</code>
        * @return Whether the privKey field is set.
        */
       boolean hasPrivKey();
       /**
-       * <code>.google.protobuf.Any priv_key = 1;</code>
+       * <code>.google.protobuf2.Any priv_key = 1;</code>
        * @return The privKey.
        */
-      com.google.protobuf.Any getPrivKey();
+      com.google.protobuf2.Any getPrivKey();
       /**
-       * <code>.google.protobuf.Any priv_key = 1;</code>
+       * <code>.google.protobuf2.Any priv_key = 1;</code>
        */
-      com.google.protobuf.AnyOrBuilder getPrivKeyOrBuilder();
+      com.google.protobuf2.AnyOrBuilder getPrivKeyOrBuilder();
 
       /**
        * <code>string priv_key_type = 2;</code>
@@ -415,11 +415,11 @@ public final class RecordOuterClass {
                 done = true;
                 break;
               case 10: {
-                com.google.protobuf.Any.Builder subBuilder = null;
+                com.google.protobuf2.Any.Builder subBuilder = null;
                 if (privKey_ != null) {
                   subBuilder = privKey_.toBuilder();
                 }
-                privKey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+                privKey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
                 if (subBuilder != null) {
                   subBuilder.mergeFrom(privKey_);
                   privKey_ = subBuilder.buildPartial();
@@ -466,9 +466,9 @@ public final class RecordOuterClass {
       }
 
       public static final int PRIV_KEY_FIELD_NUMBER = 1;
-      private com.google.protobuf.Any privKey_;
+      private com.google.protobuf2.Any privKey_;
       /**
-       * <code>.google.protobuf.Any priv_key = 1;</code>
+       * <code>.google.protobuf2.Any priv_key = 1;</code>
        * @return Whether the privKey field is set.
        */
       @java.lang.Override
@@ -476,18 +476,18 @@ public final class RecordOuterClass {
         return privKey_ != null;
       }
       /**
-       * <code>.google.protobuf.Any priv_key = 1;</code>
+       * <code>.google.protobuf2.Any priv_key = 1;</code>
        * @return The privKey.
        */
       @java.lang.Override
-      public com.google.protobuf.Any getPrivKey() {
-        return privKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : privKey_;
+      public com.google.protobuf2.Any getPrivKey() {
+        return privKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : privKey_;
       }
       /**
-       * <code>.google.protobuf.Any priv_key = 1;</code>
+       * <code>.google.protobuf2.Any priv_key = 1;</code>
        */
       @java.lang.Override
-      public com.google.protobuf.AnyOrBuilder getPrivKeyOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPrivKeyOrBuilder() {
         return getPrivKey();
       }
 
@@ -866,31 +866,31 @@ public final class RecordOuterClass {
           return this;
         }
 
-        private com.google.protobuf.Any privKey_;
+        private com.google.protobuf2.Any privKey_;
         private com.google.protobuf.SingleFieldBuilderV3<
-            com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> privKeyBuilder_;
+            com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> privKeyBuilder_;
         /**
-         * <code>.google.protobuf.Any priv_key = 1;</code>
+         * <code>.google.protobuf2.Any priv_key = 1;</code>
          * @return Whether the privKey field is set.
          */
         public boolean hasPrivKey() {
           return privKeyBuilder_ != null || privKey_ != null;
         }
         /**
-         * <code>.google.protobuf.Any priv_key = 1;</code>
+         * <code>.google.protobuf2.Any priv_key = 1;</code>
          * @return The privKey.
          */
-        public com.google.protobuf.Any getPrivKey() {
+        public com.google.protobuf2.Any getPrivKey() {
           if (privKeyBuilder_ == null) {
-            return privKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : privKey_;
+            return privKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : privKey_;
           } else {
             return privKeyBuilder_.getMessage();
           }
         }
         /**
-         * <code>.google.protobuf.Any priv_key = 1;</code>
+         * <code>.google.protobuf2.Any priv_key = 1;</code>
          */
-        public Builder setPrivKey(com.google.protobuf.Any value) {
+        public Builder setPrivKey(com.google.protobuf2.Any value) {
           if (privKeyBuilder_ == null) {
             if (value == null) {
               throw new NullPointerException();
@@ -904,10 +904,10 @@ public final class RecordOuterClass {
           return this;
         }
         /**
-         * <code>.google.protobuf.Any priv_key = 1;</code>
+         * <code>.google.protobuf2.Any priv_key = 1;</code>
          */
         public Builder setPrivKey(
-            com.google.protobuf.Any.Builder builderForValue) {
+            com.google.protobuf2.Any.Builder builderForValue) {
           if (privKeyBuilder_ == null) {
             privKey_ = builderForValue.build();
             onChanged();
@@ -918,13 +918,13 @@ public final class RecordOuterClass {
           return this;
         }
         /**
-         * <code>.google.protobuf.Any priv_key = 1;</code>
+         * <code>.google.protobuf2.Any priv_key = 1;</code>
          */
-        public Builder mergePrivKey(com.google.protobuf.Any value) {
+        public Builder mergePrivKey(com.google.protobuf2.Any value) {
           if (privKeyBuilder_ == null) {
             if (privKey_ != null) {
               privKey_ =
-                com.google.protobuf.Any.newBuilder(privKey_).mergeFrom(value).buildPartial();
+                com.google.protobuf2.Any.newBuilder(privKey_).mergeFrom(value).buildPartial();
             } else {
               privKey_ = value;
             }
@@ -936,7 +936,7 @@ public final class RecordOuterClass {
           return this;
         }
         /**
-         * <code>.google.protobuf.Any priv_key = 1;</code>
+         * <code>.google.protobuf2.Any priv_key = 1;</code>
          */
         public Builder clearPrivKey() {
           if (privKeyBuilder_ == null) {
@@ -950,33 +950,33 @@ public final class RecordOuterClass {
           return this;
         }
         /**
-         * <code>.google.protobuf.Any priv_key = 1;</code>
+         * <code>.google.protobuf2.Any priv_key = 1;</code>
          */
-        public com.google.protobuf.Any.Builder getPrivKeyBuilder() {
+        public com.google.protobuf2.Any.Builder getPrivKeyBuilder() {
           
           onChanged();
           return getPrivKeyFieldBuilder().getBuilder();
         }
         /**
-         * <code>.google.protobuf.Any priv_key = 1;</code>
+         * <code>.google.protobuf2.Any priv_key = 1;</code>
          */
-        public com.google.protobuf.AnyOrBuilder getPrivKeyOrBuilder() {
+        public com.google.protobuf2.AnyOrBuilder getPrivKeyOrBuilder() {
           if (privKeyBuilder_ != null) {
             return privKeyBuilder_.getMessageOrBuilder();
           } else {
             return privKey_ == null ?
-                com.google.protobuf.Any.getDefaultInstance() : privKey_;
+                com.google.protobuf2.Any.getDefaultInstance() : privKey_;
           }
         }
         /**
-         * <code>.google.protobuf.Any priv_key = 1;</code>
+         * <code>.google.protobuf2.Any priv_key = 1;</code>
          */
         private com.google.protobuf.SingleFieldBuilderV3<
-            com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+            com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
             getPrivKeyFieldBuilder() {
           if (privKeyBuilder_ == null) {
             privKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+                com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                     getPrivKey(),
                     getParentForChildren(),
                     isClean());
@@ -2686,13 +2686,13 @@ public final class RecordOuterClass {
     }
 
     public static final int PUB_KEY_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any pubKey_;
+    private com.google.protobuf2.Any pubKey_;
     /**
      * <pre>
      * pub_key represents a public key in any format
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      * @return Whether the pubKey field is set.
      */
     @java.lang.Override
@@ -2704,22 +2704,22 @@ public final class RecordOuterClass {
      * pub_key represents a public key in any format
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      * @return The pubKey.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPubKey() {
-      return pubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+    public com.google.protobuf2.Any getPubKey() {
+      return pubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
     }
     /**
      * <pre>
      * pub_key represents a public key in any format
      * </pre>
      *
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder() {
       return getPubKey();
     }
 
@@ -3463,15 +3463,15 @@ public final class RecordOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any pubKey_;
+      private com.google.protobuf2.Any pubKey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> pubKeyBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> pubKeyBuilder_;
       /**
        * <pre>
        * pub_key represents a public key in any format
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        * @return Whether the pubKey field is set.
        */
       public boolean hasPubKey() {
@@ -3482,12 +3482,12 @@ public final class RecordOuterClass {
        * pub_key represents a public key in any format
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        * @return The pubKey.
        */
-      public com.google.protobuf.Any getPubKey() {
+      public com.google.protobuf2.Any getPubKey() {
         if (pubKeyBuilder_ == null) {
-          return pubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+          return pubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
         } else {
           return pubKeyBuilder_.getMessage();
         }
@@ -3497,9 +3497,9 @@ public final class RecordOuterClass {
        * pub_key represents a public key in any format
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
-      public Builder setPubKey(com.google.protobuf.Any value) {
+      public Builder setPubKey(com.google.protobuf2.Any value) {
         if (pubKeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3517,10 +3517,10 @@ public final class RecordOuterClass {
        * pub_key represents a public key in any format
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
       public Builder setPubKey(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (pubKeyBuilder_ == null) {
           pubKey_ = builderForValue.build();
           onChanged();
@@ -3535,13 +3535,13 @@ public final class RecordOuterClass {
        * pub_key represents a public key in any format
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
-      public Builder mergePubKey(com.google.protobuf.Any value) {
+      public Builder mergePubKey(com.google.protobuf2.Any value) {
         if (pubKeyBuilder_ == null) {
           if (pubKey_ != null) {
             pubKey_ =
-              com.google.protobuf.Any.newBuilder(pubKey_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(pubKey_).mergeFrom(value).buildPartial();
           } else {
             pubKey_ = value;
           }
@@ -3557,7 +3557,7 @@ public final class RecordOuterClass {
        * pub_key represents a public key in any format
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
       public Builder clearPubKey() {
         if (pubKeyBuilder_ == null) {
@@ -3575,9 +3575,9 @@ public final class RecordOuterClass {
        * pub_key represents a public key in any format
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
-      public com.google.protobuf.Any.Builder getPubKeyBuilder() {
+      public com.google.protobuf2.Any.Builder getPubKeyBuilder() {
         
         onChanged();
         return getPubKeyFieldBuilder().getBuilder();
@@ -3587,14 +3587,14 @@ public final class RecordOuterClass {
        * pub_key represents a public key in any format
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder() {
         if (pubKeyBuilder_ != null) {
           return pubKeyBuilder_.getMessageOrBuilder();
         } else {
           return pubKey_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+              com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
         }
       }
       /**
@@ -3602,14 +3602,14 @@ public final class RecordOuterClass {
        * pub_key represents a public key in any format
        * </pre>
        *
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPubKeyFieldBuilder() {
         if (pubKeyBuilder_ == null) {
           pubKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getPubKey(),
                   getParentForChildren(),
                   isClean());
@@ -4415,26 +4415,26 @@ public final class RecordOuterClass {
       "\n%cosmos/crypto/keyring/v1/record.proto\022" +
       "\030cosmos.crypto.keyring.v1\032\024gogoproto/gog" +
       "o.proto\032\032google/protobuf2/any.proto\032\034cos" +
-      "mos/crypto/hd/v1/hd.proto\"\305\003\n\006Record\022\014\n\004" +
-      "name\030\001 \001(\t\022%\n\007pub_key\030\002 \001(\0132\024.google.pro" +
-      "tobuf.Any\0227\n\005local\030\003 \001(\0132&.cosmos.crypto" +
-      ".keyring.v1.Record.LocalH\000\0229\n\006ledger\030\004 \001" +
-      "(\0132\'.cosmos.crypto.keyring.v1.Record.Led" +
-      "gerH\000\0227\n\005multi\030\005 \001(\0132&.cosmos.crypto.key" +
-      "ring.v1.Record.MultiH\000\022;\n\007offline\030\006 \001(\0132" +
-      "(.cosmos.crypto.keyring.v1.Record.Offlin" +
-      "eH\000\032F\n\005Local\022&\n\010priv_key\030\001 \001(\0132\024.google." +
-      "protobuf.Any\022\025\n\rpriv_key_type\030\002 \001(\t\0328\n\006L" +
-      "edger\022.\n\004path\030\001 \001(\0132 .cosmos.crypto.hd.v" +
-      "1.BIP44Params\032\007\n\005Multi\032\t\n\007OfflineB\006\n\004ite" +
-      "mB1Z+github.com/cosmos/cosmos-sdk/crypto" +
-      "/keyring\310\341\036\000b\006proto3"
+      "mos/crypto/hd/v1/hd.proto\"\307\003\n\006Record\022\014\n\004" +
+      "name\030\001 \001(\t\022&\n\007pub_key\030\002 \001(\0132\025.google.pro" +
+      "tobuf2.Any\0227\n\005local\030\003 \001(\0132&.cosmos.crypt" +
+      "o.keyring.v1.Record.LocalH\000\0229\n\006ledger\030\004 " +
+      "\001(\0132\'.cosmos.crypto.keyring.v1.Record.Le" +
+      "dgerH\000\0227\n\005multi\030\005 \001(\0132&.cosmos.crypto.ke" +
+      "yring.v1.Record.MultiH\000\022;\n\007offline\030\006 \001(\013" +
+      "2(.cosmos.crypto.keyring.v1.Record.Offli" +
+      "neH\000\032G\n\005Local\022\'\n\010priv_key\030\001 \001(\0132\025.google" +
+      ".protobuf2.Any\022\025\n\rpriv_key_type\030\002 \001(\t\0328\n" +
+      "\006Ledger\022.\n\004path\030\001 \001(\0132 .cosmos.crypto.hd" +
+      ".v1.BIP44Params\032\007\n\005Multi\032\t\n\007OfflineB\006\n\004i" +
+      "temB1Z+github.com/cosmos/cosmos-sdk/cryp" +
+      "to/keyring\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos.crypto.hd.v1.Hd.getDescriptor(),
         });
     internal_static_cosmos_crypto_keyring_v1_Record_descriptor =
@@ -4469,11 +4469,11 @@ public final class RecordOuterClass {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     cosmos.crypto.hd.v1.Hd.getDescriptor();
   }
 

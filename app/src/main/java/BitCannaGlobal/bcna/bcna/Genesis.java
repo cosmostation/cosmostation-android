@@ -1379,7 +1379,7 @@ public final class Genesis {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           BitCannaGlobal.bcna.bcna.BitcannaidOuterClass.getDescriptor(),
           BitCannaGlobal.bcna.bcna.SupplychainOuterClass.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_BitCannaGlobal_bcna_bcna_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1389,12 +1389,12 @@ public final class Genesis {
         new java.lang.String[] { "BitcannaidList", "BitcannaidCount", "SupplychainList", "SupplychainCount", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     BitCannaGlobal.bcna.bcna.BitcannaidOuterClass.getDescriptor();
     BitCannaGlobal.bcna.bcna.SupplychainOuterClass.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

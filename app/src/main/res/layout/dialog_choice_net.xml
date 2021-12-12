@@ -248,18 +248,17 @@
                     style="@style/font_ss_14_gray8"/>
             </LinearLayout>
 
-<!--            <View-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="1px"-->
-<!--                android:background="@color/colorGray10"/>-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorGray10"/>
             <LinearLayout
                 android:id="@+id/desmos_chain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:padding="@dimen/space_4"
-                android:visibility="gone">
+                android:padding="@dimen/space_4">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -567,7 +566,7 @@
                 android:layout_height="1px"
                 android:background="@color/colorGray10"/>
             <LinearLayout
-                android:id="@+id/iov_net"
+                android:id="@+id/secret_chain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -577,36 +576,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_starname"/>
+                    android:src="@drawable/chainsecret"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:text="@string/str_iov_main_net"
-                    style="@style/font_ss_14_gray8"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/colorGray10"/>
-            <LinearLayout
-                android:id="@+id/stargaze_chain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="@dimen/space_4">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chain_stargaze"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:text="@string/str_stargaze_main_net"
+                    android:text="@string/str_secret_main_net"
                     style="@style/font_ss_14_gray8"/>
             </LinearLayout>
 
@@ -663,7 +638,7 @@
                 android:layout_height="1px"
                 android:background="@color/colorGray10"/>
             <LinearLayout
-                android:id="@+id/secret_chain"
+                android:id="@+id/stargaze_chain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -673,12 +648,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/chainsecret"/>
+                    android:src="@drawable/chain_stargaze"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:text="@string/str_secret_main_net"
+                    android:text="@string/str_stargaze_main_net"
+                    style="@style/font_ss_14_gray8"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorGray10"/>
+            <LinearLayout
+                android:id="@+id/iov_net"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/space_4">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:src="@drawable/chain_starname"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:text="@string/str_iov_main_net"
                     style="@style/font_ss_14_gray8"/>
             </LinearLayout>
 

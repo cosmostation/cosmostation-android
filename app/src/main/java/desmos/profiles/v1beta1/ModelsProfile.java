@@ -23,7 +23,7 @@ public final class ModelsProfile {
      * Account represents the base Cosmos account associated with this profile
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return Whether the account field is set.
      */
     boolean hasAccount();
@@ -32,18 +32,18 @@ public final class ModelsProfile {
      * Account represents the base Cosmos account associated with this profile
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return The account.
      */
-    com.google.protobuf.Any getAccount();
+    com.google.protobuf2.Any getAccount();
     /**
      * <pre>
      * Account represents the base Cosmos account associated with this profile
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getAccountOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getAccountOrBuilder();
 
     /**
      * <pre>
@@ -213,11 +213,11 @@ public final class ModelsProfile {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (account_ != null) {
                 subBuilder = account_.toBuilder();
               }
-              account_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              account_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(account_);
                 account_ = subBuilder.buildPartial();
@@ -302,13 +302,13 @@ public final class ModelsProfile {
     }
 
     public static final int ACCOUNT_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any account_;
+    private com.google.protobuf2.Any account_;
     /**
      * <pre>
      * Account represents the base Cosmos account associated with this profile
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return Whether the account field is set.
      */
     @java.lang.Override
@@ -320,22 +320,22 @@ public final class ModelsProfile {
      * Account represents the base Cosmos account associated with this profile
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return The account.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getAccount() {
-      return account_ == null ? com.google.protobuf.Any.getDefaultInstance() : account_;
+    public com.google.protobuf2.Any getAccount() {
+      return account_ == null ? com.google.protobuf2.Any.getDefaultInstance() : account_;
     }
     /**
      * <pre>
      * Account represents the base Cosmos account associated with this profile
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getAccountOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getAccountOrBuilder() {
       return getAccount();
     }
 
@@ -984,15 +984,15 @@ public final class ModelsProfile {
         return this;
       }
 
-      private com.google.protobuf.Any account_;
+      private com.google.protobuf2.Any account_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> accountBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> accountBuilder_;
       /**
        * <pre>
        * Account represents the base Cosmos account associated with this profile
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        * @return Whether the account field is set.
        */
       public boolean hasAccount() {
@@ -1003,12 +1003,12 @@ public final class ModelsProfile {
        * Account represents the base Cosmos account associated with this profile
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        * @return The account.
        */
-      public com.google.protobuf.Any getAccount() {
+      public com.google.protobuf2.Any getAccount() {
         if (accountBuilder_ == null) {
-          return account_ == null ? com.google.protobuf.Any.getDefaultInstance() : account_;
+          return account_ == null ? com.google.protobuf2.Any.getDefaultInstance() : account_;
         } else {
           return accountBuilder_.getMessage();
         }
@@ -1018,9 +1018,9 @@ public final class ModelsProfile {
        * Account represents the base Cosmos account associated with this profile
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public Builder setAccount(com.google.protobuf.Any value) {
+      public Builder setAccount(com.google.protobuf2.Any value) {
         if (accountBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1038,10 +1038,10 @@ public final class ModelsProfile {
        * Account represents the base Cosmos account associated with this profile
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
       public Builder setAccount(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (accountBuilder_ == null) {
           account_ = builderForValue.build();
           onChanged();
@@ -1056,13 +1056,13 @@ public final class ModelsProfile {
        * Account represents the base Cosmos account associated with this profile
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public Builder mergeAccount(com.google.protobuf.Any value) {
+      public Builder mergeAccount(com.google.protobuf2.Any value) {
         if (accountBuilder_ == null) {
           if (account_ != null) {
             account_ =
-              com.google.protobuf.Any.newBuilder(account_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(account_).mergeFrom(value).buildPartial();
           } else {
             account_ = value;
           }
@@ -1078,7 +1078,7 @@ public final class ModelsProfile {
        * Account represents the base Cosmos account associated with this profile
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
       public Builder clearAccount() {
         if (accountBuilder_ == null) {
@@ -1096,9 +1096,9 @@ public final class ModelsProfile {
        * Account represents the base Cosmos account associated with this profile
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public com.google.protobuf.Any.Builder getAccountBuilder() {
+      public com.google.protobuf2.Any.Builder getAccountBuilder() {
         
         onChanged();
         return getAccountFieldBuilder().getBuilder();
@@ -1108,14 +1108,14 @@ public final class ModelsProfile {
        * Account represents the base Cosmos account associated with this profile
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getAccountOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getAccountOrBuilder() {
         if (accountBuilder_ != null) {
           return accountBuilder_.getMessageOrBuilder();
         } else {
           return account_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : account_;
+              com.google.protobuf2.Any.getDefaultInstance() : account_;
         }
       }
       /**
@@ -1123,14 +1123,14 @@ public final class ModelsProfile {
        * Account represents the base Cosmos account associated with this profile
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getAccountFieldBuilder() {
         if (accountBuilder_ == null) {
           accountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getAccount(),
                   getParentForChildren(),
                   isClean());
@@ -2610,25 +2610,25 @@ public final class ModelsProfile {
       ".proto\022\027desmos.profiles.v1beta1\032\024gogopro" +
       "to/gogo.proto\032\032google/protobuf2/any.prot" +
       "o\032\037google/protobuf/timestamp.proto\032\031cosm" +
-      "os_proto/cosmos.proto\"\326\002\n\007Profile\0223\n\007acc" +
-      "ount\030\001 \001(\0132\024.google.protobuf.AnyB\014\312\264-\010Ac" +
-      "countI\022%\n\004dtag\030\002 \001(\tB\027\362\336\037\013yaml:\"dtag\"\342\336\037" +
-      "\004DTag\022%\n\010nickname\030\003 \001(\tB\023\362\336\037\017yaml:\"nickn" +
-      "ame\"\022\033\n\003bio\030\004 \001(\tB\016\362\336\037\nyaml:\"bio\"\022L\n\010pic" +
-      "tures\030\005 \001(\0132!.desmos.profiles.v1beta1.Pi" +
-      "cturesB\027\310\336\037\000\362\336\037\017yaml:\"pictures\"\022S\n\rcreat" +
-      "ion_date\030\006 \001(\0132\032.google.protobuf.Timesta" +
-      "mpB \220\337\037\001\362\336\037\024yaml:\"creation_date\"\310\336\037\000:\010\210\240" +
-      "\037\000\230\240\037\000\"Z\n\010Pictures\022#\n\007profile\030\001 \001(\tB\022\362\336\037" +
-      "\016yaml:\"profile\"\022\037\n\005cover\030\002 \001(\tB\020\362\336\037\014yaml" +
-      ":\"cover\":\010\350\240\037\001\230\240\037\001B3Z1github.com/desmos-" +
-      "labs/desmos/v2/x/profiles/typesb\006proto3"
+      "os_proto/cosmos.proto\"\327\002\n\007Profile\0224\n\007acc" +
+      "ount\030\001 \001(\0132\025.google.protobuf2.AnyB\014\312\264-\010A" +
+      "ccountI\022%\n\004dtag\030\002 \001(\tB\027\362\336\037\013yaml:\"dtag\"\342\336" +
+      "\037\004DTag\022%\n\010nickname\030\003 \001(\tB\023\362\336\037\017yaml:\"nick" +
+      "name\"\022\033\n\003bio\030\004 \001(\tB\016\362\336\037\nyaml:\"bio\"\022L\n\010pi" +
+      "ctures\030\005 \001(\0132!.desmos.profiles.v1beta1.P" +
+      "icturesB\027\310\336\037\000\362\336\037\017yaml:\"pictures\"\022S\n\rcrea" +
+      "tion_date\030\006 \001(\0132\032.google.protobuf.Timest" +
+      "ampB \220\337\037\001\362\336\037\024yaml:\"creation_date\"\310\336\037\000:\010\210" +
+      "\240\037\000\230\240\037\000\"Z\n\010Pictures\022#\n\007profile\030\001 \001(\tB\022\362\336" +
+      "\037\016yaml:\"profile\"\022\037\n\005cover\030\002 \001(\tB\020\362\336\037\014yam" +
+      "l:\"cover\":\010\350\240\037\001\230\240\037\001B3Z1github.com/desmos" +
+      "-labs/desmos/v2/x/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
         });
@@ -2647,17 +2647,17 @@ public final class ModelsProfile {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.customname);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.customname);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
   }

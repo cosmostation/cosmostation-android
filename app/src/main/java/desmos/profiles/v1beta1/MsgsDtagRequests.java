@@ -5190,40 +5190,30 @@ public final class MsgsDtagRequests {
     java.lang.String[] descriptorData = {
       "\n0desmos/profiles/v1beta1/msgs_dtag_requ" +
       "ests.proto\022\027desmos.profiles.v1beta1\032\024gog" +
-      "oproto/gogo.proto\032\032google/protobuf2/any." +
-      "proto\032\031cosmos_proto/cosmos.proto\032,desmos" +
-      "/profiles/v1beta1/models_profile.proto\0322" +
-      "desmos/profiles/v1beta1/models_relations" +
-      "hips.proto\0322desmos/profiles/v1beta1/mode" +
-      "ls_dtag_requests.proto\"l\n\026MsgRequestDTag" +
-      "Transfer\022%\n\010receiver\030\001 \001(\tB\023\362\336\037\017yaml:\"re" +
-      "ceiver\"\022!\n\006sender\030\002 \001(\tB\021\362\336\037\ryaml:\"sende" +
-      "r\":\010\350\240\037\000\210\240\037\000\" \n\036MsgRequestDTagTransferRe" +
-      "sponse\"r\n\034MsgCancelDTagTransferRequest\022%" +
-      "\n\010receiver\030\001 \001(\tB\023\362\336\037\017yaml:\"receiver\"\022!\n" +
-      "\006sender\030\002 \001(\tB\021\362\336\037\ryaml:\"sender\":\010\350\240\037\000\210\240" +
-      "\037\000\"&\n$MsgCancelDTagTransferRequestRespon" +
-      "se\"\244\001\n\034MsgAcceptDTagTransferRequest\0220\n\010n" +
-      "ew_dtag\030\001 \001(\tB\036\362\336\037\017yaml:\"new_dtag\"\342\336\037\007Ne" +
-      "wDTag\022!\n\006sender\030\002 \001(\tB\021\362\336\037\ryaml:\"sender\"" +
-      "\022%\n\010receiver\030\003 \001(\tB\023\362\336\037\017yaml:\"receiver\":" +
-      "\010\350\240\037\000\210\240\037\000\"&\n$MsgAcceptDTagTransferReques" +
-      "tResponse\"r\n\034MsgRefuseDTagTransferReques" +
-      "t\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022%\n\010" +
-      "receiver\030\002 \001(\tB\023\362\336\037\017yaml:\"receiver\":\010\350\240\037" +
-      "\000\210\240\037\000\"&\n$MsgRefuseDTagTransferRequestRes" +
-      "ponseB3Z1github.com/desmos-labs/desmos/v" +
-      "2/x/profiles/typesb\006proto3"
+      "oproto/gogo.proto\"l\n\026MsgRequestDTagTrans" +
+      "fer\022%\n\010receiver\030\001 \001(\tB\023\362\336\037\017yaml:\"receive" +
+      "r\"\022!\n\006sender\030\002 \001(\tB\021\362\336\037\ryaml:\"sender\":\010\350" +
+      "\240\037\000\210\240\037\000\" \n\036MsgRequestDTagTransferRespons" +
+      "e\"r\n\034MsgCancelDTagTransferRequest\022%\n\010rec" +
+      "eiver\030\001 \001(\tB\023\362\336\037\017yaml:\"receiver\"\022!\n\006send" +
+      "er\030\002 \001(\tB\021\362\336\037\ryaml:\"sender\":\010\350\240\037\000\210\240\037\000\"&\n" +
+      "$MsgCancelDTagTransferRequestResponse\"\244\001" +
+      "\n\034MsgAcceptDTagTransferRequest\0220\n\010new_dt" +
+      "ag\030\001 \001(\tB\036\362\336\037\017yaml:\"new_dtag\"\342\336\037\007NewDTag" +
+      "\022!\n\006sender\030\002 \001(\tB\021\362\336\037\ryaml:\"sender\"\022%\n\010r" +
+      "eceiver\030\003 \001(\tB\023\362\336\037\017yaml:\"receiver\":\010\350\240\037\000" +
+      "\210\240\037\000\"&\n$MsgAcceptDTagTransferRequestResp" +
+      "onse\"r\n\034MsgRefuseDTagTransferRequest\022!\n\006" +
+      "sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022%\n\010recei" +
+      "ver\030\002 \001(\tB\023\362\336\037\017yaml:\"receiver\":\010\350\240\037\000\210\240\037\000" +
+      "\"&\n$MsgRefuseDTagTransferRequestResponse" +
+      "B3Z1github.com/desmos-labs/desmos/v2/x/p" +
+      "rofiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsProfile.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsRelationships.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_desmos_profiles_v1beta1_MsgRequestDTagTransfer_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5275,18 +5265,13 @@ public final class MsgsDtagRequests {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.customname);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.customname);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
-    desmos.profiles.v1beta1.ModelsProfile.getDescriptor();
-    desmos.profiles.v1beta1.ModelsRelationships.getDescriptor();
-    desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -5983,7 +5983,7 @@ public final class Genesis {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           shentu.burrow.v1alpha1.Acm.getDescriptor(),
         });
     internal_static_shentu_cvm_v1alpha1_GenesisState_descriptor =
@@ -6030,19 +6030,19 @@ public final class Genesis {
         new java.lang.String[] { "Hash", "Metadata", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoRegistration);
-    registry.add(com.google.protobuf.GoGoProtos.marshalerAll);
-    registry.add(com.google.protobuf.GoGoProtos.messagenameAll);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.sizerAll);
-    registry.add(com.google.protobuf.GoGoProtos.stableMarshalerAll);
-    registry.add(com.google.protobuf.GoGoProtos.unmarshalerAll);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoRegistration);
+    registry.add(com.google.protobuf2.GoGoProtos.marshalerAll);
+    registry.add(com.google.protobuf2.GoGoProtos.messagenameAll);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.sizerAll);
+    registry.add(com.google.protobuf2.GoGoProtos.stableMarshalerAll);
+    registry.add(com.google.protobuf2.GoGoProtos.unmarshalerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     shentu.burrow.v1alpha1.Acm.getDescriptor();
   }
 

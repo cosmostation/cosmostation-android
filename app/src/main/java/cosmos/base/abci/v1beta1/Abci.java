@@ -209,7 +209,7 @@ public final class Abci {
      * The request transaction bytes.
      * </pre>
      *
-     * <code>.google.protobuf.Any tx = 11;</code>
+     * <code>.google.protobuf2.Any tx = 11;</code>
      * @return Whether the tx field is set.
      */
     boolean hasTx();
@@ -218,18 +218,18 @@ public final class Abci {
      * The request transaction bytes.
      * </pre>
      *
-     * <code>.google.protobuf.Any tx = 11;</code>
+     * <code>.google.protobuf2.Any tx = 11;</code>
      * @return The tx.
      */
-    com.google.protobuf.Any getTx();
+    com.google.protobuf2.Any getTx();
     /**
      * <pre>
      * The request transaction bytes.
      * </pre>
      *
-     * <code>.google.protobuf.Any tx = 11;</code>
+     * <code>.google.protobuf2.Any tx = 11;</code>
      */
-    com.google.protobuf.AnyOrBuilder getTxOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getTxOrBuilder();
 
     /**
      * <pre>
@@ -373,11 +373,11 @@ public final class Abci {
               break;
             }
             case 90: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (tx_ != null) {
                 subBuilder = tx_.toBuilder();
               }
-              tx_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              tx_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(tx_);
                 tx_ = subBuilder.buildPartial();
@@ -779,13 +779,13 @@ public final class Abci {
     }
 
     public static final int TX_FIELD_NUMBER = 11;
-    private com.google.protobuf.Any tx_;
+    private com.google.protobuf2.Any tx_;
     /**
      * <pre>
      * The request transaction bytes.
      * </pre>
      *
-     * <code>.google.protobuf.Any tx = 11;</code>
+     * <code>.google.protobuf2.Any tx = 11;</code>
      * @return Whether the tx field is set.
      */
     @java.lang.Override
@@ -797,22 +797,22 @@ public final class Abci {
      * The request transaction bytes.
      * </pre>
      *
-     * <code>.google.protobuf.Any tx = 11;</code>
+     * <code>.google.protobuf2.Any tx = 11;</code>
      * @return The tx.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getTx() {
-      return tx_ == null ? com.google.protobuf.Any.getDefaultInstance() : tx_;
+    public com.google.protobuf2.Any getTx() {
+      return tx_ == null ? com.google.protobuf2.Any.getDefaultInstance() : tx_;
     }
     /**
      * <pre>
      * The request transaction bytes.
      * </pre>
      *
-     * <code>.google.protobuf.Any tx = 11;</code>
+     * <code>.google.protobuf2.Any tx = 11;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getTxOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getTxOrBuilder() {
       return getTx();
     }
 
@@ -2385,15 +2385,15 @@ public final class Abci {
         return this;
       }
 
-      private com.google.protobuf.Any tx_;
+      private com.google.protobuf2.Any tx_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> txBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> txBuilder_;
       /**
        * <pre>
        * The request transaction bytes.
        * </pre>
        *
-       * <code>.google.protobuf.Any tx = 11;</code>
+       * <code>.google.protobuf2.Any tx = 11;</code>
        * @return Whether the tx field is set.
        */
       public boolean hasTx() {
@@ -2404,12 +2404,12 @@ public final class Abci {
        * The request transaction bytes.
        * </pre>
        *
-       * <code>.google.protobuf.Any tx = 11;</code>
+       * <code>.google.protobuf2.Any tx = 11;</code>
        * @return The tx.
        */
-      public com.google.protobuf.Any getTx() {
+      public com.google.protobuf2.Any getTx() {
         if (txBuilder_ == null) {
-          return tx_ == null ? com.google.protobuf.Any.getDefaultInstance() : tx_;
+          return tx_ == null ? com.google.protobuf2.Any.getDefaultInstance() : tx_;
         } else {
           return txBuilder_.getMessage();
         }
@@ -2419,9 +2419,9 @@ public final class Abci {
        * The request transaction bytes.
        * </pre>
        *
-       * <code>.google.protobuf.Any tx = 11;</code>
+       * <code>.google.protobuf2.Any tx = 11;</code>
        */
-      public Builder setTx(com.google.protobuf.Any value) {
+      public Builder setTx(com.google.protobuf2.Any value) {
         if (txBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2439,10 +2439,10 @@ public final class Abci {
        * The request transaction bytes.
        * </pre>
        *
-       * <code>.google.protobuf.Any tx = 11;</code>
+       * <code>.google.protobuf2.Any tx = 11;</code>
        */
       public Builder setTx(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (txBuilder_ == null) {
           tx_ = builderForValue.build();
           onChanged();
@@ -2457,13 +2457,13 @@ public final class Abci {
        * The request transaction bytes.
        * </pre>
        *
-       * <code>.google.protobuf.Any tx = 11;</code>
+       * <code>.google.protobuf2.Any tx = 11;</code>
        */
-      public Builder mergeTx(com.google.protobuf.Any value) {
+      public Builder mergeTx(com.google.protobuf2.Any value) {
         if (txBuilder_ == null) {
           if (tx_ != null) {
             tx_ =
-              com.google.protobuf.Any.newBuilder(tx_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(tx_).mergeFrom(value).buildPartial();
           } else {
             tx_ = value;
           }
@@ -2479,7 +2479,7 @@ public final class Abci {
        * The request transaction bytes.
        * </pre>
        *
-       * <code>.google.protobuf.Any tx = 11;</code>
+       * <code>.google.protobuf2.Any tx = 11;</code>
        */
       public Builder clearTx() {
         if (txBuilder_ == null) {
@@ -2497,9 +2497,9 @@ public final class Abci {
        * The request transaction bytes.
        * </pre>
        *
-       * <code>.google.protobuf.Any tx = 11;</code>
+       * <code>.google.protobuf2.Any tx = 11;</code>
        */
-      public com.google.protobuf.Any.Builder getTxBuilder() {
+      public com.google.protobuf2.Any.Builder getTxBuilder() {
         
         onChanged();
         return getTxFieldBuilder().getBuilder();
@@ -2509,14 +2509,14 @@ public final class Abci {
        * The request transaction bytes.
        * </pre>
        *
-       * <code>.google.protobuf.Any tx = 11;</code>
+       * <code>.google.protobuf2.Any tx = 11;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getTxOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getTxOrBuilder() {
         if (txBuilder_ != null) {
           return txBuilder_.getMessageOrBuilder();
         } else {
           return tx_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : tx_;
+              com.google.protobuf2.Any.getDefaultInstance() : tx_;
         }
       }
       /**
@@ -2524,14 +2524,14 @@ public final class Abci {
        * The request transaction bytes.
        * </pre>
        *
-       * <code>.google.protobuf.Any tx = 11;</code>
+       * <code>.google.protobuf2.Any tx = 11;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getTxFieldBuilder() {
         if (txBuilder_ == null) {
           txBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getTx(),
                   getParentForChildren(),
                   isClean());
@@ -11093,45 +11093,45 @@ public final class Abci {
       "\n#cosmos/base/abci/v1beta1/abci.proto\022\030c" +
       "osmos.base.abci.v1beta1\032\024gogoproto/gogo." +
       "proto\032\033tendermint/abci/types.proto\032\032goog" +
-      "le/protobuf2/any.proto\"\270\002\n\nTxResponse\022\016\n" +
+      "le/protobuf2/any.proto\"\271\002\n\nTxResponse\022\016\n" +
       "\006height\030\001 \001(\003\022\032\n\006txhash\030\002 \001(\tB\n\342\336\037\006TxHas" +
       "h\022\021\n\tcodespace\030\003 \001(\t\022\014\n\004code\030\004 \001(\r\022\014\n\004da" +
       "ta\030\005 \001(\t\022\017\n\007raw_log\030\006 \001(\t\022O\n\004logs\030\007 \003(\0132" +
       "(.cosmos.base.abci.v1beta1.ABCIMessageLo" +
       "gB\027\252\337\037\017ABCIMessageLogs\310\336\037\000\022\014\n\004info\030\010 \001(\t" +
-      "\022\022\n\ngas_wanted\030\t \001(\003\022\020\n\010gas_used\030\n \001(\003\022 " +
-      "\n\002tx\030\013 \001(\0132\024.google.protobuf.Any\022\021\n\ttime" +
-      "stamp\030\014 \001(\t:\004\210\240\037\000\"\203\001\n\016ABCIMessageLog\022\021\n\t" +
-      "msg_index\030\001 \001(\r\022\013\n\003log\030\002 \001(\t\022K\n\006events\030\003" +
-      " \003(\0132%.cosmos.base.abci.v1beta1.StringEv" +
-      "entB\024\252\337\037\014StringEvents\310\336\037\000:\004\200\334 \001\"`\n\013Strin" +
-      "gEvent\022\014\n\004type\030\001 \001(\t\022=\n\nattributes\030\002 \003(\013" +
-      "2#.cosmos.base.abci.v1beta1.AttributeB\004\310" +
-      "\336\037\000:\004\200\334 \001\"\'\n\tAttribute\022\013\n\003key\030\001 \001(\t\022\r\n\005v" +
-      "alue\030\002 \001(\t\"/\n\007GasInfo\022\022\n\ngas_wanted\030\001 \001(" +
-      "\004\022\020\n\010gas_used\030\002 \001(\004\"W\n\006Result\022\014\n\004data\030\001 " +
-      "\001(\014\022\013\n\003log\030\002 \001(\t\022,\n\006events\030\003 \003(\0132\026.tende" +
-      "rmint.abci.EventB\004\310\336\037\000:\004\210\240\037\000\"\205\001\n\022Simulat" +
-      "ionResponse\022=\n\010gas_info\030\001 \001(\0132!.cosmos.b" +
-      "ase.abci.v1beta1.GasInfoB\010\320\336\037\001\310\336\037\000\0220\n\006re" +
-      "sult\030\002 \001(\0132 .cosmos.base.abci.v1beta1.Re" +
-      "sult\"/\n\007MsgData\022\020\n\010msg_type\030\001 \001(\t\022\014\n\004dat" +
-      "a\030\002 \001(\014:\004\200\334 \001\"B\n\tTxMsgData\022/\n\004data\030\001 \003(\013" +
-      "2!.cosmos.base.abci.v1beta1.MsgData:\004\200\334 " +
-      "\001\"\330\001\n\017SearchTxsResult\022$\n\013total_count\030\001 \001" +
-      "(\004B\017\352\336\037\013total_count\022\r\n\005count\030\002 \001(\004\022$\n\013pa" +
-      "ge_number\030\003 \001(\004B\017\352\336\037\013page_number\022\"\n\npage" +
-      "_total\030\004 \001(\004B\016\352\336\037\npage_total\022\r\n\005limit\030\005 " +
-      "\001(\004\0221\n\003txs\030\006 \003(\0132$.cosmos.base.abci.v1be" +
-      "ta1.TxResponse:\004\200\334 \001B(Z\"github.com/cosmo" +
-      "s/cosmos-sdk/types\330\341\036\000b\006proto3"
+      "\022\022\n\ngas_wanted\030\t \001(\003\022\020\n\010gas_used\030\n \001(\003\022!" +
+      "\n\002tx\030\013 \001(\0132\025.google.protobuf2.Any\022\021\n\ttim" +
+      "estamp\030\014 \001(\t:\004\210\240\037\000\"\203\001\n\016ABCIMessageLog\022\021\n" +
+      "\tmsg_index\030\001 \001(\r\022\013\n\003log\030\002 \001(\t\022K\n\006events\030" +
+      "\003 \003(\0132%.cosmos.base.abci.v1beta1.StringE" +
+      "ventB\024\252\337\037\014StringEvents\310\336\037\000:\004\200\334 \001\"`\n\013Stri" +
+      "ngEvent\022\014\n\004type\030\001 \001(\t\022=\n\nattributes\030\002 \003(" +
+      "\0132#.cosmos.base.abci.v1beta1.AttributeB\004" +
+      "\310\336\037\000:\004\200\334 \001\"\'\n\tAttribute\022\013\n\003key\030\001 \001(\t\022\r\n\005" +
+      "value\030\002 \001(\t\"/\n\007GasInfo\022\022\n\ngas_wanted\030\001 \001" +
+      "(\004\022\020\n\010gas_used\030\002 \001(\004\"W\n\006Result\022\014\n\004data\030\001" +
+      " \001(\014\022\013\n\003log\030\002 \001(\t\022,\n\006events\030\003 \003(\0132\026.tend" +
+      "ermint.abci.EventB\004\310\336\037\000:\004\210\240\037\000\"\205\001\n\022Simula" +
+      "tionResponse\022=\n\010gas_info\030\001 \001(\0132!.cosmos." +
+      "base.abci.v1beta1.GasInfoB\010\320\336\037\001\310\336\037\000\0220\n\006r" +
+      "esult\030\002 \001(\0132 .cosmos.base.abci.v1beta1.R" +
+      "esult\"/\n\007MsgData\022\020\n\010msg_type\030\001 \001(\t\022\014\n\004da" +
+      "ta\030\002 \001(\014:\004\200\334 \001\"B\n\tTxMsgData\022/\n\004data\030\001 \003(" +
+      "\0132!.cosmos.base.abci.v1beta1.MsgData:\004\200\334" +
+      " \001\"\330\001\n\017SearchTxsResult\022$\n\013total_count\030\001 " +
+      "\001(\004B\017\352\336\037\013total_count\022\r\n\005count\030\002 \001(\004\022$\n\013p" +
+      "age_number\030\003 \001(\004B\017\352\336\037\013page_number\022\"\n\npag" +
+      "e_total\030\004 \001(\004B\016\352\336\037\npage_total\022\r\n\005limit\030\005" +
+      " \001(\004\0221\n\003txs\030\006 \003(\0132$.cosmos.base.abci.v1b" +
+      "eta1.TxResponse:\004\200\334 \001B(Z\"github.com/cosm" +
+      "os/cosmos-sdk/types\330\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           tendermint.abci.Types.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_cosmos_base_abci_v1beta1_TxResponse_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -11195,19 +11195,19 @@ public final class Abci {
         new java.lang.String[] { "TotalCount", "Count", "PageNumber", "PageTotal", "Limit", "Txs", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.customname);
-    registry.add(com.google.protobuf.GoGoProtos.embed);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringerAll);
-    registry.add(com.google.protobuf.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stringer);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.customname);
+    registry.add(com.google.protobuf2.GoGoProtos.embed);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringerAll);
+    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stringer);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     tendermint.abci.Types.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

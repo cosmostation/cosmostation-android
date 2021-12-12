@@ -24,7 +24,7 @@ public final class MsgsChainLinks {
      * linked
      * </pre>
      *
-     * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return Whether the chainAddress field is set.
      */
     boolean hasChainAddress();
@@ -34,19 +34,19 @@ public final class MsgsChainLinks {
      * linked
      * </pre>
      *
-     * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return The chainAddress.
      */
-    com.google.protobuf.Any getChainAddress();
+    com.google.protobuf2.Any getChainAddress();
     /**
      * <pre>
      * ChainAddress contains the details of the external chain address to be
      * linked
      * </pre>
      *
-     * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getChainAddressOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getChainAddressOrBuilder();
 
     /**
      * <pre>
@@ -175,11 +175,11 @@ public final class MsgsChainLinks {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (chainAddress_ != null) {
                 subBuilder = chainAddress_.toBuilder();
               }
-              chainAddress_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              chainAddress_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(chainAddress_);
                 chainAddress_ = subBuilder.buildPartial();
@@ -252,14 +252,14 @@ public final class MsgsChainLinks {
     }
 
     public static final int CHAIN_ADDRESS_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any chainAddress_;
+    private com.google.protobuf2.Any chainAddress_;
     /**
      * <pre>
      * ChainAddress contains the details of the external chain address to be
      * linked
      * </pre>
      *
-     * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return Whether the chainAddress field is set.
      */
     @java.lang.Override
@@ -272,12 +272,12 @@ public final class MsgsChainLinks {
      * linked
      * </pre>
      *
-     * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      * @return The chainAddress.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getChainAddress() {
-      return chainAddress_ == null ? com.google.protobuf.Any.getDefaultInstance() : chainAddress_;
+    public com.google.protobuf2.Any getChainAddress() {
+      return chainAddress_ == null ? com.google.protobuf2.Any.getDefaultInstance() : chainAddress_;
     }
     /**
      * <pre>
@@ -285,10 +285,10 @@ public final class MsgsChainLinks {
      * linked
      * </pre>
      *
-     * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+     * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getChainAddressOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getChainAddressOrBuilder() {
       return getChainAddress();
     }
 
@@ -812,16 +812,16 @@ public final class MsgsChainLinks {
         return this;
       }
 
-      private com.google.protobuf.Any chainAddress_;
+      private com.google.protobuf2.Any chainAddress_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> chainAddressBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> chainAddressBuilder_;
       /**
        * <pre>
        * ChainAddress contains the details of the external chain address to be
        * linked
        * </pre>
        *
-       * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        * @return Whether the chainAddress field is set.
        */
       public boolean hasChainAddress() {
@@ -833,12 +833,12 @@ public final class MsgsChainLinks {
        * linked
        * </pre>
        *
-       * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        * @return The chainAddress.
        */
-      public com.google.protobuf.Any getChainAddress() {
+      public com.google.protobuf2.Any getChainAddress() {
         if (chainAddressBuilder_ == null) {
-          return chainAddress_ == null ? com.google.protobuf.Any.getDefaultInstance() : chainAddress_;
+          return chainAddress_ == null ? com.google.protobuf2.Any.getDefaultInstance() : chainAddress_;
         } else {
           return chainAddressBuilder_.getMessage();
         }
@@ -849,9 +849,9 @@ public final class MsgsChainLinks {
        * linked
        * </pre>
        *
-       * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public Builder setChainAddress(com.google.protobuf.Any value) {
+      public Builder setChainAddress(com.google.protobuf2.Any value) {
         if (chainAddressBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -870,10 +870,10 @@ public final class MsgsChainLinks {
        * linked
        * </pre>
        *
-       * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
       public Builder setChainAddress(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (chainAddressBuilder_ == null) {
           chainAddress_ = builderForValue.build();
           onChanged();
@@ -889,13 +889,13 @@ public final class MsgsChainLinks {
        * linked
        * </pre>
        *
-       * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public Builder mergeChainAddress(com.google.protobuf.Any value) {
+      public Builder mergeChainAddress(com.google.protobuf2.Any value) {
         if (chainAddressBuilder_ == null) {
           if (chainAddress_ != null) {
             chainAddress_ =
-              com.google.protobuf.Any.newBuilder(chainAddress_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(chainAddress_).mergeFrom(value).buildPartial();
           } else {
             chainAddress_ = value;
           }
@@ -912,7 +912,7 @@ public final class MsgsChainLinks {
        * linked
        * </pre>
        *
-       * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
       public Builder clearChainAddress() {
         if (chainAddressBuilder_ == null) {
@@ -931,9 +931,9 @@ public final class MsgsChainLinks {
        * linked
        * </pre>
        *
-       * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public com.google.protobuf.Any.Builder getChainAddressBuilder() {
+      public com.google.protobuf2.Any.Builder getChainAddressBuilder() {
         
         onChanged();
         return getChainAddressFieldBuilder().getBuilder();
@@ -944,14 +944,14 @@ public final class MsgsChainLinks {
        * linked
        * </pre>
        *
-       * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getChainAddressOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getChainAddressOrBuilder() {
         if (chainAddressBuilder_ != null) {
           return chainAddressBuilder_.getMessageOrBuilder();
         } else {
           return chainAddress_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : chainAddress_;
+              com.google.protobuf2.Any.getDefaultInstance() : chainAddress_;
         }
       }
       /**
@@ -960,14 +960,14 @@ public final class MsgsChainLinks {
        * linked
        * </pre>
        *
-       * <code>.google.protobuf.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
+       * <code>.google.protobuf2.Any chain_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_address&#92;"", (.cosmos_proto.accepts_interface) = "AddressData"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getChainAddressFieldBuilder() {
         if (chainAddressBuilder_ == null) {
           chainAddressBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getChainAddress(),
                   getParentForChildren(),
                   isClean());
@@ -3320,27 +3320,27 @@ public final class MsgsChainLinks {
       "roto/gogo.proto\032\032google/protobuf2/any.pr" +
       "oto\032\031cosmos_proto/cosmos.proto\0320desmos/p" +
       "rofiles/v1beta1/models_chain_links.proto" +
-      "\"\273\002\n\023MsgLinkChainAccount\022U\n\rchain_addres" +
-      "s\030\001 \001(\0132\024.google.protobuf.AnyB(\362\336\037\025yaml:" +
-      "\"source_address\"\312\264-\013AddressData\022J\n\005proof" +
-      "\030\002 \001(\0132\036.desmos.profiles.v1beta1.ProofB\033" +
-      "\310\336\037\000\362\336\037\023yaml:\"source_proof\"\022^\n\014chain_con" +
-      "fig\030\003 \001(\0132$.desmos.profiles.v1beta1.Chai" +
-      "nConfigB\"\310\336\037\000\362\336\037\032yaml:\"source_chain_conf" +
-      "ig\"\022!\n\006signer\030\004 \001(\tB\021\362\336\037\ryaml:\"signer\"\"\035" +
-      "\n\033MsgLinkChainAccountResponse\"\206\001\n\025MsgUnl" +
-      "inkChainAccount\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml" +
-      ":\"owner\"\022)\n\nchain_name\030\002 \001(\tB\025\362\336\037\021yaml:\"" +
-      "chain_name\"\022!\n\006target\030\003 \001(\tB\021\362\336\037\ryaml:\"t" +
-      "arget\"\"\037\n\035MsgUnlinkChainAccountResponseB" +
-      "3Z1github.com/desmos-labs/desmos/v2/x/pr" +
-      "ofiles/typesb\006proto3"
+      "\"\274\002\n\023MsgLinkChainAccount\022V\n\rchain_addres" +
+      "s\030\001 \001(\0132\025.google.protobuf2.AnyB(\362\336\037\025yaml" +
+      ":\"source_address\"\312\264-\013AddressData\022J\n\005proo" +
+      "f\030\002 \001(\0132\036.desmos.profiles.v1beta1.ProofB" +
+      "\033\310\336\037\000\362\336\037\023yaml:\"source_proof\"\022^\n\014chain_co" +
+      "nfig\030\003 \001(\0132$.desmos.profiles.v1beta1.Cha" +
+      "inConfigB\"\310\336\037\000\362\336\037\032yaml:\"source_chain_con" +
+      "fig\"\022!\n\006signer\030\004 \001(\tB\021\362\336\037\ryaml:\"signer\"\"" +
+      "\035\n\033MsgLinkChainAccountResponse\"\206\001\n\025MsgUn" +
+      "linkChainAccount\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yam" +
+      "l:\"owner\"\022)\n\nchain_name\030\002 \001(\tB\025\362\336\037\021yaml:" +
+      "\"chain_name\"\022!\n\006target\030\003 \001(\tB\021\362\336\037\ryaml:\"" +
+      "target\"\"\037\n\035MsgUnlinkChainAccountResponse" +
+      "B3Z1github.com/desmos-labs/desmos/v2/x/p" +
+      "rofiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor(),
         });
@@ -3371,12 +3371,12 @@ public final class MsgsChainLinks {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     desmos.profiles.v1beta1.ModelsChainLinks.getDescriptor();
   }

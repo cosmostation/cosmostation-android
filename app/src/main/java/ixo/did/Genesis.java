@@ -19,27 +19,27 @@ public final class Genesis {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getDidDocsList();
     /**
-     * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
      */
-    com.google.protobuf.Any getDidDocs(int index);
+    com.google.protobuf2.Any getDidDocs(int index);
     /**
-     * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
      */
     int getDidDocsCount();
     /**
-     * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getDidDocsOrBuilderList();
     /**
-     * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getDidDocsOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getDidDocsOrBuilder(
         int index);
   }
   /**
@@ -95,11 +95,11 @@ public final class Genesis {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                didDocs_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                didDocs_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000001;
               }
               didDocs_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -138,41 +138,41 @@ public final class Genesis {
     }
 
     public static final int DID_DOCS_FIELD_NUMBER = 1;
-    private java.util.List<com.google.protobuf.Any> didDocs_;
+    private java.util.List<com.google.protobuf2.Any> didDocs_;
     /**
-     * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
      */
     @java.lang.Override
-    public java.util.List<com.google.protobuf.Any> getDidDocsList() {
+    public java.util.List<com.google.protobuf2.Any> getDidDocsList() {
       return didDocs_;
     }
     /**
-     * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getDidDocsOrBuilderList() {
       return didDocs_;
     }
     /**
-     * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
      */
     @java.lang.Override
     public int getDidDocsCount() {
       return didDocs_.size();
     }
     /**
-     * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Any getDidDocs(int index) {
+    public com.google.protobuf2.Any getDidDocs(int index) {
       return didDocs_.get(index);
     }
     /**
-     * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+     * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getDidDocsOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getDidDocsOrBuilder(
         int index) {
       return didDocs_.get(index);
     }
@@ -523,22 +523,22 @@ public final class Genesis {
       }
       private int bitField0_;
 
-      private java.util.List<com.google.protobuf.Any> didDocs_ =
+      private java.util.List<com.google.protobuf2.Any> didDocs_ =
         java.util.Collections.emptyList();
       private void ensureDidDocsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          didDocs_ = new java.util.ArrayList<com.google.protobuf.Any>(didDocs_);
+          didDocs_ = new java.util.ArrayList<com.google.protobuf2.Any>(didDocs_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> didDocsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> didDocsBuilder_;
 
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
-      public java.util.List<com.google.protobuf.Any> getDidDocsList() {
+      public java.util.List<com.google.protobuf2.Any> getDidDocsList() {
         if (didDocsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(didDocs_);
         } else {
@@ -546,7 +546,7 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
       public int getDidDocsCount() {
         if (didDocsBuilder_ == null) {
@@ -556,9 +556,9 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
-      public com.google.protobuf.Any getDidDocs(int index) {
+      public com.google.protobuf2.Any getDidDocs(int index) {
         if (didDocsBuilder_ == null) {
           return didDocs_.get(index);
         } else {
@@ -566,10 +566,10 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder setDidDocs(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (didDocsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -583,10 +583,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder setDidDocs(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (didDocsBuilder_ == null) {
           ensureDidDocsIsMutable();
           didDocs_.set(index, builderForValue.build());
@@ -597,9 +597,9 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
-      public Builder addDidDocs(com.google.protobuf.Any value) {
+      public Builder addDidDocs(com.google.protobuf2.Any value) {
         if (didDocsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -613,10 +613,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder addDidDocs(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (didDocsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -630,10 +630,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder addDidDocs(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (didDocsBuilder_ == null) {
           ensureDidDocsIsMutable();
           didDocs_.add(builderForValue.build());
@@ -644,10 +644,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder addDidDocs(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (didDocsBuilder_ == null) {
           ensureDidDocsIsMutable();
           didDocs_.add(index, builderForValue.build());
@@ -658,10 +658,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder addAllDidDocs(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (didDocsBuilder_ == null) {
           ensureDidDocsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -673,7 +673,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder clearDidDocs() {
         if (didDocsBuilder_ == null) {
@@ -686,7 +686,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
       public Builder removeDidDocs(int index) {
         if (didDocsBuilder_ == null) {
@@ -699,16 +699,16 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getDidDocsBuilder(
+      public com.google.protobuf2.Any.Builder getDidDocsBuilder(
           int index) {
         return getDidDocsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getDidDocsOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getDidDocsOrBuilder(
           int index) {
         if (didDocsBuilder_ == null) {
           return didDocs_.get(index);  } else {
@@ -716,9 +716,9 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getDidDocsOrBuilderList() {
         if (didDocsBuilder_ != null) {
           return didDocsBuilder_.getMessageOrBuilderList();
@@ -727,33 +727,33 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder addDidDocsBuilder() {
+      public com.google.protobuf2.Any.Builder addDidDocsBuilder() {
         return getDidDocsFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder addDidDocsBuilder(
+      public com.google.protobuf2.Any.Builder addDidDocsBuilder(
           int index) {
         return getDidDocsFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
+       * <code>repeated .google.protobuf2.Any did_docs = 1 [(.gogoproto.moretags) = "yaml:&#92;"did_docs&#92;""];</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getDidDocsBuilderList() {
         return getDidDocsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getDidDocsFieldBuilder() {
         if (didDocsBuilder_ == null) {
           didDocsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   didDocs_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -830,17 +830,17 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n\025ixo/did/genesis.proto\022\003did\032\024gogoproto/" +
-      "gogo.proto\032\032google/protobuf2/any.proto\"K" +
-      "\n\014GenesisState\022;\n\010did_docs\030\001 \003(\0132\024.googl" +
-      "e.protobuf.AnyB\023\362\336\037\017yaml:\"did_docs\"B>\n\007i" +
-      "xo.didZ3github.com/ixofoundation/ixo-blo" +
-      "ckchain/x/did/typesb\006proto3"
+      "gogo.proto\032\032google/protobuf2/any.proto\"L" +
+      "\n\014GenesisState\022<\n\010did_docs\030\001 \003(\0132\025.googl" +
+      "e.protobuf2.AnyB\023\362\336\037\017yaml:\"did_docs\"B>\n\007" +
+      "ixo.didZ3github.com/ixofoundation/ixo-bl" +
+      "ockchain/x/did/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_did_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -850,11 +850,11 @@ public final class Genesis {
         new java.lang.String[] { "DidDocs", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

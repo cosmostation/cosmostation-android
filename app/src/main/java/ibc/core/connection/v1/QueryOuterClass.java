@@ -7864,7 +7864,7 @@ public final class QueryOuterClass {
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return Whether the consensusState field is set.
      */
     boolean hasConsensusState();
@@ -7873,18 +7873,18 @@ public final class QueryOuterClass {
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return The consensusState.
      */
-    com.google.protobuf.Any getConsensusState();
+    com.google.protobuf2.Any getConsensusState();
     /**
      * <pre>
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      */
-    com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder();
 
     /**
      * <pre>
@@ -7996,11 +7996,11 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (consensusState_ != null) {
                 subBuilder = consensusState_.toBuilder();
               }
-              consensusState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              consensusState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(consensusState_);
                 consensusState_ = subBuilder.buildPartial();
@@ -8065,13 +8065,13 @@ public final class QueryOuterClass {
     }
 
     public static final int CONSENSUS_STATE_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any consensusState_;
+    private com.google.protobuf2.Any consensusState_;
     /**
      * <pre>
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return Whether the consensusState field is set.
      */
     @java.lang.Override
@@ -8083,22 +8083,22 @@ public final class QueryOuterClass {
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return The consensusState.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getConsensusState() {
-      return consensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+    public com.google.protobuf2.Any getConsensusState() {
+      return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
     }
     /**
      * <pre>
      * consensus state associated with the channel
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any consensus_state = 1;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
 
@@ -8585,15 +8585,15 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any consensusState_;
+      private com.google.protobuf2.Any consensusState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> consensusStateBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> consensusStateBuilder_;
       /**
        * <pre>
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        * @return Whether the consensusState field is set.
        */
       public boolean hasConsensusState() {
@@ -8604,12 +8604,12 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        * @return The consensusState.
        */
-      public com.google.protobuf.Any getConsensusState() {
+      public com.google.protobuf2.Any getConsensusState() {
         if (consensusStateBuilder_ == null) {
-          return consensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+          return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
         } else {
           return consensusStateBuilder_.getMessage();
         }
@@ -8619,9 +8619,9 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
-      public Builder setConsensusState(com.google.protobuf.Any value) {
+      public Builder setConsensusState(com.google.protobuf2.Any value) {
         if (consensusStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -8639,10 +8639,10 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
       public Builder setConsensusState(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (consensusStateBuilder_ == null) {
           consensusState_ = builderForValue.build();
           onChanged();
@@ -8657,13 +8657,13 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
-      public Builder mergeConsensusState(com.google.protobuf.Any value) {
+      public Builder mergeConsensusState(com.google.protobuf2.Any value) {
         if (consensusStateBuilder_ == null) {
           if (consensusState_ != null) {
             consensusState_ =
-              com.google.protobuf.Any.newBuilder(consensusState_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(consensusState_).mergeFrom(value).buildPartial();
           } else {
             consensusState_ = value;
           }
@@ -8679,7 +8679,7 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
       public Builder clearConsensusState() {
         if (consensusStateBuilder_ == null) {
@@ -8697,9 +8697,9 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
-      public com.google.protobuf.Any.Builder getConsensusStateBuilder() {
+      public com.google.protobuf2.Any.Builder getConsensusStateBuilder() {
         
         onChanged();
         return getConsensusStateFieldBuilder().getBuilder();
@@ -8709,14 +8709,14 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
         if (consensusStateBuilder_ != null) {
           return consensusStateBuilder_.getMessageOrBuilder();
         } else {
           return consensusState_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+              com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
         }
       }
       /**
@@ -8724,14 +8724,14 @@ public final class QueryOuterClass {
        * consensus state associated with the channel
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any consensus_state = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getConsensusStateFieldBuilder() {
         if (consensusStateBuilder_ == null) {
           consensusStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getConsensusState(),
                   getParentForChildren(),
                   isClean());
@@ -9181,50 +9181,50 @@ public final class QueryOuterClass {
       "v1.HeightB\004\310\336\037\000\"\211\001\n$QueryConnectionConse" +
       "nsusStateRequest\022/\n\rconnection_id\030\001 \001(\tB" +
       "\030\362\336\037\024yaml:\"connection_id\"\022\027\n\017revision_nu" +
-      "mber\030\002 \001(\004\022\027\n\017revision_height\030\003 \001(\004\"\260\001\n%" +
-      "QueryConnectionConsensusStateResponse\022-\n" +
-      "\017consensus_state\030\001 \001(\0132\024.google.protobuf" +
-      ".Any\022\021\n\tclient_id\030\002 \001(\t\022\r\n\005proof\030\003 \001(\014\0226" +
-      "\n\014proof_height\030\004 \001(\0132\032.ibc.core.client.v" +
-      "1.HeightB\004\310\336\037\0002\217\010\n\005Query\022\252\001\n\nConnection\022" +
-      "..ibc.core.connection.v1.QueryConnection" +
-      "Request\032/.ibc.core.connection.v1.QueryCo" +
-      "nnectionResponse\";\202\323\344\223\0025\0223/ibc/core/conn" +
-      "ection/v1/connections/{connection_id}\022\235\001" +
-      "\n\013Connections\022/.ibc.core.connection.v1.Q" +
-      "ueryConnectionsRequest\0320.ibc.core.connec" +
-      "tion.v1.QueryConnectionsResponse\"+\202\323\344\223\002%" +
-      "\022#/ibc/core/connection/v1/connections\022\302\001" +
-      "\n\021ClientConnections\0225.ibc.core.connectio" +
-      "n.v1.QueryClientConnectionsRequest\0326.ibc" +
-      ".core.connection.v1.QueryClientConnectio" +
-      "nsResponse\">\202\323\344\223\0028\0226/ibc/core/connection" +
-      "/v1/client_connections/{client_id}\022\330\001\n\025C" +
-      "onnectionClientState\0229.ibc.core.connecti" +
-      "on.v1.QueryConnectionClientStateRequest\032" +
-      ":.ibc.core.connection.v1.QueryConnection" +
-      "ClientStateResponse\"H\202\323\344\223\002B\022@/ibc/core/c" +
-      "onnection/v1/connections/{connection_id}" +
-      "/client_state\022\230\002\n\030ConnectionConsensusSta" +
-      "te\022<.ibc.core.connection.v1.QueryConnect" +
-      "ionConsensusStateRequest\032=.ibc.core.conn" +
-      "ection.v1.QueryConnectionConsensusStateR" +
-      "esponse\"\177\202\323\344\223\002y\022w/ibc/core/connection/v1" +
-      "/connections/{connection_id}/consensus_s" +
-      "tate/revision/{revision_number}/height/{" +
-      "revision_height}B>Z<github.com/cosmos/ib" +
-      "c-go/v2/modules/core/03-connection/types" +
-      "b\006proto3"
+      "mber\030\002 \001(\004\022\027\n\017revision_height\030\003 \001(\004\"\261\001\n%" +
+      "QueryConnectionConsensusStateResponse\022.\n" +
+      "\017consensus_state\030\001 \001(\0132\025.google.protobuf" +
+      "2.Any\022\021\n\tclient_id\030\002 \001(\t\022\r\n\005proof\030\003 \001(\014\022" +
+      "6\n\014proof_height\030\004 \001(\0132\032.ibc.core.client." +
+      "v1.HeightB\004\310\336\037\0002\217\010\n\005Query\022\252\001\n\nConnection" +
+      "\022..ibc.core.connection.v1.QueryConnectio" +
+      "nRequest\032/.ibc.core.connection.v1.QueryC" +
+      "onnectionResponse\";\202\323\344\223\0025\0223/ibc/core/con" +
+      "nection/v1/connections/{connection_id}\022\235" +
+      "\001\n\013Connections\022/.ibc.core.connection.v1." +
+      "QueryConnectionsRequest\0320.ibc.core.conne" +
+      "ction.v1.QueryConnectionsResponse\"+\202\323\344\223\002" +
+      "%\022#/ibc/core/connection/v1/connections\022\302" +
+      "\001\n\021ClientConnections\0225.ibc.core.connecti" +
+      "on.v1.QueryClientConnectionsRequest\0326.ib" +
+      "c.core.connection.v1.QueryClientConnecti" +
+      "onsResponse\">\202\323\344\223\0028\0226/ibc/core/connectio" +
+      "n/v1/client_connections/{client_id}\022\330\001\n\025" +
+      "ConnectionClientState\0229.ibc.core.connect" +
+      "ion.v1.QueryConnectionClientStateRequest" +
+      "\032:.ibc.core.connection.v1.QueryConnectio" +
+      "nClientStateResponse\"H\202\323\344\223\002B\022@/ibc/core/" +
+      "connection/v1/connections/{connection_id" +
+      "}/client_state\022\230\002\n\030ConnectionConsensusSt" +
+      "ate\022<.ibc.core.connection.v1.QueryConnec" +
+      "tionConsensusStateRequest\032=.ibc.core.con" +
+      "nection.v1.QueryConnectionConsensusState" +
+      "Response\"\177\202\323\344\223\002y\022w/ibc/core/connection/v" +
+      "1/connections/{connection_id}/consensus_" +
+      "state/revision/{revision_number}/height/" +
+      "{revision_height}B>Z<github.com/cosmos/i" +
+      "bc-go/v2/modules/core/03-connection/type" +
+      "sb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           ibc.core.client.v1.Client.getDescriptor(),
           ibc.core.connection.v1.Connection.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_ibc_core_connection_v1_QueryConnectionRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -9288,17 +9288,17 @@ public final class QueryOuterClass {
         new java.lang.String[] { "ConsensusState", "ClientId", "Proof", "ProofHeight", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     ibc.core.client.v1.Client.getDescriptor();
     ibc.core.connection.v1.Connection.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

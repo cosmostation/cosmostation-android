@@ -123,7 +123,7 @@ public final class Upgrade {
      * If this field is not empty, an error will be thrown.
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
      * @return Whether the upgradedClientState field is set.
      */
     @java.lang.Deprecated boolean hasUpgradedClientState();
@@ -134,10 +134,10 @@ public final class Upgrade {
      * If this field is not empty, an error will be thrown.
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
      * @return The upgradedClientState.
      */
-    @java.lang.Deprecated com.google.protobuf.Any getUpgradedClientState();
+    @java.lang.Deprecated com.google.protobuf2.Any getUpgradedClientState();
     /**
      * <pre>
      * Deprecated: UpgradedClientState field has been deprecated. IBC upgrade logic has been
@@ -145,9 +145,9 @@ public final class Upgrade {
      * If this field is not empty, an error will be thrown.
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
      */
-    @java.lang.Deprecated com.google.protobuf.AnyOrBuilder getUpgradedClientStateOrBuilder();
+    @java.lang.Deprecated com.google.protobuf2.AnyOrBuilder getUpgradedClientStateOrBuilder();
   }
   /**
    * <pre>
@@ -231,11 +231,11 @@ public final class Upgrade {
               break;
             }
             case 42: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (upgradedClientState_ != null) {
                 subBuilder = upgradedClientState_.toBuilder();
               }
-              upgradedClientState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              upgradedClientState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(upgradedClientState_);
                 upgradedClientState_ = subBuilder.buildPartial();
@@ -442,7 +442,7 @@ public final class Upgrade {
     }
 
     public static final int UPGRADED_CLIENT_STATE_FIELD_NUMBER = 5;
-    private com.google.protobuf.Any upgradedClientState_;
+    private com.google.protobuf2.Any upgradedClientState_;
     /**
      * <pre>
      * Deprecated: UpgradedClientState field has been deprecated. IBC upgrade logic has been
@@ -450,7 +450,7 @@ public final class Upgrade {
      * If this field is not empty, an error will be thrown.
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
      * @return Whether the upgradedClientState field is set.
      */
     @java.lang.Override
@@ -464,12 +464,12 @@ public final class Upgrade {
      * If this field is not empty, an error will be thrown.
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
      * @return The upgradedClientState.
      */
     @java.lang.Override
-    @java.lang.Deprecated public com.google.protobuf.Any getUpgradedClientState() {
-      return upgradedClientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : upgradedClientState_;
+    @java.lang.Deprecated public com.google.protobuf2.Any getUpgradedClientState() {
+      return upgradedClientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : upgradedClientState_;
     }
     /**
      * <pre>
@@ -478,10 +478,10 @@ public final class Upgrade {
      * If this field is not empty, an error will be thrown.
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
      */
     @java.lang.Override
-    @java.lang.Deprecated public com.google.protobuf.AnyOrBuilder getUpgradedClientStateOrBuilder() {
+    @java.lang.Deprecated public com.google.protobuf2.AnyOrBuilder getUpgradedClientStateOrBuilder() {
       return getUpgradedClientState();
     }
 
@@ -1332,9 +1332,9 @@ public final class Upgrade {
         return this;
       }
 
-      private com.google.protobuf.Any upgradedClientState_;
+      private com.google.protobuf2.Any upgradedClientState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> upgradedClientStateBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> upgradedClientStateBuilder_;
       /**
        * <pre>
        * Deprecated: UpgradedClientState field has been deprecated. IBC upgrade logic has been
@@ -1342,7 +1342,7 @@ public final class Upgrade {
        * If this field is not empty, an error will be thrown.
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
        * @return Whether the upgradedClientState field is set.
        */
       @java.lang.Deprecated public boolean hasUpgradedClientState() {
@@ -1355,12 +1355,12 @@ public final class Upgrade {
        * If this field is not empty, an error will be thrown.
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
        * @return The upgradedClientState.
        */
-      @java.lang.Deprecated public com.google.protobuf.Any getUpgradedClientState() {
+      @java.lang.Deprecated public com.google.protobuf2.Any getUpgradedClientState() {
         if (upgradedClientStateBuilder_ == null) {
-          return upgradedClientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : upgradedClientState_;
+          return upgradedClientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : upgradedClientState_;
         } else {
           return upgradedClientStateBuilder_.getMessage();
         }
@@ -1372,9 +1372,9 @@ public final class Upgrade {
        * If this field is not empty, an error will be thrown.
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
        */
-      @java.lang.Deprecated public Builder setUpgradedClientState(com.google.protobuf.Any value) {
+      @java.lang.Deprecated public Builder setUpgradedClientState(com.google.protobuf2.Any value) {
         if (upgradedClientStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1394,10 +1394,10 @@ public final class Upgrade {
        * If this field is not empty, an error will be thrown.
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
        */
       @java.lang.Deprecated public Builder setUpgradedClientState(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (upgradedClientStateBuilder_ == null) {
           upgradedClientState_ = builderForValue.build();
           onChanged();
@@ -1414,13 +1414,13 @@ public final class Upgrade {
        * If this field is not empty, an error will be thrown.
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
        */
-      @java.lang.Deprecated public Builder mergeUpgradedClientState(com.google.protobuf.Any value) {
+      @java.lang.Deprecated public Builder mergeUpgradedClientState(com.google.protobuf2.Any value) {
         if (upgradedClientStateBuilder_ == null) {
           if (upgradedClientState_ != null) {
             upgradedClientState_ =
-              com.google.protobuf.Any.newBuilder(upgradedClientState_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(upgradedClientState_).mergeFrom(value).buildPartial();
           } else {
             upgradedClientState_ = value;
           }
@@ -1438,7 +1438,7 @@ public final class Upgrade {
        * If this field is not empty, an error will be thrown.
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
        */
       @java.lang.Deprecated public Builder clearUpgradedClientState() {
         if (upgradedClientStateBuilder_ == null) {
@@ -1458,9 +1458,9 @@ public final class Upgrade {
        * If this field is not empty, an error will be thrown.
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
        */
-      @java.lang.Deprecated public com.google.protobuf.Any.Builder getUpgradedClientStateBuilder() {
+      @java.lang.Deprecated public com.google.protobuf2.Any.Builder getUpgradedClientStateBuilder() {
         
         onChanged();
         return getUpgradedClientStateFieldBuilder().getBuilder();
@@ -1472,14 +1472,14 @@ public final class Upgrade {
        * If this field is not empty, an error will be thrown.
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
        */
-      @java.lang.Deprecated public com.google.protobuf.AnyOrBuilder getUpgradedClientStateOrBuilder() {
+      @java.lang.Deprecated public com.google.protobuf2.AnyOrBuilder getUpgradedClientStateOrBuilder() {
         if (upgradedClientStateBuilder_ != null) {
           return upgradedClientStateBuilder_.getMessageOrBuilder();
         } else {
           return upgradedClientState_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : upgradedClientState_;
+              com.google.protobuf2.Any.getDefaultInstance() : upgradedClientState_;
         }
       }
       /**
@@ -1489,14 +1489,14 @@ public final class Upgrade {
        * If this field is not empty, an error will be thrown.
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [deprecated = true];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [deprecated = true];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getUpgradedClientStateFieldBuilder() {
         if (upgradedClientStateBuilder_ == null) {
           upgradedClientStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getUpgradedClientState(),
                   getParentForChildren(),
                   isClean());
@@ -3953,25 +3953,25 @@ public final class Upgrade {
       "\n$cosmos/upgrade/v1beta1/upgrade.proto\022\026" +
       "cosmos.upgrade.v1beta1\032\032google/protobuf2" +
       "/any.proto\032\024gogoproto/gogo.proto\032\037google" +
-      "/protobuf/timestamp.proto\"\253\001\n\004Plan\022\014\n\004na" +
+      "/protobuf/timestamp.proto\"\254\001\n\004Plan\022\014\n\004na" +
       "me\030\001 \001(\t\0224\n\004time\030\002 \001(\0132\032.google.protobuf" +
       ".TimestampB\n\030\001\220\337\037\001\310\336\037\000\022\016\n\006height\030\003 \001(\003\022\014" +
-      "\n\004info\030\004 \001(\t\0227\n\025upgraded_client_state\030\005 " +
-      "\001(\0132\024.google.protobuf.AnyB\002\030\001:\010\350\240\037\001\230\240\037\000\"" +
-      "y\n\027SoftwareUpgradeProposal\022\r\n\005title\030\001 \001(" +
-      "\t\022\023\n\013description\030\002 \001(\t\0220\n\004plan\030\003 \001(\0132\034.c" +
-      "osmos.upgrade.v1beta1.PlanB\004\310\336\037\000:\010\350\240\037\001\230\240" +
-      "\037\000\"M\n\035CancelSoftwareUpgradeProposal\022\r\n\005t" +
-      "itle\030\001 \001(\t\022\023\n\013description\030\002 \001(\t:\010\350\240\037\001\230\240\037" +
-      "\000\"8\n\rModuleVersion\022\014\n\004name\030\001 \001(\t\022\017\n\007vers" +
-      "ion\030\002 \001(\004:\010\350\240\037\001\230\240\037\001B2Z,github.com/cosmos" +
-      "/cosmos-sdk/x/upgrade/types\310\341\036\000b\006proto3"
+      "\n\004info\030\004 \001(\t\0228\n\025upgraded_client_state\030\005 " +
+      "\001(\0132\025.google.protobuf2.AnyB\002\030\001:\010\350\240\037\001\230\240\037\000" +
+      "\"y\n\027SoftwareUpgradeProposal\022\r\n\005title\030\001 \001" +
+      "(\t\022\023\n\013description\030\002 \001(\t\0220\n\004plan\030\003 \001(\0132\034." +
+      "cosmos.upgrade.v1beta1.PlanB\004\310\336\037\000:\010\350\240\037\001\230" +
+      "\240\037\000\"M\n\035CancelSoftwareUpgradeProposal\022\r\n\005" +
+      "title\030\001 \001(\t\022\023\n\013description\030\002 \001(\t:\010\350\240\037\001\230\240" +
+      "\037\000\"8\n\rModuleVersion\022\014\n\004name\030\001 \001(\t\022\017\n\007ver" +
+      "sion\030\002 \001(\004:\010\350\240\037\001\230\240\037\001B2Z,github.com/cosmo" +
+      "s/cosmos-sdk/x/upgrade/types\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.AnyProto.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_cosmos_upgrade_v1beta1_Plan_descriptor =
@@ -4000,15 +4000,15 @@ public final class Upgrade {
         new java.lang.String[] { "Name", "Version", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.AnyProto.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 

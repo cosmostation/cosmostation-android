@@ -1896,51 +1896,51 @@ public final class Genesis {
     long getLastObservedEventNonce();
 
     /**
-     * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+     * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getOutgoingTxsList();
     /**
-     * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+     * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
      */
-    com.google.protobuf.Any getOutgoingTxs(int index);
+    com.google.protobuf2.Any getOutgoingTxs(int index);
     /**
-     * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+     * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
      */
     int getOutgoingTxsCount();
     /**
-     * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+     * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getOutgoingTxsOrBuilderList();
     /**
-     * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+     * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
      */
-    com.google.protobuf.AnyOrBuilder getOutgoingTxsOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getOutgoingTxsOrBuilder(
         int index);
 
     /**
-     * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+     * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getConfirmationsList();
     /**
-     * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+     * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
      */
-    com.google.protobuf.Any getConfirmations(int index);
+    com.google.protobuf2.Any getConfirmations(int index);
     /**
-     * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+     * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
      */
     int getConfirmationsCount();
     /**
-     * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+     * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getConfirmationsOrBuilderList();
     /**
-     * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+     * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
      */
-    com.google.protobuf.AnyOrBuilder getConfirmationsOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getConfirmationsOrBuilder(
         int index);
 
     /**
@@ -2117,20 +2117,20 @@ public final class Genesis {
             }
             case 26: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                outgoingTxs_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                outgoingTxs_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000001;
               }
               outgoingTxs_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             case 34: {
               if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-                confirmations_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                confirmations_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000002;
               }
               confirmations_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             case 74: {
@@ -2257,81 +2257,81 @@ public final class Genesis {
     }
 
     public static final int OUTGOING_TXS_FIELD_NUMBER = 3;
-    private java.util.List<com.google.protobuf.Any> outgoingTxs_;
+    private java.util.List<com.google.protobuf2.Any> outgoingTxs_;
     /**
-     * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+     * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
      */
     @java.lang.Override
-    public java.util.List<com.google.protobuf.Any> getOutgoingTxsList() {
+    public java.util.List<com.google.protobuf2.Any> getOutgoingTxsList() {
       return outgoingTxs_;
     }
     /**
-     * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+     * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getOutgoingTxsOrBuilderList() {
       return outgoingTxs_;
     }
     /**
-     * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+     * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
      */
     @java.lang.Override
     public int getOutgoingTxsCount() {
       return outgoingTxs_.size();
     }
     /**
-     * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+     * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Any getOutgoingTxs(int index) {
+    public com.google.protobuf2.Any getOutgoingTxs(int index) {
       return outgoingTxs_.get(index);
     }
     /**
-     * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+     * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getOutgoingTxsOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getOutgoingTxsOrBuilder(
         int index) {
       return outgoingTxs_.get(index);
     }
 
     public static final int CONFIRMATIONS_FIELD_NUMBER = 4;
-    private java.util.List<com.google.protobuf.Any> confirmations_;
+    private java.util.List<com.google.protobuf2.Any> confirmations_;
     /**
-     * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+     * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
      */
     @java.lang.Override
-    public java.util.List<com.google.protobuf.Any> getConfirmationsList() {
+    public java.util.List<com.google.protobuf2.Any> getConfirmationsList() {
       return confirmations_;
     }
     /**
-     * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+     * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getConfirmationsOrBuilderList() {
       return confirmations_;
     }
     /**
-     * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+     * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
      */
     @java.lang.Override
     public int getConfirmationsCount() {
       return confirmations_.size();
     }
     /**
-     * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+     * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Any getConfirmations(int index) {
+    public com.google.protobuf2.Any getConfirmations(int index) {
       return confirmations_.get(index);
     }
     /**
-     * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+     * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getConfirmationsOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getConfirmationsOrBuilder(
         int index) {
       return confirmations_.get(index);
     }
@@ -3317,22 +3317,22 @@ public final class Genesis {
         return this;
       }
 
-      private java.util.List<com.google.protobuf.Any> outgoingTxs_ =
+      private java.util.List<com.google.protobuf2.Any> outgoingTxs_ =
         java.util.Collections.emptyList();
       private void ensureOutgoingTxsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          outgoingTxs_ = new java.util.ArrayList<com.google.protobuf.Any>(outgoingTxs_);
+          outgoingTxs_ = new java.util.ArrayList<com.google.protobuf2.Any>(outgoingTxs_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> outgoingTxsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> outgoingTxsBuilder_;
 
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
-      public java.util.List<com.google.protobuf.Any> getOutgoingTxsList() {
+      public java.util.List<com.google.protobuf2.Any> getOutgoingTxsList() {
         if (outgoingTxsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(outgoingTxs_);
         } else {
@@ -3340,7 +3340,7 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
       public int getOutgoingTxsCount() {
         if (outgoingTxsBuilder_ == null) {
@@ -3350,9 +3350,9 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
-      public com.google.protobuf.Any getOutgoingTxs(int index) {
+      public com.google.protobuf2.Any getOutgoingTxs(int index) {
         if (outgoingTxsBuilder_ == null) {
           return outgoingTxs_.get(index);
         } else {
@@ -3360,10 +3360,10 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
       public Builder setOutgoingTxs(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (outgoingTxsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3377,10 +3377,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
       public Builder setOutgoingTxs(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (outgoingTxsBuilder_ == null) {
           ensureOutgoingTxsIsMutable();
           outgoingTxs_.set(index, builderForValue.build());
@@ -3391,9 +3391,9 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
-      public Builder addOutgoingTxs(com.google.protobuf.Any value) {
+      public Builder addOutgoingTxs(com.google.protobuf2.Any value) {
         if (outgoingTxsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3407,10 +3407,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
       public Builder addOutgoingTxs(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (outgoingTxsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3424,10 +3424,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
       public Builder addOutgoingTxs(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (outgoingTxsBuilder_ == null) {
           ensureOutgoingTxsIsMutable();
           outgoingTxs_.add(builderForValue.build());
@@ -3438,10 +3438,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
       public Builder addOutgoingTxs(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (outgoingTxsBuilder_ == null) {
           ensureOutgoingTxsIsMutable();
           outgoingTxs_.add(index, builderForValue.build());
@@ -3452,10 +3452,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
       public Builder addAllOutgoingTxs(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (outgoingTxsBuilder_ == null) {
           ensureOutgoingTxsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -3467,7 +3467,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
       public Builder clearOutgoingTxs() {
         if (outgoingTxsBuilder_ == null) {
@@ -3480,7 +3480,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
       public Builder removeOutgoingTxs(int index) {
         if (outgoingTxsBuilder_ == null) {
@@ -3493,16 +3493,16 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
-      public com.google.protobuf.Any.Builder getOutgoingTxsBuilder(
+      public com.google.protobuf2.Any.Builder getOutgoingTxsBuilder(
           int index) {
         return getOutgoingTxsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getOutgoingTxsOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getOutgoingTxsOrBuilder(
           int index) {
         if (outgoingTxsBuilder_ == null) {
           return outgoingTxs_.get(index);  } else {
@@ -3510,9 +3510,9 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getOutgoingTxsOrBuilderList() {
         if (outgoingTxsBuilder_ != null) {
           return outgoingTxsBuilder_.getMessageOrBuilderList();
@@ -3521,33 +3521,33 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
-      public com.google.protobuf.Any.Builder addOutgoingTxsBuilder() {
+      public com.google.protobuf2.Any.Builder addOutgoingTxsBuilder() {
         return getOutgoingTxsFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
-      public com.google.protobuf.Any.Builder addOutgoingTxsBuilder(
+      public com.google.protobuf2.Any.Builder addOutgoingTxsBuilder(
           int index) {
         return getOutgoingTxsFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any outgoing_txs = 3;</code>
+       * <code>repeated .google.protobuf2.Any outgoing_txs = 3;</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getOutgoingTxsBuilderList() {
         return getOutgoingTxsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getOutgoingTxsFieldBuilder() {
         if (outgoingTxsBuilder_ == null) {
           outgoingTxsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   outgoingTxs_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -3557,22 +3557,22 @@ public final class Genesis {
         return outgoingTxsBuilder_;
       }
 
-      private java.util.List<com.google.protobuf.Any> confirmations_ =
+      private java.util.List<com.google.protobuf2.Any> confirmations_ =
         java.util.Collections.emptyList();
       private void ensureConfirmationsIsMutable() {
         if (!((bitField0_ & 0x00000002) != 0)) {
-          confirmations_ = new java.util.ArrayList<com.google.protobuf.Any>(confirmations_);
+          confirmations_ = new java.util.ArrayList<com.google.protobuf2.Any>(confirmations_);
           bitField0_ |= 0x00000002;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> confirmationsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> confirmationsBuilder_;
 
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
-      public java.util.List<com.google.protobuf.Any> getConfirmationsList() {
+      public java.util.List<com.google.protobuf2.Any> getConfirmationsList() {
         if (confirmationsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(confirmations_);
         } else {
@@ -3580,7 +3580,7 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
       public int getConfirmationsCount() {
         if (confirmationsBuilder_ == null) {
@@ -3590,9 +3590,9 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
-      public com.google.protobuf.Any getConfirmations(int index) {
+      public com.google.protobuf2.Any getConfirmations(int index) {
         if (confirmationsBuilder_ == null) {
           return confirmations_.get(index);
         } else {
@@ -3600,10 +3600,10 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
       public Builder setConfirmations(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (confirmationsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3617,10 +3617,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
       public Builder setConfirmations(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (confirmationsBuilder_ == null) {
           ensureConfirmationsIsMutable();
           confirmations_.set(index, builderForValue.build());
@@ -3631,9 +3631,9 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
-      public Builder addConfirmations(com.google.protobuf.Any value) {
+      public Builder addConfirmations(com.google.protobuf2.Any value) {
         if (confirmationsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3647,10 +3647,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
       public Builder addConfirmations(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (confirmationsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3664,10 +3664,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
       public Builder addConfirmations(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (confirmationsBuilder_ == null) {
           ensureConfirmationsIsMutable();
           confirmations_.add(builderForValue.build());
@@ -3678,10 +3678,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
       public Builder addConfirmations(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (confirmationsBuilder_ == null) {
           ensureConfirmationsIsMutable();
           confirmations_.add(index, builderForValue.build());
@@ -3692,10 +3692,10 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
       public Builder addAllConfirmations(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (confirmationsBuilder_ == null) {
           ensureConfirmationsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -3707,7 +3707,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
       public Builder clearConfirmations() {
         if (confirmationsBuilder_ == null) {
@@ -3720,7 +3720,7 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
       public Builder removeConfirmations(int index) {
         if (confirmationsBuilder_ == null) {
@@ -3733,16 +3733,16 @@ public final class Genesis {
         return this;
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
-      public com.google.protobuf.Any.Builder getConfirmationsBuilder(
+      public com.google.protobuf2.Any.Builder getConfirmationsBuilder(
           int index) {
         return getConfirmationsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getConfirmationsOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getConfirmationsOrBuilder(
           int index) {
         if (confirmationsBuilder_ == null) {
           return confirmations_.get(index);  } else {
@@ -3750,9 +3750,9 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getConfirmationsOrBuilderList() {
         if (confirmationsBuilder_ != null) {
           return confirmationsBuilder_.getMessageOrBuilderList();
@@ -3761,33 +3761,33 @@ public final class Genesis {
         }
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
-      public com.google.protobuf.Any.Builder addConfirmationsBuilder() {
+      public com.google.protobuf2.Any.Builder addConfirmationsBuilder() {
         return getConfirmationsFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
-      public com.google.protobuf.Any.Builder addConfirmationsBuilder(
+      public com.google.protobuf2.Any.Builder addConfirmationsBuilder(
           int index) {
         return getConfirmationsFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
-       * <code>repeated .google.protobuf.Any confirmations = 4;</code>
+       * <code>repeated .google.protobuf2.Any confirmations = 4;</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getConfirmationsBuilderList() {
         return getConfirmationsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getConfirmationsFieldBuilder() {
         if (confirmationsBuilder_ == null) {
           confirmationsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   confirmations_,
                   ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
@@ -5582,29 +5582,29 @@ public final class Genesis {
       "h_fraction_conflicting_ethereum_signatur" +
       "e\030\020 \001(\014B.\332\336\037&github.com/cosmos/cosmos-sd" +
       "k/types.Dec\310\336\037\000\022-\n%unbond_slashing_signe" +
-      "r_set_txs_window\030\021 \001(\004:\004\200\334 \000\"\243\003\n\014Genesis" +
+      "r_set_txs_window\030\021 \001(\004:\004\200\334 \000\"\245\003\n\014Genesis" +
       "State\022\"\n\006params\030\001 \001(\0132\022.gravity.v1.Param" +
-      "s\022!\n\031last_observed_event_nonce\030\002 \001(\004\022*\n\014" +
-      "outgoing_txs\030\003 \003(\0132\024.google.protobuf.Any" +
-      "\022+\n\rconfirmations\030\004 \003(\0132\024.google.protobu" +
-      "f.Any\022H\n\033ethereum_event_vote_records\030\t \003" +
-      "(\0132#.gravity.v1.EthereumEventVoteRecord\022" +
-      "2\n\rdelegate_keys\030\n \003(\0132\033.gravity.v1.MsgD" +
-      "elegateKeys\0221\n\017erc20_to_denoms\030\013 \003(\0132\030.g" +
-      "ravity.v1.ERC20ToDenom\022B\n\036unbatched_send" +
-      "_to_ethereum_txs\030\014 \003(\0132\032.gravity.v1.Send" +
-      "ToEthereum\",\n\014ERC20ToDenom\022\r\n\005erc20\030\001 \001(" +
-      "\t\022\r\n\005denom\030\002 \001(\tB9Z7github.com/cosmos/gr" +
-      "avity-bridge/module/x/gravity/typesb\006pro" +
-      "to3"
+      "s\022!\n\031last_observed_event_nonce\030\002 \001(\004\022+\n\014" +
+      "outgoing_txs\030\003 \003(\0132\025.google.protobuf2.An" +
+      "y\022,\n\rconfirmations\030\004 \003(\0132\025.google.protob" +
+      "uf2.Any\022H\n\033ethereum_event_vote_records\030\t" +
+      " \003(\0132#.gravity.v1.EthereumEventVoteRecor" +
+      "d\0222\n\rdelegate_keys\030\n \003(\0132\033.gravity.v1.Ms" +
+      "gDelegateKeys\0221\n\017erc20_to_denoms\030\013 \003(\0132\030" +
+      ".gravity.v1.ERC20ToDenom\022B\n\036unbatched_se" +
+      "nd_to_ethereum_txs\030\014 \003(\0132\032.gravity.v1.Se" +
+      "ndToEthereum\",\n\014ERC20ToDenom\022\r\n\005erc20\030\001 " +
+      "\001(\t\022\r\n\005denom\030\002 \001(\tB9Z7github.com/cosmos/" +
+      "gravity-bridge/module/x/gravity/typesb\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           gravity.v1.Gravity.getDescriptor(),
           gravity.v1.Msgs.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_gravity_v1_Params_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5626,15 +5626,15 @@ public final class Genesis {
         new java.lang.String[] { "Erc20", "Denom", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stringer);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stringer);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     gravity.v1.Gravity.getDescriptor();
     gravity.v1.Msgs.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

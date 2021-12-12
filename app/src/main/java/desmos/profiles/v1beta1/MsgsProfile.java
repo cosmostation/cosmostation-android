@@ -2799,33 +2799,23 @@ public final class MsgsProfile {
     java.lang.String[] descriptorData = {
       "\n*desmos/profiles/v1beta1/msgs_profile.p" +
       "roto\022\027desmos.profiles.v1beta1\032\024gogoproto" +
-      "/gogo.proto\032\032google/protobuf2/any.proto\032" +
-      "\031cosmos_proto/cosmos.proto\032,desmos/profi" +
-      "les/v1beta1/models_profile.proto\0322desmos" +
-      "/profiles/v1beta1/models_relationships.p" +
-      "roto\0322desmos/profiles/v1beta1/models_dta" +
-      "g_requests.proto\"\220\002\n\016MsgSaveProfile\022%\n\004d" +
-      "tag\030\001 \001(\tB\027\362\336\037\013yaml:\"dtag\"\342\336\037\004DTag\022%\n\010ni" +
-      "ckname\030\002 \001(\tB\023\362\336\037\017yaml:\"nickname\"\022\033\n\003bio" +
-      "\030\003 \001(\tB\016\362\336\037\nyaml:\"bio\"\0223\n\017profile_pictur" +
-      "e\030\004 \001(\tB\032\362\336\037\026yaml:\"profile_picture\"\022/\n\rc" +
-      "over_picture\030\005 \001(\tB\030\362\336\037\024yaml:\"cover_pict" +
-      "ure\"\022#\n\007creator\030\006 \001(\tB\022\362\336\037\016yaml:\"creator" +
-      "\":\010\350\240\037\000\210\240\037\000\"\030\n\026MsgSaveProfileResponse\"A\n" +
-      "\020MsgDeleteProfile\022#\n\007creator\030\001 \001(\tB\022\362\336\037\016" +
-      "yaml:\"creator\":\010\350\240\037\000\210\240\037\000\"\032\n\030MsgDeletePro" +
-      "fileResponseB3Z1github.com/desmos-labs/d" +
-      "esmos/v2/x/profiles/typesb\006proto3"
+      "/gogo.proto\"\220\002\n\016MsgSaveProfile\022%\n\004dtag\030\001" +
+      " \001(\tB\027\362\336\037\013yaml:\"dtag\"\342\336\037\004DTag\022%\n\010nicknam" +
+      "e\030\002 \001(\tB\023\362\336\037\017yaml:\"nickname\"\022\033\n\003bio\030\003 \001(" +
+      "\tB\016\362\336\037\nyaml:\"bio\"\0223\n\017profile_picture\030\004 \001" +
+      "(\tB\032\362\336\037\026yaml:\"profile_picture\"\022/\n\rcover_" +
+      "picture\030\005 \001(\tB\030\362\336\037\024yaml:\"cover_picture\"\022" +
+      "#\n\007creator\030\006 \001(\tB\022\362\336\037\016yaml:\"creator\":\010\350\240" +
+      "\037\000\210\240\037\000\"\030\n\026MsgSaveProfileResponse\"A\n\020MsgD" +
+      "eleteProfile\022#\n\007creator\030\001 \001(\tB\022\362\336\037\016yaml:" +
+      "\"creator\":\010\350\240\037\000\210\240\037\000\"\032\n\030MsgDeleteProfileR" +
+      "esponseB3Z1github.com/desmos-labs/desmos" +
+      "/v2/x/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsProfile.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsRelationships.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_desmos_profiles_v1beta1_MsgSaveProfile_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2853,18 +2843,13 @@ public final class MsgsProfile {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.customname);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.customname);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
-    desmos.profiles.v1beta1.ModelsProfile.getDescriptor();
-    desmos.profiles.v1beta1.ModelsRelationships.getDescriptor();
-    desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

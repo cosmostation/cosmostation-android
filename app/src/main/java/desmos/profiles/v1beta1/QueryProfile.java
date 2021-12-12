@@ -631,19 +631,19 @@ public final class QueryProfile {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return Whether the profile field is set.
      */
     boolean hasProfile();
     /**
-     * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return The profile.
      */
-    com.google.protobuf.Any getProfile();
+    com.google.protobuf2.Any getProfile();
     /**
-     * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getProfileOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getProfileOrBuilder();
   }
   /**
    * <pre>
@@ -695,11 +695,11 @@ public final class QueryProfile {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (profile_ != null) {
                 subBuilder = profile_.toBuilder();
               }
-              profile_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              profile_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(profile_);
                 profile_ = subBuilder.buildPartial();
@@ -740,9 +740,9 @@ public final class QueryProfile {
     }
 
     public static final int PROFILE_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any profile_;
+    private com.google.protobuf2.Any profile_;
     /**
-     * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return Whether the profile field is set.
      */
     @java.lang.Override
@@ -750,18 +750,18 @@ public final class QueryProfile {
       return profile_ != null;
     }
     /**
-     * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return The profile.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getProfile() {
-      return profile_ == null ? com.google.protobuf.Any.getDefaultInstance() : profile_;
+    public com.google.protobuf2.Any getProfile() {
+      return profile_ == null ? com.google.protobuf2.Any.getDefaultInstance() : profile_;
     }
     /**
-     * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getProfileOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getProfileOrBuilder() {
       return getProfile();
     }
 
@@ -1084,31 +1084,31 @@ public final class QueryProfile {
         return this;
       }
 
-      private com.google.protobuf.Any profile_;
+      private com.google.protobuf2.Any profile_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> profileBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> profileBuilder_;
       /**
-       * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        * @return Whether the profile field is set.
        */
       public boolean hasProfile() {
         return profileBuilder_ != null || profile_ != null;
       }
       /**
-       * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        * @return The profile.
        */
-      public com.google.protobuf.Any getProfile() {
+      public com.google.protobuf2.Any getProfile() {
         if (profileBuilder_ == null) {
-          return profile_ == null ? com.google.protobuf.Any.getDefaultInstance() : profile_;
+          return profile_ == null ? com.google.protobuf2.Any.getDefaultInstance() : profile_;
         } else {
           return profileBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public Builder setProfile(com.google.protobuf.Any value) {
+      public Builder setProfile(com.google.protobuf2.Any value) {
         if (profileBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1122,10 +1122,10 @@ public final class QueryProfile {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
       public Builder setProfile(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (profileBuilder_ == null) {
           profile_ = builderForValue.build();
           onChanged();
@@ -1136,13 +1136,13 @@ public final class QueryProfile {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public Builder mergeProfile(com.google.protobuf.Any value) {
+      public Builder mergeProfile(com.google.protobuf2.Any value) {
         if (profileBuilder_ == null) {
           if (profile_ != null) {
             profile_ =
-              com.google.protobuf.Any.newBuilder(profile_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(profile_).mergeFrom(value).buildPartial();
           } else {
             profile_ = value;
           }
@@ -1154,7 +1154,7 @@ public final class QueryProfile {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
       public Builder clearProfile() {
         if (profileBuilder_ == null) {
@@ -1168,33 +1168,33 @@ public final class QueryProfile {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public com.google.protobuf.Any.Builder getProfileBuilder() {
+      public com.google.protobuf2.Any.Builder getProfileBuilder() {
         
         onChanged();
         return getProfileFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getProfileOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getProfileOrBuilder() {
         if (profileBuilder_ != null) {
           return profileBuilder_.getMessageOrBuilder();
         } else {
           return profile_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : profile_;
+              com.google.protobuf2.Any.getDefaultInstance() : profile_;
         }
       }
       /**
-       * <code>.google.protobuf.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any profile = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getProfileFieldBuilder() {
         if (profileBuilder_ == null) {
           profileBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getProfile(),
                   getParentForChildren(),
                   isClean());
@@ -1276,24 +1276,20 @@ public final class QueryProfile {
     java.lang.String[] descriptorData = {
       "\n+desmos/profiles/v1beta1/query_profile." +
       "proto\022\027desmos.profiles.v1beta1\032\024gogoprot" +
-      "o/gogo.proto\032\034google/api/annotations.pro" +
-      "to\032\032google/protobuf2/any.proto\032\031cosmos_p" +
-      "roto/cosmos.proto\032*cosmos/base/query/v1b" +
-      "eta1/pagination.proto\"-\n\023QueryProfileReq" +
-      "uest\022\014\n\004user\030\001 \001(\t:\010\350\240\037\000\210\240\037\000\"K\n\024QueryPro" +
-      "fileResponse\0223\n\007profile\030\001 \001(\0132\024.google.p" +
-      "rotobuf.AnyB\014\312\264-\010AccountIB3Z1github.com/" +
-      "desmos-labs/desmos/v2/x/profiles/typesb\006" +
-      "proto3"
+      "o/gogo.proto\032\032google/protobuf2/any.proto" +
+      "\032\031cosmos_proto/cosmos.proto\"-\n\023QueryProf" +
+      "ileRequest\022\014\n\004user\030\001 \001(\t:\010\350\240\037\000\210\240\037\000\"L\n\024Qu" +
+      "eryProfileResponse\0224\n\007profile\030\001 \001(\0132\025.go" +
+      "ogle.protobuf2.AnyB\014\312\264-\010AccountIB3Z1gith" +
+      "ub.com/desmos-labs/desmos/v2/x/profiles/" +
+      "typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.api.AnnotationsProto.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
-          cosmos.base.query.v1beta1.Pagination.getDescriptor(),
         });
     internal_static_desmos_profiles_v1beta1_QueryProfileRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1310,15 +1306,13 @@ public final class QueryProfile {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.api.AnnotationsProto.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
-    cosmos.base.query.v1beta1.Pagination.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -103,19 +103,19 @@ public final class Events {
         int index);
 
     /**
-     * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      * @return Whether the object field is set.
      */
     boolean hasObject();
     /**
-     * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      * @return The object.
      */
-    com.google.protobuf.Any getObject();
+    com.google.protobuf2.Any getObject();
     /**
-     * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getObjectOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getObjectOrBuilder();
 
     /**
      * <code>uint64 deadline = 8;</code>
@@ -244,11 +244,11 @@ public final class Events {
               break;
             }
             case 58: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (object_ != null) {
                 subBuilder = object_.toBuilder();
               }
-              object_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              object_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(object_);
                 object_ = subBuilder.buildPartial();
@@ -539,9 +539,9 @@ public final class Events {
     }
 
     public static final int OBJECT_FIELD_NUMBER = 7;
-    private com.google.protobuf.Any object_;
+    private com.google.protobuf2.Any object_;
     /**
-     * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      * @return Whether the object field is set.
      */
     @java.lang.Override
@@ -549,18 +549,18 @@ public final class Events {
       return object_ != null;
     }
     /**
-     * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      * @return The object.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getObject() {
-      return object_ == null ? com.google.protobuf.Any.getDefaultInstance() : object_;
+    public com.google.protobuf2.Any getObject() {
+      return object_ == null ? com.google.protobuf2.Any.getDefaultInstance() : object_;
     }
     /**
-     * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+     * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getObjectOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getObjectOrBuilder() {
       return getObject();
     }
 
@@ -1769,31 +1769,31 @@ public final class Events {
         return priceBuilder_;
       }
 
-      private com.google.protobuf.Any object_;
+      private com.google.protobuf2.Any object_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> objectBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> objectBuilder_;
       /**
-       * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        * @return Whether the object field is set.
        */
       public boolean hasObject() {
         return objectBuilder_ != null || object_ != null;
       }
       /**
-       * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        * @return The object.
        */
-      public com.google.protobuf.Any getObject() {
+      public com.google.protobuf2.Any getObject() {
         if (objectBuilder_ == null) {
-          return object_ == null ? com.google.protobuf.Any.getDefaultInstance() : object_;
+          return object_ == null ? com.google.protobuf2.Any.getDefaultInstance() : object_;
         } else {
           return objectBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
-      public Builder setObject(com.google.protobuf.Any value) {
+      public Builder setObject(com.google.protobuf2.Any value) {
         if (objectBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1807,10 +1807,10 @@ public final class Events {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
       public Builder setObject(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (objectBuilder_ == null) {
           object_ = builderForValue.build();
           onChanged();
@@ -1821,13 +1821,13 @@ public final class Events {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
-      public Builder mergeObject(com.google.protobuf.Any value) {
+      public Builder mergeObject(com.google.protobuf2.Any value) {
         if (objectBuilder_ == null) {
           if (object_ != null) {
             object_ =
-              com.google.protobuf.Any.newBuilder(object_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(object_).mergeFrom(value).buildPartial();
           } else {
             object_ = value;
           }
@@ -1839,7 +1839,7 @@ public final class Events {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
       public Builder clearObject() {
         if (objectBuilder_ == null) {
@@ -1853,33 +1853,33 @@ public final class Events {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
-      public com.google.protobuf.Any.Builder getObjectBuilder() {
+      public com.google.protobuf2.Any.Builder getObjectBuilder() {
         
         onChanged();
         return getObjectFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getObjectOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getObjectOrBuilder() {
         if (objectBuilder_ != null) {
           return objectBuilder_.getMessageOrBuilder();
         } else {
           return object_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : object_;
+              com.google.protobuf2.Any.getDefaultInstance() : object_;
         }
       }
       /**
-       * <code>.google.protobuf.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
+       * <code>.google.protobuf2.Any object = 7 [(.cosmos_proto.accepts_interface) = "TransferableObject"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getObjectFieldBuilder() {
         if (objectBuilder_ == null) {
           objectBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getObject(),
                   getParentForChildren(),
                   isClean());
@@ -6590,42 +6590,42 @@ public final class Events {
       "to\022\032starnamed.x.escrow.v1beta1\032\036cosmos/b" +
       "ase/v1beta1/coin.proto\032\024gogoproto/gogo.p" +
       "roto\032\032google/protobuf2/any.proto\032\031cosmos" +
-      "_proto/cosmos.proto\"\255\003\n\022EventCreatedEscr" +
+      "_proto/cosmos.proto\"\256\003\n\022EventCreatedEscr" +
       "ow\022\n\n\002id\030\001 \001(\t\022\016\n\006seller\030\002 \001(\t\022\021\n\tfee_pa" +
       "yer\030\003 \001(\t\022\026\n\016broker_address\030\004 \001(\t\022I\n\021bro" +
       "ker_commission\030\005 \001(\tB.\310\336\037\000\332\336\037&github.com" +
       "/cosmos/cosmos-sdk/types.Dec\022Z\n\005price\030\006 " +
       "\003(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(" +
       "github.com/cosmos/cosmos-sdk/types.Coins" +
-      "\022<\n\006object\030\007 \001(\0132\024.google.protobuf.AnyB\026" +
-      "\312\264-\022TransferableObject\022\020\n\010deadline\030\010 \001(\004" +
-      "\022Y\n\004fees\030\t \003(\0132\031.cosmos.base.v1beta1.Coi" +
-      "nB0\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/" +
-      "types.Coins\"\251\002\n\022EventUpdatedEscrow\022\n\n\002id" +
-      "\030\001 \001(\t\022\017\n\007updater\030\002 \001(\t\022\021\n\tfee_payer\030\003 \001" +
-      "(\t\022\022\n\nnew_seller\030\004 \001(\t\022^\n\tnew_price\030\005 \003(" +
-      "\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(gi" +
-      "thub.com/cosmos/cosmos-sdk/types.Coins\022\024" +
-      "\n\014new_deadline\030\006 \001(\004\022Y\n\004fees\030\007 \003(\0132\031.cos" +
-      "mos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.co" +
-      "m/cosmos/cosmos-sdk/types.Coins\"\237\001\n\024Even" +
-      "tCompletedEscrow\022\n\n\002id\030\001 \001(\t\022\021\n\tfee_paye" +
-      "r\030\002 \001(\t\022\r\n\005buyer\030\003 \001(\t\022Y\n\004fees\030\004 \003(\0132\031.c" +
-      "osmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github." +
-      "com/cosmos/cosmos-sdk/types.Coins\"\237\001\n\023Ev" +
-      "entRefundedEscrow\022\n\n\002id\030\001 \001(\t\022\021\n\tfee_pay" +
-      "er\030\002 \001(\t\022\016\n\006sender\030\003 \001(\t\022Y\n\004fees\030\004 \003(\0132\031" +
-      ".cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(githu" +
-      "b.com/cosmos/cosmos-sdk/types.CoinsB1Z+g" +
-      "ithub.com/iov-one/starnamed/x/escrow/typ" +
-      "es\310\341\036\000b\006proto3"
+      "\022=\n\006object\030\007 \001(\0132\025.google.protobuf2.AnyB" +
+      "\026\312\264-\022TransferableObject\022\020\n\010deadline\030\010 \001(" +
+      "\004\022Y\n\004fees\030\t \003(\0132\031.cosmos.base.v1beta1.Co" +
+      "inB0\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk" +
+      "/types.Coins\"\251\002\n\022EventUpdatedEscrow\022\n\n\002i" +
+      "d\030\001 \001(\t\022\017\n\007updater\030\002 \001(\t\022\021\n\tfee_payer\030\003 " +
+      "\001(\t\022\022\n\nnew_seller\030\004 \001(\t\022^\n\tnew_price\030\005 \003" +
+      "(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(g" +
+      "ithub.com/cosmos/cosmos-sdk/types.Coins\022" +
+      "\024\n\014new_deadline\030\006 \001(\004\022Y\n\004fees\030\007 \003(\0132\031.co" +
+      "smos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.c" +
+      "om/cosmos/cosmos-sdk/types.Coins\"\237\001\n\024Eve" +
+      "ntCompletedEscrow\022\n\n\002id\030\001 \001(\t\022\021\n\tfee_pay" +
+      "er\030\002 \001(\t\022\r\n\005buyer\030\003 \001(\t\022Y\n\004fees\030\004 \003(\0132\031." +
+      "cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github" +
+      ".com/cosmos/cosmos-sdk/types.Coins\"\237\001\n\023E" +
+      "ventRefundedEscrow\022\n\n\002id\030\001 \001(\t\022\021\n\tfee_pa" +
+      "yer\030\002 \001(\t\022\016\n\006sender\030\003 \001(\t\022Y\n\004fees\030\004 \003(\0132" +
+      "\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(gith" +
+      "ub.com/cosmos/cosmos-sdk/types.CoinsB1Z+" +
+      "github.com/iov-one/starnamed/x/escrow/ty" +
+      "pes\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_starnamed_x_escrow_v1beta1_EventCreatedEscrow_descriptor =
@@ -6655,15 +6655,15 @@ public final class Events {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
   }
 

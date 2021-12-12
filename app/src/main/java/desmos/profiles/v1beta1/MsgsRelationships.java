@@ -5433,41 +5433,31 @@ public final class MsgsRelationships {
     java.lang.String[] descriptorData = {
       "\n0desmos/profiles/v1beta1/msgs_relations" +
       "hips.proto\022\027desmos.profiles.v1beta1\032\024gog" +
-      "oproto/gogo.proto\032\032google/protobuf2/any." +
-      "proto\032\031cosmos_proto/cosmos.proto\032,desmos" +
-      "/profiles/v1beta1/models_profile.proto\0322" +
-      "desmos/profiles/v1beta1/models_relations" +
-      "hips.proto\0322desmos/profiles/v1beta1/mode" +
-      "ls_dtag_requests.proto\"\222\001\n\025MsgCreateRela" +
-      "tionship\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"send" +
-      "er\"\022%\n\010receiver\030\002 \001(\tB\023\362\336\037\017yaml:\"receive" +
-      "r\"\022%\n\010subspace\030\003 \001(\tB\023\362\336\037\017yaml:\"subspace" +
-      "\":\010\350\240\037\000\210\240\037\000\"\037\n\035MsgCreateRelationshipResp" +
-      "onse\"\214\001\n\025MsgDeleteRelationship\022\035\n\004user\030\001" +
-      " \001(\tB\017\362\336\037\013yaml:\"user\"\022-\n\014counterparty\030\002 " +
-      "\001(\tB\027\362\336\037\023yaml:\"counterparty\"\022%\n\010subspace" +
-      "\030\003 \001(\tB\023\362\336\037\017yaml:\"subspace\"\"\037\n\035MsgDelete" +
-      "RelationshipResponse\"\242\001\n\014MsgBlockUser\022#\n" +
-      "\007blocker\030\001 \001(\tB\022\362\336\037\016yaml:\"blocker\"\022#\n\007bl" +
-      "ocked\030\002 \001(\tB\022\362\336\037\016yaml:\"blocked\"\022!\n\006reaso" +
-      "n\030\003 \001(\tB\021\362\336\037\ryaml:\"reason\"\022%\n\010subspace\030\004" +
-      " \001(\tB\023\362\336\037\017yaml:\"subspace\"\"\026\n\024MsgBlockUse" +
-      "rResponse\"\201\001\n\016MsgUnblockUser\022#\n\007blocker\030" +
-      "\001 \001(\tB\022\362\336\037\016yaml:\"blocker\"\022#\n\007blocked\030\002 \001" +
-      "(\tB\022\362\336\037\016yaml:\"blocked\"\022%\n\010subspace\030\004 \001(\t" +
-      "B\023\362\336\037\017yaml:\"subspace\"\"\030\n\026MsgUnblockUserR" +
-      "esponseB3Z1github.com/desmos-labs/desmos" +
-      "/v2/x/profiles/typesb\006proto3"
+      "oproto/gogo.proto\"\222\001\n\025MsgCreateRelations" +
+      "hip\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022%" +
+      "\n\010receiver\030\002 \001(\tB\023\362\336\037\017yaml:\"receiver\"\022%\n" +
+      "\010subspace\030\003 \001(\tB\023\362\336\037\017yaml:\"subspace\":\010\350\240" +
+      "\037\000\210\240\037\000\"\037\n\035MsgCreateRelationshipResponse\"" +
+      "\214\001\n\025MsgDeleteRelationship\022\035\n\004user\030\001 \001(\tB" +
+      "\017\362\336\037\013yaml:\"user\"\022-\n\014counterparty\030\002 \001(\tB\027" +
+      "\362\336\037\023yaml:\"counterparty\"\022%\n\010subspace\030\003 \001(" +
+      "\tB\023\362\336\037\017yaml:\"subspace\"\"\037\n\035MsgDeleteRelat" +
+      "ionshipResponse\"\242\001\n\014MsgBlockUser\022#\n\007bloc" +
+      "ker\030\001 \001(\tB\022\362\336\037\016yaml:\"blocker\"\022#\n\007blocked" +
+      "\030\002 \001(\tB\022\362\336\037\016yaml:\"blocked\"\022!\n\006reason\030\003 \001" +
+      "(\tB\021\362\336\037\ryaml:\"reason\"\022%\n\010subspace\030\004 \001(\tB" +
+      "\023\362\336\037\017yaml:\"subspace\"\"\026\n\024MsgBlockUserResp" +
+      "onse\"\201\001\n\016MsgUnblockUser\022#\n\007blocker\030\001 \001(\t" +
+      "B\022\362\336\037\016yaml:\"blocker\"\022#\n\007blocked\030\002 \001(\tB\022\362" +
+      "\336\037\016yaml:\"blocked\"\022%\n\010subspace\030\004 \001(\tB\023\362\336\037" +
+      "\017yaml:\"subspace\"\"\030\n\026MsgUnblockUserRespon" +
+      "seB3Z1github.com/desmos-labs/desmos/v2/x" +
+      "/profiles/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
-          cosmos_proto.Cosmos.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsProfile.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsRelationships.getDescriptor(),
-          desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_desmos_profiles_v1beta1_MsgCreateRelationship_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5519,17 +5509,12 @@ public final class MsgsRelationships {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
-    cosmos_proto.Cosmos.getDescriptor();
-    desmos.profiles.v1beta1.ModelsProfile.getDescriptor();
-    desmos.profiles.v1beta1.ModelsRelationships.getDescriptor();
-    desmos.profiles.v1beta1.ModelsDtagRequests.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

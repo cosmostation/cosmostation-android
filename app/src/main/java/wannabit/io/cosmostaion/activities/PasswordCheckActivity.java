@@ -173,6 +173,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_PRIVATE_KEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_BROAD_BURN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
 
 public class PasswordCheckActivity extends BaseActivity implements KeyboardListener, TaskListener {
@@ -857,7 +858,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     txIntent.putExtra("txHash", hash);
                 startActivity(txIntent);
 
-            } else if (mBaseChain.equals(RIZON_MAIN) || mBaseChain.equals(RIZON_TEST)) {
+            } else if (mBaseChain.equals(RIZON_MAIN) && result.taskType == TASK_HDAC_BROAD_BURN ||
+                        mBaseChain.equals(RIZON_TEST) && result.taskType == TASK_HDAC_BROAD_BURN) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, EventHorizonDetailActivity.class);
                 String hash = String.valueOf(result.resultData);
                 txIntent.putExtra("isSuccess", result.isSuccess);

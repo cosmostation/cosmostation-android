@@ -1131,7 +1131,7 @@ public final class Signing {
      * public_key is the public key of the signer
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      * @return Whether the publicKey field is set.
      */
     boolean hasPublicKey();
@@ -1140,18 +1140,18 @@ public final class Signing {
      * public_key is the public key of the signer
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      * @return The publicKey.
      */
-    com.google.protobuf.Any getPublicKey();
+    com.google.protobuf2.Any getPublicKey();
     /**
      * <pre>
      * public_key is the public key of the signer
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      */
-    com.google.protobuf.AnyOrBuilder getPublicKeyOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getPublicKeyOrBuilder();
 
     /**
      * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data data = 2;</code>
@@ -1233,11 +1233,11 @@ public final class Signing {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (publicKey_ != null) {
                 subBuilder = publicKey_.toBuilder();
               }
-              publicKey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              publicKey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(publicKey_);
                 publicKey_ = subBuilder.buildPartial();
@@ -4210,13 +4210,13 @@ public final class Signing {
     }
 
     public static final int PUBLIC_KEY_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any publicKey_;
+    private com.google.protobuf2.Any publicKey_;
     /**
      * <pre>
      * public_key is the public key of the signer
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      * @return Whether the publicKey field is set.
      */
     @java.lang.Override
@@ -4228,22 +4228,22 @@ public final class Signing {
      * public_key is the public key of the signer
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      * @return The publicKey.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPublicKey() {
-      return publicKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : publicKey_;
+    public com.google.protobuf2.Any getPublicKey() {
+      return publicKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : publicKey_;
     }
     /**
      * <pre>
      * public_key is the public key of the signer
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPublicKeyOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getPublicKeyOrBuilder() {
       return getPublicKey();
     }
 
@@ -4660,15 +4660,15 @@ public final class Signing {
         return this;
       }
 
-      private com.google.protobuf.Any publicKey_;
+      private com.google.protobuf2.Any publicKey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> publicKeyBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> publicKeyBuilder_;
       /**
        * <pre>
        * public_key is the public key of the signer
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        * @return Whether the publicKey field is set.
        */
       public boolean hasPublicKey() {
@@ -4679,12 +4679,12 @@ public final class Signing {
        * public_key is the public key of the signer
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        * @return The publicKey.
        */
-      public com.google.protobuf.Any getPublicKey() {
+      public com.google.protobuf2.Any getPublicKey() {
         if (publicKeyBuilder_ == null) {
-          return publicKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : publicKey_;
+          return publicKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : publicKey_;
         } else {
           return publicKeyBuilder_.getMessage();
         }
@@ -4694,9 +4694,9 @@ public final class Signing {
        * public_key is the public key of the signer
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
-      public Builder setPublicKey(com.google.protobuf.Any value) {
+      public Builder setPublicKey(com.google.protobuf2.Any value) {
         if (publicKeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4714,10 +4714,10 @@ public final class Signing {
        * public_key is the public key of the signer
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
       public Builder setPublicKey(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (publicKeyBuilder_ == null) {
           publicKey_ = builderForValue.build();
           onChanged();
@@ -4732,13 +4732,13 @@ public final class Signing {
        * public_key is the public key of the signer
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
-      public Builder mergePublicKey(com.google.protobuf.Any value) {
+      public Builder mergePublicKey(com.google.protobuf2.Any value) {
         if (publicKeyBuilder_ == null) {
           if (publicKey_ != null) {
             publicKey_ =
-              com.google.protobuf.Any.newBuilder(publicKey_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(publicKey_).mergeFrom(value).buildPartial();
           } else {
             publicKey_ = value;
           }
@@ -4754,7 +4754,7 @@ public final class Signing {
        * public_key is the public key of the signer
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
       public Builder clearPublicKey() {
         if (publicKeyBuilder_ == null) {
@@ -4772,9 +4772,9 @@ public final class Signing {
        * public_key is the public key of the signer
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
-      public com.google.protobuf.Any.Builder getPublicKeyBuilder() {
+      public com.google.protobuf2.Any.Builder getPublicKeyBuilder() {
         
         onChanged();
         return getPublicKeyFieldBuilder().getBuilder();
@@ -4784,14 +4784,14 @@ public final class Signing {
        * public_key is the public key of the signer
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPublicKeyOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPublicKeyOrBuilder() {
         if (publicKeyBuilder_ != null) {
           return publicKeyBuilder_.getMessageOrBuilder();
         } else {
           return publicKey_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : publicKey_;
+              com.google.protobuf2.Any.getDefaultInstance() : publicKey_;
         }
       }
       /**
@@ -4799,14 +4799,14 @@ public final class Signing {
        * public_key is the public key of the signer
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPublicKeyFieldBuilder() {
         if (publicKeyBuilder_ == null) {
           publicKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getPublicKey(),
                   getParentForChildren(),
                   isClean());
@@ -5074,32 +5074,32 @@ public final class Signing {
       "pto/multisig/v1beta1/multisig.proto\032\032goo" +
       "gle/protobuf2/any.proto\"Z\n\024SignatureDesc" +
       "riptors\022B\n\nsignatures\030\001 \003(\0132..cosmos.tx." +
-      "signing.v1beta1.SignatureDescriptor\"\244\004\n\023" +
-      "SignatureDescriptor\022(\n\npublic_key\030\001 \001(\0132" +
-      "\024.google.protobuf.Any\022A\n\004data\030\002 \001(\01323.co" +
-      "smos.tx.signing.v1beta1.SignatureDescrip" +
-      "tor.Data\022\020\n\010sequence\030\003 \001(\004\032\215\003\n\004Data\022L\n\006s" +
-      "ingle\030\001 \001(\0132:.cosmos.tx.signing.v1beta1." +
-      "SignatureDescriptor.Data.SingleH\000\022J\n\005mul" +
-      "ti\030\002 \001(\01329.cosmos.tx.signing.v1beta1.Sig" +
-      "natureDescriptor.Data.MultiH\000\032N\n\006Single\022" +
-      "1\n\004mode\030\001 \001(\0162#.cosmos.tx.signing.v1beta" +
-      "1.SignMode\022\021\n\tsignature\030\002 \001(\014\032\223\001\n\005Multi\022" +
-      "A\n\010bitarray\030\001 \001(\0132/.cosmos.crypto.multis" +
-      "ig.v1beta1.CompactBitArray\022G\n\nsignatures" +
-      "\030\002 \003(\01323.cosmos.tx.signing.v1beta1.Signa" +
-      "tureDescriptor.DataB\005\n\003sum*\215\001\n\010SignMode\022" +
-      "\031\n\025SIGN_MODE_UNSPECIFIED\020\000\022\024\n\020SIGN_MODE_" +
-      "DIRECT\020\001\022\025\n\021SIGN_MODE_TEXTUAL\020\002\022\030\n\024SIGN_" +
-      "MODE_DIRECT_AUX\020\003\022\037\n\033SIGN_MODE_LEGACY_AM" +
-      "INO_JSON\020\177B/Z-github.com/cosmos/cosmos-s" +
-      "dk/types/tx/signingb\006proto3"
+      "signing.v1beta1.SignatureDescriptor\"\245\004\n\023" +
+      "SignatureDescriptor\022)\n\npublic_key\030\001 \001(\0132" +
+      "\025.google.protobuf2.Any\022A\n\004data\030\002 \001(\01323.c" +
+      "osmos.tx.signing.v1beta1.SignatureDescri" +
+      "ptor.Data\022\020\n\010sequence\030\003 \001(\004\032\215\003\n\004Data\022L\n\006" +
+      "single\030\001 \001(\0132:.cosmos.tx.signing.v1beta1" +
+      ".SignatureDescriptor.Data.SingleH\000\022J\n\005mu" +
+      "lti\030\002 \001(\01329.cosmos.tx.signing.v1beta1.Si" +
+      "gnatureDescriptor.Data.MultiH\000\032N\n\006Single" +
+      "\0221\n\004mode\030\001 \001(\0162#.cosmos.tx.signing.v1bet" +
+      "a1.SignMode\022\021\n\tsignature\030\002 \001(\014\032\223\001\n\005Multi" +
+      "\022A\n\010bitarray\030\001 \001(\0132/.cosmos.crypto.multi" +
+      "sig.v1beta1.CompactBitArray\022G\n\nsignature" +
+      "s\030\002 \003(\01323.cosmos.tx.signing.v1beta1.Sign" +
+      "atureDescriptor.DataB\005\n\003sum*\215\001\n\010SignMode" +
+      "\022\031\n\025SIGN_MODE_UNSPECIFIED\020\000\022\024\n\020SIGN_MODE" +
+      "_DIRECT\020\001\022\025\n\021SIGN_MODE_TEXTUAL\020\002\022\030\n\024SIGN" +
+      "_MODE_DIRECT_AUX\020\003\022\037\n\033SIGN_MODE_LEGACY_A" +
+      "MINO_JSON\020\177B/Z-github.com/cosmos/cosmos-" +
+      "sdk/types/tx/signingb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           cosmos.crypto.multisig.v1beta1.Multisig.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_cosmos_tx_signing_v1beta1_SignatureDescriptors_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5132,7 +5132,7 @@ public final class Signing {
         internal_static_cosmos_tx_signing_v1beta1_SignatureDescriptor_Data_Multi_descriptor,
         new java.lang.String[] { "Bitarray", "Signatures", });
     cosmos.crypto.multisig.v1beta1.Multisig.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

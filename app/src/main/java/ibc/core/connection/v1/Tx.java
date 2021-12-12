@@ -1686,19 +1686,19 @@ public final class Tx {
         getPreviousConnectionIdBytes();
 
     /**
-     * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
     boolean hasClientState();
     /**
-     * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
-    com.google.protobuf.Any getClientState();
+    com.google.protobuf2.Any getClientState();
     /**
-     * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getClientStateOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder();
 
     /**
      * <code>.ibc.core.connection.v1.Counterparty counterparty = 4 [(.gogoproto.nullable) = false];</code>
@@ -1889,11 +1889,11 @@ public final class Tx {
               break;
             }
             case 26: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (clientState_ != null) {
                 subBuilder = clientState_.toBuilder();
               }
-              clientState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              clientState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(clientState_);
                 clientState_ = subBuilder.buildPartial();
@@ -2097,9 +2097,9 @@ public final class Tx {
     }
 
     public static final int CLIENT_STATE_FIELD_NUMBER = 3;
-    private com.google.protobuf.Any clientState_;
+    private com.google.protobuf2.Any clientState_;
     /**
-     * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
     @java.lang.Override
@@ -2107,18 +2107,18 @@ public final class Tx {
       return clientState_ != null;
     }
     /**
-     * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getClientState() {
-      return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
+    public com.google.protobuf2.Any getClientState() {
+      return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
     }
     /**
-     * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
       return getClientState();
     }
 
@@ -3099,31 +3099,31 @@ public final class Tx {
         return this;
       }
 
-      private com.google.protobuf.Any clientState_;
+      private com.google.protobuf2.Any clientState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> clientStateBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> clientStateBuilder_;
       /**
-       * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        * @return Whether the clientState field is set.
        */
       public boolean hasClientState() {
         return clientStateBuilder_ != null || clientState_ != null;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        * @return The clientState.
        */
-      public com.google.protobuf.Any getClientState() {
+      public com.google.protobuf2.Any getClientState() {
         if (clientStateBuilder_ == null) {
-          return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
+          return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
         } else {
           return clientStateBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public Builder setClientState(com.google.protobuf.Any value) {
+      public Builder setClientState(com.google.protobuf2.Any value) {
         if (clientStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3137,10 +3137,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       public Builder setClientState(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (clientStateBuilder_ == null) {
           clientState_ = builderForValue.build();
           onChanged();
@@ -3151,13 +3151,13 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public Builder mergeClientState(com.google.protobuf.Any value) {
+      public Builder mergeClientState(com.google.protobuf2.Any value) {
         if (clientStateBuilder_ == null) {
           if (clientState_ != null) {
             clientState_ =
-              com.google.protobuf.Any.newBuilder(clientState_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(clientState_).mergeFrom(value).buildPartial();
           } else {
             clientState_ = value;
           }
@@ -3169,7 +3169,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       public Builder clearClientState() {
         if (clientStateBuilder_ == null) {
@@ -3183,33 +3183,33 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getClientStateBuilder() {
+      public com.google.protobuf2.Any.Builder getClientStateBuilder() {
         
         onChanged();
         return getClientStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
         if (clientStateBuilder_ != null) {
           return clientStateBuilder_.getMessageOrBuilder();
         } else {
           return clientState_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : clientState_;
+              com.google.protobuf2.Any.getDefaultInstance() : clientState_;
         }
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getClientStateFieldBuilder() {
         if (clientStateBuilder_ == null) {
           clientStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getClientState(),
                   getParentForChildren(),
                   isClean());
@@ -4585,19 +4585,19 @@ public final class Tx {
     ibc.core.connection.v1.Connection.VersionOrBuilder getVersionOrBuilder();
 
     /**
-     * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
     boolean hasClientState();
     /**
-     * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
-    com.google.protobuf.Any getClientState();
+    com.google.protobuf2.Any getClientState();
     /**
-     * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getClientStateOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder();
 
     /**
      * <code>.ibc.core.client.v1.Height proof_height = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
@@ -4754,11 +4754,11 @@ public final class Tx {
               break;
             }
             case 34: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (clientState_ != null) {
                 subBuilder = clientState_.toBuilder();
               }
-              clientState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              clientState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(clientState_);
                 clientState_ = subBuilder.buildPartial();
@@ -4948,9 +4948,9 @@ public final class Tx {
     }
 
     public static final int CLIENT_STATE_FIELD_NUMBER = 4;
-    private com.google.protobuf.Any clientState_;
+    private com.google.protobuf2.Any clientState_;
     /**
-     * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
     @java.lang.Override
@@ -4958,18 +4958,18 @@ public final class Tx {
       return clientState_ != null;
     }
     /**
-     * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getClientState() {
-      return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
+    public com.google.protobuf2.Any getClientState() {
+      return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
     }
     /**
-     * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
       return getClientState();
     }
 
@@ -5892,31 +5892,31 @@ public final class Tx {
         return versionBuilder_;
       }
 
-      private com.google.protobuf.Any clientState_;
+      private com.google.protobuf2.Any clientState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> clientStateBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> clientStateBuilder_;
       /**
-       * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        * @return Whether the clientState field is set.
        */
       public boolean hasClientState() {
         return clientStateBuilder_ != null || clientState_ != null;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        * @return The clientState.
        */
-      public com.google.protobuf.Any getClientState() {
+      public com.google.protobuf2.Any getClientState() {
         if (clientStateBuilder_ == null) {
-          return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
+          return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
         } else {
           return clientStateBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public Builder setClientState(com.google.protobuf.Any value) {
+      public Builder setClientState(com.google.protobuf2.Any value) {
         if (clientStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5930,10 +5930,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       public Builder setClientState(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (clientStateBuilder_ == null) {
           clientState_ = builderForValue.build();
           onChanged();
@@ -5944,13 +5944,13 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public Builder mergeClientState(com.google.protobuf.Any value) {
+      public Builder mergeClientState(com.google.protobuf2.Any value) {
         if (clientStateBuilder_ == null) {
           if (clientState_ != null) {
             clientState_ =
-              com.google.protobuf.Any.newBuilder(clientState_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(clientState_).mergeFrom(value).buildPartial();
           } else {
             clientState_ = value;
           }
@@ -5962,7 +5962,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       public Builder clearClientState() {
         if (clientStateBuilder_ == null) {
@@ -5976,33 +5976,33 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getClientStateBuilder() {
+      public com.google.protobuf2.Any.Builder getClientStateBuilder() {
         
         onChanged();
         return getClientStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
         if (clientStateBuilder_ != null) {
           return clientStateBuilder_.getMessageOrBuilder();
         } else {
           return clientState_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : clientState_;
+              com.google.protobuf2.Any.getDefaultInstance() : clientState_;
         }
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 4 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getClientStateFieldBuilder() {
         if (clientStateBuilder_ == null) {
           clientStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getClientState(),
                   getParentForChildren(),
                   isClean());
@@ -8457,70 +8457,70 @@ public final class Tx {
       "rsion\030\003 \001(\0132\037.ibc.core.connection.v1.Ver" +
       "sion\022-\n\014delay_period\030\004 \001(\004B\027\362\336\037\023yaml:\"de" +
       "lay_period\"\022\016\n\006signer\030\005 \001(\t:\010\350\240\037\000\210\240\037\000\"\037\n" +
-      "\035MsgConnectionOpenInitResponse\"\351\005\n\024MsgCo" +
+      "\035MsgConnectionOpenInitResponse\"\352\005\n\024MsgCo" +
       "nnectionOpenTry\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020" +
       "yaml:\"client_id\"\022A\n\026previous_connection_" +
       "id\030\002 \001(\tB!\362\336\037\035yaml:\"previous_connection_" +
-      "id\"\022C\n\014client_state\030\003 \001(\0132\024.google.proto" +
-      "buf.AnyB\027\362\336\037\023yaml:\"client_state\"\022@\n\014coun" +
-      "terparty\030\004 \001(\0132$.ibc.core.connection.v1." +
-      "CounterpartyB\004\310\336\037\000\022-\n\014delay_period\030\005 \001(\004" +
-      "B\027\362\336\037\023yaml:\"delay_period\"\022`\n\025counterpart" +
-      "y_versions\030\006 \003(\0132\037.ibc.core.connection.v" +
-      "1.VersionB \362\336\037\034yaml:\"counterparty_versio" +
-      "ns\"\022M\n\014proof_height\030\007 \001(\0132\032.ibc.core.cli" +
-      "ent.v1.HeightB\033\362\336\037\023yaml:\"proof_height\"\310\336" +
-      "\037\000\022)\n\nproof_init\030\010 \001(\014B\025\362\336\037\021yaml:\"proof_" +
-      "init\"\022-\n\014proof_client\030\t \001(\014B\027\362\336\037\023yaml:\"p" +
-      "roof_client\"\0223\n\017proof_consensus\030\n \001(\014B\032\362" +
-      "\336\037\026yaml:\"proof_consensus\"\022U\n\020consensus_h" +
-      "eight\030\013 \001(\0132\032.ibc.core.client.v1.HeightB" +
-      "\037\362\336\037\027yaml:\"consensus_height\"\310\336\037\000\022\016\n\006sign" +
-      "er\030\014 \001(\t:\010\350\240\037\000\210\240\037\000\"\036\n\034MsgConnectionOpenT" +
-      "ryResponse\"\326\004\n\024MsgConnectionOpenAck\022/\n\rc" +
-      "onnection_id\030\001 \001(\tB\030\362\336\037\024yaml:\"connection" +
-      "_id\"\022I\n\032counterparty_connection_id\030\002 \001(\t" +
-      "B%\362\336\037!yaml:\"counterparty_connection_id\"\022" +
-      "0\n\007version\030\003 \001(\0132\037.ibc.core.connection.v" +
-      "1.Version\022C\n\014client_state\030\004 \001(\0132\024.google" +
-      ".protobuf.AnyB\027\362\336\037\023yaml:\"client_state\"\022M" +
-      "\n\014proof_height\030\005 \001(\0132\032.ibc.core.client.v" +
-      "1.HeightB\033\362\336\037\023yaml:\"proof_height\"\310\336\037\000\022\'\n" +
-      "\tproof_try\030\006 \001(\014B\024\362\336\037\020yaml:\"proof_try\"\022-" +
-      "\n\014proof_client\030\007 \001(\014B\027\362\336\037\023yaml:\"proof_cl" +
-      "ient\"\0223\n\017proof_consensus\030\010 \001(\014B\032\362\336\037\026yaml" +
-      ":\"proof_consensus\"\022U\n\020consensus_height\030\t" +
-      " \001(\0132\032.ibc.core.client.v1.HeightB\037\362\336\037\027ya" +
-      "ml:\"consensus_height\"\310\336\037\000\022\016\n\006signer\030\n \001(" +
-      "\t:\010\350\240\037\000\210\240\037\000\"\036\n\034MsgConnectionOpenAckRespo" +
-      "nse\"\335\001\n\030MsgConnectionOpenConfirm\022/\n\rconn" +
-      "ection_id\030\001 \001(\tB\030\362\336\037\024yaml:\"connection_id" +
-      "\"\022\'\n\tproof_ack\030\002 \001(\014B\024\362\336\037\020yaml:\"proof_ac" +
-      "k\"\022M\n\014proof_height\030\003 \001(\0132\032.ibc.core.clie" +
-      "nt.v1.HeightB\033\362\336\037\023yaml:\"proof_height\"\310\336\037" +
-      "\000\022\016\n\006signer\030\004 \001(\t:\010\350\240\037\000\210\240\037\000\"\"\n MsgConnec" +
-      "tionOpenConfirmResponse2\371\003\n\003Msg\022z\n\022Conne" +
-      "ctionOpenInit\022-.ibc.core.connection.v1.M" +
-      "sgConnectionOpenInit\0325.ibc.core.connecti" +
-      "on.v1.MsgConnectionOpenInitResponse\022w\n\021C" +
-      "onnectionOpenTry\022,.ibc.core.connection.v" +
-      "1.MsgConnectionOpenTry\0324.ibc.core.connec" +
-      "tion.v1.MsgConnectionOpenTryResponse\022w\n\021" +
-      "ConnectionOpenAck\022,.ibc.core.connection." +
-      "v1.MsgConnectionOpenAck\0324.ibc.core.conne" +
-      "ction.v1.MsgConnectionOpenAckResponse\022\203\001" +
-      "\n\025ConnectionOpenConfirm\0220.ibc.core.conne" +
-      "ction.v1.MsgConnectionOpenConfirm\0328.ibc." +
-      "core.connection.v1.MsgConnectionOpenConf" +
-      "irmResponseB>Z<github.com/cosmos/ibc-go/" +
-      "v2/modules/core/03-connection/typesb\006pro" +
-      "to3"
+      "id\"\022D\n\014client_state\030\003 \001(\0132\025.google.proto" +
+      "buf2.AnyB\027\362\336\037\023yaml:\"client_state\"\022@\n\014cou" +
+      "nterparty\030\004 \001(\0132$.ibc.core.connection.v1" +
+      ".CounterpartyB\004\310\336\037\000\022-\n\014delay_period\030\005 \001(" +
+      "\004B\027\362\336\037\023yaml:\"delay_period\"\022`\n\025counterpar" +
+      "ty_versions\030\006 \003(\0132\037.ibc.core.connection." +
+      "v1.VersionB \362\336\037\034yaml:\"counterparty_versi" +
+      "ons\"\022M\n\014proof_height\030\007 \001(\0132\032.ibc.core.cl" +
+      "ient.v1.HeightB\033\362\336\037\023yaml:\"proof_height\"\310" +
+      "\336\037\000\022)\n\nproof_init\030\010 \001(\014B\025\362\336\037\021yaml:\"proof" +
+      "_init\"\022-\n\014proof_client\030\t \001(\014B\027\362\336\037\023yaml:\"" +
+      "proof_client\"\0223\n\017proof_consensus\030\n \001(\014B\032" +
+      "\362\336\037\026yaml:\"proof_consensus\"\022U\n\020consensus_" +
+      "height\030\013 \001(\0132\032.ibc.core.client.v1.Height" +
+      "B\037\362\336\037\027yaml:\"consensus_height\"\310\336\037\000\022\016\n\006sig" +
+      "ner\030\014 \001(\t:\010\350\240\037\000\210\240\037\000\"\036\n\034MsgConnectionOpen" +
+      "TryResponse\"\327\004\n\024MsgConnectionOpenAck\022/\n\r" +
+      "connection_id\030\001 \001(\tB\030\362\336\037\024yaml:\"connectio" +
+      "n_id\"\022I\n\032counterparty_connection_id\030\002 \001(" +
+      "\tB%\362\336\037!yaml:\"counterparty_connection_id\"" +
+      "\0220\n\007version\030\003 \001(\0132\037.ibc.core.connection." +
+      "v1.Version\022D\n\014client_state\030\004 \001(\0132\025.googl" +
+      "e.protobuf2.AnyB\027\362\336\037\023yaml:\"client_state\"" +
+      "\022M\n\014proof_height\030\005 \001(\0132\032.ibc.core.client" +
+      ".v1.HeightB\033\362\336\037\023yaml:\"proof_height\"\310\336\037\000\022" +
+      "\'\n\tproof_try\030\006 \001(\014B\024\362\336\037\020yaml:\"proof_try\"" +
+      "\022-\n\014proof_client\030\007 \001(\014B\027\362\336\037\023yaml:\"proof_" +
+      "client\"\0223\n\017proof_consensus\030\010 \001(\014B\032\362\336\037\026ya" +
+      "ml:\"proof_consensus\"\022U\n\020consensus_height" +
+      "\030\t \001(\0132\032.ibc.core.client.v1.HeightB\037\362\336\037\027" +
+      "yaml:\"consensus_height\"\310\336\037\000\022\016\n\006signer\030\n " +
+      "\001(\t:\010\350\240\037\000\210\240\037\000\"\036\n\034MsgConnectionOpenAckRes" +
+      "ponse\"\335\001\n\030MsgConnectionOpenConfirm\022/\n\rco" +
+      "nnection_id\030\001 \001(\tB\030\362\336\037\024yaml:\"connection_" +
+      "id\"\022\'\n\tproof_ack\030\002 \001(\014B\024\362\336\037\020yaml:\"proof_" +
+      "ack\"\022M\n\014proof_height\030\003 \001(\0132\032.ibc.core.cl" +
+      "ient.v1.HeightB\033\362\336\037\023yaml:\"proof_height\"\310" +
+      "\336\037\000\022\016\n\006signer\030\004 \001(\t:\010\350\240\037\000\210\240\037\000\"\"\n MsgConn" +
+      "ectionOpenConfirmResponse2\371\003\n\003Msg\022z\n\022Con" +
+      "nectionOpenInit\022-.ibc.core.connection.v1" +
+      ".MsgConnectionOpenInit\0325.ibc.core.connec" +
+      "tion.v1.MsgConnectionOpenInitResponse\022w\n" +
+      "\021ConnectionOpenTry\022,.ibc.core.connection" +
+      ".v1.MsgConnectionOpenTry\0324.ibc.core.conn" +
+      "ection.v1.MsgConnectionOpenTryResponse\022w" +
+      "\n\021ConnectionOpenAck\022,.ibc.core.connectio" +
+      "n.v1.MsgConnectionOpenAck\0324.ibc.core.con" +
+      "nection.v1.MsgConnectionOpenAckResponse\022" +
+      "\203\001\n\025ConnectionOpenConfirm\0220.ibc.core.con" +
+      "nection.v1.MsgConnectionOpenConfirm\0328.ib" +
+      "c.core.connection.v1.MsgConnectionOpenCo" +
+      "nfirmResponseB>Z<github.com/cosmos/ibc-g" +
+      "o/v2/modules/core/03-connection/typesb\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           ibc.core.client.v1.Client.getDescriptor(),
           ibc.core.connection.v1.Connection.getDescriptor(),
         });
@@ -8574,14 +8574,14 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     ibc.core.client.v1.Client.getDescriptor();
     ibc.core.connection.v1.Connection.getDescriptor();
   }

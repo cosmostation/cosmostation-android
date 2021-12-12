@@ -85,19 +85,19 @@ public final class Tx {
         getValidatorAddressBytes();
 
     /**
-     * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return Whether the pubkey field is set.
      */
     boolean hasPubkey();
     /**
-     * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return The pubkey.
      */
-    com.google.protobuf.Any getPubkey();
+    com.google.protobuf2.Any getPubkey();
     /**
-     * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getPubkeyOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getPubkeyOrBuilder();
 
     /**
      * <code>.cosmos.base.v1beta1.Coin value = 7 [(.gogoproto.nullable) = false];</code>
@@ -211,11 +211,11 @@ public final class Tx {
               break;
             }
             case 50: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (pubkey_ != null) {
                 subBuilder = pubkey_.toBuilder();
               }
-              pubkey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              pubkey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(pubkey_);
                 pubkey_ = subBuilder.buildPartial();
@@ -435,9 +435,9 @@ public final class Tx {
     }
 
     public static final int PUBKEY_FIELD_NUMBER = 6;
-    private com.google.protobuf.Any pubkey_;
+    private com.google.protobuf2.Any pubkey_;
     /**
-     * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return Whether the pubkey field is set.
      */
     @java.lang.Override
@@ -445,18 +445,18 @@ public final class Tx {
       return pubkey_ != null;
     }
     /**
-     * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return The pubkey.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getPubkey() {
-      return pubkey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubkey_;
+    public com.google.protobuf2.Any getPubkey() {
+      return pubkey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubkey_;
     }
     /**
-     * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getPubkeyOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getPubkeyOrBuilder() {
       return getPubkey();
     }
 
@@ -1412,31 +1412,31 @@ public final class Tx {
         return this;
       }
 
-      private com.google.protobuf.Any pubkey_;
+      private com.google.protobuf2.Any pubkey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> pubkeyBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> pubkeyBuilder_;
       /**
-       * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        * @return Whether the pubkey field is set.
        */
       public boolean hasPubkey() {
         return pubkeyBuilder_ != null || pubkey_ != null;
       }
       /**
-       * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        * @return The pubkey.
        */
-      public com.google.protobuf.Any getPubkey() {
+      public com.google.protobuf2.Any getPubkey() {
         if (pubkeyBuilder_ == null) {
-          return pubkey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubkey_;
+          return pubkey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubkey_;
         } else {
           return pubkeyBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public Builder setPubkey(com.google.protobuf.Any value) {
+      public Builder setPubkey(com.google.protobuf2.Any value) {
         if (pubkeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1450,10 +1450,10 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       public Builder setPubkey(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (pubkeyBuilder_ == null) {
           pubkey_ = builderForValue.build();
           onChanged();
@@ -1464,13 +1464,13 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public Builder mergePubkey(com.google.protobuf.Any value) {
+      public Builder mergePubkey(com.google.protobuf2.Any value) {
         if (pubkeyBuilder_ == null) {
           if (pubkey_ != null) {
             pubkey_ =
-              com.google.protobuf.Any.newBuilder(pubkey_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(pubkey_).mergeFrom(value).buildPartial();
           } else {
             pubkey_ = value;
           }
@@ -1482,7 +1482,7 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       public Builder clearPubkey() {
         if (pubkeyBuilder_ == null) {
@@ -1496,33 +1496,33 @@ public final class Tx {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public com.google.protobuf.Any.Builder getPubkeyBuilder() {
+      public com.google.protobuf2.Any.Builder getPubkeyBuilder() {
         
         onChanged();
         return getPubkeyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPubkeyOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPubkeyOrBuilder() {
         if (pubkeyBuilder_ != null) {
           return pubkeyBuilder_.getMessageOrBuilder();
         } else {
           return pubkey_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : pubkey_;
+              com.google.protobuf2.Any.getDefaultInstance() : pubkey_;
         }
       }
       /**
-       * <code>.google.protobuf.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPubkeyFieldBuilder() {
         if (pubkeyBuilder_ == null) {
           pubkeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getPubkey(),
                   getParentForChildren(),
                   isClean());
@@ -8387,7 +8387,7 @@ public final class Tx {
       "proto\032\037google/protobuf/timestamp.proto\032\024" +
       "gogoproto/gogo.proto\032\031cosmos_proto/cosmo" +
       "s.proto\032\036cosmos/base/v1beta1/coin.proto\032" +
-      "$cosmos/staking/v1beta1/staking.proto\"\326\003" +
+      "$cosmos/staking/v1beta1/staking.proto\"\327\003" +
       "\n\022MsgCreateValidator\022>\n\013description\030\001 \001(" +
       "\0132#.cosmos.staking.v1beta1.DescriptionB\004" +
       "\310\336\037\000\022A\n\ncommission\030\002 \001(\0132\'.cosmos.stakin" +
@@ -8396,62 +8396,62 @@ public final class Tx {
       "github.com/cosmos/cosmos-sdk/types.Int\310\336" +
       "\037\000\0223\n\021delegator_address\030\004 \001(\tB\030\322\264-\024cosmo" +
       "s.AddressString\0223\n\021validator_address\030\005 \001" +
-      "(\tB\030\322\264-\024cosmos.AddressString\022>\n\006pubkey\030\006" +
-      " \001(\0132\024.google.protobuf.AnyB\030\312\264-\024cosmos.c" +
-      "rypto.PubKey\022.\n\005value\030\007 \001(\0132\031.cosmos.bas" +
-      "e.v1beta1.CoinB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\034\n\032MsgCre" +
-      "ateValidatorResponse\"\273\002\n\020MsgEditValidato" +
-      "r\022>\n\013description\030\001 \001(\0132#.cosmos.staking." +
-      "v1beta1.DescriptionB\004\310\336\037\000\0223\n\021validator_a" +
-      "ddress\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022Q" +
-      "\n\017commission_rate\030\003 \001(\tB8\322\264-\ncosmos.Dec\332" +
-      "\336\037&github.com/cosmos/cosmos-sdk/types.De" +
-      "c\022U\n\023min_self_delegation\030\004 \001(\tB8\322\264-\ncosm" +
-      "os.Int\332\336\037&github.com/cosmos/cosmos-sdk/t" +
-      "ypes.Int:\010\350\240\037\000\210\240\037\000\"\032\n\030MsgEditValidatorRe" +
-      "sponse\"\262\001\n\013MsgDelegate\0223\n\021delegator_addr" +
-      "ess\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\0223\n\021v" +
-      "alidator_address\030\002 \001(\tB\030\322\264-\024cosmos.Addre" +
-      "ssString\022/\n\006amount\030\003 \001(\0132\031.cosmos.base.v" +
-      "1beta1.CoinB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\025\n\023MsgDelega" +
-      "teResponse\"\366\001\n\022MsgBeginRedelegate\0223\n\021del" +
-      "egator_address\030\001 \001(\tB\030\322\264-\024cosmos.Address" +
-      "String\0227\n\025validator_src_address\030\002 \001(\tB\030\322" +
-      "\264-\024cosmos.AddressString\0227\n\025validator_dst" +
-      "_address\030\003 \001(\tB\030\322\264-\024cosmos.AddressString" +
-      "\022/\n\006amount\030\004 \001(\0132\031.cosmos.base.v1beta1.C" +
-      "oinB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"[\n\032MsgBeginRedelegat" +
-      "eResponse\022=\n\017completion_time\030\001 \001(\0132\032.goo" +
-      "gle.protobuf.TimestampB\010\310\336\037\000\220\337\037\001\"\264\001\n\rMsg" +
-      "Undelegate\0223\n\021delegator_address\030\001 \001(\tB\030\322" +
-      "\264-\024cosmos.AddressString\0223\n\021validator_add" +
-      "ress\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022/\n\006" +
-      "amount\030\003 \001(\0132\031.cosmos.base.v1beta1.CoinB" +
-      "\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"V\n\025MsgUndelegateResponse" +
-      "\022=\n\017completion_time\030\001 \001(\0132\032.google.proto" +
-      "buf.TimestampB\010\310\336\037\000\220\337\037\0012\232\004\n\003Msg\022q\n\017Creat" +
-      "eValidator\022*.cosmos.staking.v1beta1.MsgC" +
-      "reateValidator\0322.cosmos.staking.v1beta1." +
-      "MsgCreateValidatorResponse\022k\n\rEditValida" +
-      "tor\022(.cosmos.staking.v1beta1.MsgEditVali" +
-      "dator\0320.cosmos.staking.v1beta1.MsgEditVa" +
-      "lidatorResponse\022\\\n\010Delegate\022#.cosmos.sta" +
-      "king.v1beta1.MsgDelegate\032+.cosmos.stakin" +
-      "g.v1beta1.MsgDelegateResponse\022q\n\017BeginRe" +
-      "delegate\022*.cosmos.staking.v1beta1.MsgBeg" +
-      "inRedelegate\0322.cosmos.staking.v1beta1.Ms" +
-      "gBeginRedelegateResponse\022b\n\nUndelegate\022%" +
-      ".cosmos.staking.v1beta1.MsgUndelegate\032-." +
-      "cosmos.staking.v1beta1.MsgUndelegateResp" +
-      "onseB.Z,github.com/cosmos/cosmos-sdk/x/s" +
-      "taking/typesb\006proto3"
+      "(\tB\030\322\264-\024cosmos.AddressString\022?\n\006pubkey\030\006" +
+      " \001(\0132\025.google.protobuf2.AnyB\030\312\264-\024cosmos." +
+      "crypto.PubKey\022.\n\005value\030\007 \001(\0132\031.cosmos.ba" +
+      "se.v1beta1.CoinB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\034\n\032MsgCr" +
+      "eateValidatorResponse\"\273\002\n\020MsgEditValidat" +
+      "or\022>\n\013description\030\001 \001(\0132#.cosmos.staking" +
+      ".v1beta1.DescriptionB\004\310\336\037\000\0223\n\021validator_" +
+      "address\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022" +
+      "Q\n\017commission_rate\030\003 \001(\tB8\322\264-\ncosmos.Dec" +
+      "\332\336\037&github.com/cosmos/cosmos-sdk/types.D" +
+      "ec\022U\n\023min_self_delegation\030\004 \001(\tB8\322\264-\ncos" +
+      "mos.Int\332\336\037&github.com/cosmos/cosmos-sdk/" +
+      "types.Int:\010\350\240\037\000\210\240\037\000\"\032\n\030MsgEditValidatorR" +
+      "esponse\"\262\001\n\013MsgDelegate\0223\n\021delegator_add" +
+      "ress\030\001 \001(\tB\030\322\264-\024cosmos.AddressString\0223\n\021" +
+      "validator_address\030\002 \001(\tB\030\322\264-\024cosmos.Addr" +
+      "essString\022/\n\006amount\030\003 \001(\0132\031.cosmos.base." +
+      "v1beta1.CoinB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"\025\n\023MsgDeleg" +
+      "ateResponse\"\366\001\n\022MsgBeginRedelegate\0223\n\021de" +
+      "legator_address\030\001 \001(\tB\030\322\264-\024cosmos.Addres" +
+      "sString\0227\n\025validator_src_address\030\002 \001(\tB\030" +
+      "\322\264-\024cosmos.AddressString\0227\n\025validator_ds" +
+      "t_address\030\003 \001(\tB\030\322\264-\024cosmos.AddressStrin" +
+      "g\022/\n\006amount\030\004 \001(\0132\031.cosmos.base.v1beta1." +
+      "CoinB\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"[\n\032MsgBeginRedelega" +
+      "teResponse\022=\n\017completion_time\030\001 \001(\0132\032.go" +
+      "ogle.protobuf.TimestampB\010\310\336\037\000\220\337\037\001\"\264\001\n\rMs" +
+      "gUndelegate\0223\n\021delegator_address\030\001 \001(\tB\030" +
+      "\322\264-\024cosmos.AddressString\0223\n\021validator_ad" +
+      "dress\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022/\n" +
+      "\006amount\030\003 \001(\0132\031.cosmos.base.v1beta1.Coin" +
+      "B\004\310\336\037\000:\010\350\240\037\000\210\240\037\000\"V\n\025MsgUndelegateRespons" +
+      "e\022=\n\017completion_time\030\001 \001(\0132\032.google.prot" +
+      "obuf.TimestampB\010\310\336\037\000\220\337\037\0012\232\004\n\003Msg\022q\n\017Crea" +
+      "teValidator\022*.cosmos.staking.v1beta1.Msg" +
+      "CreateValidator\0322.cosmos.staking.v1beta1" +
+      ".MsgCreateValidatorResponse\022k\n\rEditValid" +
+      "ator\022(.cosmos.staking.v1beta1.MsgEditVal" +
+      "idator\0320.cosmos.staking.v1beta1.MsgEditV" +
+      "alidatorResponse\022\\\n\010Delegate\022#.cosmos.st" +
+      "aking.v1beta1.MsgDelegate\032+.cosmos.staki" +
+      "ng.v1beta1.MsgDelegateResponse\022q\n\017BeginR" +
+      "edelegate\022*.cosmos.staking.v1beta1.MsgBe" +
+      "ginRedelegate\0322.cosmos.staking.v1beta1.M" +
+      "sgBeginRedelegateResponse\022b\n\nUndelegate\022" +
+      "%.cosmos.staking.v1beta1.MsgUndelegate\032-" +
+      ".cosmos.staking.v1beta1.MsgUndelegateRes" +
+      "ponseB.Z,github.com/cosmos/cosmos-sdk/x/" +
+      "staking/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos.staking.v1beta1.Staking.getDescriptor(),
@@ -8520,16 +8520,16 @@ public final class Tx {
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
     registry.add(cosmos_proto.Cosmos.scalar);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos.staking.v1beta1.Staking.getDescriptor();

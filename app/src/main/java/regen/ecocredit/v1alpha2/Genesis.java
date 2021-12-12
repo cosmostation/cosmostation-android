@@ -5830,7 +5830,7 @@ public final class Genesis {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           regen.ecocredit.v1alpha2.Types.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_regen_ecocredit_v1alpha2_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5852,11 +5852,11 @@ public final class Genesis {
         new java.lang.String[] { "BatchDenom", "TradableSupply", "RetiredSupply", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     regen.ecocredit.v1alpha2.Types.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
