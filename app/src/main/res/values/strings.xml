@@ -142,6 +142,7 @@
 
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
+    <string name="key_private" translatable="false">PRIVATE_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
     <string name="str_atom_c" translatable="false">ATOM</string>
     <string name="str_iris_c" translatable="false">IRIS</string>

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -125,12 +126,9 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
                     if (account.hasPrivateKey) {
                         Toast.makeText(this, R.string.error_already_imported_address, Toast.LENGTH_SHORT).show();
                         return;
-                    } else {
-                        onOverridePkeyAccount(mUserInput, account);
                     }
-                } else {
-                    onGenPkeyAccount(mUserInput, address);
                 }
+                onCheckPassword();
             }
 
         } else if (v.equals(mBtnQr)) {
@@ -156,6 +154,19 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    private void onCheckPassword() {
+        if(!getBaseDao().onHasPassword()) {
+            Intent intent = new Intent(RestoreKeyActivity.this, PasswordSetActivity.class);
+            startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        } else {
+            Intent intent = new Intent(RestoreKeyActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -163,6 +174,19 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
             if(result.getContents() != null) {
                 mInput.setText(result.getContents().trim());
                 mInput.setSelection(mInput.getText().length());
+            }
+        } else if (resultCode == Activity.RESULT_OK) {
+            String address = "";
+            if (mUserInput.startsWith("0x") || mUserInput.startsWith("0X")) {
+                address = WKey.getDpAddress(mChain, WKey.generatePubKeyHexFromPriv(mUserInput.substring(2)));
+            } else {
+                address = WKey.getDpAddress(mChain, WKey.generatePubKeyHexFromPriv(mUserInput));
+            }
+            Account account = getBaseDao().onSelectExistAccount(address, mChain);
+            if (account != null) {
+                onOverridePkeyAccount(mUserInput, account);
+            } else {
+                onGenPkeyAccount(mUserInput, address);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
