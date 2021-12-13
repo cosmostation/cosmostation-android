@@ -1,9 +1,8 @@
 package wannabit.io.cosmostaion.base;
 
 import android.app.Activity;
+import android.app.Application;
 import android.os.Bundle;
-
-import androidx.multidex.MultiDexApplication;
 
 import com.google.firebase.FirebaseApp;
 import com.squareup.picasso.Picasso;
@@ -12,7 +11,7 @@ import java.util.UUID;
 
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 
-public class BaseApplication extends MultiDexApplication {
+public class BaseApplication extends Application {
 
     private BaseData        mBaseData;
     private AppStatus       mAppStatus;
