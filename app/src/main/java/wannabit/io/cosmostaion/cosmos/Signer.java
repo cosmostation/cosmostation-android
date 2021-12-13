@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
@@ -453,21 +454,10 @@ public class Signer {
         cosmos.bank.v1beta1.Tx.MsgSend msgSend = cosmos.bank.v1beta1.Tx.MsgSend.newBuilder().addAmount(toSendCoin).setFromAddress(onParseAddress(auth)).setToAddress(toAddress).build();
         Any msgSendAny = Any.newBuilder().setTypeUrl("/cosmos.bank.v1beta1.MsgSend").setValue(msgSend.toByteString()).build();
 
-        TxOuterClass.TxRaw rawTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcEthRawTx(auth, txBody, authInfo, pKey, chainId);
-
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
@@ -476,20 +466,10 @@ public class Signer {
         cosmos.bank.v1beta1.Tx.MsgSend msgSend = cosmos.bank.v1beta1.Tx.MsgSend.newBuilder().setFromAddress(onParseAddress(auth)).setToAddress(toAddress).addAmount(toSendCoin).build();
         Any msgSendAny = Any.newBuilder().setTypeUrl("/cosmos.bank.v1beta1.MsgSend").setValue(msgSend.toByteString()).build();
 
-        TxOuterClass.Tx simulateTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcEthSimulTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
@@ -499,21 +479,10 @@ public class Signer {
         cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorAddress(toValAddress).setAmount(toDelegateCoin).build();
         Any msgDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
 
-        TxOuterClass.TxRaw rawTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcEthRawTx(auth, txBody, authInfo, pKey, chainId);
-
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDelegateAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
@@ -522,20 +491,10 @@ public class Signer {
         cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorAddress(toValAddress).setAmount(toDelegateCoin).build();
         Any msgDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
 
-        TxOuterClass.Tx simulateTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcEthSimulTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDelegateAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
@@ -545,20 +504,10 @@ public class Signer {
         cosmos.staking.v1beta1.Tx.MsgUndelegate msgUnDelegate = cosmos.staking.v1beta1.Tx.MsgUndelegate.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorAddress(toValAddress).setAmount(toDelegateCoin).build();
         Any msgUnDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgUndelegate").setValue(msgUnDelegate.toByteString()).build();
 
-        TxOuterClass.TxRaw rawTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgUnDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgUnDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcEthRawTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgUnDelegateAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
@@ -567,20 +516,10 @@ public class Signer {
         cosmos.staking.v1beta1.Tx.MsgUndelegate msgUnDelegate = cosmos.staking.v1beta1.Tx.MsgUndelegate.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorAddress(toValAddress).setAmount(toDelegateCoin).build();
         Any msgUnDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgUndelegate").setValue(msgUnDelegate.toByteString()).build();
 
-        TxOuterClass.Tx simulateTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgUnDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgUnDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcEthSimulTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgUnDelegateAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
@@ -593,20 +532,10 @@ public class Signer {
             msgsAny.add(msgClaimRewardAny);
         }
 
-        TxOuterClass.TxRaw rawTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcEthRawTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
@@ -618,20 +547,10 @@ public class Signer {
             msgsAny.add(msgClaimRewardAny);
         }
 
-        TxOuterClass.Tx simulateTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcEthSimulTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
@@ -641,20 +560,10 @@ public class Signer {
         cosmos.staking.v1beta1.Tx.MsgBeginRedelegate msgReDelegate = cosmos.staking.v1beta1.Tx.MsgBeginRedelegate.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorSrcAddress(fromValAddress).setValidatorDstAddress(toValAddress).setAmount(toReDelegateCoin).build();
         Any msgReDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgBeginRedelegate").setValue(msgReDelegate.toByteString()).build();
 
-        TxOuterClass.TxRaw rawTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgReDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgReDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcEthRawTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgReDelegateAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
@@ -663,20 +572,10 @@ public class Signer {
         cosmos.staking.v1beta1.Tx.MsgBeginRedelegate msgReDelegate = cosmos.staking.v1beta1.Tx.MsgBeginRedelegate.newBuilder().setDelegatorAddress(onParseAddress(auth)).setValidatorSrcAddress(fromValAddress).setValidatorDstAddress(toValAddress).setAmount(toReDelegateCoin).build();
         Any msgReDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgBeginRedelegate").setValue(msgReDelegate.toByteString()).build();
 
-        TxOuterClass.Tx simulateTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgReDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgReDelegateAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcEthSimulTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgReDelegateAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
@@ -692,20 +591,10 @@ public class Signer {
         Any msgDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
         msgsAny.add(msgDelegateAny);
 
-        TxOuterClass.TxRaw rawTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcEthRawTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
@@ -720,20 +609,10 @@ public class Signer {
         Any msgDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
         msgsAny.add(msgDelegateAny);
 
-        TxOuterClass.Tx simulateTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcEthSimulTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
@@ -742,20 +621,10 @@ public class Signer {
         cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress msgSetWithdrawAddress = cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress.newBuilder().setDelegatorAddress(onParseAddress(auth)).setWithdrawAddress(newAddress).build();
         Any msgSetWithdrawAddressAny = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgSetWithdrawAddress").setValue(msgSetWithdrawAddress.toByteString()).build();
 
-        TxOuterClass.TxRaw rawTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSetWithdrawAddressAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSetWithdrawAddressAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcEthRawTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSetWithdrawAddressAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
@@ -763,20 +632,10 @@ public class Signer {
         cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress msgSetWithdrawAddress = cosmos.distribution.v1beta1.Tx.MsgSetWithdrawAddress.newBuilder().setDelegatorAddress(onParseAddress(auth)).setWithdrawAddress(newAddress).build();
         Any msgSetWithdrawAddressAny = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgSetWithdrawAddress").setValue(msgSetWithdrawAddress.toByteString()).build();
 
-        TxOuterClass.Tx simulateTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSetWithdrawAddressAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSetWithdrawAddressAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcEthSimulTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSetWithdrawAddressAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
@@ -795,20 +654,10 @@ public class Signer {
         Tx.MsgVote msgVote = Tx.MsgVote.newBuilder().setProposalId(Long.parseLong(proposalId)).setVoter(onParseAddress(auth)).setOption(msgOption).build();
         Any msgSendAny = Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote").setValue(msgVote.toByteString()).build();
 
-        TxOuterClass.TxRaw rawTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            rawTx                               = getGrpcEthRawTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
@@ -826,20 +675,10 @@ public class Signer {
         Tx.MsgVote msgVote = Tx.MsgVote.newBuilder().setProposalId(Long.parseLong(proposalId)).setVoter(onParseAddress(auth)).setOption(msgOption).build();
         Any msgSendAny = Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote").setValue(msgVote.toByteString()).build();
 
-        TxOuterClass.Tx simulateTx = null;
-        if (auth.getAccount().getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName()) ||
-            auth.getAccount().getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-
-        } else if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
-            TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
-            TxOuterClass.SignerInfo signerInfo  = getGrpcEthSignerInfo(auth, pKey);
-            TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-            simulateTx                          = getGrpcEthSimulTx(auth, txBody, authInfo, pKey, chainId);
-        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
@@ -864,7 +703,6 @@ public class Signer {
         TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
         TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
-
     }
 
 
@@ -1402,9 +1240,14 @@ public class Signer {
 
 
     public static TxOuterClass.SignerInfo getGrpcSignerInfo(QueryOuterClass.QueryAccountResponse auth, DeterministicKey pKey) {
-        Any pubKey = WKey.generateGrpcPubKeyFromPriv(pKey.getPrivateKeyAsHex());
+        Any pubKey = null;
         TxOuterClass.ModeInfo.Single singleMode = TxOuterClass.ModeInfo.Single.newBuilder().setMode(SIGN_MODE_DIRECT).build();
         TxOuterClass.ModeInfo modeInfo = TxOuterClass.ModeInfo.newBuilder().setSingle(singleMode).build();
+        if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
+            pubKey = WKey.generateGrpcEthPubKeyFromPriv(pKey.getPrivateKeyAsHex());
+        } else {
+            pubKey = WKey.generateGrpcPubKeyFromPriv(pKey.getPrivateKeyAsHex());
+        }
         return  TxOuterClass.SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo).setSequence(onParseSequenceNumber(auth)).build();
     }
 
@@ -1416,33 +1259,23 @@ public class Signer {
 
     public static TxOuterClass.TxRaw getGrpcRawTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, DeterministicKey pKey, String chainId) {
         TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(onParseAccountNumber(auth)).build();
-        byte[] sigbyte = Signer.getGrpcByteSingleSignature(pKey, signDoc.toByteArray());
+        byte[] sigbyte = null;
+        if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
+            sigbyte = Signer.getGrpcByteSingleEthSignature(pKey, signDoc.toByteArray());
+        } else {
+            sigbyte = Signer.getGrpcByteSingleSignature(pKey, signDoc.toByteArray());
+        }
         return TxOuterClass.TxRaw.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).addSignatures(ByteString.copyFrom(sigbyte)).build();
     }
 
     public static TxOuterClass.Tx getGrpcSimulTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, DeterministicKey pKey, String chainId) {
         TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(onParseAccountNumber(auth)).build();
-        byte[] sigbyte = Signer.getGrpcByteSingleSignature(pKey, signDoc.toByteArray());
-        return TxOuterClass.Tx.newBuilder().setAuthInfo(authInfo).setBody(txBody).addSignatures(ByteString.copyFrom(sigbyte)).build();
-    }
-
-    // injective
-    public static TxOuterClass.SignerInfo getGrpcEthSignerInfo(QueryOuterClass.QueryAccountResponse auth, DeterministicKey pKey) {
-        Any pubKey = WKey.generateGrpcEthPubKeyFromPriv(pKey.getPrivateKeyAsHex());
-        TxOuterClass.ModeInfo.Single singleMode = TxOuterClass.ModeInfo.Single.newBuilder().setMode(SIGN_MODE_DIRECT).build();
-        TxOuterClass.ModeInfo modeInfo = TxOuterClass.ModeInfo.newBuilder().setSingle(singleMode).build();
-        return  TxOuterClass.SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo).setSequence(onParseSequenceNumber(auth)).build();
-    }
-
-    public static TxOuterClass.TxRaw getGrpcEthRawTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, DeterministicKey pKey, String chainId) {
-        TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(onParseAccountNumber(auth)).build();
-        byte[] sigbyte = Signer.getGrpcByteSingleEthSignature(pKey, signDoc.toByteArray());
-        return TxOuterClass.TxRaw.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).addSignatures(ByteString.copyFrom(sigbyte)).build();
-    }
-
-    public static TxOuterClass.Tx getGrpcEthSimulTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, DeterministicKey pKey, String chainId) {
-        TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(onParseAccountNumber(auth)).build();
-        byte[] sigbyte = Signer.getGrpcByteSingleEthSignature(pKey, signDoc.toByteArray());
+        byte[] sigbyte = null;
+        if (auth.getAccount().getTypeUrl().contains(Account.EthAccount.getDescriptor().getFullName())) {
+            sigbyte = Signer.getGrpcByteSingleEthSignature(pKey, signDoc.toByteArray());
+        } else {
+            sigbyte = Signer.getGrpcByteSingleSignature(pKey, signDoc.toByteArray());
+        }
         return TxOuterClass.Tx.newBuilder().setAuthInfo(authInfo).setBody(txBody).addSignatures(ByteString.copyFrom(sigbyte)).build();
     }
 
