@@ -271,6 +271,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         } else {
             onUpdateTitle();
         }
+        mAccountRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));
         onChainSelect(mBaseChain);
     }
 
@@ -298,6 +299,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         onFetchAllData();
 
         mSelectedChain = mBaseChain;
+        mAccountRecyclerView.setAdapter(mAccountListAdapter);
+        mAccountRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));
         onChainSelect(mSelectedChain);
     }
 
