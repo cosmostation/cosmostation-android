@@ -173,7 +173,7 @@
     <string name="str_regen_c" translatable="false">REGEN</string>
     <string name="str_bitcanna_c" translatable="false">BCNA</string>
     <string name="str_stargaze_c" translatable="false">STARS</string>
-    <string name="str_grabridge_c" translatable="false">GRAV</string>
+    <string name="str_grabridge_c" translatable="false">GRAVITON</string>
     <string name="str_comdex_c" translatable="false">CMDX</string>
     <string name="str_inj_c" translatable="false">INJ</string>
     <string name="str_bitsong_c" translatable="false">BTSG</string>
