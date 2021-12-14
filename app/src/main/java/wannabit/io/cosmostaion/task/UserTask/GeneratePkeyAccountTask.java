@@ -24,7 +24,7 @@ public class GeneratePkeyAccountTask extends CommonTask {
         this.mBaseChain = basechain;
         this.mPKey = pKey;
         this.mAddress = address;
-        this.mResult.taskType = BaseConstant.TASK_INIT_ACCOUNT;
+        this.mResult.taskType = BaseConstant.TASK_INIT_PKEY_ACCOUNT;
     }
 
     @Override

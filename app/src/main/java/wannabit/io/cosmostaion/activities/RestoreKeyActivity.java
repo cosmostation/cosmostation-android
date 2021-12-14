@@ -92,12 +92,12 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
+        if (result.taskType == BaseConstant.TASK_INIT_PKEY_ACCOUNT) {
             if(result.isSuccess) {
                 onStartMainActivity(0);
             }
 
-        } else if (result.taskType == BaseConstant.TASK_OVERRIDE_ACCOUNT) {
+        } else if (result.taskType == BaseConstant.TASK_OVERRIDE_PKEY_ACCOUNT) {
             if(result.isSuccess) {
                 onStartMainActivity(0);
             }

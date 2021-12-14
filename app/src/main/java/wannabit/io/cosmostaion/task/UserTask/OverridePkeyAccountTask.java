@@ -17,7 +17,7 @@ public class OverridePkeyAccountTask extends CommonTask {
         super(app, listener);
         this.mPKey = pKey;
         this.mAccount = account;
-        this.mResult.taskType = BaseConstant.TASK_OVERRIDE_ACCOUNT;
+        this.mResult.taskType = BaseConstant.TASK_OVERRIDE_PKEY_ACCOUNT;
     }
 
     @Override

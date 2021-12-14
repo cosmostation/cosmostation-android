@@ -169,6 +169,8 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_KAVA_JOIN_POOL                  = 2133;
     public final static int TASK_GEN_TX_KAVA_EXIT_POOL                  = 2134;
     public final static int TASK_CHECK_PRIVATE_KEY                      = 2135;
+    public final static int TASK_INIT_PKEY_ACCOUNT                      = 2136;
+    public final static int TASK_OVERRIDE_PKEY_ACCOUNT                  = 2137;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_STAKE_HISTORY                = 2301;
@@ -567,7 +569,7 @@ public class BaseConstant {
     public final static String TOKEN_REGEN          = "uregen";
     public final static String TOKEN_BITCANNA       = "ubcna";
     public final static String TOKEN_STARGAZE       = "ustars";
-    public final static String TOKEN_GRABRIDGE      = "ugrav";
+    public final static String TOKEN_GRABRIDGE      = "ugraviton";
     public final static String TOKEN_COMDEX         = "ucmdx";
     public final static String TOKEN_INJ            = "inj";
     public final static String TOKEN_BITSONG        = "ubtsg";
@@ -837,13 +839,17 @@ public class BaseConstant {
     public final static String BITSONG_GAS_RATE_LOW                     = "0.025";
     public final static String BITSONG_GAS_RATE_AVERAGE                 = "0.025";
 
-    public final static String DESMOS_GAS_RATE_TINY                    = "0.001";
-    public final static String DESMOS_GAS_RATE_LOW                     = "0.010";
-    public final static String DESMOS_GAS_RATE_AVERAGE                 = "0.025";
+    public final static String DESMOS_GAS_RATE_TINY                     = "0.001";
+    public final static String DESMOS_GAS_RATE_LOW                      = "0.010";
+    public final static String DESMOS_GAS_RATE_AVERAGE                  = "0.025";
 
     public final static String INJ_GAS_RATE_TINY                        = "500000000.00";
     public final static String INJ_GAS_RATE_LOW                         = "500000000.00";
     public final static String INJ_GAS_RATE_AVERAGE                     = "500000000.00";
+
+    public final static String GRAV_GAS_RATE_TINY                       = "0.00";
+    public final static String GRAV_GAS_RATE_LOW                        = "0.00";
+    public final static String GRAV_GAS_RATE_AVERAGE                    = "0.00";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
@@ -981,6 +987,7 @@ public class BaseConstant {
     public final static String SECRET_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/secret/relay-secret-unknown.png";
     public final static String BITSONG_UNKNOWN_RELAYER  = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/bitsong/relay-bitsong-unknown.png";
     public final static String DESMOS_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/desmos/relay-desmos-unknown.png";
+    public final static String GRAB_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/gravity-bridge/relay-gravity-bridge-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
 
