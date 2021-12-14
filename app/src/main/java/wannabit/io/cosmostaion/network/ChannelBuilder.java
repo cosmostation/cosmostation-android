@@ -117,6 +117,9 @@ public class ChannelBuilder {
     private final static String GRPC_DESMOS_MAIN = "lcd-desmos-app.cosmostation.io";
     private final static int PORT_DESMOS_MAIN = 9090;
 
+    private final static String GRPC_GRABRIDGE_MAIN = "lcd-gravity-bridge-app.cosmostation.io";
+    private final static int PORT_GRABRIDGE_MAIN = 9090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -135,9 +138,6 @@ public class ChannelBuilder {
 
     private final static String GRPC_AXELAR_TEST = "lcd-axelar-testnet.cosmostation.io";
     private final static int PORT_AXELAR_TEST = 9090;
-
-    private final static String GRPC_GRABRIDGE_MAIN = "lcd-office.cosmostation.io";
-    private final static int PORT_GRABRIDGE_MAIN = 20300;
 
 
     public final static int TIME_OUT = 8;

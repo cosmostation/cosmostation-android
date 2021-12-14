@@ -1456,9 +1456,7 @@ public class WDp {
                 return INJ_MAIN;
             } else if (chainId.contains("desmos-")) {
                 return DESMOS_MAIN;
-            }
-
-            else if (chainId.contains("gravitybridge-")) {
+            } else if (chainId.contains("gravity-bridge-")) {
                 return GRABRIDGE_MAIN;
             }
         }
@@ -1567,6 +1565,10 @@ public class WDp {
                 if (!address.startsWith("desmos1")) {
                     textView.setText("");
                 }
+            } else if (baseChain.equals(GRABRIDGE_MAIN)) {
+                if (!address.startsWith("gravity1")) {
+                    textView.setText("");
+                }
             }
         }
     }
@@ -1631,6 +1633,8 @@ public class WDp {
                 return "injective";
             } else if (baseChain.equals(DESMOS_MAIN)) {
                 return "desmos";
+            } else if (baseChain.equals(GRABRIDGE_MAIN)) {
+                return "gravity-bridge";
             }
 
             else if (baseChain.equals(BNB_MAIN)) {
@@ -1722,6 +1726,7 @@ public class WDp {
             else if (chain.equals(INJ_MAIN)) { return INJ_UNKNOWN_RELAYER; }
             else if (chain.equals(BITSONG_MAIN)) { return BITSONG_UNKNOWN_RELAYER; }
             else if (chain.equals(DESMOS_MAIN)) { return DESMOS_UNKNOWN_RELAYER; }
+            else if (chain.equals(GRABRIDGE_MAIN)) { return GRAB_UNKNOWN_RELAYER; }
             else if (chain.equals(UMEE_TEST)) { return UMEE_UNKNOWN_RELAYER; }
         }
         return null;
