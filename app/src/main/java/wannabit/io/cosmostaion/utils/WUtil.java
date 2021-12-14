@@ -2228,6 +2228,9 @@ public class WUtil {
             } else if (chain.equals(DESMOS_MAIN)) {
                 return BLOCK_TIME_DESMOS;
 
+            } else if (chain.equals(GRABRIDGE_MAIN)) {
+                return BLOCK_TIME_GRAV;
+
             }
         }
         return BigDecimal.ZERO;

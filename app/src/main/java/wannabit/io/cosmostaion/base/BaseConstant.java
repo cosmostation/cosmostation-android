@@ -987,7 +987,7 @@ public class BaseConstant {
     public final static String SECRET_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/secret/relay-secret-unknown.png";
     public final static String BITSONG_UNKNOWN_RELAYER  = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/bitsong/relay-bitsong-unknown.png";
     public final static String DESMOS_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/desmos/relay-desmos-unknown.png";
-    public final static String GRAB_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/gravity-bridge/relay-gravity-bridge-unknown.png";
+    public final static String GRAB_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/gravity-bridge/relay-gravitybridge-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
 
@@ -1034,4 +1034,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_BNB = new BigDecimal("0.4124");
     public final static BigDecimal BLOCK_TIME_COMDEX = new BigDecimal("6.1746");
     public final static BigDecimal BLOCK_TIME_DESMOS = new BigDecimal("6.1605");
+    public final static BigDecimal BLOCK_TIME_GRAV = new BigDecimal("6.4500");
 }
