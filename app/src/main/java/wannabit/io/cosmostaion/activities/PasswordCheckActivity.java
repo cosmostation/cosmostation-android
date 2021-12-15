@@ -712,7 +712,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         }
 
         else if (mPurpose == CONST_PW_TX_GDEX_SWAP) {
-            Coin coinFee = new Coin(mSwapInCoin.denom, "0");
+            BigDecimal offerFee = new BigDecimal(mSwapInCoin.amount).multiply(new BigDecimal("0.0015")).setScale(0, RoundingMode.CEILING);
+            Coin coinFee = new Coin(mSwapInCoin.denom, offerFee.toPlainString());
             new GravitySwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
                     mGDexPool.getId(), mSwapInCoin, mSwapOutCoin.denom, coinFee, mGDexSwapOrderPrice, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);

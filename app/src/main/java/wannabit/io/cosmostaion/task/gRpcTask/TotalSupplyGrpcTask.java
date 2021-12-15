@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import cosmos.bank.v1beta1.QueryGrpc;
 import cosmos.bank.v1beta1.QueryOuterClass;
+import cosmos.base.query.v1beta1.Pagination;
 import cosmos.base.v1beta1.CoinOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -32,7 +33,8 @@ public class TotalSupplyGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryTotalSupplyRequest request = QueryOuterClass.QueryTotalSupplyRequest.newBuilder().build();
+            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(2000).build();
+            QueryOuterClass.QueryTotalSupplyRequest request = QueryOuterClass.QueryTotalSupplyRequest.newBuilder().setPagination(pageRequest).build();
             QueryOuterClass.QueryTotalSupplyResponse response = mStub.totalSupply(request);
             mResultData.addAll(response.getSupplyList());
 

@@ -83,6 +83,9 @@ public class ChainParam {
         @SerializedName("gdex_status")
         public ArrayList<GdexStatus> mGdexStatus;
 
+        @SerializedName("swap_enabled")
+        public boolean swap_enabled;
+
 
         public BigDecimal getMintInflation(BaseChain baseChain) {
             if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {

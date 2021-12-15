@@ -108,6 +108,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:gravity="end"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:text="-" />
                     </LinearLayout>
                     <LinearLayout
@@ -128,6 +130,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:gravity="end"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:text="-" />
                     </LinearLayout>
                 </LinearLayout>
@@ -179,6 +183,8 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:gravity="end"
+                                    android:singleLine="true"
+                                    android:ellipsize="end"
                                     android:text="-" />
                             </LinearLayout>
                             <LinearLayout
@@ -199,6 +205,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:gravity="end"
+                                    android:singleLine="true"
+                                    android:ellipsize="end"
                                     android:text="-" />
                             </LinearLayout>
                         </LinearLayout>

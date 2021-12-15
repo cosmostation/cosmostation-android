@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -15,10 +16,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
-import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletRizonHolder extends BaseHolder {
@@ -72,6 +71,10 @@ public class WalletRizonHolder extends BaseHolder {
         mBtnSwap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!baseData.mChainParam.swap_enabled) {
+                    Toast.makeText(mainActivity, mainActivity.getString(R.string.error_rizon_swap_finished), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 mainActivity.onClickEventHorizon();
             }
         });

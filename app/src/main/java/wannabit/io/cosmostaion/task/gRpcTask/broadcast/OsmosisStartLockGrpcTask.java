@@ -72,6 +72,7 @@ public class OsmosisStartLockGrpcTask extends CommonTask {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcStartLockReq(mAuthResponse, mDuration, mLpCoin, mFees, mMemo, deterministicKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
+            mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {
                 mResult.errorCode = response.getTxResponse().getCode();
                 mResult.errorMsg = response.getTxResponse().getRawLog();

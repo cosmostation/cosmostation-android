@@ -35,7 +35,8 @@ public class BalanceGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryAllBalancesRequest request = QueryOuterClass.QueryAllBalancesRequest.newBuilder().setAddress(mAddress).build();
+            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(1000).build();
+            QueryOuterClass.QueryAllBalancesRequest request = QueryOuterClass.QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(mAddress).build();
             QueryOuterClass.QueryAllBalancesResponse response = mStub.allBalances(request);
             mResultData.addAll(response.getBalancesList());
 //            WLog.w("response " + response.getBalancesList());
