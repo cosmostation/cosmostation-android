@@ -49,7 +49,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisExitPoolGrpcTa
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisJoinPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisStartLockGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisSwaplnGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisUnLockGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRedelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRegisterAccountGrpcTask;
@@ -78,7 +77,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARN
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_UNLOCK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
@@ -428,7 +426,8 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             }
 
             else if (getSActivity().mTxType == CONST_PW_TX_GDEX_SWAP) {
-                Coin coinFee = new Coin(getSActivity().mSwapInCoin.denom, "0");
+                BigDecimal offerFee = new BigDecimal(getSActivity().mSwapInCoin.amount).multiply(new BigDecimal("0.0015")).setScale(0, RoundingMode.CEILING);
+                Coin coinFee = new Coin(getSActivity().mSwapInCoin.denom, offerFee.toPlainString());
                 new SimulGravitySwapGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         getSActivity().mGDexPool.getId(), getSActivity().mSwapInCoin, getSActivity().mSwapOutCoin.denom, coinFee, getSActivity().mGDexSwapOrderPrice,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

@@ -108,6 +108,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:gravity="end"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:text="" />
                     </LinearLayout>
                     <LinearLayout
@@ -128,6 +130,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:gravity="end"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:text="" />
                     </LinearLayout>
                 </LinearLayout>
@@ -190,6 +194,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:gravity="end"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:text="" />
                     </LinearLayout>
                     <LinearLayout
@@ -210,6 +216,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:gravity="end"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:text="" />
                     </LinearLayout>
                 </LinearLayout>
@@ -252,6 +260,8 @@
                                     style="@style/font_ss_12_white"
                                     android:layout_width="40dp"
                                     android:layout_height="wrap_content"
+                                    android:singleLine="true"
+                                    android:ellipsize="end"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:gravity="end"
                                     android:text="-" />
@@ -274,6 +284,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:gravity="end"
+                                    android:singleLine="true"
+                                    android:ellipsize="end"
                                     android:text="-" />
                             </LinearLayout>
                         </LinearLayout>

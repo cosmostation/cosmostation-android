@@ -50,7 +50,7 @@
                             style="@style/font_ssl_12_white"/>
                         <TextView
                             android:id="@+id/swap_fee_amount_symbol"
-                            android:layout_width="@dimen/space_50"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="@string/str_atom_c"
@@ -129,7 +129,7 @@
                             style="@style/font_ssl_12_white"/>
                         <TextView
                             android:id="@+id/swap_in_amount_symbol"
-                            android:layout_width="@dimen/space_50"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="@string/str_atom_c"
@@ -161,7 +161,7 @@
                             style="@style/font_ssl_12_white"/>
                         <TextView
                             android:id="@+id/swap_out_amount_symbol"
-                            android:layout_width="@dimen/space_50"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:gravity="end"

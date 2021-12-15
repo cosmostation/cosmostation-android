@@ -1776,6 +1776,7 @@
     <string name="error_max_account_number">No more accounts can be added to this chain.</string>
     <string name="error_reserve_1_account">Please reserve at least 1 account to displayed.</string>
     <string name="error_hided_chain">Hidden Chain.</string>
+    <string name="error_rizon_swap_finished">Rizon Swap Disabled.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>
