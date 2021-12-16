@@ -2323,6 +2323,9 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(RIZON_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/rizon")));
+
+        } else if (mainActivity.mBaseChain.equals(COMDEX_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/comdex")));
         }
         return null;
     }
