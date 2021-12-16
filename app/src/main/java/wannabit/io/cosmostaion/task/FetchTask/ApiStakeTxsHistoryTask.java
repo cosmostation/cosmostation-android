@@ -272,6 +272,15 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
+
+            } else if (mChain.equals(BaseChain.LUM_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getLumApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
             }
 
             else if (mChain.equals(BaseChain.COSMOS_TEST)) {

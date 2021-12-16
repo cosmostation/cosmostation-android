@@ -1757,7 +1757,7 @@ public class WDp {
     public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = BigDecimal.ZERO;
-        if (param.getRealApr(chain) == BigDecimal.ZERO) { apr = param.getApr(chain); }
+        if (param.getRealApr(chain).equals(BigDecimal.ZERO)) { apr = param.getApr(chain); }
         else { apr = param.getRealApr(chain); }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
