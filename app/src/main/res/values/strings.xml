@@ -181,6 +181,7 @@
     <string name="str_inj_c" translatable="false">INJ</string>
     <string name="str_bitsong_c" translatable="false">BTSG</string>
     <string name="str_desmos_c" translatable="false">DSM</string>
+    <string name="str_lum_c" translatable="false">LUM</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 

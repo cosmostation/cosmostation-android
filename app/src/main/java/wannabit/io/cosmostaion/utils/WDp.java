@@ -1224,7 +1224,7 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_bitsong_main));
             } else if (baseChain.equals(DESMOS_MAIN)) {
                 chainName.setText(c.getString(R.string.str_desmos_main));
-            } else if (baseChain.equals(DESMOS_MAIN)) {
+            } else if (baseChain.equals(LUM_MAIN)) {
                 chainName.setText(c.getString(R.string.str_lum_main));
 
             }
