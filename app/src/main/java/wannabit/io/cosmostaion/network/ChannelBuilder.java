@@ -576,7 +576,7 @@ public class ChannelBuilder {
         return channel_desmos_main;
     }
 
-    //Channel for desmos main
+    //Channel for lum main
     private static ManagedChannel channel_lum_main = null;
     public static ManagedChannel getLumMain() {
         if (channel_lum_main == null) {
