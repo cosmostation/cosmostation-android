@@ -306,7 +306,7 @@ public enum BaseChain {
         result.add(JUNO_MAIN);
         result.add(KAVA_MAIN);
         result.add(KI_MAIN);
-        result.add(LUM_MAIN);
+//        result.add(LUM_MAIN);
         result.add(MEDI_MAIN);
         result.add(OKEX_MAIN);
         result.add(OSMOSIS_MAIN);
