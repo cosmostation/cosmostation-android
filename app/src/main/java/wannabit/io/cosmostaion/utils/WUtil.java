@@ -3471,7 +3471,7 @@ public class WUtil {
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(AXELAR_TEST)) {
-            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasRate = new BigDecimal(AXELAR_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -3496,7 +3496,7 @@ public class WUtil {
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(JUNO_MAIN) ||
                 basechain.equals(REGEN_MAIN) || basechain.equals(ALTHEA_MAIN) ||
-                basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
+                basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -3679,6 +3679,16 @@ public class WUtil {
                 return new BigDecimal(LUM_GAS_RATE_LOW);
             }
             return new BigDecimal(LUM_GAS_RATE_AVERAGE);
+
+        }
+
+        else if (basechain.equals(AXELAR_TEST)) {
+            if (position == 0) {
+                return new BigDecimal(AXELAR_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(AXELAR_GAS_RATE_LOW);
+            }
+            return new BigDecimal(AXELAR_GAS_RATE_AVERAGE);
 
         }
 

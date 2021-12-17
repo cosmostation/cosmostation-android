@@ -852,6 +852,10 @@ public class BaseConstant {
     public final static String GRAV_GAS_RATE_LOW                        = "0.00";
     public final static String GRAV_GAS_RATE_AVERAGE                    = "0.00";
 
+    public final static String AXELAR_GAS_RATE_TINY                     = "0.05";
+    public final static String AXELAR_GAS_RATE_LOW                      = "0.05";
+    public final static String AXELAR_GAS_RATE_AVERAGE                  = "0.05";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
