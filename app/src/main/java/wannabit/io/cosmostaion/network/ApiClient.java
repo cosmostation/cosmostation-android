@@ -601,6 +601,21 @@ public class ApiClient {
         }
         return api_desmos;
     }
+
+    //Services for lum mainnet api
+    private static HistoryApi api_lum = null;
+    public static HistoryApi getLumApi(Context c) {
+        if (api_lum == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_lum))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_lum = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_lum;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;

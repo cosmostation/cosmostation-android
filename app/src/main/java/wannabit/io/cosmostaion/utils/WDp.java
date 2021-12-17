@@ -98,6 +98,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -149,17 +150,15 @@ public class WDp {
     public static void showCoinDp(Context c, BaseData baseData, Coin coin, TextView denomTv, TextView amountTv, BaseChain chain) {
         if (isGRPC(chain) && coin.isIbc()) {
             IbcToken ibcToken = baseData.getIbcToken(coin.getIbcHash());
-            if (ibcToken.auth == true) {
+            if (ibcToken.auth) {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(ibcToken.display_denom.toUpperCase());
                 amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), ibcToken.decimal, ibcToken.decimal));
-                return;
 
             } else {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText("Unknown");
                 amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
-                return;
             }
 
         } else if (chain.equals(COSMOS_MAIN)) {
@@ -460,6 +459,15 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+        } else if (chain.equals(LUM_MAIN)) {
+            if (coin.denom.equals(TOKEN_LUM)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -503,17 +511,15 @@ public class WDp {
     public static void showCoinDp(Context c, BaseData baseData, String symbol, String amount, TextView denomTv, TextView amountTv, BaseChain chain) {
         if (isGRPC(chain) && symbol.startsWith("ibc")) {
             IbcToken ibcToken = baseData.getIbcToken(symbol.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken.auth) {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(ibcToken.display_denom.toUpperCase());
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), ibcToken.decimal, ibcToken.decimal));
-                return;
 
             } else {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText("Unknown");
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-                return;
             }
 
         } else if (chain.equals(COSMOS_MAIN)) {
@@ -809,6 +815,15 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
+        } else if (chain.equals(LUM_MAIN)) {
+            if (symbol.equals(TOKEN_LUM)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -1018,6 +1033,8 @@ public class WDp {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_bitsong));
             } else if (baseChain.equals(DESMOS_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_desmos));
+            } else if (baseChain.equals(LUM_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_lumnetwork));
 
             }
 
@@ -1111,6 +1128,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_bitsong_net));
             } else if (baseChain.equals(DESMOS_MAIN)) {
                 chainName.setText(c.getString(R.string.str_desmos_net));
+            } else if (baseChain.equals(LUM_MAIN)) {
+                chainName.setText(c.getString(R.string.str_lum_net));
 
             }
 
@@ -1205,6 +1224,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_bitsong_main));
             } else if (baseChain.equals(DESMOS_MAIN)) {
                 chainName.setText(c.getString(R.string.str_desmos_main));
+            } else if (baseChain.equals(LUM_MAIN)) {
+                chainName.setText(c.getString(R.string.str_lum_main));
 
             }
 
@@ -1302,6 +1323,8 @@ public class WDp {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorBitsong));
         } else if (baseChain.equals(DESMOS_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorDesmos));
+        } else if (baseChain.equals(LUM_MAIN)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorLum));
 
         }
 
@@ -1391,6 +1414,8 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_bitsong));
             } else if (baseChain.equals(DESMOS_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_desmos));
+            } else if (baseChain.equals(LUM_MAIN)) {
+                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_lum));
             } else if (baseChain.equals(UMEE_TEST)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_umee));
             } else if (baseChain.equals(AXELAR_TEST)) {
@@ -1458,6 +1483,8 @@ public class WDp {
                 return DESMOS_MAIN;
             } else if (chainId.contains("gravity-bridge-")) {
                 return GRABRIDGE_MAIN;
+            } else if (chainId.contains("lum-network-")) {
+                return LUM_MAIN;
             }
         }
         return null;
@@ -1569,6 +1596,10 @@ public class WDp {
                 if (!address.startsWith("gravity1")) {
                     textView.setText("");
                 }
+            } else if (baseChain.equals(LUM_MAIN)) {
+                if (!address.startsWith("lum1")) {
+                    textView.setText("");
+                }
             }
         }
     }
@@ -1635,6 +1666,8 @@ public class WDp {
                 return "desmos";
             } else if (baseChain.equals(GRABRIDGE_MAIN)) {
                 return "gravity-bridge";
+            } else if (baseChain.equals(LUM_MAIN)) {
+                return "lum";
             }
 
             else if (baseChain.equals(BNB_MAIN)) {
@@ -1695,6 +1728,7 @@ public class WDp {
             else if (address.startsWith("inj1") && baseChain.equals(INJ_MAIN)) { return true; }
             else if (address.startsWith("bitsong1") && baseChain.equals(BITSONG_MAIN)) { return true; }
             else if (address.startsWith("desmos1") && baseChain.equals(DESMOS_MAIN)) { return true; }
+            else if (address.startsWith("lum1") && baseChain.equals(LUM_MAIN)) { return true; }
         }
         return false;
     }
@@ -1727,6 +1761,7 @@ public class WDp {
             else if (chain.equals(BITSONG_MAIN)) { return BITSONG_UNKNOWN_RELAYER; }
             else if (chain.equals(DESMOS_MAIN)) { return DESMOS_UNKNOWN_RELAYER; }
             else if (chain.equals(GRABRIDGE_MAIN)) { return GRAB_UNKNOWN_RELAYER; }
+            else if (chain.equals(LUM_MAIN)) { return LUM_UNKNOWN_RELAYER; }
             else if (chain.equals(UMEE_TEST)) { return UMEE_UNKNOWN_RELAYER; }
         }
         return null;
@@ -1757,7 +1792,7 @@ public class WDp {
     public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = BigDecimal.ZERO;
-        if (param.getRealApr(chain) == BigDecimal.ZERO) { apr = param.getApr(chain); }
+        if (param.getRealApr(chain).equals(BigDecimal.ZERO)) { apr = param.getApr(chain); }
         else { apr = param.getRealApr(chain); }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
@@ -2871,6 +2906,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorBitsong);
             } else if (chain.equals(DESMOS_MAIN)) {
                 return c.getResources().getColor(R.color.colorDesmos);
+            } else if (chain.equals(LUM_MAIN)) {
+                return c.getResources().getColor(R.color.colorLum);
             } else if (chain.equals(UMEE_TEST)) {
                 return c.getResources().getColor(R.color.colorUmee);
             } else if (chain.equals(AXELAR_TEST)) {
@@ -2942,6 +2979,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorTransBgBitsong);
             } else if (chain.equals(DESMOS_MAIN)) {
                 return c.getResources().getColor(R.color.colorTransBgDesmos);
+            } else if (chain.equals(LUM_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgLum);
             }
 
             else if (chain.equals(UMEE_TEST)) {
@@ -3013,6 +3052,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_bitsong);
             } else if (chain.equals(DESMOS_MAIN)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_desmos);
+            } else if (chain.equals(LUM_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_lum);
             } else if (chain.equals(UMEE_TEST)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_umee);
             } else if (chain.equals(AXELAR_TEST)) {
@@ -3082,6 +3123,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.colorBitsong);
             } else if (chain.equals(DESMOS_MAIN)) {
                 return c.getResources().getColorStateList(R.color.colorDesmos);
+            } else if (chain.equals(LUM_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorLum);
             } else if (chain.equals(UMEE_TEST)) {
                 return c.getResources().getColorStateList(R.color.colorUmee);
             } else if (chain.equals(AXELAR_TEST)) {
@@ -3216,6 +3259,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorDesmos));
             textview.setText(c.getString(R.string.s_desmos));
 
+        } else if (BaseChain.getChain(chain).equals(LUM_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorLum));
+            textview.setText(c.getString(R.string.s_lum));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -3304,6 +3351,8 @@ public class WDp {
             return TOKEN_BITSONG;
         } else if (chain.equals(DESMOS_MAIN)) {
             return TOKEN_DESMOS;
+        } else if (chain.equals(LUM_MAIN)) {
+            return TOKEN_LUM;
         } else if (chain.equals(UMEE_TEST)) {
             return TOKEN_UMEE;
         } else if (chain.equals(AXELAR_TEST)) {
@@ -3375,6 +3424,8 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_bitsong);
             } else if (baseChain.equals(DESMOS_MAIN)) {
                 imageView.setImageResource(R.drawable.token_desmos);
+            } else if (baseChain.equals(LUM_MAIN)) {
+                imageView.setImageResource(R.drawable.token_lum);
             } else if (baseChain.equals(UMEE_TEST)) {
                 imageView.setImageResource(R.drawable.token_umee);
             } else if (baseChain.equals(AXELAR_TEST)) {
@@ -3806,6 +3857,12 @@ public class WDp {
             return BITSONG_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(DESMOS_MAIN)) {
             return DESMOS_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(SECRET_MAIN)) {
+            return SECRET_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(KI_MAIN)) {
+            return KI_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(LUM_MAIN)) {
+            return LUM_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(UMEE_TEST)) {
             return UMEE_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(AXELAR_TEST)) {
@@ -3814,12 +3871,8 @@ public class WDp {
 
         else if (basechain.equals(KAVA_MAIN)) {
             return KAVA_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(SECRET_MAIN)) {
-            return SECRET_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             return OKEX_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(KI_MAIN)) {
-            return KI_VAL_URL + opAddress + ".png";
         }
         return "";
     }

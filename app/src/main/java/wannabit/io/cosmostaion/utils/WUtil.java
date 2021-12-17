@@ -112,6 +112,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -1492,7 +1493,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken.auth) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
                 return "UnKnown";
@@ -1518,7 +1519,7 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken.auth) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
                 textView.setText("UnKnown");
@@ -1533,7 +1534,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken.auth) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
                 return "UnKnown";
@@ -1558,7 +1559,7 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken.auth) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
                 textView.setText("UnKnown");
@@ -2231,6 +2232,9 @@ public class WUtil {
             } else if (chain.equals(GRABRIDGE_MAIN)) {
                 return BLOCK_TIME_GRAV;
 
+            } else if (chain.equals(LUM_MAIN)) {
+                return BLOCK_TIME_LUM;
+
             }
         }
         return BigDecimal.ZERO;
@@ -2323,6 +2327,9 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(RIZON_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/rizon")));
+
+        } else if (mainActivity.mBaseChain.equals(COMDEX_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/comdex")));
         }
         return null;
     }
@@ -2489,6 +2496,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_desmos);
             guideMsg.setText(R.string.str_front_guide_msg_desmos);
 
+        } else if (mainActivity.mBaseChain.equals(LUM_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_lumnetwork));
+            guideTitle.setText(R.string.str_front_guide_title_lum);
+            guideMsg.setText(R.string.str_front_guide_msg_lum);
+
         } else if (mainActivity.mBaseChain.equals(UMEE_TEST)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_umee));
             guideTitle.setText(R.string.str_front_guide_title_umee);
@@ -2601,6 +2613,9 @@ public class WUtil {
         } else if (chain.equals(DESMOS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.desmos.network/"));
 
+        } else if (chain.equals(LUM_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://lum.network/"));
+
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
 
@@ -2708,6 +2723,9 @@ public class WUtil {
 
         } else if (chain.equals(DESMOS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/desmosnetwork"));
+
+        } else if (chain.equals(LUM_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/lum-network"));
 
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
@@ -2820,6 +2838,9 @@ public class WUtil {
 
         } else if (basechain.equals(DESMOS_MAIN)) {
             return EXPLORER_DESMOS_MAIN;
+
+        } else if (basechain.equals(LUM_MAIN)) {
+            return EXPLORER_LUM_MAIN;
 
         }
 
@@ -2944,6 +2965,9 @@ public class WUtil {
         } else if (basechain.equals(DESMOS_MAIN)) {
             return EXPLORER_DESMOS_MAIN + "txs/" + hash;
 
+        } else if (basechain.equals(LUM_MAIN)) {
+            return EXPLORER_LUM_MAIN + "txs/" + hash;
+
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -2979,7 +3003,7 @@ public class WUtil {
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) ||
                 basechain.equals(EMONEY_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(JUNO_MAIN) || basechain.equals(REGEN_MAIN) || basechain.equals(BITCANNA_MAIN) ||
                 basechain.equals(ALTHEA_MAIN) || basechain.equals(STARGAZE_MAIN) || basechain.equals(GRABRIDGE_MAIN) || basechain.equals(COMDEX_MAIN) ||
-                basechain.equals(BITSONG_MAIN) || basechain.equals(INJ_MAIN) || basechain.equals(DESMOS_MAIN) ||
+                basechain.equals(BITSONG_MAIN) || basechain.equals(INJ_MAIN) || basechain.equals(DESMOS_MAIN) || basechain.equals(LUM_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
@@ -3436,13 +3460,18 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(LUM_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(LUM_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         } else if (basechain.equals(UMEE_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(AXELAR_TEST)) {
-            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasRate = new BigDecimal(AXELAR_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -3467,7 +3496,7 @@ public class WUtil {
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(JUNO_MAIN) ||
                 basechain.equals(REGEN_MAIN) || basechain.equals(ALTHEA_MAIN) ||
-                basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
+                basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -3642,6 +3671,24 @@ public class WUtil {
                 return new BigDecimal(GRAV_GAS_RATE_LOW);
             }
             return new BigDecimal(GRAV_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(LUM_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(LUM_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(LUM_GAS_RATE_LOW);
+            }
+            return new BigDecimal(LUM_GAS_RATE_AVERAGE);
+
+        }
+
+        else if (basechain.equals(AXELAR_TEST)) {
+            if (position == 0) {
+                return new BigDecimal(AXELAR_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(AXELAR_GAS_RATE_LOW);
+            }
+            return new BigDecimal(AXELAR_GAS_RATE_AVERAGE);
 
         }
 
