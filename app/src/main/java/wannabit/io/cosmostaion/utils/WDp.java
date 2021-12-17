@@ -2489,9 +2489,6 @@ public class WDp {
         } else if (chain.equals(DESMOS_MAIN)) {
             return KEY_DESMOS_PATH + String.valueOf(position);
 
-        } else if (chain.equals(LUM_MAIN)) {
-            return KEY_LUM_PATH + String.valueOf(position);
-
         } else {
             return BaseConstant.KEY_PATH + String.valueOf(position);
 
