@@ -623,6 +623,7 @@ public class BaseConstant {
     public final static String KEY_INJ_PATH                 = "44'/60'/0'/0/";
     public final static String KEY_BITSONG_PATH             = "44'/639'/0'/0/";
     public final static String KEY_DESMOS_PATH              = "44'/852'/0'/0/";
+    public final static String KEY_LUM_PATH                 = "44'/880'/0'/0/";
     public final static String characterFilter              = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 

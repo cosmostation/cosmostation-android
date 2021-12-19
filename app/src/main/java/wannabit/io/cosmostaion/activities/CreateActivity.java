@@ -48,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -202,7 +203,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 }
             } else {
                 onShowWaitDialog();
-                if (mChain.equals(KAVA_MAIN) || mChain.equals(KAVA_TEST) || mChain.equals(SECRET_MAIN)) {
+                if (mChain.equals(KAVA_MAIN) || mChain.equals(KAVA_TEST) || mChain.equals(SECRET_MAIN) || mChain.equals(LUM_MAIN)) {
                     new GenerateAccountTask(getBaseApplication(), mChain, this, true, 0).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
                 } else if (mChain.equals(OKEX_MAIN) || mChain.equals(OK_TEST)) {
                     new GenerateAccountTask(getBaseApplication(), mChain, this, true, 0).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
