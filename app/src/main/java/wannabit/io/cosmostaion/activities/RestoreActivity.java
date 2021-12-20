@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_FetchRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
+import wannabit.io.cosmostaion.dialog.Dialog_LumRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_OkexRestoreType;
 import wannabit.io.cosmostaion.dialog.Dialog_SecretRestorePath;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -50,6 +51,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -294,7 +296,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             }
 
             if (isValidWords()) {
-                if (mChain.equals(KAVA_MAIN) || mChain.equals(KAVA_TEST)) {
+                if (mChain.equals(KAVA_MAIN)) {
                     Dialog_KavaRestorePath dialog = Dialog_KavaRestorePath.newInstance(null);
                     dialog.setCancelable(false);
                     getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -314,6 +316,12 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
 
                 } else if (mChain.equals(FETCHAI_MAIN)) {
                     Dialog_FetchRestorePath dialog = Dialog_FetchRestorePath.newInstance(null);
+                    dialog.setCancelable(false);
+                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    return;
+
+                } else if (mChain.equals(LUM_MAIN)) {
+                    Dialog_LumRestorePath dialog = Dialog_LumRestorePath.newInstance(null);
                     dialog.setCancelable(false);
                     getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                     return;

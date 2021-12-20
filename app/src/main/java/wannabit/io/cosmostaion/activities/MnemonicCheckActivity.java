@@ -77,7 +77,7 @@ public class MnemonicCheckActivity extends BaseActivity {
     private CardView            mMnemonicLayer;
     private LinearLayout[]      mWordsLayer = new LinearLayout[24];
     private TextView[]          mTvWords = new TextView[24];
-    private Button              mCopy;
+    private Button              mCopy, mConfirm;
 
     private String              mEntropy;
     private ArrayList<String>   mWords = new ArrayList<>();
@@ -90,6 +90,7 @@ public class MnemonicCheckActivity extends BaseActivity {
         mToolbar        = findViewById(R.id.tool_bar);
         mMnemonicLayer  = findViewById(R.id.card_mnemonic_layer);
         mCopy           = findViewById(R.id.btn_copy);
+        mConfirm        = findViewById(R.id.btn_confirm);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -188,6 +189,13 @@ public class MnemonicCheckActivity extends BaseActivity {
                 Dialog_Safe_Copy delete = Dialog_Safe_Copy.newInstance();
                 delete.setCancelable(true);
                 getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
+            }
+        });
+
+        mConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onStartMainActivity(3);
             }
         });
     }

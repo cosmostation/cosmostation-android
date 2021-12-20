@@ -655,12 +655,26 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
         android:minHeight="@dimen/space_45"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_12"
+        android:background="@drawable/btn_trans_with_border"
+        style="@style/font_ss_14_photon"
+        android:textAllCaps="false"
+        android:layout_above="@+id/btn_confirm"
+        android:text="@string/str_copy"/>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_45"
+        android:minHeight="@dimen/space_45"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_36"
         android:background="@drawable/btn_trans_with_border"
-        style="@style/font_ss_14_photon"
+        style="@style/font_ss_14_white"
         android:textAllCaps="false"
-        android:text="@string/str_copy"/>
+        android:text="@string/str_confirm"/>
 </RelativeLayout>
