@@ -85,7 +85,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisExitPooGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisJoinPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisStartLockGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisSwapInTask;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisUnLockGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RedelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RegisterAccountGrpcTask;
@@ -145,7 +144,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARN
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_UNLOCK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
@@ -699,15 +697,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
             new OsmosisBeginUnbondingGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-//        } else if (mPurpose == CONST_PW_TX_OSMOSIS_UNLOCK) {
-//            ArrayList<Long> tempList = new ArrayList<>();
-//            for (Lock.PeriodLock lockup: mOsmosisLockups) {
-//                tempList.add(lockup.getID());
-//            }
-//            new OsmosisUnLockGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
-//                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-//        }
 
         }
 

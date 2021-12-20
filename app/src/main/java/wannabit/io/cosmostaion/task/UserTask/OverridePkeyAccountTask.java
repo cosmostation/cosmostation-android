@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.task.UserTask;
 
+import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -42,7 +43,10 @@ public class OverridePkeyAccountTask extends CommonTask {
     }
 
     private Account onModAccount() {
-        EncResult encR          = CryptoHelper.doEncryptData(mAccount.getPrivateKeySha1(), mPKey, false);
+        if (mPKey.startsWith("0x") || mPKey.startsWith("0X")) {
+            mPKey = mPKey.substring(2);
+        }
+        EncResult encR          = CryptoHelper.doEncryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mPKey, false);
 
         mAccount.hasPrivateKey   = true;
         mAccount.resource        = encR.getEncDataString();

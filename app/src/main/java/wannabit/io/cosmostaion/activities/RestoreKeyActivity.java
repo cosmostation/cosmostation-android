@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -137,20 +138,30 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
             integrator.initiateScan();
 
         } else if (v.equals(mBtnPaste)) {
-            ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
-                if(TextUtils.isEmpty(userPaste)) {
+            String userPaste = "";
+            mInput.setText("");
+            if (getBaseDao().mCopySalt != null && getBaseDao().mCopyEncResult != null) {
+                userPaste = CryptoHelper.doDecryptData(getBaseDao().mCopySalt, getBaseDao().mCopyEncResult.getEncDataString(), getBaseDao().mCopyEncResult.getIvDataString());
+                if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mInput.setText(userPaste);
-                mInput.setSelection(mInput.getText().length());
 
             } else {
-                Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
-            }
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+                    userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
+                    if (TextUtils.isEmpty(userPaste)) {
+                        Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
+                } else {
+                    Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
+                }
+            }
+            mInput.setText(userPaste);
+            mInput.setSelection(mInput.getText().length());
         }
     }
 

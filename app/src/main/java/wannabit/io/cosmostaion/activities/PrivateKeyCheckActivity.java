@@ -23,7 +23,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_Safe_Copy_pKey;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
@@ -81,7 +80,7 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
                 mKeyString = "0x" + deterministicKey.getPrivateKeyAsHex();
             }
         } else {
-            String privateKey = CryptoHelper.doDecryptData(mAccount.getPrivateKeySha1(), mAccount.resource, mAccount.spec);
+            String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
             if (privateKey.startsWith("0x") || privateKey.startsWith("0X")) {
                 mKeyString = privateKey;
             } else {

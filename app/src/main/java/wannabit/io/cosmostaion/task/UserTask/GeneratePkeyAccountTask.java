@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.task.UserTask;
 
 import java.util.ArrayList;
 
+import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -11,6 +12,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class GeneratePkeyAccountTask extends CommonTask {
     private BaseChain   mBaseChain;
@@ -58,7 +60,10 @@ public class GeneratePkeyAccountTask extends CommonTask {
 
     private Account onGenAccount() {
         Account newAccount          = Account.getNewInstance();
-        EncResult encR              = CryptoHelper.doEncryptData(newAccount.getPrivateKeySha1(), mPKey, false);
+        if (mPKey.startsWith("0x") || mPKey.startsWith("0X")) {
+            mPKey = mPKey.substring(2);
+        }
+        EncResult encR              = CryptoHelper.doEncryptData(mApp.getString(R.string.key_private) + newAccount.uuid, mPKey, false);
 
         newAccount.baseChain        = mBaseChain.getChain();
         newAccount.address          = mAddress;
