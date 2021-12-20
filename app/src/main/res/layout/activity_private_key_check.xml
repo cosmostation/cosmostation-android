@@ -70,7 +70,7 @@
             style="@style/font_ss_14_photon"
             android:textAllCaps="false"
             android:visibility="gone"
-            android:text="@string/str_copy_to"/>
+            android:text="@string/str_copy"/>
         <Button
             android:id="@+id/btn_ok"
             android:layout_width="match_parent"

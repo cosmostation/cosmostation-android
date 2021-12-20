@@ -453,9 +453,16 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().onDeleteAccount(""+id);
         getBaseDao().onSelectBalance(id);
 
-        if(getBaseDao().onSelectAccounts().size() > 0) {
-            getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
-            onStartMainActivity(0);
+        if (getBaseDao().onSelectAccounts().size() > 0) {
+            if (mAccount.id.equals(id)) {
+                getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
+                onStartMainActivity(0);
+            } else {
+                getBaseDao().setLastUser(mAccount.id);
+                onStartMainActivity(0);
+                return;
+            }
+
         } else {
             getBaseDao().setLastUser(-1);
             Intent intent = new Intent(this, IntroActivity.class);

@@ -120,6 +120,9 @@
     <string name="url_api_desmos" translatable="false">https://api-desmos.cosmostation.io/</string>
 
 
+    <string name="url_api_lum" translatable="false">https://api-lum.cosmostation.io/</string>
+
+
     <string name="url_api_axelar" translatable="false">https://api-axelar-testnet.cosmostation.io/</string>
 
 
@@ -179,6 +182,7 @@
     <string name="str_inj_c" translatable="false">INJ</string>
     <string name="str_bitsong_c" translatable="false">BTSG</string>
     <string name="str_desmos_c" translatable="false">DSM</string>
+    <string name="str_lum_c" translatable="false">LUM</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
@@ -191,50 +195,51 @@
     <string name="str_tx_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss\'Z\']]></string>
     <string name="str_vote_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\']]></string>
 
-    <string name="str_cosmos_main_net">Cosmos</string>
-    <string name="str_cosmos_test_net_12k">COSMOS Testnet (GAIA 12k)</string>
-    <string name="str_cosmos_test_net_13k">COSMOS Testnet (GAIA 13k)</string>
-    <string name="str_iris_main_net">Iris</string>
-    <string name="str_bnb_main_net">Binance</string>
-    <string name="str_iov_main_net">Starname</string>
-    <string name="str_kava_main_net">Kava</string>
-    <string name="str_band_main_net">Band</string>
-    <string name="str_persis_main_net">Persistence</string>
-    <string name="str_secret_main_net">Secret</string>
-    <string name="str_certik_main_net">Certik</string>
-    <string name="str_akash_main_net">Akash</string>
-    <string name="str_okex_main_net">OEX</string>
-    <string name="str_sentinel_main_net">Sentinel</string>
-    <string name="str_fetch_main_net">Fetch.ai</string>
-    <string name="str_crypto_main_net">Crypto.org</string>
-    <string name="str_sif_main_net">SifChain</string>
-    <string name="str_ki_main_net">Ki Foundation</string>
-    <string name="str_osmosis_main_net">Osmosis</string>
-    <string name="str_medi_main_net">Medibloc</string>
-    <string name="str_emoney_main_net">Emoney</string>
-    <string name="str_rizon_main_net">Rizon</string>
-    <string name="str_juno_main_net">Juno</string>
-    <string name="str_regen_main_net">Regen</string>
-    <string name="str_bitcanna_main_net">Bitcanna</string>
-    <string name="str_althea_main_net">Althea</string>
-    <string name="str_stargaze_main_net">Stargaze</string>
-    <string name="str_grabridge_main_net">Gravity Bridge</string>
-    <string name="str_comdex_main_net">Comdex</string>
-    <string name="str_inj_main_net">Injective</string>
-    <string name="str_bitsong_main_net">Bitsong</string>
-    <string name="str_desmos_main_net">Desmos</string>
-    <string name="str_cosmos_test_net">StarGate Testnet</string>
-    <string name="str_iris_test_net">Bifrost Testnet</string>
-    <string name="str_bnb_test_net">Binance Testnet</string>
-    <string name="str_kava_test_net">Kava Testnet</string>
-    <string name="str_iov_test_net">Starname Testnet</string>
-    <string name="str_ok_test_net">Okex Testnet</string>
-    <string name="str_certik_test_net">Certik Testnet</string>
-    <string name="str_rizon_test_net">Rizon Testnet</string>
-    <string name="str_medi_test_net">Medibloc Testnet</string>
-    <string name="str_althea_test_net">Althea Testnet</string>
-    <string name="str_umee_test_net">Umee Testnet</string>
-    <string name="str_axelar_test_net">Axelar Testnet</string>
+    <string name="str_cosmos_main_net" translatable="false">Cosmos</string>
+    <string name="str_cosmos_test_net_12k" translatable="false">COSMOS Testnet (GAIA 12k)</string>
+    <string name="str_cosmos_test_net_13k" translatable="false">COSMOS Testnet (GAIA 13k)</string>
+    <string name="str_iris_main_net" translatable="false">Iris</string>
+    <string name="str_bnb_main_net" translatable="false">Binance</string>
+    <string name="str_iov_main_net" translatable="false">Starname</string>
+    <string name="str_kava_main_net" translatable="false">Kava</string>
+    <string name="str_band_main_net" translatable="false">Band</string>
+    <string name="str_persis_main_net" translatable="false">Persistence</string>
+    <string name="str_secret_main_net" translatable="false">Secret</string>
+    <string name="str_certik_main_net" translatable="false">Certik</string>
+    <string name="str_akash_main_net" translatable="false">Akash</string>
+    <string name="str_okex_main_net" translatable="false">OEX</string>
+    <string name="str_sentinel_main_net" translatable="false">Sentinel</string>
+    <string name="str_fetch_main_net" translatable="false">Fetch.ai</string>
+    <string name="str_crypto_main_net" translatable="false">Crypto.org</string>
+    <string name="str_sif_main_net" translatable="false">SifChain</string>
+    <string name="str_ki_main_net" translatable="false">Ki Foundation</string>
+    <string name="str_osmosis_main_net" translatable="false">Osmosis</string>
+    <string name="str_medi_main_net" translatable="false">Medibloc</string>
+    <string name="str_emoney_main_net" translatable="false">Emoney</string>
+    <string name="str_rizon_main_net" translatable="false">Rizon</string>
+    <string name="str_juno_main_net" translatable="false">Juno</string>
+    <string name="str_regen_main_net" translatable="false">Regen</string>
+    <string name="str_bitcanna_main_net" translatable="false">Bitcanna</string>
+    <string name="str_althea_main_net" translatable="false">Althea</string>
+    <string name="str_stargaze_main_net" translatable="false">Stargaze</string>
+    <string name="str_grabridge_main_net" translatable="false">Gravity Bridge</string>
+    <string name="str_comdex_main_net" translatable="false">Comdex</string>
+    <string name="str_inj_main_net" translatable="false">Injective</string>
+    <string name="str_bitsong_main_net" translatable="false">Bitsong</string>
+    <string name="str_desmos_main_net" translatable="false">Desmos</string>
+    <string name="str_lum_main_net" translatable="false">Lum</string>
+    <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
+    <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
+    <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
+    <string name="str_kava_test_net" translatable="false">Kava Testnet</string>
+    <string name="str_iov_test_net" translatable="false">Starname Testnet</string>
+    <string name="str_ok_test_net" translatable="false">Okex Testnet</string>
+    <string name="str_certik_test_net" translatable="false">Certik Testnet</string>
+    <string name="str_rizon_test_net" translatable="false">Rizon Testnet</string>
+    <string name="str_medi_test_net" translatable="false">Medibloc Testnet</string>
+    <string name="str_althea_test_net" translatable="false">Althea Testnet</string>
+    <string name="str_umee_test_net" translatable="false">Umee Testnet</string>
+    <string name="str_axelar_test_net" translatable="false">Axelar Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
@@ -490,6 +495,8 @@
     <string name="str_bitsong_net2" translatable="false">Bitsong</string>
     <string name="str_desmos_net" translatable="false">(Desmos)</string>
     <string name="str_desmos_net2" translatable="false">Desmos</string>
+    <string name="str_lum_net" translatable="false">(Lum)</string>
+    <string name="str_lum_net2" translatable="false">Lum</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -539,6 +546,7 @@
     <string name="str_inj_main" translatable="false">INJECTIVE</string>
     <string name="str_bitsong_main" translatable="false">BITSONG</string>
     <string name="str_desmos_main" translatable="false">DESMOS</string>
+    <string name="str_lum_main" translatable="false">LUM</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
@@ -642,6 +650,7 @@
     <string name="str_front_guide_title_inj"><![CDATA[Injective PROTOCOL]]></string>
     <string name="str_front_guide_title_bitsong"><![CDATA[BITSONG NETWORK]]></string>
     <string name="str_front_guide_title_desmos"><![CDATA[DESMOS NETWORK]]></string>
+    <string name="str_front_guide_title_lum"><![CDATA[LUM NETWORK]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -674,6 +683,7 @@
     <string name="str_front_guide_msg_inj"><![CDATA[A Cosmos SDK based fully decentralized financial network for cross-chain trading and derivatives.]]></string>
     <string name="str_front_guide_msg_bitsong"><![CDATA[A decentralized blockchain hub that provides a trustless marketplace for the music industry.]]></string>
     <string name="str_front_guide_msg_desmos"><![CDATA[A blockchain for decentralized social networks powered by Forbole.]]></string>
+    <string name="str_front_guide_msg_lum"><![CDATA[A Cosmos SDK-based blockchain designed for on-chain user reviews and rewards.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -839,6 +849,10 @@
     <string name="str_okex_newpath_msg">OKex Chain support 2 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\n\nIf you mistakenly selected the wrong type, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your type.</string>
     <string name="str_okex_old_type"><![CDATA[Tendermint Type Key]]></string>
     <string name="str_okex_new_type"><![CDATA[Ethermint(Default) Type Key]]></string>
+    <string name="str_lum_newpath_title">Select Key Path</string>
+    <string name="str_lum_newpath_msg">Select [Air-Drop Path] to import the address that received the Lum airdrop. If you wish to import a general Lum address, select [Default Path].\n\nYou can go back to [Import Mnemonics] at any time and select your desired path again.</string>
+    <string name="str_lum_basic_type"><![CDATA[Default PATH (44\'/880\'/0\'/0)]]></string>
+    <string name="str_lum_airdrop_type"><![CDATA[Air-Drop PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_kava_cdp_list">Mint</string>
     <string name="str_kava_cdp_details">Mint Status</string>
     <string name="str_kava_auction_list">Auction</string>
@@ -1828,6 +1842,7 @@
     <string name="s_inj" translatable="false">INJ</string>
     <string name="s_bitsong" translatable="false">BTSG</string>
     <string name="s_desmos" translatable="false">DSM</string>
+    <string name="s_lum" translatable="false">LUM</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>
