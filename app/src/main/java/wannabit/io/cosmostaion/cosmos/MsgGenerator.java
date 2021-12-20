@@ -674,7 +674,7 @@ public class MsgGenerator {
 //        return result;
 //    }
 
-    public static String getSignature(DeterministicKey key, byte[] toSignByte) {
+    public static String getSignature(ECKey key, byte[] toSignByte) {
         MessageDigest digest = Sha256.getSha256Digest();
         byte[] toSignHash = digest.digest(toSignByte);
         ECKey.ECDSASignature Signature = key.sign(Sha256Hash.wrap(toSignHash));
@@ -685,7 +685,7 @@ public class MsgGenerator {
         return base64;
     }
 
-    public static ReqBroadCast getBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key, String chainId) {
+    public static ReqBroadCast getBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
         StdSignMsg tosign = genToSignMsg(
 //                BaseChain.getDpChain(account.baseChain),
                 chainId,

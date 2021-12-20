@@ -1,8 +1,10 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import retrofit2.Response;
@@ -28,6 +30,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_KAVA_CLAIM_INCENTIVE;
 
 public class SimpleClaimIncentiveTask extends CommonTask {
@@ -67,8 +70,16 @@ public class SimpleClaimIncentiveTask extends CommonTask {
                 mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
             }
-            String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
+
+            ECKey ecKey;
+            if (mAccount.fromMnemonic) {
+                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44, mAccount.customPath);
+                ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+            } else {
+                String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+            }
 
             ArrayList<Msg> msgList= new ArrayList<>();
             if (mApp.getBaseDao().mIncentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO) > 0) {
@@ -101,7 +112,7 @@ public class SimpleClaimIncentiveTask extends CommonTask {
             }
 
 
-            ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgList, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
+            ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgList, mFees, mMemo, ecKey, mApp.getBaseDao().getChainId());
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {

@@ -10,8 +10,10 @@ import com.binance.dex.api.client.domain.broadcast.TransactionOption;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomUtils;
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -39,6 +41,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
@@ -80,6 +83,8 @@ public class HtlcCreateTask extends CommonTask {
     private String          mRandomNumber;
     private String          mExpectedSwapId;
 
+    private ECKey           ecKey;
+
     public HtlcCreateTask(BaseApplication app, TaskListener listener, Account sender, Account recipient, BaseChain sendChain, BaseChain receiveChain, ArrayList<Coin> toSendCoins, Fee sendFee) {
         super(app, listener);
         this.mSendAccount = sender;
@@ -104,10 +109,15 @@ public class HtlcCreateTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mSendAccount.id, WUtil.getBalancesFromBnbLcd(mSendAccount.id, response.body()));
                 mSendAccount = mApp.getBaseDao().onSelectAccount(""+mSendAccount.id);
 
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mSendAccount.baseChain), entropy, Integer.parseInt(mSendAccount.path), mSendAccount.newBip44);
-
-                Wallet wallet = new Wallet(deterministicKey.getPrivateKeyAsHex(), BinanceDexEnvironment.PROD);
+                if (mSendAccount.fromMnemonic) {
+                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
+                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mSendAccount.baseChain), entropy, Integer.parseInt(mSendAccount.path), mSendAccount.newBip44, mSendAccount.customPath);
+                    ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+                } else {
+                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
+                    ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+                }
+                Wallet wallet = new Wallet(ecKey.getPrivateKeyAsHex(), BinanceDexEnvironment.PROD);
                 wallet.setAccountNumber(mSendAccount.accountNumber);
                 wallet.setSequence(Long.valueOf(mSendAccount.sequenceNumber));
 
@@ -164,10 +174,16 @@ public class HtlcCreateTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mSendAccount.id, WUtil.getBalancesFromBnbLcd(mSendAccount.id, response.body()));
                 mSendAccount = mApp.getBaseDao().onSelectAccount(""+mSendAccount.id);
 
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mSendAccount.baseChain), entropy, Integer.parseInt(mSendAccount.path), mSendAccount.newBip44);
+                if (mSendAccount.fromMnemonic) {
+                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
+                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mSendAccount.baseChain), entropy, Integer.parseInt(mSendAccount.path), mSendAccount.newBip44, mSendAccount.customPath);
+                    ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+                } else {
+                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
+                    ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+                }
 
-                Wallet wallet = new Wallet(deterministicKey.getPrivateKeyAsHex(), BinanceDexEnvironment.TEST_NET);
+                Wallet wallet = new Wallet(ecKey.getPrivateKeyAsHex(), BinanceDexEnvironment.TEST_NET);
                 wallet.setAccountNumber(mSendAccount.accountNumber);
                 wallet.setSequence(Long.valueOf(mSendAccount.sequenceNumber));
 
@@ -215,8 +231,14 @@ public class HtlcCreateTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mSendAccount.id, WUtil.getBalancesFromKavaLcd(mSendAccount.id, response.body()));
                 mSendAccount = mApp.getBaseDao().onSelectAccount(""+mSendAccount.id);
 
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mSendAccount.baseChain), entropy, Integer.parseInt(mSendAccount.path), mSendAccount.newBip44);
+                if (mSendAccount.fromMnemonic) {
+                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
+                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mSendAccount.baseChain), entropy, Integer.parseInt(mSendAccount.path), mSendAccount.newBip44, mSendAccount.customPath);
+                    ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+                } else {
+                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
+                    ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+                }
 
                 long timestamp = Calendar.getInstance().getTimeInMillis() / 1000;
                 byte[] randomNumber  = RandomUtils.nextBytes(32);
@@ -242,7 +264,7 @@ public class HtlcCreateTask extends CommonTask {
 
                 }
 
-                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey, mApp.getBaseDao().getChainId());
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), ecKey, mApp.getBaseDao().getChainId());
                 WLog.w("KAVA_MAIN mRandomNumber " + mRandomNumber);
                 WLog.w("KAVA_MAIN Send mExpectedSwapId " + mExpectedSwapId);
                 WLog.w("KAVA_MAIN reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
@@ -265,64 +287,6 @@ public class HtlcCreateTask extends CommonTask {
 
                 } else {
                     WLog.w("KAVA_MAIN Gen HTLC Fail " + response2.errorBody().string());
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    mResult.isSuccess = false;
-                }
-
-
-
-            } else if (mSendChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaTestChain(mApp).getAccountInfo(mSendAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mSendAccount.id, response.body()));
-                mApp.getBaseDao().onUpdateBalances(mSendAccount.id, WUtil.getBalancesFromKavaLcd(mSendAccount.id, response.body()));
-                mSendAccount = mApp.getBaseDao().onSelectAccount(""+mSendAccount.id);
-
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mSendAccount.baseChain), entropy, Integer.parseInt(mSendAccount.path), mSendAccount.newBip44);
-
-                long timestamp = Calendar.getInstance().getTimeInMillis() / 1000;
-                byte[] randomNumber  = RandomUtils.nextBytes(32);
-                byte[] originData = ArrayUtils.addAll(randomNumber, WUtil.long2Bytes(timestamp));
-
-                Msg createSwapMsg = MsgGenerator.genCreateSwapMsg(mSendChain, mReceiveChain, mSendAccount, mReceiveAccount, mToSendCoins, timestamp, originData);
-                ArrayList<Msg> msgs= new ArrayList<>();
-                msgs.add(createSwapMsg);
-
-                mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
-                mRandomNumberHash = WUtil.HexStringToByteArray(createSwapMsg.value.random_number_hash);
-                if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
-                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_TEST_BNB_DEPUTY, mSendAccount.address).toUpperCase();
-                } else if (mToSendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
-                    mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_TEST_BTC_DEPUTY, mSendAccount.address).toUpperCase();
-                }
-
-                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey, mApp.getBaseDao().getChainId());
-                WLog.w("KAVA_TEST mRandomNumber " + mRandomNumber);
-                WLog.w("KAVA_TEST Send mExpectedSwapId " + mExpectedSwapId);
-                WLog.w("KAVA_TEST reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
-
-                Response<ResBroadTx> response2 = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
-                if (response2.isSuccessful() && response2.body() != null) {
-                    if (response2.body().txhash != null) {
-                        WLog.w("KAVA_TEST Gen HTLC suceess txhash " + response2.body().txhash);
-                        mResult.resultData = response2.body().txhash;
-                        mResult.resultData2 = mExpectedSwapId;
-                        mResult.resultData3 = mRandomNumber;
-                        mResult.isSuccess = true;
-                    }
-                    if(response2.body().code != null) {
-                        WLog.w("KAVA_TEST Gen HTLC error " + response2.body().code + "  " + response2.body().raw_log);
-                        mResult.errorCode = response2.body().code;
-                        mResult.errorMsg = response2.body().raw_log;
-                        mResult.isSuccess = false;
-                    }
-
-                } else {
-                    WLog.w("KAVA_TEST Gen HTLC Fail " + response2.errorBody().string());
                     mResult.errorCode = ERROR_CODE_BROADCAST;
                     mResult.isSuccess = false;
                 }
