@@ -1309,6 +1309,12 @@
     <string name="str_sif_withdraw_pool_step_3">입력하신 정보를 확인하세요</string>
     <string name="str_sif_withdraw_insert_lp_unit">Insert Lp Unit</string>
 
+    <string name="str_nft_c">NFT</string>
+    <string name="str_my_nfts">My NFTs</string>
+    <string name="str_top_nfts">Top NFTs</string>
+    <string name="str_no_nfts">No NFT</string>
+    <string name="str_create_nfts">NFT 생성</string>
+
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>

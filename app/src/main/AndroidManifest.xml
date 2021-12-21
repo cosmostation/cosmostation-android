@@ -113,6 +113,14 @@
         </activity>
 
         <activity
+            android:name=".activities.chains.nft.NFTListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity
             android:name=".activities.tokenDetail.StakingTokenGrpcActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

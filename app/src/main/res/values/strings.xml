@@ -1691,6 +1691,12 @@
     <string name="str_sif_withdraw_pool_step_3">Check transaction detail</string>
     <string name="str_sif_withdraw_insert_lp_unit">Insert Lp Unit</string>
 
+    <string name="str_nft_c">NFT</string>
+    <string name="str_my_nfts">My NFTs</string>
+    <string name="str_top_nfts">Top NFTs</string>
+    <string name="str_no_nfts">No NFT</string>
+    <string name="str_create_nfts">Create NFT</string>
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
