@@ -24,13 +24,13 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -113,8 +113,15 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                     Picasso.get().cancelRequest(holder.chainImg);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
                 } else if (inputCoin.startsWith("c")) {
-                    Picasso.get().load(SIF_COIN_IMG_URL + mSwapCoinList.get(position) + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
-                    holder.chainName.setText(mSwapCoinList.get(position).substring(1).toUpperCase());
+                    final Assets assets = getSActivity().getBaseDao().getAsset(inputCoin);
+                    if (assets != null) {
+                        Picasso.get().load(ASSET_IMG_URL + assets.origin_chain + "/" + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
+                        holder.chainName.setText(assets.origin_symbol);
+                    }
+                } else {
+                    holder.chainName.setText("UNKNOWN");
+                    Picasso.get().cancelRequest(holder.chainImg);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
                 }
 
             } else {

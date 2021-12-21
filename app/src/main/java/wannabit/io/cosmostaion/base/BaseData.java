@@ -51,6 +51,7 @@ import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -124,6 +125,7 @@ public class BaseData {
     public ChainParam.Params                mChainParam;
     public ArrayList<IbcPath>               mIbcPaths = new ArrayList<>();
     public ArrayList<IbcToken>              mIbcTokens = new ArrayList<>();
+    public ArrayList<Assets>                mAssets = new ArrayList<>();
 
     public Price getPrice(String denom) {
         for (Price price: mPrices) {
@@ -150,6 +152,15 @@ public class BaseData {
                 if (path.channel_id.equals(channelId)) {
                     return path;
                 }
+            }
+        }
+        return null;
+    }
+
+    public Assets getAsset(String denom) {
+        for (Assets assets: mAssets) {
+            if (assets.denom.equalsIgnoreCase(denom)) {
+                return assets;
             }
         }
         return null;

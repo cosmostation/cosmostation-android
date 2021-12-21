@@ -61,6 +61,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -1612,7 +1613,10 @@ public class WUtil {
             Picasso.get().cancelRequest(imageView);
             imageView.setImageResource(R.drawable.tokensifchain);
         } else if (denom.startsWith("c")) {
-            Picasso.get().load(SIF_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+            Assets assets = baseData.getAsset(denom);
+            if (assets != null) {
+                Picasso.get().load(ASSET_IMG_URL + assets.origin_chain + "/" + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+            }
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             try {

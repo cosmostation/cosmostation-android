@@ -7,6 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Price;
+import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResIbcPaths;
 import wannabit.io.cosmostaion.network.res.ResIbcTokens;
 import wannabit.io.cosmostaion.network.res.ResProposal;
@@ -27,5 +28,8 @@ public interface Station {
 
     @GET("v1/{chain}/proposals/{proposalId}")
     Call<ResProposal> getProposal(@Path("chain") String chain, @Path("proposalId") String proposalId);
+
+    @GET("v1/assets/{chain}")
+    Call<ResAssets> getAssets(@Path("chain") String chain);
 
 }

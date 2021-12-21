@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -140,12 +141,11 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindBridgeToken(Context c, BaseChain baseChain, BaseData baseData, String denom) {
-        if (baseChain.equals(BaseChain.SIF_MAIN)) {
-            dpDecimal = WUtil.getSifCoinDecimal(baseData, denom);
-
-            mAvailableAmount = baseData.getAvailable(denom);
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+        final Assets assets = baseData.getAsset(denom);
+        if (assets != null) {
+            mAvailableAmount = baseData.getAvailable(assets.denom);
+            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, assets.decimal, assets.decimal));
+            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, assets.decimal, assets.decimal));
         }
     }
 }

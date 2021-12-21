@@ -180,6 +180,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_IBC_PATHS                        = 2802;
     public final static int TASK_FETCH_IBC_TOKENS                       = 2803;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
+    public final static int TASK_FETCH_MINTSCAN_ASSETS                  = 2805;
 
     public final static int TASK_HDAC_NODE_INFO                         = 2900;
     public final static int TASK_HDAC_UTXO                              = 2901;
@@ -922,9 +923,8 @@ public class BaseConstant {
     public final static String KAVA_HARD_POOL_IMG_URL   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/hard/";
     public final static String BINANCE_TOKEN_IMG_URL    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/binance/";
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
-    public final static String SIF_COIN_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
-    public final static String OSMOSIS_COIN_IMG_URL     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/osmosis/";
     public final static String EMONEY_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
+    public final static String ASSET_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/assets/images/";
 
 
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";
