@@ -438,16 +438,13 @@ public class ResApiNewTxListCustom {
                     BigDecimal totalRewardSum = BigDecimal.ZERO;
                     for (int i = 0; i < data.logs.size(); i ++) {
                         try {
-                            String value = "";
-                            if (chain.equals(BaseChain.JUNO_MAIN) || chain.equals(BaseChain.COMDEX_MAIN) || chain.equals(BaseChain.DESMOS_MAIN) ||
-                                    chain.equals(BaseChain.GRABRIDGE_MAIN) || chain.equals(BaseChain.LUM_MAIN)) {
-                                value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(1).
-                                        getJSONArray("attributes").getJSONObject(1).getString("value");
-                            } else {
-                                value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(1).
-                                        getJSONArray("attributes").getJSONObject(2).getString("value");
+                            for (int j = 0; j < new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").length(); j++) {
+                                if (new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).getString("type").equalsIgnoreCase("transfer")) {
+                                    String value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).
+                                                    getJSONArray("attributes").getJSONObject(2).getString("value");
+                                    totalRewardSum = totalRewardSum.add(new BigDecimal(value.split("[^0-9]")[0]));
+                                }
                             }
-                            totalRewardSum = totalRewardSum.add(new BigDecimal(value.split("[^0-9]")[0]));
                         } catch (Exception e) { }
                     }
                     return new Coin(WDp.mainDenom(chain), totalRewardSum.toString());
