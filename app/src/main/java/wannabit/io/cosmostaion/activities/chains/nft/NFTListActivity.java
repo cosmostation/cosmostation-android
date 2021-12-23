@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.activities.chains.nft;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,9 +16,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.protobuf.ByteString;
 
 import java.util.ArrayList;
 
+import irismod.nft.Nft;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -23,7 +28,11 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.chains.nft.ListMyNftFragment;
 import wannabit.io.cosmostaion.fragment.chains.nft.ListTopNftFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.NFTokenListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_IRIS_NFTOKEN_LIST;
 
 public class NFTListActivity extends BaseActivity implements TaskListener {
 
@@ -32,6 +41,10 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
     private ViewPager           mLabPager;
     private TabLayout           mLabTapLayer;
     private NFTPageAdapter      mPageAdapter;
+
+    public ArrayList<NFTCollectionId>      mMyNFTs = new ArrayList<>();
+    private ByteString  mPageKey;
+    public long         mPageTotalCnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +94,7 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
             }
         });
         onShowWaitDialog();
+        onFetchNftListInfo();
     }
 
     @Override
@@ -91,6 +105,45 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void onFetchNftListInfo() {
+        mTaskCount = 1;
+        new NFTokenListGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mPageKey).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if (isFinishing()) return;
+        mTaskCount--;
+        if (result.taskType == TASK_GRPC_FETCH_IRIS_NFTOKEN_LIST) {
+            if (result.isSuccess && result.resultData != null && result.resultByteData != null) {
+                ArrayList<Nft.IDCollection> tempList = (ArrayList<Nft.IDCollection>) result.resultData;
+                if (result.resultData2 != null) {
+                    mPageTotalCnt = Long.parseLong(result.resultData2);
+                }
+                mPageKey = result.resultByteData;
+
+                if (tempList.size() > 0) {
+                    for (Nft.IDCollection collection : tempList) {
+                        for (String tokenId : collection.getTokenIdsList()) {
+                            mMyNFTs.add(new NFTCollectionId(collection.getDenomId(), tokenId));
+                        }
+                    }
+                }
+            }
+
+        }
+
+        if (mTaskCount == 0) {
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onHideWaitDialog();
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                }
+            }, 300);
         }
     }
 
@@ -129,6 +182,16 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
 
         public ArrayList<BaseFragment> getFragments() {
             return mFragments;
+        }
+    }
+
+    public class NFTCollectionId {
+        public String denom_id;
+        public String token_id;
+
+        public NFTCollectionId(String denom_id, String token_id) {
+            this.denom_id = denom_id;
+            this.token_id = token_id;
         }
     }
 

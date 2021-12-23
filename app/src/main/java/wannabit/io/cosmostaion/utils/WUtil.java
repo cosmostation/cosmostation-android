@@ -20,6 +20,9 @@ import com.google.protobuf.Type;
 import com.google.zxing.common.BitMatrix;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -1817,6 +1820,20 @@ public class WUtil {
         BigDecimal totalUnit = new BigDecimal(pool.getPoolUnits());
         BigDecimal myUnit = new BigDecimal(myLp.getLiquidityProvider().getLiquidityProviderUnits());
         return poolValue.multiply(myUnit).divide(totalUnit, 2, RoundingMode.DOWN);
+    }
+
+    /**
+     * About NFT
+     */
+    public static String getNftDescription(String data) {
+        String description = "";
+        try {
+            JSONObject json = new JSONObject(data);
+            description = json.getJSONObject("body").getString("description");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return description;
     }
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {

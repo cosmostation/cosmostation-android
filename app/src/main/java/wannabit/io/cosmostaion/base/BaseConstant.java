@@ -301,6 +301,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_SIF_SWAP                 = 4527;
     public final static int TASK_GRPC_SIMULATE_SIF_JOIN_POOL            = 4528;
     public final static int TASK_GRPC_SIMULATE_SIF_WITHDRAW_POOL        = 4529;
+    public final static int TASK_GRPC_FETCH_IRIS_NFTOKEN_LIST           = 4530;
+    public final static int TASK_GRPC_FETCH_IRIS_NFTOKEN_INFO           = 4531;
 
 
 
