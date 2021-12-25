@@ -38,6 +38,7 @@
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
                 android:minHeight="1dp"
                 android:fitsSystemWindows="true"
+                android:background="@color/colorWhite"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleMarginStart="48dp"
                 app:expandedTitleMarginEnd="64dp">

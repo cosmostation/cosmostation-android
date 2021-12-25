@@ -34,7 +34,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NFTokenListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_IRIS_NFTOKEN_LIST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NFTOKEN_LIST;
 
 public class NFTListActivity extends BaseActivity implements TaskListener {
 
@@ -119,18 +121,35 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
         mTaskCount--;
-        if (result.taskType == TASK_GRPC_FETCH_IRIS_NFTOKEN_LIST) {
+        if (result.taskType == TASK_GRPC_FETCH_NFTOKEN_LIST) {
             if (result.isSuccess && result.resultData != null && result.resultByteData != null) {
-                ArrayList<Nft.IDCollection> tempList = (ArrayList<Nft.IDCollection>) result.resultData;
-                if (result.resultData2 != null) {
-                    mPageTotalCnt = Long.parseLong(result.resultData2);
-                }
-                mPageKey = result.resultByteData;
+                if (mBaseChain.equals(IRIS_MAIN)) {
+                    ArrayList<Nft.IDCollection> tempList = (ArrayList<Nft.IDCollection>) result.resultData;
+                    if (result.resultData2 != null) {
+                        mPageTotalCnt = Long.parseLong(result.resultData2);
+                    }
+                    mPageKey = result.resultByteData;
 
-                if (tempList.size() > 0) {
-                    for (Nft.IDCollection collection : tempList) {
-                        for (String tokenId : collection.getTokenIdsList()) {
-                            mMyNFTs.add(new NFTCollectionId(collection.getDenomId(), tokenId));
+                    if (tempList.size() > 0) {
+                        for (Nft.IDCollection collection : tempList) {
+                            for (String tokenId : collection.getTokenIdsList()) {
+                                mMyNFTs.add(new NFTCollectionId(collection.getDenomId(), tokenId));
+                            }
+                        }
+                    }
+
+                } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+                    ArrayList<chainmain.nft.v1.Nft.IDCollection> tempList = (ArrayList<chainmain.nft.v1.Nft.IDCollection>) result.resultData;
+                    if (result.resultData2 != null) {
+                        mPageTotalCnt = Long.parseLong(result.resultData2);
+                    }
+                    mPageKey = result.resultByteData;
+
+                    if (tempList.size() > 0) {
+                        for (chainmain.nft.v1.Nft.IDCollection collection : tempList) {
+                            for (String tokenId : collection.getTokenIdsList()) {
+                                mMyNFTs.add(new NFTCollectionId(collection.getDenomId(), tokenId));
+                            }
                         }
                     }
                 }

@@ -20,7 +20,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
+
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 
 public class NFTokenDetailActivity extends BaseActivity {
 
@@ -30,7 +34,8 @@ public class NFTokenDetailActivity extends BaseActivity {
     private RecyclerView        mRecyclerView;
     private NFTDetailAdapter    mAdapter;
 
-    public Nft.BaseNFT                      myNftInfo;
+    public Nft.BaseNFT                      myIrisNftInfo;
+    public chainmain.nft.v1.Nft.BaseNFT     myCryptoNftInfo;
     public NFTListActivity.NFTCollectionId  mMyNftId;
 
     @Override
@@ -47,7 +52,11 @@ public class NFTokenDetailActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        myNftInfo = (Nft.BaseNFT) getIntent().getSerializableExtra("myNftInfo");
+        if (mBaseChain.equals(IRIS_MAIN)) {
+            myIrisNftInfo = (Nft.BaseNFT) getIntent().getSerializableExtra("myNftInfo");
+        } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+            myCryptoNftInfo = (chainmain.nft.v1.Nft.BaseNFT) getIntent().getSerializableExtra("myNftInfo");
+        }
         mMyNftId = getIntent().getParcelableExtra("myNftInfoId");
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -58,8 +67,11 @@ public class NFTokenDetailActivity extends BaseActivity {
         mNftImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(myNftInfo.getUri()));
+                if (mBaseChain.equals(IRIS_MAIN)) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(myIrisNftInfo.getUri()));
+                    startActivity(intent);
+                } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WUtil.getNftImgUrl(myCryptoNftInfo.getData())));
                     startActivity(intent);
                 }
             }
@@ -80,7 +92,11 @@ public class NFTokenDetailActivity extends BaseActivity {
 
     private void onUpdateView() {
         try {
-            Picasso.get().load(myNftInfo.getUri()).fit().placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(mNftImg);
+            if (mBaseChain.equals(IRIS_MAIN)) {
+                Picasso.get().load(myIrisNftInfo.getUri()).fit().placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(mNftImg);
+            } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+                Picasso.get().load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).fit().placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(mNftImg);
+            }
 //            Glide.with(this).load(myNftInfo.getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
 //                    placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).
 //                    centerCrop().fitCenter().into(mNftImg);
@@ -106,10 +122,10 @@ public class NFTokenDetailActivity extends BaseActivity {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_INFO) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindNftInfo(NFTokenDetailActivity.this, mBaseChain, myNftInfo, mMyNftId);
+                holder.onBindNftInfo(NFTokenDetailActivity.this, mBaseChain, myIrisNftInfo, myCryptoNftInfo, mMyNftId);
             } else if (getItemViewType(position) == TYPE_RAW){
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindNftRawData(NFTokenDetailActivity.this, mBaseChain, myNftInfo);
+                holder.onBindNftRawData(NFTokenDetailActivity.this, mBaseChain, myIrisNftInfo, myCryptoNftInfo);
             }
         }
 

@@ -25,6 +25,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
@@ -173,21 +175,30 @@ public class TokenDetailSupportHolder extends BaseHolder {
         }
     }
 
-    public void onBindNftInfo(Context c, BaseChain baseChain, Nft.BaseNFT myNftInfo, NFTListActivity.NFTCollectionId mMyNftId) {
-        if (baseChain.equals(BaseChain.IRIS_MAIN)) {
+    public void onBindNftInfo(Context c, BaseChain baseChain, Nft.BaseNFT myIrisNftInfo, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo, NFTListActivity.NFTCollectionId mMyNftId) {
+        if (baseChain.equals(IRIS_MAIN) && myIrisNftInfo != null) {
             mNftInfo.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgIris));
-            mNftName.setText(myNftInfo.getName());
-            mNftContent.setText(WUtil.getNftDescription(myNftInfo.getData()));
-            mNftIssuer.setText(WUtil.getNftIssuer(myNftInfo.getData()));
+            mNftName.setText(myIrisNftInfo.getName());
+            mNftContent.setText(WUtil.getNftDescription(myIrisNftInfo.getData()));
+            mNftIssuer.setText(WUtil.getNftIssuer(myIrisNftInfo.getData()));
+
+        } else if (baseChain.equals(CRYPTO_MAIN) && myCryptoNftInfo != null) {
+            mNftInfo.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgCryto));
+            mNftName.setText(myCryptoNftInfo.getName());
+            mNftContent.setText(WUtil.getNftDescription(myCryptoNftInfo.getData()));
+            mNftIssuer.setText(myCryptoNftInfo.getOwner());
         }
         mNftDenomId.setText(mMyNftId.denom_id);
         mNftTokenId.setText(mMyNftId.token_id);
     }
 
-    public void onBindNftRawData(Context c, BaseChain baseChain, Nft.BaseNFT myNftInfo) {
-        if (baseChain.equals(BaseChain.IRIS_MAIN)) {
+    public void onBindNftRawData(Context c, BaseChain baseChain, Nft.BaseNFT myIrisNftInfo, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo) {
+        if (baseChain.equals(IRIS_MAIN) && myIrisNftInfo != null) {
             mNftRawRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgIris));
-            mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(myNftInfo.getData())));
+            mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(myIrisNftInfo.getData())));
+        } else if (baseChain.equals(CRYPTO_MAIN) && myCryptoNftInfo != null) {
+            mNftRawRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgCryto));
+            mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(myCryptoNftInfo.getData())));
         }
     }
 }

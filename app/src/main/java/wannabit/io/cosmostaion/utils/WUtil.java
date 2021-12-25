@@ -1833,6 +1833,12 @@ public class WUtil {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        try {
+            JSONObject json = new JSONObject(data);
+            description = json.getString("description");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return description;
     }
 
@@ -1844,7 +1850,24 @@ public class WUtil {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        try {
+            JSONObject json = new JSONObject(data);
+            issuer = json.getString("issuerAddr");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return issuer;
+    }
+
+    public static String getNftImgUrl(String data) {
+        String url = "";
+        try {
+            JSONObject json = new JSONObject(data);
+            url = json.getString("image");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return url;
     }
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
