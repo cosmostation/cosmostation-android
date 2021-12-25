@@ -1836,6 +1836,17 @@ public class WUtil {
         return description;
     }
 
+    public static String getNftIssuer(String data) {
+        String issuer = "";
+        try {
+            JSONObject json = new JSONObject(data);
+            issuer = json.getJSONObject("body").getString("issuerAddr");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return issuer;
+    }
+
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
         if (all == null) return null;
         for (BnbToken token:all) {

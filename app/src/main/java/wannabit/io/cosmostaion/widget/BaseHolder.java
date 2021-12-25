@@ -111,6 +111,6 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindSifOtherEthPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool otherPool) {
     }
 
-    public void onBindNFT(Context context, NFTListActivity activity, BaseData baseData, NFTListActivity.NFTCollectionId myNft) {
+    public void onBindNFT(Context context, NFTListActivity activity, NFTListActivity.NFTCollectionId myNft) {
     }
 }

@@ -114,7 +114,7 @@ public class ListMyNftFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull BaseHolder viewHolder, int position) {
             if (mMyNFTs != null && mMyNFTs.size() > 0) {
-                viewHolder.onBindNFT(getContext(), getSActivity(), getBaseDao(), mMyNFTs.get(position));
+                viewHolder.onBindNFT(getContext(), getSActivity(), mMyNFTs.get(position));
             }
         }
 

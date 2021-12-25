@@ -16,7 +16,6 @@ import irismod.nft.Nft;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NFTokenDetailActivity;
-import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NFTokenInfoGrpcTask;
@@ -36,32 +35,35 @@ public class NftMyHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindNFT(Context context, NFTListActivity activity, BaseData baseData, NFTListActivity.NFTCollectionId myNft) {
+    public void onBindNFT(Context context, NFTListActivity activity, NFTListActivity.NFTCollectionId myNftId) {
         itemRoot.setCardBackgroundColor(context.getResources().getColor(R.color.colorTransBgIris));
         itemMyNftImg.setClipToOutline(true);
         new NFTokenInfoGrpcTask(activity.getBaseApplication(), new TaskListener() {
             @Override
             public void onTaskResponse(TaskResult result) {
                 if (result.isSuccess) {
-                    Nft.BaseNFT myyNftInfo = (Nft.BaseNFT) result.resultData;
-                    if (myyNftInfo != null) {
+                    Nft.BaseNFT myNftInfo = (Nft.BaseNFT) result.resultData;
+                    if (myNftInfo != null) {
                         try {
-                            Picasso.get().load(myyNftInfo.getUri()).fit().placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(itemMyNftImg);
-                        } catch (Exception e){}
-                        itemMyNftTitle.setText(myyNftInfo.getName());
-                        itemMyNftContent.setText(WUtil.getNftDescription(myyNftInfo.getData()));
+                            Picasso.get().load(myNftInfo.getUri()).fit().placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(itemMyNftImg);
+                        } catch (Exception e) {
+                        }
+                        itemMyNftTitle.setText(myNftInfo.getName());
+                        itemMyNftContent.setText(WUtil.getNftDescription(myNftInfo.getData()));
+
+                        itemRoot.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, NFTokenDetailActivity.class);
+                                intent.putExtra("myNftInfo", myNftInfo);
+                                intent.putExtra("myNftInfoId", myNftId);
+                                activity.startActivity(intent);
+                            }
+                        });
                     }
                 }
 
             }
-        }, activity.mBaseChain, myNft.denom_id, myNft.token_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, NFTokenDetailActivity.class);
-                activity.startActivity(intent);
-            }
-        });
+        }, activity.mBaseChain, myNftId.denom_id, myNftId.token_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }

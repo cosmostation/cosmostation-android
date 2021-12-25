@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -185,13 +187,41 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
         }
     }
 
-    public class NFTCollectionId {
+    public static class NFTCollectionId implements Parcelable {
         public String denom_id;
         public String token_id;
 
         public NFTCollectionId(String denom_id, String token_id) {
             this.denom_id = denom_id;
             this.token_id = token_id;
+        }
+
+        protected NFTCollectionId(Parcel in) {
+            denom_id = in.readString();
+            token_id = in.readString();
+        }
+
+        public static final Creator<NFTCollectionId> CREATOR = new Creator<NFTCollectionId>() {
+            @Override
+            public NFTCollectionId createFromParcel(Parcel in) {
+                return new NFTCollectionId(in);
+            }
+
+            @Override
+            public NFTCollectionId[] newArray(int size) {
+                return new NFTCollectionId[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(denom_id);
+            dest.writeString(token_id);
         }
     }
 
