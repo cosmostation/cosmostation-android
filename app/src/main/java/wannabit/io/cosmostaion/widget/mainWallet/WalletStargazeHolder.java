@@ -21,7 +21,8 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletStargazeHolder extends BaseHolder {
     public TextView         mTvStargazeTotal, mTvStargazeValue;
-    public TextView         mTvStargazeAvailable, mTvStargazeDelegated, mTvStargazeUnBonding, mTvStargazeRewards;
+    public TextView         mTvStargazeAvailable, mTvStargazeVesting, mTvStargazeDelegated, mTvStargazeUnBonding, mTvStargazeRewards;
+    public RelativeLayout   mStargazeVestingLayer;
     public RelativeLayout   mBtnStake, mBtnVote;
 
     public WalletStargazeHolder(@NonNull View itemView) {
@@ -32,6 +33,10 @@ public class WalletStargazeHolder extends BaseHolder {
         mTvStargazeDelegated        = itemView.findViewById(R.id.stargaze_delegate);
         mTvStargazeUnBonding        = itemView.findViewById(R.id.stargaze_unbonding);
         mTvStargazeRewards          = itemView.findViewById(R.id.stargaze_reward);
+
+        mStargazeVestingLayer       = itemView.findViewById(R.id.stargaze_vesting_layer);
+        mTvStargazeVesting          = itemView.findViewById(R.id.stargaze_vesting);
+
         mBtnStake                   = itemView.findViewById(R.id.btn_stargaze_reward);
         mBtnVote                    = itemView.findViewById(R.id.btn_stargaze_vote);
     }
@@ -39,16 +44,23 @@ public class WalletStargazeHolder extends BaseHolder {
         final BaseData baseData = mainActivity.getBaseDao();
         final String denom = WDp.mainDenom(mainActivity.mBaseChain);
         final BigDecimal availableAmount = baseData.getAvailable(denom);
+        final BigDecimal vestingAmount = baseData.getVesting(denom);
         final BigDecimal delegateAmount = baseData.getDelegationSum();
         final BigDecimal unbondingAmount = baseData.getUndelegationSum();
         final BigDecimal rewardAmount = baseData.getRewardSum(denom);
         final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
+
         mTvStargazeTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvStargazeAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
+        mTvStargazeVesting.setText(WDp.getDpAmount2(mainActivity, vestingAmount, 6, 6));
         mTvStargazeDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvStargazeUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvStargazeRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
         mTvStargazeValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
+
+        if (!vestingAmount.equals(BigDecimal.ZERO)) { mStargazeVestingLayer.setVisibility(View.VISIBLE);
+        } else { mStargazeVestingLayer.setVisibility(View.GONE); }
+
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
         mBtnStake.setOnClickListener(new View.OnClickListener() {
