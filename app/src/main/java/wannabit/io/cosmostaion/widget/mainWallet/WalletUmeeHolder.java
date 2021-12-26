@@ -21,7 +21,8 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletUmeeHolder extends BaseHolder {
     public TextView         mTvUmeeTotal, mTvUmeeValue;
-    public TextView         mTvUmeeAvailable, mTvUmeeDelegated, mTvUmeeUnBonding, mTvUmeeRewards;
+    public TextView         mTvUmeeAvailable, mTvUmeeVesting, mTvUmeeDelegated, mTvUmeeUnBonding, mTvUmeeRewards;
+    public RelativeLayout   mTvUmeeVestingLayer;
     public RelativeLayout   mBtnStake, mBtnVote;
 
     public WalletUmeeHolder(@NonNull View itemView) {
@@ -32,6 +33,10 @@ public class WalletUmeeHolder extends BaseHolder {
         mTvUmeeDelegated        = itemView.findViewById(R.id.umee_delegate);
         mTvUmeeUnBonding        = itemView.findViewById(R.id.umee_unbonding);
         mTvUmeeRewards          = itemView.findViewById(R.id.umee_reward);
+
+        mTvUmeeVestingLayer     = itemView.findViewById(R.id.umee_vesting_layer);
+        mTvUmeeVesting          = itemView.findViewById(R.id.umee_vesting);
+
         mBtnStake               = itemView.findViewById(R.id.btn_umee_reward);
         mBtnVote                = itemView.findViewById(R.id.btn_umee_vote);
     }
@@ -39,16 +44,23 @@ public class WalletUmeeHolder extends BaseHolder {
         final BaseData baseData = mainActivity.getBaseDao();
         final String denom = WDp.mainDenom(mainActivity.mBaseChain);
         final BigDecimal availableAmount = baseData.getAvailable(denom);
+        final BigDecimal vestingAmount = baseData.getVesting(denom);
         final BigDecimal delegateAmount = baseData.getDelegationSum();
         final BigDecimal unbondingAmount = baseData.getUndelegationSum();
         final BigDecimal rewardAmount = baseData.getRewardSum(denom);
         final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
+
         mTvUmeeTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvUmeeAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
+        mTvUmeeVesting.setText(WDp.getDpAmount2(mainActivity, vestingAmount, 6, 6));
         mTvUmeeDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvUmeeUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvUmeeRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
         mTvUmeeValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
+
+        if (!vestingAmount.equals(BigDecimal.ZERO)) { mTvUmeeVestingLayer.setVisibility(View.VISIBLE);
+        } else { mTvUmeeVestingLayer.setVisibility(View.GONE); }
+
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
         mBtnStake.setOnClickListener(new View.OnClickListener() {
             @Override

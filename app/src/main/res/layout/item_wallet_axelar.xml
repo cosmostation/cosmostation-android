@@ -86,6 +86,27 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/axelar_vesting_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_vesting_amount"
+                    style="@style/font_ss_12_gray1"/>
+                <TextView
+                    android:id="@+id/axelar_vesting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:text="-"
+                    style="@style/font_ssl_12_white"/>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
