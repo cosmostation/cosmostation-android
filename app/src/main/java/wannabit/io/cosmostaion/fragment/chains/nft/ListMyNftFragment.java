@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.nft;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -18,13 +19,20 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.nft.NFTCreateActivity;
 import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.NftMyHolder;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_ISSUE_NFT;
 
 public class ListMyNftFragment extends BaseFragment {
 
@@ -80,7 +88,21 @@ public class ListMyNftFragment extends BaseFragment {
         mBtnCreateNft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getSActivity(), "준비중", Toast.LENGTH_SHORT).show();
+                if (getSActivity().mAccount == null) return;
+                if (!getSActivity().mAccount.hasPrivateKey) {
+                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                    add.setCancelable(true);
+                    getSActivity().getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    return;
+                }
+                Intent intent = new Intent(getSActivity(), NFTCreateActivity.class);
+                BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_ISSUE_NFT, 0);
+                if (mainAvailable.compareTo(feeAmount) <= 0) {
+                    Toast.makeText(getSActivity(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                startActivity(intent);
             }
         });
 

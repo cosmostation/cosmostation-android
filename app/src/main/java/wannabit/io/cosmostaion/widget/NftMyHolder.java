@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.squareup.picasso.Picasso;
 
 import irismod.nft.Nft;
@@ -49,9 +51,10 @@ public class NftMyHolder extends BaseHolder {
                         Nft.BaseNFT myIrisNftInfo = (Nft.BaseNFT) result.resultData;
                         if (myIrisNftInfo != null) {
                             try {
-                                Picasso.get().load(myIrisNftInfo.getUri()).fit().placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(itemMyNftImg);
-                            } catch (Exception e) {
-                            }
+//                                Picasso.get().load(myIrisNftInfo.getUri()).fit().placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fit().into(itemMyNftImg);
+                                Glide.with(activity).load(myIrisNftInfo.getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
+                                        placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fitCenter().into(itemMyNftImg);
+                            } catch (Exception e) { }
                             itemMyNftTitle.setText(myIrisNftInfo.getName());
                             itemMyNftContent.setText(WUtil.getNftDescription(myIrisNftInfo.getData()));
 
@@ -69,9 +72,10 @@ public class NftMyHolder extends BaseHolder {
                         chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo = (chainmain.nft.v1.Nft.BaseNFT) result.resultData;
                         if (myCryptoNftInfo != null) {
                             try {
-                                Picasso.get().load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).fit().placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(itemMyNftImg);
-                            } catch (Exception e) {
-                            }
+//                                Picasso.get().load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).fit().placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(itemMyNftImg);
+                                Glide.with(activity).load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).diskCacheStrategy(DiskCacheStrategy.ALL).
+                                        placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(itemMyNftImg);
+                            } catch (Exception e) { }
                             itemMyNftTitle.setText(myCryptoNftInfo.getName());
                             itemMyNftContent.setText(WUtil.getNftDescription(myCryptoNftInfo.getData()));
 

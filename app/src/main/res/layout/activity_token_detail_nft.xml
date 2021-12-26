@@ -28,7 +28,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar">
+        android:layout_below="@+id/tool_bar"
+        android:layout_above="@+id/control_layer">
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="400dp">
@@ -46,7 +47,7 @@
                     android:id="@+id/nft_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     android:src="@drawable/icon_nft_none"
                     app:layout_collapseMode="parallax" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -54,7 +55,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginTop="@dimen/space_4"
@@ -62,4 +63,56 @@
             android:layout_marginLeft="@dimen/space_8"
             android:overScrollMode="never"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:id="@+id/control_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/btn_ibc_send"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginRight="@dimen/space_4"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            android:clickable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/ic_ibcsend_20"
+                android:drawablePadding="@dimen/space_8"
+                android:gravity="center"
+                style="@style/font_ss_14_white"
+                android:text="@string/str_ibc_send" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/btn_send"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginRight="@dimen/space_4"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            android:clickable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/ic_send_20"
+                android:drawablePadding="@dimen/space_8"
+                android:gravity="center"
+                style="@style/font_ss_14_white"
+                android:text="@string/str_send" />
+        </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

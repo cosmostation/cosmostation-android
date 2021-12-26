@@ -486,6 +486,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SIF_JOIN_POOL                       = 5052;
     public final static int CONST_PW_TX_SIF_EXIT_POOL                       = 5053;
     public final static int CONST_PW_CHECK_PRIVATE_KEY                      = 5054;
+    public final static int CONST_PW_ISSUE_NFT                              = 5055;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
