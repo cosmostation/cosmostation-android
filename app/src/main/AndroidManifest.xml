@@ -83,6 +83,14 @@
         </activity>
 
         <activity
+            android:name=".activities.RestoreKeyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity
             android:name=".activities.RestorePathActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -282,6 +290,13 @@
 
         <activity
             android:name=".activities.MnemonicCheckActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.PrivateKeyCheckActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">

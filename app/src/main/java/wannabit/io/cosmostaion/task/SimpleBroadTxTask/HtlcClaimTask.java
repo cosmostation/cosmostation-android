@@ -9,8 +9,10 @@ import com.binance.dex.api.client.Wallet;
 import com.binance.dex.api.client.domain.TransactionMetadata;
 import com.binance.dex.api.client.domain.broadcast.TransactionOption;
 
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CLAIM;
 
 public class HtlcClaimTask extends CommonTask {
@@ -52,6 +55,7 @@ public class HtlcClaimTask extends CommonTask {
     private String          mRandomNumber;
 
     private String          mReceiveChainId;
+    private ECKey           ecKey;
 
     public HtlcClaimTask(BaseApplication app, TaskListener listener, Account recipient, BaseChain receiveChain, Fee claimFee, String expectedSwapId, String randomNumber) {
         super(app, listener);
@@ -78,10 +82,16 @@ public class HtlcClaimTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mReceiveAccount.id, WUtil.getBalancesFromBnbLcd(mReceiveAccount.id, response.body()));
                 mReceiveAccount = mApp.getBaseDao().onSelectAccount(""+mReceiveAccount.id);
 
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mReceiveAccount.baseChain), entropy, Integer.parseInt(mReceiveAccount.path), mReceiveAccount.newBip44);
+                if (mReceiveAccount.fromMnemonic) {
+                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
+                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mReceiveAccount.baseChain), entropy, Integer.parseInt(mReceiveAccount.path), mReceiveAccount.newBip44, mReceiveAccount.customPath);
+                    ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+                } else {
+                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
+                    ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+                }
 
-                Wallet wallet = new Wallet(deterministicKey.getPrivateKeyAsHex(), BinanceDexEnvironment.PROD);
+                Wallet wallet = new Wallet(ecKey.getPrivateKeyAsHex(), BinanceDexEnvironment.PROD);
                 wallet.setAccountNumber(mReceiveAccount.accountNumber);
                 wallet.setSequence(Long.valueOf(mReceiveAccount.sequenceNumber));
 
@@ -112,10 +122,16 @@ public class HtlcClaimTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mReceiveAccount.id, WUtil.getBalancesFromBnbLcd(mReceiveAccount.id, response.body()));
                 mReceiveAccount = mApp.getBaseDao().onSelectAccount(""+mReceiveAccount.id);
 
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mReceiveAccount.baseChain), entropy, Integer.parseInt(mReceiveAccount.path), mReceiveAccount.newBip44);
+                if (mReceiveAccount.fromMnemonic) {
+                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
+                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mReceiveAccount.baseChain), entropy, Integer.parseInt(mReceiveAccount.path), mReceiveAccount.newBip44, mReceiveAccount.customPath);
+                    ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+                } else {
+                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
+                    ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+                }
 
-                Wallet wallet = new Wallet(deterministicKey.getPrivateKeyAsHex(), BinanceDexEnvironment.TEST_NET);
+                Wallet wallet = new Wallet(ecKey.getPrivateKeyAsHex(), BinanceDexEnvironment.TEST_NET);
                 wallet.setAccountNumber(mReceiveAccount.accountNumber);
                 wallet.setSequence(Long.valueOf(mReceiveAccount.sequenceNumber));
 
@@ -155,14 +171,20 @@ public class HtlcClaimTask extends CommonTask {
                 mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mReceiveAccount.id, response.body()));
                 mReceiveAccount = mApp.getBaseDao().onSelectAccount(""+mReceiveAccount.id);
 
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mReceiveAccount.baseChain), entropy, Integer.parseInt(mReceiveAccount.path), mReceiveAccount.newBip44);
+                if (mReceiveAccount.fromMnemonic) {
+                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
+                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mReceiveAccount.baseChain), entropy, Integer.parseInt(mReceiveAccount.path), mReceiveAccount.newBip44, mReceiveAccount.customPath);
+                    ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+                } else {
+                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
+                    ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+                }
 
                 Msg claimSwapMsg = MsgGenerator.genClaimAtomicSwap(mReceiveAccount.address, mExpectedSwapId, mRandomNumber, mReceiveChain);
                 ArrayList<Msg> msgs= new ArrayList<>();
                 msgs.add(claimSwapMsg);
 
-                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mReceiveAccount, msgs, mClaimFee, mApp.getString(R.string.str_claim_swap_memo_c), deterministicKey, receiveNodeInfo.network);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mReceiveAccount, msgs, mClaimFee, mApp.getString(R.string.str_claim_swap_memo_c), ecKey, receiveNodeInfo.network);
 //            WLog.w("reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
                 Response<ResBroadTx> claimRes = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if(claimRes.isSuccessful() && claimRes.body() != null) {
@@ -173,52 +195,6 @@ public class HtlcClaimTask extends CommonTask {
                     }
                     if(claimRes.body().code != null) {
                         if (BuildConfig.DEBUG) WLog.w("KAVA_MAIN Claim error " + mResult.errorCode + "  " + mResult.errorMsg);
-                        mResult.errorCode = claimRes.body().code;
-                        mResult.errorMsg = claimRes.body().raw_log;
-                        mResult.isSuccess = false;
-                    }
-
-                } else {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                }
-
-            } else if (mReceiveChain.equals(BaseChain.KAVA_TEST)) {
-                NodeInfo receiveNodeInfo = null;
-                Response<ResNodeInfo> nodeCheck = ApiClient.getKavaTestChain(mApp).getNodeInfo().execute();
-                if (nodeCheck.isSuccessful() && nodeCheck.body() != null&& nodeCheck.body().node_info != null) {
-                    receiveNodeInfo = nodeCheck.body().node_info;
-                } else {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-
-                Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaTestChain(mApp).getAccountInfo(mReceiveAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mReceiveAccount.id, response.body()));
-                mReceiveAccount = mApp.getBaseDao().onSelectAccount(""+mReceiveAccount.id);
-
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mReceiveAccount.baseChain), entropy, Integer.parseInt(mReceiveAccount.path), mReceiveAccount.newBip44);
-
-                Msg claimSwapMsg = MsgGenerator.genClaimAtomicSwap(mReceiveAccount.address, mExpectedSwapId, mRandomNumber, mReceiveChain);
-                ArrayList<Msg> msgs= new ArrayList<>();
-                msgs.add(claimSwapMsg);
-
-                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mReceiveAccount, msgs, mClaimFee, mApp.getString(R.string.str_claim_swap_memo_c), deterministicKey, receiveNodeInfo.network);
-//            WLog.w("reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
-                Response<ResBroadTx> claimRes = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
-                if(claimRes.isSuccessful() && claimRes.body() != null) {
-                    if (claimRes.body().txhash != null) {
-                        if (BuildConfig.DEBUG) WLog.w("KAVA_TEST Claim suceess txhash " + claimRes.body().txhash);
-                        mResult.resultData = claimRes.body().txhash;
-                        mResult.isSuccess = true;
-                    }
-                    if(claimRes.body().code != null) {
-                        if (BuildConfig.DEBUG) WLog.w("KAVA_TEST Claim error " + mResult.errorCode + "  " + mResult.errorMsg);
                         mResult.errorCode = claimRes.body().code;
                         mResult.errorMsg = claimRes.body().raw_log;
                         mResult.isSuccess = false;

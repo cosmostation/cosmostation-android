@@ -145,6 +145,7 @@
 
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
+    <string name="key_private" translatable="false">PRIVATE_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
     <string name="str_atom_c" translatable="false">ATOM</string>
     <string name="str_iris_c" translatable="false">IRIS</string>
@@ -255,11 +256,14 @@
     <string name="str_edit">Edit</string>
     <string name="str_display_chains">Displayed Chains</string>
     <string name="str_hide_chains">Hidden Chains</string>
+    <string name="str_restore_key">Restore With PrivateKey</string>
     <string name="str_qr">QrCode</string>
-    <string name="str_import">IMPORT</string>
+    <string name="str_import">Restore With Mnemonic</string>
     <string name="str_clear_all">Clear All</string>
     <string name="str_create">CREATE</string>
     <string name="str_check_mnemonic_c">CHECK MNEMONICS</string>
+    <string name="str_check_private_key_c">CHECK PRIVATE KEY</string>
+    <string name="str_start">START</string>
     <string name="str_check">Check</string>
     <string name="str_confirm">Confirm</string>
     <string name="str_warning">Warning</string>
@@ -338,6 +342,8 @@
     <string name="str_watch_address_path_c">WATCH ADDRESS</string>
     <string name="str_address_pubkey">Insert address.</string>
     <string name="str_watch_msg">With watch mode, you can check the status of your account. \nTo enable transactions, add your mnemonics later.</string>
+    <string name="str_insert_private_key">Insert Private Key</string>
+    <string name="str_key_msg">Please enter your private key.\nThe private key is a 66-digit string starting with 0x.</string>
     <string name="str_proposal_type">Proposal Type</string>
     <string name="str_submit_time">Submit Time</string>
     <string name="str_voting_start_time">Voting Start Time</string>
@@ -390,8 +396,10 @@
     <string name="str_will_support_with_mainnet">Will support with Main Net.</string>
     <string name="str_will_support_after_mainnet">Will support after Main Net.</string>
     <string name="str_with_mnemonic">With Mnemonics</string>
+    <string name="str_with_privatekey">With Private Key</string>
     <string name="str_only_address">Only Address</string>
     <string name="str_check_mnemonic">Check Mnemonic</string>
+    <string name="str_check_private_key">Check PrivateKey</string>
     <string name="str_delete_wallet">Delete Wallet</string>
     <string name="str_wallet_address">Wallet address</string>
     <string name="str_wallet_info">Wallet Information</string>
@@ -401,8 +409,10 @@
     <string name="str_import_path">Key Path</string>
     <string name="str_import_msg">Currently in watch mode.\nAll transactions are made available after registering your mnemonic phrase.</string>
     <string name="str_import_mnemonic">Import Mnemonic</string>
+    <string name="str_import_key">Import PrivateKey</string>
     <string name="str_share">Share</string>
     <string name="str_copy">Copy</string>
+    <string name="str_copy_to">Copy to clipboard</string>
     <string name="str_copied">Copied to clipboard</string>
     <string name="str_safe_copied">Mnemonic copied safely</string>
     <string name="str_add_mnemonics">Add Mnemonics</string>
@@ -1424,6 +1434,8 @@
     <string name="str_connected_address_replace">Connected Addresses Replace</string>
     <string name="str_safe_copy_title">Mnemonic Safe Copy</string>
     <string name="str_safe_copy_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The mnemonic phrase temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your mnemonic phrase to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your mneominc phrase outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.</string>
+    <string name="str_safe_copy_pkey_title">Private Key Safe Copy</string>
+    <string name="str_safe_copy_pkey_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The private key temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your private key to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your private key outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.</string>
     <string name="str_safe_copy">Safe Copy</string>
     <string name="str_raw_copy">Raw Copy</string>
     <string name="str_starname_walletconnect_alert_title">Export Address for Starname</string>
@@ -1791,6 +1803,8 @@
     <string name="error_reserve_1_account">Please reserve at least 1 account to displayed.</string>
     <string name="error_hided_chain">Hidden Chain.</string>
     <string name="error_rizon_swap_finished">Rizon Swap Disabled.</string>
+    <string name="error_invalid_private_Key">Invalid private key.</string>
+
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

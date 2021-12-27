@@ -168,6 +168,9 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_KAVA_SWAP                       = 2132;
     public final static int TASK_GEN_TX_KAVA_JOIN_POOL                  = 2133;
     public final static int TASK_GEN_TX_KAVA_EXIT_POOL                  = 2134;
+    public final static int TASK_CHECK_PRIVATE_KEY                      = 2135;
+    public final static int TASK_INIT_PKEY_ACCOUNT                      = 2136;
+    public final static int TASK_OVERRIDE_PKEY_ACCOUNT                  = 2137;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_STAKE_HISTORY                = 2301;
@@ -479,6 +482,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SIF_SWAP                            = 5051;
     public final static int CONST_PW_TX_SIF_JOIN_POOL                       = 5052;
     public final static int CONST_PW_TX_SIF_EXIT_POOL                       = 5053;
+    public final static int CONST_PW_CHECK_PRIVATE_KEY                      = 5054;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;

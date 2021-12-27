@@ -5,9 +5,12 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 
 import java.math.BigDecimal;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -84,6 +87,20 @@ public class Account {
         this.pushAlarm = pushAlarm;
         this.newBip44 = newBip;
         this.customPath = customPath;
+    }
+
+    public String getPrivateKeySha1() {
+        String result = "";
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            digest.update((uuid + R.string.key_private).getBytes());
+            byte byteData[] = digest.digest();
+            StringBuffer sb = new StringBuffer();
+            for(int i = 0 ; i < byteData.length ; i++)
+                sb.append(Integer.toString((byteData[i]&0xff) + 0x100, 16).substring(1));
+            result = sb.toString();
+        } catch (NoSuchAlgorithmException e) { e.printStackTrace(); result = null; }
+        return result;
     }
 
     public ArrayList<Balance> getBalances() {

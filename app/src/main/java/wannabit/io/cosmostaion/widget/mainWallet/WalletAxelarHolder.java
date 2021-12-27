@@ -21,7 +21,8 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletAxelarHolder extends BaseHolder {
     public TextView         mTvAxelarTotal, mTvAxelarValue;
-    public TextView         mTvAxelarAvailable, mTvAxelarDelegated, mTvAxelarUnBonding, mTvAxelarRewards;
+    public TextView         mTvAxelarAvailable, mTvAxelarVesting, mTvAxelarDelegated, mTvAxelarUnBonding, mTvAxelarRewards;
+    public RelativeLayout   mTvAxelarVestingLayer;
     public RelativeLayout   mBtnStake, mBtnVote;
 
     public WalletAxelarHolder(@NonNull View itemView) {
@@ -32,6 +33,10 @@ public class WalletAxelarHolder extends BaseHolder {
         mTvAxelarDelegated        = itemView.findViewById(R.id.axelar_delegate);
         mTvAxelarUnBonding        = itemView.findViewById(R.id.axelar_unbonding);
         mTvAxelarRewards          = itemView.findViewById(R.id.axelar_reward);
+
+        mTvAxelarVestingLayer     = itemView.findViewById(R.id.axelar_vesting_layer);
+        mTvAxelarVesting          = itemView.findViewById(R.id.axelar_vesting);
+
         mBtnStake                 = itemView.findViewById(R.id.btn_axelar_reward);
         mBtnVote                  = itemView.findViewById(R.id.btn_axelar_vote);
     }
@@ -39,16 +44,23 @@ public class WalletAxelarHolder extends BaseHolder {
         final BaseData baseData = mainActivity.getBaseDao();
         final String denom = WDp.mainDenom(mainActivity.mBaseChain);
         final BigDecimal availableAmount = baseData.getAvailable(denom);
+        final BigDecimal vestingAmount = baseData.getVesting(denom);
         final BigDecimal delegateAmount = baseData.getDelegationSum();
         final BigDecimal unbondingAmount = baseData.getUndelegationSum();
         final BigDecimal rewardAmount = baseData.getRewardSum(denom);
         final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
+
         mTvAxelarTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvAxelarAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
+        mTvAxelarVesting.setText(WDp.getDpAmount2(mainActivity, vestingAmount, 6, 6));
         mTvAxelarDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvAxelarUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvAxelarRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
         mTvAxelarValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
+
+        if (!vestingAmount.equals(BigDecimal.ZERO)) { mTvAxelarVesting.setVisibility(View.VISIBLE);
+        } else { mTvAxelarVestingLayer.setVisibility(View.GONE); }
+
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
         mBtnStake.setOnClickListener(new View.OnClickListener() {

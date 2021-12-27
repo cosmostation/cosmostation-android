@@ -7,7 +7,6 @@ import com.binance.dex.api.client.encoding.message.Token;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.crypto.DeterministicKey;
 import org.bouncycastle.util.Strings;
 import org.bouncycastle.util.encoders.Hex;
 import org.web3j.crypto.ECKeyPair;
@@ -37,8 +36,6 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -84,14 +81,6 @@ public class MsgGenerator {
             result.type = BaseConstant.OK_MSG_TYPE_TRANSFER;
             result.value = value;
 
-        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-            value.from_address = fromAddr;
-            value.to_address = toAddr;
-            value.amount = coins;
-
-            result.type = BaseConstant.CERTIK_MSG_TYPE_TRANSFER;
-            result.value = value;
-
         } else {
             value.from_address = fromAddr;
             value.to_address = toAddr;
@@ -135,16 +124,6 @@ public class MsgGenerator {
         value.validator_address = fromValAddr;
 
         result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
-        result.value = value;
-        return result;
-    }
-
-    public static Msg genWithdrawDeleAllMsg(String requestAddr, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        value.delegator_addr = requestAddr;
-
-        result.type = BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL;
         result.value = value;
         return result;
     }
@@ -658,23 +637,7 @@ public class MsgGenerator {
         return result;
     }
 
-//    public static IrisStdSignMsg genIrisToSignMsg(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
-//        IrisStdSignMsg result = new IrisStdSignMsg();
-//        result.chain_id = chainId;
-//        result.account_number = accountNumber;
-//        result.sequence = SequenceNumber;
-//        ArrayList<Msg.Value> tempMsgs = new ArrayList<>();
-//        for (Msg msg:msgs) {
-//            tempMsgs.add(msg.value);
-//        }
-//        result.msgs = tempMsgs;
-//        result.fee = fee;
-//        result.memo = memo;
-//
-//        return result;
-//    }
-
-    public static String getSignature(DeterministicKey key, byte[] toSignByte) {
+    public static String getSignature(ECKey key, byte[] toSignByte) {
         MessageDigest digest = Sha256.getSha256Digest();
         byte[] toSignHash = digest.digest(toSignByte);
         ECKey.ECDSASignature Signature = key.sign(Sha256Hash.wrap(toSignHash));
@@ -685,7 +648,7 @@ public class MsgGenerator {
         return base64;
     }
 
-    public static ReqBroadCast getBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key, String chainId) {
+    public static ReqBroadCast getBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
         StdSignMsg tosign = genToSignMsg(
 //                BaseChain.getDpChain(account.baseChain),
                 chainId,
@@ -725,89 +688,7 @@ public class MsgGenerator {
         return reqBroadCast;
     }
 
-    /*
-    public static ReqBroadCast getIrisBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
-        IrisStdSignMsg tosign = genIrisToSignMsg(
-                BaseChain.getDpChain(account.baseChain),
-                ""+account.accountNumber,
-                ""+account.sequenceNumber,
-                msgs,
-                fee,
-                memo);
-        String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-//        WLog.w("Iris Send signatureTx " + signatureTx);
-
-        Signature signature = new Signature();
-        Pub_key pubKey = new Pub_key();
-        pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
-        pubKey.value = WKey.getPubKeyValue(key);
-        signature.pub_key = pubKey;
-        signature.signature = signatureTx;
-        signature.account_number = ""+account.accountNumber;
-        signature.sequence = ""+account.sequenceNumber;
-
-        ArrayList<Signature> signatures = new ArrayList<>();
-        signatures.add(signature);
-
-        StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
-//        WLog.w("Iris Send signedTx : " +  WUtil.prettyPrinter(signedTx));
-
-        ReqBroadCast reqBroadCast = new ReqBroadCast();
-        reqBroadCast.returns = "sync";
-        reqBroadCast.tx = signedTx.value;
-
-//        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
-        return reqBroadCast;
-    }
-
-
-    public static ReqBroadCast getIrisBraodcaseReq2(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
-        Msg tempMsg  = new Msg();
-        Msg.Value tempValue = new Msg.Value();
-        tempValue.delegator_addr = msgs.get(0).value.delegator_addr;
-        tempValue.validator_src_addr = msgs.get(0).value.validator_src_addr;
-        tempValue.validator_dst_addr = msgs.get(0).value.validator_dst_addr;
-        tempValue.shares = msgs.get(0).value.shares_amount;
-        tempMsg.type = BaseConstant.IRIS_MSG_TYPE_REDELEGATE;
-        tempMsg.value = tempValue;
-
-        ArrayList<Msg> tempMsgs= new ArrayList<>();
-        tempMsgs.add(tempMsg);
-
-        IrisStdSignMsg tosign = genIrisToSignMsg(
-                BaseChain.getDpChain(account.baseChain),
-                ""+account.accountNumber,
-                ""+account.sequenceNumber,
-                tempMsgs,
-                fee,
-                memo);
-        String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-
-        Signature signature = new Signature();
-        Pub_key pubKey = new Pub_key();
-        pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
-        pubKey.value = WKey.getPubKeyValue(key);
-        signature.pub_key = pubKey;
-        signature.signature = signatureTx;
-        signature.account_number = ""+account.accountNumber;
-        signature.sequence = ""+account.sequenceNumber;
-
-        ArrayList<Signature> signatures = new ArrayList<>();
-        signatures.add(signature);
-
-        StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
-
-        ReqBroadCast reqBroadCast = new ReqBroadCast();
-        reqBroadCast.returns = "sync";
-        reqBroadCast.tx = signedTx.value;
-
-//        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
-        return reqBroadCast;
-    }
-    */
-
-
-    public static ReqBroadCast getOKexBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key, String chainId) {
+    public static ReqBroadCast getOKexBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
         if (!account.newBip44) {
             //using Tendermint type sig
             return getBroadcaseReq(account, msgs, fee, memo, key, chainId);
@@ -843,7 +724,7 @@ public class MsgGenerator {
     }
 
 
-    public static String getEthermintSignature(DeterministicKey key, byte[] toSignByte) {
+    public static String getEthermintSignature(ECKey key, byte[] toSignByte) {
         BigInteger privKey = new BigInteger(key.getPrivateKeyAsHex(), 16);
         Sign.SignatureData sig = Sign.signMessage(toSignByte, ECKeyPair.create(privKey));
         return toBase64(sig);

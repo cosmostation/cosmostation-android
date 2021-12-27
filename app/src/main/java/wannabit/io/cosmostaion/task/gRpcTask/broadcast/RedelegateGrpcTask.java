@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
+
+import java.math.BigInteger;
 
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
@@ -37,7 +40,7 @@ public class RedelegateGrpcTask extends CommonTask {
     private String              mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
-    private DeterministicKey    deterministicKey;
+    private ECKey ecKey;
 
     public RedelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String fromValidatorAddress, String toValidatorAddress, Coin toDelegateAmount, String toDelegateMemo, Fee toFees, String chainId) {
         super(app, listener);
@@ -62,8 +65,14 @@ public class RedelegateGrpcTask extends CommonTask {
         }
 
         try {
-            String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44, mAccount.customPath);
+            if (mAccount.fromMnemonic) {
+                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44, mAccount.customPath);
+                ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+            } else {
+                String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+            }
 
             QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
@@ -71,7 +80,7 @@ public class RedelegateGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcReDelegateReq(mAuthResponse, mFromValidatorAddress, mToValidatorAddress, mAmount, mFees, mMemo, deterministicKey, mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcReDelegateReq(mAuthResponse, mFromValidatorAddress, mToValidatorAddress, mAmount, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {

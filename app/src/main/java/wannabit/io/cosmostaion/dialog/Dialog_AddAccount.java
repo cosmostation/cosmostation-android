@@ -16,12 +16,13 @@ import androidx.fragment.app.DialogFragment;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.CreateActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
+import wannabit.io.cosmostaion.activities.RestoreKeyActivity;
 import wannabit.io.cosmostaion.activities.WatchingAccountAddActivity;
 
 public class Dialog_AddAccount extends DialogFragment {
 
-    private LinearLayout    btn_import_mnemonic, btn_watch_address;
-    private Button btn_create;
+    private LinearLayout btn_import_key, btn_import_mnemonic, btn_watch_address;
+    private Button       btn_create;
 
     public static Dialog_AddAccount newInstance(Bundle bundle) {
         Dialog_AddAccount frag = new Dialog_AddAccount();
@@ -39,9 +40,22 @@ public class Dialog_AddAccount extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_account, null);
 
+        btn_import_key = view.findViewById(R.id.btn_import_key);
         btn_import_mnemonic = view.findViewById(R.id.btn_import_mnemonic);
         btn_watch_address = view.findViewById(R.id.btn_watch_address);
         btn_create = view.findViewById(R.id.btn_create);
+
+        btn_import_key.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent restoreIntent = new Intent(getActivity(), RestoreKeyActivity.class);
+                if (getArguments() != null && getArguments().getString("chain") != null) {
+                    restoreIntent.putExtra("chain", getArguments().getString("chain"));
+                }
+                startActivity(restoreIntent);
+                getDialog().dismiss();
+            }
+        });
 
         btn_import_mnemonic.setOnClickListener(new View.OnClickListener() {
             @Override

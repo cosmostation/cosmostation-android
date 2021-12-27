@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import retrofit2.Response;
@@ -68,9 +70,15 @@ public class SimpleRewardTask extends CommonTask {
                 return mResult;
             }
 
-
-            String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44, mAccount.customPath);
+            ECKey ecKey;
+            if (mAccount.fromMnemonic) {
+                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44, mAccount.customPath);
+                ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+            } else {
+                String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+            }
 
             ArrayList<Msg> msgs = new ArrayList<>();
             if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
@@ -90,7 +98,7 @@ public class SimpleRewardTask extends CommonTask {
 
             }
 
-            ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mRewardFees, mRewardMemo, deterministicKey, mApp.getBaseDao().getChainId());
+            ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mRewardFees, mRewardMemo, ecKey, mApp.getBaseDao().getChainId());
             if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {

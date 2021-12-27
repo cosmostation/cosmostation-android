@@ -11,11 +11,14 @@
     <string name="str_edit">Edit</string>
     <string name="str_display_chains">Displayed Chains</string>
     <string name="str_hide_chains">Hidden Chains</string>
+    <string name="str_restore_key">개인키로 지갑복원</string>
     <string name="str_qr">QR 코드</string>
-    <string name="str_import">지갑 복원</string>
+    <string name="str_import">복구단어로 지갑복원</string>
     <string name="str_clear_all">전체 삭제</string>
     <string name="str_create">지갑 생성</string>
     <string name="str_check_mnemonic_c">복구 단어 확인</string>
+    <string name="str_check_private_key_c">개인키 확인</string>
+    <string name="str_start">시작하기</string>
     <string name="str_check">확인</string>
     <string name="str_confirm">확인</string>
     <string name="str_warning">경고</string>
@@ -26,7 +29,7 @@
     <string name="str_start_wallet">Start Wallet</string>
     <string name="str_import2">복원하기</string>
     <string name="str_mnemonic">니모닉</string>
-    <string name="str_private_key">Private Key</string>
+    <string name="str_private_key">개인키</string>
     <string name="str_watch">관찰하기</string>
     <string name="str_address">주소</string>
     <string name="str_paste">붙여넣기</string>
@@ -94,6 +97,8 @@
     <string name="str_watch_address_path_c">주소 관찰</string>
     <string name="str_address_pubkey">주소 입력.</string>
     <string name="str_watch_msg">관찰 모드로 복구 단어 입력 없이 지갑의 상태를 확인할 수 있습니다.\n추후 설정에서 복구 단어를 입력하면 전송 등의 활동이 가능합니다.</string>
+    <string name="str_insert_private_key">개인키 입력</string>
+    <string name="str_key_msg">개인키(프라이빗키)를 입력해주세요.\n개인키는 0x로 시작하는 66자리의 문자열 입니다.</string>
     <string name="str_proposal_type">의제 타입</string>
     <string name="str_submit_time">의제 제출 시간</string>
     <string name="str_voting_start_time">투표 시작 시간</string>
@@ -145,9 +150,11 @@
     <string name="str_version">버전</string>
     <string name="str_will_support_with_mainnet">준비 중입니다.</string>
     <string name="str_will_support_after_mainnet">준비 중입니다.</string>
-    <string name="str_with_mnemonic">전송가능 지갑</string>
+    <string name="str_with_mnemonic">전송가능 지갑(복구단어)</string>
+    <string name="str_with_privatekey">전송가능 지갑(개인키)</string>
     <string name="str_only_address">관찰용 지갑</string>
     <string name="str_check_mnemonic">복구 단어 확인</string>
+    <string name="str_check_private_key">개인키 확인</string>
     <string name="str_delete_wallet">지갑 삭제</string>
     <string name="str_wallet_address">지갑 주소</string>
     <string name="str_wallet_info">지갑 정보</string>
@@ -157,8 +164,10 @@
     <string name="str_import_path">경로</string>
     <string name="str_import_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.</string>
     <string name="str_import_mnemonic">복구 단어 입력</string>
+    <string name="str_import_key">개인키 입력</string>
     <string name="str_share">공유</string>
     <string name="str_copy">복사</string>
+    <string name="str_copy_to">클립보드에 복사</string>
     <string name="str_copied">클립보드에 복사하였습니다.</string>
     <string name="str_safe_copied">안전 모드로 복사되었습니다.</string>
     <string name="str_add_mnemonics">복구 단어 입력</string>
@@ -1046,6 +1055,8 @@
     <string name="str_connected_address_replace">연결 주소 변경</string>
     <string name="str_safe_copy_title">복구단어 안전 복사</string>
     <string name="str_safe_copy_msg">최근 여러 어플리케이션들이 클립보드 하이재킹을 시도하고 있습니다. 복사 붙여넣기시 클립보드에 임시 저장되는 니모닉은 하이재킹 앱들의 손쉬운 표적이 됩니다. 현재의 니모닉을 이용하여 다른지갑을 생성하시길 원한다면 \"안전 복사\"를 선택하세요. 오직 이 단말기의 코스모스테이션 앱에서만 정상적으로 붙여넣기가 지원됩니다.(앱 종료시 자동적으로 사라집니다.) \n\n다른 이유로 외부에 니모닉을 사용하기 위해서는 \"원본 복사\"를 선택하세요. 이경우 안전에 유의하시길 바랍니다.</string>
+    <string name="str_safe_copy_pkey_title">복구단어 안전 복사</string>
+    <string name="str_safe_copy_pkey_msg">최근 여러 어플리케이션들이 클립보드 하이재킹을 시도하고 있습니다. 복사 붙여넣기시 클립보드에 임시 저장되는 개인키는 하이재킹 앱들의 손쉬운 표적이 됩니다. 현재의 개인키를 이용하여 다른지갑을 생성하시길 원한다면 \"안전 복사\"를 선택하세요. 오직 이 단말기의 코스모스테이션 앱에서만 정상적으로 붙여넣기가 지원됩니다.(앱 종료시 자동적으로 사라집니다.) \n\n다른 이유로 외부에 개인키를 사용하기 위해서는 \"원본 복사\"를 선택하세요. 이경우 안전에 유의하시길 바랍니다.</string>
     <string name="str_safe_copy">안전 복사</string>
     <string name="str_raw_copy">원본 복사</string>
     <string name="str_starname_walletconnect_alert_title">지갑 주소 내보내기</string>
@@ -1411,6 +1422,8 @@
     <string name="error_reserve_1_account">표시되는 최소 1개이상의 계정을 남겨두세요.</string>
     <string name="error_hided_chain">비표시 체인 입니다.</string>
     <string name="error_rizon_swap_finished">스왑 유효기간이 지났습니다.</string>
+    <string name="error_invalid_private_Key">유효하지않는 개인키 입니다.</string>
+
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

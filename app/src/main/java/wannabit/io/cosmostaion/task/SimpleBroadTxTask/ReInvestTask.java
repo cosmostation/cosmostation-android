@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import retrofit2.Response;
@@ -69,21 +71,16 @@ public class ReInvestTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, response.body()));
                 mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
-            } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
-                Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mAccount.id, response.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, response.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
-
             }
-
-            String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44, mAccount.customPath);
-
+            ECKey ecKey;
+            if (mAccount.fromMnemonic) {
+                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44, mAccount.customPath);
+                ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+            } else {
+                String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+            }
 
             Msg withdrawMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, mValidatorAddress, getChain(mAccount.baseChain));
             Msg singleDelegateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mValidatorAddress, mReInvestAmount, getChain(mAccount.baseChain));
@@ -91,7 +88,7 @@ public class ReInvestTask extends CommonTask {
             msgs.add(withdrawMsg);
             msgs.add(singleDelegateMsg);
 
-            ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mReInvestFees, mReInvestMemo, deterministicKey, mApp.getBaseDao().getChainId());
+            ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mReInvestFees, mReInvestMemo, ecKey, mApp.getBaseDao().getChainId());
             if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
@@ -108,24 +105,6 @@ public class ReInvestTask extends CommonTask {
                 } else {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
-
-            } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
-                Response<ResBroadTx> response = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if(response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                }
-
             }
 
         } catch (Exception e) {

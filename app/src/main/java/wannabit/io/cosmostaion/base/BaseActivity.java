@@ -447,6 +447,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         try {
             CryptoHelper.deleteKey(getString(R.string.key_mnemonic) + getBaseDao().onSelectAccount(""+id).uuid);
         } catch (Exception e) { }
+        try {
+            CryptoHelper.deleteKey(getString(R.string.key_private) + getBaseDao().onSelectAccount(""+id).uuid);
+        } catch (Exception e) { }
         getBaseDao().onDeleteAccount(""+id);
         getBaseDao().onSelectBalance(id);
 
