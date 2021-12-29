@@ -175,7 +175,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
         }
     }
 
-    public void onBindNftInfo(Context c, BaseChain baseChain, Nft.BaseNFT myIrisNftInfo, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo, NFTListActivity.NFTCollectionId mMyNftId) {
+    public void onBindNftInfo(Context c, BaseChain baseChain, Nft.BaseNFT myIrisNftInfo, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo, String denomId, String tokenId) {
         if (baseChain.equals(IRIS_MAIN) && myIrisNftInfo != null) {
             mNftInfo.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgIris));
             mNftName.setText(myIrisNftInfo.getName());
@@ -188,8 +188,8 @@ public class TokenDetailSupportHolder extends BaseHolder {
             mNftContent.setText(WUtil.getNftDescription(myCryptoNftInfo.getData()));
             mNftIssuer.setText(myCryptoNftInfo.getOwner());
         }
-        mNftDenomId.setText(mMyNftId.denom_id);
-        mNftTokenId.setText(mMyNftId.token_id);
+        mNftDenomId.setText(denomId);
+        mNftTokenId.setText(tokenId);
     }
 
     public void onBindNftRawData(Context c, BaseChain baseChain, Nft.BaseNFT myIrisNftInfo, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo) {

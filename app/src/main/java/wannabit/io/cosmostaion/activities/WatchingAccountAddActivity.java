@@ -34,51 +34,10 @@ import wannabit.io.cosmostaion.dialog.Dialog_Choice_Rizon;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class WatchingAccountAddActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -133,338 +92,44 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
         } else if (v.equals(mNext)) {
             mUserInput = mInput.getText().toString().trim();
-            if (mUserInput.startsWith("cosmos1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    if (SUPPORT_CHAINS().contains(COSMOS_TEST)) {
-                        Dialog_Choice_Cosmos dialog = Dialog_Choice_Cosmos.newInstance(null);
-                        dialog.setCancelable(false);
-                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-                        return;
+            ArrayList<BaseChain> chains = WDp.getChainsFromAddress(mUserInput);
+            if (chains != null) {
+                if (getBaseDao().onSelectAccountsByChain(chains.get(0)).size() >= 5) {
+                    Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (chains.size() == 1) {
+                    onGenNewAccount(chains.get(0), mUserInput);
+                } else {
+                    if (!SUPPORT_CHAINS().contains(chains.get(1))) {
+                        onGenNewAccount(chains.get(0), mUserInput);
 
                     } else {
-                        onGenNewAccount(COSMOS_MAIN, mUserInput);
-                        return;
+                        // support this testnet
+                        if (mUserInput.startsWith("cosmos1")) {
+                            onShowCosmosSelect(mUserInput);
+                        } else if (mUserInput.startsWith("iaa1")) {
+                            onShowIrisSelect(mUserInput);
+                        } else if (mUserInput.startsWith("kava1")) {
+                            onShowKavaSelect(mUserInput);
+                        } else if (mUserInput.startsWith("stars")) {
+                            onShowIovSelect(mUserInput);
+                        } else if (mUserInput.startsWith("certik1")) {
+                            onShowCertikSelect(mUserInput);
+                        } else if (mUserInput.startsWith("rizon1")) {
+                            onShowRizonSelect(mUserInput);
+                        } else if (mUserInput.startsWith("ex1")) {
+                            onShowOEXSelect(mUserInput);
+                        } else if (mUserInput.startsWith("0x")) {
+                            try {
+                                onShowOEXSelect(WKey.convertAddressEthToOkex(mUserInput));
+                            } catch (Exception e) { e.printStackTrace(); }
+                        }
                     }
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mUserInput.startsWith("iaa1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    if (SUPPORT_CHAINS().contains(IRIS_TEST)) {
-                        Dialog_Choice_Iris dialog = Dialog_Choice_Iris.newInstance(null);
-                        dialog.setCancelable(false);
-                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-                        return;
-
-                    } else {
-                        onGenNewAccount(IRIS_MAIN, mUserInput);
-                        return;
-                    }
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mUserInput.startsWith("bnb1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BNB_MAIN, mUserInput);
-                    return;
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mUserInput.startsWith("kava1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    if (SUPPORT_CHAINS().contains(KAVA_TEST)) {
-                        Dialog_Choice_Kava dialog = Dialog_Choice_Kava.newInstance(null);
-                        dialog.setCancelable(false);
-                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-                        return;
-
-                    } else {
-                        onGenNewAccount(KAVA_MAIN, mUserInput);
-                        return;
-                    }
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mUserInput.startsWith("star1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    if (SUPPORT_CHAINS().contains(IOV_TEST)) {
-                        Dialog_Choice_Iov dialog = Dialog_Choice_Iov.newInstance(null);
-                        dialog.setCancelable(false);
-                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-                        return;
-
-                    } else {
-                        onGenNewAccount(IOV_MAIN, mUserInput);
-                        return;
-                    }
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mUserInput.startsWith("tbnb1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BNB_TEST, mUserInput);
-                    return;
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mUserInput.startsWith("band1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BAND_MAIN, mUserInput);
-                    return;
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mUserInput.startsWith("ex1") || mUserInput.startsWith("0x")) {
-                if (mUserInput.startsWith("0x")) {
-                    try {
-                        mUserInput = WKey.convertAddressEthToOkex(mUserInput);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (WKey.isValidBech32(mUserInput)) {
-                    if (SUPPORT_CHAINS().contains(OK_TEST)) {
-                        Dialog_Choice_Okex dialog = Dialog_Choice_Okex.newInstance(null);
-                        dialog.setCancelable(false);
-                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-                        return;
-
-                    } else {
-                        onGenNewAccount(OKEX_MAIN, mUserInput);
-                        return;
-                    }
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mUserInput.startsWith("certik1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    if (SUPPORT_CHAINS().contains(CERTIK_TEST)) {
-                        Dialog_Choice_Certik dialog = Dialog_Choice_Certik.newInstance(null);
-                        dialog.setCancelable(false);
-                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-                        return;
-
-                    } else {
-                        onGenNewAccount(CERTIK_MAIN, mUserInput);
-                        return;
-                    }
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mUserInput.startsWith("secret1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(SECRET_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("akash1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(AKASH_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("persistence1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(PERSIS_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("sent1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(SENTINEL_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("fetch1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(FETCHAI_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("cro1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(CRYPTO_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("sif1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(SIF_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("ki1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(KI_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("osmo1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(OSMOSIS_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("panacea1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(MEDI_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("emoney1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(EMONEY_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("rizon1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    if (SUPPORT_CHAINS().contains(RIZON_TEST)) {
-                        Dialog_Choice_Rizon dialog = Dialog_Choice_Rizon.newInstance(null);
-                        dialog.setCancelable(false);
-                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-                        return;
-
-                    } else {
-                        onGenNewAccount(RIZON_MAIN, mUserInput);
-                        return;
-                    }
-
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("juno1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(JUNO_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("regen1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(REGEN_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("bcna1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BITCANNA_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("althea1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(ALTHEA_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("stars1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(STARGAZE_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("gravity1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(GRABRIDGE_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("comdex1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(COMDEX_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("inj1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(INJ_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("bitsong1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(BITSONG_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("desmos1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(DESMOS_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("lum1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(LUM_MAIN, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("umee1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(UMEE_TEST, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (mUserInput.startsWith("axelar1")) {
-                if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(AXELAR_TEST, mUserInput);
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 }
 
             } else {
-                Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -533,5 +198,47 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void onShowCosmosSelect(String input) {
+        Dialog_Choice_Cosmos dialog = Dialog_Choice_Cosmos.newInstance(null);
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+    }
+
+    private void onShowIrisSelect(String input) {
+        Dialog_Choice_Iris dialog = Dialog_Choice_Iris.newInstance(null);
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+    }
+
+    private void onShowKavaSelect(String input) {
+        Dialog_Choice_Kava dialog = Dialog_Choice_Kava.newInstance(null);
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+    }
+
+    private void onShowIovSelect(String input) {
+        Dialog_Choice_Iov dialog = Dialog_Choice_Iov.newInstance(null);
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+    }
+
+    private void onShowCertikSelect(String input) {
+        Dialog_Choice_Certik dialog = Dialog_Choice_Certik.newInstance(null);
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+    }
+
+    private void onShowRizonSelect(String input) {
+        Dialog_Choice_Rizon dialog = Dialog_Choice_Rizon.newInstance(null);
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+    }
+
+    private void onShowOEXSelect(String input) {
+        Dialog_Choice_Okex dialog = Dialog_Choice_Okex.newInstance(null);
+        dialog.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
     }
 }

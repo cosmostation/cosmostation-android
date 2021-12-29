@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
@@ -9,10 +8,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.squareup.picasso.Picasso;
 
 import irismod.nft.Nft;
 import wannabit.io.cosmostaion.R;
@@ -26,7 +25,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 
-public class NftMyHolder extends BaseHolder {
+public class NftMyHolder extends RecyclerView.ViewHolder {
     CardView  itemRoot;
     ImageView itemMyNftImg;
     TextView  itemMyNftTitle, itemMyNftContent;
@@ -39,9 +38,8 @@ public class NftMyHolder extends BaseHolder {
         itemMyNftContent    = itemView.findViewById(R.id.nft_content);
     }
 
-    @Override
-    public void onBindNFT(Context context, NFTListActivity activity, NFTListActivity.NFTCollectionId myNftId) {
-        itemRoot.setCardBackgroundColor(context.getResources().getColor(R.color.colorTransBgIris));
+    public void onBindNFT(NFTListActivity activity, String denomId, String tokenId) {
+        itemRoot.setCardBackgroundColor(activity.getResources().getColor(R.color.colorTransBgIris));
         itemMyNftImg.setClipToOutline(true);
         new NFTokenInfoGrpcTask(activity.getBaseApplication(), new TaskListener() {
             @Override
@@ -51,7 +49,6 @@ public class NftMyHolder extends BaseHolder {
                         Nft.BaseNFT myIrisNftInfo = (Nft.BaseNFT) result.resultData;
                         if (myIrisNftInfo != null) {
                             try {
-//                                Picasso.get().load(myIrisNftInfo.getUri()).fit().placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fit().into(itemMyNftImg);
                                 Glide.with(activity).load(myIrisNftInfo.getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
                                         placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fitCenter().into(itemMyNftImg);
                             } catch (Exception e) { }
@@ -63,7 +60,8 @@ public class NftMyHolder extends BaseHolder {
                                 public void onClick(View v) {
                                     Intent intent = new Intent(activity, NFTokenDetailActivity.class);
                                     intent.putExtra("myNftInfo", myIrisNftInfo);
-                                    intent.putExtra("myNftInfoId", myNftId);
+                                    intent.putExtra("mDenomId", denomId);
+                                    intent.putExtra("mTokenId", tokenId);
                                     activity.startActivity(intent);
                                 }
                             });
@@ -72,7 +70,6 @@ public class NftMyHolder extends BaseHolder {
                         chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo = (chainmain.nft.v1.Nft.BaseNFT) result.resultData;
                         if (myCryptoNftInfo != null) {
                             try {
-//                                Picasso.get().load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).fit().placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(itemMyNftImg);
                                 Glide.with(activity).load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).diskCacheStrategy(DiskCacheStrategy.ALL).
                                         placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(itemMyNftImg);
                             } catch (Exception e) { }
@@ -83,8 +80,8 @@ public class NftMyHolder extends BaseHolder {
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent(activity, NFTokenDetailActivity.class);
-                                    intent.putExtra("myNftInfo", myCryptoNftInfo);
-                                    intent.putExtra("myNftInfoId", myNftId);
+                                    intent.putExtra("mDenomId", denomId);
+                                    intent.putExtra("mTokenId", tokenId);
                                     activity.startActivity(intent);
                                 }
                             });
@@ -92,6 +89,6 @@ public class NftMyHolder extends BaseHolder {
                     }
                 }
             }
-        }, activity.mBaseChain, myNftId.denom_id, myNftId.token_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }, activity.mBaseChain, denomId, tokenId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }

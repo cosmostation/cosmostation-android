@@ -78,8 +78,8 @@
                     android:id="@+id/denom_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
                     android:gravity="end"
                     android:text="-"
                     style="@style/font_ss_10_white"/>
@@ -100,8 +100,8 @@
                     android:id="@+id/token_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
                     android:gravity="end"
                     android:text="-"
                     style="@style/font_ss_10_white"/>
@@ -122,8 +122,8 @@
                     android:id="@+id/issuer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
                     android:gravity="end"
                     android:text="-"
                     style="@style/font_ss_10_white"/>

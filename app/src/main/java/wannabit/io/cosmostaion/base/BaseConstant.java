@@ -963,6 +963,8 @@ public class BaseConstant {
     public final static String EXPLORER_LUM_MAIN        = "https://www.mintscan.io/lum/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
+    public final static String NFT_INFURA               = "https://ipfs.infura.io/ipfs/";
+
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
@@ -1006,6 +1008,8 @@ public class BaseConstant {
     public final static String LUM_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/lum-network/relay-lum-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
+    //NFT Denom Default config
+    public final static String STATION_NFT_DENOM        = "station";
 
     public final static String  PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";
     public final static int     PERSISTENCE_COSMOS_EVENT_START      = 3846000;

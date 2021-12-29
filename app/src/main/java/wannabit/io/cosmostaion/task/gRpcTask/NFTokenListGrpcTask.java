@@ -47,9 +47,9 @@ public class NFTokenListGrpcTask extends CommonTask {
         try {
             Pagination.PageRequest pageRequest = null;
             if (mPageKey != null) {
-                pageRequest = Pagination.PageRequest.newBuilder().setCountTotal(true).setLimit(100).setKey(mPageKey).build();
+                pageRequest = Pagination.PageRequest.newBuilder().setCountTotal(true).setLimit(1000).setKey(mPageKey).build();
             } else {
-                pageRequest = Pagination.PageRequest.newBuilder().setCountTotal(true).setLimit(100).build();
+                pageRequest = Pagination.PageRequest.newBuilder().setCountTotal(true).setLimit(1000).build();
             }
             if (mChain.equals(IRIS_MAIN)) {
                 QueryOuterClass.QueryOwnerRequest request = QueryOuterClass.QueryOwnerRequest.newBuilder().setOwner(mAccount.address).setPagination(pageRequest).build();
@@ -58,9 +58,6 @@ public class NFTokenListGrpcTask extends CommonTask {
 
                 mResult.isSuccess = true;
                 mResult.resultData = mIrisResultData;
-                if (mPageKey == null) {
-                    mResult.resultData2 = String.valueOf(response.getPagination().getTotal());
-                }
                 mResult.resultByteData = response.getPagination().getNextKey();
 
             } else if (mChain.equals(CRYPTO_MAIN)) {
@@ -70,9 +67,6 @@ public class NFTokenListGrpcTask extends CommonTask {
 
                 mResult.isSuccess = true;
                 mResult.resultData = mCryptoResultData;
-                if (mPageKey == null) {
-                    mResult.resultData2 = String.valueOf(response.getPagination().getTotal());
-                }
                 mResult.resultByteData = response.getPagination().getNextKey();
             }
 

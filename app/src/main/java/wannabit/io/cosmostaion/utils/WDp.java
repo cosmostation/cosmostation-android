@@ -16,10 +16,13 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -31,6 +34,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 import cosmos.base.abci.v1beta1.Abci;
@@ -1330,6 +1334,8 @@ public class WDp {
 
         else if (baseChain.equals(COSMOS_TEST)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorAtom));
+        } else if (baseChain.equals(IRIS_TEST)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorIris));
         } else if (baseChain.equals(IOV_TEST)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorIov));
         } else if (baseChain.equals(OK_TEST)) {
@@ -1729,8 +1735,57 @@ public class WDp {
             else if (address.startsWith("bitsong1") && baseChain.equals(BITSONG_MAIN)) { return true; }
             else if (address.startsWith("desmos1") && baseChain.equals(DESMOS_MAIN)) { return true; }
             else if (address.startsWith("lum1") && baseChain.equals(LUM_MAIN)) { return true; }
+
+            else if (address.startsWith("umee1") && baseChain.equals(UMEE_TEST)) { return true; }
+            else if (address.startsWith("axelar1") && baseChain.equals(AXELAR_TEST)) { return true; }
         }
         return false;
+    }
+
+    public static ArrayList<BaseChain> getChainsFromAddress(String address) {
+        if (address != null) {
+            if (address.startsWith("0x")) {
+                return Lists.newArrayList(OKEX_MAIN, OK_TEST);
+            }
+
+            if (!WKey.isValidBech32(address)) { return null; }
+            if (address.startsWith("cosmos1")) { return Lists.newArrayList(COSMOS_MAIN, COSMOS_TEST); }
+            else if (address.startsWith("iaa1")) { return Lists.newArrayList(IRIS_MAIN, IRIS_TEST); }
+            else if (address.startsWith("bnb1")) { return Lists.newArrayList(BNB_MAIN); }
+            else if (address.startsWith("kava1")) { return Lists.newArrayList(KAVA_MAIN, KAVA_TEST); }
+            else if (address.startsWith("star1")) { return Lists.newArrayList(IOV_MAIN ,IOV_TEST); }
+            else if (address.startsWith("band1")) { return Lists.newArrayList(BAND_MAIN); }
+            else if (address.startsWith("secret1")) { return Lists.newArrayList(SECRET_MAIN); }
+            else if (address.startsWith("ex1")) { return Lists.newArrayList(OKEX_MAIN, OK_TEST); }
+            else if (address.startsWith("certik1")) { return Lists.newArrayList(CERTIK_MAIN, CERTIK_TEST); }
+            else if (address.startsWith("akash1")) { return Lists.newArrayList(AKASH_MAIN); }
+            else if (address.startsWith("persistence1")) { return Lists.newArrayList(PERSIS_MAIN); }
+            else if (address.startsWith("sent1")) { return Lists.newArrayList(SENTINEL_MAIN); }
+            else if (address.startsWith("fetch1")) { return Lists.newArrayList(FETCHAI_MAIN); }
+            else if (address.startsWith("cro1")) { return Lists.newArrayList(CRYPTO_MAIN); }
+            else if (address.startsWith("sif1")) { return Lists.newArrayList(SIF_MAIN); }
+            else if (address.startsWith("rizon1")) { return Lists.newArrayList(RIZON_MAIN); }
+            else if (address.startsWith("ki1")) { return Lists.newArrayList(KI_MAIN); }
+            else if (address.startsWith("panacea1")) { return Lists.newArrayList(MEDI_MAIN); }
+            else if (address.startsWith("osmo1")) { return Lists.newArrayList(OSMOSIS_MAIN); }
+            else if (address.startsWith("emoney1")) { return Lists.newArrayList(EMONEY_MAIN); }
+            else if (address.startsWith("juno1")) { return Lists.newArrayList(JUNO_MAIN); }
+            else if (address.startsWith("regen1")) { return Lists.newArrayList(REGEN_MAIN); }
+            else if (address.startsWith("bcna1")) { return Lists.newArrayList(BITCANNA_MAIN); }
+            else if (address.startsWith("althea1")) { return Lists.newArrayList(ALTHEA_MAIN); }
+            else if (address.startsWith("stars1")) { return Lists.newArrayList(STARGAZE_MAIN); }
+            else if (address.startsWith("gravity1")) { return Lists.newArrayList(GRABRIDGE_MAIN); }
+            else if (address.startsWith("comdex1")) { return Lists.newArrayList(COMDEX_MAIN); }
+            else if (address.startsWith("inj1")) { return Lists.newArrayList(INJ_MAIN); }
+            else if (address.startsWith("bitsong1")) { return Lists.newArrayList(BITSONG_MAIN); }
+            else if (address.startsWith("desmos1")) { return Lists.newArrayList(DESMOS_MAIN); }
+            else if (address.startsWith("lum1")) { return Lists.newArrayList(LUM_MAIN); }
+
+            else if (address.startsWith("tbnb1")) { return Lists.newArrayList(BNB_TEST); }
+            else if (address.startsWith("umee1")) { return Lists.newArrayList(UMEE_TEST); }
+            else if (address.startsWith("axelar1")) { return Lists.newArrayList(AXELAR_TEST); }
+        }
+        return null;
     }
 
     public static String getDefaultRelayerImg(BaseChain chain) {

@@ -78,6 +78,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     //glide for images
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+    //ipfs for infura
+    implementation group: 'com.github.ipfs', name: 'java-ipfs-http-client', version: 'v1.3.3'
     //shimmer
     implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
     //for qr code

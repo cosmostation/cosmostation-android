@@ -1,63 +1,71 @@
 package wannabit.io.cosmostaion.activities.chains.nft;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.material.tabs.TabLayout;
 import com.google.protobuf.ByteString;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import irismod.nft.Nft;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.chains.nft.ListMyNftFragment;
-import wannabit.io.cosmostaion.fragment.chains.nft.ListTopNftFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NFTokenListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.widget.NftMyHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_ISSUE_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NFTOKEN_LIST;
 
 public class NFTListActivity extends BaseActivity implements TaskListener {
 
     private Toolbar             mToolbar;
     private TextView            mTitle;
-    private ViewPager           mLabPager;
-    private TabLayout           mLabTapLayer;
-    private NFTPageAdapter      mPageAdapter;
+    private SwipeRefreshLayout  mSwipeRefreshLayout;
+    private RecyclerView        mRecyclerView;
+    private TextView            mEmptyNfts;
+    private RelativeLayout      mLoadingLayer, mBtnCreateNft;
 
-    public ArrayList<NFTCollectionId>      mMyNFTs = new ArrayList<>();
+    private NFTListAdapter      mNFTListAdapter;
+
+    private ArrayList<Nft.IDCollection>                      mMyIrisNFTs = new ArrayList<>();
+    private ArrayList<chainmain.nft.v1.Nft.IDCollection>     mMyCryptoNFTs = new ArrayList<>();
+    private ArrayList<String>                                mTokenIds = new ArrayList<>();
+
     private ByteString  mPageKey;
-    public long         mPageTotalCnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nft_list);
-        mToolbar        = findViewById(R.id.tool_bar);
-        mTitle          = findViewById(R.id.toolbar_title);
-        mLabTapLayer    = findViewById(R.id.lab_tab);
-        mLabPager       = findViewById(R.id.lab_view_pager);
+        mToolbar                = findViewById(R.id.tool_bar);
+        mTitle                  = findViewById(R.id.toolbar_title);
+        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
+        mRecyclerView           = findViewById(R.id.recycler);
+        mEmptyNfts              = findViewById(R.id.empty_nfts);
+        mLoadingLayer           = findViewById(R.id.loadingLayer);
+        mBtnCreateNft           = findViewById(R.id.btn_create_nft);
         mTitle.setText(getString(R.string.str_nft_c));
 
         setSupportActionBar(mToolbar);
@@ -67,37 +75,40 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mPageAdapter = new NFTPageAdapter(getSupportFragmentManager());
-        mLabPager.setAdapter(mPageAdapter);
-        mLabTapLayer.setupWithViewPager(mLabPager);
-        mLabTapLayer.setTabRippleColor(null);
-
-        View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
-        tabItemText0.setText(R.string.str_my_nfts);
-        tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
-        mLabTapLayer.getTabAt(0).setCustomView(tab0);
-
-        View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
-        tabItemText1.setText(R.string.str_top_nfts);
-        mLabTapLayer.getTabAt(1).setCustomView(tab1);
-
-        mLabPager.setOffscreenPageLimit(1);
-        mLabPager.setCurrentItem(0, false);
-
-        mLabPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
-            @Override
-            public void onPageScrollStateChanged(int i) { }
-            @Override
-            public void onPageSelected(int i) {
-                mPageAdapter.mFragments.get(i).onRefreshTab();
+            public void onRefresh() {
+                onFetchNftListInfo();
             }
         });
-        onShowWaitDialog();
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setHasFixedSize(true);
+        mNFTListAdapter = new NFTListAdapter();
+        mRecyclerView.setAdapter(mNFTListAdapter);
+
+        mBtnCreateNft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAccount == null) return;
+                if (!mAccount.hasPrivateKey) {
+                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                    add.setCancelable(true);
+                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    return;
+                }
+                Intent intent = new Intent(NFTListActivity.this, NFTCreateActivity.class);
+                BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(NFTListActivity.this, mBaseChain, CONST_PW_ISSUE_NFT, 0);
+                if (mainAvailable.compareTo(feeAmount) <= 0) {
+                    Toast.makeText(NFTListActivity.this, R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                startActivity(intent);
+            }
+        });
+
         onFetchNftListInfo();
     }
 
@@ -112,8 +123,18 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
         }
     }
 
+    private void onUpdateView() {
+        mSwipeRefreshLayout.setRefreshing(false);
+        mLoadingLayer.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mNFTListAdapter.notifyDataSetChanged();
+    }
+
     public void onFetchNftListInfo() {
         mTaskCount = 1;
+        mMyIrisNFTs.clear();
+        mMyCryptoNFTs.clear();
+        mTokenIds.clear();
         new NFTokenListGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mPageKey).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -125,32 +146,31 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null && result.resultByteData != null) {
                 if (mBaseChain.equals(IRIS_MAIN)) {
                     ArrayList<Nft.IDCollection> tempList = (ArrayList<Nft.IDCollection>) result.resultData;
-                    if (result.resultData2 != null) {
-                        mPageTotalCnt = Long.parseLong(result.resultData2);
-                    }
                     mPageKey = result.resultByteData;
-
                     if (tempList.size() > 0) {
                         for (Nft.IDCollection collection : tempList) {
-                            for (String tokenId : collection.getTokenIdsList()) {
-                                mMyNFTs.add(new NFTCollectionId(collection.getDenomId(), tokenId));
+                            for (String tokenId: collection.getTokenIdsList()) {
+                                mTokenIds.add(tokenId);
                             }
+                            mMyIrisNFTs.add(collection);
                         }
+                    } else {
+                        mEmptyNfts.setVisibility(View.VISIBLE);
                     }
 
                 } else if (mBaseChain.equals(CRYPTO_MAIN)) {
                     ArrayList<chainmain.nft.v1.Nft.IDCollection> tempList = (ArrayList<chainmain.nft.v1.Nft.IDCollection>) result.resultData;
-                    if (result.resultData2 != null) {
-                        mPageTotalCnt = Long.parseLong(result.resultData2);
-                    }
                     mPageKey = result.resultByteData;
 
                     if (tempList.size() > 0) {
                         for (chainmain.nft.v1.Nft.IDCollection collection : tempList) {
-                            for (String tokenId : collection.getTokenIdsList()) {
-                                mMyNFTs.add(new NFTCollectionId(collection.getDenomId(), tokenId));
+                            for (String tokenId: collection.getTokenIdsList()) {
+                                mTokenIds.add(tokenId);
                             }
+                            mMyCryptoNFTs.add(collection);
                         }
+                    } else {
+                        mEmptyNfts.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -158,91 +178,51 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
         }
 
         if (mTaskCount == 0) {
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    onHideWaitDialog();
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+            if (mPageKey.size() == 0) {
+                onUpdateView();
+            } else {
+                onFetchNftListInfo();
+            }
+        }
+    }
+
+    private class NFTListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+            return new NftMyHolder(getLayoutInflater().inflate(R.layout.item_nft_list, viewGroup, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+            final NftMyHolder holder = (NftMyHolder)viewHolder;
+            if (mBaseChain.equals(IRIS_MAIN)) {
+                if (mMyIrisNFTs != null && mMyIrisNFTs.size() > 0) {
+                    final Nft.IDCollection collection = mMyIrisNFTs.get(position);
+                    final String tokenId = mTokenIds.get(position);
+                    holder.onBindNFT(NFTListActivity.this, collection.getDenomId(), tokenId);
                 }
-            }, 300);
+
+            } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+                if (mMyCryptoNFTs != null && mMyCryptoNFTs.size() > 0) {
+                    final chainmain.nft.v1.Nft.IDCollection collection = mMyCryptoNFTs.get(position);
+                    final String tokenId = mTokenIds.get(position);
+                    holder.onBindNFT(NFTListActivity.this, collection.getDenomId(), tokenId);
+                }
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            if (mBaseChain.equals(IRIS_MAIN)) {
+                return mMyIrisNFTs.size();
+            } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+                return mMyCryptoNFTs.size();
+            } else {
+                return 0;
+            }
         }
     }
-
-    private class NFTPageAdapter extends FragmentPagerAdapter {
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
-        private BaseFragment mCurrentFragment;
-
-        public NFTPageAdapter(FragmentManager fm) {
-            super(fm);
-            mFragments.clear();
-            mFragments.add(ListMyNftFragment.newInstance(null));
-            mFragments.add(ListTopNftFragment.newInstance(null));
-        }
-
-        @Override
-        public BaseFragment getItem(int position) {
-            return mFragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments.size();
-        }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            if (getCurrentFragment() != object) {
-                mCurrentFragment = ((BaseFragment) object);
-            }
-            super.setPrimaryItem(container, position, object);
-        }
-
-        public BaseFragment getCurrentFragment() {
-            return mCurrentFragment;
-        }
-
-        public ArrayList<BaseFragment> getFragments() {
-            return mFragments;
-        }
-    }
-
-    public static class NFTCollectionId implements Parcelable {
-        public String denom_id;
-        public String token_id;
-
-        public NFTCollectionId(String denom_id, String token_id) {
-            this.denom_id = denom_id;
-            this.token_id = token_id;
-        }
-
-        protected NFTCollectionId(Parcel in) {
-            denom_id = in.readString();
-            token_id = in.readString();
-        }
-
-        public static final Creator<NFTCollectionId> CREATOR = new Creator<NFTCollectionId>() {
-            @Override
-            public NFTCollectionId createFromParcel(Parcel in) {
-                return new NFTCollectionId(in);
-            }
-
-            @Override
-            public NFTCollectionId[] newArray(int size) {
-                return new NFTCollectionId[size];
-            }
-        };
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(denom_id);
-            dest.writeString(token_id);
-        }
-    }
-
 }
 

@@ -36,6 +36,7 @@
                         android:layout_height="@dimen/space_72"
                         android:scaleType="fitXY"
                         android:src="@drawable/icon_nft_none"
+
                         android:background="@drawable/img_trans_with_border_thin"/>
                 </RelativeLayout>
                 <LinearLayout

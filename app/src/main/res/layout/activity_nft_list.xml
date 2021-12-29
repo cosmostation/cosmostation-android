@@ -25,27 +25,73 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/btn_create_nft"
         android:layout_below="@+id/tool_bar">
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/lab_tab"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/layer_refresher"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_40"
-            android:background="@android:color/transparent"
-            app:tabMode="fixed"
-            app:tabGravity="fill"
-            app:tabIndicatorHeight="2dp"
-            app:tabIndicatorColor="@color/colorTrans"
-            android:elevation="4dp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorTrans"
-            android:layout_below="@+id/lab_tab"
-            android:layout_marginTop="-1dp"/>
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/lab_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/lab_tab"/>
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/empty_nfts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    style="@style/font_ss_14_white"
+                    android:text="@string/str_no_nfts"
+                    android:visibility="gone"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="@dimen/space_4"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_create_nft"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_45"
+        android:minHeight="@dimen/space_45"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_trans_with_border"
+        android:clickable="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@drawable/icon_nft"
+            android:drawableTint="@color/colorPhoton"
+            android:drawablePadding="@dimen/space_4"
+            android:gravity="center"
+            style="@style/font_ss_14_photon"
+            android:text="@string/str_create_nfts"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/loadingLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ProgressBar
+                android:layout_width="@dimen/space_60"
+                android:layout_height="@dimen/space_60"
+                android:indeterminateDrawable="@drawable/loading"/>
+        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

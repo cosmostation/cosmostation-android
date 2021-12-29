@@ -1318,6 +1318,7 @@
     <string name="str_issue_nft_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_issue_nft_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_issue_nft_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_permission_photo_title">사진 접근 권한이 없습니다. [설정] > [권한] 에서 활성화시켜 주세요.</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -1433,6 +1434,12 @@
     <string name="error_hided_chain">비표시 체인 입니다.</string>
     <string name="error_rizon_swap_finished">스왑 유효기간이 지났습니다.</string>
     <string name="error_invalid_private_Key">유효하지않는 개인키 입니다.</string>
+    <string name="error_fail_upload_img">이미지 업로드를 실패하였습니다.</string>
+    <string name="error_no_nft_image">NFT 이미지를 추가해주세요.</string>
+    <string name="error_no_nft_title">NFT 이름을 입력하세요.</string>
+    <string name="error_no_nft_description">NFT 설명을 입력하세요.</string>
+    <string name="error_nft_denom_count">Denom ID를 숫자, 소문자로 4~20자 입력해주세요.</string>
+    <string name="error_nft_denom_exist">Denom ID가 이미 존재합니다. 다른 아이디를 입력해주세요.</string>
 
 
     <string name="tx_send">보내기</string>

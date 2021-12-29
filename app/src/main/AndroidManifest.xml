@@ -116,16 +116,14 @@
             android:name=".activities.chains.nft.NFTListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
-            android:launchMode="singleTask">
+            android:windowSoftInputMode="stateHidden">
         </activity>
 
         <activity
             android:name=".activities.chains.nft.NFTCreateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
-            android:launchMode="singleTask">
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
