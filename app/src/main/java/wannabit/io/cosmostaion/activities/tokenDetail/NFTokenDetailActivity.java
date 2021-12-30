@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +30,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 
 public class NFTokenDetailActivity extends BaseActivity implements View.OnClickListener{
 
+    private Toolbar             mToolbar;
     private ImageView           mNftImg;
     private RelativeLayout      mBtnIbcSend, mBtnSend;
 
@@ -45,10 +47,15 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail_nft);
+        mToolbar                = findViewById(R.id.tool_bar);
         mNftImg                 = findViewById(R.id.nft_img);
         mRecyclerView           = findViewById(R.id.recycler);
         mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
         mBtnSend                = findViewById(R.id.btn_send);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -65,19 +72,8 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         mAdapter = new NFTDetailAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        mNftImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mBaseChain.equals(IRIS_MAIN)) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(myIrisNftInfo.getUri()));
-                    startActivity(intent);
-                } else if (mBaseChain.equals(CRYPTO_MAIN)) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WUtil.getNftImgUrl(myCryptoNftInfo.getData())));
-                    startActivity(intent);
-                }
-            }
-        });
         onUpdateView();
+        mNftImg.setOnClickListener(this);
         mBtnIbcSend.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
     }
@@ -108,7 +104,16 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnIbcSend)) {
+        if (v.equals(mNftImg)) {
+            if (mBaseChain.equals(IRIS_MAIN)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(myIrisNftInfo.getUri()));
+                startActivity(intent);
+            } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WUtil.getNftImgUrl(myCryptoNftInfo.getData())));
+                startActivity(intent);
+            }
+
+        } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 add.setCancelable(true);

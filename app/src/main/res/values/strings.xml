@@ -1701,6 +1701,11 @@
     <string name="str_issue_nft_step_2">Select transaction fee</string>
     <string name="str_issue_nft_step_3">Check transaction detail</string>
     <string name="str_permission_photo_title">Need Permission for Photo Library. Please enable with Settings</string>
+    <string name="str_tx_fee_c">Tx Fee</string>
+    <string name="str_nft_name">NFT Name</string>
+    <string name="str_nft_description">NFT Description</string>
+    <string name="str_nft_uri">NFT Uri</string>
+    <string name="str_nft_id">NFT ID</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

@@ -73,6 +73,11 @@ public class BaseBroadCastActivity extends BaseActivity {
 
     public IbcPath.Path                 mPath;
 
+    // NFT
+    public String                       mNftName;
+    public String                       mNftDescription;
+    public String                       mNftHash;
+
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
     public BigDecimal                   mHdacBalance;                               //rizon swap amount
     public ArrayList<String>            mHdacWords;                                 //rizon swap Hdac Mnemonic words

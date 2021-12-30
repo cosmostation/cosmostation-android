@@ -73,6 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Denom_id"
+                    android:layout_marginRight="@dimen/space_30"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/denom_id"
@@ -95,6 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Token_id"
+                    android:layout_marginRight="@dimen/space_30"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/token_id"
@@ -117,6 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="issuer"
+                    android:layout_marginRight="@dimen/space_30"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/issuer"

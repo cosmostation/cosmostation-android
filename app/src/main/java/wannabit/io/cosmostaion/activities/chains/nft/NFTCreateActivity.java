@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.nft;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -14,8 +15,10 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
@@ -125,6 +128,15 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    public void onCreateNFT() {
+        Intent intent = new Intent(NFTCreateActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_ISSUE_NFT);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private class NFTCreateAdapter extends FragmentPagerAdapter {

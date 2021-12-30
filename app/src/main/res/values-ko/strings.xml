@@ -1319,6 +1319,11 @@
     <string name="str_issue_nft_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_issue_nft_step_3">입력하신 정보를 확인하세요</string>
     <string name="str_permission_photo_title">사진 접근 권한이 없습니다. [설정] > [권한] 에서 활성화시켜 주세요.</string>
+    <string name="str_tx_fee_c">Tx Fee</string>
+    <string name="str_nft_name">NFT Name</string>
+    <string name="str_nft_description">NFT Description</string>
+    <string name="str_nft_uri">NFT Uri</string>
+    <string name="str_nft_id">NFT ID</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

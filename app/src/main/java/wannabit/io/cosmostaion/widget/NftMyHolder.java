@@ -80,6 +80,7 @@ public class NftMyHolder extends RecyclerView.ViewHolder {
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent(activity, NFTokenDetailActivity.class);
+                                    intent.putExtra("myNftInfo", myCryptoNftInfo);
                                     intent.putExtra("mDenomId", denomId);
                                     intent.putExtra("mTokenId", tokenId);
                                     activity.startActivity(intent);
