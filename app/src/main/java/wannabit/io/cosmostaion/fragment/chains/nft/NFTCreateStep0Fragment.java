@@ -96,6 +96,8 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
         } else if (v.equals(mBtnNext)) {
             String name = mNftName.getText().toString().trim();
             String content = mNftContent.getText().toString().trim();
+            String denomID = mNftDenomId.getText().toString().trim();
+            String denomName = mNftDenomName.getText().toString().trim();
             if (mHash == null) {
                 Toast.makeText(getSActivity(), getSActivity().getString(R.string.error_no_nft_image), Toast.LENGTH_SHORT).show();
                 return;
@@ -110,6 +112,8 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
             }
             getSActivity().mNftName = name;
             getSActivity().mNftDescription = content;
+            getSActivity().mNftDenomId = denomID;
+            getSActivity().mNftDenomName = denomName;
             getSActivity().mNftHash = mHash;
             getSActivity().onNextStep();
 

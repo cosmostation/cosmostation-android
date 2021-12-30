@@ -74,6 +74,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     public IbcPath.Path                 mPath;
 
     // NFT
+    public String                       mNftDenomId;
+    public String                       mNftDenomName;
     public String                       mNftName;
     public String                       mNftDescription;
     public String                       mNftHash;

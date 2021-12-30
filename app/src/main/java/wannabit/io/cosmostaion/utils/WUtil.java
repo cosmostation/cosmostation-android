@@ -3120,6 +3120,8 @@ public class WUtil {
                 return new BigDecimal(COSMOS_GAS_AMOUNT_EXIT_POOL);
             } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
                 return new BigDecimal(COSMOS_GAS_AMOUNT_IBC_SEND);
+            } else if (txType == CONST_PW_MINT_NFT) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
             }
 
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
