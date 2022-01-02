@@ -35,7 +35,7 @@ import wannabit.io.cosmostaion.widget.NftMyHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_MINT_NFT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NFTOKEN_LIST;
 
 public class NFTListActivity extends BaseActivity implements TaskListener {
@@ -100,7 +100,7 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
                 }
                 Intent intent = new Intent(NFTListActivity.this, NFTCreateActivity.class);
                 BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(NFTListActivity.this, mBaseChain, CONST_PW_MINT_NFT, 0);
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(NFTListActivity.this, mBaseChain, CONST_PW_TX_MINT_NFT, 0);
                 if (mainAvailable.compareTo(feeAmount) <= 0) {
                     Toast.makeText(NFTListActivity.this, R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
@@ -150,9 +150,9 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
                     if (tempList.size() > 0) {
                         for (Nft.IDCollection collection : tempList) {
                             for (String tokenId: collection.getTokenIdsList()) {
+                                mMyIrisNFTs.add(collection);
                                 mTokenIds.add(tokenId);
                             }
-                            mMyIrisNFTs.add(collection);
                         }
                     } else {
                         mEmptyNfts.setVisibility(View.VISIBLE);
@@ -161,13 +161,12 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
                 } else if (mBaseChain.equals(CRYPTO_MAIN)) {
                     ArrayList<chainmain.nft.v1.Nft.IDCollection> tempList = (ArrayList<chainmain.nft.v1.Nft.IDCollection>) result.resultData;
                     mPageKey = result.resultByteData;
-
                     if (tempList.size() > 0) {
                         for (chainmain.nft.v1.Nft.IDCollection collection : tempList) {
                             for (String tokenId: collection.getTokenIdsList()) {
+                                mMyCryptoNFTs.add(collection);
                                 mTokenIds.add(tokenId);
                             }
-                            mMyCryptoNFTs.add(collection);
                         }
                     } else {
                         mEmptyNfts.setVisibility(View.VISIBLE);

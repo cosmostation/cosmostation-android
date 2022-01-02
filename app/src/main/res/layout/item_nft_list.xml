@@ -54,7 +54,6 @@
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:textStyle="bold"
-                        android:text="title"
                         style="@style/font_ss_14_white"/>
                     <TextView
                         android:id="@+id/nft_content"
@@ -64,7 +63,6 @@
                         android:ems="5"
                         android:ellipsize="end"
                         android:layout_marginTop="@dimen/space_8"
-                        android:text="content"
                         style="@style/font_ss_12_gray1"/>
                 </LinearLayout>
             </RelativeLayout>

@@ -22,19 +22,19 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.chains.nft.NFTCreateStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.nft.NFTCreateStep3Fragment;
+import wannabit.io.cosmostaion.fragment.chains.nft.NFTSendStep0Fragment;
+import wannabit.io.cosmostaion.fragment.chains.nft.NFTSendStep3Fragment;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
 
-public class NFTCreateActivity extends BaseBroadCastActivity {
+public class NFTSendActivity extends BaseBroadCastActivity {
 
-    private Toolbar                 mToolbar;
-    private TextView                mTitle;
-    private ImageView               mIvStep;
-    private TextView                mTvStep;
-    private ViewPager               mViewPager;
-    private NFTCreateAdapter        mPageAdapter;
+    private Toolbar             mToolbar;
+    private TextView            mTitle;
+    private ImageView           mIvStep;
+    private TextView            mTvStep;
+    private ViewPager           mViewPager;
+    private NFTSendAdapter      mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +45,23 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_create_nfts));
+        mTitle.setText(getString(R.string.str_send_nfts));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_issue_nft_step_0));
+        mTvStep.setText(getString(R.string.str_send_nft_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mTxType = CONST_PW_TX_MINT_NFT;
+        mTxType = CONST_PW_TX_SEND_NFT;
 
-        mPageAdapter = new NFTCreateAdapter(getSupportFragmentManager());
+        mNftDenomId = getIntent().getStringExtra("mDenomId");
+        mNftTokenId = getIntent().getStringExtra("mTokenId");
+
+        mPageAdapter = new NFTSendAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
@@ -71,17 +74,17 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
             public void onPageSelected(int i) {
                 if (i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_issue_nft_step_0));
+                    mTvStep.setText(getString(R.string.str_send_nft_step_0));
                 } else if (i == 1) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_issue_nft_step_1));
+                    mTvStep.setText(getString(R.string.str_send_nft_step_1));
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_issue_nft_step_2));
+                    mTvStep.setText(getString(R.string.str_send_nft_step_2));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_issue_nft_step_3));
+                    mTvStep.setText(getString(R.string.str_send_nft_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
@@ -130,31 +133,29 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
         }
     }
 
-    public void onCreateNFT() {
-        Intent intent = new Intent(NFTCreateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_MINT_NFT);
+    public void onSendNFT() {
+        Intent intent = new Intent(NFTSendActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SEND_NFT);
+        intent.putExtra("toAddress", mToAddress);
         intent.putExtra("nftDenomId", mNftDenomId);
-        intent.putExtra("nftDenomName", mNftDenomName);
-        intent.putExtra("nftName", mNftName);
-        intent.putExtra("nftDescription", mNftDescription);
-        intent.putExtra("nftHash", mNftHash);
+        intent.putExtra("nftTokenId", mNftTokenId);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-    private class NFTCreateAdapter extends FragmentPagerAdapter {
+    private class NFTSendAdapter extends FragmentPagerAdapter {
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
-        public NFTCreateAdapter(FragmentManager fm) {
+        public NFTSendAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(NFTCreateStep0Fragment.newInstance(null));
+            mFragments.add(NFTSendStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(NFTCreateStep3Fragment.newInstance(null));
+            mFragments.add(NFTSendStep3Fragment.newInstance(null));
         }
 
         @Override

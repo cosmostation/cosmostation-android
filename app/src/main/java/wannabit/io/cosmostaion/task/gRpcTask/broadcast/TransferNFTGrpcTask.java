@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.task.gRpcTask.simulate;
+package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -26,43 +27,46 @@ import wannabit.io.cosmostaion.utils.WLog;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_MINT_NFT;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_TRANSFER_NFT;
 
-public class SimulMintNFTGrpcTask extends CommonTask {
+public class TransferNFTGrpcTask extends CommonTask {
 
     private Account                 mAccount;
     private BaseChain               mBaseChain;
-    private String                  mSigner;
-    private String                  mDenomId, mDenomName;
-    private String                  mId, mName, mUri;
-    private String                  mData;
+    private String                  mRecipient;
+    private String                  mDenomId;
+    private String                  mId;
     private Fee                     mFees;
     private String                  mMemo;
     private String                  mChainId;
 
-    private QueryOuterClass.QueryAccountResponse    mAuthResponse;
+    private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
-    public SimulMintNFTGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String signer, String denomId, String denomName,
-                                String id, String name, String uri, String data, String memo, Fee fee, String chainId) {
+    public TransferNFTGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender, String recipient, String denomId, String id, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
-        this.mSigner = signer;
+        this.mAccount.address = sender;
+        this.mRecipient = recipient;
         this.mDenomId = denomId;
-        this.mDenomName = denomName;
         this.mId = id;
-        this.mName = name;
-        this.mUri = uri;
-        this.mData = data;
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_MINT_NFT;
+        this.mResult.taskType = TASK_GRPC_GEN_TX_TRANSFER_NFT;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
+        Password checkPw = mApp.getBaseDao().onSelectPassword();
+        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+            mResult.isSuccess = false;
+            mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
+            return mResult;
+        }
+
         try {
             if (mAccount.fromMnemonic) {
                 String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -73,29 +77,34 @@ public class SimulMintNFTGrpcTask extends CommonTask {
                 ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
             }
 
-            //simulate
             QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
             mAuthResponse = authStub.account(request);
 
-            ServiceOuterClass.SimulateRequest simulateTxRequest = null;
+            //broadCast
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = null;
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             if (mBaseChain.equals(IRIS_MAIN)) {
-                simulateTxRequest = Signer.getGrpcCreateNftIrisSimulateReq(mAuthResponse, mSigner, mDenomId, mDenomName, mId, mName, mUri, mData, mFees, mMemo, ecKey, mChainId);
+                broadcastTxRequest = Signer.getGrpcSendNftIrisReq(mAuthResponse, mAccount.address, mRecipient, mDenomId,mId, mFees, mMemo, ecKey, mChainId);
             } else if (mBaseChain.equals(CRYPTO_MAIN)) {
-                simulateTxRequest = Signer.getGrpcCreateNftCroSimulateReq(mAuthResponse, mSigner, mDenomId, mDenomName, mId, mName, mUri, mData, mFees, mMemo, ecKey, mChainId);
+                broadcastTxRequest = Signer.getGrpcSendNftCroReq(mAuthResponse, mAccount.address, mRecipient, mDenomId,mId, mFees, mMemo, ecKey, mChainId);
             }
-            if (simulateTxRequest != null) {
-                ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
-                mResult.resultData = response.getGasInfo();
-                mResult.isSuccess = true;
+            if (broadcastTxRequest != null) {
+                ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
+                mResult.resultData = response.getTxResponse().getTxhash();
+                if (response.getTxResponse().getCode() > 0) {
+                    mResult.errorCode = response.getTxResponse().getCode();
+                    mResult.errorMsg = response.getTxResponse().getRawLog();
+                    mResult.isSuccess = false;
+                } else {
+                    mResult.isSuccess = true;
+                }
             }
 
         } catch (Exception e) {
-            WLog.e("SimulMintNFTGrpcTask " + e.getMessage());
+            WLog.e( "TransferNFTGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;
     }
-
 }

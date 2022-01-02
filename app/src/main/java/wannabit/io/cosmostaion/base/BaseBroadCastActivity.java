@@ -76,6 +76,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     // NFT
     public String                       mNftDenomId;
     public String                       mNftDenomName;
+    public String                       mNftTokenId;
     public String                       mNftName;
     public String                       mNftDescription;
     public String                       mNftHash;

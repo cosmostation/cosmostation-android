@@ -101,6 +101,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifIncentiveGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifSwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifWithdrawGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.TransferNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
@@ -121,7 +122,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_PRIVATE_KEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_MINT_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_BORROW_HARD;
@@ -141,6 +141,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
@@ -158,6 +159,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RIZON_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
@@ -264,11 +266,12 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Querier.LiquidityProviderRes    mMyprovider;
 
     // NFT
-    public String                       mNftDenomId;
-    public String                       mNftDenomName;
-    public String                       mNftName;
-    public String                       mNftDescription;
-    public String                       mNftHash;
+    private String                          mNftDenomId;
+    private String                          mNftDenomName;
+    private String                          mNftName;
+    private String                          mNftDescription;
+    private String                          mNftHash;
+    private String                          mNftTokenId;
 
     private String                      mPortId;
     private String                      mChannelId;
@@ -382,6 +385,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mNftName = getIntent().getStringExtra("nftName");
         mNftDescription = getIntent().getStringExtra("nftDescription");
         mNftHash = getIntent().getStringExtra("nftHash");
+        mNftTokenId = getIntent().getStringExtra("nftTokenId");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -758,7 +762,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new SifWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mSifWithdrawCoin.denom, basisPoint,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_MINT_NFT) {
+        } else if (mPurpose == CONST_PW_TX_MINT_NFT) {
             StationNFTData nftData = new StationNFTData(mAccount.address, mNftName, mNftDescription, mNftDenomId, NFT_INFURA + mNftHash);
             Gson gson = new Gson();
             String jsonData = gson.toJson(nftData);
@@ -766,6 +770,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mNftDenomId,mNftDenomName, mNftHash.toLowerCase(), mNftName, NFT_INFURA + mNftHash, jsonData,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        } else if (mPurpose == CONST_PW_TX_SEND_NFT) {
+            new TransferNFTGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
+                    mTargetAddress, mNftDenomId, mNftTokenId, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
         else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {

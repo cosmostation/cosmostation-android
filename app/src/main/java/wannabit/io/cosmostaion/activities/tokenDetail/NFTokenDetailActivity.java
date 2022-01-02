@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -17,16 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.math.BigDecimal;
+
 import irismod.nft.Nft;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.nft.NFTSendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
 
 public class NFTokenDetailActivity extends BaseActivity implements View.OnClickListener{
 
@@ -119,6 +125,9 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
                 add.setCancelable(true);
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
+            } else {
+                Toast.makeText(NFTokenDetailActivity.this, R.string.error_prepare, Toast.LENGTH_SHORT).show();
+                return;
             }
 
         } else if (v.equals(mBtnSend)) {
@@ -127,6 +136,18 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
                 add.setCancelable(true);
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
+
+            } else {
+                Intent intent = new Intent(getBaseContext(), NFTSendActivity.class);
+                BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SEND_NFT, 0);
+                if (mainAvailable.compareTo(feeAmount) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putExtra("mDenomId", mDenomId);
+                intent.putExtra("mTokenId", mTokenId);
+                startActivity(intent);
             }
         }
     }

@@ -195,10 +195,18 @@ public class TokenDetailSupportHolder extends BaseHolder {
     public void onBindNftRawData(Context c, BaseChain baseChain, Nft.BaseNFT myIrisNftInfo, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo) {
         if (baseChain.equals(IRIS_MAIN) && myIrisNftInfo != null) {
             mNftRawRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgIris));
-            mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(myIrisNftInfo.getData())));
+            if (myIrisNftInfo.getData().isEmpty()) {
+                mNftRawData.setText("");
+            } else {
+                mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(myIrisNftInfo.getData())));
+            }
         } else if (baseChain.equals(CRYPTO_MAIN) && myCryptoNftInfo != null) {
             mNftRawRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgCryto));
-            mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(myCryptoNftInfo.getData())));
+            if (myCryptoNftInfo.getData().isEmpty()) {
+                mNftRawData.setText("");
+            } else {
+                mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(myCryptoNftInfo.getData())));
+            }
         }
     }
 }
