@@ -13,22 +13,24 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/control_layer">
+        android:layout_above="@+id/control_layer"
+        android:fitsSystemWindows="true">
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorTrans"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="450dp"
-                android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimaryDark"
-                android:background="@color/colorWhite"
                 android:minHeight="@dimen/space_1"
+                android:background="@color/colorWhite"
                 app:expandedTitleTextAppearance="@android:color/transparent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:fitsSystemWindows="true">
 
                 <ImageView
                     android:id="@+id/nft_img"
@@ -36,7 +38,8 @@
                     android:src="@drawable/icon_nft_none"
                     android:scaleType="fitXY"
                     android:layout_width="match_parent"
-                    android:layout_height="450dp" />
+                    android:layout_height="450dp"
+                    android:fitsSystemWindows="true"/>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/tool_bar"

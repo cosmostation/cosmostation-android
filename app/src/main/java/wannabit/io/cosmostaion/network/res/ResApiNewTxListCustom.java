@@ -228,13 +228,19 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
                     result = c.getString(R.string.tx_ibc_receive);
                 } else if (msgType.contains("MsgMintNFT")) {
-                    result = "NFT Mint";
+                    result = c.getString(R.string.tx_mint_nft);
                 } else if (msgType.contains("MsgTransferNFT")) {
-                    result = "NFT Transfer";
+                    String senderAddr = getMsgs().getJSONObject(0).getString("sender");
+                    String receiveAddr = getMsgs().getJSONObject(0).getString("recipient");
+                    if (senderAddr.equalsIgnoreCase(address)) {
+                        result = c.getString(R.string.tx_send_nft);
+                    } else if (receiveAddr.equalsIgnoreCase(address)) {
+                        result = c.getString(R.string.tx_receive_nft);
+                    }
                 } else if (msgType.contains("MsgEditNFT")) {
                     result = "NFT Edit";
                 } else if (msgType.contains("MsgIssueDenom")) {
-                    result = "NFT Issue";
+                    result = c.getString(R.string.tx_issue_denom);
                 } else if (msgType.contains("MsgRequestRandom")) {
                     result = "Random Request";
                 }
@@ -350,9 +356,6 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("/osmosis.lockup.MsgBeginUnlockingAll")) {
                     result = c.getString(R.string.str_osmosis_begin_unlucking_all);
 
-//                } else if (msgType.contains("MsgUnlockPeriodLock")) {
-//                    result = c.getString(R.string.str_osmosis_preriodlock_unlock);
-//                }
                 }
 
                 else if (msgType.contains("MsgSwapWithinBatch")) {

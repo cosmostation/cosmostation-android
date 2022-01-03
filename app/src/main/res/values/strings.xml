@@ -2004,6 +2004,23 @@
     <string name="tx_task_response">Task Response</string>
     <string name="tx_create_task">Create Task </string>
 
+    <string name="tx_issue_denom">Issue NFT Denom</string>
+    <string name="tx_issue_denom_id">Denom ID</string>
+    <string name="tx_issue_denom_name">Denom Name</string>
+    <string name="tx_issue_denom_schema">Schema</string>
+    <string name="tx_mint_nft">Mint NFT</string>
+    <string name="tx_mint_nft_token_id">Token ID</string>
+    <string name="tx_mint_nft_denom_id">Denom ID</string>
+    <string name="tx_mint_nft_name">NFT Name</string>
+    <string name="tx_mint_nft_description">NFT Description</string>
+    <string name="tx_mint_nft_url">NFT URI</string>
+    <string name="tx_send_nft">NFT Send</string>
+    <string name="tx_receive_nft">NFT Receive</string>
+    <string name="tx_send_nft_sender">Sender</string>
+    <string name="tx_send_nft_recipient">Recipient</string>
+    <string name="tx_send_nft_token_id">Token ID</string>
+    <string name="tx_send_nft_denom_id">Denom ID</string>
+
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>
     <string name="str_dp_time_format3">HH:mm:ss</string>

@@ -73,6 +73,9 @@ import wannabit.io.cosmostaion.widget.txDetail.TxUnknownHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxVoterHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxWithdrawLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
+import wannabit.io.cosmostaion.widget.txDetail.nft.TxIssueDenomHolder;
+import wannabit.io.cosmostaion.widget.txDetail.nft.TxMintNFTHolder;
+import wannabit.io.cosmostaion.widget.txDetail.nft.TxTransferNFTHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxCreatePoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxExitPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxJoinPoolHolder;
@@ -251,7 +254,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_LOCK_TOKEN = 44;
         private static final int TYPE_TX_BEGIN_UNLOCK_TOKEN = 45;
         private static final int TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL = 46;
-        private static final int TYPE_TX_UNLOCK_PERIOD_LOCK = 47;
 
         private static final int TYPE_TX_GRAVITY_CREATE_POOL = 50;
         private static final int TYPE_TX_GRAVITY_SWAP_WITHIN_BATCH = 51;
@@ -270,6 +272,10 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
         private static final int TYPE_TX_CREATE_TASK = 80;
         private static final int TYPE_TX_TASK_RESPONSE = 81;
+
+        private static final int TYPE_TX_ISSUE_DENOM = 90;
+        private static final int TYPE_TX_MINT_NFT = 91;
+        private static final int TYPE_TX_TRANSFER_NFT = 92;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -384,8 +390,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL) {
                 return new TxBeginUnlockAllTokensHolder(getLayoutInflater().inflate(R.layout.item_tx_begin_unlock_all_token, viewGroup, false));
 
-            } else if (viewType == TYPE_TX_UNLOCK_PERIOD_LOCK) {
-                return new TxUnlockPeriodHolder(getLayoutInflater().inflate(R.layout.item_tx_unlock_period, viewGroup, false));
             }
 
             else if (viewType == TYPE_TX_GRAVITY_CREATE_POOL) {
@@ -435,6 +439,19 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_TASK_RESPONSE) {
                 return new TxTaskResponseHolder(getLayoutInflater().inflate(R.layout.item_tx_task_response, viewGroup, false));
+
+            }
+
+            // nft
+            else if (viewType == TYPE_TX_ISSUE_DENOM) {
+                return new TxIssueDenomHolder(getLayoutInflater().inflate(R.layout.item_tx_issue_denom, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_MINT_NFT) {
+                return new TxMintNFTHolder(getLayoutInflater().inflate(R.layout.item_tx_mint_nft, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_TRANSFER_NFT) {
+                return new TxTransferNFTHolder(getLayoutInflater().inflate(R.layout.item_tx_send_nft, viewGroup, false));
+
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -543,9 +560,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 } else if (msg.getTypeUrl().equals("/" + osmosis.lockup.Tx.MsgBeginUnlockingAll.getDescriptor().getFullName())) {
                     return TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL;
                 }
-//                else if (msg.getTypeUrl().contains(osmosis.lockup.Tx.MsgUnlockPeriodLock.getDescriptor().getFullName())) {
-//                    return TYPE_TX_UNLOCK_PERIOD_LOCK;
-//                }
 
                 else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgCreatePool.getDescriptor().getFullName())) {
                     return TYPE_TX_GRAVITY_CREATE_POOL;
@@ -583,6 +597,18 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_CREATE_TASK;
                 } else if (msg.getTypeUrl().contains(shentu.oracle.v1alpha1.Tx.MsgTaskResponse.getDescriptor().getFullName())) {
                     return TYPE_TX_TASK_RESPONSE;
+                }
+
+                // nft msg
+                else if (msg.getTypeUrl().contains(irismod.nft.Tx.MsgIssueDenom.getDescriptor().getFullName()) ||
+                            msg.getTypeUrl().contains(chainmain.nft.v1.Tx.MsgIssueDenom.getDescriptor().getFullName())) {
+                    return TYPE_TX_ISSUE_DENOM;
+                } else if (msg.getTypeUrl().contains(irismod.nft.Tx.MsgMintNFT.getDescriptor().getFullName()) ||
+                        msg.getTypeUrl().contains(chainmain.nft.v1.Tx.MsgMintNFT.getDescriptor().getFullName())) {
+                    return TYPE_TX_MINT_NFT;
+                } else if (msg.getTypeUrl().contains(irismod.nft.Tx.MsgTransferNFT.getDescriptor().getFullName()) ||
+                        msg.getTypeUrl().contains(chainmain.nft.v1.Tx.MsgTransferNFT.getDescriptor().getFullName())) {
+                    return TYPE_TX_TRANSFER_NFT;
                 }
                 return TYPE_TX_UNKNOWN;
             }

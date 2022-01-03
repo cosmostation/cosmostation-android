@@ -38,6 +38,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="1dp"
                         android:layout_gravity="center"
+                        android:drawableTop="@drawable/icon_addphoto"
                         style="@style/font_ss_14_white"
                         android:padding="@dimen/space_12"
                         android:text="Add Image"/>
