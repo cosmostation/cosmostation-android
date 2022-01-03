@@ -209,7 +209,7 @@
                         android:layout_marginRight="@dimen/space_4"
                         android:layout_centerVertical="true"
                         style="@style/font_ss_11_gray1"
-                        android:text="CoinMarket Cap"/>
+                        android:text="@string/str_coingecko"/>
                 </RelativeLayout>
             </FrameLayout>
 
