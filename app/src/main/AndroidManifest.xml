@@ -113,6 +113,27 @@
         </activity>
 
         <activity
+            android:name=".activities.chains.nft.NFTListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.nft.NFTCreateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.nft.NFTSendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
             android:name=".activities.tokenDetail.StakingTokenGrpcActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
+import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -24,8 +25,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 
 public class WalletIrisHolder extends BaseHolder {
     public TextView         mTvDenomTitle;
-    public TextView mTvIrisTotal, mTvIrisValue, mTvIrisAvailable, mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
-    public RelativeLayout mBtnStake, mBtnVote;
+    public TextView         mTvIrisTotal, mTvIrisValue, mTvIrisAvailable, mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
+    public RelativeLayout   mBtnStake, mBtnVote, mBtnNft;
 
     public WalletIrisHolder(@NonNull View itemView) {
         super(itemView);
@@ -38,6 +39,7 @@ public class WalletIrisHolder extends BaseHolder {
         mTvIrisRewards      = itemView.findViewById(R.id.iris_reward);
         mBtnStake           = itemView.findViewById(R.id.btn_iris_reward);
         mBtnVote            = itemView.findViewById(R.id.btn_iris_vote);
+        mBtnNft             = itemView.findViewById(R.id.btn_nft);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
@@ -75,6 +77,13 @@ public class WalletIrisHolder extends BaseHolder {
             public void onClick(View v) {
                 Intent proposals = new Intent(mainActivity, VoteListActivity.class);
                 mainActivity.startActivity(proposals);
+            }
+        });
+        mBtnNft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nfts = new Intent(mainActivity, NFTListActivity.class);
+                mainActivity.startActivity(nfts);
             }
         });
     }

@@ -228,13 +228,19 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
                     result = c.getString(R.string.tx_ibc_receive);
                 } else if (msgType.contains("MsgMintNFT")) {
-                    result = "NFT Mint";
+                    result = c.getString(R.string.tx_mint_nft);
                 } else if (msgType.contains("MsgTransferNFT")) {
-                    result = "NFT Transfer";
+                    String senderAddr = getMsgs().getJSONObject(0).getString("sender");
+                    String receiveAddr = getMsgs().getJSONObject(0).getString("recipient");
+                    if (senderAddr.equalsIgnoreCase(address)) {
+                        result = c.getString(R.string.tx_send_nft);
+                    } else if (receiveAddr.equalsIgnoreCase(address)) {
+                        result = c.getString(R.string.tx_receive_nft);
+                    }
                 } else if (msgType.contains("MsgEditNFT")) {
                     result = "NFT Edit";
                 } else if (msgType.contains("MsgIssueDenom")) {
-                    result = "NFT Issue";
+                    result = c.getString(R.string.tx_issue_denom);
                 } else if (msgType.contains("MsgRequestRandom")) {
                     result = "Random Request";
                 }
@@ -350,9 +356,6 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("/osmosis.lockup.MsgBeginUnlockingAll")) {
                     result = c.getString(R.string.str_osmosis_begin_unlucking_all);
 
-//                } else if (msgType.contains("MsgUnlockPeriodLock")) {
-//                    result = c.getString(R.string.str_osmosis_preriodlock_unlock);
-//                }
                 }
 
                 else if (msgType.contains("MsgSwapWithinBatch")) {
@@ -438,16 +441,13 @@ public class ResApiNewTxListCustom {
                     BigDecimal totalRewardSum = BigDecimal.ZERO;
                     for (int i = 0; i < data.logs.size(); i ++) {
                         try {
-                            String value = "";
-                            if (chain.equals(BaseChain.JUNO_MAIN) || chain.equals(BaseChain.COMDEX_MAIN) || chain.equals(BaseChain.DESMOS_MAIN) ||
-                                    chain.equals(BaseChain.GRABRIDGE_MAIN) || chain.equals(BaseChain.LUM_MAIN)) {
-                                value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(1).
-                                        getJSONArray("attributes").getJSONObject(1).getString("value");
-                            } else {
-                                value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(1).
-                                        getJSONArray("attributes").getJSONObject(2).getString("value");
+                            for (int j = 0; j < new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").length(); j++) {
+                                if (new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).getString("type").equalsIgnoreCase("transfer")) {
+                                    String value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).
+                                                    getJSONArray("attributes").getJSONObject(2).getString("value");
+                                    totalRewardSum = totalRewardSum.add(new BigDecimal(value.split("[^0-9]")[0]));
+                                }
                             }
-                            totalRewardSum = totalRewardSum.add(new BigDecimal(value.split("[^0-9]")[0]));
                         } catch (Exception e) { }
                     }
                     return new Coin(WDp.mainDenom(chain), totalRewardSum.toString());

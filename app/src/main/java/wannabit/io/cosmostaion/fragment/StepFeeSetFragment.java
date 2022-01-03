@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup;
+import com.google.gson.Gson;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -31,6 +32,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -44,6 +46,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulGravityDepositGrpcTas
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulGravitySwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulGravityWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulIBCTransferGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulMintNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisBeginUnbondingGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisExitPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisJoinPoolGrpcTask;
@@ -61,6 +64,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulSifDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulSifIncentiveGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulSifSwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulSifWithdrawGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulTransferNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulUndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -72,6 +76,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARNING;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
@@ -83,6 +88,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
@@ -94,6 +100,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWAR
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
 
 public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -464,6 +471,19 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 String basisPoint = myShareWithdrawAmount.movePointRight(4).divide(myShareAllAmount, 0, RoundingMode.DOWN).toPlainString();
                 new SimulSifWithdrawGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address,
                         getSActivity().mSifWithdrawCoin.denom, basisPoint, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+
+            else if (getSActivity().mTxType == CONST_PW_TX_MINT_NFT) {
+                StationNFTData nftData = new StationNFTData(getSActivity().mAccount.address, getSActivity().mNftName, getSActivity().mNftDescription, getSActivity().mNftDenomId, NFT_INFURA + getSActivity().mNftHash);
+                Gson gson = new Gson();
+                String jsonData = gson.toJson(nftData);
+                new SimulMintNFTGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address,
+                        getSActivity().mNftDenomId, getSActivity().mNftDenomName, getSActivity().mNftHash.toLowerCase(), getSActivity().mNftName, NFT_INFURA + getSActivity().mNftHash, jsonData,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_SEND_NFT) {
+                new SimulTransferNFTGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address,
+                        getSActivity().mToAddress, getSActivity().mNftDenomId, getSActivity().mNftTokenId, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         }

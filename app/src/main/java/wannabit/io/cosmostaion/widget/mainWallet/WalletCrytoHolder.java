@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
+import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -23,7 +24,7 @@ public class WalletCrytoHolder extends BaseHolder {
     public TextView         mTvCroTotal, mTvCroValue, mTvCroAvailable, mTvCroDelegated, mTvCroUnBonding, mTvCroRewards;
     public RelativeLayout   mCroVestingLayer;
     public TextView         mTvCroVesting;
-    public RelativeLayout   mBtnStake, mBtnVote;
+    public RelativeLayout   mBtnStake, mBtnVote, mBtnNft;
 
     public WalletCrytoHolder(@NonNull View itemView) {
         super(itemView);
@@ -39,6 +40,7 @@ public class WalletCrytoHolder extends BaseHolder {
 
         mBtnStake           = itemView.findViewById(R.id.btn_cro_reward);
         mBtnVote            = itemView.findViewById(R.id.btn_cro_vote);
+        mBtnNft             = itemView.findViewById(R.id.btn_nft);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
@@ -76,6 +78,13 @@ public class WalletCrytoHolder extends BaseHolder {
             public void onClick(View v) {
                 Intent proposals = new Intent(mainActivity, VoteListActivity.class);
                 mainActivity.startActivity(proposals);
+            }
+        });
+        mBtnNft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nfts = new Intent(mainActivity, NFTListActivity.class);
+                mainActivity.startActivity(nfts);
             }
         });
     }

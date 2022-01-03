@@ -27,19 +27,14 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-
+import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
-
 import wannabit.io.cosmostaion.utils.WDp;
-
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
-
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClickListener {
 
@@ -63,8 +58,6 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private BridgeTokenGrpcAdapter          mAdapter;
 
     private String                          mBridgeDenom;
-    private int                             mBridgeDivideDecimal = 6;
-    private int                             mBridgeDisplayDecimal = 6;
     private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
 
     @Override
@@ -127,22 +120,16 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
     }
 
     private void onUpdateView() {
-        String baseDenom = "";
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(BridgeTokenGrpcActivity.this, mBaseChain));
-        if (mBaseChain.equals(SIF_MAIN)) {
-            baseDenom = mBridgeDenom.substring(1);
-            Picasso.get().load(SIF_COIN_IMG_URL + mBridgeDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
-            mToolbarSymbol.setText(baseDenom.toUpperCase());
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        final Assets assets = getBaseDao().getAsset(mBridgeDenom);
+        Picasso.get().load(ASSET_IMG_URL + assets.origin_chain + "/" + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+        mToolbarSymbol.setText(assets.origin_symbol);
+        mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        mTotalAmount = getBaseDao().getAvailable(mBridgeDenom);
 
-            mBridgeDivideDecimal = WUtil.getSifCoinDecimal(getBaseDao(), mBridgeDenom);
-            mBridgeDisplayDecimal = WUtil.getSifCoinDecimal(getBaseDao(), mBridgeDenom);
-            mTotalAmount = getBaseDao().getAvailable(mBridgeDenom);
-        }
-
-        mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), baseDenom));
-        mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), baseDenom));
-        final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), baseDenom);
+        mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), assets.origin_symbol));
+        mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), assets.origin_symbol));
+        final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), assets.origin_symbol);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
             mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
@@ -158,7 +145,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
         if (mAccount.hasPrivateKey) {
             mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         }
-        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, mTotalAmount, mBridgeDivideDecimal));
+        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), assets.origin_symbol, mTotalAmount, assets.decimal));
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
@@ -193,7 +180,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
     private class BridgeTokenGrpcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_UNKNOWN               = -1;
-        private static final int TYPE_SIF                   = 0;
+        private static final int TYPE_ETH                   = 0;
 
         private static final int TYPE_HISTORY               = 100;
 
@@ -202,7 +189,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_UNKNOWN) {
 
-            } else if (viewType == TYPE_SIF) {
+            } else if (viewType == TYPE_ETH) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
             }
 
@@ -214,7 +201,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (getItemViewType(position) == TYPE_SIF) {
+            if (getItemViewType(position) == TYPE_ETH) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
                 holder.onBindBridgeToken(BridgeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mBridgeDenom);
             }
@@ -231,11 +218,8 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         @Override
         public int getItemViewType(int position) {
-            if (mBaseChain.equals(SIF_MAIN)) {
-                if (position == 0) return TYPE_SIF;
-                else return TYPE_HISTORY;
-            }
-            return TYPE_UNKNOWN;
+            if (position == 0) return TYPE_ETH;
+            else return TYPE_HISTORY;
         }
     }
 }

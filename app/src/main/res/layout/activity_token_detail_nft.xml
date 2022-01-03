@@ -1,6 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/chain_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_cosmos"/>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/control_layer"
+        android:fitsSystemWindows="true">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTrans"
+            android:fitsSystemWindows="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                app:contentScrim="?attr/colorPrimaryDark"
+                android:minHeight="@dimen/space_1"
+                android:background="@color/colorWhite"
+                app:expandedTitleTextAppearance="@android:color/transparent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:fitsSystemWindows="true">
+
+                <ImageView
+                    android:id="@+id/nft_img"
+                    app:layout_collapseMode="parallax"
+                    android:src="@drawable/icon_nft_none"
+                    android:scaleType="fitXY"
+                    android:layout_width="match_parent"
+                    android:layout_height="450dp"
+                    android:fitsSystemWindows="true"/>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/tool_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorTrans"
+                    app:layout_collapseMode="pin"
+                    android:theme="@style/AppTheme.AppBarOverlay">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_ssm_17_white"
+                        android:text="NFT Detail"/>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginTop="@dimen/space_4"
+            android:layout_marginRight="@dimen/space_8"
+            android:layout_marginLeft="@dimen/space_8" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <LinearLayout
+        android:id="@+id/control_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/btn_ibc_send"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginRight="@dimen/space_4"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            android:clickable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/ic_ibcsend_20"
+                android:drawablePadding="@dimen/space_8"
+                android:gravity="center"
+                style="@style/font_ss_14_white"
+                android:text="@string/str_ibc_send" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/btn_send"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginRight="@dimen/space_4"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            android:clickable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/ic_send_20"
+                android:drawablePadding="@dimen/space_8"
+                android:gravity="center"
+                style="@style/font_ss_14_white"
+                android:text="@string/str_send" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

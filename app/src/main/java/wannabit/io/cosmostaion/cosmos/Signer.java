@@ -899,7 +899,117 @@ public class Signer {
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcCreateNftIrisReq(QueryOuterClass.QueryAccountResponse auth, String signer, String denomId, String denomName, String id, String name, String uri, String data, Fee fee, String memo, ECKey pKey, String chainId) {
+        ArrayList<Any> msgsAny = new ArrayList<>();
+        irismod.nft.Tx.MsgIssueDenom msgIssueDenom = irismod.nft.Tx.MsgIssueDenom.newBuilder().setId(denomId).setName(denomName).setSchema("").setSender(signer).setMintRestricted(false).setUpdateRestricted(false).build();
+        Any msgIssueDenomAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgIssueDenom").setValue(msgIssueDenom.toByteString()).build();
+        msgsAny.add(msgIssueDenomAny);
 
+        irismod.nft.Tx.MsgMintNFT msgMintNFT = irismod.nft.Tx.MsgMintNFT.newBuilder().setSender(signer).setRecipient(signer).setId(id).setDenomId(denomId).setName(name).setUri(uri).setData(data).build();
+        Any msgMintNftAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgMintNFT").setValue(msgMintNFT.toByteString()).build();
+        msgsAny.add(msgMintNftAny);
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcCreateNftIrisSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, String denomId, String denomName, String id, String name, String uri, String data, Fee fee, String memo, ECKey pKey, String chainId) {
+        ArrayList<Any> msgsAny = new ArrayList<>();
+        irismod.nft.Tx.MsgIssueDenom msgIssueDenom = irismod.nft.Tx.MsgIssueDenom.newBuilder().setId(denomId).setName(denomName).setSchema("").setSender(signer).setMintRestricted(false).setUpdateRestricted(false).build();
+        Any msgIssueDenomAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgIssueDenom").setValue(msgIssueDenom.toByteString()).build();
+        msgsAny.add(msgIssueDenomAny);
+
+        irismod.nft.Tx.MsgMintNFT msgMintNFT = irismod.nft.Tx.MsgMintNFT.newBuilder().setSender(signer).setRecipient(signer).setId(id).setDenomId(denomId).setName(name).setUri(uri).setData(data).build();
+        Any msgMintNftAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgMintNFT").setValue(msgMintNFT.toByteString()).build();
+        msgsAny.add(msgMintNftAny);
+
+        TxOuterClass.TxBody txBody = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcCreateNftCroReq(QueryOuterClass.QueryAccountResponse auth, String signer, String denomId, String denomName, String id, String name, String uri, String data, Fee fee, String memo, ECKey pKey, String chainId) {
+        ArrayList<Any> msgsAny = new ArrayList<>();
+        chainmain.nft.v1.Tx.MsgIssueDenom msgIssueDenom = chainmain.nft.v1.Tx.MsgIssueDenom.newBuilder().setId(denomId).setName(denomName).setSchema("").setSender(signer).build();
+        Any msgIssueDenomAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgIssueDenom").setValue(msgIssueDenom.toByteString()).build();
+        msgsAny.add(msgIssueDenomAny);
+
+        chainmain.nft.v1.Tx.MsgMintNFT msgMintNFT = chainmain.nft.v1.Tx.MsgMintNFT.newBuilder().setSender(signer).setRecipient(signer).setId(id).setDenomId(denomId).setName(name).setUri(uri).setData(data).build();
+        Any msgMintNftAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgMintNFT").setValue(msgMintNFT.toByteString()).build();
+        msgsAny.add(msgMintNftAny);
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcCreateNftCroSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, String denomId, String denomName, String id, String name, String uri, String data, Fee fee, String memo, ECKey pKey, String chainId) {
+        ArrayList<Any> msgsAny = new ArrayList<>();
+        chainmain.nft.v1.Tx.MsgIssueDenom msgIssueDenom = chainmain.nft.v1.Tx.MsgIssueDenom.newBuilder().setId(denomId).setName(denomName).setSchema("").setSender(signer).build();
+        Any msgIssueDenomAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgIssueDenom").setValue(msgIssueDenom.toByteString()).build();
+        msgsAny.add(msgIssueDenomAny);
+
+        chainmain.nft.v1.Tx.MsgMintNFT msgMintNFT = chainmain.nft.v1.Tx.MsgMintNFT.newBuilder().setSender(signer).setRecipient(signer).setId(id).setDenomId(denomId).setName(name).setUri(uri).setData(data).build();
+        Any msgMintNftAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgMintNFT").setValue(msgMintNFT.toByteString()).build();
+        msgsAny.add(msgMintNftAny);
+
+        TxOuterClass.TxBody txBody = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcSendNftIrisReq(QueryOuterClass.QueryAccountResponse auth, String sender, String recipient, String denomId, String id, Fee fee, String memo, ECKey pKey, String chainId) {
+        irismod.nft.Tx.MsgTransferNFT msgTransferNFT = irismod.nft.Tx.MsgTransferNFT.newBuilder().setId(id).setDenomId(denomId).setSender(sender).setRecipient(recipient).build();
+        Any msgTransferNftAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgTransferNftAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcSendNftIrisSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String recipient, String denomId, String id, Fee fee, String memo, ECKey pKey, String chainId) {
+        irismod.nft.Tx.MsgTransferNFT msgTransferNFT = irismod.nft.Tx.MsgTransferNFT.newBuilder().setId(id).setDenomId(denomId).setSender(sender).setRecipient(recipient).build();
+        Any msgTransferNftAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build();
+
+        TxOuterClass.TxBody txBody = getGrpcTxBody(msgTransferNftAny, memo);
+        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcSendNftCroReq(QueryOuterClass.QueryAccountResponse auth, String sender, String recipient, String denomId, String id, Fee fee, String memo, ECKey pKey, String chainId) {
+        chainmain.nft.v1.Tx.MsgTransferNFT msgTransferNFT = chainmain.nft.v1.Tx.MsgTransferNFT.newBuilder().setId(id).setDenomId(denomId).setSender(sender).setRecipient(recipient).build();
+        Any msgTransferNftAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgTransferNftAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcSendNftCroSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String recipient, String denomId, String id, Fee fee, String memo, ECKey pKey, String chainId) {
+        chainmain.nft.v1.Tx.MsgTransferNFT msgTransferNFT = chainmain.nft.v1.Tx.MsgTransferNFT.newBuilder().setId(id).setDenomId(denomId).setSender(sender).setRecipient(recipient).build();
+        Any msgTransferNftAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build();
+
+        TxOuterClass.TxBody txBody = getGrpcTxBody(msgTransferNftAny, memo);
+        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
 
     public static TxOuterClass.TxBody getGrpcTxBody(Any msgAny, String memo) {
         return TxOuterClass.TxBody.newBuilder().addMessages(msgAny).setMemo(memo).build();

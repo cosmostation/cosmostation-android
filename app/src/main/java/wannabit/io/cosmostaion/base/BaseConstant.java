@@ -180,6 +180,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_IBC_PATHS                        = 2802;
     public final static int TASK_FETCH_IBC_TOKENS                       = 2803;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
+    public final static int TASK_FETCH_MINTSCAN_ASSETS                  = 2805;
 
     public final static int TASK_HDAC_NODE_INFO                         = 2900;
     public final static int TASK_HDAC_UTXO                              = 2901;
@@ -241,6 +242,9 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST         = 4252;
     public final static int TASK_GRPC_FETCH_SIF_MY_PROVIDER             = 4253;
 
+    public final static int TASK_GRPC_FETCH_NFTOKEN_LIST                = 4270;
+    public final static int TASK_GRPC_FETCH_NFTOKEN_INFO                = 4271;
+
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
     public final static int TASK_GRPC_BROAD_CLAIM_REWARDS               = 4302;
@@ -270,6 +274,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_SIF_SWAP                   = 4326;
     public final static int TASK_GRPC_GEN_TX_SIF_JOIN_POOL              = 4327;
     public final static int TASK_GRPC_GEN_TX_SIF_EXIT_POOL              = 4328;
+    public final static int TASK_GRPC_GEN_TX_MINT_NFT                   = 4329;
+    public final static int TASK_GRPC_GEN_TX_TRANSFER_NFT               = 4330;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -300,6 +306,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_SIF_SWAP                 = 4527;
     public final static int TASK_GRPC_SIMULATE_SIF_JOIN_POOL            = 4528;
     public final static int TASK_GRPC_SIMULATE_SIF_WITHDRAW_POOL        = 4529;
+    public final static int TASK_GRPC_SIMULATE_MINT_NFT                 = 4530;
+    public final static int TASK_GRPC_SIMULATE_TRANSFER_NFT             = 4531;
 
 
 
@@ -483,6 +491,8 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SIF_JOIN_POOL                       = 5052;
     public final static int CONST_PW_TX_SIF_EXIT_POOL                       = 5053;
     public final static int CONST_PW_CHECK_PRIVATE_KEY                      = 5054;
+    public final static int CONST_PW_TX_MINT_NFT                            = 5055;
+    public final static int CONST_PW_TX_SEND_NFT                            = 5056;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -922,9 +932,8 @@ public class BaseConstant {
     public final static String KAVA_HARD_POOL_IMG_URL   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/hard/";
     public final static String BINANCE_TOKEN_IMG_URL    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/binance/";
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
-    public final static String SIF_COIN_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
-    public final static String OSMOSIS_COIN_IMG_URL     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/osmosis/";
     public final static String EMONEY_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
+    public final static String ASSET_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/assets/images/";
 
 
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";
@@ -959,6 +968,8 @@ public class BaseConstant {
     public final static String EXPLORER_DESMOS_MAIN     = "https://www.mintscan.io/desmos/";
     public final static String EXPLORER_LUM_MAIN        = "https://www.mintscan.io/lum/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
+
+    public final static String NFT_INFURA               = "https://ipfs.infura.io/ipfs/";
 
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
@@ -1003,6 +1014,8 @@ public class BaseConstant {
     public final static String LUM_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/lum-network/relay-lum-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
+    //NFT Denom Default config
+    public final static String STATION_NFT_DENOM        = "station";
 
     public final static String  PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";
     public final static int     PERSISTENCE_COSMOS_EVENT_START      = 3846000;

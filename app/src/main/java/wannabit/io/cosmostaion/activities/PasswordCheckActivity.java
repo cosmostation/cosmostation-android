@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.google.gson.Gson;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
@@ -80,6 +83,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravitySwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.MintNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisBeginUnbondingGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisExitPooGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisJoinPoolGrpcTask;
@@ -97,6 +101,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifIncentiveGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifSwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifWithdrawGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.TransferNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
@@ -136,6 +141,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
@@ -153,6 +159,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RIZON_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
@@ -167,6 +174,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_PRIVATE_KEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
@@ -256,6 +264,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Coin                            mSifDepositCoin1;
     private Coin                            mSifWithdrawCoin;
     private Querier.LiquidityProviderRes    mMyprovider;
+
+    // NFT
+    private String                          mNftDenomId;
+    private String                          mNftDenomName;
+    private String                          mNftName;
+    private String                          mNftDescription;
+    private String                          mNftHash;
+    private String                          mNftTokenId;
 
     private String                      mPortId;
     private String                      mChannelId;
@@ -363,6 +379,13 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mSifDepositCoin1 = getIntent().getParcelableExtra("SifDepositCoin1");
         mSifWithdrawCoin = getIntent().getParcelableExtra("SifWithdrawCoin");
         mMyprovider = (Querier.LiquidityProviderRes) getIntent().getSerializableExtra("MyProvider");
+
+        mNftDenomId = getIntent().getStringExtra("nftDenomId");
+        mNftDenomName = getIntent().getStringExtra("nftDenomName");
+        mNftName = getIntent().getStringExtra("nftName");
+        mNftDescription = getIntent().getStringExtra("nftDescription");
+        mNftHash = getIntent().getStringExtra("nftHash");
+        mNftTokenId = getIntent().getStringExtra("nftTokenId");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -739,6 +762,17 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new SifWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mSifWithdrawCoin.denom, basisPoint,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        } else if (mPurpose == CONST_PW_TX_MINT_NFT) {
+            StationNFTData nftData = new StationNFTData(mAccount.address, mNftName, mNftDescription, mNftDenomId, NFT_INFURA + mNftHash);
+            Gson gson = new Gson();
+            String jsonData = gson.toJson(nftData);
+            new MintNFTGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
+                    mNftDenomId,mNftDenomName, mNftHash.toLowerCase(), mNftName, NFT_INFURA + mNftHash, jsonData,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_SEND_NFT) {
+            new TransferNFTGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
+                    mTargetAddress, mNftDenomId, mNftTokenId, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
         else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {

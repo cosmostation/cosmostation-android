@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.text.SpannableString;
 import android.widget.Button;
@@ -19,6 +21,9 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Type;
 import com.google.zxing.common.BitMatrix;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -61,6 +66,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -1612,7 +1618,10 @@ public class WUtil {
             Picasso.get().cancelRequest(imageView);
             imageView.setImageResource(R.drawable.tokensifchain);
         } else if (denom.startsWith("c")) {
-            Picasso.get().load(SIF_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+            Assets assets = baseData.getAsset(denom);
+            if (assets != null) {
+                Picasso.get().load(ASSET_IMG_URL + assets.origin_chain + "/" + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+            }
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             try {
@@ -1813,6 +1822,87 @@ public class WUtil {
         BigDecimal totalUnit = new BigDecimal(pool.getPoolUnits());
         BigDecimal myUnit = new BigDecimal(myLp.getLiquidityProvider().getLiquidityProviderUnits());
         return poolValue.multiply(myUnit).divide(totalUnit, 2, RoundingMode.DOWN);
+    }
+
+    /**
+     * About NFT
+     */
+    public static String getNftDescription(String data) {
+        String description = "";
+        try {
+            JSONObject json = new JSONObject(data);
+            description = json.getJSONObject("body").getString("description");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            JSONObject json = new JSONObject(data);
+            description = json.getString("description");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return description;
+    }
+
+    public static String getNftIssuer(String data) {
+        String issuer = "";
+        try {
+            JSONObject json = new JSONObject(data);
+            issuer = json.getJSONObject("body").getString("issuerAddr");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            JSONObject json = new JSONObject(data);
+            issuer = json.getString("issuerAddr");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return issuer;
+    }
+
+    public static String getNftImgUrl(String data) {
+        String url = "";
+        try {
+            JSONObject json = new JSONObject(data);
+            url = json.getString("image");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            JSONObject json = new JSONObject(data);
+            url = json.getString("imgurl");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    // photo image rotate
+    public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
+        Matrix matrix = new Matrix();
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_NORMAL: return bitmap;
+            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL: matrix.setScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180: matrix.setRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_FLIP_VERTICAL: matrix.setRotate(180); matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_TRANSPOSE: matrix.setRotate(90); matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_90: matrix.setRotate(90);
+                break;
+            case ExifInterface.ORIENTATION_TRANSVERSE: matrix.setRotate(-90); matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270: matrix.setRotate(-90);
+                break;
+            default: return bitmap;
+        }
+        try {
+            Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            bitmap.recycle(); return bmRotated;
+        } catch (OutOfMemoryError e) { e.printStackTrace(); return null; }
     }
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
@@ -3030,6 +3120,10 @@ public class WUtil {
                 return new BigDecimal(COSMOS_GAS_AMOUNT_EXIT_POOL);
             } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
                 return new BigDecimal(COSMOS_GAS_AMOUNT_IBC_SEND);
+            } else if (txType == CONST_PW_TX_MINT_NFT) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_SEND_NFT) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
             }
 
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
