@@ -39,7 +39,7 @@ public class TxStakingRewardHolder extends TxHolder {
             itemDelegator.setText(msg.getDelegatorAddress());
             itemValidator.setText(msg.getValidatorAddress());
             itemMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
-            itemRewardAmount.setText(WDp.getDpAmount2(c, WDp.onParseStakeReward(response, msg.getValidatorAddress(), position), dpDecimal, dpDecimal));
+            itemRewardAmount.setText(WDp.getDpAmount2(c, WDp.onParseStakeReward(baseChain, response, msg.getValidatorAddress(), position), dpDecimal, dpDecimal));
 
         } catch (Exception e) {}
 

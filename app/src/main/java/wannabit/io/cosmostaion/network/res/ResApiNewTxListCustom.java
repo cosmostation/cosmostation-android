@@ -445,7 +445,11 @@ public class ResApiNewTxListCustom {
                                 if (new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).getString("type").equalsIgnoreCase("transfer")) {
                                     String value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).
                                                     getJSONArray("attributes").getJSONObject(2).getString("value");
-                                    totalRewardSum = totalRewardSum.add(new BigDecimal(value.split("[^0-9]")[0]));
+                                    for (String rawCoin: value.split(",")) {
+                                        if (rawCoin.contains(WDp.mainDenom(chain))) {
+                                            totalRewardSum = totalRewardSum.add(new BigDecimal(rawCoin.replaceAll("[^0-9]", "")));
+                                        }
+                                    }
                                 }
                             }
                         } catch (Exception e) { }
