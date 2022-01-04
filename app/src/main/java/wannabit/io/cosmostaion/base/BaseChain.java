@@ -70,6 +70,7 @@ public enum BaseChain {
     BITSONG_MAIN("bitsong-mainnet"),
     DESMOS_MAIN("desmos-mainnet"),
     LUM_MAIN("lum-mainnet"),
+    CHIHUAHUA_MAIN("chihuahua-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -227,6 +228,9 @@ public enum BaseChain {
         if(chainName.equals(LUM_MAIN.chainName)) {
             return LUM_MAIN;
         }
+        if(chainName.equals(CHIHUAHUA_MAIN.chainName)) {
+            return CHIHUAHUA_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -296,6 +300,7 @@ public enum BaseChain {
         result.add(BITCANNA_MAIN);
         result.add(BITSONG_MAIN);
         result.add(CERTIK_MAIN);
+        result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);
         result.add(CRYPTO_MAIN);
         result.add(DESMOS_MAIN);

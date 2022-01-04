@@ -616,6 +616,21 @@ public class ApiClient {
         }
         return api_lum;
     }
+
+    //Services for chihuahua mainnet api
+    private static HistoryApi api_chihuahua = null;
+    public static HistoryApi getChihuahuaApi(Context c) {
+        if (api_chihuahua == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_chihuahua))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_chihuahua = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_chihuahua;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
