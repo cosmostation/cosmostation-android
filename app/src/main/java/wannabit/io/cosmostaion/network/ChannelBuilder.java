@@ -12,6 +12,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
@@ -124,6 +125,9 @@ public class ChannelBuilder {
     private final static String GRPC_LUM_MAIN = "lcd-lum-app.cosmostation.io";
     private final static int PORT_LUM_MAIN = 9090;
 
+    private final static String GRPC_CHIHUAHUA_MAIN = "lcd-chihuahua-app.cosmostation.io";
+    private final static int PORT_CHIHUAHUA_MAIN = 9090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -204,6 +208,8 @@ public class ChannelBuilder {
             return getDesmosMain();
         } else if (chain.equals(LUM_MAIN)) {
             return getLumMain();
+        } else if (chain.equals(CHIHUAHUA_MAIN)) {
+            return getChihuahuaMain();
 
         }
 
@@ -587,6 +593,19 @@ public class ChannelBuilder {
             }
         }
         return channel_lum_main;
+    }
+
+    //Channel for chihuahua main
+    private static ManagedChannel channel_chihuahua_main = null;
+    public static ManagedChannel getChihuahuaMain() {
+        if (channel_chihuahua_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_chihuahua_main = ManagedChannelBuilder.forAddress(GRPC_CHIHUAHUA_MAIN, PORT_CHIHUAHUA_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_chihuahua_main;
     }
 
     //Channel for stargate testnet

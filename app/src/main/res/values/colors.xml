@@ -48,6 +48,7 @@
     <color name="colorTransBgBitsong">#24ff005c</color>
     <color name="colorTransBgDesmos">#24ed6c53</color>
     <color name="colorTransBgLum">#243e68f9</color>
+    <color name="colorTransBgChihuahua">#24ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -174,6 +175,9 @@
 
     <color name="colorLum">#3e68f9</color>
     <color name="colorLum2">#264099</color>
+
+    <color name="colorChihuahua">#f4b330</color>
+    <color name="colorChihuahua2">#8e6d2c</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

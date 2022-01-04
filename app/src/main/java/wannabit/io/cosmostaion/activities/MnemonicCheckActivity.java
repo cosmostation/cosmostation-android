@@ -37,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
@@ -169,6 +170,8 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_desmos));
             } else if (getChain(toCheck.baseChain).equals(LUM_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_lum));
+            } else if (getChain(toCheck.baseChain).equals(CHIHUAHUA_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_chihuahua));
             } else if (getChain(toCheck.baseChain).equals(UMEE_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_umee));
             } else if (getChain(toCheck.baseChain).equals(AXELAR_TEST)) {

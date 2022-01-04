@@ -585,6 +585,7 @@ public class BaseConstant {
     public final static String TOKEN_BITSONG        = "ubtsg";
     public final static String TOKEN_DESMOS         = "udsm";
     public final static String TOKEN_LUM            = "ulum";
+    public final static String TOKEN_CHIHUAHUA      = "uhuahua";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
@@ -867,6 +868,10 @@ public class BaseConstant {
     public final static String GRAV_GAS_RATE_LOW                        = "0.00";
     public final static String GRAV_GAS_RATE_AVERAGE                    = "0.00";
 
+    public final static String CHIHUAHUA_GAS_RATE_TINY                  = "0.00035";
+    public final static String CHIHUAHUA_GAS_RATE_LOW                   = "0.0035";
+    public final static String CHIHUAHUA_GAS_RATE_AVERAGE               = "0.035";
+
     public final static String AXELAR_GAS_RATE_TINY                     = "0.05";
     public final static String AXELAR_GAS_RATE_LOW                      = "0.05";
     public final static String AXELAR_GAS_RATE_AVERAGE                  = "0.05";
@@ -925,6 +930,7 @@ public class BaseConstant {
     public final static String BITSONG_VAL_URL          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bitsong/";
     public final static String DESMOS_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/desmos/";
     public final static String LUM_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/lum-network/";
+    public final static String CHIHUAHUA_VAL_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/chihuahua/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -967,6 +973,7 @@ public class BaseConstant {
     public final static String EXPLORER_BITSONG_MAIN    = "https://www.mintscan.io/bitsong/";
     public final static String EXPLORER_DESMOS_MAIN     = "https://www.mintscan.io/desmos/";
     public final static String EXPLORER_LUM_MAIN        = "https://www.mintscan.io/lum/";
+    public final static String EXPLORER_CHIHUAHUA_MAIN  = "https://www.mintscan.io/chihuahua/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
     public final static String NFT_INFURA               = "https://ipfs.infura.io/ipfs/";
@@ -1012,6 +1019,7 @@ public class BaseConstant {
     public final static String DESMOS_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/desmos/relay-desmos-unknown.png";
     public final static String GRAB_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/gravity-bridge/relay-gravitybridge-unknown.png";
     public final static String LUM_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/lum-network/relay-lum-unknown.png";
+    public final static String CHIHUAHUA_UNKNOWN_RELAYER= "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/chihuahua/relay-chihuahua-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
     //NFT Denom Default config
@@ -1062,4 +1070,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_DESMOS = new BigDecimal("6.1605");
     public final static BigDecimal BLOCK_TIME_GRAV = new BigDecimal("6.4500");
     public final static BigDecimal BLOCK_TIME_LUM = new BigDecimal("5.7210");
+    public final static BigDecimal BLOCK_TIME_CHIHUAHUA = new BigDecimal("5.8172");
 }

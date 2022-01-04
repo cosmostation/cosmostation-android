@@ -13,8 +13,8 @@
     <application
         android:allowBackup="false"
         tools:replace="android:allowBackup"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_launcher_new"
+        android:roundIcon="@mipmap/ic_launcher_new_round"
         android:label="@string/app_name"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
