@@ -1602,6 +1602,7 @@
     <string name="tx_mint_nft_url">NFT URI</string>
     <string name="tx_send_nft">NFT 보내기</string>
     <string name="tx_receive_nft">NFT 받기</string>
+    <string name="tx_transfer_nft">NFT 전송</string>
     <string name="tx_send_nft_sender">Sender</string>
     <string name="tx_send_nft_recipient">Recipient</string>
     <string name="tx_send_nft_token_id">Token ID</string>

@@ -236,6 +236,8 @@ public class ResApiNewTxListCustom {
                         result = c.getString(R.string.tx_send_nft);
                     } else if (receiveAddr.equalsIgnoreCase(address)) {
                         result = c.getString(R.string.tx_receive_nft);
+                    } else {
+                        result = c.getString(R.string.tx_transfer_nft);
                     }
                 } else if (msgType.contains("MsgEditNFT")) {
                     result = "NFT Edit";
