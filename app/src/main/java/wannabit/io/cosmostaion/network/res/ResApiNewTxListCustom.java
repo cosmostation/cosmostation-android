@@ -423,7 +423,7 @@ public class ResApiNewTxListCustom {
     public Coin getDpCoin(BaseChain chain) {
         //display staking reward amount
         if (getMsgCnt() > 0) {
-            boolean allReward = false;
+            boolean allReward = true;
             for (int i = 0; i < getMsgs().length(); i++) {
                 String msgType = "";
                 try {
@@ -432,8 +432,9 @@ public class ResApiNewTxListCustom {
                 try {
                     msgType = getMsgs().getJSONObject(0).getString("type");
                 } catch (Exception e) { }
-                if (msgType.contains("MsgWithdrawDelegatorReward") || msgType.contains("MsgWithdrawDelegationReward")) {
-                    allReward = true;
+                if (!msgType.contains("MsgWithdrawDelegatorReward")) {
+                    allReward = false;
+                    break;
                 }
             }
             if (allReward) {

@@ -42,10 +42,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 
@@ -151,15 +149,14 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private void onFetchHistory() {
         mNotYet.setVisibility(View.GONE);
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
-        if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-            new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
+        if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
             new BnbHistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
         } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
             new OkHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        } else {
+            new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
@@ -167,40 +164,34 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     public void onTaskResponse(TaskResult result) {
         if(!isAdded()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_BNB_HISTORY) {
-            ArrayList<BnbHistory> hits = (ArrayList<BnbHistory>)result.resultData;
-            if (hits != null && hits.size() > 0) {
-//                WLog.w("hit size " + hits.size());
-                mBnbHistory = hits;
-                mHistoryAdapter.notifyDataSetChanged();
+            mBnbHistory = (ArrayList<BnbHistory>) result.resultData;
+            if (mBnbHistory != null && mBnbHistory.size() > 0) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
-
+                mHistoryAdapter.notifyDataSetChanged();
             } else {
                 mEmptyHistory.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
-
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_OK_HISTORY) {
             ResOkHistory hits = (ResOkHistory)result.resultData;
             if (hits != null && hits.data != null && hits.data.dataDetails != null && hits.data.dataDetails.size() > 0) {
-//                WLog.w("hit size " + hits.data.dataDetails.size());
                 mOkHistory = hits.data.dataDetails;
-                mHistoryAdapter.notifyDataSetChanged();
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
+                mHistoryAdapter.notifyDataSetChanged();
             } else {
                 mEmptyHistory.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
             }
+
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
-            ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>) result.resultData;
-            if (hits != null && hits.size() > 0) {
-//                  WLog.w("Custom hit size " + hits.size());
-                mApiNewTxCustomHistory = hits;
-                mHistoryAdapter.notifyDataSetChanged();
+            mApiNewTxCustomHistory = (ArrayList<ResApiNewTxListCustom>) result.resultData;
+            if (mApiNewTxCustomHistory != null && mApiNewTxCustomHistory.size() > 0) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
+                mHistoryAdapter.notifyDataSetChanged();
             } else {
                 mEmptyHistory.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);

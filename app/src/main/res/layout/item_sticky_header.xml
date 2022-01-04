@@ -13,7 +13,7 @@
             android:id="@+id/header_title"
             android:layout_width="@dimen/space_300"
             android:layout_height="wrap_content"
-            android:text="NFTs"
+            android:text="Recently Histories"
             style="@style/font_ss_12_gray1"
             android:layout_marginLeft="@dimen/space_6"/>
         <RelativeLayout
