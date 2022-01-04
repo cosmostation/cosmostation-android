@@ -85,7 +85,7 @@ public class ChainParam {
         public ArrayList<GdexStatus> mGdexStatus;
 
         @SerializedName("stargaze_minting_params")
-        public StargazeMintingParams stargazeMintingParams;
+        public StargazeMintingParams mStargazeMintingParams;
 
         @SerializedName("swap_enabled")
         public boolean swap_enabled;
@@ -108,7 +108,7 @@ public class ChainParam {
                 }
                 return new BigDecimal(mEmoneyInflations.mEmoneyInflation.assets.get(0).inflation);
             } else if (baseChain.equals(STARGAZE_MAIN)) {
-                BigDecimal initialProvision = new BigDecimal(stargazeMintingParams.params.initial_annual_provisions);
+                BigDecimal initialProvision = new BigDecimal(mStargazeMintingParams.params.initial_annual_provisions);
                 return initialProvision.divide(getMainSupply(baseChain), 18, RoundingMode.DOWN);
             } else {
                 try {
@@ -166,7 +166,7 @@ public class ChainParam {
                     BigDecimal stakingDistribution = new BigDecimal(osmosisMingtingParams.params.distributionProportions.staking);
                     return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
                 } else if (baseChain.equals(STARGAZE_MAIN)) {
-                    BigDecimal reductionFactor = BigDecimal.ONE.subtract(new BigDecimal(stargazeMintingParams.params.reduction_factor));
+                    BigDecimal reductionFactor = BigDecimal.ONE.subtract(new BigDecimal(mStargazeMintingParams.params.reduction_factor));
                     return inflation.multiply(calTax).multiply(reductionFactor).divide(bondingRate, 6, RoundingMode.DOWN);
                 } else {
                     return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
@@ -192,7 +192,9 @@ public class ChainParam {
 
         public BigDecimal getBlockPerYear(BaseChain baseChain) {
             if (isGRPC(baseChain)) {
-                if (mMintParams != null && mMintParams.params!= null && mMintParams.params.blocks_per_year!= null) {
+                if (baseChain.equals(STARGAZE_MAIN)) {
+                    return new BigDecimal(mStargazeMintingParams.params.blocks_per_year);
+                } else if (mMintParams != null && mMintParams.params!= null && mMintParams.params.blocks_per_year!= null) {
                     return new BigDecimal(mMintParams.params.blocks_per_year);
                 } else {
                     return BigDecimal.ZERO;
