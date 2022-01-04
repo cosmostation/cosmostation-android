@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBitcannaHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBitsongHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCertikHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletChihuahuaHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletComdexHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCosmosHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCrytoHolder;
@@ -66,6 +67,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
@@ -250,6 +252,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_BITSONG           = 31;
         private static final int TYPE_DESMOS            = 32;
         private static final int TYPE_LUM               = 33;
+        private static final int TYPE_CHIHUAHUA         = 34;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
@@ -359,6 +362,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_LUM) {
                 return new WalletLumHolder(getLayoutInflater().inflate(R.layout.item_wallet_lum, viewGroup, false));
 
+            } else if (viewType == TYPE_CHIHUAHUA) {
+                return new WalletChihuahuaHolder(getLayoutInflater().inflate(R.layout.item_wallet_chihuahua, viewGroup, false));
+
             }
 
             else if (viewType == TYPE_PRICE) {
@@ -447,6 +453,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(BITSONG_MAIN)) { return TYPE_BITSONG; }
                     else if (getMainActivity().mBaseChain.equals(DESMOS_MAIN)) { return TYPE_DESMOS; }
                     else if (getMainActivity().mBaseChain.equals(LUM_MAIN)) { return TYPE_LUM; }
+                    else if (getMainActivity().mBaseChain.equals(CHIHUAHUA_MAIN)) { return TYPE_CHIHUAHUA; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
                 } else if (position == 1) {

@@ -85,6 +85,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
@@ -472,6 +473,15 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+        } else if (chain.equals(CHIHUAHUA_MAIN)) {
+            if (coin.denom.equals(TOKEN_CHIHUAHUA)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -828,6 +838,15 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
+        } else if (chain.equals(CHIHUAHUA_MAIN)) {
+            if (symbol.equals(TOKEN_CHIHUAHUA)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -1039,6 +1058,8 @@ public class WDp {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_desmos));
             } else if (baseChain.equals(LUM_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_lumnetwork));
+            } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_chihuahua));
 
             }
 
@@ -1134,6 +1155,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_desmos_net));
             } else if (baseChain.equals(LUM_MAIN)) {
                 chainName.setText(c.getString(R.string.str_lum_net));
+            } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
+                chainName.setText(c.getString(R.string.str_chihuahua_net));
 
             }
 
@@ -1230,6 +1253,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_desmos_main));
             } else if (baseChain.equals(LUM_MAIN)) {
                 chainName.setText(c.getString(R.string.str_lum_main));
+            } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
+                chainName.setText(c.getString(R.string.str_chihuahua_main));
 
             }
 
@@ -1329,6 +1354,8 @@ public class WDp {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorDesmos));
         } else if (baseChain.equals(LUM_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorLum));
+        } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorChihuahua));
 
         }
 
@@ -1422,6 +1449,8 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_desmos));
             } else if (baseChain.equals(LUM_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_lum));
+            } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
+                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_chihuahua));
             } else if (baseChain.equals(UMEE_TEST)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_umee));
             } else if (baseChain.equals(AXELAR_TEST)) {
@@ -1490,6 +1519,8 @@ public class WDp {
             } else if (chainId.contains("gravity-bridge-")) {
                 return GRABRIDGE_MAIN;
             } else if (chainId.contains("lum-network-")) {
+                return LUM_MAIN;
+            } else if (chainId.contains("chihuahua-")) {
                 return LUM_MAIN;
             }
         }
@@ -1606,6 +1637,10 @@ public class WDp {
                 if (!address.startsWith("lum1")) {
                     textView.setText("");
                 }
+            } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
+                if (!address.startsWith("chihuahua1")) {
+                    textView.setText("");
+                }
             }
         }
     }
@@ -1674,6 +1709,8 @@ public class WDp {
                 return "gravity-bridge";
             } else if (baseChain.equals(LUM_MAIN)) {
                 return "lum";
+            } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
+                return "chihuahua";
             }
 
             else if (baseChain.equals(BNB_MAIN)) {
@@ -1735,6 +1772,7 @@ public class WDp {
             else if (address.startsWith("bitsong1") && baseChain.equals(BITSONG_MAIN)) { return true; }
             else if (address.startsWith("desmos1") && baseChain.equals(DESMOS_MAIN)) { return true; }
             else if (address.startsWith("lum1") && baseChain.equals(LUM_MAIN)) { return true; }
+            else if (address.startsWith("chihuahua1") && baseChain.equals(CHIHUAHUA_MAIN)) { return true; }
 
             else if (address.startsWith("umee1") && baseChain.equals(UMEE_TEST)) { return true; }
             else if (address.startsWith("axelar1") && baseChain.equals(AXELAR_TEST)) { return true; }
@@ -1780,6 +1818,7 @@ public class WDp {
             else if (address.startsWith("bitsong1")) { return Lists.newArrayList(BITSONG_MAIN); }
             else if (address.startsWith("desmos1")) { return Lists.newArrayList(DESMOS_MAIN); }
             else if (address.startsWith("lum1")) { return Lists.newArrayList(LUM_MAIN); }
+            else if (address.startsWith("chihuahua1")) { return Lists.newArrayList(CHIHUAHUA_MAIN); }
 
             else if (address.startsWith("tbnb1")) { return Lists.newArrayList(BNB_TEST); }
             else if (address.startsWith("umee1")) { return Lists.newArrayList(UMEE_TEST); }
@@ -1817,6 +1856,7 @@ public class WDp {
             else if (chain.equals(DESMOS_MAIN)) { return DESMOS_UNKNOWN_RELAYER; }
             else if (chain.equals(GRABRIDGE_MAIN)) { return GRAB_UNKNOWN_RELAYER; }
             else if (chain.equals(LUM_MAIN)) { return LUM_UNKNOWN_RELAYER; }
+            else if (chain.equals(CHIHUAHUA_MAIN)) { return CHIHUAHUA_UNKNOWN_RELAYER; }
             else if (chain.equals(UMEE_TEST)) { return UMEE_UNKNOWN_RELAYER; }
         }
         return null;
@@ -2972,6 +3012,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorDesmos);
             } else if (chain.equals(LUM_MAIN)) {
                 return c.getResources().getColor(R.color.colorLum);
+            } else if (chain.equals(CHIHUAHUA_MAIN)) {
+                return c.getResources().getColor(R.color.colorChihuahua);
             } else if (chain.equals(UMEE_TEST)) {
                 return c.getResources().getColor(R.color.colorUmee);
             } else if (chain.equals(AXELAR_TEST)) {
@@ -3045,6 +3087,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorTransBgDesmos);
             } else if (chain.equals(LUM_MAIN)) {
                 return c.getResources().getColor(R.color.colorTransBgLum);
+            } else if (chain.equals(CHIHUAHUA_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgChihuahua);
             }
 
             else if (chain.equals(UMEE_TEST)) {
@@ -3118,6 +3162,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_desmos);
             } else if (chain.equals(LUM_MAIN)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_lum);
+            } else if (chain.equals(CHIHUAHUA_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_chihuahua);
             } else if (chain.equals(UMEE_TEST)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_umee);
             } else if (chain.equals(AXELAR_TEST)) {
@@ -3189,6 +3235,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.colorDesmos);
             } else if (chain.equals(LUM_MAIN)) {
                 return c.getResources().getColorStateList(R.color.colorLum);
+            } else if (chain.equals(CHIHUAHUA_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorChihuahua);
             } else if (chain.equals(UMEE_TEST)) {
                 return c.getResources().getColorStateList(R.color.colorUmee);
             } else if (chain.equals(AXELAR_TEST)) {
@@ -3327,6 +3375,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorLum));
             textview.setText(c.getString(R.string.s_lum));
 
+        } else if (BaseChain.getChain(chain).equals(CHIHUAHUA_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorChihuahua));
+            textview.setText(c.getString(R.string.s_chihuahua));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -3417,6 +3469,8 @@ public class WDp {
             return TOKEN_DESMOS;
         } else if (chain.equals(LUM_MAIN)) {
             return TOKEN_LUM;
+        } else if (chain.equals(CHIHUAHUA_MAIN)) {
+            return TOKEN_CHIHUAHUA;
         } else if (chain.equals(UMEE_TEST)) {
             return TOKEN_UMEE;
         } else if (chain.equals(AXELAR_TEST)) {
@@ -3490,6 +3544,8 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_desmos);
             } else if (baseChain.equals(LUM_MAIN)) {
                 imageView.setImageResource(R.drawable.token_lum);
+            } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
+                imageView.setImageResource(R.drawable.token_huahua);
             } else if (baseChain.equals(UMEE_TEST)) {
                 imageView.setImageResource(R.drawable.token_umee);
             } else if (baseChain.equals(AXELAR_TEST)) {
@@ -3927,6 +3983,8 @@ public class WDp {
             return KI_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(LUM_MAIN)) {
             return LUM_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(CHIHUAHUA_MAIN)) {
+            return CHIHUAHUA_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(UMEE_TEST)) {
             return UMEE_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(AXELAR_TEST)) {

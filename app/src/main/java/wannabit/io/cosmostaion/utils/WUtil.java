@@ -101,6 +101,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
@@ -2325,6 +2326,9 @@ public class WUtil {
             } else if (chain.equals(LUM_MAIN)) {
                 return BLOCK_TIME_LUM;
 
+            } else if (chain.equals(CHIHUAHUA_MAIN)) {
+                return BLOCK_TIME_CHIHUAHUA;
+
             }
         }
         return BigDecimal.ZERO;
@@ -2591,6 +2595,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_lum);
             guideMsg.setText(R.string.str_front_guide_msg_lum);
 
+        } else if (mainActivity.mBaseChain.equals(CHIHUAHUA_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_chihuahua));
+            guideTitle.setText(R.string.str_front_guide_title_chihuahua);
+            guideMsg.setText(R.string.str_front_guide_msg_chihuahua);
+
         } else if (mainActivity.mBaseChain.equals(UMEE_TEST)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_umee));
             guideTitle.setText(R.string.str_front_guide_title_umee);
@@ -2706,6 +2715,9 @@ public class WUtil {
         } else if (chain.equals(LUM_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://lum.network/"));
 
+        } else if (chain.equals(CHIHUAHUA_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://chi.huahua.wtf/"));
+
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
 
@@ -2816,6 +2828,9 @@ public class WUtil {
 
         } else if (chain.equals(LUM_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/lum-network"));
+
+        } else if (chain.equals(CHIHUAHUA_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://chi.huahua.wtf"));
 
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
@@ -2931,6 +2946,9 @@ public class WUtil {
 
         } else if (basechain.equals(LUM_MAIN)) {
             return EXPLORER_LUM_MAIN;
+
+        } else if (basechain.equals(CHIHUAHUA_MAIN)) {
+            return EXPLORER_CHIHUAHUA_MAIN;
 
         }
 
@@ -3057,6 +3075,9 @@ public class WUtil {
 
         } else if (basechain.equals(LUM_MAIN)) {
             return EXPLORER_LUM_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(CHIHUAHUA_MAIN)) {
+            return EXPLORER_CHIHUAHUA_MAIN + "txs/" + hash;
 
         }
 
@@ -3410,6 +3431,17 @@ public class WUtil {
                 return new BigDecimal(MEDI_GAS_AMOUNT_IBC_SEND);
             }
 
+        } else if (basechain.equals(CHIHUAHUA_MAIN)) {
+            if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(CERTIK_GAS_AMOUNT_REDELEGATE);
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(CERTIK_GAS_AMOUNT_REINVEST);
+            } else {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            }
         }
         return result;
     }
@@ -3556,6 +3588,11 @@ public class WUtil {
 
         } else if (basechain.equals(LUM_MAIN)) {
             BigDecimal gasRate = new BigDecimal(LUM_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(CHIHUAHUA_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(CHIHUAHUA_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -3773,6 +3810,14 @@ public class WUtil {
                 return new BigDecimal(LUM_GAS_RATE_LOW);
             }
             return new BigDecimal(LUM_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(CHIHUAHUA_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(CHIHUAHUA_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(CHIHUAHUA_GAS_RATE_LOW);
+            }
+            return new BigDecimal(CHIHUAHUA_GAS_RATE_AVERAGE);
 
         }
 
