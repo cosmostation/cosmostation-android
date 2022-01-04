@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import irismod.nft.QueryOuterClass;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
@@ -74,12 +75,13 @@ public class BaseBroadCastActivity extends BaseActivity {
     public IbcPath.Path                 mPath;
 
     // NFT
-    public String                       mNftDenomId;
-    public String                       mNftDenomName;
-    public String                       mNftTokenId;
-    public String                       mNftName;
-    public String                       mNftDescription;
-    public String                       mNftHash;
+    public String                           mNftDenomId;
+    public String                           mNftDenomName;
+    public String                           mNftTokenId;
+    public String                           mNftName;
+    public String                           mNftDescription;
+    public String                           mNftHash;
+    public QueryOuterClass.QueryNFTResponse mIrisResponse;
 
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
     public BigDecimal                   mHdacBalance;                               //rizon swap amount

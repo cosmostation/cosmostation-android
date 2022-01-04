@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import irismod.nft.QueryOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import sifnode.clp.v1.Querier;
@@ -266,12 +267,13 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Querier.LiquidityProviderRes    mMyprovider;
 
     // NFT
-    private String                          mNftDenomId;
-    private String                          mNftDenomName;
-    private String                          mNftName;
-    private String                          mNftDescription;
-    private String                          mNftHash;
-    private String                          mNftTokenId;
+    private String                              mNftDenomId;
+    private String                              mNftDenomName;
+    private String                              mNftName;
+    private String                              mNftDescription;
+    private String                              mNftHash;
+    private String                              mNftTokenId;
+    private QueryOuterClass.QueryNFTResponse    mIrisResponse;
 
     private String                      mPortId;
     private String                      mChannelId;
@@ -386,6 +388,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mNftDescription = getIntent().getStringExtra("nftDescription");
         mNftHash = getIntent().getStringExtra("nftHash");
         mNftTokenId = getIntent().getStringExtra("nftTokenId");
+        mIrisResponse = (QueryOuterClass.QueryNFTResponse) getIntent().getSerializableExtra("irisResponse");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -772,7 +775,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SEND_NFT) {
             new TransferNFTGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
-                    mTargetAddress, mNftDenomId, mNftTokenId, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetAddress, mNftDenomId, mNftTokenId, mIrisResponse, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
         else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {

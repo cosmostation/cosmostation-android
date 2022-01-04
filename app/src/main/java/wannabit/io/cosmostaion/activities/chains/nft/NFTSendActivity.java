@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -60,6 +61,7 @@ public class NFTSendActivity extends BaseBroadCastActivity {
 
         mNftDenomId = getIntent().getStringExtra("mDenomId");
         mNftTokenId = getIntent().getStringExtra("mTokenId");
+        mIrisResponse = (QueryOuterClass.QueryNFTResponse) getIntent().getSerializableExtra("mIrisResponse");
 
         mPageAdapter = new NFTSendAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -139,6 +141,7 @@ public class NFTSendActivity extends BaseBroadCastActivity {
         intent.putExtra("toAddress", mToAddress);
         intent.putExtra("nftDenomId", mNftDenomId);
         intent.putExtra("nftTokenId", mNftTokenId);
+        intent.putExtra("irisResponse", mIrisResponse);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

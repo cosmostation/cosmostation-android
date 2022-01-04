@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import irismod.nft.Nft;
+import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NFTokenDetailActivity;
@@ -46,20 +47,20 @@ public class NftMyHolder extends RecyclerView.ViewHolder {
             public void onTaskResponse(TaskResult result) {
                 if (result.isSuccess) {
                     if (activity.mBaseChain.equals(IRIS_MAIN)) {
-                        Nft.BaseNFT myIrisNftInfo = (Nft.BaseNFT) result.resultData;
-                        if (myIrisNftInfo != null) {
+                        QueryOuterClass.QueryNFTResponse irisResponse = (QueryOuterClass.QueryNFTResponse) result.resultData;
+                        if (irisResponse != null) {
                             try {
-                                Glide.with(activity).load(myIrisNftInfo.getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
+                                Glide.with(activity).load(irisResponse.getNft().getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
                                         placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fitCenter().into(itemMyNftImg);
                             } catch (Exception e) { }
-                            itemMyNftTitle.setText(myIrisNftInfo.getName());
-                            itemMyNftContent.setText(WUtil.getNftDescription(myIrisNftInfo.getData()));
+                            itemMyNftTitle.setText(irisResponse.getNft().getName());
+                            itemMyNftContent.setText(WUtil.getNftDescription(irisResponse.getNft().getData()));
 
                             itemRoot.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent(activity, NFTokenDetailActivity.class);
-                                    intent.putExtra("myNftInfo", myIrisNftInfo);
+                                    intent.putExtra("irisResponse", irisResponse);
                                     intent.putExtra("mDenomId", denomId);
                                     intent.putExtra("mTokenId", tokenId);
                                     activity.startActivity(intent);

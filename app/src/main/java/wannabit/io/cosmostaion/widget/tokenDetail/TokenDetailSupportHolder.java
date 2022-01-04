@@ -14,6 +14,7 @@ import com.google.gson.JsonParser;
 import java.math.BigDecimal;
 
 import irismod.nft.Nft;
+import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -175,12 +176,12 @@ public class TokenDetailSupportHolder extends BaseHolder {
         }
     }
 
-    public void onBindNftInfo(Context c, BaseChain baseChain, Nft.BaseNFT myIrisNftInfo, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo, String denomId, String tokenId) {
-        if (baseChain.equals(IRIS_MAIN) && myIrisNftInfo != null) {
+    public void onBindNftInfo(Context c, BaseChain baseChain, QueryOuterClass.QueryNFTResponse irisResponse, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo, String denomId, String tokenId) {
+        if (baseChain.equals(IRIS_MAIN) && irisResponse != null) {
             mNftInfo.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgIris));
-            mNftName.setText(myIrisNftInfo.getName());
-            mNftContent.setText(WUtil.getNftDescription(myIrisNftInfo.getData()));
-            mNftIssuer.setText(WUtil.getNftIssuer(myIrisNftInfo.getData()));
+            mNftName.setText(irisResponse.getNft().getName());
+            mNftContent.setText(WUtil.getNftDescription(irisResponse.getNft().getData()));
+            mNftIssuer.setText(WUtil.getNftIssuer(irisResponse.getNft().getData()));
 
         } else if (baseChain.equals(CRYPTO_MAIN) && myCryptoNftInfo != null) {
             mNftInfo.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgCryto));
@@ -192,13 +193,13 @@ public class TokenDetailSupportHolder extends BaseHolder {
         mNftTokenId.setText(tokenId);
     }
 
-    public void onBindNftRawData(Context c, BaseChain baseChain, Nft.BaseNFT myIrisNftInfo, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo) {
-        if (baseChain.equals(IRIS_MAIN) && myIrisNftInfo != null) {
+    public void onBindNftRawData(Context c, BaseChain baseChain, QueryOuterClass.QueryNFTResponse irisResponse, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo) {
+        if (baseChain.equals(IRIS_MAIN) && irisResponse != null) {
             mNftRawRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgIris));
-            if (myIrisNftInfo.getData().isEmpty()) {
+            if (irisResponse.getNft().getData().isEmpty()) {
                 mNftRawData.setText("");
             } else {
-                mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(myIrisNftInfo.getData())));
+                mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(irisResponse.getNft().getData())));
             }
         } else if (baseChain.equals(CRYPTO_MAIN) && myCryptoNftInfo != null) {
             mNftRawRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgCryto));

@@ -25,6 +25,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.math.BigDecimal;
 
 import irismod.nft.Nft;
+import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.nft.NFTSendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -48,6 +49,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
     private NFTDetailAdapter    mAdapter;
 
     private Nft.BaseNFT                      myIrisNftInfo;
+    private QueryOuterClass.QueryNFTResponse mIrisResponse;
     private chainmain.nft.v1.Nft.BaseNFT     myCryptoNftInfo;
 
     private String mDenomId;
@@ -76,7 +78,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         if (mBaseChain.equals(IRIS_MAIN)) {
-            myIrisNftInfo = (Nft.BaseNFT) getIntent().getSerializableExtra("myNftInfo");
+            mIrisResponse = (QueryOuterClass.QueryNFTResponse) getIntent().getSerializableExtra("irisResponse");
         } else if (mBaseChain.equals(CRYPTO_MAIN)) {
             myCryptoNftInfo = (chainmain.nft.v1.Nft.BaseNFT) getIntent().getSerializableExtra("myNftInfo");
         }
@@ -108,7 +110,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
     private void onUpdateView() {
         try {
             if (mBaseChain.equals(IRIS_MAIN)) {
-                Glide.with(this).load(myIrisNftInfo.getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
+                Glide.with(this).load(mIrisResponse.getNft().getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
                         placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fitCenter().into(mNftImg);
             } else if (mBaseChain.equals(CRYPTO_MAIN)) {
                 Glide.with(this).load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).diskCacheStrategy(DiskCacheStrategy.ALL).
@@ -122,7 +124,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         if (v.equals(mNftImg)) {
             if (mBaseChain.equals(IRIS_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(myIrisNftInfo.getUri()));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mIrisResponse.getNft().getUri()));
                 startActivity(intent);
             } else if (mBaseChain.equals(CRYPTO_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(WUtil.getNftImgUrl(myCryptoNftInfo.getData())));
@@ -157,6 +159,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
                 }
                 intent.putExtra("mDenomId", mDenomId);
                 intent.putExtra("mTokenId", mTokenId);
+                intent.putExtra("mIrisResponse", mIrisResponse);
                 startActivity(intent);
             }
         }
@@ -181,10 +184,10 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_INFO) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindNftInfo(NFTokenDetailActivity.this, mBaseChain, myIrisNftInfo, myCryptoNftInfo, mDenomId, mTokenId);
+                holder.onBindNftInfo(NFTokenDetailActivity.this, mBaseChain, mIrisResponse, myCryptoNftInfo, mDenomId, mTokenId);
             } else if (getItemViewType(position) == TYPE_RAW){
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindNftRawData(NFTokenDetailActivity.this, mBaseChain, myIrisNftInfo, myCryptoNftInfo);
+                holder.onBindNftRawData(NFTokenDetailActivity.this, mBaseChain, mIrisResponse, myCryptoNftInfo);
             }
         }
 

@@ -32,19 +32,21 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_TRANSFE
 
 public class TransferNFTGrpcTask extends CommonTask {
 
-    private Account                 mAccount;
-    private BaseChain               mBaseChain;
-    private String                  mRecipient;
-    private String                  mDenomId;
-    private String                  mId;
-    private Fee                     mFees;
-    private String                  mMemo;
-    private String                  mChainId;
+    private Account                                      mAccount;
+    private BaseChain                                    mBaseChain;
+    private String                                       mRecipient;
+    private String                                       mDenomId;
+    private String                                       mId;
+    private irismod.nft.QueryOuterClass.QueryNFTResponse mIrisResponse;
+    private Fee                                          mFees;
+    private String                                       mMemo;
+    private String                                       mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
-    public TransferNFTGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender, String recipient, String denomId, String id, String memo, Fee fee, String chainId) {
+    public TransferNFTGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender, String recipient, String denomId, String id,
+                               irismod.nft.QueryOuterClass.QueryNFTResponse irisResponse, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
@@ -52,6 +54,7 @@ public class TransferNFTGrpcTask extends CommonTask {
         this.mRecipient = recipient;
         this.mDenomId = denomId;
         this.mId = id;
+        this.mIrisResponse = irisResponse;
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
@@ -85,9 +88,9 @@ public class TransferNFTGrpcTask extends CommonTask {
             ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = null;
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             if (mBaseChain.equals(IRIS_MAIN)) {
-                broadcastTxRequest = Signer.getGrpcSendNftIrisReq(mAuthResponse, mAccount.address, mRecipient, mDenomId,mId, mFees, mMemo, ecKey, mChainId);
+                broadcastTxRequest = Signer.getGrpcSendNftIrisReq(mAuthResponse, mAccount.address, mRecipient, mDenomId, mId, mIrisResponse, mFees, mMemo, ecKey, mChainId);
             } else if (mBaseChain.equals(CRYPTO_MAIN)) {
-                broadcastTxRequest = Signer.getGrpcSendNftCroReq(mAuthResponse, mAccount.address, mRecipient, mDenomId,mId, mFees, mMemo, ecKey, mChainId);
+                broadcastTxRequest = Signer.getGrpcSendNftCroReq(mAuthResponse, mAccount.address, mRecipient, mDenomId, mId, mFees, mMemo, ecKey, mChainId);
             }
             if (broadcastTxRequest != null) {
                 ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);

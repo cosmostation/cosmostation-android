@@ -37,7 +37,7 @@ public class NFTokenInfoGrpcTask extends CommonTask {
                 QueryOuterClass.QueryNFTResponse response = mIrisStub.nFT(request);
 
                 mResult.isSuccess = true;
-                mResult.resultData = response.getNft();
+                mResult.resultData = response;
 
             } else if (mChain.equals(BaseChain.CRYPTO_MAIN)) {
                 chainmain.nft.v1.QueryOuterClass.QueryNFTRequest request = chainmain.nft.v1.QueryOuterClass.QueryNFTRequest.newBuilder().setDenomId(mDenomId).setTokenId(mTokenId).build();
