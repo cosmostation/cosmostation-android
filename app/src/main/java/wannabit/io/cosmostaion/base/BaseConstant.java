@@ -585,7 +585,7 @@ public class BaseConstant {
     public final static String TOKEN_BITSONG        = "ubtsg";
     public final static String TOKEN_DESMOS         = "udsm";
     public final static String TOKEN_LUM            = "ulum";
-    public final static String TOKEN_CHIHUAHUA      = "uchihuahua";
+    public final static String TOKEN_CHIHUAHUA      = "uhuahua";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
