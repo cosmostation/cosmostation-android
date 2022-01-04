@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 
@@ -83,6 +84,9 @@ public class ChainParam {
         @SerializedName("gdex_status")
         public ArrayList<GdexStatus> mGdexStatus;
 
+        @SerializedName("stargaze_minting_params")
+        public StargazeMintingParams mStargazeMintingParams;
+
         @SerializedName("swap_enabled")
         public boolean swap_enabled;
 
@@ -103,6 +107,9 @@ public class ChainParam {
                     }
                 }
                 return new BigDecimal(mEmoneyInflations.mEmoneyInflation.assets.get(0).inflation);
+            } else if (baseChain.equals(STARGAZE_MAIN)) {
+                BigDecimal initialProvision = new BigDecimal(mStargazeMintingParams.params.initial_annual_provisions);
+                return initialProvision.divide(getMainSupply(baseChain), 18, RoundingMode.DOWN);
             } else {
                 try {
                     MintInflation temp = new Gson().fromJson(new Gson().toJson(mMintInflations), MintInflation.class);
@@ -158,6 +165,9 @@ public class ChainParam {
                 if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
                     BigDecimal stakingDistribution = new BigDecimal(osmosisMingtingParams.params.distributionProportions.staking);
                     return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+                } else if (baseChain.equals(STARGAZE_MAIN)) {
+                    BigDecimal reductionFactor = BigDecimal.ONE.subtract(new BigDecimal(mStargazeMintingParams.params.reduction_factor));
+                    return inflation.multiply(calTax).multiply(reductionFactor).divide(bondingRate, 6, RoundingMode.DOWN);
                 } else {
                     return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
                 }
@@ -182,7 +192,9 @@ public class ChainParam {
 
         public BigDecimal getBlockPerYear(BaseChain baseChain) {
             if (isGRPC(baseChain)) {
-                if (mMintParams != null && mMintParams.params!= null && mMintParams.params.blocks_per_year!= null) {
+                if (baseChain.equals(STARGAZE_MAIN)) {
+                    return new BigDecimal(mStargazeMintingParams.params.blocks_per_year);
+                } else if (mMintParams != null && mMintParams.params!= null && mMintParams.params.blocks_per_year!= null) {
                     return new BigDecimal(mMintParams.params.blocks_per_year);
                 } else {
                     return BigDecimal.ZERO;
@@ -616,6 +628,28 @@ public class ChainParam {
 
         @SerializedName("pool_token")
         public String pool_token;
+    }
+
+    public class StargazeMintingParams {
+        @SerializedName("params")
+        public StargazeMintingParam params;
+
+        public class StargazeMintingParam {
+            @SerializedName("mint_denom")
+            public String mint_denom;
+
+            @SerializedName("start_time")
+            public String start_time;
+
+            @SerializedName("blocks_per_year")
+            public String blocks_per_year;
+
+            @SerializedName("reduction_factor")
+            public String reduction_factor;
+
+            @SerializedName("initial_annual_provisions")
+            public String initial_annual_provisions;
+        }
     }
 }
 

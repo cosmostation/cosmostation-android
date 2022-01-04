@@ -39,7 +39,7 @@ public class TxCommissionHolder extends TxHolder {
             Tx.MsgWithdrawValidatorCommission msg = Tx.MsgWithdrawValidatorCommission.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemCommissionValidator.setText(msg.getValidatorAddress());
             itemCommissionValidatorMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
-            itemCommissionAmount.setText(WDp.getDpAmount2(c, WDp.onParseCommission(response, position), dpDecimal, dpDecimal));
+            itemCommissionAmount.setText(WDp.getDpAmount2(c, WDp.onParseCommission(baseChain, response, position), dpDecimal, dpDecimal));
 
         } catch (Exception e) {}
 

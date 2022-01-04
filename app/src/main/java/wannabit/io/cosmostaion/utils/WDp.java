@@ -4057,16 +4057,22 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal onParseStakeReward(ServiceOuterClass.GetTxResponse response, String valAddr, int position) {
+    public static BigDecimal onParseStakeReward(BaseChain baseChain, ServiceOuterClass.GetTxResponse response, String valAddr, int position) {
         BigDecimal result = BigDecimal.ZERO;
         if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
             for (Abci.StringEvent event: response.getTxResponse().getLogs(position).getEventsList()) {
                 if (event.getType().equals("withdraw_rewards")) {
                     for (int i = 0; i < event.getAttributesList().size(); i ++) {
                         if (event.getAttributes(i).getKey().equals("validator") && event.getAttributes(i).getValue().equals(valAddr)) {
-                            String temp = event.getAttributes(i - 1).getValue().replaceAll("[^0-9]", "");
-                            result = result.add(new BigDecimal(temp));
-                            break;
+                            String rawValue = event.getAttributes(i - 1).getValue();
+                            if (rawValue != null) {
+                                for (String rawCoin: rawValue.split(",")) {
+                                    if (rawCoin.contains(WDp.mainDenom(baseChain))) {
+                                        result = result.add(new BigDecimal(rawCoin.replaceAll("[^0-9]", "")));
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -4075,17 +4081,21 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal onParseCommission(ServiceOuterClass.GetTxResponse response, int position) {
+    public static BigDecimal onParseCommission(BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position) {
         BigDecimal result = BigDecimal.ZERO;
         if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
             for (Abci.StringEvent event: response.getTxResponse().getLogs(position).getEventsList()) {
                 if (event.getType().equals("withdraw_commission")) {
                     for (int i = 0; i < event.getAttributesList().size(); i ++) {
                         if (event.getAttributes(i).getKey().equals("amount")) {
-                            if (event.getAttributes(i).getValue() != null) {
-                                String temp = event.getAttributes(i).getValue().replaceAll("[^0-9]", "");
-                                result = result.add(new BigDecimal(temp));
-                                break;
+                            String rawValue = event.getAttributes(i).getValue();
+                            if (rawValue != null) {
+                                for (String rawCoin: rawValue.split(",")) {
+                                    if (rawCoin.contains(WDp.mainDenom(baseChain))) {
+                                        result = result.add(new BigDecimal(rawCoin.replaceAll("[^0-9]", "")));
+                                        break;
+                                    }
+                                }
                             }
                         }
                     }
