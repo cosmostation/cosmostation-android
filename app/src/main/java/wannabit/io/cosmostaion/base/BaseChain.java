@@ -307,7 +307,7 @@ public enum BaseChain {
         result.add(EMONEY_MAIN);
         result.add(FETCHAI_MAIN);
         result.add(GRABRIDGE_MAIN);
-//        result.add(INJ_MAIN);
+        result.add(INJ_MAIN);
         result.add(JUNO_MAIN);
         result.add(KAVA_MAIN);
         result.add(KI_MAIN);

@@ -6,7 +6,10 @@ import com.google.protobuf2.Any;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Sign;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 
@@ -26,6 +29,7 @@ import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
@@ -1025,7 +1029,12 @@ public class Signer {
 
 
     public static TxOuterClass.SignerInfo getGrpcSignerInfo(QueryOuterClass.QueryAccountResponse auth, ECKey pKey) {
-        Any pubKey = WKey.generateGrpcPubKeyFromPriv(pKey.getPrivateKeyAsHex());
+        Any pubKey = null;
+        if (auth.getAccount().getTypeUrl().contains("/injective.types.v1beta1.EthAccount")) {
+            pubKey = WKey.generateGrpcEthPubKeyFromPriv(pKey.getPrivateKeyAsHex());
+        } else {
+            pubKey = WKey.generateGrpcPubKeyFromPriv(pKey.getPrivateKeyAsHex());
+        }
         TxOuterClass.ModeInfo.Single singleMode = TxOuterClass.ModeInfo.Single.newBuilder().setMode(SIGN_MODE_DIRECT).build();
         TxOuterClass.ModeInfo modeInfo = TxOuterClass.ModeInfo.newBuilder().setSingle(singleMode).build();
         return  TxOuterClass.SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo).setSequence(onParseSequenceNumber(auth)).build();
@@ -1039,23 +1048,30 @@ public class Signer {
 
     public static TxOuterClass.TxRaw getGrpcRawTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, ECKey pKey, String chainId) {
         TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(onParseAccountNumber(auth)).build();
-        byte[] sigbyte = Signer.getGrpcByteSingleSignature(pKey, signDoc.toByteArray());
+        byte[] sigbyte = Signer.getGrpcByteSingleSignature(auth, pKey, signDoc.toByteArray());
         return TxOuterClass.TxRaw.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).addSignatures(ByteString.copyFrom(sigbyte)).build();
     }
 
     public static TxOuterClass.Tx getGrpcSimulTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, ECKey pKey, String chainId) {
         TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(onParseAccountNumber(auth)).build();
-        byte[] sigbyte = Signer.getGrpcByteSingleSignature(pKey, signDoc.toByteArray());
+        byte[] sigbyte = Signer.getGrpcByteSingleSignature(auth, pKey, signDoc.toByteArray());
         return TxOuterClass.Tx.newBuilder().setAuthInfo(authInfo).setBody(txBody).addSignatures(ByteString.copyFrom(sigbyte)).build();
     }
 
-    public static byte[] getGrpcByteSingleSignature(ECKey key, byte[] toSignByte) {
-        MessageDigest digest = Sha256.getSha256Digest();
-        byte[] toSignHash = digest.digest(toSignByte);
-        ECKey.ECDSASignature Signature = key.sign(Sha256Hash.wrap(toSignHash));
+    public static byte[] getGrpcByteSingleSignature(QueryOuterClass.QueryAccountResponse auth, ECKey key, byte[] toSignByte) {
         byte[] sigData = new byte[64];
-        System.arraycopy(integerToBytes(Signature.r, 32), 0, sigData, 0, 32);
-        System.arraycopy(integerToBytes(Signature.s, 32), 0, sigData, 32, 32);
-        return  sigData;
+        if (auth.getAccount().getTypeUrl().contains("/injective.types.v1beta1.EthAccount")) {
+            BigInteger privateKey = new BigInteger(key.getPrivateKeyAsHex(), 16);
+            Sign.SignatureData sig = Sign.signMessage(toSignByte, ECKeyPair.create(privateKey));
+            System.arraycopy(sig.getR(), 0, sigData, 0, 32);
+            System.arraycopy(sig.getS(), 0, sigData, 32, 32);
+        } else {
+            MessageDigest digest = Sha256.getSha256Digest();
+            byte[] toSignHash = digest.digest(toSignByte);
+            ECKey.ECDSASignature Signature = key.sign(Sha256Hash.wrap(toSignHash));
+            System.arraycopy(integerToBytes(Signature.r, 32), 0, sigData, 0, 32);
+            System.arraycopy(integerToBytes(Signature.s, 32), 0, sigData, 32, 32);
+        }
+        return sigData;
     }
 }
