@@ -1521,7 +1521,7 @@ public class WDp {
             } else if (chainId.contains("lum-network-")) {
                 return LUM_MAIN;
             } else if (chainId.contains("chihuahua-")) {
-                return LUM_MAIN;
+                return CHIHUAHUA_MAIN;
             }
         }
         return null;
