@@ -81,7 +81,12 @@ public class Coin implements Parcelable {
     }
 
     public long osmosisAmmPoolId() {
-        String id =  denom.replace("gamm/pool/", "");
+        String id = denom.replace("gamm/pool/", "");
+        return Long.parseLong(id);
+    }
+
+    public long injectivePoolId() {
+        String id = denom.replace("share", "");
         return Long.parseLong(id);
     }
 

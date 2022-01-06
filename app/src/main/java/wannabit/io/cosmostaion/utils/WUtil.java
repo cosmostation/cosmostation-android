@@ -1243,6 +1243,17 @@ public class WUtil {
         });
     }
 
+    public static void onSortingInjectivePool(ArrayList<Coin> coins) {
+        Collections.sort(coins, new Comparator<Coin>() {
+            @Override
+            public int compare(Coin o1, Coin o2) {
+                if (o1.injectivePoolId() < o2.injectivePoolId()) return -1;
+                else if (o1.injectivePoolId() > o2.injectivePoolId()) return 1;
+                return 0;
+            }
+        });
+    }
+
 
 
     public static ArrayList<UnbondingInfo.DpEntry> onSortUnbondingsRecent(Context c, ArrayList<UnbondingInfo> unbondingInfos) {

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -23,19 +22,16 @@ import java.math.BigDecimal;
 
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 
 public class POOLTokenDetailActivity extends BaseActivity implements View.OnClickListener{
 
@@ -146,6 +142,18 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
             mDivideDecimal = 6;
             mDisplayDecimal = 6;
+            mTotalAmount = getBaseDao().getAvailable(mPoolDenom);
+            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mPoolDenom, mTotalAmount, mDivideDecimal));
+
+            mBtnIbcSend.setVisibility(View.VISIBLE);
+
+        } else if (mBaseChain.equals(INJ_MAIN)) {
+            mToolbarSymbolImg.setImageResource(R.drawable.token_ic);
+            mToolbarSymbol.setText("SHARE-" + mPoolDenom.substring(5));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+
+            mDivideDecimal = 18;
+            mDisplayDecimal = 18;
             mTotalAmount = getBaseDao().getAvailable(mPoolDenom);
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mPoolDenom, mTotalAmount, mDivideDecimal));
 
