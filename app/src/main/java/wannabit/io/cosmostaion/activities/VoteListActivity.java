@@ -294,50 +294,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             } else {
                 proposalContent = mGrpcProposals.get(position).getContent();
             }
-
-            try {
-                if (proposalContent.getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
-                    Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposalContent.getValue());
-                    voteHolder.proposal_title.setText(textProposal.getTitle());
-                    voteHolder.proposal_details.setText(textProposal.getDescription());
-
-                } else if (proposalContent.getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
-                    Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposalContent.getValue());
-                    voteHolder.proposal_title.setText(parameterChangeProposal.getTitle());
-                    voteHolder.proposal_details.setText(parameterChangeProposal.getDescription());
-
-                } else if (proposalContent.getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
-                    Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposalContent.getValue());
-                    voteHolder.proposal_title.setText(clientUpdateProposal.getTitle());
-                    voteHolder.proposal_details.setText(clientUpdateProposal.getDescription());
-
-                } else if (proposalContent.getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
-                    Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposalContent.getValue());
-                    voteHolder.proposal_title.setText(communityPoolSpendProposal.getTitle());
-                    voteHolder.proposal_details.setText(communityPoolSpendProposal.getDescription());
-
-                } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
-                    Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
-                    voteHolder.proposal_title.setText(softwareUpgradeProposal.getTitle());
-                    voteHolder.proposal_details.setText(softwareUpgradeProposal.getDescription());
-
-                } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
-                    Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
-                    voteHolder.proposal_title.setText(cancelSoftwareUpgradeProposal.getTitle());
-                    voteHolder.proposal_details.setText(cancelSoftwareUpgradeProposal.getDescription());
-
-                } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
-                    osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposalContent.getValue());
-                    voteHolder.proposal_title.setText(updatePoolIncentivesProposal.getTitle());
-                    voteHolder.proposal_details.setText(updatePoolIncentivesProposal.getDescription());
-
-                } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
-                    osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposalContent.getValue());
-                    voteHolder.proposal_title.setText(replacePoolIncentivesProposal.getTitle());
-                    voteHolder.proposal_details.setText(replacePoolIncentivesProposal.getDescription());
-                }
-
-            } catch (Exception e){WLog.w("Ex " +e.getMessage());}
+            WUtil.getVoteListType(proposalContent, voteHolder.proposal_title, voteHolder.proposal_details);
 
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override

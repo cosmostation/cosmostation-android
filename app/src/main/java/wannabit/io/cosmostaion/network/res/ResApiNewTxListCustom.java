@@ -508,11 +508,12 @@ public class ResApiNewTxListCustom {
 
         String denom = "";
         String amount = "";
-        if (msgType.contains("MsgSend")) {
+        if (msgType.contains("MsgSendToEth")) {
+
+        } else if (msgType.contains("MsgSend")) {
             try {
                 denom = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("amount");
-                return new Coin(denom, amount);
             } catch (JSONException e) {  }
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("denom");
