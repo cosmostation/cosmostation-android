@@ -190,6 +190,13 @@
         </activity>
 
         <activity
+            android:name=".activities.chains.desmos.ProfileDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
+        <activity
             android:name=".activities.ValidatorListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

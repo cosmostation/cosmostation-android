@@ -33,7 +33,9 @@ import com.google.zxing.integration.android.IntentResult;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import desmos.profiles.v1beta1.ModelsProfile;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.desmos.ProfileDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.activities.chains.sif.SifIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -403,6 +405,33 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onSetKavaWarn() {
         getBaseDao().setKavaWarn();
+    }
+
+    public void onClickProfile() {
+//        if (!mAccount.hasPrivateKey) {
+//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+//            return;
+//        }
+
+        if (getBaseDao().mGRpcNodeInfo != null && getBaseDao().mGRpcAccount != null) {
+            if (getBaseDao().mGRpcAccount.getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
+                Intent airdrop = new Intent(this, ProfileDetailActivity.class);
+                startActivity(airdrop);
+
+            } else {
+
+            }
+
+        } else {
+            onDesmosFeeCheck(mAccount.address);
+        }
+    }
+
+    public void onDesmosFeeCheck(String address) {
+        Toast.makeText(this, "Air Drop", Toast.LENGTH_SHORT).show();
+        return;
     }
 
     public void onStartBinanceWalletConnect(String wcUrl) {

@@ -38,6 +38,21 @@ public class ApiClient {
         return mintscan;
     }
 
+    //Services for station airdrop api
+    private static Station airdrop = null;
+    public static Station getAirDrop(Context c) {
+        if (airdrop == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_airdrop_desmos))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                airdrop = retrofit.create(Station.class);
+            }
+        }
+        return airdrop;
+    }
+
     //Services for Cosmostation wallet api
     private static Cosmostation cosmostation = null;
     public static Cosmostation getCosmostationOld(Context c) {

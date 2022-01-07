@@ -245,6 +245,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_NFTOKEN_LIST                = 4270;
     public final static int TASK_GRPC_FETCH_NFTOKEN_INFO                = 4271;
 
+    public final static int TASK_GRPC_FETCH_PROFILE_INFO                = 4280;
+
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
     public final static int TASK_GRPC_BROAD_CLAIM_REWARDS               = 4302;

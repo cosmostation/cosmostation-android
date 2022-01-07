@@ -118,6 +118,7 @@
 
 
     <string name="url_api_desmos" translatable="false">https://api-desmos.cosmostation.io/</string>
+    <string name="url_api_airdrop_desmos" translatable="false">https://api.airdrop.desmos.network/</string>
 
 
     <string name="url_api_lum" translatable="false">https://api-lum.cosmostation.io/</string>
@@ -1724,6 +1725,11 @@
     <string name="str_send_nft_recipient_address">Recipient Address</string>
     <string name="str_send_nft_denom_id">Denom ID</string>
     <string name="str_send_nft_token_id">Token ID</string>
+
+    <string name="str_desmos_airdrop"><![CDATA[Profile & AirDrop]]> </string>
+    <string name="str_profile_detail_title">Profile Detail</string>
+    <string name="str_edit_profile">프로필 편집</string>
+    <string name="str_air_drop">Air Drop</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

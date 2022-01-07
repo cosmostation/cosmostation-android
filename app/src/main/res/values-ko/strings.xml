@@ -1335,6 +1335,11 @@
     <string name="str_send_nft_denom_id">Denom ID</string>
     <string name="str_send_nft_token_id">Token ID</string>
 
+    <string name="str_desmos_airdrop"><![CDATA[Profile & AirDrop]]> </string>
+    <string name="str_profile_detail_title">프로필 상세</string>
+    <string name="str_edit_profile">프로필 편집</string>
+    <string name="str_air_drop">Air Drop</string>
+
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>

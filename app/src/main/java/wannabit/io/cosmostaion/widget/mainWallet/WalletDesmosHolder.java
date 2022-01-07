@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
+import wannabit.io.cosmostaion.activities.chains.desmos.ProfileDetailActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -24,7 +25,7 @@ public class WalletDesmosHolder extends BaseHolder {
     public TextView         mTvDesmosTotal, mTvDesmosValue, mTvDesmosAvailable, mTvDesmosDelegated, mTvDesmosUnBonding, mTvDesmosRewards;
     public RelativeLayout   mDesmosVestingLayer;
     public TextView         mTvDesmosVesting;
-    public RelativeLayout   mBtnStake, mBtnVote;
+    public RelativeLayout   mBtnStake, mBtnVote, mBtnAirdrop;
 
     public WalletDesmosHolder(@NonNull View itemView) {
         super(itemView);
@@ -38,8 +39,9 @@ public class WalletDesmosHolder extends BaseHolder {
         mDesmosVestingLayer   = itemView.findViewById(R.id.desmos_vesting_layer);
         mTvDesmosVesting      = itemView.findViewById(R.id.desmos_vesting);
 
-        mBtnStake              = itemView.findViewById(R.id.btn_desmos_reward);
-        mBtnVote               = itemView.findViewById(R.id.btn_desmos_vote);
+        mBtnStake             = itemView.findViewById(R.id.btn_desmos_reward);
+        mBtnVote              = itemView.findViewById(R.id.btn_desmos_vote);
+        mBtnAirdrop           = itemView.findViewById(R.id.btn_claim_airdrop);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
@@ -77,6 +79,12 @@ public class WalletDesmosHolder extends BaseHolder {
             public void onClick(View v) {
                 Intent proposals = new Intent(mainActivity, VoteListActivity.class);
                 mainActivity.startActivity(proposals);
+            }
+        });
+        mBtnAirdrop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.onClickProfile();
             }
         });
     }
