@@ -693,7 +693,7 @@
     <string name="str_front_guide_msg_bitsong"><![CDATA[A decentralized blockchain hub that provides a trustless marketplace for the music industry.]]></string>
     <string name="str_front_guide_msg_desmos"><![CDATA[A blockchain for decentralized social networks powered by Forbole.]]></string>
     <string name="str_front_guide_msg_lum"><![CDATA[A Cosmos SDK-based blockchain designed for on-chain user reviews and rewards.]]></string>
-    <string name="str_front_guide_msg_chihuahua"><![CDATA[Chihuahua chain is the first meme coin in theCosmos ecosystem.]]></string>
+    <string name="str_front_guide_msg_chihuahua"><![CDATA[Chihuahua chain is the first meme coin in the Cosmos ecosystem.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
