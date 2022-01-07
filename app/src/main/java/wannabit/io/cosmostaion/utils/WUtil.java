@@ -3237,43 +3237,7 @@ public class WUtil {
      */
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) ||
-                basechain.equals(EMONEY_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(JUNO_MAIN) || basechain.equals(REGEN_MAIN) || basechain.equals(BITCANNA_MAIN) ||
-                basechain.equals(ALTHEA_MAIN) || basechain.equals(STARGAZE_MAIN) || basechain.equals(GRABRIDGE_MAIN) || basechain.equals(COMDEX_MAIN) ||
-                basechain.equals(BITSONG_MAIN) || basechain.equals(INJ_MAIN) || basechain.equals(DESMOS_MAIN) || basechain.equals(LUM_MAIN) ||
-                basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(V1_GAS_AMOUNT_LOW);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(V1_GAS_AMOUNT_MID);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(V1_GAS_AMOUNT_MID);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(V1_GAS_AMOUNT_LOW);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(V1_GAS_AMOUNT_LOW);
-            } else if (txType == CONST_PW_TX_GDEX_SWAP) {
-                return new BigDecimal(COSMOS_GAS_AMOUNT_SWAP);
-            } else if (txType == CONST_PW_TX_GDEX_DEPOSIT) {
-                return new BigDecimal(COSMOS_GAS_AMOUNT_JOIN_POOL);
-            } else if (txType == CONST_PW_TX_GDEX_WITHDRAW) {
-                return new BigDecimal(COSMOS_GAS_AMOUNT_EXIT_POOL);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(COSMOS_GAS_AMOUNT_IBC_SEND);
-            } else if (txType == CONST_PW_TX_MINT_NFT) {
-                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
-            } else if (txType == CONST_PW_TX_SEND_NFT) {
-                return new BigDecimal(V1_GAS_AMOUNT_MID);
-            }
-
-        } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
+        if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(IOV_GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -3443,50 +3407,6 @@ public class WUtil {
                 return new BigDecimal(SECRET_GAS_AMOUNT_IBC_SEND);
             }
 
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_SEND);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_REDELEGATE);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_REINVEST);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward_kava)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_IBC_SEND);
-            }
-
-        } else if (basechain.equals(FETCHAI_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_SEND);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_REDELEGATE);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_REINVEST);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_IBC_SEND);
-            }
-
         } else if (basechain.equals(SIF_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(SIF_GAS_AMOUNT_SEND);
@@ -3513,50 +3433,6 @@ public class WUtil {
                 return new BigDecimal(SIF_GAS_AMOUNT_DEX);
             }
 
-        } else if (basechain.equals(KI_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(KI_GAS_AMOUNT_SEND);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(KI_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(KI_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(KI_GAS_AMOUNT_REDELEGATE);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(KI_GAS_AMOUNT_REINVEST);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(KI_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(KI_GAS_AMOUNT_IBC_SEND);
-            }
-
-        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_SEND);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_REDELEGATE);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_REINVEST);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_IBC_SEND);
-            }
-
         } else if (basechain.equals(CHIHUAHUA_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_REWARD) {
                 ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
@@ -3566,6 +3442,61 @@ public class WUtil {
             } else if (txType == CONST_PW_TX_REINVEST) {
                 return new BigDecimal(CERTIK_GAS_AMOUNT_REINVEST);
             } else {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            }
+
+        } else if (basechain.equals(SENTINEL_MAIN) || basechain.equals(FETCHAI_MAIN) || basechain.equals(KI_MAIN) || basechain.equals(MEDI_MAIN) ||
+                    basechain.equals(MEDI_TEST)) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(GAS_AMOUNT_SEND);
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(GAS_AMOUNT_STAKE);
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(GAS_AMOUNT_STAKE);
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(GAS_AMOUNT_REDELEGATE);
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(GAS_AMOUNT_REINVEST);
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(GAS_AMOUNT_VOTE);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(GAS_AMOUNT_IBC_SEND);
+            }
+
+        } else {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+            } else if (txType == CONST_PW_TX_GDEX_SWAP) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_SWAP);
+            } else if (txType == CONST_PW_TX_GDEX_DEPOSIT) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_JOIN_POOL);
+            } else if (txType == CONST_PW_TX_GDEX_WITHDRAW) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_EXIT_POOL);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_IBC_SEND);
+            } else if (txType == CONST_PW_TX_MINT_NFT) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_SEND_NFT) {
                 return new BigDecimal(V1_GAS_AMOUNT_MID);
             }
         }

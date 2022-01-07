@@ -717,21 +717,13 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
     public final static String SECRET_GAS_AMOUNT_IBC_SEND               = "500000";
 
-    public final static String SENTINEL_GAS_AMOUNT_SEND                   = "100000";
-    public final static String SENTINEL_GAS_AMOUNT_STAKE                  = "200000";
-    public final static String SENTINEL_GAS_AMOUNT_REDELEGATE             = "300000";
-    public final static String SENTINEL_GAS_AMOUNT_REINVEST               = "350000";
-    public final static String SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
-    public final static String SENTINEL_GAS_AMOUNT_VOTE                   = "100000";
-    public final static String SENTINEL_GAS_AMOUNT_IBC_SEND               = "500000";
-
-    public final static String FETCH_GAS_AMOUNT_SEND                    = "100000";
-    public final static String FETCH_GAS_AMOUNT_STAKE                   = "200000";
-    public final static String FETCH_GAS_AMOUNT_REDELEGATE              = "300000";
-    public final static String FETCH_GAS_AMOUNT_REINVEST                = "350000";
-    public final static String FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE   = "100000";
-    public final static String FETCH_GAS_AMOUNT_VOTE                    = "100000";
-    public final static String FETCH_GAS_AMOUNT_IBC_SEND                = "500000";
+    public final static String GAS_AMOUNT_SEND                          = "100000";
+    public final static String GAS_AMOUNT_STAKE                         = "200000";
+    public final static String GAS_AMOUNT_REDELEGATE                    = "300000";
+    public final static String GAS_AMOUNT_REINVEST                      = "350000";
+    public final static String GAS_AMOUNT_REWARD_ADDRESS_CHANGE         = "100000";
+    public final static String GAS_AMOUNT_VOTE                          = "100000";
+    public final static String GAS_AMOUNT_IBC_SEND                      = "500000";
 
     public final static String SIF_GAS_AMOUNT_SEND                      = "100000";
     public final static String SIF_GAS_AMOUNT_STAKE                     = "200000";
@@ -742,22 +734,6 @@ public class BaseConstant {
     public final static String SIF_GAS_AMOUNT_IBC_SEND                  = "500000";
     public final static String SIF_GAS_AMOUNT_CLAIM_INCENTIVE           = "250000";
     public final static String SIF_GAS_AMOUNT_DEX                       = "250000";
-
-    public final static String KI_GAS_AMOUNT_SEND                       = "100000";
-    public final static String KI_GAS_AMOUNT_STAKE                      = "200000";
-    public final static String KI_GAS_AMOUNT_REDELEGATE                 = "300000";
-    public final static String KI_GAS_AMOUNT_REINVEST                   = "350000";
-    public final static String KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE      = "100000";
-    public final static String KI_GAS_AMOUNT_VOTE                       = "100000";
-    public final static String KI_GAS_AMOUNT_IBC_SEND                   = "500000";
-
-    public final static String MEDI_GAS_AMOUNT_SEND                     = "100000";
-    public final static String MEDI_GAS_AMOUNT_STAKE                    = "200000";
-    public final static String MEDI_GAS_AMOUNT_REDELEGATE               = "300000";
-    public final static String MEDI_GAS_AMOUNT_REINVEST                 = "350000";
-    public final static String MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE    = "100000";
-    public final static String MEDI_GAS_AMOUNT_VOTE                     = "100000";
-    public final static String MEDI_GAS_AMOUNT_IBC_SEND                 = "500000";
 
     public final static String OSMOSIS_GAS_AMOUNT_SEND                  = "100000";
     public final static String OSMOSIS_GAS_AMOUNT_STAKE                 = "200000";
