@@ -2148,7 +2148,7 @@ public class WUtil {
                    proposalTitle.setText(setConfigProposal.getTitle());
                    proposalDetail.setText(setConfigProposal.getDescription());
 
-               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.UpdateBandOracleRequestProposal")) {
+               } else if (proposalType.getTypeUrl().equals("/injective.ocr.v1beta1.UpdateBandOracleRequestProposal")) {
                    Ocr.SetBatchConfigProposal setBatchConfigProposal = Ocr.SetBatchConfigProposal.parseFrom(proposalType.getValue());
                    proposalTitle.setText(setBatchConfigProposal.getTitle());
                    proposalDetail.setText(setBatchConfigProposal.getDescription());

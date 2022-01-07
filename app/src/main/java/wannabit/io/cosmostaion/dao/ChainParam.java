@@ -162,14 +162,18 @@ public class ChainParam {
             } else {
                 BigDecimal bondingRate = getBondedAmount(baseChain).divide(getMainSupply(baseChain), 6, RoundingMode.DOWN);
                 if (bondingRate.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
-                if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
-                    BigDecimal stakingDistribution = new BigDecimal(osmosisMingtingParams.params.distributionProportions.staking);
-                    return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
-                } else if (baseChain.equals(STARGAZE_MAIN)) {
-                    BigDecimal reductionFactor = BigDecimal.ONE.subtract(new BigDecimal(mStargazeMintingParams.params.reduction_factor));
-                    return inflation.multiply(calTax).multiply(reductionFactor).divide(bondingRate, 6, RoundingMode.DOWN);
+                if (BigDecimal.ZERO.compareTo(bondingRate) != 0) {
+                    if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
+                        BigDecimal stakingDistribution = new BigDecimal(osmosisMingtingParams.params.distributionProportions.staking);
+                        return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+                    } else if (baseChain.equals(STARGAZE_MAIN)) {
+                        BigDecimal reductionFactor = BigDecimal.ONE.subtract(new BigDecimal(mStargazeMintingParams.params.reduction_factor));
+                        return inflation.multiply(calTax).multiply(reductionFactor).divide(bondingRate, 6, RoundingMode.DOWN);
+                    } else {
+                        return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
+                    }
                 } else {
-                    return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
+                    return BigDecimal.ZERO;
                 }
             }
         }

@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dialog.Dialog_Help_Mint_Msg;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletMintHolder extends BaseHolder {
@@ -35,19 +36,22 @@ public class WalletMintHolder extends BaseHolder {
         final BaseChain baseChain = mainActivity.mBaseChain;
         if (param != null) {
             mInflation.setText(WDp.getPercentDp(param.getDpInflation(baseChain)));
-            if (param == null || param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
-                mAPR.setText("-");
+            if (param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
+                mAPR.setText("0.00%");
             } else {
                 mAPR.setText(WDp.getPercentDp(param.getDpApr(baseChain)));
             }
+        } else {
+            mInflation.setText("-");
+            mAPR.setText("-");
         }
         mAprCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("msg1" , mainActivity.getString(R.string.str_apr_help_onchain_msg));
-                if (param == null|| param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
-                    bundle.putString("msg2" , "N/A");
+                if (param == null || param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
+                    bundle.putString("msg2" , "0%");
                 } else {
                     bundle.putString("msg2" , "" + WDp.getPercentDp(param.getDpApr(baseChain)));
                 }
