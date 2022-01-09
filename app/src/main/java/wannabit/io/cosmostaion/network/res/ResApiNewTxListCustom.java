@@ -411,6 +411,14 @@ public class ResApiNewTxListCustom {
                     result = c .getString(R.string.tx_create_task);
                 }
 
+                // desmos
+                else if (msgType.contains("MsgSaveProfile")) {
+                    result = c .getString(R.string.tx_save_profile);
+
+                } else if (msgType.contains("MsgLinkChainAccount")) {
+                    result = c .getString(R.string.tx_link_chain_account);
+                }
+
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
                 }

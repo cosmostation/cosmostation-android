@@ -1728,8 +1728,14 @@
 
     <string name="str_desmos_airdrop"><![CDATA[Profile & AirDrop]]> </string>
     <string name="str_profile_detail_title">Profile Detail</string>
-    <string name="str_edit_profile">프로필 편집</string>
+    <string name="str_edit_profile">Edit Profile</string>
     <string name="str_air_drop">Air Drop</string>
+    <string name="str_create_profile_title">Create Profile</string>
+    <string name="str_create_profile_step_0">Insert Profile Information</string>
+    <string name="str_create_profile_step_1">Insert memo (optional)</string>
+    <string name="str_create_profile_step_2">Select transaction fee</string>
+    <string name="str_create_profile_step_3">Check transaction detail</string>
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -2038,6 +2044,14 @@
     <string name="tx_send_nft_recipient">Recipient</string>
     <string name="tx_send_nft_token_id">Token ID</string>
     <string name="tx_send_nft_denom_id">Denom ID</string>
+
+    <string name="tx_save_profile">Save Profile</string>
+    <string name="tx_link_chain_account">Link Chain Account</string>
+    <string name="tx_save_profile_dtag">Dtag</string>
+    <string name="tx_save_profile_nickname">Nickname</string>
+    <string name="tx_save_profile_bio">Bio</string>
+    <string name="tx_save_profile_url">Profile Url</string>
+    <string name="tx_save_profile_cover_url">Cover Url</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

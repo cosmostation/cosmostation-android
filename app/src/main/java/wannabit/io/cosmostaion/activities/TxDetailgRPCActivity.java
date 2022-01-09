@@ -27,6 +27,7 @@ import akash.market.v1beta2.BidOuterClass;
 import akash.market.v1beta2.LeaseOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
+import desmos.profiles.v1beta1.MsgsProfile;
 import ibc.applications.transfer.v1.Tx;
 import io.grpc.stub.StreamObserver;
 import wannabit.io.cosmostaion.R;
@@ -48,6 +49,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCreateLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateTokenSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
+import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxSaveProfileHolder;
 import wannabit.io.cosmostaion.widget.txDetail.certik.TxCreateTaskHolder;
 import wannabit.io.cosmostaion.widget.txDetail.certik.TxTaskResponseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityCreatePoolHolder;
@@ -277,6 +279,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_MINT_NFT = 91;
         private static final int TYPE_TX_TRANSFER_NFT = 92;
 
+        private static final int TYPE_TX_SAVE_PROFILE = 100;
+
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -453,6 +457,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 return new TxTransferNFTHolder(getLayoutInflater().inflate(R.layout.item_tx_send_nft, viewGroup, false));
 
             }
+
+            // desmos
+            else if (viewType == TYPE_TX_SAVE_PROFILE) {
+                return new TxSaveProfileHolder(getLayoutInflater().inflate(R.layout.item_tx_save_profile, viewGroup, false));
+            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
@@ -609,6 +618,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 } else if (msg.getTypeUrl().contains(irismod.nft.Tx.MsgTransferNFT.getDescriptor().getFullName()) ||
                         msg.getTypeUrl().contains(chainmain.nft.v1.Tx.MsgTransferNFT.getDescriptor().getFullName())) {
                     return TYPE_TX_TRANSFER_NFT;
+                }
+
+                // desmos msg
+                else if (msg.getTypeUrl().contains(MsgsProfile.MsgSaveProfile.getDescriptor().getFullName())) {
+                    return TYPE_TX_SAVE_PROFILE;
                 }
                 return TYPE_TX_UNKNOWN;
             }
