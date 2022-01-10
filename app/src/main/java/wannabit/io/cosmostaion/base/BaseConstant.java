@@ -495,6 +495,7 @@ public class BaseConstant {
     public final static int CONST_PW_CHECK_PRIVATE_KEY                      = 5054;
     public final static int CONST_PW_TX_MINT_NFT                            = 5055;
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
+    public final static int CONST_PW_TX_PROFILE                             = 5057;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;

@@ -2,8 +2,12 @@ package wannabit.io.cosmostaion.network;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 import wannabit.io.cosmostaion.R;
 
 public class ApiClient {
@@ -41,11 +45,15 @@ public class ApiClient {
     //Services for station airdrop api
     private static Station airdrop = null;
     public static Station getAirDrop(Context c) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         if (airdrop == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_api_airdrop_desmos))
-                        .addConverterFactory(GsonConverterFactory.create())
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
                 airdrop = retrofit.create(Station.class);
             }

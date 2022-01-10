@@ -38,7 +38,6 @@
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/colorTrans"
                     android:fitsSystemWindows="true"/>
 
                 <LinearLayout
@@ -46,8 +45,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:fitsSystemWindows="true"
-                    android:orientation="horizontal"
-                    android:background="@color/colorTransBg">
+                    android:background="@color/colorTransBgGray"
+                    android:orientation="horizontal">
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_img"
                         android:layout_width="@dimen/space_54"
@@ -57,6 +56,9 @@
                         app:layout_collapseMode="parallax"
                         android:src="@drawable/profileimg_none"
                         android:scaleType="centerCrop"
+                        app:civ_border_overlay="true"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/colorGray3"
                         android:fitsSystemWindows="true"/>
                     <TextView
                         android:id="@+id/profile_dtag"

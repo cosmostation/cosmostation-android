@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.network;
 
+import com.squareup.okhttp.ResponseBody;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -11,7 +15,6 @@ import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.network.req.ReqBroadAirDrop;
 import wannabit.io.cosmostaion.network.res.ResAssets;
-import wannabit.io.cosmostaion.network.res.ResBroadAirDrop;
 import wannabit.io.cosmostaion.network.res.ResIbcPaths;
 import wannabit.io.cosmostaion.network.res.ResIbcTokens;
 import wannabit.io.cosmostaion.network.res.ResProposal;
@@ -38,6 +41,6 @@ public interface Station {
 
     //desmos airdrop
     @POST("airdrop/grants")
-    Call<ResBroadAirDrop> broadAirDrop(@Body ReqBroadAirDrop data);
+    Call<String> broadAirDrop(@Body ReqBroadAirDrop data);
 
 }
