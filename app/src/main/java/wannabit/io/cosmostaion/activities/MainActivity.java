@@ -101,8 +101,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private FrameLayout                 mDimLayer;
     public MainViewPageAdapter          mPageAdapter;
     public FloatingActionButton         mFloatBtn;
-    public FloatingActionButton         mFaucetBtn;
-    public FloatingActionButton         mAirDropBtn;
 
     private TopSheetBehavior            mTopSheetBehavior;
 
@@ -131,8 +129,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mTabLayer               = findViewById(R.id.bottom_tab);
         mDimLayer               = findViewById(R.id.dim_layer);
         mFloatBtn               = findViewById(R.id.btn_floating);
-        mFaucetBtn              = findViewById(R.id.btn_faucet);
-        mAirDropBtn             = findViewById(R.id.btn_airdrop);
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
 
         mFloatBtn.setOnClickListener(new View.OnClickListener() {

@@ -29,7 +29,7 @@
                     android:id="@+id/tx_save_profile_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/msgicon_delegate"/>
+                    android:src="@drawable/msgicon_profile"/>
                 <TextView
                     android:id="@+id/tx_save_profile"
                     android:layout_width="wrap_content"
@@ -87,12 +87,13 @@
                     android:ellipsize="end"
                     android:text="-"
                     style="@style/font_ss_12_white"/>
+
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tx_save_profile_url"
                     android:layout_marginTop="@dimen/space_8"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/tx_save_profile_url" />
                 <TextView
                     android:id="@+id/tx_save_profile_url"
                     android:layout_width="match_parent"

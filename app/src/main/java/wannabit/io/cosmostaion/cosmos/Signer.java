@@ -22,6 +22,7 @@ import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.tx.v1beta1.TxOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
 import desmos.profiles.v1beta1.ModelsProfile;
+import desmos.profiles.v1beta1.MsgsProfile;
 import ibc.core.client.v1.Client;
 import injective.types.v1beta1.Account;
 import starnamed.x.starname.v1beta1.Types;
@@ -1009,6 +1010,28 @@ public class Signer {
         Any msgTransferNftAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build();
 
         TxOuterClass.TxBody txBody = getGrpcTxBody(msgTransferNftAny, memo);
+        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcCreateProfileReq(QueryOuterClass.QueryAccountResponse auth, String dtag, String nickname, String bio, String profilePicture, String coverPicture, String creator, Fee fee, String memo, ECKey pKey, String chainId) {
+        MsgsProfile.MsgSaveProfile msgSaveProfile = MsgsProfile.MsgSaveProfile.newBuilder().setDtag(dtag).setNickname(nickname).setBio(bio).setProfilePicture(profilePicture).setCoverPicture(coverPicture).setCreator(creator).build();
+        Any msgSaveProfileAny = Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.MsgSaveProfile").setValue(msgSaveProfile.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSaveProfileAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcCreateProfileSimulateReq(QueryOuterClass.QueryAccountResponse auth, String dtag, String nickname, String bio, String profilePicture, String coverPicture, String creator, Fee fee, String memo, ECKey pKey, String chainId) {
+        MsgsProfile.MsgSaveProfile msgSaveProfile = MsgsProfile.MsgSaveProfile.newBuilder().setDtag(dtag).setNickname(nickname).setBio(bio).setProfilePicture(profilePicture).setCoverPicture(coverPicture).setCreator(creator).build();
+        Any msgSaveProfileAny = Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.MsgSaveProfile").setValue(msgSaveProfile.toByteString()).build();
+
+        TxOuterClass.TxBody txBody = getGrpcTxBody(msgSaveProfileAny, memo);
         TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
         TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
         TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);

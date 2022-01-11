@@ -3498,6 +3498,8 @@ public class WUtil {
                 return new BigDecimal(V1_GAS_AMOUNT_HIGH);
             } else if (txType == CONST_PW_TX_SEND_NFT) {
                 return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_PROFILE) {
+                return new BigDecimal(V1_GAS_AMOUNT_TOO_HIGH);
             }
         }
         return result;

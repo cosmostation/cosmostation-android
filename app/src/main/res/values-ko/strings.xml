@@ -1344,7 +1344,11 @@
     <string name="str_create_profile_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_create_profile_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_create_profile_step_3">입력하신 정보를 확인하세요</string>
-
+    <string name="str_create_profile_dtag">Dtag</string>
+    <string name="str_create_profile_nickname">Nickname</string>
+    <string name="str_create_profile_bio">Bio</string>
+    <string name="str_create_profile_profile_uri">Profile Uri</string>
+    <string name="str_create_profile_cover_uri">Cover Uri</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -1465,6 +1469,9 @@
     <string name="error_no_nft_description">NFT 설명을 입력하세요.</string>
     <string name="error_nft_denom_count">Denom ID를 숫자, 소문자로 4~20자 입력해주세요.</string>
     <string name="error_nft_denom_exist">Denom ID가 이미 존재합니다. 다른 아이디를 입력해주세요.</string>
+    <string name="error_no_profile_dtag">Dtag값을 입력하세요.</string>
+    <string name="error_already_registered_dtag">이미 등록된 Dtag입니다. 다른값을 입력하세요.</string>
+    <string name="error_profile_dtag_count">Dtag를 공백과 특수문자를 제외한 6~30자를 입력해주세요.</string>
 
 
     <string name="tx_send">보내기</string>

@@ -143,6 +143,7 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
             profileHolder.card_root.setCardBackgroundColor(WDp.getChainBgColor(ProfileDetailActivity.this, mBaseChain));
             if (mProfile != null) {
                 profileHolder.profile_nickname.setText(mProfile.getNickname());
+                profileHolder.profile_bio.setText(mProfile.getBio());
             }
         }
 
@@ -153,12 +154,13 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
 
         public class ProfileHolder extends RecyclerView.ViewHolder {
             private CardView card_root;
-            private TextView profile_nickname;
+            private TextView profile_nickname, profile_bio;
 
             public ProfileHolder(@NonNull View itemView) {
                 super(itemView);
                 card_root               = itemView.findViewById(R.id.card_root);
                 profile_nickname        = itemView.findViewById(R.id.profile_nickname);
+                profile_bio             = itemView.findViewById(R.id.profile_bio);
             }
         }
     }

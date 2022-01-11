@@ -77,6 +77,7 @@ import wannabit.io.cosmostaion.task.UserTask.CheckPrivateKeyTask;
 import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.CreateProfileGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteDomainGrpcTask;
@@ -151,6 +152,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARN
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_PROFILE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
@@ -275,6 +277,13 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                              mNftTokenId;
     private QueryOuterClass.QueryNFTResponse    mIrisResponse;
 
+    // airdrop
+    private String                          mDtag;
+    private String                          mNickname;
+    private String                          mBio;
+    private String                          mProfileUri;
+    private String                          mCoverUri;
+
     private String                      mPortId;
     private String                      mChannelId;
 
@@ -389,6 +398,12 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mNftHash = getIntent().getStringExtra("nftHash");
         mNftTokenId = getIntent().getStringExtra("nftTokenId");
         mIrisResponse = (QueryOuterClass.QueryNFTResponse) getIntent().getSerializableExtra("irisResponse");
+
+        mDtag = getIntent().getStringExtra("mDtag");
+        mNickname = getIntent().getStringExtra("mNickname");
+        mBio = getIntent().getStringExtra("mBio");
+        mProfileUri = getIntent().getStringExtra("mProfileImg");
+        mCoverUri = getIntent().getStringExtra("mCoverImg");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -776,6 +791,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (mPurpose == CONST_PW_TX_SEND_NFT) {
             new TransferNFTGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
                     mTargetAddress, mNftDenomId, mNftTokenId, mIrisResponse, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_PROFILE) {
+            new CreateProfileGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDtag, mNickname, mBio, mProfileUri, mCoverUri,
+                    mAccount.address, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
         else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {

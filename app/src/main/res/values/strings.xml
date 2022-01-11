@@ -1735,6 +1735,11 @@
     <string name="str_create_profile_step_1">Insert memo (optional)</string>
     <string name="str_create_profile_step_2">Select transaction fee</string>
     <string name="str_create_profile_step_3">Check transaction detail</string>
+    <string name="str_create_profile_dtag">Dtag</string>
+    <string name="str_create_profile_nickname">Nickname</string>
+    <string name="str_create_profile_bio">Bio</string>
+    <string name="str_create_profile_profile_uri">Profile Uri</string>
+    <string name="str_create_profile_cover_uri">Cover Uri</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
@@ -1855,6 +1860,9 @@
     <string name="error_no_nft_description">Add NFT Description.</string>
     <string name="error_nft_denom_count">Please Insert 4~20 low char Denom ID.</string>
     <string name="error_nft_denom_exist">Denom ID is already exist. please using unique ID.</string>
+    <string name="error_no_profile_dtag">Please add Dtag for profile.</string>
+    <string name="error_already_registered_dtag">This Dtag already registered. please use another text for Dtag.</string>
+    <string name="error_profile_dtag_count">Please insert 6 to 30 characters without a blank and special characters</string>
 
 
     <string name="s_atom" translatable="false">ATOM</string>
@@ -2050,8 +2058,8 @@
     <string name="tx_save_profile_dtag">Dtag</string>
     <string name="tx_save_profile_nickname">Nickname</string>
     <string name="tx_save_profile_bio">Bio</string>
-    <string name="tx_save_profile_url">Profile Url</string>
-    <string name="tx_save_profile_cover_url">Cover Url</string>
+    <string name="tx_save_profile_url">Profile Uri</string>
+    <string name="tx_save_profile_cover_url">Cover Uri</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

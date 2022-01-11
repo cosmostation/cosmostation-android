@@ -142,9 +142,14 @@ public class ProfileActivity extends BaseBroadCastActivity {
         }
     }
 
-    public void onStartSwap() {
+    public void onSaveProfile() {
         Intent intent = new Intent(ProfileActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_PROFILE);
+        intent.putExtra("mDtag", mDtag);
+        intent.putExtra("mNickname", mNickname);
+        intent.putExtra("mBio", mBio);
+        intent.putExtra("mProfileImg", mProfileImg);
+        intent.putExtra("mCoverImg", mCoverImg);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

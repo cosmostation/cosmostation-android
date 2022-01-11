@@ -222,6 +222,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_GRAVITY_MANAGER             = 4028;
     public final static int TASK_GRPC_FETCH_TOTAL_SUPPLY                = 4029;
     public final static int TASK_GRPC_FETCH_GRAVITY_POOL_INFO           = 4030;
+    public final static int TASK_GRPC_FETCH_DESMOS_PROFILE_INFO         = 4031;
 
     public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
@@ -278,6 +279,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_SIF_EXIT_POOL              = 4328;
     public final static int TASK_GRPC_GEN_TX_MINT_NFT                   = 4329;
     public final static int TASK_GRPC_GEN_TX_TRANSFER_NFT               = 4330;
+    public final static int TASK_GRPC_GEN_TX_CREATE_PROFILE             = 4331;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -310,6 +312,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_SIF_WITHDRAW_POOL        = 4529;
     public final static int TASK_GRPC_SIMULATE_MINT_NFT                 = 4530;
     public final static int TASK_GRPC_SIMULATE_TRANSFER_NFT             = 4531;
+    public final static int TASK_GRPC_SIMULATE_CREATE_PROFILE           = 4532;
 
 
 
@@ -858,6 +861,7 @@ public class BaseConstant {
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
+    public final static String V1_GAS_AMOUNT_TOO_HIGH                   = "350000";
 
 
     public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
