@@ -338,6 +338,12 @@
         </activity>
 
         <activity
+            android:name=".activities.WalletSwitchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
             android:name=".activities.HtlcSendActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

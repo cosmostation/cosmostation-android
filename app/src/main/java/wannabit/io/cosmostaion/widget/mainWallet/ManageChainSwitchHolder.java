@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
-import android.content.Context;
-import android.os.Handler;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+
 import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
@@ -18,15 +18,12 @@ import androidx.core.content.ContextCompat;
 import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.WalletSwitchActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 
 public class ManageChainSwitchHolder extends BaseHolder {
     private CardView                    accountCard;
@@ -125,10 +122,10 @@ public class ManageChainSwitchHolder extends BaseHolder {
         walletDenom4        = itemView.findViewById(R.id.walletDenom4);
     }
 
-    public void onBindChainSwitch(@NotNull MainActivity mainActivity, MainActivity.ChainAccounts data, Account currentAccount) {
-        accountCard.setCardBackgroundColor(WDp.getChainBgColor(mainActivity, data.baseChain));
-        WDp.getChainImg(mainActivity, data.baseChain, accountChainImg);
-        WDp.getChainTitle2(mainActivity, data.baseChain, accountChainName);
+    public void onBindChainSwitch(@NotNull WalletSwitchActivity switchActivity, WalletSwitchActivity.ChainAccounts data, Account currentAccount) {
+        accountCard.setCardBackgroundColor(WDp.getChainBgColor(switchActivity, data.baseChain));
+        WDp.getChainImg(switchActivity, data.baseChain, accountChainImg);
+        WDp.getChainTitle2(switchActivity, data.baseChain, accountChainName);
         accountWalletCnt.setText(data.accounts.size() + " / 5");
 
         accountSelect.setOnClickListener(new View.OnClickListener() {
@@ -141,39 +138,39 @@ public class ManageChainSwitchHolder extends BaseHolder {
                     TransitionManager.beginDelayedTransition(accountCard, new AutoTransition());
                     hiddenView.setVisibility(View.VISIBLE);
                 }
-                onSelectedChain(mainActivity, data, currentAccount);
+                onSelectedChain(switchActivity, data, currentAccount);
             }
         });
-        onSelectedChain(mainActivity, data, currentAccount);
+        onSelectedChain(switchActivity, data, currentAccount);
     }
 
-    public void onSelectedChain(MainActivity mainActivity, MainActivity.ChainAccounts data, Account currentAccount) {
+    public void onSelectedChain(WalletSwitchActivity switchActivity, WalletSwitchActivity.ChainAccounts data, Account currentAccount) {
         if (data.opened && data.accounts.size() > 0) {
             hiddenView.setVisibility(View.VISIBLE);
             walletCard0.setVisibility(View.VISIBLE);
-            onBindChainWallet(mainActivity, data.accounts.get(0), currentAccount, walletLayout0, walletKeyState0, walletName0, walletAddress0, walletAvailable0, walletDenom0);
+            onBindChainWallet(switchActivity, data.accounts.get(0), currentAccount, walletLayout0, walletKeyState0, walletName0, walletAddress0, walletAvailable0, walletDenom0);
 
             if (data.accounts.size() > 1) {
                 walletCard1.setVisibility(View.VISIBLE);
-                onBindChainWallet(mainActivity, data.accounts.get(1), currentAccount, walletLayout1, walletKeyState1, walletName1, walletAddress1, walletAvailable1, walletDenom1);
+                onBindChainWallet(switchActivity, data.accounts.get(1), currentAccount, walletLayout1, walletKeyState1, walletName1, walletAddress1, walletAvailable1, walletDenom1);
             } else {
                 walletCard1.setVisibility(View.GONE);
             }
             if (data.accounts.size() > 2) {
                 walletCard2.setVisibility(View.VISIBLE);
-                onBindChainWallet(mainActivity, data.accounts.get(2), currentAccount, walletLayout2, walletKeyState2, walletName2, walletAddress2, walletAvailable2, walletDenom2);
+                onBindChainWallet(switchActivity, data.accounts.get(2), currentAccount, walletLayout2, walletKeyState2, walletName2, walletAddress2, walletAvailable2, walletDenom2);
             } else {
                 walletCard2.setVisibility(View.GONE);
             }
             if (data.accounts.size() > 3) {
                 walletCard3.setVisibility(View.VISIBLE);
-                onBindChainWallet(mainActivity, data.accounts.get(3), currentAccount, walletLayout3, walletKeyState3, walletName3, walletAddress3, walletAvailable3, walletDenom3);
+                onBindChainWallet(switchActivity, data.accounts.get(3), currentAccount, walletLayout3, walletKeyState3, walletName3, walletAddress3, walletAvailable3, walletDenom3);
             } else {
                 walletCard3.setVisibility(View.GONE);
             }
             if (data.accounts.size() > 4) {
                 walletCard4.setVisibility(View.VISIBLE);
-                onBindChainWallet(mainActivity, data.accounts.get(4), currentAccount, walletLayout4, walletKeyState4, walletName4, walletAddress4, walletAvailable4, walletDenom4);
+                onBindChainWallet(switchActivity, data.accounts.get(4), currentAccount, walletLayout4, walletKeyState4, walletName4, walletAddress4, walletAvailable4, walletDenom4);
             } else {
                 walletCard4.setVisibility(View.GONE);
             }
@@ -182,15 +179,15 @@ public class ManageChainSwitchHolder extends BaseHolder {
         }
     }
 
-    public void onBindChainWallet(MainActivity mainActivity, Account dpAccount, Account currentAccount, RelativeLayout layout,
+    public void onBindChainWallet(WalletSwitchActivity switchActivity, Account dpAccount, Account currentAccount, RelativeLayout layout,
                                   ImageView keyImg, TextView walletName, TextView address, TextView amount, TextView denom) {
 
         if (dpAccount.id.equals(currentAccount.id)) {
-            layout.setBackground(mainActivity.getResources().getDrawable(R.drawable.box_round_seleted_white));
+            layout.setBackground(switchActivity.getResources().getDrawable(R.drawable.box_round_seleted_white));
         } else {
-            layout.setBackground(mainActivity.getResources().getDrawable(R.drawable.box_round_darkgray));
+            layout.setBackground(switchActivity.getResources().getDrawable(R.drawable.box_round_darkgray));
         }
-        WDp.DpMainDenom(mainActivity, dpAccount.baseChain, denom);
+        WDp.DpMainDenom(switchActivity, dpAccount.baseChain, denom);
         if (BaseChain.getChain(dpAccount.baseChain).equals(OKEX_MAIN)) {
             try {
                 address.setText(WKey.convertAddressOkexToEth(dpAccount.address));
@@ -200,14 +197,14 @@ public class ManageChainSwitchHolder extends BaseHolder {
         } else {
             address.setText(dpAccount.address);
         }
-        amount.setText(dpAccount.getLastTotal(mainActivity, BaseChain.getChain(dpAccount.baseChain)));
-        keyImg.setColorFilter(ContextCompat.getColor(mainActivity, R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+        amount.setText(dpAccount.getLastTotal(switchActivity, BaseChain.getChain(dpAccount.baseChain)));
+        keyImg.setColorFilter(ContextCompat.getColor(switchActivity, R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (dpAccount.hasPrivateKey) {
-            keyImg.setColorFilter(WDp.getChainColor(mainActivity, BaseChain.getChain(dpAccount.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
+            keyImg.setColorFilter(WDp.getChainColor(switchActivity, BaseChain.getChain(dpAccount.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
         }
 
         if (TextUtils.isEmpty(dpAccount.nickName)){
-            walletName.setText(mainActivity.getString(R.string.str_my_wallet) + dpAccount.id);
+            walletName.setText(switchActivity.getString(R.string.str_my_wallet) + dpAccount.id);
         } else {
             walletName.setText(dpAccount.nickName);
         }
@@ -215,19 +212,10 @@ public class ManageChainSwitchHolder extends BaseHolder {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(dpAccount.id == currentAccount.id) {
-                    mainActivity.onHideTopAccountsView();
-                    return;
+                if(dpAccount.id.equals(currentAccount.id)) {
+                    switchActivity.finish();
                 } else {
-                    mainActivity.onHideTopAccountsView();
-                    mainActivity.onShowWaitDialog();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mainActivity.getBaseDao().setLastUser(dpAccount.id);
-                            mainActivity.onAccountSwitched();
-                        }
-                    },200);
+                    switchActivity.onChangeWallet(dpAccount.id);
                 }
             }
         });

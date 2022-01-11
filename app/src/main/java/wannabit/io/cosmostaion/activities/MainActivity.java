@@ -1,5 +1,17 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -21,8 +32,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,7 +54,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_Rizon_Event_Horizon;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
@@ -53,25 +61,10 @@ import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
-import wannabit.io.cosmostaion.widget.mainWallet.ManageChainSwitchHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
 
@@ -94,11 +87,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public FloatingActionButton         mFloatBtn;
     public FloatingActionButton         mFaucetBtn;
     public FloatingActionButton         mAirDropBtn;
-
-    private TopSheetBehavior            mTopSheetBehavior;
-
-    private RecyclerView                mAccountRecyclerView;
-    private AccountListAdapter          mAccountListAdapter;
 
     private BaseChain                   mSelectedChain;
     private ArrayList<BaseChain>        mExpendedChains = new ArrayList<>();
@@ -124,7 +112,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mFloatBtn               = findViewById(R.id.btn_floating);
         mFaucetBtn              = findViewById(R.id.btn_faucet);
         mAirDropBtn             = findViewById(R.id.btn_airdrop);
-        mAccountRecyclerView    = findViewById(R.id.account_recycler);
 
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,16 +143,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
         });
 
-        mAccountRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mAccountRecyclerView.setHasFixedSize(true);
-        mAccountListAdapter = new AccountListAdapter();
-        mAccountRecyclerView.setAdapter(mAccountListAdapter);
-
         mDimLayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED)
-                    mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
                 mDimLayer.setVisibility(View.GONE);
                 setExpendChains();
             }
@@ -236,22 +216,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         mContentsPager.setCurrentItem(getIntent().getIntExtra("page", 0), false);
 
-        View sheet = findViewById(R.id.top_sheet);
-        sheet.setNestedScrollingEnabled(false);
-        mTopSheetBehavior = TopSheetBehavior.from(sheet);
-        mTopSheetBehavior.setState(TopSheetBehavior.STATE_HIDDEN);
-        mTopSheetBehavior.setTopSheetCallback(new TopSheetBehavior.TopSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                if (newState == TopSheetBehavior.STATE_COLLAPSED) {
-                    mDimLayer.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) {
-            }
-        });
         onAccountSwitched();
         onShowWaitDialog();
     }
@@ -261,17 +225,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         super.onResume();
         if (!getBaseDao().getLastUser().equals(mAccount.id.toString())) {
             onShowWaitDialog();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getBaseDao().setLastUser(Long.parseLong(getBaseDao().getLastUser()));
-                    onAccountSwitched();
-                }
+            new Handler().postDelayed(() -> {
+                getBaseDao().setLastUser(Long.parseLong(getBaseDao().getLastUser()));
+                onAccountSwitched();
             },200);
         } else {
             onUpdateTitle();
         }
-        mAccountRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));
         onChainSelect(mBaseChain);
     }
 
@@ -299,8 +259,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         onFetchAllData();
 
         mSelectedChain = mBaseChain;
-        mAccountRecyclerView.setAdapter(mAccountListAdapter);
-        mAccountRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));
         onChainSelect(mSelectedChain);
     }
 
@@ -320,7 +278,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 mChainAccounts.add(new ChainAccounts(false, chain, getBaseDao().onSelectAccountsByChain(chain)));
             }
         }
-        mAccountListAdapter.notifyDataSetChanged();
     }
 
     public void onUpdateTitle() {
@@ -347,12 +304,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     public void onBackPressed() {
-        if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED) {
-            mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
-            return;
-        } else {
-            moveTaskToBack(true);
-        }
+        moveTaskToBack(true);
     }
 
     public void onExplorerView() {
@@ -384,16 +336,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }, 300);
     }
 
-    public void onShowTopAccountsView() {
-        mDimLayer.setVisibility(View.VISIBLE);
-        mTopSheetBehavior.setState(TopSheetBehavior.STATE_EXPANDED);
+    public void onClickSwitchWallet() {
+        startActivity(new Intent(this, WalletSwitchActivity.class));
         onChainSelect(mSelectedChain);
     }
 
     public void onHideTopAccountsView() {
-        if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED)
-            mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
-        mDimLayer.setVisibility(View.GONE);
         setExpendChains();
     }
 
@@ -548,27 +496,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             } else {
                 super.onActivityResult(requestCode, resultCode, data);
             }
-        }
-
-    }
-
-    private class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            return new ManageChainSwitchHolder(getLayoutInflater().inflate(R.layout.item_account_list, viewGroup, false));
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            final ManageChainSwitchHolder holder = (ManageChainSwitchHolder) viewHolder;
-            holder.onBindChainSwitch(MainActivity.this, mChainAccounts.get(position), mAccount);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mChainAccounts.size();
         }
     }
 

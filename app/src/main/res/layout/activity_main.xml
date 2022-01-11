@@ -13,54 +13,6 @@
         android:scaleType="fitXY"
         android:src="@drawable/bg_cosmos"/>
 
-    <FrameLayout
-        android:id="@+id/top_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="wannabit.io.cosmostaion.dialog.TopSheetBehavior"
-        android:background="@color/colorBlack"
-        android:elevation="@dimen/top_sheet_modal_elevation">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_bar_height">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/space_16"
-                    android:src="@drawable/close_btn"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    style="@style/font_ssm_17_white"
-                    android:text="@string/str_switch_wallet"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="@dimen/space_4"
-                    android:orientation="horizontal">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/account_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingTop="@dimen/space_4"
-                        android:clipToPadding="false"
-                        android:overScrollMode="never"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </LinearLayout>
-    </FrameLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
