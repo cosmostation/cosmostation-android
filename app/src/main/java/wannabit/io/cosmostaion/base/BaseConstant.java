@@ -935,7 +935,7 @@ public class BaseConstant {
     public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/starname/";
     public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
     public final static String EXPLORER_BAND_MAIN       = "https://www.mintscan.io/band/";
-    public final static String EXPLORER_SECRET_MAIN     = "https://testnet.mintscan.io/secret/";
+    public final static String EXPLORER_SECRET_MAIN     = "https://www.mintscan.io/secret/";
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
     public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
     public final static String EXPLORER_PERSIS_MAIN     = "https://www.mintscan.io/persistence/";
