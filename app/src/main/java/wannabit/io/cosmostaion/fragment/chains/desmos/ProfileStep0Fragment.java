@@ -115,8 +115,8 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
                         getSActivity().mDtag = dtag;
                         getSActivity().mNickname = nickname;
                         getSActivity().mBio = bio;
-                        getSActivity().mCoverImg = "https://ipfs.infura.io/ipfs/" + mCoverHash;
-                        getSActivity().mProfileImg = "https://ipfs.infura.io/ipfs/" + mProfileHash;
+                        getSActivity().mCoverImg = mCoverHash;
+                        getSActivity().mProfileImg = mProfileHash;
                         getSActivity().onNextStep();
 
                     } else {

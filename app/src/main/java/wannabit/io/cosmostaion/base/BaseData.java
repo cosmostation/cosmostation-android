@@ -1282,6 +1282,17 @@ public class BaseData {
         return result;
     }
 
+    public ArrayList<Account> onSelectAllAccountsByChainWithKey(BaseChain chain) {
+        ArrayList<Account> result = new ArrayList<>();
+        ArrayList<Account> AllAccount = onSelectAccounts();
+        for (Account account:AllAccount) {
+            if (BaseChain.getChain(account.baseChain).equals(chain) && account.hasPrivateKey) {
+                result.add(account);
+            }
+        }
+        return result;
+    }
+
     public ArrayList<Account> onSelectAccountsByHtlcClaim(BaseChain chain) {
         ArrayList<Account> result = new ArrayList<>();
         ArrayList<Account> AllAccount = onSelectAccounts();

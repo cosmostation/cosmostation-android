@@ -191,6 +191,8 @@ public class BaseConstant {
     public final static int TASK_FETCH_SIF_INCENTIVE_VS                 = 3500;
     public final static int TASK_FETCH_SIF_INCENTIVE_LM                 = 3501;
 
+    public final static int TASK_FETCH_DESMOS_CLAIMABLE_CHECK           = 3601;
+
     //gRPC
     public final static int TASK_GRPC_FETCH_BALANCE                     = 4001;
     public final static int TASK_GRPC_FETCH_BONDED_VALIDATORS           = 4002;
@@ -280,6 +282,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_MINT_NFT                   = 4329;
     public final static int TASK_GRPC_GEN_TX_TRANSFER_NFT               = 4330;
     public final static int TASK_GRPC_GEN_TX_CREATE_PROFILE             = 4331;
+    public final static int TASK_GRPC_GEN_TX_LINK_ACCOUNT               = 4332;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -499,6 +502,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_MINT_NFT                            = 5055;
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
     public final static int CONST_PW_TX_PROFILE                             = 5057;
+    public final static int CONST_PW_TX_LINK_ACCOUNT                        = 5058;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.desmos;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -125,8 +126,8 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
             return;
 
         } else if(v.equals(mBtnAirdrop)) {
-            Toast.makeText(this, R.string.str_preparing, Toast.LENGTH_SHORT).show();
-            return;
+            Intent linkAccount = new Intent(ProfileDetailActivity.this, LinkAccountActivity.class);
+            startActivity(linkAccount);
         }
     }
 

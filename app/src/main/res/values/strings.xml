@@ -1729,7 +1729,7 @@
     <string name="str_desmos_airdrop"><![CDATA[Profile & AirDrop]]> </string>
     <string name="str_profile_detail_title">Profile Detail</string>
     <string name="str_edit_profile">Edit Profile</string>
-    <string name="str_air_drop">Air Drop</string>
+    <string name="str_air_drop"><![CDATA[Link & AirDrop]]></string>
     <string name="str_create_profile_title">Create Profile</string>
     <string name="str_create_profile_step_0">Insert Profile Information</string>
     <string name="str_create_profile_step_1">Insert memo (optional)</string>
@@ -1740,7 +1740,12 @@
     <string name="str_create_profile_bio">Bio</string>
     <string name="str_create_profile_profile_uri">Profile Uri</string>
     <string name="str_create_profile_cover_uri">Cover Uri</string>
-
+    <string name="str_link_account_step_0">Select Chain and Account to Link</string>
+    <string name="str_link_account_step_1">Insert memo (optional)</string>
+    <string name="str_link_account_step_2">Select transaction fee</string>
+    <string name="str_link_account_step_3">Check transaction detail</string>
+    <string name="str_select_link_chain">Select Chain To Link </string>
+    <string name="str_select_link_account">Select Account To Link </string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1863,6 +1868,8 @@
     <string name="error_no_profile_dtag">Please add Dtag for profile.</string>
     <string name="error_already_registered_dtag">This Dtag already registered. please use another text for Dtag.</string>
     <string name="error_profile_dtag_count">Please insert 6 to 30 characters without a blank and special characters</string>
+    <string name="error_no_account_this_chain">No linkable account with this chain</string>
+    <string name="error_select_account_link">Please select account to link</string>
 
 
     <string name="s_atom" translatable="false">ATOM</string>
@@ -2054,12 +2061,14 @@
     <string name="tx_send_nft_denom_id">Denom ID</string>
 
     <string name="tx_save_profile">Save Profile</string>
-    <string name="tx_link_chain_account">Link Chain Account</string>
+    <string name="tx_link_chain_account">Link Account</string>
     <string name="tx_save_profile_dtag">Dtag</string>
     <string name="tx_save_profile_nickname">Nickname</string>
     <string name="tx_save_profile_bio">Bio</string>
     <string name="tx_save_profile_url">Profile Uri</string>
     <string name="tx_save_profile_cover_url">Cover Uri</string>
+    <string name="tx_link_account_address">Linked Address</string>
+    <string name="tx_link_account_signer">Signer</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

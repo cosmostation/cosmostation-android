@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -49,7 +50,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
-import wannabit.io.cosmostaion.dialog.Dialog_Grant_AirDrop;
 import wannabit.io.cosmostaion.dialog.Dialog_Rizon_Event_Horizon;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -455,11 +455,31 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                         } catch (IOException e) { e.printStackTrace(); }
                     }
                     onHideWaitDialog();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("value", value);
-                    Dialog_Grant_AirDrop dialog = Dialog_Grant_AirDrop.newInstance(bundle);
+                    LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View view = inflater.inflate(R.layout.dialog_grant_airdrop, null);
+                    TextView txt_msg = view.findViewById(R.id.grant_msg);
+                    TextView btn_ok = view.findViewById(R.id.btn_ok);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setView(view);
+                    txt_msg.setText(value);
+
+                    AlertDialog dialog = builder.create();
                     dialog.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    dialog.show();
+
+                    btn_ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onShowWaitDialog();
+                            dialog.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    onFetchAllData();
+                                }
+                            },8000);
+                        }
+                    });
                 }
 
                 @Override

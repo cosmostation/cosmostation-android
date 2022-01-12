@@ -20,6 +20,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.protobuf2.Any;
 
 import akash.cert.v1beta2.Cert;
 import akash.deployment.v1beta1.DeploymentOuterClass;
@@ -49,16 +50,6 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCreateLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateTokenSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
-import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxSaveProfileHolder;
-import wannabit.io.cosmostaion.widget.txDetail.certik.TxCreateTaskHolder;
-import wannabit.io.cosmostaion.widget.txDetail.certik.TxTaskResponseHolder;
-import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityCreatePoolHolder;
-import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityDepositHolder;
-import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravitySwapHolder;
-import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityWithdrawHolder;
-import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCAcknowledgeHolder;
-import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCReceiveHolder;
-import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxReDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxSetAddressHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxStakingRewardHolder;
@@ -74,18 +65,28 @@ import wannabit.io.cosmostaion.widget.txDetail.TxUnjailHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnknownHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxVoterHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxWithdrawLeaseHolder;
+import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxLinkAccountHolder;
+import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxSaveProfileHolder;
+import wannabit.io.cosmostaion.widget.txDetail.certik.TxCreateTaskHolder;
+import wannabit.io.cosmostaion.widget.txDetail.certik.TxTaskResponseHolder;
+import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityCreatePoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityDepositHolder;
+import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravitySwapHolder;
+import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityWithdrawHolder;
+import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCAcknowledgeHolder;
+import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCReceiveHolder;
+import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxIssueDenomHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxMintNFTHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxTransferNFTHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxBeginUnlockAllTokensHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxBeginUnlockTokenHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxCreatePoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxExitPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxJoinPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxLockTokenHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxTokenSwapHolder;
-import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxBeginUnlockAllTokensHolder;
-import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxUnlockPeriodHolder;
-import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxBeginUnlockTokenHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxAddLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateEthBridgeHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateUserClaimHolder;
@@ -94,8 +95,6 @@ import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
-
-import com.google.protobuf2.Any;
 
 public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener, Dialog_MoreWait.OnTxWaitListener {
     private Toolbar         mToolbar;
@@ -280,6 +279,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_TRANSFER_NFT = 92;
 
         private static final int TYPE_TX_SAVE_PROFILE = 100;
+        private static final int TYPE_TX_LINK_ACCOUNT = 101;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -461,6 +461,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             // desmos
             else if (viewType == TYPE_TX_SAVE_PROFILE) {
                 return new TxSaveProfileHolder(getLayoutInflater().inflate(R.layout.item_tx_save_profile, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_LINK_ACCOUNT) {
+                return new TxLinkAccountHolder(getLayoutInflater().inflate(R.layout.item_tx_link_account, viewGroup, false));
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -623,6 +626,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 // desmos msg
                 else if (msg.getTypeUrl().contains(MsgsProfile.MsgSaveProfile.getDescriptor().getFullName())) {
                     return TYPE_TX_SAVE_PROFILE;
+                } else if (msg.getTypeUrl().contains(desmos.profiles.v1beta1.MsgsChainLinks.MsgLinkChainAccount.getDescriptor().getFullName())) {
+                    return TYPE_TX_LINK_ACCOUNT;
                 }
                 return TYPE_TX_UNKNOWN;
             }

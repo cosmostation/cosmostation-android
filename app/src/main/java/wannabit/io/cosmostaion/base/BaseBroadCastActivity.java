@@ -89,6 +89,9 @@ public class BaseBroadCastActivity extends BaseActivity {
     public String                       mBio;
     public String                       mCoverImg;
     public String                       mProfileImg;
+    public BaseChain                    mDesmosToLinkChain;
+    public Long                         mDesmosToLinkAccountId;
+    public BigDecimal                   mDesmosAirDropAmount = BigDecimal.ZERO;
 
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
     public BigDecimal                   mHdacBalance;                               //rizon swap amount

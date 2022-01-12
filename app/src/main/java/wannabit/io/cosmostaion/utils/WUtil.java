@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.protobuf2.Any;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.Type;
 import com.google.zxing.common.BitMatrix;
 import com.squareup.picasso.Picasso;
 
@@ -55,7 +54,6 @@ import cosmos.staking.v1beta1.Staking;
 import cosmos.upgrade.v1beta1.Upgrade;
 import cosmos.vesting.v1beta1.Vesting;
 import ibc.core.client.v1.Client;
-import injective.exchange.v1beta1.Exchange;
 import injective.exchange.v1beta1.Tx;
 import injective.ocr.v1beta1.Ocr;
 import injective.oracle.v1beta1.Oracle;
@@ -89,7 +87,6 @@ import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
@@ -141,7 +138,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 public class WUtil {
@@ -1897,6 +1893,56 @@ public class WUtil {
         return url;
     }
 
+    public static ArrayList<BaseChain> getDesmosAirDropChains() {
+        ArrayList<BaseChain> result = new ArrayList<>();
+        result.add(COSMOS_MAIN);
+        result.add(OSMOSIS_MAIN);
+        result.add(AKASH_MAIN);
+        result.add(BAND_MAIN);
+        result.add(CRYPTO_MAIN);
+        result.add(JUNO_MAIN);
+        result.add(KAVA_MAIN);
+        result.add(EMONEY_MAIN);
+        result.add(REGEN_MAIN);
+        return result;
+    }
+
+    public static String getDesmosPrefix(BaseChain baseChain) {
+        if (baseChain.equals(COSMOS_MAIN)) { return "cosmos"; }
+        else if (baseChain.equals(OSMOSIS_MAIN)) { return "osmo"; }
+        else if (baseChain.equals(AKASH_MAIN)) { return "akash"; }
+        else if (baseChain.equals(BAND_MAIN)) { return "band"; }
+        else if (baseChain.equals(CRYPTO_MAIN)) { return "cro"; }
+        else if (baseChain.equals(JUNO_MAIN)) { return "juno"; }
+        else if (baseChain.equals(KAVA_MAIN)) { return "kava"; }
+        else if (baseChain.equals(EMONEY_MAIN)) { return "emoney"; }
+        else if (baseChain.equals(REGEN_MAIN)) { return "regen"; }
+        else { return ""; }
+    }
+
+    public static String getDesmosConfig(BaseChain baseChain) {
+        if (baseChain.equals(COSMOS_MAIN)) { return "cosmos"; }
+        else if (baseChain.equals(OSMOSIS_MAIN)) { return "osmosis"; }
+        else if (baseChain.equals(AKASH_MAIN)) { return "akash"; }
+        else if (baseChain.equals(BAND_MAIN)) { return "band"; }
+        else if (baseChain.equals(CRYPTO_MAIN)) { return "cro"; }
+        else if (baseChain.equals(JUNO_MAIN)) { return "juno"; }
+        else if (baseChain.equals(KAVA_MAIN)) { return "kava"; }
+        else if (baseChain.equals(EMONEY_MAIN)) { return "emoney"; }
+        else if (baseChain.equals(REGEN_MAIN)) { return "regen"; }
+        else { return ""; }
+    }
+
+    public static String getWalletName(Context c, Account account) {
+        if (account == null) {
+            return "";
+        } else if (TextUtils.isEmpty(account.nickName)) {
+            return c.getString(R.string.str_my_wallet) + account.id;
+        } else {
+            return account.nickName;
+        }
+    }
+
     // photo image rotate
     public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
         Matrix matrix = new Matrix();
@@ -3499,6 +3545,8 @@ public class WUtil {
             } else if (txType == CONST_PW_TX_SEND_NFT) {
                 return new BigDecimal(V1_GAS_AMOUNT_MID);
             } else if (txType == CONST_PW_TX_PROFILE) {
+                return new BigDecimal(V1_GAS_AMOUNT_TOO_HIGH);
+            } else if (txType == CONST_PW_TX_LINK_ACCOUNT) {
                 return new BigDecimal(V1_GAS_AMOUNT_TOO_HIGH);
             }
         }

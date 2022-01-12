@@ -12,26 +12,24 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.desmos.ProfileActivity;
+import wannabit.io.cosmostaion.activities.chains.desmos.LinkAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class ProfileStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class LinkAccountStep3Fragment extends BaseFragment implements View.OnClickListener{
 
     private TextView        mFeeAmount;
     private TextView        mFeeAmountSymbol;
-    private TextView        mProfileDtag;
-    private TextView        mProfileNick;
-    private TextView        mProfileBio;
-    private TextView        mProfileUri;
-    private TextView        mProfileCoverUri;
+    private TextView        mToLinkAddress;
+    private TextView        mAirdropAmount;
     private TextView        mMemo;
-
     private int             mDpDecimal = 6;
-    private Button mBeforeBtn, mConfirmBtn;
 
-    public static ProfileStep3Fragment newInstance(Bundle bundle) {
-        ProfileStep3Fragment fragment = new ProfileStep3Fragment();
+    private Button          mBeforeBtn, mConfirmBtn;
+
+    public static LinkAccountStep3Fragment newInstance(Bundle bundle) {
+        LinkAccountStep3Fragment fragment = new LinkAccountStep3Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -43,16 +41,13 @@ public class ProfileStep3Fragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_create_profile_step3, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_link_account_step3, container, false);
         mFeeAmount              = rootView.findViewById(R.id.tx_fee_amount);
         mFeeAmountSymbol        = rootView.findViewById(R.id.tx_fee_symbol);
-        mProfileDtag            = rootView.findViewById(R.id.profile_dtag);
-        mProfileNick            = rootView.findViewById(R.id.profile_nickname);
-        mProfileBio             = rootView.findViewById(R.id.profile_bio);
-        mProfileUri             = rootView.findViewById(R.id.profile_uri);
-        mProfileCoverUri        = rootView.findViewById(R.id.profile_cover_uri);
-        mMemo                   = rootView.findViewById(R.id.memo);
+        mToLinkAddress          = rootView.findViewById(R.id.to_link_address);
+        mAirdropAmount          = rootView.findViewById(R.id.airdrop_amount);
 
+        mMemo                   = rootView.findViewById(R.id.memo);
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
 
@@ -69,15 +64,9 @@ public class ProfileStep3Fragment extends BaseFragment implements View.OnClickLi
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        mProfileDtag.setText(getSActivity().mDtag);
-        mProfileNick.setText(getSActivity().mNickname);
-        mProfileBio.setText(getSActivity().mBio);
-        if (getSActivity().mProfileImg != null) {
-            mProfileUri.setText("https://ipfs.infura.io/ipfs/" + getSActivity().mProfileImg);
-        }
-        if (getSActivity().mCoverImg != null) {
-            mProfileCoverUri.setText("https://ipfs.infura.io/ipfs/" + getSActivity().mCoverImg);
-        }
+        Account toAccount = getBaseDao().onSelectAccount(getSActivity().mDesmosToLinkAccountId.toString());
+        mToLinkAddress.setText(toAccount.address);
+        mAirdropAmount.setText(getSActivity().mDesmosAirDropAmount.toPlainString());
         mMemo.setText(getSActivity().mTxMemo);
     }
 
@@ -87,11 +76,11 @@ public class ProfileStep3Fragment extends BaseFragment implements View.OnClickLi
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            getSActivity().onSaveProfile();
+            getSActivity().onLinkAccount();
         }
     }
 
-    private ProfileActivity getSActivity() {
-        return (ProfileActivity)getBaseActivity();
+    private LinkAccountActivity getSActivity() {
+        return (LinkAccountActivity)getBaseActivity();
     }
 }
