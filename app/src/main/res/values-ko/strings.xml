@@ -537,7 +537,7 @@
     <string name="str_apr_help_msg">현재 체인의 평균 블럭 시간을 바탕으로 계산한 연간 위임 예상 수익율 입니다.</string>
     <string name="str_fetch_eth_path_msg">Ethereum과의 상호 운용 편의성을 위해 Fetch-Ai를 위한\n4가지 유형의 키 경로를 지원합니다.</string>
     <string name="str_fetch_cosmos_path"><![CDATA[Cosmos PATH (44\'/118\'/0\'/0/X)]]></string>
-    <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/X)]]></string>
+    <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/0/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_add_new">새 지갑 추가</string>
