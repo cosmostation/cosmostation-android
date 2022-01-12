@@ -2596,6 +2596,9 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(COMDEX_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/comdex")));
+
+        } else if (mainActivity.mBaseChain.equals(STARGAZE_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/stargaze")));
         }
         return null;
     }
