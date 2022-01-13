@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,10 +31,17 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import desmos.profiles.v1beta1.ModelsProfile;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.desmos.ProfileActivity;
+import wannabit.io.cosmostaion.activities.chains.desmos.ProfileDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.activities.chains.sif.SifIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -50,6 +58,8 @@ import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.req.ReqBroadAirDrop;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -63,7 +73,6 @@ import wannabit.io.cosmostaion.widget.mainWallet.ManageChainSwitchHolder;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
@@ -92,8 +101,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private FrameLayout                 mDimLayer;
     public MainViewPageAdapter          mPageAdapter;
     public FloatingActionButton         mFloatBtn;
-    public FloatingActionButton         mFaucetBtn;
-    public FloatingActionButton         mAirDropBtn;
 
     private TopSheetBehavior            mTopSheetBehavior;
 
@@ -122,8 +129,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mTabLayer               = findViewById(R.id.bottom_tab);
         mDimLayer               = findViewById(R.id.dim_layer);
         mFloatBtn               = findViewById(R.id.btn_floating);
-        mFaucetBtn              = findViewById(R.id.btn_faucet);
-        mAirDropBtn             = findViewById(R.id.btn_airdrop);
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
 
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
@@ -403,6 +408,86 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onSetKavaWarn() {
         getBaseDao().setKavaWarn();
+    }
+
+    public void onClickProfile() {
+        if (getBaseDao().mGRpcNodeInfo != null && getBaseDao().mGRpcAccount != null) {
+            if (getBaseDao().mGRpcAccount.getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
+                Intent airdrop = new Intent(this, ProfileDetailActivity.class);
+                startActivity(airdrop);
+
+            } else {
+                if (!mAccount.hasPrivateKey) {
+                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                    add.setCancelable(true);
+                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    return;
+                }
+                Intent profile = new Intent(this, ProfileActivity.class);
+                startActivity(profile);
+            }
+
+        } else {
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            onDesmosFeeCheck(mAccount.address);
+        }
+    }
+
+    public void onDesmosFeeCheck(String address) {
+        onShowWaitDialog();
+        ReqBroadAirDrop reqBroadAirDrop = new ReqBroadAirDrop(address);
+        if (reqBroadAirDrop != null) {
+            ApiClient.getAirDrop(getBaseContext()).broadAirDrop(reqBroadAirDrop).enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(isFinishing()) return;
+                    String value = null;
+                    if (response.isSuccessful()) {
+                        value = response.body();
+                    } else {
+                        try {
+                            value = response.errorBody().string();
+                        } catch (IOException e) { e.printStackTrace(); }
+                    }
+                    onHideWaitDialog();
+                    LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View view = inflater.inflate(R.layout.dialog_grant_airdrop, null);
+                    TextView txt_msg = view.findViewById(R.id.grant_msg);
+                    TextView btn_ok = view.findViewById(R.id.btn_ok);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setView(view);
+                    txt_msg.setText(value);
+
+                    AlertDialog dialog = builder.create();
+                    dialog.setCancelable(false);
+                    dialog.show();
+
+                    btn_ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onShowWaitDialog();
+                            dialog.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    onFetchAllData();
+                                }
+                            },8000);
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    WLog.w("error : " + t.getMessage());
+                }
+            });
+        }
     }
 
     public void onStartBinanceWalletConnect(String wcUrl) {

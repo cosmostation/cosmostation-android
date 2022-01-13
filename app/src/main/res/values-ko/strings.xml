@@ -537,7 +537,7 @@
     <string name="str_apr_help_msg">현재 체인의 평균 블럭 시간을 바탕으로 계산한 연간 위임 예상 수익율 입니다.</string>
     <string name="str_fetch_eth_path_msg">Ethereum과의 상호 운용 편의성을 위해 Fetch-Ai를 위한\n4가지 유형의 키 경로를 지원합니다.</string>
     <string name="str_fetch_cosmos_path"><![CDATA[Cosmos PATH (44\'/118\'/0\'/0/X)]]></string>
-    <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/X)]]></string>
+    <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/0/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_add_new">새 지갑 추가</string>
@@ -1335,6 +1335,28 @@
     <string name="str_send_nft_denom_id">Denom ID</string>
     <string name="str_send_nft_token_id">Token ID</string>
 
+    <string name="str_desmos_airdrop"><![CDATA[Profile & AirDrop]]> </string>
+    <string name="str_profile_detail_title">프로필 상세</string>
+    <string name="str_edit_profile">프로필 편집</string>
+    <string name="str_air_drop"><![CDATA[Link & AirDrop]]></string>
+    <string name="str_create_profile_title">프로필 작성</string>
+    <string name="str_create_profile_step_0">프로필 정보를 입력하세요</string>
+    <string name="str_create_profile_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_create_profile_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_create_profile_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_create_profile_dtag">Dtag</string>
+    <string name="str_create_profile_nickname">Nickname</string>
+    <string name="str_create_profile_bio">Bio</string>
+    <string name="str_create_profile_profile_uri">Profile Uri</string>
+    <string name="str_create_profile_cover_uri">Cover Uri</string>
+    <string name="str_link_account_step_0">링크하실 체인과 계정을 입력하세요</string>
+    <string name="str_link_account_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_link_account_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_link_account_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_select_link_chain">링크하실 체인을 고르세요</string>
+    <string name="error_no_account_this_chain">선택하신 체인의 연결가능한 계정이 없습니다.</string>
+    <string name="str_select_link_account">링크하실 계정을 고르세요.</string>
+    <string name="error_select_account_link">연결할 계정을 선택해 주세요.</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -1455,6 +1477,9 @@
     <string name="error_no_nft_description">NFT 설명을 입력하세요.</string>
     <string name="error_nft_denom_count">Denom ID를 숫자, 소문자로 4~20자 입력해주세요.</string>
     <string name="error_nft_denom_exist">Denom ID가 이미 존재합니다. 다른 아이디를 입력해주세요.</string>
+    <string name="error_no_profile_dtag">Dtag값을 입력하세요.</string>
+    <string name="error_already_registered_dtag">이미 등록된 Dtag입니다. 다른값을 입력하세요.</string>
+    <string name="error_profile_dtag_count">Dtag를 공백과 특수문자를 제외한 6~30자를 입력해주세요.</string>
 
 
     <string name="tx_send">보내기</string>
@@ -1607,6 +1632,16 @@
     <string name="tx_send_nft_recipient">Recipient</string>
     <string name="tx_send_nft_token_id">Token ID</string>
     <string name="tx_send_nft_denom_id">Denom ID</string>
+
+    <string name="tx_save_profile">프로필 저장</string>
+    <string name="tx_link_chain_account">계정 연결</string>
+    <string name="tx_save_profile_dtag">Dtag</string>
+    <string name="tx_save_profile_nickname">Nickname</string>
+    <string name="tx_save_profile_bio">Bio</string>
+    <string name="tx_save_profile_url">Profile Url</string>
+    <string name="tx_save_profile_cover_url">Cover Url</string>
+    <string name="tx_link_account_address">Linked Address</string>
+    <string name="tx_link_account_signer">Signer</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>

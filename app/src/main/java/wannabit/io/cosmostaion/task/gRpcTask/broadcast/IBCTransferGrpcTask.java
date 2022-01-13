@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
@@ -60,7 +61,7 @@ public class IBCTransferGrpcTask extends CommonTask {
         this.mChannelId = channelId;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_IBC_TRANSFER;
+        this.mResult.taskType = TASK_GRPC_GEN_TX_IBC_TRANSFER;
         this.mStub = ibc.core.channel.v1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 

@@ -83,6 +83,16 @@ public class BaseBroadCastActivity extends BaseActivity {
     public String                           mNftHash;
     public QueryOuterClass.QueryNFTResponse mIrisResponse;
 
+    // AirDrop
+    public String                       mDtag;
+    public String                       mNickname;
+    public String                       mBio;
+    public String                       mCoverImg;
+    public String                       mProfileImg;
+    public BaseChain                    mDesmosToLinkChain;
+    public Long                         mDesmosToLinkAccountId;
+    public BigDecimal                   mDesmosAirDropAmount = BigDecimal.ZERO;
+
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
     public BigDecimal                   mHdacBalance;                               //rizon swap amount
     public ArrayList<String>            mHdacWords;                                 //rizon swap Hdac Mnemonic words

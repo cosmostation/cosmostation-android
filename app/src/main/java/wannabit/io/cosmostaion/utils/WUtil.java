@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.protobuf2.Any;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.Type;
 import com.google.zxing.common.BitMatrix;
 import com.squareup.picasso.Picasso;
 
@@ -50,8 +49,14 @@ import javax.net.ssl.X509TrustManager;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
+import cosmos.params.v1beta1.Params;
 import cosmos.staking.v1beta1.Staking;
+import cosmos.upgrade.v1beta1.Upgrade;
 import cosmos.vesting.v1beta1.Vesting;
+import ibc.core.client.v1.Client;
+import injective.exchange.v1beta1.Tx;
+import injective.ocr.v1beta1.Ocr;
+import injective.oracle.v1beta1.Oracle;
 import okhttp3.OkHttpClient;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import osmosis.incentives.GaugeOuterClass;
@@ -82,7 +87,6 @@ import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
@@ -134,7 +138,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 public class WUtil {
@@ -1236,6 +1239,17 @@ public class WUtil {
         });
     }
 
+    public static void onSortingInjectivePool(ArrayList<Coin> coins) {
+        Collections.sort(coins, new Comparator<Coin>() {
+            @Override
+            public int compare(Coin o1, Coin o2) {
+                if (o1.injectivePoolId() < o2.injectivePoolId()) return -1;
+                else if (o1.injectivePoolId() > o2.injectivePoolId()) return 1;
+                return 0;
+            }
+        });
+    }
+
 
 
     public static ArrayList<UnbondingInfo.DpEntry> onSortUnbondingsRecent(Context c, ArrayList<UnbondingInfo> unbondingInfos) {
@@ -1879,6 +1893,56 @@ public class WUtil {
         return url;
     }
 
+    public static ArrayList<BaseChain> getDesmosAirDropChains() {
+        ArrayList<BaseChain> result = new ArrayList<>();
+        result.add(COSMOS_MAIN);
+        result.add(OSMOSIS_MAIN);
+        result.add(AKASH_MAIN);
+        result.add(BAND_MAIN);
+        result.add(CRYPTO_MAIN);
+        result.add(JUNO_MAIN);
+        result.add(KAVA_MAIN);
+        result.add(EMONEY_MAIN);
+        result.add(REGEN_MAIN);
+        return result;
+    }
+
+    public static String getDesmosPrefix(BaseChain baseChain) {
+        if (baseChain.equals(COSMOS_MAIN)) { return "cosmos"; }
+        else if (baseChain.equals(OSMOSIS_MAIN)) { return "osmo"; }
+        else if (baseChain.equals(AKASH_MAIN)) { return "akash"; }
+        else if (baseChain.equals(BAND_MAIN)) { return "band"; }
+        else if (baseChain.equals(CRYPTO_MAIN)) { return "cro"; }
+        else if (baseChain.equals(JUNO_MAIN)) { return "juno"; }
+        else if (baseChain.equals(KAVA_MAIN)) { return "kava"; }
+        else if (baseChain.equals(EMONEY_MAIN)) { return "emoney"; }
+        else if (baseChain.equals(REGEN_MAIN)) { return "regen"; }
+        else { return ""; }
+    }
+
+    public static String getDesmosConfig(BaseChain baseChain) {
+        if (baseChain.equals(COSMOS_MAIN)) { return "cosmos"; }
+        else if (baseChain.equals(OSMOSIS_MAIN)) { return "osmosis"; }
+        else if (baseChain.equals(AKASH_MAIN)) { return "akash"; }
+        else if (baseChain.equals(BAND_MAIN)) { return "band"; }
+        else if (baseChain.equals(CRYPTO_MAIN)) { return "cro"; }
+        else if (baseChain.equals(JUNO_MAIN)) { return "juno"; }
+        else if (baseChain.equals(KAVA_MAIN)) { return "kava"; }
+        else if (baseChain.equals(EMONEY_MAIN)) { return "emoney"; }
+        else if (baseChain.equals(REGEN_MAIN)) { return "regen"; }
+        else { return ""; }
+    }
+
+    public static String getWalletName(Context c, Account account) {
+        if (account == null) {
+            return "";
+        } else if (TextUtils.isEmpty(account.nickName)) {
+            return c.getString(R.string.str_my_wallet) + account.id;
+        } else {
+            return account.nickName;
+        }
+    }
+
     // photo image rotate
     public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
         Matrix matrix = new Matrix();
@@ -1993,43 +2057,151 @@ public class WUtil {
         }
     }
 
-    public static int getVoterTypeCnt(ArrayList<Vote> votes, String option) {
-        int result = 0;
-        if (votes == null) {
-            return result;
-        }
-        for (Vote v:votes) {
-            if (v.option.equals(option)) {
-                result = result + 1;
-            }
-        }
-        return result;
-    }
+    public static void getVoteListType(Any proposalType, TextView proposalTitle, TextView proposalDetail) {
+         try {
+               if (proposalType.getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
+                   Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(textProposal.getTitle());
+                   proposalDetail.setText(textProposal.getDescription());
+               
+               } else if (proposalType.getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
+                   Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(parameterChangeProposal.getTitle());
+                   proposalDetail.setText(parameterChangeProposal.getDescription());
 
-    public static int getVoterTypeCnt_gRPC(ArrayList<Gov.Vote> votes, Gov.VoteOption option) {
-        int result = 0;
-        if (votes == null) {
-            return result;
-        }
-        for (Gov.Vote v:votes) {
-            if (v.getOption().equals(option)) {
-                result = result + 1;
-            }
-        }
-        return result;
-    }
+               } else if (proposalType.getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
+                   Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(clientUpdateProposal.getTitle());
+                   proposalDetail.setText(clientUpdateProposal.getDescription());
 
-    public static int getVoterTypeCnt_CtkgRPC(ArrayList<shentu.gov.v1alpha1.Gov.Vote> votes, Gov.VoteOption option) {
-        int result = 0;
-        if (votes == null) {
-            return result;
-        }
-        for (shentu.gov.v1alpha1.Gov.Vote v:votes) {
-            if (v.getDeposit().getOption().equals(option)) {
-                result = result + 1;
-            }
-        }
-        return result;
+               } else if (proposalType.getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
+                   Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(communityPoolSpendProposal.getTitle());
+                   proposalDetail.setText(communityPoolSpendProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
+                   Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(softwareUpgradeProposal.getTitle());
+                   proposalDetail.setText(softwareUpgradeProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
+                   Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(cancelSoftwareUpgradeProposal.getTitle());
+                   proposalDetail.setText(cancelSoftwareUpgradeProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
+                   osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(updatePoolIncentivesProposal.getTitle());
+                   proposalDetail.setText(updatePoolIncentivesProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
+                   osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(replacePoolIncentivesProposal.getTitle());
+                   proposalDetail.setText(replacePoolIncentivesProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.ExchangeEnableProposal")) {
+                   Tx.ExchangeEnableProposal exchangeEnableProposal = Tx.ExchangeEnableProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(exchangeEnableProposal.getTitle());
+                   proposalDetail.setText(exchangeEnableProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.BatchExchangeModificationProposal")) {
+                   Tx.BatchExchangeModificationProposal batchExchangeModificationProposal = Tx.BatchExchangeModificationProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(batchExchangeModificationProposal.getTitle());
+                   proposalDetail.setText(batchExchangeModificationProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.SpotMarketParamUpdateProposal")) {
+                   Tx.SpotMarketParamUpdateProposal spotMarketParamUpdateProposal = Tx.SpotMarketParamUpdateProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(spotMarketParamUpdateProposal.getTitle());
+                   proposalDetail.setText(spotMarketParamUpdateProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.SpotMarketLaunchProposal")) {
+                   Tx.SpotMarketLaunchProposal spotMarketLaunchProposal = Tx.SpotMarketLaunchProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(spotMarketLaunchProposal.getTitle());
+                   proposalDetail.setText(spotMarketLaunchProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.PerpetualMarketLaunchProposal")) {
+                   Tx.PerpetualMarketLaunchProposal perpetualMarketLaunchProposal = Tx.PerpetualMarketLaunchProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(perpetualMarketLaunchProposal.getTitle());
+                   proposalDetail.setText(perpetualMarketLaunchProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal")) {
+                   Tx.ExpiryFuturesMarketLaunchProposal expiryFuturesMarketLaunchProposal = Tx.ExpiryFuturesMarketLaunchProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(expiryFuturesMarketLaunchProposal.getTitle());
+                   proposalDetail.setText(expiryFuturesMarketLaunchProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal")) {
+                   Tx.DerivativeMarketParamUpdateProposal derivativeMarketParamUpdateProposal = Tx.DerivativeMarketParamUpdateProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(derivativeMarketParamUpdateProposal.getTitle());
+                   proposalDetail.setText(derivativeMarketParamUpdateProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal")) {
+                   Tx.TradingRewardCampaignLaunchProposal tradingRewardCampaignLaunchProposal = Tx.TradingRewardCampaignLaunchProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(tradingRewardCampaignLaunchProposal.getTitle());
+                   proposalDetail.setText(tradingRewardCampaignLaunchProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal")) {
+                   Tx.TradingRewardCampaignUpdateProposal tradingRewardCampaignUpdateProposal = Tx.TradingRewardCampaignUpdateProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(tradingRewardCampaignUpdateProposal.getTitle());
+                   proposalDetail.setText(tradingRewardCampaignUpdateProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.FeeDiscountProposal")) {
+                   Tx.FeeDiscountProposal feeDiscountProposal = Tx.FeeDiscountProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(feeDiscountProposal.getTitle());
+                   proposalDetail.setText(feeDiscountProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal")) {
+                   Tx.BatchCommunityPoolSpendProposal batchCommunityPoolSpendProposal = Tx.BatchCommunityPoolSpendProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(batchCommunityPoolSpendProposal.getTitle());
+                   proposalDetail.setText(batchCommunityPoolSpendProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal")) {
+                   Oracle.GrantBandOraclePrivilegeProposal grantBandOraclePrivilegeProposal = Oracle.GrantBandOraclePrivilegeProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(grantBandOraclePrivilegeProposal.getTitle());
+                   proposalDetail.setText(grantBandOraclePrivilegeProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal")) {
+                   Oracle.RevokeBandOraclePrivilegeProposal revokeBandOraclePrivilegeProposal = Oracle.RevokeBandOraclePrivilegeProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(revokeBandOraclePrivilegeProposal.getTitle());
+                   proposalDetail.setText(revokeBandOraclePrivilegeProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal")) {
+                   Oracle.GrantBandOraclePrivilegeProposal grantBandOraclePrivilegeProposal = Oracle.GrantBandOraclePrivilegeProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(grantBandOraclePrivilegeProposal.getTitle());
+                   proposalDetail.setText(grantBandOraclePrivilegeProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal")) {
+                   Oracle.RevokePriceFeederPrivilegeProposal revokePriceFeederPrivilegeProposal = Oracle.RevokePriceFeederPrivilegeProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(revokePriceFeederPrivilegeProposal.getTitle());
+                   proposalDetail.setText(revokePriceFeederPrivilegeProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal")) {
+                   Oracle.AuthorizeBandOracleRequestProposal authorizeBandOracleRequestProposal = Oracle.AuthorizeBandOracleRequestProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(authorizeBandOracleRequestProposal.getTitle());
+                   proposalDetail.setText(authorizeBandOracleRequestProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.EnableBandIBCProposal")) {
+                   Oracle.EnableBandIBCProposal enableBandIBCProposal = Oracle.EnableBandIBCProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(enableBandIBCProposal.getTitle());
+                   proposalDetail.setText(enableBandIBCProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.UpdateBandOracleRequestProposal")) {
+                   Oracle.UpdateBandOracleRequestProposal updateBandOracleRequestProposal = Oracle.UpdateBandOracleRequestProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(updateBandOracleRequestProposal.getTitle());
+                   proposalDetail.setText(updateBandOracleRequestProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.ocr.v1beta1.SetConfigProposal")) {
+                   Ocr.SetConfigProposal setConfigProposal = Ocr.SetConfigProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(setConfigProposal.getTitle());
+                   proposalDetail.setText(setConfigProposal.getDescription());
+
+               } else if (proposalType.getTypeUrl().equals("/injective.ocr.v1beta1.UpdateBandOracleRequestProposal")) {
+                   Ocr.SetBatchConfigProposal setBatchConfigProposal = Ocr.SetBatchConfigProposal.parseFrom(proposalType.getValue());
+                   proposalTitle.setText(setBatchConfigProposal.getTitle());
+                   proposalDetail.setText(setBatchConfigProposal.getDescription());
+
+               }
+
+         } catch (Exception e){WLog.w("Ex " +e.getMessage());}
     }
 
     public static String getMonikerName(String opAddress, ArrayList<Validator> validators, boolean bracket) {
@@ -2424,6 +2596,9 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(COMDEX_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/comdex")));
+
+        } else if (mainActivity.mBaseChain.equals(STARGAZE_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/stargaze")));
         }
         return null;
     }
@@ -3111,43 +3286,7 @@ public class WUtil {
      */
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) ||
-                basechain.equals(EMONEY_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(JUNO_MAIN) || basechain.equals(REGEN_MAIN) || basechain.equals(BITCANNA_MAIN) ||
-                basechain.equals(ALTHEA_MAIN) || basechain.equals(STARGAZE_MAIN) || basechain.equals(GRABRIDGE_MAIN) || basechain.equals(COMDEX_MAIN) ||
-                basechain.equals(BITSONG_MAIN) || basechain.equals(INJ_MAIN) || basechain.equals(DESMOS_MAIN) || basechain.equals(LUM_MAIN) ||
-                basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(V1_GAS_AMOUNT_LOW);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(V1_GAS_AMOUNT_MID);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(V1_GAS_AMOUNT_MID);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(V1_GAS_AMOUNT_LOW);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(V1_GAS_AMOUNT_LOW);
-            } else if (txType == CONST_PW_TX_GDEX_SWAP) {
-                return new BigDecimal(COSMOS_GAS_AMOUNT_SWAP);
-            } else if (txType == CONST_PW_TX_GDEX_DEPOSIT) {
-                return new BigDecimal(COSMOS_GAS_AMOUNT_JOIN_POOL);
-            } else if (txType == CONST_PW_TX_GDEX_WITHDRAW) {
-                return new BigDecimal(COSMOS_GAS_AMOUNT_EXIT_POOL);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(COSMOS_GAS_AMOUNT_IBC_SEND);
-            } else if (txType == CONST_PW_TX_MINT_NFT) {
-                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
-            } else if (txType == CONST_PW_TX_SEND_NFT) {
-                return new BigDecimal(V1_GAS_AMOUNT_MID);
-            }
-
-        } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
+        if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(IOV_GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -3317,50 +3456,6 @@ public class WUtil {
                 return new BigDecimal(SECRET_GAS_AMOUNT_IBC_SEND);
             }
 
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_SEND);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_REDELEGATE);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_REINVEST);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward_kava)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(SENTINEL_GAS_AMOUNT_IBC_SEND);
-            }
-
-        } else if (basechain.equals(FETCHAI_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_SEND);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_REDELEGATE);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_REINVEST);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(FETCH_GAS_AMOUNT_IBC_SEND);
-            }
-
         } else if (basechain.equals(SIF_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(SIF_GAS_AMOUNT_SEND);
@@ -3387,50 +3482,6 @@ public class WUtil {
                 return new BigDecimal(SIF_GAS_AMOUNT_DEX);
             }
 
-        } else if (basechain.equals(KI_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(KI_GAS_AMOUNT_SEND);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(KI_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(KI_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(KI_GAS_AMOUNT_REDELEGATE);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(KI_GAS_AMOUNT_REINVEST);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(KI_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(KI_GAS_AMOUNT_IBC_SEND);
-            }
-
-        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_SEND);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_REDELEGATE);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_REINVEST);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(MEDI_GAS_AMOUNT_IBC_SEND);
-            }
-
         } else if (basechain.equals(CHIHUAHUA_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_REWARD) {
                 ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
@@ -3441,6 +3492,65 @@ public class WUtil {
                 return new BigDecimal(CERTIK_GAS_AMOUNT_REINVEST);
             } else {
                 return new BigDecimal(V1_GAS_AMOUNT_MID);
+            }
+
+        } else if (basechain.equals(SENTINEL_MAIN) || basechain.equals(FETCHAI_MAIN) || basechain.equals(KI_MAIN) || basechain.equals(MEDI_MAIN) ||
+                    basechain.equals(MEDI_TEST)) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(GAS_AMOUNT_SEND);
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(GAS_AMOUNT_STAKE);
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(GAS_AMOUNT_STAKE);
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(GAS_AMOUNT_REDELEGATE);
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(GAS_AMOUNT_REINVEST);
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(GAS_AMOUNT_VOTE);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(GAS_AMOUNT_IBC_SEND);
+            }
+
+        } else {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+            } else if (txType == CONST_PW_TX_GDEX_SWAP) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_SWAP);
+            } else if (txType == CONST_PW_TX_GDEX_DEPOSIT) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_JOIN_POOL);
+            } else if (txType == CONST_PW_TX_GDEX_WITHDRAW) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_EXIT_POOL);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_IBC_SEND);
+            } else if (txType == CONST_PW_TX_MINT_NFT) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_SEND_NFT) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_PROFILE) {
+                return new BigDecimal(V1_GAS_AMOUNT_TOO_HIGH);
+            } else if (txType == CONST_PW_TX_LINK_ACCOUNT) {
+                return new BigDecimal(V1_GAS_AMOUNT_TOO_HIGH);
             }
         }
         return result;

@@ -3,10 +3,15 @@ package wannabit.io.cosmostaion.network;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Price;
+import wannabit.io.cosmostaion.network.req.ReqBroadAirDrop;
+import wannabit.io.cosmostaion.network.req.ReqDesmosAirDrop;
+import wannabit.io.cosmostaion.network.res.ResAirdropClaimCheck;
 import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResIbcPaths;
 import wannabit.io.cosmostaion.network.res.ResIbcTokens;
@@ -32,4 +37,13 @@ public interface Station {
     @GET("v1/assets/{chain}")
     Call<ResAssets> getAssets(@Path("chain") String chain);
 
+    //desmos airdrop
+    @POST("airdrop/grants")
+    Call<String> broadAirDrop(@Body ReqBroadAirDrop data);
+
+    @GET("users/{address}")
+    Call<ResAirdropClaimCheck> getClaimable(@Path("address") String address);
+
+    @POST("airdrop/claims")
+    Call<String> ClaimAirDrop(@Body ReqDesmosAirDrop data);
 }

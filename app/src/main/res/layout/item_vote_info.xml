@@ -111,6 +111,8 @@
                     android:layout_toRightOf="@+id/vote_type_title"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="@dimen/space_8"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:gravity="right"
                     android:text="-"
                     style="@style/font_ss_12_white"/>

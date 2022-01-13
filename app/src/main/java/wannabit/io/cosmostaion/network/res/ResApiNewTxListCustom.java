@@ -411,6 +411,14 @@ public class ResApiNewTxListCustom {
                     result = c .getString(R.string.tx_create_task);
                 }
 
+                // desmos
+                else if (msgType.contains("MsgSaveProfile")) {
+                    result = c .getString(R.string.tx_save_profile);
+
+                } else if (msgType.contains("MsgLinkChainAccount")) {
+                    result = c .getString(R.string.tx_link_chain_account);
+                }
+
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
                 }
@@ -508,11 +516,12 @@ public class ResApiNewTxListCustom {
 
         String denom = "";
         String amount = "";
-        if (msgType.contains("MsgSend")) {
+        if (msgType.contains("MsgSendToEth")) {
+
+        } else if (msgType.contains("MsgSend")) {
             try {
                 denom = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("amount");
-                return new Coin(denom, amount);
             } catch (JSONException e) {  }
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("denom");

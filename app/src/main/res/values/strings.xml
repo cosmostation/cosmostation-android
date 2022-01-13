@@ -118,6 +118,7 @@
 
 
     <string name="url_api_desmos" translatable="false">https://api-desmos.cosmostation.io/</string>
+    <string name="url_api_airdrop_desmos" translatable="false">https://api.airdrop.desmos.network/</string>
 
 
     <string name="url_api_lum" translatable="false">https://api-lum.cosmostation.io/</string>
@@ -704,7 +705,7 @@
     <string name="str_gas_amount">Gas Amount</string>
     <string name="str_gas_rate">Gas Rate</string>
     <string name="str_fee_amount">Tx Fee Amount</string>
-    <string name="str_fee_speed_title_0">Only a handful of validators include \"Cosmostation\" \nwill process this Tx.</string>
+    <string name="str_fee_speed_title_0">Only a handful of validators including \"Cosmostation\" \nwill process this Tx.</string>
     <string name="str_fee_speed_title_1">A few validators will process this Tx.</string>
     <string name="str_fee_speed_title_2">Most validators will process this Tx.</string>
     <string name="str_fee_speed_title_iris">Support fixed transfer fee for IRIS Mainnet..</string>
@@ -918,7 +919,7 @@
     <string name="str_apr_help_msg">This figure is an estimated percentage calculated by taking into account the current average network block time.</string>
     <string name="str_fetch_eth_path_msg">For Convenience of interoperability\nwith Ethereum, 4 types key path\nsupport for Fetch-Ai.</string>
     <string name="str_fetch_cosmos_path"><![CDATA[Cosmos PATH (44\'/118\'/0\'/0/X)]]></string>
-    <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/X)]]></string>
+    <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/0/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_add_new">Add New Wallet</string>
@@ -1725,6 +1726,27 @@
     <string name="str_send_nft_denom_id">Denom ID</string>
     <string name="str_send_nft_token_id">Token ID</string>
 
+    <string name="str_desmos_airdrop"><![CDATA[Profile & AirDrop]]> </string>
+    <string name="str_profile_detail_title">Profile Detail</string>
+    <string name="str_edit_profile">Edit Profile</string>
+    <string name="str_air_drop"><![CDATA[Link & AirDrop]]></string>
+    <string name="str_create_profile_title">Create Profile</string>
+    <string name="str_create_profile_step_0">Insert Profile Information</string>
+    <string name="str_create_profile_step_1">Insert memo (optional)</string>
+    <string name="str_create_profile_step_2">Select transaction fee</string>
+    <string name="str_create_profile_step_3">Check transaction detail</string>
+    <string name="str_create_profile_dtag">Dtag</string>
+    <string name="str_create_profile_nickname">Nickname</string>
+    <string name="str_create_profile_bio">Bio</string>
+    <string name="str_create_profile_profile_uri">Profile Uri</string>
+    <string name="str_create_profile_cover_uri">Cover Uri</string>
+    <string name="str_link_account_step_0">Select Chain and Account to Link</string>
+    <string name="str_link_account_step_1">Insert memo (optional)</string>
+    <string name="str_link_account_step_2">Select transaction fee</string>
+    <string name="str_link_account_step_3">Check transaction detail</string>
+    <string name="str_select_link_chain">Select Chain To Link </string>
+    <string name="str_select_link_account">Select Account To Link </string>
+
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
     <string name="error_invalid_address_pubkey">Invalid Address, please check again.</string>
@@ -1843,6 +1865,11 @@
     <string name="error_no_nft_description">Add NFT Description.</string>
     <string name="error_nft_denom_count">Please Insert 4~20 low char Denom ID.</string>
     <string name="error_nft_denom_exist">Denom ID is already exist. please using unique ID.</string>
+    <string name="error_no_profile_dtag">Please add Dtag for profile.</string>
+    <string name="error_already_registered_dtag">This Dtag already registered. please use another text for Dtag.</string>
+    <string name="error_profile_dtag_count">Please insert 6 to 30 characters without a blank and special characters</string>
+    <string name="error_no_account_this_chain">No linkable account with this chain</string>
+    <string name="error_select_account_link">Please select account to link</string>
 
 
     <string name="s_atom" translatable="false">ATOM</string>
@@ -2032,6 +2059,16 @@
     <string name="tx_send_nft_recipient">Recipient</string>
     <string name="tx_send_nft_token_id">Token ID</string>
     <string name="tx_send_nft_denom_id">Denom ID</string>
+
+    <string name="tx_save_profile">Save Profile</string>
+    <string name="tx_link_chain_account">Link Account</string>
+    <string name="tx_save_profile_dtag">Dtag</string>
+    <string name="tx_save_profile_nickname">Nickname</string>
+    <string name="tx_save_profile_bio">Bio</string>
+    <string name="tx_save_profile_url">Profile Uri</string>
+    <string name="tx_save_profile_cover_url">Cover Uri</string>
+    <string name="tx_link_account_address">Linked Address</string>
+    <string name="tx_link_account_signer">Signer</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

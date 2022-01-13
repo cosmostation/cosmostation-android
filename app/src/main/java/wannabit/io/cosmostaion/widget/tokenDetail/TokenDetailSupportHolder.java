@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
@@ -101,20 +102,14 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindPoolToken(Context c, BaseChain baseChain, BaseData baseData, String denom) {
-        if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
-            dpDecimal = 18;
-
-            mAvailableAmount = baseData.getAvailable(denom);
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-
-        } else if (baseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (baseChain.equals(COSMOS_MAIN)) {
             dpDecimal = 6;
-
-            mAvailableAmount = baseData.getAvailable(denom);
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+        } else {
+            dpDecimal = 18;
         }
+        mAvailableAmount = baseData.getAvailable(denom);
+        mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+        mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
     }
 
     public void onBindKavaToken(Context c, BaseData baseData, String denom) {

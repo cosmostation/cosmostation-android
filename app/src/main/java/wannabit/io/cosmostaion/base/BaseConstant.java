@@ -191,6 +191,8 @@ public class BaseConstant {
     public final static int TASK_FETCH_SIF_INCENTIVE_VS                 = 3500;
     public final static int TASK_FETCH_SIF_INCENTIVE_LM                 = 3501;
 
+    public final static int TASK_FETCH_DESMOS_CLAIMABLE_CHECK           = 3601;
+
     //gRPC
     public final static int TASK_GRPC_FETCH_BALANCE                     = 4001;
     public final static int TASK_GRPC_FETCH_BONDED_VALIDATORS           = 4002;
@@ -222,6 +224,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_GRAVITY_MANAGER             = 4028;
     public final static int TASK_GRPC_FETCH_TOTAL_SUPPLY                = 4029;
     public final static int TASK_GRPC_FETCH_GRAVITY_POOL_INFO           = 4030;
+    public final static int TASK_GRPC_FETCH_DESMOS_PROFILE_INFO         = 4031;
 
     public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
@@ -244,6 +247,8 @@ public class BaseConstant {
 
     public final static int TASK_GRPC_FETCH_NFTOKEN_LIST                = 4270;
     public final static int TASK_GRPC_FETCH_NFTOKEN_INFO                = 4271;
+
+    public final static int TASK_GRPC_FETCH_PROFILE_INFO                = 4280;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
@@ -276,6 +281,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_SIF_EXIT_POOL              = 4328;
     public final static int TASK_GRPC_GEN_TX_MINT_NFT                   = 4329;
     public final static int TASK_GRPC_GEN_TX_TRANSFER_NFT               = 4330;
+    public final static int TASK_GRPC_GEN_TX_CREATE_PROFILE             = 4331;
+    public final static int TASK_GRPC_GEN_TX_LINK_ACCOUNT               = 4332;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -308,6 +315,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_SIF_WITHDRAW_POOL        = 4529;
     public final static int TASK_GRPC_SIMULATE_MINT_NFT                 = 4530;
     public final static int TASK_GRPC_SIMULATE_TRANSFER_NFT             = 4531;
+    public final static int TASK_GRPC_SIMULATE_CREATE_PROFILE           = 4532;
 
 
 
@@ -493,6 +501,8 @@ public class BaseConstant {
     public final static int CONST_PW_CHECK_PRIVATE_KEY                      = 5054;
     public final static int CONST_PW_TX_MINT_NFT                            = 5055;
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
+    public final static int CONST_PW_TX_PROFILE                             = 5057;
+    public final static int CONST_PW_TX_LINK_ACCOUNT                        = 5058;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -717,21 +727,13 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
     public final static String SECRET_GAS_AMOUNT_IBC_SEND               = "500000";
 
-    public final static String SENTINEL_GAS_AMOUNT_SEND                   = "100000";
-    public final static String SENTINEL_GAS_AMOUNT_STAKE                  = "200000";
-    public final static String SENTINEL_GAS_AMOUNT_REDELEGATE             = "300000";
-    public final static String SENTINEL_GAS_AMOUNT_REINVEST               = "350000";
-    public final static String SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
-    public final static String SENTINEL_GAS_AMOUNT_VOTE                   = "100000";
-    public final static String SENTINEL_GAS_AMOUNT_IBC_SEND               = "500000";
-
-    public final static String FETCH_GAS_AMOUNT_SEND                    = "100000";
-    public final static String FETCH_GAS_AMOUNT_STAKE                   = "200000";
-    public final static String FETCH_GAS_AMOUNT_REDELEGATE              = "300000";
-    public final static String FETCH_GAS_AMOUNT_REINVEST                = "350000";
-    public final static String FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE   = "100000";
-    public final static String FETCH_GAS_AMOUNT_VOTE                    = "100000";
-    public final static String FETCH_GAS_AMOUNT_IBC_SEND                = "500000";
+    public final static String GAS_AMOUNT_SEND                          = "100000";
+    public final static String GAS_AMOUNT_STAKE                         = "200000";
+    public final static String GAS_AMOUNT_REDELEGATE                    = "300000";
+    public final static String GAS_AMOUNT_REINVEST                      = "350000";
+    public final static String GAS_AMOUNT_REWARD_ADDRESS_CHANGE         = "100000";
+    public final static String GAS_AMOUNT_VOTE                          = "100000";
+    public final static String GAS_AMOUNT_IBC_SEND                      = "500000";
 
     public final static String SIF_GAS_AMOUNT_SEND                      = "100000";
     public final static String SIF_GAS_AMOUNT_STAKE                     = "200000";
@@ -742,22 +744,6 @@ public class BaseConstant {
     public final static String SIF_GAS_AMOUNT_IBC_SEND                  = "500000";
     public final static String SIF_GAS_AMOUNT_CLAIM_INCENTIVE           = "250000";
     public final static String SIF_GAS_AMOUNT_DEX                       = "250000";
-
-    public final static String KI_GAS_AMOUNT_SEND                       = "100000";
-    public final static String KI_GAS_AMOUNT_STAKE                      = "200000";
-    public final static String KI_GAS_AMOUNT_REDELEGATE                 = "300000";
-    public final static String KI_GAS_AMOUNT_REINVEST                   = "350000";
-    public final static String KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE      = "100000";
-    public final static String KI_GAS_AMOUNT_VOTE                       = "100000";
-    public final static String KI_GAS_AMOUNT_IBC_SEND                   = "500000";
-
-    public final static String MEDI_GAS_AMOUNT_SEND                     = "100000";
-    public final static String MEDI_GAS_AMOUNT_STAKE                    = "200000";
-    public final static String MEDI_GAS_AMOUNT_REDELEGATE               = "300000";
-    public final static String MEDI_GAS_AMOUNT_REINVEST                 = "350000";
-    public final static String MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE    = "100000";
-    public final static String MEDI_GAS_AMOUNT_VOTE                     = "100000";
-    public final static String MEDI_GAS_AMOUNT_IBC_SEND                 = "500000";
 
     public final static String OSMOSIS_GAS_AMOUNT_SEND                  = "100000";
     public final static String OSMOSIS_GAS_AMOUNT_STAKE                 = "200000";
@@ -879,6 +865,7 @@ public class BaseConstant {
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
+    public final static String V1_GAS_AMOUNT_TOO_HIGH                   = "350000";
 
 
     public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
@@ -948,7 +935,7 @@ public class BaseConstant {
     public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/starname/";
     public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
     public final static String EXPLORER_BAND_MAIN       = "https://www.mintscan.io/band/";
-    public final static String EXPLORER_SECRET_MAIN     = "https://testnet.mintscan.io/secret/";
+    public final static String EXPLORER_SECRET_MAIN     = "https://www.mintscan.io/secret/";
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
     public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
     public final static String EXPLORER_PERSIS_MAIN     = "https://www.mintscan.io/persistence/";

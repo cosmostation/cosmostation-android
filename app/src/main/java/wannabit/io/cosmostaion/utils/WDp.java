@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.IbcToken;
@@ -422,11 +423,19 @@ public class WDp {
         } else if (chain.equals(GRABRIDGE_MAIN)) {
             if (coin.denom.equals(TOKEN_GRABRIDGE)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+            } else if (coin.denom.startsWith("gravity")) {
+                final Assets assets = baseData.getAsset(coin.denom);
+                if (assets != null) {
+                    denomTv.setText(assets.origin_symbol);
+                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                    amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), assets.decimal, assets.decimal));
+                }
             } else {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(COMDEX_MAIN)) {
             if (coin.denom.equals(TOKEN_COMDEX)) {
@@ -440,11 +449,19 @@ public class WDp {
         } else if (chain.equals(INJ_MAIN)) {
             if (coin.denom.equals(TOKEN_INJ)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
+            } else if (coin.denom.startsWith("peggy")){
+                final Assets assets = baseData.getAsset(coin.denom);
+                if (assets != null) {
+                    denomTv.setText(assets.origin_symbol);
+                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                    amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), assets.decimal, assets.decimal));
+                }
             } else {
-                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
 
         } else if (chain.equals(BITSONG_MAIN)) {
             if (coin.denom.equals(TOKEN_BITSONG)) {
@@ -525,15 +542,16 @@ public class WDp {
     public static void showCoinDp(Context c, BaseData baseData, String symbol, String amount, TextView denomTv, TextView amountTv, BaseChain chain) {
         if (isGRPC(chain) && symbol.startsWith("ibc")) {
             IbcToken ibcToken = baseData.getIbcToken(symbol.replaceAll("ibc/", ""));
-            if (ibcToken.auth) {
-                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                denomTv.setText(ibcToken.display_denom.toUpperCase());
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), ibcToken.decimal, ibcToken.decimal));
+            if (ibcToken != null) {
+                if (ibcToken.auth) {
+                    denomTv.setText(ibcToken.display_denom.toUpperCase());
+                    amountTv.setText(getDpAmount2(c, new BigDecimal(amount), ibcToken.decimal, ibcToken.decimal));
 
-            } else {
+                } else {
+                    denomTv.setText("Unknown");
+                    amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+                }
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                denomTv.setText("Unknown");
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
             }
 
         } else if (chain.equals(COSMOS_MAIN)) {
@@ -787,11 +805,18 @@ public class WDp {
         } else if (chain.equals(GRABRIDGE_MAIN)) {
             if (symbol.equals(TOKEN_GRABRIDGE)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
+            } else if (symbol.startsWith("gravity")) {
+                final Assets assets = baseData.getAsset(symbol);
+                if (assets != null) {
+                    denomTv.setText(assets.origin_symbol);
+                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                    amountTv.setText(getDpAmount2(c, new BigDecimal(amount), assets.decimal, assets.decimal));
+                }
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(COMDEX_MAIN)) {
             if (symbol.equals(TOKEN_COMDEX)) {
@@ -805,11 +830,19 @@ public class WDp {
         } else if (chain.equals(INJ_MAIN)) {
             if (symbol.equals(TOKEN_INJ)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
+            } else if (symbol.startsWith("peggy")){
+                final Assets assets = baseData.getAsset(symbol);
+                if (assets != null) {
+                    denomTv.setText(assets.origin_symbol);
+                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                    amountTv.setText(getDpAmount2(c, new BigDecimal(amount), assets.decimal, assets.decimal));
+                }
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
         } else if (chain.equals(BITSONG_MAIN)) {
             if (symbol.equals(TOKEN_BITSONG)) {
@@ -1512,7 +1545,7 @@ public class WDp {
                 return COMDEX_MAIN;
             } else if (chainId.contains("bitsong-")) {
                 return BITSONG_MAIN;
-            } else if (chainId.contains("inj-")) {
+            } else if (chainId.contains("injective-")) {
                 return INJ_MAIN;
             } else if (chainId.contains("desmos-")) {
                 return DESMOS_MAIN;
