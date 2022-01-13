@@ -74,9 +74,13 @@ public class ProfileStep3Fragment extends BaseFragment implements View.OnClickLi
         mProfileBio.setText(getSActivity().mBio);
         if (getSActivity().mProfileImg != null) {
             mProfileUri.setText("https://ipfs.infura.io/ipfs/" + getSActivity().mProfileImg);
+        } else {
+            mProfileUri.setText("");
         }
         if (getSActivity().mCoverImg != null) {
             mProfileCoverUri.setText("https://ipfs.infura.io/ipfs/" + getSActivity().mCoverImg);
+        } else {
+            mProfileCoverUri.setText("");
         }
         mMemo.setText(getSActivity().mTxMemo);
     }

@@ -499,8 +499,20 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             }
 
             else if (getSActivity().mTxType == CONST_PW_TX_PROFILE) {
+                String profileUri = "";
+                String coverUri = "";
+                if (getSActivity().mProfileImg != null) {
+                    profileUri = "https://ipfs.infura.io/ipfs/" + getSActivity().mProfileImg;
+                } else {
+                    profileUri = "";
+                }
+                if (getSActivity().mCoverImg != null) {
+                    coverUri = "https://ipfs.infura.io/ipfs/" + getSActivity().mCoverImg;
+                } else {
+                    coverUri = "";
+                }
                 new SimulCreateProfileGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mDtag, getSActivity().mNickname, getSActivity().mBio,
-                        getSActivity().mProfileImg, getSActivity().mCoverImg, getSActivity().mAccount.address, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        profileUri, coverUri, getSActivity().mAccount.address, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_LINK_ACCOUNT) {
                 Account toAccount = getBaseDao().onSelectAccount(getSActivity().mDesmosToLinkAccountId.toString());

@@ -136,6 +136,7 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
 
         } else if (v.equals(mImgDel)) {
             onUpdateImgView(true, null);
+            mCoverHash = null;
         }
     }
 

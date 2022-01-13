@@ -24,7 +24,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_CREATE_PROFILE;
 
 public class SimulCreateProfileGrpcTask extends CommonTask {
 
@@ -51,7 +51,7 @@ public class SimulCreateProfileGrpcTask extends CommonTask {
         this.mFees = fee;
         this.mMemo = memo;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_JOIN_POOL;
+        this.mResult.taskType = TASK_GRPC_SIMULATE_CREATE_PROFILE;
     }
 
     @Override
