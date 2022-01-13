@@ -174,7 +174,7 @@ public class SifDexListActivity extends BaseActivity {
         BigDecimal externalAvailable = getBaseDao().getAvailable(externalDenom);
 
         if (rowanAvailable.compareTo(BigDecimal.ZERO) <= 0 || externalAvailable.compareTo(BigDecimal.ZERO) <=0 ) {
-            Toast.makeText(SifDexListActivity.this, R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            Toast.makeText(SifDexListActivity.this, R.string.error_not_enough_to_deposit_pool, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -196,7 +196,7 @@ public class SifDexListActivity extends BaseActivity {
         rowanAvailable = rowanAvailable.subtract(feeAmount);
 
         if (rowanAvailable.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(SifDexListActivity.this, R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            Toast.makeText(SifDexListActivity.this, R.string.error_not_enough_to_withdraw_pool, Toast.LENGTH_SHORT).show();
             return;
         }
 

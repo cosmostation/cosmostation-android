@@ -203,7 +203,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         if (coin1Denom.equalsIgnoreCase(TOKEN_KAVA)) { available1MaxAmount = available1MaxAmount.subtract(feeAmount); }
 
         if (available0MaxAmount.compareTo(BigDecimal.ZERO) <= 0 || available1MaxAmount.compareTo(BigDecimal.ZERO) <=0 ) {
-            Toast.makeText(DAppsList5Activity.this, R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            Toast.makeText(DAppsList5Activity.this, R.string.error_not_enough_to_deposit_pool, Toast.LENGTH_SHORT).show();
             return;
         }
         Intent intent = new Intent(getBaseContext(), DepositPoolActivity.class);
@@ -223,7 +223,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_KAVA_EXIT_POOL, 0);
 
         if (mainBalance.compareTo(feeAmount) < 0) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_withdraw_pool, Toast.LENGTH_SHORT).show();
             return;
         }
 
