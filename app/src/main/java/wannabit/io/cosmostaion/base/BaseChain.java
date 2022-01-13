@@ -345,6 +345,13 @@ public enum BaseChain {
         return SUPPORT_CHAINS().contains(getChain(chain));
     }
 
+    public static boolean IS_TESTNET(BaseChain chain) {
+        if (chain.equals(UMEE_TEST) || chain.equals(AXELAR_TEST) || chain.equals(KAVA_MAIN)) {
+            return true;
+        }
+        return false;
+    }
+
     public static ArrayList<BaseChain> getHtlcSendable(BaseChain fromChain) {
         ArrayList<BaseChain> result = new ArrayList<>();
         if (fromChain.equals(BNB_TEST)) {
@@ -389,8 +396,7 @@ public enum BaseChain {
     }
 
     public static boolean isGRPC(BaseChain baseChain) {
-        if (baseChain.equals(BNB_MAIN) || baseChain.equals(OKEX_MAIN) || baseChain.equals(KAVA_MAIN) ||
-                baseChain.equals(BNB_TEST) || baseChain.equals(OK_TEST)) {
+        if (baseChain.equals(BNB_MAIN) || baseChain.equals(OKEX_MAIN) || baseChain.equals(BNB_TEST) || baseChain.equals(OK_TEST)) {
             return false;
         }
         return true;

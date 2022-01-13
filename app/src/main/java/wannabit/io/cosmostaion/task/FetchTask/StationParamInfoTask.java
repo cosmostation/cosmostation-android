@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.task.FetchTask;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -14,10 +15,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PARAM_INFO;
 
 public class StationParamInfoTask extends CommonTask {
 
-    private String mChainId;
+    private BaseChain   mBaseChain;
+    private String      mChainId;
 
-    public StationParamInfoTask(BaseApplication app, TaskListener listener, String chainId) {
+    public StationParamInfoTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String chainId) {
         super(app, listener);
+        this.mBaseChain         = baseChain;
         this.mChainId           = chainId;
         this.mResult.taskType   = TASK_FETCH_PARAM_INFO;
     }
@@ -25,8 +28,12 @@ public class StationParamInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            WLog.w("chain param URL " +  ApiClient.getStation(mApp).getParam(mChainId).request().url());
-            Response<ChainParam> response = ApiClient.getStation(mApp).getParam(mChainId).execute();
+            Response<ChainParam> response;
+            if (BaseChain.IS_TESTNET(mBaseChain)) {
+                response = ApiClient.getStationTest(mApp).getParam(mChainId).execute();
+            } else {
+                response = ApiClient.getStation(mApp).getParam(mChainId).execute();
+            }
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

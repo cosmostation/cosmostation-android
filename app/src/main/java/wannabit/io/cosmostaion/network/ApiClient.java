@@ -27,6 +27,21 @@ public class ApiClient {
         return station;
     }
 
+    //Services for station wallet test api
+    private static Station stationTest = null;
+    public static Station getStationTest(Context c) {
+        if (stationTest == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_station_testnet))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                stationTest = retrofit.create(Station.class);
+            }
+        }
+        return stationTest;
+    }
+
     //Services for station mintscan api
     private static Station mintscan = null;
     public static Station getMintscan(Context c) {
