@@ -184,7 +184,7 @@ public class GravityListActivity extends BaseActivity {
         if (coin1Denom.equalsIgnoreCase(TOKEN_ATOM)) { coin1Available = coin1Available.subtract(feeAmount); }
 
         if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <=0 ) {
-            Toast.makeText(GravityListActivity.this, R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            Toast.makeText(GravityListActivity.this, R.string.error_not_enough_to_deposit_pool, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -206,7 +206,7 @@ public class GravityListActivity extends BaseActivity {
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_GDEX_WITHDRAW, 0);
 
         if (mainBalance.compareTo(feeAmount) < 0) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_withdraw_pool, Toast.LENGTH_SHORT).show();
             return;
         }
 
