@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.task.FetchTask.OkHistoryTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.widget.HistoryNewHolder;
 import wannabit.io.cosmostaion.widget.HistoryOldHolder;
 
@@ -153,7 +154,15 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             new BnbHistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
         } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
-            new OkHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            String address = getMainActivity().mAccount.address;
+            if (getMainActivity().mAccount.address.startsWith("0x")) {
+                try {
+                    address = WKey.convertAddressEthToOkex(getMainActivity().mAccount.address);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            new OkHistoryTask(getBaseApplication(), this, address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

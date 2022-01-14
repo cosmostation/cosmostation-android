@@ -153,6 +153,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     }
 
     private void onUpdateView() {
+        shareAddress = mAccount.address;
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenDetailActivity.this, mBaseChain));
         if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             final OkToken okToken = getBaseDao().okToken(mDenom);
@@ -182,6 +183,14 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                 mItemUpDownImg.setVisibility(View.INVISIBLE);
             }
 
+            try {
+                if (mAccount.address.startsWith("ex1")) {
+                    shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(mDenom);
             final BnbToken bnbToken = getBaseDao().getBnbToken(mDenom);
@@ -197,17 +206,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-            try {
-                shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
-                mAddress.setText(shareAddress);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            shareAddress = mAccount.address;
-            mAddress.setText(shareAddress);
-        }
+        mAddress.setText(shareAddress);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
             mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);

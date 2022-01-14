@@ -84,8 +84,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
 
-    private CoordinatorLayout           mRoot;
-    private ImageView                   mChainBg;
     private Toolbar                     mToolbar;
     private ImageView                   mToolbarChainImg;
     private TextView                    mToolbarTitle;
@@ -111,12 +109,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private ArrayList<BaseChain>        mExpendedChains = new ArrayList<>();
     private ArrayList<ChainAccounts>    mChainAccounts = new ArrayList<>();
 
+    private String                      mAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRoot                   = findViewById(R.id.root);
-        mChainBg                = findViewById(R.id.chain_bg);
         mToolbar                = findViewById(R.id.tool_bar);
         mToolbarTitle           = findViewById(R.id.toolbar_title);
         mToolbarChainImg        = findViewById(R.id.toolbar_net_image);
@@ -141,16 +139,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Address = "";
-                try {
-                    if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-                        Address = WKey.convertAddressOkexToEth(mAccount.address);
-                    } else {
-                        Address = mAccount.address;
-                    }
-                } catch (Exception e) { }
                 Bundle bundle = new Bundle();
-                bundle.putString("address", Address);
+                bundle.putString("address", mAddress);
                 if (TextUtils.isEmpty(mAccount.nickName))
                     bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
                 else
@@ -343,11 +333,16 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
         try {
             if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-                mWalletAddress.setText(WKey.convertAddressOkexToEth(mAccount.address));
+                if (mAccount.address.startsWith("ex1")) {
+                    mAddress = WKey.convertAddressOkexToEth(mAccount.address);
+                } else {
+                    mAddress = mAccount.address;
+                }
             } else {
-                mWalletAddress.setText(mAccount.address);
+                mAddress = mAccount.address;
             }
         } catch (Exception e) { }
+        mWalletAddress.setText(mAddress);
     }
 
     @Override

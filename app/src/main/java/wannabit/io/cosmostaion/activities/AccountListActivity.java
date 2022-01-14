@@ -183,15 +183,17 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             final Account account = mDisplayAccounts.get(position);
 
             WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
+            String address = account.address;
             if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
                 try {
-                    holder.accountAddress.setText(WKey.convertAddressOkexToEth(account.address));
+                    if (account.address.startsWith("ex1")) {
+                        address = WKey.convertAddressOkexToEth(account.address);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-                holder.accountAddress.setText(account.address);
             }
+            holder.accountAddress.setText(address);
             holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), BaseChain.getChain(account.baseChain)));
             holder.accountKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
             if (account.hasPrivateKey) {
