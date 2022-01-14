@@ -49,7 +49,6 @@ import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
-import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
@@ -92,15 +91,10 @@ import wannabit.io.cosmostaion.network.res.ResOkTickersList;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.AllRewardsTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTokenListTask;
-import wannabit.io.cosmostaion.task.FetchTask.BondingStateTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaPriceFeedParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanAssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
@@ -116,11 +110,7 @@ import wannabit.io.cosmostaion.task.FetchTask.StationIbcPathsTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationIbcTokensTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationParamInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationPriceInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoAllTask;
-import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
-import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoUnbondedTask;
-import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoUnbondingTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
@@ -138,7 +128,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -149,12 +138,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
@@ -175,7 +162,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_STAKING_IN
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_TOKEN_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_UNBONDING_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SIF_INCENTIVE_LM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SIF_INCENTIVE_VS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_AUTH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
@@ -905,8 +891,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (tempNodeInfo != null) { getBaseDao().mGRpcNodeInfo = tempNodeInfo;
                 mTaskCount = mTaskCount + 4;
                 new StationParamInfoTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                new StationIbcPathsTask(getBaseApplication(), this, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                new StationIbcTokensTask(getBaseApplication(), this, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new StationIbcPathsTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new StationIbcTokensTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanAssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
@@ -1092,7 +1078,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 }
 
             }
-            new StationPriceInfoTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new StationPriceInfoTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             //callback with delay fix gRPC  timming issue
             mHandler.postDelayed(new Runnable() {

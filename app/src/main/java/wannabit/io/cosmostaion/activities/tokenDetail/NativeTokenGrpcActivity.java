@@ -34,13 +34,14 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClickListener{
 
@@ -127,6 +128,8 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     }
 
     private void onUpdateView() {
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenGrpcActivity.this, mBaseChain));
+        mBtnIbcSend.setVisibility(View.VISIBLE);
         if (mBaseChain.equals(BaseChain.OSMOSIS_MAIN)) {
             WUtil.DpOsmosisTokenImg(getBaseDao(), mToolbarSymbolImg, mNativeGrpcDenom);
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorIon));
@@ -141,8 +144,24 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
             Picasso.get().load(EMONEY_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_HARD)) {
+                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorHard));
+                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBghard));
+            } else if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_USDX)) {
+                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
+                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgusdx));
+            } else if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_SWP)) {
+                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
+                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgswp));
+            }
+
+            mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
+            Picasso.get().load(KAVA_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+            mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
+            mBtnIbcSend.setVisibility(View.GONE);
         }
-        mBtnIbcSend.setVisibility(View.VISIBLE);
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mNativeGrpcDenom));
         mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mNativeGrpcDenom));
@@ -157,7 +176,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenGrpcActivity.this, mBaseChain));
         mAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mNativeGrpcDenom, mTotalAmount, mDivideDecimal));
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);

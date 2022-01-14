@@ -2157,41 +2157,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     private void onFetchHtlcStatus(String swapId) {
 //        WLog.w("onFetchHtlcStatus "  +swapId);
         if (!TextUtils.isEmpty(swapId)) {
-            if (mBaseChain.equals(KAVA_MAIN)) {
-                ApiClient.getKavaChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResKavaSwapInfo>() {
-                    @Override
-                    public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            mResKavaSwapInfo = response.body();
-                        }
-                        onUpdateView();
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResKavaSwapInfo> call, Throwable t) {
-                        WLog.w("onFetchHtlcStatus " + t.getMessage());
-                        onUpdateView();
-                    }
-                });
-
-            } else if (mBaseChain.equals(KAVA_TEST)) {
-                ApiClient.getKavaTestChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResKavaSwapInfo>() {
-                    @Override
-                    public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            mResKavaSwapInfo = response.body();
-                        }
-                        onUpdateView();
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResKavaSwapInfo> call, Throwable t) {
-                        WLog.w("onFetchHtlcStatus " + t.getMessage());
-                        onUpdateView();
-                    }
-                });
-
-            } else if (mBaseChain.equals(BNB_MAIN)) {
+            if (mBaseChain.equals(BNB_MAIN)) {
                 ApiClient.getBnbChain(getBaseContext()).getSwapById(swapId).enqueue(new Callback<ResBnbSwapInfo>() {
                     @Override
                     public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {

@@ -2012,7 +2012,7 @@ public class WDp {
     }
 
     public static BigDecimal convertTokenToKava(BaseData baseData, String denom) {
-        BigDecimal tokenAmount = baseData.availableAmount(denom).add(baseData.lockedAmount(denom));
+        BigDecimal tokenAmount = baseData.getAvailable(denom).add(baseData.getVesting(denom));
         BigDecimal totalTokenValue = kavaTokenDollorValue(baseData, denom, tokenAmount);
         return totalTokenValue.movePointRight(6).divide(perUsdValue(baseData, TOKEN_KAVA), 6, RoundingMode.DOWN);
     }

@@ -148,12 +148,13 @@ public class MainTokensFragment extends BaseFragment {
     public final static int     SECTION_IBC_UNKNOWN_GRPC        = 4;
     public final static int     SECTION_GRAVICTY_DEX_GRPC       = 5;
     public final static int     SECTION_INJECTIVE_POOL_GRPC     = 6;
-    public final static int     SECTION_UNKNOWN_GRPC            = 7;
+    public final static int     SECTION_KAVA_BEP2_GRPC          = 7;
+    public final static int     SECTION_ETC_GRPC                = 8;
+    public final static int     SECTION_UNKNOWN_GRPC            = 9;
 
     public final static int     SECTION_NATIVE                  = 10;
-    public final static int     SECTION_KAVA_BEP2               = 11;
-    public final static int     SECTION_ETC                     = 12;
-    public final static int     SECTION_UNKNOWN                 = 13;
+    public final static int     SECTION_ETC                     = 11;
+    public final static int     SECTION_UNKNOWN                 = 12;
 
     private int                 mSection;                       // section 구분
 
@@ -172,10 +173,11 @@ public class MainTokensFragment extends BaseFragment {
     private ArrayList<Coin>     mIbcUnknownGrpc = new ArrayList<>();
     private ArrayList<Coin>     mGravityDexGrpc = new ArrayList<>();
     private ArrayList<Coin>     mInjectivePoolGrpc = new ArrayList<>();
+    private ArrayList<Coin>     mKavaBep2Grpc = new ArrayList<>();
+    private ArrayList<Coin>     mEtcGrpc = new ArrayList<>();
     private ArrayList<Coin>     mUnknownGrpc = new ArrayList<>();
 
     private ArrayList<Balance>  mNative = new ArrayList<>();
-    private ArrayList<Balance>  mKavaBep2 = new ArrayList<>();
     private ArrayList<Balance>  mEtc = new ArrayList<>();
     private ArrayList<Balance>  mUnKnown = new ArrayList<>();
 
@@ -242,17 +244,20 @@ public class MainTokensFragment extends BaseFragment {
                             || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mEtherGrpc.size() + mInjectivePoolGrpc.size()
                             || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mEtherGrpc.size() + mInjectivePoolGrpc.size() + mIbcUnknownGrpc.size();
 
+                } else if (baseChain.equals(KAVA_MAIN)) {
+                    return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size()
+                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mKavaBep2Grpc.size()
+                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mKavaBep2Grpc.size() + mEtcGrpc.size()
+                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mKavaBep2Grpc.size() + mEtcGrpc.size() + mIbcUnknownGrpc.size();
+
                 } else if (isGRPC(baseChain)){
                     return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size()
                             || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size();
 
                 }
 
-                else if (baseChain.equals(KAVA_MAIN)) {
-                    return position == 0 || position == mNative.size() || position == mNative.size() + mKavaBep2.size();
-
-                } else {
-                    return position == 0 || position == mNative.size();
+                else {
+                    return position == 0 || position == mNative.size() || position == mNative.size() + mEtc.size();
                 }
             }
 
@@ -280,6 +285,14 @@ public class MainTokensFragment extends BaseFragment {
                 else if (section == SECTION_GRAVICTY_DEX_GRPC) {
                     return getMainActivity().getString(R.string.str_gravity_dex_token_title);
                 }
+
+                else if (section == SECTION_KAVA_BEP2_GRPC) {
+                    return getMainActivity().getString(R.string.str_kava_bep2_token_title);
+                }
+
+                else if (section == SECTION_ETC_GRPC) {
+                    return getMainActivity().getString(R.string.str_etc_token_title);
+                }
                 return getMainActivity().getString(R.string.str_unknown_token_title);
             }
 
@@ -287,8 +300,6 @@ public class MainTokensFragment extends BaseFragment {
             public String getSecitonHeader(BaseChain baseChain, ArrayList<Balance> balances, int section) {
                 if (section == SECTION_NATIVE) {
                     return getMainActivity().getString(R.string.str_native_token_title);
-                } else if (section == SECTION_KAVA_BEP2) {
-                    return getMainActivity().getString(R.string.str_kava_bep2_token_title);
                 } else if (section == SECTION_ETC) {
                     return getMainActivity().getString(R.string.str_etc_token_title);
                 } else if (section == SECTION_UNKNOWN) {
@@ -355,6 +366,8 @@ public class MainTokensFragment extends BaseFragment {
         mIbcUnknownGrpc.clear();
         mGravityDexGrpc.clear();
         mInjectivePoolGrpc.clear();
+        mKavaBep2Grpc.clear();
+        mEtcGrpc.clear();
         mUnknownGrpc.clear();
         for (Coin coin : getBaseDao().mGrpcBalance) {
             if (coin.denom.equalsIgnoreCase(mainDenom)) {
@@ -379,26 +392,25 @@ public class MainTokensFragment extends BaseFragment {
                 mGravityDexGrpc.add(coin);
             } else if (getMainActivity().mBaseChain.equals(INJ_MAIN) && coin.denom.startsWith("share")) {
                 mInjectivePoolGrpc.add(coin);
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+                if (coin.denom.equals(TOKEN_HARD) || coin.denom.equalsIgnoreCase(TOKEN_USDX) || coin.denom.equalsIgnoreCase(TOKEN_SWP)) {
+                    mNativeGrpc.add(coin);
+                } else if (coin.denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB) || coin.denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BTCB) ||
+                        coin.denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB) || coin.denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+                    mKavaBep2Grpc.add(coin);
+                } else if (coin.denom.equalsIgnoreCase("btch") || coin.denom.equalsIgnoreCase("hbtc")) {
+                    mEtcGrpc.add(coin);
+                }
             } else {
                 mUnknownGrpc.add(coin);
             }
         }
         mNative.clear();
-        mKavaBep2.clear();
         mEtc.clear();
         mUnKnown.clear();
         for (Balance balance : getBaseDao().mBalances) {
             if (balance.symbol.equalsIgnoreCase(mainDenom)) {
                 mNative.add(balance);
-            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                if (balance.symbol.equalsIgnoreCase(TOKEN_HARD) || balance.symbol.equalsIgnoreCase(TOKEN_USDX) || balance.symbol.equalsIgnoreCase(TOKEN_SWP)) {
-                    mNative.add(balance);
-                } else if (balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB) || balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_BTCB) ||
-                            balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB) || balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
-                    mKavaBep2.add(balance);
-                } else if (balance.symbol.equalsIgnoreCase("btch")) {
-                    mEtc.add(balance);
-                }
             } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
                 mEtc.add(balance);
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)){
@@ -511,6 +523,21 @@ public class MainTokensFragment extends BaseFragment {
                     onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mEtherGrpc.size() - mInjectivePoolGrpc.size() - mIbcUnknownGrpc.size());
                 }
 
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+                if (getItemViewType(position) == SECTION_NATIVE_GRPC) {
+                    onNativeGrpcItem(viewHolder, position);
+                } else if (getItemViewType(position) == SECTION_IBC_AUTHED_GRPC) {
+                    onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size());
+                } else if (getItemViewType(position) == SECTION_KAVA_BEP2_GRPC) {
+                    onBindKavaBep2Token(viewHolder, position - mNative.size() - mIbcAuthedGrpc.size());
+                } else if (getItemViewType(position) == SECTION_ETC_GRPC) {
+                    onBindEtcGrpcToken(viewHolder, position - mNative.size() - mIbcAuthedGrpc.size() - mKavaBep2Grpc.size());
+                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC){
+                    onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mKavaBep2Grpc.size() - mEtcGrpc.size());
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                    onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mKavaBep2Grpc.size() - mEtcGrpc.size() - mIbcUnknownGrpc.size());
+                }
+
             } else if (isGRPC(getMainActivity().mBaseChain)) {
                 if (getItemViewType(position) == SECTION_NATIVE_GRPC) {
                     onNativeGrpcItem(viewHolder, position);
@@ -524,15 +551,7 @@ public class MainTokensFragment extends BaseFragment {
 
             }
 
-            else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                if (getItemViewType(position) == SECTION_NATIVE) {
-                    onBindNativeItem(viewHolder, position);
-                } else if (getItemViewType(position) == SECTION_KAVA_BEP2) {
-                    onBindKavaBep2Token(viewHolder, position - mNative.size());
-                } else if (getItemViewType(position) == SECTION_ETC) {
-                    onBindEtcToken(viewHolder, position - mNative.size() - mKavaBep2.size());
-                }
-            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+            else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
                 if (getItemViewType(position) == SECTION_NATIVE) {
                     onBindNativeItem(viewHolder, position);
                 } else if (getItemViewType(position) == SECTION_ETC) {
@@ -616,6 +635,21 @@ public class MainTokensFragment extends BaseFragment {
                     return SECTION_UNKNOWN_GRPC;
                 }
 
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+                if (position < mNativeGrpc.size()) {
+                    return SECTION_NATIVE_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size()) {
+                    return SECTION_IBC_AUTHED_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mKavaBep2Grpc.size()) {
+                    return SECTION_KAVA_BEP2_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mKavaBep2Grpc.size() + mEtcGrpc.size()) {
+                    return SECTION_ETC_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mKavaBep2Grpc.size() + mEtcGrpc.size() + mIbcUnknownGrpc.size()) {
+                    return SECTION_IBC_UNKNOWN_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mKavaBep2Grpc.size() + mEtcGrpc.size() + mIbcUnknownGrpc.size() + mUnknownGrpc.size()) {
+                    return SECTION_UNKNOWN_GRPC;
+                }
+
             } else if (isGRPC(getMainActivity().mBaseChain)) {
                 if (position < mNativeGrpc.size()) {
                     return SECTION_NATIVE_GRPC;
@@ -628,18 +662,7 @@ public class MainTokensFragment extends BaseFragment {
                 }
             }
 
-            else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                if (position < mNative.size()) {
-                    return SECTION_NATIVE;
-                } else if (position < mNative.size() + mKavaBep2.size()) {
-                    return SECTION_KAVA_BEP2;
-                } else if (position < mNative.size() + mKavaBep2.size() + mEtc.size()) {
-                    return SECTION_ETC;
-                } else if (position < mNative.size() + mKavaBep2.size() + mEtc.size() + mUnKnown.size()) {
-                    return SECTION_UNKNOWN;
-                }
-
-            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+            else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
                 if (mNative != null) {
                     if (position < mNative.size()) {
                         return SECTION_NATIVE;
@@ -1085,7 +1108,53 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
-        } else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
+        } else if (coin.denom.equals(TOKEN_KAVA)) {
+            holder.itemSymbol.setText(getString(R.string.str_kava_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Kava Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_KAVA);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
+        } else if (coin.denom.equals(TOKEN_HARD)) {
+            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorHard));
+            holder.itemSymbol.setText(coin.denom.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText("HardPool Gov. Token");
+
+            BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(coin.denom), 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
+
+        } else if (coin.denom.equals(TOKEN_USDX)) {
+            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
+            holder.itemSymbol.setText(coin.denom.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText("USD Stable Asset");
+
+            BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(coin.denom), 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
+
+        } else if (coin.denom.equals(TOKEN_SWP)) {
+            Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
+            holder.itemSymbol.setText(coin.denom.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText("Kava Swap Token");
+
+            BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(coin.denom), 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
+
+        }
+
+        else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));
             holder.itemInnerSymbol.setText("");
@@ -1216,7 +1285,7 @@ public class MainTokensFragment extends BaseFragment {
         });
     }
 
-    //with Cosmos Gravity Dex gRpc
+    //with Cosmos Gravity Dex gRPC
     private void onBindGravityDexToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mGravityDexGrpc.get(position);
         Picasso.get().load(COSMOS_COIN_IMG_URL+"gravitydex.png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
@@ -1240,7 +1309,7 @@ public class MainTokensFragment extends BaseFragment {
         });
     }
 
-    //with Injective Pool gRpc
+    //with Injective Pool gRPC
     private void onBindInjectivePoolToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mInjectivePoolGrpc.get(position);
         holder.itemSymbol.setText("SHARE-" + coin.denom.substring(5));
@@ -1287,6 +1356,46 @@ public class MainTokensFragment extends BaseFragment {
         }
     }
 
+    //bind kava bep2 tokens with gRPC
+    private void onBindKavaBep2Token(TokensAdapter.AssetHolder holder, int position) {
+        final Coin coin = mKavaBep2Grpc.get(position);
+        Picasso.get().load(KAVA_COIN_IMG_URL+coin.denom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+        holder.itemSymbol.setText(coin.denom.toUpperCase());
+        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+        holder.itemFullName.setText(coin.denom.toUpperCase() + " on Kava Chain");
+
+        BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);
+        String baseDenom = WDp.getKavaBaseDenom(coin.denom);
+        int bep2decimal = WUtil.getKavaCoinDecimal(coin.denom);
+        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, bep2decimal, 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, totalAmount, bep2decimal));
+
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
+                intent.putExtra("denom", coin.denom);
+                startActivity(intent);
+            }
+        });
+    }
+
+    //bind kava etc tokens with gRPC
+    private void onBindEtcGrpcToken(TokensAdapter.AssetHolder holder, int position) {
+        final Coin coin = mEtcGrpc.get(position);
+        Picasso.get().load(KAVA_COIN_IMG_URL + "hbtc.png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemSymbol.setText(coin.denom.toUpperCase());
+        holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+        holder.itemFullName.setText(coin.denom.toUpperCase() + " on Kava Chain");
+
+        BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
+        BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), coin.denom);
+        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(coin.denom), 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
+    }
+
     //with Unknown Token gRPC
     private void onBindUnKnownToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mUnknownGrpc.get(position);
@@ -1324,82 +1433,6 @@ public class MainTokensFragment extends BaseFragment {
                 }
             });
 
-        } else if (balance.symbol.equals(TOKEN_KAVA)) {
-            Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
-            holder.itemSymbol.setText(getString(R.string.str_kava_c));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Kava Staking Token");
-            Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KAVA);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-        } else if (balance.symbol.equals(TOKEN_HARD)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorHard));
-            holder.itemSymbol.setText(balance.symbol.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("HardPool Gov. Token");
-
-            BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, tokenTotalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                    intent.putExtra("denom", balance.symbol);
-                    startActivity(intent);
-                }
-            });
-
-        } else if (balance.symbol.equals(TOKEN_USDX)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
-            holder.itemSymbol.setText(balance.symbol.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("USD Stable Asset");
-
-            BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, tokenTotalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                    intent.putExtra("denom", balance.symbol);
-                    startActivity(intent);
-                }
-            });
-
-        } else if (balance.symbol.equals(TOKEN_SWP)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
-            holder.itemSymbol.setText(balance.symbol.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Kava Swap Token");
-
-            BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_SWP, tokenTotalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                    intent.putExtra("denom", balance.symbol);
-                    startActivity(intent);
-                }
-            });
-
         } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
             final OkToken okToken = getBaseDao().okToken(balance.symbol);
             holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
@@ -1423,54 +1456,10 @@ public class MainTokensFragment extends BaseFragment {
         }
     }
 
-    //with kava bep2 tokens
-    private void onBindKavaBep2Token(TokensAdapter.AssetHolder holder, int position) {
-        final Balance balance = mKavaBep2.get(position);
-        Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-        holder.itemSymbol.setText(balance.symbol.toUpperCase());
-        holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-        holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain");
-
-        BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
-        String baseDenom = WDp.getKavaBaseDenom(balance.symbol);
-        int bep2decimal = WUtil.getKavaCoinDecimal(balance.symbol);
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, tokenTotalAmount, bep2decimal));
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                intent.putExtra("denom", balance.symbol);
-                startActivity(intent);
-            }
-        });
-    }
-
-    //with Etc tokens (kava, binance, okex)
+    //with Etc tokens (binance, okex)
     private void onBindEtcToken(TokensAdapter.AssetHolder holder, int position) {
         final Balance balance = mEtc.get(position);
-        if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-            Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemSymbol.setText(balance.symbol.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain");
-
-            BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
-            BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), balance.symbol);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                    intent.putExtra("denom", balance.symbol);
-                    startActivity(intent);
-                }
-            });
-
-        } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
             final OkToken okToken   = getBaseDao().okToken(balance.symbol);
             if (okToken != null) {
                 holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
@@ -1606,13 +1595,19 @@ public class MainTokensFragment extends BaseFragment {
                         mItemCnt.setText("" + mGravityDexGrpc.size());
                     }
 
+                    // kava token
+                    else if (mSection == SECTION_KAVA_BEP2_GRPC) {
+                        title = sectionCallback.getSectionGrpcHeader(getMainActivity().mBaseChain, mKavaBep2Grpc, mSection);
+                        mItemCnt.setText("" + mKavaBep2Grpc.size());
+                    } else if (mSection == SECTION_ETC_GRPC) {
+                        title = sectionCallback.getSectionGrpcHeader(getMainActivity().mBaseChain, mEtcGrpc, mSection);
+                        mItemCnt.setText("" + mEtcGrpc.size());
+                    }
+
                 } else {
                     if (mSection == SECTION_NATIVE) {
                         title = sectionCallback.getSecitonHeader(getMainActivity().mBaseChain, mNative, mSection);
                         mItemCnt.setText("" + mNative.size());
-                    } else if (mSection == SECTION_KAVA_BEP2) {
-                        title = sectionCallback.getSecitonHeader(getMainActivity().mBaseChain, mKavaBep2, mSection);
-                        mItemCnt.setText("" + mKavaBep2.size());
                     } else if (mSection == SECTION_ETC) {
                         title = sectionCallback.getSecitonHeader(getMainActivity().mBaseChain, mEtc, mSection);
                         mItemCnt.setText("" + mEtc.size());
