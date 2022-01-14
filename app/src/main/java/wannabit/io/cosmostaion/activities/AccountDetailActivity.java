@@ -75,6 +75,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private ImageView       mBtnRewardAddressChange;
     private TextView        mRewardAddress;
 
+    private String          mAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -205,16 +207,17 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else {
             mAccountName.setText(mAccount.nickName);
         }
-
+        mAddress = mAccount.address;
         if (mBaseChain.equals(OKEX_MAIN)) {
             try {
-                mAccountAddress.setText(WKey.convertAddressOkexToEth(mAccount.address));
+                if (mAccount.address.startsWith("ex1")) {
+                    mAddress = WKey.convertAddressOkexToEth(mAccount.address);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            mAccountAddress.setText(mAccount.address);
         }
+        mAccountAddress.setText(mAddress);
         mAccountGenTime.setText(WDp.getDpTime(getBaseContext(), mAccount.importTime));
 
         if (mAccount.hasPrivateKey && mAccount.fromMnemonic) {
@@ -336,15 +339,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mBtnQr)) {
             Bundle bundle = new Bundle();
-            if (mBaseChain.equals(OKEX_MAIN)) {
-                try {
-                    bundle.putString("address", WKey.convertAddressOkexToEth(mAccount.address));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                bundle.putString("address", mAccount.address);
-            }
+            bundle.putString("address", mAccount.address);
             bundle.putString("title", mAccountName.getText().toString());
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);

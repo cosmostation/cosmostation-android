@@ -165,17 +165,17 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         }
 
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(StakingTokenDetailActivity.this, mBaseChain));
+        shareAddress = mAccount.address;
         if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             try {
-                shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
-                mAddress.setText(shareAddress);
+                if (mAccount.address.startsWith("ex1")) {
+                    shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            shareAddress = mAccount.address;
-            mAddress.setText(shareAddress);
         }
+        mAddress.setText(shareAddress);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
             mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
