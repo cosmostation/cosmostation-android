@@ -36,11 +36,8 @@ import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class StakingTokenDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -105,14 +102,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         mDivideDecimal = WDp.mainDivideDecimal(mBaseChain);
         mDisplayDecimal = WDp.mainDivideDecimal(mBaseChain);
 
-        if (isGRPC(mBaseChain)) {
-            if (getBaseDao().onParseRemainVestingsByDenom(WDp.mainDenom(mBaseChain)).size() > 0) { mHasVesting = true; }
-            mBtnIbcSend.setVisibility(View.VISIBLE);
-
-        } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-            if (getBaseDao().mKavaAccount.value.getCalcurateVestingCntByDenom(WDp.mainDenom(mBaseChain)) > 0) { mHasVesting = true; }
-
-        } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+        if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             mBtnBep3Send.setVisibility(View.VISIBLE);
         }
 
@@ -131,7 +121,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
         onUpdateView();
         mBtnAddressPopup.setOnClickListener(this);
-        mBtnIbcSend.setOnClickListener(this);
         mBtnBep3Send.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
     }
@@ -195,10 +184,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
-
-        } else if (v.equals(mBtnIbcSend)) {
-            Toast.makeText(getBaseContext(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
-            return;
 
         } else if (v.equals(mBtnBep3Send)) {
             onStartHTLCSendActivity(WDp.mainDenom(mBaseChain));

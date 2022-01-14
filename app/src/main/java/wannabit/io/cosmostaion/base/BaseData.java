@@ -46,6 +46,8 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
+import kava.pricefeed.v1beta1.QueryOuterClass;
+import kava.pricefeed.v1beta1.Store;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
@@ -235,10 +237,7 @@ public class BaseData {
     //COMMON DATA FOR KAVA-8
     public ResLcdKavaAccountInfo.Result     mKavaAccount;
     public CdpParam                         mCdpParam;
-    public IncentiveParam                   mIncentiveParam5;
     public HardParam                        mHardParam;
-    public AuctionParam                     mAuctionParam;
-    public IncentiveReward                  mIncentiveRewards;
     public ArrayList<HardMyDeposit>         mMyHardDeposit = new ArrayList<>();
     public ArrayList<HardMyBorrow>          mMyHardBorrow = new ArrayList<>();
     public ArrayList<Coin>                  mModuleCoins = new ArrayList<>();
@@ -266,6 +265,11 @@ public class BaseData {
 
     //INCENTIVE DATA FOR SIF
     public SifIncentive.User        mSifLmIncentive;
+
+    //GRPC for KAVA
+    public ArrayList<QueryOuterClass.CurrentPriceResponse>      mKavaPrices = new ArrayList<>();
+    public IncentiveParam                                       mIncentiveParam5;
+    public IncentiveReward                                      mIncentiveRewards;
 
     public String getChainId() {
         if (mNodeInfo != null) {

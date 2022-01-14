@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
@@ -60,6 +61,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private RecyclerView                    mRecyclerView;
 
     private RelativeLayout                  mBtnIbcSend;
+    private RelativeLayout                  mBtnBep3Send;
     private RelativeLayout                  mBtnSend;
 
     private NativeTokenGrpcAdapter          mAdapter;
@@ -67,6 +69,8 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
     private int                             mDivideDecimal = 6;
     private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
+
+    private Boolean                         mHasVesting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +91,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
         mRecyclerView           = findViewById(R.id.recycler);
         mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
+        mBtnBep3Send            = findViewById(R.id.btn_bep3_send);
         mBtnSend                = findViewById(R.id.btn_send);
 
         setSupportActionBar(mToolbar);
@@ -96,6 +101,11 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mNativeGrpcDenom = getIntent().getStringExtra("denom");
+
+        if (mBaseChain.equals(KAVA_MAIN)) {
+            if (getBaseDao().onParseRemainVestingsByDenom(mNativeGrpcDenom).size() > 0) { mHasVesting = true; }
+            if (WUtil.isBep3Coin(mNativeGrpcDenom)) { mBtnBep3Send.setVisibility(View.VISIBLE); }
+        }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -114,6 +124,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mBtnAddressPopup.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
         mBtnIbcSend.setOnClickListener(this);
+        mBtnBep3Send.setOnClickListener(this);
     }
 
     @Override
@@ -237,6 +248,9 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             }
             intent.putExtra("sendTokenDenom", mNativeGrpcDenom);
             startActivity(intent);
+
+        } else if (v.equals(mBtnBep3Send)) {
+
         }
 
     }

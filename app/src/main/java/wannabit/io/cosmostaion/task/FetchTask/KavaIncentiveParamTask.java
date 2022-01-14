@@ -17,7 +17,7 @@ public class KavaIncentiveParamTask extends CommonTask {
 
     public KavaIncentiveParamTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
+        this.mResult.taskType = BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
         this.mChain = chain;
     }
 
@@ -34,15 +34,6 @@ public class KavaIncentiveParamTask extends CommonTask {
                     WLog.w("KavaIncentiveParamTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ResKavaIncentiveParam> response = ApiClient.getKavaTestChain(mApp).getIncentiveParam5().execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("KavaIncentiveParamTask : NOk");
-                }
             }
 
         } catch (Exception e) {

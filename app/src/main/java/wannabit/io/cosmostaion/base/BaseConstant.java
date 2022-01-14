@@ -52,7 +52,6 @@ public class BaseConstant {
     public final static int TASK_FETCH_SINGLE_SELF_BONDING              = 2013;
     public final static int TASK_PASSWORD_CHECK                         = 2015;
     public final static int TASK_FETCH_WITHDRAW_ADDRESS                 = 2016;
-//    public final static int TASK_FETCH_HISTORY                          = 2017;
     public final static int TASK_GEN_TX_SIMPLE_SEND                     = 2018;
     public final static int TASK_OVERRIDE_ACCOUNT                       = 2019;
     public final static int TASK_GEN_TX_SIMPLE_DELEGATE                 = 2020;
@@ -61,36 +60,19 @@ public class BaseConstant {
     public final static int TASK_FETCH_ALL_PROPOSAL                     = 2023;
     public final static int TASK_DELETE_USER                            = 2024;
     public final static int TASK_CHECK_MNEMONIC                         = 2025;
-//    public final static int TASK_FETCH_VAL_HISTORY                      = 2026;
     public final static int TASK_FETCH_UNBONDING_VALIDATOR              = 2027;
     public final static int TASK_FETCH_UNBONDED_VALIDATOR               = 2028;
     public final static int TASK_FETCH_SINGLE_REDELEGATE                = 2029;
     public final static int TASK_FETCH_SINGLE_ALL_REDELEGATE            = 2030;
     public final static int TASK_GEN_TX_SIMPLE_REDELEGATE               = 2031;
     public final static int TASK_GEN_TX_SIMPLE_REWARD_ADDRESS_CHANGE    = 2032;
-    public final static int TASK_FETCH_INFLATION                        = 2033;
-    public final static int TASK_FETCH_PROVISIONS                       = 2034;
     public final static int TASK_FETCH_STAKING_POOL                     = 2035;
     public final static int TASK_GEN_TX_REINVEST                        = 2036;
-//    public final static int TASK_IRIS_REWARD                            = 2037;
-//    public final static int TASK_IRIS_POOL                              = 2038;
-//    public final static int TASK_IRIS_PROPOSAL                          = 2039;
-//    public final static int TASK_IRIS_REDELEGATE                        = 2040;
     public final static int TASK_FETCH_BNB_HISTORY                      = 2041;
     public final static int TASK_FETCH_BNB_TOKENS                       = 2042;
     public final static int TASK_FETCH_BNB_TICKER                       = 2043;
     public final static int TASK_FETCH_BNB_MINI_TICKER                  = 2044;
     public final static int TASK_GEN_TX_BNB_SIMPLE_SEND                 = 2045;
-    public final static int TASK_FETCH_PROPOSAL_DETAIL                  = 2046;
-    public final static int TASK_FETCH_PROPOSAL_VOTED                   = 2047;
-    public final static int TASK_FETCH_PROPOSAL_PROPOSER                = 2048;
-    public final static int TASK_FETCH_PROPOSAL_TALLY                   = 2049;
-//    public final static int TASK_FETCH_IOV_BALANCE                      = 2050;
-//    public final static int TASK_FETCH_IOV_NONCE                        = 2051;
-//    public final static int TASK_FETCH_IOV_ADDRESS_INFO                 = 2052;
-//    public final static int TASK_FETCH_IOV_TOKENS                       = 2053;
-//    public final static int TASK_FETCH_IRIS_VOTE_LIST                   = 2054;
-//    public final static int TASK_IRIS_PROPOSAL_DETAIL                   = 2055;
     public final static int TASK_GEN_TX_SIMPLE_VOTE                     = 2056;
     public final static int TASK_PUSH_STATUS_UPDATE                     = 2057;
     public final static int TASK_MOON_PAY_SIGNATURE                     = 2058;
@@ -125,19 +107,6 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_OK_WITHDRAW                     = 2087;
     public final static int TASK_GEN_TX_OK_DIRECT_VOTE                  = 2088;
     public final static int TASK_FETCH_KAVA_TOTAL_SUPPLY                = 2089;
-//    public final static int TASK_FETCH_MY_STARNAME_ACCOUNT              = 2090;
-//    public final static int TASK_FETCH_MY_STARNAME_DOMAIN               = 2091;
-//    public final static int TASK_FETCH_STARNAME_FEE                     = 2092;
-//    public final static int TASK_FETCH_STARNAME_CONFIG                  = 2093;
-//    public final static int TASK_GEN_TX_REGISTER_DOMAIN                 = 2094;
-//    public final static int TASK_GEN_TX_REGISTER_ACCOUNT                = 2095;
-//    public final static int TASK_FETCH_STARNAME_RESOLVE                 = 2096;
-//    public final static int TASK_FETCH_STARNAME_DOMAIN_INFO             = 2097;
-//    public final static int TASK_GEN_TX_DELETE_DOMAIN                   = 2098;
-//    public final static int TASK_GEN_TX_DELETE_ACCOUNT                  = 2099;
-//    public final static int TASK_GEN_TX_RENEW_DOMAIN                    = 2100;
-//    public final static int TASK_GEN_TX_RENEW_ACCOUNT                   = 2101;
-//    public final static int TASK_GEN_TX_REPLACE_STARNAME                = 2102;
     public final static int TASK_FETCH_KAVA_HARVEST_PARAM               = 2103;
     public final static int TASK_FETCH_KAVA_HARVEST_DEPOSIT             = 2104;
     public final static int TASK_FETCH_KAVA_HARVEST_REWARD              = 2105;
@@ -148,7 +117,6 @@ public class BaseConstant {
     public final static int TASK_FETCH_MINT_PARAM                       = 2112;
     public final static int TASK_FETCH_OK_HISTORY                       = 2113;
     public final static int TASK_FETCH_OK_DEX_TICKERS                   = 2114;
-    public final static int TASK_FETCH_KAVA_AUCTION_PARAM               = 2115;
     public final static int TASK_FETCH_KAVA_HARD_PARAM                  = 2116;
     public final static int TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST          = 2117;
     public final static int TASK_FETCH_KAVA_HARD_TOTAL_BORROW           = 2118;
@@ -188,10 +156,7 @@ public class BaseConstant {
     public final static int TASK_HDAC_BROAD_BURN                        = 2903;
     public final static int TASK_RIZON_SWAP_STATUS                      = 2904;
 
-    public final static int TASK_FETCH_SIF_INCENTIVE_VS                 = 3500;
     public final static int TASK_FETCH_SIF_INCENTIVE_LM                 = 3501;
-
-    public final static int TASK_FETCH_DESMOS_CLAIMABLE_CHECK           = 3601;
 
     //gRPC
     public final static int TASK_GRPC_FETCH_BALANCE                     = 4001;
@@ -201,10 +166,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_DELEGATIONS                 = 4005;
     public final static int TASK_GRPC_FETCH_UNDELEGATIONS               = 4006;
     public final static int TASK_GRPC_FETCH_ALL_REWARDS                 = 4007;
-    public final static int TASK_GRPC_FETCH_PARAM_MINT                  = 4008;
     public final static int TASK_GRPC_FETCH_IRIS_PARAM_MINT             = 4009;
-    public final static int TASK_GRPC_FETCH_INFLATION                   = 4010;
-    public final static int TASK_GRPC_FETCH_PROVISION                   = 4011;
     public final static int TASK_GRPC_FETCH_STAKING_POOL                = 4012;
     public final static int TASK_GRPC_FETCH_IRIS_TOKEN_LIST             = 4013;
     public final static int TASK_GRPC_FETCH_VALIDATOR_INFO              = 4014;
@@ -250,6 +212,8 @@ public class BaseConstant {
 
     public final static int TASK_GRPC_FETCH_PROFILE_INFO                = 4280;
 
+    public final static int TASK_GRPC_FETCH_KAVA_PRICES                 = 4285;
+
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
     public final static int TASK_GRPC_BROAD_CLAIM_REWARDS               = 4302;
@@ -270,7 +234,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_EXIT_POOL                  = 4317;
     public final static int TASK_GRPC_GEN_TX_START_LOCK                 = 4318;
     public final static int TASK_GRPC_GEN_TX_BEGIN_UNBONDING            = 4319;
-    public final static int TASK_GRPC_GEN_TX_START_UNLOCK               = 4320;
     public final static int TASK_GRPC_GEN_TX_GRAVITY_SWAP               = 4321;
     public final static int TASK_GRPC_GEN_TX_GRAVITY_JOIN_POOL          = 4322;
     public final static int TASK_GRPC_GEN_TX_GRAVITY_EXIT_POOL          = 4323;
@@ -304,7 +267,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_EXIT_POOL                = 4517;
     public final static int TASK_GRPC_SIMULATE_START_LOCK               = 4518;
     public final static int TASK_GRPC_SIMULATE_BEGIN_UNBONDING          = 4519;
-    public final static int TASK_GRPC_SIMULATE_START_UNLOCK             = 4520;
     public final static int TASK_GRPC_SIMULATE_GRAVITY_SWAP             = 4521;
     public final static int TASK_GRPC_SIMULATE_GRAVITY_JOIN_POOL        = 4522;
     public final static int TASK_GRPC_SIMULATE_GRAVITY_EXIT_POOL        = 4523;
@@ -367,14 +329,6 @@ public class BaseConstant {
     public final static String IRIS_MSG_TYPE_WITHDRAW_MIDIFY                = "irishub/distr/MsgModifyWithdrawAddress";
     public final static String IRIS_MSG_TYPE_ISSUE_TOKEN                    = "irishub/asset/MsgIssueToken";
 
-    public final static String IRIS_PROPOAL_TYPE_BasicProposal              = "irishub/gov/BasicProposal";
-    public final static String IRIS_PROPOAL_TYPE_ParameterProposal          = "irishub/gov/ParameterProposal";
-    public final static String IRIS_PROPOAL_TYPE_PlainTextProposal          = "irishub/gov/PlainTextProposal";
-    public final static String IRIS_PROPOAL_TYPE_TokenAdditionProposal      = "irishub/gov/TokenAdditionProposal";
-    public final static String IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal    = "irishub/gov/SoftwareUpgradeProposal";
-    public final static String IRIS_PROPOAL_TYPE_SystemHaltProposal         = "irishub/gov/SystemHaltProposal";
-    public final static String IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal  = "irishub/gov/CommunityTaxUsageProposal";
-
     public final static String KAVA_MSG_TYPE_POST_PRICE                     = "pricefeed/MsgPostPrice";
     public final static String KAVA_MSG_TYPE_CREATE_CDP                     = "cdp/MsgCreateCDP";
     public final static String KAVA_MSG_TYPE_DEPOSIT_CDP                    = "cdp/MsgDeposit";
@@ -425,13 +379,6 @@ public class BaseConstant {
     public final static String IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE        = "starname/ReplaceAccountResources";
     public final static String IOV_MSG_TYPE_RENEW_DOMAIN                    = "starname/RenewDomain";
     public final static String IOV_MSG_TYPE_RENEW_ACCOUNT                   = "starname/RenewAccount";
-
-    public final static String IOV_MSG_TYPE_ADD_ACCOUNT_CERT                = "starname/AddAccountCertificates";
-    public final static String IOV_MSG_TYPE_DELETE_ACCOUNT_CERT             = "starname/DeleteAccountCertificates";
-    public final static String IOV_MSG_TYPE_TRANSFER_ACCOUNT                = "starname/TransferAccount";
-    public final static String IOV_MSG_TYPE_TRANSFER_DOMAIN_ALL             = "starname/TransferDomainAll";
-    public final static String IOV_MSG_TYPE_SET_ACCOUNT_META_DATA           = "starname/SetAccountMetadata";
-
 
 
     public final static String CERTIK_MSG_TYPE_TRANSFER                     = "bank/MsgSend";

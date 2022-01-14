@@ -112,13 +112,8 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mDenom = getIntent().getStringExtra("denom");
 
-        if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-            if (getBaseDao().mKavaAccount.value.getCalcurateVestingCntByDenom(mDenom) > 0) { mHasVesting = true; }
+        if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             if (WUtil.isBep3Coin(mDenom)) { mBtnBep3Send.setVisibility(View.VISIBLE); }
-
-        } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-            if (WUtil.isBep3Coin(mDenom)) { mBtnBep3Send.setVisibility(View.VISIBLE); }
-
         }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -154,6 +149,14 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
     private void onUpdateView() {
         shareAddress = mAccount.address;
+        try {
+            if (mAccount.address.startsWith("ex1")) {
+                shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenDetailActivity.this, mBaseChain));
         if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             final OkToken okToken = getBaseDao().okToken(mDenom);
@@ -181,14 +184,6 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                 mItemPerPrice.setText("");
                 mItemUpDownPrice.setText("");
                 mItemUpDownImg.setVisibility(View.INVISIBLE);
-            }
-
-            try {
-                if (mAccount.address.startsWith("ex1")) {
-                    shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
 
         } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
