@@ -20,18 +20,15 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 
 public class UndelegateActivity extends BaseBroadCastActivity {
 
-    private ImageView                   mChainBg;
     private Toolbar                     mToolbar;
     private TextView                    mTitle;
     private ImageView                   mIvStep;
@@ -39,13 +36,10 @@ public class UndelegateActivity extends BaseBroadCastActivity {
     private ViewPager                   mViewPager;
     private UndelegatePageAdapter       mPageAdapter;
 
-    public Validator                    mValidator;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mChainBg            = findViewById(R.id.chain_bg);
         mToolbar            = findViewById(R.id.tool_bar);
         mTitle              = findViewById(R.id.toolbar_title);
         mIvStep             = findViewById(R.id.send_step);
@@ -64,11 +58,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_UNDELEGATE;
 
-        if (isGRPC(mBaseChain)) {
-            mValAddress = getIntent().getStringExtra("valOpAddress");
-        } else {
-            mValidator = getIntent().getParcelableExtra("validator");
-        }
+        mValAddress = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new UndelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -156,13 +146,8 @@ public class UndelegateActivity extends BaseBroadCastActivity {
     public void onStartUndelegate() {
         Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_UNDELEGATE);
-        if (isGRPC(mBaseChain)) {
-            intent.putExtra("toAddress", mValAddress);
-            intent.putExtra("uAmount", mAmount);
-        } else {
-            intent.putExtra("toAddress", mValidator.operator_address);
-            intent.putExtra("uAmount", mAmount);
-        }
+        intent.putExtra("toAddress", mValAddress);
+        intent.putExtra("uAmount", mAmount);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
@@ -181,8 +166,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(UndelegateStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
-            else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(UndelegateStep3Fragment.newInstance(null));
         }
 

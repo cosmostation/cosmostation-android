@@ -47,12 +47,6 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleBondingStateTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRedelegateStateTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleSelfBondingStateTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleUnBondingStateTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleValidatorInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
@@ -77,8 +71,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEG
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_BONDING;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_UNBONDING;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_REDELEGATIONS_TO;
@@ -172,27 +164,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private void onInitFetch() {
         if(mTaskCount > 0) return;
-        if (isGRPC(mBaseChain)) {
-            mTaskCount = 6;
-            getBaseDao().mGrpcDelegations.clear();
-            getBaseDao().mGrpcUndelegations.clear();
-            getBaseDao().mGrpcRewards.clear();
+        mTaskCount = 6;
+        getBaseDao().mGrpcDelegations.clear();
+        getBaseDao().mGrpcUndelegations.clear();
+        getBaseDao().mGrpcRewards.clear();
 
-            new ValidatorInfoGrpcTask(getBaseApplication(), this, mBaseChain, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new DelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SelfBondingGrpcTask(getBaseApplication(), this, mBaseChain, mValOpAddress, WKey.convertDpOpAddressToDpAddress(mValOpAddress, BaseChain.getChain(mAccount.baseChain))).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ReDelegationsToGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else {
-            mTaskCount = 5;
-            new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleRedelegateStateTask(getBaseApplication(), this, mAccount, mValidator).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
+        new ValidatorInfoGrpcTask(getBaseApplication(), this, mBaseChain, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new DelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SelfBondingGrpcTask(getBaseApplication(), this, mBaseChain, mValOpAddress, WKey.convertDpOpAddressToDpAddress(mValOpAddress, BaseChain.getChain(mAccount.baseChain))).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ReDelegationsToGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onCheckDelegate() {
@@ -203,64 +185,31 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (isGRPC(mBaseChain)) {
-            BigDecimal delegatableAmount = getBaseDao().getDelegatable(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-            if (delegatableAmount.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
-                return;
-            }
+        BigDecimal delegatableAmount = getBaseDao().getDelegatable(WDp.mainDenom(mBaseChain));
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
+        if (delegatableAmount.compareTo(feeAmount) < 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            if (mGrpcValidator.getJailed()) {
-                Toast.makeText(getBaseContext(), R.string.error_disabled_jailed, Toast.LENGTH_SHORT).show();
-                return;
-            }
+        if (mGrpcValidator.getJailed()) {
+            Toast.makeText(getBaseContext(), R.string.error_disabled_jailed, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
-                Dialog_Not_Top_100 add = Dialog_Not_Top_100.newInstance(null);
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            } else {
-                onStartDelegate();
-            }
-
+        if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
+            Dialog_Not_Top_100 add = Dialog_Not_Top_100.newInstance(null);
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
         } else {
-            BigDecimal delegatableAmount = getBaseDao().delegatableAmount(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-
-            if (delegatableAmount.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (mValidator.jailed) {
-                Toast.makeText(getBaseContext(), R.string.error_disabled_jailed, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (mValidator.status != Validator.BONDED) {
-                Dialog_Not_Top_100 add = Dialog_Not_Top_100.newInstance(null);
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-
-            } else {
-                onStartDelegate();
-            }
+            onStartDelegate();
         }
     }
 
     public void onStartDelegate() {
-        if (isGRPC(mBaseChain)) {
-            Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
-            toDelegate.putExtra("valOpAddress", mValOpAddress);
-            startActivity(toDelegate);
-
-        } else {
-            Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
-            toDelegate.putExtra("validator", mValidator);
-            startActivity(toDelegate);
-        }
-
+        Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
+        toDelegate.putExtra("valOpAddress", mValOpAddress);
+        startActivity(toDelegate);
     }
 
     public void onCheckRedelegate() {
@@ -271,63 +220,34 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (isGRPC(mBaseChain)) {
-            if (mGrpcMyDelegation == null || getBaseDao().getDelegation(mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_no_redelegate, Toast.LENGTH_SHORT).show();
-                return;
-            }
+        if (mGrpcMyDelegation == null || getBaseDao().getDelegation(mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_redelegate, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
-            if (availableAmount.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (mGrpcRedelegates != null && mGrpcRedelegates.size() > 0) {
-                for (Staking.RedelegationResponse data: mGrpcRedelegates) {
-                    if (data.getRedelegation().getValidatorDstAddress().equals(mValOpAddress)) {
-                        Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                        add.setCancelable(true);
-                        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                        return;
-                    }
+        BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
+        if (availableAmount.compareTo(feeAmount) < 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (mGrpcRedelegates != null && mGrpcRedelegates.size() > 0) {
+            for (Staking.RedelegationResponse data: mGrpcRedelegates) {
+                if (data.getRedelegation().getValidatorDstAddress().equals(mValOpAddress)) {
+                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
+                    add.setCancelable(true);
+                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    return;
                 }
-            }
-
-        } else {
-            if (mBondingInfo == null || mBondingInfo.balance == null || (mBondingInfo.getBalance() == BigDecimal.ZERO)) {
-                Toast.makeText(getBaseContext(), R.string.error_no_redelegate, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            BigDecimal availableAmount = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
-            if (availableAmount.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (mRedelegates == null || mRedelegates.size() > 0) {
-                Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                return;
             }
         }
         onStartRedelegate();
     }
 
     public void onStartRedelegate() {
-        if (isGRPC(mBaseChain)) {
-            Intent toDelegate = new Intent(ValidatorActivity.this, RedelegateActivity.class);
-            toDelegate.putExtra("valOpAddress", mValOpAddress);
-            startActivity(toDelegate);
-
-        } else {
-            Intent reDelegate = new Intent(ValidatorActivity.this, RedelegateActivity.class);
-            reDelegate.putExtra("validator", mValidator);
-            startActivity(reDelegate);
-        }
+        Intent toDelegate = new Intent(ValidatorActivity.this, RedelegateActivity.class);
+        toDelegate.putExtra("valOpAddress", mValOpAddress);
+        startActivity(toDelegate);
     }
 
     private void onStartUndelegate() {
@@ -337,50 +257,25 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
-        if (isGRPC(mBaseChain)) {
-            if (getBaseDao().getDelegation(mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (getBaseDao().getUndelegationInfo(mValOpAddress) != null && getBaseDao().getUndelegationInfo(mValOpAddress).getEntriesList() != null && getBaseDao().getUndelegationInfo(mValOpAddress).getEntriesList().size() >= 7) {
-                Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
-            if (availableAmount.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Intent toDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
-            toDelegate.putExtra("valOpAddress", mValOpAddress);
-            startActivity(toDelegate);
-
-        } else {
-            if (mBondingInfo == null || mBondingInfo.balance == null || (mBondingInfo.getBalance() == BigDecimal.ZERO)) {
-                Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (mUnbondingInfo != null && mUnbondingInfo.entries.size() >= 7){
-                Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            BigDecimal availableAmount = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
-            if (availableAmount.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Intent unDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
-            unDelegate.putExtra("validator", mValidator);
-            startActivity(unDelegate);
+        if (getBaseDao().getDelegation(mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (getBaseDao().getUndelegationInfo(mValOpAddress) != null && getBaseDao().getUndelegationInfo(mValOpAddress).getEntriesList() != null && getBaseDao().getUndelegationInfo(mValOpAddress).getEntriesList().size() >= 7) {
+            Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
+            return;
         }
 
+        BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
+        if (availableAmount.compareTo(feeAmount) < 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent toDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
+        toDelegate.putExtra("valOpAddress", mValOpAddress);
+        startActivity(toDelegate);
     }
 
     private void onGetReward() {
@@ -518,57 +413,20 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchValHistory() {
-        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(SECRET_MAIN)) {
+        if (mBaseChain.equals(SECRET_MAIN)) {
             return;
         }
         mTaskCount++;
-        if (isGRPC(mBaseChain)) {
-            new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValOpAddress, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else {
-            new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
-
+        new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValOpAddress, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if (isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_VALIDATOR) {
-            mValidator = (Validator)result.resultData;
-            if (mValidator == null) {
-                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-            }
-
-        } else if (result.taskType == TASK_FETCH_SINGLE_BONDING) {
-            if (result.isSuccess && result.resultData != null) {
-                mBondingInfo = (BondingInfo)result.resultData;
-            }
-            if (mBondingInfo != null &&  mValidator != null){
-                mTaskCount = mTaskCount + 1;
-                new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            }
-
-        } else if (result.taskType == TASK_FETCH_SINGLE_UNBONDING) {
-            if (result.isSuccess && result.resultData != null) {
-                mUnbondingInfo = (UnbondingInfo)result.resultData;
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_SELF_BONDING) {
-            BondingInfo temp = (BondingInfo)result.resultData;
-            if (temp != null) mSelfBondingRate = WDp.getSelfBondRate(mValidator.tokens, temp.shares);
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
+        if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             if (result.isSuccess && result.resultData != null) {
                 mRewardCoins = (ArrayList<Coin>)result.resultData;
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REDELEGATE) {
-            if (result.isSuccess) {
-                mRedelegates = (ArrayList<Redelegate>)result.resultData;
-            } else {
-                mRedelegates = null;
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_STAKE_HISTORY) {
@@ -605,12 +463,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
 
         if (mTaskCount == 0) {
-            if (isGRPC(mBaseChain)) {
-                mGrpcMyDelegation   = getBaseDao().getDelegationInfo(mValOpAddress);
-                mGrpcMyUndelegation = getBaseDao().getUndelegationInfo(mValOpAddress);
-                mGrpcMyReward       = getBaseDao().getRewardInfo(mValOpAddress);
-
-            }
+            mGrpcMyDelegation   = getBaseDao().getDelegationInfo(mValOpAddress);
+            mGrpcMyUndelegation = getBaseDao().getUndelegationInfo(mValOpAddress);
+            mGrpcMyReward       = getBaseDao().getRewardInfo(mValOpAddress);
 
             mRecyclerView.setVisibility(View.VISIBLE);
             mValidatorAdapter.notifyDataSetChanged();
