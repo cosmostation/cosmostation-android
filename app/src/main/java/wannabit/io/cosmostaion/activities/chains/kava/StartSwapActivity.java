@@ -16,13 +16,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import kava.swap.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.KavaSwapStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.KavaSwapStep3Fragment;
@@ -55,7 +56,7 @@ public class StartSwapActivity extends BaseBroadCastActivity {
         mTitle.setText(getString(R.string.str_title_swap));
 
         mTxType = CONST_PW_TX_KAVA_SWAP;
-        mKavaSwapPool = getIntent().getParcelableExtra("KavaPool");
+        mKavaSwapPool = (QueryOuterClass.PoolResponse) getIntent().getSerializableExtra("KavaPool");
         mInputDenom = getIntent().getStringExtra("inputDenom");
         mOutputDenom = getIntent().getStringExtra("outputDenom");
 
@@ -169,7 +170,7 @@ public class StartSwapActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(KavaSwapStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment .newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(KavaSwapStep3Fragment.newInstance(null));
         }
 

@@ -59,10 +59,11 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mGDexPoolCoinSupply;
     public String                       mGDexSwapOrderPrice;
 
-    public SwapPool                     mKavaSwapPool;                              //kava swap
     public SwapDeposit                  mKavaSwapDeposit;
     public BigDecimal                   mKavaShareAmount = BigDecimal.ZERO;
     public String                       mIncentiveMultiplier;
+
+    public kava.swap.v1beta1.QueryOuterClass.PoolResponse     mKavaSwapPool;         //kava swap
 
     public sifnode.clp.v1.Types.Pool    mSifPool;                                   // sif swap
     public Coin                         mSifSwapInCoin;

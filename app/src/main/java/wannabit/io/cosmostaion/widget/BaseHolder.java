@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import irismod.nft.Nft;
+import kava.swap.v1beta1.QueryOuterClass;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
@@ -93,10 +94,10 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindOsmoOtherPool(Context context, BaseActivity activity, BaseData baseData, BalancerPoolOuterClass.BalancerPool otherPool) {
     }
 
-    public void onBindKavaMyPool(Context context, BaseActivity activity, BaseData baseData, SwapPool myPool, SwapDeposit myDeposit) {
+    public void onBindKavaMyPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse myPool, QueryOuterClass.DepositResponse myDeposit) {
     }
 
-    public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, SwapPool otherPool) {
+    public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse otherPool) {
     }
 
     public void onBindGDexMyPool(Context context, GravityListActivity activity, BaseData baseData, Liquidity.Pool mypool) {

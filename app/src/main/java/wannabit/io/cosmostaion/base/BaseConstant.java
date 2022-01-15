@@ -212,6 +212,10 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_PROFILE_INFO                = 4280;
 
     public final static int TASK_GRPC_FETCH_KAVA_PRICES                 = 4285;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_PARAMS            = 4286;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_POOLS             = 4287;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS          = 4288;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO        = 4289;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;

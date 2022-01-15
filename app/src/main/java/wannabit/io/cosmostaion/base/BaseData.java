@@ -48,6 +48,7 @@ import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import kava.pricefeed.v1beta1.Store;
+import kava.swap.v1beta1.Swap;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
@@ -239,7 +240,6 @@ public class BaseData {
     public ArrayList<Coin>                  mModuleCoins = new ArrayList<>();
     public ArrayList<Coin>                  mReserveCoins = new ArrayList<>();
     public HashMap<String, MarketPrice>     mKavaTokenPrices = new HashMap<>();
-    public SwapParam                        mSwapParam;
     public ArrayList<KavaPriceMarket.Market>       mKavaPriceMarket = new ArrayList<>();
 
     //COMMON DATA FOR BINANCE
@@ -262,6 +262,7 @@ public class BaseData {
     public ArrayList<QueryOuterClass.CurrentPriceResponse>      mKavaPrices = new ArrayList<>();
     public IncentiveParam                                       mIncentiveParam5;
     public IncentiveReward                                      mIncentiveRewards;
+    public Swap.Params                                          mSwapParams;
 
     public String getChainId() {
         if (mNodeInfo != null) {

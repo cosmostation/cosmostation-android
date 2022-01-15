@@ -13,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -68,48 +67,6 @@ public class HistoryNewHolder extends BaseHolder {
                     mainActivity.startActivity(intent);
                 } else {
                     Intent txDetail = new Intent(mainActivity, TxDetailgRPCActivity.class);
-                    txDetail.putExtra("txHash", history.data.txhash);
-                    txDetail.putExtra("isGen", false);
-                    txDetail.putExtra("isSuccess", true);
-                    mainActivity.startActivity(txDetail);
-                }
-            }
-        });
-    }
-
-    public void onBindHistory(@NotNull MainActivity mainActivity, BaseData baseData, ResApiNewTxListCustom history) {
-        historyType.setText(history.getMsgType(mainActivity, mainActivity.mAccount.address));
-        history_time.setText(WDp.getTimeTxformat(mainActivity, history.data.timestamp));
-        history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.data.timestamp));
-        final Coin coin = history.getDpCoin(mainActivity.mBaseChain);
-        if (coin != null) {
-            history_amount_symbol.setVisibility(View.VISIBLE);
-            history_amount.setVisibility(View.VISIBLE);
-            WDp.showCoinDp(mainActivity, baseData, coin.denom, coin.amount, history_amount_symbol, history_amount, mainActivity.mBaseChain);
-        } else if (history.getMsgType(mainActivity, mainActivity.mAccount.address).equals(mainActivity.getString(R.string.tx_vote))) {
-            history_amount_symbol.setVisibility(View.VISIBLE);
-            history_amount_symbol.setText(history.getVoteOption());
-            history_amount_symbol.setTextColor(mainActivity.getResources().getColor(R.color.colorWhite));
-            history_amount.setVisibility(View.GONE);
-        } else {
-            history_amount_symbol.setVisibility(View.GONE);
-            history_amount.setVisibility(View.GONE);
-        }
-        if (history.isSuccess()) {
-            historySuccess.setVisibility(View.GONE);
-        } else {
-            historySuccess.setVisibility(View.VISIBLE);
-        }
-        historyRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!TextUtils.isEmpty(history.header.chain_id) && !mainActivity.getBaseDao().getChainId().equals(history.header.chain_id)) {
-                    String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.data.txhash);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    mainActivity.startActivity(intent);
-
-                } else {
-                    Intent txDetail = new Intent(mainActivity, TxDetailActivity.class);
                     txDetail.putExtra("txHash", history.data.txhash);
                     txDetail.putExtra("isGen", false);
                     txDetail.putExtra("isSuccess", true);
