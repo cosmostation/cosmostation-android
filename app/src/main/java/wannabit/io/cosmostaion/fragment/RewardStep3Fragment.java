@@ -18,11 +18,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class RewardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -81,66 +77,35 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         mDpDecimal              = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal rewardSum    = BigDecimal.ZERO;
         BigDecimal feeAmount    = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        if (isGRPC(getSActivity().mBaseChain)) {
-            for (String opAddress: getSActivity().mValAddresses) {
-                rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
-            }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-            if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                mTvGoalLayer.setVisibility(View.GONE);
-                mExpectedLayer.setVisibility(View.VISIBLE);
-                BigDecimal availableAmount  = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
-                BigDecimal expectedAmount   = availableAmount.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAmount, mDpDecimal, mDpDecimal));
-                mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedAmount, mDpDecimal));
-
-            } else {
-                mTvGoalLayer.setVisibility(View.VISIBLE);
-                mExpectedLayer.setVisibility(View.GONE);
-            }
-            String monikers = "";
-            for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
-                boolean isMatch = false;
-                for (String myVal: getSActivity().mValAddresses) {
-                    if (myVal.equals(validator.getOperatorAddress())) { isMatch = true; break; }
-                }
-                if (isMatch) {
-                    if (TextUtils.isEmpty(monikers)) {  monikers = validator.getDescription().getMoniker(); }
-                    else { monikers = monikers + ",    " + validator.getDescription().getMoniker(); }
-                }
-            }
-            mTvFromValidators.setText(monikers);
+        for (String opAddress: getSActivity().mValAddresses) {
+            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+        }
+        mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+            mTvGoalLayer.setVisibility(View.GONE);
+            mExpectedLayer.setVisibility(View.VISIBLE);
+            BigDecimal availableAmount  = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
+            BigDecimal expectedAmount   = availableAmount.add(rewardSum).subtract(feeAmount);
+            mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAmount, mDpDecimal, mDpDecimal));
+            mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedAmount, mDpDecimal));
 
         } else {
-            for (Coin coin:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(coin.amount));
-            }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-            if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                mTvGoalLayer.setVisibility(View.GONE);
-                mExpectedLayer.setVisibility(View.VISIBLE);
-                BigDecimal currentAmount = getBaseDao().availableAmount(WDp.mainDenom(getSActivity().mBaseChain));
-                BigDecimal expectedAmount = currentAmount.add(rewardSum).subtract(feeAmount);
-                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAmount, mDpDecimal, mDpDecimal));
-                mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedAmount, mDpDecimal));
-
-            } else {
-                mTvGoalLayer.setVisibility(View.VISIBLE);
-                mExpectedLayer.setVisibility(View.GONE);
-            }
-            String monikers = "";
-            for (Validator validator:getSActivity().mValidators) {
-                if(TextUtils.isEmpty(monikers)) {
-                    monikers = validator.description.moniker;
-                } else {
-                    monikers = monikers + ",    " + validator.description.moniker;
-                }
-            }
-            mTvFromValidators.setText(monikers);
-
+            mTvGoalLayer.setVisibility(View.VISIBLE);
+            mExpectedLayer.setVisibility(View.GONE);
         }
+        String monikers = "";
+        for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
+            boolean isMatch = false;
+            for (String myVal: getSActivity().mValAddresses) {
+                if (myVal.equals(validator.getOperatorAddress())) { isMatch = true; break; }
+            }
+            if (isMatch) {
+                if (TextUtils.isEmpty(monikers)) {  monikers = validator.getDescription().getMoniker(); }
+                else { monikers = monikers + ",    " + validator.getDescription().getMoniker(); }
+            }
+        }
+        mTvFromValidators.setText(monikers);
         mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
         mMemo.setText(getSActivity().mTxMemo);
     }
@@ -163,22 +128,12 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     }
 
     private boolean onCheckValidateRewardAndFee() {
-        if (isGRPC(getSActivity().mBaseChain)) {
-            BigDecimal rewardSum    = BigDecimal.ZERO;
-            BigDecimal feeAmount    = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-            for (String opAddress: getSActivity().mValAddresses) {
-                rewardSum = rewardSum.add(getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
-            }
-            return feeAmount.compareTo(rewardSum) < 0;
-
-        } else {
-            BigDecimal rewardSum    = BigDecimal.ZERO;
-            BigDecimal feeAmount    = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-            for (Coin coin:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(coin.amount));
-            }
-            return feeAmount.compareTo(rewardSum) < 0;
+        BigDecimal rewardSum    = BigDecimal.ZERO;
+        BigDecimal feeAmount    = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        for (String opAddress: getSActivity().mValAddresses) {
+            rewardSum = rewardSum.add(getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
         }
+        return feeAmount.compareTo(rewardSum) < 0;
     }
 
 

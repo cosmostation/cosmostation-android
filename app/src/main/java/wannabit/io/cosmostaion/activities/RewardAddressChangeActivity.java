@@ -24,15 +24,12 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 
 public class RewardAddressChangeActivity extends BaseBroadCastActivity {
 
-    private ImageView               mChainBg;
     private RelativeLayout          mRootView;
     private Toolbar                 mToolbar;
     private TextView                mTitle;
@@ -48,7 +45,6 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mChainBg            = findViewById(R.id.chain_bg);
         mRootView           = findViewById(R.id.root_view);
         mToolbar            = findViewById(R.id.tool_bar);
         mTitle              = findViewById(R.id.toolbar_title);
@@ -173,8 +169,7 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(RewardAddressChangeStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
-            else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(RewardAddressChangeStep3Fragment.newInstance(null));
         }
 

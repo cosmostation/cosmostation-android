@@ -19,11 +19,7 @@ import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class RewardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -71,41 +67,23 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        if (isGRPC(getSActivity().mBaseChain)) {
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (String opAddress: getSActivity().mValAddresses) {
-                rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
-            }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-            String monikers = "";
-            for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
-                boolean isMatch = false;
-                for (String myVal: getSActivity().mValAddresses) {
-                    if (myVal.equals(validator.getOperatorAddress())) { isMatch = true; break; }
-                }
-                if (isMatch) {
-                    if (TextUtils.isEmpty(monikers)) {  monikers = validator.getDescription().getMoniker(); }
-                    else { monikers = monikers + ",    " + validator.getDescription().getMoniker(); }
-                }
-            }
-            mTvFromValidators.setText(monikers);
-
-        } else {
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (Coin coin:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(coin.amount));
-            }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-            String monikers = "";
-            for (Validator validator:getSActivity().mValidators) {
-                if(TextUtils.isEmpty(monikers)) {
-                    monikers = validator.description.moniker;
-                } else {
-                    monikers = monikers + ",    " + validator.description.moniker;
-                }
-            }
-            mTvFromValidators.setText(monikers);
+        BigDecimal rewardSum = BigDecimal.ZERO;
+        for (String opAddress: getSActivity().mValAddresses) {
+            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
         }
+        mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
+        String monikers = "";
+        for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
+            boolean isMatch = false;
+            for (String myVal: getSActivity().mValAddresses) {
+                if (myVal.equals(validator.getOperatorAddress())) { isMatch = true; break; }
+            }
+            if (isMatch) {
+                if (TextUtils.isEmpty(monikers)) {  monikers = validator.getDescription().getMoniker(); }
+                else { monikers = monikers + ",    " + validator.getDescription().getMoniker(); }
+            }
+        }
+        mTvFromValidators.setText(monikers);
 
         mTvReceiveAddress.setText(getSActivity().mWithdrawAddress);
         if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {

@@ -203,7 +203,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 }
             } else {
                 onShowWaitDialog();
-                if (mChain.equals(KAVA_MAIN) || mChain.equals(KAVA_TEST) || mChain.equals(SECRET_MAIN) || mChain.equals(LUM_MAIN)) {
+                if (mChain.equals(KAVA_MAIN)|| mChain.equals(SECRET_MAIN) || mChain.equals(LUM_MAIN)) {
                     new GenerateAccountTask(getBaseApplication(), mChain, this, true, 0).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
                 } else if (mChain.equals(OKEX_MAIN) || mChain.equals(OK_TEST)) {
                     new GenerateAccountTask(getBaseApplication(), mChain, this, true, 0).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");

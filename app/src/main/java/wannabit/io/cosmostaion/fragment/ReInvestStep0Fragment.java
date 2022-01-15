@@ -18,8 +18,6 @@ import wannabit.io.cosmostaion.activities.ReInvestActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-
 public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private CardView        mCardReward;
@@ -62,24 +60,13 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        if (isGRPC(getSActivity().mBaseChain)) {
-            if (getSActivity().mAmount != null) {
-                BigDecimal rewardSum = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-            }
-            mTvFromValidators.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
-            mProgressBar.setVisibility(View.GONE);
-            mNextBtn.setClickable(true);
-
-        } else {
-            if(getSActivity().mAmount != null) {
-                BigDecimal rewardSum = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-                mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
-                mProgressBar.setVisibility(View.GONE);
-                mNextBtn.setClickable(true);
-            }
+        if (getSActivity().mAmount != null) {
+            BigDecimal rewardSum = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
+            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
         }
+        mTvFromValidators.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
+        mProgressBar.setVisibility(View.GONE);
+        mNextBtn.setClickable(true);
 
     }
 

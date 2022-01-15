@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.utils;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
@@ -17,12 +16,10 @@ import androidx.cardview.widget.CardView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -34,19 +31,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.TimeZone;
 
 import cosmos.base.abci.v1beta1.Abci;
 import cosmos.base.v1beta1.CoinOuterClass;
-import cosmos.distribution.v1beta1.Distribution;
-import cosmos.gov.v1beta1.Gov;
-import cosmos.params.v1beta1.Params;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.tx.v1beta1.ServiceOuterClass;
-import cosmos.upgrade.v1beta1.Upgrade;
 import cosmos.vesting.v1beta1.Vesting;
-import ibc.core.client.v1.Client;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -176,6 +167,7 @@ public class WDp {
                 amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
                 denomTv.setText(coin.denom.toUpperCase());
             }
+
         } else if (chain.equals(IRIS_MAIN)) {
             if (coin.denom.equals(TOKEN_IRIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -805,6 +797,7 @@ public class WDp {
         } else if (chain.equals(GRABRIDGE_MAIN)) {
             if (symbol.equals(TOKEN_GRABRIDGE)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
             } else if (symbol.startsWith("gravity")) {
                 final Assets assets = baseData.getAsset(symbol);
                 if (assets != null) {
@@ -1555,6 +1548,8 @@ public class WDp {
                 return LUM_MAIN;
             } else if (chainId.contains("chihuahua-")) {
                 return CHIHUAHUA_MAIN;
+            } else if (chainId.contains("kava-")) {
+                return KAVA_MAIN;
             }
         }
         return null;
@@ -1672,6 +1667,10 @@ public class WDp {
                 }
             } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
                 if (!address.startsWith("chihuahua1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(KAVA_MAIN)) {
+                if (!address.startsWith("kava1")) {
                     textView.setText("");
                 }
             }
@@ -1823,7 +1822,7 @@ public class WDp {
             if (address.startsWith("cosmos1")) { return Lists.newArrayList(COSMOS_MAIN, COSMOS_TEST); }
             else if (address.startsWith("iaa1")) { return Lists.newArrayList(IRIS_MAIN, IRIS_TEST); }
             else if (address.startsWith("bnb1")) { return Lists.newArrayList(BNB_MAIN); }
-            else if (address.startsWith("kava1")) { return Lists.newArrayList(KAVA_MAIN, KAVA_TEST); }
+            else if (address.startsWith("kava1")) { return Lists.newArrayList(KAVA_MAIN); }
             else if (address.startsWith("star1")) { return Lists.newArrayList(IOV_MAIN ,IOV_TEST); }
             else if (address.startsWith("band1")) { return Lists.newArrayList(BAND_MAIN); }
             else if (address.startsWith("secret1")) { return Lists.newArrayList(SECRET_MAIN); }
@@ -1890,6 +1889,7 @@ public class WDp {
             else if (chain.equals(GRABRIDGE_MAIN)) { return GRAB_UNKNOWN_RELAYER; }
             else if (chain.equals(LUM_MAIN)) { return LUM_UNKNOWN_RELAYER; }
             else if (chain.equals(CHIHUAHUA_MAIN)) { return CHIHUAHUA_UNKNOWN_RELAYER; }
+            else if (chain.equals(KAVA_MAIN)) { return KAVA_UNKNOWN_RELAYER; }
             else if (chain.equals(UMEE_TEST)) { return UMEE_UNKNOWN_RELAYER; }
         }
         return null;
@@ -2179,6 +2179,20 @@ public class WDp {
                 } else if (baseChain.equals(EMONEY_MAIN) || coin.denom.startsWith("e")) {
                     BigDecimal available = baseData.getAvailable(coin.denom);
                     totalValue = totalValue.add(userCurrencyValue(baseData, coin.denom, available, 6));
+                } else if (baseChain.equals(KAVA_MAIN)) {
+                    if (coin.denom.equals(mainDenom(baseChain))) {
+                        BigDecimal amount = baseData.getAllMainAsset(coin.denom);
+                        BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_KAVA, amount, mainDivideDecimal(baseChain));
+                        totalValue = totalValue.add(assetValue);
+                    } else {
+                        BigDecimal amount = baseData.getAvailable(coin.denom);
+                        amount = amount.add(baseData.getVesting(coin.denom));
+                        String kavaDenom = WDp.getKavaBaseDenom(coin.denom);
+                        int kavaDecimal = WUtil.getKavaCoinDecimal(coin.denom);
+                        BigDecimal assetValue = userCurrencyValue(baseData, kavaDenom, amount, kavaDecimal);
+                        totalValue = totalValue.add(assetValue);
+                    }
+
                 } else if (coin.isIbc()) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     IbcToken ibcToken = baseData.getIbcToken(coin.denom);
@@ -2200,22 +2214,6 @@ public class WDp {
                     BigDecimal amount = baseData.getAllBnbTokenAmount(balance.symbol);
                     BigDecimal convertAmount = WUtil.getBnbConvertAmount(baseData, balance.symbol, amount);
                     BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_BNB, convertAmount, mainDivideDecimal(baseChain));
-                    totalValue = totalValue.add(assetValue);
-                }
-            }
-
-        } else if (baseChain.equals(KAVA_MAIN) || baseChain.equals(KAVA_TEST)) {
-            for (Balance balance: baseData.mBalances) {
-                if (balance.symbol.equals(mainDenom(baseChain))) {
-                    BigDecimal amount = baseData.getAllMainAssetOld(balance.symbol);
-                    BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_KAVA, amount, mainDivideDecimal(baseChain));
-                    totalValue = totalValue.add(assetValue);
-                } else {
-                    BigDecimal amount = baseData.availableAmount(balance.symbol);
-                    amount = amount.add(baseData.lockedAmount(balance.symbol));
-                    String kavaDenom = WDp.getKavaBaseDenom(balance.symbol);
-                    int kavaDecimal = WUtil.getKavaCoinDecimal(balance.symbol);
-                    BigDecimal assetValue = userCurrencyValue(baseData, kavaDenom, amount, kavaDecimal);
                     totalValue = totalValue.add(assetValue);
                 }
             }
@@ -2266,6 +2264,16 @@ public class WDp {
                     int decimal = WUtil.getSifCoinDecimal(baseData, coin.denom);
                     BigDecimal btcValue = btcValue(baseData, coin.denom.substring(1), amount, decimal);
                     totalValue = totalValue.add(btcValue);
+                } else if (baseChain.equals(KAVA_MAIN)) {
+                    if (coin.denom.equals(mainDenom(baseChain))) {
+                        BigDecimal amount = baseData.getAllMainAsset(coin.denom);
+                        BigDecimal btcValue = btcValue(baseData, TOKEN_KAVA, amount, mainDivideDecimal(baseChain));
+                        totalValue = totalValue.add(btcValue);
+                    } else {
+                        BigDecimal convertAmount = convertTokenToKava(baseData, coin.denom);
+                        BigDecimal btcValue = btcValue(baseData, TOKEN_KAVA, convertAmount, mainDivideDecimal(baseChain));
+                        totalValue = totalValue.add(btcValue);
+                    }
                 } else if (coin.denom.startsWith("ibc/")) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     IbcToken ibcToken = baseData.getIbcToken(coin.denom);
@@ -2287,19 +2295,6 @@ public class WDp {
                     BigDecimal amount = baseData.getAllBnbTokenAmount(balance.symbol);
                     BigDecimal convertAmount = WUtil.getBnbConvertAmount(baseData, balance.symbol, amount);
                     BigDecimal btcValue = btcValue(baseData, TOKEN_BNB, convertAmount, mainDivideDecimal(baseChain));
-                    totalValue = totalValue.add(btcValue);
-                }
-            }
-
-        } else if (baseChain.equals(KAVA_MAIN) || baseChain.equals(KAVA_TEST)) {
-            for (Balance balance: baseData.mBalances) {
-                if (balance.symbol.equals(mainDenom(baseChain))) {
-                    BigDecimal amount = baseData.getAllMainAssetOld(balance.symbol);
-                    BigDecimal btcValue = btcValue(baseData, TOKEN_KAVA, amount, mainDivideDecimal(baseChain));
-                    totalValue = totalValue.add(btcValue);
-                } else {
-                    BigDecimal convertAmount = convertTokenToKava(baseData, balance.symbol);
-                    BigDecimal btcValue = btcValue(baseData, TOKEN_KAVA, convertAmount, mainDivideDecimal(baseChain));
                     totalValue = totalValue.add(btcValue);
                 }
             }

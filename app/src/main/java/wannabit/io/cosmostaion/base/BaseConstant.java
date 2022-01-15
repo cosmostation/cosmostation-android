@@ -955,19 +955,11 @@ public class BaseConstant {
     public final static String GRAB_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/gravity-bridge/relay-gravitybridge-unknown.png";
     public final static String LUM_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/lum-network/relay-lum-unknown.png";
     public final static String CHIHUAHUA_UNKNOWN_RELAYER= "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/chihuahua/relay-chihuahua-unknown.png";
+    public final static String KAVA_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/kava/relay-kava-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM        = "station";
-
-    public final static String  PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";
-    public final static int     PERSISTENCE_COSMOS_EVENT_START      = 3846000;
-    public final static int     PERSISTENCE_COSMOS_EVENT_END        = 4206000;
-
-    public final static String  PERSISTENCE_KAVA_EVENT_ADDRESS      = "kava1fxxxruhmqx3myuhjwxx9gk90kwqrgs9jamr892";
-    public final static int     PERSISTENCE_KAVA_EVENT_START        = 422360;
-    public final static int     PERSISTENCE_KAVA_EVENT_END          = 672440;
-
 
 
 

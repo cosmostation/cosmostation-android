@@ -218,10 +218,6 @@ public class BaseData {
         return result;
     }
 
-//    public ArrayList<BaseChain> userHideChains() {
-//        ArrayList<BaseChain> result = new ArrayList<>();
-//    }
-
     //COMMON DATA
     public NodeInfo                     mNodeInfo;
     public ArrayList<Validator>         mAllValidators = new ArrayList<>();
@@ -258,10 +254,6 @@ public class BaseData {
     public ResOkTokenList           mOkTokenList;
     public ResOkTickersList         mOkTickersList;
     public BigDecimal               mOKBPrice = BigDecimal.ZERO;
-
-    //COMMON DATA FOR STARNAME
-    public ResIovFee.IovFee         mStarNameFee;
-    public ResIovConfig.IovConfig   mStarNameConfig;
 
     //INCENTIVE DATA FOR SIF
     public SifIncentive.User        mSifLmIncentive;

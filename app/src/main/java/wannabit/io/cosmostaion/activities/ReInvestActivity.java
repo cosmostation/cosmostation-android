@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import cosmos.distribution.v1beta1.Distribution;
@@ -27,25 +26,19 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep0Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 
 public class ReInvestActivity extends BaseBroadCastActivity implements TaskListener {
 
-    private ImageView               mChainBg;
     private RelativeLayout          mRootView;
     private Toolbar                 mToolbar;
     private TextView                mTitle;
@@ -54,13 +47,9 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
     private ViewPager               mViewPager;
     private ReInvestPageAdapter     mPageAdapter;
 
-    public Validator                mValidator;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step);
-        mChainBg        = findViewById(R.id.chain_bg);
         mRootView       = findViewById(R.id.root_view);
         mToolbar        = findViewById(R.id.tool_bar);
         mTitle          = findViewById(R.id.toolbar_title);
@@ -80,7 +69,6 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_REINVEST;
 
-        mValidator = getIntent().getParcelableExtra("validator");
         mValAddress = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new ReInvestPageAdapter(getSupportFragmentManager());
@@ -121,12 +109,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
                 onHideKeyboard();
             }
         });
-        if (isGRPC(mBaseChain)) {
-            new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else {
-            new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
+        new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -175,11 +158,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
     public void onStartReInvest() {
         Intent intent = new Intent(ReInvestActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REINVEST);
-        if (isGRPC(mBaseChain)) {
-            intent.putExtra("reInvestValAddr", mValAddress);
-        } else {
-            intent.putExtra("reInvestValidator", mValidator);
-        }
+        intent.putExtra("reInvestValAddr", mValAddress);
         mAmount.amount = new BigDecimal(mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
         intent.putExtra("reInvestAmount", mAmount);
         intent.putExtra("memo", mTxMemo);
@@ -191,20 +170,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
-        if (result.taskType == TASK_FETCH_SINGLE_REWARD) {
-            if (result.isSuccess && result.resultData != null) {
-                ArrayList<Coin> rewardCoins = (ArrayList<Coin>)result.resultData;
-                for (Coin coin: rewardCoins) {
-                    if (coin.denom.equals(WDp.mainDenom(mBaseChain))) {
-                        mAmount = new Coin(WDp.mainDenom(mBaseChain), new BigDecimal(coin.amount).setScale(0, RoundingMode.DOWN).toPlainString());
-                    }
-                }
-                mPageAdapter.mCurrentFragment.onRefreshTab();
-            } else {
-                onBackPressed();
-            }
-
-        } else if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
+        if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
             ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>)result.resultData;
             if (rewards != null) {
                 getBaseDao().mGrpcRewards = rewards;
@@ -227,8 +193,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
             mFragments.clear();
             mFragments.add(ReInvestStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
-            else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(ReInvestStep3Fragment.newInstance(null));
         }
 

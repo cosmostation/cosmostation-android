@@ -46,13 +46,10 @@ import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HdacBurnTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBorrowHardTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleChangeRewardAddressTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimHarvestRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimIncentiveTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleCreateCdpTask;
@@ -68,9 +65,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayHardTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleWithdrawCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleWithdrawHardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -214,10 +209,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mFromReDelegateAddr;
     private String                      mToReDelegateAddr;
     private Coin                        mRAmount;
-    private ArrayList<Validator>        mValidators = new ArrayList<>();
     private String                      mNewRewardAddress;
 
-    private Validator                   mReInvestValidator;
     private String                      mReInvestValAddr;
     private Coin                        mReInvestAmount;
 
@@ -339,9 +332,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mRAmount = getIntent().getParcelableExtra("rAmount");
         mFromReDelegateAddr = getIntent().getStringExtra("fromValidatorAddr");
         mToReDelegateAddr = getIntent().getStringExtra("toValidatorAddr");
-        mValidators = getIntent().getParcelableArrayListExtra("validators");
         mNewRewardAddress = getIntent().getStringExtra("newRewardAddress");
-        mReInvestValidator = getIntent().getParcelableExtra("reInvestValidator");
         mReInvestValAddr = getIntent().getStringExtra("reInvestValAddr");
         mReInvestAmount = getIntent().getParcelableExtra("reInvestAmount");
         mProposalId = getIntent().getStringExtra("proposal_id");
@@ -529,14 +520,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REWARD) {
             onShowWaitDialog();
-            if (isGRPC(mBaseChain)) {
-                new ClaimRewardsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddresses_V1,  mTargetMemo, mTargetFee,
-                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-            } else {
-                new SimpleRewardTask(getBaseApplication(), this, mAccount, mValidators,  mTargetMemo, mTargetFee)
-                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-            }
+            new ClaimRewardsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddresses_V1,  mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_DELETE_ACCOUNT) {
             onShowWaitDialog();
@@ -557,38 +542,18 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
             onShowWaitDialog();
-           if (isGRPC(mBaseChain)) {
-                new ChangeRewardAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mNewRewardAddress, mTargetMemo, mTargetFee,
-                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-            } else {
-                new SimpleChangeRewardAddressTask(getBaseApplication(), this, mAccount,
-                        mNewRewardAddress, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-            }
+            new ChangeRewardAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mNewRewardAddress, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REINVEST) {
             onShowWaitDialog();
-            if (isGRPC(mBaseChain)) {
-                new ReInvestGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mReInvestValAddr, mReInvestAmount, mTargetMemo, mTargetFee,
-                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-            } else {
-                new ReInvestTask(getBaseApplication(), this, mAccount,
-                        mReInvestValidator.operator_address, mReInvestAmount, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-            }
-
+            new ReInvestGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mReInvestValAddr, mReInvestAmount, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_VOTE) {
             onShowWaitDialog();
-            if (isGRPC(mBaseChain)) {
-                new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mProposalId, mOpinion, mTargetMemo, mTargetFee,
-                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-            } else {
-                new SimpleVoteTask(getBaseApplication(), this, mAccount,
-                        mProposalId, mOpinion, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-            }
+            new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mProposalId, mOpinion, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_CREATE_CDP) {
             onShowWaitDialog();

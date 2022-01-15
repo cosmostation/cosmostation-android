@@ -3024,9 +3024,6 @@ public class WUtil {
         } else if (basechain.equals(BNB_TEST)) {
             return EXPLORER_BINANCE_TEST;
 
-        } else if (basechain.equals(KAVA_MAIN)) {
-            return EXPLORER_KAVA_MAIN;
-
         } else if (basechain.equals(OKEX_MAIN)) {
             return EXPLORER_OKEX_MAIN;
 
@@ -3125,6 +3122,9 @@ public class WUtil {
         } else if (basechain.equals(CHIHUAHUA_MAIN)) {
             return EXPLORER_CHIHUAHUA_MAIN;
 
+        } else if (basechain.equals(KAVA_MAIN)) {
+            return EXPLORER_KAVA_MAIN;
+
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -3155,9 +3155,6 @@ public class WUtil {
 
         } else if (basechain.equals(BNB_TEST)) {
             return EXPLORER_BINANCE_TEST + "tx/" + hash;
-
-        } else if (basechain.equals(KAVA_MAIN)) {
-            return EXPLORER_KAVA_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(OKEX_MAIN)) {
             return EXPLORER_OKEX_MAIN + "tx/0x" + hash;
@@ -3253,6 +3250,9 @@ public class WUtil {
 
         } else if (basechain.equals(CHIHUAHUA_MAIN)) {
             return EXPLORER_CHIHUAHUA_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(KAVA_MAIN)) {
+            return EXPLORER_KAVA_MAIN + "txs/" + hash;
 
         }
 
@@ -3706,6 +3706,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(KAVA_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(KAVA_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         } else if (basechain.equals(UMEE_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -3725,11 +3730,6 @@ public class WUtil {
             BigDecimal gasRate = new BigDecimal(OK_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(18, RoundingMode.DOWN);
-        }
-
-        else if (basechain.equals(KAVA_MAIN)) {
-            return BigDecimal.ZERO;
-
         }
         return BigDecimal.ZERO;
     }
@@ -3943,7 +3943,7 @@ public class WUtil {
 
         else if (basechain.equals(KAVA_MAIN)) {
             if (position == 0) {
-                return BigDecimal.ZERO.setScale(3);
+                return new BigDecimal(KAVA_GAS_RATE_TINY);
             } else if (position == 1) {
                 return new BigDecimal(KAVA_GAS_RATE_LOW);
             }
