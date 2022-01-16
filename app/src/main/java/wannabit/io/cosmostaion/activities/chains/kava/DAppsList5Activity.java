@@ -23,6 +23,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import cosmos.base.v1beta1.CoinOuterClass;
+import kava.cdp.v1beta1.Genesis;
+import kava.hard.v1beta1.Hard;
 import kava.swap.v1beta1.QueryOuterClass;
 import kava.swap.v1beta1.Swap;
 import wannabit.io.cosmostaion.R;
@@ -39,6 +41,9 @@ import wannabit.io.cosmostaion.model.kava.SwapDeposit;
 import wannabit.io.cosmostaion.model.kava.SwapPool;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpParamGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaHardParamGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaMarketPriceTokenGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapParamsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapPoolsGrpcTask;
@@ -48,6 +53,9 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_CDP_PARAMS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_PARAMS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICE_TOKEN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_PARAMS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS;
@@ -60,11 +68,12 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     private TabLayout                   mDappTapLayer;
     private KavaDApp5PageAdapter        mPageAdapter;
 
-    public ArrayList<String>                                mAllDenoms = new ArrayList<>();
-    public ArrayList<QueryOuterClass.PoolResponse>          mSwapPoolList = new ArrayList<>();
-    public ArrayList<QueryOuterClass.DepositResponse>       mMySwapDepositList = new ArrayList<>();
-    public ArrayList<QueryOuterClass.PoolResponse>          mMySwapPoolList = new ArrayList<>();
-    public ArrayList<QueryOuterClass.PoolResponse>          mOtherSwapPoolList = new ArrayList<>();
+    public ArrayList<String>                                            mAllDenoms = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse>                      mSwapPoolList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.DepositResponse>                   mMySwapDepositList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse>                      mMySwapPoolList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse>                      mOtherSwapPoolList = new ArrayList<>();
+    public kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse  mMarketPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,14 +228,17 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
     private int mTaskCount = 0;
     public void onFetchData() {
-        mTaskCount = 3;
+        mTaskCount = 5;
         getBaseDao().mSwapParams = null;
         mSwapPoolList.clear();
         mMySwapPoolList.clear();
         mOtherSwapPoolList.clear();
+        getBaseDao().mCdpParams = null;
         new KavaSwapParamsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaSwapPoolsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaSwapDepositGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaHardParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 //        new KavaCdpParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 //        new KavaHardParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -253,6 +265,27 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 mMySwapDepositList = (ArrayList<QueryOuterClass.DepositResponse>) result.resultData;
             }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_CDP_PARAMS) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mCdpParams = (Genesis.Params) result.resultData;
+                for (Genesis.CollateralParam collateralParam: getBaseDao().mCdpParams.getCollateralParamsList()) {
+                    mTaskCount = mTaskCount + 1;
+                    new KavaMarketPriceTokenGrpcTask(getBaseApplication(), this, mBaseChain, collateralParam.getLiquidationMarketId()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_PRICE_TOKEN) {
+            if (result.isSuccess && result.resultData != null) {
+                mMarketPrice = (kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse) result.resultData;
+                getBaseDao().mKavaTokenPrice.put(mMarketPrice.getMarketId(), mMarketPrice);
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_PARAMS) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mHardParams = (Hard.Params) result.resultData;
+            }
+
         }
 //        if (result.taskType == TASK_FETCH_KAVA_CDP_PARAM) {
 //            if (result.isSuccess && result.resultData != null) {

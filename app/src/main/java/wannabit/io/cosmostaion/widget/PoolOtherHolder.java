@@ -105,8 +105,8 @@ public class PoolOtherHolder extends BaseHolder {
         itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(coin1.getAmount()), coin1Decimal, 6));
 
         // available
-        BigDecimal availableCoin0 = baseData.availableAmount(coin0.getDenom());
-        BigDecimal availableCoin1 = baseData.availableAmount(coin1.getDenom());
+        BigDecimal availableCoin0 = baseData.getAvailable(coin0.getDenom());
+        BigDecimal availableCoin1 = baseData.getAvailable(coin1.getDenom());
 
         WUtil.dpKavaTokenName(context, itemMyAvailableSymbol0, coin0.getDenom());
         WUtil.dpKavaTokenName(context, itemMyAvailableSymbol1, coin1.getDenom());

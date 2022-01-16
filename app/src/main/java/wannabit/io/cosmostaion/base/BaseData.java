@@ -46,6 +46,8 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
+import kava.cdp.v1beta1.Genesis;
+import kava.hard.v1beta1.Hard;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import kava.pricefeed.v1beta1.Store;
 import kava.swap.v1beta1.Swap;
@@ -72,6 +74,7 @@ import wannabit.io.cosmostaion.model.SifIncentive;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.kava.AuctionParam;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
 import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
 import wannabit.io.cosmostaion.model.kava.HardParam;
@@ -259,10 +262,13 @@ public class BaseData {
     public SifIncentive.User        mSifLmIncentive;
 
     //GRPC for KAVA
-    public ArrayList<QueryOuterClass.CurrentPriceResponse>      mKavaPrices = new ArrayList<>();
-    public IncentiveParam                                       mIncentiveParam5;
-    public IncentiveReward                                      mIncentiveRewards;
-    public Swap.Params                                          mSwapParams;
+    public ArrayList<QueryOuterClass.CurrentPriceResponse>          mKavaPrices = new ArrayList<>();
+    public HashMap<String, QueryOuterClass.CurrentPriceResponse>    mKavaTokenPrice = new HashMap<>();
+    public IncentiveParam                                           mIncentiveParam5;
+    public IncentiveReward                                          mIncentiveRewards;
+    public Swap.Params                                              mSwapParams;
+    public Genesis.Params                                           mCdpParams;
+    public Hard.Params                                              mHardParams;
 
     public String getChainId() {
         if (mNodeInfo != null) {
@@ -651,6 +657,17 @@ public class BaseData {
             }
         }
         return null;
+    }
+
+    // for kava funcs
+    public Genesis.CollateralParam getCollateralParamByType(String type) {
+        Genesis.CollateralParam result = null;
+        for (Genesis.CollateralParam collateralParam: mCdpParams.getCollateralParamsList()) {
+            if (collateralParam.getType().equalsIgnoreCase(type)) {
+                return collateralParam;
+            }
+        }
+        return result;
     }
 
     // for starname funcs

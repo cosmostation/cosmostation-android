@@ -14,12 +14,11 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import kava.cdp.v1beta1.Genesis;
+import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
-import wannabit.io.cosmostaion.model.kava.MarketPrice;
-import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -55,59 +54,62 @@ public class CdpMyHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindMyCdp(Context c, BaseData baseData, MyCdp myCdp) {
-        final CollateralParam collateralParam = baseData.mCdpParam.getCollateralParamByType(myCdp.cdp.type);
-        final MarketPrice price = baseData.mKavaTokenPrices.get(collateralParam.liquidation_market_id);
-        final int denomPDecimal = WUtil.getKavaCoinDecimal(myCdp.getPDenom());
+    public void onBindMyCdp(Context c, BaseData baseData, QueryOuterClass.CDPResponse myCdp) {
+        final Genesis.CollateralParam collateralParam = baseData.getCollateralParamByType(myCdp.getType());
+        final kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse price = baseData.mKavaTokenPrice.get(collateralParam.getLiquidationMarketId());
+        final int dpDecimal = WUtil.getKavaCoinDecimal(myCdp.getPrincipal().getDenom());
+
+        if (collateralParam == null) { return; }
 
         BigDecimal currentPrice = BigDecimal.ZERO;
         BigDecimal liquidationPrice = BigDecimal.ZERO;
         BigDecimal riskRate = BigDecimal.ZERO;
         if (price != null) {
-            currentPrice = new BigDecimal(price.price);
-            liquidationPrice = myCdp.getLiquidationPrice(c, collateralParam);
+            currentPrice = new BigDecimal(price.getPrice()).movePointLeft(18);
+            liquidationPrice = WUtil.getLiquidationPrice(c, myCdp, collateralParam).movePointLeft(18);
             riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
         }
 
-        itemCollateralType.setText(collateralParam.type.toUpperCase());
-        itemTitleMarket.setText(collateralParam.getDpMarketId());
-        itemDebtValueTitle.setText(String.format(c.getString(R.string.str_debt_value), myCdp.getPDenom().toUpperCase()));
-        itemCollateralValueTitle.setText(String.format(c.getString(R.string.str_collateral_value_title3), myCdp.getDenom().toUpperCase()));
+        itemCollateralType.setText(collateralParam.getType().toUpperCase());
+        itemTitleMarket.setText(collateralParam.getSpotMarketId());
+        itemTitleMarket.setText(WUtil.getDpMarketId(collateralParam.getDenom(), collateralParam.getDebtLimit()));
+        itemDebtValueTitle.setText(String.format(c.getString(R.string.str_debt_value), myCdp.getPrincipal().getDenom().toUpperCase()));
+        itemCollateralValueTitle.setText(String.format(c.getString(R.string.str_collateral_value_title3), myCdp.getCollateral().getDenom().toUpperCase()));
 
-
-        final BigDecimal debtValue = myCdp.getPrincipalAmount();
-        final BigDecimal feeValue = myCdp.getAccumulatedFees();
-        final BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(c, debtValue.add(feeValue), collateralParam, myCdp.cdp);
+        final BigDecimal debtValue = new BigDecimal(myCdp.getPrincipal().getAmount());
+        final BigDecimal feeValue = new BigDecimal(myCdp.getAccumulatedFees().getAmount());
+        final BigDecimal hiddenFeeValue = WDp.getCdpGrpcHiddenFee(c, debtValue.add(feeValue), collateralParam, myCdp);
         final BigDecimal totalDebtValue = debtValue.add(feeValue).add(hiddenFeeValue);
-        itemDebtValue.setText(WDp.getDpRawDollor(c, totalDebtValue.movePointLeft(denomPDecimal), 2));
+        itemDebtValue.setText(WDp.getDpRawDollor(c, totalDebtValue.movePointLeft(dpDecimal), 2));
 
-        final BigDecimal currentCollateralValue = new BigDecimal(myCdp.collateral_value.amount);
-        itemCollateralValue.setText(WDp.getDpRawDollor(c, currentCollateralValue.movePointLeft(denomPDecimal), 2));
+        final BigDecimal currentCollateralValue = new BigDecimal(myCdp.getCollateralValue().getAmount());
+        itemCollateralValue.setText(WDp.getDpRawDollor(c, currentCollateralValue.movePointLeft(dpDecimal), 2));
 
-        itemStabilityFee.setText(WDp.getPercentDp(collateralParam.getDpStabilityFee(), 2));
-        itemLiquidationPenalty.setText(WDp.getPercentDp(collateralParam.getDpLiquidationPenalty(), 2));
+        itemStabilityFee.setText(WDp.getPercentDp(WUtil.getDpStabilityFee(collateralParam), 2));
+        itemLiquidationPenalty.setText(WDp.getPercentDp(WUtil.getDpLiquidationPenalty(collateralParam), 2));
 
-        itemCurrentPriceTitle.setText(String.format(c.getString(R.string.str_current_title3), myCdp.getDenom().toUpperCase()));
+        itemCurrentPriceTitle.setText(String.format(c.getString(R.string.str_current_title3), myCdp.getCollateral().getDenom().toUpperCase()));
         itemCurrentPrice.setText(WDp.getDpRawDollor(c, currentPrice, 4));
 
-        itemLiquidationPriceTitle.setText(String.format(c.getString(R.string.str_liquidation_title3), myCdp.getDenom().toUpperCase()));
+        itemLiquidationPriceTitle.setText(String.format(c.getString(R.string.str_liquidation_title3), myCdp.getCollateral().getDenom().toUpperCase()));
         itemLiquidationPrice.setText(WDp.getDpRawDollor(c, liquidationPrice, 4));
         itemLiquidationPrice.setTextColor(WDp.getDpRiskColor(c, riskRate));
 
         WDp.DpRiskRate(c, riskRate, itemRiskScore,  itemImgRisk);
 
         try {
-            Picasso.get().load(KAVA_CDP_IMG_URL +  collateralParam.getImagePath()).fit().into(itemImgMarket);
+            Picasso.get().load(KAVA_CDP_IMG_URL + collateralParam.getDenom() + "usd.png").fit().into(itemImgMarket);
         } catch (Exception e) { }
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(c, CdpDetail5Activity.class);
-                intent.putExtra("collateralParamType", collateralParam.type);
-//                intent.putExtra("marketId", collateralParam.liquidation_market_id);
+                intent.putExtra("collateralParamType", collateralParam.getType());
                 c.startActivity(intent);
             }
         });
     }
+
+
 }

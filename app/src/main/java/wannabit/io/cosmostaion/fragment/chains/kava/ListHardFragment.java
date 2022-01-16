@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,35 +15,28 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
+import kava.hard.v1beta1.Hard;
+import kava.hard.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.model.kava.HardInterestRate;
-import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
-import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
-import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.task.FetchTask.KavaHardInterestRateTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaHardMyBorrowTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaHardMyDepositTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaHardTotalBorrowTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaHardTotalDepositTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaHardInterestRateGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaHardMyBorrowGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaHardMyDepositGrpcTask;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HardMyStatusHolder;
 import wannabit.io.cosmostaion.widget.HardPoolHolder;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_INTEREST_RATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_MY_BORROW;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_MY_DEPOSIT;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_TOTAL_BORROW;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_MY_BORROW;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT;
 
 public class ListHardFragment extends BaseFragment implements TaskListener {
     private SwipeRefreshLayout  mSwipeRefreshLayout;
@@ -55,13 +47,14 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
     private BaseChain           mBaseChain;
     private HardPoolAdapter     mAdapter;
 
-    private HardParam                       mHardParam;
-    private ArrayList<HardInterestRate>     mInterestRates = new ArrayList<>();
+    private Hard.Params                                         mHardParams;
+    private ArrayList<QueryOuterClass.DepositResponse>          mMyDeposits = new ArrayList<>();
+    private ArrayList<QueryOuterClass.BorrowResponse>           mMyBorrows = new ArrayList<>();
+    private ArrayList<QueryOuterClass.MoneyMarketInterestRate>  mInterestRates = new ArrayList<>();
+    private IncentiveReward                                     mIncentiveRewards;
+
     private ArrayList<Coin>                 mTotalDeposit = new ArrayList<>();
     private ArrayList<Coin>                 mTotalBorrow = new ArrayList<>();
-    private ArrayList<HardMyDeposit>        mMyDeposit = new ArrayList<>();
-    private ArrayList<HardMyBorrow>         mMyBorrow = new ArrayList<>();
-    private IncentiveReward                 mIncentiveRewards;
 
 
     public static ListHardFragment newInstance(Bundle bundle) {
@@ -85,7 +78,7 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (mTaskCount > 0 || mHardParam == null) {
+                if (mTaskCount > 0 || mHardParams == null) {
                     mSwipeRefreshLayout.setRefreshing(false);
                 } else {
                     onFetchHardInfo();
@@ -105,55 +98,61 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
 
     @Override
     public void onRefreshTab() {
-        mHardParam = getBaseDao().mHardParam;
+        mHardParams = getBaseDao().mHardParams;
         mIncentiveRewards = getBaseDao().mIncentiveRewards;
         onFetchHardInfo();
     }
 
     private int mTaskCount = 0;
     public void onFetchHardInfo() {
+        mMyDeposits.clear();
+        mMyBorrows.clear();
         mInterestRates.clear();
-        mTotalDeposit.clear();
-        mTotalBorrow.clear();
-        mMyDeposit.clear();
-        mMyBorrow.clear();
-        mTaskCount = 5;
-        new KavaHardInterestRateTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaHardTotalDepositTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaHardTotalBorrowTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaHardMyDepositTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaHardMyBorrowTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        mInterestRates.clear();
+//        mTotalDeposit.clear();
+//        mTotalBorrow.clear();
+//        mMyDeposit.clear();
+//        mMyBorrow.clear();
+        mTaskCount = 3;
+        new KavaHardMyDepositGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaHardMyBorrowGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaHardInterestRateGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new KavaHardInterestRateTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new KavaHardTotalDepositTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new KavaHardTotalBorrowTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if(!isAdded()) return;
         mTaskCount--;
-        if (result.taskType == TASK_FETCH_KAVA_HARD_INTEREST_RATE) {
+        if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT) {
             if (result.isSuccess && result.resultData != null) {
-                mInterestRates = (ArrayList<HardInterestRate>)result.resultData;
+                mMyDeposits = (ArrayList<QueryOuterClass.DepositResponse>) result.resultData;
             }
 
-        } else if (result.taskType == TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST) {
+        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_MY_BORROW) {
             if (result.isSuccess && result.resultData != null) {
-                mTotalDeposit = (ArrayList<Coin>)result.resultData;
+                mMyBorrows = (ArrayList<QueryOuterClass.BorrowResponse>) result.resultData;
             }
 
-        } else if (result.taskType == TASK_FETCH_KAVA_HARD_TOTAL_BORROW) {
+        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE) {
             if (result.isSuccess && result.resultData != null) {
-                mTotalBorrow = (ArrayList<Coin>)result.resultData;
+                mInterestRates = (ArrayList<QueryOuterClass.MoneyMarketInterestRate>) result.resultData;
             }
 
-        } else if (result.taskType == TASK_FETCH_KAVA_HARD_MY_DEPOSIT) {
-            if (result.isSuccess && result.resultData != null) {
-                mMyDeposit = (ArrayList<HardMyDeposit>)result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_HARD_MY_BORROW) {
-            if (result.isSuccess && result.resultData != null) {
-                mMyBorrow = (ArrayList<HardMyBorrow>)result.resultData;
-            }
         }
+//        if (result.taskType == TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST) {
+//            if (result.isSuccess && result.resultData != null) {
+//                mTotalDeposit = (ArrayList<Coin>)result.resultData;
+//            }
+//
+//        } else if (result.taskType == TASK_FETCH_KAVA_HARD_TOTAL_BORROW) {
+//            if (result.isSuccess && result.resultData != null) {
+//                mTotalBorrow = (ArrayList<Coin>)result.resultData;
+//            }
+//
+//        }
 
         if (mTaskCount == 0) {
             mAdapter.notifyDataSetChanged();
@@ -164,7 +163,6 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
 
 
     public void onCheckStartClaimIncentive() {
-        WLog.w("ListHardFragment onCheckStartClaimIncentive");
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -191,19 +189,18 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull BaseHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_MY_HARD_STATUS) {
-                viewHolder.onBindMyHardStatus(getContext(), getBaseDao(), mMyDeposit, mMyBorrow);
+                viewHolder.onBindMyHardStatus(getContext(), getBaseDao(), mMyDeposits, mMyBorrows);
 
             } else if (getItemViewType(position) == TYPE_HARD_POOL) {
-                HardParam.HardMoneyMarket hardMoneyMarket;
-                hardMoneyMarket = mHardParam.money_markets.get(position - 1);
-                viewHolder.onBindMyHardPool(getContext(), mBaseChain, getBaseDao(), mHardParam, hardMoneyMarket, mIncentiveRewards, mInterestRates, mMyDeposit, mMyBorrow);
+                Hard.MoneyMarket hardMoneyMarket = mHardParams.getMoneyMarkets(position - 1);
+                viewHolder.onBindMyHardPool(getContext(), mBaseChain, getBaseDao(), mHardParams, hardMoneyMarket, mIncentiveRewards, mInterestRates, mMyDeposits, mMyBorrows, position - 1);
             }
         }
 
         @Override
         public int getItemCount() {
-            if (mHardParam == null || mHardParam.money_markets == null) return 0;
-            return mHardParam.money_markets.size() + 1;
+            if (mHardParams == null || mHardParams.getMoneyMarketsList() == null) return 0;
+            return mHardParams.getMoneyMarketsList().size() + 1;
         }
 
         @Override

@@ -38,6 +38,8 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
+import kava.cdp.v1beta1.Genesis;
+import kava.cdp.v1beta1.QueryOuterClass;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -3785,6 +3787,29 @@ public class WDp {
             gap = gap + 30;
 
             Double double1 = Double.parseDouble(paramCdp.stability_fee);
+            Double double2 = gap.doubleValue();
+
+            Double pow = Math.pow(double1, double2);
+            result = outstandingDebt.multiply(new BigDecimal(pow.toString())).setScale(0, RoundingMode.UP).subtract(outstandingDebt);
+            return result;
+        } catch (Exception e) {
+            WLog.w("e " + e.getMessage());
+        }
+        return result;
+    }
+
+    public static BigDecimal getCdpGrpcHiddenFee(Context c, BigDecimal outstandingDebt, Genesis.CollateralParam paramCdp, QueryOuterClass.CDPResponse myCdp) {
+        BigDecimal result = BigDecimal.ZERO;
+        try {
+            long now   = Calendar.getInstance().getTimeInMillis();
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            long start = blockDateFormat.parse(myCdp.getFeesUpdated().toString()).getTime();
+            Long gap  = (now - start)/1000;
+            //TODO 냥냥하게 패딩
+            gap = gap + 30;
+
+            Double double1 = Double.parseDouble(paramCdp.getStabilityFee());
             Double double2 = gap.doubleValue();
 
             Double pow = Math.pow(double1, double2);

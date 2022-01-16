@@ -1459,8 +1459,8 @@
     <string name="str_starname_walletconnect_complete">Export Complete</string>
     <string name="str_ok_promotion_title">START VOTING FOR VALIDATORS</string>
     <string name="str_ok_promotion_msg">Vote for Cosmostation to secure OK Chain as a validator.\nSelect multiple validators to spread out your vote.</string>
-    <string name="str_total_deposit_value">Supply Balance</string>
-    <string name="str_ltv_value">Borrow Balance</string>
+    <string name="str_total_deposit_value">My Supplied Value</string>
+    <string name="str_ltv_value">My Borrowed Value</string>
     <string name="str_total_borrowed_value">Available Credit(LTV)</string>
     <string name="str_borrow_limit_value">Remaining Borrowable Value</string>
     <string name="str_supply_apy">Supply APY</string>

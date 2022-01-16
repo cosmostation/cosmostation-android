@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import irismod.nft.Nft;
+import kava.cdp.v1beta1.Genesis;
+import kava.hard.v1beta1.Hard;
 import kava.swap.v1beta1.QueryOuterClass;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import sifnode.clp.v1.Querier;
@@ -56,16 +58,16 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindHardIncentive(Context context, ListHardFragment fragment, IncentiveReward incentiveReward) {
     }
 
-    public void onBindMyCdp(Context context, BaseData baseData, MyCdp myCdp) {
+    public void onBindMyCdp(Context context, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp) {
     }
 
-    public void onBindOtherCdp(Context context, CollateralParam otherCdp) {
+    public void onBindOtherCdp(Context context, Genesis.CollateralParam otherCdp) {
     }
 
-    public void onBindMyHardStatus(Context context, BaseData baseData, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
+    public void onBindMyHardStatus(Context context, BaseData baseData, ArrayList<kava.hard.v1beta1.QueryOuterClass.DepositResponse> myDeposit, ArrayList<kava.hard.v1beta1.QueryOuterClass.BorrowResponse> myBorrow) {
     }
 
-    public void onBindMyHardPool(Context context, BaseChain chain, BaseData baseData, HardParam hardParam, HardParam.HardMoneyMarket hardMoneyMarket, IncentiveReward incentiveReward, ArrayList<HardInterestRate> HardInterestRates, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
+    public void onBindMyHardPool(Context context, BaseChain chain, BaseData baseData, Hard.Params hardParams, Hard.MoneyMarket hardMoneyMarket, IncentiveReward incentiveReward, ArrayList<kava.hard.v1beta1.QueryOuterClass.MoneyMarketInterestRate> HardInterestRates, ArrayList<kava.hard.v1beta1.QueryOuterClass.DepositResponse> myDeposit, ArrayList<kava.hard.v1beta1.QueryOuterClass.BorrowResponse> myBorrow, int postion) {
     }
 
     public void onBindCdpDetailInfo(CdpDetail5Activity context, BaseData baseData, MyCdp myCdp, String collateralType, BigDecimal debtAmount) {

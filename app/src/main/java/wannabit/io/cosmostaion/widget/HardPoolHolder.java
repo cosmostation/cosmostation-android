@@ -14,22 +14,19 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import cosmos.base.v1beta1.CoinOuterClass;
+import kava.hard.v1beta1.Hard;
+import kava.hard.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.model.kava.HardInterestRate;
-import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
-import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
-import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
-import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_HARD_POOL_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class HardPoolHolder extends BaseHolder {
 
@@ -42,44 +39,41 @@ public class HardPoolHolder extends BaseHolder {
 
     public HardPoolHolder(@NonNull View itemView) {
         super(itemView);
-        itemRoot = itemView.findViewById(R.id.card_root);
-        hardPoolImg = itemView.findViewById(R.id.pool_img);
-        hardPoolTitle = itemView.findViewById(R.id.pool_title);
-        supplyApyTv = itemView.findViewById(R.id.supply_apy);
-        borrowApyTv = itemView.findViewById(R.id.borrow_apy);
-        supplyIncentiveApyTv = itemView.findViewById(R.id.supply_incentive_apy);
-        borrowIncentiveApyTv = itemView.findViewById(R.id.borrow_incentive_apy);
-        depositAmountTv = itemView.findViewById(R.id.deposited_amount);
-        depositDenomTv = itemView.findViewById(R.id.deposited_denom);
-        depositValueTv = itemView.findViewById(R.id.deposited_value);
-        borrowAmountTv = itemView.findViewById(R.id.borrow_amount);
-        borrowDenomTv = itemView.findViewById(R.id.borrow_denom);
-        borrowValueTv = itemView.findViewById(R.id.borrow_value);
+        itemRoot                = itemView.findViewById(R.id.card_root);
+        hardPoolImg             = itemView.findViewById(R.id.pool_img);
+        hardPoolTitle           = itemView.findViewById(R.id.pool_title);
+        supplyApyTv             = itemView.findViewById(R.id.supply_apy);
+        borrowApyTv             = itemView.findViewById(R.id.borrow_apy);
+        supplyIncentiveApyTv    = itemView.findViewById(R.id.supply_incentive_apy);
+        borrowIncentiveApyTv    = itemView.findViewById(R.id.borrow_incentive_apy);
+        depositAmountTv         = itemView.findViewById(R.id.deposited_amount);
+        depositDenomTv          = itemView.findViewById(R.id.deposited_denom);
+        depositValueTv          = itemView.findViewById(R.id.deposited_value);
+        borrowAmountTv          = itemView.findViewById(R.id.borrow_amount);
+        borrowDenomTv           = itemView.findViewById(R.id.borrow_denom);
+        borrowValueTv           = itemView.findViewById(R.id.borrow_value);
     }
 
     @Override
-    public void onBindMyHardPool(Context context, BaseChain chain, BaseData baseData, HardParam hardParam, HardParam.HardMoneyMarket hardMoneyMarket, IncentiveReward incentiveReward,
-                                 ArrayList<HardInterestRate> HardInterestRates, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
-//        WLog.w("hardMoneyMarket " + hardMoneyMarket.spot_market_id);
+    public void onBindMyHardPool(Context context, BaseChain chain, BaseData baseData, Hard.Params hardParams, Hard.MoneyMarket hardMoneyMarket, IncentiveReward incentiveReward,
+                                 ArrayList<QueryOuterClass.MoneyMarketInterestRate> HardInterestRates, ArrayList<QueryOuterClass.DepositResponse> myDeposit, ArrayList<QueryOuterClass.BorrowResponse> myBorrow, int position) {
         try {
-            Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + hardMoneyMarket.denom + ".png").fit().into(hardPoolImg);
+            Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + hardMoneyMarket.getDenom() + ".png").fit().into(hardPoolImg);
         } catch (Exception e) { }
 
-        String marketTitle = hardMoneyMarket.denom.equals(TOKEN_KAVA) ? "kava" : hardMoneyMarket.denom;
+        String marketTitle = hardParams.getMoneyMarkets(position).getSpotMarketId().replace(":30", "");
         hardPoolTitle.setText(marketTitle.toUpperCase());
 
         BigDecimal supplyApy = BigDecimal.ZERO;
         BigDecimal borrowApy = BigDecimal.ZERO;
-        for (HardInterestRate interestRate : HardInterestRates) {
-            if (interestRate.denom.equals(hardMoneyMarket.denom)) {
-                supplyApy = new BigDecimal(interestRate.supply_interest_rate);
-                borrowApy = new BigDecimal(interestRate.borrow_interest_rate);
+        for (QueryOuterClass.MoneyMarketInterestRate interestRates : HardInterestRates) {
+            if (interestRates.getDenom().equalsIgnoreCase(hardMoneyMarket.getDenom())) {
+                supplyApy = new BigDecimal(interestRates.getSupplyInterestRate());
+                borrowApy = new BigDecimal(interestRates.getBorrowInterestRate());
             }
         }
-        BigDecimal supplyIncentiveApy = incentiveReward.getSupplyRewardFactor(hardMoneyMarket.denom);
-        BigDecimal borrowIncentive = incentiveReward.getBorrowRewardFactor(hardMoneyMarket.denom);
-//        WLog.w("supplyIncentiveApy " + supplyIncentiveApy);
-//        WLog.w("borrowIncentive " + borrowIncentive);
+        BigDecimal supplyIncentiveApy = incentiveReward.getSupplyRewardFactor(hardMoneyMarket.getDenom());
+        BigDecimal borrowIncentive = incentiveReward.getBorrowRewardFactor(hardMoneyMarket.getDenom());
 
         supplyApyTv.setText(WDp.getPercentDp(supplyApy.multiply(new BigDecimal("100"))));
         borrowApyTv.setText(WDp.getPercentDp(borrowApy.multiply(new BigDecimal("100"))));
@@ -89,22 +83,22 @@ public class HardPoolHolder extends BaseHolder {
         Coin myDepositCoin = null;
         BigDecimal myDepositValue = BigDecimal.ZERO;
         if (myDeposit != null && myDeposit.size() > 0) {
-            for (Coin coin: myDeposit.get(0).amount) {
-                if (coin.denom.equals(hardMoneyMarket.denom)) {
-                    myDepositCoin = coin;
+            for (CoinOuterClass.Coin coin: myDeposit.get(0).getAmountList()) {
+                if (coin.getDenom().equalsIgnoreCase(hardMoneyMarket.getDenom())) {
+                    myDepositCoin = new Coin(coin.getDenom(), coin.getAmount());
                 }
             }
         }
         if (myDepositCoin != null) {
             WDp.showCoinDp(context, baseData, myDepositCoin, depositDenomTv, depositAmountTv, chain);
             int decimal =  WUtil.getKavaCoinDecimal(myDepositCoin.denom);
-            MarketPrice price = baseData.mKavaTokenPrices.get(hardParam.getSpotMarketId(myDepositCoin.denom));
+            kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse price = baseData.mKavaTokenPrice.get(WUtil.getSpotMarketId(hardParams, myDepositCoin.denom));
             if (price != null) {
-                myDepositValue = (new BigDecimal(myDepositCoin.amount)).movePointLeft(decimal).multiply(new BigDecimal(price.price));
+                myDepositValue = (new BigDecimal(myDepositCoin.amount)).movePointLeft(decimal).multiply(new BigDecimal(price.getPrice()).movePointLeft(18));
             }
 
         } else {
-            WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, "0", depositDenomTv, depositAmountTv, chain);
+            WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), "0", depositDenomTv, depositAmountTv, chain);
         }
         depositValueTv.setText(WDp.getDpRawDollor(context, myDepositValue, 2));
 
@@ -112,32 +106,31 @@ public class HardPoolHolder extends BaseHolder {
         Coin myBorrowCoin = null;
         BigDecimal myBorrowValue = BigDecimal.ZERO;
         if (myBorrow != null && myBorrow.size() > 0) {
-            for (Coin coin: myBorrow.get(0).amount) {
-                if (coin.denom.equals(hardMoneyMarket.denom)) {
-                    myBorrowCoin = coin;
+            for (CoinOuterClass.Coin coin: myBorrow.get(0).getAmountList()) {
+                if (coin.getDenom().equalsIgnoreCase(hardMoneyMarket.getDenom())) {
+                    myBorrowCoin = new Coin(coin.getDenom(), coin.getAmount());
                 }
             }
         }
         if (myBorrowCoin != null) {
             WDp.showCoinDp(context, baseData, myBorrowCoin, borrowDenomTv, borrowAmountTv, chain);
             int decimal =  WUtil.getKavaCoinDecimal(myBorrowCoin.denom);
-            MarketPrice price = baseData.mKavaTokenPrices.get(hardParam.getSpotMarketId(myBorrowCoin.denom));
+            kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse price = baseData.mKavaTokenPrice.get(WUtil.getSpotMarketId(hardParams, myBorrowCoin.denom));
             if (price != null) {
-                myBorrowValue = (new BigDecimal(myBorrowCoin.amount)).movePointLeft(decimal).multiply(new BigDecimal(price.price));
+                myBorrowValue = (new BigDecimal(myBorrowCoin.amount)).movePointLeft(decimal).multiply(new BigDecimal(price.getPrice()).movePointLeft(18));
             }
 
         } else {
-            WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, "0", borrowDenomTv, borrowAmountTv, chain);
+            WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), "0", borrowDenomTv, borrowAmountTv, chain);
         }
         borrowValueTv.setText(WDp.getDpRawDollor(context, myBorrowValue, 2));
-
 
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, HardDetailActivity.class);
-                intent.putExtra("hard_money_market_denom", hardMoneyMarket.denom);
+                intent.putExtra("hard_money_market_denom", hardMoneyMarket.getDenom());
                 context.startActivity(intent);
             }
         });
