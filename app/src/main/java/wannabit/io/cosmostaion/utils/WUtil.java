@@ -16,8 +16,8 @@ import android.widget.TextView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.protobuf2.Any;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf2.Any;
 import com.google.zxing.common.BitMatrix;
 import com.squareup.picasso.Picasso;
 
@@ -82,7 +82,6 @@ import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
 import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
 import wannabit.io.cosmostaion.model.kava.HardParam;
@@ -1504,6 +1503,35 @@ public class WUtil {
         return denom;
     }
 
+    public static String getKavaTokenName(String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            return "KAVA";
+        } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
+            return "HARD";
+        } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
+            return "SWP";
+        } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
+            return "USDX";
+
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
+            return "BNB";
+
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
+            return "XRPB";
+
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+            return "BUSD";
+
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BTCB)) {
+            return "BTCB";
+
+        } else if (denom.equalsIgnoreCase("btch")) {
+            return "BTCH";
+
+        }
+        return denom.toUpperCase();
+    }
+
     public static String dpOsmosisTokenName(BaseData baseData, String denom) {
         if (denom.equals(TOKEN_OSMOSIS)) {
             return "OSMO";
@@ -1986,7 +2014,7 @@ public class WUtil {
     }
 
     public static BigDecimal getDpStabilityFee(Genesis.CollateralParam collateralParam) {
-        return (new BigDecimal(collateralParam.getStabilityFee()).subtract(BigDecimal.ONE)).multiply(new BigDecimal("31536000")).movePointRight(2);
+        return (new BigDecimal(collateralParam.getStabilityFee()).movePointLeft(18).subtract(BigDecimal.ONE)).multiply(new BigDecimal("31536000")).movePointRight(2);
     }
 
     public static BigDecimal getDpLiquidationPenalty(Genesis.CollateralParam collateralParam) {
@@ -1995,6 +2023,11 @@ public class WUtil {
 
     public static BigDecimal getRawDebtAmount(kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp) {
         return new BigDecimal(myCdp.getPrincipal().getAmount()).add(new BigDecimal(myCdp.getAccumulatedFees().getAmount()));
+    }
+
+    public static BigDecimal getEstimatedTotalFee(Context c, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam collateralParam) {
+        BigDecimal hiddenFeeValue = WDp.getCdpGrpcHiddenFee(c, getRawDebtAmount(myCdp), collateralParam, myCdp);
+        return new BigDecimal(myCdp.getAccumulatedFees().getAmount()).add(hiddenFeeValue);
     }
 
     public static BigDecimal getEstimatedTotalDebt(Context c, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam) {
@@ -2008,6 +2041,35 @@ public class WUtil {
         BigDecimal collateralAmount = new BigDecimal(myCdp.getCollateral().getAmount()).movePointLeft(denomCDecimal);
         BigDecimal estimatedDebtAmount = getEstimatedTotalDebt(c, myCdp, cParam).multiply(new BigDecimal(cParam.getLiquidationRatio())).movePointLeft(denomPDecimal);
         return estimatedDebtAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_DOWN);
+    }
+
+    public static BigDecimal getWithdrawableAmount(Context c, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam, BigDecimal price, BigDecimal selfDeposit) {
+        int denomCDecimal = WUtil.getKavaCoinDecimal(cParam.getDenom());
+        int denomPDecimal = WUtil.getKavaCoinDecimal(cParam.getDebtLimit().getDenom());
+        BigDecimal cValue = new BigDecimal(myCdp.getCollateral().getAmount());
+        BigDecimal minCValue = getEstimatedTotalDebt(c, myCdp, cParam).multiply(new BigDecimal(cParam.getLiquidationRatio()).movePointLeft(18)).divide(new BigDecimal("0.95"), 0, BigDecimal.ROUND_DOWN);
+        BigDecimal maxWithdrawableValue = cValue.subtract(minCValue);
+        BigDecimal maxWithdrawableAmount = maxWithdrawableValue.movePointLeft(denomPDecimal - denomCDecimal).divide(price, 0, RoundingMode.DOWN);
+
+        if (maxWithdrawableAmount.compareTo(selfDeposit) > 0 ) {
+            maxWithdrawableAmount =  selfDeposit;
+        }
+        if (maxWithdrawableAmount.compareTo(BigDecimal.ZERO) <= 0) {
+            maxWithdrawableAmount = BigDecimal.ZERO;
+        }
+        return maxWithdrawableAmount;
+    }
+
+    public static BigDecimal getMoreLoanableAmount(Context c, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam) {
+        BigDecimal maxDebtValue = new BigDecimal(myCdp.getCollateral().getAmount()).divide(new BigDecimal(cParam.getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
+        maxDebtValue = maxDebtValue.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
+
+        maxDebtValue = maxDebtValue.subtract(getEstimatedTotalDebt(c, myCdp, cParam));
+        if (maxDebtValue.compareTo(BigDecimal.ZERO) <= 0) {
+            maxDebtValue = BigDecimal.ZERO;
+        }
+        return maxDebtValue;
+
     }
 
     //Hard
@@ -2028,6 +2090,15 @@ public class WUtil {
             }
         }
         return result;
+    }
+
+    public static Hard.MoneyMarket getHardMoneyMarket(Hard.Params params,String denom) {
+        for (Hard.MoneyMarket market: params.getMoneyMarketsList()) {
+            if (market.getDenom().equalsIgnoreCase(denom)) {
+                return market;
+            }
+        }
+        return null;
     }
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {

@@ -18,6 +18,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import cosmos.auth.v1beta1.Auth;
+import cosmos.base.v1beta1.CoinOuterClass;
+import kava.hard.v1beta1.Hard;
+import kava.hard.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -37,7 +41,8 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaHardReservesTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHardTotalBorrowTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHardTotalDepositTask;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaHardInterestRateGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaHardModuleAccountGrpcTask;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HardDetailInfoHolder;
@@ -51,6 +56,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_MY_
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_RESERVES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_TOTAL_BORROW;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_MODULE_ACCOUNT;
 
 public class HardDetailActivity extends BaseActivity {
     private Toolbar             mToolbar;
@@ -62,11 +69,15 @@ public class HardDetailActivity extends BaseActivity {
     private Account             mAccount;
     private BaseChain           mBaseChain;
 
-    private String                          mHardMoneyMarketDenom;
-    private HardParam                       mHardParam;
-    private HardParam.HardMoneyMarket       mHardMoneyMarket;
-    private ArrayList<HardInterestRate>     mInterestRates = new ArrayList<>();
-    private ArrayList<Coin>                 mModuleCoins = new ArrayList<>();
+    private String                                              mHardMoneyMarketDenom;
+    private Hard.Params                                         mHardParams;
+    private Hard.MoneyMarket                                    mHardMoneyMarket;
+    private ArrayList<QueryOuterClass.MoneyMarketInterestRate>  mInterestRates = new ArrayList<>();
+    private ArrayList<CoinOuterClass.Coin>                      mModuleCoins = new ArrayList<>();
+
+//    private HardParam.HardMoneyMarket       mHardMoneyMarket;
+//    private ArrayList<HardInterestRate>     mInterestRates = new ArrayList<>();
+//    private ArrayList<Coin>                 mModuleCoins = new ArrayList<>();
     private ArrayList<Coin>                 mReserveCoins = new ArrayList<>();
     private ArrayList<Coin>                 mTotalDeposit = new ArrayList<>();
     private ArrayList<Coin>                 mTotalBorrow = new ArrayList<>();
@@ -89,9 +100,9 @@ public class HardDetailActivity extends BaseActivity {
         mAccount                = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain              = BaseChain.getChain(mAccount.baseChain);
         mHardMoneyMarketDenom   = getIntent().getStringExtra("hard_money_market_denom");
-        mHardParam              = getBaseDao().mHardParam;
+        mHardParams              = getBaseDao().mHardParams;
         mIncentiveRewards       = getBaseDao().mIncentiveRewards;
-        mHardMoneyMarket        = mHardParam.getHardMoneyMarket(mHardMoneyMarketDenom);
+        mHardMoneyMarket        = WUtil.getHardMoneyMarket(mHardParams, mHardMoneyMarketDenom);
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -126,66 +137,81 @@ public class HardDetailActivity extends BaseActivity {
 
     private int mTaskCount = 0;
     public void onFetchHardInfo() {
-        mModuleCoins.clear();
-        mReserveCoins.clear();
-        mInterestRates.clear();
-        mTotalDeposit.clear();
-        mTotalBorrow.clear();
-        mMyDeposit.clear();
-        mMyBorrow.clear();
-        mTaskCount = 7;
-        new KavaHardInterestRateTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        mModuleCoins.clear();
+//        mReserveCoins.clear();
+//        mInterestRates.clear();
+//        mTotalDeposit.clear();
+//        mTotalBorrow.clear();
+//        mMyDeposit.clear();
+//        mMyBorrow.clear();
+        mTaskCount = 2;
+        new KavaHardInterestRateGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaHardModuleAccountGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+
+
+//        new KavaHardInterestRateTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaHardModuleAccountTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaHardReservesTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaHardTotalDepositTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaHardTotalBorrowTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaHardMyDepositTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaHardMyBorrowTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new KavaHardReservesTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new KavaHardTotalDepositTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new KavaHardTotalBorrowTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new KavaHardMyDepositTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new KavaHardMyBorrowTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         mTaskCount--;
-        if (result.taskType == TASK_FETCH_KAVA_HARD_INTEREST_RATE) {
+        if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE) {
             if (result.isSuccess && result.resultData != null) {
-                mInterestRates = (ArrayList<HardInterestRate>)result.resultData;
+                mInterestRates = (ArrayList<QueryOuterClass.MoneyMarketInterestRate>) result.resultData;
             }
 
-        } else if (result.taskType == TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT) {
+        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_MODULE_ACCOUNT) {
             if (result.isSuccess && result.resultData != null) {
-                mModuleCoins = (ArrayList<Coin>)result.resultData;
-                getBaseDao().mModuleCoins = mModuleCoins;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_HARD_RESERVES) {
-            if (result.isSuccess && result.resultData != null) {
-                mReserveCoins = (ArrayList<Coin>)result.resultData;
-                getBaseDao().mReserveCoins = mReserveCoins;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST) {
-            if (result.isSuccess && result.resultData != null) {
-                mTotalDeposit = (ArrayList<Coin>)result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_HARD_TOTAL_BORROW) {
-            if (result.isSuccess && result.resultData != null) {
-                mTotalBorrow = (ArrayList<Coin>)result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_HARD_MY_DEPOSIT) {
-            if (result.isSuccess && result.resultData != null) {
-                mMyDeposit = (ArrayList<HardMyDeposit>)result.resultData;
-                getBaseDao().mMyHardDeposit = mMyDeposit;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_HARD_MY_BORROW) {
-            if (result.isSuccess && result.resultData != null) {
-                mMyBorrow = (ArrayList<HardMyBorrow>)result.resultData;
-                getBaseDao().mMyHardBorrow = mMyBorrow;
+                ArrayList<Auth.ModuleAccount> accounts = (ArrayList<Auth.ModuleAccount>) result.resultData;
             }
         }
+
+
+
+
+
+//        } else if (result.taskType == TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT) {
+//            if (result.isSuccess && result.resultData != null) {
+//                mModuleCoins = (ArrayList<Coin>)result.resultData;
+//                getBaseDao().mModuleCoins = mModuleCoins;
+//            }
+//
+//        } else if (result.taskType == TASK_FETCH_KAVA_HARD_RESERVES) {
+//            if (result.isSuccess && result.resultData != null) {
+//                mReserveCoins = (ArrayList<Coin>)result.resultData;
+//                getBaseDao().mReserveCoins = mReserveCoins;
+//            }
+//
+//        } else if (result.taskType == TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST) {
+//            if (result.isSuccess && result.resultData != null) {
+//                mTotalDeposit = (ArrayList<Coin>)result.resultData;
+//            }
+//
+//        } else if (result.taskType == TASK_FETCH_KAVA_HARD_TOTAL_BORROW) {
+//            if (result.isSuccess && result.resultData != null) {
+//                mTotalBorrow = (ArrayList<Coin>)result.resultData;
+//            }
+//
+//        } else if (result.taskType == TASK_FETCH_KAVA_HARD_MY_DEPOSIT) {
+//            if (result.isSuccess && result.resultData != null) {
+//                mMyDeposit = (ArrayList<HardMyDeposit>)result.resultData;
+//                getBaseDao().mMyHardDeposit = mMyDeposit;
+//            }
+//
+//        } else if (result.taskType == TASK_FETCH_KAVA_HARD_MY_BORROW) {
+//            if (result.isSuccess && result.resultData != null) {
+//                mMyBorrow = (ArrayList<HardMyBorrow>)result.resultData;
+//                getBaseDao().mMyHardBorrow = mMyBorrow;
+//            }
+//        }
 
         if (mTaskCount == 0) {
             mAdapter.notifyDataSetChanged();
@@ -209,70 +235,70 @@ public class HardDetailActivity extends BaseActivity {
 //        return result;
 //    }
 
-    public void onHardDeposit() {
-        if (!onCommonCheck()) return;
-        if ((getBaseDao().availableAmount(mHardMoneyMarketDenom)).compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_available_to_deposit, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Intent intent = new Intent(this, DepositHardActivity.class);
-        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
-        startActivity(intent);
-
-    }
-
-    public void onHardWithdraw() {
-        if (!onCommonCheck()) return;
-        if (WUtil.getHardSuppliedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit).compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_deposited_asset, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Intent intent = new Intent(this, WithdrawHardActivity.class);
-        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
-        startActivity(intent);
-
-    }
-
-    public void onHardBorrow() {
-        if (!onCommonCheck()) return;
-        BigDecimal borrowAble = WUtil.getHardBorrowableAmountByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit, mMyBorrow, mModuleCoins, mReserveCoins);
-        if (borrowAble.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_borrowable_asset, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Intent intent = new Intent(this, BorrowHardActivity.class);
-        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
-        startActivity(intent);
-
-    }
-
-    public void onHardRepay() {
-        if (!onCommonCheck()) return;
-        if ((getBaseDao().availableAmount(mHardMoneyMarketDenom)).compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (WUtil.getHardBorrowedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyBorrow).compareTo(BigDecimal.TEN) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_noting_repay_asset, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Intent intent = new Intent(this, RepayHardActivity.class);
-        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
-        startActivity(intent);
-    }
-
-    private boolean onCommonCheck() {
-        if(!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return false;
-        }
-        return true;
-    }
+//    public void onHardDeposit() {
+//        if (!onCommonCheck()) return;
+//        if ((getBaseDao().availableAmount(mHardMoneyMarketDenom)).compareTo(BigDecimal.ZERO) <= 0) {
+//            Toast.makeText(getBaseContext(), R.string.error_no_available_to_deposit, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        Intent intent = new Intent(this, DepositHardActivity.class);
+//        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+//        startActivity(intent);
+//
+//    }
+//
+//    public void onHardWithdraw() {
+//        if (!onCommonCheck()) return;
+//        if (WUtil.getHardSuppliedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit).compareTo(BigDecimal.ZERO) <= 0) {
+//            Toast.makeText(getBaseContext(), R.string.error_no_deposited_asset, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        Intent intent = new Intent(this, WithdrawHardActivity.class);
+//        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+//        startActivity(intent);
+//
+//    }
+//
+//    public void onHardBorrow() {
+//        if (!onCommonCheck()) return;
+//        BigDecimal borrowAble = WUtil.getHardBorrowableAmountByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit, mMyBorrow, mModuleCoins, mReserveCoins);
+//        if (borrowAble.compareTo(BigDecimal.ZERO) <= 0) {
+//            Toast.makeText(getBaseContext(), R.string.error_no_borrowable_asset, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        Intent intent = new Intent(this, BorrowHardActivity.class);
+//        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+//        startActivity(intent);
+//
+//    }
+//
+//    public void onHardRepay() {
+//        if (!onCommonCheck()) return;
+//        if ((getBaseDao().availableAmount(mHardMoneyMarketDenom)).compareTo(BigDecimal.ZERO) <= 0) {
+//            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        if (WUtil.getHardBorrowedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyBorrow).compareTo(BigDecimal.TEN) <= 0) {
+//            Toast.makeText(getBaseContext(), R.string.error_noting_repay_asset, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        Intent intent = new Intent(this, RepayHardActivity.class);
+//        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+//        startActivity(intent);
+//    }
+//
+//    private boolean onCommonCheck() {
+//        if(!mAccount.hasPrivateKey) {
+//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+//            return false;
+//        }
+//        return true;
+//    }
 
     private class HardDetailAdapter extends RecyclerView.Adapter<BaseHolder> {
         private static final int TYPE_HARD_INFO         = 0;
@@ -294,13 +320,14 @@ public class HardDetailActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
-            if (getItemViewType(position) == TYPE_HARD_INFO) {
-                holder.onBindHardDetailInfo(HardDetailActivity.this, mBaseChain, getBaseDao(), mHardMoneyMarketDenom, mIncentiveRewards, mInterestRates, mTotalDeposit, mTotalBorrow, mModuleCoins, mReserveCoins);
-            } else if (getItemViewType(position) == TYPE_MY_STATUS) {
-                holder.onBindHardDetailMyStatus(HardDetailActivity.this, getBaseDao(), mBaseChain, mHardMoneyMarketDenom, mMyDeposit, mMyBorrow, mModuleCoins, mReserveCoins);
-            } else if (getItemViewType(position) == TYPE_MY_AVAILABLE) {
-                holder.onBindHardDetailAvailable(HardDetailActivity.this, getBaseDao(), mBaseChain, mHardMoneyMarketDenom);
-            }
+//            if (getItemViewType(position) == TYPE_HARD_INFO) {
+//                holder.onBindHardDetailInfo(HardDetailActivity.this, mBaseChain, getBaseDao(), mHardMoneyMarketDenom, mIncentiveRewards, mInterestRates, mTotalDeposit, mTotalBorrow, mModuleCoins, mReserveCoins);
+//            }
+//            } else if (getItemViewType(position) == TYPE_MY_STATUS) {
+//                holder.onBindHardDetailMyStatus(HardDetailActivity.this, getBaseDao(), mBaseChain, mHardMoneyMarketDenom, mMyDeposit, mMyBorrow, mModuleCoins, mReserveCoins);
+//            } else if (getItemViewType(position) == TYPE_MY_AVAILABLE) {
+//                holder.onBindHardDetailAvailable(HardDetailActivity.this, getBaseDao(), mBaseChain, mHardMoneyMarketDenom);
+//            }
         }
 
         @Override

@@ -24,7 +24,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaHardInterestRateGrpcTask;
@@ -52,10 +51,6 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
     private ArrayList<QueryOuterClass.BorrowResponse>           mMyBorrows = new ArrayList<>();
     private ArrayList<QueryOuterClass.MoneyMarketInterestRate>  mInterestRates = new ArrayList<>();
     private IncentiveReward                                     mIncentiveRewards;
-
-    private ArrayList<Coin>                 mTotalDeposit = new ArrayList<>();
-    private ArrayList<Coin>                 mTotalBorrow = new ArrayList<>();
-
 
     public static ListHardFragment newInstance(Bundle bundle) {
         ListHardFragment fragment = new ListHardFragment();
@@ -108,18 +103,10 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
         mMyDeposits.clear();
         mMyBorrows.clear();
         mInterestRates.clear();
-//        mInterestRates.clear();
-//        mTotalDeposit.clear();
-//        mTotalBorrow.clear();
-//        mMyDeposit.clear();
-//        mMyBorrow.clear();
         mTaskCount = 3;
         new KavaHardMyDepositGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaHardMyBorrowGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaHardInterestRateGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//        new KavaHardInterestRateTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//        new KavaHardTotalDepositTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//        new KavaHardTotalBorrowTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -142,18 +129,6 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
             }
 
         }
-//        if (result.taskType == TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST) {
-//            if (result.isSuccess && result.resultData != null) {
-//                mTotalDeposit = (ArrayList<Coin>)result.resultData;
-//            }
-//
-//        } else if (result.taskType == TASK_FETCH_KAVA_HARD_TOTAL_BORROW) {
-//            if (result.isSuccess && result.resultData != null) {
-//                mTotalBorrow = (ArrayList<Coin>)result.resultData;
-//            }
-//
-//        }
-
         if (mTaskCount == 0) {
             mAdapter.notifyDataSetChanged();
             mProgress.setVisibility(View.GONE);

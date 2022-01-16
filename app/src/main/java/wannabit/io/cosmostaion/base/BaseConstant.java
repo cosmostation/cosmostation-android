@@ -223,6 +223,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT        = 4293;
     public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_BORROW         = 4294;
     public final static int TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE     = 4295;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_MODULE_ACCOUNT    = 4296;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;

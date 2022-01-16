@@ -22,10 +22,9 @@ import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.KavaMyCdpsGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpsByOwnerGrpcTask;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.CdpMyHolder;
 import wannabit.io.cosmostaion.widget.CdpOtherHolder;
@@ -44,12 +43,6 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     private Genesis.Params                                  mCdpParams;
     private ArrayList<QueryOuterClass.CDPResponse>          mMyCdps = new ArrayList<>();
     private ArrayList<Genesis.CollateralParam>              mOtherCdps = new ArrayList<>();
-    private IncentiveReward                                 mIncentiveRewards;
-//    private CdpParam                                        mCdpParams;
-//    private ArrayList<MyCdp>                                mMyCdps = new ArrayList<>();
-//    private ArrayList<CollateralParam>                      mOtherCdps = new ArrayList<>();
-
-
 
     public static ListCdpFragment newInstance(Bundle bundle) {
         ListCdpFragment fragment = new ListCdpFragment();
@@ -93,7 +86,6 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     @Override
     public void onRefreshTab() {
         mCdpParams = getBaseDao().mCdpParams;
-        mIncentiveRewards = getBaseDao().mIncentiveRewards;
         onFetchCdpInfo();
     }
 
@@ -102,7 +94,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
         mMyCdps.clear();
         mOtherCdps.clear();
         mTaskCount = 1;
-        new KavaMyCdpsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

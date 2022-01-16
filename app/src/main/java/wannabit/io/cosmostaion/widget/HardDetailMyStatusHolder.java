@@ -89,29 +89,29 @@ public class HardDetailMyStatusHolder extends BaseHolder {
         WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, finalBorrowableAmount.toPlainString(), mBorrowableDenomTv, mBorrowableAmountTv, chain);
         mBorrowableValueTv.setText(WDp.getDpRawDollor(context, finalBorrowableValue, 2));
 
-        mMyBtnSupply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onHardDeposit();
-            }
-        });
-        mMyBtnWithdraw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onHardWithdraw();
-            }
-        });
-        mMyBtnBorrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onHardBorrow();
-            }
-        });
-        mMyBtnRepay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onHardRepay();
-            }
-        });
+//        mMyBtnSupply.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                context.onHardDeposit();
+//            }
+//        });
+//        mMyBtnWithdraw.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                context.onHardWithdraw();
+//            }
+//        });
+//        mMyBtnBorrow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                context.onHardBorrow();
+//            }
+//        });
+//        mMyBtnRepay.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                context.onHardRepay();
+//            }
+//        });
     }
 }

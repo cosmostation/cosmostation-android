@@ -71,8 +71,7 @@ public class CdpMyHolder extends BaseHolder {
         }
 
         itemCollateralType.setText(collateralParam.getType().toUpperCase());
-        itemTitleMarket.setText(collateralParam.getSpotMarketId());
-        itemTitleMarket.setText(WUtil.getDpMarketId(collateralParam.getDenom(), collateralParam.getDebtLimit()));
+        itemTitleMarket.setText(collateralParam.getSpotMarketId().toUpperCase());
         itemDebtValueTitle.setText(String.format(c.getString(R.string.str_debt_value), myCdp.getPrincipal().getDenom().toUpperCase()));
         itemCollateralValueTitle.setText(String.format(c.getString(R.string.str_collateral_value_title3), myCdp.getCollateral().getDenom().toUpperCase()));
 

@@ -11,10 +11,10 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import kava.cdp.v1beta1.Genesis;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -43,21 +43,21 @@ public class CdpDetailMyAvailableHolder extends BaseHolder {
 
     @Override
     public void onBindCdpDetailAvailable(CdpDetail5Activity context, BaseData baseData, String collateralType) {
-        final CollateralParam collateralParam   = baseData.mCdpParam.getCollateralParamByType(collateralType);
-        final String cDenom                     = collateralParam.denom;
-        final String pDenom                     = collateralParam.debt_limit.denom;
-        final BigDecimal currentPrice           = new BigDecimal(baseData.mKavaTokenPrices.get(collateralParam.liquidation_market_id).price);
-        final BigDecimal cAvailable             = WUtil.getTokenBalance(baseData.mBalances, cDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(baseData.mBalances, cDenom).balance;
-        final BigDecimal pAvailable             = WUtil.getTokenBalance(baseData.mBalances, pDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(baseData.mBalances, pDenom).balance;
-        final BigDecimal kAvailable             = WUtil.getTokenBalance(baseData.mBalances, TOKEN_KAVA) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(baseData.mBalances, TOKEN_KAVA).balance;
+        final Genesis.CollateralParam collateralParam   = baseData.getCollateralParamByType(collateralType);
+        final String cDenom                             = collateralParam.getDenom();
+        final String pDenom                             = collateralParam.getDebtLimit().getDenom();
+        final BigDecimal currentPrice                   = new BigDecimal(baseData.mKavaTokenPrice.get(collateralParam.getLiquidationMarketId()).getPrice()).movePointLeft(18);
+        final BigDecimal cAvailable                     = baseData.getAvailable(cDenom);
+        final BigDecimal pAvailable                     = baseData.getAvailable(pDenom);
+        final BigDecimal kAvailable                     = baseData.getAvailable(TOKEN_KAVA);
 
 
-        mEmptyCollateralDenom.setText(collateralParam.denom.toUpperCase());
+        mEmptyCollateralDenom.setText(collateralParam.getDenom().toUpperCase());
         mEmptyCollateralAmount.setText(WDp.getDpAmount2(context, cAvailable, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
         BigDecimal collateralValue = cAvailable.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mEmptyCollateralValue.setText(WDp.getDpRawDollor(context, collateralValue, 2));
 
-        mEmptyPrincipalDenom.setText(collateralParam.debt_limit.denom.toUpperCase());
+        mEmptyPrincipalDenom.setText(collateralParam.getDebtLimit().getDenom().toUpperCase());
         mEmptyPrincipalAmount.setText(WDp.getDpAmount2(context, pAvailable, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
         BigDecimal principalValue = pAvailable.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)).setScale(2, RoundingMode.DOWN);
         mEmptyPrincipalValue.setText(WDp.getDpRawDollor(context, principalValue, 2));

@@ -14,14 +14,15 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import kava.cdp.v1beta1.Genesis;
+import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Staus;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
-import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_IMG_URL;
 
@@ -65,30 +66,29 @@ public class CdpDetailInfoHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindCdpDetailInfo(CdpDetail5Activity context, BaseData baseData, MyCdp myCdp, String collateralType, BigDecimal debtAmount) {
-        final CollateralParam collateralParam   = baseData.mCdpParam.getCollateralParamByType(collateralType);
-        final String cDenom                     = collateralParam.denom;
-        final String pDenom                     = collateralParam.debt_limit.denom;
-        final BigDecimal currentPrice           = new BigDecimal(baseData.mKavaTokenPrices.get(collateralParam.liquidation_market_id).price);
+    public void onBindCdpDetailInfo(CdpDetail5Activity context, BaseData baseData, QueryOuterClass.CDPResponse myCdp, String collateralType, BigDecimal debtAmount) {
+        final Genesis.CollateralParam collateralParam   = baseData.getCollateralParamByType(collateralType);
+        final String cDenom                             = collateralParam.getDenom();
+        final BigDecimal currentPrice                   = new BigDecimal(baseData.mKavaTokenPrice.get(collateralParam.getLiquidationMarketId()).getPrice()).movePointLeft(18);
 
         try {
-            Picasso.get().load(KAVA_CDP_IMG_URL +  collateralParam.getImagePath()).fit().into(mInfoMarketImg);
+            Picasso.get().load(KAVA_CDP_IMG_URL + collateralParam.getDenom() + "usd.png").fit().into(mInfoMarketImg);
         } catch (Exception e) { }
 
-        mInfoMarketType.setText(collateralParam.type.toUpperCase());
-        mInfoMarketId.setText(collateralParam.getDpMarketId());
+        mInfoMarketType.setText(collateralParam.getType().toUpperCase());
+        mInfoMarketId.setText(collateralParam.getSpotMarketId().toUpperCase());
 
-        mInfoCollateralRate.setText(WDp.getPercentDp(collateralParam.getDpLiquidationRatio(), 2));
-        mInfoStabilityFee.setText(WDp.getPercentDp(collateralParam.getDpStabilityFee(), 2));
-        mInfoLiquidationPenalty.setText(WDp.getPercentDp(collateralParam.getDpLiquidationPenalty(), 2));
+        mInfoCollateralRate.setText(WDp.getPercentDp(new BigDecimal(collateralParam.getLiquidationRatio()).movePointLeft(16), 2));
+        mInfoStabilityFee.setText(WDp.getPercentDp(WUtil.getDpStabilityFee(collateralParam), 2));
+        mInfoLiquidationPenalty.setText(WDp.getPercentDp(new BigDecimal(collateralParam.getLiquidationPenalty()).movePointLeft(16), 2));
         mInfoCurrentPriceTitle.setText(String.format(context.getString(R.string.str_current_title3), cDenom.toUpperCase()));
         mInfoCurrentPrice.setText(WDp.getDpRawDollor(context, currentPrice, 4));
 
-        mInfoMaxDebtAmount.setText(WDp.getDpAmount2(context, baseData.mCdpParam.getGlobalDebtAmount(), 6, 6));
-        mInfoRemainDebtAmount.setText(WDp.getDpAmount2(context, baseData.mCdpParam.getGlobalDebtAmount().subtract(debtAmount), 6, 6));
+        mInfoMaxDebtAmount.setText(WDp.getDpAmount2(context, new BigDecimal(baseData.mCdpParams.getGlobalDebtLimit().getAmount()), 6, 6));
+        mInfoRemainDebtAmount.setText(WDp.getDpAmount2(context, new BigDecimal(baseData.mCdpParams.getGlobalDebtLimit().getAmount()).subtract(debtAmount), 6, 6));
 
         if (myCdp != null) {
-            mLiquidationPrice = myCdp.getLiquidationPrice(context, collateralParam);
+            mLiquidationPrice = WUtil.getLiquidationPrice(context, myCdp, collateralParam).movePointLeft(18);
             mRiskRate = new BigDecimal(100).subtract((currentPrice.subtract(mLiquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
             WDp.DpRiskRate(context, mRiskRate, mInfoRiskScore, mInfoImgRisk);
 
@@ -133,7 +133,6 @@ public class CdpDetailInfoHolder extends BaseHolder {
 
             }
         });
-
     }
 
     private void onShowHelpPopup(CdpDetail5Activity context, String title, String msg) {

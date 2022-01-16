@@ -17,13 +17,13 @@ import wannabit.io.cosmostaion.utils.WLog;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_MY_CDPS;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
-public class KavaMyCdpsGrpcTask extends CommonTask {
+public class KavaCdpsByOwnerGrpcTask extends CommonTask {
     private BaseChain mChain;
     private Account   mAccount;
     private ArrayList<QueryOuterClass.CDPResponse> mResultData = new ArrayList<>();
     private QueryGrpc.QueryBlockingStub mStub;
 
-    public KavaMyCdpsGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account) {
+    public KavaCdpsByOwnerGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account) {
         super(app, listener);
         this.mChain = chain;
         this.mAccount = account;
