@@ -57,7 +57,6 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
@@ -84,6 +83,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaSwapGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.LinkAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.MintNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisBeginUnbondingGrpcTask;
@@ -257,8 +257,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Liquidity.Pool              mGDexPool;
     public String                       mGDexSwapOrderPrice;
 
-    private String                      mKavaShareAmount;
-
     private Coin                            mSifSwapInCoin;
     private Coin                            mSifSwapOutCoin;
     private Coin                            mSifDepositCoin0;
@@ -288,6 +286,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Coin                            mKavaSwapOut;
     private Coin                            mKavaPoolTokenA;
     private Coin                            mKavaPoolTokenB;
+    private String                          mKavaShareAmount;
+    private Coin                            mKavaMinTokenA;
+    private Coin                            mKavaMinTokenB;
 
     private String                      mPortId;
     private String                      mChannelId;
@@ -372,7 +373,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mPoolId = String.valueOf(getIntent().getLongExtra("mPoolId", 0));
         mPoolCoin0 = getIntent().getParcelableExtra("mPoolCoin0");
         mPoolCoin1 = getIntent().getParcelableExtra("mPoolCoin1");
-        mKavaShareAmount = getIntent().getStringExtra("mKavaShare");
         mLpToken = getIntent().getParcelableExtra("mLpToken");
         mSwapInCoin = getIntent().getParcelableExtra("SwapInputCoin");
         mSwapOutCoin = getIntent().getParcelableExtra("SwapOutputcoin");
@@ -412,6 +412,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mKavaSwapOut = getIntent().getParcelableExtra("kavaSwapOut");
         mKavaPoolTokenA = getIntent().getParcelableExtra("mKavaPoolTokenA");
         mKavaPoolTokenB = getIntent().getParcelableExtra("mKavaPoolTokenB");
+        mKavaShareAmount = getIntent().getStringExtra("mKavaShare");
+        mKavaMinTokenA = getIntent().getParcelableExtra("mKavaMinTokenA");
+        mKavaMinTokenB = getIntent().getParcelableExtra("mKavaMinTokenB");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -619,11 +622,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 //
 //        }
 
-        else if (mPurpose == CONST_PW_TX_KAVA_EXIT_POOL) {
-            new SimpleKavaWithdrawTask(getBaseApplication(),this, mAccount, mKavaShareAmount, mPoolCoin0, mPoolCoin1,
-                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-        }
+//        else if (mPurpose == CONST_PW_TX_KAVA_EXIT_POOL) {
+//            new SimpleKavaWithdrawTask(getBaseApplication(),this, mAccount, mKavaShareAmount, mPoolCoin0, mPoolCoin1,
+//                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+//
+//        }
 
         else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {
             new SimpleOkDepositTask(getBaseApplication(), this, mAccount, mBaseChain,
@@ -798,6 +801,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new KavaDepositGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaPoolTokenA, mKavaPoolTokenB,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        } else if (mPurpose == CONST_PW_TX_KAVA_EXIT_POOL) {
+            new KavaWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaShareAmount, mKavaMinTokenA, mKavaMinTokenB,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
         else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {

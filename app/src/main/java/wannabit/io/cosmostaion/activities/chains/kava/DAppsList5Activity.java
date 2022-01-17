@@ -204,7 +204,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         startActivity(intent);
     }
 
-    public void onCheckStartExitPool(SwapPool otherPool, SwapDeposit swapDeposit) {
+    public void onCheckStartExitPool(QueryOuterClass.PoolResponse myPool, QueryOuterClass.DepositResponse myDeposit) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -212,7 +212,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             return;
         }
 
-        BigDecimal mainBalance = getBaseDao().availableAmount(TOKEN_KAVA);
+        BigDecimal mainBalance = getBaseDao().getAvailable(TOKEN_KAVA);
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_KAVA_EXIT_POOL, 0);
 
         if (mainBalance.compareTo(feeAmount) < 0) {
@@ -221,8 +221,8 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         }
 
         Intent intent = new Intent(getBaseContext(), WithDrawPoolActivity.class);
-        intent.putExtra("mKavaPool", otherPool);
-        intent.putExtra("mKavaDeposit", swapDeposit);
+        intent.putExtra("mKavaPool", myPool);
+        intent.putExtra("mKavaDeposit", myDeposit);
         startActivity(intent);
     }
 

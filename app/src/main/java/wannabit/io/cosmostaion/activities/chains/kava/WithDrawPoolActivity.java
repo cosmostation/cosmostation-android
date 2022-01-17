@@ -16,17 +16,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import kava.swap.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawPoolStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawPoolStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 
@@ -53,8 +53,8 @@ public class WithDrawPoolActivity extends BaseBroadCastActivity {
         mTitle.setText(getString(R.string.str_title_pool_exit));
 
         mTxType = CONST_PW_TX_KAVA_EXIT_POOL;
-        mKavaSwapPool = getIntent().getParcelableExtra("mKavaPool");
-        mKavaSwapDeposit = getIntent().getParcelableExtra("mKavaDeposit");
+        mKavaSwapPool = (QueryOuterClass.PoolResponse) getIntent().getSerializableExtra("mKavaPool");
+        mKavaDepositPool = (QueryOuterClass.DepositResponse) getIntent().getSerializableExtra("mKavaDeposit");
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -145,12 +145,12 @@ public class WithDrawPoolActivity extends BaseBroadCastActivity {
         }
     }
 
-    public void onStartExitPool(Coin coin0, Coin coin1) {
+    public void onStartExitPool() {
         Intent intent = new Intent(WithDrawPoolActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_KAVA_EXIT_POOL);
         intent.putExtra("mKavaShare", mKavaShareAmount.toPlainString());
-        intent.putExtra("mPoolCoin0", coin0);
-        intent.putExtra("mPoolCoin1", coin1);
+        intent.putExtra("mKavaMinTokenA", mKavaMinTokenA);
+        intent.putExtra("mKavaMinTokenB", mKavaMinTokenB);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
@@ -167,7 +167,7 @@ public class WithDrawPoolActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(WithdrawPoolStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(WithdrawPoolStep3Fragment.newInstance(null));
         }
 

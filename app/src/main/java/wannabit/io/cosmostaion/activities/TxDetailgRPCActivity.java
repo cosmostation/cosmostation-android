@@ -79,6 +79,7 @@ import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaDepositPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaWithdrawPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxIssueDenomHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxMintNFTHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxTransferNFTHolder;
@@ -285,6 +286,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
         private static final int TYPE_TX_KAVA_SWAP = 110;
         private static final int TYPE_TX_KAVA_DEPOSIT_POOL = 111;
+        private static final int TYPE_TX_KAVA_WITHDRAW_POOL = 112;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -477,6 +479,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_KAVA_DEPOSIT_POOL) {
                 return new TxKavaDepositPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_deposit, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_WITHDRAW_POOL) {
+                return new TxKavaWithdrawPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_withdraw, viewGroup, false));
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -649,6 +654,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_SWAP;
                 } else if (msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgDeposit.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_DEPOSIT_POOL;
+                } else if (msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgWithdraw.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_WITHDRAW_POOL;
                 }
                 return TYPE_TX_UNKNOWN;
             }

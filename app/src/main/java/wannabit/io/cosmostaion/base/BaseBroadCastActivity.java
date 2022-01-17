@@ -59,11 +59,9 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mGDexPoolCoinSupply;
     public String                       mGDexSwapOrderPrice;
 
-    public SwapDeposit                  mKavaSwapDeposit;
-    public BigDecimal                   mKavaShareAmount = BigDecimal.ZERO;
+
     public String                       mIncentiveMultiplier;
 
-    public kava.swap.v1beta1.QueryOuterClass.PoolResponse     mKavaSwapPool;         //kava swap
 
     public sifnode.clp.v1.Types.Pool    mSifPool;                                   // sif swap
     public Coin                         mSifSwapInCoin;
@@ -95,10 +93,16 @@ public class BaseBroadCastActivity extends BaseActivity {
     public BigDecimal                   mDesmosAirDropAmount = BigDecimal.ZERO;
 
     // Kava
-    public Coin                         mKavaSwapIn;
-    public Coin                         mKavaSwapOut;
-    public Coin                         mKavaPoolTokenA;
-    public Coin                         mKavaPoolTokenB;
+    public kava.swap.v1beta1.QueryOuterClass.PoolResponse       mKavaSwapPool;
+    public kava.swap.v1beta1.QueryOuterClass.DepositResponse    mKavaDepositPool;
+    public Coin                                                 mKavaSwapIn;
+    public Coin                                                 mKavaSwapOut;
+    public Coin                                                 mKavaPoolTokenA;
+    public Coin                                                 mKavaPoolTokenB;
+    public BigDecimal                                           mKavaShareAmount = BigDecimal.ZERO;
+    public Coin                                                 mKavaMinTokenA;
+    public Coin                                                 mKavaMinTokenB;
+
 
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
     public BigDecimal                   mHdacBalance;                               //rizon swap amount

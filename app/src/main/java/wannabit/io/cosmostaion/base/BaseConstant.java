@@ -259,6 +259,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_LINK_ACCOUNT               = 4332;
     public final static int TASK_GRPC_GEN_TX_KAVA_SWAP                  = 4333;
     public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT               = 4334;
+    public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW              = 4335;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -293,6 +294,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_CREATE_PROFILE           = 4532;
     public final static int TASK_GRPC_SIMULATE_KAVA_SWAP                = 4533;
     public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT             = 4534;
+    public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW            = 4535;
 
 
 
@@ -368,10 +370,10 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_BORROW_HARD                    = "hard/MsgBorrow";
     public final static String KAVA_MSG_TYPE_REPAY_HARD                     = "hard/MsgRepay";
     public final static String KAVA_MSG_TYPE_LIQUIDATE_HARD                 = "hard/MsgLiquidate";
-    public final static String KAVA_MSG_TYPE_SWAP_TOKEN                     = "swap/MsgSwapExactForTokens";
-    public final static String KAVA_MSG_TYPE_SWAP_TOKEN2                    = "swap/MsgSwapForExactTokens";
-    public final static String KAVA_MSG_TYPE_DEPOSIT                        = "swap/MsgDeposit";
-    public final static String KAVA_MSG_TYPE_WITHDRAW                       = "swap/MsgWithdraw";
+    public final static String KAVA_MSG_TYPE_SWAP_TOKEN                     = "/kava.swap.v1beta1.MsgSwapExactForTokens";
+    public final static String KAVA_MSG_TYPE_SWAP_TOKEN2                    = "/kava.swap.v1beta1.MsgSwapForExactTokens";
+    public final static String KAVA_MSG_TYPE_DEPOSIT                        = "/kava.swap.v1beta1.MsgDeposit";
+    public final static String KAVA_MSG_TYPE_WITHDRAW                       = "/kava.swap.v1beta1.MsgWithdraw";
 
 
     public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";

@@ -10,29 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.WithDrawPoolActivity;
-import wannabit.io.cosmostaion.activities.chains.osmosis.ExitPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnClickListener{
 
-    private TextView mFeeAmount;
+    private TextView        mFeeAmount;
     private TextView        mFeeAmountSymbol;
     private TextView        mExitMyShare;
     private TextView        mExitOutput0Amount, mExitOutput0AmountSymbol;
     private TextView        mExitOutput1Amount, mExitOutput1AmountSymbol;
     private TextView        mMemo;
     private int             mDpDecimal = 6;
-    private Coin            mCoin0, mCoin1;
 
     private Button          mBeforeBtn, mConfirmBtn;
 
@@ -52,7 +45,7 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
         View rootView = inflater.inflate(R.layout.fragment_withdraw_pool_step3, container, false);
         mFeeAmount                  = rootView.findViewById(R.id.exit_fee_amount);
         mFeeAmountSymbol            = rootView.findViewById(R.id.exit_fee_amount_symbol);
-        mExitMyShare               = rootView.findViewById(R.id.tx_kava_my_share);
+        mExitMyShare                = rootView.findViewById(R.id.tx_kava_my_share);
         mExitOutput0Amount          = rootView.findViewById(R.id.tx_kava_withdraw_amount0);
         mExitOutput0AmountSymbol    = rootView.findViewById(R.id.tx_kava_withdraw_symbol0);
         mExitOutput1Amount          = rootView.findViewById(R.id.tx_kava_withdraw_amount1);
@@ -73,17 +66,9 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         mExitMyShare.setText(WDp.getDpAmount2(getSActivity(), getSActivity().mKavaShareAmount, 6, 6));
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        WLog.w("mKavaSwapDeposit : " + getSActivity().mKavaSwapDeposit.shares_owned);
-        BigDecimal depositRate = (getSActivity().mKavaShareAmount).divide(new BigDecimal(getSActivity().mKavaSwapDeposit.shares_owned), 18, RoundingMode.DOWN);
-        BigDecimal padding = new BigDecimal("0.97");
-        BigDecimal coin0Amount = new BigDecimal(getSActivity().mKavaSwapDeposit.shares_value.get(0).amount).multiply(padding).multiply(depositRate).setScale(0, RoundingMode.DOWN);
-        BigDecimal coin1Amount = new BigDecimal(getSActivity().mKavaSwapDeposit.shares_value.get(1).amount).multiply(padding).multiply(depositRate).setScale(0, RoundingMode.DOWN);
 
-        mCoin0 = new Coin(getSActivity().mKavaSwapDeposit.shares_value.get(0).denom, coin0Amount.toPlainString());
-        mCoin1 = new Coin(getSActivity().mKavaSwapDeposit.shares_value.get(1).denom, coin1Amount.toPlainString());
-
-        WDp.showCoinDp(getSActivity(), getBaseDao(), mCoin0, mExitOutput0AmountSymbol, mExitOutput0Amount, BaseChain.KAVA_MAIN);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), mCoin1, mExitOutput1AmountSymbol, mExitOutput1Amount, BaseChain.KAVA_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mKavaMinTokenA, mExitOutput0AmountSymbol, mExitOutput0Amount, BaseChain.KAVA_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mKavaMinTokenB, mExitOutput1AmountSymbol, mExitOutput1Amount, BaseChain.KAVA_MAIN);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mMemo.setText(getSActivity().mTxMemo);
@@ -95,7 +80,7 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            getSActivity().onStartExitPool(mCoin0, mCoin1);
+            getSActivity().onStartExitPool();
         }
     }
 
