@@ -95,8 +95,10 @@ public class BaseBroadCastActivity extends BaseActivity {
     public BigDecimal                   mDesmosAirDropAmount = BigDecimal.ZERO;
 
     // Kava
-    public Coin                         mSwapIn;
-    public Coin                         mSwapOut;
+    public Coin                         mKavaSwapIn;
+    public Coin                         mKavaSwapOut;
+    public Coin                         mKavaPoolTokenA;
+    public Coin                         mKavaPoolTokenB;
 
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
     public BigDecimal                   mHdacBalance;                               //rizon swap amount

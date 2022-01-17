@@ -50,7 +50,7 @@ import wannabit.io.cosmostaion.widget.txDetail.kava.TxDelegatorIncentive;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolIncentive;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidate;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
-import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapDeposit;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaDepositPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapIncentive;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapWithdraw;
 
@@ -427,11 +427,15 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 //                return new TxSwapToken(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_token, viewGroup, false));
 //            }
 
-            else if (viewType == TYPE_TX_SWAP_DEPOSIT) {
-                return new TxSwapDeposit(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_deposit, viewGroup, false));
-            } else if (viewType == TYPE_TX_SWAP_WITHDRAW) {
+//            else if (viewType == TYPE_TX_SWAP_DEPOSIT) {
+//                return new TxSwapDeposit(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_deposit, viewGroup, false));
+//            }
+
+            else if (viewType == TYPE_TX_SWAP_WITHDRAW) {
                 return new TxSwapWithdraw(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_withdraw, viewGroup, false));
-            } else if (viewType == TYPE_TX_HTLC_CREATE) {
+            }
+
+            else if (viewType == TYPE_TX_HTLC_CREATE) {
                 return new TxCreateHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_create, viewGroup, false));
             } else if (viewType == TYPE_TX_HTLC_CLAIM) {
                 return new TxClaimHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
@@ -1198,13 +1202,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         }
 
         private void onBindSwapDeposit(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxSwapDeposit holder = (TxSwapDeposit) viewHolder;
-            holder.onBind(getBaseContext(), getBaseDao(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1));
+            final TxKavaDepositPoolHolder holder = (TxKavaDepositPoolHolder) viewHolder;
+//            holder.onBind(getBaseContext(), getBaseDao(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1));
         }
 
         private void onBindSwapWithdraw(RecyclerView.ViewHolder viewHolder, int position) {
             final TxSwapWithdraw holder = (TxSwapWithdraw) viewHolder;
-            holder.onBind(getBaseContext(), getBaseDao(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1));
+//            holder.onBind(getBaseContext(), getBaseDao(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1));
         }
 
         private void onBindCreateHTLC(RecyclerView.ViewHolder viewHolder, int position) {

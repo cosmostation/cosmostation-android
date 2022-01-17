@@ -190,9 +190,9 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         String coin0Denom = myPool.getCoins(0).getDenom();
         String coin1Denom = myPool.getCoins(1).getDenom();
 
-        BigDecimal available0MaxAmount = getBaseDao().availableAmount(coin0Denom);
+        BigDecimal available0MaxAmount = getBaseDao().getAvailable(coin0Denom);
         if (coin0Denom.equalsIgnoreCase(TOKEN_KAVA)) { available0MaxAmount = available0MaxAmount.subtract(feeAmount); }
-        BigDecimal available1MaxAmount = getBaseDao().availableAmount(coin1Denom);
+        BigDecimal available1MaxAmount = getBaseDao().getAvailable(coin1Denom);
         if (coin1Denom.equalsIgnoreCase(TOKEN_KAVA)) { available1MaxAmount = available1MaxAmount.subtract(feeAmount); }
 
         if (available0MaxAmount.compareTo(BigDecimal.ZERO) <= 0 || available1MaxAmount.compareTo(BigDecimal.ZERO) <=0 ) {

@@ -265,13 +265,13 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
             if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (InputAmountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.CEILING)) > 0) return false;
 
-            getSActivity().mSwapIn = new Coin(getSActivity().mInputDenom, InputAmountTemp.movePointRight(mInputCoinDecimal).setScale(0).toPlainString());
-            getSActivity().mSwapOut = new Coin(getSActivity().mOutputDenom, OutAmountTemp.movePointRight(mOutputCoinDecimal).setScale(0).toPlainString());
+            getSActivity().mKavaSwapIn = new Coin(getSActivity().mInputDenom, InputAmountTemp.movePointRight(mInputCoinDecimal).setScale(0).toPlainString());
+            getSActivity().mKavaSwapOut = new Coin(getSActivity().mOutputDenom, OutAmountTemp.movePointRight(mOutputCoinDecimal).setScale(0).toPlainString());
             return true;
 
         } catch (Exception e) {
-            getSActivity().mSwapIn = null;
-            getSActivity().mSwapOut = null;
+            getSActivity().mKavaSwapIn = null;
+            getSActivity().mKavaSwapOut = null;
             return false;
         }
     }
