@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import cosmos.base.v1beta1.CoinOuterClass;
@@ -24,12 +27,14 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.kava.CdpDeposit;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpsByOwnerGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.TotalSupplyGrpcTask;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.CdpDetailInfoHolder;
 import wannabit.io.cosmostaion.widget.CdpDetailMyAvailableHolder;
@@ -171,35 +176,35 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnOpenCdp)) {
-//            onCheckStartCreateCdp();
+            onCheckStartCreateCdp();
         }
 
     }
 
-//    public void onCheckStartCreateCdp() {
-//        if (!onCommonCheck()) return;
-//
-//        final CollateralParam collateralParam   = mCdpParam.getCollateralParamByType(mCollateralType);
-//        final String cDenom                     = collateralParam.denom;
-//        final String pDenom                     = collateralParam.debt_limit.denom;
-//        final BigDecimal currentPrice           = new BigDecimal(getBaseDao().mKavaTokenPrices.get(collateralParam.liquidation_market_id).price);
-//        final BigDecimal cAvailable             = WUtil.getTokenBalance(getBaseDao().mBalances, cDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(getBaseDao().mBalances, cDenom).balance;
-//        BigDecimal principalMinAmount           = new BigDecimal(mCdpParam.debt_param.debt_floor);
-//        BigDecimal collateralMinAmount          = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(collateralParam.liquidation_ratio)).divide(currentPrice, 0, RoundingMode.UP);
-//        if (collateralMinAmount.compareTo(cAvailable) > 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (mCdpParam.getGlobalDebtAmount().compareTo(mDebtAmount) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_no_more_debt_kava, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        Intent intent = new Intent(this, CreateCdpActivity.class);
-//        intent.putExtra("collateralParamType", mCollateralType);
-//        intent.putExtra("marketId", collateralParam.liquidation_market_id);
-//        startActivity(intent);
-//    }
+    public void onCheckStartCreateCdp() {
+        if (!onCommonCheck()) return;
+
+        final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
+        final String cDenom                                     = collateralParam.getDenom();
+        final String pDenom                                     = collateralParam.getDebtLimit().getDenom();
+        final BigDecimal currentPrice                           = new BigDecimal(getBaseDao().mKavaTokenPrice.get(collateralParam.getLiquidationMarketId()).getPrice()).movePointLeft(18);
+        final BigDecimal cAvailable                             = getBaseDao().getAvailable(cDenom);
+        BigDecimal principalMinAmount                           = new BigDecimal(mCdpParams.getDebtParam().getDebtFloor());
+        BigDecimal collateralMinAmount                          = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(collateralParam.getLiquidationRatio()).movePointLeft(18)).divide(currentPrice, 0, RoundingMode.UP);
+        if (collateralMinAmount.compareTo(cAvailable) > 0) {
+            Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (new BigDecimal(mCdpParams.getGlobalDebtLimit().getAmount()).compareTo(mDebtAmount) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_more_debt_kava, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, CreateCdpActivity.class);
+        intent.putExtra("collateralParamType", mCollateralType);
+        intent.putExtra("marketId", collateralParam.getLiquidationMarketId());
+        startActivity(intent);
+    }
 //
 //    public void onCheckStartDepositCdp() {
 //        if (!onCommonCheck()) return;
@@ -235,25 +240,25 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 //        startActivity(intent);
 //    }
 //
-//    public void onCheckStartDrawDebtCdp() {
-//        if (!onCommonCheck()) return;
-//
-//        final CollateralParam collateralParam   = mCdpParam.getCollateralParamByType(mCollateralType);
-//        if (mMyCdp.getMoreLoanableAmount(getBaseContext(), collateralParam).compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_can_not_draw_debt, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (mCdpParam.getGlobalDebtAmount().compareTo(mDebtAmount) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_no_more_debt_kava, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        Intent intent = new Intent(this, BorrowCdpActivity.class);
-//        intent.putExtra("collateralParamType", mCollateralType);
-//        intent.putExtra("marketId", collateralParam.liquidation_market_id);
-//        startActivity(intent);
-//
-//    }
+    public void onCheckStartDrawDebtCdp() {
+        if (!onCommonCheck()) return;
+
+        final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
+        if (WUtil.getMoreLoanableAmount(getBaseContext(), mMyCdps, collateralParam).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_can_not_draw_debt, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (new BigDecimal(mCdpParams.getGlobalDebtLimit().getAmount()).compareTo(mDebtAmount) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_more_debt_kava, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, BorrowCdpActivity.class);
+        intent.putExtra("collateralParamType", mCollateralType);
+        intent.putExtra("marketId", collateralParam.getLiquidationMarketId());
+        startActivity(intent);
+
+    }
 //
 //    public void onCheckStartRepayCdp() {
 //        if (!onCommonCheck()) return;
@@ -285,20 +290,20 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 //    }
 
 
-//    private boolean onCommonCheck() {
-//        if(!mAccount.hasPrivateKey) {
-//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return false;
-//        }
-//
-//        if (mCdpParam.circuit_breaker) {
-//            Toast.makeText(getBaseContext(), R.string.error_circuit_breaker, Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//        return true;
-//    }
+    private boolean onCommonCheck() {
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return false;
+        }
+
+        if (mCdpParams.getCircuitBreaker()) {
+            Toast.makeText(getBaseContext(), R.string.error_circuit_breaker, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 
     private class CdpDetailAdapter extends RecyclerView.Adapter<BaseHolder> {
         private static final int TYPE_CDP_INFO          = 0;

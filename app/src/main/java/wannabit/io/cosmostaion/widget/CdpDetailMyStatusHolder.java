@@ -179,13 +179,13 @@ public class CdpDetailMyStatusHolder extends BaseHolder {
 //
 //            }
 //        });
-//        mMyBtnDrawdebt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                context.onCheckStartDrawDebtCdp();
-//
-//            }
-//        });
+        mMyBtnDrawdebt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.onCheckStartDrawDebtCdp();
+
+            }
+        });
 //        mMyBtnRepay.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

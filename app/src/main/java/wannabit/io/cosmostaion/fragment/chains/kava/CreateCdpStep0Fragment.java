@@ -25,25 +25,23 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import kava.cdp.v1beta1.Genesis;
+import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CreateCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Create;
-import wannabit.io.cosmostaion.model.kava.CdpParam;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
-import wannabit.io.cosmostaion.model.kava.MarketPrice;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 
 public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int CDP_CREATE_CONFIRM_DIALOG = 6017;
-    private final static int STEP_COLLATERAL = 0;
-    private final static int STEP_PRINCIPAL = 1;
-    private int mStep = STEP_COLLATERAL;
+    public final static int     CDP_CREATE_CONFIRM_DIALOG = 6017;
+    private final static int    STEP_COLLATERAL = 0;
+    private final static int    STEP_PRINCIPAL = 1;
+    private int                 mStep = STEP_COLLATERAL;
 
     private Button          mBtnCancel, mBtnNext;
 
@@ -91,39 +89,39 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_create_cdp_step0, container, false);
-        mBtnCancel = rootView.findViewById(R.id.btn_cancel);
-        mBtnNext = rootView.findViewById(R.id.btn_next);
+        mBtnCancel              = rootView.findViewById(R.id.btn_cancel);
+        mBtnNext                = rootView.findViewById(R.id.btn_next);
 
-        mCollateralInputLayer = rootView.findViewById(R.id.collateral_input_layer);
-        mCollateralImg = rootView.findViewById(R.id.collateral_icon);
-        mCollateralSymbol = rootView.findViewById(R.id.collateral_symbol);
-        mCollateralInput = rootView.findViewById(R.id.collateral_input);
-        mCollateralClear = rootView.findViewById(R.id.collateral_clear);
-        mCollateralActionLayer = rootView.findViewById(R.id.collateral_action_layer);
-        mCollateralMinTx = rootView.findViewById(R.id.collateral_min_amount);
-        mCollateralMaxTx = rootView.findViewById(R.id.collateral_max_amount);
-        mCollateralDenomTx = rootView.findViewById(R.id.collateral_denom);
-        mBtnCollateralMin = rootView.findViewById(R.id.collateral_min);
-        mBtnCollateral1_4 = rootView.findViewById(R.id.collateral_1_4);
-        mBtnCollateralHalf = rootView.findViewById(R.id.collateral_half);
-        mBtnCollateral3_4 = rootView.findViewById(R.id.collateral_3_4);
-        mBtnCollateralMax = rootView.findViewById(R.id.collateral_max);
-        mCollateralValueLayer = rootView.findViewById(R.id.collateral_value_layer);
-        mCollateralValue = rootView.findViewById(R.id.collateral_value);
+        mCollateralInputLayer   = rootView.findViewById(R.id.collateral_input_layer);
+        mCollateralImg          = rootView.findViewById(R.id.collateral_icon);
+        mCollateralSymbol       = rootView.findViewById(R.id.collateral_symbol);
+        mCollateralInput        = rootView.findViewById(R.id.collateral_input);
+        mCollateralClear        = rootView.findViewById(R.id.collateral_clear);
+        mCollateralActionLayer  = rootView.findViewById(R.id.collateral_action_layer);
+        mCollateralMinTx        = rootView.findViewById(R.id.collateral_min_amount);
+        mCollateralMaxTx        = rootView.findViewById(R.id.collateral_max_amount);
+        mCollateralDenomTx      = rootView.findViewById(R.id.collateral_denom);
+        mBtnCollateralMin       = rootView.findViewById(R.id.collateral_min);
+        mBtnCollateral1_4       = rootView.findViewById(R.id.collateral_1_4);
+        mBtnCollateralHalf      = rootView.findViewById(R.id.collateral_half);
+        mBtnCollateral3_4       = rootView.findViewById(R.id.collateral_3_4);
+        mBtnCollateralMax       = rootView.findViewById(R.id.collateral_max);
+        mCollateralValueLayer   = rootView.findViewById(R.id.collateral_value_layer);
+        mCollateralValue        = rootView.findViewById(R.id.collateral_value);
 
-        mPrincipalLayer = rootView.findViewById(R.id.principal_layer);
-        mPrincipalImg = rootView.findViewById(R.id.principal_icon);
-        mPrincipalSymbol = rootView.findViewById(R.id.principal_symbol);
-        mPrincipalInput = rootView.findViewById(R.id.principal_input);
-        mPrincipalClear = rootView.findViewById(R.id.principal_clear);
-        mPrincipalMinTx = rootView.findViewById(R.id.principal_min_amount);
-        mPrincipalMaxTx = rootView.findViewById(R.id.principal_max_amount);
-        mPrincipalDenomTx = rootView.findViewById(R.id.principal_denom);
-        mBtnPrincipalMin = rootView.findViewById(R.id.principal_min);
-        mBtnPrincipal20 = rootView.findViewById(R.id.principal_20);
-        mBtnPrincipal50 = rootView.findViewById(R.id.principal_50);
-        mBtnPrincipal70 = rootView.findViewById(R.id.principal_70);
-        mBtnPrincipalMax = rootView.findViewById(R.id.principal_max);
+        mPrincipalLayer         = rootView.findViewById(R.id.principal_layer);
+        mPrincipalImg           = rootView.findViewById(R.id.principal_icon);
+        mPrincipalSymbol        = rootView.findViewById(R.id.principal_symbol);
+        mPrincipalInput         = rootView.findViewById(R.id.principal_input);
+        mPrincipalClear         = rootView.findViewById(R.id.principal_clear);
+        mPrincipalMinTx         = rootView.findViewById(R.id.principal_min_amount);
+        mPrincipalMaxTx         = rootView.findViewById(R.id.principal_max_amount);
+        mPrincipalDenomTx       = rootView.findViewById(R.id.principal_denom);
+        mBtnPrincipalMin        = rootView.findViewById(R.id.principal_min);
+        mBtnPrincipal20         = rootView.findViewById(R.id.principal_20);
+        mBtnPrincipal50         = rootView.findViewById(R.id.principal_50);
+        mBtnPrincipal70         = rootView.findViewById(R.id.principal_70);
+        mBtnPrincipalMax        = rootView.findViewById(R.id.principal_max);
 
 
         mCollateralInputLayer.setOnClickListener(this);
@@ -164,17 +162,13 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
     }
 
     private void onUpdateInitInfo() {
-        mCollateralDenom = getCParam().denom;
-        mPrincipalDenom = getCParam().debt_limit.denom;
-        mPrincipalMinAmount = new BigDecimal(getCdpParam().debt_param.debt_floor);
-        mCollateralMinAmount = mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(new BigDecimal(getPrice().price), 0, RoundingMode.UP);
-        mCollateralMaxAmount = getSActivity().getcAvailable();
-        WLog.w("getPrice " + getPrice().price);
-        WLog.w("mPrincipalMinAmount " + mPrincipalMinAmount);
-        WLog.w("mCollateralMinAmount " + mCollateralMinAmount);
-        WLog.w("mCollateralMaxAmount " + mCollateralMaxAmount);
+        mCollateralDenom = getCParam().getDenom();
+        mPrincipalDenom = getCParam().getDebtLimit().getDenom();
+        mPrincipalMinAmount = new BigDecimal(getCdpParam().getDebtParam().getDebtFloor());
+        mCollateralMinAmount = mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(new BigDecimal(getPrice().getPrice()), 0, RoundingMode.UP);
+        mCollateralMaxAmount = getBaseDao().getAvailable(mCollateralDenom);
 
-        mCollateralSymbol.setText(mCollateralDenom.toUpperCase());
+        mCollateralSymbol.setText(WUtil.getKavaTokenName(mCollateralDenom));
         mCollateralDenomTx.setText(mCollateralDenom.toUpperCase());
         mPrincipalSymbol.setText(mPrincipalDenom.toUpperCase());
         mPrincipalDenomTx.setText(mPrincipalDenom.toUpperCase());
@@ -238,8 +232,6 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                                 mCollateralInput.setSelection(recover.length());
                                 return;
                             }
-//                            WLog.w("mCollateralMinAmount " + mCollateralMinAmount);
-//                            WLog.w("checkPosition " + checkPosition);
                             if (mCollateralMinAmount.compareTo(checkPosition) > 0) {
                                 mCollateralInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
 
@@ -264,11 +256,10 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             mPrincipalInput.requestFocus();
 
 
-            BigDecimal collateralValue = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getPrice().price)).setScale(2, RoundingMode.DOWN);
+            BigDecimal collateralValue = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).setScale(2, RoundingMode.DOWN);
             mCollateralValue.setText(WDp.getDpRawDollor(getContext(), collateralValue, 2));
 
-            mPrincipalMaxAmount = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.95")).multiply(new BigDecimal(getPrice().price)).divide(new BigDecimal(getCParam().liquidation_ratio), 0, RoundingMode.DOWN);
-//            WLog.w("mPrincipalMaxAmount " + mPrincipalMaxAmount);
+            mPrincipalMaxAmount = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.95")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
             mPrincipalMinTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMinAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
             mPrincipalMaxTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMaxAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
 
@@ -389,7 +380,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
 
         } else if (v.equals(mBtnPrincipal20)) {
-            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.2")).multiply(new BigDecimal(getPrice().price)).divide(new BigDecimal(getCParam().liquidation_ratio), 0, RoundingMode.DOWN);
+            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.2")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
             if (mPrincipalMinAmount.compareTo(cal) > 0) {
                 mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();
@@ -398,7 +389,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             }
 
         } else if (v.equals(mBtnPrincipal50)) {
-            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.5")).multiply(new BigDecimal(getPrice().price)).divide(new BigDecimal(getCParam().liquidation_ratio), 0, RoundingMode.DOWN);
+            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.5")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
             if (mPrincipalMinAmount.compareTo(cal) > 0) {
                 mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();
@@ -407,7 +398,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             }
 
         } else if (v.equals(mBtnPrincipal70)) {
-            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.7")).multiply(new BigDecimal(getPrice().price)).divide(new BigDecimal(getCParam().liquidation_ratio), 0, RoundingMode.DOWN);
+            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.7")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
             if (mPrincipalMinAmount.compareTo(cal) > 0) {
                 mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();
@@ -435,7 +426,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                     Bundle bundle = new Bundle();
                     bundle.putString("riskRate", getSActivity().mRiskRate.toPlainString());
                     bundle.putString("liquidationPrice", getSActivity().mLiquidationPrice.toPlainString());
-                    bundle.putString("currentPrice", getPrice().price);
+                    bundle.putString("currentPrice", getPrice().getPrice());
                     bundle.putString("denom", mCollateralDenom);
                     Dialog_Safe_Score_Create dialog = Dialog_Safe_Score_Create.newInstance(bundle);
                     dialog.setCancelable(true);
@@ -480,9 +471,12 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             if (toPrincipalAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (mPrincipalMinAmount.compareTo(toPrincipalAmount) > 0 || mPrincipalMaxAmount.compareTo(toPrincipalAmount) < 0) return false;
 
-            final BigDecimal currentPrice = new BigDecimal(getPrice().price);
-            final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+            final BigDecimal currentPrice = new BigDecimal(getPrice().getPrice()).movePointLeft(18);
+            final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
             final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
+
+            getSActivity().mCollateral = new Coin(mCollateralDenom, toCollateralAmount.toPlainString());
+            getSActivity().mPrincipal = new Coin(mPrincipalDenom, toPrincipalAmount.toPlainString());
 
             getSActivity().toCollateralAmount = toCollateralAmount;
             getSActivity().toPrincipalAmount = toPrincipalAmount;
@@ -520,12 +514,9 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                     return;
 
                 }
-                final BigDecimal currentPrice = new BigDecimal(getPrice().price);
-                final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+                final BigDecimal currentPrice = new BigDecimal(getPrice().getPrice()).movePointLeft(18);
+                final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
                 final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
-//                    WLog.w("currentPrice " + currentPrice);
-//                    WLog.w("liquidationPrice " + liquidationPrice);
-//                    WLog.w("riskRate " + riskRate);
 
                 WDp.DpRiskButton(getContext(), riskRate, mBtnNext);
 
@@ -557,15 +548,15 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         return (CreateCdpActivity)getBaseActivity();
     }
 
-    private CdpParam getCdpParam() {
-        return getSActivity().mCdpParam;
+    private Genesis.Params getCdpParam() {
+        return getSActivity().mCdpParams;
     }
 
-    private CollateralParam getCParam() {
+    private Genesis.CollateralParam getCParam() {
         return getSActivity().mCollateralParam;
     }
 
-    private MarketPrice getPrice() {
+    private QueryOuterClass.CurrentPriceResponse getPrice() {
         return getSActivity().mKavaTokenPrice;
     }
 

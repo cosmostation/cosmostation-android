@@ -636,7 +636,7 @@
     <string name="str_help_total_fee">현재까지 계산된 CDP 사용 수수료 입니다. 매 초 증가합니다.</string>
     <string name="str_help_risk">CDP 청산 위험도가 100에 도달하면, 해당 CDP 계좌는 청산됩니다. 청산 위험도는 담보물로 설정한 토큰의 현재 가격과 해당 토큰의 청산 가격을 비교한 수치입니다.\n\n예를 들어, 청산 위험도가 60이고 담보물로 설정한 토큰의 현재 가격이 $10이라고 가정해 봅시다. 해당 CDP는 담보물 토큰의 가격이 $6이 되면 청산됩니다.</string>
 
-    <string name="str_create_cdp_c">CDP 개설</string>
+    <string name="str_create_cdp_c">Mint 개설</string>
     <string name="str_repay_cdp_c">USDX 상환</string>
     <string name="str_draw_debt_cdp_c">추가 USDX 대출</string>
     <string name="str_deposit_cdp_c">담보 입금</string>

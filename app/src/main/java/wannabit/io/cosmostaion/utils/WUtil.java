@@ -2046,13 +2046,12 @@ public class WUtil {
     public static BigDecimal getWithdrawableAmount(Context c, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam, BigDecimal price, BigDecimal selfDeposit) {
         int denomCDecimal = WUtil.getKavaCoinDecimal(cParam.getDenom());
         int denomPDecimal = WUtil.getKavaCoinDecimal(cParam.getDebtLimit().getDenom());
-        BigDecimal cValue = new BigDecimal(myCdp.getCollateral().getAmount());
+        BigDecimal cValue = new BigDecimal(myCdp.getCollateralValue().getAmount());
         BigDecimal minCValue = getEstimatedTotalDebt(c, myCdp, cParam).multiply(new BigDecimal(cParam.getLiquidationRatio()).movePointLeft(18)).divide(new BigDecimal("0.95"), 0, BigDecimal.ROUND_DOWN);
         BigDecimal maxWithdrawableValue = cValue.subtract(minCValue);
         BigDecimal maxWithdrawableAmount = maxWithdrawableValue.movePointLeft(denomPDecimal - denomCDecimal).divide(price, 0, RoundingMode.DOWN);
-
         if (maxWithdrawableAmount.compareTo(selfDeposit) > 0 ) {
-            maxWithdrawableAmount =  selfDeposit;
+            maxWithdrawableAmount = selfDeposit;
         }
         if (maxWithdrawableAmount.compareTo(BigDecimal.ZERO) <= 0) {
             maxWithdrawableAmount = BigDecimal.ZERO;
@@ -2061,7 +2060,7 @@ public class WUtil {
     }
 
     public static BigDecimal getMoreLoanableAmount(Context c, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam) {
-        BigDecimal maxDebtValue = new BigDecimal(myCdp.getCollateral().getAmount()).divide(new BigDecimal(cParam.getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
+        BigDecimal maxDebtValue = new BigDecimal(myCdp.getCollateralValue().getAmount()).divide(new BigDecimal(cParam.getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
         maxDebtValue = maxDebtValue.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
 
         maxDebtValue = maxDebtValue.subtract(getEstimatedTotalDebt(c, myCdp, cParam));

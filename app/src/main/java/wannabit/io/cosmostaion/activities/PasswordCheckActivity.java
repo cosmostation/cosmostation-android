@@ -52,7 +52,6 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBorrowHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimHarvestRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimIncentiveTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleCreateCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
@@ -81,6 +80,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravitySwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaCreateCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaSwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaWithdrawGrpcTask;
@@ -224,7 +224,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mOwner;
     private String                      mDepositor;
     private String                      mCdpDenom;
-    private String                      mCollateralType;
     private ArrayList<Coin>             mHardPoolCoins;
     private String                      mMultiplierName;
     private String                      mDepositDenom;
@@ -289,6 +288,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                          mKavaShareAmount;
     private Coin                            mKavaMinTokenA;
     private Coin                            mKavaMinTokenB;
+    private Coin                            mCollateral;
+    private Coin                            mPrincipal;
+    private String                          mCollateralType;
 
     private String                      mPortId;
     private String                      mChannelId;
@@ -352,7 +354,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mCdpDenom = getIntent().getStringExtra("cdp_denom");
         mDepositor = getIntent().getStringExtra("depositor");
         mCdpDenom = getIntent().getStringExtra("cdp_denom");
-        mCollateralType = getIntent().getStringExtra("collateralType");
         mSwapId = getIntent().getStringExtra("swapId");
         mClaimDenom = getIntent().getStringExtra("denom");
         mOkStakeCoin = getIntent().getParcelableExtra("stakeAmount");
@@ -415,6 +416,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mKavaShareAmount = getIntent().getStringExtra("mKavaShare");
         mKavaMinTokenA = getIntent().getParcelableExtra("mKavaMinTokenA");
         mKavaMinTokenB = getIntent().getParcelableExtra("mKavaMinTokenB");
+        mCollateral = getIntent().getParcelableExtra("mCollateral");
+        mPrincipal = getIntent().getParcelableExtra("mPrincipal");
+        mCollateralType = getIntent().getStringExtra("mCollateralType");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -568,11 +572,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mProposalId, mOpinion, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_TX_CREATE_CDP) {
-            onShowWaitDialog();
-            new SimpleCreateCdpTask(getBaseApplication(), this, mAccount, mSender,
-                    mCollateralCoin, mPrincipalCoin, mTargetMemo, mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
         } else if (mPurpose == CONST_PW_TX_REPAY_CDP) {
             onShowWaitDialog();
             new SimpleRepayCdpTask(getBaseApplication(), this, mAccount, mSender, mPaymentCoin,
@@ -608,27 +607,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new SimpleClaimIncentiveTask(getBaseApplication(),this, mAccount, mMultiplierName,
                     mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        }
-
-//        else if (mPurpose == CONST_PW_TX_KAVA_SWAP) {
-//            new SimpleKavaSwapTask(getBaseApplication(),this, mAccount, mSwapInCoin, mSwapOutCoin,
-//                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-//
-//        }
-
-//        else if (mPurpose == CONST_PW_TX_KAVA_JOIN_POOL) {
-//            new SimpleKavaDepositTask(getBaseApplication(),this, mAccount, mPoolCoin0, mPoolCoin1,
-//                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-//
-//        }
-
-//        else if (mPurpose == CONST_PW_TX_KAVA_EXIT_POOL) {
-//            new SimpleKavaWithdrawTask(getBaseApplication(),this, mAccount, mKavaShareAmount, mPoolCoin0, mPoolCoin1,
-//                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-//
-//        }
-
-        else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {
+        } else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {
             new SimpleOkDepositTask(getBaseApplication(), this, mAccount, mBaseChain,
                     mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -803,6 +782,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_KAVA_EXIT_POOL) {
             new KavaWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaShareAmount, mKavaMinTokenA, mKavaMinTokenB,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_CREATE_CDP) {
+            new KavaCreateCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mCollateral, mPrincipal, mCollateralType,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 

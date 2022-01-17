@@ -57,6 +57,10 @@ public class Signer {
                 Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue());
                 return account.getBaseVestingAccount().getBaseAccount().getAddress();
 
+            } else if (auth.getAccount().getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+                Vesting.DelayedVestingAccount account = Vesting.DelayedVestingAccount.parseFrom(auth.getAccount().getValue());
+                return account.getBaseVestingAccount().getBaseAccount().getAddress();
+
                 // injective
             } else if (auth.getAccount().getTypeUrl().contains(injective.types.v1beta1.Account.EthAccount.getDescriptor().getFullName())) {
                 injective.types.v1beta1.Account.EthAccount account = injective.types.v1beta1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
@@ -97,7 +101,11 @@ public class Signer {
                 Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue());
                 return account.getBaseVestingAccount().getBaseAccount().getAccountNumber();
 
-                // injective
+            } else if (auth.getAccount().getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+                Vesting.DelayedVestingAccount account = Vesting.DelayedVestingAccount.parseFrom(auth.getAccount().getValue());
+                return account.getBaseVestingAccount().getBaseAccount().getAccountNumber();
+
+            // injective
             } else if (auth.getAccount().getTypeUrl().contains(injective.types.v1beta1.Account.EthAccount.getDescriptor().getFullName())) {
                 injective.types.v1beta1.Account.EthAccount account = injective.types.v1beta1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
                 return account.getBaseAccount().getAccountNumber();
@@ -136,6 +144,10 @@ public class Signer {
 
             } else if (auth.getAccount().getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
                 Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue());
+                return account.getBaseVestingAccount().getBaseAccount().getSequence();
+
+            } else if (auth.getAccount().getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+                Vesting.DelayedVestingAccount account = Vesting.DelayedVestingAccount.parseFrom(auth.getAccount().getValue());
                 return account.getBaseVestingAccount().getBaseAccount().getSequence();
 
                 // injective
@@ -1168,6 +1180,32 @@ public class Signer {
         Any msgKavaWithdrawAny = Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgWithdraw").setValue(msgWithdraw.toByteString()).build();
 
         TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaWithdrawAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaCreateCdpReq(QueryOuterClass.QueryAccountResponse auth, String sender, Coin collateral, Coin principal, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
+        CoinOuterClass.Coin Collateral = CoinOuterClass.Coin.newBuilder().setAmount(collateral.amount).setDenom(collateral.denom).build();
+        CoinOuterClass.Coin Principal = CoinOuterClass.Coin.newBuilder().setAmount(principal.amount).setDenom(principal.denom).build();
+        kava.cdp.v1beta1.Tx.MsgCreateCDP msgCreateCDP = kava.cdp.v1beta1.Tx.MsgCreateCDP.newBuilder().setSender(sender).setCollateral(Collateral).setPrincipal(Principal).setCollateralType(collateralType).build();
+        Any msgKavaCreateCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgCreateCDP").setValue(msgCreateCDP.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaCreateCdpAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcKavaCreateCdpSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, Coin collateral, Coin principal, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
+        CoinOuterClass.Coin Collateral = CoinOuterClass.Coin.newBuilder().setAmount(collateral.amount).setDenom(collateral.denom).build();
+        CoinOuterClass.Coin Principal = CoinOuterClass.Coin.newBuilder().setAmount(principal.amount).setDenom(principal.denom).build();
+        kava.cdp.v1beta1.Tx.MsgCreateCDP msgCreateCDP = kava.cdp.v1beta1.Tx.MsgCreateCDP.newBuilder().setSender(sender).setCollateral(Collateral).setPrincipal(Principal).setCollateralType(collateralType).build();
+        Any msgKavaCreateCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgCreateCDP").setValue(msgCreateCDP.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaCreateCdpAny, memo);
         TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
         TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
         TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);

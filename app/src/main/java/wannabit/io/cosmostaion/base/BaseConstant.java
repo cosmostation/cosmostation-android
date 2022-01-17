@@ -260,6 +260,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_KAVA_SWAP                  = 4333;
     public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT               = 4334;
     public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW              = 4335;
+    public final static int TASK_GRPC_GEN_TX_KAVA_CREATE_CDP            = 4336;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -295,6 +296,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_KAVA_SWAP                = 4533;
     public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT             = 4534;
     public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW            = 4535;
+    public final static int TASK_GRPC_SIMULATE_KAVA_CREATE_CDP          = 4536;
 
 
 
@@ -347,7 +349,7 @@ public class BaseConstant {
     public final static String IRIS_MSG_TYPE_ISSUE_TOKEN                    = "irishub/asset/MsgIssueToken";
 
     public final static String KAVA_MSG_TYPE_POST_PRICE                     = "pricefeed/MsgPostPrice";
-    public final static String KAVA_MSG_TYPE_CREATE_CDP                     = "cdp/MsgCreateCDP";
+    public final static String KAVA_MSG_TYPE_CREATE_CDP                     = "/kava.cdp.v1beta1.MsgCreateCDP";
     public final static String KAVA_MSG_TYPE_DEPOSIT_CDP                    = "cdp/MsgDeposit";
     public final static String KAVA_MSG_TYPE_WITHDRAW_CDP                   = "cdp/MsgWithdraw";
     public final static String KAVA_MSG_TYPE_DRAWDEBT_CDP                   = "cdp/MsgDrawDebt";

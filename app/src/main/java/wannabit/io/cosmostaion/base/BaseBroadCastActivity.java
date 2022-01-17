@@ -102,6 +102,9 @@ public class BaseBroadCastActivity extends BaseActivity {
     public BigDecimal                                           mKavaShareAmount = BigDecimal.ZERO;
     public Coin                                                 mKavaMinTokenA;
     public Coin                                                 mKavaMinTokenB;
+    public Coin                                                 mCollateral;
+    public Coin                                                 mPrincipal;
+    public String                                               mCollateralType;
 
 
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap

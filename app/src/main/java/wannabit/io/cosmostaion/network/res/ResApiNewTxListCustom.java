@@ -300,10 +300,6 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_gravity_withdraw_batch);
                 }
 
-                else if (msgType.contains("MsgDeposit")) {
-                    result = c.getString(R.string.tx_deposit);
-                }
-
                 else if (msgType.contains("MsgAddRecord")) {
                     result = c.getString(R.string.tx_medi_add_record);
 
@@ -416,7 +412,10 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_INCENTIVE)) {
                     result = c.getString(R.string.tx_kava_swap_incentive);
 
+                } else if (msgType.contains("MsgDeposit")) {
+                    result = c.getString(R.string.tx_deposit);
                 }
+
 
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
