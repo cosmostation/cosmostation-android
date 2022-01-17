@@ -16,6 +16,7 @@ android {
     }
     buildTypes {
         debug {
+            applicationIdSuffix '.debug'
             splits.abi.enable = false
             splits.density.enable = false
         }
