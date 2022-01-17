@@ -58,7 +58,6 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaDepositTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaSwapTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
@@ -84,6 +83,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravitySwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaSwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.LinkAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.MintNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisBeginUnbondingGrpcTask;
@@ -284,6 +284,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                          mDesmosToLinkChain;
     private Long                            mDesmosToLinkAccountId;
 
+    private Coin                            mKavaSwapin;
+    private Coin                            mKavaSwapOut;
+
     private String                      mPortId;
     private String                      mChannelId;
 
@@ -402,6 +405,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mCoverUri = getIntent().getStringExtra("mCoverImg");
         mDesmosToLinkChain = getIntent().getStringExtra("mDesmosToLinkChain");
         mDesmosToLinkAccountId = getIntent().getLongExtra("mDesmosToLinkAccountId", -1);
+
+        mKavaSwapin = getIntent().getParcelableExtra("kavaSwapIn");
+        mKavaSwapOut = getIntent().getParcelableExtra("kavaSwapOut");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -595,11 +601,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new SimpleClaimIncentiveTask(getBaseApplication(),this, mAccount, mMultiplierName,
                     mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_TX_KAVA_SWAP) {
-            new SimpleKavaSwapTask(getBaseApplication(),this, mAccount, mSwapInCoin, mSwapOutCoin,
-                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+        }
 
-        } else if (mPurpose == CONST_PW_TX_KAVA_JOIN_POOL) {
+//        else if (mPurpose == CONST_PW_TX_KAVA_SWAP) {
+//            new SimpleKavaSwapTask(getBaseApplication(),this, mAccount, mSwapInCoin, mSwapOutCoin,
+//                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+//
+//        }
+
+        else if (mPurpose == CONST_PW_TX_KAVA_JOIN_POOL) {
             new SimpleKavaDepositTask(getBaseApplication(),this, mAccount, mPoolCoin0, mPoolCoin1,
                     mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -771,6 +781,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
             new LinkAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, BaseChain.getChain(mDesmosToLinkChain),
                     toAccount, ecKey, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_KAVA_SWAP) {
+            new KavaSwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaSwapin, mKavaSwapOut,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
         }
 
         else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {

@@ -257,6 +257,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_TRANSFER_NFT               = 4330;
     public final static int TASK_GRPC_GEN_TX_CREATE_PROFILE             = 4331;
     public final static int TASK_GRPC_GEN_TX_LINK_ACCOUNT               = 4332;
+    public final static int TASK_GRPC_GEN_TX_KAVA_SWAP                  = 4333;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -289,6 +290,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_MINT_NFT                 = 4530;
     public final static int TASK_GRPC_SIMULATE_TRANSFER_NFT             = 4531;
     public final static int TASK_GRPC_SIMULATE_CREATE_PROFILE           = 4532;
+    public final static int TASK_GRPC_SIMULATE_KAVA_SWAP                = 4533;
 
 
 
@@ -461,6 +463,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
     public final static int CONST_PW_TX_PROFILE                             = 5057;
     public final static int CONST_PW_TX_LINK_ACCOUNT                        = 5058;
+
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;

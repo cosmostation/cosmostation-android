@@ -49,23 +49,17 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCdpLiquidate;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDelegatorIncentive;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolIncentive;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidate;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapDeposit;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapIncentive;
-import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapToken;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapWithdraw;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC_CLIAM;
@@ -94,7 +88,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY;
-
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
@@ -428,9 +421,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxSwapIncentive(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_incentive, viewGroup, false));
             } else if (viewType == TYPE_TX_INCENTIVE_DELEGATOR) {
                 return new TxDelegatorIncentive(getLayoutInflater().inflate(R.layout.item_tx_kava_delegator_incentive, viewGroup, false));
-            } else if (viewType == TYPE_TX_SWAP_TOKEN) {
-                return new TxSwapToken(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_token, viewGroup, false));
-            } else if (viewType == TYPE_TX_SWAP_DEPOSIT) {
+            }
+
+//            else if (viewType == TYPE_TX_SWAP_TOKEN) {
+//                return new TxSwapToken(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_token, viewGroup, false));
+//            }
+
+            else if (viewType == TYPE_TX_SWAP_DEPOSIT) {
                 return new TxSwapDeposit(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_deposit, viewGroup, false));
             } else if (viewType == TYPE_TX_SWAP_WITHDRAW) {
                 return new TxSwapWithdraw(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_withdraw, viewGroup, false));
@@ -1196,8 +1193,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         }
 
         private void onBindSwapToken(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxSwapToken holder = (TxSwapToken) viewHolder;
-            holder.onBind(getBaseContext(), getBaseDao(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1));
+            final TxKavaSwapHolder holder = (TxKavaSwapHolder) viewHolder;
+//            holder.onBind(getBaseContext(), getBaseDao(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1));
         }
 
         private void onBindSwapDeposit(RecyclerView.ViewHolder viewHolder, int position) {

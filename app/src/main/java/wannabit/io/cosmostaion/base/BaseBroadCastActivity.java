@@ -94,6 +94,10 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Long                         mDesmosToLinkAccountId;
     public BigDecimal                   mDesmosAirDropAmount = BigDecimal.ZERO;
 
+    // Kava
+    public Coin                         mSwapIn;
+    public Coin                         mSwapOut;
+
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
     public BigDecimal                   mHdacBalance;                               //rizon swap amount
     public ArrayList<String>            mHdacWords;                                 //rizon swap Hdac Mnemonic words

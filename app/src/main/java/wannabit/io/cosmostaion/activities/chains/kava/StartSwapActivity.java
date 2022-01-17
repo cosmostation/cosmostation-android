@@ -152,8 +152,8 @@ public class StartSwapActivity extends BaseBroadCastActivity {
     public void onStartSwap() {
         Intent intent = new Intent(StartSwapActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_KAVA_SWAP);
-        intent.putExtra("SwapInputCoin", mSwapInCoin);
-        intent.putExtra("SwapOutputcoin", mSwapOutCoin);
+        intent.putExtra("kavaSwapIn", mSwapIn);
+        intent.putExtra("kavaSwapOut", mSwapOut);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
