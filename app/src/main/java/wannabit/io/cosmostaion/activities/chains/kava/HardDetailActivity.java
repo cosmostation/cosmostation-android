@@ -1,11 +1,13 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import cosmos.base.v1beta1.CoinOuterClass;
@@ -22,6 +25,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHardModuleAccountTask;
@@ -32,6 +36,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.KavaHardMyDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaHardReservesGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaHardTotalBorrowGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaHardTotalDepositGrpcTask;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HardDetailInfoHolder;
 import wannabit.io.cosmostaion.widget.HardDetailMyAvailableHolder;
@@ -201,30 +206,30 @@ public class HardDetailActivity extends BaseActivity {
 //        return result;
 //    }
 
-//    public void onHardDeposit() {
-//        if (!onCommonCheck()) return;
-//        if ((getBaseDao().availableAmount(mHardMoneyMarketDenom)).compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_no_available_to_deposit, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        Intent intent = new Intent(this, DepositHardActivity.class);
-//        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
-//        startActivity(intent);
-//
-//    }
-//
-//    public void onHardWithdraw() {
-//        if (!onCommonCheck()) return;
-//        if (WUtil.getHardSuppliedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit).compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_no_deposited_asset, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        Intent intent = new Intent(this, WithdrawHardActivity.class);
-//        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
-//        startActivity(intent);
-//
-//    }
+    public void onHardDeposit() {
+        if (!onCommonCheck()) return;
+        if ((getBaseDao().getAvailable(mHardMoneyMarketDenom)).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_available_to_deposit, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(this, DepositHardActivity.class);
+        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+        startActivity(intent);
+
+    }
+
+    public void onHardWithdraw() {
+        if (!onCommonCheck()) return;
+        if (WUtil.getHardSuppliedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_deposited_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, WithdrawHardActivity.class);
+        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+        startActivity(intent);
+
+    }
 //
 //    public void onHardBorrow() {
 //        if (!onCommonCheck()) return;
@@ -256,15 +261,15 @@ public class HardDetailActivity extends BaseActivity {
 //        startActivity(intent);
 //    }
 //
-//    private boolean onCommonCheck() {
-//        if(!mAccount.hasPrivateKey) {
-//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return false;
-//        }
-//        return true;
-//    }
+    private boolean onCommonCheck() {
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return false;
+        }
+        return true;
+    }
 
     private class HardDetailAdapter extends RecyclerView.Adapter<BaseHolder> {
         private static final int TYPE_HARD_INFO         = 0;

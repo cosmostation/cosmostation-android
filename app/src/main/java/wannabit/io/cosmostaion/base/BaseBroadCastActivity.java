@@ -106,6 +106,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                                                 mPrincipal;
     public String                                               mCollateralType;
     public Coin                                                 mPayment;
+    public ArrayList<Coin>                                      mHardPoolCoins = new ArrayList<>();
 
 
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap

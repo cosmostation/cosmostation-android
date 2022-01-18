@@ -269,6 +269,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW_CDP          = 4338;
     public final static int TASK_GRPC_GEN_TX_KAVA_DRAW_DEBT_CDP         = 4339;
     public final static int TASK_GRPC_GEN_TX_KAVA_REPAY_CDP             = 4340;
+    public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT_HARD          = 4341;
+    public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW_HARD         = 4342;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -309,6 +311,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW_CDP        = 4538;
     public final static int TASK_GRPC_SIMULATE_KAVA_DRAW_DEBT_CDP       = 4539;
     public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_CDP           = 4540;
+    public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT_HARD        = 4541;
+    public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW_HARD       = 4542;
 
 
 
@@ -376,8 +380,8 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_DELEGATOR_INCENTIVE            = "incentive/MsgClaimDelegatorReward";
     public final static String KAVA_MSG_TYPE_SWAP_INCENTIVE                 = "incentive/MsgClaimSwapReward";
     public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV        = "incentive/MsgClaimHardRewardVVesting";
-    public final static String KAVA_MSG_TYPE_DEPOSIT_HAVEST                 = "harvest/MsgDeposit";
-    public final static String KAVA_MSG_TYPE_WITHDRAW_HAVEST                = "harvest/MsgWithdraw";
+    public final static String KAVA_MSG_TYPE_DEPOSIT_HAVEST                 = "/kava.hard.v1beta1.MsgDeposit";
+    public final static String KAVA_MSG_TYPE_WITHDRAW_HAVEST                = "/kava.hard.v1beta1.MsgWithdraw";
     public final static String KAVA_MSG_TYPE_CLAIM_HAVEST                   = "harvest/MsgClaimReward";
     public final static String KAVA_MSG_TYPE_DEPOSIT_HARD                   = "hard/MsgDeposit";
     public final static String KAVA_MSG_TYPE_WITHDRAW_HARD                  = "hard/MsgWithdraw";

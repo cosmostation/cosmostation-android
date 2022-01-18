@@ -24,7 +24,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_HARD_WITHDRAW_CHECK = 9107;
 
-    private Button mBeforeBtn, mConfirmBtn;
+    private Button   mBeforeBtn, mConfirmBtn;
     private TextView mWithdrawAmount, mWithdrawDenom;
     private TextView mFeesAmount, mFeesDenom;
     private TextView mMemo;

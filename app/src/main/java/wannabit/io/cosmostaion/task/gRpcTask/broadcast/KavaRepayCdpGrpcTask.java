@@ -29,7 +29,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_KAVA_REPAY_CDP;
 
-public class KavaRepayGrpcTask extends CommonTask {
+public class KavaRepayCdpGrpcTask extends CommonTask {
 
     private Account                 mAccount;
     private BaseChain               mBaseChain;
@@ -43,8 +43,8 @@ public class KavaRepayGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
-    public KavaRepayGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender,
-                                  Coin payment, String collateralType, String memo, Fee fee, String chainId) {
+    public KavaRepayCdpGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender,
+                                Coin payment, String collateralType, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;

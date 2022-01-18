@@ -20,10 +20,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class DepositHardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button mBeforeBtn, mConfirmBtn;
+    private Button   mBeforeBtn, mConfirmBtn;
     private TextView mDepositAmount, mDepositDenom;
     private TextView mFeesAmount, mFeesDenom;
-    private TextView mDepositType, mMemo;
+    private TextView mMemo;
 
     public static DepositHardStep3Fragment newInstance(Bundle bundle) {
         DepositHardStep3Fragment fragment = new DepositHardStep3Fragment();
@@ -43,7 +43,6 @@ public class DepositHardStep3Fragment extends BaseFragment implements View.OnCli
         mDepositDenom = rootView.findViewById(R.id.deposit_amount_denom);
         mFeesAmount = rootView.findViewById(R.id.fees_amount);
         mFeesDenom = rootView.findViewById(R.id.fees_denom);
-        mDepositType = rootView.findViewById(R.id.deposit_type);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
@@ -57,7 +56,6 @@ public class DepositHardStep3Fragment extends BaseFragment implements View.OnCli
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mHardPoolCoins.get(0), mDepositDenom, mDepositAmount, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), getBaseDao(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
-//        mDepositType.setText("lp (Liquidity Provider)");
         mMemo.setText(getSActivity().mTxMemo);
 
     }
