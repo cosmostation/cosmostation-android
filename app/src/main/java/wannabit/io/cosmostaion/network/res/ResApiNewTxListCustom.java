@@ -376,10 +376,10 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
                     result = c.getString(R.string.tx_kava_bep3_refund);
 
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD)) {
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD)) {
                     result = c.getString(R.string.tx_kava_hard_deposit);
 
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HARD)) {
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HARD)) {
                     result = c.getString(R.string.tx_kava_hard_withdraw);
 
                 } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BORROW_HARD)) {

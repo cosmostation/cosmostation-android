@@ -230,37 +230,37 @@ public class HardDetailActivity extends BaseActivity {
         startActivity(intent);
 
     }
-//
-//    public void onHardBorrow() {
-//        if (!onCommonCheck()) return;
-//        BigDecimal borrowAble = WUtil.getHardBorrowableAmountByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit, mMyBorrow, mModuleCoins, mReserveCoins);
-//        if (borrowAble.compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_no_borrowable_asset, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        Intent intent = new Intent(this, BorrowHardActivity.class);
-//        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
-//        startActivity(intent);
-//
-//    }
-//
-//    public void onHardRepay() {
-//        if (!onCommonCheck()) return;
-//        if ((getBaseDao().availableAmount(mHardMoneyMarketDenom)).compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (WUtil.getHardBorrowedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyBorrow).compareTo(BigDecimal.TEN) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_noting_repay_asset, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        Intent intent = new Intent(this, RepayHardActivity.class);
-//        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
-//        startActivity(intent);
-//    }
-//
+
+    public void onHardBorrow() {
+        if (!onCommonCheck()) return;
+        BigDecimal borrowAble = WUtil.getHardBorrowableAmountByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit, mMyBorrow, mModuleCoins, mReserveCoins);
+        if (borrowAble.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_borrowable_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, BorrowHardActivity.class);
+        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+        startActivity(intent);
+
+    }
+
+    public void onHardRepay() {
+        if (!onCommonCheck()) return;
+        if ((getBaseDao().getAvailable(mHardMoneyMarketDenom)).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (WUtil.getHardBorrowedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyBorrow).compareTo(BigDecimal.TEN) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_noting_repay_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, RepayHardActivity.class);
+        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+        startActivity(intent);
+    }
+
     private boolean onCommonCheck() {
         if(!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();

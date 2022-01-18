@@ -77,6 +77,7 @@ import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCAcknowledgeHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCReceiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxBorrowHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCreateCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositHardHolder;
@@ -85,6 +86,7 @@ import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaDepositPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaWithdrawPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxRepayCdpHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxRepayHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxWithdrawCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxWithdrawHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxIssueDenomHolder;
@@ -301,6 +303,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_KAVA_REPAY_CDP = 117;
         private static final int TYPE_TX_KAVA_DEPOSIT_HARD = 118;
         private static final int TYPE_TX_KAVA_WITHDRAW_HARD = 119;
+        private static final int TYPE_TX_KAVA_BORROW_HARD = 121;
+        private static final int TYPE_TX_KAVA_REPAY_HARD = 122;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -520,6 +524,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_KAVA_WITHDRAW_HARD) {
                 return new TxWithdrawHardHolder(getLayoutInflater().inflate(R.layout.item_tx_withdraw_harvest, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_BORROW_HARD) {
+                return new TxBorrowHardHolder(getLayoutInflater().inflate(R.layout.item_tx_borrow_hard, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_REPAY_HARD) {
+                return new TxRepayHardHolder(getLayoutInflater().inflate(R.layout.item_tx_repay_hard, viewGroup, false));
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -706,6 +716,10 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_DEPOSIT_HARD;
                 } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgWithdraw.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_WITHDRAW_HARD;
+                } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgBorrow.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_BORROW_HARD;
+                } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgRepay.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_REPAY_HARD;
                 }
                 return TYPE_TX_UNKNOWN;
             }

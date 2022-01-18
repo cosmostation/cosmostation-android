@@ -390,28 +390,6 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genDepositHarvestMsg(String depositor, Coin depositCoin, String depositType, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        value.depositor = depositor;
-        value.amount = depositCoin;
-        value.deposit_type = depositType;
-        result.type = BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST;
-        result.value = value;
-        return result;
-    }
-
-    public static Msg genWithdrawHarvestMsg(String depositor, Coin depositCoin, String depositType, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        value.depositor = depositor;
-        value.amount = depositCoin;
-        value.deposit_type = depositType;
-        result.type = BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST;
-        result.value = value;
-        return result;
-    }
-
     public static Msg genClaimHarvestMsg(String sender, String receiver, String depositDenom, String multiplierName, String depositType, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();

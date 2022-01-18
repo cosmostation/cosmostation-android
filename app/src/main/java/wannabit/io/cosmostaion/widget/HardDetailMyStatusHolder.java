@@ -96,17 +96,17 @@ public class HardDetailMyStatusHolder extends BaseHolder {
                 context.onHardWithdraw();
             }
         });
-//        mMyBtnBorrow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                context.onHardBorrow();
-//            }
-//        });
-//        mMyBtnRepay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                context.onHardRepay();
-//            }
-//        });
+        mMyBtnBorrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.onHardBorrow();
+            }
+        });
+        mMyBtnRepay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.onHardRepay();
+            }
+        });
     }
 }

@@ -20,11 +20,10 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.RepayHardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.RepayHardStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_HARD;
@@ -40,7 +39,6 @@ public class RepayHardActivity extends BaseBroadCastActivity {
     private RepayHardPageAdapter    mPageAdapter;
 
     public String                   mHardMoneyMarketDenom;
-    public ArrayList<Coin>          mHardPoolCoins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +137,6 @@ public class RepayHardActivity extends BaseBroadCastActivity {
     public void onStartRepayHard() {
         Intent intent = new Intent(RepayHardActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REPAY_HARD);
-        intent.putExtra("depositor", mAccount.address);
         intent.putExtra("hardPoolCoins", mHardPoolCoins);
         intent.putExtra("fee", mTxFee);
         intent.putExtra("memo", mTxMemo);
@@ -158,7 +155,7 @@ public class RepayHardActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(RepayHardStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(RepayHardStep3Fragment.newInstance(null));
         }
 

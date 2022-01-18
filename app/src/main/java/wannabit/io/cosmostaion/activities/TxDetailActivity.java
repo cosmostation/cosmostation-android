@@ -76,26 +76,20 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_A
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BORROW_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DELEGATOR_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAY_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_SWAP_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_MULTI_TRANSFER;
@@ -519,18 +513,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                     } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_LIQUIDATE_CDP)) {
                         return TYPE_TX_CDP_LIQUIDATE;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_DEPOSIT_HAVEST) || mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_DEPOSIT_HARD)) {
-                        return TYPE_TX_HARD_DEPOSIT;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_WITHDRAW_HAVEST) || mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_WITHDRAW_HARD)) {
-                        return TYPE_TX_HARD_WITHDRAW;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_BORROW_HARD)) {
-                        return TYPE_TX_HARD_BORROW;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_REPAY_HARD)) {
-                        return TYPE_TX_HARD_REPAY;
 
                     } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_LIQUIDATE_HARD)) {
                         return TYPE_TX_HARD_LIQUIDATE;
