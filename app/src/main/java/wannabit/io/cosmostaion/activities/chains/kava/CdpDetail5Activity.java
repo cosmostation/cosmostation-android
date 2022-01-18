@@ -223,24 +223,25 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         intent.putExtra("marketId", collateralParam.getLiquidationMarketId());
         startActivity(intent);
     }
-//
-//    public void onCheckStartWithdrawCdp() {
-//        if (!onCommonCheck()) return;
-//
-//        final CollateralParam collateralParam   = mCdpParam.getCollateralParamByType(mCollateralType);
-//        final BigDecimal currentPrice           = new BigDecimal(getBaseDao().mKavaTokenPrices.get(collateralParam.liquidation_market_id).price);
-//        final BigDecimal maxWithdrawableAmount  = mMyCdp.getWithdrawableAmount(getBaseContext(), collateralParam, currentPrice, mSelfDepositAmount);
-//        if (maxWithdrawableAmount.compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_not_enought_withdraw_asset, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        Intent intent = new Intent(this, WithdrawCdpActivity.class);
-//        intent.putExtra("collateralParamType", mCollateralType);
-//        intent.putExtra("marketId", collateralParam.liquidation_market_id);
-//        startActivity(intent);
-//    }
-//
+
+    public void onCheckStartWithdrawCdp() {
+        if (!onCommonCheck()) return;
+
+        final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
+        final BigDecimal currentPrice                           = new BigDecimal(getBaseDao().mKavaTokenPrice.get(collateralParam.getLiquidationMarketId()).getPrice()).movePointLeft(18);
+        final BigDecimal maxWithdrawableAmount                  = WUtil.getWithdrawableAmount(getBaseContext(), mMyCdps, collateralParam, currentPrice, mSelfDepositAmount);
+
+        if (maxWithdrawableAmount.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enought_withdraw_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, WithdrawCdpActivity.class);
+        intent.putExtra("collateralParamType", mCollateralType);
+        intent.putExtra("marketId", collateralParam.getLiquidationMarketId());
+        startActivity(intent);
+    }
+
     public void onCheckStartDrawDebtCdp() {
         if (!onCommonCheck()) return;
 

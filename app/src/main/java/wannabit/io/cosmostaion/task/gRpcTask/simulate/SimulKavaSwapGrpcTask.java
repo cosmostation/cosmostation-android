@@ -78,7 +78,7 @@ public class SimulKavaSwapGrpcTask extends CommonTask {
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
             mAuthResponse = authStub.account(request);
 
-            //broadCast
+            //simulate
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcKavaSwapSimulateReq(mAuthResponse, mRequester, mSwapIn, mSwapOut, mSlippage, mDeadline, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);

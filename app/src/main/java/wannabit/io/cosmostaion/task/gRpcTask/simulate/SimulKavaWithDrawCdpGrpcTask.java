@@ -25,9 +25,9 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_KAVA_DEPOSIT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_KAVA_WITHDRAW_CDP;
 
-public class SimulKavaDepositCdpGrpcTask extends CommonTask {
+public class SimulKavaWithDrawCdpGrpcTask extends CommonTask {
 
     private Account                 mAccount;
     private BaseChain               mBaseChain;
@@ -41,8 +41,8 @@ public class SimulKavaDepositCdpGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
-    public SimulKavaDepositCdpGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String owner, String depositor,
-                                      Coin collateral, String collateralType, String memo, Fee fee, String chainId) {
+    public SimulKavaWithDrawCdpGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String owner, String depositor,
+                                       Coin collateral, String collateralType, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
@@ -53,7 +53,7 @@ public class SimulKavaDepositCdpGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_KAVA_DEPOSIT_CDP;
+        this.mResult.taskType = TASK_GRPC_SIMULATE_KAVA_WITHDRAW_CDP;
     }
 
     @Override
@@ -74,13 +74,13 @@ public class SimulKavaDepositCdpGrpcTask extends CommonTask {
 
             //simulate
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcKavaDepositCdpSimulateReq(mAuthResponse, mOwner, mDepositor, mCollateral, mCollateralType, mFees, mMemo, ecKey, mChainId);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcKavaWithdrawCdpSimulateReq(mAuthResponse, mOwner, mDepositor, mCollateral, mCollateralType, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e("SimulKavaDepositCdpGrpcTask " + e.getMessage());
+            WLog.e("SimulKavaWithDrawCdpGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

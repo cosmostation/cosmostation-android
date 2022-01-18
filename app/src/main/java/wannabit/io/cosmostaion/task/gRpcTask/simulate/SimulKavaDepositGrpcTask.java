@@ -75,7 +75,7 @@ public class SimulKavaDepositGrpcTask extends CommonTask {
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
             mAuthResponse = authStub.account(request);
 
-            //broadCast
+            //simulate
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcKavaDepositPoolSimulateReq(mAuthResponse, mDepositor, mTokenA, mTokenB, mSlippage, mDeadline, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);

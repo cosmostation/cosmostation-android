@@ -73,7 +73,7 @@ public class SimulKavaCreateCdpGrpcTask extends CommonTask {
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
             mAuthResponse = authStub.account(request);
 
-            //broadCast
+            //simulate
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcKavaCreateCdpSimulateReq(mAuthResponse, mSender, mCollateral, mPrincipal, mCollateralType, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);

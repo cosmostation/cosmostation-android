@@ -19,7 +19,6 @@ import androidx.viewpager.widget.ViewPager;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import kava.cdp.v1beta1.Cdp;
 import kava.cdp.v1beta1.Genesis;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
@@ -32,16 +31,12 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep3Fragment;
-import wannabit.io.cosmostaion.model.kava.MyCdp;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpsByDepositorGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpsByOwnerGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaMarketPriceTokenGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_CDP_BY_DEPOSITOR;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_MY_CDPS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICE_TOKEN;
 
@@ -60,7 +55,6 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
     public QueryOuterClass.CurrentPriceResponse         mKavaTokenPrice;
     public Genesis.CollateralParam                      mCollateralParam;
     public kava.cdp.v1beta1.QueryOuterClass.CDPResponse mMyCdp;
-    public BigDecimal                                   mSelfDepositAmount = BigDecimal.ZERO;
 
     public BigDecimal                                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mTotalDepositAmount;
 
@@ -235,9 +229,8 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
     private int mTaskCount = 0;
     public void onFetchCdpInfo() {
         onShowWaitDialog();
-        mTaskCount = 3;
+        mTaskCount = 2;
         new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaCdpsByDepositorGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaMarketPriceTokenGrpcTask(getBaseApplication(), this, mBaseChain, mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -261,16 +254,6 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
                 }
             }
 
-
-        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_CDP_BY_DEPOSITOR) {
-            if (result.isSuccess && result.resultData != null) {
-                ArrayList<Cdp.Deposit> deposits = (ArrayList<Cdp.Deposit>) result.resultData;
-                for (Cdp.Deposit deposit: deposits) {
-                    if (deposit.getDepositor().equalsIgnoreCase(mAccount.address)) {
-                        mSelfDepositAmount =  new BigDecimal(deposit.getAmount().getAmount());
-                    }
-                }
-            }
         }
 
         if (mTaskCount == 0) {

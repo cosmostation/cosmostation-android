@@ -352,10 +352,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (viewType == TYPE_TX_POST_PRICE) {
                 return new TxPostPriceHolder(getLayoutInflater().inflate(R.layout.item_tx_post_price, viewGroup, false));
 
-            } else if (viewType == TYPE_TX_CDP_WITHDRAW) {
-                return new TxWithdrawCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_withdraw_cdp, viewGroup, false));
-            } else if (viewType == TYPE_TX_CDP_BORROW) {
-                return new TxDrawDebtCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_drawdebt_cdp, viewGroup, false));
             } else if (viewType == TYPE_TX_CDP_REPAY) {
                 return new TxRepayDebtCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_repaydebt_cdp, viewGroup, false));
             } else if (viewType == TYPE_TX_CDP_LIQUIDATE) {
@@ -412,10 +408,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (getItemViewType(position) == TYPE_TX_POST_PRICE) {
                 onBindPostPrice(viewHolder, position);
 
-            } else if (getItemViewType(position) == TYPE_TX_CDP_WITHDRAW) {
-                onBindCdpWithdraw(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_TX_CDP_BORROW) {
-                onBindCdpBorrow(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_CDP_REPAY) {
                 onBindCdpRepay(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_CDP_LIQUIDATE) {
@@ -850,32 +842,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), msg.value.expiry) + " (" + msg.value.expiry + ")");
             }
 
-        }
-
-        private void onBindCdpWithdraw(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxWithdrawCdpHolder holder = (TxWithdrawCdpHolder) viewHolder;
-            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemOwner.setText(msg.value.owner);
-                holder.itemDepositor.setText(msg.value.depositor);
-                WDp.showCoinDp(getBaseContext(), getBaseDao(), msg.value.collateral, holder.itemCollateralDenom, holder.itemCollateralAmount, mBaseChain);
-            }
-        }
-
-        private void onBindCdpBorrow(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxDrawDebtCdpHolder holder = (TxDrawDebtCdpHolder) viewHolder;
-            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemSender.setText(msg.value.sender);
-                if (!TextUtils.isEmpty(msg.value.cdp_denom)) {
-                    holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
-                } else if (!TextUtils.isEmpty(msg.value.collateral_type)) {
-                    holder.itemCdpDenom.setText(msg.value.collateral_type.toUpperCase());
-                }
-                WDp.showCoinDp(getBaseContext(), getBaseDao(), msg.value.principal, holder.itemPrincipalDenom, holder.itemPrincipalAmount, mBaseChain);
-            }
         }
 
         private void onBindCdpRepay(RecyclerView.ViewHolder viewHolder, int position) {
@@ -1337,40 +1303,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemPostPrice = itemView.findViewById(R.id.tx_post_price);
                 itemTime = itemView.findViewById(R.id.tx_validity_time);
             }
-        }
-
-        public class TxWithdrawCdpHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemOwner, itemDepositor, itemCollateralAmount, itemCollateralDenom;
-
-            public TxWithdrawCdpHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemOwner = itemView.findViewById(R.id.tx_cdp_owner);
-                itemDepositor = itemView.findViewById(R.id.tx_cdp_depositor);
-                itemCollateralAmount = itemView.findViewById(R.id.tx_collateral_amount);
-                itemCollateralDenom = itemView.findViewById(R.id.tx_collateral_symbol);
-            }
-
-        }
-
-        public class TxDrawDebtCdpHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemSender, itemCdpDenom, itemPrincipalAmount, itemPrincipalDenom;
-
-            public TxDrawDebtCdpHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemSender = itemView.findViewById(R.id.tx_cdp_sender);
-                itemCdpDenom = itemView.findViewById(R.id.tx_cdp_denom);
-                itemPrincipalAmount = itemView.findViewById(R.id.tx_principal_amount);
-                itemPrincipalDenom = itemView.findViewById(R.id.tx_principal_symbol);
-            }
-
         }
 
         public class TxRepayDebtCdpHolder extends RecyclerView.ViewHolder {

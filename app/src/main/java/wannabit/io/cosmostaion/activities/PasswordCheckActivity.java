@@ -52,9 +52,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBorrowHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimHarvestRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimIncentiveTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositHardTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
@@ -83,7 +81,9 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaCreateCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDepositCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDepositGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDrawDebtCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaSwapGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaWithdrawCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.LinkAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.MintNFTGrpcTask;
@@ -578,16 +578,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new SimpleRepayCdpTask(getBaseApplication(), this, mAccount, mSender, mPaymentCoin,
                     mCdpDenom, mTargetMemo,  mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_TX_DRAW_DEBT_CDP) {
-            onShowWaitDialog();
-            new SimpleDrawBetCdpTask(getBaseApplication(), this, mAccount, mSender,
-                    mPrincipalCoin, mCdpDenom, mTargetMemo, mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-        } else if (mPurpose == CONST_PW_TX_WITHDRAW_CDP) {
-            onShowWaitDialog();
-            new SimpleWithdrawCdpTask(getBaseApplication(), this, mAccount, mOwner, mDepositor, mCollateralCoin,
-                    mTargetMemo, mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
         } else if (mPurpose == CONST_PW_TX_HTLS_REFUND) {
             onShowWaitDialog();
             if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
@@ -786,6 +776,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_DEPOSIT_CDP) {
             new KavaDepositCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mAccount.address, mCollateral, mCollateralType,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_WITHDRAW_CDP) {
+            new KavaWithdrawCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mAccount.address, mCollateral, mCollateralType,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_DRAW_DEBT_CDP) {
+            new KavaDrawDebtCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mPrincipal, mCollateralType,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
