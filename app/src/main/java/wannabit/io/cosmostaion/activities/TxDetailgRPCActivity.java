@@ -78,6 +78,7 @@ import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCReceiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCreateCdpHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaDepositPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaWithdrawPoolHolder;
@@ -289,6 +290,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_KAVA_DEPOSIT_POOL = 111;
         private static final int TYPE_TX_KAVA_WITHDRAW_POOL = 112;
         private static final int TYPE_TX_KAVA_CREATE_CDP = 113;
+        private static final int TYPE_TX_KAVA_DEPOSIT_CDP = 114;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -487,6 +489,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_KAVA_CREATE_CDP) {
                 return new TxCreateCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_create_cdp, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_DEPOSIT_CDP) {
+                return new TxDepositCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_deposit_cdp, viewGroup, false));
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -663,6 +668,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_WITHDRAW_POOL;
                 } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgCreateCDP.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_CREATE_CDP;
+                } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgDeposit.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_DEPOSIT_CDP;
                 }
                 return TYPE_TX_UNKNOWN;
             }

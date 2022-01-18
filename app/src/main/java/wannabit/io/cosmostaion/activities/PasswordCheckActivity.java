@@ -81,6 +81,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravitySwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaCreateCdpGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDepositCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaSwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaWithdrawGrpcTask;
@@ -582,11 +583,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new SimpleDrawBetCdpTask(getBaseApplication(), this, mAccount, mSender,
                     mPrincipalCoin, mCdpDenom, mTargetMemo, mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_TX_DEPOSIT_CDP) {
-            onShowWaitDialog();
-            new SimpleDepositCdpTask(getBaseApplication(), this, mAccount, mOwner, mDepositor,
-                    mCollateralCoin, mTargetMemo, mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
         } else if (mPurpose == CONST_PW_TX_WITHDRAW_CDP) {
             onShowWaitDialog();
             new SimpleWithdrawCdpTask(getBaseApplication(), this, mAccount, mOwner, mDepositor, mCollateralCoin,
@@ -786,6 +782,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_CREATE_CDP) {
             new KavaCreateCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mCollateral, mPrincipal, mCollateralType,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_DEPOSIT_CDP) {
+            new KavaDepositCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mAccount.address, mCollateral, mCollateralType,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 

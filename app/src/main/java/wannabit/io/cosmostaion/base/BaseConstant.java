@@ -219,11 +219,12 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO        = 4289;
     public final static int TASK_GRPC_FETCH_KAVA_CDP_PARAMS             = 4290;
     public final static int TASK_GRPC_FETCH_KAVA_MY_CDPS                = 4291;
-    public final static int TASK_GRPC_FETCH_KAVA_HARD_PARAMS            = 4292;
-    public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT        = 4293;
-    public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_BORROW         = 4294;
-    public final static int TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE     = 4295;
-    public final static int TASK_GRPC_FETCH_KAVA_HARD_MODULE_ACCOUNT    = 4296;
+    public final static int TASK_GRPC_FETCH_KAVA_CDP_BY_DEPOSITOR       = 4292;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_PARAMS            = 4293;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT        = 4294;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_BORROW         = 4295;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE     = 4296;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_MODULE_ACCOUNT    = 4297;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
@@ -261,6 +262,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT               = 4334;
     public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW              = 4335;
     public final static int TASK_GRPC_GEN_TX_KAVA_CREATE_CDP            = 4336;
+    public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT_CDP           = 4337;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -297,6 +299,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT             = 4534;
     public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW            = 4535;
     public final static int TASK_GRPC_SIMULATE_KAVA_CREATE_CDP          = 4536;
+    public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT_CDP         = 4537;
 
 
 
@@ -350,7 +353,7 @@ public class BaseConstant {
 
     public final static String KAVA_MSG_TYPE_POST_PRICE                     = "pricefeed/MsgPostPrice";
     public final static String KAVA_MSG_TYPE_CREATE_CDP                     = "/kava.cdp.v1beta1.MsgCreateCDP";
-    public final static String KAVA_MSG_TYPE_DEPOSIT_CDP                    = "cdp/MsgDeposit";
+    public final static String KAVA_MSG_TYPE_DEPOSIT_CDP                    = "/kava.cdp.v1beta1.MsgDeposit";
     public final static String KAVA_MSG_TYPE_WITHDRAW_CDP                   = "cdp/MsgWithdraw";
     public final static String KAVA_MSG_TYPE_DRAWDEBT_CDP                   = "cdp/MsgDrawDebt";
     public final static String KAVA_MSG_TYPE_REPAYDEBT_CDP                  = "cdp/MsgRepayDebt";

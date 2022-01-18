@@ -165,13 +165,13 @@ public class CdpDetailMyStatusHolder extends BaseHolder {
             }
         });
 
-//        mMyBtnDeposit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                context.onCheckStartDepositCdp();
-//
-//            }
-//        });
+        mMyBtnDeposit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.onCheckStartDepositCdp();
+
+            }
+        });
 //        mMyBtnWithdraw.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

@@ -205,23 +205,24 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         intent.putExtra("marketId", collateralParam.getLiquidationMarketId());
         startActivity(intent);
     }
-//
-//    public void onCheckStartDepositCdp() {
-//        if (!onCommonCheck()) return;
-//
-//        final CollateralParam collateralParam   = mCdpParam.getCollateralParamByType(mCollateralType);
-//        final String cDenom                     = collateralParam.denom;
-//        final BigDecimal cAvailable             = WUtil.getTokenBalance(getBaseDao().mBalances, cDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(getBaseDao().mBalances, cDenom).balance;
-//        if (cAvailable.compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_not_enought_deposit_asset, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        Intent intent = new Intent(this, DepositCdpActivity.class);
-//        intent.putExtra("collateralParamType", mCollateralType);
-//        intent.putExtra("marketId", collateralParam.liquidation_market_id);
-//        startActivity(intent);
-//    }
+
+    public void onCheckStartDepositCdp() {
+        if (!onCommonCheck()) return;
+
+        final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
+        final String cDenom                                     = collateralParam.getDenom();
+        final BigDecimal cAvailable                             = getBaseDao().getAvailable(cDenom);
+
+        if (cAvailable.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enought_deposit_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, DepositCdpActivity.class);
+        intent.putExtra("collateralParamType", mCollateralType);
+        intent.putExtra("marketId", collateralParam.getLiquidationMarketId());
+        startActivity(intent);
+    }
 //
 //    public void onCheckStartWithdrawCdp() {
 //        if (!onCommonCheck()) return;

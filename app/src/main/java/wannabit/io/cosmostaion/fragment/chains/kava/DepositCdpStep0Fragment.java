@@ -24,16 +24,14 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import kava.cdp.v1beta1.Genesis;
+import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DepositCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
-import wannabit.io.cosmostaion.model.kava.MarketPrice;
-import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
@@ -118,38 +116,27 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
     }
 
     private void onUpdateInitInfo() {
-        mCollateralDenom = getCParam().denom;
-        mPrincipalDenom = getCParam().debt_limit.denom;
+        mCollateralDenom = getCParam().getDenom();
+        mPrincipalDenom = getCParam().getDebtLimit().getDenom();
         setDpDecimals(WUtil.getKavaCoinDecimal(mCollateralDenom));
-        mCurrentPrice = new BigDecimal(getPrice().price);
-        WLog.w("mCurrentPrice " + mCurrentPrice);
+        mCurrentPrice = new BigDecimal(getPrice().getPrice()).movePointLeft(18);
 
-        mCanDepositMaxMaxAmount = getSActivity().getcAvailable();
+        mCanDepositMaxMaxAmount = getBaseDao().getAvailable(mCollateralDenom);
         WDp.showCoinDp(getContext(), getBaseDao(), mCollateralDenom, mCanDepositMaxMaxAmount.toPlainString(), mCollateralDenomTx, mCollateralMaxTx, getSActivity().mBaseChain);
 
-        mCurrentTotalDebetAmount = getOwenCdp().getPrincipalAmount().add(getOwenCdp().getAccumulatedFees());
-        BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), mCurrentTotalDebetAmount, getCParam(), getOwenCdp().cdp);
-//        WLog.w("hiddenFeeValue " + hiddenFeeValue);
+        mCurrentTotalDebetAmount = new BigDecimal(getOwenCdp().getPrincipal().getAmount()).add(new BigDecimal(getOwenCdp().getAccumulatedFees().getAmount()));
+        BigDecimal hiddenFeeValue = WDp.getCdpGrpcHiddenFee(getContext(), mCurrentTotalDebetAmount, getCParam(), getOwenCdp());
         mCurrentTotalDebetAmount = mCurrentTotalDebetAmount.add(hiddenFeeValue);
 
-        mCurrentCollateralAmount = getOwenCdp().getCollateralAmount();
-        mCollateralSymbol.setText(mCollateralDenom.toUpperCase());
+        mCurrentCollateralAmount = new BigDecimal(getOwenCdp().getCollateral().getAmount());
+        mCollateralSymbol.setText(WUtil.getKavaTokenName(mCollateralDenom));
         try {
             Picasso.get().load(KAVA_COIN_IMG_URL + mCollateralDenom + ".png").fit().into(mCollateralImg);
         } catch (Exception e) { }
 
-//        BigDecimal collateralAmount = mCurrentCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom));
-//        WLog.w("collateralAmount " + collateralAmount);
-//        WLog.w("mCurrentTotalDebetAmount " + mCurrentTotalDebetAmount);
-//        BigDecimal rawDebtAmount = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio));
-//        WLog.w("rawDebtAmount " + rawDebtAmount);
-
-
         //before(current) state views!!
-        mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
-        WLog.w("mBeforeLiquidationPrice " + mBeforeLiquidationPrice);
+        mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
         mBeforeRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mBeforeLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
-        WLog.w("mBeforeRiskRate " + mBeforeRiskRate);
         WDp.DpRiskRate3(getContext(), mBeforeRiskRate, mBeforeRiskScore, mBeforeRisk);
         mBeforeDepositAmount.setText(WDp.getDpAmount2(getContext(), mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), WUtil.getKavaCoinDecimal(mCollateralDenom)));
 
@@ -223,7 +210,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
                 mAfterDepositAmount.setVisibility(View.GONE);
                 return false;
             }
-            WLog.w("mToDepositAmount " + mToDepositAmount);
+
             if (mToDepositAmount.compareTo(BigDecimal.ZERO) <= 0 || mCanDepositMaxMaxAmount.compareTo(mToDepositAmount) < 0) {
                 mBtnNext.setText(R.string.str_next);
                 mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
@@ -235,20 +222,15 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
 
             }
             mAfterRiskLayer.setVisibility(View.VISIBLE);
-//            mAfterDepositAmount.setVisibility(View.VISIBLE);
 
             mTotalDepositAmount = mCurrentCollateralAmount.add(mToDepositAmount);
 
-            mAfterLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().liquidation_ratio)).divide(mTotalDepositAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
-            WLog.w("mAfterLiquidationPrice " + mAfterLiquidationPrice);
+            mAfterLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mTotalDepositAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
 
             mAfterRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mAfterLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
-            WLog.w("mAfterRiskRate " + mAfterRiskRate);
 
             WDp.DpRiskRate3(getContext(), mAfterRiskRate, mAfterRiskScore, mAfterRisk);
             WDp.DpRiskButton2(getContext(), mAfterRiskRate, mBtnNext);
-
-//            mAfterDepositAmount.setText(WDp.getDpAmount2(getContext(), mTotalDepositAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), WUtil.getKavaCoinDecimal(mCollateralDenom)));
             return true;
 
         } catch (Exception e) {
@@ -325,7 +307,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
                     bundle.putString("afterRiskRate", mAfterRiskRate.toPlainString());
                     bundle.putString("beforeLiquidationPrice", mBeforeLiquidationPrice.toPlainString());
                     bundle.putString("afterLiquidationPrice", mAfterLiquidationPrice.toPlainString());
-                    bundle.putString("currentPrice", getPrice().price);
+                    bundle.putString("currentPrice", getPrice().getPrice());
                     bundle.putString("denom", mCollateralDenom);
                     Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
                     dialog.setCancelable(true);
@@ -351,15 +333,15 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
         return (DepositCdpActivity)getBaseActivity();
     }
 
-    private CollateralParam getCParam() {
+    private Genesis.CollateralParam getCParam() {
         return getSActivity().mCollateralParam;
     }
 
-    private MyCdp getOwenCdp() {
+    private QueryOuterClass.CDPResponse getOwenCdp() {
         return getSActivity().mMyCdp;
     }
 
-    private MarketPrice getPrice() {
+    private kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse getPrice() {
         return getSActivity().mKavaTokenPrice;
     }
 

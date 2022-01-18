@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.task.gRpcTask;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import kava.cdp.v1beta1.Cdp;
 import kava.cdp.v1beta1.QueryGrpc;
 import kava.cdp.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -14,35 +15,37 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_MY_CDPS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_CDP_BY_DEPOSITOR;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
-public class KavaCdpsByOwnerGrpcTask extends CommonTask {
+public class KavaCdpsByDepositorGrpcTask extends CommonTask {
     private BaseChain mChain;
-    private Account   mAccount;
-    private ArrayList<QueryOuterClass.CDPResponse> mResultData = new ArrayList<>();
+    private Account mAccount;
+    private String mCollateralType;
+    private ArrayList<Cdp.Deposit> mResultData = new ArrayList<>();
     private QueryGrpc.QueryBlockingStub mStub;
 
-    public KavaCdpsByOwnerGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account) {
+    public KavaCdpsByDepositorGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account, String collateralType) {
         super(app, listener);
         this.mChain = chain;
         this.mAccount = account;
-        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_MY_CDPS;
+        this.mCollateralType = collateralType;
+        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_CDP_BY_DEPOSITOR;
         this.mStub = kava.cdp.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryCdpsRequest request = QueryOuterClass.QueryCdpsRequest.newBuilder().setOwner(mAccount.address).build();
-            QueryOuterClass.QueryCdpsResponse response = mStub.cdps(request);
-            mResultData.addAll(response.getCdpsList());
+            QueryOuterClass.QueryDepositsRequest request = QueryOuterClass.QueryDepositsRequest.newBuilder().setOwner(mAccount.address).setCollateralType(mCollateralType).build();
+            QueryOuterClass.QueryDepositsResponse response = mStub.deposits(request);
+            mResultData.addAll(response.getDepositsList());
 
             mResult.resultData = mResultData;
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e("KavaCdpsByOwnerGrpcTask " + e.getMessage());
+            WLog.e("KavaCdpsByDepositorGrpcTask " + e.getMessage());
         }
         return mResult;
     }
