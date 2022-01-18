@@ -46,7 +46,7 @@ public class CdpDetailMyAvailableHolder extends BaseHolder {
         final Genesis.CollateralParam collateralParam   = baseData.getCollateralParamByType(collateralType);
         final String cDenom                             = collateralParam.getDenom();
         final String pDenom                             = collateralParam.getDebtLimit().getDenom();
-        final BigDecimal currentPrice                   = new BigDecimal(baseData.mKavaTokenPrice.get(collateralParam.getLiquidationMarketId()).getPrice()).movePointLeft(18);
+        final BigDecimal currentPrice                   = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
         final BigDecimal cAvailable                     = baseData.getAvailable(cDenom);
         final BigDecimal pAvailable                     = baseData.getAvailable(pDenom);
         final BigDecimal kAvailable                     = baseData.getAvailable(TOKEN_KAVA);

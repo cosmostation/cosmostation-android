@@ -134,7 +134,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
         cDenom = getCParam().getDenom();
         pDenom = getCParam().getDebtLimit().getDenom();
         setDpDecimals(WUtil.getKavaCoinDecimal(pDenom));
-        mCurrentPrice = new BigDecimal(getPrice().getPrice()).movePointLeft(18);
+        mCurrentPrice = getSActivity().getKavaOraclePrice();
 
         pAvailableAmount = getBaseDao().getAvailable(pDenom);
         pAllAmount = WUtil.getEstimatedTotalDebt(getContext(), getOwenCdp(), getCParam());
@@ -311,7 +311,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 bundle.putString("afterRiskRate", mAfterRiskRate.toPlainString());
                 bundle.putString("beforeLiquidationPrice", mBeforeLiquidationPrice.toPlainString());
                 bundle.putString("afterLiquidationPrice", mAfterLiquidationPrice.toPlainString());
-                bundle.putString("currentPrice", getPrice().getPrice());
+                bundle.putString("currentPrice", mCurrentPrice.toPlainString());
                 bundle.putString("denom", cDenom);
                 Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
                 dialog.setCancelable(true);
@@ -397,10 +397,6 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
 
     private QueryOuterClass.CDPResponse getOwenCdp() {
         return getSActivity().mMyCdp;
-    }
-
-    private kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse getPrice() {
-        return getSActivity().mKavaTokenPrice;
     }
 
     private void setDpDecimals(int pDeciaml) {

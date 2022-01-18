@@ -56,7 +56,6 @@ public class CdpMyHolder extends BaseHolder {
     @Override
     public void onBindMyCdp(Context c, BaseData baseData, QueryOuterClass.CDPResponse myCdp) {
         final Genesis.CollateralParam collateralParam = baseData.getCollateralParamByType(myCdp.getType());
-        final kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse price = baseData.mKavaTokenPrice.get(collateralParam.getLiquidationMarketId());
         final int dpDecimal = WUtil.getKavaCoinDecimal(myCdp.getPrincipal().getDenom());
 
         if (collateralParam == null) { return; }
@@ -64,11 +63,9 @@ public class CdpMyHolder extends BaseHolder {
         BigDecimal currentPrice = BigDecimal.ZERO;
         BigDecimal liquidationPrice = BigDecimal.ZERO;
         BigDecimal riskRate = BigDecimal.ZERO;
-        if (price != null) {
-            currentPrice = new BigDecimal(price.getPrice()).movePointLeft(18);
-            liquidationPrice = WUtil.getLiquidationPrice(c, myCdp, collateralParam).movePointLeft(18);
-            riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
-        }
+        currentPrice = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
+        liquidationPrice = WUtil.getLiquidationPrice(c, myCdp, collateralParam);
+        riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
         itemCollateralType.setText(collateralParam.getType().toUpperCase());
         itemTitleMarket.setText(collateralParam.getSpotMarketId().toUpperCase());

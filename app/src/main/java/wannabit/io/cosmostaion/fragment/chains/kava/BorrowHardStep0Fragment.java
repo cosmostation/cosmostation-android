@@ -89,10 +89,10 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
         mDpDecimal = WUtil.getKavaCoinDecimal(mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
 
-        // display borrowable amount with padding 5%
-        BigDecimal remainBorrowAble = WUtil.getHardBorrowableAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom,
-                getBaseDao().mMyHardDeposit , getBaseDao().mMyHardBorrow, getBaseDao().mModuleCoins, getBaseDao().mReserveCoins);
-        mMaxAvailable = remainBorrowAble.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
+//        // display borrowable amount with padding 5%
+//        BigDecimal remainBorrowAble = WUtil.getHardBorrowableAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom,
+//                getBaseDao().mMyHardDeposit , getBaseDao().mMyHardBorrow, getBaseDao().mModuleCoins, getBaseDao().mReserveCoins);
+//        mMaxAvailable = remainBorrowAble.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
 
         WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mBorrowDenomTx, mBorrowMaxTx, getSActivity().mBaseChain);
         if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {

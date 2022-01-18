@@ -209,22 +209,25 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_NFTOKEN_LIST                = 4270;
     public final static int TASK_GRPC_FETCH_NFTOKEN_INFO                = 4271;
 
-    public final static int TASK_GRPC_FETCH_PROFILE_INFO                = 4280;
+    public final static int TASK_GRPC_FETCH_PROFILE_INFO                = 4275;
 
-    public final static int TASK_GRPC_FETCH_KAVA_PRICES                 = 4284;
-    public final static int TASK_GRPC_FETCH_KAVA_PRICE_TOKEN            = 4285;
-    public final static int TASK_GRPC_FETCH_KAVA_SWAP_PARAMS            = 4286;
-    public final static int TASK_GRPC_FETCH_KAVA_SWAP_POOLS             = 4287;
-    public final static int TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS          = 4288;
-    public final static int TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO        = 4289;
-    public final static int TASK_GRPC_FETCH_KAVA_CDP_PARAMS             = 4290;
-    public final static int TASK_GRPC_FETCH_KAVA_MY_CDPS                = 4291;
-    public final static int TASK_GRPC_FETCH_KAVA_CDP_BY_DEPOSITOR       = 4292;
-    public final static int TASK_GRPC_FETCH_KAVA_HARD_PARAMS            = 4293;
-    public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT        = 4294;
-    public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_BORROW         = 4295;
-    public final static int TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE     = 4296;
-    public final static int TASK_GRPC_FETCH_KAVA_HARD_MODULE_ACCOUNT    = 4297;
+    public final static int TASK_GRPC_FETCH_KAVA_PRICES                 = 4277;
+    public final static int TASK_GRPC_FETCH_KAVA_PRICE_TOKEN            = 4278;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_PARAMS            = 4279;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_POOLS             = 4280;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS          = 4281;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO        = 4282;
+    public final static int TASK_GRPC_FETCH_KAVA_CDP_PARAMS             = 4283;
+    public final static int TASK_GRPC_FETCH_KAVA_MY_CDPS                = 4284;
+    public final static int TASK_GRPC_FETCH_KAVA_CDP_BY_DEPOSITOR       = 4285;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_PARAMS            = 4286;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT        = 4287;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_BORROW         = 4288;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE     = 4289;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_MODULE_ACCOUNT    = 4290;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_RESERVES          = 4291;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_TOTAL_DEPOSIT     = 4292;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_TOTAL_BORROW      = 4293;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;

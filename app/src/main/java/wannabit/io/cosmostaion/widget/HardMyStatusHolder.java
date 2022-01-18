@@ -24,9 +24,8 @@ public class HardMyStatusHolder extends BaseHolder {
         super(itemView);
         totalDepositValueTv     = itemView.findViewById(R.id.total_deposit_value);
         totalBorrowValueTv      = itemView.findViewById(R.id.total_borrow_value);
-        borrowAbleValueTv       = itemView.findViewById(R.id.borrowable_value);
         ltvValueTv              = itemView.findViewById(R.id.ltv_value);
-
+        borrowAbleValueTv       = itemView.findViewById(R.id.borrowable_value);
     }
 
     @Override
@@ -45,18 +44,15 @@ public class HardMyStatusHolder extends BaseHolder {
                     depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(decimal);
 
                 } else {
-                    kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse price = baseData.mKavaTokenPrice.get(WUtil.getSpotMarketId(hardParams, coin.getDenom()));
-                    if (price != null) {
-                        depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(decimal).multiply(new BigDecimal(price.getPrice()).movePointLeft(18));
-                    }
+                    depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(decimal).multiply(baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParams, coin.getDenom())));
                 }
                 ltvValue = depositValue.multiply(LTV);
                 totalLTVValue = totalLTVValue.add(ltvValue);
                 totalDepostValue = totalDepostValue.add(depositValue);
             }
         }
+        ltvValueTv.setText(WDp.getDpRawDollor(context, totalLTVValue, 2));
         totalDepositValueTv.setText(WDp.getDpRawDollor(context, totalDepostValue, 2));
-        totalBorrowValueTv.setText(WDp.getDpRawDollor(context, totalLTVValue.movePointLeft(18), 2));
 
 
         BigDecimal totalBorrowedValue = BigDecimal.ZERO;
@@ -68,17 +64,14 @@ public class HardMyStatusHolder extends BaseHolder {
                     value = (new BigDecimal(coin.getAmount())).movePointLeft(decimal);
 
                 } else {
-                    kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse price = baseData.mKavaTokenPrice.get(WUtil.getSpotMarketId(hardParams, coin.getDenom()));
-                    if (price != null) {
-                        value = (new BigDecimal(coin.getAmount())).movePointLeft(decimal).multiply(new BigDecimal(price.getPrice()).movePointLeft(18));
-                    }
+                    value = (new BigDecimal(coin.getAmount())).movePointLeft(decimal).multiply(baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParams, coin.getDenom())));
 
                 }
                 totalBorrowedValue = totalBorrowedValue.add(value);
             }
         }
-        ltvValueTv.setText(WDp.getDpRawDollor(context, totalBorrowedValue, 2));
+        totalBorrowValueTv.setText(WDp.getDpRawDollor(context, totalBorrowedValue, 2));
         final BigDecimal totalBorrowAbleValue = (totalLTVValue.subtract(totalBorrowedValue)).max(BigDecimal.ZERO);
-        borrowAbleValueTv.setText(WDp.getDpRawDollor(context, totalBorrowAbleValue.movePointLeft(18), 2));
+        borrowAbleValueTv.setText(WDp.getDpRawDollor(context, totalBorrowAbleValue, 2));
     }
 }

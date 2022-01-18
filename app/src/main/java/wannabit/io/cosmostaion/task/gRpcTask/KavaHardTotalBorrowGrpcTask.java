@@ -14,33 +14,33 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_RESERVES;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_TOTAL_BORROW;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
-public class KavaHardReservesGrpcTask extends CommonTask {
-    private BaseChain   mChain;
-    private ArrayList<CoinOuterClass.Coin>  mResultData = new ArrayList<>();
+public class KavaHardTotalBorrowGrpcTask extends CommonTask {
+    private BaseChain mChain;
+    private ArrayList<CoinOuterClass.Coin> mResultData = new ArrayList<>();
     private QueryGrpc.QueryBlockingStub mStub;
 
-    public KavaHardReservesGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
+    public KavaHardTotalBorrowGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
-        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_HARD_RESERVES;
+        this.mResult.taskType = TASK_GRPC_FETCH_KAVA_HARD_TOTAL_BORROW;
         this.mStub = kava.hard.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryReservesRequest request = QueryOuterClass.QueryReservesRequest.newBuilder().build();
-            QueryOuterClass.QueryReservesResponse response = mStub.reserves(request);
-            mResultData.addAll(response.getAmountList());
+            QueryOuterClass.QueryTotalBorrowedRequest request = QueryOuterClass.QueryTotalBorrowedRequest.newBuilder().build();
+            QueryOuterClass.QueryTotalBorrowedResponse response = mStub.totalBorrowed(request);
+            mResultData.addAll(response.getBorrowedCoinsList());
 
             mResult.resultData = mResultData;
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "KavaHardReservesGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) { WLog.e( "KavaHardTotalBorrowGrpcTask "+ e.getMessage()); }
         return mResult;
     }
-
 }
+

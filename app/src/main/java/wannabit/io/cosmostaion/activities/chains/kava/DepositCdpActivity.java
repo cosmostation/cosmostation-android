@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import kava.cdp.v1beta1.Genesis;
-import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -33,12 +32,10 @@ import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep3Fragment;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpsByOwnerGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.KavaMarketPriceTokenGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_MY_CDPS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICE_TOKEN;
 
 public class DepositCdpActivity extends BaseBroadCastActivity {
 
@@ -52,7 +49,6 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
 
     private String                                      mMaketId;
     public Genesis.Params                               mCdpParams;
-    public QueryOuterClass.CurrentPriceResponse         mKavaTokenPrice;
     public Genesis.CollateralParam                      mCollateralParam;
     public kava.cdp.v1beta1.QueryOuterClass.CDPResponse mMyCdp;
 
@@ -229,21 +225,15 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
     private int mTaskCount = 0;
     public void onFetchCdpInfo() {
         onShowWaitDialog();
-        mTaskCount = 2;
+        mTaskCount = 1;
         new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaMarketPriceTokenGrpcTask(getBaseApplication(), this, mBaseChain, mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         mTaskCount--;
-        if (result.taskType == TASK_GRPC_FETCH_KAVA_PRICE_TOKEN) {
-            if (result.isSuccess && result.resultData != null) {
-                mKavaTokenPrice = (QueryOuterClass.CurrentPriceResponse) result.resultData;
-            }
-
-        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_MY_CDPS) {
+        if (result.taskType == TASK_GRPC_FETCH_KAVA_MY_CDPS) {
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<kava.cdp.v1beta1.QueryOuterClass.CDPResponse> myCdps = (ArrayList<kava.cdp.v1beta1.QueryOuterClass.CDPResponse>) result.resultData;
                 for (kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp: myCdps) {
@@ -258,13 +248,20 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
 
         if (mTaskCount == 0) {
             onHideWaitDialog();
-            if (mCdpParams == null || mKavaTokenPrice == null || mMyCdp == null) {
-                WLog.w("ERROR");
+            if (mCdpParams == null || mMyCdp == null) {
                 Toast.makeText(getBaseContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
                 onBackPressed();
                 return;
             }
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
+    }
+
+    public BigDecimal getKavaOraclePrice() {
+        BigDecimal price = BigDecimal.ZERO;
+        if (getBaseDao().mKavaTokenPrice != null) {
+            price = getBaseDao().getKavaOraclePrice(mMaketId);
+        }
+        return price;
     }
 }

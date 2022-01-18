@@ -56,7 +56,7 @@ public class Dialog_Safe_Score_Confirm extends DialogFragment {
         WDp.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("afterRiskRate")), after_risk_rate, after_risk_score, after_risk_layer);
 
         current_price_title.setText(String.format(getString(R.string.str_current_title3), getArguments().getString("denom").toUpperCase()));
-        current_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("currentPrice")).movePointLeft(18) , 4));
+        current_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("currentPrice")) , 4));
 
         before_liquidation_price_title.setText(String.format(getString(R.string.str_before_liquidation_title2), getArguments().getString("denom").toUpperCase()));
         before_liquidation_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("beforeLiquidationPrice")) , 4));

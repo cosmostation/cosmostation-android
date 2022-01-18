@@ -118,7 +118,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
         mCollateralDenom = getCParam().getDenom();
         mPrincipalDenom = getCParam().getDebtLimit().getDenom();
         setDpDecimals(WUtil.getKavaCoinDecimal(mCollateralDenom));
-        mCurrentPrice = new BigDecimal(getPrice().getPrice()).movePointLeft(18);
+        mCurrentPrice = getSActivity().getKavaOraclePrice();
 
         mCurrentTotalDebetAmount = WUtil.getEstimatedTotalDebt(getContext(), getOwenCdp(), getCParam());
         mCanWithdrawMaxMaxAmount = WUtil.getWithdrawableAmount(getContext(), getOwenCdp(), getCParam(), mCurrentPrice, getSActivity().mSelfDepositAmount);
@@ -301,7 +301,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
                     bundle.putString("afterRiskRate", mAfterRiskRate.toPlainString());
                     bundle.putString("beforeLiquidationPrice", mBeforeLiquidationPrice.toPlainString());
                     bundle.putString("afterLiquidationPrice", mAfterLiquidationPrice.toPlainString());
-                    bundle.putString("currentPrice", getPrice().getPrice());
+                    bundle.putString("currentPrice", mCurrentPrice.toPlainString());
                     bundle.putString("denom", mCollateralDenom);
                     Dialog_Safe_Score_Confirm dialog = Dialog_Safe_Score_Confirm.newInstance(bundle);
                     dialog.setCancelable(true);
@@ -333,10 +333,6 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
 
     private QueryOuterClass.CDPResponse getOwenCdp() {
         return getSActivity().mMyCdp;
-    }
-
-    private kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse getPrice() {
-        return getSActivity().mKavaTokenPrice;
     }
 
     private void setDpDecimals(int deciaml) {

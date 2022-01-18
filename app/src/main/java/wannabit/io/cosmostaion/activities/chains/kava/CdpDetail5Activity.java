@@ -187,7 +187,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
         final String cDenom                                     = collateralParam.getDenom();
         final String pDenom                                     = collateralParam.getDebtLimit().getDenom();
-        final BigDecimal currentPrice                           = new BigDecimal(getBaseDao().mKavaTokenPrice.get(collateralParam.getLiquidationMarketId()).getPrice()).movePointLeft(18);
+        final BigDecimal currentPrice                           = getBaseDao().getKavaOraclePrice(collateralParam.getLiquidationMarketId());
         final BigDecimal cAvailable                             = getBaseDao().getAvailable(cDenom);
         BigDecimal principalMinAmount                           = new BigDecimal(mCdpParams.getDebtParam().getDebtFloor());
         BigDecimal collateralMinAmount                          = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(collateralParam.getLiquidationRatio()).movePointLeft(18)).divide(currentPrice, 0, RoundingMode.UP);
@@ -228,7 +228,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         if (!onCommonCheck()) return;
 
         final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
-        final BigDecimal currentPrice                           = new BigDecimal(getBaseDao().mKavaTokenPrice.get(collateralParam.getLiquidationMarketId()).getPrice()).movePointLeft(18);
+        final BigDecimal currentPrice                           = getBaseDao().getKavaOraclePrice(collateralParam.getLiquidationMarketId());
         final BigDecimal maxWithdrawableAmount                  = WUtil.getWithdrawableAmount(getBaseContext(), mMyCdps, collateralParam, currentPrice, mSelfDepositAmount);
 
         if (maxWithdrawableAmount.compareTo(BigDecimal.ZERO) <= 0) {
@@ -245,7 +245,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     public void onCheckStartDrawDebtCdp() {
         if (!onCommonCheck()) return;
 
-        final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
+        final Genesis.CollateralParam collateralParam = getBaseDao().getCollateralParamByType(mCollateralType);
         if (WUtil.getMoreLoanableAmount(getBaseContext(), mMyCdps, collateralParam).compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_can_not_draw_debt, Toast.LENGTH_SHORT).show();
             return;
