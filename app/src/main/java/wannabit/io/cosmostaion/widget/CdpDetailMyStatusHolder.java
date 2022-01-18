@@ -186,13 +186,13 @@ public class CdpDetailMyStatusHolder extends BaseHolder {
 
             }
         });
-//        mMyBtnRepay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                context.onCheckStartRepayCdp();
-//
-//            }
-//        });
+        mMyBtnRepay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.onCheckStartRepayCdp();
+
+            }
+        });
     }
 
     private void onShowHelpPopup(CdpDetail5Activity context, String title, String msg) {

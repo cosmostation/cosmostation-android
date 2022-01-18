@@ -261,35 +261,35 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         startActivity(intent);
 
     }
-//
-//    public void onCheckStartRepayCdp() {
-//        if (!onCommonCheck()) return;
-//
-//        final CollateralParam collateralParam   = mCdpParam.getCollateralParamByType(mCollateralType);
-//        final String pDenom                     = collateralParam.debt_limit.denom;
-//        final BigDecimal pAvailable             = WUtil.getTokenBalance(getBaseDao().mBalances, pDenom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(getBaseDao().mBalances, pDenom).balance;
-//
-//        if (pAvailable.compareTo(BigDecimal.ZERO) <= 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_not_enought_principal_asset, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        boolean repayAll = true;
-//        boolean repayPart = true;
-//        BigDecimal debtFloor = new BigDecimal(mCdpParam.debt_param.debt_floor);
-//        BigDecimal rawDebt =  mMyCdp.getPrincipalAmount();
-//        BigDecimal totalDebt =  mMyCdp.getEstimatedTotalDebt(getBaseContext(), collateralParam);
-//        if (totalDebt.compareTo(pAvailable) > 0) { repayAll = false; }
-//        if (rawDebt.compareTo(debtFloor) <= 0) { repayPart = false; }
-//        if (!repayAll && !repayPart) {
-//            Toast.makeText(getBaseContext(), R.string.error_can_not_repay, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        Intent intent = new Intent(this, RepayCdpActivity.class);
-//        intent.putExtra("collateralParamType", mCollateralType);
-//        intent.putExtra("marketId", collateralParam.liquidation_market_id);
-//        startActivity(intent);
-//    }
+
+    public void onCheckStartRepayCdp() {
+        if (!onCommonCheck()) return;
+
+        final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
+        final String pDenom                                     = collateralParam.getDebtLimit().getDenom();
+        final BigDecimal pAvailable                             = getBaseDao().getAvailable(pDenom);
+
+        if (pAvailable.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enought_principal_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        boolean repayAll = true;
+        boolean repayPart = true;
+        BigDecimal debtFloor = new BigDecimal(mCdpParams.getDebtParam().getDebtFloor());
+        BigDecimal rawDebt =  new BigDecimal(mMyCdps.getPrincipal().getAmount());
+        BigDecimal totalDebt =  WUtil.getEstimatedTotalDebt(getBaseContext(), mMyCdps, collateralParam);
+        if (totalDebt.compareTo(pAvailable) > 0) { repayAll = false; }
+        if (rawDebt.compareTo(debtFloor) <= 0) { repayPart = false; }
+        if (!repayAll && !repayPart) {
+            Toast.makeText(getBaseContext(), R.string.error_can_not_repay, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, RepayCdpActivity.class);
+        intent.putExtra("collateralParamType", mCollateralType);
+        intent.putExtra("marketId", collateralParam.getLiquidationMarketId());
+        startActivity(intent);
+    }
 
 
     private boolean onCommonCheck() {

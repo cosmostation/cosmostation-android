@@ -265,6 +265,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT_CDP           = 4337;
     public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW_CDP          = 4338;
     public final static int TASK_GRPC_GEN_TX_KAVA_DRAW_DEBT_CDP         = 4339;
+    public final static int TASK_GRPC_GEN_TX_KAVA_REPAY_CDP             = 4340;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -304,6 +305,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT_CDP         = 4537;
     public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW_CDP        = 4538;
     public final static int TASK_GRPC_SIMULATE_KAVA_DRAW_DEBT_CDP       = 4539;
+    public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_CDP           = 4540;
 
 
 
@@ -355,13 +357,13 @@ public class BaseConstant {
     public final static String IRIS_MSG_TYPE_WITHDRAW_MIDIFY                = "irishub/distr/MsgModifyWithdrawAddress";
     public final static String IRIS_MSG_TYPE_ISSUE_TOKEN                    = "irishub/asset/MsgIssueToken";
 
-    public final static String KAVA_MSG_TYPE_POST_PRICE                     = "pricefeed/MsgPostPrice";
+    public final static String KAVA_MSG_TYPE_POST_PRICE                     = "/kava.pricefeed.v1beta1.MsgPostPrice";
     public final static String KAVA_MSG_TYPE_CREATE_CDP                     = "/kava.cdp.v1beta1.MsgCreateCDP";
     public final static String KAVA_MSG_TYPE_DEPOSIT_CDP                    = "/kava.cdp.v1beta1.MsgDeposit";
     public final static String KAVA_MSG_TYPE_WITHDRAW_CDP                   = "/kava.cdp.v1beta1.MsgWithdraw";
     public final static String KAVA_MSG_TYPE_DRAWDEBT_CDP                   = "/kava.cdp.v1beta1.MsgDrawDebt";
-    public final static String KAVA_MSG_TYPE_REPAYDEBT_CDP                  = "cdp/MsgRepayDebt";
-    public final static String KAVA_MSG_TYPE_LIQUIDATE_CDP                  = "cdp/MsgLiquidate";
+    public final static String KAVA_MSG_TYPE_REPAYDEBT_CDP                  = "/kava.cdp.v1beta1.MsgRepayDebt";
+    public final static String KAVA_MSG_TYPE_LIQUIDATE_CDP                  = "/kava.cdp.v1beta1.MsgLiquidate";
     public final static String KAVA_MSG_TYPE_BEP3_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "bep3/MsgClaimAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";

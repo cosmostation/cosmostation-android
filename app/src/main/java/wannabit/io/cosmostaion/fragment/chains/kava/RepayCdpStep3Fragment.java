@@ -11,13 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
+import kava.cdp.v1beta1.Genesis;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.RepayCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.model.kava.CdpParam;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -25,14 +23,14 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView mPaymentTitle, mPaymentAmount, mPaymentDenom, mPaymentValue;
-    private TextView mFeesAmount, mFeesDenom, mFeeValue;
-    private TextView mBeforeRiskTv, mAfterRiskRateTv;
-    private TextView mBeforeLiquidationPriceTitle, mAfterLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
-    private TextView mRemainDebtTitle, mRemainDebtAmount, mRemainDebtDenom, mRemainDebtValue;
-    private TextView mMemo;
+    private TextView     mPaymentAmount, mPaymentDenom, mPaymentValue;
+    private TextView     mFeesAmount, mFeesDenom, mFeeValue;
+    private TextView     mBeforeRiskTv, mAfterRiskRateTv;
+    private TextView     mBeforeLiquidationPriceTitle, mAfterLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
+    private TextView     mRemainDebtAmount, mRemainDebtDenom, mRemainDebtValue;
+    private TextView     mMemo;
     private LinearLayout mWarnLayer;
-    private Button mBeforeBtn, mConfirmBtn;
+    private Button       mBeforeBtn, mConfirmBtn;
 
     public static RepayCdpStep3Fragment newInstance(Bundle bundle) {
         RepayCdpStep3Fragment fragment = new RepayCdpStep3Fragment();
@@ -48,7 +46,6 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_repay_cdp_3, container, false);
-        mPaymentTitle = rootView.findViewById(R.id.payment_title);
         mPaymentAmount = rootView.findViewById(R.id.payment_amount);
         mPaymentDenom = rootView.findViewById(R.id.payment_amount_denom);
         mPaymentValue = rootView.findViewById(R.id.payment_value);
@@ -61,7 +58,6 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         mBeforeLiquidationPrice = rootView.findViewById(R.id.liquidation_price_before);
         mAfterLiquidationPriceTitle = rootView.findViewById(R.id.liquidation_price_after_title);
         mAfterLiquidationPrice = rootView.findViewById(R.id.liquidation_price_after);
-        mRemainDebtTitle = rootView.findViewById(R.id.remaining_debt_title);
         mRemainDebtAmount = rootView.findViewById(R.id.remaining_debt_amount);
         mRemainDebtDenom = rootView.findViewById(R.id.remaining_debt_amount_denom);
         mRemainDebtValue = rootView.findViewById(R.id.remaining_debt_value);
@@ -77,8 +73,8 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        final String cDenom = getCParam().denom;
-        final String pDenom = getCParam().debt_limit.denom;
+        final String cDenom = getCParam().getDenom();
+        final String pDenom = getCParam().getDebtLimit().getDenom();
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mPayment.amount, mPaymentDenom, mPaymentAmount, getSActivity().mBaseChain);
@@ -122,7 +118,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         return (RepayCdpActivity)getBaseActivity();
     }
 
-    private CollateralParam getCParam() {
+    private Genesis.CollateralParam getCParam() {
         return getSActivity().mCollateralParam;
     }
 }

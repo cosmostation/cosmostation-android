@@ -27,14 +27,14 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_KAVA_WITHDRAW_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_KAVA_REPAY_CDP;
 
-public class KavaWithdrawCdpGrpcTask extends CommonTask {
+public class KavaRepayGrpcTask extends CommonTask {
 
     private Account                 mAccount;
     private BaseChain               mBaseChain;
-    private String                  mOwner, mDepositor;
-    private Coin                    mCollateral;
+    private String                  mSender;
+    private Coin                    mPayment;
     private String                  mCollateralType;
     private String                  mMemo;
     private Fee                     mFees;
@@ -43,19 +43,18 @@ public class KavaWithdrawCdpGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
-    public KavaWithdrawCdpGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String owner, String depositor,
-                                  Coin collateral, String collateralType, String memo, Fee fee, String chainId) {
+    public KavaRepayGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender,
+                                  Coin payment, String collateralType, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
-        this.mOwner = owner;
-        this.mDepositor = depositor;
-        this.mCollateral = collateral;
+        this.mSender = sender;
+        this.mPayment = payment;
         this.mCollateralType = collateralType;
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_GEN_TX_KAVA_WITHDRAW_CDP;
+        this.mResult.taskType = TASK_GRPC_GEN_TX_KAVA_REPAY_CDP;
     }
 
     @Override
@@ -83,7 +82,7 @@ public class KavaWithdrawCdpGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaWithdrawCdpReq(mAuthResponse, mOwner, mDepositor, mCollateral, mCollateralType, mFees, mMemo, ecKey, mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaRepayCdpReq(mAuthResponse, mSender, mPayment, mCollateralType, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {
@@ -95,7 +94,7 @@ public class KavaWithdrawCdpGrpcTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            WLog.e( "KavaWithdrawCdpGrpcTask "+ e.getMessage());
+            WLog.e( "KavaDepositCdpGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

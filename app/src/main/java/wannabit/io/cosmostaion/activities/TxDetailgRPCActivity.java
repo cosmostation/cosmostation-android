@@ -83,6 +83,7 @@ import wannabit.io.cosmostaion.widget.txDetail.kava.TxDrawDebtCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaDepositPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaWithdrawPoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxRepayCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxWithdrawCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxIssueDenomHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxMintNFTHolder;
@@ -295,6 +296,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_KAVA_DEPOSIT_CDP = 114;
         private static final int TYPE_TX_KAVA_WITHDRAW_CDP = 115;
         private static final int TYPE_TX_KAVA_DRAW_DEBT_CDP = 116;
+        private static final int TYPE_TX_KAVA_REPAY_CDP = 117;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -505,6 +507,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_KAVA_DRAW_DEBT_CDP) {
                 return new TxDrawDebtCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_drawdebt_cdp, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_REPAY_CDP) {
+                return new TxRepayCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_repaydebt_cdp, viewGroup, false));
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -685,6 +690,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_WITHDRAW_CDP;
                 } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgDeposit.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_DEPOSIT_CDP;
+                } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgRepayDebt.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_REPAY_CDP;
                 }
                 return TYPE_TX_UNKNOWN;
             }

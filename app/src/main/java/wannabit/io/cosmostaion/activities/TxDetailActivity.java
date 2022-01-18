@@ -352,8 +352,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (viewType == TYPE_TX_POST_PRICE) {
                 return new TxPostPriceHolder(getLayoutInflater().inflate(R.layout.item_tx_post_price, viewGroup, false));
 
-            } else if (viewType == TYPE_TX_CDP_REPAY) {
-                return new TxRepayDebtCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_repaydebt_cdp, viewGroup, false));
             } else if (viewType == TYPE_TX_CDP_LIQUIDATE) {
                 return new TxCdpLiquidate(getLayoutInflater().inflate(R.layout.item_tx_liquidate_cdp, viewGroup, false));
             } else if (viewType == TYPE_TX_HARD_DEPOSIT) {
@@ -408,8 +406,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (getItemViewType(position) == TYPE_TX_POST_PRICE) {
                 onBindPostPrice(viewHolder, position);
 
-            } else if (getItemViewType(position) == TYPE_TX_CDP_REPAY) {
-                onBindCdpRepay(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_CDP_LIQUIDATE) {
                 onBindCdpLiquidate(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HTLC_CREATE) {
@@ -842,21 +838,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), msg.value.expiry) + " (" + msg.value.expiry + ")");
             }
 
-        }
-
-        private void onBindCdpRepay(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxRepayDebtCdpHolder holder = (TxRepayDebtCdpHolder) viewHolder;
-            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemSender.setText(msg.value.sender);
-                if (!TextUtils.isEmpty(msg.value.cdp_denom)) {
-                    holder.itemCdpDenom.setText(msg.value.cdp_denom.toUpperCase());
-                } else if (!TextUtils.isEmpty(msg.value.collateral_type)) {
-                    holder.itemCdpDenom.setText(msg.value.collateral_type.toUpperCase());
-                }
-                WDp.showCoinDp(getBaseContext(), getBaseDao(), msg.value.payment, holder.itemPaymentDenom, holder.itemPaymentAmount, mBaseChain);
-            }
         }
 
         private void onBindCdpLiquidate(RecyclerView.ViewHolder viewHolder, int position) {
@@ -1303,23 +1284,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemPostPrice = itemView.findViewById(R.id.tx_post_price);
                 itemTime = itemView.findViewById(R.id.tx_validity_time);
             }
-        }
-
-        public class TxRepayDebtCdpHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemSender, itemCdpDenom, itemPaymentAmount, itemPaymentDenom;
-
-            public TxRepayDebtCdpHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemSender = itemView.findViewById(R.id.tx_cdp_sender);
-                itemCdpDenom = itemView.findViewById(R.id.tx_cdp_denom);
-                itemPaymentAmount = itemView.findViewById(R.id.tx_payment_amount);
-                itemPaymentDenom = itemView.findViewById(R.id.tx_payment_symbol);
-            }
-
         }
 
         public class TxHardPoolDepositHolder extends RecyclerView.ViewHolder {

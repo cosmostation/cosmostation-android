@@ -82,6 +82,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaCreateCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDepositCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDrawDebtCdpGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaRepayGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaSwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaWithdrawCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaWithdrawGrpcTask;
@@ -292,6 +293,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Coin                            mCollateral;
     private Coin                            mPrincipal;
     private String                          mCollateralType;
+    private Coin                            mPayment;
 
     private String                      mPortId;
     private String                      mChannelId;
@@ -420,6 +422,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mCollateral = getIntent().getParcelableExtra("mCollateral");
         mPrincipal = getIntent().getParcelableExtra("mPrincipal");
         mCollateralType = getIntent().getStringExtra("mCollateralType");
+        mPayment = getIntent().getParcelableExtra("mPayment");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -572,11 +575,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             onShowWaitDialog();
             new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mProposalId, mOpinion, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-        } else if (mPurpose == CONST_PW_TX_REPAY_CDP) {
-            onShowWaitDialog();
-            new SimpleRepayCdpTask(getBaseApplication(), this, mAccount, mSender, mPaymentCoin,
-                    mCdpDenom, mTargetMemo,  mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_HTLS_REFUND) {
             onShowWaitDialog();
@@ -784,6 +782,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_DRAW_DEBT_CDP) {
             new KavaDrawDebtCdpGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mPrincipal, mCollateralType,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_REPAY_CDP) {
+            new KavaRepayGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mPayment, mCollateralType,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
