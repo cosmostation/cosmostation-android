@@ -129,8 +129,8 @@ public class ChannelBuilder {
     private final static String GRPC_CHIHUAHUA_MAIN = "lcd-chihuahua-app.cosmostation.io";
     private final static int PORT_CHIHUAHUA_MAIN = 9090;
 
-    private final static String GRPC_KAVA_MAIN = "lcd-office.cosmostation.io";
-    private final static int PORT_KAVA_MAIN = 20300;
+    private final static String GRPC_KAVA_MAIN = "lcd-kava-app.cosmostation.io";
+    private final static int PORT_KAVA_MAIN = 9090;
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";

@@ -2327,6 +2327,32 @@ public class WUtil {
         return finalBorrowableValue;
     }
 
+    public static String getDuputyKavaAddress(String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
+            return KAVA_MAIN_BNB_DEPUTY;
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BTCB)) {
+            return KAVA_MAIN_BTCB_DEPUTY;
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
+            return KAVA_MAIN_XRPB_DEPUTY;
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+            return KAVA_MAIN_BUSD_DEPUTY;
+        }
+        return "";
+    }
+
+    public static String getDuputyBnbAddress(String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
+            return BINANCE_MAIN_BNB_DEPUTY;
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BTCB)) {
+            return BINANCE_MAIN_BTCB_DEPUTY;
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
+            return BINANCE_MAIN_XRPB_DEPUTY;
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+            return BINANCE_MAIN_BUSD_DEPUTY;
+        }
+        return "";
+    }
+
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
         if (all == null) return null;
         for (BnbToken token:all) {
@@ -2956,6 +2982,15 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(STARGAZE_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/stargaze")));
+
+        } else if (mainActivity.mBaseChain.equals(LUM_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/lum-network")));
+
+        } else if (mainActivity.mBaseChain.equals(DESMOS_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/desmos")));
+
+        } else if (mainActivity.mBaseChain.equals(CHIHUAHUA_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/chihuahua-chain")));
         }
         return null;
     }

@@ -42,6 +42,8 @@ import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcClaimTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcCreateTask;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaCreateHTLCGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -217,7 +219,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             recipientTv.setText(msg.value.recipient_other_chain);
             randomHashTv.setText(msg.value.random_number_hash);
 
-        } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) && mResSendTxInfo != null) {
+        } else if ((mBaseChain.equals(BaseChain.KAVA_MAIN)) && mResSendTxInfo != null) {
             final Msg msg = mResSendTxInfo.tx.value.msg.get(0);
 
             if (mResSendTxInfo.isSuccess()) {
@@ -360,25 +362,6 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 }
             });
 
-        } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
-            ApiClient.getBnbTestChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
-                @Override
-                public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
-                    if(isFinishing()) return;
-                    WLog.w("onFetchSendTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
-                        mResSendBnbTxInfo = response.body();
-                    }
-                    onUpdateSendView();
-                }
-
-                @Override
-                public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
-                    WLog.w("onFetchSendTx BNB onFailure");
-                    if(BuildConfig.DEBUG) t.printStackTrace();
-                }
-            });
-
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
@@ -397,26 +380,6 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                     if(BuildConfig.DEBUG) t.printStackTrace();
                 }
             });
-
-        } else if (mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            ApiClient.getKavaTestChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
-                @Override
-                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if(isFinishing()) return;
-                    WLog.w("onFetchSendTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
-                        mResSendTxInfo = response.body();
-                    }
-                    onUpdateSendView();
-                }
-
-                @Override
-                public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    WLog.w("onFetchSendTx KAVA onFailure");
-                    if(BuildConfig.DEBUG) t.printStackTrace();
-                }
-            });
-
         }
     }
 
@@ -521,48 +484,16 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                     onUpdateView();
                 }
             });
-
-        } else if (mRecipientChain.equals(BaseChain.KAVA_TEST)) {
-            ApiClient.getKavaTestChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
-                @Override
-                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if(isFinishing()) return;
-                    WLog.w("onFetchClaimTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
-                        mResReceiveTxInfo = response.body();
-                        onUpdateView();
-                    } else {
-                        if (ClaimFetchCnt < 20) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ClaimFetchCnt++;
-                                    onFetchClaimTx(hash);
-                                }
-                            }, 3000);
-
-                        } else {
-                            onUpdateView();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    WLog.w("onFetchClaimTx KAVA onFailure");
-                    if(BuildConfig.DEBUG) t.printStackTrace();
-                    onUpdateView();
-                }
-            });
-
         }
     }
 
-
-
-    //Create HTLC TX
     private void onCreateHTLC() {
-        new HtlcCreateTask(getBaseApplication(), this, mAccount, mRecipientAccount, mBaseChain, mRecipientChain, mTargetCoins, mSendFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            new KavaCreateHTLCGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mRecipientAccount.address, mTargetCoins, mSendFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            new HtlcCreateTask(getBaseApplication(), this, mAccount, mRecipientAccount, mBaseChain, mRecipientChain, mTargetCoins, mSendFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
 
     }
 
@@ -587,24 +518,6 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 }
             });
 
-        } else if (mRecipientChain.equals(BaseChain.KAVA_TEST)) {
-            ApiClient.getKavaTestChain(this).getSwapById(expectedSwapId).enqueue(new Callback<ResKavaSwapInfo>() {
-                @Override
-                public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
-                    if (response.isSuccessful() && response.body() != null && response.body().result != null) {
-                        onClaimHTLC();
-                    } else {
-                        onHandleNotfound(expectedSwapId);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResKavaSwapInfo> call, Throwable t) {
-                    onHandleNotfound(expectedSwapId);
-
-                }
-            });
-
         } else if (mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             ApiClient.getBnbChain(this).getSwapById(expectedSwapId).enqueue(new Callback<ResBnbSwapInfo>() {
                 @Override
@@ -622,25 +535,6 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
                 }
             });
-
-        } else if (mRecipientChain.equals(BaseChain.BNB_TEST)) {
-            ApiClient.getBnbTestChain(this).getSwapById(expectedSwapId).enqueue(new Callback<ResBnbSwapInfo>() {
-                @Override
-                public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
-                    if (response.isSuccessful() && response.body() != null && response.body().swapId != null) {
-                        onClaimHTLC();
-                    } else {
-                        onHandleNotfound(expectedSwapId);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResBnbSwapInfo> call, Throwable t) {
-                    onHandleNotfound(expectedSwapId);
-
-                }
-            });
-
         }
     }
 

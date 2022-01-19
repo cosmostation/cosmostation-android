@@ -346,7 +346,7 @@ public enum BaseChain {
     }
 
     public static boolean IS_TESTNET(BaseChain chain) {
-        if (chain.equals(UMEE_TEST) || chain.equals(AXELAR_TEST) || chain.equals(KAVA_MAIN)) {
+        if (chain.equals(UMEE_TEST) || chain.equals(AXELAR_TEST)) {
             return true;
         }
         return false;
