@@ -10,12 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
+import kava.cdp.v1beta1.Genesis;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.BorrowCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -23,13 +22,13 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView mLoanTitle, mLoanAmount, mLoanDenom, mLoanValue;
+    private TextView mLoanAmount, mLoanDenom, mLoanValue;
     private TextView mFeesAmount, mFeesDenom, mFeeValue;
     private TextView mBeforeRiskTv, mAfterRiskRateTv;
     private TextView mBeforeLiquidationPriceTitle, mAfterLiquidationPriceTitle, mBeforeLiquidationPrice, mAfterLiquidationPrice;
-    private TextView mTotalDebtTitle, mTotalDebtAmount, mTotalDebtDenom, mTotalDebtValue;
+    private TextView mTotalDebtAmount, mTotalDebtDenom, mTotalDebtValue;
     private TextView mMemo;
-    private Button mBeforeBtn, mConfirmBtn;
+    private Button   mBeforeBtn, mConfirmBtn;
 
     public static DrawDebtCdpStep3Fragment newInstance(Bundle bundle) {
         DrawDebtCdpStep3Fragment fragment = new DrawDebtCdpStep3Fragment();
@@ -45,7 +44,6 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_drawdebt_cdp_step3, container, false);
-        mLoanTitle = rootView.findViewById(R.id.more_loan_title);
         mLoanAmount = rootView.findViewById(R.id.more_loan_amount);
         mLoanDenom = rootView.findViewById(R.id.more_loan_amount_denom);
         mLoanValue = rootView.findViewById(R.id.more_loan_value);
@@ -58,7 +56,6 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
         mBeforeLiquidationPrice = rootView.findViewById(R.id.liquidation_price_before);
         mAfterLiquidationPriceTitle = rootView.findViewById(R.id.liquidation_price_after_title);
         mAfterLiquidationPrice = rootView.findViewById(R.id.liquidation_price_after);
-        mTotalDebtTitle = rootView.findViewById(R.id.after_total_debt_title);
         mTotalDebtAmount = rootView.findViewById(R.id.after_total_debt_amount);
         mTotalDebtDenom = rootView.findViewById(R.id.after_total_debt_denom);
         mTotalDebtValue = rootView.findViewById(R.id.after_total_debt_value);
@@ -72,18 +69,17 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onRefreshTab() {
-        final String cDenom = getCParam().denom;
-        final String pDenom = getCParam().debt_limit.denom;
+        final String cDenom = getCParam().getDenom();
+        final String pDenom = getCParam().getDebtLimit().getDenom();
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mPrincipal.amount, mLoanDenom, mLoanAmount, getSActivity().mBaseChain);
-        BigDecimal moreLoanValue = new BigDecimal(getSActivity().mPrincipal.amount).movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
+        BigDecimal moreLoanValue = new BigDecimal(getSActivity().mPrincipal.amount).movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom));
         mLoanValue.setText(WDp.getDpRawDollor(getContext(), moreLoanValue, 2));
 
         WDp.showCoinDp(getContext(), getBaseDao(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
         BigDecimal kavaValue = WDp.usdValue(getBaseDao(), TOKEN_KAVA, feeAmount, 6);
         mFeeValue.setText(WDp.getDpRawDollor(getContext(), kavaValue, 2));
-
 
         WDp.DpRiskRate(getContext(), getSActivity().mBeforeRiskRate , mBeforeRiskTv, null);
         WDp.DpRiskRate(getContext(), getSActivity().mAfterRiskRate , mAfterRiskRateTv, null);
@@ -95,7 +91,7 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
         mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(),  4));
 
         WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mMoreAddedLoanAmount.toPlainString(), mTotalDebtDenom, mTotalDebtAmount, getSActivity().mBaseChain);
-        BigDecimal totalLaonValue = getSActivity().mMoreAddedLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
+        BigDecimal totalLaonValue = getSActivity().mMoreAddedLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom));
         mTotalDebtValue.setText(WDp.getDpRawDollor(getContext(), totalLaonValue, 2));
 
         mMemo.setText(getSActivity().mTxMemo);
@@ -116,7 +112,7 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
         return (BorrowCdpActivity)getBaseActivity();
     }
 
-    private CollateralParam getCParam() {
+    private Genesis.CollateralParam getCParam() {
         return getSActivity().mCollateralParam;
     }
 

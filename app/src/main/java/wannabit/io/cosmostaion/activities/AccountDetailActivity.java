@@ -1,12 +1,5 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,8 +19,6 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -40,15 +31,18 @@ import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -156,29 +150,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             return;
         }
 
-        if (isGRPC(mBaseChain)) {
-//            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 0);
+//        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 0);
 //            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
 //                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
 //                return;
 //            }
-
-            getBaseDao().setLastUser(mAccount.id);
-            Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
-            changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
-            startActivity(changeAddress);
-
-
-        } else {
-            BigDecimal mainDenomAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 1);
-            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
-
-            getBaseDao().setLastUser(mAccount.id);
-            Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
-            changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
-            startActivity(changeAddress);
-        }
     }
 
     private void onInitView() {
@@ -196,9 +172,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         if (isGRPC(mBaseChain)) {
             new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain,  mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
         } else {
-            new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
@@ -369,18 +343,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if (result.taskType == BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS) {
-            String rewardAddress = (String)result.resultData;
-            if (!TextUtils.isEmpty(rewardAddress)) {
-                mRewardAddress.setText(rewardAddress.trim());
-                if(rewardAddress.equals(mAccount.address)) {
-                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorWhite));
-                } else {
-                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorRed));
-                }
-            }
-
-        } else if (result.taskType == TASK_GRPC_FETCH_WITHDRAW_ADDRESS) {
+        if (result.taskType == TASK_GRPC_FETCH_WITHDRAW_ADDRESS) {
             String rewardAddress = (String)result.resultData;
             if (!TextUtils.isEmpty(rewardAddress)) {
                 mRewardAddress.setText(rewardAddress.trim());

@@ -1,30 +1,13 @@
 package wannabit.io.cosmostaion.base;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.google.protobuf2.Any;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf2.Any;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -46,6 +29,10 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
+import kava.cdp.v1beta1.Genesis;
+import kava.hard.v1beta1.Hard;
+import kava.pricefeed.v1beta1.QueryOuterClass;
+import kava.swap.v1beta1.Swap;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
@@ -67,7 +54,6 @@ import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.RewardInfo;
 import wannabit.io.cosmostaion.model.SifIncentive;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
-import wannabit.io.cosmostaion.model.kava.AuctionParam;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
 import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
@@ -76,12 +62,9 @@ import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.kava.KavaPriceMarket;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
-import wannabit.io.cosmostaion.model.kava.SwapParam;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
-import wannabit.io.cosmostaion.network.res.ResIovConfig;
-import wannabit.io.cosmostaion.network.res.ResIovFee;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
@@ -92,6 +75,23 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class BaseData {
 
@@ -216,10 +216,6 @@ public class BaseData {
         return result;
     }
 
-//    public ArrayList<BaseChain> userHideChains() {
-//        ArrayList<BaseChain> result = new ArrayList<>();
-//    }
-
     //COMMON DATA
     public NodeInfo                     mNodeInfo;
     public ArrayList<Validator>         mAllValidators = new ArrayList<>();
@@ -231,21 +227,6 @@ public class BaseData {
     public ArrayList<BondingInfo>       mMyDelegations = new ArrayList<>();
     public ArrayList<UnbondingInfo>     mMyUnbondings = new ArrayList<>();
     public ArrayList<RewardInfo>        mMyRewards = new ArrayList<>();
-
-    //COMMON DATA FOR KAVA-8
-    public ResLcdKavaAccountInfo.Result     mKavaAccount;
-    public CdpParam                         mCdpParam;
-    public IncentiveParam                   mIncentiveParam5;
-    public HardParam                        mHardParam;
-    public AuctionParam                     mAuctionParam;
-    public IncentiveReward                  mIncentiveRewards;
-    public ArrayList<HardMyDeposit>         mMyHardDeposit = new ArrayList<>();
-    public ArrayList<HardMyBorrow>          mMyHardBorrow = new ArrayList<>();
-    public ArrayList<Coin>                  mModuleCoins = new ArrayList<>();
-    public ArrayList<Coin>                  mReserveCoins = new ArrayList<>();
-    public HashMap<String, MarketPrice>     mKavaTokenPrices = new HashMap<>();
-    public SwapParam                        mSwapParam;
-    public ArrayList<KavaPriceMarket.Market>       mKavaPriceMarket = new ArrayList<>();
 
     //COMMON DATA FOR BINANCE
     public ArrayList<BnbToken>      mBnbTokens = new ArrayList<>();
@@ -260,12 +241,21 @@ public class BaseData {
     public ResOkTickersList         mOkTickersList;
     public BigDecimal               mOKBPrice = BigDecimal.ZERO;
 
-    //COMMON DATA FOR STARNAME
-    public ResIovFee.IovFee         mStarNameFee;
-    public ResIovConfig.IovConfig   mStarNameConfig;
-
     //INCENTIVE DATA FOR SIF
     public SifIncentive.User        mSifLmIncentive;
+
+    //GRPC for KAVA
+    public ArrayList<QueryOuterClass.CurrentPriceResponse>              mKavaPrices = new ArrayList<>();
+    public HashMap<String, QueryOuterClass.CurrentPriceResponse>        mKavaTokenPrice = new HashMap<>();
+    public IncentiveParam                                               mIncentiveParam5;
+    public IncentiveReward                                              mIncentiveRewards;
+    public Swap.Params                                                  mSwapParams;
+    public Genesis.Params                                               mCdpParams;
+    public Hard.Params                                                  mHardParams;
+    public ArrayList<Coin>                                              mModuleCoins = new ArrayList<>();
+    public ArrayList<CoinOuterClass.Coin>                               mReserveCoins = new ArrayList<>();
+    public ArrayList<kava.hard.v1beta1.QueryOuterClass.DepositResponse> mMyHardDeposits = new ArrayList<>();
+    public ArrayList<kava.hard.v1beta1.QueryOuterClass.BorrowResponse>  mMyHardBorrows = new ArrayList<>();
 
     public String getChainId() {
         if (mNodeInfo != null) {
@@ -654,6 +644,25 @@ public class BaseData {
             }
         }
         return null;
+    }
+
+    // for kava funcs
+    public Genesis.CollateralParam getCollateralParamByType(String type) {
+        Genesis.CollateralParam result = null;
+        for (Genesis.CollateralParam collateralParam: mCdpParams.getCollateralParamsList()) {
+            if (collateralParam.getType().equalsIgnoreCase(type)) {
+                return collateralParam;
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal getKavaOraclePrice(String market_id) {
+        BigDecimal price = BigDecimal.ZERO;
+        if (mKavaTokenPrice != null && mKavaTokenPrice.get(market_id).getPrice() != null) {
+            price = new BigDecimal(mKavaTokenPrice.get(market_id).getPrice()).movePointLeft(18);
+        }
+        return price;
     }
 
     // for starname funcs

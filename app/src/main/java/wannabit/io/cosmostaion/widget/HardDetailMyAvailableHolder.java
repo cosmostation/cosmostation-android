@@ -11,14 +11,12 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 
+import kava.hard.v1beta1.Hard;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.model.kava.HardParam;
-import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
@@ -46,43 +44,32 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
 
     @Override
     public void onBindHardDetailAvailable(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom) {
-        final HardParam hardParam                       = baseData.mHardParam;
-        final HardParam.HardMoneyMarket hardMoneyMarket = hardParam.getHardMoneyMarket(denom);
-        WLog.w("onBindHardDetailAvailable " + denom);
+        final Hard.Params hardParam             = baseData.mHardParams;
+        final Hard.MoneyMarket hardMoneyMarket  = WUtil.getHardMoneyMarket(hardParam, denom);
 
         if (denom.equals(TOKEN_KAVA)) {
             mAssetDepositLayer.setVisibility(View.GONE);
             mDepositValue.setVisibility(View.GONE);
         }
-        BigDecimal targetAvailable = baseData.availableAmount(denom);
-        BigDecimal kavaAvailable = baseData.availableAmount(TOKEN_KAVA);
+        BigDecimal targetAvailable = baseData.getAvailable(denom);
+        BigDecimal kavaAvailable = baseData.getAvailable(TOKEN_KAVA);
 
         // Display each usd value
         BigDecimal targetPrice = BigDecimal.ZERO;
         if (!denom.equals("usdx")) {
-            MarketPrice marketPrice = baseData.mKavaTokenPrices.get(hardMoneyMarket.spot_market_id);
-            if (marketPrice != null) {
-                targetPrice = new BigDecimal(marketPrice.price);
-            }
+            targetPrice = baseData.getKavaOraclePrice(hardMoneyMarket.getSpotMarketId());
         } else {
             targetPrice = BigDecimal.ONE;
         }
-        BigDecimal targetValue = targetAvailable.movePointLeft(WUtil.getKavaCoinDecimal(denom)).multiply(targetPrice);
+        BigDecimal targetValue = targetAvailable.movePointLeft(WUtil.getKavaCoinDecimal(baseData, denom)).multiply(targetPrice);
         WDp.showCoinDp(context, baseData, denom, targetAvailable.toPlainString(), mAssetDepositDenom, mAssetDepositAmount, chain);
         mDepositValue.setText(WDp.getDpRawDollor(context, targetValue, 2));
+        WUtil.DpKavaTokenImg(baseData, mAssetDepositImg, denom);
 
-
-        MarketPrice kavaPrice = baseData.mKavaTokenPrices.get("kava:usd:30");
         BigDecimal kavaValue = BigDecimal.ZERO;
-        if (kavaPrice != null) {
-            kavaValue = kavaAvailable.movePointLeft(6).multiply(new BigDecimal(kavaPrice.price));
-        }
+        kavaValue = kavaAvailable.movePointLeft(6).multiply(baseData.getKavaOraclePrice("kava:usd:30"));
         WDp.showCoinDp(context, baseData, TOKEN_KAVA, kavaAvailable.toPlainString(), mAssetKavaDenom, mAssetKavaAmount, chain);
         mKavaValue.setText(WDp.getDpRawDollor(context, kavaValue, 2));
-
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png").fit().into(mAssetDepositImg);
-        } catch (Exception e) { }
 
     }
 }

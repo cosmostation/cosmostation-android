@@ -33,14 +33,21 @@ import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClickListener{
 
@@ -59,6 +66,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private RecyclerView                    mRecyclerView;
 
     private RelativeLayout                  mBtnIbcSend;
+    private RelativeLayout                  mBtnBep3Send;
     private RelativeLayout                  mBtnSend;
 
     private NativeTokenGrpcAdapter          mAdapter;
@@ -66,6 +74,8 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
     private int                             mDivideDecimal = 6;
     private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
+
+    private Boolean                         mHasVesting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +96,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
         mRecyclerView           = findViewById(R.id.recycler);
         mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
+        mBtnBep3Send            = findViewById(R.id.btn_bep3_send);
         mBtnSend                = findViewById(R.id.btn_send);
 
         setSupportActionBar(mToolbar);
@@ -95,6 +106,11 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mNativeGrpcDenom = getIntent().getStringExtra("denom");
+
+        if (mBaseChain.equals(KAVA_MAIN)) {
+            if (getBaseDao().onParseRemainVestingsByDenom(mNativeGrpcDenom).size() > 0) { mHasVesting = true; }
+            if (WUtil.isBep3Coin(mNativeGrpcDenom)) { mBtnBep3Send.setVisibility(View.VISIBLE); }
+        }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -113,6 +129,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mBtnAddressPopup.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
         mBtnIbcSend.setOnClickListener(this);
+        mBtnBep3Send.setOnClickListener(this);
     }
 
     @Override
@@ -127,6 +144,8 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     }
 
     private void onUpdateView() {
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenGrpcActivity.this, mBaseChain));
+        mBtnIbcSend.setVisibility(View.VISIBLE);
         if (mBaseChain.equals(BaseChain.OSMOSIS_MAIN)) {
             WUtil.DpOsmosisTokenImg(getBaseDao(), mToolbarSymbolImg, mNativeGrpcDenom);
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorIon));
@@ -141,8 +160,24 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
             Picasso.get().load(EMONEY_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
+
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_HARD)) {
+                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorHard));
+                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBghard));
+            } else if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_USDX)) {
+                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
+                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgusdx));
+            } else if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_SWP)) {
+                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
+                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgswp));
+            }
+
+            mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
+            Picasso.get().load(KAVA_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+            mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
+            mBtnIbcSend.setVisibility(View.GONE);
         }
-        mBtnIbcSend.setVisibility(View.VISIBLE);
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mNativeGrpcDenom));
         mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mNativeGrpcDenom));
@@ -157,7 +192,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenGrpcActivity.this, mBaseChain));
         mAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mNativeGrpcDenom, mTotalAmount, mDivideDecimal));
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -219,6 +253,9 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             }
             intent.putExtra("sendTokenDenom", mNativeGrpcDenom);
             startActivity(intent);
+
+        } else if (v.equals(mBtnBep3Send)) {
+            onStartHTLCSendActivity(mNativeGrpcDenom);
         }
 
     }
@@ -227,6 +264,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         private static final int TYPE_UNKNOWN               = -1;
         private static final int TYPE_NATIVE                = 0;
 
+        private static final int TYPE_VESTING               = 99;
         private static final int TYPE_HISTORY               = 100;
 
         @NonNull
@@ -237,6 +275,9 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             } else if (viewType == TYPE_NATIVE) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
 
+            } else if (viewType == TYPE_VESTING) {
+                return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
+
             }
 //            } else if (viewType == TYPE_HISTORY) {
 //                return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
@@ -246,22 +287,49 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-            holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mNativeGrpcDenom);
+            if (getItemViewType(position) == TYPE_NATIVE) {
+                TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
+                holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mNativeGrpcDenom);
+
+            } else if (getItemViewType(position) == TYPE_VESTING) {
+                VestingHolder holder = (VestingHolder) viewHolder;
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mNativeGrpcDenom);
+//
 //            } else if (getItemViewType(position) == TYPE_HISTORY) {
 //
 //            } else if (getItemViewType(position) == TYPE_UNKNOWN) {
+            }
         }
 
         @Override
         public int getItemCount() {
+            if (mHasVesting) {
+                return 2;
+            }
             return 1;
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (position == 0) {
-                return TYPE_NATIVE;
+            if (mBaseChain.equals(KAVA_MAIN)) {
+                if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_HARD) || mNativeGrpcDenom.equalsIgnoreCase(TOKEN_SWP)) {
+                    if (mHasVesting) {
+                        if (position == 0) return TYPE_NATIVE;
+                        if (position == 1) return TYPE_VESTING;
+                        else return TYPE_HISTORY;
+                    } else {
+                        if (position == 0) return TYPE_NATIVE;
+                        else return TYPE_HISTORY;
+                    }
+                } else {
+                    if (position == 0) return TYPE_NATIVE;
+                    else return TYPE_HISTORY;
+                }
+
+            } else {
+                if (position == 0) {
+                    return TYPE_NATIVE;
+                }
             }
             return TYPE_UNKNOWN;
         }

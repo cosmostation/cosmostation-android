@@ -42,7 +42,6 @@ import wannabit.io.cosmostaion.widget.HistoryOldHolder;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -232,11 +231,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindNewHistory(getMainActivity(), getBaseDao(), history);
 
-            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
-                final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
-                holder.onBindHistory(getMainActivity(), getBaseDao(), history);
-
             } else {
                 HistoryOldHolder holder = (HistoryOldHolder) viewHolder;
                 if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
@@ -251,7 +245,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+            if (isGRPC(getMainActivity().mBaseChain)) {
                 return TYPE_NEW_HISTORY;
             } else {
                 return TYPE_OLD_HISTORY;

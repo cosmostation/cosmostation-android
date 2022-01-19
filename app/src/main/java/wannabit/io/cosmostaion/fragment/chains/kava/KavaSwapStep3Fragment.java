@@ -16,7 +16,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.StartSwapActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickListener{
 
@@ -28,7 +27,7 @@ public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickL
     private RelativeLayout  mSlippageLayer;
     private TextView        mSlippage;
     private TextView        mMemo;
-    private int             mDpDecimal = 6, mInputCoinDecimal = 6, mOutputCoinDecimal =6;
+    private int             mDpDecimal = 6;
 
     private Button          mBeforeBtn, mConfirmBtn;
 
@@ -71,15 +70,13 @@ public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         mSlippageLayer.setVisibility(View.VISIBLE);
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        mInputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mOutputDenom);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        BigDecimal swapFee = new BigDecimal(getBaseDao().mSwapParam.swap_fee);
+        BigDecimal swapFee = new BigDecimal(getBaseDao().mSwapParams.getSwapFee()).movePointLeft(18);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
-        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mSwapInCoin, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
-        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mKavaSwapIn, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mKavaSwapOut, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);
         mSlippage.setText(WDp.getPercentDp(new BigDecimal(3)));
         mMemo.setText(getSActivity().mTxMemo);
     }

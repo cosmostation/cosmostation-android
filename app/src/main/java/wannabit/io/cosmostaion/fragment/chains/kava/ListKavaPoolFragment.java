@@ -13,11 +13,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
+import kava.swap.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.model.kava.SwapDeposit;
-import wannabit.io.cosmostaion.model.kava.SwapPool;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.PoolMyHolder;
 import wannabit.io.cosmostaion.widget.PoolOtherHolder;
@@ -28,9 +27,9 @@ public class ListKavaPoolFragment extends BaseFragment {
     private RecyclerView                        mRecyclerView;
     private KavaPoolListAdapter                 mAdapter;
 
-    public ArrayList<SwapDeposit>               mMySwapDepositList = new ArrayList<>();
-    public ArrayList<SwapPool>                  mMySwapPoolList = new ArrayList<>();
-    public ArrayList<SwapPool>                  mOtherSwapPoolList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.DepositResponse>       mMySwapDepositList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse>          mMySwapPoolList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse>          mOtherSwapPoolList = new ArrayList<>();
 
     public static ListKavaPoolFragment newInstance(Bundle bundle) {
         ListKavaPoolFragment fragment = new ListKavaPoolFragment();
@@ -89,14 +88,14 @@ public class ListKavaPoolFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull BaseHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_MY_POOL) {
-                final SwapPool MySwapPool = mMySwapPoolList.get(position);
-                final SwapDeposit MySwapDeposit = mMySwapDepositList.get(position);
-                if (MySwapDeposit.pool_id.equalsIgnoreCase(MySwapPool.name)) {
+                final QueryOuterClass.PoolResponse MySwapPool = mMySwapPoolList.get(position);
+                final QueryOuterClass.DepositResponse MySwapDeposit = mMySwapDepositList.get(position);
+                if (MySwapDeposit.getPoolId().equalsIgnoreCase(MySwapPool.getName())) {
                     viewHolder.onBindKavaMyPool(getContext(), getSActivity(), getBaseDao(), MySwapPool, MySwapDeposit);
                 }
-            }
-            else if (getItemViewType(position) == TYPE_OTHER_POOL) {
-                final SwapPool OtherSwapPool = mOtherSwapPoolList.get(position - mMySwapPoolList.size());
+
+            } else if (getItemViewType(position) == TYPE_OTHER_POOL) {
+                final QueryOuterClass.PoolResponse OtherSwapPool = mOtherSwapPoolList.get(position - mMySwapPoolList.size());
                 viewHolder.onBindKavaOtherPool(getContext(), getSActivity(), getBaseDao(), OtherSwapPool);
             }
         }

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class BaseConstant {
     public final static boolean SUPPORT_MOONPAY         = true;
-    public final static boolean SUPPORT_BEP3_SWAP       = true;
+    public final static boolean SUPPORT_BEP3_SWAP       = false;
     public final static String LOG_TAG                  = "Cosmostation";
 
     public final static String DB_NAME                  = "WannaBit";
@@ -41,78 +41,24 @@ public class BaseConstant {
     public final static int TASK_INIT_ACCOUNT                           = 2002;
     public final static int TASK_INIT_EMPTY_ACCOUNT                     = 2003;
     public final static int TASK_FETCH_ACCOUNT                          = 2004;
-    public final static int TASK_FETCH_BONDEB_VALIDATOR                 = 2005;
-    public final static int TASK_FETCH_BONDING_STATE                    = 2006;
-    public final static int TASK_FETCH_UNBONDING_STATE                  = 2007;
     public final static int TASK_FETCH_ALL_REWARDS                      = 2008;
-    public final static int TASK_FETCH_SINGLE_VALIDATOR                 = 2009;
-    public final static int TASK_FETCH_SINGLE_BONDING                   = 2010;
-    public final static int TASK_FETCH_SINGLE_UNBONDING                 = 2011;
-    public final static int TASK_FETCH_SINGLE_REWARD                    = 2012;
-    public final static int TASK_FETCH_SINGLE_SELF_BONDING              = 2013;
     public final static int TASK_PASSWORD_CHECK                         = 2015;
-    public final static int TASK_FETCH_WITHDRAW_ADDRESS                 = 2016;
-//    public final static int TASK_FETCH_HISTORY                          = 2017;
     public final static int TASK_GEN_TX_SIMPLE_SEND                     = 2018;
     public final static int TASK_OVERRIDE_ACCOUNT                       = 2019;
-    public final static int TASK_GEN_TX_SIMPLE_DELEGATE                 = 2020;
-    public final static int TASK_GEN_TX_SIMPLE_UNDELEGATE               = 2021;
-    public final static int TASK_GEN_TX_SIMPLE_REWARD                   = 2022;
-    public final static int TASK_FETCH_ALL_PROPOSAL                     = 2023;
     public final static int TASK_DELETE_USER                            = 2024;
     public final static int TASK_CHECK_MNEMONIC                         = 2025;
-//    public final static int TASK_FETCH_VAL_HISTORY                      = 2026;
-    public final static int TASK_FETCH_UNBONDING_VALIDATOR              = 2027;
-    public final static int TASK_FETCH_UNBONDED_VALIDATOR               = 2028;
-    public final static int TASK_FETCH_SINGLE_REDELEGATE                = 2029;
-    public final static int TASK_FETCH_SINGLE_ALL_REDELEGATE            = 2030;
-    public final static int TASK_GEN_TX_SIMPLE_REDELEGATE               = 2031;
-    public final static int TASK_GEN_TX_SIMPLE_REWARD_ADDRESS_CHANGE    = 2032;
-    public final static int TASK_FETCH_INFLATION                        = 2033;
-    public final static int TASK_FETCH_PROVISIONS                       = 2034;
-    public final static int TASK_FETCH_STAKING_POOL                     = 2035;
-    public final static int TASK_GEN_TX_REINVEST                        = 2036;
-//    public final static int TASK_IRIS_REWARD                            = 2037;
-//    public final static int TASK_IRIS_POOL                              = 2038;
-//    public final static int TASK_IRIS_PROPOSAL                          = 2039;
-//    public final static int TASK_IRIS_REDELEGATE                        = 2040;
     public final static int TASK_FETCH_BNB_HISTORY                      = 2041;
     public final static int TASK_FETCH_BNB_TOKENS                       = 2042;
     public final static int TASK_FETCH_BNB_TICKER                       = 2043;
     public final static int TASK_FETCH_BNB_MINI_TICKER                  = 2044;
     public final static int TASK_GEN_TX_BNB_SIMPLE_SEND                 = 2045;
-    public final static int TASK_FETCH_PROPOSAL_DETAIL                  = 2046;
-    public final static int TASK_FETCH_PROPOSAL_VOTED                   = 2047;
-    public final static int TASK_FETCH_PROPOSAL_PROPOSER                = 2048;
-    public final static int TASK_FETCH_PROPOSAL_TALLY                   = 2049;
-//    public final static int TASK_FETCH_IOV_BALANCE                      = 2050;
-//    public final static int TASK_FETCH_IOV_NONCE                        = 2051;
-//    public final static int TASK_FETCH_IOV_ADDRESS_INFO                 = 2052;
-//    public final static int TASK_FETCH_IOV_TOKENS                       = 2053;
-//    public final static int TASK_FETCH_IRIS_VOTE_LIST                   = 2054;
-//    public final static int TASK_IRIS_PROPOSAL_DETAIL                   = 2055;
-    public final static int TASK_GEN_TX_SIMPLE_VOTE                     = 2056;
     public final static int TASK_PUSH_STATUS_UPDATE                     = 2057;
     public final static int TASK_MOON_PAY_SIGNATURE                     = 2058;
-    public final static int TASK_FETCH_KAVA_CDP_PARAM                   = 2059;
-    public final static int TASK_FETCH_KAVA_CDP_OWENER                  = 2060;
     public final static int TASK_FETCH_KAVA_CDP_DEPOSIT                 = 2061;
-    public final static int TASK_FETCH_KAVA_CDP_LIST_DENOM              = 2062;
-    public final static int TASK_FETCH_KAVA_CDP_LIST_RATIO              = 2063;
-    public final static int TASK_FETCH_KAVA_TOKEN_PRICE                 = 2064;
-    public final static int TASK_GEN_TX_CREATE_CDP                      = 2065;
-    public final static int TASK_GEN_TX_REPAY_CDP                       = 2066;
-    public final static int TASK_GEN_TX_DRAW_DEBT_CDP                   = 2067;
-    public final static int TASK_GEN_TX_DEPOSIT_CDP                     = 2068;
-    public final static int TASK_GEN_TX_WITHDRAW_CDP                    = 2069;
-    public final static int TASK_GEN_TX_HTLC_SWAP                       = 2070;
     public final static int TASK_GEN_TX_HTLC_REFUND                     = 2071;
     public final static int TASK_GEN_TX_BNB_HTLC_REFUND                 = 2072;
-    public final static int TASK_FETCH_MY_VOTE                          = 2073;
     public final static int TASK_FETCH_KAVA_INCENTIVE_PARAM             = 2074;
-    public final static int TASK_FETCH_KAVA_PRICE_FEED_PARAM            = 2075;
     public final static int TASK_FETCH_KAVA_INCENTIVE_REWARD            = 2076;
-    public final static int TASK_GEN_KAVA_CLAIM_INCENTIVE               = 2077;
     public final static int TASK_FETCH_BNB_MINI_TOKENS                  = 2078;
     public final static int TASK_GEN_TX_HTLC_CREATE                     = 2079;
     public final static int TASK_GEN_TX_HTLC_CLAIM                      = 2080;
@@ -124,50 +70,12 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_OK_DEPOSIT                      = 2086;
     public final static int TASK_GEN_TX_OK_WITHDRAW                     = 2087;
     public final static int TASK_GEN_TX_OK_DIRECT_VOTE                  = 2088;
-    public final static int TASK_FETCH_KAVA_TOTAL_SUPPLY                = 2089;
-//    public final static int TASK_FETCH_MY_STARNAME_ACCOUNT              = 2090;
-//    public final static int TASK_FETCH_MY_STARNAME_DOMAIN               = 2091;
-//    public final static int TASK_FETCH_STARNAME_FEE                     = 2092;
-//    public final static int TASK_FETCH_STARNAME_CONFIG                  = 2093;
-//    public final static int TASK_GEN_TX_REGISTER_DOMAIN                 = 2094;
-//    public final static int TASK_GEN_TX_REGISTER_ACCOUNT                = 2095;
-//    public final static int TASK_FETCH_STARNAME_RESOLVE                 = 2096;
-//    public final static int TASK_FETCH_STARNAME_DOMAIN_INFO             = 2097;
-//    public final static int TASK_GEN_TX_DELETE_DOMAIN                   = 2098;
-//    public final static int TASK_GEN_TX_DELETE_ACCOUNT                  = 2099;
-//    public final static int TASK_GEN_TX_RENEW_DOMAIN                    = 2100;
-//    public final static int TASK_GEN_TX_RENEW_ACCOUNT                   = 2101;
-//    public final static int TASK_GEN_TX_REPLACE_STARNAME                = 2102;
-    public final static int TASK_FETCH_KAVA_HARVEST_PARAM               = 2103;
-    public final static int TASK_FETCH_KAVA_HARVEST_DEPOSIT             = 2104;
-    public final static int TASK_FETCH_KAVA_HARVEST_REWARD              = 2105;
-    public final static int TASK_FETCH_KAVA_HARVEST_ACCOUNT             = 2106;
-    public final static int TASK_GEN_TX_KAVA_DEPOSIT_HARD               = 2107;
-    public final static int TASK_GEN_TX_KAVA_WITHDRAW_HARD              = 2108;
     public final static int TASK_GEN_TX_KAVA_CLAIM_HARVEST              = 2109;
-    public final static int TASK_FETCH_MINT_PARAM                       = 2112;
     public final static int TASK_FETCH_OK_HISTORY                       = 2113;
     public final static int TASK_FETCH_OK_DEX_TICKERS                   = 2114;
-    public final static int TASK_FETCH_KAVA_AUCTION_PARAM               = 2115;
-    public final static int TASK_FETCH_KAVA_HARD_PARAM                  = 2116;
-    public final static int TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST          = 2117;
-    public final static int TASK_FETCH_KAVA_HARD_TOTAL_BORROW           = 2118;
-    public final static int TASK_FETCH_KAVA_HARD_MY_DEPOSIT             = 2119;
-    public final static int TASK_FETCH_KAVA_HARD_MY_BORROW              = 2120;
-    public final static int TASK_FETCH_KAVA_HARD_INTEREST_RATE          = 2121;
-    public final static int TASK_FETCH_KAVA_HARD_RESERVES               = 2122;
     public final static int TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT         = 2123;
-    public final static int TASK_GEN_TX_KAVA_BORROW_HARD                = 2124;
-    public final static int TASK_GEN_TX_KAVA_REPAY_HARD                 = 2125;
     public final static int TASK_FETCH_NODE_INFO                        = 2126;
     public final static int TASK_FETCH_OKEX_ALL_VALIDATORS              = 2127;
-    public final static int TASK_FETCH_KAVA_SWAP_PARAM                  = 2128;
-    public final static int TASK_FETCH_KAVA_SWAP_POOL                   = 2129;
-    public final static int TASK_FETCH_KAVA_SWAP_POOL_INFO              = 2130;
-    public final static int TASK_FETCH_KAVA_SWAP_DEPOSIT                = 2131;
-    public final static int TASK_GEN_TX_KAVA_SWAP                       = 2132;
-    public final static int TASK_GEN_TX_KAVA_JOIN_POOL                  = 2133;
-    public final static int TASK_GEN_TX_KAVA_EXIT_POOL                  = 2134;
     public final static int TASK_CHECK_PRIVATE_KEY                      = 2135;
     public final static int TASK_INIT_PKEY_ACCOUNT                      = 2136;
     public final static int TASK_OVERRIDE_PKEY_ACCOUNT                  = 2137;
@@ -181,6 +89,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_IBC_TOKENS                       = 2803;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
     public final static int TASK_FETCH_MINTSCAN_ASSETS                  = 2805;
+    public final static int TASK_FETCH_MINTSCAN_PROPOSAL_LIST           = 2806;
 
     public final static int TASK_HDAC_NODE_INFO                         = 2900;
     public final static int TASK_HDAC_UTXO                              = 2901;
@@ -188,10 +97,7 @@ public class BaseConstant {
     public final static int TASK_HDAC_BROAD_BURN                        = 2903;
     public final static int TASK_RIZON_SWAP_STATUS                      = 2904;
 
-    public final static int TASK_FETCH_SIF_INCENTIVE_VS                 = 3500;
     public final static int TASK_FETCH_SIF_INCENTIVE_LM                 = 3501;
-
-    public final static int TASK_FETCH_DESMOS_CLAIMABLE_CHECK           = 3601;
 
     //gRPC
     public final static int TASK_GRPC_FETCH_BALANCE                     = 4001;
@@ -201,10 +107,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_DELEGATIONS                 = 4005;
     public final static int TASK_GRPC_FETCH_UNDELEGATIONS               = 4006;
     public final static int TASK_GRPC_FETCH_ALL_REWARDS                 = 4007;
-    public final static int TASK_GRPC_FETCH_PARAM_MINT                  = 4008;
     public final static int TASK_GRPC_FETCH_IRIS_PARAM_MINT             = 4009;
-    public final static int TASK_GRPC_FETCH_INFLATION                   = 4010;
-    public final static int TASK_GRPC_FETCH_PROVISION                   = 4011;
     public final static int TASK_GRPC_FETCH_STAKING_POOL                = 4012;
     public final static int TASK_GRPC_FETCH_IRIS_TOKEN_LIST             = 4013;
     public final static int TASK_GRPC_FETCH_VALIDATOR_INFO              = 4014;
@@ -248,7 +151,25 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_NFTOKEN_LIST                = 4270;
     public final static int TASK_GRPC_FETCH_NFTOKEN_INFO                = 4271;
 
-    public final static int TASK_GRPC_FETCH_PROFILE_INFO                = 4280;
+    public final static int TASK_GRPC_FETCH_PROFILE_INFO                = 4275;
+
+    public final static int TASK_GRPC_FETCH_KAVA_PRICES                 = 4277;
+    public final static int TASK_GRPC_FETCH_KAVA_PRICE_TOKEN            = 4278;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_PARAMS            = 4279;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_POOLS             = 4280;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS          = 4281;
+    public final static int TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO        = 4282;
+    public final static int TASK_GRPC_FETCH_KAVA_CDP_PARAMS             = 4283;
+    public final static int TASK_GRPC_FETCH_KAVA_MY_CDPS                = 4284;
+    public final static int TASK_GRPC_FETCH_KAVA_CDP_BY_DEPOSITOR       = 4285;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_PARAMS            = 4286;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT        = 4287;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_MY_BORROW         = 4288;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE     = 4289;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_MODULE_ACCOUNT    = 4290;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_RESERVES          = 4291;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_TOTAL_DEPOSIT     = 4292;
+    public final static int TASK_GRPC_FETCH_KAVA_HARD_TOTAL_BORROW      = 4293;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
@@ -270,7 +191,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_EXIT_POOL                  = 4317;
     public final static int TASK_GRPC_GEN_TX_START_LOCK                 = 4318;
     public final static int TASK_GRPC_GEN_TX_BEGIN_UNBONDING            = 4319;
-    public final static int TASK_GRPC_GEN_TX_START_UNLOCK               = 4320;
     public final static int TASK_GRPC_GEN_TX_GRAVITY_SWAP               = 4321;
     public final static int TASK_GRPC_GEN_TX_GRAVITY_JOIN_POOL          = 4322;
     public final static int TASK_GRPC_GEN_TX_GRAVITY_EXIT_POOL          = 4323;
@@ -283,6 +203,20 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_TRANSFER_NFT               = 4330;
     public final static int TASK_GRPC_GEN_TX_CREATE_PROFILE             = 4331;
     public final static int TASK_GRPC_GEN_TX_LINK_ACCOUNT               = 4332;
+    public final static int TASK_GRPC_GEN_TX_KAVA_SWAP                  = 4333;
+    public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT               = 4334;
+    public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW              = 4335;
+    public final static int TASK_GRPC_GEN_TX_KAVA_CREATE_CDP            = 4336;
+    public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT_CDP           = 4337;
+    public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW_CDP          = 4338;
+    public final static int TASK_GRPC_GEN_TX_KAVA_DRAW_DEBT_CDP         = 4339;
+    public final static int TASK_GRPC_GEN_TX_KAVA_REPAY_CDP             = 4340;
+    public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT_HARD          = 4341;
+    public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW_HARD         = 4342;
+    public final static int TASK_GRPC_GEN_TX_KAVA_BORROW_HARD           = 4343;
+    public final static int TASK_GRPC_GEN_TX_KAVA_REPAY_HARD            = 4344;
+    public final static int TASK_GRPC_GEN_TX_KAVA_CLAIM_INCENTIVES      = 4345;
+    public final static int TASK_GRPC_GEN_TX_KAVA_CREATE_HTLC           = 4346;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -304,7 +238,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_EXIT_POOL                = 4517;
     public final static int TASK_GRPC_SIMULATE_START_LOCK               = 4518;
     public final static int TASK_GRPC_SIMULATE_BEGIN_UNBONDING          = 4519;
-    public final static int TASK_GRPC_SIMULATE_START_UNLOCK             = 4520;
     public final static int TASK_GRPC_SIMULATE_GRAVITY_SWAP             = 4521;
     public final static int TASK_GRPC_SIMULATE_GRAVITY_JOIN_POOL        = 4522;
     public final static int TASK_GRPC_SIMULATE_GRAVITY_EXIT_POOL        = 4523;
@@ -316,6 +249,19 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_MINT_NFT                 = 4530;
     public final static int TASK_GRPC_SIMULATE_TRANSFER_NFT             = 4531;
     public final static int TASK_GRPC_SIMULATE_CREATE_PROFILE           = 4532;
+    public final static int TASK_GRPC_SIMULATE_KAVA_SWAP                = 4533;
+    public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT             = 4534;
+    public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW            = 4535;
+    public final static int TASK_GRPC_SIMULATE_KAVA_CREATE_CDP          = 4536;
+    public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT_CDP         = 4537;
+    public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW_CDP        = 4538;
+    public final static int TASK_GRPC_SIMULATE_KAVA_DRAW_DEBT_CDP       = 4539;
+    public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_CDP           = 4540;
+    public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT_HARD        = 4541;
+    public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW_HARD       = 4542;
+    public final static int TASK_GRPC_SIMULATE_KAVA_BORROW_HARD         = 4543;
+    public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_HARD          = 4544;
+    public final static int TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES    = 4545;
 
 
 
@@ -367,42 +313,31 @@ public class BaseConstant {
     public final static String IRIS_MSG_TYPE_WITHDRAW_MIDIFY                = "irishub/distr/MsgModifyWithdrawAddress";
     public final static String IRIS_MSG_TYPE_ISSUE_TOKEN                    = "irishub/asset/MsgIssueToken";
 
-    public final static String IRIS_PROPOAL_TYPE_BasicProposal              = "irishub/gov/BasicProposal";
-    public final static String IRIS_PROPOAL_TYPE_ParameterProposal          = "irishub/gov/ParameterProposal";
-    public final static String IRIS_PROPOAL_TYPE_PlainTextProposal          = "irishub/gov/PlainTextProposal";
-    public final static String IRIS_PROPOAL_TYPE_TokenAdditionProposal      = "irishub/gov/TokenAdditionProposal";
-    public final static String IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal    = "irishub/gov/SoftwareUpgradeProposal";
-    public final static String IRIS_PROPOAL_TYPE_SystemHaltProposal         = "irishub/gov/SystemHaltProposal";
-    public final static String IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal  = "irishub/gov/CommunityTaxUsageProposal";
-
-    public final static String KAVA_MSG_TYPE_POST_PRICE                     = "pricefeed/MsgPostPrice";
-    public final static String KAVA_MSG_TYPE_CREATE_CDP                     = "cdp/MsgCreateCDP";
-    public final static String KAVA_MSG_TYPE_DEPOSIT_CDP                    = "cdp/MsgDeposit";
-    public final static String KAVA_MSG_TYPE_WITHDRAW_CDP                   = "cdp/MsgWithdraw";
-    public final static String KAVA_MSG_TYPE_DRAWDEBT_CDP                   = "cdp/MsgDrawDebt";
-    public final static String KAVA_MSG_TYPE_REPAYDEBT_CDP                  = "cdp/MsgRepayDebt";
-    public final static String KAVA_MSG_TYPE_LIQUIDATE_CDP                  = "cdp/MsgLiquidate";
+    public final static String KAVA_MSG_TYPE_POST_PRICE                     = "/kava.pricefeed.v1beta1.MsgPostPrice";
+    public final static String KAVA_MSG_TYPE_CREATE_CDP                     = "/kava.cdp.v1beta1.MsgCreateCDP";
+    public final static String KAVA_MSG_TYPE_DEPOSIT_CDP                    = "/kava.cdp.v1beta1.MsgDeposit";
+    public final static String KAVA_MSG_TYPE_WITHDRAW_CDP                   = "/kava.cdp.v1beta1.MsgWithdraw";
+    public final static String KAVA_MSG_TYPE_DRAWDEBT_CDP                   = "/kava.cdp.v1beta1.MsgDrawDebt";
+    public final static String KAVA_MSG_TYPE_REPAYDEBT_CDP                  = "/kava.cdp.v1beta1.MsgRepayDebt";
+    public final static String KAVA_MSG_TYPE_LIQUIDATE_CDP                  = "/kava.cdp.v1beta1.MsgLiquidate";
     public final static String KAVA_MSG_TYPE_BEP3_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "bep3/MsgClaimAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
     public final static String KAVA_MSG_TYPE_INCENTIVE_REWARD               = "incentive/MsgClaimReward";
-    public final static String KAVA_MSG_TYPE_USDX_MINT_INCENTIVE            = "incentive/MsgClaimUSDXMintingReward";
-    public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE           = "incentive/MsgClaimHardReward";
-    public final static String KAVA_MSG_TYPE_DELEGATOR_INCENTIVE            = "incentive/MsgClaimDelegatorReward";
-    public final static String KAVA_MSG_TYPE_SWAP_INCENTIVE                 = "incentive/MsgClaimSwapReward";
-    public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV        = "incentive/MsgClaimHardRewardVVesting";
-    public final static String KAVA_MSG_TYPE_DEPOSIT_HAVEST                 = "harvest/MsgDeposit";
-    public final static String KAVA_MSG_TYPE_WITHDRAW_HAVEST                = "harvest/MsgWithdraw";
+    public final static String KAVA_MSG_TYPE_USDX_MINT_INCENTIVE            = "/kava.incentive.v1beta1.MsgClaimUSDXMintingReward";
+    public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE           = "/kava.incentive.v1beta1.MsgClaimHardReward";
+    public final static String KAVA_MSG_TYPE_DELEGATOR_INCENTIVE            = "/kava.incentive.v1beta1.MsgClaimDelegatorReward";
+    public final static String KAVA_MSG_TYPE_SWAP_INCENTIVE                 = "/kava.incentive.v1beta1.MsgClaimSwapReward";
     public final static String KAVA_MSG_TYPE_CLAIM_HAVEST                   = "harvest/MsgClaimReward";
-    public final static String KAVA_MSG_TYPE_DEPOSIT_HARD                   = "hard/MsgDeposit";
-    public final static String KAVA_MSG_TYPE_WITHDRAW_HARD                  = "hard/MsgWithdraw";
-    public final static String KAVA_MSG_TYPE_BORROW_HARD                    = "hard/MsgBorrow";
-    public final static String KAVA_MSG_TYPE_REPAY_HARD                     = "hard/MsgRepay";
+    public final static String KAVA_MSG_TYPE_DEPOSIT_HARD                   = "/kava.hard.v1beta1.MsgDeposit";
+    public final static String KAVA_MSG_TYPE_WITHDRAW_HARD                  = "/kava.hard.v1beta1.MsgWithdraw";
+    public final static String KAVA_MSG_TYPE_BORROW_HARD                    = "/kava.hard.v1beta1.MsgBorrow";
+    public final static String KAVA_MSG_TYPE_REPAY_HARD                     = "/kava.hard.v1beta1.MsgRepay";
     public final static String KAVA_MSG_TYPE_LIQUIDATE_HARD                 = "hard/MsgLiquidate";
-    public final static String KAVA_MSG_TYPE_SWAP_TOKEN                     = "swap/MsgSwapExactForTokens";
-    public final static String KAVA_MSG_TYPE_SWAP_TOKEN2                    = "swap/MsgSwapForExactTokens";
-    public final static String KAVA_MSG_TYPE_DEPOSIT                        = "swap/MsgDeposit";
-    public final static String KAVA_MSG_TYPE_WITHDRAW                       = "swap/MsgWithdraw";
+    public final static String KAVA_MSG_TYPE_SWAP_TOKEN                     = "/kava.swap.v1beta1.MsgSwapExactForTokens";
+    public final static String KAVA_MSG_TYPE_SWAP_TOKEN2                    = "/kava.swap.v1beta1.MsgSwapForExactTokens";
+    public final static String KAVA_MSG_TYPE_DEPOSIT                        = "/kava.swap.v1beta1.MsgDeposit";
+    public final static String KAVA_MSG_TYPE_WITHDRAW                       = "/kava.swap.v1beta1.MsgWithdraw";
 
 
     public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";
@@ -425,13 +360,6 @@ public class BaseConstant {
     public final static String IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE        = "starname/ReplaceAccountResources";
     public final static String IOV_MSG_TYPE_RENEW_DOMAIN                    = "starname/RenewDomain";
     public final static String IOV_MSG_TYPE_RENEW_ACCOUNT                   = "starname/RenewAccount";
-
-    public final static String IOV_MSG_TYPE_ADD_ACCOUNT_CERT                = "starname/AddAccountCertificates";
-    public final static String IOV_MSG_TYPE_DELETE_ACCOUNT_CERT             = "starname/DeleteAccountCertificates";
-    public final static String IOV_MSG_TYPE_TRANSFER_ACCOUNT                = "starname/TransferAccount";
-    public final static String IOV_MSG_TYPE_TRANSFER_DOMAIN_ALL             = "starname/TransferDomainAll";
-    public final static String IOV_MSG_TYPE_SET_ACCOUNT_META_DATA           = "starname/SetAccountMetadata";
-
 
 
     public final static String CERTIK_MSG_TYPE_TRANSFER                     = "bank/MsgSend";
@@ -462,7 +390,6 @@ public class BaseConstant {
     public final static int CONST_PW_TX_DRAW_DEBT_CDP                       = 5015;
     public final static int CONST_PW_TX_DEPOSIT_CDP                         = 5016;
     public final static int CONST_PW_TX_WITHDRAW_CDP                        = 5017;
-//    public final static int CONST_PW_TX_HTLS_SWAP                           = 5018;
     public final static int CONST_PW_TX_HTLS_REFUND                         = 5019;
     public final static int CONST_PW_TX_CLAIM_INCENTIVE                     = 5020;
     public final static int CONST_PW_TX_OK_DEPOSIT                          = 5021;
@@ -504,6 +431,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_PROFILE                             = 5057;
     public final static int CONST_PW_TX_LINK_ACCOUNT                        = 5058;
 
+
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
     public final static int TX_TYPE_RECEIVE                     = 3002;
@@ -522,30 +450,6 @@ public class BaseConstant {
     public final static int TX_TYPE_EDIT_VALIDATOR              = 3015;
     public final static int TX_TYPE_IRIS_GET_REWARD_ALL         = 3016;
     public final static int TX_TYPE_IRIS_ISSUE_TOKEN            = 3017;
-    public final static int TX_TYPE_KAVA_POST_PRICE             = 3018;
-    public final static int TX_TYPE_KAVA_CREATE_CDP             = 3019;
-    public final static int TX_TYPE_KAVA_DEPOSIT_CDP            = 3020;
-    public final static int TX_TYPE_KAVA_WITHDRAW_CDP           = 3021;
-    public final static int TX_TYPE_KAVA_DRAWDEBT_CDP           = 3022;
-    public final static int TX_TYPE_KAVA_REPAYDEBT_CDP          = 3023;
-    public final static int TX_TYPE_KAVA_BEP3_CREATE            = 3024;
-    public final static int TX_TYPE_KAVA_BEP3_CLAIM             = 3025;
-    public final static int TX_TYPE_KAVA_BEP3_REFUND            = 3026;
-    public final static int TX_TYPE_KAVA_INCENTIVE_REWARD       = 3027;
-    public final static int TX_TYPE_STARNAME_REGISTER_DOMAIN    = 3028;
-    public final static int TX_TYPE_STARNAME_REGISTER_ACCOUNT   = 3029;
-    public final static int TX_TYPE_STARNAME_DELETE_ACCOUNT     = 3030;
-    public final static int TX_TYPE_STARNAME_DELETE_DOMAIN      = 3031;
-    public final static int TX_TYPE_STARNAME_REPLACE_RESOURCE   = 3032;
-    public final static int TX_TYPE_STARNAME_RENEW_DOMAIN       = 3033;
-    public final static int TX_TYPE_STARNAME_RENEW_ACCOUNT      = 3034;
-    public final static int TX_TYPE_KAVA_DEPOSIT_HARD           = 3035;
-    public final static int TX_TYPE_KAVA_WITHDRAW_HARD          = 3036;
-    public final static int TX_TYPE_KAVA_CLAIM_HARVEST          = 3037;
-    public final static int TX_TYPE_KAVA_BORROW_HARD            = 3038;
-    public final static int TX_TYPE_KAVA_REPAY_HARD             = 3039;
-    public final static int TX_TYPE_KAVA_LIQUIDATE_CDP          = 3040;
-    public final static int TX_TYPE_KAVA_LIQUIDATE_HARD         = 3041;
     public final static int TX_TYPE_UNJAIL                      = 3042;
 
 
@@ -669,8 +573,6 @@ public class BaseConstant {
 
     public final static String FEE_BNB_SEND                             = "0.000075";
 
-    public final static String KAVA_GAS_RATE_LOW                        = "0.0025";
-    public final static String KAVA_GAS_RATE_AVERAGE                    = "0.025";
     public final static String KAVA_GAS_AMOUNT_SEND                     = "400000";
     public final static String KAVA_GAS_AMOUNT_STAKE                    = "800000";
     public final static String KAVA_GAS_AMOUNT_REINVEST                 = "800000";
@@ -862,6 +764,10 @@ public class BaseConstant {
     public final static String AXELAR_GAS_RATE_LOW                      = "0.05";
     public final static String AXELAR_GAS_RATE_AVERAGE                  = "0.05";
 
+    public final static String KAVA_GAS_RATE_TINY                       = "0.00";
+    public final static String KAVA_GAS_RATE_LOW                        = "0.0025";
+    public final static String KAVA_GAS_RATE_AVERAGE                    = "0.025";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -1007,19 +913,11 @@ public class BaseConstant {
     public final static String GRAB_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/gravity-bridge/relay-gravitybridge-unknown.png";
     public final static String LUM_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/lum-network/relay-lum-unknown.png";
     public final static String CHIHUAHUA_UNKNOWN_RELAYER= "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/chihuahua/relay-chihuahua-unknown.png";
+    public final static String KAVA_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/kava/relay-kava-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM        = "station";
-
-    public final static String  PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";
-    public final static int     PERSISTENCE_COSMOS_EVENT_START      = 3846000;
-    public final static int     PERSISTENCE_COSMOS_EVENT_END        = 4206000;
-
-    public final static String  PERSISTENCE_KAVA_EVENT_ADDRESS      = "kava1fxxxruhmqx3myuhjwxx9gk90kwqrgs9jamr892";
-    public final static int     PERSISTENCE_KAVA_EVENT_START        = 422360;
-    public final static int     PERSISTENCE_KAVA_EVENT_END          = 672440;
-
 
 
 

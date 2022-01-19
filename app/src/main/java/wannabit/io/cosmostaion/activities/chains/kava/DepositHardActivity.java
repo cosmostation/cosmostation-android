@@ -21,11 +21,10 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
@@ -41,7 +40,6 @@ public class DepositHardActivity extends BaseBroadCastActivity {
     private DepositHarvestPageAdapter       mPageAdapter;
 
     public String                           mHardMoneyMarketDenom;
-    public ArrayList<Coin>                  mHardPoolCoins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +145,6 @@ public class DepositHardActivity extends BaseBroadCastActivity {
     public void onStartDepositHarvest() {
         Intent intent = new Intent(DepositHardActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_DEPOSIT_HARD);
-        intent.putExtra("depositor", mAccount.address);
         intent.putExtra("hardPoolCoins", mHardPoolCoins);
         intent.putExtra("fee", mTxFee);
         intent.putExtra("memo", mTxMemo);
@@ -155,7 +152,6 @@ public class DepositHardActivity extends BaseBroadCastActivity {
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
     }
-
 
     private class DepositHarvestPageAdapter extends FragmentPagerAdapter {
 
@@ -167,7 +163,7 @@ public class DepositHardActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(DepositHardStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(DepositHardStep3Fragment.newInstance(null));
         }
 

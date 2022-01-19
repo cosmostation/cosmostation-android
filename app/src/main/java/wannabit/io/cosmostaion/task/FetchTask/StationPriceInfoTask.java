@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -15,16 +16,23 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PRICE_INFO;
 
 public class StationPriceInfoTask extends CommonTask {
 
-    public StationPriceInfoTask(BaseApplication app, TaskListener listener) {
+    private BaseChain mBaseChain;
+
+    public StationPriceInfoTask(BaseApplication app, TaskListener listener, BaseChain baseChain) {
         super(app, listener);
+        this.mBaseChain = baseChain;
         this.mResult.taskType   = TASK_FETCH_PRICE_INFO;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            WLog.w("StationPriceInfoTask " + ApiClient.getStation(mApp).getPrice().request().url());
-            Response<ArrayList<Price>> response = ApiClient.getStation(mApp).getPrice().execute();
+            Response<ArrayList<Price>> response;
+            if (BaseChain.IS_TESTNET(mBaseChain)) {
+                response = ApiClient.getStationTest(mApp).getPrice().execute();
+            } else {
+                response = ApiClient.getStation(mApp).getPrice().execute();
+            }
             if (response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body();
                 mResult.isSuccess = true;

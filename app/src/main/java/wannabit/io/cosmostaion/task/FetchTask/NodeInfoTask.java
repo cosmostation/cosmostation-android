@@ -12,7 +12,6 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
@@ -29,17 +28,7 @@ public class NodeInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mChain.equals(KAVA_MAIN)) {
-                Response<ResNodeInfo> response = ApiClient.getKavaChain(mApp).getNodeInfo().execute();
-                if (response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("NodeInfoTask : NOk");
-                }
-
-            } else if (mChain.equals(BNB_MAIN)) {
+            if (mChain.equals(BNB_MAIN)) {
                 Response<ResNodeInfo> response =  ApiClient.getBnbChain(mApp).getNodeInfo().execute();
                 if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
                     mResult.resultData = response.body().node_info;

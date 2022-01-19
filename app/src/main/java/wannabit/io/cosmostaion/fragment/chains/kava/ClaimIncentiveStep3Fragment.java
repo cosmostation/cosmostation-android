@@ -16,13 +16,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
-import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.OnClickListener {
 

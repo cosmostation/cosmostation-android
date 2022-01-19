@@ -6,6 +6,7 @@
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
     <string name="url_station_old" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
+    <string name="url_station_testnet" translatable="false">https://api-office.cosmostation.io/utility/</string>
     <string name="url_mintscan" translatable="false">https://api.mintscan.io/</string>
 
 
@@ -1097,7 +1098,7 @@
     <string name="str_htlc_refund_step_1">Insert memo (optional)</string>
     <string name="str_htlc_refund_step_2">Select transaction fee</string>
     <string name="str_htlc_refund_step_3">Check transaction detail</string>
-    <string name="str_incentive_participate_step_0">Incentive Reward Claim</string>
+    <string name="str_incentive_participate_step_0">Check your Incentive</string>
     <string name="str_incentive_participate_step_1">Insert memo (optional)</string>
     <string name="str_incentive_participate_step_2">Select transaction fee</string>
     <string name="str_incentive_participate_step_3">Check transaction detail</string>
@@ -1455,8 +1456,8 @@
     <string name="str_starname_walletconnect_complete">Export Complete</string>
     <string name="str_ok_promotion_title">START VOTING FOR VALIDATORS</string>
     <string name="str_ok_promotion_msg">Vote for Cosmostation to secure OK Chain as a validator.\nSelect multiple validators to spread out your vote.</string>
-    <string name="str_total_deposit_value">Supply Balance</string>
-    <string name="str_ltv_value">Borrow Balance</string>
+    <string name="str_total_deposit_value">My Supplied Value</string>
+    <string name="str_ltv_value">My Borrowed Value</string>
     <string name="str_total_borrowed_value">Available Credit(LTV)</string>
     <string name="str_borrow_limit_value">Remaining Borrowable Value</string>
     <string name="str_supply_apy">Supply APY</string>
@@ -1994,7 +1995,7 @@
     <string name="tx_kava_bep3_create2">BEP3 Send</string>
     <string name="tx_kava_bep3_claim2">BEP3 Claim</string>
     <string name="tx_kava_bep3_refund2">BEP3 Refund</string>
-    <string name="tx_kava_incentive_reward2">USDX Minting Incentive</string>
+    <string name="tx_kava_incentive_reward2">Incentive Minting</string>
     <string name="tx_kava_incentive_hard2">Loan Incentive</string>
     <string name="tx_kava_hard_deposit2">Loan Deposit</string>
     <string name="tx_kava_hard_withdraw2">Loan Withdraw</string>

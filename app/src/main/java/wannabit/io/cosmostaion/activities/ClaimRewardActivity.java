@@ -13,8 +13,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import cosmos.distribution.v1beta1.Distribution;
@@ -24,24 +22,15 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.RewardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
-import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 
@@ -55,7 +44,6 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     private ViewPager                   mViewPager;
     private RewardPageAdapter           mPageAdapter;
 
-//    public ArrayList<Coin>              mRewards = new ArrayList<>();
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
 
@@ -82,13 +70,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
         mBaseChain = getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_REWARD;
 
-        if (isGRPC(mBaseChain)) {
-            mValAddresses = getIntent().getStringArrayListExtra("valOpAddresses");
-
-        } else {
-            mValidators = (ArrayList<Validator>)(getIntent().getSerializableExtra("opAddresses"));
-            if(mValidators.size() < 1) {onBackPressed();}
-        }
+        mValAddresses = getIntent().getStringArrayListExtra("valOpAddresses");
 
         mPageAdapter = new RewardPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -172,29 +154,15 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
     private void onFetchReward() {
         if(mTaskCount > 0) return;
-        if (isGRPC(mBaseChain)) {
-            mTaskCount = 2;
-            new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain,  mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else {
-            mTaskCount = mValidators.size() + 1;
-            mRewards.clear();
-            for(Validator val:mValidators) {
-                new SingleRewardTask(getBaseApplication(), this, mAccount, val.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            }
-            new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
+        mTaskCount = 2;
+        new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain,  mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public void onStartReward() {
         Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REWARD);
-        if (isGRPC(mBaseChain)) {
-            intent.putExtra("valOpAddresses", mValAddresses);
-        } else {
-            intent.putExtra("validators", mValidators);
-        }
+        intent.putExtra("valOpAddresses", mValAddresses);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
@@ -207,21 +175,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 //        WLog.w("onTaskResponse " + result.taskType + " " + mTaskCount);
         mTaskCount--;
         if(isFinishing()) return;
-        if (result.taskType == TASK_FETCH_SINGLE_REWARD) {
-            if (result.isSuccess && result.resultData != null) {
-                ArrayList<Coin> rewardCoins = (ArrayList<Coin>)result.resultData;
-                for (Coin coin: rewardCoins) {
-                    if (coin.denom.equals(WDp.mainDenom(mBaseChain))) {
-                        mRewards.add(new Coin(WDp.mainDenom(mBaseChain), new BigDecimal(coin.amount).setScale(0, RoundingMode.DOWN).toPlainString()));
-                    }
-                }
-            }
-
-        } else if (result.taskType == TASK_FETCH_WITHDRAW_ADDRESS) {
-            mWithdrawAddress = (String)result.resultData;
-        }
-
-        else if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
+        if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
             ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>) result.resultData;
             if (rewards != null) { getBaseDao().mGrpcRewards = rewards; }
 
@@ -245,8 +199,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
             mFragments.clear();
             mFragments.add(RewardStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
-            else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(RewardStep3Fragment.newInstance(null));
         }
 

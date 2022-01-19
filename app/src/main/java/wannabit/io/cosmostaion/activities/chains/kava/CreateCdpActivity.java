@@ -19,28 +19,25 @@ import androidx.viewpager.widget.ViewPager;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import kava.cdp.v1beta1.Genesis;
+import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep3Fragment;
-import wannabit.io.cosmostaion.model.kava.CdpParam;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
-import wannabit.io.cosmostaion.model.kava.MarketPrice;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaMarketPriceTokenGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICE_TOKEN;
 
 public class CreateCdpActivity extends BaseBroadCastActivity implements TaskListener {
 
@@ -52,11 +49,10 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
     private ViewPager                   mViewPager;
     private CreateCdpPageAdapter        mPageAdapter;
 
-    private String                      mCollateralParamType;
-    private String                      mMaketId;
-    public CdpParam                     mCdpParam;
-    public MarketPrice                  mKavaTokenPrice;
-    public CollateralParam              mCollateralParam;
+    private String                                  mMaketId;
+    public Genesis.Params                           mCdpParams;
+    public Genesis.CollateralParam                  mCollateralParam;
+    public QueryOuterClass.CurrentPriceResponse     mKavaTokenPrice;
 
     public BigDecimal                   toCollateralAmount = BigDecimal.ZERO;
     public BigDecimal                   toPrincipalAmount = BigDecimal.ZERO;
@@ -86,11 +82,11 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_CREATE_CDP;
 
-        mCollateralParamType = getIntent().getStringExtra("collateralParamType");
+        mCollateralType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
-        mCdpParam = getBaseDao().mCdpParam;
-        mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
-        if (mCdpParam == null || mCollateralParam == null) {
+        mCdpParams = getBaseDao().mCdpParams;
+        mCollateralParam = getBaseDao().getCollateralParamByType(mCollateralType);
+        if (mCdpParams == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");
             onBackPressed();
             return;
@@ -177,26 +173,17 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
     }
 
     public void onStartCreateCdp() {
-        Coin collateralCoin = new Coin(mCollateralParam.denom, toCollateralAmount.toPlainString());
-        Coin principalCoin = new Coin(mCollateralParam.debt_limit.denom, toPrincipalAmount.toPlainString());
-
         Intent intent = new Intent(CreateCdpActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_CREATE_CDP);
-        intent.putExtra("collateralCoin", collateralCoin);
-        intent.putExtra("principalCoin", principalCoin);
-        intent.putExtra("sender", mAccount.address);
-        intent.putExtra("collateralType", mCollateralParam.type);
+        intent.putExtra("mCollateral", mCollateral);
+        intent.putExtra("mPrincipal", mPrincipal);
+        intent.putExtra("mCollateralType", mCollateralType);
         intent.putExtra("fee", mTxFee);
         intent.putExtra("memo", mTxMemo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
     }
-
-    public BigDecimal getcAvailable() {
-        return WUtil.getTokenBalance(getBaseDao().mBalances, mCollateralParam.denom) == null ? BigDecimal.ZERO : WUtil.getTokenBalance(getBaseDao().mBalances, mCollateralParam.denom).balance;
-    }
-
 
     private class CreateCdpPageAdapter extends FragmentPagerAdapter {
 
@@ -208,7 +195,7 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
             mFragments.clear();
             mFragments.add(CreateCdpStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(CreateCdpStep3Fragment.newInstance(null));
         }
 
@@ -243,27 +230,23 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
     private int mTaskCount = 0;
     public void onFetchCdpInfo() {
         onShowWaitDialog();
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mTaskCount = 1;
-            new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
-
+        mTaskCount = 1;
+        new KavaMarketPriceTokenGrpcTask(getBaseApplication(), this, mBaseChain, mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         mTaskCount--;
-        if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
+        if (result.taskType == TASK_GRPC_FETCH_KAVA_PRICE_TOKEN) {
             if (result.isSuccess && result.resultData != null) {
-                mKavaTokenPrice = (MarketPrice)result.resultData;
+                mKavaTokenPrice = (QueryOuterClass.CurrentPriceResponse) result.resultData;
             }
-
         }
 
         if (mTaskCount == 0) {
             onHideWaitDialog();
-            if (mCdpParam == null || mKavaTokenPrice == null) {
+            if (mCdpParams == null || mKavaTokenPrice == null) {
                 Toast.makeText(getBaseContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
                 onBackPressed();
                 return;

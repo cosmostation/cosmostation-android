@@ -24,11 +24,8 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.model.type.Validator;
 
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
 
 public class DelegateActivity extends BaseBroadCastActivity {
@@ -41,8 +38,6 @@ public class DelegateActivity extends BaseBroadCastActivity {
     private TextView                    mTvStep;
     private ViewPager                   mViewPager;
     private DelegatePageAdapter         mPageAdapter;
-
-    public Validator                    mValidator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +63,6 @@ public class DelegateActivity extends BaseBroadCastActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_DELEGATE;
 
-        mValidator = getIntent().getParcelableExtra("validator");
         mValAddress = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager());
@@ -163,12 +157,7 @@ public class DelegateActivity extends BaseBroadCastActivity {
     public void onStartDelegate() {
         Intent intent = new Intent(DelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_DELEGATE);
-
-        if (isGRPC(mBaseChain)) {
-            intent.putExtra("toAddress", mValAddress);
-        } else {
-            intent.putExtra("toAddress", mValidator.operator_address);
-        }
+        intent.putExtra("toAddress", mValAddress);
         intent.putExtra("dAmount", mAmount);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
@@ -187,8 +176,7 @@ public class DelegateActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(DelegateStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
-            else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(DelegateStep3Fragment.newInstance(null));
         }
 

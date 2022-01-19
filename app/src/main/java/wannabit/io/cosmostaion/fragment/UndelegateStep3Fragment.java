@@ -16,16 +16,6 @@ import wannabit.io.cosmostaion.activities.UndelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-
 public class UndelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView        mTvUndelegateAmount;
@@ -72,20 +62,12 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal toUnDeleagteAmount = new BigDecimal(getSActivity().mAmount.amount);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        if (isGRPC(getSActivity().mBaseChain)) {
-            mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, mDpDecimal, mDpDecimal));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-            mTime.setText(WDp.getUnbondTime(getContext(), getBaseDao(), getSActivity().mBaseChain));
-            mValidatorName.setText(getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
-            mMemo.setText(getSActivity().mTxMemo);
 
-        } else {
-            mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, mDpDecimal, mDpDecimal));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-            mTime.setText(WDp.getUnbondTime(getContext(), getBaseDao(), getSActivity().mBaseChain));
-            mValidatorName.setText(getSActivity().mValidator.description.moniker);
-            mMemo.setText(getSActivity().mTxMemo);
-        }
+        mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, mDpDecimal, mDpDecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        mTime.setText(WDp.getUnbondTime(getContext(), getBaseDao(), getSActivity().mBaseChain));
+        mValidatorName.setText(getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
     @Override

@@ -26,18 +26,13 @@ import wannabit.io.cosmostaion.fragment.RedelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep4Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BONDEB_VALIDATOR;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_VALIDATORS;
 
 public class RedelegateActivity extends BaseBroadCastActivity implements TaskListener {
@@ -50,13 +45,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     private ViewPager                       mViewPager;
     private RedelegatePageAdapter           mPageAdapter;
 
-    public ArrayList<Validator>             mToValidators = new ArrayList<>();
-    public Validator                        mFromValidator;
-    public Validator                        mToValidator;
-
     private int                             mTaskCount;
-
-    //gRPC
     public ArrayList<Staking.Validator>     mGRpcTopValidators = new ArrayList<>();
 
     @Override
@@ -82,11 +71,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_REDELEGATE;
 
-        if (isGRPC(mBaseChain)) {
-            mValAddress = getIntent().getStringExtra("valOpAddress");
-        } else {
-            mFromValidator = getIntent().getParcelableExtra("validator");
-        }
+        mValAddress = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new RedelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -177,13 +162,8 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     public void onStartRedelegate() {
         Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REDELEGATE);
-        if (isGRPC(mBaseChain)) {
-            intent.putExtra("fromValidatorAddr", mValAddress);
-            intent.putExtra("toValidatorAddr", mToValAddress);
-        } else {
-            intent.putExtra("fromValidator", mFromValidator);
-            intent.putExtra("toValidator", mToValidator);
-        }
+        intent.putExtra("fromValidatorAddr", mValAddress);
+        intent.putExtra("toValidatorAddr", mToValAddress);
         intent.putExtra("rAmount", mAmount);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
@@ -197,34 +177,14 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     private void onFetchValidtors() {
         if(mTaskCount > 0) return;
         mTaskCount = 1;
-        if (isGRPC(mBaseChain)) {
-            new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else {
-            new ValidatorInfoBondedTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        }
-
+        new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if(isFinishing()) return;
-        if (result.taskType == TASK_FETCH_BONDEB_VALIDATOR) {
-            mToValidators.clear();
-            ArrayList<Validator> temp = (ArrayList<Validator>)result.resultData;
-            if(temp != null) {
-                for (Validator val:temp) {
-                    if(!val.operator_address.equals(mFromValidator.operator_address)) {
-                        mToValidators.add(val);
-                    }
-                }
-                WUtil.onSortByValidatorPower(mToValidators);
-            }
-            if(!result.isSuccess) { Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show(); }
-
-        } else if (result.taskType == TASK_GRPC_FETCH_BONDED_VALIDATORS) {
+        if (result.taskType == TASK_GRPC_FETCH_BONDED_VALIDATORS) {
             ArrayList<Staking.Validator> temp = (ArrayList<Staking.Validator>)result.resultData;
             if (temp != null) {
                 for (Staking.Validator val:temp) {
@@ -256,8 +216,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
             mFragments.add(RedelegateStep0Fragment.newInstance(null));
             mFragments.add(RedelegateStep1Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
-            else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(RedelegateStep4Fragment.newInstance(null));
         }
 

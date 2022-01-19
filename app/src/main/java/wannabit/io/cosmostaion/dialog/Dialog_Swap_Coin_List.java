@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
@@ -85,46 +86,17 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
         @Override
         public void onBindViewHolder(@NonNull SwapChainListAdapter.SwapChainHolder holder, int position) {
             final String inputCoin = mSwapCoinList.get(position);
-            if (isGRPC(getSActivity().mBaseChain)) {
-                IbcToken ibcToken = getSActivity().getBaseDao().getIbcToken(inputCoin);
-                if (inputCoin.startsWith("ibc/")) {
-                    if (ibcToken.auth) {
-                        holder.chainName.setText(ibcToken.display_denom.toUpperCase());
-                    } else {
-                        holder.chainName.setText("UNKNOWN");
-                    }
-                    try {
-                        Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.chainImg);
-                    } catch (Exception e) { }
-                } else if (inputCoin.equals(TOKEN_ATOM)) {
-                    holder.chainName.setText(getString(R.string.str_atom_c));
-                    Picasso.get().cancelRequest(holder.chainImg);
-                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
-                } else if (inputCoin.equals(TOKEN_OSMOSIS)) {
-                    holder.chainName.setText(getString(R.string.str_osmosis_c));
-                    Picasso.get().cancelRequest(holder.chainImg);
-                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
-                } else if (inputCoin.equals(TOKEN_SIF)) {
-                    holder.chainName.setText(getString(R.string.str_sif_c));
-                    Picasso.get().cancelRequest(holder.chainImg);
-                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
-                } else if (inputCoin.equals(TOKEN_ION)) {
-                    holder.chainName.setText(getString(R.string.str_uion_c));
-                    Picasso.get().cancelRequest(holder.chainImg);
-                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
-                } else if (inputCoin.startsWith("c")) {
-                    final Assets assets = getSActivity().getBaseDao().getAsset(inputCoin);
-                    if (assets != null) {
-                        Picasso.get().load(ASSET_IMG_URL + assets.origin_chain + "/" + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
-                        holder.chainName.setText(assets.origin_symbol);
-                    }
+            IbcToken ibcToken = getSActivity().getBaseDao().getIbcToken(inputCoin);
+            if (inputCoin.startsWith("ibc/")) {
+                if (ibcToken.auth) {
+                    holder.chainName.setText(ibcToken.display_denom.toUpperCase());
                 } else {
                     holder.chainName.setText("UNKNOWN");
-                    Picasso.get().cancelRequest(holder.chainImg);
-                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
                 }
-
-            } else {
+                try {
+                    Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.chainImg);
+                } catch (Exception e) { }
+            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
                 try {
                     Picasso.get().load(KAVA_COIN_IMG_URL + mSwapCoinList.get(position) + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
                     String baseDenom = WDp.getKavaBaseDenom(mSwapCoinList.get(position));
@@ -134,6 +106,32 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                         holder.chainName.setText(mSwapCoinList.get(position).toUpperCase());
                     }
                 } catch (Exception e) { }
+            } else if (inputCoin.equals(TOKEN_ATOM)) {
+                holder.chainName.setText(getString(R.string.str_atom_c));
+                Picasso.get().cancelRequest(holder.chainImg);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
+            } else if (inputCoin.equals(TOKEN_OSMOSIS)) {
+                holder.chainName.setText(getString(R.string.str_osmosis_c));
+                Picasso.get().cancelRequest(holder.chainImg);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
+            } else if (inputCoin.equals(TOKEN_SIF)) {
+                holder.chainName.setText(getString(R.string.str_sif_c));
+                Picasso.get().cancelRequest(holder.chainImg);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
+            } else if (inputCoin.equals(TOKEN_ION)) {
+                holder.chainName.setText(getString(R.string.str_uion_c));
+                Picasso.get().cancelRequest(holder.chainImg);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
+            } else if (inputCoin.startsWith("c")) {
+                final Assets assets = getSActivity().getBaseDao().getAsset(inputCoin);
+                if (assets != null) {
+                    Picasso.get().load(ASSET_IMG_URL + assets.origin_chain + "/" + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
+                    holder.chainName.setText(assets.origin_symbol);
+                }
+            } else {
+                holder.chainName.setText("UNKNOWN");
+                Picasso.get().cancelRequest(holder.chainImg);
+                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
             }
 
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {

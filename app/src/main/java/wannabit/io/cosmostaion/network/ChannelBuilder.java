@@ -26,6 +26,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
@@ -128,6 +129,9 @@ public class ChannelBuilder {
     private final static String GRPC_CHIHUAHUA_MAIN = "lcd-chihuahua-app.cosmostation.io";
     private final static int PORT_CHIHUAHUA_MAIN = 9090;
 
+    private final static String GRPC_KAVA_MAIN = "lcd-kava-app.cosmostation.io";
+    private final static int PORT_KAVA_MAIN = 9090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -210,6 +214,8 @@ public class ChannelBuilder {
             return getLumMain();
         } else if (chain.equals(CHIHUAHUA_MAIN)) {
             return getChihuahuaMain();
+        } else if (chain.equals(KAVA_MAIN)) {
+            return getKavaMain();
 
         }
 
@@ -606,6 +612,19 @@ public class ChannelBuilder {
             }
         }
         return channel_chihuahua_main;
+    }
+
+    //Channel for kava main
+    private static ManagedChannel channel_kava_main = null;
+    public static ManagedChannel getKavaMain() {
+        if (channel_kava_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_kava_main = ManagedChannelBuilder.forAddress(GRPC_KAVA_MAIN, PORT_KAVA_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_kava_main;
     }
 
     //Channel for stargate testnet

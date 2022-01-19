@@ -14,7 +14,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -247,75 +246,6 @@ public class ResApiNewTxListCustom {
                     result = "Random Request";
                 }
 
-                // kava msg
-                else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_POST_PRICE)) {
-                    result = c.getString(R.string.tx_kava_post_price);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_CREATE_CDP)) {
-                    result = c.getString(R.string.tx_kava_create_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP)) {
-                    result = c.getString(R.string.tx_kava_deposit_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP)) {
-                    result = c.getString(R.string.tx_kava_withdraw_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP)) {
-                    result = c.getString(R.string.tx_kava_drawdebt_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP)) {
-                    result = c.getString(R.string.tx_kava_repaydebt_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_CDP)) {
-                    result = c.getString(R.string.tx_kava_liquidate_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
-                    result = c.getString(R.string.tx_kava_bep3_create);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP)) {
-                    result = c.getString(R.string.tx_kava_bep3_claim);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
-                    result = c.getString(R.string.tx_kava_bep3_refund);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD)) {
-                    result = c.getString(R.string.tx_kava_hard_deposit);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HARD)) {
-                    result = c.getString(R.string.tx_kava_hard_withdraw);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BORROW_HARD)) {
-                    result = c.getString(R.string.tx_kava_hard_borrow);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_REPAY_HARD)) {
-                    result = c.getString(R.string.tx_kava_hard_repay);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_HARD)) {
-                    result = c.getString(R.string.tx_kava_hard_liquidate);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN2)) {
-                    result = c.getString(R.string.tx_kava_swap_token);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT)) {
-                    result = c.getString(R.string.tx_kava_swap_deposit);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW)) {
-                    result = c.getString(R.string.tx_kava_swap_withdraw);
-
-                }  else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
-                    result = c.getString(R.string.tx_kava_incentive_reward);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
-                    result = c.getString(R.string.tx_kava_incentive_hard);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DELEGATOR_INCENTIVE)) {
-                    result = c.getString(R.string.tx_kava_delegator_incentive);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_INCENTIVE)) {
-                    result = c.getString(R.string.tx_kava_swap_incentive);
-
-                }
-
                 //starname msg
                 else if (msgType.contains("RegisterDomain")) {
                     result = c.getString(R.string.tx_starname_registe_domain);
@@ -370,10 +300,6 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_gravity_withdraw_batch);
                 }
 
-                else if (msgType.contains("MsgDeposit")) {
-                    result = c.getString(R.string.tx_deposit);
-                }
-
                 else if (msgType.contains("MsgAddRecord")) {
                     result = c.getString(R.string.tx_medi_add_record);
 
@@ -418,6 +344,78 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("MsgLinkChainAccount")) {
                     result = c .getString(R.string.tx_link_chain_account);
                 }
+
+                // kava msg
+                else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_POST_PRICE)) {
+                    result = c.getString(R.string.tx_kava_post_price);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_CREATE_CDP)) {
+                    result = c.getString(R.string.tx_kava_create_cdp);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP)) {
+                    result = c.getString(R.string.tx_kava_deposit_cdp);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP)) {
+                    result = c.getString(R.string.tx_kava_withdraw_cdp);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP)) {
+                    result = c.getString(R.string.tx_kava_drawdebt_cdp);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP)) {
+                    result = c.getString(R.string.tx_kava_repaydebt_cdp);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_CDP)) {
+                    result = c.getString(R.string.tx_kava_liquidate_cdp);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
+                    result = c.getString(R.string.tx_kava_bep3_create);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP)) {
+                    result = c.getString(R.string.tx_kava_bep3_claim);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
+                    result = c.getString(R.string.tx_kava_bep3_refund);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD)) {
+                    result = c.getString(R.string.tx_kava_hard_deposit);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HARD)) {
+                    result = c.getString(R.string.tx_kava_hard_withdraw);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BORROW_HARD)) {
+                    result = c.getString(R.string.tx_kava_hard_borrow);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_REPAY_HARD)) {
+                    result = c.getString(R.string.tx_kava_hard_repay);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_HARD)) {
+                    result = c.getString(R.string.tx_kava_hard_liquidate);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN2)) {
+                    result = c.getString(R.string.tx_kava_swap_token);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT)) {
+                    result = c.getString(R.string.tx_kava_swap_deposit);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW)) {
+                    result = c.getString(R.string.tx_kava_swap_withdraw);
+
+                }  else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
+                    result = c.getString(R.string.tx_kava_incentive_reward);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
+                    result = c.getString(R.string.tx_kava_incentive_hard);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DELEGATOR_INCENTIVE)) {
+                    result = c.getString(R.string.tx_kava_delegator_incentive);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_INCENTIVE)) {
+                    result = c.getString(R.string.tx_kava_swap_incentive);
+
+                } else if (msgType.contains("MsgDeposit")) {
+                    result = c.getString(R.string.tx_deposit);
+                }
+
 
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);

@@ -19,7 +19,7 @@ public class KavaIncentiveRewardTask extends CommonTask {
 
     public KavaIncentiveRewardTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account) {
         super(app, listener);
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
+        this.mResult.taskType = BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
         this.mChain = chain;
         this.mAccount = account;
     }
@@ -29,13 +29,6 @@ public class KavaIncentiveRewardTask extends CommonTask {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResKavaIncentiveReward> response = ApiClient.getKavaChain(mApp).getIncentiveReward5(mAccount.address).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ResKavaIncentiveReward> response = ApiClient.getKavaTestChain(mApp).getIncentiveReward5(mAccount.address).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

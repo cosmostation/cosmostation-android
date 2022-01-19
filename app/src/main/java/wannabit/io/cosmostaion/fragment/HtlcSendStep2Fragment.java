@@ -142,7 +142,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, 0, mDecimal));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mDecimal = WUtil.getKavaCoinDecimal(getSActivity().mToSwapDenom);
+            mDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), getSActivity().mToSwapDenom);
             setDpDecimals(mDecimal);
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
                 mDenomTitle.setText(getString(R.string.str_bnb_c));

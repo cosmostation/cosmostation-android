@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -11,17 +10,15 @@ import androidx.annotation.NonNull;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import cosmos.base.v1beta1.CoinOuterClass;
+import kava.hard.v1beta1.Hard;
+import kava.hard.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
-import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
-import wannabit.io.cosmostaion.model.kava.HardParam;
-import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -57,36 +54,32 @@ public class HardDetailMyStatusHolder extends BaseHolder {
         mMyBtnRepay             = itemView.findViewById(R.id.btn_repay);
     }
 
-
     @Override
-    public void onBindHardDetailMyStatus(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom, ArrayList<HardMyDeposit> myDeposit,
-                                         ArrayList<HardMyBorrow> myBorrow, ArrayList<Coin> moduleCoins, ArrayList<Coin> reserveCoin) {
-        final HardParam hardParam                       = baseData.mHardParam;
-        final HardParam.HardMoneyMarket hardMoneyMarket = hardParam.getHardMoneyMarket(denom);
-        final MarketPrice price                         = baseData.mKavaTokenPrices.get(hardParam.getSpotMarketId(denom));
-        final int decimal                               =  WUtil.getKavaCoinDecimal(denom);
+    public void onBindHardDetailMyStatus(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom, ArrayList<QueryOuterClass.DepositResponse> myDeposit,
+                                         ArrayList<QueryOuterClass.BorrowResponse> myBorrow, ArrayList<Coin> moduleCoins, ArrayList<CoinOuterClass.Coin> reserveCoin) {
 
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + hardMoneyMarket.denom + ".png").fit().into(mDepositCoinImg);
-        } catch (Exception e) { }
-        WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, "0", mDepositCoinTitle, null, chain);
+        final Hard.Params hardParam                         = baseData.mHardParams;
+        final Hard.MoneyMarket hardMoneyMarket              = WUtil.getHardMoneyMarket(hardParam, denom);
+
+        WUtil.DpKavaTokenImg(baseData, mDepositCoinImg, hardMoneyMarket.getDenom());
+        WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), "0", mDepositCoinTitle, null, chain);
 
         //Display My Supply
         final BigDecimal totalSuppliedValue = WUtil.getHardSuppliedValueByDenom(context, baseData, denom, myDeposit);
         final BigDecimal totalSuppliedAmount = WUtil.getHardSuppliedAmountByDenom(context, baseData, denom, myDeposit);
-        WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, totalSuppliedAmount.toPlainString(), mDepositDenomTv, mDepositAmountTv, chain);
+        WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), totalSuppliedAmount.toPlainString(), mDepositDenomTv, mDepositAmountTv, chain);
         mDepositValueTv.setText(WDp.getDpRawDollor(context, totalSuppliedValue, 2));
 
         //Display My Borrowed
         final BigDecimal totalBorrowedValue = WUtil.getHardBorrowedValueByDenom(context, baseData, denom, myBorrow);
         final BigDecimal totalBorrowedAmount = WUtil.getHardBorrowedAmountByDenom(context, baseData, denom, myBorrow);
-        WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, totalBorrowedAmount.toPlainString(), mBorrowedDenomTv, mBorrowedAmountTv, chain);
+        WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), totalBorrowedAmount.toPlainString(), mBorrowedDenomTv, mBorrowedAmountTv, chain);
         mBorrowedValueTv.setText(WDp.getDpRawDollor(context, totalBorrowedValue, 2));
 
         //Display My Borrowable
         final BigDecimal finalBorrowableValue = WUtil.getHardBorrowableValueByDenom(context, baseData, denom, myDeposit, myBorrow, moduleCoins, reserveCoin);
         final BigDecimal finalBorrowableAmount = WUtil.getHardBorrowableAmountByDenom(context, baseData, denom, myDeposit, myBorrow, moduleCoins, reserveCoin);
-        WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, finalBorrowableAmount.toPlainString(), mBorrowableDenomTv, mBorrowableAmountTv, chain);
+        WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), finalBorrowableAmount.toPlainString(), mBorrowableDenomTv, mBorrowableAmountTv, chain);
         mBorrowableValueTv.setText(WDp.getDpRawDollor(context, finalBorrowableValue, 2));
 
         mMyBtnSupply.setOnClickListener(new View.OnClickListener() {

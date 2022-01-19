@@ -10,6 +10,8 @@ import androidx.cardview.widget.CardView;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import cosmos.base.v1beta1.CoinOuterClass;
+import kava.swap.v1beta1.QueryOuterClass;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
@@ -106,48 +108,48 @@ public class PoolMyHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindKavaMyPool(Context context, BaseActivity activity, BaseData baseData, SwapPool myPool, SwapDeposit myDeposit) {
+    public void onBindKavaMyPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse myPool, QueryOuterClass.DepositResponse myDeposit) {
         itemRoot.setCardBackgroundColor(context.getResources().getColor(R.color.colorTransBgKava));
         itemMyPoolType.setTextColor(WDp.getChainColor(context, BaseChain.KAVA_MAIN));
 
-        Coin coin0 = myPool.coins.get(0);
-        Coin coin1 = myPool.coins.get(1);
-        int coin0Decimal = WUtil.getKavaCoinDecimal(coin0.denom);
-        int coin1Decimal = WUtil.getKavaCoinDecimal(coin1.denom);
-        BigDecimal coin0price = WDp.getKavaPriceFeed(baseData, coin0.denom);
-        BigDecimal coin1price = WDp.getKavaPriceFeed(baseData, coin1.denom);
-        BigDecimal coin0Value = new BigDecimal(coin0.amount).multiply(coin0price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
-        BigDecimal coin1Value = new BigDecimal(coin1.amount).multiply(coin1price).movePointLeft(coin1Decimal).setScale(2, RoundingMode.DOWN);
+        CoinOuterClass.Coin coin0 = myPool.getCoins(0);
+        CoinOuterClass.Coin coin1 = myPool.getCoins(1);
+        int coin0Decimal = WUtil.getKavaCoinDecimal(baseData, coin0.getDenom());
+        int coin1Decimal = WUtil.getKavaCoinDecimal(baseData, coin1.getDenom());
+        BigDecimal coin0price = WDp.getKavaPriceFeed(baseData, coin0.getDenom());
+        BigDecimal coin1price = WDp.getKavaPriceFeed(baseData, coin1.getDenom());
+        BigDecimal coin0Value = new BigDecimal(coin0.getAmount()).multiply(coin0price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
+        BigDecimal coin1Value = new BigDecimal(coin1.getAmount()).multiply(coin1price).movePointLeft(coin1Decimal).setScale(2, RoundingMode.DOWN);
 
-        itemMyPoolType.setText(myPool.name.toUpperCase());
+        itemMyPoolType.setText(myPool.getName().toUpperCase());
         BigDecimal poolValue = coin0Value.add(coin1Value);
         itemMyTotalDepositValue.setText(WDp.getDpRawDollor(context, poolValue, 2));
 
         // Total deposit
-        WUtil.dpKavaTokenName(context, itemMyTotalDepositSymbol0, coin0.denom);
-        WUtil.dpKavaTokenName(context, itemMyTotalDepositSymbol1, coin1.denom);
-        itemMyTotalDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(coin0.amount), coin0Decimal, 6));
-        itemMyTotalDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(coin1.amount), coin1Decimal, 6));
+        WUtil.dpKavaTokenName(context, baseData, itemMyTotalDepositSymbol0, coin0.getDenom());
+        WUtil.dpKavaTokenName(context, baseData, itemMyTotalDepositSymbol1, coin1.getDenom());
+        itemMyTotalDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(coin0.getAmount()), coin0Decimal, 6));
+        itemMyTotalDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(coin1.getAmount()), coin1Decimal, 6));
 
         // deposit
-        Coin my0 = myDeposit.shares_value.get(0);
-        Coin my1 = myDeposit.shares_value.get(1);
-        BigDecimal my0Value = new BigDecimal(my0.amount).multiply(coin0price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
-        BigDecimal my1Value = new BigDecimal(my1.amount).multiply(coin1price).movePointLeft(coin1Decimal).setScale(2, RoundingMode.DOWN);
+        CoinOuterClass.Coin my0 = myDeposit.getSharesValue(0);
+        CoinOuterClass.Coin my1 = myDeposit.getSharesValue(1);
+        BigDecimal my0Value = new BigDecimal(my0.getAmount()).multiply(coin0price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
+        BigDecimal my1Value = new BigDecimal(my1.getAmount()).multiply(coin1price).movePointLeft(coin1Decimal).setScale(2, RoundingMode.DOWN);
         BigDecimal myShareValue = my0Value.add(my1Value);
         itemMypoolDepositValue.setText(WDp.getDpRawDollor(context, myShareValue, 2));
 
-        WUtil.dpKavaTokenName(context, itemMyDepositSymbol0, my0.denom);
-        WUtil.dpKavaTokenName(context, itemMyDepositSymbol1, my1.denom);
-        itemMyDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(my0.amount), coin0Decimal, 6));
-        itemMyDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(my1.amount), coin1Decimal, 6));
+        WUtil.dpKavaTokenName(context, baseData, itemMyDepositSymbol0, my0.getDenom());
+        WUtil.dpKavaTokenName(context, baseData, itemMyDepositSymbol1, my1.getDenom());
+        itemMyDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(my0.getAmount()), coin0Decimal, 6));
+        itemMyDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(my1.getAmount()), coin1Decimal, 6));
 
         // available
-        BigDecimal availableCoin0 = baseData.availableAmount(coin0.denom);
-        BigDecimal availableCoin1 = baseData.availableAmount(coin1.denom);
+        BigDecimal availableCoin0 = baseData.getAvailable(coin0.getDenom());
+        BigDecimal availableCoin1 = baseData.getAvailable(coin1.getDenom());
 
-        WUtil.dpKavaTokenName(context, itemMyAvailableSymbol0, coin0.denom);
-        WUtil.dpKavaTokenName(context, itemMyAvailableSymbol1, coin1.denom);
+        WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol0, coin0.getDenom());
+        WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol1, coin1.getDenom());
         itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableCoin0, coin0Decimal, 6));
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableCoin1, coin1Decimal, 6));
 

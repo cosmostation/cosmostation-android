@@ -22,6 +22,11 @@ import com.google.android.material.tabs.TabLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import cosmos.base.v1beta1.CoinOuterClass;
+import kava.cdp.v1beta1.Genesis;
+import kava.hard.v1beta1.Hard;
+import kava.swap.v1beta1.QueryOuterClass;
+import kava.swap.v1beta1.Swap;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -32,55 +37,38 @@ import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListHardFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListKavaPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListKavaSwapFragment;
-import wannabit.io.cosmostaion.model.kava.CdpParam;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
-import wannabit.io.cosmostaion.model.kava.HardParam;
-import wannabit.io.cosmostaion.model.kava.IncentiveParam;
-import wannabit.io.cosmostaion.model.kava.IncentiveReward;
-import wannabit.io.cosmostaion.model.kava.KavaPriceMarket;
-import wannabit.io.cosmostaion.model.kava.MarketPrice;
-import wannabit.io.cosmostaion.model.kava.SwapDeposit;
-import wannabit.io.cosmostaion.model.kava.SwapParam;
-import wannabit.io.cosmostaion.model.kava.SwapPool;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaHardParamTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaSwapDepositTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaSwapParamTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaSwapPoolTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpParamGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaHardParamGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapDepositGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapParamsGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapPoolsGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_PARAM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_PARAM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_SWAP_DEPOSIT;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_SWAP_PARAM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_SWAP_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_CDP_PARAMS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_PARAMS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_PARAMS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
-    private Toolbar                 mToolbar;
-    private ViewPager               mDappPager;
-    private TabLayout               mDappTapLayer;
-    private KavaDApp5PageAdapter    mPageAdapter;
+    private Toolbar                     mToolbar;
+    private ViewPager                   mDappPager;
+    private TabLayout                   mDappTapLayer;
+    private KavaDApp5PageAdapter        mPageAdapter;
 
-    public ArrayList<SwapPool>      mSwapPoolList = new ArrayList<>();
-    public ArrayList<String>        mAllDenoms = new ArrayList<>();
-    public ArrayList<SwapDeposit>   mMySwapDepositList = new ArrayList<>();
-    public ArrayList<SwapPool>      mMySwapPoolList = new ArrayList<>();
-    public ArrayList<SwapPool>      mOtherSwapPoolList = new ArrayList<>();
+    public ArrayList<String>                                            mAllDenoms = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse>                      mSwapPoolList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.DepositResponse>                   mMySwapDepositList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse>                      mMySwapPoolList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse>                      mOtherSwapPoolList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,14 +133,14 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         onFetchData();
     }
 
-    public void onCheckStartSwap(String inputCoinDenom, String outCoinDenom, SwapPool swapPool) {
+    public void onCheckStartSwap(String inputCoinDenom, String outCoinDenom, QueryOuterClass.PoolResponse swapPool) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
-        BigDecimal available = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+        BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_KAVA_SWAP, 0);
         if (available.compareTo(txFee) <= 0) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
@@ -177,16 +165,16 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         }
     }
 
-    public void onClickMyPool(SwapPool mPool, SwapDeposit mDeposit) {
+    public void onClickMyPool(QueryOuterClass.PoolResponse mPool, QueryOuterClass.DepositResponse mDeposit) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable("mKavaPool", mPool);
-        bundle.putParcelable("mKavaDeposit", mDeposit);
+        bundle.putSerializable("mKavaPool", mPool);
+        bundle.putSerializable("mKavaDeposit", mDeposit);
         Dialog_Pool_Kava bottomSheetDialog = Dialog_Pool_Kava.getInstance();
         bottomSheetDialog.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
     }
 
-    public void onCheckStartJoinPool(SwapPool myPool) {
+    public void onCheckStartJoinPool(QueryOuterClass.PoolResponse myPool) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -194,12 +182,12 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             return;
         }
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(DAppsList5Activity.this, mBaseChain, CONST_PW_TX_KAVA_JOIN_POOL, 0);
-        String coin0Denom = myPool.coins.get(0).denom;
-        String coin1Denom = myPool.coins.get(1).denom;
+        String coin0Denom = myPool.getCoins(0).getDenom();
+        String coin1Denom = myPool.getCoins(1).getDenom();
 
-        BigDecimal available0MaxAmount = getBaseDao().availableAmount(coin0Denom);
+        BigDecimal available0MaxAmount = getBaseDao().getAvailable(coin0Denom);
         if (coin0Denom.equalsIgnoreCase(TOKEN_KAVA)) { available0MaxAmount = available0MaxAmount.subtract(feeAmount); }
-        BigDecimal available1MaxAmount = getBaseDao().availableAmount(coin1Denom);
+        BigDecimal available1MaxAmount = getBaseDao().getAvailable(coin1Denom);
         if (coin1Denom.equalsIgnoreCase(TOKEN_KAVA)) { available1MaxAmount = available1MaxAmount.subtract(feeAmount); }
 
         if (available0MaxAmount.compareTo(BigDecimal.ZERO) <= 0 || available1MaxAmount.compareTo(BigDecimal.ZERO) <=0 ) {
@@ -211,7 +199,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         startActivity(intent);
     }
 
-    public void onCheckStartExitPool(SwapPool otherPool, SwapDeposit swapDeposit) {
+    public void onCheckStartExitPool(QueryOuterClass.PoolResponse myPool, QueryOuterClass.DepositResponse myDeposit) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -219,7 +207,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             return;
         }
 
-        BigDecimal mainBalance = getBaseDao().availableAmount(TOKEN_KAVA);
+        BigDecimal mainBalance = getBaseDao().getAvailable(TOKEN_KAVA);
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_KAVA_EXIT_POOL, 0);
 
         if (mainBalance.compareTo(feeAmount) < 0) {
@@ -228,101 +216,72 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         }
 
         Intent intent = new Intent(getBaseContext(), WithDrawPoolActivity.class);
-        intent.putExtra("mKavaPool", otherPool);
-        intent.putExtra("mKavaDeposit", swapDeposit);
+        intent.putExtra("mKavaPool", myPool);
+        intent.putExtra("mKavaDeposit", myDeposit);
         startActivity(intent);
     }
 
     private int mTaskCount = 0;
     public void onFetchData() {
-        mTaskCount = 7;
+        mTaskCount = 5;
+        getBaseDao().mSwapParams = null;
         mSwapPoolList.clear();
         mMySwapPoolList.clear();
         mOtherSwapPoolList.clear();
-        new KavaCdpParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaHardParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaSwapParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaSwapDepositTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaSwapPoolTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaIncentiveParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaIncentiveRewardTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        getBaseDao().mCdpParams = null;
+        new KavaSwapParamsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaSwapPoolsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaSwapDepositGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaHardParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
-        if (result.taskType == TASK_FETCH_KAVA_CDP_PARAM) {
+        if (result.taskType == TASK_GRPC_FETCH_KAVA_SWAP_PARAMS) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mCdpParam = (CdpParam)result.resultData;
-                for (CollateralParam collateralParam: getBaseDao().mCdpParam.collateral_params) {
-                    mTaskCount = mTaskCount + 1;
-                    new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), collateralParam.liquidation_market_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                }
+                getBaseDao().mSwapParams = (Swap.Params) result.resultData;
             }
 
-        } else if (result.taskType == TASK_FETCH_KAVA_HARD_PARAM) {
+        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_SWAP_POOLS) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mHardParam = (HardParam)result.resultData;
+                mSwapPoolList = (ArrayList<QueryOuterClass.PoolResponse>) result.resultData;
             }
 
-        } else if (result.taskType == TASK_FETCH_KAVA_SWAP_PARAM) {
+        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mSwapParam = (SwapParam) result.resultData;
-                ArrayList<String> tempList = new ArrayList<>();
-                for (KavaPriceMarket.Market kavaPriceMarket: getBaseDao().mKavaPriceMarket) {
-                    if (!kavaPriceMarket.market_id.contains(":30")) {
-                        tempList.add(kavaPriceMarket.market_id);
-                    }
-                }
-                for(String market_id: tempList) {
-                    mTaskCount = mTaskCount + 1;
-                    new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), market_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                }
+                mMySwapDepositList = (ArrayList<QueryOuterClass.DepositResponse>) result.resultData;
             }
 
-        } else if (result.taskType == TASK_FETCH_KAVA_SWAP_DEPOSIT) {
+        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_CDP_PARAMS) {
             if (result.isSuccess && result.resultData != null) {
-                mMySwapDepositList = (ArrayList<SwapDeposit>) result.resultData;
+                getBaseDao().mCdpParams = (Genesis.Params) result.resultData;
             }
 
-        } else if (result.taskType == TASK_FETCH_KAVA_SWAP_POOL) {
+        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_PARAMS) {
             if (result.isSuccess && result.resultData != null) {
-                mSwapPoolList = (ArrayList<SwapPool>) result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mIncentiveParam5 = (IncentiveParam)result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mIncentiveRewards = (IncentiveReward)result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
-            if (result.isSuccess && result.resultData != null) {
-                final MarketPrice price = (MarketPrice)result.resultData;
-                getBaseDao().mKavaTokenPrices.put(price.market_id, price);
+                getBaseDao().mHardParams = (Hard.Params) result.resultData;
             }
 
         }
+
         if (mTaskCount == 0) {
-            for (SwapPool swapPool : mSwapPoolList) {
-                for (Coin coin : swapPool.coins) {
-                    if (!mAllDenoms.contains(coin.denom)) {
-                        mAllDenoms.add(coin.denom);
+            for (QueryOuterClass.PoolResponse pool: mSwapPoolList) {
+                for (CoinOuterClass.Coin coin: pool.getCoinsList()) {
+                    if (!mAllDenoms.contains(coin.getDenom())) {
+                        mAllDenoms.add(coin.getDenom());
                         WUtil.onSortingDenom(mAllDenoms, mBaseChain);
                     }
                 }
                 boolean myPool = false;
-                for (SwapDeposit deposit: mMySwapDepositList) {
-                    if (deposit.pool_id.equalsIgnoreCase(swapPool.name)) {
+                for (QueryOuterClass.DepositResponse deposit: mMySwapDepositList) {
+                    if (deposit.getPoolId().equalsIgnoreCase(pool.getName())) {
                         myPool = true;
                     }
                 }
-                if (myPool) { mMySwapPoolList.add(swapPool); }
-                else { mOtherSwapPoolList.add(swapPool); }
+                if (myPool) { mMySwapPoolList.add(pool); }
+                else { mOtherSwapPoolList.add(pool); }
             }
 
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {

@@ -85,12 +85,12 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
         mBtnNext.setOnClickListener(this);
 
         mHardMoneyMarketDenom = getSActivity().mHardMoneyMarketDenom;
-        mDpDecimal = WUtil.getKavaCoinDecimal(mHardMoneyMarketDenom);
+        mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
 
-        mMaxAvailable = WUtil.getHardSuppliedAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom, getBaseDao().mMyHardDeposit);
+        mMaxAvailable = WUtil.getHardSuppliedAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom, getBaseDao().mMyHardDeposits);
         WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mWithdrawDenomTx, mDWithdrawMaxTx, getSActivity().mBaseChain);
-
+        WUtil.DpKavaTokenImg(getBaseDao(), mWithdrawImg, mHardMoneyMarketDenom);
         if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
             WDp.DpMainDenom(getSActivity(), getSActivity().mBaseChain.getChain(), mWithdrawSymbol);
         } else if (mHardMoneyMarketDenom.equals(TOKEN_HARD)) {
@@ -100,9 +100,6 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
             mWithdrawSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
             mWithdrawSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         }
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + mHardMoneyMarketDenom + ".png").fit().into(mWithdrawImg);
-        } catch (Exception e) { }
 
         mWithdrawInput.addTextChangedListener(new TextWatcher() {
             @Override

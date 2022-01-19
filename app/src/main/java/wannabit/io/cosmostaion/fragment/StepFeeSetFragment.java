@@ -53,6 +53,19 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulGravityDepositGrpcTas
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulGravitySwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulGravityWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulIBCTransferGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaBorrowHardGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaClaimIncentiveAllGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaCreateCdpGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaDepositCdpGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaDepositGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaDepositHardGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaDrawDebtCdpGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaRepayCdpGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaRepayHardGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaSwapGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaWithDrawCdpGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaWithdrawGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaWithdrawHardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulLinkAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulMintNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisBeginUnbondingGrpcTask;
@@ -80,12 +93,21 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_BORROW_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_LINK_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING;
@@ -99,6 +121,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOM
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
@@ -112,6 +136,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWAR
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
 
 public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener, TaskListener {
@@ -432,16 +458,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 }
                 new SimulOsmosisBeginUnbondingGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         tempList, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-//            } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_UNLOCK) {
-//                ArrayList<Long> tempList = new ArrayList<>();
-//                for (Lock.PeriodLock lockup: getSActivity().mOsmosisLockups) {
-//                    tempList.add(lockup.getID());
-//                }
-//                new SimulOsmosisUnLockGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
-//                        tempList, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            }
-
             }
 
             else if (getSActivity().mTxType == CONST_PW_TX_GDEX_SWAP) {
@@ -527,6 +543,58 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 }
                 new SimulLinkAccountGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mDesmosToLinkChain,
                         toAccount, ecKey, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_KAVA_SWAP) {
+                new SimulKavaSwapGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mKavaSwapIn, getSActivity().mKavaSwapOut,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_KAVA_JOIN_POOL) {
+                new SimulKavaDepositGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mKavaPoolTokenA, getSActivity().mKavaPoolTokenB,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_KAVA_EXIT_POOL) {
+                new SimulKavaWithdrawGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mKavaShareAmount.toPlainString(), getSActivity().mKavaMinTokenA, getSActivity().mKavaMinTokenB,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_CREATE_CDP) {
+                new SimulKavaCreateCdpGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mCollateral, getSActivity().mPrincipal,
+                        getSActivity().mCollateralType, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_DEPOSIT_CDP) {
+                new SimulKavaDepositCdpGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mAccount.address, getSActivity().mCollateral,
+                        getSActivity().mCollateralType, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_WITHDRAW_CDP) {
+                new SimulKavaWithDrawCdpGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mAccount.address, getSActivity().mCollateral,
+                        getSActivity().mCollateralType, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_DRAW_DEBT_CDP) {
+                new SimulKavaDrawDebtCdpGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mPrincipal,
+                        getSActivity().mCollateralType, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_REPAY_CDP) {
+                new SimulKavaRepayCdpGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mPayment,
+                        getSActivity().mCollateralType, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_DEPOSIT_HARD) {
+                new SimulKavaDepositHardGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mHardPoolCoins,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_WITHDRAW_HARD) {
+                new SimulKavaWithdrawHardGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mHardPoolCoins,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_BORROW_HARD) {
+                new SimulKavaBorrowHardGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mHardPoolCoins,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_REPAY_HARD) {
+                new SimulKavaRepayHardGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mAccount.address, getSActivity().mHardPoolCoins,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_CLAIM_INCENTIVE) {
+                new SimulKavaClaimIncentiveAllGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mIncentiveMultiplier, getSActivity().getBaseDao(),
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         }
     }

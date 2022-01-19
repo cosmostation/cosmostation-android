@@ -83,18 +83,26 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindNativeTokengRPC(Context c, BaseChain baseChain, BaseData baseData, String denom) {
-        if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
-            if (denom.equalsIgnoreCase(TOKEN_ION)) {
-                dpDecimal = 6;
-
-                mAvailableAmount = baseData.getAvailable(denom);
-                mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-                mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-
+        if (baseChain.equals(BaseChain.KAVA_MAIN)) {
+            dpDecimal = WUtil.getKavaCoinDecimal(baseData, denom);
+            if (denom.equalsIgnoreCase(TOKEN_HARD)) {
+                mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));
+            } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
+                mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgusdx));
+            } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
+                mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgswp));
             }
-        } else if (baseChain.equals(BaseChain.EMONEY_MAIN)) {
-            dpDecimal = 6;
 
+            mAvailableAmount = baseData.getAvailable(denom);
+            BigDecimal vestingAmount = baseData.getVesting(denom);
+            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));
+            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+            if (vestingAmount.compareTo(BigDecimal.ZERO) > 0){
+                mVestingLayout.setVisibility(View.VISIBLE);
+                mTvVesting.setText(WDp.getDpAmount2(c, vestingAmount, dpDecimal, dpDecimal));
+            }
+        } else {
+            dpDecimal = 6;
             mAvailableAmount = baseData.getAvailable(denom);
             mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
             mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
@@ -113,7 +121,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindKavaToken(Context c, BaseData baseData, String denom) {
-        dpDecimal = WUtil.getKavaCoinDecimal(denom);
+        dpDecimal = WUtil.getKavaCoinDecimal(baseData, denom);
         mAvailableAmount = baseData.availableAmount(denom);
         if (denom.equalsIgnoreCase(TOKEN_HARD)) {
             mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));

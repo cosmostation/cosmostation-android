@@ -129,7 +129,7 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             mReceiveAddressTv.setText(getSActivity().mRecipientAccount.address);
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mDecimal = WUtil.getKavaCoinDecimal(getSActivity().mToSwapDenom);
+            mDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), getSActivity().mToSwapDenom);
             mSendDenomTv.setText(getSActivity().mToSwapDenom.toUpperCase());
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mSendFeeDenomTv);
 

@@ -62,7 +62,7 @@ public class Dialog_Safe_Score_Confirm extends DialogFragment {
         before_liquidation_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("beforeLiquidationPrice")) , 4));
 
         after_liquidation_price_title.setText(String.format(getString(R.string.str_after_liquidation_title2), getArguments().getString("denom").toUpperCase()));
-        after_liquidation_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("afterLiquidationPrice")) , 4));
+        after_liquidation_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("afterLiquidationPrice")), 4));
 
 
         Button btn_negative = view.findViewById(R.id.btn_nega);

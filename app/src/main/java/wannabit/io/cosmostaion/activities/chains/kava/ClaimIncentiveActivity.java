@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -23,12 +22,10 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep3Fragment;
-import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
-import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
 
@@ -168,7 +165,7 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(ClaimIncentiveStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(ClaimIncentiveStep3Fragment.newInstance(null));
         }
 

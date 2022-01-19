@@ -28,26 +28,9 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class DelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -106,16 +89,9 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         setDpDecimals(mDpDecimal);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
-        if (isGRPC(getSActivity().mBaseChain)) {
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-            mMaxAvailable = getSActivity().getBaseDao().getDelegatable(WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
-
-        } else {
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-            mMaxAvailable = getSActivity().mAccount.getTokenDelegable(WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
-        }
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
+        mMaxAvailable = getSActivity().getBaseDao().getDelegatable(WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);
+        mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
         onAddAmountWatcher();
     }
 
@@ -227,7 +203,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mAmountInput.setText(half.toPlainString());
 
         } else if (v.equals(mAddMax)) {
-            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(FETCHAI_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ) {
+            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(FETCHAI_MAIN) ) {
                 BigDecimal max = mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN);
                 mAmountInput.setText(max.toPlainString());
 

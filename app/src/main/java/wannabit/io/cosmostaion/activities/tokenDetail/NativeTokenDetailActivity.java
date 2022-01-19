@@ -112,13 +112,8 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mDenom = getIntent().getStringExtra("denom");
 
-        if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-            if (getBaseDao().mKavaAccount.value.getCalcurateVestingCntByDenom(mDenom) > 0) { mHasVesting = true; }
+        if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             if (WUtil.isBep3Coin(mDenom)) { mBtnBep3Send.setVisibility(View.VISIBLE); }
-
-        } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-            if (WUtil.isBep3Coin(mDenom)) { mBtnBep3Send.setVisibility(View.VISIBLE); }
-
         }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -153,40 +148,17 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     }
 
     private void onUpdateView() {
+        shareAddress = mAccount.address;
+        try {
+            if (mAccount.address.startsWith("ex1")) {
+                shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenDetailActivity.this, mBaseChain));
-        if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-            BigDecimal totalAmount = getBaseDao().availableAmount(mDenom);
-            totalAmount = totalAmount.add(getBaseDao().lockedAmount(mDenom));
-            String baseDenom = WDp.getKavaBaseDenom(mDenom);
-            int kavaDecimal = WUtil.getKavaCoinDecimal(mDenom);
-            Picasso.get().load(KAVA_COIN_IMG_URL + mDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
-            if (mDenom.equalsIgnoreCase(TOKEN_HARD)) {
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorHard));
-                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBghard));
-            } else if (mDenom.equalsIgnoreCase(TOKEN_USDX)) {
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
-                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgusdx));
-            } else if (mDenom.equalsIgnoreCase(TOKEN_SWP)) {
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
-                mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgswp));
-            }
-            mToolbarSymbol.setText(mDenom.toUpperCase());
-            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, totalAmount, kavaDecimal));
-
-            mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), baseDenom));
-            mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), baseDenom));
-            final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), baseDenom);
-            if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
-                mItemUpDownImg.setVisibility(View.VISIBLE);
-                mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
-            } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
-                mItemUpDownImg.setVisibility(View.VISIBLE);
-                mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
-            } else {
-                mItemUpDownImg.setVisibility(View.INVISIBLE);
-            }
-
-        } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+        if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             final OkToken okToken = getBaseDao().okToken(mDenom);
             Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
             mToolbarSymbol.setText(okToken.original_symbol.toUpperCase());
@@ -228,16 +200,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             mItemUpDownPrice.setText("");
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
-        shareAddress = mAccount.address;
-        if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-            try {
-                if (mAccount.address.startsWith("ex1")) {
-                    shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+
         mAddress.setText(shareAddress);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {

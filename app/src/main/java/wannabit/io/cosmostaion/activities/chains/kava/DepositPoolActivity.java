@@ -16,13 +16,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import kava.swap.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositPoolStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositPoolStep3Fragment;
@@ -52,7 +53,7 @@ public class DepositPoolActivity extends BaseBroadCastActivity {
         mTitle.setText(getString(R.string.str_title_pool_join));
 
         mTxType = CONST_PW_TX_KAVA_JOIN_POOL;
-        mKavaSwapPool = getIntent().getParcelableExtra("mKavaPool");
+        mKavaSwapPool = (QueryOuterClass.PoolResponse) getIntent().getSerializableExtra("mKavaPool");
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -146,8 +147,8 @@ public class DepositPoolActivity extends BaseBroadCastActivity {
     public void onStartJoinPool() {
         Intent intent = new Intent(DepositPoolActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_KAVA_JOIN_POOL);
-        intent.putExtra("mPoolCoin0", mPoolCoin0);
-        intent.putExtra("mPoolCoin1", mPoolCoin1);
+        intent.putExtra("mKavaPoolTokenA", mKavaPoolTokenA);
+        intent.putExtra("mKavaPoolTokenB", mKavaPoolTokenB);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
@@ -164,7 +165,7 @@ public class DepositPoolActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(DepositPoolStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(DepositPoolStep3Fragment.newInstance(null));
         }
 

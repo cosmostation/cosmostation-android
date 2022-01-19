@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import cosmos.base.v1beta1.CoinOuterClass;
 import irismod.nft.Nft;
+import kava.cdp.v1beta1.Genesis;
+import kava.hard.v1beta1.Hard;
+import kava.swap.v1beta1.QueryOuterClass;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
@@ -55,33 +59,33 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindHardIncentive(Context context, ListHardFragment fragment, IncentiveReward incentiveReward) {
     }
 
-    public void onBindMyCdp(Context context, BaseData baseData, MyCdp myCdp) {
+    public void onBindMyCdp(Context context, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp) {
     }
 
-    public void onBindOtherCdp(Context context, CollateralParam otherCdp) {
+    public void onBindOtherCdp(Context context, Genesis.CollateralParam otherCdp) {
     }
 
-    public void onBindMyHardStatus(Context context, BaseData baseData, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
+    public void onBindMyHardStatus(Context context, BaseData baseData, ArrayList<kava.hard.v1beta1.QueryOuterClass.DepositResponse> myDeposit, ArrayList<kava.hard.v1beta1.QueryOuterClass.BorrowResponse> myBorrow) {
     }
 
-    public void onBindMyHardPool(Context context, BaseChain chain, BaseData baseData, HardParam hardParam, HardParam.HardMoneyMarket hardMoneyMarket, IncentiveReward incentiveReward, ArrayList<HardInterestRate> HardInterestRates, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
+    public void onBindMyHardPool(Context context, BaseChain chain, BaseData baseData, Hard.Params hardParams, Hard.MoneyMarket hardMoneyMarket, IncentiveReward incentiveReward, ArrayList<kava.hard.v1beta1.QueryOuterClass.MoneyMarketInterestRate> HardInterestRates, ArrayList<kava.hard.v1beta1.QueryOuterClass.DepositResponse> myDeposit, ArrayList<kava.hard.v1beta1.QueryOuterClass.BorrowResponse> myBorrow, int postion) {
     }
 
-    public void onBindCdpDetailInfo(CdpDetail5Activity context, BaseData baseData, MyCdp myCdp, String collateralType, BigDecimal debtAmount) {
+    public void onBindCdpDetailInfo(CdpDetail5Activity context, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, String collateralType, BigDecimal debtAmount) {
     }
 
-    public void onBindCdpDetailMyStatus(CdpDetail5Activity context, BaseData baseData, MyCdp myCdp, String collateralType, BigDecimal selfDepositAmount) {
+    public void onBindCdpDetailMyStatus(CdpDetail5Activity context, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, String collateralType, BigDecimal selfDepositAmount) {
     }
 
     public void onBindCdpDetailAvailable(CdpDetail5Activity context, BaseData baseData, String collateralType) {
     }
 
-    public void onBindHardDetailInfo(HardDetailActivity context, BaseChain chain, BaseData baseData, String denom, IncentiveReward incentiveReward, ArrayList<HardInterestRate> HardInterestRates,
-                                     ArrayList<Coin> totalDeposit, ArrayList<Coin> totalborrow, ArrayList<Coin> moduleCoins, ArrayList<Coin> reserveCoin) {
+    public void onBindHardDetailInfo(HardDetailActivity context, BaseChain chain, BaseData baseData, String denom, IncentiveReward incentiveReward, ArrayList<kava.hard.v1beta1.QueryOuterClass.MoneyMarketInterestRate> HardInterestRates,
+                                     ArrayList<CoinOuterClass.Coin> totalDeposit, ArrayList<CoinOuterClass.Coin> totalborrow, ArrayList<Coin> moduleCoins, ArrayList<CoinOuterClass.Coin> reserveCoin, int position) {
     }
 
-    public void onBindHardDetailMyStatus(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom, ArrayList<HardMyDeposit> myDeposit,
-                                         ArrayList<HardMyBorrow> myBorrow, ArrayList<Coin> moduleCoins, ArrayList<Coin> reserveCoin) {
+    public void onBindHardDetailMyStatus(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom, ArrayList<kava.hard.v1beta1.QueryOuterClass.DepositResponse> myDeposit,
+                                         ArrayList<kava.hard.v1beta1.QueryOuterClass.BorrowResponse> myBorrow, ArrayList<Coin> moduleCoins, ArrayList<CoinOuterClass.Coin> reserveCoin) {
     }
 
     public void onBindHardDetailAvailable(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom) {
@@ -93,10 +97,10 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindOsmoOtherPool(Context context, BaseActivity activity, BaseData baseData, BalancerPoolOuterClass.BalancerPool otherPool) {
     }
 
-    public void onBindKavaMyPool(Context context, BaseActivity activity, BaseData baseData, SwapPool myPool, SwapDeposit myDeposit) {
+    public void onBindKavaMyPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse myPool, QueryOuterClass.DepositResponse myDeposit) {
     }
 
-    public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, SwapPool otherPool) {
+    public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse otherPool) {
     }
 
     public void onBindGDexMyPool(Context context, GravityListActivity activity, BaseData baseData, Liquidity.Pool mypool) {

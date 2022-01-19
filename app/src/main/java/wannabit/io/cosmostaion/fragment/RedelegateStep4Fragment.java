@@ -19,8 +19,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_RedelegateConfirm;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-
 public class RedelegateStep4Fragment extends BaseFragment implements View.OnClickListener {
 
     public final static int REDELEGATE_CONFIRM_DIALOG = 6016;
@@ -68,22 +66,12 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal toReDeleagteAmount = new BigDecimal(getSActivity().mAmount.amount);
         BigDecimal feeAmount= new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        if (isGRPC(getSActivity().mBaseChain)) {
-            mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, mDpDecimal, mDpDecimal));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, mDpDecimal, mDpDecimal));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
 
-            mFromValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
-            mToValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mToValAddress).getDescription().getMoniker());
-            mMemo.setText(getSActivity().mTxMemo);
-
-        } else {
-            mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, mDpDecimal, mDpDecimal));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-            mFromValidatorName.setText(getSActivity().mFromValidator.description.moniker);
-            mToValidatorName.setText(getSActivity().mToValidator.description.moniker);
-            mMemo.setText(getSActivity().mTxMemo);
-        }
-
+        mFromValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
+        mToValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mToValAddress).getDescription().getMoniker());
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
 

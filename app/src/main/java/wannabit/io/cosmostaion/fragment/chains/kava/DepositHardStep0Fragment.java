@@ -85,9 +85,9 @@ public class DepositHardStep0Fragment extends BaseFragment implements View.OnCli
         mBtnNext.setOnClickListener(this);
 
         mHardMoneyMarketDenom = getSActivity().mHardMoneyMarketDenom;
-        mDpDecimal = WUtil.getKavaCoinDecimal(mHardMoneyMarketDenom);
+        mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
-        mMaxAvailable = getSActivity().mAccount.getTokenBalance(mHardMoneyMarketDenom);
+        mMaxAvailable = getBaseDao().getAvailable(mHardMoneyMarketDenom);
         WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mDepositDenomTx, mDepositMaxTx, getSActivity().mBaseChain);
 
         if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
@@ -99,9 +99,7 @@ public class DepositHardStep0Fragment extends BaseFragment implements View.OnCli
             mDepositSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
             mDepositSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         }
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + mHardMoneyMarketDenom + ".png").fit().into(mDepositImg);
-        } catch (Exception e) { }
+        WUtil.DpKavaTokenImg(getBaseDao(), mDepositImg, mHardMoneyMarketDenom);
 
         mDepositInput.addTextChangedListener(new TextWatcher() {
             @Override

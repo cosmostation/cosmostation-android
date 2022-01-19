@@ -26,7 +26,6 @@ import wannabit.io.cosmostaion.activities.chains.kava.BorrowHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
@@ -86,15 +85,15 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
         mBtnNext.setOnClickListener(this);
 
         mHardMoneyMarketDenom = getSActivity().mHardMoneyMarketDenom;
-        mDpDecimal = WUtil.getKavaCoinDecimal(mHardMoneyMarketDenom);
+        mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
 
         // display borrowable amount with padding 5%
-        BigDecimal remainBorrowAble = WUtil.getHardBorrowableAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom,
-                getBaseDao().mMyHardDeposit , getBaseDao().mMyHardBorrow, getBaseDao().mModuleCoins, getBaseDao().mReserveCoins);
-        mMaxAvailable = remainBorrowAble.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
+        mMaxAvailable = WUtil.getHardBorrowableAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom,
+                getBaseDao().mMyHardDeposits , getBaseDao().mMyHardBorrows, getBaseDao().mModuleCoins, getBaseDao().mReserveCoins);
 
         WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mBorrowDenomTx, mBorrowMaxTx, getSActivity().mBaseChain);
+        WUtil.DpKavaTokenImg(getBaseDao(), mBorrowImg, mHardMoneyMarketDenom);
         if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
             WDp.DpMainDenom(getSActivity(), getSActivity().mBaseChain.getChain(), mBorrowSymbol);
         } else if (mHardMoneyMarketDenom.equals(TOKEN_HARD)) {
@@ -104,9 +103,6 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
             mBorrowSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
             mBorrowSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         }
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + mHardMoneyMarketDenom + ".png").fit().into(mBorrowImg);
-        } catch (Exception e) { }
 
         mBorrowInput.addTextChangedListener(new TextWatcher() {
             @Override

@@ -66,16 +66,7 @@ public class VestingHolder extends BaseHolder {
         } else if (denom.equals(TOKEN_SWP)) {
             mVestingRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgswp));
         }
-
-        if (isGRPC(chain)) {
-            onBindGRPC(c, chain, baseData, denom);
-
-        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
-            onBindKava(c, chain, baseData, denom);
-        }
-
-
-
+        onBindGRPC(c, chain, baseData, denom);
     }
 
     private void onBindGRPC (Context c, BaseChain chain, BaseData baseData, String denom) {
@@ -108,39 +99,6 @@ public class VestingHolder extends BaseHolder {
             mVestingTime4.setText(WDp.getDpTime(c, vps.get(4).getLength()));
             mVestingGap4.setText(WDp.getUnbondingTimeleft(c, vps.get(4).getLength()));
             mVestingAmount4.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(4), denom), 6, 6));
-        }
-    }
-
-    private void onBindKava (Context c, BaseChain chain, BaseData baseData, String denom) {
-        final ResLcdKavaAccountInfo.Value mKavaAccount = baseData.mKavaAccount.value;
-        mVestingCnt.setText("" + mKavaAccount.getCalcurateVestingCntByDenom(denom));
-
-        mVestingTime0.setText(WDp.getDpTime(c, mKavaAccount.getCalcurateTime(denom, 0)));
-        mVestingGap0.setText(WDp.getUnbondingTimeleft(c, mKavaAccount.getCalcurateTime(denom, 0)));
-        mVestingAmount0.setText(WDp.getDpAmount2(c, mKavaAccount.getCalcurateAmount(denom, 0), 6, 6));
-        if (baseData.mKavaAccount.value.getCalcurateVestingCntByDenom(denom) > 1) {
-            mVestingLayer1.setVisibility(View.VISIBLE);
-            mVestingTime1.setText(WDp.getDpTime(c, mKavaAccount.getCalcurateTime(denom, 1)));
-            mVestingGap1.setText(WDp.getUnbondingTimeleft(c, mKavaAccount.getCalcurateTime(denom, 1)));
-            mVestingAmount1.setText(WDp.getDpAmount2(c, mKavaAccount.getCalcurateAmount(denom, 1), 6, 6));
-        }
-        if (baseData.mKavaAccount.value.getCalcurateVestingCntByDenom(denom) > 2) {
-            mVestingLayer2.setVisibility(View.VISIBLE);
-            mVestingTime2.setText(WDp.getDpTime(c, mKavaAccount.getCalcurateTime(denom, 2)));
-            mVestingGap2.setText(WDp.getUnbondingTimeleft(c, mKavaAccount.getCalcurateTime(denom, 2)));
-            mVestingAmount2.setText(WDp.getDpAmount2(c, mKavaAccount.getCalcurateAmount(denom, 2), 6, 6));
-        }
-        if (baseData.mKavaAccount.value.getCalcurateVestingCntByDenom(denom) > 3) {
-            mVestingLayer3.setVisibility(View.VISIBLE);
-            mVestingTime3.setText(WDp.getDpTime(c, mKavaAccount.getCalcurateTime(denom, 3)));
-            mVestingGap3.setText(WDp.getUnbondingTimeleft(c, mKavaAccount.getCalcurateTime(denom, 3)));
-            mVestingAmount3.setText(WDp.getDpAmount2(c, mKavaAccount.getCalcurateAmount(denom, 3), 6, 6));
-        }
-        if (baseData.mKavaAccount.value.getCalcurateVestingCntByDenom(denom) > 4) {
-            mVestingLayer4.setVisibility(View.VISIBLE);
-            mVestingTime4.setText(WDp.getDpTime(c, mKavaAccount.getCalcurateTime(denom, 4)));
-            mVestingGap4.setText(WDp.getUnbondingTimeleft(c, mKavaAccount.getCalcurateTime(denom, 4)));
-            mVestingAmount4.setText(WDp.getDpAmount2(c, mKavaAccount.getCalcurateAmount(denom, 4), 6, 6));
         }
     }
 }

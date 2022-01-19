@@ -20,21 +20,20 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import cosmos.base.v1beta1.CoinOuterClass;
+import kava.swap.v1beta1.QueryOuterClass;
+import kava.swap.v1beta1.Swap;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
-import wannabit.io.cosmostaion.model.kava.SwapParam;
-import wannabit.io.cosmostaion.model.kava.SwapPool;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 public class ListKavaSwapFragment extends BaseFragment implements View.OnClickListener{
+
     public final static int     SELECT_INPUT_CHAIN = 8500;
     public final static int     SELECT_OUTPUT_CHAIN = 8501;
 
@@ -51,15 +50,16 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
     private ImageButton         mBtnToggle;
     private Button              mBtnSwapStart;
 
-    public SwapParam                        mSwapParam;
-    public ArrayList<SwapPool>              mSwapPoolList = new ArrayList<>();
-    public ArrayList<String>                mAllDenoms = new ArrayList<>();
-    public ArrayList<SwapPool>              mSwapablePools = new ArrayList<>();
-    public ArrayList<String>                mSwapableDenoms = new ArrayList<>();
+    public Swap.Params                                      mSwapParams;
+    public ArrayList<String>                                mAllDenoms = new ArrayList<>();
+    public ArrayList<QueryOuterClass.PoolResponse>          mSwapPoolList = new ArrayList<>();
+    public QueryOuterClass.PoolResponse                     mSelectedPool;
 
-    public SwapPool                         mSelectedPool;
-    public String                           mInputCoinDenom;
-    public String                           mOutputCoinDenom;
+    public ArrayList<QueryOuterClass.PoolResponse>          mSwapablePools = new ArrayList<>();
+    public ArrayList<String>                                mSwapableDenoms = new ArrayList<>();
+
+    public String                                           mInputCoinDenom;
+    public String                                           mOutputCoinDenom;
 
     public static ListKavaSwapFragment newInstance(Bundle bundle) {
         ListKavaSwapFragment fragment = new ListKavaSwapFragment();
@@ -112,12 +112,12 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onRefreshTab() {
-        mSwapParam = getBaseDao().mSwapParam;
+        mSwapParams = getBaseDao().mSwapParams;
         mSwapPoolList = getSActivity().mSwapPoolList;
         mAllDenoms = getSActivity().mAllDenoms;
 
-        if (mSwapPoolList != null && mSwapParam != null) {
-            mSelectedPool = mSwapPoolList.get(5);
+        if (mSwapPoolList != null && mSwapParams != null) {
+            mSelectedPool = mSwapPoolList.get(0);
             mInputCoinDenom = "ukava";
             mOutputCoinDenom = "usdx";
         }
@@ -126,44 +126,44 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onUpdateView() {
-        Picasso.get().load(KAVA_COIN_IMG_URL+mInputCoinDenom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(mInputImg);
-        Picasso.get().load(KAVA_COIN_IMG_URL+mOutputCoinDenom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(mOutputImg);
-        WUtil.dpKavaTokenName(getSActivity(), mInputCoin, mInputCoinDenom);
-        WUtil.dpKavaTokenName(getSActivity(), mOutputCoin, mOutputCoinDenom);
-        int InPutDecimal = WUtil.getKavaCoinDecimal(mInputCoinDenom);
-        int OutPutDecimal = WUtil.getKavaCoinDecimal(mOutputCoinDenom);
+        WUtil.DpKavaTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
+        WUtil.DpKavaTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mInputCoin, mInputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mOutputCoin, mOutputCoinDenom);
+        int InPutDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mInputCoinDenom);
+        int OutPutDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mOutputCoinDenom);
 
-        BigDecimal availableMaxAmount = getBaseDao().availableAmount(mInputCoinDenom);
-        BigDecimal swapFee = new BigDecimal(mSwapParam.swap_fee);
+        BigDecimal availableMaxAmount = getBaseDao().getAvailable(mInputCoinDenom);
+        BigDecimal swapFee = new BigDecimal(mSwapParams.getSwapFee()).movePointLeft(18);
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
         mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
         mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, InPutDecimal, OutPutDecimal));
 
-        final int inputCoinDecimal = WUtil.getKavaCoinDecimal(mInputCoinDenom);
-        final int outCoinDecimal = WUtil.getKavaCoinDecimal(mOutputCoinDenom);
+        final int inputCoinDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mInputCoinDenom);
+        final int outCoinDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mOutputCoinDenom);
 
         BigDecimal inputAmount = BigDecimal.ZERO;
         BigDecimal outputAmount = BigDecimal.ZERO;
 
-        if (mSelectedPool.coins.get(0).denom.equalsIgnoreCase(mInputCoinDenom)) {
-            inputAmount = new BigDecimal(mSelectedPool.coins.get(0).amount);
-            outputAmount = new BigDecimal(mSelectedPool.coins.get(1).amount);
+        if (mSelectedPool.getCoins(0).getDenom().equalsIgnoreCase(mInputCoinDenom)) {
+            inputAmount = new BigDecimal(mSelectedPool.getCoins(0).getAmount());
+            outputAmount = new BigDecimal(mSelectedPool.getCoins(1).getAmount());
         } else {
-            inputAmount = new BigDecimal(mSelectedPool.coins.get(1).amount);
-            outputAmount = new BigDecimal(mSelectedPool.coins.get(0).amount);
+            inputAmount = new BigDecimal(mSelectedPool.getCoins(1).getAmount());
+            outputAmount = new BigDecimal(mSelectedPool.getCoins(0).getAmount());
         }
 
-        inputAmount = inputAmount.movePointLeft(WUtil.getKavaCoinDecimal(mInputCoinDenom));
-        outputAmount = outputAmount.movePointLeft(WUtil.getKavaCoinDecimal(mOutputCoinDenom));
+        inputAmount = inputAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mInputCoinDenom));
+        outputAmount = outputAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mOutputCoinDenom));
         BigDecimal swapRate = outputAmount.divide(inputAmount, 16, RoundingMode.DOWN);
 
         mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputCoinDecimal));
-        WUtil.dpKavaTokenName(getSActivity(), mSwapInputCoinSymbol, mInputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
         mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, outCoinDecimal));
-        WUtil.dpKavaTokenName(getSActivity(), mSwapOutputCoinSymbol, mOutputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
 
-        WUtil.dpKavaTokenName(getSActivity(), mSwapInputCoinExSymbol, mInputCoinDenom);
-        WUtil.dpKavaTokenName(getSActivity(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
 
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
         BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
@@ -190,18 +190,18 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
             mSwapablePools.clear();
             mSwapableDenoms.clear();
 
-            for (SwapPool swapPool: mSwapPoolList) {
-                for (Coin coin: swapPool.coins) {
-                    if (coin.denom.equalsIgnoreCase(mInputCoinDenom)) {
-                        mSwapablePools.add(swapPool);
+            for (QueryOuterClass.PoolResponse pool: mSwapPoolList) {
+                for (CoinOuterClass.Coin coin: pool.getCoinsList()) {
+                    if (coin.getDenom().equalsIgnoreCase(mInputCoinDenom)) {
+                        mSwapablePools.add(pool);
                     }
                 }
             }
-            for (SwapPool swapPool: mSwapablePools) {
-                if (swapPool.coins.get(0).denom.equalsIgnoreCase(mInputCoinDenom)) {
-                    mSwapableDenoms.add(swapPool.coins.get(1).denom);
+            for (QueryOuterClass.PoolResponse pool: mSwapablePools) {
+                if (pool.getCoins(0).getDenom().equalsIgnoreCase(mInputCoinDenom)) {
+                    mSwapableDenoms.add(pool.getCoins(1).getDenom());
                 } else {
-                    mSwapableDenoms.add(swapPool.coins.get(0).denom);
+                    mSwapableDenoms.add(pool.getCoins(0).getDenom());
                 }
             }
 
@@ -228,33 +228,33 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (SwapPool swapPool: mSwapPoolList) {
-                for (Coin coin : swapPool.coins) {
-                    if (coin.denom.equalsIgnoreCase(mInputCoinDenom)) {
-                        mSelectedPool = swapPool;
+            loop:
+            for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
+                for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
+                    if (coin.getDenom().equalsIgnoreCase(mInputCoinDenom)) {
+                        mSelectedPool = pool;
                         break loop;
                     }
                 }
             }
-            if (mSelectedPool.coins.get(0).denom.equalsIgnoreCase(mInputCoinDenom)) {
-                mOutputCoinDenom = mSelectedPool.coins.get(1).denom;
+            if (mSelectedPool.getCoins(0).getDenom().equalsIgnoreCase(mInputCoinDenom)) {
+                mOutputCoinDenom = mSelectedPool.getCoins(1).getDenom();
             } else {
-                mOutputCoinDenom = mSelectedPool.coins.get(0).denom;
+                mOutputCoinDenom = mSelectedPool.getCoins(0).getDenom();
             }
             onUpdateView();
 
         } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (SwapPool swapPool: mSwapablePools) {
-                for (Coin coin : swapPool.coins) {
-                    if (coin.denom.equalsIgnoreCase(mOutputCoinDenom)) {
-                        mSelectedPool = swapPool;
+            loop : for (QueryOuterClass.PoolResponse pool: mSwapablePools) {
+                for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
+                    if (coin.getDenom().equalsIgnoreCase(mOutputCoinDenom)) {
+                        mSelectedPool = pool;
                     }
                 }
             }
             onUpdateView();
         }
     }
-
     private DAppsList5Activity getSActivity() { return (DAppsList5Activity)getBaseActivity(); }
 }

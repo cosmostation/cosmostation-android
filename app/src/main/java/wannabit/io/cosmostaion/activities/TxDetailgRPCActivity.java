@@ -77,6 +77,23 @@ import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCAcknowledgeHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCReceiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxCdpLiquidateHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxCreateCdpHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxDelegatorIncentiveHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositCdpHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositHardHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxDrawDebtCdpHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardIncentiveHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidateHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaDepositPoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaWithdrawPoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxMintingIncentiveHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxRepayCdpHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxRepayHardHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapIncentiveHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxWithdrawCdpHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxWithdrawHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxIssueDenomHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxMintNFTHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxTransferNFTHolder;
@@ -281,6 +298,25 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_SAVE_PROFILE = 100;
         private static final int TYPE_TX_LINK_ACCOUNT = 101;
 
+        private static final int TYPE_TX_KAVA_SWAP = 110;
+        private static final int TYPE_TX_KAVA_DEPOSIT_POOL = 111;
+        private static final int TYPE_TX_KAVA_WITHDRAW_POOL = 112;
+        private static final int TYPE_TX_KAVA_CREATE_CDP = 113;
+        private static final int TYPE_TX_KAVA_DEPOSIT_CDP = 114;
+        private static final int TYPE_TX_KAVA_WITHDRAW_CDP = 115;
+        private static final int TYPE_TX_KAVA_DRAW_DEBT_CDP = 116;
+        private static final int TYPE_TX_KAVA_REPAY_CDP = 117;
+        private static final int TYPE_TX_KAVA_DEPOSIT_HARD = 118;
+        private static final int TYPE_TX_KAVA_WITHDRAW_HARD = 119;
+        private static final int TYPE_TX_KAVA_BORROW_HARD = 121;
+        private static final int TYPE_TX_KAVA_REPAY_HARD = 122;
+        private static final int TYPE_TX_KAVA_INCENTIVE_MINT = 123;
+        private static final int TYPE_TX_KAVA_INCENTIVE_HARD = 124;
+        private static final int TYPE_TX_KAVA_INCENTIVE_DELEGATOR = 125;
+        private static final int TYPE_TX_KAVA_INCENTIVE_SWAP = 126;
+        private static final int TYPE_TX_KAVA_CDP_LIQUIDATE = 127;
+        private static final int TYPE_TX_KAVA_HARD_LIQUIDATE = 128;
+
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -465,6 +501,59 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_LINK_ACCOUNT) {
                 return new TxLinkAccountHolder(getLayoutInflater().inflate(R.layout.item_tx_link_account, viewGroup, false));
             }
+
+            // kava
+            else if (viewType == TYPE_TX_KAVA_SWAP) {
+                return new TxKavaSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_token, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_DEPOSIT_POOL) {
+                return new TxKavaDepositPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_deposit, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_WITHDRAW_POOL) {
+                return new TxKavaWithdrawPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_withdraw, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_CREATE_CDP) {
+                return new TxCreateCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_create_cdp, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_DEPOSIT_CDP) {
+                return new TxDepositCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_deposit_cdp, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_DEPOSIT_CDP) {
+                return new TxDepositCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_deposit_cdp, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_WITHDRAW_CDP) {
+                return new TxWithdrawCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_withdraw_cdp, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_DRAW_DEBT_CDP) {
+                return new TxDrawDebtCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_drawdebt_cdp, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_REPAY_CDP) {
+                return new TxRepayCdpHolder(getLayoutInflater().inflate(R.layout.item_tx_repaydebt_cdp, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_DEPOSIT_HARD) {
+                return new TxDepositHardHolder(getLayoutInflater().inflate(R.layout.item_tx_deposit_harvest, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_WITHDRAW_HARD) {
+                return new TxWithdrawHardHolder(getLayoutInflater().inflate(R.layout.item_tx_withdraw_harvest, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_INCENTIVE_MINT) {
+                return new TxMintingIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_incentive_reward, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_INCENTIVE_HARD) {
+                return new TxHardIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_incentive_hard, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_INCENTIVE_DELEGATOR) {
+                return new TxDelegatorIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_kava_delegator_incentive, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_INCENTIVE_SWAP) {
+                return new TxSwapIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_incentive, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_CDP_LIQUIDATE) {
+                return new TxCdpLiquidateHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidate_cdp, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_HARD_LIQUIDATE) {
+                return new TxHardPoolLiquidateHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidate_hard, viewGroup, false));
+            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
@@ -628,6 +717,44 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_SAVE_PROFILE;
                 } else if (msg.getTypeUrl().contains(desmos.profiles.v1beta1.MsgsChainLinks.MsgLinkChainAccount.getDescriptor().getFullName())) {
                     return TYPE_TX_LINK_ACCOUNT;
+                }
+
+                //kava msg
+                else if (msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgSwapExactForTokens.getDescriptor().getFullName()) ||
+                            msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgSwapForExactTokens.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_SWAP;
+                } else if (msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgDeposit.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_DEPOSIT_POOL;
+                } else if (msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgWithdraw.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_WITHDRAW_POOL;
+                } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgCreateCDP.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_CREATE_CDP;
+                } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgWithdraw.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_WITHDRAW_CDP;
+                } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgDeposit.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_DEPOSIT_CDP;
+                } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgRepayDebt.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_REPAY_CDP;
+                } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgDeposit.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_DEPOSIT_HARD;
+                } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgWithdraw.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_WITHDRAW_HARD;
+                } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgBorrow.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_BORROW_HARD;
+                } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgRepay.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_REPAY_HARD;
+                } else if (msg.getTypeUrl().contains(kava.incentive.v1beta1.Tx.MsgClaimUSDXMintingReward.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_INCENTIVE_MINT;
+                } else if (msg.getTypeUrl().contains(kava.incentive.v1beta1.Tx.MsgClaimHardReward.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_INCENTIVE_HARD;
+                } else if (msg.getTypeUrl().contains(kava.incentive.v1beta1.Tx.MsgClaimDelegatorReward.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_INCENTIVE_DELEGATOR;
+                } else if (msg.getTypeUrl().contains(kava.incentive.v1beta1.Tx.MsgClaimSwapReward.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_INCENTIVE_SWAP;
+                } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgLiquidate.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_CDP_LIQUIDATE;
+                } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgLiquidate.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_HARD_LIQUIDATE;
                 }
                 return TYPE_TX_UNKNOWN;
             }

@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import kava.swap.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 
@@ -27,11 +28,10 @@ public class Dialog_Pool_Kava extends BottomSheetDialogFragment {
 
         mJoinPool = view.findViewById(R.id.join_pool);
         mExitPool = view.findViewById(R.id.exit_pool);
-
         mJoinPool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((DAppsList5Activity)getActivity()).onCheckStartJoinPool(getArguments().getParcelable("mKavaPool"));
+                ((DAppsList5Activity)getActivity()).onCheckStartJoinPool((QueryOuterClass.PoolResponse) getArguments().getSerializable("mKavaPool"));
                 getDialog().dismiss();
             }
         });
@@ -39,7 +39,8 @@ public class Dialog_Pool_Kava extends BottomSheetDialogFragment {
         mExitPool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((DAppsList5Activity)getActivity()).onCheckStartExitPool(getArguments().getParcelable("mKavaPool"), getArguments().getParcelable("mKavaDeposit"));
+                ((DAppsList5Activity)getActivity()).onCheckStartExitPool((QueryOuterClass.PoolResponse) getArguments().getSerializable("mKavaPool"),
+                                                                            (QueryOuterClass.DepositResponse) getArguments().getSerializable("mKavaDeposit"));
                 getDialog().dismiss();
             }
         });

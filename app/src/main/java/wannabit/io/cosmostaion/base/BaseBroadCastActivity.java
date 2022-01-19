@@ -59,10 +59,9 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mGDexPoolCoinSupply;
     public String                       mGDexSwapOrderPrice;
 
-    public SwapPool                     mKavaSwapPool;                              //kava swap
-    public SwapDeposit                  mKavaSwapDeposit;
-    public BigDecimal                   mKavaShareAmount = BigDecimal.ZERO;
+
     public String                       mIncentiveMultiplier;
+
 
     public sifnode.clp.v1.Types.Pool    mSifPool;                                   // sif swap
     public Coin                         mSifSwapInCoin;
@@ -92,6 +91,23 @@ public class BaseBroadCastActivity extends BaseActivity {
     public BaseChain                    mDesmosToLinkChain;
     public Long                         mDesmosToLinkAccountId;
     public BigDecimal                   mDesmosAirDropAmount = BigDecimal.ZERO;
+
+    // Kava
+    public kava.swap.v1beta1.QueryOuterClass.PoolResponse       mKavaSwapPool;
+    public kava.swap.v1beta1.QueryOuterClass.DepositResponse    mKavaDepositPool;
+    public Coin                                                 mKavaSwapIn;
+    public Coin                                                 mKavaSwapOut;
+    public Coin                                                 mKavaPoolTokenA;
+    public Coin                                                 mKavaPoolTokenB;
+    public BigDecimal                                           mKavaShareAmount = BigDecimal.ZERO;
+    public Coin                                                 mKavaMinTokenA;
+    public Coin                                                 mKavaMinTokenB;
+    public Coin                                                 mCollateral;
+    public Coin                                                 mPrincipal;
+    public String                                               mCollateralType;
+    public Coin                                                 mPayment;
+    public ArrayList<Coin>                                      mHardPoolCoins = new ArrayList<>();
+
 
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
     public BigDecimal                   mHdacBalance;                               //rizon swap amount
