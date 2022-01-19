@@ -1955,29 +1955,29 @@ public class WDp {
 
     public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {
         int dpDecimal = WUtil.getKavaCoinDecimal(denom);
-        HashMap<String, MarketPrice> prices = baseData.mKavaTokenPrices;
+        HashMap<String, kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse> prices = baseData.mKavaTokenPrice;
         if (denom.equals("hard") && prices.get("hard:usd") != null) {
-            BigDecimal price = new BigDecimal(prices.get("hard:usd").price);
+            BigDecimal price = new BigDecimal(prices.get("hard:usd").getPrice());
             return amount.movePointLeft(dpDecimal).multiply(price);
 
         } else if (denom.contains("btc") && prices.get("btc:usd") != null) {
-            BigDecimal price = new BigDecimal(prices.get("btc:usd").price);
+            BigDecimal price = new BigDecimal(prices.get("btc:usd").getPrice());
             return amount.movePointLeft(dpDecimal).multiply(price);
 
         } else if (denom.contains("bnb") && prices.get("bnb:usd") != null) {
-            BigDecimal price = new BigDecimal(prices.get("bnb:usd").price);
+            BigDecimal price = new BigDecimal(prices.get("bnb:usd").getPrice());
             return amount.movePointLeft(dpDecimal).multiply(price);
 
         } else if (denom.contains("xrp") && prices.get("xrp:usd") != null) {
-            BigDecimal price = new BigDecimal(prices.get("xrp:usd").price);
+            BigDecimal price = new BigDecimal(prices.get("xrp:usd").getPrice());
             return amount.movePointLeft(dpDecimal).multiply(price);
 
         } else if (denom.contains("usdx") && prices.get("usdx:usd") != null) {
-            BigDecimal price = new BigDecimal(prices.get("usdx:usd").price);
+            BigDecimal price = new BigDecimal(prices.get("usdx:usd").getPrice());
             return amount.movePointLeft(dpDecimal).multiply(price);
 
         } else if (denom.contains("busd") && prices.get("busd:usd") != null) {
-            BigDecimal price = new BigDecimal(prices.get("busd:usd").price);
+            BigDecimal price = new BigDecimal(prices.get("busd:usd").getPrice());
             return amount.movePointLeft(dpDecimal).multiply(price);
         }
         return BigDecimal.ZERO;

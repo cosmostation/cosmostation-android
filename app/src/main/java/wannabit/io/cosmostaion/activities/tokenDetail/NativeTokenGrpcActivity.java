@@ -33,8 +33,13 @@ import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
@@ -259,6 +264,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         private static final int TYPE_UNKNOWN               = -1;
         private static final int TYPE_NATIVE                = 0;
 
+        private static final int TYPE_VESTING               = 99;
         private static final int TYPE_HISTORY               = 100;
 
         @NonNull
@@ -269,6 +275,9 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             } else if (viewType == TYPE_NATIVE) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
 
+            } else if (viewType == TYPE_VESTING) {
+                return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
+
             }
 //            } else if (viewType == TYPE_HISTORY) {
 //                return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
@@ -278,22 +287,49 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-            holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mNativeGrpcDenom);
+            if (getItemViewType(position) == TYPE_NATIVE) {
+                TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
+                holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mNativeGrpcDenom);
+
+            } else if (getItemViewType(position) == TYPE_VESTING) {
+                VestingHolder holder = (VestingHolder) viewHolder;
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mNativeGrpcDenom);
+//
 //            } else if (getItemViewType(position) == TYPE_HISTORY) {
 //
 //            } else if (getItemViewType(position) == TYPE_UNKNOWN) {
+            }
         }
 
         @Override
         public int getItemCount() {
+            if (mHasVesting) {
+                return 2;
+            }
             return 1;
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (position == 0) {
-                return TYPE_NATIVE;
+            if (mBaseChain.equals(KAVA_MAIN)) {
+                if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_HARD) || mNativeGrpcDenom.equalsIgnoreCase(TOKEN_SWP)) {
+                    if (mHasVesting) {
+                        if (position == 0) return TYPE_NATIVE;
+                        if (position == 1) return TYPE_VESTING;
+                        else return TYPE_HISTORY;
+                    } else {
+                        if (position == 0) return TYPE_NATIVE;
+                        else return TYPE_HISTORY;
+                    }
+                } else {
+                    if (position == 0) return TYPE_NATIVE;
+                    else return TYPE_HISTORY;
+                }
+
+            } else {
+                if (position == 0) {
+                    return TYPE_NATIVE;
+                }
             }
             return TYPE_UNKNOWN;
         }

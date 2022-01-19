@@ -66,62 +66,8 @@ public interface KavaChain {
     @GET("auth/accounts/{address}")
     Call<ResLcdKavaAccountInfo> getAccountInfo(@Path("address") String address);
 
-    @GET("staking/validators?status=bonded")
-    Call<ResLcdValidators> getBondedValidatorDetailList();
-
-    @GET("staking/validators?status=unbonding")
-    Call<ResLcdValidators> getUnBondingValidatorDetailList();
-
-    @GET("staking/validators?status=unbonded")
-    Call<ResLcdValidators> getUnBondedValidatorDetailList();
-
-    @GET("staking/delegators/{address}/delegations")
-    Call<ResLcdBondings> getBondingList(@Path("address") String address);
-
-    @GET("staking/delegators/{address}/unbonding_delegations")
-    Call<ResLcdUnBondings> getUnBondingList(@Path("address") String address);
-
-    @GET("distribution/delegators/{delegatorAddr}/rewards")
-    Call<ResLcdAllRewards> getAllRewards(@Path("delegatorAddr") String delegatorAddr);
-
-    @GET("distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
-    Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
-
-    @GET("staking/pool")
-    Call<ResStakingPool> getStakingPool();
-
-    @GET("staking/validators/{validatorAddr}")
-    Call<ResLcdSingleValidator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
-
-    @GET("staking/delegators/{address}/delegations/{validatorAddr}")
-    Call<ResLcdSingleBonding> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
-
-    @GET("staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
-    Call<ResLcdSingleUnBonding> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
-
-    @GET("staking/redelegations")
-    Call<ResLcdRedelegate> getRedelegateAllHistory(@Query("delegator") String delegator, @Query("validator_from") String validator_from, @Query("validator_to") String validator_to);
-
-    @GET("staking/redelegations")
-    Call<ResLcdRedelegate> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
-
     @GET("distribution/delegators/{address}/withdraw_address")
     Call<ResLcdWithDrawAddress> getWithdrawAddress(@Path("address") String address);
-
-    @GET("gov/proposals")
-    Call<ResLcdProposals> getProposalList();
-
-    @GET("gov/proposals/{proposalId}")
-    Call<ResLcdProposal> getProposalDetail(@Path("proposalId") String proposalId);
-
-    @GET("gov/proposals/{proposalId}/tally")
-    Call<ResLcdProposalTally> getTally(@Path("proposalId") String proposalId);
-
-    @GET("gov/proposals/{proposalId}/votes")
-    Call<ResLcdProposalVoted> getVotedList(@Path("proposalId") String proposalId);
-
-    @GET("gov/proposals/{proposalId}/votes/{address}")
-    Call<ResMyVote> getMyVote(@Path("proposalId") String proposalId, @Path("address") String address);
 
     @GET("gov/proposals/{proposalId}/proposer")
     Call<ResLcdProposer> getProposer(@Path("proposalId") String proposalId);

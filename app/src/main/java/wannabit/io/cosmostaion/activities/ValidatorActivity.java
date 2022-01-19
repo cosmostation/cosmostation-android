@@ -25,7 +25,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +38,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_Not_Top_100;
 import wannabit.io.cosmostaion.dialog.Dialog_RedelegationLimited;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.model.BondingInfo;
-import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Redelegate;
-import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -62,7 +57,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_BONDED;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
@@ -87,19 +81,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
     private ValidatorAdapter                            mValidatorAdapter;
 
-    private Validator                                   mValidator;
-    private BondingInfo                                 mBondingInfo;
-    private UnbondingInfo                               mUnbondingInfo;
-    private ArrayList<Coin>                             mRewardCoins;
-    private ArrayList<Redelegate>                       mRedelegates;
-
-
     //gRPC
     private String                                  mValOpAddress;
     private Staking.Validator                       mGrpcValidator;
     private Staking.DelegationResponse              mGrpcMyDelegation;
     private Staking.UnbondingDelegation             mGrpcMyUndelegation;
-    private Distribution.DelegationDelegatorReward  mGrpcMyReward;
     private Staking.DelegationResponse              mGrpcSelfDelegation;
     private List<Staking.RedelegationResponse>      mGrpcRedelegates;
     private ArrayList<ResApiNewTxListCustom>        mApiNewTxCustomHistory = new ArrayList<>();
@@ -116,7 +102,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mValidator = getIntent().getParcelableExtra("validator");
         mValOpAddress = getIntent().getStringExtra("valOpAddress");
 
         setSupportActionBar(mToolbar);
@@ -379,7 +364,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         if (mTaskCount == 0) {
             mGrpcMyDelegation   = getBaseDao().getDelegationInfo(mValOpAddress);
             mGrpcMyUndelegation = getBaseDao().getUndelegationInfo(mValOpAddress);
-            mGrpcMyReward       = getBaseDao().getRewardInfo(mValOpAddress);
 
             mRecyclerView.setVisibility(View.VISIBLE);
             mValidatorAdapter.notifyDataSetChanged();
@@ -434,178 +418,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         }
 
-        private void onBindValidator(RecyclerView.ViewHolder viewHolder) {
-            final ValidatorHolder holder = (ValidatorHolder) viewHolder;
-            final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
-            holder.itemTvMoniker.setText(mValidator.description.moniker);
-            holder.itemTvAddress.setText(mValidator.operator_address);
-            holder.itemImgFree.setVisibility(View.GONE);
-            holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-
-            if (!TextUtils.isEmpty(mValidator.description.website)) {
-                holder.itemTvWebsite.setText(mValidator.description.website);
-            } else {
-                holder.itemTvWebsite.setVisibility(View.GONE);
-            }
-
-            if (!TextUtils.isEmpty(mValidator.description.details)) {
-                holder.itemTvDescription.setText(mValidator.description.details);
-            } else {
-                holder.itemTvDescription.setVisibility(View.GONE);
-            }
-
-            holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
-            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mValidator.tokens), dpDecimal, dpDecimal));
-            if (mValidator.status == Validator.BONDED) {
-                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, mValidator.getCommission()));
-            } else {
-                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, BigDecimal.ONE));
-                holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-            }
-
-            try {
-                Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValidator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-            } catch (Exception e) { }
-
-            if (!TextUtils.isEmpty(mSelfBondingRate)) {
-                holder.itemTvSelfBondRate.setText(mSelfBondingRate);
-            } else {
-                holder.itemTvSelfBondRate.setText(WDp.getPercentDp(BigDecimal.ZERO));
-            }
-
-            holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckDelegate();
-
-                }
-            });
-
-            if (mValidator.jailed) {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
-                holder.itemImgRevoked.setVisibility(View.VISIBLE);
-            } else {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
-                holder.itemImgRevoked.setVisibility(View.GONE);
-            }
-        }
-
-        private void onBindMyValidator(RecyclerView.ViewHolder viewHolder) {
-            final MyValidatorHolder holder = (MyValidatorHolder)viewHolder;
-            final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
-            holder.itemTvMoniker.setText(mValidator.description.moniker);
-            holder.itemTvAddress.setText(mValidator.operator_address);
-            holder.itemImgFree.setVisibility(View.GONE);
-            holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-
-            if (!TextUtils.isEmpty(mValidator.description.website)) {
-                holder.itemTvWebsite.setText(mValidator.description.website);
-            } else {
-                holder.itemTvWebsite.setVisibility(View.GONE);
-            }
-
-            if (!TextUtils.isEmpty(mValidator.description.details))  {
-                holder.itemTvDescription.setText(mValidator.description.details);
-            } else {
-                holder.itemTvDescription.setVisibility(View.GONE);
-            }
-            holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
-            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mValidator.tokens), dpDecimal, dpDecimal));
-            if (mValidator.status == Validator.BONDED) {
-                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, mValidator.getCommission()));
-            } else {
-                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, BigDecimal.ONE));
-                holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-            }
-            try {
-                Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValidator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-            } catch (Exception e) { }
-
-            if (!TextUtils.isEmpty(mSelfBondingRate)){
-                holder.itemTvSelfBondRate.setText(mSelfBondingRate);
-            } else{
-                holder.itemTvSelfBondRate.setText(WDp.getPercentDp(BigDecimal.ZERO));
-            }
-
-            if (mValidator.jailed) {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
-                holder.itemImgRevoked.setVisibility(View.VISIBLE);
-            } else {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
-                holder.itemImgRevoked.setVisibility(View.GONE);
-            }
-        }
-
-        private void onBindAction(RecyclerView.ViewHolder viewHolder) {
-            final MyActionHolder holder = (MyActionHolder) viewHolder;
-            final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
-            holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mBaseChain));
-            holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, dpDecimal, dpDecimal));
-            BigDecimal delegatedAmount = BigDecimal.ZERO;
-            BigDecimal unBondingAmount = BigDecimal.ZERO;
-            BigDecimal rewardAmount = BigDecimal.ZERO;
-            if (mBondingInfo != null && mBondingInfo.balance != null) {
-                delegatedAmount = mBondingInfo.getBalance();
-            }
-            if (mUnbondingInfo != null && mUnbondingInfo.entries != null) {
-                for (UnbondingInfo.Entry entry: mUnbondingInfo.entries) {
-                    unBondingAmount = unBondingAmount.add(new BigDecimal(entry.balance));
-                }
-            }
-            if (mRewardCoins != null) {
-                for (Coin coin: mRewardCoins) {
-                    if (coin.denom.equals(WDp.mainDenom(mBaseChain))) {
-                        rewardAmount = rewardAmount.add(new BigDecimal(coin.amount).setScale(0, RoundingMode.DOWN));
-                    }
-                }
-            }
-
-            holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), delegatedAmount, dpDecimal, dpDecimal));
-            holder.itemTvUnbondingAmount.setText(WDp.getDpAmount2(getBaseContext(), unBondingAmount, dpDecimal, dpDecimal));
-            holder.itemTvSimpleReward.setText(WDp.getDpAmount2(getBaseContext(), rewardAmount, dpDecimal, dpDecimal));
-
-            if (mValidator != null && mValidator.status == Validator.BONDED) {
-                holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), mValidator.getCommission(), delegatedAmount, mBaseChain));
-                holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), mValidator.getCommission(), delegatedAmount, mBaseChain));
-            } else {
-                holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, delegatedAmount, mBaseChain));
-                holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, delegatedAmount, mBaseChain));
-                holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
-                holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
-            }
-
-            holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckDelegate();
-                }
-            });
-            holder.itemBtnUndelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onStartUndelegate();
-                }
-            });
-            holder.itemBtnRedelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckRedelegate();
-                }
-            });
-            holder.itemBtnReward.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onGetReward();
-                }
-            });
-            holder.itemBtnReinvest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckReInvest();
-                }
-            });
-        }
-
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
             final HistoryNewHolder holder = (HistoryNewHolder)viewHolder;
             final ResApiNewTxListCustom history;
@@ -617,11 +429,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
             } else {
-                if (mBondingInfo == null && mUnbondingInfo == null) {
-                    history = mApiNewTxCustomHistory.get(position - 2);
-                } else {
-                    history = mApiNewTxCustomHistory.get(position - 3);
-                }
+                history = mApiNewTxCustomHistory.get(position - 3);
             }
             holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
             holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
@@ -859,83 +667,41 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if (isGRPC(mBaseChain)) {
-                if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
-                    if(position == 0) {
-                        return TYPE_VALIDATOR;
-                    } else if (position == 1) {
-                        return TYPE_HISTORY_HEADER;
-                    }
-
-                } else {
-                    if(position == 0) {
-                        return TYPE_MY_VALIDATOR;
-                    } else if (position == 1) {
-                        return TYPE_ACTION;
-                    } else if (position == 2) {
-                        return TYPE_HISTORY_HEADER;
-                    }
+            if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
+                if(position == 0) {
+                    return TYPE_VALIDATOR;
+                } else if (position == 1) {
+                    return TYPE_HISTORY_HEADER;
                 }
-                if (mApiNewTxCustomHistory.size() > 0) {
-                    return TYPE_HISTORY;
-                }
-                return TYPE_HISTORY_EMPTY;
 
             } else {
-                if (mBondingInfo == null && mUnbondingInfo == null) {
-                    if(position == 0) {
-                        return TYPE_VALIDATOR;
-                    } else if (position == 1) {
-                        return TYPE_HISTORY_HEADER;
-                    }
-
-                } else {
-                    if(position == 0) {
-                        return TYPE_MY_VALIDATOR;
-                    } else if (position == 1) {
-                        return TYPE_ACTION;
-                    } else if (position == 2) {
-                        return TYPE_HISTORY_HEADER;
-                    }
+                if(position == 0) {
+                    return TYPE_MY_VALIDATOR;
+                } else if (position == 1) {
+                    return TYPE_ACTION;
+                } else if (position == 2) {
+                    return TYPE_HISTORY_HEADER;
                 }
-                if (mApiNewTxCustomHistory .size() > 0) {
-                    return TYPE_HISTORY;
-                }
-                return TYPE_HISTORY_EMPTY;
             }
+            if (mApiNewTxCustomHistory.size() > 0) {
+                return TYPE_HISTORY;
+            }
+            return TYPE_HISTORY_EMPTY;
         }
 
         @Override
         public int getItemCount() {
-            if (isGRPC(mBaseChain)) {
-                if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
-                    if (mApiNewTxCustomHistory.size() > 0) {
-                        return mApiNewTxCustomHistory.size() + 2;
-                    } else {
-                        return 3;
-                    }
+            if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
+                if (mApiNewTxCustomHistory.size() > 0) {
+                    return mApiNewTxCustomHistory.size() + 2;
                 } else {
-                    if (mApiNewTxCustomHistory.size() > 0){
-                        return mApiNewTxCustomHistory.size() +3;
-                    } else {
-                        return 4;
-                    }
+                    return 3;
                 }
-
             } else {
-                if (mBondingInfo == null && mUnbondingInfo == null) {
-                    if (mApiNewTxCustomHistory.size() > 0) {
-                        return mApiNewTxCustomHistory.size() + 2;
-                    } else {
-                        return 3;
-                    }
-
+                if (mApiNewTxCustomHistory.size() > 0){
+                    return mApiNewTxCustomHistory.size() +3;
                 } else {
-                    if (mApiNewTxCustomHistory.size() > 0) {
-                        return mApiNewTxCustomHistory.size() + 3;
-                    } else {
-                        return 4;
-                    }
+                    return 4;
                 }
             }
         }

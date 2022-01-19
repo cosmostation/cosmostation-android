@@ -1,9 +1,5 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSALS;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -27,22 +23,17 @@ import com.google.protobuf2.Any;
 import java.util.ArrayList;
 import java.util.List;
 
-import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
-import cosmos.params.v1beta1.Params;
-import cosmos.upgrade.v1beta1.Upgrade;
-import ibc.core.client.v1.Client;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.model.type.Proposal;
-import wannabit.io.cosmostaion.task.FetchTask.ProposalTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.ProposalsGrpcTask;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSALS;
 
 public class VoteListActivity extends BaseActivity implements TaskListener {
 
@@ -52,12 +43,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private TextView            mEmptyProposal;
     private RelativeLayout      mLoadingLayer;
 
-
-    private VoteAdapter                 mVoteAdapter;
     private GrpcProposalsAdapter        mGrpcProposalsAdapter;
 
-
-    private ArrayList<Proposal>                             mProposals = new ArrayList<>();
     private ArrayList<Gov.Proposal>                         mGrpcProposals = new ArrayList<>();
     private ArrayList<shentu.gov.v1alpha1.Gov.Proposal>     mCtkGrpcProposals = new ArrayList<>();
 
@@ -109,41 +96,15 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
     private void onFetchProposals() {
         if (mAccount == null) return;
-        if (isGRPC(mBaseChain)) {
-            mGrpcProposalsAdapter = new GrpcProposalsAdapter();
-            mRecyclerView.setAdapter(mGrpcProposalsAdapter);
-            new ProposalsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else {
-            mVoteAdapter = new VoteAdapter();
-            mRecyclerView.setAdapter(mVoteAdapter);
-            new ProposalTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        }
-
+        mGrpcProposalsAdapter = new GrpcProposalsAdapter();
+        mRecyclerView.setAdapter(mGrpcProposalsAdapter);
+        new ProposalsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_FETCH_ALL_PROPOSAL) {
-            mProposals.clear();
-            mLoadingLayer.setVisibility(View.GONE);
-            if (result.isSuccess) {
-                ArrayList<Proposal> temp = (ArrayList<Proposal>)result.resultData;
-                if(temp != null && temp.size() > 0) {
-                    mProposals = temp;
-                    WUtil.onSortingProposal(mProposals, mBaseChain);
-                    mVoteAdapter.notifyDataSetChanged();
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                } else {
-                    mEmptyProposal.setVisibility(View.VISIBLE);
-                }
-            } else {
-                mEmptyProposal.setVisibility(View.VISIBLE);
-            }
-
-        } else if (result.taskType == TASK_GRPC_FETCH_PROPOSALS) {
+        if (result.taskType == TASK_GRPC_FETCH_PROPOSALS) {
             mGrpcProposals.clear();
             mCtkGrpcProposals.clear();
             if (mBaseChain.equals(CERTIK_MAIN)) {
@@ -169,72 +130,6 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             }
         }
         mSwipeRefreshLayout.setRefreshing(false);
-
-    }
-
-    private class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteHolder> {
-        @NonNull
-        @Override
-        public VoteAdapter.VoteHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new VoteAdapter.VoteHolder(getLayoutInflater().inflate(R.layout.item_proposal, viewGroup, false));
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull VoteAdapter.VoteHolder voteHolder, int position) {
-            final Proposal proposal = mProposals.get(position);
-            voteHolder.proposal_id.setText("# " + proposal.id);
-            voteHolder.proposal_status.setText(proposal.proposal_status);
-            voteHolder.proposal_title.setText(proposal.content.value.title);
-            voteHolder.proposal_details.setText(proposal.content.value.description);
-            if (proposal.proposal_status.equals("DepositPeriod")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
-            } else if (proposal.proposal_status.equals("VotingPeriod")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
-            } else if (proposal.proposal_status.equals("Rejected")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
-            } else if (proposal.proposal_status.equals("Passed")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
-            } else {
-                voteHolder.proposal_status_img.setVisibility(View.GONE);
-            }
-            voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (proposal.proposal_status.equals("DepositPeriod") || proposal.proposal_status.equals("VotingPeriod")) {
-                        Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                        voteIntent.putExtra("proposalId", proposal.id);
-                        startActivity(voteIntent);
-
-                    } else {
-                        String url = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
-                    }
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return mProposals.size();
-        }
-
-        public class VoteHolder extends RecyclerView.ViewHolder {
-            private CardView card_proposal;
-            private TextView proposal_id, proposal_status, proposal_title, proposal_details;
-            private ImageView proposal_status_img;
-
-            public VoteHolder(@NonNull View itemView) {
-                super(itemView);
-                card_proposal               = itemView.findViewById(R.id.card_proposal);
-                proposal_id                 = itemView.findViewById(R.id.proposal_id);
-                proposal_status             = itemView.findViewById(R.id.proposal_status);
-                proposal_title              = itemView.findViewById(R.id.proposal_title);
-                proposal_details            = itemView.findViewById(R.id.proposal_details);
-                proposal_status_img         = itemView.findViewById(R.id.proposal_status_img);
-
-            }
-        }
     }
 
     private class GrpcProposalsAdapter extends RecyclerView.Adapter<GrpcProposalsAdapter.VoteHolder> {
@@ -352,5 +247,4 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             }
         }
     }
-
 }

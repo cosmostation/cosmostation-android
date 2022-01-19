@@ -48,7 +48,6 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import kava.pricefeed.v1beta1.QueryOuterClass;
-import kava.pricefeed.v1beta1.Store;
 import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
@@ -81,10 +80,8 @@ import wannabit.io.cosmostaion.model.RewardInfo;
 import wannabit.io.cosmostaion.model.RizonSwapStatus;
 import wannabit.io.cosmostaion.model.SifIncentive;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
-import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
-import wannabit.io.cosmostaion.model.kava.KavaPriceMarket;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
@@ -99,7 +96,6 @@ import wannabit.io.cosmostaion.task.FetchTask.BnbTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaPriceFeedParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanAssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
@@ -134,7 +130,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -160,7 +155,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_MINI_TICK
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_TICKER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_PRICE_FEED_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OKEX_ALL_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_ACCOUNT_BALANCE;
@@ -575,17 +569,14 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mMyUnbondings.clear();
         getBaseDao().mMyRewards.clear();
 
-        //kava-8
-        getBaseDao().mMyHardDeposit.clear();
-        getBaseDao().mMyHardBorrow.clear();
-        getBaseDao().mModuleCoins.clear();
-        getBaseDao().mReserveCoins.clear();
-
         //kava GRPC
         getBaseDao().mIncentiveParam5 = null;
         getBaseDao().mIncentiveRewards = null;
         getBaseDao().mKavaPrices.clear();
-
+        getBaseDao().mMyHardDeposits.clear();
+        getBaseDao().mMyHardBorrows.clear();
+        getBaseDao().mModuleCoins.clear();
+        getBaseDao().mReserveCoins.clear();
 
 
         //binance
@@ -772,37 +763,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             mTaskCount = mTaskCount + 1;
             new StationParamInfoTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainId()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (result.taskType == BaseConstant.TASK_FETCH_BONDEB_VALIDATOR) {
-            ArrayList<Validator> bondedValis = (ArrayList<Validator>)result.resultData;
-            if (bondedValis != null) {
-                getBaseDao().mTopValidators = bondedValis;
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_VALIDATOR || result.taskType == BaseConstant.TASK_FETCH_UNBONDED_VALIDATOR) {
-            ArrayList<Validator> unbondValis = (ArrayList<Validator>)result.resultData;
-            if (unbondValis != null) {
-                getBaseDao().mOtherValidators.addAll(unbondValis);
-            }
-
         } else if (result.taskType == TASK_FETCH_OKEX_ALL_VALIDATORS) {
             ArrayList<Validator> allValis = (ArrayList<Validator>)result.resultData;
             if (allValis != null) {
                 getBaseDao().mAllValidators = allValis;
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mMyDelegations = (ArrayList<BondingInfo>)result.resultData;
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_STATE) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mMyUnbondings = (ArrayList<UnbondingInfo>)result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_ALL_REWARDS) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mMyRewards = (ArrayList<RewardInfo>)result.resultData;
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_TOKENS) {
@@ -833,17 +797,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             ArrayList<BnbTicker> tempTickers = (ArrayList<BnbTicker>)result.resultData;
             if (tempTickers!= null) {
                 getBaseDao().mBnbTickers.addAll(tempTickers);
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
-            if (result.isSuccess && result.resultData != null) {
-                final CdpParam cdpParam = (CdpParam)result.resultData;
-                getBaseDao().mCdpParam = cdpParam;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_PRICE_FEED_PARAM) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mKavaPriceMarket = (ArrayList<KavaPriceMarket.Market>)result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_BNB_FEES) {

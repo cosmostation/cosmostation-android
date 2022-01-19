@@ -228,17 +228,6 @@ public class BaseData {
     public ArrayList<UnbondingInfo>     mMyUnbondings = new ArrayList<>();
     public ArrayList<RewardInfo>        mMyRewards = new ArrayList<>();
 
-    //COMMON DATA FOR KAVA-8
-    public ResLcdKavaAccountInfo.Result     mKavaAccount;
-    public CdpParam                         mCdpParam;
-    public HardParam                        mHardParam;
-    public ArrayList<HardMyDeposit>         mMyHardDeposit = new ArrayList<>();
-    public ArrayList<HardMyBorrow>          mMyHardBorrow = new ArrayList<>();
-//    public ArrayList<Coin>                  mModuleCoins = new ArrayList<>();
-//    public ArrayList<Coin>                  mReserveCoins = new ArrayList<>();
-    public HashMap<String, MarketPrice>     mKavaTokenPrices = new HashMap<>();
-    public ArrayList<KavaPriceMarket.Market>       mKavaPriceMarket = new ArrayList<>();
-
     //COMMON DATA FOR BINANCE
     public ArrayList<BnbToken>      mBnbTokens = new ArrayList<>();
     public ArrayList<BnbTicker>     mBnbTickers = new ArrayList<>();
@@ -670,9 +659,9 @@ public class BaseData {
 
     public BigDecimal getKavaOraclePrice(String market_id) {
         BigDecimal price = BigDecimal.ZERO;
-        if (mKavaTokenPrice != null) {
-            price = new BigDecimal(mKavaTokenPrice.get(market_id).getPrice()).movePointLeft(18);
-        }
+//        if (mKavaTokenPrice != null && mKavaTokenPrice.get(market_id).getPrice() != null) {
+//            price = new BigDecimal(mKavaTokenPrice.get(market_id).getPrice()).movePointLeft(18);
+//        }
         return price;
     }
 
