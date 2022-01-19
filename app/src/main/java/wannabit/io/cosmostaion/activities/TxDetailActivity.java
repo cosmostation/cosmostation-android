@@ -46,7 +46,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.txDetail.TxCdpLiquidate;
-import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidate;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidateHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -73,14 +73,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_A
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_MULTI_TRANSFER;
@@ -291,20 +286,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         // kava msg types
         private static final int TYPE_TX_POST_PRICE = 200;
-        private static final int TYPE_TX_CREATE_CDP = 202;
-        private static final int TYPE_TX_CDP_DEPOSIT = 203;
-        private static final int TYPE_TX_CDP_WITHDRAW = 204;
-        private static final int TYPE_TX_CDP_BORROW = 205;
-        private static final int TYPE_TX_CDP_REPAY = 206;
-        private static final int TYPE_TX_CDP_LIQUIDATE = 207;
         private static final int TYPE_TX_HTLC_CREATE = 208;
         private static final int TYPE_TX_HTLC_CLAIM = 209;
         private static final int TYPE_TX_HTLC_REFUND = 210;
-        private static final int TYPE_TX_HARD_DEPOSIT = 211;
-        private static final int TYPE_TX_HARD_WITHDRAW = 212;
-        private static final int TYPE_TX_HARD_BORROW = 214;
-        private static final int TYPE_TX_HARD_REPAY = 215;
-        private static final int TYPE_TX_HARD_LIQUIDATE = 216;
 
         private static final int TYPE_TX_REWARD_ALL = 21;
         private static final int TYPE_TX_OK_STAKE = 22;
@@ -330,22 +314,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxUnjailHolder(getLayoutInflater().inflate(R.layout.item_tx_unjail, viewGroup, false));
             } else if (viewType == TYPE_TX_POST_PRICE) {
                 return new TxPostPriceHolder(getLayoutInflater().inflate(R.layout.item_tx_post_price, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_CDP_LIQUIDATE) {
-                return new TxCdpLiquidate(getLayoutInflater().inflate(R.layout.item_tx_liquidate_cdp, viewGroup, false));
-            } else if (viewType == TYPE_TX_HARD_DEPOSIT) {
-                return new TxHardPoolDepositHolder(getLayoutInflater().inflate(R.layout.item_tx_deposit_harvest, viewGroup, false));
-            } else if (viewType == TYPE_TX_HARD_WITHDRAW) {
-                return new TxHardPoolWithdrawHolder(getLayoutInflater().inflate(R.layout.item_tx_withdraw_harvest, viewGroup, false));
-            } else if (viewType == TYPE_TX_HARD_BORROW) {
-                return new TxHardPoolBorrowHolder(getLayoutInflater().inflate(R.layout.item_tx_borrow_hard, viewGroup, false));
-            } else if (viewType == TYPE_TX_HARD_REPAY) {
-                return new TxHardPoolRepaywHolder(getLayoutInflater().inflate(R.layout.item_tx_repay_hard, viewGroup, false));
-            } else if (viewType == TYPE_TX_HARD_LIQUIDATE) {
-                return new TxHardPoolLiquidate(getLayoutInflater().inflate(R.layout.item_tx_liquidate_hard, viewGroup, false));
-            }
-
-            else if (viewType == TYPE_TX_HTLC_CREATE) {
+            } else if (viewType == TYPE_TX_HTLC_CREATE) {
                 return new TxCreateHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_create, viewGroup, false));
             } else if (viewType == TYPE_TX_HTLC_CLAIM) {
                 return new TxClaimHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
@@ -377,24 +346,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (getItemViewType(position) == TYPE_TX_POST_PRICE) {
                 onBindPostPrice(viewHolder, position);
 
-            } else if (getItemViewType(position) == TYPE_TX_CDP_LIQUIDATE) {
-                onBindCdpLiquidate(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HTLC_CREATE) {
                 onBindCreateHTLC(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HTLC_CLAIM) {
                 onBindClaimHTLC(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HTLC_REFUND) {
                 onBindRefundHTLC(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_TX_HARD_DEPOSIT) {
-                onBindHardDeposit(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_TX_HARD_WITHDRAW) {
-                onBindHardWithdraw(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_TX_HARD_BORROW) {
-                onBindHardBorrow(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_TX_HARD_REPAY) {
-                onBindHardRepay(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_TX_HARD_LIQUIDATE) {
-                onBindHardLiquidate(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_OK_STAKE) {
                 onBindOkStake(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_OK_DIRECT_VOTE) {
@@ -464,27 +421,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                     } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_POST_PRICE)) {
                         return TYPE_TX_POST_PRICE;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_CREATE_CDP)) {
-                        return TYPE_TX_CREATE_CDP;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_DEPOSIT_CDP)) {
-                        return TYPE_TX_CDP_DEPOSIT;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_WITHDRAW_CDP)) {
-                        return TYPE_TX_CDP_WITHDRAW;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_DRAWDEBT_CDP)) {
-                        return TYPE_TX_CDP_BORROW;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_REPAYDEBT_CDP)) {
-                        return TYPE_TX_CDP_REPAY;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_LIQUIDATE_CDP)) {
-                        return TYPE_TX_CDP_LIQUIDATE;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_LIQUIDATE_HARD)) {
-                        return TYPE_TX_HARD_LIQUIDATE;
 
                     } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
                         return TYPE_TX_HTLC_CREATE;
@@ -776,56 +712,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemPostPrice.setText(msg.value.price);
                 holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), msg.value.expiry) + " (" + msg.value.expiry + ")");
             }
-
-        }
-
-        private void onBindCdpLiquidate(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxCdpLiquidate holder = (TxCdpLiquidate) viewHolder;
-            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo.getMsg(position - 1));
-        }
-
-        private void onBindHardDeposit(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxHardPoolDepositHolder holder = (TxHardPoolDepositHolder) viewHolder;
-            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            final Msg msg = mResTxInfo.getMsg(position - 1);
-            holder.itemDepositor.setText(msg.value.depositor);
-            holder.itemDepositType.setText(msg.value.deposit_type);
-            WDp.showCoinDp(getBaseContext(), getBaseDao(), WDp.getCoins(msg.value.amount).get(0), holder.itemDepositAmountDenom, holder.itemDepositAmount, mBaseChain);
-        }
-
-        private void onBindHardWithdraw(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxHardPoolWithdrawHolder holder = (TxHardPoolWithdrawHolder) viewHolder;
-            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            final Msg msg = mResTxInfo.getMsg(position - 1);
-            holder.itemDepositor.setText(msg.value.depositor);
-            holder.itemDepositType.setText(msg.value.deposit_type);
-            WDp.showCoinDp(getBaseContext(), getBaseDao(), WDp.getCoins(msg.value.amount).get(0), holder.itemWithdrawAmountDenom, holder.itemWithdrawAmount, mBaseChain);
-        }
-
-        private void onBindHardBorrow(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxHardPoolBorrowHolder holder = (TxHardPoolBorrowHolder) viewHolder;
-            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            final Msg msg = mResTxInfo.getMsg(position - 1);
-            holder.itemBorrower.setText(msg.value.borrower);
-            ArrayList<Coin> coins = WDp.getCoins(msg.value.amount);
-            WDp.showCoinDp(getBaseContext(), getBaseDao(), coins.get(0), holder.itemBorrowDenom, holder.itemBorrowAmount, mBaseChain);
-
-        }
-
-        private void onBindHardRepay(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxHardPoolRepaywHolder holder = (TxHardPoolRepaywHolder) viewHolder;
-            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            final Msg msg = mResTxInfo.getMsg(position - 1);
-            holder.itemSender.setText(msg.value.sender);
-            holder.itemOwener.setText(msg.value.owner);
-            ArrayList<Coin> coins = WDp.getCoins(msg.value.amount);
-            WDp.showCoinDp(getBaseContext(), getBaseDao(), coins.get(0), holder.itemRepayDenom, holder.itemRepayAmount, mBaseChain);
-
-        }
-
-        private void onBindHardLiquidate(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxHardPoolLiquidate holder = (TxHardPoolLiquidate) viewHolder;
-            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo.getMsg(position - 1));
 
         }
 
@@ -1188,69 +1074,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
-        public class TxHardPoolDepositHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemDepositor, itemDepositType, itemDepositAmount, itemDepositAmountDenom;
-
-            public TxHardPoolDepositHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemDepositor = itemView.findViewById(R.id.tx_depositor);
-                itemDepositType = itemView.findViewById(R.id.tx_deposit_type);
-                itemDepositAmount = itemView.findViewById(R.id.tx_deposit_amount);
-                itemDepositAmountDenom = itemView.findViewById(R.id.tx_deposit_symbol);
-            }
-        }
-
-        public class TxHardPoolWithdrawHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemDepositor, itemDepositType, itemWithdrawAmount, itemWithdrawAmountDenom;
-
-            public TxHardPoolWithdrawHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemDepositor = itemView.findViewById(R.id.tx_depositor);
-                itemDepositType = itemView.findViewById(R.id.tx_deposit_type);
-                itemWithdrawAmount = itemView.findViewById(R.id.tx_withdraw_amount);
-                itemWithdrawAmountDenom = itemView.findViewById(R.id.tx_withdraw_symbol);
-            }
-        }
-
-        public class TxHardPoolBorrowHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemBorrower, itemBorrowAmount, itemBorrowDenom;
-
-            public TxHardPoolBorrowHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemBorrower = itemView.findViewById(R.id.tx_hard_borrower);
-                itemBorrowAmount = itemView.findViewById(R.id.borrow_amount);
-                itemBorrowDenom = itemView.findViewById(R.id.borrow_symbol);
-            }
-        }
-
-        public class TxHardPoolRepaywHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemSender, itemOwener, itemRepayAmount, itemRepayDenom;
-
-            public TxHardPoolRepaywHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemSender = itemView.findViewById(R.id.tx_sender);
-                itemOwener = itemView.findViewById(R.id.tx_owener);
-                itemRepayAmount = itemView.findViewById(R.id.repay_amount);
-                itemRepayDenom = itemView.findViewById(R.id.repay_symbol);
-            }
-        }
-
         public class TxCreateHtlcHolder extends RecyclerView.ViewHolder {
             ImageView itemMsgImg;
             TextView itemMsgTitle;
@@ -1444,44 +1267,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("BNB onFailure");
-                    if (BuildConfig.DEBUG) t.printStackTrace();
-                    if (isFinishing()) return;
-                }
-            });
-
-        } else if (mBaseChain.equals(KAVA_MAIN)) {
-            ApiClient.getKavaChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
-                @Override
-                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if (isFinishing()) return;
-                    WLog.w("onFetchTx " + response.toString());
-                    if (response.isSuccessful() && response.body() != null) {
-                        mResTxInfo = response.body();
-                        if (mResTxInfo.getMsgType(0).equals(KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
-                            onFetchHtlcStatus(mResTxInfo.simpleSwapId());
-                        } else {
-                            onUpdateView();
-                        }
-
-                    } else {
-                        if (mIsSuccess && FetchCnt < 10) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    FetchCnt++;
-                                    onFetchTx(mTxHash);
-                                }
-                            }, 6000);
-                        } else if (!mIsGen) {
-                            onBackPressed();
-                        } else {
-                            onShowMoreWait();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResTxInfo> call, Throwable t) {
                     if (BuildConfig.DEBUG) t.printStackTrace();
                     if (isFinishing()) return;
                 }

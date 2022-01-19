@@ -77,12 +77,14 @@ import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCAcknowledgeHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCReceiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxCdpLiquidateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCreateCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDelegatorIncentiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDrawDebtCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardIncentiveHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaDepositPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaWithdrawPoolHolder;
@@ -312,6 +314,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_KAVA_INCENTIVE_HARD = 124;
         private static final int TYPE_TX_KAVA_INCENTIVE_DELEGATOR = 125;
         private static final int TYPE_TX_KAVA_INCENTIVE_SWAP = 126;
+        private static final int TYPE_TX_KAVA_CDP_LIQUIDATE = 127;
+        private static final int TYPE_TX_KAVA_HARD_LIQUIDATE = 128;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -543,6 +547,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_KAVA_INCENTIVE_SWAP) {
                 return new TxSwapIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_incentive, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_CDP_LIQUIDATE) {
+                return new TxCdpLiquidateHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidate_cdp, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_HARD_LIQUIDATE) {
+                return new TxHardPoolLiquidateHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidate_hard, viewGroup, false));
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -741,6 +751,10 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_INCENTIVE_DELEGATOR;
                 } else if (msg.getTypeUrl().contains(kava.incentive.v1beta1.Tx.MsgClaimSwapReward.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_INCENTIVE_SWAP;
+                } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgLiquidate.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_CDP_LIQUIDATE;
+                } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgLiquidate.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_HARD_LIQUIDATE;
                 }
                 return TYPE_TX_UNKNOWN;
             }

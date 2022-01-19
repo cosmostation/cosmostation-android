@@ -321,10 +321,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             Toast.makeText(getBaseContext(), R.string.error_bep3_swap_temporary_disable, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (mBaseChain.equals(BNB_TEST) || mBaseChain.equals(KAVA_TEST)) {
-            Toast.makeText(getBaseContext(), R.string.error_bep3_swap_temporary_disable, Toast.LENGTH_SHORT).show();
-            return;
-        }
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -334,7 +330,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         boolean hasbalance = true;
         BigDecimal mainDenomAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
-        if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+        if (mBaseChain.equals(BNB_MAIN)) {
             if (mainDenomAvailable.compareTo(new BigDecimal(FEE_BNB_SEND)) <= 0) {
                 hasbalance  = false;
             }

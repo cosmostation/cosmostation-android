@@ -1501,6 +1501,19 @@ public class Signer {
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
+//    public static ServiceOuterClass.SimulateRequest getGrpcKavaCreateHTLCSwapSimulateReq(QueryOuterClass.QueryAccountResponse auth, String from, String to, ArrayList<Coin> sendCoin, long timtsStamp, String randomNumberHash, Fee fee, String memo, ECKey pKey, String chainId) {
+//        kava.bep3.v1beta1.Tx.MsgCreateAtomicSwap msgCreateAtomicSwap = kava.bep3.v1beta1.Tx.MsgCreateAtomicSwap.newBuilder().setFrom(from).setTo(to).
+//        CoinOuterClass.Coin RepayCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.get(0).amount).setDenom(amount.get(0).denom).build();
+//        kava.hard.v1beta1.Tx.MsgRepay msgRepay = kava.hard.v1beta1.Tx.MsgRepay.newBuilder().setSender(sender).setOwner(owner).addAmount(RepayCoin).build();
+//        Any msgKavaRepayHardAny = Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgRepay").setValue(msgRepay.toByteString()).build();
+//
+//        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaRepayHardAny, memo);
+//        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+//        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+//        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+//        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+//    }
+
     public static TxOuterClass.TxBody getGrpcTxBody(Any msgAny, String memo) {
         return TxOuterClass.TxBody.newBuilder().addMessages(msgAny).setMemo(memo).build();
     }
