@@ -125,8 +125,8 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
             mOutputCoinAmount = new BigDecimal(mSwapPool.get(0).getCoins(0).getAmount());
         }
 
-        mInputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mOutputDenom);
+        mInputCoinDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), getSActivity().mInputDenom);
+        mOutputCoinDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
 
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
@@ -135,14 +135,14 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WUtil.dpKavaTokenName(getSActivity(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
 
         mSwapRate = mOutputCoinAmount.divide(mInputCoinAmount, 18, RoundingMode.DOWN);
 
-        WUtil.dpKavaTokenName(getSActivity(), mSwapInputSymbol, getSActivity().mInputDenom);
-        WUtil.dpKavaTokenName(getSActivity(), mSwapOutputSymbol, getSActivity().mOutputDenom);
-        Picasso.get().load(KAVA_COIN_IMG_URL + getSActivity().mInputDenom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(mSwapInputImg);
-        Picasso.get().load(KAVA_COIN_IMG_URL + getSActivity().mOutputDenom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(mSwapOutputImg);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputSymbol, getSActivity().mInputDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapOutputSymbol, getSActivity().mOutputDenom);
+        WUtil.DpKavaTokenImg(getBaseDao(), mSwapInputImg, getSActivity().mInputDenom);
+        WUtil.DpKavaTokenImg(getBaseDao(), mSwapOutputImg, getSActivity().mOutputDenom);
     }
 
     private void onAddAmountWatcher(){

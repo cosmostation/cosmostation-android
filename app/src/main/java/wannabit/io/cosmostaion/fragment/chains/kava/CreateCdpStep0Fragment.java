@@ -165,20 +165,19 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         mCollateralDenom = getCParam().getDenom();
         mPrincipalDenom = getCParam().getDebtLimit().getDenom();
         mPrincipalMinAmount = new BigDecimal(getCdpParam().getDebtParam().getDebtFloor());
-        mCollateralMinAmount = mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(new BigDecimal(getPrice().getPrice()), 0, RoundingMode.UP);
+        mCollateralMinAmount = mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(new BigDecimal(getPrice().getPrice()), 0, RoundingMode.UP);
         mCollateralMaxAmount = getBaseDao().getAvailable(mCollateralDenom);
 
-        mCollateralSymbol.setText(WUtil.getKavaTokenName(mCollateralDenom));
+        mCollateralSymbol.setText(WUtil.getKavaTokenName(getBaseDao(), mCollateralDenom));
         mCollateralDenomTx.setText(mCollateralDenom.toUpperCase());
         mPrincipalSymbol.setText(mPrincipalDenom.toUpperCase());
         mPrincipalDenomTx.setText(mPrincipalDenom.toUpperCase());
-        mCollateralMinTx.setText(WDp.getDpAmount2(getContext(), mCollateralMinAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), WUtil.getKavaCoinDecimal(mCollateralDenom)));
-        mCollateralMaxTx.setText(WDp.getDpAmount2(getContext(), mCollateralMaxAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), WUtil.getKavaCoinDecimal(mCollateralDenom)));
-        setDpDecimals(WUtil.getKavaCoinDecimal(mCollateralDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom));
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + mCollateralDenom + ".png").fit().into(mCollateralImg);
-            Picasso.get().load(KAVA_COIN_IMG_URL + mPrincipalDenom + ".png").fit().into(mPrincipalImg);
-        } catch (Exception e) { }
+        mCollateralMinTx.setText(WDp.getDpAmount2(getContext(), mCollateralMinAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)));
+        mCollateralMaxTx.setText(WDp.getDpAmount2(getContext(), mCollateralMaxAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)));
+        setDpDecimals(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom));
+
+        WUtil.DpKavaTokenImg(getBaseDao(), mCollateralImg, mCollateralDenom);
+        WUtil.DpKavaTokenImg(getBaseDao(), mPrincipalImg, mPrincipalDenom);
     }
 
 
@@ -215,7 +214,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
                     if (es.equals(mCollateralDecimalChecker)) {
                         mCollateralInput.setText(mCollateralDecimalSetter);
-                        mCollateralInput.setSelection(WUtil.getKavaCoinDecimal(mCollateralDenom) + 1);
+                        mCollateralInput.setSelection(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom) + 1);
                     } else {
                         try {
                             final BigDecimal inputAmount = new BigDecimal(es);
@@ -224,7 +223,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                                 return;
                             }
 
-                            BigDecimal checkPosition = inputAmount.movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
+                            BigDecimal checkPosition = inputAmount.movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom));
                             BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
                             if (checkPosition.compareTo(checkMax) != 0 || !checkPosition.equals(checkMax)) {
                                 String recover = es.substring(0, es.length() - 1);
@@ -256,12 +255,12 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             mPrincipalInput.requestFocus();
 
 
-            BigDecimal collateralValue = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).setScale(2, RoundingMode.DOWN);
+            BigDecimal collateralValue = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).setScale(2, RoundingMode.DOWN);
             mCollateralValue.setText(WDp.getDpRawDollor(getContext(), collateralValue, 2));
 
-            mPrincipalMaxAmount = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.95")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
-            mPrincipalMinTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMinAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
-            mPrincipalMaxTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMaxAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
+            mPrincipalMaxAmount = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).multiply(new BigDecimal("0.95")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
+            mPrincipalMinTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMinAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)));
+            mPrincipalMaxTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMaxAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)));
 
             mPrincipalInput.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -287,7 +286,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
                     if (es.equals(mPrincipalChecker)) {
                         mPrincipalInput.setText(mPrincipalSetter);
-                        mPrincipalInput.setSelection(WUtil.getKavaCoinDecimal(mPrincipalDenom) + 1);
+                        mPrincipalInput.setSelection(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom) + 1);
                     } else {
                         try {
                             final BigDecimal inputAmount = new BigDecimal(es);
@@ -296,7 +295,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                                 return;
                             }
 
-                            BigDecimal checkPosition = inputAmount.movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
+                            BigDecimal checkPosition = inputAmount.movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom));
                             BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
                             if (checkPosition.compareTo(checkMax) != 0) {
                                 String recover = es.substring(0, es.length() - 1);
@@ -341,73 +340,73 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         }
 
         else if (v.equals(mBtnCollateralMin)) {
-            mCollateralInput.setText(mCollateralMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+            mCollateralInput.setText(mCollateralMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
 
         } else if (v.equals(mBtnCollateral1_4)) {
             BigDecimal cal = mCollateralMaxAmount.divide(new BigDecimal(4), 0, RoundingMode.DOWN);
             if (mCollateralMinAmount.compareTo(cal) > 0) {
-                mCollateralInput.setText(mCollateralMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+                mCollateralInput.setText(mCollateralMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
             } else {
-                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
             }
 
         } else if (v.equals(mBtnCollateralHalf)) {
             BigDecimal cal = mCollateralMaxAmount.divide(new BigDecimal(2), 0, RoundingMode.DOWN);
             if (mCollateralMinAmount.compareTo(cal) > 0) {
-                mCollateralInput.setText(mCollateralMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+                mCollateralInput.setText(mCollateralMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
             } else {
-                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
             }
 
         } else if (v.equals(mBtnCollateral3_4)) {
             BigDecimal cal = mCollateralMaxAmount.multiply(new BigDecimal(0.75)).setScale(0, RoundingMode.DOWN);
             if (mCollateralMinAmount.compareTo(cal) > 0) {
-                mCollateralInput.setText(mCollateralMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+                mCollateralInput.setText(mCollateralMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
             } else {
-                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
             }
 
         } else if (v.equals(mBtnCollateralMax)) {
-            mCollateralInput.setText(mCollateralMaxAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+            mCollateralInput.setText(mCollateralMaxAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
 
         } else if (v.equals(mPrincipalClear)) {
             mPrincipalInput.setText("");
 
         } else if (v.equals(mBtnPrincipalMin)) {
-            mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
+            mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).toPlainString());
 
         } else if (v.equals(mBtnPrincipal20)) {
-            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.2")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
+            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).multiply(new BigDecimal("0.2")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
             if (mPrincipalMinAmount.compareTo(cal) > 0) {
-                mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
+                mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();
             } else {
-                mPrincipalInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
+                mPrincipalInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).toPlainString());
             }
 
         } else if (v.equals(mBtnPrincipal50)) {
-            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.5")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
+            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).multiply(new BigDecimal("0.5")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
             if (mPrincipalMinAmount.compareTo(cal) > 0) {
-                mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
+                mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();
             } else {
-                mPrincipalInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
+                mPrincipalInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).toPlainString());
             }
 
         } else if (v.equals(mBtnPrincipal70)) {
-            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom) - WUtil.getKavaCoinDecimal(mPrincipalDenom)).multiply(new BigDecimal("0.7")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
+            BigDecimal cal = mToCollateralAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).multiply(new BigDecimal("0.7")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
             if (mPrincipalMinAmount.compareTo(cal) > 0) {
-                mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
+                mPrincipalInput.setText(mPrincipalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).toPlainString());
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();
             } else {
-                mPrincipalInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
+                mPrincipalInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).toPlainString());
             }
 
         } else if (v.equals(mBtnPrincipalMax)) {
-            mPrincipalInput.setText(mPrincipalMaxAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
+            mPrincipalInput.setText(mPrincipalMaxAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).toPlainString());
 
         } else if (v.equals(mBtnCancel)) {
             getSActivity().onBeforeStep();
@@ -443,7 +442,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
     private boolean onValidateCollateral() {
         try {
-            BigDecimal toCollateralAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
+            BigDecimal toCollateralAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom));
             if (toCollateralAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (mCollateralMinAmount.compareTo(toCollateralAmount) > 0) return false;
             if (mCollateralMaxAmount.compareTo(toCollateralAmount) < 0) return false;
@@ -462,17 +461,17 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             getSActivity().mRiskRate = BigDecimal.ZERO;
             getSActivity().mLiquidationPrice = BigDecimal.ZERO;
 
-            BigDecimal toCollateralAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
+            BigDecimal toCollateralAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom));
             if (toCollateralAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (mCollateralMinAmount.compareTo(toCollateralAmount) > 0) return false;
             if (mCollateralMaxAmount.compareTo(toCollateralAmount) < 0) return false;
 
-            BigDecimal toPrincipalAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
+            BigDecimal toPrincipalAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom));
             if (toPrincipalAmount.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (mPrincipalMinAmount.compareTo(toPrincipalAmount) > 0 || mPrincipalMaxAmount.compareTo(toPrincipalAmount) < 0) return false;
 
             final BigDecimal currentPrice = new BigDecimal(getPrice().getPrice()).movePointLeft(18);
-            final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+            final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), RoundingMode.DOWN);
             final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
             getSActivity().mCollateral = new Coin(mCollateralDenom, toCollateralAmount.toPlainString());
@@ -498,7 +497,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
     private void onUpdateNextBtn() {
         if (mStep == STEP_PRINCIPAL) {
             try {
-                BigDecimal toPrincipalAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
+                BigDecimal toPrincipalAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom));
                 if (toPrincipalAmount.compareTo(BigDecimal.ZERO) <= 0) {
                     mBtnNext.setText(R.string.str_next);
                     mBtnNext.setTextColor(getResources().getColor(R.color.color_btn_photon));
@@ -515,7 +514,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
 
                 }
                 final BigDecimal currentPrice = new BigDecimal(getPrice().getPrice()).movePointLeft(18);
-                final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+                final BigDecimal liquidationPrice = toPrincipalAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mToCollateralAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), RoundingMode.DOWN);
                 final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
                 WDp.DpRiskButton(getContext(), riskRate, mBtnNext);

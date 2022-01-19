@@ -126,12 +126,12 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onUpdateView() {
-        Picasso.get().load(KAVA_COIN_IMG_URL + mInputCoinDenom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(mInputImg);
-        Picasso.get().load(KAVA_COIN_IMG_URL + mOutputCoinDenom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(mOutputImg);
-        WUtil.dpKavaTokenName(getSActivity(), mInputCoin, mInputCoinDenom);
-        WUtil.dpKavaTokenName(getSActivity(), mOutputCoin, mOutputCoinDenom);
-        int InPutDecimal = WUtil.getKavaCoinDecimal(mInputCoinDenom);
-        int OutPutDecimal = WUtil.getKavaCoinDecimal(mOutputCoinDenom);
+        WUtil.DpKavaTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
+        WUtil.DpKavaTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mInputCoin, mInputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mOutputCoin, mOutputCoinDenom);
+        int InPutDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mInputCoinDenom);
+        int OutPutDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mOutputCoinDenom);
 
         BigDecimal availableMaxAmount = getBaseDao().getAvailable(mInputCoinDenom);
         BigDecimal swapFee = new BigDecimal(mSwapParams.getSwapFee()).movePointLeft(18);
@@ -139,8 +139,8 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
         mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, InPutDecimal, OutPutDecimal));
 
-        final int inputCoinDecimal = WUtil.getKavaCoinDecimal(mInputCoinDenom);
-        final int outCoinDecimal = WUtil.getKavaCoinDecimal(mOutputCoinDenom);
+        final int inputCoinDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mInputCoinDenom);
+        final int outCoinDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mOutputCoinDenom);
 
         BigDecimal inputAmount = BigDecimal.ZERO;
         BigDecimal outputAmount = BigDecimal.ZERO;
@@ -153,17 +153,17 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
             outputAmount = new BigDecimal(mSelectedPool.getCoins(0).getAmount());
         }
 
-        inputAmount = inputAmount.movePointLeft(WUtil.getKavaCoinDecimal(mInputCoinDenom));
-        outputAmount = outputAmount.movePointLeft(WUtil.getKavaCoinDecimal(mOutputCoinDenom));
+        inputAmount = inputAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mInputCoinDenom));
+        outputAmount = outputAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mOutputCoinDenom));
         BigDecimal swapRate = outputAmount.divide(inputAmount, 16, RoundingMode.DOWN);
 
         mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputCoinDecimal));
-        WUtil.dpKavaTokenName(getSActivity(), mSwapInputCoinSymbol, mInputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
         mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, outCoinDecimal));
-        WUtil.dpKavaTokenName(getSActivity(), mSwapOutputCoinSymbol, mOutputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
 
-        WUtil.dpKavaTokenName(getSActivity(), mSwapInputCoinExSymbol, mInputCoinDenom);
-        WUtil.dpKavaTokenName(getSActivity(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
+        WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
 
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
         BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));

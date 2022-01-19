@@ -61,9 +61,7 @@ public class HardDetailMyStatusHolder extends BaseHolder {
         final Hard.Params hardParam                         = baseData.mHardParams;
         final Hard.MoneyMarket hardMoneyMarket              = WUtil.getHardMoneyMarket(hardParam, denom);
 
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + hardMoneyMarket.getDenom() + ".png").fit().into(mDepositCoinImg);
-        } catch (Exception e) { }
+        WUtil.DpKavaTokenImg(baseData, mDepositCoinImg, hardMoneyMarket.getDenom());
         WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), "0", mDepositCoinTitle, null, chain);
 
         //Display My Supply

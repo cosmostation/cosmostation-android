@@ -85,7 +85,7 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
         mBtnNext.setOnClickListener(this);
 
         mHardMoneyMarketDenom = getSActivity().mHardMoneyMarketDenom;
-        mDpDecimal = WUtil.getKavaCoinDecimal(mHardMoneyMarketDenom);
+        mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
 
         // display borrowable amount with padding 5%
@@ -93,6 +93,7 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
                 getBaseDao().mMyHardDeposits , getBaseDao().mMyHardBorrows, getBaseDao().mModuleCoins, getBaseDao().mReserveCoins);
 
         WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mBorrowDenomTx, mBorrowMaxTx, getSActivity().mBaseChain);
+        WUtil.DpKavaTokenImg(getBaseDao(), mBorrowImg, mHardMoneyMarketDenom);
         if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
             WDp.DpMainDenom(getSActivity(), getSActivity().mBaseChain.getChain(), mBorrowSymbol);
         } else if (mHardMoneyMarketDenom.equals(TOKEN_HARD)) {
@@ -102,9 +103,6 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
             mBorrowSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
             mBorrowSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         }
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + mHardMoneyMarketDenom + ".png").fit().into(mBorrowImg);
-        } catch (Exception e) { }
 
         mBorrowInput.addTextChangedListener(new TextWatcher() {
             @Override

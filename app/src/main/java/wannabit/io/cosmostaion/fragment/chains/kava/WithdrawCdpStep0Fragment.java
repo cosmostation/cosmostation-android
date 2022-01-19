@@ -117,25 +117,23 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
     private void onUpdateInitInfo() {
         mCollateralDenom = getCParam().getDenom();
         mPrincipalDenom = getCParam().getDebtLimit().getDenom();
-        setDpDecimals(WUtil.getKavaCoinDecimal(mCollateralDenom));
+        setDpDecimals(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom));
         mCurrentPrice = getSActivity().getKavaOraclePrice();
 
         mCurrentTotalDebetAmount = WUtil.getEstimatedTotalDebt(getContext(), getOwenCdp(), getCParam());
-        mCanWithdrawMaxMaxAmount = WUtil.getWithdrawableAmount(getContext(), getOwenCdp(), getCParam(), mCurrentPrice, getSActivity().mSelfDepositAmount);
+        mCanWithdrawMaxMaxAmount = WUtil.getWithdrawableAmount(getContext(), getBaseDao(), getOwenCdp(), getCParam(), mCurrentPrice, getSActivity().mSelfDepositAmount);
         WDp.showCoinDp(getContext(), getBaseDao(), mCollateralDenom, mCanWithdrawMaxMaxAmount.toPlainString(), mCollateralDenomTx, mCollateralMaxTx, getSActivity().mBaseChain);
 
-        mCollateralSymbol.setText(WUtil.getKavaTokenName(mCollateralDenom));
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + mCollateralDenom + ".png").fit().into(mCollateralImg);
-        } catch (Exception e) { }
+        mCollateralSymbol.setText(WUtil.getKavaTokenName(getBaseDao(), mCollateralDenom));
+        WUtil.DpKavaTokenImg(getBaseDao(), mCollateralImg, mCollateralDenom);
 
         mCurrentCollateralAmount = new BigDecimal(getOwenCdp().getCollateral().getAmount());
 
         //before(current) state views!!
-        mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+        mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), RoundingMode.DOWN);
         mBeforeRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mBeforeLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
         WDp.DpRiskRate3(getContext(), mBeforeRiskRate, mBeforeRiskScore, mBeforeRisk);
-        mBeforeDepositAmount.setText(WDp.getDpAmount2(getContext(), mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), WUtil.getKavaCoinDecimal(mCollateralDenom)));
+        mBeforeDepositAmount.setText(WDp.getDpAmount2(getContext(), mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)));
 
         mCollateralInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -162,7 +160,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
 
                 if (es.equals(mCollateralDecimalChecker)) {
                     mCollateralInput.setText(mCollateralDecimalSetter);
-                    mCollateralInput.setSelection(WUtil.getKavaCoinDecimal(mCollateralDenom) + 1);
+                    mCollateralInput.setSelection(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom) + 1);
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
@@ -171,7 +169,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
                             return;
                         }
 
-                        BigDecimal checkPosition = inputAmount.movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
+                        BigDecimal checkPosition = inputAmount.movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom));
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
                         if (checkPosition.compareTo(checkMax) != 0 || !checkPosition.equals(checkMax)) {
                             String recover = es.substring(0, es.length() - 1);
@@ -200,7 +198,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
         try {
             mToWithdrawAmount = BigDecimal.ZERO;
             try {
-                mToWithdrawAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
+                mToWithdrawAmount = new BigDecimal(mCollateralInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom));
             } catch (Exception e) {
                 mAfterRiskLayer.setVisibility(View.INVISIBLE);
                 mAfterDepositAmount.setVisibility(View.GONE);
@@ -219,7 +217,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
 
             mTotalDepositAmount = mCurrentCollateralAmount.subtract(mToWithdrawAmount);
 
-            mAfterLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mTotalDepositAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+            mAfterLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mTotalDepositAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), RoundingMode.DOWN);
 
             mAfterRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mAfterLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
 
@@ -253,7 +251,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
         } else if (v.equals(mBtnAdd1_4)) {
             try {
                 BigDecimal cal = mCanWithdrawMaxMaxAmount.divide(new BigDecimal(4), 0, RoundingMode.DOWN);
-                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
 
             } catch (Exception e) {
                 mCollateralInput.setText("");
@@ -262,7 +260,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
         } else if (v.equals(mBtnAddHalf)) {
             try {
                 BigDecimal cal = mCanWithdrawMaxMaxAmount.divide(new BigDecimal(2), 0, RoundingMode.DOWN);
-                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
 
             } catch (Exception e) {
                 mCollateralInput.setText("");
@@ -271,13 +269,13 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
         } else if (v.equals(mBtnAdd3_4)) {
             try {
                 BigDecimal cal = mCanWithdrawMaxMaxAmount.multiply(new BigDecimal(0.75)).setScale(0, RoundingMode.DOWN);
-                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+                mCollateralInput.setText(cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
 
             } catch (Exception e) {
                 mCollateralInput.setText("");
             }
         } else if (v.equals(mBtnAddMax)) {
-            mCollateralInput.setText(mCanWithdrawMaxMaxAmount.movePointLeft(WUtil.getKavaCoinDecimal(mCollateralDenom)).toPlainString());
+            mCollateralInput.setText(mCanWithdrawMaxMaxAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).toPlainString());
 
         } else if (v.equals(mBtnCancel)) {
             getSActivity().onBeforeStep();

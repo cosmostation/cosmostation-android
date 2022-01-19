@@ -75,7 +75,7 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         WDp.showCoinDp(getContext(), getBaseDao(), cDenom, getSActivity().mCollateral.amount, mWithdrawDenom, mWithdrawAmount, getSActivity().mBaseChain);
-        BigDecimal collateralValue = new BigDecimal(getSActivity().mCollateral.amount).movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(getSActivity().getKavaOraclePrice()).setScale(2, RoundingMode.DOWN);
+        BigDecimal collateralValue = new BigDecimal(getSActivity().mCollateral.amount).movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), cDenom)).multiply(getSActivity().getKavaOraclePrice()).setScale(2, RoundingMode.DOWN);
         mWithdrawValue.setText(WDp.getDpRawDollor(getContext(), collateralValue, 2));
 
         WDp.showCoinDp(getContext(), getBaseDao(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
@@ -92,7 +92,7 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
         mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(),  4));
 
         WDp.showCoinDp(getContext(), getBaseDao(), cDenom, getSActivity().mTotalDepositAmount.toPlainString(), mTotalDepositDenom, mTotalDepositAmount, getSActivity().mBaseChain);
-        BigDecimal totalCollateralValue = getSActivity().mTotalDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(getSActivity().getKavaOraclePrice()).setScale(2, RoundingMode.DOWN);
+        BigDecimal totalCollateralValue = getSActivity().mTotalDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), cDenom)).multiply(getSActivity().getKavaOraclePrice()).setScale(2, RoundingMode.DOWN);
         mTotalDepositValue.setText(WDp.getDpRawDollor(getContext(), totalCollateralValue, 2));
 
         mMemo.setText(getSActivity().mTxMemo);

@@ -88,61 +88,59 @@ public class CdpDetailMyStatusHolder extends BaseHolder {
         final String pDenom                             = collateralParam.getDebtLimit().getDenom();
         final BigDecimal currentPrice                   = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
 
-        mMySelfDepositAmount.setText(WDp.getDpAmount2(context, selfDepositAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
-        BigDecimal selfDepositValue = selfDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
+        mMySelfDepositAmount.setText(WDp.getDpAmount2(context, selfDepositAmount, WUtil.getKavaCoinDecimal(baseData, cDenom), WUtil.getKavaCoinDecimal(baseData, cDenom)));
+        BigDecimal selfDepositValue = selfDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(baseData, cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mMySelfDepositValue.setText(WDp.getDpRawDollor(context, selfDepositValue, 2));
 
-        mMyTotalDepositAmount.setText(WDp.getDpAmount2(context, new BigDecimal(myCdp.getCollateral().getAmount()), WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
-        BigDecimal totalDepositValue = new BigDecimal(myCdp.getCollateral().getAmount()).movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
+        mMyTotalDepositAmount.setText(WDp.getDpAmount2(context, new BigDecimal(myCdp.getCollateral().getAmount()), WUtil.getKavaCoinDecimal(baseData, cDenom), WUtil.getKavaCoinDecimal(baseData, cDenom)));
+        BigDecimal totalDepositValue = new BigDecimal(myCdp.getCollateral().getAmount()).movePointLeft(WUtil.getKavaCoinDecimal(baseData, cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mMyTotalDepositValue.setText(WDp.getDpRawDollor(context, totalDepositValue, 2));
 
-        mMyWithdrawableAmountTitle.setText(context.getString(R.string.str_expected_withdrawable_amount) + " " + WUtil.getKavaTokenName(cDenom));
-        BigDecimal maxWithdrawableAmount = WUtil.getWithdrawableAmount(context, myCdp, collateralParam, currentPrice, selfDepositAmount);
-        BigDecimal maxWithdrawableValue = maxWithdrawableAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice);
-        mMyWithdrawableAmount.setText(WDp.getDpAmount2(context, maxWithdrawableAmount, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
+        mMyWithdrawableAmountTitle.setText(context.getString(R.string.str_expected_withdrawable_amount) + " " + WUtil.getKavaTokenName(baseData, cDenom));
+        BigDecimal maxWithdrawableAmount = WUtil.getWithdrawableAmount(context, baseData, myCdp, collateralParam, currentPrice, selfDepositAmount);
+        BigDecimal maxWithdrawableValue = maxWithdrawableAmount.movePointLeft(WUtil.getKavaCoinDecimal(baseData, cDenom)).multiply(currentPrice);
+        mMyWithdrawableAmount.setText(WDp.getDpAmount2(context, maxWithdrawableAmount, WUtil.getKavaCoinDecimal(baseData, cDenom), WUtil.getKavaCoinDecimal(baseData, cDenom)));
         mMyWithdrawableValue.setText(WDp.getDpRawDollor(context, maxWithdrawableValue, 2));
 
         final BigDecimal debtValue = new BigDecimal(myCdp.getPrincipal().getAmount());
-        mMyLoadnedAmount.setText(WDp.getDpAmount2(context, debtValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-        mMyLoadedValue.setText(WDp.getDpRawDollor(context, debtValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
+        mMyLoadnedAmount.setText(WDp.getDpAmount2(context, debtValue, WUtil.getKavaCoinDecimal(baseData, pDenom), WUtil.getKavaCoinDecimal(baseData, pDenom)));
+        mMyLoadedValue.setText(WDp.getDpRawDollor(context, debtValue.movePointLeft(WUtil.getKavaCoinDecimal(baseData, pDenom)), 2));
 
         final BigDecimal totalFeeValue = WUtil.getEstimatedTotalFee(context, myCdp, collateralParam);
-        mMyCdpFeeAmount.setText(WDp.getDpAmount2(context, totalFeeValue, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-        mMyCdpFeeValue.setText(WDp.getDpRawDollor(context, totalFeeValue.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
+        mMyCdpFeeAmount.setText(WDp.getDpAmount2(context, totalFeeValue, WUtil.getKavaCoinDecimal(baseData, pDenom), WUtil.getKavaCoinDecimal(baseData, pDenom)));
+        mMyCdpFeeValue.setText(WDp.getDpRawDollor(context, totalFeeValue.movePointLeft(WUtil.getKavaCoinDecimal(baseData, pDenom)), 2));
 
         final BigDecimal moreDebtAmount = WUtil.getMoreLoanableAmount(context, myCdp, collateralParam);
-        mMyLoadableAmount.setText(WDp.getDpAmount2(context, moreDebtAmount, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-        mMyLoadableValue.setText(WDp.getDpRawDollor(context, moreDebtAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)), 2));
+        mMyLoadableAmount.setText(WDp.getDpAmount2(context, moreDebtAmount, WUtil.getKavaCoinDecimal(baseData, pDenom), WUtil.getKavaCoinDecimal(baseData, pDenom)));
+        mMyLoadableValue.setText(WDp.getDpRawDollor(context, moreDebtAmount.movePointLeft(WUtil.getKavaCoinDecimal(baseData, pDenom)), 2));
 
-        mMyBtnDepositTxt.setText(String.format(context.getString(R.string.str_btn_text_deposit), WUtil.getKavaTokenName(cDenom)));
-        mMyBtnWithdrawTxt.setText(String.format(context.getString(R.string.str_btn_text_withdraw), WUtil.getKavaTokenName(cDenom)));
+        mMyBtnDepositTxt.setText(String.format(context.getString(R.string.str_btn_text_deposit), WUtil.getKavaTokenName(baseData, cDenom)));
+        mMyBtnWithdrawTxt.setText(String.format(context.getString(R.string.str_btn_text_withdraw), WUtil.getKavaTokenName(baseData, cDenom)));
 
-        mMyPrincipalDenom.setText(WUtil.getKavaTokenName(pDenom));
-        mMyCollateralDenom.setText(WUtil.getKavaTokenName(collateralParam.getDenom()));
+        mMyPrincipalDenom.setText(WUtil.getKavaTokenName(baseData, pDenom));
+        mMyCollateralDenom.setText(WUtil.getKavaTokenName(baseData, collateralParam.getDenom()));
 
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + cDenom + ".png").fit().into(mMyCollateralImg);
-            Picasso.get().load(KAVA_COIN_IMG_URL + pDenom + ".png").fit().into(mMyPrincipalImg);
-        } catch (Exception e) { }
+        WUtil.DpKavaTokenImg(baseData, mMyCollateralImg, cDenom);
+        WUtil.DpKavaTokenImg(baseData, mMyPrincipalImg, pDenom);
 
         mMySelfDepositLayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onShowHelpPopup(context, context.getString(R.string.str_help_self_deposited_collateral_t),
-                        String.format(context.getString(R.string.str_help_self_deposited_collateral_), WUtil.getKavaTokenName(collateralParam.getDenom())));
+                        String.format(context.getString(R.string.str_help_self_deposited_collateral_), WUtil.getKavaTokenName(baseData, collateralParam.getDenom())));
             }
         });
         mMyTotalDepositLayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onShowHelpPopup(context, context.getString(R.string.str_help_total_deposited_collateral_t),
-                        String.format(context.getString(R.string.str_help_total_deposited_collateral), WUtil.getKavaTokenName(collateralParam.getDenom())));
+                        String.format(context.getString(R.string.str_help_total_deposited_collateral), WUtil.getKavaTokenName(baseData, collateralParam.getDenom())));
             }
         });
         mMyWithdrawableLayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onShowHelpPopup(context, context.getString(R.string.str_expected_withdrawable_amount) + " " + WUtil.getKavaTokenName(collateralParam.getDenom()),
+                onShowHelpPopup(context, context.getString(R.string.str_expected_withdrawable_amount) + " " + WUtil.getKavaTokenName(baseData, collateralParam.getDenom()),
                         context.getString(R.string.str_help_withdrawable));
             }
         });

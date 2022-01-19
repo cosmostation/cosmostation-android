@@ -190,7 +190,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
         final BigDecimal currentPrice                           = getBaseDao().getKavaOraclePrice(collateralParam.getLiquidationMarketId());
         final BigDecimal cAvailable                             = getBaseDao().getAvailable(cDenom);
         BigDecimal principalMinAmount                           = new BigDecimal(mCdpParams.getDebtParam().getDebtFloor());
-        BigDecimal collateralMinAmount                          = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom) - WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(collateralParam.getLiquidationRatio()).movePointLeft(18)).divide(currentPrice, 0, RoundingMode.UP);
+        BigDecimal collateralMinAmount                          = principalMinAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), cDenom)).multiply(new BigDecimal("1.05263157895")).multiply(new BigDecimal(collateralParam.getLiquidationRatio()).movePointLeft(18)).divide(currentPrice, 0, RoundingMode.UP);
         if (collateralMinAmount.compareTo(cAvailable) > 0) {
             Toast.makeText(getBaseContext(), R.string.error_less_than_min_deposit, Toast.LENGTH_SHORT).show();
             return;
@@ -229,7 +229,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
         final Genesis.CollateralParam collateralParam           = getBaseDao().getCollateralParamByType(mCollateralType);
         final BigDecimal currentPrice                           = getBaseDao().getKavaOraclePrice(collateralParam.getLiquidationMarketId());
-        final BigDecimal maxWithdrawableAmount                  = WUtil.getWithdrawableAmount(getBaseContext(), mMyCdps, collateralParam, currentPrice, mSelfDepositAmount);
+        final BigDecimal maxWithdrawableAmount                  = WUtil.getWithdrawableAmount(getBaseContext(), getBaseDao(), mMyCdps, collateralParam, currentPrice, mSelfDepositAmount);
 
         if (maxWithdrawableAmount.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enought_withdraw_asset, Toast.LENGTH_SHORT).show();

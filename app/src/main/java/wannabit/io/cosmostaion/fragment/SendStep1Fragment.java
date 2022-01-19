@@ -123,7 +123,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
                 mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-                mDpDecimal = WUtil.getKavaCoinDecimal(toSendDenom);
+                mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), toSendDenom);
             } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {

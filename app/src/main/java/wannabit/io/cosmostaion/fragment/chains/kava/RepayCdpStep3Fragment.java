@@ -78,7 +78,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mPayment.amount, mPaymentDenom, mPaymentAmount, getSActivity().mBaseChain);
-        BigDecimal paymentValue = new BigDecimal(getSActivity().mPayment.amount).movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
+        BigDecimal paymentValue = new BigDecimal(getSActivity().mPayment.amount).movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom));
         mPaymentValue.setText(WDp.getDpRawDollor(getContext(), paymentValue, 2));
 
         WDp.showCoinDp(getContext(), getBaseDao(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
@@ -95,7 +95,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         mAfterLiquidationPrice.setText(WDp.getDpRawDollor(getContext(), getSActivity().mAfterLiquidationPrice.toPlainString(),  4));
 
         WDp.showCoinDp(getContext(), getBaseDao(), pDenom, getSActivity().mRemainLoanAmount.toPlainString(), mRemainDebtDenom, mRemainDebtAmount, getSActivity().mBaseChain);
-        BigDecimal remaindValue = getSActivity().mRemainLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
+        BigDecimal remaindValue = getSActivity().mRemainLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), pDenom));
         mRemainDebtValue.setText(WDp.getDpRawDollor(getContext(), remaindValue, 2));
         if (getSActivity().mRemainLoanAmount.equals(BigDecimal.ZERO)) {
             mWarnLayer.setVisibility(View.VISIBLE);

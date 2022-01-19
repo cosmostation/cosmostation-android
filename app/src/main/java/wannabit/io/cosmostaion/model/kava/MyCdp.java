@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -76,17 +77,17 @@ public class MyCdp {
         return  getRawDebtAmount().add(hiddenFeeValue);
     }
 
-    public BigDecimal getLiquidationPrice(Context c, CollateralParam cParam) {
-        int denomCDecimal = WUtil.getKavaCoinDecimal(getDenom());
-        int denomPDecimal = WUtil.getKavaCoinDecimal(getPDenom());
+    public BigDecimal getLiquidationPrice(Context c, BaseData baseData, CollateralParam cParam) {
+        int denomCDecimal = WUtil.getKavaCoinDecimal(baseData, getDenom());
+        int denomPDecimal = WUtil.getKavaCoinDecimal(baseData, getPDenom());
         BigDecimal collateralAmount = getCollateralAmount().movePointLeft(denomCDecimal);
         BigDecimal estimatedDebtAmount = getEstimatedTotalDebt(c, cParam).multiply(new BigDecimal(cParam.liquidation_ratio)).movePointLeft(denomPDecimal);
         return estimatedDebtAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_DOWN);
     }
 
-    public BigDecimal getWithdrawableAmount(Context c, CollateralParam cParam, BigDecimal price, BigDecimal selfDeposit) {
-        int denomCDecimal = WUtil.getKavaCoinDecimal(getDenom());
-        int denomPDecimal = WUtil.getKavaCoinDecimal(getPDenom());
+    public BigDecimal getWithdrawableAmount(Context c, BaseData baseData, CollateralParam cParam, BigDecimal price, BigDecimal selfDeposit) {
+        int denomCDecimal = WUtil.getKavaCoinDecimal(baseData, getDenom());
+        int denomPDecimal = WUtil.getKavaCoinDecimal(baseData, getPDenom());
         BigDecimal cValue = new BigDecimal(collateral_value.amount);
         BigDecimal minCValue = getEstimatedTotalDebt(c, cParam).multiply(new BigDecimal(cParam.liquidation_ratio)).divide(new BigDecimal("0.95"), 0, BigDecimal.ROUND_DOWN);
         BigDecimal maxWithdrawableValue = cValue.subtract(minCValue);

@@ -36,7 +36,7 @@ public class HardMyStatusHolder extends BaseHolder {
 
         if (myDeposit != null && myDeposit.size() > 0) {
             for (CoinOuterClass.Coin coin: myDeposit.get(0).getAmountList()) {
-                int decimal             = WUtil.getKavaCoinDecimal(coin.getDenom());
+                int decimal             = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
                 BigDecimal LTV          = WUtil.getLTV(hardParams, coin.getDenom());
                 BigDecimal depositValue = BigDecimal.ZERO;
                 BigDecimal ltvValue     = BigDecimal.ZERO;
@@ -58,7 +58,7 @@ public class HardMyStatusHolder extends BaseHolder {
         BigDecimal totalBorrowedValue = BigDecimal.ZERO;
         if (myBorrow != null && myBorrow.size() > 0) {
             for (CoinOuterClass.Coin coin: myBorrow.get(0).getAmountList()) {
-                int decimal =  WUtil.getKavaCoinDecimal(coin.getDenom());
+                int decimal =  WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
                 BigDecimal value = BigDecimal.ZERO;
                 if (coin.getDenom().equalsIgnoreCase("usdx") || coin.getDenom().equalsIgnoreCase("busd")) {
                     value = (new BigDecimal(coin.getAmount())).movePointLeft(decimal);

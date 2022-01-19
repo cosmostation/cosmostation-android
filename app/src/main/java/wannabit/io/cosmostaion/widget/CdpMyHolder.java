@@ -56,7 +56,7 @@ public class CdpMyHolder extends BaseHolder {
     @Override
     public void onBindMyCdp(Context c, BaseData baseData, QueryOuterClass.CDPResponse myCdp) {
         final Genesis.CollateralParam collateralParam = baseData.getCollateralParamByType(myCdp.getType());
-        final int dpDecimal = WUtil.getKavaCoinDecimal(myCdp.getPrincipal().getDenom());
+        final int dpDecimal = WUtil.getKavaCoinDecimal(baseData, myCdp.getPrincipal().getDenom());
 
         if (collateralParam == null) { return; }
 
@@ -64,7 +64,7 @@ public class CdpMyHolder extends BaseHolder {
         BigDecimal liquidationPrice = BigDecimal.ZERO;
         BigDecimal riskRate = BigDecimal.ZERO;
         currentPrice = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
-        liquidationPrice = WUtil.getLiquidationPrice(c, myCdp, collateralParam);
+        liquidationPrice = WUtil.getLiquidationPrice(c, baseData, myCdp, collateralParam);
         riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
 
         itemCollateralType.setText(collateralParam.getType().toUpperCase());

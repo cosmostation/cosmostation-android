@@ -1127,7 +1127,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemFullName.setText("HardPool Gov. Token");
 
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(coin.denom), 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_USDX)) {
@@ -1138,7 +1138,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemFullName.setText("USD Stable Asset");
 
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(coin.denom), 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_SWP)) {
@@ -1149,7 +1149,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemFullName.setText("Kava Swap Token");
 
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(coin.denom), 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
 
         }
@@ -1367,7 +1367,7 @@ public class MainTokensFragment extends BaseFragment {
 
         BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);
         String baseDenom = WDp.getKavaBaseDenom(coin.denom);
-        int bep2decimal = WUtil.getKavaCoinDecimal(coin.denom);
+        int bep2decimal = WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom);
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, bep2decimal, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, totalAmount, bep2decimal));
 
@@ -1392,7 +1392,7 @@ public class MainTokensFragment extends BaseFragment {
 
         BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
         BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), coin.denom);
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(coin.denom), 6));
+        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
     }
 

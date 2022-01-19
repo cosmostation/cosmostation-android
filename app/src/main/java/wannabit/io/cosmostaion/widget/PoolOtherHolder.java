@@ -86,8 +86,8 @@ public class PoolOtherHolder extends BaseHolder {
     public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse otherPool) {
         CoinOuterClass.Coin coin0 = otherPool.getCoins(0);
         CoinOuterClass.Coin coin1 = otherPool.getCoins(1);
-        int coin0Decimal = WUtil.getKavaCoinDecimal(coin0.getDenom());
-        int coin1Decimal = WUtil.getKavaCoinDecimal(coin1.getDenom());
+        int coin0Decimal = WUtil.getKavaCoinDecimal(baseData, coin0.getDenom());
+        int coin1Decimal = WUtil.getKavaCoinDecimal(baseData, coin1.getDenom());
         BigDecimal coin0price = WDp.getKavaPriceFeed(baseData, coin0.getDenom());
         BigDecimal coin1price = WDp.getKavaPriceFeed(baseData, coin1.getDenom());
         BigDecimal coin0value = new BigDecimal(coin0.getAmount()).multiply(coin0price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
@@ -99,8 +99,8 @@ public class PoolOtherHolder extends BaseHolder {
         BigDecimal poolValue = coin0value.add(coin1value);
         itemTotalDepositValue.setText(WDp.getDpRawDollor(context, poolValue, 2));
 
-        WUtil.dpKavaTokenName(context, itemTotalDepositSymbol0, coin0.getDenom());
-        WUtil.dpKavaTokenName(context, itemTotalDepositSymbol1, coin1.getDenom());
+        WUtil.dpKavaTokenName(context, baseData, itemTotalDepositSymbol0, coin0.getDenom());
+        WUtil.dpKavaTokenName(context, baseData, itemTotalDepositSymbol1, coin1.getDenom());
         itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(coin0.getAmount()), coin0Decimal, 6));
         itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(coin1.getAmount()), coin1Decimal, 6));
 
@@ -108,8 +108,8 @@ public class PoolOtherHolder extends BaseHolder {
         BigDecimal availableCoin0 = baseData.getAvailable(coin0.getDenom());
         BigDecimal availableCoin1 = baseData.getAvailable(coin1.getDenom());
 
-        WUtil.dpKavaTokenName(context, itemMyAvailableSymbol0, coin0.getDenom());
-        WUtil.dpKavaTokenName(context, itemMyAvailableSymbol1, coin1.getDenom());
+        WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol0, coin0.getDenom());
+        WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol1, coin1.getDenom());
         itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableCoin0, coin0Decimal, 6));
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableCoin1, coin1Decimal, 6));
 

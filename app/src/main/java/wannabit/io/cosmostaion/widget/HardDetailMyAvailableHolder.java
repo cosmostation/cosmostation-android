@@ -61,18 +61,15 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
         } else {
             targetPrice = BigDecimal.ONE;
         }
-        BigDecimal targetValue = targetAvailable.movePointLeft(WUtil.getKavaCoinDecimal(denom)).multiply(targetPrice);
+        BigDecimal targetValue = targetAvailable.movePointLeft(WUtil.getKavaCoinDecimal(baseData, denom)).multiply(targetPrice);
         WDp.showCoinDp(context, baseData, denom, targetAvailable.toPlainString(), mAssetDepositDenom, mAssetDepositAmount, chain);
         mDepositValue.setText(WDp.getDpRawDollor(context, targetValue, 2));
+        WUtil.DpKavaTokenImg(baseData, mAssetDepositImg, denom);
 
         BigDecimal kavaValue = BigDecimal.ZERO;
         kavaValue = kavaAvailable.movePointLeft(6).multiply(baseData.getKavaOraclePrice("kava:usd:30"));
         WDp.showCoinDp(context, baseData, TOKEN_KAVA, kavaAvailable.toPlainString(), mAssetKavaDenom, mAssetKavaAmount, chain);
         mKavaValue.setText(WDp.getDpRawDollor(context, kavaValue, 2));
-
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png").fit().into(mAssetDepositImg);
-        } catch (Exception e) { }
 
     }
 }

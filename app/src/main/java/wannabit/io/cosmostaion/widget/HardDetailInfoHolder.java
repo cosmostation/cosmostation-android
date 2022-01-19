@@ -96,7 +96,7 @@ public class HardDetailInfoHolder extends BaseHolder {
         }
         if (totalDepositCoin != null) {
             WDp.showCoinDp(context, baseData, totalDepositCoin, mPoolSupplyAmountDenom, mPoolSupplyAmount, chain);
-            int decimal =  WUtil.getKavaCoinDecimal(totalDepositCoin.denom);
+            int decimal =  WUtil.getKavaCoinDecimal(baseData, totalDepositCoin.denom);
             totalDepositValue = (new BigDecimal(totalDepositCoin.amount)).movePointLeft(decimal).multiply(baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParam, totalDepositCoin.denom)));
 
         } else {
@@ -117,7 +117,7 @@ public class HardDetailInfoHolder extends BaseHolder {
         }
         if (totalBorrowCoin != null) {
             WDp.showCoinDp(context, baseData, totalBorrowCoin, mPoolBorrowedAmountDenom, mPoolBorrowedAmount, chain);
-            int decimal =  WUtil.getKavaCoinDecimal(totalBorrowCoin.denom);
+            int decimal =  WUtil.getKavaCoinDecimal(baseData, totalBorrowCoin.denom);
             totalBorrowValue = (new BigDecimal(totalBorrowCoin.amount)).movePointLeft(decimal).multiply( baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParam, totalBorrowCoin.denom)));
 
         } else {
@@ -153,7 +153,7 @@ public class HardDetailInfoHolder extends BaseHolder {
         }
         WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), SystemBorrowableAmount.toPlainString(), mRemainBorrowableAmountDenom, mRemainBorrowableAmount, chain);
 
-        int decimal =  WUtil.getKavaCoinDecimal(hardMoneyMarket.getDenom());
+        int decimal =  WUtil.getKavaCoinDecimal(baseData, hardMoneyMarket.getDenom());
         SystemBorrowableValue = SystemBorrowableAmount.movePointLeft(decimal).multiply(baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParam, hardMoneyMarket.getDenom())));
         mRemainBorrowableValue.setText(WDp.getDpRawDollor(context, SystemBorrowableValue, 2));
     }

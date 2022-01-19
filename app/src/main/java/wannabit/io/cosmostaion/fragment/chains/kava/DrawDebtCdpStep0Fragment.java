@@ -121,7 +121,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
     private void onUpdateInitInfo() {
         mCollateralDenom = getCParam().getDenom();
         mPrincipalDenom = getCParam().getDebtLimit().getDenom();
-        setDpDecimals(WUtil.getKavaCoinDecimal(mPrincipalDenom));
+        setDpDecimals(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom));
         mCurrentPrice = getSActivity().getKavaOraclePrice();
 
         BigDecimal currentPAmount = new BigDecimal(getOwenCdp().getPrincipal().getAmount());
@@ -137,18 +137,16 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
         WDp.showCoinDp(getContext(), getBaseDao(), mPrincipalDenom, mMinLoanableAmount.toPlainString(), mLoanableDenomTx, mLoanableMinTx, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), getBaseDao(), mPrincipalDenom, mMaxLoanableAmount.toPlainString(), mLoanableDenomTx, mLoanableMaxTx, getSActivity().mBaseChain);
 
-        mPrincipalSymbol.setText(WUtil.getKavaTokenName(mPrincipalDenom));
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + mPrincipalDenom + ".png").fit().into(mPrincipalImg);
-        } catch (Exception e) { }
+        mPrincipalSymbol.setText(WUtil.getKavaTokenName(getBaseDao(), mPrincipalDenom));
+        WUtil.DpKavaTokenImg(getBaseDao(), mPrincipalImg, mPrincipalDenom);
 
         //before(current) state views!!
         mCurrentTotalDebetAmount = WUtil.getEstimatedTotalDebt(getContext(), getOwenCdp(), getCParam());
         mCurrentCollateralAmount = new BigDecimal(getOwenCdp().getCollateral().getAmount());
-        mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+        mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), RoundingMode.DOWN);
         mBeforeRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mBeforeLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
         WDp.DpRiskRate3(getContext(), mBeforeRiskRate, mBeforeRiskScore, mBeforeRisk);
-        mBeforePrincipalAmount.setText(WDp.getDpAmount2(getContext(), mCurrentTotalDebetAmount, WUtil.getKavaCoinDecimal(mPrincipalDenom), WUtil.getKavaCoinDecimal(mPrincipalDenom)));
+        mBeforePrincipalAmount.setText(WDp.getDpAmount2(getContext(), mCurrentTotalDebetAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom), WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)));
 
         mPrincipalInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -174,7 +172,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
 
                 if (es.equals(mPrincipalChecker)) {
                     mPrincipalInput.setText(mPrincipalSetter);
-                    mPrincipalInput.setSelection(WUtil.getKavaCoinDecimal(mPrincipalDenom) + 1);
+                    mPrincipalInput.setSelection(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom) + 1);
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
@@ -183,7 +181,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
                             return;
                         }
 
-                        BigDecimal checkPosition = inputAmount.movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
+                        BigDecimal checkPosition = inputAmount.movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom));
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
                         if (checkPosition.compareTo(checkMax) != 0 || !checkPosition.equals(checkMax)) {
                             String recover = es.substring(0, es.length() - 1);
@@ -215,7 +213,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
         try {
             mToLoanAmount = BigDecimal.ZERO;
             try {
-                mToLoanAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(mPrincipalDenom));
+                mToLoanAmount = new BigDecimal(mPrincipalInput.getText().toString().trim()).movePointRight(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom));
             } catch (Exception e) {
                 mAfterRiskLayer.setVisibility(View.INVISIBLE);
                 mAfterPrincipalAmount.setVisibility(View.GONE);
@@ -234,7 +232,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
 
             mMoreAddedLoanAmount = mCurrentTotalDebetAmount.add(mToLoanAmount);
 
-            mAfterLiquidationPrice = mMoreAddedLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom) - WUtil.getKavaCoinDecimal(mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(mCollateralDenom), RoundingMode.DOWN);
+            mAfterLiquidationPrice = mMoreAddedLoanAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom) - WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom)).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mCurrentCollateralAmount, WUtil.getKavaCoinDecimal(getBaseDao(), mCollateralDenom), RoundingMode.DOWN);
 
             mAfterRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mAfterLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
 
@@ -261,7 +259,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
             mPrincipalInput.setText("");
 
         } else if (v.equals(mBtnMin)) {
-            mPrincipalInput.setText( mMinLoanableAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).toPlainString());
+            mPrincipalInput.setText( mMinLoanableAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).toPlainString());
 
         } else if (v.equals(mBtn1_4)) {
             BigDecimal cal = mMaxLoanableAmount.multiply(new BigDecimal("0.25"));
@@ -269,7 +267,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
                 cal = mMinLoanableAmount;
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();
             }
-            cal = cal.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).setScale(WUtil.getKavaCoinDecimal(mPrincipalDenom), RoundingMode.DOWN);
+            cal = cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).setScale(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom), RoundingMode.DOWN);
             mPrincipalInput.setText(cal.toPlainString());
 
         } else if (v.equals(mBtnHalf)) {
@@ -278,7 +276,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
                 cal = mMinLoanableAmount;
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();
             }
-            cal = cal.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).setScale(WUtil.getKavaCoinDecimal(mPrincipalDenom), RoundingMode.DOWN);
+            cal = cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).setScale(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom), RoundingMode.DOWN);
             mPrincipalInput.setText(cal.toPlainString());
 
         } else if (v.equals(mBtn3_4)) {
@@ -287,11 +285,11 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
                 cal = mMinLoanableAmount;
                 Toast.makeText(getContext(), R.string.error_less_than_min_principal, Toast.LENGTH_SHORT).show();
             }
-            cal = cal.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).setScale(WUtil.getKavaCoinDecimal(mPrincipalDenom), RoundingMode.DOWN);
+            cal = cal.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).setScale(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom), RoundingMode.DOWN);
             mPrincipalInput.setText(cal.toPlainString());
 
         } else if (v.equals(mBtnMax)) {
-            BigDecimal cal = mMaxLoanableAmount.movePointLeft(WUtil.getKavaCoinDecimal(mPrincipalDenom)).setScale(WUtil.getKavaCoinDecimal(mPrincipalDenom), RoundingMode.DOWN);
+            BigDecimal cal = mMaxLoanableAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom)).setScale(WUtil.getKavaCoinDecimal(getBaseDao(), mPrincipalDenom), RoundingMode.DOWN);
             mPrincipalInput.setText(cal.toPlainString());
 
         } else if (v.equals(mBtnCancel)) {

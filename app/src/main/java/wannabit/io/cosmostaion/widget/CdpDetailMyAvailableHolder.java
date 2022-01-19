@@ -53,23 +53,20 @@ public class CdpDetailMyAvailableHolder extends BaseHolder {
 
 
         mEmptyCollateralDenom.setText(collateralParam.getDenom().toUpperCase());
-        mEmptyCollateralAmount.setText(WDp.getDpAmount2(context, cAvailable, WUtil.getKavaCoinDecimal(cDenom), WUtil.getKavaCoinDecimal(cDenom)));
-        BigDecimal collateralValue = cAvailable.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
+        mEmptyCollateralAmount.setText(WDp.getDpAmount2(context, cAvailable, WUtil.getKavaCoinDecimal(baseData, cDenom), WUtil.getKavaCoinDecimal(baseData, cDenom)));
+        BigDecimal collateralValue = cAvailable.movePointLeft(WUtil.getKavaCoinDecimal(baseData, cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mEmptyCollateralValue.setText(WDp.getDpRawDollor(context, collateralValue, 2));
 
         mEmptyPrincipalDenom.setText(collateralParam.getDebtLimit().getDenom().toUpperCase());
-        mEmptyPrincipalAmount.setText(WDp.getDpAmount2(context, pAvailable, WUtil.getKavaCoinDecimal(pDenom), WUtil.getKavaCoinDecimal(pDenom)));
-        BigDecimal principalValue = pAvailable.movePointLeft(WUtil.getKavaCoinDecimal(pDenom)).setScale(2, RoundingMode.DOWN);
+        mEmptyPrincipalAmount.setText(WDp.getDpAmount2(context, pAvailable, WUtil.getKavaCoinDecimal(baseData, pDenom), WUtil.getKavaCoinDecimal(baseData, pDenom)));
+        BigDecimal principalValue = pAvailable.movePointLeft(WUtil.getKavaCoinDecimal(baseData, pDenom)).setScale(2, RoundingMode.DOWN);
         mEmptyPrincipalValue.setText(WDp.getDpRawDollor(context, principalValue, 2));
 
-        mEmptyKavaAmount.setText(WDp.getDpAmount2(context, kAvailable, WUtil.getKavaCoinDecimal(TOKEN_KAVA), WUtil.getKavaCoinDecimal(TOKEN_KAVA)));
+        mEmptyKavaAmount.setText(WDp.getDpAmount2(context, kAvailable, WUtil.getKavaCoinDecimal(baseData, TOKEN_KAVA), WUtil.getKavaCoinDecimal(baseData, TOKEN_KAVA)));
         BigDecimal kavaValue = WDp.usdValue(baseData, TOKEN_KAVA, kAvailable, 6);
         mEmptyKavaValue.setText(WDp.getDpRawDollor(context, kavaValue, 2));
 
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + cDenom + ".png").fit().into(mEmptyCollateralImg);
-            Picasso.get().load(KAVA_COIN_IMG_URL + pDenom + ".png").fit().into(mEmptyPrincipalImg);
-        } catch (Exception e) { }
-
+        WUtil.DpKavaTokenImg(baseData, mEmptyCollateralImg, cDenom);
+        WUtil.DpKavaTokenImg(baseData, mEmptyPrincipalImg, pDenom);
     }
 }

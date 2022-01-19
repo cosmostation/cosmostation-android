@@ -236,7 +236,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
             Coin sendCoin = WDp.getCoins(msg.value.amount).get(0);
             sendDenom.setText(sendCoin.denom.toUpperCase());
-            sendAmount.setText(WDp.getDpAmount2(this, new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(sendCoin.denom), WUtil.getKavaCoinDecimal(sendCoin.denom)));
+            sendAmount.setText(WDp.getDpAmount2(this, new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(getBaseDao(), sendCoin.denom), WUtil.getKavaCoinDecimal(getBaseDao(), sendCoin.denom)));
 
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), feeDenom);
             feeAmount.setText(WDp.getDpAmount2(getBaseContext(), mResSendTxInfo.simpleFee(), 6, 6));

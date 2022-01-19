@@ -582,7 +582,7 @@ public class WDp {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
-            if (amountTv != null) amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(symbol), WUtil.getKavaCoinDecimal(symbol)));
+            if (amountTv != null) amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(baseData, symbol), WUtil.getKavaCoinDecimal(baseData, symbol)));
 
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             if (symbol.equals(TOKEN_IOV) || symbol.equals(TOKEN_IOV_TEST)) {
@@ -1954,7 +1954,7 @@ public class WDp {
     }
 
     public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {
-        int dpDecimal = WUtil.getKavaCoinDecimal(denom);
+        int dpDecimal = WUtil.getKavaCoinDecimal(baseData, denom);
         HashMap<String, kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse> prices = baseData.mKavaTokenPrice;
         if (denom.equals("hard") && prices.get("hard:usd") != null) {
             BigDecimal price = new BigDecimal(prices.get("hard:usd").getPrice());
@@ -2190,7 +2190,7 @@ public class WDp {
                         BigDecimal amount = baseData.getAvailable(coin.denom);
                         amount = amount.add(baseData.getVesting(coin.denom));
                         String kavaDenom = WDp.getKavaBaseDenom(coin.denom);
-                        int kavaDecimal = WUtil.getKavaCoinDecimal(coin.denom);
+                        int kavaDecimal = WUtil.getKavaCoinDecimal(baseData, coin.denom);
                         BigDecimal assetValue = userCurrencyValue(baseData, kavaDenom, amount, kavaDecimal);
                         totalValue = totalValue.add(assetValue);
                     }

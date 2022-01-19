@@ -659,9 +659,9 @@ public class BaseData {
 
     public BigDecimal getKavaOraclePrice(String market_id) {
         BigDecimal price = BigDecimal.ZERO;
-//        if (mKavaTokenPrice != null && mKavaTokenPrice.get(market_id).getPrice() != null) {
-//            price = new BigDecimal(mKavaTokenPrice.get(market_id).getPrice()).movePointLeft(18);
-//        }
+        if (mKavaTokenPrice != null && mKavaTokenPrice.get(market_id).getPrice() != null) {
+            price = new BigDecimal(mKavaTokenPrice.get(market_id).getPrice()).movePointLeft(18);
+        }
         return price;
     }
 

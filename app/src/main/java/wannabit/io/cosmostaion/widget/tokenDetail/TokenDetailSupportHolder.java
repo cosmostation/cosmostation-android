@@ -84,7 +84,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
 
     public void onBindNativeTokengRPC(Context c, BaseChain baseChain, BaseData baseData, String denom) {
         if (baseChain.equals(BaseChain.KAVA_MAIN)) {
-            dpDecimal = WUtil.getKavaCoinDecimal(denom);
+            dpDecimal = WUtil.getKavaCoinDecimal(baseData, denom);
             if (denom.equalsIgnoreCase(TOKEN_HARD)) {
                 mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));
             } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
@@ -121,7 +121,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindKavaToken(Context c, BaseData baseData, String denom) {
-        dpDecimal = WUtil.getKavaCoinDecimal(denom);
+        dpDecimal = WUtil.getKavaCoinDecimal(baseData, denom);
         mAvailableAmount = baseData.availableAmount(denom);
         if (denom.equalsIgnoreCase(TOKEN_HARD)) {
             mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));

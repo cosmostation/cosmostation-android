@@ -86,7 +86,7 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
         mBtnNext.setOnClickListener(this);
 
         mHardMoneyMarketDenom = getSActivity().mHardMoneyMarketDenom;
-        mDpDecimal = WUtil.getKavaCoinDecimal(mHardMoneyMarketDenom);
+        mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
 
         mBorrowedAmount = WUtil.getHardBorrowedAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom, getBaseDao().mMyHardBorrows).multiply(new BigDecimal("1.05"));
@@ -103,9 +103,7 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
             mRepaySymbol.setText(mHardMoneyMarketDenom.toUpperCase());
             mRepaySymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         }
-        try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + mHardMoneyMarketDenom + ".png").fit().into(mRepayImg);
-        } catch (Exception e) { }
+        WUtil.DpKavaTokenImg(getBaseDao(), mRepayImg, mHardMoneyMarketDenom);
 
         mRepayInput.addTextChangedListener(new TextWatcher() {
             @Override

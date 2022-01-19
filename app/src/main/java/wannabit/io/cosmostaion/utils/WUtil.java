@@ -1342,7 +1342,7 @@ public class WUtil {
 
     }
 
-    public static int getKavaCoinDecimal(String denom) {
+    public static int getKavaCoinDecimal(BaseData baseData, String denom) {
         if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
             return 6;
         } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
@@ -1361,6 +1361,9 @@ public class WUtil {
             return 8;
         } else if (denom.equalsIgnoreCase("swp")) {
             return 6;
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) { return ibcToken.decimal; }
         }
         return 100;
     }
@@ -1470,7 +1473,7 @@ public class WUtil {
         return denom;
     }
 
-    public static String dpKavaTokenName(Context c, TextView textView, String denom) {
+    public static String dpKavaTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
             textView.setTextColor(c.getResources().getColor(R.color.colorKava));
             textView.setText(R.string.str_kava_c);
@@ -1495,11 +1498,20 @@ public class WUtil {
         } else if (denom.contains("btc")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             textView.setText("BTCB");
+        } else if (denom.startsWith("ibc/")) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                textView.setText(ibcToken.display_denom.toUpperCase());
+            } else {
+                textView.setText("UnKnown");
+            }
+
         }
         return denom;
     }
 
-    public static String getKavaTokenName(String denom) {
+    public static String getKavaTokenName(BaseData baseData, String denom) {
         if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
             return "KAVA";
         } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
@@ -1524,6 +1536,13 @@ public class WUtil {
         } else if (denom.equalsIgnoreCase("btch")) {
             return "BTCH";
 
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                return ibcToken.display_denom.toUpperCase();
+            } else {
+                return "Unknown";
+            }
         }
         return denom.toUpperCase();
     }
@@ -1669,6 +1688,20 @@ public class WUtil {
             try {
                 Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
             } catch (Exception e){}
+        }
+    }
+
+    public static void DpKavaTokenImg(BaseData baseData, ImageView imageView, String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            Picasso.get().cancelRequest(imageView);
+            imageView.setImageResource(R.drawable.kava_token_img);
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            try {
+                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+            } catch (Exception e){}
+        } else {
+            Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(imageView);
         }
     }
 
@@ -2024,17 +2057,17 @@ public class WUtil {
         return getRawDebtAmount(myCdp).add(hiddenFeeValue);
     }
 
-    public static BigDecimal getLiquidationPrice(Context c, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam) {
-        int denomCDecimal = WUtil.getKavaCoinDecimal(myCdp.getCollateral().getDenom());
-        int denomPDecimal = WUtil.getKavaCoinDecimal(myCdp.getPrincipal().getDenom());
+    public static BigDecimal getLiquidationPrice(Context c, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam) {
+        int denomCDecimal = WUtil.getKavaCoinDecimal(baseData, myCdp.getCollateral().getDenom());
+        int denomPDecimal = WUtil.getKavaCoinDecimal(baseData, myCdp.getPrincipal().getDenom());
         BigDecimal collateralAmount = new BigDecimal(myCdp.getCollateral().getAmount()).movePointLeft(denomCDecimal);
         BigDecimal estimatedDebtAmount = getEstimatedTotalDebt(c, myCdp, cParam).multiply(new BigDecimal(cParam.getLiquidationRatio())).movePointLeft(denomPDecimal);
         return estimatedDebtAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_DOWN).movePointLeft(18);
     }
 
-    public static BigDecimal getWithdrawableAmount(Context c, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam, BigDecimal price, BigDecimal selfDeposit) {
-        int denomCDecimal = WUtil.getKavaCoinDecimal(cParam.getDenom());
-        int denomPDecimal = WUtil.getKavaCoinDecimal(cParam.getDebtLimit().getDenom());
+    public static BigDecimal getWithdrawableAmount(Context c, BaseData baseData, kava.cdp.v1beta1.QueryOuterClass.CDPResponse myCdp, Genesis.CollateralParam cParam, BigDecimal price, BigDecimal selfDeposit) {
+        int denomCDecimal = WUtil.getKavaCoinDecimal(baseData, cParam.getDenom());
+        int denomPDecimal = WUtil.getKavaCoinDecimal(baseData, cParam.getDebtLimit().getDenom());
         BigDecimal cValue = new BigDecimal(myCdp.getCollateralValue().getAmount());
         BigDecimal minCValue = getEstimatedTotalDebt(c, myCdp, cParam).multiply(new BigDecimal(cParam.getLiquidationRatio()).movePointLeft(18)).divide(new BigDecimal("0.95"), 0, BigDecimal.ROUND_DOWN);
         BigDecimal maxWithdrawableValue = cValue.subtract(minCValue);
@@ -2114,7 +2147,7 @@ public class WUtil {
 
     public static BigDecimal getHardSuppliedValueByDenom(Context context, BaseData baseData, String denom, ArrayList<kava.hard.v1beta1.QueryOuterClass.DepositResponse> myDeposit) {
         final BigDecimal denomPrice = getKavaPrice(baseData, denom);
-        final int decimal           = WUtil.getKavaCoinDecimal(denom);
+        final int decimal           = WUtil.getKavaCoinDecimal(baseData, denom);
         return (getHardSuppliedAmountByDenom(context, baseData, denom, myDeposit)).movePointLeft(decimal).multiply(denomPrice);
     }
 
@@ -2132,7 +2165,7 @@ public class WUtil {
 
     public static BigDecimal getHardBorrowedValueByDenom(Context context, BaseData baseData, String denom, ArrayList<kava.hard.v1beta1.QueryOuterClass.BorrowResponse> myBorrow) {
         final BigDecimal denomPrice = getKavaPrice(baseData, denom);
-        final int decimal           = WUtil.getKavaCoinDecimal(denom);
+        final int decimal           = WUtil.getKavaCoinDecimal(baseData, denom);
         return (getHardBorrowedAmountByDenom(context, baseData, denom, myBorrow)).movePointLeft(decimal).multiply(denomPrice);
 
     }
@@ -2150,11 +2183,11 @@ public class WUtil {
         final Hard.Params hardParam             = baseData.mHardParams;
         final Hard.MoneyMarket hardMoneyMarket  = WUtil.getHardMoneyMarket(hardParam, denom);
         final BigDecimal denomPrice             = getKavaPrice(baseData, denom);
-        final int decimal                       =  WUtil.getKavaCoinDecimal(denom);
+        final int decimal                       =  WUtil.getKavaCoinDecimal(baseData, denom);
 
         if (myDeposit != null && myDeposit.size() > 0) {
             for (CoinOuterClass.Coin coin: myDeposit.get(0).getAmountList()) {
-                int innnerDecimal       = WUtil.getKavaCoinDecimal(coin.getDenom());
+                int innnerDecimal       = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
                 BigDecimal LTV          = WUtil.getLTV(hardParam, coin.getDenom());
                 BigDecimal depositValue = BigDecimal.ZERO;
                 BigDecimal ltvValue     = BigDecimal.ZERO;
@@ -2173,7 +2206,7 @@ public class WUtil {
 
         if (myBorrow != null && myBorrow.size() > 0) {
             for (CoinOuterClass.Coin coin: myBorrow.get(0).getAmountList()) {
-                int innnerDecimal   = WUtil.getKavaCoinDecimal(coin.getDenom());
+                int innnerDecimal   = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
                 BigDecimal borrowedValue    = BigDecimal.ZERO;
                 if (coin.getDenom().equalsIgnoreCase("usdx")) {
                     borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
@@ -2228,11 +2261,11 @@ public class WUtil {
         final Hard.Params hardParam             = baseData.mHardParams;
         final Hard.MoneyMarket hardMoneyMarket  = WUtil.getHardMoneyMarket(hardParam, denom);
         final BigDecimal denomPrice             = getKavaPrice(baseData, denom);
-        final int decimal                       =  WUtil.getKavaCoinDecimal(denom);
+        final int decimal                       =  WUtil.getKavaCoinDecimal(baseData, denom);
 
         if (myDeposit != null && myDeposit.size() > 0) {
             for (CoinOuterClass.Coin coin: myDeposit.get(0).getAmountList()) {
-                int innnerDecimal       = WUtil.getKavaCoinDecimal(coin.getDenom());
+                int innnerDecimal       = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
                 BigDecimal LTV          = WUtil.getLTV(hardParam, coin.getDenom());
                 BigDecimal depositValue = BigDecimal.ZERO;
                 BigDecimal ltvValue     = BigDecimal.ZERO;
@@ -2252,7 +2285,7 @@ public class WUtil {
 
         if (myBorrow != null && myBorrow.size() > 0) {
             for (CoinOuterClass.Coin coin: myBorrow.get(0).getAmountList()) {
-                int innnerDecimal           = WUtil.getKavaCoinDecimal(coin.getDenom());
+                int innnerDecimal           = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
                 BigDecimal borrowedValue    = BigDecimal.ZERO;
                 if (coin.getDenom().equals("usdx")) {
                     borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);

@@ -81,18 +81,18 @@ public class CdpDetailInfoHolder extends BaseHolder {
         mInfoCollateralRate.setText(WDp.getPercentDp(new BigDecimal(collateralParam.getLiquidationRatio()).movePointLeft(16), 2));
         mInfoStabilityFee.setText(WDp.getPercentDp(WUtil.getDpStabilityFee(collateralParam), 2));
         mInfoLiquidationPenalty.setText(WDp.getPercentDp(new BigDecimal(collateralParam.getLiquidationPenalty()).movePointLeft(16), 2));
-        mInfoCurrentPriceTitle.setText(String.format(context.getString(R.string.str_current_title3), WUtil.getKavaTokenName(cDenom)));
+        mInfoCurrentPriceTitle.setText(String.format(context.getString(R.string.str_current_title3), WUtil.getKavaTokenName(baseData, cDenom)));
         mInfoCurrentPrice.setText(WDp.getDpRawDollor(context, currentPrice, 4));
 
         mInfoMaxDebtAmount.setText(WDp.getDpAmount2(context, new BigDecimal(baseData.mCdpParams.getGlobalDebtLimit().getAmount()), 6, 6));
         mInfoRemainDebtAmount.setText(WDp.getDpAmount2(context, new BigDecimal(baseData.mCdpParams.getGlobalDebtLimit().getAmount()).subtract(debtAmount), 6, 6));
 
         if (myCdp != null) {
-            mLiquidationPrice = WUtil.getLiquidationPrice(context, myCdp, collateralParam);
+            mLiquidationPrice = WUtil.getLiquidationPrice(context, baseData, myCdp, collateralParam);
             mRiskRate = new BigDecimal(100).subtract((currentPrice.subtract(mLiquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
             WDp.DpRiskRate(context, mRiskRate, mInfoRiskScore, mInfoImgRisk);
 
-            mInfoLiquidationPriceTitle.setText(String.format(context.getString(R.string.str_liquidation_title3),  WUtil.getKavaTokenName(cDenom)));
+            mInfoLiquidationPriceTitle.setText(String.format(context.getString(R.string.str_liquidation_title3),  WUtil.getKavaTokenName(baseData, cDenom)));
             mInfoLiquidationPrice.setText(WDp.getDpRawDollor(context, mLiquidationPrice, 4));
             mInfoLiquidationPrice.setTextColor(WDp.getDpRiskColor(context, mRiskRate));
             mInfoLiquidationPriceLayer.setVisibility(View.VISIBLE);

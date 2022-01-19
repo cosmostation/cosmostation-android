@@ -229,9 +229,9 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
                 }
 
-            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-                mDivideDecimal = WUtil.getKavaCoinDecimal(toSendDenom);
-                mDisplayDecimal = WUtil.getKavaCoinDecimal(toSendDenom);
+            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
+                mDivideDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), toSendDenom);
+                mDisplayDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), toSendDenom);
 
                 mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
                 if (toSendDenom.equals(TOKEN_KAVA)) {
@@ -239,7 +239,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                     mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), mDivideDecimal, mDisplayDecimal));
                     mTotalPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, feeAmount.add(toSendAmount), mDivideDecimal));
 
-                    BigDecimal currentAvai  = getBaseDao().availableAmount(toSendDenom);
+                    BigDecimal currentAvai  = getBaseDao().getAvailable(toSendDenom);
                     mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, mDivideDecimal, mDisplayDecimal));
                     mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), mDivideDecimal, mDisplayDecimal));
                     mRemainingPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, currentAvai.subtract(toSendAmount).subtract(feeAmount), mDivideDecimal));
@@ -252,7 +252,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                     mTotalPrice.setVisibility(View.GONE);
                     mRemainingPrice.setVisibility(View.GONE);
 
-                    BigDecimal currentAvai  = getBaseDao().availableAmount(toSendDenom);
+                    BigDecimal currentAvai  = getBaseDao().getAvailable(toSendDenom);
                     WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, toSendAmount.toPlainString(), mDenomSendAmount, mSendAmount, getSActivity().mBaseChain);
                     WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, currentAvai.toPlainString(), mDenomCurrentAmount, mCurrentBalance, getSActivity().mBaseChain);
                     WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, currentAvai.subtract(toSendAmount).toPlainString(), mDenomRemainAmount, mRemainingBalance, getSActivity().mBaseChain);
@@ -268,7 +268,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                     mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), mDivideDecimal, mDisplayDecimal));
                     mTotalPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_SIF, feeAmount.add(toSendAmount), mDivideDecimal));
 
-                    BigDecimal currentAvai  = getBaseDao().availableAmount(toSendDenom);
+                    BigDecimal currentAvai  = getBaseDao().getAvailable(toSendDenom);
                     mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, mDivideDecimal, mDisplayDecimal));
                     mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), mDivideDecimal, mDisplayDecimal));
                     mRemainingPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_SIF, currentAvai.subtract(toSendAmount).subtract(feeAmount), mDivideDecimal));
@@ -281,7 +281,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                     mTotalPrice.setVisibility(View.GONE);
                     mRemainingPrice.setVisibility(View.GONE);
 
-                    BigDecimal currentAvai  = getBaseDao().availableAmount(toSendDenom);
+                    BigDecimal currentAvai  = getBaseDao().getAvailable(toSendDenom);
                     WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, toSendAmount.toPlainString(), mDenomSendAmount, mSendAmount, getSActivity().mBaseChain);
                     WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, currentAvai.toPlainString(), mDenomCurrentAmount, mCurrentBalance, getSActivity().mBaseChain);
                     WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, currentAvai.subtract(toSendAmount).toPlainString(), mDenomRemainAmount, mRemainingBalance, getSActivity().mBaseChain);
