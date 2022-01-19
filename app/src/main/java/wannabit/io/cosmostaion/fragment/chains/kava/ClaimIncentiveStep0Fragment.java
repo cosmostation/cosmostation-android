@@ -20,17 +20,15 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button      mCancelBtn, mNextBtn;
-    private TextView    mIncentiveKavaAmount, mIncentiveHardAmount, mIncentiveSwpAmount, mIncentiveUsdxAmount;
+    private TextView    mIncentiveKavaAmount, mIncentiveHardAmount, mIncentiveSwpAmount;
     private TextView    mLockTime;
 
     private RelativeLayout BtnOption1, BtnOption2;
@@ -79,10 +77,10 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
         mIncentiveParam = getBaseDao().mIncentiveParam5;
         mIncentiveReward = getBaseDao().mIncentiveRewards;
 
-        if (getBaseDao().mIncentiveRewards != null) {
-            mKavaIncetiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_KAVA);
-            mHardIncetiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_HARD);
-            mSwpIncetiveAmount  = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_SWP);
+        if (mIncentiveReward != null) {
+            mKavaIncetiveAmount = mIncentiveReward.getRewardSum(TOKEN_KAVA);
+            mHardIncetiveAmount = mIncentiveReward.getRewardSum(TOKEN_HARD);
+            mSwpIncetiveAmount  = mIncentiveReward.getRewardSum(TOKEN_SWP);
         }
 
         mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), mKavaIncetiveAmount, 6, 6));
@@ -113,8 +111,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveCal, 6, 6));
 
             mLockTime.setText("1 Month");
-//            getBaseDao().mIncentiveMultiplier = "small";
-            getSActivity().mIncentiveMultiplier = "small";
+            getSActivity().mIncentiveMultiplier = "MULTIPLIER_NAME_SMALL";
 
         } else if (v.equals(BtnOption2)) {
             onInitBtnBg();
@@ -127,8 +124,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveCal, 6, 6));
 
             mLockTime.setText("12 Month");
-//            getBaseDao().mIncentiveMultiplier = "large";
-            getSActivity().mIncentiveMultiplier = "large";
+            getSActivity().mIncentiveMultiplier = "MULTIPLIER_NAME_LARGE";
 
         }
     }

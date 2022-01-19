@@ -273,6 +273,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW_HARD         = 4342;
     public final static int TASK_GRPC_GEN_TX_KAVA_BORROW_HARD           = 4343;
     public final static int TASK_GRPC_GEN_TX_KAVA_REPAY_HARD            = 4344;
+    public final static int TASK_GRPC_GEN_TX_KAVA_CLAIM_INCENTIVES      = 4345;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -317,6 +318,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW_HARD       = 4542;
     public final static int TASK_GRPC_SIMULATE_KAVA_BORROW_HARD         = 4543;
     public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_HARD          = 4544;
+    public final static int TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES    = 4545;
 
 
 

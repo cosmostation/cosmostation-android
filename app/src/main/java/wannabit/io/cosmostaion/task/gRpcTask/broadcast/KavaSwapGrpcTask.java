@@ -52,7 +52,7 @@ public class KavaSwapGrpcTask extends CommonTask {
         this.mRequester = requester;
         this.mSwapIn = swapIn;
         this.mSwapOut = swapOut;
-        this.mSlippage = "30000000000000000";
+        this.mSlippage = "300000000000000000";
         this.mDeadline = (System.currentTimeMillis() / 1000) + 300;
         this.mMemo = memo;
         this.mFees = fee;

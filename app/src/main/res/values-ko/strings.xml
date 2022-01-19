@@ -713,7 +713,7 @@
     <string name="str_htlc_refund_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_htlc_refund_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_htlc_refund_step_3">입력하신 정보를 확인하세요</string>
-    <string name="str_incentive_participate_step_0">인센티브 보상 요청</string>
+    <string name="str_incentive_participate_step_0">인센티브를 확인해주세요</string>
     <string name="str_incentive_participate_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_incentive_participate_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_incentive_participate_step_3">입력하신 정보를 확인하세요</string>

@@ -46,10 +46,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.txDetail.TxCdpLiquidate;
-import wannabit.io.cosmostaion.widget.txDetail.kava.TxDelegatorIncentive;
-import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolIncentive;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidate;
-import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapIncentive;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -76,19 +73,13 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_A
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DELEGATOR_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_SWAP_INCENTIVE;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
@@ -311,15 +302,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private static final int TYPE_TX_HTLC_REFUND = 210;
         private static final int TYPE_TX_HARD_DEPOSIT = 211;
         private static final int TYPE_TX_HARD_WITHDRAW = 212;
-        //        private static final int TYPE_TX_HARD_CLIAM         = 213;
         private static final int TYPE_TX_HARD_BORROW = 214;
         private static final int TYPE_TX_HARD_REPAY = 215;
         private static final int TYPE_TX_HARD_LIQUIDATE = 216;
-        private static final int TYPE_TX_INCENTIVE_MINT = 217;
-        private static final int TYPE_TX_INCENTIVE_HARD = 218;
-        private static final int TYPE_TX_INCENTIVE_SWAP = 219;
-        private static final int TYPE_TX_INCENTIVE_DELEGATOR = 220;
-
 
         private static final int TYPE_TX_REWARD_ALL = 21;
         private static final int TYPE_TX_OK_STAKE = 22;
@@ -358,14 +343,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxHardPoolRepaywHolder(getLayoutInflater().inflate(R.layout.item_tx_repay_hard, viewGroup, false));
             } else if (viewType == TYPE_TX_HARD_LIQUIDATE) {
                 return new TxHardPoolLiquidate(getLayoutInflater().inflate(R.layout.item_tx_liquidate_hard, viewGroup, false));
-            } else if (viewType == TYPE_TX_INCENTIVE_MINT) {
-                return new TxMintingIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_incentive_reward, viewGroup, false));
-            } else if (viewType == TYPE_TX_INCENTIVE_HARD) {
-                return new TxHardPoolIncentive(getLayoutInflater().inflate(R.layout.item_tx_incentive_hard, viewGroup, false));
-            } else if (viewType == TYPE_TX_INCENTIVE_SWAP) {
-                return new TxSwapIncentive(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_incentive, viewGroup, false));
-            } else if (viewType == TYPE_TX_INCENTIVE_DELEGATOR) {
-                return new TxDelegatorIncentive(getLayoutInflater().inflate(R.layout.item_tx_kava_delegator_incentive, viewGroup, false));
             }
 
             else if (viewType == TYPE_TX_HTLC_CREATE) {
@@ -418,14 +395,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindHardRepay(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HARD_LIQUIDATE) {
                 onBindHardLiquidate(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_TX_INCENTIVE_MINT) {
-                onBindIncentiveMint(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_TX_INCENTIVE_HARD) {
-                onBindIncentiveHard(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_TX_INCENTIVE_SWAP) {
-                onBindIncentiveSwap(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_TX_INCENTIVE_DELEGATOR) {
-                onBindIncentiveDelegator(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_OK_STAKE) {
                 onBindOkStake(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_OK_DIRECT_VOTE) {
@@ -516,18 +485,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                     } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_LIQUIDATE_HARD)) {
                         return TYPE_TX_HARD_LIQUIDATE;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_INCENTIVE_REWARD) || mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
-                        return TYPE_TX_INCENTIVE_MINT;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_CLAIM_HAVEST) || mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
-                        return TYPE_TX_INCENTIVE_HARD;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_SWAP_INCENTIVE)) {
-                        return TYPE_TX_INCENTIVE_SWAP;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_DELEGATOR_INCENTIVE)) {
-                        return TYPE_TX_INCENTIVE_DELEGATOR;
 
                     } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
                         return TYPE_TX_HTLC_CREATE;
@@ -870,43 +827,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             final TxHardPoolLiquidate holder = (TxHardPoolLiquidate) viewHolder;
             holder.onBind(getBaseContext(), mBaseChain, mResTxInfo.getMsg(position - 1));
 
-        }
-
-        private void onBindIncentiveMint(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxMintingIncentiveHolder holder = (TxMintingIncentiveHolder) viewHolder;
-            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemSender.setText(msg.value.sender);
-                holder.itemMultiplier.setText(msg.value.multiplier_name);
-                Coin incentiveCoin = mResTxInfo.simpleIncentive(position - 1);
-                try {
-                    if (!TextUtils.isEmpty(incentiveCoin.denom)) {
-                        WDp.showCoinDp(getBaseContext(), getBaseDao(), incentiveCoin, holder.itemIncentiveDenom, holder.itemIncentiveAmount, mBaseChain);
-                    } else {
-                        holder.itemIncentiveDenom.setText("");
-                        holder.itemIncentiveAmount.setText("");
-                    }
-                } catch (Exception e) {
-                    holder.itemIncentiveDenom.setText("");
-                    holder.itemIncentiveAmount.setText("");
-                }
-            }
-        }
-
-        private void onBindIncentiveHard(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxHardPoolIncentive holder = (TxHardPoolIncentive) viewHolder;
-            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1), position - 1);
-        }
-
-        private void onBindIncentiveSwap(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxSwapIncentive holder = (TxSwapIncentive) viewHolder;
-            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1), position - 1);
-        }
-
-        private void onBindIncentiveDelegator(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxDelegatorIncentive holder = (TxDelegatorIncentive) viewHolder;
-            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1), position - 1);
         }
 
         private void onBindCreateHTLC(RecyclerView.ViewHolder viewHolder, int position) {
@@ -1328,23 +1248,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemOwener = itemView.findViewById(R.id.tx_owener);
                 itemRepayAmount = itemView.findViewById(R.id.repay_amount);
                 itemRepayDenom = itemView.findViewById(R.id.repay_symbol);
-            }
-        }
-
-        public class TxMintingIncentiveHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemIncentiveAmount, itemIncentiveDenom, itemSender, itemDenom, itemMultiplier;
-
-            public TxMintingIncentiveHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemIncentiveAmount = itemView.findViewById(R.id.tx_incentive_amount);
-                itemIncentiveDenom = itemView.findViewById(R.id.tx_incentive_symbol);
-                itemSender = itemView.findViewById(R.id.tx_incentive_sender);
-                itemDenom = itemView.findViewById(R.id.tx_incentive_denom);
-                itemMultiplier = itemView.findViewById(R.id.tx_multiplier_name);
             }
         }
 

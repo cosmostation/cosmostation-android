@@ -1101,7 +1101,7 @@
     <string name="str_htlc_refund_step_1">Insert memo (optional)</string>
     <string name="str_htlc_refund_step_2">Select transaction fee</string>
     <string name="str_htlc_refund_step_3">Check transaction detail</string>
-    <string name="str_incentive_participate_step_0">Incentive Reward Claim</string>
+    <string name="str_incentive_participate_step_0">Check your Incentive</string>
     <string name="str_incentive_participate_step_1">Insert memo (optional)</string>
     <string name="str_incentive_participate_step_2">Select transaction fee</string>
     <string name="str_incentive_participate_step_3">Check transaction detail</string>
@@ -1998,7 +1998,7 @@
     <string name="tx_kava_bep3_create2">BEP3 Send</string>
     <string name="tx_kava_bep3_claim2">BEP3 Claim</string>
     <string name="tx_kava_bep3_refund2">BEP3 Refund</string>
-    <string name="tx_kava_incentive_reward2">USDX Minting Incentive</string>
+    <string name="tx_kava_incentive_reward2">Incentive Minting</string>
     <string name="tx_kava_incentive_hard2">Loan Incentive</string>
     <string name="tx_kava_hard_deposit2">Loan Deposit</string>
     <string name="tx_kava_hard_withdraw2">Loan Withdraw</string>

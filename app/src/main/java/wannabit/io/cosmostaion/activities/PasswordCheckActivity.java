@@ -49,14 +49,12 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HdacBurnTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBorrowHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimHarvestRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimIncentiveTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -75,6 +73,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravitySwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaBorrowHardGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaClaimIncentiveAllGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaCreateCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDepositCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDepositGrpcTask;
@@ -227,7 +226,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mDepositor;
     private String                      mCdpDenom;
 
-    private String                      mMultiplierName;
     private String                      mDepositDenom;
     private String                      mDepositType;
 
@@ -295,6 +293,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                          mCollateralType;
     private Coin                            mPayment;
     private ArrayList<Coin>                 mHardPoolCoins;
+    private String                          mMultiplierName;
 
     private String                      mPortId;
     private String                      mChannelId;
@@ -425,6 +424,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mCollateralType = getIntent().getStringExtra("mCollateralType");
         mPayment = getIntent().getParcelableExtra("mPayment");
         mHardPoolCoins = getIntent().getParcelableArrayListExtra("hardPoolCoins");
+        mMultiplierName = getIntent().getStringExtra("multiplierName");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -588,10 +588,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 new SimpleHtlcRefundTask(getBaseApplication(), this, mAccount, mSwapId,
                         mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
             }
-
-        } else if (mPurpose == CONST_PW_TX_CLAIM_INCENTIVE) {
-            new SimpleClaimIncentiveTask(getBaseApplication(),this, mAccount, mMultiplierName,
-                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {
             new SimpleOkDepositTask(getBaseApplication(), this, mAccount, mBaseChain,
@@ -786,6 +782,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_REPAY_HARD) {
             new KavaRepayHardGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mAccount.address, mHardPoolCoins,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_CLAIM_INCENTIVE) {
+            new KavaClaimIncentiveAllGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mMultiplierName, getBaseDao(),
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 

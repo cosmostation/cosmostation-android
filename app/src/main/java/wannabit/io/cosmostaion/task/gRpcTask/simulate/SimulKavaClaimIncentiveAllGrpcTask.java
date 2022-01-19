@@ -3,22 +3,19 @@ package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
-import kava.swap.v1beta1.Genesis;
-import kava.swap.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -28,16 +25,15 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_KAVA_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES;
 
-public class SimulKavaSwapGrpcTask extends CommonTask {
+public class SimulKavaClaimIncentiveAllGrpcTask extends CommonTask {
 
     private Account                 mAccount;
     private BaseChain               mBaseChain;
-    private String                  mRequester;
-    private Coin                    mSwapIn, mSwapOut;
-    private String                  mSlippage;
-    private long                    mDeadline;
+    private String                  mSender;
+    private String                  mMultiplierName;
+    private BaseData                mBaseData;
     private String                  mMemo;
     private Fee                     mFees;
     private String                  mChainId;
@@ -45,20 +41,18 @@ public class SimulKavaSwapGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
-    public SimulKavaSwapGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String requester,
-                                 Coin swapIn, Coin swapOut, String memo, Fee fee, String chainId) {
+    public SimulKavaClaimIncentiveAllGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender,
+                                      String multiplierName, BaseData baseData, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
-        this.mRequester = requester;
-        this.mSwapIn = swapIn;
-        this.mSwapOut = swapOut;
-        this.mSlippage = "300000000000000000";
-        this.mDeadline = (System.currentTimeMillis() / 1000) + 300;
+        this.mSender = sender;
+        this.mMultiplierName = multiplierName;
+        this.mBaseData = baseData;
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_KAVA_SWAP;
+        this.mResult.taskType = TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES;
 
     }
 
@@ -80,13 +74,13 @@ public class SimulKavaSwapGrpcTask extends CommonTask {
 
             //simulate
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcKavaSwapSimulateReq(mAuthResponse, mRequester, mSwapIn, mSwapOut, mSlippage, mDeadline, mFees, mMemo, ecKey, mChainId);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcKavaIncentiveAllSimulateReq(mAuthResponse, mSender, mMultiplierName, mBaseData, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e("SimulKavaSwapGrpcTask " + e.getMessage());
+            WLog.e("SimulKavaClaimIncentiveAllGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

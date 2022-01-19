@@ -11,6 +11,7 @@ import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Sign;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -31,8 +32,10 @@ import desmos.profiles.v1beta1.MsgsProfile;
 import ibc.core.client.v1.Client;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -1398,6 +1401,100 @@ public class Signer {
         Any msgKavaRepayHardAny = Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgRepay").setValue(msgRepay.toByteString()).build();
 
         TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaRepayHardAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
+    public static Any getKavaIncentiveUSDXMinting(String sender, String multiplier_name) {
+        kava.incentive.v1beta1.Tx.MsgClaimUSDXMintingReward msgClaimUSDXMintingReward = kava.incentive.v1beta1.Tx.MsgClaimUSDXMintingReward.newBuilder().setSender(sender).setMultiplierName(multiplier_name).build();
+        Any msgKavaClaimUsdxAny = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimUSDXMintingReward").setValue(msgClaimUSDXMintingReward.toByteString()).build();
+        return msgKavaClaimUsdxAny;
+    }
+
+    public static Any getKavaIncentiveHard(String sender, ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims) {
+        kava.incentive.v1beta1.Tx.MsgClaimHardReward msgClaimHardReward = kava.incentive.v1beta1.Tx.MsgClaimHardReward.newBuilder().setSender(sender).addAllDenomsToClaim(denoms_to_claims).build();
+        Any msgKavaClaimHardAny = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimHardReward").setValue(msgClaimHardReward.toByteString()).build();
+        return msgKavaClaimHardAny;
+    }
+
+    public static Any getKavaIncentiveDelegator(String sender, ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims) {
+        kava.incentive.v1beta1.Tx.MsgClaimDelegatorReward msgClaimDelegatorReward = kava.incentive.v1beta1.Tx.MsgClaimDelegatorReward.newBuilder().setSender(sender).addAllDenomsToClaim(denoms_to_claims).build();
+        Any msgKavaClaimDelegateAny = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimDelegatorReward").setValue(msgClaimDelegatorReward.toByteString()).build();
+        return msgKavaClaimDelegateAny;
+    }
+
+    public static Any getKavaIncentiveSwap(String sender, ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims) {
+        kava.incentive.v1beta1.Tx.MsgClaimSwapReward msgClaimSwapReward = kava.incentive.v1beta1.Tx.MsgClaimSwapReward.newBuilder().setSender(sender).addAllDenomsToClaim(denoms_to_claims).build();
+        Any msgKavaClaimSwapAny = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimSwapReward").setValue(msgClaimSwapReward.toByteString()).build();
+        return msgKavaClaimSwapAny;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaIncentiveAllReq(QueryOuterClass.QueryAccountResponse auth, String sender, String multiplier_name, BaseData baseData, Fee fee, String memo, ECKey pKey, String chainId) {
+        ArrayList<Any> msgsAny = new ArrayList<>();
+        IncentiveReward incentiveRewards = baseData.mIncentiveRewards;
+        if (incentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO) > 0) {
+            msgsAny.add(getKavaIncentiveUSDXMinting(sender, multiplier_name));
+        }
+        if (incentiveRewards.getHardRewardDenoms().size() > 0) {
+            ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
+            for (String denom: incentiveRewards.getHardRewardDenoms()) {
+                denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
+            }
+            msgsAny.add(getKavaIncentiveHard(sender, denoms_to_claims));
+        }
+        if (incentiveRewards.getDelegatorRewardDenoms().size() > 0) {
+            ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
+            for (String denom: incentiveRewards.getDelegatorRewardDenoms()) {
+                denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
+            }
+            msgsAny.add(getKavaIncentiveDelegator(sender, denoms_to_claims));
+        }
+        if (incentiveRewards.getSwapRewardDenoms().size() > 0) {
+            ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
+            for (String denom: incentiveRewards.getSwapRewardDenoms()) {
+                denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
+            }
+            msgsAny.add(getKavaIncentiveSwap(sender, denoms_to_claims));
+        }
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcKavaIncentiveAllSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String multiplier_name, BaseData baseData, Fee fee, String memo, ECKey pKey, String chainId) {
+        ArrayList<Any> msgsAny = new ArrayList<>();
+        IncentiveReward incentiveRewards = baseData.mIncentiveRewards;
+        if (incentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO) > 0) {
+            msgsAny.add(getKavaIncentiveUSDXMinting(sender, multiplier_name));
+        }
+        if (incentiveRewards.getHardRewardDenoms().size() > 0) {
+            ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
+            for (String denom: incentiveRewards.getHardRewardDenoms()) {
+                denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
+            }
+            msgsAny.add(getKavaIncentiveHard(sender, denoms_to_claims));
+        }
+        if (incentiveRewards.getDelegatorRewardDenoms().size() > 0) {
+            ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
+            for (String denom: incentiveRewards.getDelegatorRewardDenoms()) {
+                denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
+            }
+            msgsAny.add(getKavaIncentiveDelegator(sender, denoms_to_claims));
+        }
+        if (incentiveRewards.getSwapRewardDenoms().size() > 0) {
+            ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
+            for (String denom: incentiveRewards.getSwapRewardDenoms()) {
+                denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
+            }
+            msgsAny.add(getKavaIncentiveSwap(sender, denoms_to_claims));
+        }
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
         TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
         TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
         TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
