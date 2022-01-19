@@ -529,9 +529,9 @@ public class MainTokensFragment extends BaseFragment {
                 } else if (getItemViewType(position) == SECTION_IBC_AUTHED_GRPC) {
                     onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size());
                 } else if (getItemViewType(position) == SECTION_KAVA_BEP2_GRPC) {
-                    onBindKavaBep2Token(viewHolder, position - mNative.size() - mIbcAuthedGrpc.size());
+                    onBindKavaBep2Token(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
                 } else if (getItemViewType(position) == SECTION_ETC_GRPC) {
-                    onBindEtcGrpcToken(viewHolder, position - mNative.size() - mIbcAuthedGrpc.size() - mKavaBep2Grpc.size());
+                    onBindEtcGrpcToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mKavaBep2Grpc.size());
                 } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC){
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mKavaBep2Grpc.size() - mEtcGrpc.size());
                 } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){

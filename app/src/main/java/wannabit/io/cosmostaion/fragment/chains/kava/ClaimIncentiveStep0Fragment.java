@@ -111,7 +111,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveCal, 6, 6));
 
             mLockTime.setText("1 Month");
-            getSActivity().mIncentiveMultiplier = "MULTIPLIER_NAME_SMALL";
+            getSActivity().mIncentiveMultiplier = "small";
 
         } else if (v.equals(BtnOption2)) {
             onInitBtnBg();
@@ -124,7 +124,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveCal, 6, 6));
 
             mLockTime.setText("12 Month");
-            getSActivity().mIncentiveMultiplier = "MULTIPLIER_NAME_LARGE";
+            getSActivity().mIncentiveMultiplier = "large";
 
         }
     }

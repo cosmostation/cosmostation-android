@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_HARD_POOL_IMG_URL;
@@ -60,7 +61,6 @@ public class HardPoolHolder extends BaseHolder {
         try {
             Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + hardMoneyMarket.getDenom() + ".png").fit().into(hardPoolImg);
         } catch (Exception e) { }
-
         String marketTitle = hardParams.getMoneyMarkets(position).getSpotMarketId().replace(":30", "");
         hardPoolTitle.setText(marketTitle.toUpperCase());
 

@@ -2010,7 +2010,7 @@ public class WDp {
         if (baseData.mKavaTokenPrice.get(feedSymbol) == null){
             return BigDecimal.ZERO;
         }
-        return new BigDecimal(baseData.mKavaTokenPrice.get(feedSymbol).getPrice());
+        return new BigDecimal(baseData.mKavaTokenPrice.get(feedSymbol).getPrice()).movePointLeft(18);
     }
 
     public static BigDecimal convertTokenToKava(BaseData baseData, String denom) {

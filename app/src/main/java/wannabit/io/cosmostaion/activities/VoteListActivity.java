@@ -18,22 +18,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.protobuf2.Any;
-
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
-import cosmos.gov.v1beta1.Gov;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.task.FetchTask.MintScanProposalListTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.ProposalsGrpcTask;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSALS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_PROPOSAL_LIST;
 
 public class VoteListActivity extends BaseActivity implements TaskListener {
 
@@ -45,8 +45,10 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
     private GrpcProposalsAdapter        mGrpcProposalsAdapter;
 
-    private ArrayList<Gov.Proposal>                         mGrpcProposals = new ArrayList<>();
-    private ArrayList<shentu.gov.v1alpha1.Gov.Proposal>     mCtkGrpcProposals = new ArrayList<>();
+    // proposal api
+    private ArrayList<ResProposal>      mApiProposalList = new ArrayList<>();
+
+    private String                      mChain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,10 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         mRecyclerView           = findViewById(R.id.recycler);
         mEmptyProposal          = findViewById(R.id.empty_proposal);
         mLoadingLayer           = findViewById(R.id.loadingLayer);
+
+        mAccount                = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain              = BaseChain.getChain(mAccount.baseChain);
+        mChain                  = WDp.getChainNameByBaseChain(mBaseChain);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -72,6 +78,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
+        mGrpcProposalsAdapter = new GrpcProposalsAdapter();
+        mRecyclerView.setAdapter(mGrpcProposalsAdapter);
 
     }
 
@@ -96,32 +104,20 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
     private void onFetchProposals() {
         if (mAccount == null) return;
-        mGrpcProposalsAdapter = new GrpcProposalsAdapter();
-        mRecyclerView.setAdapter(mGrpcProposalsAdapter);
-        new ProposalsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        mApiProposalList.clear();
+        new MintScanProposalListTask(getBaseApplication(), this, mChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
-        if (result.taskType == TASK_GRPC_FETCH_PROPOSALS) {
-            mGrpcProposals.clear();
-            mCtkGrpcProposals.clear();
-            if (mBaseChain.equals(CERTIK_MAIN)) {
-                List<shentu.gov.v1alpha1.Gov.Proposal> temp = (List<shentu.gov.v1alpha1.Gov.Proposal>) result.resultData;
-                mLoadingLayer.setVisibility(View.GONE);
-                if (temp != null && temp.size() > 0) {
-                    mCtkGrpcProposals.addAll(temp);
-                    WUtil.onSortingCtkGrpcProposals(mCtkGrpcProposals);
-                    mGrpcProposalsAdapter.notifyDataSetChanged();
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                }
-            } else {
-                List<Gov.Proposal> temp = (List<Gov.Proposal>)result.resultData;
-                mLoadingLayer.setVisibility(View.GONE);
-                if (temp != null && temp.size() > 0) {
-                    mGrpcProposals.addAll(temp);
-                    WUtil.onSortingGrpcProposals(mGrpcProposals);
+        if (result.taskType == TASK_FETCH_MINTSCAN_PROPOSAL_LIST) {
+            mLoadingLayer.setVisibility(View.GONE);
+            if (result.isSuccess) {
+                ArrayList<ResProposal> temp = (ArrayList<ResProposal>)result.resultData;
+                if(temp != null && temp.size() > 0) {
+                    mApiProposalList = temp;
+                    onSortingProposal(mApiProposalList, mBaseChain);
                     mGrpcProposalsAdapter.notifyDataSetChanged();
                     mRecyclerView.setVisibility(View.VISIBLE);
                 } else {
@@ -141,84 +137,41 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull VoteHolder voteHolder, int position) {
-            if (mBaseChain.equals(CERTIK_MAIN)) {
-                final shentu.gov.v1alpha1.Gov.Proposal proposal = mCtkGrpcProposals.get(position);
-                voteHolder.proposal_id.setText("# " + proposal.getProposalId());
-                if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
-                    voteHolder.proposal_status.setText("DepositPeriod");
-                } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD) ||
-                            proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
-                    voteHolder.proposal_status.setText("VotingPeriod");
-                } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
-                    voteHolder.proposal_status.setText("Rejected");
-                } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
-                    voteHolder.proposal_status.setText("Passed");
-                } else {
-                    voteHolder.proposal_status_img.setVisibility(View.GONE);
-                    voteHolder.proposal_status.setText("unKnown");
-                }
-
+            final ResProposal proposal = mApiProposalList.get(position);
+            voteHolder.proposal_id.setText("# " + proposal.id);
+            if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_DEPOSIT_PERIOD")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
+                voteHolder.proposal_status.setText("DepositPeriod");
+            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
+                voteHolder.proposal_status.setText("VotingPeriod");
+            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_REJECTED")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
+                voteHolder.proposal_status.setText("Rejected");
+            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_PASSED")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
+                voteHolder.proposal_status.setText("Passed");
             } else {
-                final Gov.Proposal proposal = mGrpcProposals.get(position);
-                voteHolder.proposal_id.setText("# " + proposal.getProposalId());
-                if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
-                    voteHolder.proposal_status.setText("DepositPeriod");
-                } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
-                    voteHolder.proposal_status.setText("VotingPeriod");
-                } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
-                    voteHolder.proposal_status.setText("Rejected");
-                } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
-                    voteHolder.proposal_status.setText("Passed");
-                } else {
-                    voteHolder.proposal_status_img.setVisibility(View.GONE);
-                    voteHolder.proposal_status.setText("unKnown");
-                }
+                voteHolder.proposal_status_img.setVisibility(View.GONE);
+                voteHolder.proposal_status.setText("unKnown");
+            }
 
-            }
-            Any proposalContent = null;
-            if (mBaseChain.equals(CERTIK_MAIN)) {
-                proposalContent = mCtkGrpcProposals.get(position).getContent();
-            } else {
-                proposalContent = mGrpcProposals.get(position).getContent();
-            }
-            WUtil.getVoteListType(proposalContent, voteHolder.proposal_title, voteHolder.proposal_details);
+            voteHolder.proposal_title.setText(proposal.title);
+            voteHolder.proposal_details.setText(proposal.description);
 
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mBaseChain.equals(CERTIK_MAIN)) {
-                        final shentu.gov.v1alpha1.Gov.Proposal proposal = mCtkGrpcProposals.get(position);
-                        if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD) ||
-                                proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
-                            Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                            voteIntent.putExtra("proposalId", String.valueOf(proposal.getProposalId()));
-                            startActivity(voteIntent);
-                        } else {
-                            String url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.getProposalId();
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                            startActivity(intent);
-                        }
-
+                    WLog.w("proposal_status : " + proposal.proposal_status);
+                    if (proposal.proposal_status.contains("PASSED") ||
+                            proposal.proposal_status.equalsIgnoreCase("REJECTED")) {
+                        String url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
                     } else {
-                        final Gov.Proposal proposal = mGrpcProposals.get(position);
-                        if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD) ||
-                                proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD) ) {
-                            Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                            voteIntent.putExtra("proposalId", String.valueOf(proposal.getProposalId()));
-                            startActivity(voteIntent);
-                        } else {
-                            String url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.getProposalId();
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                            startActivity(intent);
-                        }
+                        Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                        voteIntent.putExtra("proposalId", String.valueOf(proposal.id));
+                        startActivity(voteIntent);
                     }
                 }
             });
@@ -226,8 +179,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if (mBaseChain.equals(CERTIK_MAIN)) { return mCtkGrpcProposals.size(); }
-            else { return mGrpcProposals.size(); }
+            return mApiProposalList.size();
         }
 
         public class VoteHolder extends RecyclerView.ViewHolder {
@@ -246,5 +198,16 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
             }
         }
+    }
+
+    public void onSortingProposal(ArrayList<ResProposal> proposals, BaseChain chain) {
+        Collections.sort(proposals, new Comparator<ResProposal>() {
+            @Override
+            public int compare(ResProposal o1, ResProposal o2) {
+                if (o1.id < o2.id) return 1;
+                else if (o1.id > o2.id) return -1;
+                else return 0;
+            }
+        });
     }
 }

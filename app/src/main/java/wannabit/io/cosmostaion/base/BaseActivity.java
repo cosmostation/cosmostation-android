@@ -934,6 +934,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<QueryOuterClass.CurrentPriceResponse> currentPrices = (ArrayList<QueryOuterClass.CurrentPriceResponse>) result.resultData;
                 if (currentPrices != null) { getBaseDao().mKavaPrices = currentPrices; }
+                for (QueryOuterClass.CurrentPriceResponse response: currentPrices) {
+                    getBaseDao().mKavaTokenPrice.put(response.getMarketId(), response);
+                }
             }
         }
 

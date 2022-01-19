@@ -41,7 +41,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpParamGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaHardParamGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.KavaMarketPriceTokenGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapParamsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapPoolsGrpcTask;
@@ -53,7 +52,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_PO
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_CDP_PARAMS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_PARAMS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICE_TOKEN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_PARAMS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS;
@@ -71,7 +69,6 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public ArrayList<QueryOuterClass.DepositResponse>                   mMySwapDepositList = new ArrayList<>();
     public ArrayList<QueryOuterClass.PoolResponse>                      mMySwapPoolList = new ArrayList<>();
     public ArrayList<QueryOuterClass.PoolResponse>                      mOtherSwapPoolList = new ArrayList<>();
-    public kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse  mMarketPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -260,16 +257,6 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         } else if (result.taskType == TASK_GRPC_FETCH_KAVA_CDP_PARAMS) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mCdpParams = (Genesis.Params) result.resultData;
-                for (Genesis.CollateralParam collateralParam: getBaseDao().mCdpParams.getCollateralParamsList()) {
-                    mTaskCount = mTaskCount + 1;
-                    new KavaMarketPriceTokenGrpcTask(getBaseApplication(), this, mBaseChain, collateralParam.getLiquidationMarketId()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                }
-            }
-
-        } else if (result.taskType == TASK_GRPC_FETCH_KAVA_PRICE_TOKEN) {
-            if (result.isSuccess && result.resultData != null) {
-                mMarketPrice = (kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse) result.resultData;
-                getBaseDao().mKavaTokenPrice.put(mMarketPrice.getMarketId(), mMarketPrice);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_PARAMS) {

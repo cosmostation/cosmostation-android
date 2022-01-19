@@ -63,7 +63,7 @@ public class HardDetailInfoHolder extends BaseHolder {
         try {
             Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + hardMoneyMarket.getDenom() + ".png").fit().into(mPoolImg);
         } catch (Exception e) { }
-        String marketTitle = hardParam.getMoneyMarkets(position).getSpotMarketId().replace(":30", "");
+        String marketTitle = hardMoneyMarket.getSpotMarketId();
         mPoolTitle.setText(marketTitle.toUpperCase());
 
         BigDecimal supplyApy = BigDecimal.ZERO;

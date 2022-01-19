@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CLAIM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_KAVA_CREATE_HTLC;
 
 public class HtlcResultActivity extends BaseActivity implements View.OnClickListener {
     private Toolbar             mToolbar;
@@ -575,6 +576,13 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onTaskResponse(TaskResult result) {
+        if (result.taskType == TASK_GRPC_GEN_TX_KAVA_CREATE_HTLC) {
+            if (result.isSuccess) {
+
+            }
+        }
+
+
         if (result.taskType == TASK_GEN_TX_HTLC_CREATE) {
             if (result.isSuccess) {
                 WLog.w("Create HTLC HASH " + result.resultData.toString());

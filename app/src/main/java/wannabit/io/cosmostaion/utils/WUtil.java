@@ -1363,9 +1363,14 @@ public class WUtil {
             return 6;
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) { return ibcToken.decimal; }
+            if (ibcToken != null) {
+                if (ibcToken.auth == true) { return ibcToken.decimal; }
+                else return 6;
+            } else {
+                return 6;
+            }
         }
-        return 100;
+        return 1;
     }
 
     public static int getSifCoinDecimal(BaseData baseData, String denom) {

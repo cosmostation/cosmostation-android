@@ -38,8 +38,10 @@
                     <TextView
                         android:id="@+id/pool_title"
                         android:layout_below="@+id/market_img"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/space_64"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:ellipsize="end"
                         android:gravity="center"
                         style="@style/font_ss_12_kava"/>
                 </LinearLayout>
@@ -154,7 +156,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="Coin"
+                        android:text="UNKNOWN"
+                        android:singleLine="true"
+                        android:ellipsize="end"
                         style="@style/font_ss_12_white"/>
                     <TextView
                         android:id="@+id/deposited_amount"
@@ -195,7 +199,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="Coin"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text="UNKNOWN"
                         style="@style/font_ss_12_white"/>
                     <TextView
                         android:id="@+id/borrow_amount"
