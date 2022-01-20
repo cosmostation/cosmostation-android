@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import cosmos.base.v1beta1.CoinOuterClass;
-import irismod.nft.Nft;
 import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import kava.swap.v1beta1.QueryOuterClass;
@@ -22,22 +21,13 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
-import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.activities.chains.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListHardFragment;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
-import wannabit.io.cosmostaion.model.kava.HardInterestRate;
-import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
-import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
-import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
-import wannabit.io.cosmostaion.model.kava.MyCdp;
-import wannabit.io.cosmostaion.model.kava.SwapDeposit;
-import wannabit.io.cosmostaion.model.kava.SwapPool;
 import wannabit.io.cosmostaion.model.type.Coin;
 
 public class BaseHolder extends RecyclerView.ViewHolder {

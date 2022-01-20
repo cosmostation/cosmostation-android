@@ -13,8 +13,6 @@ import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
-import wannabit.io.cosmostaion.model.kava.SwapDeposit;
-import wannabit.io.cosmostaion.model.kava.SwapPool;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;

@@ -52,9 +52,6 @@ import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Price;
-import wannabit.io.cosmostaion.model.kava.Cdp;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
-import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Input;
@@ -3773,29 +3770,6 @@ public class WDp {
             rate.setTextColor(c.getResources().getColor(R.color.colorCdpDanger));
             score.setTextColor(c.getResources().getColor(R.color.colorCdpDanger));
         }
-    }
-
-    public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt, CollateralParam paramCdp, Cdp myCdp) {
-        BigDecimal result = BigDecimal.ZERO;
-        try {
-            long now   = Calendar.getInstance().getTimeInMillis();
-            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
-            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            long start = blockDateFormat.parse(myCdp.fees_updated).getTime();
-            Long gap  = (now - start)/1000;
-            //TODO 냥냥하게 패딩
-            gap = gap + 30;
-
-            Double double1 = Double.parseDouble(paramCdp.stability_fee);
-            Double double2 = gap.doubleValue();
-
-            Double pow = Math.pow(double1, double2);
-            result = outstandingDebt.multiply(new BigDecimal(pow.toString())).setScale(0, RoundingMode.UP).subtract(outstandingDebt);
-            return result;
-        } catch (Exception e) {
-            WLog.w("e " + e.getMessage());
-        }
-        return result;
     }
 
     public static BigDecimal getCdpGrpcHiddenFee(Context c, BigDecimal outstandingDebt, Genesis.CollateralParam paramCdp, QueryOuterClass.CDPResponse myCdp) {

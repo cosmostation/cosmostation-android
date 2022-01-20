@@ -446,10 +446,12 @@ public class MainSendFragment extends BaseFragment {
                 if (position == 0) {
                     return TYPE_KAVA;
                 } else if (position == 1) {
-                    return TYPE_PRICE;
+                    return TYPE_KAVA_INCENTIVE;
                 } else if (position == 2) {
-                    return TYPE_MINT;
+                    return TYPE_PRICE;
                 } else if (position == 3) {
+                    return TYPE_MINT;
+                } else if (position == 4) {
                     return TYPE_GIUDE;
                 }
 

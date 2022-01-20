@@ -13,13 +13,9 @@ import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaHardModuleAccount;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
-import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResLcdProposer;
-import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
@@ -34,22 +30,9 @@ public interface KavaChain {
     @GET("auth/accounts/{address}")
     Call<ResLcdKavaAccountInfo> getAccountInfo(@Path("address") String address);
 
-    @GET("distribution/delegators/{address}/withdraw_address")
-    Call<ResLcdWithDrawAddress> getWithdrawAddress(@Path("address") String address);
-
-    @GET("gov/proposals/{proposalId}/proposer")
-    Call<ResLcdProposer> getProposer(@Path("proposalId") String proposalId);
-
-    @GET("supply/total")
-    Call<ResKavaSupply> getSupply();
-
     @POST("txs")
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
-
-
-    @GET("pricefeed/price/{market}")
-    Call<ResKavaMarketPrice> getPrice(@Path("market") String market);
 
 
     @GET("bep3/parameters")

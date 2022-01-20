@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
-
 public class Redelegate {
     @SerializedName("delegator_address")
     public String delegator_address;

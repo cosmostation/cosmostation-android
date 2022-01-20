@@ -1123,7 +1123,7 @@ public class MainTokensFragment extends BaseFragment {
             Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorHard));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("HardPool Gov. Token");
 
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
@@ -1134,7 +1134,7 @@ public class MainTokensFragment extends BaseFragment {
             Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("USD Stable Asset");
 
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
@@ -1145,7 +1145,7 @@ public class MainTokensFragment extends BaseFragment {
             Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Kava Swap Token");
 
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
@@ -1362,7 +1362,7 @@ public class MainTokensFragment extends BaseFragment {
         Picasso.get().load(KAVA_COIN_IMG_URL+coin.denom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
         holder.itemSymbol.setText(coin.denom.toUpperCase());
         holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-        holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+        holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText(coin.denom.toUpperCase() + " on Kava Chain");
 
         BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);
