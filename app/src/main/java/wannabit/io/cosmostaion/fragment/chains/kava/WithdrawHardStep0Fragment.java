@@ -91,15 +91,7 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
         mMaxAvailable = WUtil.getHardSuppliedAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom, getBaseDao().mMyHardDeposits);
         WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mWithdrawDenomTx, mDWithdrawMaxTx, getSActivity().mBaseChain);
         WUtil.DpKavaTokenImg(getBaseDao(), mWithdrawImg, mHardMoneyMarketDenom);
-        if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
-            WDp.DpMainDenom(getSActivity(), getSActivity().mBaseChain.getChain(), mWithdrawSymbol);
-        } else if (mHardMoneyMarketDenom.equals(TOKEN_HARD)) {
-            mWithdrawSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
-            mWithdrawSymbol.setTextColor(getResources().getColor(R.color.colorHard));
-        } else {
-            mWithdrawSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
-            mWithdrawSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-        }
+        WUtil.dpKavaTokenName(getContext(), getBaseDao(), mWithdrawSymbol, mHardMoneyMarketDenom);
 
         mWithdrawInput.addTextChangedListener(new TextWatcher() {
             @Override

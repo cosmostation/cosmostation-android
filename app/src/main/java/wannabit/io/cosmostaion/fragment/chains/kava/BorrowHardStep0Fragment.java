@@ -94,15 +94,7 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
 
         WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mBorrowDenomTx, mBorrowMaxTx, getSActivity().mBaseChain);
         WUtil.DpKavaTokenImg(getBaseDao(), mBorrowImg, mHardMoneyMarketDenom);
-        if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
-            WDp.DpMainDenom(getSActivity(), getSActivity().mBaseChain.getChain(), mBorrowSymbol);
-        } else if (mHardMoneyMarketDenom.equals(TOKEN_HARD)) {
-            mBorrowSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
-            mBorrowSymbol.setTextColor(getResources().getColor(R.color.colorHard));
-        } else {
-            mBorrowSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
-            mBorrowSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-        }
+        WUtil.dpKavaTokenName(getContext(), getBaseDao(), mBorrowSymbol, mHardMoneyMarketDenom);
 
         mBorrowInput.addTextChangedListener(new TextWatcher() {
             @Override

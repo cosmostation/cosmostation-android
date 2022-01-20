@@ -38,7 +38,7 @@
                     <TextView
                         android:id="@+id/pool_title"
                         android:layout_below="@+id/market_img"
-                        android:layout_width="@dimen/space_64"
+                        android:layout_width="@dimen/space_72"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:ellipsize="end"

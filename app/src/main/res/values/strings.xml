@@ -1413,7 +1413,7 @@
     <string name="str_total_deposited_supplies">System Total Supplied</string>
     <string name="str_total_borrowed_supplies">System Total Borrowed</string>
     <string name="str_total_remain_supplies">System Remaining Borrowable</string>
-    <string name="str_my_harvest_information">Dashboard</string>
+    <string name="str_my_harvest_information">My Lend Status</string>
     <string name="str_deposit_harvest">Deposit Lend Supply</string>
     <string name="str_withdraw_harvest">Withdraw Lend</string>
     <string name="str_borrow_hard">Borrow from Lend</string>

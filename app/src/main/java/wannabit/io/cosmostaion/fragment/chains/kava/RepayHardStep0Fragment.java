@@ -94,16 +94,8 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
         mMaxAvailable = mBorrowedAmount.min(availableAmount);
         WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mRepayDenomTx, mRepayMaxTx, getSActivity().mBaseChain);
 
-        if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
-            WDp.DpMainDenom(getSActivity(), getSActivity().mBaseChain.getChain(), mRepaySymbol);
-        } else if (mHardMoneyMarketDenom.equals(TOKEN_HARD)) {
-            mRepaySymbol.setText(mHardMoneyMarketDenom.toUpperCase());
-            mRepaySymbol.setTextColor(getResources().getColor(R.color.colorHard));
-        } else {
-            mRepaySymbol.setText(mHardMoneyMarketDenom.toUpperCase());
-            mRepaySymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-        }
         WUtil.DpKavaTokenImg(getBaseDao(), mRepayImg, mHardMoneyMarketDenom);
+        WUtil.dpKavaTokenName(getContext(), getBaseDao(), mRepaySymbol, mHardMoneyMarketDenom);
 
         mRepayInput.addTextChangedListener(new TextWatcher() {
             @Override

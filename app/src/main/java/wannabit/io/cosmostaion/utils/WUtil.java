@@ -3776,6 +3776,8 @@ public class WUtil {
                 return new BigDecimal(KAVA_GAS_AMOUNT_JOIN_POOL);
             } else if (txType == CONST_PW_TX_KAVA_EXIT_POOL) {
                 return new BigDecimal(KAVA_GAS_AMOUNT_EXIT_POOL);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(KAVA_GAS_AMOUNT_EXIT_POOL);
             }
 
         } else if (basechain.equals(BAND_MAIN)) {

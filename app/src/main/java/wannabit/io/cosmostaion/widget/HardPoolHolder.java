@@ -58,9 +58,12 @@ public class HardPoolHolder extends BaseHolder {
     @Override
     public void onBindMyHardPool(Context context, BaseChain chain, BaseData baseData, Hard.Params hardParams, Hard.MoneyMarket hardMoneyMarket, IncentiveReward incentiveReward,
                                  ArrayList<QueryOuterClass.MoneyMarketInterestRate> HardInterestRates, ArrayList<QueryOuterClass.DepositResponse> myDeposit, ArrayList<QueryOuterClass.BorrowResponse> myBorrow, int position) {
+
+        String baseDenom = baseData.getBaseDenom(hardMoneyMarket.getDenom());
         try {
-            Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + hardMoneyMarket.getDenom() + ".png").fit().into(hardPoolImg);
+            Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + baseDenom + ".png").fit().into(hardPoolImg);
         } catch (Exception e) { }
+
         String marketTitle = hardParams.getMoneyMarkets(position).getSpotMarketId().replace(":30", "");
         hardPoolTitle.setText(marketTitle.toUpperCase());
 

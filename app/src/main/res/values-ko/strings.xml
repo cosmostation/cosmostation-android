@@ -1025,7 +1025,7 @@
     <string name="str_total_deposited_supplies">시스템 총 예치량</string>
     <string name="str_total_borrowed_supplies">시스템 총 대출량</string>
     <string name="str_total_remain_supplies">시스템 대출 가능량</string>
-    <string name="str_my_harvest_information">Dashboard</string>
+    <string name="str_my_harvest_information">My Lend Status</string>
     <string name="str_deposit_harvest">렌드 서플라이 입금</string>
     <string name="str_withdraw_harvest">렌드 서플라이 출금</string>
     <string name="str_borrow_hard">렌드 대출</string>

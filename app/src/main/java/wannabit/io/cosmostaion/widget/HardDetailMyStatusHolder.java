@@ -62,7 +62,7 @@ public class HardDetailMyStatusHolder extends BaseHolder {
         final Hard.MoneyMarket hardMoneyMarket              = WUtil.getHardMoneyMarket(hardParam, denom);
 
         WUtil.DpKavaTokenImg(baseData, mDepositCoinImg, hardMoneyMarket.getDenom());
-        WDp.showCoinDp(context, baseData, hardMoneyMarket.getDenom(), "0", mDepositCoinTitle, null, chain);
+        WUtil.dpKavaTokenName(context, baseData, mDepositCoinTitle, hardMoneyMarket.getDenom());
 
         //Display My Supply
         final BigDecimal totalSuppliedValue = WUtil.getHardSuppliedValueByDenom(context, baseData, denom, myDeposit);

@@ -60,8 +60,9 @@ public class HardDetailInfoHolder extends BaseHolder {
         final Hard.Params hardParam             = baseData.mHardParams;
         final Hard.MoneyMarket hardMoneyMarket  = WUtil.getHardMoneyMarket(hardParam, denom);
 
+        String baseDenom = baseData.getBaseDenom(hardMoneyMarket.getDenom());
         try {
-            Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + hardMoneyMarket.getDenom() + ".png").fit().into(mPoolImg);
+            Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + baseDenom + ".png").fit().into(mPoolImg);
         } catch (Exception e) { }
         String marketTitle = hardMoneyMarket.getSpotMarketId();
         mPoolTitle.setText(marketTitle.toUpperCase());

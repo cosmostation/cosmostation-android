@@ -41,7 +41,7 @@
                     <TextView
                         android:id="@+id/pool_title"
                         android:layout_below="@+id/market_img"
-                        android:layout_width="@dimen/space_64"
+                        android:layout_width="@dimen/space_72"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:ellipsize="end"
@@ -164,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/total_deposited_symbol"
                         android:layout_toLeftOf="@+id/total_deposited_symbol"
-                        android:layout_marginRight="@dimen/space_2"
+                        android:layout_marginRight="@dimen/space_4"
                         android:text=""
                         style="@style/font_ss_12_white"/>
                 </RelativeLayout>
@@ -204,7 +204,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/total_borrow_symbol"
                         android:layout_toLeftOf="@+id/total_borrow_symbol"
-                        android:layout_marginRight="@dimen/space_2"
+                        android:layout_marginRight="@dimen/space_4"
                         android:text=""
                         style="@style/font_ss_12_white"/>
                 </RelativeLayout>
@@ -244,7 +244,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/remain_borrowable_symbol"
                         android:layout_toLeftOf="@+id/remain_borrowable_symbol"
-                        android:layout_marginRight="@dimen/space_2"
+                        android:layout_marginRight="@dimen/space_4"
                         android:text=""
                         style="@style/font_ss_12_white"/>
                 </RelativeLayout>

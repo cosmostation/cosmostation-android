@@ -81,7 +81,7 @@
             android:id="@+id/btn_watch_address"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_12"
             android:clickable="true"
             android:gravity="center"
             android:orientation="vertical"

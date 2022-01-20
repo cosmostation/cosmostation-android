@@ -585,6 +585,7 @@ public class BaseConstant {
     public final static String KAVA_GAS_AMOUNT_SWAP                     = "800000";
     public final static String KAVA_GAS_AMOUNT_JOIN_POOL                = "800000";
     public final static String KAVA_GAS_AMOUNT_EXIT_POOL                = "800000";
+    public final static String KAVA_GAS_AMOUNT_IBC_SEND                 = "500000";
 
     public final static String BAND_GAS_AMOUNT_SEND                     = "100000";
     public final static String BAND_GAS_AMOUNT_STAKE                    = "200000";
@@ -594,7 +595,6 @@ public class BaseConstant {
     public final static String BAND_GAS_AMOUNT_VOTE                     = "100000";
     public final static String BAND_GAS_AMOUNT_IBC_SEND                 = "500000";
 
-//    public final static String IOV_GAS_RATE_AVERAGE                     = "1.00";
     public final static String IOV_GAS_AMOUNT_SEND                      = "100000";
     public final static String IOV_GAS_AMOUNT_STAKE                     = "200000";
     public final static String IOV_GAS_AMOUNT_REDELEGATE                = "300000";
