@@ -95,6 +95,7 @@ import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -1141,28 +1142,6 @@ public class WUtil {
                 if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
                 else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
                 else return 0;
-            }
-        });
-    }
-
-    public static void onSortingGrpcProposals(ArrayList<Gov.Proposal> proposals) {
-        Collections.sort(proposals, new Comparator<Gov.Proposal>() {
-            @Override
-            public int compare(Gov.Proposal o1, Gov.Proposal o2) {
-                if (o1.getProposalId() < o2.getProposalId()) return 1;
-                else if (o1.getProposalId() > o2.getProposalId()) return -1;
-                return 0;
-            }
-        });
-    }
-
-    public static void onSortingCtkGrpcProposals(ArrayList<shentu.gov.v1alpha1.Gov.Proposal> proposals) {
-        Collections.sort(proposals, new Comparator<shentu.gov.v1alpha1.Gov.Proposal>() {
-            @Override
-            public int compare(shentu.gov.v1alpha1.Gov.Proposal o1, shentu.gov.v1alpha1.Gov.Proposal o2) {
-                if (o1.getProposalId() < o2.getProposalId()) return 1;
-                else if (o1.getProposalId() > o2.getProposalId()) return -1;
-                return 0;
             }
         });
     }
@@ -2445,153 +2424,6 @@ public class WUtil {
         }
     }
 
-    public static void getVoteListType(Any proposalType, TextView proposalTitle, TextView proposalDetail) {
-         try {
-               if (proposalType.getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
-                   Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(textProposal.getTitle());
-                   proposalDetail.setText(textProposal.getDescription());
-               
-               } else if (proposalType.getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
-                   Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(parameterChangeProposal.getTitle());
-                   proposalDetail.setText(parameterChangeProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
-                   Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(clientUpdateProposal.getTitle());
-                   proposalDetail.setText(clientUpdateProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
-                   Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(communityPoolSpendProposal.getTitle());
-                   proposalDetail.setText(communityPoolSpendProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
-                   Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(softwareUpgradeProposal.getTitle());
-                   proposalDetail.setText(softwareUpgradeProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
-                   Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(cancelSoftwareUpgradeProposal.getTitle());
-                   proposalDetail.setText(cancelSoftwareUpgradeProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
-                   osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(updatePoolIncentivesProposal.getTitle());
-                   proposalDetail.setText(updatePoolIncentivesProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
-                   osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(replacePoolIncentivesProposal.getTitle());
-                   proposalDetail.setText(replacePoolIncentivesProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.ExchangeEnableProposal")) {
-                   Tx.ExchangeEnableProposal exchangeEnableProposal = Tx.ExchangeEnableProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(exchangeEnableProposal.getTitle());
-                   proposalDetail.setText(exchangeEnableProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.BatchExchangeModificationProposal")) {
-                   Tx.BatchExchangeModificationProposal batchExchangeModificationProposal = Tx.BatchExchangeModificationProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(batchExchangeModificationProposal.getTitle());
-                   proposalDetail.setText(batchExchangeModificationProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.SpotMarketParamUpdateProposal")) {
-                   Tx.SpotMarketParamUpdateProposal spotMarketParamUpdateProposal = Tx.SpotMarketParamUpdateProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(spotMarketParamUpdateProposal.getTitle());
-                   proposalDetail.setText(spotMarketParamUpdateProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.SpotMarketLaunchProposal")) {
-                   Tx.SpotMarketLaunchProposal spotMarketLaunchProposal = Tx.SpotMarketLaunchProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(spotMarketLaunchProposal.getTitle());
-                   proposalDetail.setText(spotMarketLaunchProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.PerpetualMarketLaunchProposal")) {
-                   Tx.PerpetualMarketLaunchProposal perpetualMarketLaunchProposal = Tx.PerpetualMarketLaunchProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(perpetualMarketLaunchProposal.getTitle());
-                   proposalDetail.setText(perpetualMarketLaunchProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal")) {
-                   Tx.ExpiryFuturesMarketLaunchProposal expiryFuturesMarketLaunchProposal = Tx.ExpiryFuturesMarketLaunchProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(expiryFuturesMarketLaunchProposal.getTitle());
-                   proposalDetail.setText(expiryFuturesMarketLaunchProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal")) {
-                   Tx.DerivativeMarketParamUpdateProposal derivativeMarketParamUpdateProposal = Tx.DerivativeMarketParamUpdateProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(derivativeMarketParamUpdateProposal.getTitle());
-                   proposalDetail.setText(derivativeMarketParamUpdateProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal")) {
-                   Tx.TradingRewardCampaignLaunchProposal tradingRewardCampaignLaunchProposal = Tx.TradingRewardCampaignLaunchProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(tradingRewardCampaignLaunchProposal.getTitle());
-                   proposalDetail.setText(tradingRewardCampaignLaunchProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal")) {
-                   Tx.TradingRewardCampaignUpdateProposal tradingRewardCampaignUpdateProposal = Tx.TradingRewardCampaignUpdateProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(tradingRewardCampaignUpdateProposal.getTitle());
-                   proposalDetail.setText(tradingRewardCampaignUpdateProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.FeeDiscountProposal")) {
-                   Tx.FeeDiscountProposal feeDiscountProposal = Tx.FeeDiscountProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(feeDiscountProposal.getTitle());
-                   proposalDetail.setText(feeDiscountProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal")) {
-                   Tx.BatchCommunityPoolSpendProposal batchCommunityPoolSpendProposal = Tx.BatchCommunityPoolSpendProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(batchCommunityPoolSpendProposal.getTitle());
-                   proposalDetail.setText(batchCommunityPoolSpendProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal")) {
-                   Oracle.GrantBandOraclePrivilegeProposal grantBandOraclePrivilegeProposal = Oracle.GrantBandOraclePrivilegeProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(grantBandOraclePrivilegeProposal.getTitle());
-                   proposalDetail.setText(grantBandOraclePrivilegeProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal")) {
-                   Oracle.RevokeBandOraclePrivilegeProposal revokeBandOraclePrivilegeProposal = Oracle.RevokeBandOraclePrivilegeProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(revokeBandOraclePrivilegeProposal.getTitle());
-                   proposalDetail.setText(revokeBandOraclePrivilegeProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal")) {
-                   Oracle.GrantBandOraclePrivilegeProposal grantBandOraclePrivilegeProposal = Oracle.GrantBandOraclePrivilegeProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(grantBandOraclePrivilegeProposal.getTitle());
-                   proposalDetail.setText(grantBandOraclePrivilegeProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal")) {
-                   Oracle.RevokePriceFeederPrivilegeProposal revokePriceFeederPrivilegeProposal = Oracle.RevokePriceFeederPrivilegeProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(revokePriceFeederPrivilegeProposal.getTitle());
-                   proposalDetail.setText(revokePriceFeederPrivilegeProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal")) {
-                   Oracle.AuthorizeBandOracleRequestProposal authorizeBandOracleRequestProposal = Oracle.AuthorizeBandOracleRequestProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(authorizeBandOracleRequestProposal.getTitle());
-                   proposalDetail.setText(authorizeBandOracleRequestProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.EnableBandIBCProposal")) {
-                   Oracle.EnableBandIBCProposal enableBandIBCProposal = Oracle.EnableBandIBCProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(enableBandIBCProposal.getTitle());
-                   proposalDetail.setText(enableBandIBCProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.oracle.v1beta1.UpdateBandOracleRequestProposal")) {
-                   Oracle.UpdateBandOracleRequestProposal updateBandOracleRequestProposal = Oracle.UpdateBandOracleRequestProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(updateBandOracleRequestProposal.getTitle());
-                   proposalDetail.setText(updateBandOracleRequestProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.ocr.v1beta1.SetConfigProposal")) {
-                   Ocr.SetConfigProposal setConfigProposal = Ocr.SetConfigProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(setConfigProposal.getTitle());
-                   proposalDetail.setText(setConfigProposal.getDescription());
-
-               } else if (proposalType.getTypeUrl().equals("/injective.ocr.v1beta1.UpdateBandOracleRequestProposal")) {
-                   Ocr.SetBatchConfigProposal setBatchConfigProposal = Ocr.SetBatchConfigProposal.parseFrom(proposalType.getValue());
-                   proposalTitle.setText(setBatchConfigProposal.getTitle());
-                   proposalDetail.setText(setBatchConfigProposal.getDescription());
-
-               }
-
-         } catch (Exception e){WLog.w("Ex " +e.getMessage());}
-    }
-
     public static String getMonikerName(String opAddress, ArrayList<Validator> validators, boolean bracket) {
         String result = "";
         for (Validator val:validators) {
@@ -2889,6 +2721,9 @@ public class WUtil {
             } else if (chain.equals(CHIHUAHUA_MAIN)) {
                 return BLOCK_TIME_CHIHUAHUA;
 
+            } else if (chain.equals(AXELAR_MAIN)) {
+                return BLOCK_TIME_AXELAR;
+
             }
         }
         return BigDecimal.ZERO;
@@ -3177,7 +3012,7 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_umee);
             guideMsg.setText(R.string.str_front_guide_msg_umee);
 
-        } else if (mainActivity.mBaseChain.equals(AXELAR_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(AXELAR_MAIN) || mainActivity.mBaseChain.equals(AXELAR_TEST)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_axelar));
             guideTitle.setText(R.string.str_front_guide_title_axelar);
             guideMsg.setText(R.string.str_front_guide_msg_axelar);
@@ -3293,7 +3128,7 @@ public class WUtil {
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
 
-        } else if (chain.equals(AXELAR_TEST)) {
+        } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://axelar.network/"));
         }
         return null;
@@ -3407,7 +3242,7 @@ public class WUtil {
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
 
-        } else if (chain.equals(AXELAR_TEST)) {
+        } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://axelar.network/blog"));
 
         }
@@ -3521,6 +3356,9 @@ public class WUtil {
 
         } else if (basechain.equals(KAVA_MAIN)) {
             return EXPLORER_KAVA_MAIN;
+
+        }  else if (basechain.equals(AXELAR_MAIN)) {
+            return EXPLORER_AXELAR_MAIN;
 
         }
 
@@ -3651,7 +3489,11 @@ public class WUtil {
         } else if (basechain.equals(KAVA_MAIN)) {
             return EXPLORER_KAVA_MAIN + "txs/" + hash;
 
+        } else if (basechain.equals(AXELAR_MAIN)) {
+            return EXPLORER_AXELAR_MAIN + "txs/" + hash;
+
         }
+
 
         else if (basechain.equals(COSMOS_TEST)) {
             return EXPLORER_COSMOS_TEST + "txs/" + hash;
@@ -4115,7 +3957,7 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(AXELAR_TEST)) {
+        } else if (basechain.equals(AXELAR_MAIN) || basechain.equals(AXELAR_TEST)) {
             BigDecimal gasRate = new BigDecimal(AXELAR_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -4343,9 +4185,7 @@ public class WUtil {
             }
             return new BigDecimal(JUNO_GAS_RATE_AVERAGE);
 
-        }
-
-        else if (basechain.equals(AXELAR_TEST)) {
+        } else if (basechain.equals(AXELAR_MAIN) || basechain.equals(AXELAR_TEST)) {
             if (position == 0) {
                 return new BigDecimal(AXELAR_GAS_RATE_TINY);
             } else if (position == 1) {

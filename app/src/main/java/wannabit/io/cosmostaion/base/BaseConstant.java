@@ -871,6 +871,7 @@ public class BaseConstant {
     public final static String EXPLORER_DESMOS_MAIN     = "https://www.mintscan.io/desmos/";
     public final static String EXPLORER_LUM_MAIN        = "https://www.mintscan.io/lum/";
     public final static String EXPLORER_CHIHUAHUA_MAIN  = "https://www.mintscan.io/chihuahua/";
+    public final static String EXPLORER_AXELAR_MAIN     = "https://www.mintscan.io/axelar/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
     public final static String NFT_INFURA               = "https://ipfs.infura.io/ipfs/";
@@ -918,6 +919,7 @@ public class BaseConstant {
     public final static String LUM_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/lum-network/relay-lum-unknown.png";
     public final static String CHIHUAHUA_UNKNOWN_RELAYER= "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/chihuahua/relay-chihuahua-unknown.png";
     public final static String KAVA_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/kava/relay-kava-unknown.png";
+    public final static String AXELAR_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/axelar/relay-axelar-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
     //NFT Denom Default config
@@ -960,4 +962,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_GRAV = new BigDecimal("6.4500");
     public final static BigDecimal BLOCK_TIME_LUM = new BigDecimal("5.7210");
     public final static BigDecimal BLOCK_TIME_CHIHUAHUA = new BigDecimal("5.8172");
+    public final static BigDecimal BLOCK_TIME_AXELAR = new BigDecimal("5.5596");
 }

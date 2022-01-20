@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -950,7 +951,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_AXELAR)) {
             holder.itemSymbol.setText(getString(R.string.str_axl_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AXELAR_TEST));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AXELAR_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Axelar Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);

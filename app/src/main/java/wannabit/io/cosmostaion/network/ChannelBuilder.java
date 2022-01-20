@@ -7,6 +7,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -132,6 +133,9 @@ public class ChannelBuilder {
     private final static String GRPC_KAVA_MAIN = "lcd-kava-app.cosmostation.io";
     private final static int PORT_KAVA_MAIN = 9090;
 
+    private final static String GRPC_AXELAR_MAIN = "lcd-axelar-app.cosmostation.io";
+    private final static int PORT_AXELAR_MAIN = 9090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -216,7 +220,8 @@ public class ChannelBuilder {
             return getChihuahuaMain();
         } else if (chain.equals(KAVA_MAIN)) {
             return getKavaMain();
-
+        } else if (chain.equals(AXELAR_MAIN)) {
+            return getAxelarMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -625,6 +630,19 @@ public class ChannelBuilder {
             }
         }
         return channel_kava_main;
+    }
+
+    //Channel for axelar main
+    private static ManagedChannel channel_axelar_main = null;
+    public static ManagedChannel getAxelarMain() {
+        if (channel_axelar_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_axelar_main = ManagedChannelBuilder.forAddress(GRPC_AXELAR_MAIN, PORT_AXELAR_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_axelar_main;
     }
 
     //Channel for stargate testnet

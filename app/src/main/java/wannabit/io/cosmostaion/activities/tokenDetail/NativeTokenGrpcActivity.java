@@ -172,11 +172,12 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
                 mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
                 mBtnAddressPopup.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgswp));
             }
-
             mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
             Picasso.get().load(KAVA_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
-            mBtnIbcSend.setVisibility(View.GONE);
+            if (WUtil.isBep3Coin(mNativeGrpcDenom)) {
+                mBtnIbcSend.setVisibility(View.GONE);
+            }
         }
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mNativeGrpcDenom));

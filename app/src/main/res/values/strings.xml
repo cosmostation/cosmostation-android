@@ -128,7 +128,8 @@
     <string name="url_api_chihuahua" translatable="false">https://api-chihuahua.cosmostation.io/</string>
 
 
-    <string name="url_api_axelar" translatable="false">https://api-axelar-testnet.cosmostation.io/</string>
+    <string name="url_api_axelar" translatable="false">https://api-axelar.cosmostation.io/</string>
+    <string name="url_api_axelar_test" translatable="false">https://api-axelar-testnet.cosmostation.io/</string>
 
 
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
@@ -235,6 +236,7 @@
     <string name="str_desmos_main_net" translatable="false">Desmos</string>
     <string name="str_lum_main_net" translatable="false">Lum</string>
     <string name="str_chihuahua_main_net" translatable="false">Chihuahua</string>
+    <string name="str_axelar_main_net" translatable="false">Axelar</string>
     <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
     <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
     <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
@@ -506,6 +508,8 @@
     <string name="str_lum_net2" translatable="false">Lum</string>
     <string name="str_chihuahua_net" translatable="false">(Chihuahua)</string>
     <string name="str_chihuahua_net2" translatable="false">Chihuahua</string>
+    <string name="str_axelar_net" translatable="false">(Axelar)</string>
+    <string name="str_axelar_net2" translatable="false">Axelar</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -557,6 +561,7 @@
     <string name="str_desmos_main" translatable="false">DESMOS</string>
     <string name="str_lum_main" translatable="false">LUM</string>
     <string name="str_chihuahua_main" translatable="false">CHIHUAHUA</string>
+    <string name="str_axelar_main" translatable="false">AXELAR</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
