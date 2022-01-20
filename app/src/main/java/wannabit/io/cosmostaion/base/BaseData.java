@@ -29,6 +29,7 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
+import desmos.profiles.v1beta1.ModelsProfile;
 import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import kava.pricefeed.v1beta1.QueryOuterClass;
@@ -487,36 +488,47 @@ public class BaseData {
 
     public ArrayList<Vesting.Period> onParseRemainVestingsByDenom(String denom) {
         ArrayList<Vesting.Period> result = new ArrayList<>();
-        if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+        if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
             try {
-                Vesting.PeriodicVestingAccount vestingAccount = Vesting.PeriodicVestingAccount.parseFrom(mGRpcAccount.getValue());
-                return WDp.onParsePeriodicRemainVestingsByDenom(vestingAccount, denom);
-            } catch (InvalidProtocolBufferException e) { }
+                ModelsProfile.Profile profile = ModelsProfile.Profile.parseFrom(mGRpcAccount.getValue());
+                if (profile.getAccount().getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+                    Vesting.PeriodicVestingAccount vestingAccount = Vesting.PeriodicVestingAccount.parseFrom(profile.getAccount().getValue());
+                    return WDp.onParsePeriodicRemainVestingsByDenom(vestingAccount, denom);
 
-        } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
-            try {
-                Vesting.ContinuousVestingAccount vestingAccount = Vesting.ContinuousVestingAccount.parseFrom(mGRpcAccount.getValue());
-                long cTime = Calendar.getInstance().getTime().getTime();
-                long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
-                if (cTime < vestingEnd) {
-                    for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
-                        if (vesting.getDenom().equals(denom)) {
-                            result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(vestingAccount.getBaseVestingAccount().getOriginalVestingList()).build());
+                } else if (profile.getAccount().getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())){
+                    Vesting.ContinuousVestingAccount vestingAccount = Vesting.ContinuousVestingAccount.parseFrom(profile.getAccount().getValue());
+                    long cTime = Calendar.getInstance().getTime().getTime();
+                    long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
+                    if (cTime < vestingEnd) {
+                        for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                            if (vesting.getDenom().equals(denom)) {
+                                result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(vestingAccount.getBaseVestingAccount().getOriginalVestingList()).build());
+                            }
                         }
                     }
                 }
             } catch (InvalidProtocolBufferException e) { }
-        }
-        return result;
-    }
 
-    public BigDecimal onParseRemainVestingsAmountSumByDenom(String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (Vesting.Period vps: onParseRemainVestingsByDenom(denom)) {
-            for (CoinOuterClass.Coin coin : vps.getAmountList()) {
-                if (coin.getDenom().equals(denom)) {
-                    result = result.add(new BigDecimal(coin.getAmount()));
-                }
+        } else {
+            if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+                try {
+                    Vesting.PeriodicVestingAccount vestingAccount = Vesting.PeriodicVestingAccount.parseFrom(mGRpcAccount.getValue());
+                    return WDp.onParsePeriodicRemainVestingsByDenom(vestingAccount, denom);
+                } catch (InvalidProtocolBufferException e) { }
+
+            } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+                try {
+                    Vesting.ContinuousVestingAccount vestingAccount = Vesting.ContinuousVestingAccount.parseFrom(mGRpcAccount.getValue());
+                    long cTime = Calendar.getInstance().getTime().getTime();
+                    long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
+                    if (cTime < vestingEnd) {
+                        for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                            if (vesting.getDenom().equals(denom)) {
+                                result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(vestingAccount.getBaseVestingAccount().getOriginalVestingList()).build());
+                            }
+                        }
+                    }
+                } catch (InvalidProtocolBufferException e) { }
             }
         }
         return result;
