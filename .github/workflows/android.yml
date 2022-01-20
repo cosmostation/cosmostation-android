@@ -21,6 +21,8 @@ jobs:
       run: echo ${{ secrets.KEYSTORE }} | base64 -d > app/debug.keystore
     - name: Make google service file
       run: echo "${{ secrets.GOOGLE_SERVICE }}" | base64 -d > app/google-services.json
+    - name: Make debug google service file
+      run: echo "${{ secrets.DEBUG_GOOGLE_SERVICE }}" | base64 -d > app/src/debug/google-services.json
     
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
