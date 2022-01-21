@@ -270,6 +270,10 @@ public class HtlcSendActivity extends BaseActivity {
     }
 
     public BigDecimal getAvailable() {
-        return mAccount.getTokenBalance(mToSwapDenom);
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            return getBaseDao().getAvailable(mToSwapDenom);
+        } else {
+            return mAccount.getTokenBalance(mToSwapDenom);
+        }
     }
 }

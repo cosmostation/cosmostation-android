@@ -261,6 +261,13 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_starname_renew_account);
                 } else if (msgType.contains("ReplaceAccountResources")) {
                     result = c.getString(R.string.tx_starname_update_resource);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
+                    result = c.getString(R.string.tx_kava_bep3_create);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP)) {
+                    result = c.getString(R.string.tx_kava_bep3_claim);
+
                 }
 
                 else if (msgType.contains("MsgCreatePool")) {
@@ -366,12 +373,6 @@ public class ResApiNewTxListCustom {
 
                 } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_CDP)) {
                     result = c.getString(R.string.tx_kava_liquidate_cdp);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
-                    result = c.getString(R.string.tx_kava_bep3_create);
-
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP)) {
-                    result = c.getString(R.string.tx_kava_bep3_claim);
 
                 } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
                     result = c.getString(R.string.tx_kava_bep3_refund);
