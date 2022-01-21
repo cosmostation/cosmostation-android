@@ -237,7 +237,7 @@ public class HardDetailActivity extends BaseActivity {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (WUtil.getHardBorrowedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyBorrow).compareTo(BigDecimal.TEN) <= 0) {
+        if (WUtil.getHardBorrowedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyBorrow).compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_noting_repay_asset, Toast.LENGTH_SHORT).show();
             return;
         }
