@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.squareup.picasso.Picasso;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -29,8 +27,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 
 public class ListKavaSwapFragment extends BaseFragment implements View.OnClickListener{
 
@@ -117,15 +113,22 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         mAllDenoms = getSActivity().mAllDenoms;
 
         if (mSwapPoolList != null && mSwapParams != null) {
-            mSelectedPool = mSwapPoolList.get(0);
-            mInputCoinDenom = "ukava";
-            mOutputCoinDenom = "usdx";
+            for(QueryOuterClass.PoolResponse pool: mSwapPoolList) {
+                if (pool.getCoins(0).getDenom().equals("ukava") && pool.getCoins(1).getDenom().equals("usdx")) {
+                    mSelectedPool = pool;
+                    mInputCoinDenom = "ukava";
+                    mOutputCoinDenom = "usdx";
+                }
+            }
         }
 
         onUpdateView();
     }
 
     private void onUpdateView() {
+        if (mSelectedPool == null) {
+            getSActivity().onBackPressed();
+        }
         WUtil.DpKavaTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
         WUtil.DpKavaTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
         WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mInputCoin, mInputCoinDenom);
@@ -155,6 +158,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
         inputAmount = inputAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mInputCoinDenom));
         outputAmount = outputAmount.movePointLeft(WUtil.getKavaCoinDecimal(getBaseDao(), mOutputCoinDenom));
+
         BigDecimal swapRate = outputAmount.divide(inputAmount, 16, RoundingMode.DOWN);
 
         mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputCoinDecimal));
