@@ -168,6 +168,8 @@ public class BaseData {
                     return ibcToken.display_denom;
                 }
                 return ibcToken.base_denom;
+            } else {
+                return "UNKNOWN";
             }
         } else if (denom.startsWith("c")) {
             return denom.substring(1);
@@ -853,6 +855,10 @@ public class BaseData {
             return "CHF";
         } else if (getCurrency() == 14) {
             return "AUD";
+        } else if (getCurrency() == 15) {
+            return "CAD";
+        } else if (getCurrency() == 16) {
+            return "MYR";
         }
         return "";
     }
@@ -888,6 +894,10 @@ public class BaseData {
             return "sFr";
         } else if (getCurrency() == 14) {
             return "AU$";
+        } else if (getCurrency() == 15) {
+            return "$";
+        } else if (getCurrency() == 16) {
+            return "RM";
         }
         return "";
     }

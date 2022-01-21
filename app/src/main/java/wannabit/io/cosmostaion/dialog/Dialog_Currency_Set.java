@@ -49,6 +49,8 @@ public class Dialog_Currency_Set extends DialogFragment {
         LinearLayout sek_layer = view.findViewById(R.id.sek_layer);
         LinearLayout chf_layer = view.findViewById(R.id.chf_layer);
         LinearLayout aud_layer = view.findViewById(R.id.aud_layer);
+        LinearLayout cad_layer = view.findViewById(R.id.cad_layer);
+        LinearLayout myr_layer = view.findViewById(R.id.myr_layer);
 
         usd_layer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,6 +210,28 @@ public class Dialog_Currency_Set extends DialogFragment {
             public void onClick(View v) {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 14);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
+
+            }
+        });
+
+        cad_layer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("currency", 15);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
+
+            }
+        });
+
+        myr_layer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("currency", 16);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                 getDialog().dismiss();
 

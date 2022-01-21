@@ -1665,6 +1665,8 @@
     <string name="currency_sek">SEK</string>
     <string name="currency_chf">CHF</string>
     <string name="currency_aud">AUD</string>
+    <string name="currency_cad">CAD</string>
+    <string name="currency_myr">MYR</string>
 
     <string name="currency_usd_symbol">$</string>
     <string name="currency_eur_symbol">€</string>
@@ -1681,5 +1683,7 @@
     <string name="currency_sek_symbol">Kr</string>
     <string name="currency_chf_symbol">sFr</string>
     <string name="currency_aud_symbol">AU$</string>
+    <string name="currency_cad_symbol">$</string>
+    <string name="currency_myr_symbol">RM</string>
 
 </resources>

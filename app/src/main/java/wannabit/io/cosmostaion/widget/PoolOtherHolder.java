@@ -92,7 +92,7 @@ public class PoolOtherHolder extends BaseHolder {
         BigDecimal coin0value = new BigDecimal(coin0.getAmount()).multiply(coin0price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
         BigDecimal coin1value = new BigDecimal(coin1.getAmount()).multiply(coin1price).movePointLeft(coin1Decimal).setScale(2, RoundingMode.DOWN);
 
-        itemPoolType.setText(otherPool.getName().toUpperCase());
+        itemPoolType.setText(WUtil.getKavaTokenName(baseData, coin0.getDenom()) + " : " + WUtil.getKavaTokenName(baseData, coin1.getDenom()));
 
         // Total deposit
         BigDecimal poolValue = coin0value.add(coin1value);
