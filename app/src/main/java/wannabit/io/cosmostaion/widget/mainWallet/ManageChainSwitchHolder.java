@@ -222,7 +222,6 @@ public class ManageChainSwitchHolder extends BaseHolder {
                     return;
                 } else {
                     mainActivity.onHideTopAccountsView();
-                    mainActivity.onShowWaitDialog();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {

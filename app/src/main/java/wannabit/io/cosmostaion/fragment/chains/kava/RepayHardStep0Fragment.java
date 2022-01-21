@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.squareup.picasso.Picasso;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -27,10 +25,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class RepayHardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -89,7 +83,7 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
         mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
 
-        mBorrowedAmount = WUtil.getHardBorrowedAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom, getBaseDao().mMyHardBorrows).multiply(new BigDecimal("1.05"));
+        mBorrowedAmount = WUtil.getHardBorrowedAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom, getBaseDao().mMyHardBorrows).multiply(new BigDecimal("1.05")).setScale(0, RoundingMode.DOWN);
         BigDecimal availableAmount = getBaseDao().getAvailable(mHardMoneyMarketDenom);
         mMaxAvailable = mBorrowedAmount.min(availableAmount);
         WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mRepayDenomTx, mRepayMaxTx, getSActivity().mBaseChain);
