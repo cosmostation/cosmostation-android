@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -79,15 +82,12 @@ import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxBorrowHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCdpLiquidateHolder;
-import wannabit.io.cosmostaion.widget.txDetail.kava.TxClaimAtomicSwapHolder;
-import wannabit.io.cosmostaion.widget.txDetail.kava.TxCreateAtomicSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCreateCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDelegatorIncentiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDrawDebtCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardIncentiveHolder;
-import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaDepositPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaWithdrawPoolHolder;
@@ -112,9 +112,6 @@ import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateEthBridgeHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateUserClaimHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxRemoveLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
 
 public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener, Dialog_MoreWait.OnTxWaitListener {
     private Toolbar         mToolbar;
@@ -562,13 +559,15 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_KAVA_CDP_LIQUIDATE) {
                 return new TxCdpLiquidateHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidate_cdp, viewGroup, false));
 
-            } else if (viewType == TYPE_TX_KAVA_HTLC_CREATE) {
-                return new TxCreateAtomicSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_create, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_KAVA_HTLC_CLAIM) {
-                return new TxClaimAtomicSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
-
             }
+
+//            else if (viewType == TYPE_TX_KAVA_HTLC_CREATE) {
+//                return new TxCreateAtomicSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_create, viewGroup, false));
+//
+//            } else if (viewType == TYPE_TX_KAVA_HTLC_CLAIM) {
+//                return new TxClaimAtomicSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
+//
+//            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
