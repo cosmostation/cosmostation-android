@@ -229,64 +229,6 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
                 }
 
-            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
-                mDivideDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), toSendDenom);
-                mDisplayDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), toSendDenom);
-
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-                if (toSendDenom.equals(TOKEN_KAVA)) {
-                    mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, mDivideDecimal, mDisplayDecimal));
-                    mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), mDivideDecimal, mDisplayDecimal));
-                    mTotalPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, feeAmount.add(toSendAmount), mDivideDecimal));
-
-                    BigDecimal currentAvai  = getBaseDao().getAvailable(toSendDenom);
-                    mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, mDivideDecimal, mDisplayDecimal));
-                    mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), mDivideDecimal, mDisplayDecimal));
-                    mRemainingPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, currentAvai.subtract(toSendAmount).subtract(feeAmount), mDivideDecimal));
-
-                } else {
-                    mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorWhite));
-                    mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorWhite));
-                    mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorWhite));
-                    mTotalSpendLayer.setVisibility(View.GONE);
-                    mTotalPrice.setVisibility(View.GONE);
-                    mRemainingPrice.setVisibility(View.GONE);
-
-                    BigDecimal currentAvai  = getBaseDao().getAvailable(toSendDenom);
-                    WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, toSendAmount.toPlainString(), mDenomSendAmount, mSendAmount, getSActivity().mBaseChain);
-                    WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, currentAvai.toPlainString(), mDenomCurrentAmount, mCurrentBalance, getSActivity().mBaseChain);
-                    WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, currentAvai.subtract(toSendAmount).toPlainString(), mDenomRemainAmount, mRemainingBalance, getSActivity().mBaseChain);
-                }
-
-            } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
-                mDivideDecimal = WUtil.getSifCoinDecimal(getBaseDao(), toSendDenom);
-                mDisplayDecimal = WUtil.getSifCoinDecimal(getBaseDao(), toSendDenom);
-
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 18, 18));
-                if (toSendDenom.equals(TOKEN_SIF)) {
-                    mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, mDivideDecimal, mDisplayDecimal));
-                    mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), mDivideDecimal, mDisplayDecimal));
-                    mTotalPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_SIF, feeAmount.add(toSendAmount), mDivideDecimal));
-
-                    BigDecimal currentAvai  = getBaseDao().getAvailable(toSendDenom);
-                    mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, mDivideDecimal, mDisplayDecimal));
-                    mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), mDivideDecimal, mDisplayDecimal));
-                    mRemainingPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_SIF, currentAvai.subtract(toSendAmount).subtract(feeAmount), mDivideDecimal));
-
-                } else {
-                    mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorWhite));
-                    mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorWhite));
-                    mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorWhite));
-                    mTotalSpendLayer.setVisibility(View.GONE);
-                    mTotalPrice.setVisibility(View.GONE);
-                    mRemainingPrice.setVisibility(View.GONE);
-
-                    BigDecimal currentAvai  = getBaseDao().getAvailable(toSendDenom);
-                    WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, toSendAmount.toPlainString(), mDenomSendAmount, mSendAmount, getSActivity().mBaseChain);
-                    WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, currentAvai.toPlainString(), mDenomCurrentAmount, mCurrentBalance, getSActivity().mBaseChain);
-                    WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mDenom, currentAvai.subtract(toSendAmount).toPlainString(), mDenomRemainAmount, mRemainingBalance, getSActivity().mBaseChain);
-
-                }
             }
 
             else {
