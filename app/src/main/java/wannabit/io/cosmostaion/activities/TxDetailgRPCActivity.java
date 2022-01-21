@@ -77,6 +77,7 @@ import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCAcknowledgeHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCReceiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxBorrowHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCdpLiquidateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCreateCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDelegatorIncentiveHolder;
@@ -535,6 +536,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_KAVA_WITHDRAW_HARD) {
                 return new TxWithdrawHardHolder(getLayoutInflater().inflate(R.layout.item_tx_withdraw_harvest, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_BORROW_HARD) {
+                return new TxBorrowHardHolder(getLayoutInflater().inflate(R.layout.item_tx_borrow_hard, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_REPAY_HARD) {
+                return new TxRepayHardHolder(getLayoutInflater().inflate(R.layout.item_tx_repay_hard, viewGroup, false));
 
             } else if (viewType == TYPE_TX_KAVA_INCENTIVE_MINT) {
                 return new TxMintingIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_incentive_reward, viewGroup, false));
