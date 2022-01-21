@@ -3833,7 +3833,7 @@ public class WUtil {
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(OSMOSIS_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(OSMOSIS_GAS_RATE_AVERAGE);
+            BigDecimal gasRate = new BigDecimal(OSMOSIS_GAS_RATE_TINY);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 

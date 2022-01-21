@@ -228,7 +228,7 @@ public class ManageChainSwitchHolder extends BaseHolder {
                             mainActivity.getBaseDao().setLastUser(dpAccount.id);
                             mainActivity.onAccountSwitched();
                         }
-                    },200);
+                    },400);
                 }
             }
         });
