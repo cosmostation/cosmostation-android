@@ -251,7 +251,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShowWaitDialog() {
-        mDialogWait = new Dialog_Wait();
+        if (mDialogWait == null) {
+            mDialogWait = new Dialog_Wait();
+        }
+        if (getSupportFragmentManager().findFragmentByTag("wait") != null && getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
+            return;
+        }
+
         mDialogWait.setCancelable(false);
         getSupportFragmentManager().beginTransaction().add(mDialogWait, "wait").commitNowAllowingStateLoss();
     }

@@ -247,25 +247,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) {
             }
         });
-        onAccountSwitched();
-        onShowWaitDialog();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (!getBaseDao().getLastUser().equals(mAccount.id.toString())) {
-            onShowWaitDialog();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getBaseDao().setLastUser(Long.parseLong(getBaseDao().getLastUser()));
-                    onAccountSwitched();
-                }
-            },200);
-        } else {
-            onUpdateTitle();
-        }
+        onAccountSwitched();
         mAccountRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));
         onChainSelect(mBaseChain);
     }
@@ -281,22 +268,37 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onAccountSwitched() {
+        boolean needFetch = false;
+        Account supportedAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+
+        if (mAccount == null) {
+            needFetch = true;
+        } else if (!supportedAccount.id.toString().equals(getBaseDao().getLastUser())) {
+            getBaseDao().setLastUser(supportedAccount.id);
+            needFetch = true;
+        } else if (!getBaseDao().getLastUser().equals(mAccount.id.toString())) {
+            needFetch = true;
+        }
+
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorWhite));
-        WDp.getChainImg(MainActivity.this, mBaseChain, mToolbarChainImg);
-        WDp.getChainTitle(MainActivity.this, mBaseChain, mToolbarChainName);
-        mToolbarChainName.setTextColor(WDp.getChainColor(MainActivity.this, mBaseChain));
-        WDp.getFloatBtn(MainActivity.this, mBaseChain, mFloatBtn);
+        if (needFetch) {
+            onShowWaitDialog();
+            onFetchAllData();
 
+            mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorWhite));
+            WDp.getChainImg(MainActivity.this, mBaseChain, mToolbarChainImg);
+            WDp.getChainTitle(MainActivity.this, mBaseChain, mToolbarChainName);
+            mToolbarChainName.setTextColor(WDp.getChainColor(MainActivity.this, mBaseChain));
+            WDp.getFloatBtn(MainActivity.this, mBaseChain, mFloatBtn);
+
+            mSelectedChain = mBaseChain;
+            mAccountRecyclerView.setAdapter(mAccountListAdapter);
+            mAccountRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));
+            onChainSelect(mSelectedChain);
+        }
         onUpdateTitle();
-        onFetchAllData();
-
-        mSelectedChain = mBaseChain;
-        mAccountRecyclerView.setAdapter(mAccountListAdapter);
-        mAccountRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));
-        onChainSelect(mSelectedChain);
     }
 
     private void onChainSelect(BaseChain baseChain) {
