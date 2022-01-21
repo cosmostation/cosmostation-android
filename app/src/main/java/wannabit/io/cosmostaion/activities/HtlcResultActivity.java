@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcClaimTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcCreateTask;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaClaimHTLCGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaCreateHTLCGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -397,40 +398,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                         mResReceiveBnbTxInfo = response.body();
                         onUpdateView();
                     } else {
-                        if (ClaimFetchCnt < 20) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ClaimFetchCnt++;
-                                    onFetchClaimTx(hash);
-                                }
-                            }, 3000);
-
-                        } else {
-                            onUpdateView();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
-                    WLog.w("onFetchClaimTx BNB onFailure");
-                    if(BuildConfig.DEBUG) t.printStackTrace();
-                    onUpdateView();
-                }
-            });
-
-        } else if (mRecipientChain.equals(BaseChain.BNB_TEST)) {
-            ApiClient.getBnbTestChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
-                @Override
-                public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
-                    if(isFinishing()) return;
-                    WLog.w("onFetchClaimTx " + response.toString());
-                    if(response.isSuccessful() && response.body() != null) {
-                        mResReceiveBnbTxInfo = response.body();
-                        onUpdateView();
-                    } else {
-                        if (ClaimFetchCnt < 20) {
+                        if (ClaimFetchCnt < 50) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -542,7 +510,12 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     //Claim HTLC TX
     private void onClaimHTLC() {
         onUpdateProgress(2);
-        new HtlcClaimTask(getBaseApplication(), this, mRecipientAccount, mRecipientChain, mClaimFee, mExpectedSwapId, mRandomNumber).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            new KavaClaimHTLCGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mExpectedSwapId, mRandomNumber, mClaimFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            new HtlcClaimTask(getBaseApplication(), this, mRecipientAccount, mRecipientChain, mClaimFee, mExpectedSwapId, mRandomNumber).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+
 
     }
 
@@ -578,16 +551,6 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     public void onTaskResponse(TaskResult result) {
         if (result.taskType == TASK_GRPC_GEN_TX_KAVA_CREATE_HTLC) {
             if (result.isSuccess) {
-
-            }
-        }
-
-
-        if (result.taskType == TASK_GEN_TX_HTLC_CREATE) {
-            if (result.isSuccess) {
-                WLog.w("Create HTLC HASH " + result.resultData.toString());
-                WLog.w("Expected SwapID " + result.resultData2);
-                WLog.w("RandomNumber SwapID " + result.resultData3);
                 mCreateTxHash = result.resultData.toString();
                 mExpectedSwapId = result.resultData2;
                 mRandomNumber = result.resultData3;
@@ -603,6 +566,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 getSupportFragmentManager().beginTransaction().add(swapError, "dialog").commitNowAllowingStateLoss();
 
             }
+
         } else if (result.taskType == TASK_GEN_TX_HTLC_CLAIM) {
             if (result.isSuccess) {
                 WLog.w("CLAIM HTLC HASH " + result.resultData.toString());

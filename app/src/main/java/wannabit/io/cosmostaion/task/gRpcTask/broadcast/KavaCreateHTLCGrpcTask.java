@@ -19,7 +19,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
@@ -31,8 +30,15 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_XRPB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_KAVA_CREATE_HTLC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 public class KavaCreateHTLCGrpcTask extends CommonTask {
 
@@ -46,6 +52,10 @@ public class KavaCreateHTLCGrpcTask extends CommonTask {
     private Fee                     mFees;
     private String                  mChainId;
 
+    private String                  mRandomNumber;
+    private String                  mExpectedSwapId;
+
+
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
@@ -58,7 +68,7 @@ public class KavaCreateHTLCGrpcTask extends CommonTask {
         this.mTo = to;
         this.mSendTo = sendTo;
         this.mTimeStamp = Calendar.getInstance().getTimeInMillis() / 1000;
-        this.mRandomNumberHash = ArrayUtils.addAll(RandomUtils.nextBytes(32), WUtil.long2Bytes(mTimeStamp)).toString();
+        this.mRandomNumberHash = "";
         this.mMemo = mApp.getString(R.string.str_create_swap_memo_c);
         this.mFees = fee;
         this.mChainId = chainId;
@@ -68,13 +78,6 @@ public class KavaCreateHTLCGrpcTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        Password checkPw = mApp.getBaseDao().onSelectPassword();
-        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
-            mResult.isSuccess = false;
-            mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
-            return mResult;
-        }
-
         try {
             if (mAccount.fromMnemonic) {
                 String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -89,6 +92,24 @@ public class KavaCreateHTLCGrpcTask extends CommonTask {
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
             mAuthResponse = authStub.account(request);
 
+            byte[] randomNumber  = RandomUtils.nextBytes(32);
+            mRandomNumber = WUtil.ByteArrayToHexString(randomNumber).toUpperCase();
+
+
+//            if (mSendTo.get(0).denom.equals(TOKEN_HTLC_KAVA_BNB)) {
+//                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_MAIN_BNB_DEPUTY, mFrom).toUpperCase();
+//
+//            } else if (mSendTo.get(0).denom.equals(TOKEN_HTLC_KAVA_BTCB)) {
+//                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_MAIN_BTCB_DEPUTY, mFrom).toUpperCase();
+//
+//            } else if (mSendTo.get(0).denom.equals(TOKEN_HTLC_KAVA_XRPB)) {
+//                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_MAIN_XRPB_DEPUTY, mFrom).toUpperCase();
+//
+//            } else if (mSendTo.get(0).denom.equals(TOKEN_HTLC_KAVA_BUSD)) {
+//                mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_MAIN_BUSD_DEPUTY, mFrom).toUpperCase();
+//
+//            }
+
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaCreateHTLCSwapReq(mAuthResponse, mFrom, mTo, mSendTo, mTimeStamp, mRandomNumberHash, mFees, mMemo, ecKey, mChainId);
@@ -100,6 +121,8 @@ public class KavaCreateHTLCGrpcTask extends CommonTask {
                 mResult.isSuccess = false;
             } else {
                 mResult.isSuccess = true;
+                mResult.resultData2 = mExpectedSwapId;
+                mResult.resultData3 = mRandomNumber;
             }
 
         } catch (Exception e) {

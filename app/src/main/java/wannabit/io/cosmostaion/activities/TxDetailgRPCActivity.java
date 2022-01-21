@@ -79,6 +79,8 @@ import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxBorrowHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCdpLiquidateHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxClaimAtomicSwapHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxCreateAtomicSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCreateCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDelegatorIncentiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositCdpHolder;
@@ -317,6 +319,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_KAVA_INCENTIVE_SWAP = 126;
         private static final int TYPE_TX_KAVA_CDP_LIQUIDATE = 127;
         private static final int TYPE_TX_KAVA_HARD_LIQUIDATE = 128;
+        private static final int TYPE_TX_KAVA_HTLC_CREATE = 129;
+        private static final int TYPE_TX_KAVA_HTLC_CLAIM = 130;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -558,8 +562,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_KAVA_CDP_LIQUIDATE) {
                 return new TxCdpLiquidateHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidate_cdp, viewGroup, false));
 
-            } else if (viewType == TYPE_TX_KAVA_HARD_LIQUIDATE) {
-                return new TxHardPoolLiquidateHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidate_hard, viewGroup, false));
+            } else if (viewType == TYPE_TX_KAVA_HTLC_CREATE) {
+                return new TxCreateAtomicSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_create, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_HTLC_CLAIM) {
+                return new TxClaimAtomicSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
+
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -762,6 +770,10 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_CDP_LIQUIDATE;
                 } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgLiquidate.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_HARD_LIQUIDATE;
+                } else if (msg.getTypeUrl().contains(kava.bep3.v1beta1.Tx.MsgCreateAtomicSwap.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_HTLC_CREATE;
+                } else if (msg.getTypeUrl().contains(kava.bep3.v1beta1.Tx.MsgClaimAtomicSwap.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_HTLC_CLAIM;
                 }
                 return TYPE_TX_UNKNOWN;
             }

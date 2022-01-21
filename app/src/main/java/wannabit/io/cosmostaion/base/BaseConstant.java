@@ -217,6 +217,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_KAVA_REPAY_HARD            = 4344;
     public final static int TASK_GRPC_GEN_TX_KAVA_CLAIM_INCENTIVES      = 4345;
     public final static int TASK_GRPC_GEN_TX_KAVA_CREATE_HTLC           = 4346;
+    public final static int TASK_GRPC_GEN_TX_KAVA_CLAIM_HTLC            = 4347;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -320,9 +321,9 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_DRAWDEBT_CDP                   = "/kava.cdp.v1beta1.MsgDrawDebt";
     public final static String KAVA_MSG_TYPE_REPAYDEBT_CDP                  = "/kava.cdp.v1beta1.MsgRepayDebt";
     public final static String KAVA_MSG_TYPE_LIQUIDATE_CDP                  = "/kava.cdp.v1beta1.MsgLiquidate";
-    public final static String KAVA_MSG_TYPE_BEP3_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
-    public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "bep3/MsgClaimAtomicSwap";
-    public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
+    public final static String KAVA_MSG_TYPE_BEP3_CREATE_SWAP               = "/kava.bep3.v1beta1.MsgCreateAtomicSwap";
+    public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "/kava.bep3.v1beta1.MsgClaimAtomicSwap";
+    public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "/kava.bep3.v1beta1.MsgRefundAtomicSwap";
     public final static String KAVA_MSG_TYPE_INCENTIVE_REWARD               = "incentive/MsgClaimReward";
     public final static String KAVA_MSG_TYPE_USDX_MINT_INCENTIVE            = "/kava.incentive.v1beta1.MsgClaimUSDXMintingReward";
     public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE           = "/kava.incentive.v1beta1.MsgClaimHardReward";
