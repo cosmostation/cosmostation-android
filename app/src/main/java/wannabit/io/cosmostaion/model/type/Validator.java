@@ -7,8 +7,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
 
-import wannabit.io.cosmostaion.network.res.ResKeyBaseUser;
-
 public class Validator implements Parcelable {
 
     public static final int UNBONDED    = 0;
@@ -48,8 +46,6 @@ public class Validator implements Parcelable {
 
     @SerializedName("commission")
     public ValidatorCommission commission;
-
-    public ResKeyBaseUser keybaseInfo;
 
     public BigDecimal getCommission() {
         return new BigDecimal(commission.commission_rates.rate);

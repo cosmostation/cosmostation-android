@@ -192,20 +192,6 @@ public class HardDetailActivity extends BaseActivity {
     }
 
 
-
-//    public boolean hasHardPool() {
-//        boolean result = false;
-//        if (mMyDeposit != null && mMyDeposit.size() > 0) {
-//            for (Coin coin: mMyDeposit.get(0).amount) {
-//                if (coin.denom.equals(mHardMoneyMarket.denom)) {
-//                    result = true;
-//                }
-//            }
-//        }
-//
-//        return result;
-//    }
-
     public void onHardDeposit() {
         if (!onCommonCheck()) return;
         if ((getBaseDao().getAvailable(mHardMoneyMarketDenom)).compareTo(BigDecimal.ZERO) <= 0) {

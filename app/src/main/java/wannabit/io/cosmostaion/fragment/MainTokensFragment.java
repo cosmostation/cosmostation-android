@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -950,7 +951,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_AXELAR)) {
             holder.itemSymbol.setText(getString(R.string.str_axl_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AXELAR_TEST));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AXELAR_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Axelar Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
@@ -1123,7 +1124,7 @@ public class MainTokensFragment extends BaseFragment {
             Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorHard));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("HardPool Gov. Token");
 
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
@@ -1134,7 +1135,7 @@ public class MainTokensFragment extends BaseFragment {
             Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("USD Stable Asset");
 
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
@@ -1145,7 +1146,7 @@ public class MainTokensFragment extends BaseFragment {
             Picasso.get().load(KAVA_COIN_IMG_URL + coin.denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Kava Swap Token");
 
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
@@ -1362,7 +1363,7 @@ public class MainTokensFragment extends BaseFragment {
         Picasso.get().load(KAVA_COIN_IMG_URL+coin.denom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
         holder.itemSymbol.setText(coin.denom.toUpperCase());
         holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-        holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+        holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText(coin.denom.toUpperCase() + " on Kava Chain");
 
         BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);

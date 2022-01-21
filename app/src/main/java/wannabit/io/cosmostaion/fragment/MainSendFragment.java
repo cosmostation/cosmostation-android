@@ -61,6 +61,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletUmeeHolder;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -446,10 +447,12 @@ public class MainSendFragment extends BaseFragment {
                 if (position == 0) {
                     return TYPE_KAVA;
                 } else if (position == 1) {
-                    return TYPE_PRICE;
+                    return TYPE_KAVA_INCENTIVE;
                 } else if (position == 2) {
-                    return TYPE_MINT;
+                    return TYPE_PRICE;
                 } else if (position == 3) {
+                    return TYPE_MINT;
+                } else if (position == 4) {
                     return TYPE_GIUDE;
                 }
 
@@ -484,7 +487,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(LUM_MAIN)) { return TYPE_LUM; }
                     else if (getMainActivity().mBaseChain.equals(CHIHUAHUA_MAIN)) { return TYPE_CHIHUAHUA; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
-                    else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
+                    else if (getMainActivity().mBaseChain.equals(AXELAR_MAIN) || getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
                 } else if (position == 1) {
                     return TYPE_PRICE;
                 } else if (position == 2) {

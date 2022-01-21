@@ -37,6 +37,7 @@ import static org.bitcoinj.core.ECKey.CURVE;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -443,7 +444,7 @@ public class WKey {
                 result = bech32Encode("chihuahua".getBytes(), converted);
             } else if (chain.equals(UMEE_TEST)){
                 result = bech32Encode("umee".getBytes(), converted);
-            } else if (chain.equals(AXELAR_TEST)){
+            } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)){
                 result = bech32Encode("axelar".getBytes(), converted);
             }
 
@@ -522,7 +523,7 @@ public class WKey {
             return bech32Encode("chihuahua".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umee".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(AXELAR_TEST)) {
+        } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
             return bech32Encode("axelar".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
@@ -594,7 +595,7 @@ public class WKey {
             return bech32Encode("chihuahuaaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umeevaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(AXELAR_TEST)) {
+        } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
             return bech32Encode("axelarvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";

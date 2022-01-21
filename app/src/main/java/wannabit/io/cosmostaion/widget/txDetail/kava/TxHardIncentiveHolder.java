@@ -35,10 +35,10 @@ public class TxHardIncentiveHolder extends TxHolder {
         itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
         itemSender = itemView.findViewById(R.id.tx_incentive_sender);
         itemMultiplier = itemView.findViewById(R.id.tx_multiplier_name);
-        itemKavaDenom = itemView.findViewById(R.id.kava_symbol);
-        itemKavaAmount = itemView.findViewById(R.id.kava_amount);
-        itemHardDenom = itemView.findViewById(R.id.hard_symbol);
-        itemHardAmount = itemView.findViewById(R.id.hard_amount);
+//        itemKavaDenom = itemView.findViewById(R.id.kava_symbol);
+//        itemKavaAmount = itemView.findViewById(R.id.kava_amount);
+//        itemHardDenom = itemView.findViewById(R.id.hard_symbol);
+//        itemHardAmount = itemView.findViewById(R.id.hard_amount);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -47,31 +47,12 @@ public class TxHardIncentiveHolder extends TxHolder {
         try {
             Tx.MsgClaimHardReward msg = Tx.MsgClaimHardReward.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemSender.setText(msg.getSender());
-            itemKavaAmount.setText(WDp.getDpAmount2(c, new BigDecimal("0"), 6, 6));
-            itemHardAmount.setText(WDp.getDpAmount2(c, new BigDecimal("0"), 6, 6));
+//            itemKavaAmount.setText(WDp.getDpAmount2(c, new BigDecimal("0"), 6, 6));
+//            itemHardAmount.setText(WDp.getDpAmount2(c, new BigDecimal("0"), 6, 6));
             if (msg.getDenomsToClaimList() != null) {
                 itemMultiplier.setText(msg.getDenomsToClaim(0).getMultiplierName());
             }
 
         } catch (Exception e) { }
-    }
-
-    public void onBind(Context c, BaseChain baseChain, ResTxInfo res, Msg msg, int position) {
-        itemMsgImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-        itemKavaAmount.setText(WDp.getDpAmount2(c, new BigDecimal("0"), 6, 6));
-        itemHardAmount.setText(WDp.getDpAmount2(c, new BigDecimal("0"), 6, 6));
-        itemSender.setText(msg.value.sender);
-        itemMultiplier.setText(msg.value.denoms_to_claim.get(0).multiplier_name);
-
-        ArrayList<Coin> incentiveCoins = res.simpleIncentives(position);
-
-        for (Coin coin: incentiveCoins) {
-            if (coin.denom.equalsIgnoreCase(TOKEN_KAVA)) {
-                itemKavaAmount.setText(WDp.getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
-            }
-            if (coin.denom.equalsIgnoreCase(TOKEN_HARD)) {
-                itemHardAmount.setText(WDp.getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
-            }
-        }
     }
 }

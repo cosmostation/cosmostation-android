@@ -90,16 +90,8 @@ public class DepositHardStep0Fragment extends BaseFragment implements View.OnCli
         mMaxAvailable = getBaseDao().getAvailable(mHardMoneyMarketDenom);
         WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mDepositDenomTx, mDepositMaxTx, getSActivity().mBaseChain);
 
-        if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
-            WDp.DpMainDenom(getSActivity(), getSActivity().mBaseChain.getChain(), mDepositSymbol);
-        } else if (mHardMoneyMarketDenom.equals(TOKEN_HARD)) {
-            mDepositSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
-            mDepositSymbol.setTextColor(getResources().getColor(R.color.colorHard));
-        } else {
-            mDepositSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
-            mDepositSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-        }
         WUtil.DpKavaTokenImg(getBaseDao(), mDepositImg, mHardMoneyMarketDenom);
+        WUtil.dpKavaTokenName(getContext(), getBaseDao(), mDepositSymbol, mHardMoneyMarketDenom);
 
         mDepositInput.addTextChangedListener(new TextWatcher() {
             @Override

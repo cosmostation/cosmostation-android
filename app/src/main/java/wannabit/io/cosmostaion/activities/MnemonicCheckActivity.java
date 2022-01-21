@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -174,7 +175,7 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_chihuahua));
             } else if (getChain(toCheck.baseChain).equals(UMEE_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_umee));
-            } else if (getChain(toCheck.baseChain).equals(AXELAR_TEST)) {
+            } else if (getChain(toCheck.baseChain).equals(AXELAR_MAIN) || getChain(toCheck.baseChain).equals(AXELAR_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_axelar));
             }
             

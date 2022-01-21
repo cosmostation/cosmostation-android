@@ -52,9 +52,6 @@ import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Price;
-import wannabit.io.cosmostaion.model.kava.Cdp;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
-import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Input;
@@ -71,6 +68,7 @@ import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
@@ -493,6 +491,15 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+        } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
+            if (coin.denom.equals(TOKEN_AXELAR)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -522,14 +529,6 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
-        } else if (chain.equals(AXELAR_TEST)) {
-            if (coin.denom.equals(TOKEN_AXELAR)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                denomTv.setText(coin.denom.toUpperCase());
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
         }
     }
 
@@ -875,6 +874,14 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
+        } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
+            if (symbol.equals(TOKEN_AXELAR)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -903,14 +910,6 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
-        } else if (chain.equals(AXELAR_TEST)) {
-            if (symbol.equals(TOKEN_AXELAR)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setText(symbol.toUpperCase());
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }
     }
 
@@ -1088,6 +1087,8 @@ public class WDp {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_lumnetwork));
             } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_chihuahua));
+            } else if (baseChain.equals(AXELAR_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_axelar));
 
             }
 
@@ -1185,6 +1186,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_lum_net));
             } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
                 chainName.setText(c.getString(R.string.str_chihuahua_net));
+            } else if (baseChain.equals(AXELAR_MAIN)) {
+                chainName.setText(c.getString(R.string.str_axelar_net));
 
             }
 
@@ -1283,6 +1286,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_lum_main));
             } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
                 chainName.setText(c.getString(R.string.str_chihuahua_main));
+            } else if (baseChain.equals(AXELAR_MAIN)) {
+                chainName.setText(c.getString(R.string.str_axelar_main));
 
             }
 
@@ -1384,7 +1389,9 @@ public class WDp {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorLum));
         } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorChihuahua));
-
+        } else if (baseChain.equals(AXELAR_MAIN) || baseChain.equals(AXELAR_TEST)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorAxelar));
+            floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorBlack));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -1407,9 +1414,6 @@ public class WDp {
         } else if (baseChain.equals(UMEE_TEST)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorUmee));
             floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorWhite));
-        } else if (baseChain.equals(AXELAR_TEST)) {
-            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorAxelar));
-            floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorBlack));
         }
     }
 
@@ -1481,7 +1485,7 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_chihuahua));
             } else if (baseChain.equals(UMEE_TEST)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_umee));
-            } else if (baseChain.equals(AXELAR_TEST)) {
+            } else if (baseChain.equals(AXELAR_MAIN) || baseChain.equals(AXELAR_TEST)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_axelar));
 
             }
@@ -1552,6 +1556,8 @@ public class WDp {
                 return CHIHUAHUA_MAIN;
             } else if (chainId.contains("kava-")) {
                 return KAVA_MAIN;
+            } else if (chainId.contains("axelar-")) {
+                return AXELAR_MAIN;
             }
         }
         return null;
@@ -1675,6 +1681,10 @@ public class WDp {
                 if (!address.startsWith("kava1")) {
                     textView.setText("");
                 }
+            } else if (baseChain.equals(AXELAR_MAIN)) {
+                if (!address.startsWith("axelar1")) {
+                    textView.setText("");
+                }
             }
         }
     }
@@ -1745,6 +1755,8 @@ public class WDp {
                 return "lum";
             } else if (baseChain.equals(CHIHUAHUA_MAIN)) {
                 return "chihuahua";
+            } else if (baseChain.equals(AXELAR_MAIN) || baseChain.equals(AXELAR_TEST)) {
+                return "axelar";
             }
 
             else if (baseChain.equals(BNB_MAIN)) {
@@ -1757,8 +1769,6 @@ public class WDp {
                 return "cosmos-testnet";
             } else if (baseChain.equals(RIZON_TEST)) {
                 return "rizon-testnet";
-            } else if (baseChain.equals(AXELAR_TEST)) {
-                return "axelar";
             } else if (baseChain.equals(UMEE_TEST)) {
                 return "umee";
             }
@@ -1807,9 +1817,9 @@ public class WDp {
             else if (address.startsWith("desmos1") && baseChain.equals(DESMOS_MAIN)) { return true; }
             else if (address.startsWith("lum1") && baseChain.equals(LUM_MAIN)) { return true; }
             else if (address.startsWith("chihuahua1") && baseChain.equals(CHIHUAHUA_MAIN)) { return true; }
+            else if (address.startsWith("axelar1") && baseChain.equals(AXELAR_MAIN)) { return true; }
 
             else if (address.startsWith("umee1") && baseChain.equals(UMEE_TEST)) { return true; }
-            else if (address.startsWith("axelar1") && baseChain.equals(AXELAR_TEST)) { return true; }
         }
         return false;
     }
@@ -1853,10 +1863,10 @@ public class WDp {
             else if (address.startsWith("desmos1")) { return Lists.newArrayList(DESMOS_MAIN); }
             else if (address.startsWith("lum1")) { return Lists.newArrayList(LUM_MAIN); }
             else if (address.startsWith("chihuahua1")) { return Lists.newArrayList(CHIHUAHUA_MAIN); }
+            else if (address.startsWith("axelar1")) { return Lists.newArrayList(AXELAR_MAIN); }
 
             else if (address.startsWith("tbnb1")) { return Lists.newArrayList(BNB_TEST); }
             else if (address.startsWith("umee1")) { return Lists.newArrayList(UMEE_TEST); }
-            else if (address.startsWith("axelar1")) { return Lists.newArrayList(AXELAR_TEST); }
         }
         return null;
     }
@@ -1892,6 +1902,7 @@ public class WDp {
             else if (chain.equals(LUM_MAIN)) { return LUM_UNKNOWN_RELAYER; }
             else if (chain.equals(CHIHUAHUA_MAIN)) { return CHIHUAHUA_UNKNOWN_RELAYER; }
             else if (chain.equals(KAVA_MAIN)) { return KAVA_UNKNOWN_RELAYER; }
+            else if (chain.equals(AXELAR_MAIN)) { return AXELAR_UNKNOWN_RELAYER; }
             else if (chain.equals(UMEE_TEST)) { return UMEE_UNKNOWN_RELAYER; }
         }
         return null;
@@ -2372,130 +2383,6 @@ public class WDp {
         if (validator != null && validator.getCommission() != null && validator.getCommission().getCommissionRates() != null &&
                 validator.getCommission().getCommissionRates().getRate() != null) {
             result = new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18);
-        }
-        return result;
-    }
-
-
-    public static BigDecimal uAtomToAtom(BigDecimal uatom) {
-        return uatom.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN);
-    }
-
-
-
-    public static int getHistoryDpType(ArrayList<Msg> msgs, String address) {
-        int result = BaseConstant.TX_TYPE_UNKNOWN;
-        if (msgs == null || msgs.size() <= 0)
-            return result;
-
-        if (msgs != null && msgs.size() == 2) {
-            if (msgs.get(0).type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL) &&
-                    msgs.get(1).type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE)) {
-                return BaseConstant.TX_TYPE_REINVEST;
-            }
-
-            if (msgs.get(0).type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW) &&
-                    msgs.get(1).type.equals(BaseConstant.IRIS_MSG_TYPE_DELEGATE)) {
-                return BaseConstant.TX_TYPE_REINVEST;
-            }
-        }
-
-        Msg msg = msgs.get(0);
-        if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER) ||
-                msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER2) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_TRANSFER) ||
-                msg.type.equals(BaseConstant.CERTIK_MSG_TYPE_TRANSFER)) {
-            if (msg.value.from_address != null && msg.value.from_address.equals(address)) {
-                result = BaseConstant.TX_TYPE_SEND;
-            } else if (msg.value.to_address != null && msg.value.to_address.equals(address)) {
-                result = BaseConstant.TX_TYPE_RECEIVE;
-            } else {
-                if (msg.value.inputs != null && msg.value.inputs.size() > 0) {
-                    for (Input input:msg.value.inputs) {
-                        if(input.address.equals(address)) {
-                            return BaseConstant.TX_TYPE_SEND;
-                        }
-                    }
-                }
-                if (msg.value.outputs != null && msg.value.outputs.size() > 0) {
-                    for (Output output:msg.value.outputs) {
-                        if(output.address.equals(address)) {
-                            return BaseConstant.TX_TYPE_RECEIVE;
-                        }
-                    }
-
-                }
-                result = BaseConstant.TX_TYPE_TRANSFER;
-            }
-
-        } else if  (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_TRANSFER3)) {
-            if (msg.value.inputs != null && msg.value.outputs != null) {
-                for (Input input:msg.value.inputs) {
-                    if (address.equals(input.address)) {
-                        return BaseConstant.TX_TYPE_SEND;
-                    }
-                }
-                for (Output output:msg.value.outputs) {
-                    if (address.equals(output.address)) {
-                        return BaseConstant.TX_TYPE_RECEIVE;
-                    }
-                }
-            }
-            result = BaseConstant.TX_TYPE_TRANSFER;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_DELEGATE) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_DELEGATE)) {
-            result = BaseConstant.TX_TYPE_DELEGATE;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE) ||
-                msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_UNDELEGATE)) {
-            result = BaseConstant.TX_TYPE_UNDELEGATE;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_REDELEGATE) ||
-                msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_REDELEGATE)) {
-            result = BaseConstant.TX_TYPE_REDELEGATE;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW)) {
-            result = BaseConstant.TX_TYPE_GET_REWARD;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_VAL)) {
-            result = BaseConstant.TX_TYPE_GET_COMMISSION;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY)) {
-            result = BaseConstant.TX_TYPE_CHAGE_REWARD_ADDRESS;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_VOTE) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_VOTE)) {
-            result = BaseConstant.TX_TYPE_VOTE;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_SUBMIT_PROPOSAL) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_SUBMIT_PROPOSAL)) {
-            result = BaseConstant.TX_TYPE_SUBMIT_PROPOSAL;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_DEPOSIT) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_DEPOSIT)) {
-            result = BaseConstant.TX_TYPE_DEPOSIT;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_CREATE_VALIDATOR) ||
-                msg.type.equals(BaseConstant.IRIS_MSG_TYPE_CREATE_VALIDATOR)) {
-            result = BaseConstant.TX_TYPE_CREATE_VALIDATOR;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_EDIT_VALIDATOR)) {
-            result = BaseConstant.TX_TYPE_EDIT_VALIDATOR;
-
-        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNJAIL)) {
-            result = BaseConstant.TX_TYPE_UNJAIL;
-
-        } else if (msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL)) {
-            result = BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL;
-
-        } else if (msg.type.equals(BaseConstant.IRIS_MSG_TYPE_ISSUE_TOKEN)) {
-            result = BaseConstant.TX_TYPE_IRIS_ISSUE_TOKEN;
-
         }
         return result;
     }
@@ -3046,7 +2933,7 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorChihuahua);
             } else if (chain.equals(UMEE_TEST)) {
                 return c.getResources().getColor(R.color.colorUmee);
-            } else if (chain.equals(AXELAR_TEST)) {
+            } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
                 return c.getResources().getColor(R.color.colorAxelar);
             }
         }
@@ -3119,12 +3006,12 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorTransBgLum);
             } else if (chain.equals(CHIHUAHUA_MAIN)) {
                 return c.getResources().getColor(R.color.colorTransBgChihuahua);
+            } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgAxelar);
             }
 
             else if (chain.equals(UMEE_TEST)) {
                 return c.getResources().getColor(R.color.colorTransBgUmee);
-            } else if (chain.equals(AXELAR_TEST)) {
-                return c.getResources().getColor(R.color.colorTransBgAxelar);
             }
         }
         return c.getResources().getColor(R.color.colorTransBg);
@@ -3196,7 +3083,7 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_chihuahua);
             } else if (chain.equals(UMEE_TEST)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_umee);
-            } else if (chain.equals(AXELAR_TEST)) {
+            } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_axelar);
             }
         }
@@ -3269,7 +3156,7 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.colorChihuahua);
             } else if (chain.equals(UMEE_TEST)) {
                 return c.getResources().getColorStateList(R.color.colorUmee);
-            } else if (chain.equals(AXELAR_TEST)) {
+            } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
                 return c.getResources().getColorStateList(R.color.colorAxelar);
             }
         }
@@ -3409,6 +3296,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorChihuahua));
             textview.setText(c.getString(R.string.s_chihuahua));
 
+        } else if (BaseChain.getChain(chain).equals(AXELAR_MAIN) || BaseChain.getChain(chain).equals(AXELAR_TEST)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorAxelar));
+            textview.setText(c.getString(R.string.s_axelar));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -3422,10 +3313,6 @@ public class WDp {
         } else if (BaseChain.getChain(chain).equals(UMEE_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorUmee));
             textview.setText(c.getString(R.string.s_umee));
-
-        } else if (BaseChain.getChain(chain).equals(AXELAR_TEST)) {
-            textview.setTextColor(c.getResources().getColor(R.color.colorAxelar));
-            textview.setText(c.getString(R.string.s_axelar));
 
         }
     }
@@ -3503,7 +3390,7 @@ public class WDp {
             return TOKEN_CHIHUAHUA;
         } else if (chain.equals(UMEE_TEST)) {
             return TOKEN_UMEE;
-        } else if (chain.equals(AXELAR_TEST)) {
+        } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
             return TOKEN_AXELAR;
         }
         return "";
@@ -3578,7 +3465,7 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_huahua);
             } else if (baseChain.equals(UMEE_TEST)) {
                 imageView.setImageResource(R.drawable.token_umee);
-            } else if (baseChain.equals(AXELAR_TEST)) {
+            } else if (baseChain.equals(AXELAR_MAIN) || baseChain.equals(AXELAR_TEST)) {
                 imageView.setImageResource(R.drawable.token_axelar);
             }
         } else {
@@ -3773,29 +3660,6 @@ public class WDp {
             rate.setTextColor(c.getResources().getColor(R.color.colorCdpDanger));
             score.setTextColor(c.getResources().getColor(R.color.colorCdpDanger));
         }
-    }
-
-    public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt, CollateralParam paramCdp, Cdp myCdp) {
-        BigDecimal result = BigDecimal.ZERO;
-        try {
-            long now   = Calendar.getInstance().getTimeInMillis();
-            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
-            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            long start = blockDateFormat.parse(myCdp.fees_updated).getTime();
-            Long gap  = (now - start)/1000;
-            //TODO 냥냥하게 패딩
-            gap = gap + 30;
-
-            Double double1 = Double.parseDouble(paramCdp.stability_fee);
-            Double double2 = gap.doubleValue();
-
-            Double pow = Math.pow(double1, double2);
-            result = outstandingDebt.multiply(new BigDecimal(pow.toString())).setScale(0, RoundingMode.UP).subtract(outstandingDebt);
-            return result;
-        } catch (Exception e) {
-            WLog.w("e " + e.getMessage());
-        }
-        return result;
     }
 
     public static BigDecimal getCdpGrpcHiddenFee(Context c, BigDecimal outstandingDebt, Genesis.CollateralParam paramCdp, QueryOuterClass.CDPResponse myCdp) {
@@ -4040,13 +3904,13 @@ public class WDp {
             return CHIHUAHUA_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(UMEE_TEST)) {
             return UMEE_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(AXELAR_TEST)) {
+        } else if (basechain.equals(AXELAR_MAIN) || basechain.equals(AXELAR_TEST)) {
             return AXELAR_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(KAVA_MAIN)) {
+            return KAVA_VAL_URL + opAddress + ".png";
         }
 
-        else if (basechain.equals(KAVA_MAIN)) {
-            return KAVA_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
+        else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             return OKEX_VAL_URL + opAddress + ".png";
         }
         return "";

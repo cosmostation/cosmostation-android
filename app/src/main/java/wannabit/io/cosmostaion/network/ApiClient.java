@@ -669,6 +669,21 @@ public class ApiClient {
         }
         return api_chihuahua;
     }
+
+    //Services for axelar mainnet api
+    private static HistoryApi api_axelar = null;
+    public static HistoryApi getAxelarApi(Context c) {
+        if (api_axelar == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_axelar))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_axelar = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_axelar;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
