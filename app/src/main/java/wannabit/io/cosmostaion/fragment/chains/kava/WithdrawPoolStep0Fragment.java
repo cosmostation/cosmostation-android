@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
     private RelativeLayout mProgress;
     private Button mCancelBtn, mNextBtn;
 
+    private LinearLayout    mLpCoinLayout;
     private ImageView       mLpCoinImg;
     private TextView        mLpCoinSymbol;
     private EditText        mLpCoinInput;
@@ -70,6 +72,7 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
         mNextBtn            = rootView.findViewById(R.id.btn_next);
         mProgress           = rootView.findViewById(R.id.progress);
 
+        mLpCoinLayout       = rootView.findViewById(R.id.exit_pool_input_symbol_layer);
         mLpCoinImg          = rootView.findViewById(R.id.exit_pool_input_icon);
         mLpCoinSymbol       = rootView.findViewById(R.id.exit_pool_input_symbol);
         mLpCoinInput        = rootView.findViewById(R.id.exit_pool_input);
@@ -89,8 +92,7 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
-        mLpCoinImg.setVisibility(View.GONE);
-        mLpCoinSymbol.setVisibility(View.GONE);
+        mLpCoinLayout.setVisibility(View.GONE);
         onFetchPoolInfo();
         return rootView;
     }

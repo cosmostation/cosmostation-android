@@ -27,7 +27,6 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Error;
 import wannabit.io.cosmostaion.dialog.Dialog_MoreSwapWait;
@@ -42,9 +41,6 @@ import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcClaimTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HtlcCreateTask;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaClaimHTLCGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaCreateHTLCGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -52,7 +48,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CLAIM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CREATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_KAVA_CREATE_HTLC;
 
 public class HtlcResultActivity extends BaseActivity implements View.OnClickListener {
     private Toolbar             mToolbar;
@@ -398,7 +393,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                         mResReceiveBnbTxInfo = response.body();
                         onUpdateView();
                     } else {
-                        if (ClaimFetchCnt < 50) {
+                        if (ClaimFetchCnt < 20) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -431,7 +426,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                         mResReceiveTxInfo = response.body();
                         onUpdateView();
                     } else {
-                        if (ClaimFetchCnt < 20) {
+                        if (ClaimFetchCnt < 50) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -457,12 +452,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     }
 
     private void onCreateHTLC() {
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            new KavaCreateHTLCGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mRecipientAccount.address, mTargetCoins, mSendFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            new HtlcCreateTask(getBaseApplication(), this, mAccount, mRecipientAccount, mBaseChain, mRecipientChain, mTargetCoins, mSendFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
+        new HtlcCreateTask(getBaseApplication(), this, mAccount, mRecipientAccount, mBaseChain, mRecipientChain, mTargetCoins, mSendFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
 
@@ -510,13 +500,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     //Claim HTLC TX
     private void onClaimHTLC() {
         onUpdateProgress(2);
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            new KavaClaimHTLCGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mExpectedSwapId, mRandomNumber, mClaimFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            new HtlcClaimTask(getBaseApplication(), this, mRecipientAccount, mRecipientChain, mClaimFee, mExpectedSwapId, mRandomNumber).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
-
-
+        new HtlcClaimTask(getBaseApplication(), this, mRecipientAccount, mRecipientChain, mClaimFee, mExpectedSwapId, mRandomNumber).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onHandleNotfound(String expectedSwapId) {
@@ -549,7 +533,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if (result.taskType == TASK_GRPC_GEN_TX_KAVA_CREATE_HTLC) {
+        if (result.taskType == TASK_GEN_TX_HTLC_CREATE) {
             if (result.isSuccess) {
                 mCreateTxHash = result.resultData.toString();
                 mExpectedSwapId = result.resultData2;
@@ -586,5 +570,4 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             }
         }
     }
-
 }

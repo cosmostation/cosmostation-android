@@ -622,24 +622,6 @@ public class BaseData {
         return result;
     }
 
-    public Distribution.DelegationDelegatorReward getRewardInfo(String valOpAddress) {
-        for (Distribution.DelegationDelegatorReward reward: mGrpcRewards) {
-            if (reward.getValidatorAddress().equals(valOpAddress)) {
-                return reward;
-            }
-        }
-        return null;
-    }
-
-    public CoinOuterClass.DecCoin decCoin(List<CoinOuterClass.DecCoin> coins, String denom) {
-        for (CoinOuterClass.DecCoin coin: coins) {
-            if (coin.getDenom().equals(denom)) {
-                return coin;
-            }
-        }
-        return null;
-    }
-
     public BigDecimal getAllMainAsset(String denom) {
         return getAvailable(denom).add(getVesting(denom)).add(getDelegationSum()).add(getUndelegationSum()).add(getRewardSum(denom));
     }

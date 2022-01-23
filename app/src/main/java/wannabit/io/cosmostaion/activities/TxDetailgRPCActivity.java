@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.txDetail.TxAddRecordHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxClaimHTLCHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCloseBidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCloseDeploymentHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommissionHolder;
@@ -49,6 +50,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCreateBidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateCertificateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateDeploymentHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateDidHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxCreateHTLCHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateTokenSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
@@ -559,15 +561,13 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_KAVA_CDP_LIQUIDATE) {
                 return new TxCdpLiquidateHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidate_cdp, viewGroup, false));
 
-            }
+            } else if (viewType == TYPE_TX_KAVA_HTLC_CREATE) {
+                return new TxCreateHTLCHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_create, viewGroup, false));
 
-//            else if (viewType == TYPE_TX_KAVA_HTLC_CREATE) {
-//                return new TxCreateAtomicSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_create, viewGroup, false));
-//
-//            } else if (viewType == TYPE_TX_KAVA_HTLC_CLAIM) {
-//                return new TxClaimAtomicSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
-//
-//            }
+            } else if (viewType == TYPE_TX_KAVA_HTLC_CLAIM) {
+                return new TxClaimHTLCHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
+
+            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
