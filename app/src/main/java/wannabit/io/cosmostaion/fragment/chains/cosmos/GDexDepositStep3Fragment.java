@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -26,8 +25,7 @@ public class GDexDepositStep3Fragment extends BaseFragment implements View.OnCli
     private TextView        mJoinInput0Amount, mJoinInput0AmountSymbol;
     private TextView        mJoinInput1Amount, mJoinInput1AmountSymbol;
 
-    private TextView        mLpAmountTitle;
-    private LinearLayout    mLpAmountLayer;
+    private TextView        mLpAmount, mLpAmountSymbol;
     private TextView        mMemo;
     private int             mDpDecimal = 6;
 
@@ -54,8 +52,8 @@ public class GDexDepositStep3Fragment extends BaseFragment implements View.OnCli
         mJoinInput1Amount           = rootView.findViewById(R.id.join_input1_amount);
         mJoinInput1AmountSymbol     = rootView.findViewById(R.id.join_input1_amount_symbol);
 
-        mLpAmountTitle              = rootView.findViewById(R.id.lp_amount_title);
-        mLpAmountLayer              = rootView.findViewById(R.id.lp_amount);
+        mLpAmount                   = rootView.findViewById(R.id.join_out_amount);
+        mLpAmountSymbol             = rootView.findViewById(R.id.join_out_amount_symbol);
         mMemo                       = rootView.findViewById(R.id.memo);
         mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
         mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
@@ -69,8 +67,6 @@ public class GDexDepositStep3Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onRefreshTab() {
-        mLpAmountTitle.setVisibility(View.GONE);
-        mLpAmountLayer.setVisibility(View.GONE);
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         String InputAmount0 = getSActivity().mPoolCoin0.amount;
         String InputDenom0 = getSActivity().mPoolCoin0.denom;
@@ -82,6 +78,8 @@ public class GDexDepositStep3Fragment extends BaseFragment implements View.OnCli
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinInput0AmountSymbol, InputDenom0), InputAmount0, mJoinInput0AmountSymbol, mJoinInput0Amount, BaseChain.COSMOS_MAIN);
         WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinInput1AmountSymbol, InputDenom1), InputAmount1, mJoinInput1AmountSymbol, mJoinInput1Amount, BaseChain.COSMOS_MAIN);
+        mLpAmountSymbol.setText("GDEX-" + getSActivity().mGDexPoolId);
+        mLpAmount.setText(WDp.getDpAmount2(getSActivity(), new BigDecimal(getSActivity().mLpToken.amount), 6, 6));
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mMemo.setText(getSActivity().mTxMemo);
     }

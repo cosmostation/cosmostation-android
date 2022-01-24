@@ -10,10 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityWithdrawPoolActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -23,6 +24,8 @@ public class GDexWithdrawStep3Fragment extends BaseFragment implements View.OnCl
     private TextView        mFeeAmount;
     private TextView        mFeeAmountSymbol;
     private TextView        mWithdrawAmount, mWithdrawSymbol;
+    private TextView        mExitOutput0Amount, mExitOutput0AmountSymbol;
+    private TextView        mExitOutput1Amount, mExitOutput1AmountSymbol;
     private TextView        mMemo;
     private int             mDpDecimal = 6;
 
@@ -46,6 +49,10 @@ public class GDexWithdrawStep3Fragment extends BaseFragment implements View.OnCl
         mFeeAmountSymbol            = rootView.findViewById(R.id.withdraw_fee_amount_symbol);
         mWithdrawAmount             = rootView.findViewById(R.id.withdraw_lp_amount);
         mWithdrawSymbol             = rootView.findViewById(R.id.withdraw_lp_symbol);
+        mExitOutput0Amount          = rootView.findViewById(R.id.exit_output0_amount);
+        mExitOutput0AmountSymbol    = rootView.findViewById(R.id.exit_output0_amount_symbol);
+        mExitOutput1Amount          = rootView.findViewById(R.id.exit_output1_amount);
+        mExitOutput1AmountSymbol    = rootView.findViewById(R.id.exit_output1_amount_symbol);
 
         mMemo                       = rootView.findViewById(R.id.memo);
         mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
@@ -69,8 +76,20 @@ public class GDexWithdrawStep3Fragment extends BaseFragment implements View.OnCl
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mWithdrawSymbol, lpDenom);
         mWithdrawAmount.setText(WDp.getDpAmount2(getSActivity(), new BigDecimal(lpAmount), mDpDecimal, mDpDecimal));
 
+        String coin0Denom = getSActivity().mGDexPool.getReserveCoinDenoms(0);
+        String coin1Denom = getSActivity().mGDexPool.getReserveCoinDenoms(1);
+        BigDecimal totalShare = new BigDecimal(getSActivity().mGDexPoolCoinSupply.amount);
+        BigDecimal myShare = new BigDecimal(getSActivity().mLpToken.amount);
+        BigDecimal depositRate = myShare.divide(totalShare, 18, RoundingMode.DOWN);
+        BigDecimal coin0Amount = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), coin0Denom);
+        BigDecimal coin1Amount = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), coin1Denom);
+        BigDecimal expectCoin0Amount = coin0Amount.multiply(depositRate).setScale(0, RoundingMode.DOWN);
+        BigDecimal expectCoin1Amount = coin1Amount.multiply(depositRate).setScale(0, RoundingMode.DOWN);
+
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mMemo.setText(getSActivity().mTxMemo);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), coin0Denom, expectCoin0Amount.toPlainString(), mExitOutput0AmountSymbol, mExitOutput0Amount, BaseChain.COSMOS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), coin1Denom, expectCoin1Amount.toPlainString(), mExitOutput1AmountSymbol, mExitOutput1Amount, BaseChain.COSMOS_MAIN);
     }
 
     @Override

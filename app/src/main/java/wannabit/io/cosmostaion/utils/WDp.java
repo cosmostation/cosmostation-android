@@ -2192,19 +2192,13 @@ public class WDp {
                 } else if (baseChain.equals(EMONEY_MAIN) || coin.denom.startsWith("e")) {
                     BigDecimal available = baseData.getAvailable(coin.denom);
                     totalValue = totalValue.add(userCurrencyValue(baseData, coin.denom, available, 6));
-                } else if (baseChain.equals(KAVA_MAIN)) {
-                    if (coin.denom.equals(mainDenom(baseChain))) {
-                        BigDecimal amount = baseData.getAllMainAsset(coin.denom);
-                        BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_KAVA, amount, mainDivideDecimal(baseChain));
-                        totalValue = totalValue.add(assetValue);
-                    } else {
-                        BigDecimal amount = baseData.getAvailable(coin.denom);
-                        amount = amount.add(baseData.getVesting(coin.denom));
-                        String kavaDenom = WDp.getKavaBaseDenom(coin.denom);
-                        int kavaDecimal = WUtil.getKavaCoinDecimal(baseData, coin.denom);
-                        BigDecimal assetValue = userCurrencyValue(baseData, kavaDenom, amount, kavaDecimal);
-                        totalValue = totalValue.add(assetValue);
-                    }
+                } else if (baseChain.equals(KAVA_MAIN) && !coin.isIbc()) {
+                    BigDecimal amount = baseData.getAvailable(coin.denom);
+                    amount = amount.add(baseData.getVesting(coin.denom));
+                    String kavaDenom = WDp.getKavaBaseDenom(coin.denom);
+                    int kavaDecimal = WUtil.getKavaCoinDecimal(baseData, coin.denom);
+                    BigDecimal assetValue = userCurrencyValue(baseData, kavaDenom, amount, kavaDecimal);
+                    totalValue = totalValue.add(assetValue);
 
                 } else if (coin.isIbc()) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);

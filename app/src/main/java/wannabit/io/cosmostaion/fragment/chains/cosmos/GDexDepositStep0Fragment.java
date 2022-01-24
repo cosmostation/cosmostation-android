@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import cosmos.bank.v1beta1.QueryOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityDepositPoolActivity;
@@ -29,12 +30,14 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.GravityDexPoolInfoGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.SupplyOfGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_POOL_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SUPPLY_OF_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 
 public class GDexDepositStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
@@ -56,14 +59,14 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
     private TextView        mJoinPoolInput1Amount, mJoinPoolInput1Denom;
     private Button          mJoinPoolInput11_4, mJoinPoolInput1Half, mJoinPoolInput13_4, mJoinPoolInput1Max;
 
-
-
     private BigDecimal      mAvailable0MaxAmount, mAvailable1MaxAmount;
     private int             mCoin0Decimal = 6, mCoin1Decimal = 6;
     private BigDecimal      mDepositRate = BigDecimal.ONE;
 
     private String          mInDecimalChecker, mInDecimalSetter;
     private String          mOutDecimalChecker,mOutDecimalSetter;
+
+    private QueryOuterClass.QuerySupplyOfResponse mGdexSupplyResponse;
 
     private boolean         mIsInput0Focused;
 
@@ -391,6 +394,12 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
             getSActivity().mPoolCoin0 = new Coin(getSActivity().mGDexPool.getReserveCoinDenoms(0), InputAmountTemp.movePointRight(mCoin0Decimal).toPlainString());
             getSActivity().mPoolCoin1 = new Coin(getSActivity().mGDexPool.getReserveCoinDenoms(1), OutputAmountTemp.movePointRight(mCoin1Decimal).toPlainString());
 
+            getSActivity().mGDexPoolCoinSupply = new Coin(mGdexSupplyResponse.getAmount().getDenom(), mGdexSupplyResponse.getAmount().getAmount());
+            BigDecimal totalShare = new BigDecimal(getSActivity().mGDexPoolCoinSupply.amount);
+            BigDecimal coin0Amount = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), getSActivity().mGDexPool.getReserveCoinDenoms(0));
+            BigDecimal expectedLpTokenAmount = InputAmountTemp.movePointRight(mCoin0Decimal).multiply(totalShare).divide(coin0Amount, 18, RoundingMode.DOWN);
+            getSActivity().mLpToken = new Coin(getSActivity().mGDexPool.getPoolCoinDenom(), expectedLpTokenAmount.toPlainString());
+
             return true;
 
         } catch (Exception e) {
@@ -429,6 +438,13 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
         if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
                 getSActivity().mGDexPool = (Liquidity.Pool) result.resultData;
+                mTaskCount = mTaskCount + 1;
+                new SupplyOfGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPool.getPoolCoinDenom()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_SUPPLY_OF_INFO) {
+            if (result.isSuccess && result.resultData != null) {
+                mGdexSupplyResponse = (QueryOuterClass.QuerySupplyOfResponse) result.resultData;
             }
         }
         if (mTaskCount == 0) {

@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import cosmos.bank.v1beta1.QueryOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityWithdrawPoolActivity;
@@ -28,10 +29,13 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.GravityDexPoolInfoGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.SupplyOfGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_POOL_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SUPPLY_OF_INFO;
 
 public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -48,6 +52,8 @@ public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnCl
     private BigDecimal          mAvailableMaxAmount;
     private int                 mCoinDecimal = 6;
     private String              mDecimalChecker, mDecimalSetter;
+
+    private QueryOuterClass.QuerySupplyOfResponse mGdexSupplyResponse;
 
     public static GDexWithdrawStep0Fragment newInstance(Bundle bundle) {
         GDexWithdrawStep0Fragment fragment = new GDexWithdrawStep0Fragment();
@@ -201,6 +207,7 @@ public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnCl
             if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) return false;
 
             getSActivity().mLpToken = new Coin(getSActivity().mGDexPool.getPoolCoinDenom(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
+            getSActivity().mGDexPoolCoinSupply = new Coin(mGdexSupplyResponse.getAmount().getDenom(), mGdexSupplyResponse.getAmount().getAmount());
 
             return true;
 
@@ -223,6 +230,13 @@ public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnCl
         if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
                 getSActivity().mGDexPool = (Liquidity.Pool) result.resultData;
+                mTaskCount = mTaskCount + 1;
+                new SupplyOfGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPool.getPoolCoinDenom()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_SUPPLY_OF_INFO) {
+            if (result.isSuccess && result.resultData != null) {
+                mGdexSupplyResponse = (QueryOuterClass.QuerySupplyOfResponse) result.resultData;
             }
         }
         if (mTaskCount == 0) {

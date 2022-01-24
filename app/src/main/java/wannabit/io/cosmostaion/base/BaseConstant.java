@@ -128,6 +128,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_TOTAL_SUPPLY                = 4029;
     public final static int TASK_GRPC_FETCH_GRAVITY_POOL_INFO           = 4030;
     public final static int TASK_GRPC_FETCH_DESMOS_PROFILE_INFO         = 4031;
+    public final static int TASK_GRPC_FETCH_SUPPLY_OF_INFO              = 4032;
 
     public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;

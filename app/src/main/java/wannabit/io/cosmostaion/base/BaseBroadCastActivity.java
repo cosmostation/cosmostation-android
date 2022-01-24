@@ -54,8 +54,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     public long                         mGDexPoolId;                                // cosmos
     public Liquidity.Pool               mGDexPool;
     public GDexManager                  mGDexManager;
-    public Coin                         mGDexPoolCoinSupply;
     public String                       mGDexSwapOrderPrice;
+    public Coin                         mGDexPoolCoinSupply;
 
 
     public String                       mIncentiveMultiplier;
