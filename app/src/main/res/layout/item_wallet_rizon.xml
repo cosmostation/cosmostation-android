@@ -190,26 +190,6 @@
                         android:text="@string/str_governance" />
                 </RelativeLayout>
             </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/btn_rizon_swap"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_40"
-                android:minHeight="@dimen/space_40"
-                android:layout_marginTop="@dimen/space_8"
-                android:background="@drawable/btn_trans_with_border"
-                android:clickable="true">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawableLeft="@drawable/icon_eventhorizon"
-                    android:drawablePadding="@dimen/space_4"
-                    android:gravity="center"
-                    style="@style/font_ss_12_white"
-                    android:text="Event Horizon" />
-            </RelativeLayout>
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
