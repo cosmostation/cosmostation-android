@@ -17,8 +17,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.squareup.picasso.Picasso;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -35,7 +33,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
@@ -250,7 +247,8 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
         try {
             BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
 
-            BigDecimal padding = BigDecimal.ONE.subtract(new BigDecimal(getBaseDao().mSwapParams.getSwapFee()).movePointLeft(18).subtract(new BigDecimal("0.03")));
+            BigDecimal swapFee = new BigDecimal(getBaseDao().mSwapParams.getSwapFee()).movePointLeft(18);
+            BigDecimal padding = BigDecimal.ONE.subtract(swapFee).subtract(new BigDecimal("0.03"));
             if (InputAmountTemp.compareTo(BigDecimal.ZERO) == 0) { mSwapOutputAmount.setText(""); return; }
             BigDecimal OutputAmount = InputAmountTemp.movePointRight(mInputCoinDecimal).multiply(padding).multiply(mSwapRate).setScale(0, RoundingMode.DOWN);
 

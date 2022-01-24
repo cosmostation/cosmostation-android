@@ -48,15 +48,8 @@ import javax.net.ssl.X509TrustManager;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
-import cosmos.gov.v1beta1.Gov;
-import cosmos.params.v1beta1.Params;
 import cosmos.staking.v1beta1.Staking;
-import cosmos.upgrade.v1beta1.Upgrade;
 import cosmos.vesting.v1beta1.Vesting;
-import ibc.core.client.v1.Client;
-import injective.exchange.v1beta1.Tx;
-import injective.ocr.v1beta1.Ocr;
-import injective.oracle.v1beta1.Oracle;
 import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import okhttp3.OkHttpClient;
@@ -1529,6 +1522,34 @@ public class WUtil {
             }
         }
         return denom.toUpperCase();
+    }
+
+    public static String getKavaBaseDenom(BaseData baseData, String denom) {
+        if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                return ibcToken.base_denom.toUpperCase();
+            } else {
+                return "";
+            }
+        } else if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            return TOKEN_KAVA;
+        } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
+            return TOKEN_HARD;
+        } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
+            return TOKEN_USDX;
+        } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
+            return TOKEN_SWP;
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
+            return "bnb";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
+            return "xrp";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+            return "busd";
+        } else if (denom.contains("btc")) {
+            return "btc";
+        }
+        return "";
     }
 
     public static String dpOsmosisTokenName(BaseData baseData, String denom) {

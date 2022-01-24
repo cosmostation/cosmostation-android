@@ -38,9 +38,7 @@ public class TxKavaSwapHolder extends TxHolder {
         if (response.getTx().getBody().getMessages(position).getTypeUrl().contains("MsgSwapExactForTokens")) {
             try {
                 Tx.MsgSwapExactForTokens msg = Tx.MsgSwapExactForTokens.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-                String[] Type = response.getTx().getBody().getMessages(position).getTypeUrl().split("\\.");
-                itemSwapCoinType.setText(Type[Type.length - 1]);
-
+                itemSwapCoinType.setText("SwapExactForTokens");
                 itemSwapCoinSender.setText(msg.getRequester());
 
                 Coin inCoin = null;
@@ -92,9 +90,7 @@ public class TxKavaSwapHolder extends TxHolder {
         } else {
             try {
                 Tx.MsgSwapForExactTokens msg = Tx.MsgSwapForExactTokens.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-                String[] Type = response.getTx().getBody().getMessages(position).getTypeUrl().split("\\.");
-                itemSwapCoinType.setText(Type[Type.length - 1]);
-
+                itemSwapCoinType.setText("SwapForExactTokens");
                 itemSwapCoinSender.setText(msg.getRequester());
 
                 Coin inCoin = null;

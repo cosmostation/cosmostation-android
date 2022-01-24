@@ -32,6 +32,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cosmos.base.abci.v1beta1.Abci;
 import cosmos.base.v1beta1.CoinOuterClass;
@@ -54,9 +56,6 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Input;
-import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
@@ -4064,6 +4063,31 @@ public class WDp {
                                         result = result.add(new BigDecimal(rawCoin.replaceAll("[^0-9]", "")));
                                         break;
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<Coin> onParseKavaIncentiveGrpc(ServiceOuterClass.GetTxResponse tx, int position) {
+        ArrayList<Coin> result = new ArrayList<>();
+        if (tx.getTxResponse().getLogsList() != null && tx.getTxResponse().getLogsCount() > position && tx.getTxResponse().getLogs(position) != null) {
+            for (Abci.StringEvent event : tx.getTxResponse().getLogs(position).getEventsList()) {
+                if (event.getType().equalsIgnoreCase("claim_reward")) {
+                    for (int i = 0; i <= event.getAttributesList().size(); i++) {
+                        if (event.getAttributes(i).getKey().equalsIgnoreCase("claim_amount")) {
+                            String rawValue = event.getAttributes(i).getValue();
+                            for (String rawCoin : rawValue.split(",")) {
+                                Pattern p = Pattern.compile("([0-9])+");
+                                Matcher m = p.matcher(rawCoin);
+                                if (m.find()) {
+                                    String amount = m.group();
+                                    String denom = rawCoin.replaceAll(m.group(), "");
+                                    result.add(new Coin(denom, amount));
                                 }
                             }
                         }

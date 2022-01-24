@@ -140,10 +140,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         BigDecimal swapFee = new BigDecimal(mSwapParams.getSwapFee()).movePointLeft(18);
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
         mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
-        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, InPutDecimal, OutPutDecimal));
-
-        final int inputCoinDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mInputCoinDenom);
-        final int outCoinDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), mOutputCoinDenom);
+        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, InPutDecimal, InPutDecimal));
 
         BigDecimal inputAmount = BigDecimal.ZERO;
         BigDecimal outputAmount = BigDecimal.ZERO;
@@ -161,24 +158,24 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
         BigDecimal swapRate = outputAmount.divide(inputAmount, 16, RoundingMode.DOWN);
 
-        mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputCoinDecimal));
+        mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, InPutDecimal));
         WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
-        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, outCoinDecimal));
+        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, OutPutDecimal));
         WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
 
         WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
         WUtil.dpKavaTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
 
-        BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
-        BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
+        BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), WUtil.getKavaBaseDenom(getBaseDao(), mInputCoinDenom));
+        BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(),  WUtil.getKavaBaseDenom(getBaseDao(), mOutputCoinDenom));
         BigDecimal priceRate = BigDecimal.ZERO;
         if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
             mSwapOutputCoinExRate.setText("?.??????");
         } else {
             priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
-            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, outCoinDecimal));
+            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, OutPutDecimal));
         }
-        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputCoinDecimal));
+        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, InPutDecimal));
     }
 
     @Override
