@@ -90,6 +90,7 @@ import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDrawDebtCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardIncentiveHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaDepositPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaWithdrawPoolHolder;
@@ -560,6 +561,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_KAVA_CDP_LIQUIDATE) {
                 return new TxCdpLiquidateHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidate_cdp, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_HARD_LIQUIDATE) {
+                return new TxHardPoolLiquidateHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidate_hard, viewGroup, false));
 
             } else if (viewType == TYPE_TX_KAVA_HTLC_CREATE) {
                 return new TxCreateHTLCHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_create, viewGroup, false));

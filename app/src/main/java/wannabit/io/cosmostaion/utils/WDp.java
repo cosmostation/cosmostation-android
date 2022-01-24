@@ -4078,7 +4078,7 @@ public class WDp {
         if (tx.getTxResponse().getLogsList() != null && tx.getTxResponse().getLogsCount() > position && tx.getTxResponse().getLogs(position) != null) {
             for (Abci.StringEvent event : tx.getTxResponse().getLogs(position).getEventsList()) {
                 if (event.getType().equalsIgnoreCase("claim_reward")) {
-                    for (int i = 0; i <= event.getAttributesList().size(); i++) {
+                    for (int i = 0; i < event.getAttributesList().size(); i++) {
                         if (event.getAttributes(i).getKey().equalsIgnoreCase("claim_amount")) {
                             String rawValue = event.getAttributes(i).getValue();
                             for (String rawCoin : rawValue.split(",")) {
