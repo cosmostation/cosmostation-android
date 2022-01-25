@@ -33,11 +33,6 @@ public class BnbMiniTokenListTask extends CommonTask {
                     mResult.resultData = response.body();
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_TEST)) {
-                Response<ArrayList<BnbToken>> response = ApiClient.getBnbTestChain(mApp).getMiniTokens("3000").execute();
-                if (response.isSuccessful() && response.body() != null && response.body().size() > 0) {
-                    mResult.resultData = response.body();
-                }
             }
             mResult.isSuccess = true;
 

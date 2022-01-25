@@ -51,24 +51,6 @@ public class AccountInfoTask extends CommonTask {
                 }
 
             }
-
-            else if (BaseChain.getChain(mAccount.baseChain).equals(BNB_TEST)) {
-                Response<ResBnbAccountInfo> response = ApiClient.getBnbTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
-                } else {
-                    mApp.getBaseDao().onDeleteBalance(""+mAccount.id);
-                }
-
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(OK_TEST)) {
-                Response<ResOkAccountInfo> response = ApiClient.getOkTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().mOkAccountInfo = response.body();
-                }
-
-            }
             mResult.isSuccess = true;
 
         } catch (Exception e) {

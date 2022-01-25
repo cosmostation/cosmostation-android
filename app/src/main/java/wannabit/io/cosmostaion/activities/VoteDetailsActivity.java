@@ -30,12 +30,14 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanProposalTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.ProposalMyVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -61,8 +63,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     private ResProposal         mApiProposal;
     //gRPC
     private Gov.Vote            mMyVote_gRPC;
-    //Certik gRPC
-    private shentu.gov.v1alpha1.Gov.Vote                mCtkMyVote_gRPC;
+    //Certik
+    private ResMyProposal       mResMyProposal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,9 +135,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             BigDecimal mainDenomAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
 
-            if (!mApiProposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD") ||
-                    mApiProposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD") ||
-                    mApiProposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD")) {
+            if (!mApiProposal.proposal_status.contains("VOTING")) {
                 Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -168,7 +168,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         if (result.taskType == TASK_GRPC_FETCH_PROPOSAL_MY_VOTE) {
             if (result.resultData != null) {
                 if (mBaseChain.equals(CERTIK_MAIN)) {
-                    mCtkMyVote_gRPC = (shentu.gov.v1alpha1.Gov.Vote) result.resultData;
+                    mResMyProposal = (ResMyProposal) result.resultData;
                 } else {
                     mMyVote_gRPC = (Gov.Vote)result.resultData;
                 }
@@ -313,13 +313,26 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     holder.itemTurnout.setText(WDp.getDpString(WDp.getTurnout(mBaseChain, getBaseDao(), mApiProposal).setScale(2).toPlainString() + "%", 3));
                 }
 
-                if (mMyVote_gRPC != null || mCtkMyVote_gRPC != null) {
-                    Gov.VoteOption voteOption = null;
-                    if (mBaseChain.equals(CERTIK_MAIN)) {
-                        voteOption = mCtkMyVote_gRPC.getDeposit().getOption();
-                    } else {
-                        voteOption = mMyVote_gRPC.getOption();
+                if (mBaseChain.equals(CERTIK_MAIN) && mResMyProposal != null) {
+                    String voteOption = mResMyProposal.vote.options.get(0).option;
+                    if (voteOption.equalsIgnoreCase("VOTE_OPTION_YES")) {
+                        holder.itemYesDone.setVisibility(View.VISIBLE);
+                        holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                    } else if (voteOption.equals("VOTE_OPTION_NO")) {
+                        holder.itemNoDone.setVisibility(View.VISIBLE);
+                        holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+
+                    } else if (voteOption.equals("VOTE_OPTION_NO_WITH_VETO")) {
+                        holder.itemVetoDone.setVisibility(View.VISIBLE);
+                        holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+
+                    } else if (voteOption.equals("VOTE_OPTION_ABSTAIN")) {
+                        holder.itemAbstainDone.setVisibility(View.VISIBLE);
+                        holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_voted));
                     }
+
+                } else if (mMyVote_gRPC != null) {
+                    Gov.VoteOption voteOption = mMyVote_gRPC.getOption();
                     if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_YES)) {
                         holder.itemYesDone.setVisibility(View.VISIBLE);
                         holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_voted));

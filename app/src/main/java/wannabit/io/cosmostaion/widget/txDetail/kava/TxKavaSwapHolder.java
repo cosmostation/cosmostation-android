@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import kava.swap.v1beta1.Tx;
@@ -38,9 +41,7 @@ public class TxKavaSwapHolder extends TxHolder {
         if (response.getTx().getBody().getMessages(position).getTypeUrl().contains("MsgSwapExactForTokens")) {
             try {
                 Tx.MsgSwapExactForTokens msg = Tx.MsgSwapExactForTokens.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-                String[] Type = response.getTx().getBody().getMessages(position).getTypeUrl().split("\\.");
-                itemSwapCoinType.setText(Type[Type.length - 1]);
-
+                itemSwapCoinType.setText("SwapExactForTokens");
                 itemSwapCoinSender.setText(msg.getRequester());
 
                 Coin inCoin = null;
@@ -49,10 +50,12 @@ public class TxKavaSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(2).getValue();
-                                if (value.contains("ibc")) {
-                                    inCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
-                                } else {
-                                    inCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                Pattern p = Pattern.compile("([0-9])+");
+                                Matcher m = p.matcher(value);
+                                if (m.find()) {
+                                    String amount = m.group();
+                                    String denom = value.replaceAll(m.group(), "");
+                                    inCoin = new Coin(denom, amount);
                                 }
                             }
                         }
@@ -71,10 +74,12 @@ public class TxKavaSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(event.getAttributesCount() - 1).getValue();
-                                if (value.contains("ibc")) {
-                                    outCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
-                                } else {
-                                    outCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                Pattern p = Pattern.compile("([0-9])+");
+                                Matcher m = p.matcher(value);
+                                if (m.find()) {
+                                    String amount = m.group();
+                                    String denom = value.replaceAll(m.group(), "");
+                                    outCoin = new Coin(denom, amount);
                                 }
                             }
                         }
@@ -92,9 +97,7 @@ public class TxKavaSwapHolder extends TxHolder {
         } else {
             try {
                 Tx.MsgSwapForExactTokens msg = Tx.MsgSwapForExactTokens.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-                String[] Type = response.getTx().getBody().getMessages(position).getTypeUrl().split("\\.");
-                itemSwapCoinType.setText(Type[Type.length - 1]);
-
+                itemSwapCoinType.setText("SwapForExactTokens");
                 itemSwapCoinSender.setText(msg.getRequester());
 
                 Coin inCoin = null;
@@ -103,10 +106,12 @@ public class TxKavaSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(2).getValue();
-                                if (value.contains("ibc")) {
-                                    inCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
-                                } else {
-                                    inCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                Pattern p = Pattern.compile("([0-9])+");
+                                Matcher m = p.matcher(value);
+                                if (m.find()) {
+                                    String amount = m.group();
+                                    String denom = value.replaceAll(m.group(), "");
+                                    inCoin = new Coin(denom, amount);
                                 }
                             }
                         }
@@ -125,10 +130,12 @@ public class TxKavaSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(event.getAttributesCount() - 1).getValue();
-                                if (value.contains("ibc")) {
-                                    outCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
-                                } else {
-                                    outCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                Pattern p = Pattern.compile("([0-9])+");
+                                Matcher m = p.matcher(value);
+                                if (m.find()) {
+                                    String amount = m.group();
+                                    String denom = value.replaceAll(m.group(), "");
+                                    outCoin = new Coin(denom, amount);
                                 }
                             }
                         }

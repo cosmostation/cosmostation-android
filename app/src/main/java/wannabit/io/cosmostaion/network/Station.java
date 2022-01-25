@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.network.res.ResAirdropClaimCheck;
 import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResIbcPaths;
 import wannabit.io.cosmostaion.network.res.ResIbcTokens;
+import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 
 public interface Station {
@@ -50,4 +51,8 @@ public interface Station {
 
     @POST("airdrop/claims")
     Call<String> ClaimAirDrop(@Body ReqDesmosAirDrop data);
+
+    //certik lcd
+    @GET("/shentu/gov/v1alpha1/proposals/{proposal_id}/votes/{voter}")
+    Call<ResMyProposal> getCertikProposal(@Path("proposal_id") String proposal_id, @Path("voter") String voter);
 }

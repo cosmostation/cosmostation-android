@@ -22,7 +22,7 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletRizonHolder extends BaseHolder {
     public TextView         mTvRizonTotal, mTvRizonValue, mTvRizonAvailable, mTvRizonDelegated, mTvRizonUnBonding, mTvRizonRewards;
-    public RelativeLayout   mBtnStake, mBtnVote, mBtnSwap;
+    public RelativeLayout   mBtnStake, mBtnVote;
 
     public WalletRizonHolder(@NonNull View itemView) {
         super(itemView);
@@ -34,7 +34,6 @@ public class WalletRizonHolder extends BaseHolder {
         mTvRizonRewards     = itemView.findViewById(R.id.rizon_reward);
         mBtnStake           = itemView.findViewById(R.id.btn_rizon_reward);
         mBtnVote            = itemView.findViewById(R.id.btn_rizon_vote);
-        mBtnSwap            = itemView.findViewById(R.id.btn_rizon_swap);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
@@ -66,16 +65,6 @@ public class WalletRizonHolder extends BaseHolder {
             public void onClick(View v) {
                 Intent proposals = new Intent(mainActivity, VoteListActivity.class);
                 mainActivity.startActivity(proposals);
-            }
-        });
-        mBtnSwap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!baseData.mChainParam.swap_enabled) {
-                    Toast.makeText(mainActivity, mainActivity.getString(R.string.error_rizon_swap_finished), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                mainActivity.onClickEventHorizon();
             }
         });
     }

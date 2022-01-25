@@ -48,15 +48,8 @@ import javax.net.ssl.X509TrustManager;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
-import cosmos.gov.v1beta1.Gov;
-import cosmos.params.v1beta1.Params;
 import cosmos.staking.v1beta1.Staking;
-import cosmos.upgrade.v1beta1.Upgrade;
 import cosmos.vesting.v1beta1.Vesting;
-import ibc.core.client.v1.Client;
-import injective.exchange.v1beta1.Tx;
-import injective.ocr.v1beta1.Ocr;
-import injective.oracle.v1beta1.Oracle;
 import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import okhttp3.OkHttpClient;
@@ -1531,6 +1524,34 @@ public class WUtil {
         return denom.toUpperCase();
     }
 
+    public static String getKavaBaseDenom(BaseData baseData, String denom) {
+        if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                return ibcToken.base_denom.toUpperCase();
+            } else {
+                return "";
+            }
+        } else if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            return TOKEN_KAVA;
+        } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
+            return TOKEN_HARD;
+        } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
+            return TOKEN_USDX;
+        } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
+            return TOKEN_SWP;
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
+            return "bnb";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
+            return "xrp";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+            return "busd";
+        } else if (denom.contains("btc")) {
+            return "btc";
+        }
+        return "";
+    }
+
     public static String dpOsmosisTokenName(BaseData baseData, String denom) {
         if (denom.equals(TOKEN_OSMOSIS)) {
             return "OSMO";
@@ -2853,7 +2874,7 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_iris);
             guideMsg.setText(R.string.str_front_guide_msg_iris);
 
-        } else if (mainActivity.mBaseChain.equals(BNB_MAIN) || mainActivity.mBaseChain.equals(BNB_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.binance_img));
             guideTitle.setText(R.string.str_front_guide_title_binance);
             guideMsg.setText(R.string.str_front_guide_msg_bnb);
@@ -2865,7 +2886,7 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_kava);
             guideMsg.setText(R.string.str_front_guide_msg_kava);
 
-        } else if (mainActivity.mBaseChain.equals(IOV_MAIN) || mainActivity.mBaseChain.equals(IOV_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(IOV_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.iov_img));
             guideTitle.setText(R.string.str_front_guide_title_iov);
             guideMsg.setText(R.string.str_front_guide_msg_iov);
@@ -2875,14 +2896,14 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_band);
             guideMsg.setText(R.string.str_front_guide_msg_band);
 
-        } else if (mainActivity.mBaseChain.equals(OKEX_MAIN) || mainActivity.mBaseChain.equals(OK_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.okex_img));
             guideTitle.setText(R.string.str_front_guide_title_ok);
             guideMsg.setText(R.string.str_front_guide_msg_ok);
             guideBtn1.setText(R.string.str_faq_ok);
             guideBtn2.setText(R.string.str_guide_ok);
 
-        } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN) || mainActivity.mBaseChain.equals(CERTIK_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.certik_img));
             guideTitle.setText(R.string.str_front_guide_title_certik);
             guideMsg.setText(R.string.str_front_guide_msg_certik);
@@ -2932,12 +2953,12 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_osmosis);
             guideMsg.setText(R.string.str_front_guide_msg_osmosis);
 
-        } else if (mainActivity.mBaseChain.equals(RIZON_MAIN) || mainActivity.mBaseChain.equals(RIZON_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(RIZON_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_rizon));
             guideTitle.setText(R.string.str_front_guide_title_rizon);
             guideMsg.setText(R.string.str_front_guide_msg_rizon);
 
-        } else if (mainActivity.mBaseChain.equals(MEDI_MAIN) || mainActivity.mBaseChain.equals(MEDI_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(MEDI_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.medibloc_img));
             guideTitle.setText(R.string.str_front_guide_title_medi);
             guideMsg.setText(R.string.str_front_guide_msg_medi);
@@ -2962,7 +2983,7 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_bitcanna);
             guideMsg.setText(R.string.str_front_guide_msg_bitcanna);
 
-        } else if (mainActivity.mBaseChain.equals(ALTHEA_MAIN) || mainActivity.mBaseChain.equals(ALTHEA_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(ALTHEA_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_althea));
             guideTitle.setText(R.string.str_front_guide_title_althea);
             guideMsg.setText(R.string.str_front_guide_msg_althea);
@@ -3012,7 +3033,7 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_umee);
             guideMsg.setText(R.string.str_front_guide_msg_umee);
 
-        } else if (mainActivity.mBaseChain.equals(AXELAR_MAIN) || mainActivity.mBaseChain.equals(AXELAR_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(AXELAR_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_axelar));
             guideTitle.setText(R.string.str_front_guide_title_axelar);
             guideMsg.setText(R.string.str_front_guide_msg_axelar);
@@ -3031,22 +3052,22 @@ public class WUtil {
         } else if (chain.equals(IRIS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.irisnet.org/"));
 
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.binance.org"));
 
         } else if (chain.equals(KAVA_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/registration/"));
 
-        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+        } else if (chain.equals(IOV_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.starname.me/"));
 
         } else if (chain.equals(BAND_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://bandprotocol.com/"));
 
-        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/"));
 
-        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+        } else if (chain.equals(CERTIK_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/"));
 
         } else if (chain.equals(AKASH_MAIN)) {
@@ -3076,7 +3097,7 @@ public class WUtil {
         } else if (chain.equals(OSMOSIS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://osmosis.zone/"));
 
-        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
+        } else if (chain.equals(MEDI_MAIN)) {
             if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
                 return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medibloc.com"));
             } else {
@@ -3098,7 +3119,7 @@ public class WUtil {
         } else if (chain.equals(BITCANNA_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.bitcanna.io/"));
 
-        } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
+        } else if (chain.equals(ALTHEA_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.althea.net/"));
 
         } else if (chain.equals(STARGAZE_MAIN)) {
@@ -3128,7 +3149,7 @@ public class WUtil {
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
 
-        } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
+        } else if (chain.equals(AXELAR_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://axelar.network/"));
         }
         return null;
@@ -3145,22 +3166,22 @@ public class WUtil {
         } else if (chain.equals(IRIS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/irisnet-blog"));
 
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@binance"));
 
         } else if (chain.equals(KAVA_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/kava-labs"));
 
-        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+        } else if (chain.equals(IOV_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/iov-internet-of-values"));
 
         } else if (chain.equals(BAND_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/bandprotocol"));
 
-        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/community"));
 
-        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+        } else if (chain.equals(CERTIK_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.certik.foundation/blog"));
 
         } else if (chain.equals(AKASH_MAIN)) {
@@ -3190,7 +3211,7 @@ public class WUtil {
         } else if (chain.equals(OSMOSIS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/osmosis"));
 
-        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
+        } else if (chain.equals(MEDI_MAIN)) {
             if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
                 return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.medibloc.org/"));
             } else {
@@ -3200,7 +3221,7 @@ public class WUtil {
         } else if (chain.equals(EMONEY_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://emoneytokenstandard.org/"));
 
-        } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
+        } else if (chain.equals(RIZON_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/hdac"));
 
         } else if (chain.equals(JUNO_MAIN)) {
@@ -3212,7 +3233,7 @@ public class WUtil {
         } else if (chain.equals(BITCANNA_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@BitCannaGlobal"));
 
-        } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
+        } else if (chain.equals(ALTHEA_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.althea.net/"));
 
         } else if (chain.equals(STARGAZE_MAIN)) {
@@ -3242,7 +3263,7 @@ public class WUtil {
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
 
-        } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
+        } else if (chain.equals(AXELAR_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://axelar.network/blog"));
 
         }
@@ -3253,20 +3274,11 @@ public class WUtil {
         if (basechain.equals(BNB_MAIN)) {
             return EXPLORER_BINANCE_MAIN;
 
-        } else if (basechain.equals(BNB_TEST)) {
-            return EXPLORER_BINANCE_TEST;
-
         } else if (basechain.equals(OKEX_MAIN)) {
             return EXPLORER_OKEX_MAIN;
 
-        } else if (basechain.equals(OK_TEST)) {
-            return EXPLORER_OKEX_TEST;
-
         } else if (basechain.equals(SECRET_MAIN)) {
             return EXPLORER_SECRET_MAIN;
-
-        } else if (basechain.equals(MEDI_TEST)) {
-            return EXPLORER_MEDI_TEST;
 
         }
 
@@ -3368,17 +3380,8 @@ public class WUtil {
         } else if (basechain.equals(IRIS_TEST)) {
             return EXPLORER_IRIS_TEST;
 
-        } else if (basechain.equals(ALTHEA_TEST)) {
-            return EXPLORER_ALTHEA_TEST;
-
-        } else if (basechain.equals(RIZON_TEST)) {
-            return EXPLORER_RIZON_TEST;
-
         } else if (basechain.equals(UMEE_TEST)) {
             return EXPLORER_UMEE_TEST;
-
-        } else if (basechain.equals(AXELAR_TEST)) {
-            return EXPLORER_AXELAR_TEST;
 
         }
         return "";
@@ -3388,14 +3391,8 @@ public class WUtil {
         if (basechain.equals(BNB_MAIN)) {
             return EXPLORER_BINANCE_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(BNB_TEST)) {
-            return EXPLORER_BINANCE_TEST + "tx/" + hash;
-
         } else if (basechain.equals(OKEX_MAIN)) {
             return EXPLORER_OKEX_MAIN + "tx/0x" + hash;
-
-        } else if (basechain.equals(OK_TEST)) {
-            return EXPLORER_OKEX_TEST + "tx/" + hash;
 
         }
 
@@ -3501,20 +3498,8 @@ public class WUtil {
         } else if (basechain.equals(IRIS_TEST)) {
             return EXPLORER_IRIS_TEST + "txs/" + hash;
 
-        } else if (basechain.equals(RIZON_TEST)) {
-            return EXPLORER_RIZON_TEST + "tx/" + hash;
-
-        } else if (basechain.equals(ALTHEA_TEST)) {
-            return EXPLORER_ALTHEA_TEST + "txs/" + hash;
-
-        } else if (basechain.equals(MEDI_TEST)) {
-            return EXPLORER_MEDI_TEST + "txs/" + hash;
-
         } else if (basechain.equals(UMEE_TEST)) {
             return EXPLORER_UMEE_TEST + "txs/" + hash;
-
-        } else if (basechain.equals(AXELAR_TEST)) {
-            return EXPLORER_AXELAR_TEST + "txs/" + hash;
 
         }
         return "";
@@ -3525,7 +3510,7 @@ public class WUtil {
      */
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
-        if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
+        if (basechain.equals(IOV_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(IOV_GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -3644,7 +3629,7 @@ public class WUtil {
                 return new BigDecimal(BAND_GAS_AMOUNT_IBC_SEND);
             }
 
-        } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
+        } else if (basechain.equals(OKEX_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(OK_GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_OK_DEPOSIT || txType == CONST_PW_TX_OK_WITHDRAW) {
@@ -3653,7 +3638,7 @@ public class WUtil {
                 return (new BigDecimal(OK_GAS_AMOUNT_VOTE_MUX).multiply(new BigDecimal(""+valCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_VOTE));
             }
 
-        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
+        } else if (basechain.equals(CERTIK_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(CERTIK_GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -3735,8 +3720,7 @@ public class WUtil {
                 return new BigDecimal(V1_GAS_AMOUNT_MID);
             }
 
-        } else if (basechain.equals(SENTINEL_MAIN) || basechain.equals(FETCHAI_MAIN) || basechain.equals(KI_MAIN) || basechain.equals(MEDI_MAIN) ||
-                    basechain.equals(MEDI_TEST)) {
+        } else if (basechain.equals(SENTINEL_MAIN) || basechain.equals(FETCHAI_MAIN) || basechain.equals(KI_MAIN) || basechain.equals(MEDI_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -3964,10 +3948,10 @@ public class WUtil {
 
         }
 
-        else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
+        else if (basechain.equals(BNB_MAIN)) {
             return new BigDecimal(FEE_BNB_SEND).setScale(8);
 
-        } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
+        } else if (basechain.equals(OKEX_MAIN)) {
             BigDecimal gasRate = new BigDecimal(OK_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(18, RoundingMode.DOWN);
@@ -3976,8 +3960,8 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(REGEN_MAIN) || basechain.equals(ALTHEA_MAIN) ||
-                basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(REGEN_MAIN) ||
+                basechain.equals(COSMOS_TEST) || basechain.equals(UMEE_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -4025,7 +4009,7 @@ public class WUtil {
             }
             return new BigDecimal(OSMOSIS_GAS_RATE_AVERAGE);
 
-        } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
+        } else if (basechain.equals(IOV_MAIN)) {
             if (position == 0) {
                 return new BigDecimal(STARNAME_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -4049,7 +4033,7 @@ public class WUtil {
             }
             return new BigDecimal(BAND_GAS_RATE_AVERAGE);
 
-        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
+        } else if (basechain.equals(MEDI_MAIN)) {
             if (position == 0) {
                 return new BigDecimal(MEDI_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -4185,7 +4169,7 @@ public class WUtil {
             }
             return new BigDecimal(JUNO_GAS_RATE_AVERAGE);
 
-        } else if (basechain.equals(AXELAR_MAIN) || basechain.equals(AXELAR_TEST)) {
+        } else if (basechain.equals(AXELAR_MAIN)) {
             if (position == 0) {
                 return new BigDecimal(AXELAR_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -4195,10 +4179,10 @@ public class WUtil {
 
         }
 
-        else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
+        else if (basechain.equals(BNB_MAIN)) {
             return BigDecimal.ZERO.setScale(3);
 
-        } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
+        } else if (basechain.equals(OKEX_MAIN)) {
             return new BigDecimal(OK_GAS_RATE_AVERAGE);
 
         }

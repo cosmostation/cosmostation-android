@@ -212,48 +212,10 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(BNB_TEST)) {
-                holder.bnbLayer.setVisibility(View.VISIBLE);
-                holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
-                ApiClient.getBnbTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResBnbAccountInfo>() {
-                    @Override
-                    public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
-                        if(response.isSuccessful() && response.body() != null && response.body().balances != null) {
-                            for (ResBnbAccountInfo.BnbBalance balance:response.body().balances) {
-                                if (balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
-                                    holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.free), 0, 8));
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) { }
-                });
-
             } else if (mChain.equals(OKEX_MAIN)) {
                 holder.okLayer.setVisibility(View.VISIBLE);
                 holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 18));
                 ApiClient.getOkexChain(getBaseContext()).getAccountBalance(address).enqueue(new Callback<ResOkAccountToken>() {
-                    @Override
-                    public void onResponse(Call<ResOkAccountToken> call, Response<ResOkAccountToken> response) {
-                        if(response.isSuccessful() && response.body() != null && response.body().data != null && response.body().data.currencies != null) {
-                            for (ResOkAccountToken.OkCurrency balance:response.body().data.currencies) {
-                                if (balance.symbol.equals(TOKEN_OK)) {
-                                    holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.available), 0, 18));
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<ResOkAccountToken> call, Throwable t) { }
-                });
-
-            } else if (mChain.equals(OK_TEST)) {
-                holder.okLayer.setVisibility(View.VISIBLE);
-                holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 18));
-                ApiClient.getOkTestChain(getBaseContext()).getAccountBalance(address).enqueue(new Callback<ResOkAccountToken>() {
                     @Override
                     public void onResponse(Call<ResOkAccountToken> call, Response<ResOkAccountToken> response) {
                         if(response.isSuccessful() && response.body() != null && response.body().data != null && response.body().data.currencies != null) {

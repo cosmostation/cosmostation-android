@@ -244,51 +244,8 @@ public enum BaseChain {
                 chainName.equals(IRIS_TEST.chainName)) {
             return IRIS_TEST;
         }
-        if (chainName.equals(BNB_TEST_LEGACY1.chainName) ||
-                chainName.equals(BNB_TEST.chainName)) {
-            return BNB_TEST;
-        }
-        if (chainName.equals(KAVA_TEST_LEGACY4.chainName) ||
-                chainName.equals(KAVA_TEST_LEGACY5.chainName) ||
-                chainName.equals(KAVA_TEST_LEGACY6.chainName) ||
-                chainName.equals(KAVA_TEST_LEGACY8.chainName) ||
-                chainName.equals(KAVA_TEST_LEGACY9.chainName) ||
-                chainName.equals(KAVA_TEST_LEGACY11.chainName) ||
-                chainName.equals(KAVA_TEST_LEGACY12.chainName) ||
-                chainName.equals(KAVA_TEST_3.chainName) ||
-                chainName.equals(KAVA_TEST_4.chainName) ||
-                chainName.equals(KAVA_TEST.chainName)) {
-            return KAVA_TEST;
-        }
-        if (chainName.equals(IOV_TEST_LEGACY1.chainName) ||
-                chainName.equals(IOV_TEST.chainName)) {
-            return IOV_TEST;
-        }
-        if (chainName.equals(OK_TEST_LEGACY.chainName) ||
-                chainName.equals(OK_TEST_LEGACY1.chainName) ||
-                chainName.equals(OK_TEST_LEGACY2.chainName) ||
-                chainName.equals(OK_TEST_LEGACY3.chainName) ||
-                chainName.equals(OK_TEST.chainName)) {
-            return OK_TEST;
-        }
-        if (chainName.equals(CERTIK_TEST_LEGACY1.chainName) ||
-                chainName.equals(CERTIK_TEST.chainName)) {
-            return CERTIK_TEST;
-        }
-        if (chainName.equals(RIZON_TEST.chainName)) {
-            return RIZON_TEST;
-        }
-        if (chainName.equals(MEDI_TEST.chainName)) {
-            return MEDI_TEST;
-        }
-        if (chainName.equals(ALTHEA_TEST.chainName)) {
-            return ALTHEA_TEST;
-        }
         if (chainName.equals(UMEE_TEST.chainName)) {
             return UMEE_TEST;
-        }
-        if (chainName.equals(AXELAR_TEST.chainName)) {
-            return AXELAR_TEST;
         }
 
         return null;
@@ -330,19 +287,7 @@ public enum BaseChain {
         result.add(IOV_MAIN);
 
 //        result.add(ALTHEA_MAIN);
-
-//        result.add(COSMOS_TEST);
-//        result.add(IRIS_TEST);
-//        result.add(BNB_TEST);
-//        result.add(KAVA_TEST);
-//        result.add(IOV_TEST);
-//        result.add(OK_TEST);
-//        result.add(CERTIK_TEST);
-//        result.add(RIZON_TEST);
-//        result.add(MEDI_TEST);
-//        result.add(ALTHEA_TEST);
         result.add(UMEE_TEST);
-//        result.add(AXELAR_TEST);
         return result;
     }
 
@@ -359,13 +304,7 @@ public enum BaseChain {
 
     public static ArrayList<BaseChain> getHtlcSendable(BaseChain fromChain) {
         ArrayList<BaseChain> result = new ArrayList<>();
-        if (fromChain.equals(BNB_TEST)) {
-            result.add(KAVA_TEST);
-
-        } else if (fromChain.equals(KAVA_TEST)) {
-            result.add(BNB_TEST);
-
-        } else if (fromChain.equals(KAVA_MAIN)) {
+        if (fromChain.equals(KAVA_MAIN)) {
             result.add(BNB_MAIN);
 
         } else if (fromChain.equals(BNB_MAIN)) {
@@ -389,19 +328,12 @@ public enum BaseChain {
             result.add(TOKEN_HTLC_KAVA_XRPB);
             result.add(TOKEN_HTLC_KAVA_BUSD);
 
-        } else if (fromChain.equals(BNB_TEST)) {
-            result.add(TOKEN_HTLC_BINANCE_TEST_BNB);
-            result.add(TOKEN_HTLC_BINANCE_TEST_BTC);
-
-        } else if (fromChain.equals(KAVA_TEST)) {
-            result.add(TOKEN_HTLC_KAVA_TEST_BNB);
-            result.add(TOKEN_HTLC_KAVA_TEST_BTC);
         }
         return result;
     }
 
     public static boolean isGRPC(BaseChain baseChain) {
-        if (baseChain.equals(BNB_MAIN) || baseChain.equals(OKEX_MAIN) || baseChain.equals(BNB_TEST) || baseChain.equals(OK_TEST)) {
+        if (baseChain.equals(BNB_MAIN) || baseChain.equals(OKEX_MAIN)) {
             return false;
         }
         return true;

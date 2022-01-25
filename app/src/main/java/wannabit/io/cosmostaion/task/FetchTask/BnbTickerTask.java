@@ -32,12 +32,6 @@ public class BnbTickerTask extends CommonTask {
                     mResult.resultData = response.body();
                 }
 
-            } else if (mBaseChain.equals(BaseChain.BNB_TEST)) {
-                Response<ArrayList<BnbTicker>> response = ApiClient.getBnbTestChain(mApp).getTic().execute();
-                if(response.isSuccessful() && response.body() != null && response.body().size() > 0) {
-                    mResult.resultData = response.body();
-
-                }
             }
             mResult.isSuccess = true;
 

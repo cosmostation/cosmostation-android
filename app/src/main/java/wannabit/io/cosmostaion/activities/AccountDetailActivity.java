@@ -154,13 +154,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
         changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
         startActivity(changeAddress);
-
-
-//        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 0);
-//            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
-//                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-//                return;
-//            }
     }
 
     private void onInitView() {

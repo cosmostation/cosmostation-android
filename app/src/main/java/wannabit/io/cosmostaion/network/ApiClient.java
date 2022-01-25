@@ -139,37 +139,6 @@ public class ApiClient {
         return service_binance;
     }
 
-    //Services for BinanceTest net
-    private static BinanceChain service_binance_test = null;
-    public static BinanceChain getBnbTestChain(Context c) {
-        if (service_binance_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_test_bnb))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_binance_test = retrofit.create(BinanceChain.class);
-            }
-        }
-        return service_binance_test;
-    }
-
-    //Faucet for BinanceTest net
-    private static BinanceChain service_binance_faucet = null;
-    public static BinanceChain getBnbTestFaucet(Context c) {
-        if (service_binance_faucet == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_test_bnb_faucet))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_binance_faucet = retrofit.create(BinanceChain.class);
-            }
-        }
-        return service_binance_faucet;
-    }
-
-
     //Services for KAVA chain
     private static KavaChain service_kava = null;
     public static KavaChain getKavaChain(Context c) {
@@ -183,6 +152,21 @@ public class ApiClient {
             }
         }
         return service_kava;
+    }
+
+    //Services for Certik chain
+    private static Station service_certik = null;
+    public static Station getCertikChain(Context c) {
+        if (service_certik == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_certik_main))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_certik = retrofit.create(Station.class);
+            }
+        }
+        return service_certik;
     }
 
     //Services for KAVA api
@@ -199,37 +183,6 @@ public class ApiClient {
         }
         return api_kava;
     }
-
-    //Services for KAVATest chain
-    private static KavaChain service_kava_test = null;
-    public static KavaChain getKavaTestChain(Context c) {
-        if (service_kava_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_kava_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_kava_test = retrofit.create(KavaChain.class);
-            }
-        }
-        return service_kava_test;
-    }
-
-    //Services for KAVATest api
-    private static HistoryApi api_kava_test = null;
-    public static HistoryApi getKavaTestApi(Context c) {
-        if (api_kava_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_kava_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_kava_test = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_kava_test;
-    }
-
 
     //Services for IOV api
     private static HistoryApi api_iov = null;

@@ -60,8 +60,6 @@ import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
-import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
-import wannabit.io.cosmostaion.activities.chains.rizon.RizonSwapStatusActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.BnbTicker;
@@ -76,8 +74,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
-import wannabit.io.cosmostaion.model.RewardInfo;
-import wannabit.io.cosmostaion.model.RizonSwapStatus;
 import wannabit.io.cosmostaion.model.SifIncentive;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
@@ -105,7 +101,6 @@ import wannabit.io.cosmostaion.task.FetchTask.OkStakingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkUnbondingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
-import wannabit.io.cosmostaion.task.FetchTask.RizonSwapStatusTask;
 import wannabit.io.cosmostaion.task.FetchTask.SifLmIncentiveTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationIbcPathsTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationIbcTokensTask;
@@ -139,7 +134,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
@@ -149,7 +143,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_BEP3_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_FEES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_MINI_TICKER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_TICKER;
@@ -607,7 +600,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mGrpcGravityPools.clear();
 
 
-        if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST) ) {
+        if (mBaseChain.equals(BNB_MAIN)) {
             mTaskCount = 6;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -617,7 +610,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new BnbMiniTickerTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 //            new BnbFeesTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(BaseChain.OKEX_MAIN) || mBaseChain.equals(BaseChain.OK_TEST)) {
+        } else if (mBaseChain.equals(BaseChain.OKEX_MAIN)) {
             mTaskCount = 8;
             getBaseDao().mOkStaking = null;
             getBaseDao().mOkUnbonding = null;
@@ -1157,31 +1150,4 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
         }, query).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
-
-    public void onStartEventHorizon() {
-        new RizonSwapStatusTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                if (result.isSuccess) {
-                    ArrayList<RizonSwapStatus> tempStatus = (ArrayList<RizonSwapStatus>) result.resultData;
-                    if (tempStatus.size() != 0) {
-                        Toast.makeText(BaseActivity.this, R.string.error_already_rizon_swap, Toast.LENGTH_SHORT).show();
-                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(BaseActivity.this, RizonSwapStatusActivity.class);
-                                startActivity(intent);
-                            }
-                        },2000);
-                    } else {
-                        Intent intent = new Intent(BaseActivity.this, EventHorizonActivity.class);
-                        startActivity(intent);
-                    }
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                }
-            }
-        },mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
 }

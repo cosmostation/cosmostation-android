@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import osmosis.gamm.v1beta1.Tx;
@@ -52,10 +55,12 @@ public class TxTokenSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(2).getValue();
-                                if (value.contains("ibc")) {
-                                    inCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
-                                } else {
-                                    inCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                Pattern p = Pattern.compile("([0-9])+");
+                                Matcher m1 = p.matcher(value);
+                                if (m1.find()) {
+                                    String amount = m1.group();
+                                    String denom = value.replaceAll(m1.group(), "");
+                                    inCoin = new Coin(denom, amount);
                                 }
                             }
                         }
@@ -74,10 +79,12 @@ public class TxTokenSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(event.getAttributesCount() - 1).getValue();
-                                if (value.contains("ibc")) {
-                                    outCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
-                                } else {
-                                    outCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                Pattern p = Pattern.compile("([0-9])+");
+                                Matcher m1 = p.matcher(value);
+                                if (m1.find()) {
+                                    String amount = m1.group();
+                                    String denom = value.replaceAll(m1.group(), "");
+                                    outCoin = new Coin(denom, amount);
                                 }
                             }
                         }

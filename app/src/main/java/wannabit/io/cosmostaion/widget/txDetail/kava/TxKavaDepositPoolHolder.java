@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import kava.swap.v1beta1.Tx;
@@ -48,21 +51,20 @@ public class TxKavaDepositPoolHolder extends TxHolder {
                         String InValue0 = event.getAttributesList().get(2).getValue().split(",")[0];
                         String InValue1 = event.getAttributesList().get(2).getValue().split(",")[1];
 
-                        String coin0Amount = "";
-                        if (InValue0.contains("ibc")) {
-                            coin0Amount = InValue0.split("ibc")[0];
-                        } else {
-                            coin0Amount = InValue0.replaceAll("[^0-9]", "");
+                        Pattern p = Pattern.compile("([0-9])+");
+                        Matcher m1 = p.matcher(InValue0);
+                        if (m1.find()) {
+                            String amount = m1.group();
+                            String denom = InValue0.replaceAll(m1.group(), "");
+                            inCoin0 = new Coin(denom, amount);
                         }
-                        inCoin0 = new Coin(InValue0.replaceAll(coin0Amount, ""), coin0Amount);
 
-                        String coin1Amount = "";
-                        if (InValue1.contains("ibc")) {
-                            coin1Amount = InValue1.split("ibc")[0];
-                        } else {
-                            coin1Amount = InValue1.replaceAll("[^0-9]", "");
+                        Matcher m2 = p.matcher(InValue1);
+                        if (m2.find()) {
+                            String amount = m2.group();
+                            String denom = InValue1.replaceAll(m2.group(), "");
+                            inCoin1 = new Coin(denom, amount);
                         }
-                        inCoin1 = new Coin(InValue1.replaceAll(coin1Amount, ""), coin1Amount);
                     }
                 }
             }

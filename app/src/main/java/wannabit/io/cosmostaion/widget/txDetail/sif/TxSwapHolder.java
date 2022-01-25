@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import sifnode.clp.v1.Tx;
@@ -48,23 +51,20 @@ public class TxSwapHolder extends TxHolder {
                         String sendValue = event.getAttributesList().get(2).getValue();
                         String receiveValue = event.getAttributesList().get(5).getValue();
 
-                        String sendAmount = "";
-                        if (sendValue.contains("ibc")) {
-                            sendAmount = sendValue.split("ibc")[0];
-                        } else {
-                            sendAmount = sendValue.replaceAll("[^0-9]", "");
+                        Pattern p = Pattern.compile("([0-9])+");
+                        Matcher m1 = p.matcher(sendValue);
+                        if (m1.find()) {
+                            String amount = m1.group();
+                            String denom = sendValue.replaceAll(m1.group(), "");
+                            sendCoin = new Coin(denom, amount);
                         }
-                        sendCoin = new Coin(sendValue.replaceAll(sendAmount, ""), sendAmount);
 
-                        String receiveAmount = "";
-                        if (receiveValue.contains("ibc")) {
-                            receiveAmount = receiveValue.split("ibc")[0];
-                        } else if (receiveValue.contains("c")){
-                            receiveAmount = receiveValue.split("c")[0];
-                        } else {
-                            receiveAmount = receiveValue.replaceAll("[^0-9]", "");
+                        Matcher m2 = p.matcher(receiveValue);
+                        if (m2.find()) {
+                            String amount = m2.group();
+                            String denom = receiveValue.replaceAll(m2.group(), "");
+                            receiveCoin = new Coin(denom, amount);
                         }
-                        receiveCoin = new Coin(receiveValue.replaceAll(receiveAmount, ""), receiveAmount);
                     }
                 }
             }

@@ -148,7 +148,7 @@ public class WKey {
     }
 
     public static List<ChildNumber> getParentPath(BaseChain chain, boolean newBip) {
-        if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+        if (chain.equals(BNB_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(KAVA_MAIN)) {
@@ -161,10 +161,10 @@ public class WKey {
         } else if (chain.equals(BAND_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(494, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
-        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+        } else if (chain.equals(IOV_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(234, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
-        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(996, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(SECRET_MAIN)) {
@@ -180,7 +180,7 @@ public class WKey {
         } else if (chain.equals(CRYPTO_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(394, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
-        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
+        } else if (chain.equals(MEDI_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(INJ_MAIN)) {
@@ -388,11 +388,11 @@ public class WKey {
                 result = bech32Encode("band".getBytes(), converted);
             } else if (chain.equals(BNB_TEST)){
                 result = bech32Encode("tbnb".getBytes(), converted);
-            } else if (chain.equals(IOV_MAIN) ||chain.equals(IOV_TEST)){
+            } else if (chain.equals(IOV_MAIN)){
                 result = bech32Encode("star".getBytes(), converted);
-            } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)){
+            } else if (chain.equals(OKEX_MAIN)){
                 result = bech32Encode("ex".getBytes(), converted);
-            } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)){
+            } else if (chain.equals(CERTIK_MAIN)){
                 result = bech32Encode("certik".getBytes(), converted);
             } else if (chain.equals(SECRET_MAIN)){
                 result = bech32Encode("secret".getBytes(), converted);
@@ -412,11 +412,11 @@ public class WKey {
                 result = bech32Encode("ki".getBytes(), converted);
             } else if (chain.equals(OSMOSIS_MAIN)){
                 result = bech32Encode("osmo".getBytes(), converted);
-            } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)){
+            } else if (chain.equals(MEDI_MAIN)){
                 result = bech32Encode("panacea".getBytes(), converted);
             } else if (chain.equals(EMONEY_MAIN)){
                 result = bech32Encode("emoney".getBytes(), converted);
-            } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)){
+            } else if (chain.equals(RIZON_MAIN)){
                 result = bech32Encode("rizon".getBytes(), converted);
             } else if (chain.equals(JUNO_MAIN)){
                 result = bech32Encode("juno".getBytes(), converted);
@@ -424,7 +424,7 @@ public class WKey {
                 result = bech32Encode("regen".getBytes(), converted);
             } else if (chain.equals(BITCANNA_MAIN)){
                 result = bech32Encode("bcna".getBytes(), converted);
-            } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)){
+            } else if (chain.equals(ALTHEA_MAIN)){
                 result = bech32Encode("althea".getBytes(), converted);
             } else if (chain.equals(STARGAZE_MAIN)){
                 result = bech32Encode("stars".getBytes(), converted);
@@ -463,15 +463,15 @@ public class WKey {
             return bech32Encode("cosmos".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             return bech32Encode("iaa".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+        } else if (chain.equals(KAVA_MAIN)) {
             return bech32Encode("kava".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BAND_MAIN)) {
             return bech32Encode("band".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+        } else if (chain.equals(IOV_MAIN)) {
             return bech32Encode("star".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN)) {
             return bech32Encode("ex".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+        } else if (chain.equals(CERTIK_MAIN)) {
             return bech32Encode("certik".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(SECRET_MAIN)) {
             return bech32Encode("secret".getBytes(), bech32Decode(dpOpAddress).data);
@@ -491,11 +491,11 @@ public class WKey {
             return bech32Encode("ki".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OSMOSIS_MAIN)) {
             return bech32Encode("osmo".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
+        } else if (chain.equals(MEDI_MAIN)) {
             return bech32Encode("panacea".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(EMONEY_MAIN)) {
             return bech32Encode("emoney".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
+        } else if (chain.equals(RIZON_MAIN)) {
             return bech32Encode("rizon".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(JUNO_MAIN)) {
             return bech32Encode("juno".getBytes(), bech32Decode(dpOpAddress).data);
@@ -503,7 +503,7 @@ public class WKey {
             return bech32Encode("regen".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BITCANNA_MAIN)) {
             return bech32Encode("bcna".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
+        } else if (chain.equals(ALTHEA_MAIN)) {
             return bech32Encode("althea".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(STARGAZE_MAIN)) {
             return bech32Encode("stars".getBytes(), bech32Decode(dpOpAddress).data);
@@ -523,7 +523,7 @@ public class WKey {
             return bech32Encode("chihuahua".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umee".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
+        } else if (chain.equals(AXELAR_MAIN)) {
             return bech32Encode("axelar".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
@@ -535,15 +535,15 @@ public class WKey {
             return bech32Encode("cosmosvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             return bech32Encode("iva".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+        } else if (chain.equals(KAVA_MAIN)) {
             return bech32Encode("kavavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BAND_MAIN)) {
             return bech32Encode("bandvaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+        } else if (chain.equals(IOV_MAIN)) {
             return bech32Encode("starvaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+        } else if (chain.equals(OKEX_MAIN)) {
             return bech32Encode("exvaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+        } else if (chain.equals(CERTIK_MAIN)) {
             return bech32Encode("certikvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(SECRET_MAIN)) {
             return bech32Encode("secretvaloper".getBytes(), bech32Decode(dpOpAddress).data);
@@ -563,9 +563,9 @@ public class WKey {
             return bech32Encode("kivaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OSMOSIS_MAIN)) {
             return bech32Encode("osmovaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
+        } else if (chain.equals(RIZON_MAIN)) {
             return bech32Encode("rizonvaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
+        } else if (chain.equals(MEDI_MAIN)) {
             return bech32Encode("panaceavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(EMONEY_MAIN)) {
             return bech32Encode("emoneyvaloper".getBytes(), bech32Decode(dpOpAddress).data);
@@ -575,7 +575,7 @@ public class WKey {
             return bech32Encode("regenvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BITCANNA_MAIN)) {
             return bech32Encode("bcnavaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
+        } else if (chain.equals(ALTHEA_MAIN)) {
             return bech32Encode("altheavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(STARGAZE_MAIN)) {
             return bech32Encode("starsvaloper".getBytes(), bech32Decode(dpOpAddress).data);
@@ -595,7 +595,7 @@ public class WKey {
             return bech32Encode("chihuahuaaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umeevaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(AXELAR_MAIN) || chain.equals(AXELAR_TEST)) {
+        } else if (chain.equals(AXELAR_MAIN)) {
             return bech32Encode("axelarvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
@@ -604,7 +604,7 @@ public class WKey {
 
     public static String getDpAddressFromEntropy(BaseChain chain, String entropy, int path, boolean newBip, int customPath) {
         DeterministicKey childKey = getKeyWithPathfromEntropy(chain, entropy, path, newBip, customPath);
-        if ((chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) && newBip) {
+        if (chain.equals(OKEX_MAIN) && newBip) {
             return generateAddressFromPriv("ex", childKey.getPrivateKeyAsHex());
         } else if (chain.equals(INJ_MAIN)) {
             return generateAddressFromPriv("inj", childKey.getPrivateKeyAsHex());

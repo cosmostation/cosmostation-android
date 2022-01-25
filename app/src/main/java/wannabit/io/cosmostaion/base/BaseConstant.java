@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class BaseConstant {
     public final static boolean SUPPORT_MOONPAY         = true;
-    public final static boolean SUPPORT_BEP3_SWAP       = false;
+    public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
 
     public final static String DB_NAME                  = "WannaBit";
@@ -128,6 +128,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_TOTAL_SUPPLY                = 4029;
     public final static int TASK_GRPC_FETCH_GRAVITY_POOL_INFO           = 4030;
     public final static int TASK_GRPC_FETCH_DESMOS_PROFILE_INFO         = 4031;
+    public final static int TASK_GRPC_FETCH_SUPPLY_OF_INFO              = 4032;
 
     public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
@@ -216,8 +217,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_KAVA_BORROW_HARD           = 4343;
     public final static int TASK_GRPC_GEN_TX_KAVA_REPAY_HARD            = 4344;
     public final static int TASK_GRPC_GEN_TX_KAVA_CLAIM_INCENTIVES      = 4345;
-    public final static int TASK_GRPC_GEN_TX_KAVA_CREATE_HTLC           = 4346;
-    public final static int TASK_GRPC_GEN_TX_KAVA_CLAIM_HTLC            = 4347;
+
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;

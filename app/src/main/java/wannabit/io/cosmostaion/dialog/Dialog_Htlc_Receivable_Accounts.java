@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -96,7 +97,7 @@ public class Dialog_Htlc_Receivable_Accounts extends DialogFragment {
                 if (account.hasPrivateKey) {
                     holder.accountKeyState.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
                 }
-                WDp.showCoinDp(getContext(), getSActivity().getBaseDao(), TOKEN_KAVA, account.getKavaBalance().toPlainString(), holder.accountDenom, holder.accountAvailable, baseChain);
+                WDp.showCoinDp(getContext(), getSActivity().getBaseDao(), TOKEN_KAVA, account.lastTotal, holder.accountDenom, holder.accountAvailable, baseChain);
             }
 
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {

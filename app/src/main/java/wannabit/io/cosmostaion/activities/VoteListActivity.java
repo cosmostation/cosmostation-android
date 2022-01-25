@@ -30,7 +30,6 @@ import wannabit.io.cosmostaion.task.FetchTask.MintScanProposalListTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_PROPOSAL_LIST;
@@ -139,16 +138,16 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         public void onBindViewHolder(@NonNull VoteHolder voteHolder, int position) {
             final ResProposal proposal = mApiProposalList.get(position);
             voteHolder.proposal_id.setText("# " + proposal.id);
-            if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_DEPOSIT_PERIOD")) {
+            if (proposal.proposal_status.contains("DEPOSIT")) {
                 voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
                 voteHolder.proposal_status.setText("DepositPeriod");
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD")) {
+            } else if (proposal.proposal_status.contains("VOTING")) {
                 voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
                 voteHolder.proposal_status.setText("VotingPeriod");
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_REJECTED")) {
+            } else if (proposal.proposal_status.contains("REJECTED")) {
                 voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
                 voteHolder.proposal_status.setText("Rejected");
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_PASSED")) {
+            } else if (proposal.proposal_status.contains("PASSED")) {
                 voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
                 voteHolder.proposal_status.setText("Passed");
             } else {
@@ -162,9 +161,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    WLog.w("proposal_status : " + proposal.proposal_status);
                     if (proposal.proposal_status.contains("PASSED") ||
-                            proposal.proposal_status.equalsIgnoreCase("REJECTED")) {
+                            proposal.proposal_status.contains("REJECTED")) {
                         String url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         startActivity(intent);

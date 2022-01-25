@@ -43,25 +43,6 @@ public class BnbHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.BNB_TEST)) {
-                Response<ResBnbHistories> response = null;
-                if (strings.length == 3) {
-                    response = ApiClient.getBnbTestChain(mApp).getHistory(strings[0], strings[1], strings[2]).execute();
-                    Call a = ApiClient.getBnbTestChain(mApp).getHistory(strings[0], strings[1], strings[2]);
-                    WLog.w("url " + a.request().url().toString());
-                } else {
-                    response = ApiClient.getBnbTestChain(mApp).getHistoryAsset(strings[0], strings[1], strings[2], strings[3]).execute();
-//                    Call a = ApiClient.getBnbTestChain(mApp).getHistoryAsset(strings[0], strings[1], strings[2], strings[3]);
-//                    WLog.w("url " + a.request().url().toString());
-                }
-
-                if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().tx;
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
             }
 
         } catch (Exception e) {

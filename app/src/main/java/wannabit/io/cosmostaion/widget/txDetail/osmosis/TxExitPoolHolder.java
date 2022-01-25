@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
@@ -56,21 +58,20 @@ public class TxExitPoolHolder extends TxHolder {
                         String OutValue1 = event.getAttributesList().get(2).getValue().split(",")[1];
                         String InValue = event.getAttributesList().get(5).getValue();
 
-                        String coin0Amount = "";
-                        if (OutValue0.contains("ibc")) {
-                            coin0Amount = OutValue0.split("ibc")[0];
-                        } else {
-                            coin0Amount = OutValue0.replaceAll("[^0-9]", "");
+                        Pattern p = Pattern.compile("([0-9])+");
+                        Matcher m1 = p.matcher(OutValue0);
+                        if (m1.find()) {
+                            String amount = m1.group();
+                            String denom = OutValue0.replaceAll(m1.group(), "");
+                            outCoin0 = new Coin(denom, amount);
                         }
-                        outCoin0 = new Coin(OutValue0.replaceAll(coin0Amount, ""), coin0Amount);
 
-                        String coin1Amount = "";
-                        if (OutValue1.contains("ibc")) {
-                            coin1Amount = OutValue1.split("ibc")[0];
-                        } else {
-                            coin1Amount = OutValue1.replaceAll("[^0-9]", "");
+                        Matcher m2 = p.matcher(OutValue1);
+                        if (m2.find()) {
+                            String amount = m2.group();
+                            String denom = OutValue1.replaceAll(m2.group(), "");
+                            outCoin1 = new Coin(denom, amount);
                         }
-                        outCoin1 = new Coin(OutValue1.replaceAll(coin1Amount, ""), coin1Amount);
 
                         inCoin = new Coin(InValue.replaceAll(InValue.split("gamm")[0], ""), InValue.split("gamm")[0]);
                     }
