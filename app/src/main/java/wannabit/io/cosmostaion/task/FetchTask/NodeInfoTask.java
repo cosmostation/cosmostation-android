@@ -50,28 +50,6 @@ public class NodeInfoTask extends CommonTask {
 
             }
 
-            else if (mChain.equals(BNB_TEST)) {
-                Response<ResNodeInfo> response =  ApiClient.getBnbTestChain(mApp).getNodeInfo().execute();
-                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("NodeInfoTask : NOk");
-                }
-
-            } else if (mChain.equals(OK_TEST)) {
-                Response<ResNodeInfo> response =  ApiClient.getOkexChain(mApp).getNodeInfo().execute();
-                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("NodeInfoTask : NOk");
-                }
-
-            }
-
         } catch (Exception e) {
             WLog.w("NodeInfoTask Error " + e.getMessage());
         }

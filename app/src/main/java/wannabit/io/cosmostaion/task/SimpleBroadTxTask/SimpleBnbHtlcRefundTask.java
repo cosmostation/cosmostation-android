@@ -98,43 +98,7 @@ public class SimpleBnbHtlcRefundTask extends CommonTask {
                     mResult.errorMsg = resp.get(0).getLog();
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_TEST)) {
-                Response<ResBnbAccountInfo> response = ApiClient.getBnbTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
-
-                if (mAccount.fromMnemonic) {
-                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44, mAccount.customPath);
-                    ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
-                } else {
-                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                    ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
-                }
-
-                Wallet wallet = new Wallet(ecKey.getPrivateKeyAsHex(), BinanceDexEnvironment.TEST_NET);
-                wallet.setAccountNumber(mAccount.accountNumber);
-                wallet.setSequence(Long.valueOf(mAccount.sequenceNumber));
-
-                BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.TEST_NET.getBaseUrl());
-                TransactionOption options = new TransactionOption(mMemo, 82, null);
-                List<TransactionMetadata> resp = client.refundHtlt(mSwapId, wallet, options, true);
-                if (resp.get(0).isOk()) {
-                    WLog.w("OK " + resp.get(0).getHash());
-                    mResult.resultData = resp.get(0).getHash();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("ERROR " + resp.get(0).getCode() + " " + resp.get(0).getLog());
-                    mResult.errorCode = resp.get(0).getCode();
-                    mResult.errorMsg = resp.get(0).getLog();
-                }
             }
-
 
         } catch (Exception e) {
             if(BuildConfig.DEBUG) {

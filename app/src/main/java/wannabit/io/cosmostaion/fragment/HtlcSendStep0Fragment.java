@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
@@ -47,7 +48,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 
 public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_DESTINATION_CHAIN = 9100;
@@ -235,12 +235,6 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 8, 8));
         }
 
-//        WLog.w("available_amount "+ available_amount);
-//        WLog.w("onetime_max "+ onetime_max);
-//        WLog.w("supply_limit "+ supply_limit);
-//        WLog.w("supply_remain "+ supply_remain);
-
-
         mOnceMaxAmount.setText(WDp.getDpAmount2(getContext(), onetime_max, 8, 8));
         mSystemMaxAmount.setText(WDp.getDpAmount2(getContext(), supply_limit, 8, 8));
         mRemainAmount.setText(WDp.getDpAmount2(getContext(), supply_remain, 8, 8));
@@ -326,26 +320,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
                 }
             });
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_TEST) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)){
-            ApiClient.getKavaTestChain(getContext()).getSwapParams2().enqueue(new Callback<ResKavaBep3Param>() {
-                @Override
-                public void onResponse(Call<ResKavaBep3Param> call, Response<ResKavaBep3Param> response) {
-                    if (!response.isSuccessful()) {
-                        Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                    } else {
-                        mKavaBep3Param2 = response.body();
-                        getSActivity().mKavaBep3Param2 = mKavaBep3Param2;
-                        onCheckSwapSupply();
-                    }
-                }
-                @Override
-                public void onFailure(Call<ResKavaBep3Param> call, Throwable t) {
-                    Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-
-                }
-            });
         }
-
     }
 
     private void onCheckSwapSupply() {
@@ -366,34 +341,16 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
                     Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
             });
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_TEST) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)){
-            ApiClient.getKavaTestChain(getContext()).getSupplies2().enqueue(new Callback<ResKavaSwapSupply>() {
-                @Override
-                public void onResponse(Call<ResKavaSwapSupply> call, Response<ResKavaSwapSupply> response) {
-                    if (!response.isSuccessful()) {
-                        Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                    } else {
-                        mKavaSuppies2 = response.body();
-                        getSActivity().mKavaSuppies2 = mKavaSuppies2;
-                        onUpdateView();
-                    }
-                }
-                @Override
-                public void onFailure(Call<ResKavaSwapSupply> call, Throwable t) {
-                    Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
 
     private boolean onCheckMinBalance() {
-        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (available_amount.compareTo(mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom).movePointLeft(8)) > 0) {
                 return true;
             }
 
-        } else if  (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if  (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             if (available_amount.compareTo(mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom)) > 0) {
                 return true;
             }

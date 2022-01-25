@@ -25,22 +25,16 @@
 
 
     <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
-    <string name="url_test_bnb" translatable="false">https://testnet-dex.binance.org/</string>
-    <string name="url_test_bnb_faucet" translatable="false">https://faucet-binance.cosmostation.io</string>
 
 
     <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>
     <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
 
-    <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-testnet-13000/</string>
-    <string name="url_api_kava_test" translatable="false">https://api-office.cosmostation.io/kava-testnet-13000/</string>
-    <string name="url_test_kava_faucet" translatable="false"></string>
+
+    <string name="url_lcd_certik_main" translatable="false">https://lcd-certik-app.cosmostation.io/</string>
 
 
     <string name="url_api_iov_main" translatable="false">https://api-iov.cosmostation.io/</string>
-
-    <string name="url_lcd_iov_test" translatable="false">https://iovnscli-rest-api.cluster-galaxynet.iov.one/</string>
-    <string name="url_api_iov_test" translatable="false"></string>
 
 
     <string name="url_api_band_main" translatable="false">https://api-band.cosmostation.io/</string>
@@ -48,15 +42,13 @@
 
     <string name="url_lcd_ok" translatable="false">https://www.okex.com/okexchain/v1/</string>
 
+
     <string name="url_lcd_ok_test" translatable="false">https://www.okex.com/okexchain-test/v1/</string>
-    <string name="url_api_ok_test" translatable="false"></string>
 
 
     <string name="url_api_certik" translatable="false">https://api-certik.cosmostation.io/</string>
 
 
-    <!--    <string name="url_lcd_secret" translatable="false">https://api.secretnodes.org/</string>-->
-<!--    <string name="url_lcd_secret" translatable="false">https://secret-3&#45;&#45;lcd&#45;&#45;full.datahub.figment.io/apikey/290520481df876316ee7664924c0a1df/</string>-->
     <string name="url_api_secret" translatable="false">https://api-secret.cosmostation.io/</string>
 
 
