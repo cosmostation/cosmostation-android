@@ -296,7 +296,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             swapIdTv.setText(msg.value.swap_id);
 
         } else if (mResReceiveTxInfo != null) {
-            if (mRecipientChain.equals(BaseChain.KAVA_MAIN) || mRecipientChain.equals(BaseChain.KAVA_TEST)) {
+            if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
                 final Msg msg = mResReceiveTxInfo.tx.value.msg.get(0);
                 if (mResReceiveTxInfo.isSuccess()) {
                     statusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
@@ -459,7 +459,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     //Check HTLC SWAP ID
     private int SwapFetchCnt = 0;
     private void onCheckSwapId(String expectedSwapId) {
-//        WLog.w("onCheckSwapId " + SwapFetchCnt + " " + expectedSwapId);
+        WLog.w("onCheckSwapId " + SwapFetchCnt + " " + expectedSwapId);
         if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             ApiClient.getKavaChain(this).getSwapById(expectedSwapId).enqueue(new Callback<ResKavaSwapInfo>() {
                 @Override

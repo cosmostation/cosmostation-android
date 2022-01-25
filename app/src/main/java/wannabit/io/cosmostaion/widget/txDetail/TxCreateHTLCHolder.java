@@ -42,6 +42,7 @@ public class TxCreateHTLCHolder extends TxHolder {
             itemRecipient.setText(msg.getTo());
             itemRandomHash.setText(msg.getRandomNumberHash());
             itemStatusLayer.setVisibility(View.GONE);
+            itemExpectedLayer.setVisibility(View.GONE);
             WDp.showCoinDp(c, baseData, msg.getAmount(0).getDenom() ,msg.getAmount(0).getAmount(), itemSendDenom, itemSendAmount, baseChain);
 
         } catch (Exception e) { }

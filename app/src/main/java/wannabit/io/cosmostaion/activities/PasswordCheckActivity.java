@@ -115,11 +115,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
@@ -217,20 +214,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mProposalId;
     private String                      mOpinion;
 
-    private Coin                        mCollateralCoin;
-    private Coin                        mPrincipalCoin;
-    private Coin                        mPaymentCoin;
-    private String                      mSender;
-    private String                      mOwner;
-    private String                      mDepositor;
-    private String                      mCdpDenom;
-
-    private String                      mDepositDenom;
-    private String                      mDepositType;
-
-
     private String                      mSwapId;
-    private String                      mClaimDenom;
 
     private Coin                        mOkStakeCoin;
     private ArrayList<String>           mOKVoteValidator = new ArrayList<>();
@@ -347,23 +331,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mReInvestAmount = getIntent().getParcelableExtra("reInvestAmount");
         mProposalId = getIntent().getStringExtra("proposal_id");
         mOpinion = getIntent().getStringExtra("opinion");
-        mCollateralCoin = getIntent().getParcelableExtra("collateralCoin");
-        mPrincipalCoin = getIntent().getParcelableExtra("principalCoin");
-        mPaymentCoin = getIntent().getParcelableExtra("payment");
-        mSender = getIntent().getStringExtra("sender");
-        mOwner = getIntent().getStringExtra("owner");
-        mDepositor = getIntent().getStringExtra("depositor");
-        mCdpDenom = getIntent().getStringExtra("cdp_denom");
-        mDepositor = getIntent().getStringExtra("depositor");
-        mCdpDenom = getIntent().getStringExtra("cdp_denom");
         mSwapId = getIntent().getStringExtra("swapId");
-        mClaimDenom = getIntent().getStringExtra("denom");
         mOkStakeCoin = getIntent().getParcelableExtra("stakeAmount");
         mOKVoteValidator = getIntent().getStringArrayListExtra("voteVal");
 
         mMultiplierName = getIntent().getStringExtra("multiplierName");
-        mDepositDenom = getIntent().getStringExtra("depositDenom");
-        mDepositType = getIntent().getStringExtra("depositType");
 
         mDomain = getIntent().getStringExtra("domain");
         mDomainType = getIntent().getStringExtra("domainType");
@@ -521,7 +493,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 new SendGrpcTask(getBaseApplication(), this, mBaseChain, mAccount,  mTargetAddress,  mTargetCoins,  mTargetMemo, mTargetFee,
                         getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-            } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+            } else if (mBaseChain.equals(BNB_MAIN)) {
                 new SimpleBnbSendTask(getBaseApplication(), this, mAccount,  mTargetAddress,  mTargetCoins,  mTargetMemo, mTargetFee)
                         .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -579,11 +551,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_HTLS_REFUND) {
             onShowWaitDialog();
-            if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+            if (mBaseChain.equals(BNB_MAIN)) {
                 new SimpleBnbHtlcRefundTask(getBaseApplication(), this, mAccount,
                         mSwapId, mTargetMemo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+            } else if (mBaseChain.equals(KAVA_MAIN)) {
                 new SimpleHtlcRefundTask(getBaseApplication(), this, mAccount, mSwapId,
                         mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
             }
@@ -884,7 +856,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 return;
             }
 
-            if ((mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) && result.taskType == TASK_GEN_TX_BNB_HTLC_REFUND) {
+            if ((mBaseChain.equals(BNB_MAIN)) && result.taskType == TASK_GEN_TX_BNB_HTLC_REFUND) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
                 txIntent.putExtra("isGen", true);
                 txIntent.putExtra("isSuccess", result.isSuccess);
@@ -895,8 +867,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     txIntent.putExtra("txHash", hash);
                 startActivity(txIntent);
 
-            } else if (mBaseChain.equals(RIZON_MAIN) && result.taskType == TASK_HDAC_BROAD_BURN ||
-                        mBaseChain.equals(RIZON_TEST) && result.taskType == TASK_HDAC_BROAD_BURN) {
+            } else if (mBaseChain.equals(RIZON_MAIN) && result.taskType == TASK_HDAC_BROAD_BURN) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, EventHorizonDetailActivity.class);
                 String hash = String.valueOf(result.resultData);
                 txIntent.putExtra("isSuccess", result.isSuccess);

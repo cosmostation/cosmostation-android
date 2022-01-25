@@ -600,7 +600,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mGrpcGravityPools.clear();
 
 
-        if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST) ) {
+        if (mBaseChain.equals(BNB_MAIN)) {
             mTaskCount = 6;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -610,7 +610,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new BnbMiniTickerTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 //            new BnbFeesTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(BaseChain.OKEX_MAIN) || mBaseChain.equals(BaseChain.OK_TEST)) {
+        } else if (mBaseChain.equals(BaseChain.OKEX_MAIN)) {
             mTaskCount = 8;
             getBaseDao().mOkStaking = null;
             getBaseDao().mOkUnbonding = null;

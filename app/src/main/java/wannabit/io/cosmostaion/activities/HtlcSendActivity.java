@@ -80,7 +80,6 @@ public class HtlcSendActivity extends BaseActivity {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mToSwapDenom = getIntent().getStringExtra("toSwapDenom");
-//        WLog.w("toSwapDenom "+ mToSwapDenom);
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_htlc_send_step_1));
@@ -165,7 +164,7 @@ public class HtlcSendActivity extends BaseActivity {
 
 
     public Fee onInitSendFee() {
-        if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
+        if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             Coin gasCoin = new Coin();
             gasCoin.denom = BaseConstant.TOKEN_BNB;
             gasCoin.amount = FEE_BNB_SEND;
@@ -173,7 +172,7 @@ public class HtlcSendActivity extends BaseActivity {
             gasCoins.add(gasCoin);
             mSendFee = new Fee("", gasCoins);
 
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             Coin gasCoin = new Coin();
             gasCoin.denom = BaseConstant.TOKEN_KAVA;
             gasCoin.amount = "0";
@@ -186,7 +185,7 @@ public class HtlcSendActivity extends BaseActivity {
 
 
     public Fee onInitClaimFee() {
-        if (mRecipientChain.equals(BaseChain.BNB_MAIN) || mRecipientChain.equals(BaseChain.BNB_TEST)) {
+        if (mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             Coin gasCoin = new Coin();
             gasCoin.denom = BaseConstant.TOKEN_BNB;
             gasCoin.amount = FEE_BNB_SEND;
@@ -194,7 +193,7 @@ public class HtlcSendActivity extends BaseActivity {
             gasCoins.add(gasCoin);
             mClaimFee = new Fee("", gasCoins);
 
-        } else if (mRecipientChain.equals(BaseChain.KAVA_MAIN) || mRecipientChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             Coin gasCoin = new Coin();
             gasCoin.denom = BaseConstant.TOKEN_KAVA;
             gasCoin.amount = "0";

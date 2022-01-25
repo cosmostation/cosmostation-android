@@ -73,7 +73,7 @@ public class MsgGenerator {
     public static Msg genTransferMsg(String fromAddr, String toAddr, ArrayList<Coin> coins, BaseChain chain) {
         Msg         result      = new Msg();
         Msg.Value   value       = new Msg.Value();
-        if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+        if (chain.equals(OKEX_MAIN)) {
             value.from_address = fromAddr;
             value.to_address = toAddr;
             value.amount = coins;
@@ -92,76 +92,10 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genCreateSwapMsg(BaseChain fromChain, BaseChain toChain, Account fromAccount, Account toAccount, ArrayList<Coin> sendCoins, long timestamp, byte[] originData) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (fromChain.equals(KAVA_MAIN)) {
-            if (sendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_BNB)) {
-                value.to = KAVA_MAIN_BNB_DEPUTY;
-                value.sender_other_chain = BINANCE_MAIN_BNB_DEPUTY;
-            } else if (sendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_BTCB)) {
-                value.to = KAVA_MAIN_BTCB_DEPUTY;
-                value.sender_other_chain = BINANCE_MAIN_BTCB_DEPUTY;
-            } else if (sendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_XRPB)) {
-                value.to = KAVA_MAIN_XRPB_DEPUTY;
-                value.sender_other_chain = BINANCE_MAIN_XRPB_DEPUTY;
-            } else if (sendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_BUSD)) {
-                value.to = KAVA_MAIN_BUSD_DEPUTY;
-                value.sender_other_chain = BINANCE_MAIN_BUSD_DEPUTY;
-            }
-            value.from = fromAccount.address;
-            value.recipient_other_chain = toAccount.address;
-
-            value.random_number_hash = WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase();
-            value.timestamp = String.valueOf(timestamp);
-            value.amount = sendCoins;
-            value.height_span = "24686";
-
-            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
-            result.value = value;
-
-        } else if (fromChain.equals(KAVA_TEST)) {
-            if (sendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
-                value.to = KAVA_TEST_BNB_DEPUTY;
-                value.sender_other_chain = BINANCE_TEST_BNB_DEPUTY;
-            } else if (sendCoins.get(0).denom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
-                value.to = KAVA_TEST_BTC_DEPUTY;
-                value.sender_other_chain = BINANCE_TEST_BTC_DEPUTY;
-            }
-            value.from = fromAccount.address;
-            value.recipient_other_chain = toAccount.address;
-
-            value.random_number_hash = WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase();
-            value.timestamp = String.valueOf(timestamp);
-            value.amount = sendCoins;
-            value.height_span = "24686";
-
-            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
-            result.value = value;
-        }
-        return result;
-    }
-
-    public static Msg genClaimAtomicSwap(String from, String swapId, String randomNumber, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-            value.from = from;
-            value.swap_id = swapId.toUpperCase();
-            value.random_number = randomNumber.toUpperCase();
-
-            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
-            result.value = value;
-
-        }
-        return result;
-    }
-
-
     public static Msg genRefundAtomicSwap(String from, String swapId, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+        if (chain.equals(KAVA_MAIN)) {
             value.from = from;
             value.swap_id = swapId.toUpperCase();
             result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;

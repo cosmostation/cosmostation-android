@@ -1,8 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
-import cosmos.base.query.v1beta1.Pagination;
 import cosmos.gov.v1beta1.QueryGrpc;
 import cosmos.gov.v1beta1.QueryOuterClass;
+import shentu.gov.v1alpha1.Gov;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
@@ -41,7 +41,6 @@ public class ProposalMyVoteGrpcTask extends CommonTask {
                 QueryOuterClass.QueryVoteRequest request = QueryOuterClass.QueryVoteRequest.newBuilder().setProposalId(Long.parseLong(mProposalId)).setVoter(mAddress).build();
                 QueryOuterClass.QueryVoteResponse response = mStub.vote(request);
                 this.mResult.resultData = response.getVote();
-//            WLog.w("ProposalMyVoteGrpcTask " + response.getVote()));
             }
 
         } catch (Exception e) { WLog.e( "ProposalMyVoteGrpcTask "+ e.getMessage()); }
