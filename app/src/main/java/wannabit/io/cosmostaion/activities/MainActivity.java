@@ -9,20 +9,16 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,11 +43,11 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
@@ -66,7 +62,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
-import wannabit.io.cosmostaion.widget.mainWallet.ManageChainSwitchHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -94,14 +89,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     private StopViewPager               mContentsPager;
     private TabLayout                   mTabLayer;
-    private FrameLayout                 mDimLayer;
     public MainViewPageAdapter          mPageAdapter;
     public FloatingActionButton         mFloatBtn;
-
-    private TopSheetBehavior            mTopSheetBehavior;
-
-    private RecyclerView                mAccountRecyclerView;
-    private AccountListAdapter          mAccountListAdapter;
 
     private BaseChain                   mSelectedChain;
     private ArrayList<BaseChain>        mExpendedChains = new ArrayList<>();
@@ -123,9 +112,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mTotalValue             = findViewById(R.id.total_value);
         mContentsPager          = findViewById(R.id.view_pager);
         mTabLayer               = findViewById(R.id.bottom_tab);
-        mDimLayer               = findViewById(R.id.dim_layer);
         mFloatBtn               = findViewById(R.id.btn_floating);
-        mAccountRecyclerView    = findViewById(R.id.account_recycler);
 
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,30 +124,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("address", mAddress);
-                if (TextUtils.isEmpty(mAccount.nickName))
-                    bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
-                else
-                    bundle.putString("title", mAccount.nickName);
-                Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
-                show.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
-            }
-        });
-
-        mAccountRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mAccountRecyclerView.setHasFixedSize(true);
-        mAccountListAdapter = new AccountListAdapter();
-        mAccountRecyclerView.setAdapter(mAccountListAdapter);
-
-        mDimLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED)
-                    mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
-                mDimLayer.setVisibility(View.GONE);
-                setExpendChains();
+                onAddressDialog();
             }
         });
 
@@ -228,41 +192,25 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         });
 
         mContentsPager.setCurrentItem(getIntent().getIntExtra("page", 0), false);
-
-        View sheet = findViewById(R.id.top_sheet);
-        sheet.setNestedScrollingEnabled(false);
-        mTopSheetBehavior = TopSheetBehavior.from(sheet);
-        mTopSheetBehavior.setState(TopSheetBehavior.STATE_HIDDEN);
-        mTopSheetBehavior.setTopSheetCallback(new TopSheetBehavior.TopSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                if (newState == TopSheetBehavior.STATE_COLLAPSED) {
-                    mDimLayer.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) {
-            }
-        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         onAccountSwitched();
-        mAccountRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));
         onChainSelect(mBaseChain);
     }
 
-    private void setExpendChains() {
-        mExpendedChains.clear();
-        for (ChainAccounts chainAccounts: mChainAccounts) {
-            if (chainAccounts.opened) {
-                mExpendedChains.add(chainAccounts.baseChain);
-            }
-        }
-        getBaseDao().setExpendedChains(mExpendedChains);
+    public void onAddressDialog() {
+        Bundle bundle = new Bundle();
+        bundle.putString("address", mAddress);
+        if (TextUtils.isEmpty(mAccount.nickName))
+            bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
+        else
+            bundle.putString("title", mAccount.nickName);
+        Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+        show.setCancelable(true);
+        getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
     }
 
     public void onAccountSwitched() {
@@ -292,8 +240,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             WDp.getFloatBtn(MainActivity.this, mBaseChain, mFloatBtn);
 
             mSelectedChain = mBaseChain;
-            mAccountRecyclerView.setAdapter(mAccountListAdapter);
-            mAccountRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));
             onChainSelect(mSelectedChain);
         }
         onUpdateTitle();
@@ -315,7 +261,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 mChainAccounts.add(new ChainAccounts(false, chain, getBaseDao().onSelectAccountsByChain(chain)));
             }
         }
-        mAccountListAdapter.notifyDataSetChanged();
+    }
+
+    public void onClickSwitchWallet() {
+        startActivity(new Intent(this, WalletSwitchActivity.class));
+        onChainSelect(mSelectedChain);
     }
 
     public void onUpdateTitle() {
@@ -347,17 +297,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     public void onBackPressed() {
-        if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED) {
-            mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
-            return;
-        } else {
-            moveTaskToBack(true);
-        }
+        moveTaskToBack(true);
     }
 
     public void onExplorerView() {
         String url = "";
-        if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+        if (mBaseChain.equals(OKEX_MAIN)) {
             url = WUtil.getExplorer(mBaseChain) + "address/" + mAccount.address;
         } else {
             url = WUtil.getExplorer(mBaseChain) + "account/" + mAccount.address;
@@ -371,7 +316,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
             return;
         }
-        onHideTopAccountsView();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -384,25 +328,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }, 300);
     }
 
-    public void onShowTopAccountsView() {
-        mDimLayer.setVisibility(View.VISIBLE);
-        mTopSheetBehavior.setState(TopSheetBehavior.STATE_EXPANDED);
-        onChainSelect(mSelectedChain);
-    }
-
-    public void onHideTopAccountsView() {
-        if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED)
-            mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
-        mDimLayer.setVisibility(View.GONE);
-        setExpendChains();
-    }
-
     public void onFetchAllData() {
         onFetchAccountInfo(this);
-    }
-
-    public void onSetKavaWarn() {
-        getBaseDao().setKavaWarn();
     }
 
     public void onClickProfile() {
@@ -611,39 +538,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             } else {
                 super.onActivityResult(requestCode, resultCode, data);
             }
-        }
-
-    }
-
-    private class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            return new ManageChainSwitchHolder(getLayoutInflater().inflate(R.layout.item_account_list, viewGroup, false));
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            final ManageChainSwitchHolder holder = (ManageChainSwitchHolder) viewHolder;
-            holder.onBindChainSwitch(MainActivity.this, mChainAccounts.get(position), mAccount);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mChainAccounts.size();
-        }
-    }
-
-    public class ChainAccounts {
-        public boolean opened = false;
-        public BaseChain baseChain;
-        public ArrayList<Account> accounts;
-
-        public ChainAccounts(boolean opened, BaseChain baseChain, ArrayList<Account> accounts) {
-            this.opened = opened;
-            this.baseChain = baseChain;
-            this.accounts = accounts;
         }
     }
 }

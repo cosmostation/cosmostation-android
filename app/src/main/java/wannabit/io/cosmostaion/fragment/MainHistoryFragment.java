@@ -131,7 +131,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu_accounts :
-                getMainActivity().onShowTopAccountsView();
+                getMainActivity().onClickSwitchWallet();
                 break;
             case R.id.menu_explorer :
                 getMainActivity().onExplorerView();

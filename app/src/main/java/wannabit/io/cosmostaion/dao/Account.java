@@ -89,20 +89,6 @@ public class Account {
         this.customPath = customPath;
     }
 
-    public String getPrivateKeySha1() {
-        String result = "";
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-1");
-            digest.update((uuid + R.string.key_private).getBytes());
-            byte byteData[] = digest.digest();
-            StringBuffer sb = new StringBuffer();
-            for(int i = 0 ; i < byteData.length ; i++)
-                sb.append(Integer.toString((byteData[i]&0xff) + 0x100, 16).substring(1));
-            result = sb.toString();
-        } catch (NoSuchAlgorithmException e) { e.printStackTrace(); result = null; }
-        return result;
-    }
-
     public ArrayList<Balance> getBalances() {
         return balances;
     }
@@ -153,20 +139,6 @@ public class Account {
         return result;
     }
 
-    public BigDecimal getKavaBalance() {
-        BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
-            return result;
-        }
-        for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_KAVA)) {
-                result = balance.balance;
-                break;
-            }
-        }
-        return result;
-    }
-
     public BigDecimal getTokenBalance(String symbol) {
         BigDecimal result = BigDecimal.ZERO;
         if(balances == null || balances.size() == 0)  {
@@ -175,20 +147,6 @@ public class Account {
         for(Balance balance:balances) {
             if(balance.symbol.equalsIgnoreCase(symbol)) {
                 result = balance.balance;
-                break;
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal getTokenDelegable(String symbol) {
-        BigDecimal result = BigDecimal.ZERO;
-        if (balances == null || balances.size() == 0)  {
-            return result;
-        }
-        for(Balance balance:balances) {
-            if(balance.symbol.equalsIgnoreCase(symbol)) {
-                result = balance.balance.add(balance.locked);
                 break;
             }
         }

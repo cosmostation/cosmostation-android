@@ -329,7 +329,7 @@ public class MainTokensFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_accounts:
-                getMainActivity().onShowTopAccountsView();
+                getMainActivity().onClickSwitchWallet();
                 break;
             case R.id.menu_explorer:
                 getMainActivity().onExplorerView();
@@ -1413,7 +1413,7 @@ public class MainTokensFragment extends BaseFragment {
     //with native tokens
     private void onBindNativeItem(TokensAdapter.AssetHolder holder, int position) {
         final Balance balance = mNative.get(position);
-        if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
+        if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
             final String denom = mNative.get(position).symbol;
             final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(denom);
             final BnbToken bnbToken = getBaseDao().getBnbToken(denom);
@@ -1483,7 +1483,7 @@ public class MainTokensFragment extends BaseFragment {
                 }
             });
 
-        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
             final String denom      = mEtc.get(position).symbol;
             final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(denom);
             final BnbToken bnbToken = getBaseDao().getBnbToken(denom);
@@ -1528,7 +1528,7 @@ public class MainTokensFragment extends BaseFragment {
             this.sticky = sticky;
             this.sectionCallback = sectionCallback;
 
-            topPadding = dpToPx(context, 30);
+            topPadding = dpToPx(context, 38);
         }
 
         // dp -> pixel 단위로 변경
