@@ -13,54 +13,6 @@
         android:scaleType="fitXY"
         android:src="@drawable/bg_cosmos"/>
 
-    <FrameLayout
-        android:id="@+id/top_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="wannabit.io.cosmostaion.dialog.TopSheetBehavior"
-        android:background="@color/colorBlack"
-        android:elevation="@dimen/top_sheet_modal_elevation">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_bar_height">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/space_16"
-                    android:src="@drawable/close_btn"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    style="@style/font_ssm_17_white"
-                    android:text="@string/str_switch_wallet"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="@dimen/space_4"
-                    android:orientation="horizontal">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/account_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingTop="@dimen/space_4"
-                        android:clipToPadding="false"
-                        android:overScrollMode="never"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </LinearLayout>
-    </FrameLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -106,63 +58,9 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_root"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginRight="@dimen/space_12"
-            app:cardPreventCornerOverlap="true"
-            app:cardCornerRadius="@dimen/space_6"
-            app:cardElevation="1.5dp"
-            app:cardBackgroundColor="@color/colorTransBg"
-            app:cardUseCompatPadding="true"
-            android:layout_below="@+id/tool_bar">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/space_16"
-                android:paddingTop="@dimen/space_12"
-                android:paddingBottom="@dimen/space_12"
-                android:paddingRight="@dimen/space_4">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/img_account"
-                        android:layout_width="@dimen/space_24"
-                        android:layout_height="@dimen/space_24"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/key_off"/>
-                    <TextView
-                        android:id="@+id/wallet_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/img_account"
-                        android:layout_marginLeft="@dimen/space_6"
-                        android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
-                        android:singleLine="true"
-                        android:text=""/>
-                </RelativeLayout>
-                <TextView
-                    android:id="@+id/total_value"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="@dimen/space_12"
-                    android:layout_marginTop="@dimen/space_2"
-                    style="@style/font_ss_21_white"
-                    android:singleLine="true"
-                    android:text="0.000"
-                    android:gravity="center_horizontal"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
         <wannabit.io.cosmostaion.widget.StopViewPager
             android:id="@+id/view_pager"
-            android:layout_below="@+id/card_root"
+            android:layout_below="@+id/tool_bar"
             android:layout_above="@+id/bottom_tab"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -190,15 +88,5 @@
             app:tabIndicatorHeight="0dp"
             app:tabIconTint="@color/colorGray9"
             android:elevation="4dp"/>
-
-        <FrameLayout
-            android:id="@+id/dim_layer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorTransBg3"
-            android:elevation="@dimen/space_10"
-            android:clickable="true"
-            android:visibility="gone">
-        </FrameLayout>
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

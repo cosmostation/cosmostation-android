@@ -6,16 +6,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletAkashHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletAltheaHolder;
@@ -103,10 +112,18 @@ import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class MainSendFragment extends BaseFragment {
+    private CardView                        mCardView;
+    private ImageView                       itemKeyStatus;
+    private TextView                        mWalletAddress;
+    private TextView                        mTotalValue;
 
     private SwipeRefreshLayout              mSwipeRefreshLayout;
     private RecyclerView                    mRecyclerView;
     private MainWalletAdapter               mMainWalletAdapter;
+
+    private Account                         mAccount;
+    private BaseChain                       mBaseChain;
+    private String                          mAddress;
 
     public static MainSendFragment newInstance(Bundle bundle) {
         MainSendFragment fragment = new MainSendFragment();
@@ -123,14 +140,26 @@ public class MainSendFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView           = inflater.inflate(R.layout.fragment_main_send, container, false);
+        mCardView               = rootView.findViewById(R.id.card_root);
+        itemKeyStatus           = rootView.findViewById(R.id.img_account);
+        mWalletAddress          = rootView.findViewById(R.id.wallet_address);
+        mTotalValue             = rootView.findViewById(R.id.total_value);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
+
+        mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getMainActivity().onAddressDialog(mAddress);
+            }
+        });
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getMainActivity().onFetchAllData();
+                onUpdateView();
                 mMainWalletAdapter.notifyDataSetChanged();
             }
         });
@@ -154,12 +183,9 @@ public class MainSendFragment extends BaseFragment {
         mRecyclerView.setHasFixedSize(true);
         mMainWalletAdapter = new MainWalletAdapter();
         mRecyclerView.setAdapter(mMainWalletAdapter);
-        return rootView;
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+        onUpdateView();
+        return rootView;
     }
 
     @Override
@@ -180,7 +206,7 @@ public class MainSendFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu_accounts :
-                getMainActivity().onShowTopAccountsView();
+                getMainActivity().onClickSwitchWallet();
                 break;
             case R.id.menu_explorer :
                 getMainActivity().onExplorerView();
@@ -211,8 +237,29 @@ public class MainSendFragment extends BaseFragment {
 
     private void onUpdateView() {
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
+        mAccount = getMainActivity().mAccount;
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+
+        mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
+        if (mAccount.hasPrivateKey) {
+            itemKeyStatus.setColorFilter(WDp.getChainColor(getMainActivity(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        } else {
+            itemKeyStatus.setColorFilter(ContextCompat.getColor(getMainActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+        }
+        try {
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                if (mAccount.address.startsWith("ex1")) {
+                    mAddress = WKey.convertAddressOkexToEth(mAccount.address);
+                } else {
+                    mAddress = mAccount.address;
+                }
+            } else {
+                mAddress = mAccount.address;
+            }
+        } catch (Exception e) { }
+        mWalletAddress.setText(mAddress);
+        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
         mMainWalletAdapter.notifyDataSetChanged();
-//        getMainActivity().onUpdateAccountListAdapter();
     }
 
 
@@ -406,8 +453,7 @@ public class MainSendFragment extends BaseFragment {
             } else if (isGRPC(getMainActivity().mBaseChain )) {
                 return 4;
             } else {
-                if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain .equals(BNB_TEST) ||
-                        getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain .equals(OK_TEST)) {
+                if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
                     return 3;
                 } else {
                     return 4;
@@ -466,16 +512,16 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) { return TYPE_CRYPTO; }
                     else if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN)) { return TYPE_OSMOSIS; }
                     else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) { return TYPE_STARNAME; }
-                    else if (getMainActivity().mBaseChain.equals(MEDI_MAIN) || getMainActivity().mBaseChain.equals(MEDI_TEST)) { return TYPE_MEDI; }
+                    else if (getMainActivity().mBaseChain.equals(MEDI_MAIN)) { return TYPE_MEDI; }
                     else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) { return TYPE_CERTIK; }
                     else if (getMainActivity().mBaseChain.equals(EMONEY_MAIN)) { return TYPE_EMONEY; }
                     else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
                     else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
-                    else if (getMainActivity().mBaseChain.equals(RIZON_MAIN) || getMainActivity().mBaseChain.equals(RIZON_TEST)) { return TYPE_RIZON; }
+                    else if (getMainActivity().mBaseChain.equals(RIZON_MAIN)) { return TYPE_RIZON; }
                     else if (getMainActivity().mBaseChain.equals(JUNO_MAIN)) { return TYPE_JUNO; }
                     else if (getMainActivity().mBaseChain.equals(REGEN_MAIN)) { return TYPE_REGEN; }
                     else if (getMainActivity().mBaseChain.equals(BITCANNA_MAIN)) { return TYPE_BITCANNA; }
-                    else if (getMainActivity().mBaseChain.equals(ALTHEA_MAIN) || getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
+                    else if (getMainActivity().mBaseChain.equals(ALTHEA_MAIN)) { return TYPE_ALTHEA; }
                     else if (getMainActivity().mBaseChain.equals(STARGAZE_MAIN)) { return TYPE_STARGAZE; }
                     else if (getMainActivity().mBaseChain.equals(GRABRIDGE_MAIN)) { return TYPE_GRABRIDGE; }
                     else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }
@@ -487,7 +533,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(LUM_MAIN)) { return TYPE_LUM; }
                     else if (getMainActivity().mBaseChain.equals(CHIHUAHUA_MAIN)) { return TYPE_CHIHUAHUA; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
-                    else if (getMainActivity().mBaseChain.equals(AXELAR_MAIN) || getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
+                    else if (getMainActivity().mBaseChain.equals(AXELAR_MAIN)) { return TYPE_AXELAR; }
                 } else if (position == 1) {
                     return TYPE_PRICE;
                 } else if (position == 2) {
@@ -497,11 +543,10 @@ public class MainSendFragment extends BaseFragment {
                 }
 
 
-            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) ||
-                    getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
                 if (position == 0) {
-                    if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) { return TYPE_BINANCE; }
-                    else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) { return TYPE_OKEX; }
+                    if (getMainActivity().mBaseChain.equals(BNB_MAIN)) { return TYPE_BINANCE; }
+                    else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) { return TYPE_OKEX; }
                 } else if (position == 1) {
                     return TYPE_PRICE;
                 } else if (position == 2) {

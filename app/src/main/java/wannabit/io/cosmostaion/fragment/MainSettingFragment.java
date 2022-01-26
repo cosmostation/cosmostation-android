@@ -80,7 +80,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu_accounts :
-                getMainActivity().onShowTopAccountsView();
+                getMainActivity().onClickSwitchWallet();
                 break;
             case R.id.menu_explorer :
                 getMainActivity().onExplorerView();

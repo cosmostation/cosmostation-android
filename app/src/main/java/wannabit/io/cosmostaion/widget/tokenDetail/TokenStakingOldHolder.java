@@ -23,7 +23,6 @@ public class TokenStakingOldHolder extends BaseHolder {
     private RelativeLayout  mOkStakingLayer, mOkUnbondingLayer;
 
     private TextView        mTotalAmount, mAvailableAmount;
-    private TextView        mVestingAmount;
     private TextView        mDelegatedAmount, mUnbondingAmount, mRewardAmount;
     private TextView        mlockedAmount, mFrozenAmount;
     private TextView        mOkStakingAmount, mOkUnbondingAmount;
@@ -33,7 +32,6 @@ public class TokenStakingOldHolder extends BaseHolder {
         mCardRoot               = itemView.findViewById(R.id.card_root);
         mTotalAmount            = itemView.findViewById(R.id.total_amount);
         mAvailableAmount        = itemView.findViewById(R.id.available_amount);
-        mVestingAmount          = itemView.findViewById(R.id.vesting_amount);
         mDelegatedAmount        = itemView.findViewById(R.id.delegated_amount);
         mUnbondingAmount        = itemView.findViewById(R.id.unbonding_amount);
         mRewardAmount           = itemView.findViewById(R.id.reward_amount);
@@ -59,7 +57,7 @@ public class TokenStakingOldHolder extends BaseHolder {
         final int stakingDivideDecimal = WDp.mainDivideDecimal(chain);
         final int stakingDisplayDecimal = WDp.mainDisplayDecimal(chain);
 
-        if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+        if (chain.equals(BaseChain.BNB_MAIN)) {
             mVestingLayer.setVisibility(View.GONE);
             mDelegatedLayer.setVisibility(View.GONE);
             mUnbondingLayer.setVisibility(View.GONE);
@@ -78,7 +76,7 @@ public class TokenStakingOldHolder extends BaseHolder {
             mlockedAmount.setText(WDp.getDpAmount2(c, lockedAmount, stakingDivideDecimal, stakingDisplayDecimal));
             mFrozenAmount.setText(WDp.getDpAmount2(c, frozenAmount, stakingDivideDecimal, stakingDisplayDecimal));
 
-        } else if (chain.equals(BaseChain.OKEX_MAIN) || chain.equals(BaseChain.OK_TEST)) {
+        } else if (chain.equals(BaseChain.OKEX_MAIN)) {
             mVestingLayer.setVisibility(View.GONE);
             mDelegatedLayer.setVisibility(View.GONE);
             mUnbondingLayer.setVisibility(View.GONE);
@@ -119,14 +117,6 @@ public class TokenStakingOldHolder extends BaseHolder {
             mDelegatedAmount.setText(WDp.getDpAmount2(c, delegateAmount, stakingDivideDecimal, stakingDisplayDecimal));
             mUnbondingAmount.setText(WDp.getDpAmount2(c, unbondingAmount, stakingDivideDecimal, stakingDisplayDecimal));
             mRewardAmount.setText(WDp.getDpAmount2(c, rewardAmount, stakingDivideDecimal, stakingDisplayDecimal));
-
-            final BigDecimal vestingAmount = baseData.lockedAmount(denom);
-            if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
-                if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
-                    mVestingLayer.setVisibility(View.VISIBLE);
-                    mVestingAmount.setText(WDp.getDpAmount2(c, vestingAmount, stakingDivideDecimal, stakingDisplayDecimal));
-                }
-            }
         }
         mCardRoot.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
     }

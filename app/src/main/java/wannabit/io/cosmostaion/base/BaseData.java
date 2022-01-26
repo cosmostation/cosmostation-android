@@ -71,10 +71,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -1304,11 +1302,11 @@ public class BaseData {
         ArrayList<Account> AllAccount = onSelectAccounts();
         for (Account account:AllAccount) {
             if (BaseChain.getChain(account.baseChain).equals(chain) && account.hasPrivateKey) {
-                if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+                if (chain.equals(BNB_MAIN)) {
                     if (getTokenAmount(account.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
                         result.add(account);
                     }
-                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+                } else if (chain.equals(KAVA_MAIN)) {
                     result.add(account);
                 }
             }

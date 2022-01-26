@@ -8,11 +8,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import kava.bep3.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class TxClaimHTLCHolder extends TxHolder {
@@ -36,6 +41,28 @@ public class TxClaimHTLCHolder extends TxHolder {
 
         try {
             Tx.MsgClaimAtomicSwap msg = Tx.MsgClaimAtomicSwap.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+            Coin receiveCoin = null;
+            if (response.getTxResponse().getLogsCount() > position) {
+                for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
+                    if (event.getType().equals("transfer")) {
+                        String receiveValue = event.getAttributesList().get(2).getValue();
+
+                        Pattern p = Pattern.compile("([0-9])+");
+                        Matcher m1 = p.matcher(receiveValue);
+                        if (m1.find()) {
+                            String amount = m1.group();
+                            String denom = receiveValue.replaceAll(m1.group(), "");
+                            receiveCoin = new Coin(denom, amount);
+                        }
+                    }
+                }
+            }
+            if (receiveCoin != null) {
+                WDp.showCoinDp(c, baseData, receiveCoin, itemReceiveDenom, itemReceiveAmount, baseChain);
+            } else {
+                itemReceiveAmount.setText("");
+                itemReceiveDenom.setText("");
+            }
             itemClaimer.setText(msg.getFrom());
             itemRandomNumber.setText(msg.getRandomNumber());
             itemSwapId.setText(msg.getSwapId());
