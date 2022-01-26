@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -82,11 +80,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private TextView                    mToolbarTitle;
     private TextView                    mToolbarChainName;
 
-    private CardView                    mCardView;
-    private ImageView                   itemKeyStatus;
-    private TextView                    mWalletAddress;
-    private TextView                    mTotalValue;
-
     private StopViewPager               mContentsPager;
     private TabLayout                   mTabLayer;
     public MainViewPageAdapter          mPageAdapter;
@@ -96,8 +89,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private ArrayList<BaseChain>        mExpendedChains = new ArrayList<>();
     private ArrayList<ChainAccounts>    mChainAccounts = new ArrayList<>();
 
-    private String                      mAddress;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,10 +97,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mToolbarTitle           = findViewById(R.id.toolbar_title);
         mToolbarChainImg        = findViewById(R.id.toolbar_net_image);
         mToolbarChainName       = findViewById(R.id.toolbar_net_name);
-        mCardView               = findViewById(R.id.card_root);
-        itemKeyStatus           = findViewById(R.id.img_account);
-        mWalletAddress          = findViewById(R.id.wallet_address);
-        mTotalValue             = findViewById(R.id.total_value);
         mContentsPager          = findViewById(R.id.view_pager);
         mTabLayer               = findViewById(R.id.bottom_tab);
         mFloatBtn               = findViewById(R.id.btn_floating);
@@ -118,13 +105,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             @Override
             public void onClick(View v) {
                 onStartSendMainDenom();
-            }
-        });
-
-        mCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onAddressDialog();
             }
         });
 
@@ -180,14 +160,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 }
                 if (position != 0) mFloatBtn.hide();
                 else if (!mFloatBtn.isShown()) mFloatBtn.show();
-                if (position == 3) {
-                    mCardView.setVisibility(View.GONE);
-                } else {
-                    mCardView.setVisibility(View.VISIBLE);
-                }
-                if (mBaseChain != null) {
-                    mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
-                }
             }
         });
 
@@ -202,8 +174,16 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onAddressDialog() {
+        String Address = "";
+        try {
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                Address = WKey.convertAddressOkexToEth(mAccount.address);
+            } else {
+                Address = mAccount.address;
+            }
+        } catch (Exception e) { }
         Bundle bundle = new Bundle();
-        bundle.putString("address", mAddress);
+        bundle.putString("address", Address);
         if (TextUtils.isEmpty(mAccount.nickName))
             bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
         else
@@ -242,7 +222,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mSelectedChain = mBaseChain;
             onChainSelect(mSelectedChain);
         }
-        onUpdateTitle();
+
+        if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
+        else mToolbarTitle.setText(mAccount.nickName);
     }
 
     private void onChainSelect(BaseChain baseChain) {
@@ -266,33 +248,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onClickSwitchWallet() {
         startActivity(new Intent(this, WalletSwitchActivity.class));
         onChainSelect(mSelectedChain);
-    }
-
-    public void onUpdateTitle() {
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-
-        if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
-        else mToolbarTitle.setText(mAccount.nickName);
-
-        mCardView.setCardBackgroundColor(WDp.getChainBgColor(MainActivity.this, mBaseChain));
-        if (mAccount.hasPrivateKey) {
-            itemKeyStatus.setColorFilter(WDp.getChainColor(MainActivity.this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-        } else {
-            itemKeyStatus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-        }
-        try {
-            if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-                if (mAccount.address.startsWith("ex1")) {
-                    mAddress = WKey.convertAddressOkexToEth(mAccount.address);
-                } else {
-                    mAddress = mAccount.address;
-                }
-            } else {
-                mAddress = mAccount.address;
-            }
-        } catch (Exception e) { }
-        mWalletAddress.setText(mAddress);
     }
 
     @Override
@@ -427,7 +382,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             if (mPageAdapter.getItem(0) != null) mPageAdapter.getItem(0).onRefreshTab();
             if (mPageAdapter.getItem(1) != null) mPageAdapter.getItem(1).onRefreshTab();
             if (mPageAdapter.getItem(2) != null) mPageAdapter.getItem(2).onRefreshTab();
-            mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
         }
     }
 

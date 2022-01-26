@@ -19,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -40,6 +41,7 @@ import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenGrpcActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -47,6 +49,7 @@ import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -159,6 +162,11 @@ public class MainTokensFragment extends BaseFragment {
 
     private int                 mSection;                       // section 구분
 
+    private CardView            mCardView;
+    private ImageView           itemKeyStatus;
+    private TextView            mWalletAddress;
+    private TextView            mTotalValue;
+
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
     private LinearLayout        mEmptyToken;
@@ -182,6 +190,9 @@ public class MainTokensFragment extends BaseFragment {
     private ArrayList<Balance>  mEtc = new ArrayList<>();
     private ArrayList<Balance>  mUnKnown = new ArrayList<>();
 
+    private Account             mAccount;
+    private BaseChain           mBaseChain;
+
     public static MainTokensFragment newInstance(Bundle bundle) {
         MainTokensFragment fragment = new MainTokensFragment();
         fragment.setArguments(bundle);
@@ -197,13 +208,26 @@ public class MainTokensFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_tokens, container, false);
-        mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView = rootView.findViewById(R.id.recycler);
-        mEmptyToken = rootView.findViewById(R.id.empty_token);
+        mCardView               = rootView.findViewById(R.id.card_root);
+        itemKeyStatus           = rootView.findViewById(R.id.img_account);
+        mWalletAddress          = rootView.findViewById(R.id.wallet_address);
+        mTotalValue             = rootView.findViewById(R.id.total_value);
+        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
+        mRecyclerView           = rootView.findViewById(R.id.recycler);
+        mEmptyToken             = rootView.findViewById(R.id.empty_token);
+
+        mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getMainActivity().onAddressDialog();
+            }
+        });
+
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                onUpdateInfo();
                 getMainActivity().onFetchAllData();
             }
         });
@@ -216,7 +240,29 @@ public class MainTokensFragment extends BaseFragment {
         mRecyclerViewHeader = new RecyclerViewHeader(getMainActivity(), true, getSectionGrpcCall());
         mRecyclerView.addItemDecoration(mRecyclerViewHeader);
 
+        onUpdateInfo();
         return rootView;
+    }
+
+    private void onUpdateInfo() {
+        if (getMainActivity() == null || getMainActivity().mAccount == null) return;
+        mAccount = getMainActivity().mAccount;
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+
+        mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
+        if (mAccount.hasPrivateKey) {
+            itemKeyStatus.setColorFilter(WDp.getChainColor(getMainActivity(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        } else {
+            itemKeyStatus.setColorFilter(ContextCompat.getColor(getMainActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+        }
+        try {
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                mWalletAddress.setText(WKey.convertAddressOkexToEth(mAccount.address));
+            } else {
+                mWalletAddress.setText(mAccount.address);
+            }
+        } catch (Exception e) { }
+        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
     }
 
     private SectionCallback getSectionGrpcCall() {
@@ -349,6 +395,7 @@ public class MainTokensFragment extends BaseFragment {
         if (!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
         mRecyclerView.getRecycledViewPool().clear();
+        onUpdateInfo();
         onUpdateView();
     }
 
@@ -1528,7 +1575,7 @@ public class MainTokensFragment extends BaseFragment {
             this.sticky = sticky;
             this.sectionCallback = sectionCallback;
 
-            topPadding = dpToPx(context, 38);
+            topPadding = dpToPx(context, 32);
         }
 
         // dp -> pixel 단위로 변경

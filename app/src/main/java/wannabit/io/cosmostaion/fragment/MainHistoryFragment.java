@@ -11,11 +11,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -24,8 +27,10 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
@@ -48,6 +53,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 
 public class MainHistoryFragment extends BaseFragment implements TaskListener {
+    private CardView                        mCardView;
+    private ImageView                       itemKeyStatus;
+    private TextView                        mWalletAddress;
+    private TextView                        mTotalValue;
 
     private SwipeRefreshLayout              mSwipeRefreshLayout;
     private RecyclerView                    mRecyclerView;
@@ -58,6 +67,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private ArrayList<BnbHistory>                   mBnbHistory = new ArrayList<>();
     private ArrayList<ResOkHistory.DataDetail>      mOkHistory = new ArrayList<>();
     private ArrayList<ResApiNewTxListCustom>        mApiNewTxCustomHistory = new ArrayList<>();
+
+    private Account                         mAccount;
+    private BaseChain                       mBaseChain;
 
     public static MainHistoryFragment newInstance(Bundle bundle) {
         MainHistoryFragment fragment = new MainHistoryFragment();
@@ -74,6 +86,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_history, container, false);
+        mCardView               = rootView.findViewById(R.id.card_root);
+        itemKeyStatus           = rootView.findViewById(R.id.img_account);
+        mWalletAddress          = rootView.findViewById(R.id.wallet_address);
+        mTotalValue             = rootView.findViewById(R.id.total_value);
         mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
         mEmptyHistory           = rootView.findViewById(R.id.empty_history);
@@ -86,6 +102,13 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 //                txDetail.putExtra("isGen", false);
 //                txDetail.putExtra("isSuccess", true);
 //                startActivity(txDetail);
+            }
+        });
+
+        mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getMainActivity().onAddressDialog();
             }
         });
 
@@ -104,12 +127,36 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         RecyclerViewHeader recyclerViewHeader = new RecyclerViewHeader(getMainActivity());
         mRecyclerView.addItemDecoration(recyclerViewHeader);
+
+        onUpdateView();
         return rootView;
+    }
+
+    private void onUpdateView() {
+        if (getMainActivity() == null || getMainActivity().mAccount == null) return;
+        mAccount = getMainActivity().mAccount;
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+
+        mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
+        if (mAccount.hasPrivateKey) {
+            itemKeyStatus.setColorFilter(WDp.getChainColor(getMainActivity(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        } else {
+            itemKeyStatus.setColorFilter(ContextCompat.getColor(getMainActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+        }
+        try {
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                mWalletAddress.setText(WKey.convertAddressOkexToEth(mAccount.address));
+            } else {
+                mWalletAddress.setText(mAccount.address);
+            }
+        } catch (Exception e) { }
+        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
     }
 
     @Override
     public void onRefreshTab() {
         if(!isAdded()) return;
+        onUpdateView();
         onFetchHistory();
     }
 
