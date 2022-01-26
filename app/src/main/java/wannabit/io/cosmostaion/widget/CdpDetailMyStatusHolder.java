@@ -120,6 +120,8 @@ public class CdpDetailMyStatusHolder extends BaseHolder {
         mMyPrincipalDenom.setText(WUtil.getKavaTokenName(baseData, pDenom));
         mMyCollateralDenom.setText(WUtil.getKavaTokenName(baseData, collateralParam.getDenom()));
 
+        WUtil.DpKavaTokenImg(baseData, mMyCollateralImg, cDenom);
+        WUtil.DpKavaTokenImg(baseData, mMyPrincipalImg, pDenom);
         WUtil.dpKavaTokenName(context, baseData, mMyCollateralDenom, cDenom);
         WUtil.dpKavaTokenName(context, baseData, mMyPrincipalDenom, pDenom);
 
