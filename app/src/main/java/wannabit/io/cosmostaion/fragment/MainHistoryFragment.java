@@ -70,6 +70,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     private Account                         mAccount;
     private BaseChain                       mBaseChain;
+    private String                          mAddress;
 
     public static MainHistoryFragment newInstance(Bundle bundle) {
         MainHistoryFragment fragment = new MainHistoryFragment();
@@ -108,7 +109,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMainActivity().onAddressDialog();
+                getMainActivity().onAddressDialog(mAddress);
             }
         });
 
@@ -145,11 +146,16 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         }
         try {
             if (mBaseChain.equals(OKEX_MAIN)) {
-                mWalletAddress.setText(WKey.convertAddressOkexToEth(mAccount.address));
+                if (mAccount.address.startsWith("ex1")) {
+                    mAddress = WKey.convertAddressOkexToEth(mAccount.address);
+                } else {
+                    mAddress = mAccount.address;
+                }
             } else {
-                mWalletAddress.setText(mAccount.address);
+                mAddress = mAccount.address;
             }
         } catch (Exception e) { }
+        mWalletAddress.setText(mAddress);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
     }
 

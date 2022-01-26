@@ -173,17 +173,16 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         onChainSelect(mBaseChain);
     }
 
-    public void onAddressDialog() {
-        String Address = "";
+    public void onAddressDialog(String address) {
         try {
             if (mBaseChain.equals(OKEX_MAIN)) {
-                Address = WKey.convertAddressOkexToEth(mAccount.address);
+                address = WKey.convertAddressOkexToEth(mAccount.address);
             } else {
-                Address = mAccount.address;
+                address = mAccount.address;
             }
         } catch (Exception e) { }
         Bundle bundle = new Bundle();
-        bundle.putString("address", Address);
+        bundle.putString("address", address);
         if (TextUtils.isEmpty(mAccount.nickName))
             bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
         else
