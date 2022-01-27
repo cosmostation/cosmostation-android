@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.widget.tokenDetail.UnBondingHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class StakingTokenDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -170,6 +171,10 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             onStartHTLCSendActivity(WDp.mainDenom(mBaseChain));
 
         } else if (v.equals(mBtnSend)) {
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                Toast.makeText(StakingTokenDetailActivity.this, "Temporary Disable", Toast.LENGTH_SHORT).show();
+                return;
+            }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
             BigDecimal mainAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);

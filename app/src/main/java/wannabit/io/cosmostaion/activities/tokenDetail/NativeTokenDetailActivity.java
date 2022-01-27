@@ -208,6 +208,10 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             onStartHTLCSendActivity(mDenom);
 
         } else if (v.equals(mBtnSend)) {
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                Toast.makeText(NativeTokenDetailActivity.this, "Temporary Disable", Toast.LENGTH_SHORT).show();
+                return;
+            }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
             BigDecimal mainAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
