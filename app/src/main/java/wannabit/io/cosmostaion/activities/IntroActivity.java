@@ -71,7 +71,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                     }
                 });
 
-        getBaseDao().upgradeAaccountAddressforOk();
+        getBaseDao().upgradeAaccountAddressforPath();
     }
 
 

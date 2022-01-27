@@ -855,9 +855,10 @@
     <string name="str_secret_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_secret_new_path"><![CDATA[NEW PATH (44\'/529\'/0\'/0)]]></string>
     <string name="str_okex_newpath_title">Select Key Type</string>
-    <string name="str_okex_newpath_msg">OEC Chain support 2 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\n\nIf you mistakenly selected the wrong type, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your type.</string>
-    <string name="str_okex_old_type"><![CDATA[Tendermint Type Key]]></string>
-    <string name="str_okex_new_type"><![CDATA[Ethermint(Default) Type Key]]></string>
+    <string name="str_okex_newpath_msg">OEC Chain support 3 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\nIf you want the latest path select [Ethereum Type] \n\nIf you mistakenly selected the wrong type, it will not affect your original OEC wallet. Simply press [Import Mnemonics] to re-select your type.</string>
+    <string name="str_okex_old_type"><![CDATA[Legacy Tendermint Type (44\'/996\'/0\'/0)]]></string>
+    <string name="str_okex_new_type"><![CDATA[Legacy Ethermint Type (44\'/996\'/0\'/0)]]></string>
+    <string name="str_okex_eth_type"><![CDATA[Ethereum Type (44\'/60\'/0\'/0)]]></string>
     <string name="str_lum_newpath_title">Select Key Path</string>
     <string name="str_lum_newpath_msg">Select [Air-Drop Path] to import the address that received the Lum airdrop. If you wish to import a general Lum address, select [Default Path].\n\nYou can go back to [Import Mnemonics] at any time and select your desired path again.</string>
     <string name="str_lum_basic_type"><![CDATA[Default PATH (44\'/880\'/0\'/0)]]></string>

@@ -534,26 +534,26 @@ public class BaseConstant {
     public final static long COSMOS_UNBONDING_DAY = 3;
 
 
-    public final static String KEY_PATH                     = "44'/118'/0'/0/";
-    public final static String KEY_BNB_PATH                 = "44'/714'/0'/0/";
-    public final static String KEY_IOV_PATH                 = "44'/234'/0'/0/";
-    public final static String KEY_NEW_KAVA_PATH            = "44'/459'/0'/0/";
-    public final static String KEY_BAND_PATH                = "44'/494'/0'/0/";
-    public final static String KEY_NEW_OK_PATH              = "44'/996'/0'/0/";
-    public final static String KEY_NEW_SECRET_PATH          = "44'/529'/0'/0/";
-    public final static String KEY_PERSIS_PATH              = "44'/750'/0'/0/";
-    public final static String KEY_CRYPTO_PATH              = "44'/394'/0'/0/";
-    public final static String KEY_MEDI_PATH                = "44'/371'/0'/0/";
-    public final static String KEY_ALTHEA_PATH              = "44'/60'/0'/0/";
-    public final static String KEY_FETCH_BASE_PATH          = "44'/118'/0'/0/";
-    public final static String KEY_ETH_NON_LEDGER_PATH      = "44'/60'/0'/0/";
-    public final static String KEY_ETH_LEDGER_LIVE_PATH_1   = "44'/60'/";
+    public final static String KEY_PATH                     = "m/44'/118'/0'/0/";
+    public final static String KEY_BNB_PATH                 = "m/44'/714'/0'/0/";
+    public final static String KEY_IOV_PATH                 = "m/44'/234'/0'/0/";
+    public final static String KEY_NEW_KAVA_PATH            = "m/44'/459'/0'/0/";
+    public final static String KEY_BAND_PATH                = "m/44'/494'/0'/0/";
+    public final static String KEY_NEW_OK_PATH              = "m/44'/996'/0'/0/";
+    public final static String KEY_NEW_SECRET_PATH          = "m/44'/529'/0'/0/";
+    public final static String KEY_PERSIS_PATH              = "m/44'/750'/0'/0/";
+    public final static String KEY_CRYPTO_PATH              = "m/44'/394'/0'/0/";
+    public final static String KEY_MEDI_PATH                = "m/44'/371'/0'/0/";
+    public final static String KEY_ALTHEA_PATH              = "m/44'/60'/0'/0/";
+    public final static String KEY_FETCH_BASE_PATH          = "m/44'/118'/0'/0/";
+    public final static String KEY_ETH_NON_LEDGER_PATH      = "m/44'/60'/0'/0/";
+    public final static String KEY_ETH_LEDGER_LIVE_PATH_1   = "m/44'/60'/";
     public final static String KEY_ETH_LEDGER_LIVE_PATH_2   = "'/0/0";
-    public final static String KEY_ETH_LEDGER_LEGACY_PATH   = "44'/60'/0'/";
-    public final static String KEY_INJ_PATH                 = "44'/60'/0'/0/";
-    public final static String KEY_BITSONG_PATH             = "44'/639'/0'/0/";
-    public final static String KEY_DESMOS_PATH              = "44'/852'/0'/0/";
-    public final static String KEY_LUM_PATH                 = "44'/880'/0'/0/";
+    public final static String KEY_ETH_LEDGER_LEGACY_PATH   = "m/44'/60'/0'/";
+    public final static String KEY_INJ_PATH                 = "m/44'/60'/0'/0/";
+    public final static String KEY_BITSONG_PATH             = "m/44'/639'/0'/0/";
+    public final static String KEY_DESMOS_PATH              = "m/44'/852'/0'/0/";
+    public final static String KEY_LUM_PATH                 = "m/44'/880'/0'/0/";
     public final static String characterFilter              = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 

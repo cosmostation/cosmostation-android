@@ -42,18 +42,6 @@ public class ValidatorInfoAllTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(OK_TEST)) {
-                Response<ArrayList<Validator>> response = ApiClient.getOkTestChain(mApp).getAllValidatorDetailList().execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if (response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
-
             }
 
         } catch (Exception e) {

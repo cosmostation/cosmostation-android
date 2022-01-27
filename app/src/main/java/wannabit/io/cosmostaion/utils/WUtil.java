@@ -2532,11 +2532,7 @@ public class WUtil {
 
             } else if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
                 resource.ticker = "okb";
-                try {
-                    resource.address = WKey.convertAddressOkexToEth(account.address);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                resource.address = account.address;
                 result.addresses.add(resource);
 
             } else if (BaseChain.getChain(account.baseChain).equals(KAVA_MAIN)) {

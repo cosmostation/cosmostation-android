@@ -51,7 +51,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class RestoreActivity extends BaseActivity implements View.OnClickListener{
@@ -74,7 +73,6 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     private MnemonicAdapter     mMnemonicAdapter;
     private ArrayList<String>   mWords = new ArrayList<>();
 
-    private boolean             mIsNewBip44;
     private int                 mIsCustomPath;
 
     @Override
@@ -306,7 +304,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                     getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                     return;
 
-                } else if (mChain.equals(OKEX_MAIN) || mChain.equals(OK_TEST)) {
+                } else if (mChain.equals(OKEX_MAIN)) {
                     Dialog_OkexRestoreType dialog = Dialog_OkexRestoreType.newInstance(null);
                     dialog.setCancelable(false);
                     getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -373,11 +371,6 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    public void onUsingNewBip44(boolean using) {
-        mIsNewBip44 = using;
-        onConfirmedWords();
-    }
-
     public void onUsingCustomPath(int using) {
         mIsCustomPath = using;
         onConfirmedWords();
@@ -393,7 +386,6 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             intent.putExtra("entropy", WUtil.ByteArrayToHexString(WKey.toEntropy(mWords)));
             intent.putExtra("size", mWords.size());
             intent.putExtra("chain", mChain.getChain());
-            intent.putExtra("bip44", mIsNewBip44);
             intent.putExtra("customPath", mIsCustomPath);
             startActivity(intent);
         }

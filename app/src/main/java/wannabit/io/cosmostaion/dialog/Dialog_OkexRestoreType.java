@@ -16,7 +16,7 @@ import wannabit.io.cosmostaion.activities.RestoreActivity;
 
 public class Dialog_OkexRestoreType extends DialogFragment {
 
-    private LinearLayout mOldPath, mNewPath;
+    private LinearLayout mOldPath, mNewPath, mEthPath;
 
     public static Dialog_OkexRestoreType newInstance(Bundle bundle) {
         Dialog_OkexRestoreType frag = new Dialog_OkexRestoreType();
@@ -36,11 +36,12 @@ public class Dialog_OkexRestoreType extends DialogFragment {
 
         mOldPath = view.findViewById(R.id.old_path);
         mNewPath = view.findViewById(R.id.new_path);
+        mEthPath = view.findViewById(R.id.eth_path);
 
         mOldPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((RestoreActivity)getActivity()).onUsingNewBip44(false);
+                ((RestoreActivity)getActivity()).onUsingCustomPath(0);
                 getDialog().dismiss();
             }
         });
@@ -48,7 +49,15 @@ public class Dialog_OkexRestoreType extends DialogFragment {
         mNewPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((RestoreActivity)getActivity()).onUsingNewBip44(true);
+                ((RestoreActivity)getActivity()).onUsingCustomPath(1);
+                getDialog().dismiss();
+            }
+        });
+
+        mEthPath.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((RestoreActivity)getActivity()).onUsingCustomPath(2);
                 getDialog().dismiss();
             }
         });

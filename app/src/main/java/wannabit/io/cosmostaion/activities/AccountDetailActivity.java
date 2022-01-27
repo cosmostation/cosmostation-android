@@ -69,8 +69,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private ImageView       mBtnRewardAddressChange;
     private TextView        mRewardAddress;
 
-    private String          mAddress;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,22 +178,12 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else {
             mAccountName.setText(mAccount.nickName);
         }
-        mAddress = mAccount.address;
-        if (mBaseChain.equals(OKEX_MAIN)) {
-            try {
-                if (mAccount.address.startsWith("ex1")) {
-                    mAddress = WKey.convertAddressOkexToEth(mAccount.address);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        mAccountAddress.setText(mAddress);
+        mAccountAddress.setText(mAccount.address);
         mAccountGenTime.setText(WDp.getDpTime(getBaseContext(), mAccount.importTime));
 
         if (mAccount.hasPrivateKey && mAccount.fromMnemonic) {
             mAccountState.setText(getString(R.string.str_with_mnemonic));
-            mAccountPath.setText(WDp.getPath(BaseChain.getChain(mAccount.baseChain), Integer.parseInt(mAccount.path), mAccount.newBip44, mAccount.customPath));
+            mAccountPath.setText(WDp.getPath(BaseChain.getChain(mAccount.baseChain), Integer.parseInt(mAccount.path), mAccount.customPath));
             mPathLayer.setVisibility(View.VISIBLE);
             mImportMsg.setVisibility(View.GONE);
             mBtnCheck.setVisibility(View.VISIBLE);

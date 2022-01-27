@@ -27,7 +27,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenStakingOldHolder;
@@ -35,9 +34,6 @@ import wannabit.io.cosmostaion.widget.tokenDetail.UnBondingHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class StakingTokenDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -57,17 +53,14 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private SwipeRefreshLayout              mSwipeRefreshLayout;
     private RecyclerView                    mRecyclerView;
 
-    private RelativeLayout                  mBtnIbcSend;
     private RelativeLayout                  mBtnBep3Send;
     private RelativeLayout                  mBtnSend;
 
     private StakingTokenAdapter             mAdapter;
     private Boolean                         mHasVesting = false;
     private String                          mMainDenom;
-    private String                          shareAddress;
 
     private int                             mDivideDecimal = 6;
-    private int                             mDisplayDecimal = 6;
     private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
 
     @Override
@@ -88,7 +81,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         mTotalValue             = findViewById(R.id.total_value);
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
         mRecyclerView           = findViewById(R.id.recycler);
-        mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
         mBtnBep3Send            = findViewById(R.id.btn_bep3_send);
         mBtnSend                = findViewById(R.id.btn_send);
 
@@ -100,9 +92,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mMainDenom = WDp.mainDenom(mBaseChain);
         mDivideDecimal = WDp.mainDivideDecimal(mBaseChain);
-        mDisplayDecimal = WDp.mainDivideDecimal(mBaseChain);
 
-        if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+        if (mBaseChain.equals(BNB_MAIN)) {
             mBtnBep3Send.setVisibility(View.VISIBLE);
         }
 
@@ -154,17 +145,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         }
 
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(StakingTokenDetailActivity.this, mBaseChain));
-        shareAddress = mAccount.address;
-        if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-            try {
-                if (mAccount.address.startsWith("ex1")) {
-                    shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        mAddress.setText(shareAddress);
+        mAddress.setText(mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
             mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -178,7 +159,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
             Bundle bundle = new Bundle();
-            bundle.putString("address", shareAddress);
+            bundle.putString("address", mAccount.address);
             if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
             else { bundle.putString("title", mAccount.nickName); }
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);

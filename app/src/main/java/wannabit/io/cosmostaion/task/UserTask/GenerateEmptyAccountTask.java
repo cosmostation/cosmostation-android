@@ -51,7 +51,7 @@ public class GenerateEmptyAccountTask extends CommonTask {
 
     private Account onGenEmptyAccount(String chainType, String address) {
         Account newAccount          = Account.getNewInstance();
-        newAccount.address          = address;
+        newAccount.address          = address.toLowerCase();
         newAccount.baseChain        = chainType;
         newAccount.hasPrivateKey    = false;
         newAccount.fromMnemonic     = false;

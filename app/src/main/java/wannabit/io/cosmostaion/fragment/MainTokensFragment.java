@@ -192,7 +192,6 @@ public class MainTokensFragment extends BaseFragment {
 
     private Account             mAccount;
     private BaseChain           mBaseChain;
-    private String              mAddress;
 
     public static MainTokensFragment newInstance(Bundle bundle) {
         MainTokensFragment fragment = new MainTokensFragment();
@@ -220,7 +219,7 @@ public class MainTokensFragment extends BaseFragment {
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMainActivity().onAddressDialog(mAddress);
+                getMainActivity().onAddressDialog();
             }
         });
 
@@ -256,18 +255,7 @@ public class MainTokensFragment extends BaseFragment {
         } else {
             itemKeyStatus.setColorFilter(ContextCompat.getColor(getMainActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         }
-        try {
-            if (mBaseChain.equals(OKEX_MAIN)) {
-                if (mAccount.address.startsWith("ex1")) {
-                    mAddress = WKey.convertAddressOkexToEth(mAccount.address);
-                } else {
-                    mAddress = mAccount.address;
-                }
-            } else {
-                mAddress = mAccount.address;
-            }
-        } catch (Exception e) { }
-        mWalletAddress.setText(mAddress);
+        mWalletAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
     }
 
@@ -480,8 +468,7 @@ public class MainTokensFragment extends BaseFragment {
             WUtil.onSortingOsmosisPool(mOsmosisPoolGrpc);
             WUtil.onSortingInjectivePool(mInjectivePoolGrpc);
 
-        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) ||
-                    getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
             WUtil.onSortingNativeCoins(mEtc, getMainActivity().mBaseChain);
         } else {
             WUtil.onSortingNativeCoins(mNative, getMainActivity().mBaseChain);

@@ -1663,7 +1663,6 @@ public class WDp {
             else if (address.startsWith("star1") && baseChain.equals(IOV_MAIN)) { return true; }
             else if (address.startsWith("band1") && baseChain.equals(BAND_MAIN)) { return true; }
             else if (address.startsWith("secret1") && baseChain.equals(SECRET_MAIN)) { return true; }
-            else if (address.startsWith("ex1") && baseChain.equals(OKEX_MAIN)) { return true; }
             else if (address.startsWith("certik1") && baseChain.equals(CERTIK_MAIN)) { return true; }
             else if (address.startsWith("akash1") && baseChain.equals(AKASH_MAIN)) { return true; }
             else if (address.startsWith("persistence1") && baseChain.equals(PERSIS_MAIN)) { return true; }
@@ -1698,7 +1697,11 @@ public class WDp {
     public static ArrayList<BaseChain> getChainsFromAddress(String address) {
         if (address != null) {
             if (address.startsWith("0x")) {
-                return Lists.newArrayList(OKEX_MAIN, OK_TEST);
+                if (WKey.isValidEthAddress(address)) {
+                    return Lists.newArrayList(OKEX_MAIN);
+                } else {
+                    return null;
+                }
             }
 
             if (!WKey.isValidBech32(address)) { return null; }
@@ -1709,7 +1712,6 @@ public class WDp {
             else if (address.startsWith("star1")) { return Lists.newArrayList(IOV_MAIN ,IOV_TEST); }
             else if (address.startsWith("band1")) { return Lists.newArrayList(BAND_MAIN); }
             else if (address.startsWith("secret1")) { return Lists.newArrayList(SECRET_MAIN); }
-            else if (address.startsWith("ex1")) { return Lists.newArrayList(OKEX_MAIN, OK_TEST); }
             else if (address.startsWith("certik1")) { return Lists.newArrayList(CERTIK_MAIN, CERTIK_TEST); }
             else if (address.startsWith("akash1")) { return Lists.newArrayList(AKASH_MAIN); }
             else if (address.startsWith("persistence1")) { return Lists.newArrayList(PERSIS_MAIN); }
@@ -2306,15 +2308,15 @@ public class WDp {
         return result;
     }
 
-    public static String getPath(BaseChain chain, int position, boolean newBip, int customPath) {
+    public static String getPath(BaseChain chain, int position, int customPath) {
         if (chain.equals(BNB_MAIN)) {
             return BaseConstant.KEY_BNB_PATH + String.valueOf(position);
 
         } else if (chain.equals(KAVA_MAIN)) {
-            if (newBip) {
-                return BaseConstant.KEY_NEW_KAVA_PATH + String.valueOf(position);
-            } else {
+            if (customPath == 0) {
                 return BaseConstant.KEY_PATH + String.valueOf(position);
+            } else {
+                return BaseConstant.KEY_NEW_KAVA_PATH + String.valueOf(position);
             }
 
         } else if (chain.equals(BAND_MAIN)) {
@@ -2324,17 +2326,19 @@ public class WDp {
             return BaseConstant.KEY_IOV_PATH + String.valueOf(position);
 
         } else if (chain.equals(OKEX_MAIN)) {
-            if (newBip) {
-                return  ("(Ethermint Type) ") + BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position);
+            if (customPath == 0) {
+                return BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position) + (" (Tendermint Type) ");
+            } else if (customPath == 1) {
+                return BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position) + (" (Ethermint Type) ");
             } else {
-                return ("(Tendermint Type) ") + BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position);
+                return BaseConstant.KEY_INJ_PATH + String.valueOf(position) + (" (Ethereum Type) ");
             }
 
         } else if (chain.equals(SECRET_MAIN)) {
-            if (newBip) {
-                return BaseConstant.KEY_NEW_SECRET_PATH + String.valueOf(position);
-            } else {
+            if (customPath == 0) {
                 return BaseConstant.KEY_PATH + String.valueOf(position);
+            } else {
+                return BaseConstant.KEY_NEW_SECRET_PATH + String.valueOf(position);
             }
 
         } else if (chain.equals(PERSIS_MAIN)) {
@@ -2369,10 +2373,10 @@ public class WDp {
             return KEY_DESMOS_PATH + String.valueOf(position);
 
         } else if (chain.equals(LUM_MAIN)) {
-            if (newBip) {
-                return KEY_LUM_PATH + String.valueOf(position);
-            } else {
+            if (customPath == 0) {
                 return KEY_PATH + String.valueOf(position);
+            } else {
+                return KEY_LUM_PATH + String.valueOf(position);
             }
 
         } else {

@@ -70,7 +70,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     private Account                         mAccount;
     private BaseChain                       mBaseChain;
-    private String                          mAddress;
 
     public static MainHistoryFragment newInstance(Bundle bundle) {
         MainHistoryFragment fragment = new MainHistoryFragment();
@@ -109,7 +108,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMainActivity().onAddressDialog(mAddress);
+                getMainActivity().onAddressDialog();
             }
         });
 
@@ -144,18 +143,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         } else {
             itemKeyStatus.setColorFilter(ContextCompat.getColor(getMainActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         }
-        try {
-            if (mBaseChain.equals(OKEX_MAIN)) {
-                if (mAccount.address.startsWith("ex1")) {
-                    mAddress = WKey.convertAddressOkexToEth(mAccount.address);
-                } else {
-                    mAddress = mAccount.address;
-                }
-            } else {
-                mAddress = mAccount.address;
-            }
-        } catch (Exception e) { }
-        mWalletAddress.setText(mAddress);
+        mWalletAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
     }
 
@@ -202,10 +190,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private void onFetchHistory() {
         mNotYet.setVisibility(View.GONE);
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
-        if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
+        if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
             new BnbHistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
-        } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
+        } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
             String address = getMainActivity().mAccount.address;
             if (getMainActivity().mAccount.address.startsWith("0x")) {
                 try {
@@ -286,10 +274,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
             } else {
                 HistoryOldHolder holder = (HistoryOldHolder) viewHolder;
-                if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
+                if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
                     final BnbHistory history = mBnbHistory.get(position);
                     holder.onBindOldBnbHistory(getMainActivity(), history);
-                } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
+                } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
                     final ResOkHistory.DataDetail history = mOkHistory.get(position);
                     holder.onBindOldOkHistory(getMainActivity(), history);
                 }

@@ -16,22 +16,18 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class GenerateAccountTask extends CommonTask {
-    private BaseChain mBaseChain;
-    private Boolean mNewPath;
-    private int mCustomPath;
+    private BaseChain       mBaseChain;
+    private int             mCustomPath;
 
     private ArrayList<BaseChain> mHideChains = new ArrayList<>();
 
-    public GenerateAccountTask(BaseApplication app, BaseChain basechain, TaskListener listener, boolean bip44, int customPath) {
+    public GenerateAccountTask(BaseApplication app, BaseChain baseChain, TaskListener listener, int customPath) {
         super(app, listener);
-        this.mBaseChain = basechain;
-        this.mNewPath = bip44;
+        this.mBaseChain = baseChain;
         this.mCustomPath = customPath;
         this.mResult.taskType = BaseConstant.TASK_INIT_ACCOUNT;
     }
@@ -77,18 +73,10 @@ public class GenerateAccountTask extends CommonTask {
 
 
     private Account onGenAccount(String entropy, String path, String msize) {
-        Account newAccount      = Account.getNewInstance();
-        DeterministicKey dKey   = WKey.getKeyWithPathfromEntropy(mBaseChain, entropy, Integer.parseInt(path), mNewPath, mCustomPath);
-        EncResult encR          = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, entropy, false);
+        Account newAccount          = Account.getNewInstance();
+        EncResult encR              = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, entropy, false);
 
-        //OKex using ethermint style account
-        if ((mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) && mNewPath) {
-            newAccount.address      = WKey.generateAddressFromPriv("ex", dKey.getPrivateKeyAsHex());
-        } else if (mBaseChain.equals(INJ_MAIN)) {
-            newAccount.address      = WKey.generateAddressFromPriv("inj", dKey.getPrivateKeyAsHex());
-        } else {
-            newAccount.address      = WKey.getDpAddress(mBaseChain, dKey.getPublicKeyAsHex());
-        }
+        newAccount.address          = WKey.getCreateDpAddressFromEntropy(mBaseChain, entropy, Integer.parseInt(path), mCustomPath);
         newAccount.baseChain        = mBaseChain.getChain();
         newAccount.hasPrivateKey    = true;
         newAccount.resource         = encR.getEncDataString();
@@ -97,7 +85,6 @@ public class GenerateAccountTask extends CommonTask {
         newAccount.path             = path;
         newAccount.msize            = Integer.parseInt(msize);
         newAccount.importTime       = System.currentTimeMillis();
-        newAccount.newBip44         = mNewPath;
         newAccount.customPath       = mCustomPath;
         return newAccount;
 

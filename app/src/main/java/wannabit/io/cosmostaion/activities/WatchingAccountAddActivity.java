@@ -110,20 +110,6 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                             onShowCosmosSelect(mUserInput);
                         } else if (mUserInput.startsWith("iaa1")) {
                             onShowIrisSelect(mUserInput);
-                        } else if (mUserInput.startsWith("kava1")) {
-                            onShowKavaSelect(mUserInput);
-                        } else if (mUserInput.startsWith("stars")) {
-                            onShowIovSelect(mUserInput);
-                        } else if (mUserInput.startsWith("certik1")) {
-                            onShowCertikSelect(mUserInput);
-                        } else if (mUserInput.startsWith("rizon1")) {
-                            onShowRizonSelect(mUserInput);
-                        } else if (mUserInput.startsWith("ex1")) {
-                            onShowOEXSelect(mUserInput);
-                        } else if (mUserInput.startsWith("0x")) {
-                            try {
-                                onShowOEXSelect(WKey.convertAddressEthToOkex(mUserInput));
-                            } catch (Exception e) { e.printStackTrace(); }
                         }
                     }
                 }
@@ -208,36 +194,6 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
     private void onShowIrisSelect(String input) {
         Dialog_Choice_Iris dialog = Dialog_Choice_Iris.newInstance(null);
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-    }
-
-    private void onShowKavaSelect(String input) {
-        Dialog_Choice_Kava dialog = Dialog_Choice_Kava.newInstance(null);
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-    }
-
-    private void onShowIovSelect(String input) {
-        Dialog_Choice_Iov dialog = Dialog_Choice_Iov.newInstance(null);
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-    }
-
-    private void onShowCertikSelect(String input) {
-        Dialog_Choice_Certik dialog = Dialog_Choice_Certik.newInstance(null);
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-    }
-
-    private void onShowRizonSelect(String input) {
-        Dialog_Choice_Rizon dialog = Dialog_Choice_Rizon.newInstance(null);
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-    }
-
-    private void onShowOEXSelect(String input) {
-        Dialog_Choice_Okex dialog = Dialog_Choice_Okex.newInstance(null);
         dialog.setCancelable(false);
         getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
     }

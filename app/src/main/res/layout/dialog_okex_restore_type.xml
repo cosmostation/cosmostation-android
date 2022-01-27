@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_8"
                 android:text="@string/str_okex_old_type"
-                style="@style/font_ss_14_gray8"/>
+                style="@style/font_ss_12_gray8"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -63,7 +63,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_8"
                 android:text="@string/str_okex_new_type"
-                style="@style/font_ss_14_gray8"/>
+                style="@style/font_ss_12_gray8"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorGray10"/>
+        <LinearLayout
+            android:id="@+id/eth_path"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="@dimen/space_12">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_8"
+                android:text="@string/str_okex_eth_type"
+                style="@style/font_ss_15_gray8"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -475,9 +475,10 @@
     <string name="str_secret_old_path"><![CDATA[변경 전 PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_secret_new_path"><![CDATA[변경 후 PATH (44\'/529\'/0\'/0)]]></string>
     <string name="str_okex_newpath_title">키 타입 선택</string>
-    <string name="str_okex_newpath_msg">OKex체인은 두가지 타입의 키 타입을 지원합니다.\n\n테스트 넷부터 사용하시던 타입을 사용하시려면 [Tendermint Type]를, 이후에 생성하신 경우 [Ethermint Type] 선택해주세요.\n\n잘못 선택한 경우에도 기존 OKex 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 타입을 다시 지정하면 됩니다.</string>
-    <string name="str_okex_old_type"><![CDATA[Tendermint 타입 키 생성]]></string>
-    <string name="str_okex_new_type"><![CDATA[Ethermint(기본) 타입 키 생성]]></string>
+    <string name="str_okex_newpath_msg">OEC체인은 세가지 타입의 키 타입을 지원합니다.\n\n테스트 넷부터 사용하시던 타입을 사용하시려면 [Tendermint Type]를, 이후에 생성하신 경우 [Ethermint Type] 선택하세요. 최근 생성하신 경우 [Ethereum Type] 선택하세요. \n\n잘못 선택한 경우에도 기존 OEC 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 타입을 다시 지정하면 됩니다.</string>
+    <string name="str_okex_old_type"><![CDATA[Legacy Tendermint 타입 (44\'/996\'/0\'/0)]]></string>
+    <string name="str_okex_new_type"><![CDATA[Legacy Ethermint 타입 (44\'/996\'/0\'/0)]]></string>
+    <string name="str_okex_eth_type"><![CDATA[Ethereum 타입 (44\'/60\'/0\'/0)]]></string>
     <string name="str_lum_newpath_title">키 타입 선택</string>
     <string name="str_lum_newpath_msg">Lum 에어드랍을 받은 주소를 사용하시려면 [Air-Drop Path]를, Lum 기본 주소를 사용하시려면 [Default Path]를 선택하세요.\n\n잘못 선택한 경우에도 기존 Lum 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 타입을 다시 지정하면 됩니다.</string>
     <string name="str_lum_basic_type"><![CDATA[Default PATH (44\'/880\'/0\'/0)]]></string>

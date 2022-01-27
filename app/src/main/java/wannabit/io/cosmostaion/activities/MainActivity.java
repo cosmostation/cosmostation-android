@@ -54,7 +54,6 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadAirDrop;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
@@ -63,7 +62,6 @@ import wannabit.io.cosmostaion.widget.TintableImageView;
 
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
@@ -173,16 +171,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         onChainSelect(mBaseChain);
     }
 
-    public void onAddressDialog(String address) {
-        try {
-            if (mBaseChain.equals(OKEX_MAIN)) {
-                address = WKey.convertAddressOkexToEth(mAccount.address);
-            } else {
-                address = mAccount.address;
-            }
-        } catch (Exception e) { }
+    public void onAddressDialog() {
         Bundle bundle = new Bundle();
-        bundle.putString("address", address);
+        bundle.putString("address", mAccount.address);
         if (TextUtils.isEmpty(mAccount.nickName))
             bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
         else

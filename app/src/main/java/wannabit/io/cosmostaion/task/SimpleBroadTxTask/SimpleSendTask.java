@@ -81,21 +81,12 @@ public class SimpleSendTask extends CommonTask {
                 mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
                 mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
 
-            } else if (getChain(mAccount.baseChain).equals(OK_TEST)) {
-                Response<ResOkAccountInfo> accountResponse = ApiClient.getOkTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (!accountResponse.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
-
             }
 
             ECKey ecKey;
             if (mAccount.fromMnemonic) {
                 String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44, mAccount.customPath);
+                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
                 ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
             } else {
                 String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -109,24 +100,6 @@ public class SimpleSendTask extends CommonTask {
             if (getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, ecKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if (response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(OK_TEST)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, ecKey, mApp.getBaseDao().getChainId());
-                Response<ResBroadTx> response = ApiClient.getOkTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;

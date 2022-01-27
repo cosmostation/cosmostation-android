@@ -154,7 +154,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             }
 
         } else {
-            if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
+            if (getSActivity().mBaseChain.equals(BNB_MAIN)) {
                 mDivideDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
                 mDisplayDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
 
@@ -192,7 +192,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 }
 
 
-            } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+            } else if (getSActivity().mBaseChain.equals(OKEX_MAIN)) {
                 mDivideDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
                 mDisplayDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
 
@@ -251,15 +251,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             }
         }
 
-        if (getSActivity().mBaseChain.equals(OKEX_MAIN)) {
-            try {
-                mRecipientAddress.setText(WKey.convertAddressOkexToEth(getSActivity().mToAddress));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            mRecipientAddress.setText(getSActivity().mToAddress);
-        }
+        mRecipientAddress.setText(getSActivity().mToAddress);
         mRecipientStartName.setVisibility(View.GONE);
         mMemo.setText(getSActivity().mTxMemo);
     }
