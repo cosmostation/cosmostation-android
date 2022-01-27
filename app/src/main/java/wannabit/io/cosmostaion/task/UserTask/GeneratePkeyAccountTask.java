@@ -74,7 +74,6 @@ public class GeneratePkeyAccountTask extends CommonTask {
         newAccount.path             = "-1";
         newAccount.msize            = -1;
         newAccount.importTime       = System.currentTimeMillis();
-        newAccount.newBip44         = false;
         newAccount.customPath       = -1;
         return newAccount;
     }

@@ -859,6 +859,9 @@
     <string name="str_okex_old_type"><![CDATA[Legacy Tendermint Type (44\'/996\'/0\'/0)]]></string>
     <string name="str_okex_new_type"><![CDATA[Legacy Ethermint Type (44\'/996\'/0\'/0)]]></string>
     <string name="str_okex_eth_type"><![CDATA[Ethereum Type (44\'/60\'/0\'/0)]]></string>
+    <string name="str_okex_address_title">Select Address Type</string>
+    <string name="str_okex_old_address">Legacy Tendermint Type</string>
+    <string name="str_okex_new_address">New Ether Type</string>
     <string name="str_lum_newpath_title">Select Key Path</string>
     <string name="str_lum_newpath_msg">Select [Air-Drop Path] to import the address that received the Lum airdrop. If you wish to import a general Lum address, select [Default Path].\n\nYou can go back to [Import Mnemonics] at any time and select your desired path again.</string>
     <string name="str_lum_basic_type"><![CDATA[Default PATH (44\'/880\'/0\'/0)]]></string>

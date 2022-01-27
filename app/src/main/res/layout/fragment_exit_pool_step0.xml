@@ -22,7 +22,7 @@
                 android:layout_marginTop="@dimen/space_12">
                 <LinearLayout
                     android:id="@+id/exit_pool_input_symbol_layer"
-                    android:layout_width="@dimen/space_50"
+                    android:layout_width="@dimen/space_64"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:orientation="vertical"
@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_marginLeft="@dimen/space_8"
                     android:layout_toRightOf="@+id/exit_pool_input_symbol_layer"
                     android:textCursorDrawable="@drawable/white_cursor"
                     android:maxLength="46"

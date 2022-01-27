@@ -24,18 +24,12 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dialog.Dialog_Choice_Certik;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Cosmos;
-import wannabit.io.cosmostaion.dialog.Dialog_Choice_Iov;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Iris;
-import wannabit.io.cosmostaion.dialog.Dialog_Choice_Kava;
-import wannabit.io.cosmostaion.dialog.Dialog_Choice_Okex;
-import wannabit.io.cosmostaion.dialog.Dialog_Choice_Rizon;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 
 import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
 
