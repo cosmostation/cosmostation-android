@@ -70,15 +70,6 @@ public class SimpleOkDirectVoteTask extends CommonTask {
                 mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
                 mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
 
-            } else if (mBaseChain.equals(OK_TEST)) {
-                Response<ResOkAccountInfo> accountResponse = ApiClient.getOkTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (!accountResponse.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
-
             }
 
             ECKey ecKey;
@@ -98,24 +89,6 @@ public class SimpleOkDirectVoteTask extends CommonTask {
             if (getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mFees, mMemo, ecKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if (response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(OK_TEST)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mFees, mMemo, ecKey, mApp.getBaseDao().getChainId());
-                Response<ResBroadTx> response = ApiClient.getOkTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;

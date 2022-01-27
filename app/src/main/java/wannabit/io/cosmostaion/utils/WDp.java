@@ -59,7 +59,6 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
-import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
@@ -114,10 +113,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.*;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFUNDED;
-import static wannabit.io.cosmostaion.network.res.ResOkHistory.OK_TYPE_CANCEL_ORDER;
-import static wannabit.io.cosmostaion.network.res.ResOkHistory.OK_TYPE_NEW_ORDER;
-import static wannabit.io.cosmostaion.network.res.ResOkHistory.OK_TYPE_SIDE_SEND;
-import static wannabit.io.cosmostaion.network.res.ResOkHistory.OK_TYPE_TRANSFER;
 
 public class WDp {
     //show display text with full input amount and to divide deciaml and to show point
@@ -2287,25 +2282,6 @@ public class WDp {
         }
         return result;
 
-    }
-
-    public static String DpOkTxType(Context c, ResOkHistory.DataDetail history) {
-        String result = c.getString(R.string.tx_known);
-        if (history.type == OK_TYPE_TRANSFER) {
-            if (history.side == OK_TYPE_SIDE_SEND) {
-                result = c.getString(R.string.tx_send);
-            } else {
-                result = c.getString(R.string.tx_receive);
-            }
-
-        } else if (history.type == OK_TYPE_NEW_ORDER) {
-            result = c.getString(R.string.tx_new_order);
-
-        } else if (history.type == OK_TYPE_CANCEL_ORDER) {
-            result = c.getString(R.string.tx_Cancel_order);
-
-        }
-        return result;
     }
 
     public static String getPath(BaseChain chain, int position, int customPath) {

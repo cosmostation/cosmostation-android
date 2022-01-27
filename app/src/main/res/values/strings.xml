@@ -41,9 +41,7 @@
 
 
     <string name="url_lcd_ok" translatable="false">https://www.okex.com/okexchain/v1/</string>
-
-
-    <string name="url_lcd_ok_test" translatable="false">https://www.okex.com/okexchain-test/v1/</string>
+    <string name="url_api_ok" translatable="false">https://www.oklink.com/api/explorer/</string>
 
 
     <string name="url_api_certik" translatable="false">https://api-certik.cosmostation.io/</string>

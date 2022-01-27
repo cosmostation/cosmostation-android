@@ -875,6 +875,8 @@ public class BaseConstant {
     public final static String EXPLORER_AXELAR_MAIN     = "https://www.mintscan.io/axelar/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
+    public final static String EXPLORER_OEC_TX          = "https://www.oklink.com/oec/";
+
     public final static String NFT_INFURA               = "https://ipfs.infura.io/ipfs/";
 
 

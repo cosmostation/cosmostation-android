@@ -18,6 +18,8 @@ import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OEC_TX;
+
 public class HistoryOldHolder extends BaseHolder {
     private CardView historyRoot;
     private TextView historyType, historySuccess, history_time, history_block, history_time_gap;
@@ -58,16 +60,21 @@ public class HistoryOldHolder extends BaseHolder {
         });
     }
 
-    public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ResOkHistory.DataDetail history) {
+    public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ResOkHistory.Data.Hit history) {
+        String type = history.transactionDatas.get(0).type;
+        if (type.contains("/")) {
+            historyType.setText(type.split("/")[type.split("/").length - 1].replace("Msg", ""));
+        } else {
+            historyType.setText(type);
+        }
         historySuccess.setVisibility(View.GONE);
-        historyType.setText(WDp.DpOkTxType(mainActivity, history));
-        history_time.setText(WDp.getDpTime(mainActivity, history.timestamp * 1000));
-        history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.timestamp * 1000));
-        history_block.setText(history.txhash + "block");
+        history_time.setText(WDp.getDpTime(mainActivity, history.blocktime));
+        history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.blocktime));
+        history_block.setText(history.hash + "block");
         historyRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.txhash);
+                String url = EXPLORER_OEC_TX + "tx/" + history.hash;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 mainActivity.startActivity(intent);
             }

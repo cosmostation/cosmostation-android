@@ -10,6 +10,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
@@ -38,15 +39,6 @@ public interface OkChain {
     @GET("tickers")
     Call<ResOkTickersList> getDexTickers();
 
-    @GET("staking/validators?status=bonded")
-    Call<ArrayList<Validator>> getBondedValidatorDetailList();
-
-    @GET("staking/validators?status=unbonding")
-    Call<ArrayList<Validator>> getUnBondingValidatorDetailList();
-
-    @GET("staking/validators?status=unbonded")
-    Call<ArrayList<Validator>> getUnBondedValidatorDetailList();
-
     @GET("staking/validators?status=all")
     Call<ArrayList<Validator>> getAllValidatorDetailList();
 
@@ -59,12 +51,8 @@ public interface OkChain {
     @GET("staking/delegators/{address}/unbonding_delegations")
     Call<ResOkUnbonding> getWithdrawInfo(@Path("address") String address);
 
-    @GET("transactions")
-    Call<ResOkHistory> getTxHistory(@Query("address") String address);
-
-
-
-
+    @GET("v1/okexchain/addresses/{addresses}/transactions/condition")
+    Call<ResOkHistory> getNewOecTxs(@Path("addresses") String addresses, @Query("limit") String limit);
 
 
 

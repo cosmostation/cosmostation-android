@@ -40,15 +40,12 @@ import wannabit.io.cosmostaion.task.FetchTask.OkHistoryTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.widget.HistoryNewHolder;
 import wannabit.io.cosmostaion.widget.HistoryOldHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 
@@ -65,7 +62,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private TextView                        mNotYet;
 
     private ArrayList<BnbHistory>                   mBnbHistory = new ArrayList<>();
-    private ArrayList<ResOkHistory.DataDetail>      mOkHistory = new ArrayList<>();
+    private ArrayList<ResOkHistory.Data.Hit>        mOkHistory = new ArrayList<>();
     private ArrayList<ResApiNewTxListCustom>        mApiNewTxCustomHistory = new ArrayList<>();
 
     private Account                         mAccount;
@@ -194,15 +191,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             new BnbHistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
         } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
-            String address = getMainActivity().mAccount.address;
-            if (getMainActivity().mAccount.address.startsWith("0x")) {
-                try {
-                    address = WKey.convertAddressEthToOkex(getMainActivity().mAccount.address);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            new OkHistoryTask(getBaseApplication(), this, address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new OkHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -224,9 +213,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_OK_HISTORY) {
-            ResOkHistory hits = (ResOkHistory)result.resultData;
-            if (hits != null && hits.data != null && hits.data.dataDetails != null && hits.data.dataDetails.size() > 0) {
-                mOkHistory = hits.data.dataDetails;
+            mOkHistory = (ArrayList<ResOkHistory.Data.Hit>) result.resultData;
+            if (result.isSuccess && mOkHistory != null && mOkHistory.size() > 0 ) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mHistoryAdapter.notifyDataSetChanged();
@@ -278,7 +266,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     final BnbHistory history = mBnbHistory.get(position);
                     holder.onBindOldBnbHistory(getMainActivity(), history);
                 } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
-                    final ResOkHistory.DataDetail history = mOkHistory.get(position);
+                    final ResOkHistory.Data.Hit history = mOkHistory.get(position);
                     holder.onBindOldOkHistory(getMainActivity(), history);
                 }
             }
@@ -295,9 +283,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
+            if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
                 return mBnbHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
                 return mOkHistory.size();
             } else {
                 return mApiNewTxCustomHistory.size();
