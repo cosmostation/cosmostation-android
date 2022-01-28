@@ -18,7 +18,7 @@
     <color name="colorTransBgStarname">#246E7CDE</color>
     <color name="colorTransBgKava">#24ff554f</color>
     <color name="colorTransBgBand">#245286FF</color>
-    <color name="colorTransBgOkex">#2488BDF3</color>
+    <color name="colorTransBgOkex">#244d87ee</color>
     <color name="colorTransBgCertik">#24E1AA4C</color>
     <color name="colorTransBgAkash">#24C71E10</color>
     <color name="colorTransBgSecret">#32C4C4C4</color>
@@ -90,8 +90,8 @@
     <color name="colorBand">#516FFA</color>
     <color name="colorBand2">#2A3C8B</color>
 
-    <color name="colorOK">#88BDF3</color>
-    <color name="colorOK2">#45678B</color>
+    <color name="colorOK">#4d87ee</color>
+    <color name="colorOK2">#365fa7</color>
 
     <color name="colorCertik">#E1AA4C</color>
     <color name="colorCertik2">#59441E</color>

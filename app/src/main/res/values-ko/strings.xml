@@ -162,6 +162,7 @@
     <string name="str_import_time">등록 날짜</string>
     <string name="str_import_state">상태</string>
     <string name="str_import_path">경로</string>
+    <string name="str_import_address_type">주소 타입</string>
     <string name="str_import_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.</string>
     <string name="str_import_mnemonic">복구 단어 입력</string>
     <string name="str_import_key">개인키 입력</string>
@@ -730,8 +731,8 @@
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
-    <string name="str_main_tokens">TOKENS</string>
-    <string name="str_main_reward">REWARD</string>전
+    <string name="str_main_tokens">ASSETS</string>
+    <string name="str_main_reward">REWARD</string>
     <string name="str_main_history">HISTORY</string>
     <string name="str_main_vote">VOTE</string>
     <string name="str_main_set">SETTING</string>
@@ -1196,14 +1197,14 @@
     <string name="str_rizon_swap_result">트랜잭션 결과</string>
     <string name="str_rizon_swap_block_hash">블록 해쉬</string>
     <string name="str_rizon_swap_mint_recipient_Address">수령 주소</string>
-    <string name="str_native_token_title">Native Tokens</string>
-    <string name="str_ibc_token_title">IBC Tokens</string>
-    <string name="str_unknown_ibc_token_title">Unknown IBC Tokens</string>
-    <string name="str_pool_token_title">POOL Tokens</string>
-    <string name="str_gravity_dex_token_title">Gravity Dex Tokens</string>
-    <string name="str_sif_ether_token_title">Ether Bridged Tokens</string>
-    <string name="str_kava_bep2_token_title">BEP2 Tokens</string>
-    <string name="str_etc_token_title">Etc Tokens</string>
+    <string name="str_native_token_title">Native Coins</string>
+    <string name="str_ibc_token_title">IBC Coins</string>
+    <string name="str_unknown_ibc_token_title">Unknown IBC Coins</string>
+    <string name="str_pool_token_title">POOL Coins</string>
+    <string name="str_gravity_dex_token_title">Gravity Dex Coins</string>
+    <string name="str_sif_ether_token_title">Ether Bridged Coins</string>
+    <string name="str_kava_bep2_token_title">BEP2 Coins</string>
+    <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_unknown_token_title">Unknown</string>
     <string name="str_ibc_info_title">IBC information</string>
     <string name="str_ibc_opposite_chain_id_title">Opposite Chain ID</string>

@@ -61,7 +61,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private CardView        mCardBody;
     private ImageView       mBtnQr;
     private TextView        mAccountAddress, mAccountGenTime;
-    private TextView        mAccountChain, mAccountState, mAccountPath, mImportMsg;
+    private TextView        mAccountChain, mAccountState, mAccountPathTitle, mAccountPath, mImportMsg;
     private RelativeLayout  mPathLayer;
 
 
@@ -91,6 +91,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mAccountChain           = findViewById(R.id.account_chain);
         mAccountGenTime         = findViewById(R.id.account_import_time);
         mAccountState           = findViewById(R.id.account_import_state);
+        mAccountPathTitle       = findViewById(R.id.path_title);
         mAccountPath            = findViewById(R.id.account_path);
         mImportMsg              = findViewById(R.id.import_msg);
         mPathLayer              = findViewById(R.id.account_path_layer);
@@ -199,6 +200,13 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mView.setVisibility(View.GONE);
             mBtnCheckKey.setVisibility(View.VISIBLE);
             mBtnCheckKey.setText(getString(R.string.str_check_private_key));
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                mPathLayer.setVisibility(View.VISIBLE);
+                mAccountPathTitle.setText("Address Type");
+                if (mAccount.customPath > 0) { mAccountPath.setText("Ethereum Type Address"); }
+                else { mAccountPath.setText("Legacy Tendermint Type Address"); }
+                mAccountPath.setTextColor(getResources().getColor(R.color.colorPhoton));
+            }
 
         } else {
             mAccountState.setText(getString(R.string.str_only_address));

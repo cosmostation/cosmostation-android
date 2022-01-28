@@ -50,6 +50,7 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -767,7 +768,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_atom_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Cosmos Staking Token");
+            holder.itemFullName.setText("Cosmos Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
 
@@ -779,7 +780,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_iris_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IRIS_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Iris Staking Token");
+            holder.itemFullName.setText("Iris Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
 
@@ -791,7 +792,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_akt_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AKASH_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Akash Staking Token");
+            holder.itemFullName.setText("Akash Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_token_img));
 
@@ -803,7 +804,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_dvpn_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SENTINEL_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Sentinel Native Token");
+            holder.itemFullName.setText("Sentinel Native Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensentinel));
 
@@ -815,7 +816,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_xprt_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), PERSIS_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Persistence Staking Token");
+            holder.itemFullName.setText("Persistence Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenpersistence));
 
@@ -827,7 +828,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_cro_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CRYPTO_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Crypto.org Staking Token");
+            holder.itemFullName.setText("Crypto.org Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokencrypto));
 
@@ -839,7 +840,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_osmosis_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), OSMOSIS_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Osmosis Staking Token");
+            holder.itemFullName.setText("Osmosis Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
 
@@ -851,7 +852,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_uion_c));
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorIon));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Ion Token");
+            holder.itemFullName.setText("Ion Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
 
             BigDecimal totalAmount = getBaseDao().getAvailable(TOKEN_ION);
@@ -862,7 +863,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_iov_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IOV_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Starname Staking Token");
+            holder.itemFullName.setText("Starname Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_starname));
 
@@ -874,7 +875,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_sif_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SIF_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Sif Staking Token");
+            holder.itemFullName.setText("Sif Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
 
@@ -886,7 +887,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_medi_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), MEDI_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Medibloc Staking Token");
+            holder.itemFullName.setText("Medibloc Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenmedibloc));
 
@@ -898,7 +899,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_ctk_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERTIK_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Certik Staking Token");
+            holder.itemFullName.setText("Certik Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_token_img));
 
@@ -910,7 +911,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_rizon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), RIZON_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Rizon Staking Token");
+            holder.itemFullName.setText("Rizon Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_rizon));
 
@@ -922,7 +923,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_althea_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), ALTHEA_TEST));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Althea Staking Token");
+            holder.itemFullName.setText("Althea Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_althea));
 
@@ -934,7 +935,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_umee_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), UMEE_TEST));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Umee Staking Token");
+            holder.itemFullName.setText("Umee Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_umee));
 
@@ -946,7 +947,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_ngm_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), EMONEY_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("E-Money Staking Token");
+            holder.itemFullName.setText("E-Money Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_emoney));
 
@@ -969,7 +970,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_fet_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), FETCHAI_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Fetch,ai Staking Token");
+            holder.itemFullName.setText("Fetch,ai Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenfetchai));
 
@@ -981,7 +982,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_band_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BAND_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Band Staking Token");
+            holder.itemFullName.setText("Band Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_band));
 
@@ -993,7 +994,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_axl_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AXELAR_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Axelar Staking Token");
+            holder.itemFullName.setText("Axelar Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_axelar));
 
@@ -1005,7 +1006,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_juno_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), JUNO_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Juno Staking Token");
+            holder.itemFullName.setText("Juno Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_juno));
 
@@ -1017,7 +1018,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_regen_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), REGEN_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Regen Staking Token");
+            holder.itemFullName.setText("Regen Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_regen));
 
@@ -1029,7 +1030,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_bitcanna_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BITCANNA_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Bitcanna Staking Token");
+            holder.itemFullName.setText("Bitcanna Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bitcanna));
 
@@ -1041,7 +1042,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_stargaze_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), STARGAZE_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Stargaze Staking Token");
+            holder.itemFullName.setText("Stargaze Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_stargaze));
 
@@ -1053,7 +1054,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_grabridge_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), GRABRIDGE_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("G-Bridge Staking Token");
+            holder.itemFullName.setText("G-Bridge Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_gravitybridge));
 
@@ -1065,7 +1066,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_ki_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KI_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("KiChain Staking Token");
+            holder.itemFullName.setText("KiChain Staking Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_kifoundation));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_KI);
@@ -1076,7 +1077,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_comdex_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COMDEX_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Comdex Staking Token");
+            holder.itemFullName.setText("Comdex Staking Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_comdex));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_COMDEX);
@@ -1087,7 +1088,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_scrt_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SECRET_MAIN));
             holder.itemInnerSymbol.setText("(" + coin.denom + ")");
-            holder.itemFullName.setText("Secret Native Token");
+            holder.itemFullName.setText("Secret Native Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensecret));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_SECRET);
@@ -1098,7 +1099,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_inj_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), INJ_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Injective Staking Token");
+            holder.itemFullName.setText("Injective Staking Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_injective));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_INJ);
@@ -1109,7 +1110,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_desmos_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), DESMOS_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Desmos Staking Token");
+            holder.itemFullName.setText("Desmos Staking Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_desmos));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_DESMOS);
@@ -1120,7 +1121,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_bitsong_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BITSONG_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Bitsong Staking Token");
+            holder.itemFullName.setText("Bitsong Staking Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bitsong));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_BITSONG);
@@ -1131,7 +1132,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_lum_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), LUM_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Lum Staking Token");
+            holder.itemFullName.setText("Lum Staking Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_lum));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_LUM);
@@ -1142,7 +1143,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_chihuahua_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CHIHUAHUA_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Chihuahua Staking Token");
+            holder.itemFullName.setText("Chihuahua Staking Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_huahua));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CHIHUAHUA);
@@ -1153,7 +1154,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_kava_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Kava Staking Token");
+            holder.itemFullName.setText("Kava Staking Coin");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_KAVA);
@@ -1165,7 +1166,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorHard));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("HardPool Gov. Token");
+            holder.itemFullName.setText("HardPool Gov. Coin");
 
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
@@ -1187,7 +1188,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Kava Swap Token");
+            holder.itemFullName.setText("Kava Swap Coin");
 
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
@@ -1199,7 +1200,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Stargate Staking Token");
+            holder.itemFullName.setText("Stargate Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
 
@@ -1211,7 +1212,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_bif_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IRIS_TEST));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Bifrost Staking Token");
+            holder.itemFullName.setText("Bifrost Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
 
@@ -1460,7 +1461,7 @@ public class MainTokensFragment extends BaseFragment {
             if (bnbToken != null) {
                 holder.itemSymbol.setText(bnbToken.original_symbol.toUpperCase());
                 holder.itemInnerSymbol.setText("(" + bnbToken.symbol + ")");
-                holder.itemFullName.setText(bnbToken.name);
+                holder.itemFullName.setText("Binance Chain Native Coin");
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
@@ -1478,10 +1479,10 @@ public class MainTokensFragment extends BaseFragment {
             final OkToken okToken = getBaseDao().okToken(balance.symbol);
             holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");
-            holder.itemFullName.setText(okToken.description);
+            holder.itemFullName.setText("OKExChain Native Coin");
             if (balance.symbol.equals(TOKEN_OK)) {
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
-                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
+                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_okx));
 
                 BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
@@ -1501,7 +1502,7 @@ public class MainTokensFragment extends BaseFragment {
     private void onBindEtcToken(TokensAdapter.AssetHolder holder, int position) {
         final Balance balance = mEtc.get(position);
         if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
-            final OkToken okToken   = getBaseDao().okToken(balance.symbol);
+            final OkToken okToken = getBaseDao().okToken(balance.symbol);
             if (okToken != null) {
                 holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
                 holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");

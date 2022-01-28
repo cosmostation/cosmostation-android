@@ -971,7 +971,7 @@ public class WDp {
             } else if (baseChain.equals(AKASH_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.akash_chain_img));
             } else if (baseChain.equals(OKEX_MAIN)) {
-                chainImg.setImageDrawable(c.getDrawable(R.drawable.okex_chain_img));
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_okx));
             } else if (baseChain.equals(PERSIS_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chainpersistence));
             } else if (baseChain.equals(SENTINEL_MAIN)) {
@@ -3251,7 +3251,7 @@ public class WDp {
             } else if (baseChain.equals(BNB_MAIN)) {
                 imageView.setImageResource(R.drawable.bnb_token_img);
             } else if (baseChain.equals(OKEX_MAIN)) {
-                imageView.setImageResource(R.drawable.okex_token_img);
+                imageView.setImageResource(R.drawable.token_okx);
             } else if (baseChain.equals(AKASH_MAIN)) {
                 imageView.setImageResource(R.drawable.akash_token_img);
             } else if (baseChain.equals(KAVA_MAIN)) {

@@ -552,7 +552,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/okex_chain_img"/>
+                    android:src="@drawable/chain_okx"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
