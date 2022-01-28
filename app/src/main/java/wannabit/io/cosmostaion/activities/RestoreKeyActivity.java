@@ -44,6 +44,7 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
 
     private BaseChain       mChain;
     private String          okAddress = "";
+    private int             mOkAddressType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +82,13 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
         return super.onOptionsItemSelected(item);
     }
 
-    private void onGenPkeyAccount(String pKey, String address) {
+    private void onGenPkeyAccount(String pKey, String address, int customPath) {
         onShowWaitDialog();
-        new GeneratePkeyAccountTask(getBaseApplication(), mChain, this, pKey, address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GeneratePkeyAccountTask(getBaseApplication(), mChain, this, pKey, address, customPath).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    private void onOverridePkeyAccount(String pKey, Account account) {
-        new OverridePkeyAccountTask(getBaseApplication(),this, pKey, account).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    private void onOverridePkeyAccount(String pKey, Account account, int customPath) {
+        new OverridePkeyAccountTask(getBaseApplication(),this, pKey, account, customPath).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -181,7 +182,7 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
         } else {
             okAddress = WKey.generateEthAddressFromPrivateKey(mUserInput);
         }
-
+        mOkAddressType = okAddressType;
         if (okAddress.isEmpty()) {
             Toast.makeText(this, R.string.error_invalid_private_Key, Toast.LENGTH_SHORT).show();
             return;
@@ -212,9 +213,17 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
             }
             Account account = getBaseDao().onSelectExistAccount(address, mChain);
             if (account != null) {
-                onOverridePkeyAccount(mUserInput, account);
+                if (mChain.equals(BaseChain.OKEX_MAIN)) {
+                    onOverridePkeyAccount(mUserInput, account, mOkAddressType);
+                } else {
+                    onOverridePkeyAccount(mUserInput, account, -1);
+                }
             } else {
-                onGenPkeyAccount(mUserInput, address);
+                if (mChain.equals(BaseChain.OKEX_MAIN)) {
+                    onGenPkeyAccount(mUserInput, address, mOkAddressType);
+                } else {
+                    onGenPkeyAccount(mUserInput, address, -1);
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

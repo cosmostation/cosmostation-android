@@ -18,14 +18,16 @@ public class GeneratePkeyAccountTask extends CommonTask {
     private BaseChain   mBaseChain;
     private String      mPKey;
     private String      mAddress;
+    private int         mCustomPath;
 
     private ArrayList<BaseChain> mHideChains = new ArrayList<>();
 
-    public GeneratePkeyAccountTask(BaseApplication app, BaseChain basechain, TaskListener listener, String pKey, String address) {
+    public GeneratePkeyAccountTask(BaseApplication app, BaseChain basechain, TaskListener listener, String pKey, String address, int customPath) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mPKey = pKey;
         this.mAddress = address;
+        this.mCustomPath = customPath;
         this.mResult.taskType = BaseConstant.TASK_INIT_PKEY_ACCOUNT;
     }
 
@@ -60,7 +62,7 @@ public class GeneratePkeyAccountTask extends CommonTask {
 
     private Account onGenAccount() {
         Account newAccount          = Account.getNewInstance();
-        if (mPKey.startsWith("0x") || mPKey.startsWith("0X")) {
+        if (mPKey.toLowerCase().startsWith("0x")) {
             mPKey = mPKey.substring(2);
         }
         EncResult encR              = CryptoHelper.doEncryptData(mApp.getString(R.string.key_private) + newAccount.uuid, mPKey, false);
@@ -74,7 +76,7 @@ public class GeneratePkeyAccountTask extends CommonTask {
         newAccount.path             = "-1";
         newAccount.msize            = -1;
         newAccount.importTime       = System.currentTimeMillis();
-        newAccount.customPath       = -1;
+        newAccount.customPath       = mCustomPath;
         return newAccount;
     }
 }
