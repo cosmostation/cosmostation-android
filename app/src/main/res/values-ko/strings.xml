@@ -618,7 +618,7 @@
     <string name="str_help_stability_fee_t">연간 수수료</string>
     <string name="str_help_stability_fee">CDP에서 생성한 USDX 대출에 대한 연간 수수료입니다.\n\n대출 상환시, 연간 수수료와 대출금을 모두 포함한 금액을 하게되면 CDP 계좌가 닫힙니다.</string>
     <string name="str_help_liquidation_penalty_t">청산시 추가 수수료</string>
-    <string name="str_help_liquidation_penalty">담보로 설정한 코인의 토큰 가격 변동에 의하여 CDP 계좌가 청산될 경우 유저가 추가적으로 납부해야할 수수료입니다.\n\n만약 담보 비율이 최소 담보 비율보다 낮아진다면, 유저의 CDP 계좌는 청산됩니다.</string>
+    <string name="str_help_liquidation_penalty">담보로 설정한 코인 가격 변동에 의하여 CDP 계좌가 청산될 경우 유저가 추가적으로 납부해야할 수수료입니다.\n\n만약 담보 비율이 최소 담보 비율보다 낮아진다면, 유저의 CDP 계좌는 청산됩니다.</string>
 
     <string name="str_help_available_collateral_t">Available</string>
     <string name="str_help_available_collateral">The amount of available %1$s in your wallet that can be deposited into the CDP as collateral.</string>
@@ -634,12 +634,12 @@
     <string name="str_help_loaned_amount_t">대출 금액</string>
     <string name="str_help_loaned_amount">해당 CDP 계좌를 통해 대출받은 총 USDX 수량입니다.</string>
     <string name="str_help_remaining_loan_capacity_t">추가 대출 가능 금액</string>
-    <string name="str_help_remaining_loan_capacity">해당 CDP 계좌를 통해 추가적으로 빌릴 수 있는 최대 USDX 수량입니다. 담보물 토큰 가격의 변동에 따라 이 금액을 달라지게 됩니다.</string>
+    <string name="str_help_remaining_loan_capacity">해당 CDP 계좌를 통해 추가적으로 빌릴 수 있는 최대 USDX 수량입니다. 담보물 코인 가격의 변동에 따라 이 금액을 달라지게 됩니다.</string>
     <string name="str_help_outstanding_debt_t">Outstanding Debt</string>
     <string name="str_help_outstanding_debt">The total principal as well as interest amount of debt that has yet to be paid.</string>
     <string name="str_help_total_fee_t">대출 이자</string>
     <string name="str_help_total_fee">현재까지 계산된 CDP 사용 수수료 입니다. 매 초 증가합니다.</string>
-    <string name="str_help_risk">CDP 청산 위험도가 100에 도달하면, 해당 CDP 계좌는 청산됩니다. 청산 위험도는 담보물로 설정한 토큰의 현재 가격과 해당 토큰의 청산 가격을 비교한 수치입니다.\n\n예를 들어, 청산 위험도가 60이고 담보물로 설정한 토큰의 현재 가격이 $10이라고 가정해 봅시다. 해당 CDP는 담보물 토큰의 가격이 $6이 되면 청산됩니다.</string>
+    <string name="str_help_risk">CDP 청산 위험도가 100에 도달하면, 해당 CDP 계좌는 청산됩니다. 청산 위험도는 담보물로 설정한 코인의 현재 가격과 해당 코인의 청산 가격을 비교한 수치입니다.\n\n예를 들어, 청산 위험도가 60이고 담보물로 설정한 코인의 현재 가격이 $10이라고 가정해 봅시다. 해당 CDP는 담보물 코인의 가격이 $6이 되면 청산됩니다.</string>
 
     <string name="str_create_cdp_c">Mint 개설</string>
     <string name="str_repay_cdp_c">USDX 상환</string>
@@ -749,7 +749,7 @@
     <string name="str_password_msg1">다시한번 입력해 주세요.</string>
     <string name="str_password_msg2">PIN 번호는 복구하실 방법이 전혀 없습니다.\n신중히 결정하시고 잊지않도록 주의해주세요.</string>
     <string name="str_send_step_0">받을 지갑 주소를 입력하세요</string>
-    <string name="str_send_step_1">전송하실 토큰과 수량을 입력하세요</string>
+    <string name="str_send_step_1">전송하실 코인과 수량을 입력하세요</string>
     <string name="str_send_step_2">메모를 입력하세요 (선택사항)</string>
     <string name="str_send_step_3">Tx 수수료를 선택하세요</string>
     <string name="str_send_step_4">입력하신 정보를 확인하세요</string>
@@ -794,7 +794,7 @@
     <string name="str_let_start_cosmos2">코스모스테이션과 스테이킹하고 이자를 지급받으세요.\n로컬사이닝을 통한 빠르고 안전한 거래를 제공합니다.</string>
     <string name="str_change_nickname">지갑 이름 설정</string>
     <string name="str_wallet_nickname">지갑 이름</string>
-    <string name="str_start_delegate">코스모스테이션에 토큰을 위임하세요.\n이자 즉시위임 기능으로 복리 이자를 축적하고 네트워크 생태계에 기여하세요.</string>
+    <string name="str_start_delegate">코스모스테이션에 코인을 위임하세요.\n이자 즉시위임 기능으로 복리 이자를 축적하고 네트워크 생태계에 기여하세요.</string>
     <string name="str_create_warn0">복구 단어 분실은 자산 피해로 이어질 수 있습니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.</string>
     <string name="str_create_warn1">고객님의 자산 보호를 위해 \n복구 단어를 반드시 종이에 적어 따로 보관해주세요.\n이 단어들을 이용하여 지갑을 복원할 수 있습니다.\n(지갑관리에서 다시 확인하실 수 있습니다.)</string>
     <string name="str_gaia">Gaia testnet is not fixed coin type, so skip coin amount check logic.\nPlease insert valid amount coin without under point.</string>
@@ -882,7 +882,7 @@
     하지만 결과값을 보여주는데 시간이 지연되고 있습니다.
     "기다리기" 버튼을 눌러 현재 화면에서 결과값을 확인하거나, "닫기" 버튼을 눌러 잠시 후에 History 탭에서 결과를 확인하세요.]]></string>
     <string name="str_more_wait_swap_title">스왑아이디 확인 지연</string>
-    <string name="str_more_wait_swap_msg">보내는 체인에서 정상적으로 스왑을 시도하였지만, 스왑아이디가 검색되지 않습니다. \"기다리기\" 버튼을 누르시면 계속해서 스왑아이디를 검색하며 스왑 기능을 진행합니다. \"닫기\" 버튼을 누르시면 일정 시간 이후 원래 지갑으로 토큰이 반환됩니다.</string>
+    <string name="str_more_wait_swap_msg">보내는 체인에서 정상적으로 스왑을 시도하였지만, 스왑아이디가 검색되지 않습니다. \"기다리기\" 버튼을 누르시면 계속해서 스왑아이디를 검색하며 스왑 기능을 진행합니다. \"닫기\" 버튼을 누르시면 일정 시간 이후 원래 지갑으로 코인이 반환됩니다.</string>
     <string name="str_swap_error_title">스왑 Tx 에러</string>
     <string name="str_swap_error_msg_create">죄송합니다. \n스왑 Tx중 보내기 중 에러가 발생하였습니다. 아래 내용을 확인해 주세요.</string>
     <string name="str_swap_error_msg_claim">죄송합니다. \n스왑 Tx 받기 중 에러가 발생하였습니다. 아래 내용을 확인해 주세요.</string>
@@ -906,7 +906,7 @@
     <string name="str_ready_to_quite">한번 더 누르시면 취소됩니다.</string>
     <string name="str_vesting_amount">잠긴수량 (위임만 가능)</string>
     <string name="str_htlc_warn_title">BEP3 스왑에 관해서</string>
-    <string name="str_htlc_warn_msg">BEP3 전송은 전환을 원하는 각 체인의 네트워크와 릴레이어가 처리합니다. 코스모스테이션은 BEP3 전송을 중계하지만 해당 네트워크의 안정성과 전송에 대한 성공을 보장하지 않습니다. 전송 실패 시 해당 네트워크 커뮤니티 채널에 문의하세요. BEP3 전송 실패 시 해당 트랜잭션 내역에 활성화된 [Refund] 기능을 통해 토큰을 전액 반환할 수 있습니다.</string>
+    <string name="str_htlc_warn_msg">BEP3 전송은 전환을 원하는 각 체인의 네트워크와 릴레이어가 처리합니다. 코스모스테이션은 BEP3 전송을 중계하지만 해당 네트워크의 안정성과 전송에 대한 성공을 보장하지 않습니다. 전송 실패 시 해당 네트워크 커뮤니티 채널에 문의하세요. BEP3 전송 실패 시 해당 트랜잭션 내역에 활성화된 [Refund] 기능을 통해 코인을 전액 반환할 수 있습니다.</string>
     <string name="str_cdp_warn_title">CDP에 관해서</string>
     <string name="str_cdp_warn_msg">CDP는 담보물의 가치변동에 따라 청산의 위험이 있습니다. CDP 개설, 상환, 청산을 포함한 모든 결정 권한과 책임은 사용자에게 있습니다. Cosmostation 지갑은 청산과 청산 위험에 대한 알람은 별도로 제공되지 않습니다.</string>
     <string name="str_delegate_warn_title">위임에 관해서</string>
@@ -1023,7 +1023,7 @@
     <string name="str_my_borrowed_amount">나의 대출 수량</string>
     <string name="str_my_borrowable_amount">나의 대출 가능 수량</string>
     <string name="str_lp_reward_title">하베스트 LP 이자</string>
-    <string name="str_lp_reward_msg">Harvest 유동성 공급자는 HARD토큰을 매 블럭마다 보상받습니다! 하베스트 Money Market에 더 많은 자산을 공급할수록 더 많은 보상을 받게됩니다.</string>
+    <string name="str_lp_reward_msg">Harvest 유동성 공급자는 HARD코인을 매 블럭마다 보상받습니다! 하베스트 Money Market에 더 많은 자산을 공급할수록 더 많은 보상을 받게됩니다.</string>
     <string name="str_total_lp_reward">총 LP 보상</string>
     <string name="str_my_total_lp_reward">나의 모든 LP 이자량</string>
     <string name="str_start_deposit">예치 시작 하기</string>
@@ -1115,11 +1115,11 @@
     <string name="str_swap_out">Swap Out</string>
     <string name="str_future_pool_governor">Future Pool Governor</string>
     <string name="str_swap_coin_type">Type</string>
-    <string name="str_osmosis_token_lockup">토큰 잠그기</string>
-    <string name="str_osmosis_begin_unlucking">토큰 풀기 시작</string>
-    <string name="str_osmosis_begin_unlucking_all">모든 토큰 풀기 시작</string>
-    <string name="str_osmosis_token_unlock">토큰 풀기</string>
-    <string name="str_osmosis_preriodlock_unlock">풀린 토큰 받기</string>
+    <string name="str_osmosis_token_lockup">코인 잠그기</string>
+    <string name="str_osmosis_begin_unlucking">코인 풀기 시작</string>
+    <string name="str_osmosis_begin_unlucking_all">모든 코인 풀기 시작</string>
+    <string name="str_osmosis_token_unlock">코인 풀기</string>
+    <string name="str_osmosis_preriodlock_unlock">풀린 코인 받기</string>
     <string name="str_gravity_create_pool_address">Pool Create Address</string>
     <string name="str_gravity_create_pool_id">Pool Type Id</string>
     <string name="str_gravity_deposit_batch_address">Depositor Address</string>
@@ -1144,7 +1144,7 @@
     <string name="str_event_horizon_c">이벤트 호라이즌</string>
     <string name="str_event_horizon_step_0">HDAC 니모닉을 입력해주세요.</string>
     <string name="str_event_horizon_step_1">입력하신 정보를 확인하세요.</string>
-    <string name="str_token_swap">토큰 스왑</string>
+    <string name="str_token_swap">코인 스왑</string>
     <string name="str_token_id">ID</string>
     <string name="str_token_swap_time">시간</string>
     <string name="str_token_swap_input_coin">Inputs</string>
@@ -1212,14 +1212,14 @@
     <string name="str_ibc_opposite_channel_title">Opposite Channel</string>
     <string name="str_ibc_denom_title">Denom</string>
     <string name="str_ibc_opposite_denom_title">Opposite Denom</string>
-    <string name="str_title_start_lock_osmosis">토큰 잠그기</string>
+    <string name="str_title_start_lock_osmosis">코인 잠그기</string>
     <string name="str_osmosis_start_lock_step_0">락업 수량을 입력해주세요</string>
     <string name="str_osmosis_start_lock_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_osmosis_start_lock_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_osmosis_start_lock_step_3">입력하신 정보를 확인하세요</string>
     <string name="str_osmosis_to_lock_coin">To Lock Coin</string>
     <string name="str_osmosis_unbonding_duraion">Unbonding Duration</string>
-    <string name="str_title_start_unbonding_osmosis">토큰 풀기 시작</string>
+    <string name="str_title_start_unbonding_osmosis">코인 풀기 시작</string>
     <string name="str_osmosis_start_unbonding_step_0">언본딩 수량을 입력해주세요</string>
     <string name="str_osmosis_start_unbonding_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_osmosis_start_unbonding_step_2">Tx 수수료를 선택하세요</string>
@@ -1227,7 +1227,7 @@
     <string name="str_osmosis_to_unbonding_id">To Unbonding ID</string>
     <string name="str_osmosis_to_unbonding_amount">To Unbonding Amount</string>
     <string name="str_osmosis_unbonding_duration">Unbonding Duration</string>
-    <string name="str_title_start_unlock_osmosis">토큰 풀기</string>
+    <string name="str_title_start_unlock_osmosis">코인 풀기</string>
     <string name="str_osmosis_start_unlock_step_0">언본딩 수량을 입력해주세요</string>
     <string name="str_osmosis_start_unlock_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_osmosis_start_unlock_step_2">Tx 수수료를 선택하세요</string>
@@ -1277,7 +1277,7 @@
     <string name="str_ibc_send_channel">릴레이어 채널</string>
     <string name="str_ibc_transfer_step_0">받을 체인과 릴레이어를 선택하세요</string>
     <string name="str_ibc_transfer_step_1">받을 지갑 주소를 입력하세요</string>
-    <string name="str_ibc_transfer_step_2">전송하실 토큰과 수량을 입력하세요</string>
+    <string name="str_ibc_transfer_step_2">전송하실 코인과 수량을 입력하세요</string>
     <string name="str_ibc_transfer_step_3">Tx 수수료를 선택하세요</string>
     <string name="str_ibc_transfer_step_4">입력하신 정보를 확인하세요</string>
     <string name="str_select_ibc_destination">IBC 전송 체인 선택</string>
@@ -1432,7 +1432,7 @@
     <string name="error_select_account_to_recipient">받을 계정을 선택해 주세요.</string>
     <string name="error_no_more_faucet">이미 충분한 테스트 코인이 있네요.</string>
     <string name="error_no_more_debt_kava">USDX를 더 이상 발행할 수 없습니다. 시스템에서 지원가능한 모든 USDX가 발행되었습니다.</string>
-    <string name="error_bnb_mini_amount">BEP8는 최소 전송 금액은 1보다 커야 합니다. 토큰 잔고가 1 미만인 경우, 전체 금액 전송만 가능합니다.</string>
+    <string name="error_bnb_mini_amount">BEP8는 최소 전송 금액은 1보다 커야 합니다. 코인 잔고가 1 미만인 경우, 전체 금액 전송만 가능합니다.</string>
     <string name="error_max_30_validator">최대 30명의 검증인을 선택하실 수 있습니다.</string>
     <string name="error_min_1_validator">1개 이상의 검증인을 선택해주세요.</string>
     <string name="error_only_deposit_can_vote">스테이킹 금액이 없습니다.\n먼저 스테이킹을 해주세요.</string>
@@ -1521,7 +1521,7 @@
     <string name="tx_reinvest">이자 즉시 위임</string>
     <string name="tx_new_order">새 주문</string>
     <string name="tx_Cancel_order">주문 취소</string>
-    <string name="tx_issue_token">토큰 발행</string>
+    <string name="tx_issue_token">코인 발행</string>
     <string name="tx_known">알수없음</string>
     <string name="tx_medi_add_record">Add Record</string>
     <string name="tx_medi_create_did">Create DID</string>
@@ -1553,7 +1553,7 @@
     <string name="tx_kava_hard_repay">하드 풀\n상환</string>
     <string name="tx_kava_hard_liquidate">하드 풀\n청산</string>
     <string name="tx_kava_incentive_hard">하드 풀\n인센티브</string>
-    <string name="tx_kava_swap_token">토큰 스왑</string>
+    <string name="tx_kava_swap_token">코인 스왑</string>
     <string name="tx_kava_swap_deposit">스왑풀\n예치</string>
     <string name="tx_kava_swap_withdraw">스왑풀\n출금</string>
     <string name="tx_kava_swap_incentive">스왑풀\n인센티브</string>
@@ -1599,10 +1599,10 @@
     <string name="tx_osmosis_join_pool">풀 참가</string>
     <string name="tx_osmosis_exit_pool">풀 나가기</string>
     <string name="tx_osmosis_coin_swap">코인 스왑</string>
-    <string name="tx_osmosis_token_lockup">토큰 잠그기(Start Earning)</string>
-    <string name="tx_osmosis_begin_token_unlock">토큰 풀기 시작</string>
-    <string name="tx_osmosis_begin_token_unlock_all">모든 토큰 풀기 시작</string>
-    <string name="tx_osmosis_periodlock_unlock">풀린 토큰 받기(End Earning)</string>
+    <string name="tx_osmosis_token_lockup">코인 잠그기(Start Earning)</string>
+    <string name="tx_osmosis_begin_token_unlock">코인 풀기 시작</string>
+    <string name="tx_osmosis_begin_token_unlock_all">모든 코인 풀기 시작</string>
+    <string name="tx_osmosis_periodlock_unlock">풀린 코인 받기(End Earning)</string>
 
     <string name="tx_gravity_create_pool">풀 생성</string>
     <string name="tx_gravity_swap_batch">코인 스왑</string>

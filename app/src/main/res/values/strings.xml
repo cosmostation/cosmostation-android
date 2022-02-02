@@ -1488,8 +1488,8 @@
     <string name="str_pool_assets">Pool Assets</string>
     <string name="str_share_in_amount">Share In Amount</string>
     <string name="str_share_out_amount">Share Out Amount</string>
-    <string name="str_token_in">Token In</string>
-    <string name="str_token_out">Token Out</string>
+    <string name="str_token_in">Coin In</string>
+    <string name="str_token_out">Coin Out</string>
     <string name="str_lock_token_duration">Duration</string>
     <string name="str_unlock_token_id">ID</string>
     <string name="str_unlock_token_complete_time">Unlock Complete Time</string>
@@ -1499,11 +1499,11 @@
     <string name="str_swap_out">Swap Out</string>
     <string name="str_future_pool_governor">Future Pool Governor</string>
     <string name="str_swap_coin_type">Type</string>
-    <string name="str_osmosis_token_lockup">Lockup Token</string>
+    <string name="str_osmosis_token_lockup">Lockup Coin</string>
     <string name="str_osmosis_begin_unlucking">Begin Unlocking</string>
     <string name="str_osmosis_begin_unlucking_all">Begin Unlocking All</string>
-    <string name="str_osmosis_token_unlock">Unlock Tokens</string>
-    <string name="str_osmosis_preriodlock_unlock">Preriod Unlock Token</string>
+    <string name="str_osmosis_token_unlock">Unlock Coins</string>
+    <string name="str_osmosis_preriodlock_unlock">Period Unlock Coin</string>
     <string name="str_gravity_create_pool_address">Pool Create Address</string>
     <string name="str_gravity_create_pool_id">Pool Type ID</string>
     <string name="str_gravity_deposit_batch_address">Depositor Address</string>
@@ -1528,7 +1528,7 @@
     <string name="str_event_horizon_c">Event Horizon</string>
     <string name="str_event_horizon_step_0">Insert mnemonic for Hdac</string>
     <string name="str_event_horizon_step_1">Check Transaction Detail</string>
-    <string name="str_token_swap">Token Swap</string>
+    <string name="str_token_swap">Coin Swap</string>
     <string name="str_token_id">ID</string>
     <string name="str_token_swap_time">Time</string>
     <string name="str_token_swap_input_coin">Inputs</string>
@@ -1599,7 +1599,7 @@
     <string name="str_ibc_opposite_channel_title">Opposite Channel</string>
     <string name="str_ibc_denom_title">Denom</string>
     <string name="str_ibc_opposite_denom_title">Opposite Denom</string>
-    <string name="str_title_start_lock_osmosis">Lock Token</string>
+    <string name="str_title_start_lock_osmosis">Lock Coin</string>
     <string name="str_osmosis_start_lock_step_0">Insert amount to lock</string>
     <string name="str_osmosis_start_lock_step_1">Insert memo (optional)</string>
     <string name="str_osmosis_start_lock_step_2">Select transaction fee</string>
@@ -1614,7 +1614,7 @@
     <string name="str_osmosis_to_unbonding_id">To Unbonding ID</string>
     <string name="str_osmosis_to_unbonding_amount">To Unbonding Amount</string>
     <string name="str_osmosis_unbonding_duration">Unbonding Duration</string>
-    <string name="str_title_start_unlock_osmosis">Unlock Token</string>
+    <string name="str_title_start_unlock_osmosis">Unlock Coin</string>
     <string name="str_osmosis_start_unlock_step_0">Insert amount to unlock</string>
     <string name="str_osmosis_start_unlock_step_1">Insert memo (optional)</string>
     <string name="str_osmosis_start_unlock_step_2">Select transaction fee</string>
@@ -1975,7 +1975,7 @@
     <string name="tx_kava_hard_repay">Hard Lend\nRepay</string>
     <string name="tx_kava_hard_liquidate">Hard Lend\nLiquidate</string>
     <string name="tx_kava_incentive_hard">Hard Lend\nIncentive</string>
-    <string name="tx_kava_swap_token">Swap Token</string>
+    <string name="tx_kava_swap_token">Swap Coin</string>
     <string name="tx_kava_swap_deposit">Swap Pool\nDeposit</string>
     <string name="tx_kava_swap_withdraw">Swap Pool\nWithdraw</string>
     <string name="tx_kava_swap_incentive">Swap Pool\nIncentive</string>
@@ -2021,10 +2021,10 @@
     <string name="tx_osmosis_join_pool">Join Pool</string>
     <string name="tx_osmosis_exit_pool">Exit Pool</string>
     <string name="tx_osmosis_coin_swap">Swap Coin</string>
-    <string name="tx_osmosis_token_lockup">Lock Token(Start Earning)</string>
+    <string name="tx_osmosis_token_lockup">Lock Coin(Start Earning)</string>
     <string name="tx_osmosis_begin_token_unlock">Begin Unlocking</string>
     <string name="tx_osmosis_begin_token_unlock_all">Begin Unlocking All</string>
-    <string name="tx_osmosis_periodlock_unlock">Unlock Period Token(End Earning)</string>
+    <string name="tx_osmosis_periodlock_unlock">Unlock Period Coin(End Earning)</string>
 
 
     <string name="tx_gravity_create_pool">Create Pool</string>
