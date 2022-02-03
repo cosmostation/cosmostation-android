@@ -33,6 +33,7 @@ import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.BridgeTokenGrpcActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.ContractTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.IBCTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenGrpcActivity;
@@ -1481,7 +1482,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
     }
 
-    //bind kava etc tokens with gRPC
+    //bind cw20 tokens with gRPC
     private void onBindCw20GrpcToken(TokensAdapter.AssetHolder holder, int position) {
         final Cw20Assets cw20Asset = mCW20Grpc.get(position);
         Picasso.get().load(cw20Asset.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
@@ -1493,6 +1494,15 @@ public class MainTokensFragment extends BaseFragment {
         int decimal = cw20Asset.decimal;
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), cw20Asset.getAmount(), decimal, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), cw20Asset.denom, cw20Asset.getAmount(), decimal));
+
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getMainActivity(), ContractTokenGrpcActivity.class);
+                intent.putExtra("cw20Asset", cw20Asset);
+                startActivity(intent);
+            }
+        });
     }
 
     //with Unknown Token gRPC
