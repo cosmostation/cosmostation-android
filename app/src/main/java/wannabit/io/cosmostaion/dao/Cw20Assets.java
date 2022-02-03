@@ -15,7 +15,7 @@ public class Cw20Assets {
     public String denom;
 
     @SerializedName("decimal")
-    public String decimal;
+    public int decimal;
 
     @SerializedName("display")
     public int display;

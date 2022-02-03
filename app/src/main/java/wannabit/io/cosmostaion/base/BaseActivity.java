@@ -552,6 +552,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mIbcPaths.clear();
         getBaseDao().mIbcTokens.clear();
         getBaseDao().mChainParam = null;
+        getBaseDao().mAssets.clear();
+        getBaseDao().mCw20Assets.clear();
 
         getBaseDao().mSifLmIncentive = null;
 

@@ -258,7 +258,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                             }
                         }
 
-                        if (getBaseDao().getAvailable("gamm/pool/" + pool.getId()).equals(BigDecimal.ZERO)) {
+                        if (getBaseDao().getAvailable("gamm/pool/" + pool.getId()) != BigDecimal.ZERO) {
                             mPoolMyList.add(pool);
                         } else {
                             mPoolOtherList.add(pool);
