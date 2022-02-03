@@ -72,7 +72,7 @@ public class SifPoolMyHolder extends BaseHolder {
         itemMyTotalDepositAmount1.setText(WDp.getDpAmount2(context, externalAmount, externalDecimal, 6));
 
         //dp my lp info
-        if (myPool != null) {
+        if (myPool != null && myProvider != null) {
             BigDecimal myShareValue = WUtil.getSifMyShareValue(baseData, myPool, myProvider);
             itemMypoolDepositValue.setText(WDp.getDpRawDollor(context, myShareValue, 2));
             WUtil.dpSifTokenName(context, baseData, itemMyDepositSymbol0, BaseConstant.TOKEN_SIF);

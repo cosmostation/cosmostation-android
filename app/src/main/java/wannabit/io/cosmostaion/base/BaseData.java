@@ -182,7 +182,7 @@ public class BaseData {
     public String getBaseDenom(String denom) {
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth) {
+            if (ibcToken != null && ibcToken.auth) {
                 if (ibcToken.base_denom.equalsIgnoreCase("xrowan")) {
                     return ibcToken.display_denom;
                 }
@@ -657,9 +657,11 @@ public class BaseData {
     // for kava funcs
     public Genesis.CollateralParam getCollateralParamByType(String type) {
         Genesis.CollateralParam result = null;
-        for (Genesis.CollateralParam collateralParam: mCdpParams.getCollateralParamsList()) {
-            if (collateralParam.getType().equalsIgnoreCase(type)) {
-                return collateralParam;
+        if (mCdpParams != null && mCdpParams.getCollateralParamsList().size() > 0) {
+            for (Genesis.CollateralParam collateralParam: mCdpParams.getCollateralParamsList()) {
+                if (collateralParam.getType().equalsIgnoreCase(type)) {
+                    return collateralParam;
+                }
             }
         }
         return result;

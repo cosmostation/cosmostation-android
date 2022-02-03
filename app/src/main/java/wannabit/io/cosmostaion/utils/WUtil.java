@@ -1335,12 +1335,8 @@ public class WUtil {
             return 6;
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null) {
-                if (ibcToken.auth == true) { return ibcToken.decimal; }
-                else return 6;
-            } else {
-                return 6;
-            }
+            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
+            else return 6;
         }
         return 1;
     }
@@ -1372,7 +1368,7 @@ public class WUtil {
             if (poolInfo != null) { return 6; }
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) { return ibcToken.decimal; }
+            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
         }
         return 6;
     }
@@ -1383,7 +1379,7 @@ public class WUtil {
         else if (denom.startsWith("gamm/pool/")) { return 18; }
         else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) { return ibcToken.decimal; }
+            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
         }
         return 6;
     }
@@ -1411,7 +1407,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken != null && ibcToken.auth) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
                 return "UnKnown";
@@ -1437,7 +1433,7 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken != null && ibcToken.auth) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
                 textView.setText("UnKnown");
@@ -1515,7 +1511,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken != null && ibcToken.auth) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
                 return "Unknown";
@@ -1527,7 +1523,7 @@ public class WUtil {
     public static String getKavaBaseDenom(BaseData baseData, String denom) {
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken != null && ibcToken.auth) {
                 return ibcToken.base_denom.toUpperCase();
             } else {
                 return "";
@@ -1565,7 +1561,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth) {
+            if (ibcToken != null && ibcToken.auth) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
                 return "UnKnown";
@@ -1591,7 +1587,7 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth) {
+            if (ibcToken != null && ibcToken.auth) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
                 textView.setText("UnKnown");
@@ -1606,7 +1602,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth) {
+            if (ibcToken != null && ibcToken.auth) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
                 return "UnKnown";
@@ -1631,7 +1627,7 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth) {
+            if (ibcToken != null && ibcToken.auth) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
                 textView.setText("UnKnown");
@@ -1702,9 +1698,9 @@ public class WUtil {
             imageView.setImageResource(R.drawable.kava_token_img);
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            try {
+            if (ibcToken != null) {
                 Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
-            } catch (Exception e){}
+            }
         } else {
             Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(imageView);
         }
@@ -1814,8 +1810,12 @@ public class WUtil {
 //    }
 
     public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, BalancerPoolOuterClass.BalancerPool pool) {
-        BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);
-        return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
+        if (pool != null) {
+            BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);
+            return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
+        } else {
+            return BigDecimal.ZERO;
+        }
     }
 
     public static BigDecimal getPoolValue(BaseData baseData, BalancerPoolOuterClass.BalancerPool pool) {

@@ -248,7 +248,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mGrpcOsmosisPool = (ArrayList<BalancerPoolOuterClass.BalancerPool>)result.resultData;
                 for (BalancerPoolOuterClass.BalancerPool pool: getBaseDao().mGrpcOsmosisPool) {
-                    if (getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
+                    if (getBaseDao().mChainParam != null && getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
                         mPoolList.add(pool);
                         for (BalancerPoolOuterClass.BalancerPool swap: mPoolList) {
                             for (BalancerPoolOuterClass.PoolAsset poolAsset: swap.getPoolAssetsList()) {
@@ -258,7 +258,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                             }
                         }
 
-                        if (getBaseDao().getAvailable("gamm/pool/" + pool.getId()) != BigDecimal.ZERO) {
+                        if (getBaseDao().getAvailable("gamm/pool/" + pool.getId()).equals(BigDecimal.ZERO)) {
                             mPoolMyList.add(pool);
                         } else {
                             mPoolOtherList.add(pool);

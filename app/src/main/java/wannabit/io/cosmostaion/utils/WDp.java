@@ -141,7 +141,7 @@ public class WDp {
     public static void showCoinDp(Context c, BaseData baseData, Coin coin, TextView denomTv, TextView amountTv, BaseChain chain) {
         if (isGRPC(chain) && coin.isIbc()) {
             IbcToken ibcToken = baseData.getIbcToken(coin.getIbcHash());
-            if (ibcToken.auth) {
+            if (ibcToken != null && ibcToken.auth) {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(ibcToken.display_denom.toUpperCase());
                 amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), ibcToken.decimal, ibcToken.decimal));
@@ -529,17 +529,15 @@ public class WDp {
     public static void showCoinDp(Context c, BaseData baseData, String symbol, String amount, TextView denomTv, TextView amountTv, BaseChain chain) {
         if (isGRPC(chain) && symbol.startsWith("ibc")) {
             IbcToken ibcToken = baseData.getIbcToken(symbol.replaceAll("ibc/", ""));
-            if (ibcToken != null) {
-                if (ibcToken.auth) {
-                    denomTv.setText(ibcToken.display_denom.toUpperCase());
-                    amountTv.setText(getDpAmount2(c, new BigDecimal(amount), ibcToken.decimal, ibcToken.decimal));
+            if (ibcToken != null && ibcToken.auth) {
+                denomTv.setText(ibcToken.display_denom.toUpperCase());
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), ibcToken.decimal, ibcToken.decimal));
 
-                } else {
-                    denomTv.setText("Unknown");
-                    amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-                }
-                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            } else {
+                denomTv.setText("Unknown");
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
             }
+            denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
 
         } else if (chain.equals(COSMOS_MAIN)) {
             if (symbol.equals(TOKEN_ATOM)) {
