@@ -45,6 +45,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -155,11 +156,12 @@ public class MainTokensFragment extends BaseFragment {
     public final static int     SECTION_INJECTIVE_POOL_GRPC     = 6;
     public final static int     SECTION_KAVA_BEP2_GRPC          = 7;
     public final static int     SECTION_ETC_GRPC                = 8;
-    public final static int     SECTION_UNKNOWN_GRPC            = 9;
+    public final static int     SECTION_CW20_GRPC               = 9;
+    public final static int     SECTION_UNKNOWN_GRPC            = 10;
 
-    public final static int     SECTION_NATIVE                  = 10;
-    public final static int     SECTION_ETC                     = 11;
-    public final static int     SECTION_UNKNOWN                 = 12;
+    public final static int     SECTION_NATIVE                  = 20;
+    public final static int     SECTION_ETC                     = 21;
+    public final static int     SECTION_UNKNOWN                 = 22;
 
     private int                 mSection;                       // section 구분
 
@@ -176,23 +178,24 @@ public class MainTokensFragment extends BaseFragment {
 
     private RecyclerViewHeader  mRecyclerViewHeader;
 
-    private ArrayList<Coin>     mNativeGrpc = new ArrayList<>();
-    private ArrayList<Coin>     mIbcAuthedGrpc = new ArrayList<>();
-    private ArrayList<Coin>     mOsmosisPoolGrpc = new ArrayList<>();
-    private ArrayList<Coin>     mEtherGrpc = new ArrayList<>();
-    private ArrayList<Coin>     mIbcUnknownGrpc = new ArrayList<>();
-    private ArrayList<Coin>     mGravityDexGrpc = new ArrayList<>();
-    private ArrayList<Coin>     mInjectivePoolGrpc = new ArrayList<>();
-    private ArrayList<Coin>     mKavaBep2Grpc = new ArrayList<>();
-    private ArrayList<Coin>     mEtcGrpc = new ArrayList<>();
-    private ArrayList<Coin>     mUnknownGrpc = new ArrayList<>();
+    private ArrayList<Coin>             mNativeGrpc = new ArrayList<>();
+    private ArrayList<Coin>             mIbcAuthedGrpc = new ArrayList<>();
+    private ArrayList<Coin>             mOsmosisPoolGrpc = new ArrayList<>();
+    private ArrayList<Coin>             mEtherGrpc = new ArrayList<>();
+    private ArrayList<Coin>             mIbcUnknownGrpc = new ArrayList<>();
+    private ArrayList<Coin>             mGravityDexGrpc = new ArrayList<>();
+    private ArrayList<Coin>             mInjectivePoolGrpc = new ArrayList<>();
+    private ArrayList<Coin>             mKavaBep2Grpc = new ArrayList<>();
+    private ArrayList<Coin>             mEtcGrpc = new ArrayList<>();
+    private ArrayList<Cw20Assets>       mCW20Grpc = new ArrayList<>();
+    private ArrayList<Coin>             mUnknownGrpc = new ArrayList<>();
 
-    private ArrayList<Balance>  mNative = new ArrayList<>();
-    private ArrayList<Balance>  mEtc = new ArrayList<>();
-    private ArrayList<Balance>  mUnKnown = new ArrayList<>();
+    private ArrayList<Balance>          mNative = new ArrayList<>();
+    private ArrayList<Balance>          mEtc = new ArrayList<>();
+    private ArrayList<Balance>          mUnKnown = new ArrayList<>();
 
-    private Account             mAccount;
-    private BaseChain           mBaseChain;
+    private Account                     mAccount;
+    private BaseChain                   mBaseChain;
 
     public static MainTokensFragment newInstance(Bundle bundle) {
         MainTokensFragment fragment = new MainTokensFragment();
@@ -223,6 +226,8 @@ public class MainTokensFragment extends BaseFragment {
                 getMainActivity().onAddressDialog();
             }
         });
+
+        WLog.w("size : " + getBaseDao().getCw20sGrpc().size());
 
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -454,7 +459,7 @@ public class MainTokensFragment extends BaseFragment {
         for (Balance balance : getBaseDao().mBalances) {
             if (balance.symbol.equalsIgnoreCase(mainDenom)) {
                 mNative.add(balance);
-            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
                 mEtc.add(balance);
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)){
                 mEtc.add(balance);
@@ -721,7 +726,7 @@ public class MainTokensFragment extends BaseFragment {
                     }
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
                 if (mNative != null) {
                     if (position < mNative.size()) {
                         return SECTION_NATIVE;

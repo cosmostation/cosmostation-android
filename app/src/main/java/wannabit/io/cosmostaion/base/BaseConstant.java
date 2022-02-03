@@ -90,6 +90,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
     public final static int TASK_FETCH_MINTSCAN_ASSETS                  = 2805;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL_LIST           = 2806;
+    public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
 
     public final static int TASK_HDAC_NODE_INFO                         = 2900;
     public final static int TASK_HDAC_UTXO                              = 2901;
@@ -115,10 +116,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_WITHDRAW_ADDRESS            = 4016;
     public final static int TASK_GRPC_FETCH_REDELEGATIONS_TO            = 4017;
     public final static int TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO       = 4018;
-    public final static int TASK_GRPC_FETCH_PROPOSALS                   = 4019;
-    public final static int TASK_GRPC_FETCH_PROPOSAL_DETAIL             = 4020;
-    public final static int TASK_GRPC_FETCH_PROPOSAL_TALLY              = 4021;
-    public final static int TASK_GRPC_FETCH_PROPOSAL_VOTER_LIST         = 4022;
     public final static int TASK_GRPC_FETCH_PROPOSAL_MY_VOTE            = 4023;
     public final static int TASK_GRPC_FETCH_NODE_INFO                   = 4024;
     public final static int TASK_GRPC_FETCH_AUTH                        = 4025;
@@ -129,6 +126,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_GRAVITY_POOL_INFO           = 4030;
     public final static int TASK_GRPC_FETCH_DESMOS_PROFILE_INFO         = 4031;
     public final static int TASK_GRPC_FETCH_SUPPLY_OF_INFO              = 4032;
+    public final static int TASK_GRPC_FETCH_BALANCE_OF_CW20             = 4033;
 
     public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;

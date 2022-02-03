@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.network.req.ReqBroadAirDrop;
 import wannabit.io.cosmostaion.network.req.ReqDesmosAirDrop;
 import wannabit.io.cosmostaion.network.res.ResAirdropClaimCheck;
 import wannabit.io.cosmostaion.network.res.ResAssets;
+import wannabit.io.cosmostaion.network.res.ResCw20Assets;
 import wannabit.io.cosmostaion.network.res.ResIbcPaths;
 import wannabit.io.cosmostaion.network.res.ResIbcTokens;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
@@ -41,6 +42,9 @@ public interface Station {
 
     @GET("v1/assets/{chain}")
     Call<ResAssets> getAssets(@Path("chain") String chain);
+
+    @GET("/v1/assets/{chain}/cw20")
+    Call<ResCw20Assets> getCw20Assets(@Path("chain") String chain);
 
     //desmos airdrop
     @POST("airdrop/grants")

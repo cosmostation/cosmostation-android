@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkToken;
@@ -75,7 +76,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
@@ -120,6 +120,7 @@ public class BaseData {
     public ArrayList<IbcPath>               mIbcPaths = new ArrayList<>();
     public ArrayList<IbcToken>              mIbcTokens = new ArrayList<>();
     public ArrayList<Assets>                mAssets = new ArrayList<>();
+    public ArrayList<Cw20Assets>            mCw20Assets = new ArrayList<>();
 
     public Price getPrice(String denom) {
         for (Price price: mPrices) {
@@ -158,6 +159,24 @@ public class BaseData {
             }
         }
         return null;
+    }
+
+    public void setCw20Balance(String contAddress, String amount) {
+        for (Cw20Assets assets: mCw20Assets) {
+            if (assets.contract_address.equalsIgnoreCase(contAddress)) {
+                assets.setAmount(amount);
+            }
+        }
+    }
+
+    public ArrayList<Cw20Assets> getCw20sGrpc() {
+        ArrayList<Cw20Assets> result = new ArrayList<>();
+        for (Cw20Assets assets: mCw20Assets) {
+            if (assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+                result.add(assets);
+            }
+        }
+        return result;
     }
 
     public String getBaseDenom(String denom) {
