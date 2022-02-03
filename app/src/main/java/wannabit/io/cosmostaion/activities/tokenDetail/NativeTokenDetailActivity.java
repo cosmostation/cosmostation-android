@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
@@ -210,6 +211,12 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         } else if (v.equals(mBtnSend)) {
             if (mBaseChain.equals(OKEX_MAIN)) {
                 Toast.makeText(NativeTokenDetailActivity.this, "Temporary Disable", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);

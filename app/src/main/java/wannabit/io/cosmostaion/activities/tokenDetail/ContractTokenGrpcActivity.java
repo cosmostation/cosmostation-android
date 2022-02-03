@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -23,12 +24,17 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.contract.SendContractActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
 
 public class ContractTokenGrpcActivity extends BaseActivity implements View.OnClickListener {
 
@@ -118,7 +124,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(ContractTokenGrpcActivity.this, mBaseChain));
         if (mCw20Asset != null) {
             Picasso.get().load(mCw20Asset.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
-            mToolbarSymbol.setText(mCw20Asset.denom);
+            mToolbarSymbol.setText(mCw20Asset.denom.toUpperCase());
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             mTotalAmount = mCw20Asset.getAmount();
 
@@ -153,15 +159,21 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
             return;
 
         } else if (v.equals(mBtnSend)) {
-//            Intent intent = new Intent(getBaseContext(), SendActivity.class);
-//            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-//            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-//            if (mainAvailable.compareTo(feeAmount) < 0) {
-//                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//            intent.putExtra("sendTokenDenom", mCw20Denom);
-//            startActivity(intent);
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            Intent intent = new Intent(getBaseContext(), SendContractActivity.class);
+            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_EXECUTE_CONTRACT, 0);
+            if (mainAvailable.compareTo(feeAmount) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            intent.putExtra("mCw20SendContract", mCw20Asset.contract_address);
+            startActivity(intent);
         }
     }
 

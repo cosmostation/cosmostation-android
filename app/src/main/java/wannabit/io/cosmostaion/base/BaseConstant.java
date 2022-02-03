@@ -429,28 +429,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
     public final static int CONST_PW_TX_PROFILE                             = 5057;
     public final static int CONST_PW_TX_LINK_ACCOUNT                        = 5058;
-
-
-    public final static int TX_TYPE_UNKNOWN                     = 3000;
-    public final static int TX_TYPE_SEND                        = 3001;
-    public final static int TX_TYPE_RECEIVE                     = 3002;
-    public final static int TX_TYPE_DELEGATE                    = 3003;
-    public final static int TX_TYPE_UNDELEGATE                  = 3004;
-    public final static int TX_TYPE_REDELEGATE                  = 3005;
-    public final static int TX_TYPE_GET_REWARD                  = 3006;
-    public final static int TX_TYPE_GET_COMMISSION              = 3007;
-    public final static int TX_TYPE_CHAGE_REWARD_ADDRESS        = 3008;
-    public final static int TX_TYPE_TRANSFER                    = 3009;
-    public final static int TX_TYPE_VOTE                        = 3010;
-    public final static int TX_TYPE_REINVEST                    = 3011;
-    public final static int TX_TYPE_SUBMIT_PROPOSAL             = 3012;
-    public final static int TX_TYPE_DEPOSIT                     = 3013;
-    public final static int TX_TYPE_CREATE_VALIDATOR            = 3014;
-    public final static int TX_TYPE_EDIT_VALIDATOR              = 3015;
-    public final static int TX_TYPE_IRIS_GET_REWARD_ALL         = 3016;
-    public final static int TX_TYPE_IRIS_ISSUE_TOKEN            = 3017;
-    public final static int TX_TYPE_UNJAIL                      = 3042;
-
+    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5059;
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
     public final static int ERROR_CODE_NETWORK              = 8001;
@@ -662,6 +641,8 @@ public class BaseConstant {
     public final static String COSMOS_GAS_AMOUNT_JOIN_POOL              = "300000";
     public final static String COSMOS_GAS_AMOUNT_EXIT_POOL              = "300000";
     public final static String COSMOS_GAS_AMOUNT_IBC_SEND               = "500000";
+
+    public final static String COSMOS_GAS_AMOUNT_EXECUTE_CONTRACT       = "500000";
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";

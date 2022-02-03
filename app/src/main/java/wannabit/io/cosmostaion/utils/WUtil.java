@@ -3600,7 +3600,7 @@ public class WUtil {
             } else if (txType == CONST_PW_TX_KAVA_EXIT_POOL) {
                 return new BigDecimal(KAVA_GAS_AMOUNT_EXIT_POOL);
             } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(KAVA_GAS_AMOUNT_EXIT_POOL);
+                return new BigDecimal(KAVA_GAS_AMOUNT_IBC_SEND);
             }
 
         } else if (basechain.equals(BAND_MAIN)) {
@@ -3772,6 +3772,8 @@ public class WUtil {
                 return new BigDecimal(V1_GAS_AMOUNT_TOO_HIGH);
             } else if (txType == CONST_PW_TX_LINK_ACCOUNT) {
                 return new BigDecimal(V1_GAS_AMOUNT_TOO_HIGH);
+            } else if (txType == CONST_PW_TX_EXECUTE_CONTRACT) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_EXECUTE_CONTRACT);
             }
         }
         return result;

@@ -179,6 +179,15 @@ public class BaseData {
         return result;
     }
 
+    public Cw20Assets getCw20_gRPC(String contAddress) {
+        for (Cw20Assets assets: mCw20Assets) {
+            if (assets.contract_address.equalsIgnoreCase(contAddress)) {
+                return assets;
+            }
+        }
+        return null;
+    }
+
     public String getBaseDenom(String denom) {
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
