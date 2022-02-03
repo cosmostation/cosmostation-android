@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.cosmos;
 
+import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.Duration;
 import com.google.protobuf2.Any;
@@ -35,10 +36,13 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Cw20BalanceReq;
+import wannabit.io.cosmostaion.dao.Cw20TransferReq;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
@@ -1523,6 +1527,34 @@ public class Signer {
         TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
         TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcCw20SendReq(QueryOuterClass.QueryAccountResponse auth, String fromAddress, String toAddress, String contractAddress, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        Cw20TransferReq req = new Cw20TransferReq(toAddress, amount.get(0).amount);
+        String jsonData = new Gson().toJson(req);
+        ByteString msg = ByteString.copyFromUtf8(jsonData);
+        cosmwasm.wasm.v1.Tx.MsgExecuteContract msgExecuteContract = cosmwasm.wasm.v1.Tx.MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).build();
+        Any msgCw20SendAny = Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgCw20SendAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcCw20SendSimulateReq(QueryOuterClass.QueryAccountResponse auth, String fromAddress, String toAddress, String contractAddress, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        Cw20TransferReq req = new Cw20TransferReq(toAddress, amount.get(0).amount);
+        String jsonData = new Gson().toJson(req);
+        ByteString msg = ByteString.copyFromUtf8(jsonData);
+        cosmwasm.wasm.v1.Tx.MsgExecuteContract msgExecuteContract = cosmwasm.wasm.v1.Tx.MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).build();
+        Any msgCw20SendAny = Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgCw20SendAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
     public static TxOuterClass.TxBody getGrpcTxBody(Any msgAny, String memo) {
