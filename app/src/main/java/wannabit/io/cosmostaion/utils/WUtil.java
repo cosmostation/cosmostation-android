@@ -1342,9 +1342,17 @@ public class WUtil {
     }
 
     public static int getSifCoinDecimal(BaseData baseData, String denom) {
-      for (ChainParam.SifTokenRegistry.Registry.Entry entry: baseData.mChainParam.getSifToken()) {
-          if (entry.denom.equalsIgnoreCase(denom)) {
-              return entry.decimal;
+      if (denom.equalsIgnoreCase(WDp.mainDenom(SIF_MAIN))) {
+          return 18;
+      } else if (denom.startsWith("ibc/")) {
+          IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+          if (ibcToken != null && ibcToken.auth) {
+              return ibcToken.decimal;
+          }
+      } else {
+          final Assets assets = baseData.getAsset(denom);
+          if (assets != null) {
+              return assets.decimal;
           }
       }
       return 18;
@@ -1359,6 +1367,23 @@ public class WUtil {
         else if (denom.equalsIgnoreCase("ccro")) { return 8; }
         else if (denom.equalsIgnoreCase("cwbtc")) { return 8; }
         return 18;
+    }
+
+    public static int getGBridgeCoinDecimal(BaseData baseData, String denom) {
+        if (denom.equalsIgnoreCase(WDp.mainDenom(GRABRIDGE_MAIN))) {
+            return 6;
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken != null && ibcToken.auth) {
+                return ibcToken.decimal;
+            }
+        } else {
+            final Assets assets = baseData.getAsset(denom);
+            if (assets != null) {
+                return assets.decimal;
+            }
+        }
+        return 6;
     }
 
     public static int getCosmosCoinDecimal(BaseData baseData, String denom) {
@@ -3678,32 +3703,6 @@ public class WUtil {
                 return new BigDecimal(SECRET_GAS_AMOUNT_IBC_SEND);
             }
 
-        } else if (basechain.equals(SIF_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(SIF_GAS_AMOUNT_SEND);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(SIF_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(SIF_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(SIF_GAS_AMOUNT_REDELEGATE);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(SIF_GAS_AMOUNT_REINVEST);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(SIF_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(SIF_GAS_AMOUNT_IBC_SEND);
-            } else if (txType == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
-                return new BigDecimal(SIF_GAS_AMOUNT_CLAIM_INCENTIVE);
-            } else if (txType == CONST_PW_TX_SIF_SWAP || txType == CONST_PW_TX_SIF_JOIN_POOL || txType == CONST_PW_TX_SIF_EXIT_POOL) {
-                return new BigDecimal(SIF_GAS_AMOUNT_DEX);
-            }
-
         } else if (basechain.equals(CHIHUAHUA_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_REWARD) {
                 ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
@@ -3819,17 +3818,15 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
+        } else if (basechain.equals(IOV_MAIN)) {
             BigDecimal gasRate = new BigDecimal(STARNAME_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(SIF_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(SIF_GAS_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+            return new BigDecimal("100000000000000000");
 
-        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
+        } else if (basechain.equals(CERTIK_MAIN)) {
             BigDecimal gasRate = new BigDecimal(CERTIK_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -3839,7 +3836,7 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
+        } else if (basechain.equals(MEDI_MAIN)) {
             BigDecimal gasRate = new BigDecimal(MEDI_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -3854,7 +3851,7 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(RIZON_MAIN) || basechain.equals(RIZON_TEST)) {
+        } else if (basechain.equals(RIZON_MAIN)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -3939,7 +3936,7 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(AXELAR_MAIN) || basechain.equals(AXELAR_TEST)) {
+        } else if (basechain.equals(AXELAR_MAIN)) {
             BigDecimal gasRate = new BigDecimal(AXELAR_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);

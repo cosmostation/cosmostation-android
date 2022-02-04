@@ -257,10 +257,6 @@ public class ChainParam {
             return false;
         }
 
-        public ArrayList<SifTokenRegistry.Registry.Entry> getSifToken() {
-            return mSifTokenRegistry.registry.entries;
-        }
-
         public ArrayList<GdexStatus> getmGdexList() {
             return mGdexStatus;
         }

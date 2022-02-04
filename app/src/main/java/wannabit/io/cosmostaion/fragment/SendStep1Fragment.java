@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -100,9 +101,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
         if (isGRPC(getSActivity().mBaseChain)) {
             if (getSActivity().mDenom.startsWith("ibc/")) {
-                mDpDecimal = WUtil.getIbcDecimal(getBaseDao(), getSActivity().mDenom);
+                mDpDecimal = WUtil.getIbcDecimal(getBaseDao(), toSendDenom);
             } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
-                mDpDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mDenom);
+                mDpDecimal = WUtil.getSifCoinDecimal(getBaseDao(), toSendDenom);
+            } else if (getSActivity().mBaseChain.equals(GRABRIDGE_MAIN)) {
+                mDpDecimal = WUtil.getGBridgeCoinDecimal(getBaseDao(), toSendDenom);
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
                 mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), toSendDenom);
             } else {
@@ -122,10 +125,6 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             if (getSActivity().mBaseChain.equals(BNB_MAIN)) {
                 mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             } else if (getSActivity().mBaseChain.equals(OKEX_MAIN)) {
-                mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
-            } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
-                mDpDecimal = WUtil.getSifCoinDecimal(getBaseDao(), toSendDenom);
-            } else {
                 mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             }
 
