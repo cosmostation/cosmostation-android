@@ -6,8 +6,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.squareup.picasso.Picasso;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -18,7 +16,6 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class CdpDetailMyAvailableHolder extends BaseHolder {
@@ -52,12 +49,12 @@ public class CdpDetailMyAvailableHolder extends BaseHolder {
         final BigDecimal kAvailable                     = baseData.getAvailable(TOKEN_KAVA);
 
 
-        mEmptyCollateralDenom.setText(collateralParam.getDenom().toUpperCase());
+        mEmptyCollateralDenom.setText(WUtil.getKavaTokenName(baseData, collateralParam.getDenom()));
         mEmptyCollateralAmount.setText(WDp.getDpAmount2(context, cAvailable, WUtil.getKavaCoinDecimal(baseData, cDenom), WUtil.getKavaCoinDecimal(baseData, cDenom)));
         BigDecimal collateralValue = cAvailable.movePointLeft(WUtil.getKavaCoinDecimal(baseData, cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mEmptyCollateralValue.setText(WDp.getDpRawDollor(context, collateralValue, 2));
 
-        mEmptyPrincipalDenom.setText(collateralParam.getDebtLimit().getDenom().toUpperCase());
+        mEmptyPrincipalDenom.setText(WUtil.getKavaTokenName(baseData, collateralParam.getDebtLimit().getDenom()));
         mEmptyPrincipalAmount.setText(WDp.getDpAmount2(context, pAvailable, WUtil.getKavaCoinDecimal(baseData, pDenom), WUtil.getKavaCoinDecimal(baseData, pDenom)));
         BigDecimal principalValue = pAvailable.movePointLeft(WUtil.getKavaCoinDecimal(baseData, pDenom)).setScale(2, RoundingMode.DOWN);
         mEmptyPrincipalValue.setText(WDp.getDpRawDollor(context, principalValue, 2));

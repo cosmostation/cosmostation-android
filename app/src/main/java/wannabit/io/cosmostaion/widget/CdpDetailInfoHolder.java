@@ -72,7 +72,7 @@ public class CdpDetailInfoHolder extends BaseHolder {
         final BigDecimal currentPrice                   = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
 
         try {
-            Picasso.get().load(KAVA_CDP_IMG_URL + collateralParam.getDenom() + "usd.png").fit().into(mInfoMarketImg);
+            Picasso.get().load(KAVA_CDP_IMG_URL + collateralParam.getType() + ".png").fit().into(mInfoMarketImg);
         } catch (Exception e) { }
 
         mInfoMarketType.setText(collateralParam.getType().toUpperCase());
