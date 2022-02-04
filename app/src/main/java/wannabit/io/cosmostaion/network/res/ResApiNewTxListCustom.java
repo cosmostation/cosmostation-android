@@ -417,6 +417,14 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_deposit);
                 }
 
+                // wasm msg type
+                else if (msgType.contains("cosmwasm") && msgType.contains("MsgStoreCode")) {
+                    result = c.getString(R.string.tx_cosmwasm_store_code);
+                } else if (msgType.contains("cosmwasm") && msgType.contains("MsgInstantiateContract")) {
+                    result = c.getString(R.string.tx_cosmwasm_instantiate);
+                } else if (msgType.contains("cosmwasm") && msgType.contains("MsgExecuteContract")) {
+                    result = c.getString(R.string.tx_cosmwasm_execontract);
+                }
 
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);

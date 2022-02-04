@@ -1205,6 +1205,7 @@
     <string name="str_sif_ether_token_title">Ether Bridged Coins</string>
     <string name="str_kava_bep2_token_title">BEP2 Coins</string>
     <string name="str_etc_token_title">Etc Coins</string>
+    <string name="str_cw20_token_title">CW20 Tokens</string>
     <string name="str_unknown_token_title">Unknown</string>
     <string name="str_ibc_info_title">IBC information</string>
     <string name="str_ibc_opposite_chain_id_title">Opposite Chain ID</string>
@@ -1648,6 +1649,13 @@
     <string name="tx_save_profile_cover_url">Cover Url</string>
     <string name="tx_link_account_address">Linked Address</string>
     <string name="tx_link_account_signer">Signer</string>
+
+    <string name="tx_cosmwasm_store_code">컨트랙트\n코드 저장</string>
+    <string name="tx_cosmwasm_instantiate">컨트랙트\n인스턴트화</string>
+    <string name="tx_cosmwasm_execontract">컨트랙트\n실행</string>
+    <string name="tx_cosmwasm_store_code_title">컨트랙트 코드 저장</string>
+    <string name="tx_cosmwasm_instantiate_title">컨트랙트 인스턴트화</string>
+    <string name="tx_cosmwasm_execontract_title">컨트랙트 실행</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>

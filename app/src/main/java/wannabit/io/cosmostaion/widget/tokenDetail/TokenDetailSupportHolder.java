@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -211,6 +212,14 @@ public class TokenDetailSupportHolder extends BaseHolder {
             } else {
                 mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(myCryptoNftInfo.getData())));
             }
+        }
+    }
+
+    public void onBindCw20Token(Context c, BaseChain baseChain, BaseData baseData, Cw20Assets asset) {
+        if (asset != null) {
+            mAvailableAmount = asset.getAmount();
+            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, asset.decimal, asset.decimal));
+            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, asset.decimal, asset.decimal));
         }
     }
 }

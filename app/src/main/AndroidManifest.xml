@@ -190,6 +190,13 @@
         </activity>
 
         <activity
+            android:name=".activities.tokenDetail.ContractTokenGrpcActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
+        <activity
             android:name=".activities.chains.desmos.ProfileDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -750,6 +757,13 @@
 
         <activity
             android:name=".activities.chains.ibc.IBCSendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.contract.SendContractActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">

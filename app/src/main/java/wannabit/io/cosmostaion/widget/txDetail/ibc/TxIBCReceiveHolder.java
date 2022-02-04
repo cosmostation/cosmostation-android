@@ -58,6 +58,9 @@ public class TxIBCReceiveHolder extends TxHolder {
                 String ibcDenom = denom.split("/")[2];
                 divideDecimal = WDp.mainDivideDecimal(ibcDenom);
                 itemIbcAmountDenom.setText(ibcDenom.toUpperCase());
+            } else if (denom.startsWith("c")) {
+                divideDecimal = WUtil.getSifCoinDecimal(denom);
+                itemIbcAmountDenom.setText(denom.toUpperCase());
             } else {
                 divideDecimal = WDp.mainDivideDecimal(denom);
                 itemIbcAmountDenom.setText(denom.toUpperCase());

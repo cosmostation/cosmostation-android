@@ -64,6 +64,7 @@ import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.CreateProfileGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Cw20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteDomainGrpcTask;
@@ -133,6 +134,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAI
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
@@ -278,6 +280,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private ArrayList<Coin>                 mHardPoolCoins;
     private String                          mMultiplierName;
 
+    private String                          mContractAddress;
+
     private String                      mPortId;
     private String                      mChannelId;
 
@@ -396,6 +400,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mPayment = getIntent().getParcelableExtra("mPayment");
         mHardPoolCoins = getIntent().getParcelableArrayListExtra("hardPoolCoins");
         mMultiplierName = getIntent().getStringExtra("multiplierName");
+
+        mContractAddress = getIntent().getStringExtra("contractAddress");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -757,6 +763,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_CLAIM_INCENTIVE) {
             new KavaClaimIncentiveAllGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mMultiplierName, getBaseDao(),
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_EXECUTE_CONTRACT) {
+            new Cw20SendGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mTargetAddress, mContractAddress, mTargetCoins,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 

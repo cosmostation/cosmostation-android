@@ -1335,20 +1335,24 @@ public class WUtil {
             return 6;
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null) {
-                if (ibcToken.auth == true) { return ibcToken.decimal; }
-                else return 6;
-            } else {
-                return 6;
-            }
+            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
+            else return 6;
         }
         return 1;
     }
 
     public static int getSifCoinDecimal(BaseData baseData, String denom) {
-      for (ChainParam.SifTokenRegistry.Registry.Entry entry: baseData.mChainParam.getSifToken()) {
-          if (entry.denom.equalsIgnoreCase(denom)) {
-              return entry.decimal;
+      if (denom.equalsIgnoreCase(WDp.mainDenom(SIF_MAIN))) {
+          return 18;
+      } else if (denom.startsWith("ibc/")) {
+          IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+          if (ibcToken != null && ibcToken.auth) {
+              return ibcToken.decimal;
+          }
+      } else {
+          final Assets assets = baseData.getAsset(denom);
+          if (assets != null) {
+              return assets.decimal;
           }
       }
       return 18;
@@ -1365,6 +1369,23 @@ public class WUtil {
         return 18;
     }
 
+    public static int getGBridgeCoinDecimal(BaseData baseData, String denom) {
+        if (denom.equalsIgnoreCase(WDp.mainDenom(GRABRIDGE_MAIN))) {
+            return 6;
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken != null && ibcToken.auth) {
+                return ibcToken.decimal;
+            }
+        } else {
+            final Assets assets = baseData.getAsset(denom);
+            if (assets != null) {
+                return assets.decimal;
+            }
+        }
+        return 6;
+    }
+
     public static int getCosmosCoinDecimal(BaseData baseData, String denom) {
         if (denom.equalsIgnoreCase(TOKEN_ATOM)) { return 6; }
         else if (denom.startsWith("pool")) {
@@ -1372,7 +1393,7 @@ public class WUtil {
             if (poolInfo != null) { return 6; }
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) { return ibcToken.decimal; }
+            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
         }
         return 6;
     }
@@ -1383,7 +1404,7 @@ public class WUtil {
         else if (denom.startsWith("gamm/pool/")) { return 18; }
         else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) { return ibcToken.decimal; }
+            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
         }
         return 6;
     }
@@ -1411,7 +1432,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken != null && ibcToken.auth) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
                 return "UnKnown";
@@ -1437,7 +1458,7 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken != null && ibcToken.auth) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
                 textView.setText("UnKnown");
@@ -1515,7 +1536,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken != null && ibcToken.auth) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
                 return "Unknown";
@@ -1527,7 +1548,7 @@ public class WUtil {
     public static String getKavaBaseDenom(BaseData baseData, String denom) {
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken != null && ibcToken.auth) {
                 return ibcToken.base_denom.toUpperCase();
             } else {
                 return "";
@@ -1565,7 +1586,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth) {
+            if (ibcToken != null && ibcToken.auth) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
                 return "UnKnown";
@@ -1591,7 +1612,7 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth) {
+            if (ibcToken != null && ibcToken.auth) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
                 textView.setText("UnKnown");
@@ -1606,7 +1627,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth) {
+            if (ibcToken != null && ibcToken.auth) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
                 return "UnKnown";
@@ -1631,7 +1652,7 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth) {
+            if (ibcToken != null && ibcToken.auth) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
                 textView.setText("UnKnown");
@@ -1686,7 +1707,7 @@ public class WUtil {
         } else if (denom.startsWith("c")) {
             Assets assets = baseData.getAsset(denom);
             if (assets != null) {
-                Picasso.get().load(ASSET_IMG_URL + assets.origin_chain + "/" + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+                Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
             }
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
@@ -1702,9 +1723,9 @@ public class WUtil {
             imageView.setImageResource(R.drawable.kava_token_img);
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            try {
+            if (ibcToken != null) {
                 Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
-            } catch (Exception e){}
+            }
         } else {
             Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(imageView);
         }
@@ -1814,8 +1835,12 @@ public class WUtil {
 //    }
 
     public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, BalancerPoolOuterClass.BalancerPool pool) {
-        BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);
-        return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
+        try {
+            BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);
+            return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
+        } catch (Exception e) {
+            return BigDecimal.ZERO;
+        }
     }
 
     public static BigDecimal getPoolValue(BaseData baseData, BalancerPoolOuterClass.BalancerPool pool) {
@@ -3600,7 +3625,7 @@ public class WUtil {
             } else if (txType == CONST_PW_TX_KAVA_EXIT_POOL) {
                 return new BigDecimal(KAVA_GAS_AMOUNT_EXIT_POOL);
             } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(KAVA_GAS_AMOUNT_EXIT_POOL);
+                return new BigDecimal(KAVA_GAS_AMOUNT_IBC_SEND);
             }
 
         } else if (basechain.equals(BAND_MAIN)) {
@@ -3678,32 +3703,6 @@ public class WUtil {
                 return new BigDecimal(SECRET_GAS_AMOUNT_IBC_SEND);
             }
 
-        } else if (basechain.equals(SIF_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
-                return new BigDecimal(SIF_GAS_AMOUNT_SEND);
-            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                return new BigDecimal(SIF_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
-                return new BigDecimal(SIF_GAS_AMOUNT_STAKE);
-            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
-                return new BigDecimal(SIF_GAS_AMOUNT_REDELEGATE);
-            } else if (txType == CONST_PW_TX_REINVEST) {
-                return new BigDecimal(SIF_GAS_AMOUNT_REINVEST);
-            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
-                return new BigDecimal(rewardGasFees.get(valCnt - 1));
-            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
-                return new BigDecimal(SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-            } else if (txType == CONST_PW_TX_VOTE) {
-                return new BigDecimal(SIF_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(SIF_GAS_AMOUNT_IBC_SEND);
-            } else if (txType == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
-                return new BigDecimal(SIF_GAS_AMOUNT_CLAIM_INCENTIVE);
-            } else if (txType == CONST_PW_TX_SIF_SWAP || txType == CONST_PW_TX_SIF_JOIN_POOL || txType == CONST_PW_TX_SIF_EXIT_POOL) {
-                return new BigDecimal(SIF_GAS_AMOUNT_DEX);
-            }
-
         } else if (basechain.equals(CHIHUAHUA_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_REWARD) {
                 ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
@@ -3772,6 +3771,8 @@ public class WUtil {
                 return new BigDecimal(V1_GAS_AMOUNT_TOO_HIGH);
             } else if (txType == CONST_PW_TX_LINK_ACCOUNT) {
                 return new BigDecimal(V1_GAS_AMOUNT_TOO_HIGH);
+            } else if (txType == CONST_PW_TX_EXECUTE_CONTRACT) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_EXECUTE_CONTRACT);
             }
         }
         return result;
@@ -3817,17 +3818,15 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
+        } else if (basechain.equals(IOV_MAIN)) {
             BigDecimal gasRate = new BigDecimal(STARNAME_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(SIF_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(SIF_GAS_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+            return new BigDecimal("100000000000000000");
 
-        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
+        } else if (basechain.equals(CERTIK_MAIN)) {
             BigDecimal gasRate = new BigDecimal(CERTIK_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -3837,7 +3836,7 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
+        } else if (basechain.equals(MEDI_MAIN)) {
             BigDecimal gasRate = new BigDecimal(MEDI_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -3852,7 +3851,7 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(RIZON_MAIN) || basechain.equals(RIZON_TEST)) {
+        } else if (basechain.equals(RIZON_MAIN)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -3937,7 +3936,7 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(AXELAR_MAIN) || basechain.equals(AXELAR_TEST)) {
+        } else if (basechain.equals(AXELAR_MAIN)) {
             BigDecimal gasRate = new BigDecimal(AXELAR_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);

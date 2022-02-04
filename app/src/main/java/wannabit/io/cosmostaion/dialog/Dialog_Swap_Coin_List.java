@@ -125,7 +125,7 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
             } else if (inputCoin.startsWith("c")) {
                 final Assets assets = getSActivity().getBaseDao().getAsset(inputCoin);
                 if (assets != null) {
-                    Picasso.get().load(ASSET_IMG_URL + assets.origin_chain + "/" + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
+                    Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
                     holder.chainName.setText(assets.origin_symbol);
                 }
             } else {

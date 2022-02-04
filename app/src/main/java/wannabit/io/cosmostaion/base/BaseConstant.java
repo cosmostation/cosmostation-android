@@ -90,6 +90,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
     public final static int TASK_FETCH_MINTSCAN_ASSETS                  = 2805;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL_LIST           = 2806;
+    public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
 
     public final static int TASK_HDAC_NODE_INFO                         = 2900;
     public final static int TASK_HDAC_UTXO                              = 2901;
@@ -115,10 +116,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_WITHDRAW_ADDRESS            = 4016;
     public final static int TASK_GRPC_FETCH_REDELEGATIONS_TO            = 4017;
     public final static int TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO       = 4018;
-    public final static int TASK_GRPC_FETCH_PROPOSALS                   = 4019;
-    public final static int TASK_GRPC_FETCH_PROPOSAL_DETAIL             = 4020;
-    public final static int TASK_GRPC_FETCH_PROPOSAL_TALLY              = 4021;
-    public final static int TASK_GRPC_FETCH_PROPOSAL_VOTER_LIST         = 4022;
     public final static int TASK_GRPC_FETCH_PROPOSAL_MY_VOTE            = 4023;
     public final static int TASK_GRPC_FETCH_NODE_INFO                   = 4024;
     public final static int TASK_GRPC_FETCH_AUTH                        = 4025;
@@ -129,6 +126,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_GRAVITY_POOL_INFO           = 4030;
     public final static int TASK_GRPC_FETCH_DESMOS_PROFILE_INFO         = 4031;
     public final static int TASK_GRPC_FETCH_SUPPLY_OF_INFO              = 4032;
+    public final static int TASK_GRPC_FETCH_BALANCE_OF_CW20             = 4033;
 
     public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
@@ -217,6 +215,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_KAVA_BORROW_HARD           = 4343;
     public final static int TASK_GRPC_GEN_TX_KAVA_REPAY_HARD            = 4344;
     public final static int TASK_GRPC_GEN_TX_KAVA_CLAIM_INCENTIVES      = 4345;
+    public final static int TASK_GRPC_GEN_TX_EXECUTE_CONTRACT           = 4346;
 
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
@@ -263,6 +262,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_KAVA_BORROW_HARD         = 4543;
     public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_HARD          = 4544;
     public final static int TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES    = 4545;
+    public final static int TASK_GRPC_SIMULATE_EXECUTE_CONTRACT         = 4546;
 
 
 
@@ -431,28 +431,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
     public final static int CONST_PW_TX_PROFILE                             = 5057;
     public final static int CONST_PW_TX_LINK_ACCOUNT                        = 5058;
-
-
-    public final static int TX_TYPE_UNKNOWN                     = 3000;
-    public final static int TX_TYPE_SEND                        = 3001;
-    public final static int TX_TYPE_RECEIVE                     = 3002;
-    public final static int TX_TYPE_DELEGATE                    = 3003;
-    public final static int TX_TYPE_UNDELEGATE                  = 3004;
-    public final static int TX_TYPE_REDELEGATE                  = 3005;
-    public final static int TX_TYPE_GET_REWARD                  = 3006;
-    public final static int TX_TYPE_GET_COMMISSION              = 3007;
-    public final static int TX_TYPE_CHAGE_REWARD_ADDRESS        = 3008;
-    public final static int TX_TYPE_TRANSFER                    = 3009;
-    public final static int TX_TYPE_VOTE                        = 3010;
-    public final static int TX_TYPE_REINVEST                    = 3011;
-    public final static int TX_TYPE_SUBMIT_PROPOSAL             = 3012;
-    public final static int TX_TYPE_DEPOSIT                     = 3013;
-    public final static int TX_TYPE_CREATE_VALIDATOR            = 3014;
-    public final static int TX_TYPE_EDIT_VALIDATOR              = 3015;
-    public final static int TX_TYPE_IRIS_GET_REWARD_ALL         = 3016;
-    public final static int TX_TYPE_IRIS_ISSUE_TOKEN            = 3017;
-    public final static int TX_TYPE_UNJAIL                      = 3042;
-
+    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5059;
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
     public final static int ERROR_CODE_NETWORK              = 8001;
@@ -638,16 +617,6 @@ public class BaseConstant {
     public final static String GAS_AMOUNT_VOTE                          = "100000";
     public final static String GAS_AMOUNT_IBC_SEND                      = "500000";
 
-    public final static String SIF_GAS_AMOUNT_SEND                      = "100000";
-    public final static String SIF_GAS_AMOUNT_STAKE                     = "200000";
-    public final static String SIF_GAS_AMOUNT_REDELEGATE                = "300000";
-    public final static String SIF_GAS_AMOUNT_REINVEST                  = "350000";
-    public final static String SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE     = "100000";
-    public final static String SIF_GAS_AMOUNT_VOTE                      = "100000";
-    public final static String SIF_GAS_AMOUNT_IBC_SEND                  = "500000";
-    public final static String SIF_GAS_AMOUNT_CLAIM_INCENTIVE           = "250000";
-    public final static String SIF_GAS_AMOUNT_DEX                       = "250000";
-
     public final static String OSMOSIS_GAS_AMOUNT_SEND                  = "100000";
     public final static String OSMOSIS_GAS_AMOUNT_STAKE                 = "200000";
     public final static String OSMOSIS_GAS_AMOUNT_REDELEGATE            = "300000";
@@ -664,6 +633,8 @@ public class BaseConstant {
     public final static String COSMOS_GAS_AMOUNT_JOIN_POOL              = "300000";
     public final static String COSMOS_GAS_AMOUNT_EXIT_POOL              = "300000";
     public final static String COSMOS_GAS_AMOUNT_IBC_SEND               = "500000";
+
+    public final static String COSMOS_GAS_AMOUNT_EXECUTE_CONTRACT       = "500000";
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";
@@ -837,7 +808,7 @@ public class BaseConstant {
     public final static String BINANCE_TOKEN_IMG_URL    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/binance/";
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
     public final static String EMONEY_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
-    public final static String ASSET_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/assets/images/";
+    public final static String ASSET_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/assets/images/ethereum/";
 
 
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";

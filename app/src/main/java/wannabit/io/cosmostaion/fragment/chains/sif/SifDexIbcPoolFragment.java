@@ -73,7 +73,7 @@ public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener 
 
     @Override
     public void onRefreshTab() {
-        if (getSActivity().mMyIbcAssets.size() > 0) {
+        if (getSActivity().mMyIbcAssets != null && getSActivity().mMyIbcAssets.size() > 0) {
             onFetchIbcListInfo();
         } else { mAdapter.notifyDataSetChanged(); }
         mMyIbcPools = getSActivity().mMyIbcPools;

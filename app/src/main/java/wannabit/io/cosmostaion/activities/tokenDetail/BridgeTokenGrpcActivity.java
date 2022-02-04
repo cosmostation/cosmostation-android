@@ -29,11 +29,14 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_IBC_Send_Warning;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClickListener {
@@ -88,6 +91,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mBridgeDenom = getIntent().getStringExtra("denom");
+        mBtnIbcSend.setVisibility(View.VISIBLE);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -122,7 +126,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private void onUpdateView() {
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(BridgeTokenGrpcActivity.this, mBaseChain));
         final Assets assets = getBaseDao().getAsset(mBridgeDenom);
-        Picasso.get().load(ASSET_IMG_URL + assets.origin_chain + "/" + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+        Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
         mToolbarSymbol.setText(assets.origin_symbol);
         mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         mTotalAmount = getBaseDao().getAvailable(mBridgeDenom);
@@ -162,10 +166,33 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnIbcSend)) {
-            Toast.makeText(getBaseContext(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
-            return;
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            final String mainDenom = WDp.mainDenom(mBaseChain);
+            final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
+            BigDecimal mainDenomAmount = getBaseDao().getAvailable(mainDenom);
+            BigDecimal availableAmount = mainDenomAmount.subtract(feeAmount);
+            if (availableAmount.compareTo(BigDecimal.ZERO) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString("sendTokenDenom", mBridgeDenom);
+            Dialog_IBC_Send_Warning warning = Dialog_IBC_Send_Warning.newInstance(bundle);
+            warning.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnSend)) {
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
             BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);

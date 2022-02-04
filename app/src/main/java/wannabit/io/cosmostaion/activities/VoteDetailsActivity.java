@@ -248,7 +248,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
                 holder.itemMsg.setText(mApiProposal.description);
                 if (isGRPC(mBaseChain)) {
-                    if (mApiProposal.content != null && mApiProposal.content.amount != null) {
+                    if (mApiProposal.content != null && mApiProposal.content.amount != null && mApiProposal.content.amount.size() != 0) {
                         holder.itemRequestLayer.setVisibility(View.VISIBLE);
                         ArrayList<Coin> requestCoin = mApiProposal.content.amount;
                         WDp.showCoinDp(getBaseContext(), getBaseDao(), requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount, mBaseChain);
@@ -309,8 +309,10 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                         mApiProposal.proposal_status.equalsIgnoreCase("VotingPeriod")) {
                     onDisplayVote(holder);
                     holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
-                    holder.itemQuorum.setText(WDp.getPercentDp(getBaseDao().mChainParam.getQuorum(mBaseChain)));
                     holder.itemTurnout.setText(WDp.getDpString(WDp.getTurnout(mBaseChain, getBaseDao(), mApiProposal).setScale(2).toPlainString() + "%", 3));
+                    if (getBaseDao().mChainParam != null && getBaseDao().mChainParam.getQuorum(mBaseChain) != null) {
+                        holder.itemQuorum.setText(WDp.getPercentDp(getBaseDao().mChainParam.getQuorum(mBaseChain)));
+                    }
                 }
 
                 if (mBaseChain.equals(CERTIK_MAIN) && mResMyProposal != null) {
