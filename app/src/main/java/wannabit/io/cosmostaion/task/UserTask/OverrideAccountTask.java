@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.task.UserTask;
 
-import com.github.orogvany.bip32.wallet.HdAddress;
-
 import org.bitcoinj.crypto.DeterministicKey;
 
 import wannabit.io.cosmostaion.R;
@@ -15,19 +13,14 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class OverrideAccountTask extends CommonTask {
-    private BaseChain mBaseChain;
-    private Account mAccount;
-    private Boolean mKavaNewPath;
-    private int mCustomPath;
+    private Account     mAccount;
+    private int         mCustomPath;
 
-    public OverrideAccountTask(BaseApplication app, BaseChain chain, Account account, TaskListener listener, boolean bip44, int customPath) {
+    public OverrideAccountTask(BaseApplication app, Account account, TaskListener listener, int customPath) {
         super(app, listener);
-        this.mBaseChain = chain;
         this.mAccount = account;
-        this.mKavaNewPath = bip44;
         this.mCustomPath = customPath;
         this.mResult.taskType = BaseConstant.TASK_OVERRIDE_ACCOUNT;
     }
@@ -63,7 +56,7 @@ public class OverrideAccountTask extends CommonTask {
     }
 
     private Account onModAccount(Account account, String entropy, String path, String msize) {
-        DeterministicKey dKey   = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(path), mKavaNewPath, mCustomPath);
+        DeterministicKey dKey   = WKey.getCreateKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(path), mCustomPath);
         EncResult encR          = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ account.uuid, entropy, false);
         account.address         = WKey.getDpAddress(BaseChain.getChain(account.baseChain), dKey.getPublicKeyAsHex());
         account.hasPrivateKey   = true;
@@ -72,7 +65,6 @@ public class OverrideAccountTask extends CommonTask {
         account.fromMnemonic    = true;
         account.path            = path;
         account.msize           = Integer.parseInt(msize);
-        account.newBip44        = mKavaNewPath;
         account.customPath      = mCustomPath;
         return account;
     }

@@ -13,11 +13,13 @@ import wannabit.io.cosmostaion.task.TaskResult;
 public class OverridePkeyAccountTask extends CommonTask {
     private String      mPKey;
     private Account     mAccount;
+    private int         mCustomPath;
 
-    public OverridePkeyAccountTask(BaseApplication app, TaskListener listener, String pKey, Account account) {
+    public OverridePkeyAccountTask(BaseApplication app, TaskListener listener, String pKey, Account account, int customPath) {
         super(app, listener);
         this.mPKey = pKey;
         this.mAccount = account;
+        this.mCustomPath = customPath;
         this.mResult.taskType = BaseConstant.TASK_OVERRIDE_PKEY_ACCOUNT;
     }
 
@@ -43,7 +45,7 @@ public class OverridePkeyAccountTask extends CommonTask {
     }
 
     private Account onModAccount() {
-        if (mPKey.startsWith("0x") || mPKey.startsWith("0X")) {
+        if (mPKey.toLowerCase().startsWith("0x")) {
             mPKey = mPKey.substring(2);
         }
         EncResult encR          = CryptoHelper.doEncryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mPKey, false);
@@ -55,7 +57,7 @@ public class OverridePkeyAccountTask extends CommonTask {
         mAccount.path            = "-1";
         mAccount.msize           = -1;
         mAccount.newBip44        = false;
-        mAccount.customPath      = -1;
+        mAccount.customPath      = mCustomPath;
         return mAccount;
     }
 }

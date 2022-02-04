@@ -47,23 +47,6 @@ public class OkAccountBalanceTask extends CommonTask {
 
                 }
 
-            } else if (mChain.equals(BaseChain.OK_TEST)) {
-                Response<ResOkAccountToken> response = ApiClient.getOkTestChain(mApp).getAccountBalance(mAccount.address).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null) {
-                    mResult.isSuccess = true;
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromOkLcd(mAccount.id, response.body()));
-
-                } else {
-                    mApp.getBaseDao().onDeleteBalance(""+mAccount.id);
-
-                }
-
             }
             mResult.isSuccess = true;
 

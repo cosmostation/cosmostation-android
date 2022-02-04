@@ -73,8 +73,10 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
@@ -1500,13 +1502,6 @@ public class BaseData {
         return onSelectAccount(""+account.id);
     }
 
-    public long onUpdateTestChain(Account account) {
-        WLog.w("onUpdateTestChain : " + account.baseChain);
-        ContentValues values = new ContentValues();
-        values.put("baseChain",            account.baseChain);
-        return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
-    }
-
     public long onOverrideAccount(Account account) {
         ContentValues values = new ContentValues();
         values.put("hasPrivateKey",     account.hasPrivateKey);
@@ -1537,21 +1532,74 @@ public class BaseData {
         return getBaseDB().delete(BaseConstant.DB_TABLE_ACCOUNT, "id = ?", new String[]{id}) > 0;
     }
 
-
-
-    public void upgradeAaccountAddressforOk() {
-        ArrayList<Account> allOKAccounts =  onSelectAccountsByChain(OKEX_MAIN);
-        for (Account account : allOKAccounts) {
+    //set custompath 118 - > 0,
+    public void upgradeAaccountAddressforPath() {
+        ArrayList<Account> allOKAccounts = onSelectAccountsByChain(OKEX_MAIN);
+        // update address with "0x" Eth style
+        for (Account account: allOKAccounts) {
+            if (account.newBip44 && account.customPath == 0) {
+                account.customPath = 1;
+                updateAccountPathType(account);
+            }
             if (account.address.startsWith("okexchain")) {
-                account.address = WKey.getUpgradeOKAddress(account.address);
-                updateAccountAddress(account);
+                try {
+                    account.address = WKey.getUpgradeOKAddress(account.address);
+                } catch (Exception e) { e.printStackTrace(); }
             }
         }
-        ArrayList<Account> allOKTestAccounts =  onSelectAccountsByChain(OK_TEST);
-        for (Account account : allOKTestAccounts) {
-            if (account.address.startsWith("okexchain")) {
-                account.address = WKey.getUpgradeOKAddress(account.address);
-                updateAccountAddress(account);
+
+        allOKAccounts = onSelectAccountsByChain(OKEX_MAIN);
+        for (Account account: allOKAccounts) {
+            if (account.address.startsWith("ex")) {
+                try {
+                    account.address = WKey.convertAddressOkexToEth(account.address);
+                    updateAccountAddress(account);
+                } catch (Exception e) { e.printStackTrace(); }
+            }
+        }
+
+        //set custompath 118 -> 0, 529 -> 1
+        ArrayList<Account> allSecretAccount = onSelectAccountsByChain(SECRET_MAIN);
+        for (Account account: allSecretAccount) {
+            if (account.fromMnemonic) {
+                if (account.newBip44 && account.customPath != 1) {
+                    account.customPath = 1;
+                    updateAccountPathType(account);
+                }
+                if (!account.newBip44 && account.customPath != 0) {
+                    account.customPath = 0;
+                    updateAccountPathType(account);
+                }
+            }
+        }
+
+        //set custompath 118 -> 0, 459 -> 1
+        ArrayList<Account> allKavaAccount = onSelectAccountsByChain(KAVA_MAIN);
+        for (Account account: allKavaAccount) {
+            if (account.fromMnemonic) {
+                if (account.newBip44 && account.customPath != 1) {
+                    account.customPath = 1;
+                    updateAccountPathType(account);
+                }
+                if (!account.newBip44 && account.customPath != 0) {
+                    account.customPath = 0;
+                    updateAccountPathType(account);
+                }
+            }
+        }
+
+        //set custompath 118 -> 0, 880 -> 1
+        ArrayList<Account> allLumAccount = onSelectAccountsByChain(LUM_MAIN);
+        for (Account account: allLumAccount) {
+            if (account.fromMnemonic) {
+                if (account.newBip44 && account.customPath != 1) {
+                    account.customPath = 1;
+                    updateAccountPathType(account);
+                }
+                if (!account.newBip44 && account.customPath != 0) {
+                    account.customPath = 0;
+                    updateAccountPathType(account);
+                }
             }
         }
     }
@@ -1563,6 +1611,12 @@ public class BaseData {
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
+    //for okchain key custom_path 0 -> tendermint(996), 1 -> ethermint(996), 2 -> etherium(60)
+    public long updateAccountPathType(Account account) {
+        ContentValues values = new ContentValues();
+        values.put("customPath",   account.customPath);
+        return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
+    }
 
 
     public ArrayList<Balance> onSelectBalance(long accountId) {

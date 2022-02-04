@@ -189,17 +189,7 @@ public class ManageChainSwitchHolder extends BaseHolder {
             layout.setBackground(switchActivity.getResources().getDrawable(R.drawable.box_round_darkgray));
         }
         WDp.DpMainDenom(switchActivity, dpAccount.baseChain, denom);
-        String mAddress = dpAccount.address;
-        if (BaseChain.getChain(dpAccount.baseChain).equals(OKEX_MAIN)) {
-            try {
-                if (mAddress.startsWith("ex1")) {
-                    mAddress = WKey.convertAddressOkexToEth(dpAccount.address);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        address.setText(mAddress);
+        address.setText(dpAccount.address);
         amount.setText(dpAccount.getLastTotal(switchActivity, BaseChain.getChain(dpAccount.baseChain)));
         keyImg.setColorFilter(ContextCompat.getColor(switchActivity, R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (dpAccount.hasPrivateKey) {

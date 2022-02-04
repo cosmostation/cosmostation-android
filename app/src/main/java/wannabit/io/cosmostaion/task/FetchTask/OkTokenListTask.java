@@ -39,19 +39,6 @@ public class OkTokenListTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BaseChain.OK_TEST)) {
-                Response<ResOkTokenList> response = ApiClient.getOkTestChain(mApp).getTokenList().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
-
             }
             mResult.isSuccess = true;
 

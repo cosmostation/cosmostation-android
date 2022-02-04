@@ -75,7 +75,7 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
     private void onUpdateView() {
         if (mAccount.fromMnemonic) {
             mEntropy = getIntent().getStringExtra("entropy");
-            deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), mEntropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
+            deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, mEntropy);
             if (deterministicKey != null) {
                 mKeyString = "0x" + deterministicKey.getPrivateKeyAsHex();
             }

@@ -230,19 +230,19 @@ public class ApiClient {
         return service_ok;
     }
 
-    //Services for OkTest chain
-    private static OkChain service_ok_test = null;
-    public static OkChain getOkTestChain(Context c) {
-        if (service_ok_test == null) {
+    //Services for OEC mainnet api
+    private static OkChain api_oec = null;
+    public static OkChain getOecApi(Context c) {
+        if (api_oec == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_ok_test))
+                        .baseUrl(c.getString(R.string.url_api_ok))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_ok_test = retrofit.create(OkChain.class);
+                api_oec = retrofit.create(OkChain.class);
             }
         }
-        return service_ok_test;
+        return api_oec;
     }
 
     //Services for Certik mainnet api

@@ -78,7 +78,7 @@ public class HtlcClaimTask extends CommonTask {
 
                 if (mReceiveAccount.fromMnemonic) {
                     String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
-                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mReceiveAccount.baseChain), entropy, Integer.parseInt(mReceiveAccount.path), mReceiveAccount.newBip44, mReceiveAccount.customPath);
+                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mReceiveAccount, entropy);
                     ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
                 } else {
                     String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
@@ -113,7 +113,7 @@ public class HtlcClaimTask extends CommonTask {
 
                 if (mReceiveAccount.fromMnemonic) {
                     String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);
-                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mReceiveAccount.baseChain), entropy, Integer.parseInt(mReceiveAccount.path), mReceiveAccount.newBip44, mReceiveAccount.customPath);
+                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mReceiveAccount, entropy);
                     ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
                 } else {
                     String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mReceiveAccount.uuid, mReceiveAccount.resource, mReceiveAccount.spec);

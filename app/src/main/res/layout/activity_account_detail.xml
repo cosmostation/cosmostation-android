@@ -261,9 +261,10 @@
                             android:layout_marginTop="@dimen/space_10"
                             android:paddingRight="@dimen/space_8">
                             <TextView
+                                android:id="@+id/path_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/str_import_path"
+                                android:text="@string/str_import_address_type"
                                 style="@style/font_ss_12_gray1"/>
                             <TextView
                                 android:id="@+id/account_path"

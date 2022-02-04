@@ -362,7 +362,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
             WLog.w("SignRunnable ");
             try {
                 String entropy = CryptoHelper.doDecryptData(getBaseContext().getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
+                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
 
                 String rawString = mCustom.getParams().get(0).toString();
                 String memo = "";

@@ -116,16 +116,12 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     private void onGenWords() {
         mEntropy = WKey.getEntropy();
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
-        if (mChain.equals(OKEX_MAIN)) {
-            try {
-                mAddress.setText(WKey.convertAddressOkexToEth(WKey.getDpAddressFromEntropy(mChain, WUtil.ByteArrayToHexString(mEntropy), 0, true, 0)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            mAddress.setText(WKey.getDpAddressFromEntropy(mChain, WUtil.ByteArrayToHexString(mEntropy), 0, true, 0));
+        if (mChain.equals(KAVA_MAIN) || mChain.equals(SECRET_MAIN) || mChain.equals(LUM_MAIN)) {
+            mAddress.setText(WKey.getCreateDpAddressFromEntropy(mChain, WUtil.ByteArrayToHexString(mEntropy), 0, 1));
+        } else if (mChain.equals(OKEX_MAIN)) {
+            mAddress.setText(WKey.getCreateDpAddressFromEntropy(mChain, WUtil.ByteArrayToHexString(mEntropy), 0, 2));
         }
-
+        mAddress.setText(WKey.getCreateDpAddressFromEntropy(mChain, WUtil.ByteArrayToHexString(mEntropy), 0, 0));
     }
 
 
@@ -176,11 +172,11 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
             } else {
                 onShowWaitDialog();
                 if (mChain.equals(KAVA_MAIN)|| mChain.equals(SECRET_MAIN) || mChain.equals(LUM_MAIN)) {
-                    new GenerateAccountTask(getBaseApplication(), mChain, this, true, 0).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
+                    new GenerateAccountTask(getBaseApplication(), mChain, this, 1).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
                 } else if (mChain.equals(OKEX_MAIN)) {
-                    new GenerateAccountTask(getBaseApplication(), mChain, this, true, 0).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
+                    new GenerateAccountTask(getBaseApplication(), mChain, this, 2).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
                 } else {
-                    new GenerateAccountTask(getBaseApplication(), mChain, this, false, 0).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
+                    new GenerateAccountTask(getBaseApplication(), mChain, this, 0).execute("0", WUtil.ByteArrayToHexString(mEntropy), "24");
                 }
             }
         }

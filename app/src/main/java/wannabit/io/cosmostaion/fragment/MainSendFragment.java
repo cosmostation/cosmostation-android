@@ -123,7 +123,6 @@ public class MainSendFragment extends BaseFragment {
 
     private Account                         mAccount;
     private BaseChain                       mBaseChain;
-    private String                          mAddress;
 
     public static MainSendFragment newInstance(Bundle bundle) {
         MainSendFragment fragment = new MainSendFragment();
@@ -150,7 +149,7 @@ public class MainSendFragment extends BaseFragment {
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMainActivity().onAddressDialog(mAddress);
+                getMainActivity().onAddressDialog();
             }
         });
 
@@ -246,18 +245,7 @@ public class MainSendFragment extends BaseFragment {
         } else {
             itemKeyStatus.setColorFilter(ContextCompat.getColor(getMainActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         }
-        try {
-            if (mBaseChain.equals(OKEX_MAIN)) {
-                if (mAccount.address.startsWith("ex1")) {
-                    mAddress = WKey.convertAddressOkexToEth(mAccount.address);
-                } else {
-                    mAddress = mAccount.address;
-                }
-            } else {
-                mAddress = mAccount.address;
-            }
-        } catch (Exception e) { }
-        mWalletAddress.setText(mAddress);
+        mWalletAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
         mMainWalletAdapter.notifyDataSetChanged();
     }

@@ -41,9 +41,7 @@
 
 
     <string name="url_lcd_ok" translatable="false">https://www.okex.com/okexchain/v1/</string>
-
-
-    <string name="url_lcd_ok_test" translatable="false">https://www.okex.com/okexchain-test/v1/</string>
+    <string name="url_api_ok" translatable="false">https://www.oklink.com/api/explorer/</string>
 
 
     <string name="url_api_certik" translatable="false">https://api-certik.cosmostation.io/</string>
@@ -408,6 +406,7 @@
     <string name="str_import_time">Imported Date</string>
     <string name="str_import_state">Imported State</string>
     <string name="str_import_path">Key Path</string>
+    <string name="str_import_address_type">Address Type</string>
     <string name="str_import_msg">Currently in watch mode.\nAll transactions are made available after registering your mnemonic phrase.</string>
     <string name="str_import_mnemonic">Import Mnemonic</string>
     <string name="str_import_key">Import PrivateKey</string>
@@ -855,9 +854,13 @@
     <string name="str_secret_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_secret_new_path"><![CDATA[NEW PATH (44\'/529\'/0\'/0)]]></string>
     <string name="str_okex_newpath_title">Select Key Type</string>
-    <string name="str_okex_newpath_msg">OEC Chain support 2 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\n\nIf you mistakenly selected the wrong type, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your type.</string>
-    <string name="str_okex_old_type"><![CDATA[Tendermint Type Key]]></string>
-    <string name="str_okex_new_type"><![CDATA[Ethermint(Default) Type Key]]></string>
+    <string name="str_okex_newpath_msg">OEC Chain support 3 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\nIf you want the latest path select [Ethereum Type] \n\nIf you mistakenly selected the wrong type, it will not affect your original OEC wallet. Simply press [Import Mnemonics] to re-select your type.</string>
+    <string name="str_okex_old_type"><![CDATA[Legacy Tendermint Type (44\'/996\'/0\'/0)]]></string>
+    <string name="str_okex_new_type"><![CDATA[Legacy Ethermint Type (44\'/996\'/0\'/0)]]></string>
+    <string name="str_okex_eth_type"><![CDATA[Ethereum Type (44\'/60\'/0\'/0)]]></string>
+    <string name="str_okex_address_title">Select Address Type</string>
+    <string name="str_okex_old_address">Legacy Tendermint Type</string>
+    <string name="str_okex_new_address">New Ether Type</string>
     <string name="str_lum_newpath_title">Select Key Path</string>
     <string name="str_lum_newpath_msg">Select [Air-Drop Path] to import the address that received the Lum airdrop. If you wish to import a general Lum address, select [Default Path].\n\nYou can go back to [Import Mnemonics] at any time and select your desired path again.</string>
     <string name="str_lum_basic_type"><![CDATA[Default PATH (44\'/880\'/0\'/0)]]></string>
@@ -1109,7 +1112,7 @@
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
-    <string name="str_main_tokens">TOKENS</string>
+    <string name="str_main_tokens">ASSETS</string>
     <string name="str_main_reward">REWARD</string>
     <string name="str_main_history">HISTORY</string>
     <string name="str_main_vote">VOTE</string>
@@ -1485,8 +1488,8 @@
     <string name="str_pool_assets">Pool Assets</string>
     <string name="str_share_in_amount">Share In Amount</string>
     <string name="str_share_out_amount">Share Out Amount</string>
-    <string name="str_token_in">Token In</string>
-    <string name="str_token_out">Token Out</string>
+    <string name="str_token_in">Coin In</string>
+    <string name="str_token_out">Coin Out</string>
     <string name="str_lock_token_duration">Duration</string>
     <string name="str_unlock_token_id">ID</string>
     <string name="str_unlock_token_complete_time">Unlock Complete Time</string>
@@ -1496,11 +1499,11 @@
     <string name="str_swap_out">Swap Out</string>
     <string name="str_future_pool_governor">Future Pool Governor</string>
     <string name="str_swap_coin_type">Type</string>
-    <string name="str_osmosis_token_lockup">Lockup Token</string>
+    <string name="str_osmosis_token_lockup">Lockup Coin</string>
     <string name="str_osmosis_begin_unlucking">Begin Unlocking</string>
     <string name="str_osmosis_begin_unlucking_all">Begin Unlocking All</string>
-    <string name="str_osmosis_token_unlock">Unlock Tokens</string>
-    <string name="str_osmosis_preriodlock_unlock">Preriod Unlock Token</string>
+    <string name="str_osmosis_token_unlock">Unlock Coins</string>
+    <string name="str_osmosis_preriodlock_unlock">Period Unlock Coin</string>
     <string name="str_gravity_create_pool_address">Pool Create Address</string>
     <string name="str_gravity_create_pool_id">Pool Type ID</string>
     <string name="str_gravity_deposit_batch_address">Depositor Address</string>
@@ -1525,7 +1528,7 @@
     <string name="str_event_horizon_c">Event Horizon</string>
     <string name="str_event_horizon_step_0">Insert mnemonic for Hdac</string>
     <string name="str_event_horizon_step_1">Check Transaction Detail</string>
-    <string name="str_token_swap">Token Swap</string>
+    <string name="str_token_swap">Coin Swap</string>
     <string name="str_token_id">ID</string>
     <string name="str_token_swap_time">Time</string>
     <string name="str_token_swap_input_coin">Inputs</string>
@@ -1581,14 +1584,14 @@
     <string name="str_rizon_swap_result">Tx Result</string>
     <string name="str_rizon_swap_block_hash">Block Hash</string>
     <string name="str_rizon_swap_mint_recipient_Address">Mint Recipient Address</string>
-    <string name="str_native_token_title">Native Tokens</string>
-    <string name="str_ibc_token_title">IBC Tokens</string>
-    <string name="str_unknown_ibc_token_title">Unknown IBC Tokens</string>
-    <string name="str_pool_token_title">POOL Tokens</string>
-    <string name="str_gravity_dex_token_title">Gravity Dex Tokens</string>
-    <string name="str_sif_ether_token_title">Ether Bridged Tokens</string>
-    <string name="str_kava_bep2_token_title">BEP2 Tokens</string>
-    <string name="str_etc_token_title">Etc Tokens</string>
+    <string name="str_native_token_title">Native Coins</string>
+    <string name="str_ibc_token_title">IBC Coins</string>
+    <string name="str_unknown_ibc_token_title">Unknown IBC Coins</string>
+    <string name="str_pool_token_title">POOL Coins</string>
+    <string name="str_gravity_dex_token_title">Gravity Dex Coins</string>
+    <string name="str_sif_ether_token_title">Ether Bridged Coins</string>
+    <string name="str_kava_bep2_token_title">BEP2 Coins</string>
+    <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_unknown_token_title">Unknown</string>
     <string name="str_ibc_info_title">IBC information</string>
     <string name="str_ibc_opposite_chain_id_title">Opposite Chain ID</string>
@@ -1596,7 +1599,7 @@
     <string name="str_ibc_opposite_channel_title">Opposite Channel</string>
     <string name="str_ibc_denom_title">Denom</string>
     <string name="str_ibc_opposite_denom_title">Opposite Denom</string>
-    <string name="str_title_start_lock_osmosis">Lock Token</string>
+    <string name="str_title_start_lock_osmosis">Lock Coin</string>
     <string name="str_osmosis_start_lock_step_0">Insert amount to lock</string>
     <string name="str_osmosis_start_lock_step_1">Insert memo (optional)</string>
     <string name="str_osmosis_start_lock_step_2">Select transaction fee</string>
@@ -1611,7 +1614,7 @@
     <string name="str_osmosis_to_unbonding_id">To Unbonding ID</string>
     <string name="str_osmosis_to_unbonding_amount">To Unbonding Amount</string>
     <string name="str_osmosis_unbonding_duration">Unbonding Duration</string>
-    <string name="str_title_start_unlock_osmosis">Unlock Token</string>
+    <string name="str_title_start_unlock_osmosis">Unlock Coin</string>
     <string name="str_osmosis_start_unlock_step_0">Insert amount to unlock</string>
     <string name="str_osmosis_start_unlock_step_1">Insert memo (optional)</string>
     <string name="str_osmosis_start_unlock_step_2">Select transaction fee</string>
@@ -1972,7 +1975,7 @@
     <string name="tx_kava_hard_repay">Hard Lend\nRepay</string>
     <string name="tx_kava_hard_liquidate">Hard Lend\nLiquidate</string>
     <string name="tx_kava_incentive_hard">Hard Lend\nIncentive</string>
-    <string name="tx_kava_swap_token">Swap Token</string>
+    <string name="tx_kava_swap_token">Swap Coin</string>
     <string name="tx_kava_swap_deposit">Swap Pool\nDeposit</string>
     <string name="tx_kava_swap_withdraw">Swap Pool\nWithdraw</string>
     <string name="tx_kava_swap_incentive">Swap Pool\nIncentive</string>
@@ -2018,10 +2021,10 @@
     <string name="tx_osmosis_join_pool">Join Pool</string>
     <string name="tx_osmosis_exit_pool">Exit Pool</string>
     <string name="tx_osmosis_coin_swap">Swap Coin</string>
-    <string name="tx_osmosis_token_lockup">Lock Token(Start Earning)</string>
+    <string name="tx_osmosis_token_lockup">Lock Coin(Start Earning)</string>
     <string name="tx_osmosis_begin_token_unlock">Begin Unlocking</string>
     <string name="tx_osmosis_begin_token_unlock_all">Begin Unlocking All</string>
-    <string name="tx_osmosis_periodlock_unlock">Unlock Period Token(End Earning)</string>
+    <string name="tx_osmosis_periodlock_unlock">Unlock Period Coin(End Earning)</string>
 
 
     <string name="tx_gravity_create_pool">Create Pool</string>

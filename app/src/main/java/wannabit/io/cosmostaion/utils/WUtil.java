@@ -2532,11 +2532,7 @@ public class WUtil {
 
             } else if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
                 resource.ticker = "okb";
-                try {
-                    resource.address = WKey.convertAddressOkexToEth(account.address);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                resource.address = account.address;
                 result.addresses.add(resource);
 
             } else if (BaseChain.getChain(account.baseChain).equals(KAVA_MAIN)) {
@@ -2897,7 +2893,7 @@ public class WUtil {
             guideMsg.setText(R.string.str_front_guide_msg_band);
 
         } else if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.okex_img));
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_okx));
             guideTitle.setText(R.string.str_front_guide_title_ok);
             guideMsg.setText(R.string.str_front_guide_msg_ok);
             guideBtn1.setText(R.string.str_faq_ok);

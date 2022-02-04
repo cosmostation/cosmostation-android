@@ -41,9 +41,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
@@ -58,7 +56,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
     private RecyclerView            mRecyclerView;
     private NewWalletAdapter        mNewWalletAdapter;
 
-    private boolean                 mIsNewBip44;
     private int                     mCustomPath;
 
     @Override
@@ -82,7 +79,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         mEntropy =  getIntent().getStringExtra("entropy");
         mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
         mWordSize = getIntent().getIntExtra("size", 24);
-        mIsNewBip44 = getIntent().getBooleanExtra("bip44", false);
         mCustomPath = getIntent().getIntExtra("customPath", 0);
     }
 
@@ -100,11 +96,11 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), mChain, this, mIsNewBip44, mCustomPath).execute(""+path, mEntropy, ""+mWordSize);
+        new GenerateAccountTask(getBaseApplication(), mChain, this, mCustomPath).execute(""+path, mEntropy, ""+mWordSize);
     }
 
     private void onOverrideAccount(Account account, int path) {
-        new OverrideAccountTask(getBaseApplication(), mChain, account, this, mIsNewBip44, mCustomPath).execute(""+path, mEntropy, ""+mWordSize);
+        new OverrideAccountTask(getBaseApplication(), account, this, mCustomPath).execute(""+path, mEntropy, ""+mWordSize);
     }
 
     @Override
@@ -134,23 +130,15 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull final NewWalletHolder holder, @SuppressLint("RecyclerView") final int position) {
-            String address = WKey.getDpAddressFromEntropy(mChain, mEntropy,  position, mIsNewBip44, mCustomPath);
-            holder.newPath.setText(WDp.getPath(mChain, position, mIsNewBip44, mCustomPath));
-            if (mChain.equals(OKEX_MAIN)) {
-                try {
-                    holder.newAddress.setText(WKey.convertAddressOkexToEth(address));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                holder.newAddress.setText(address);
-            }
+            String address = WKey.getCreateDpAddressFromEntropy(mChain, mEntropy, position, mCustomPath);
+            holder.newPath.setText(WDp.getPath(mChain, position, mCustomPath));
+            holder.newAddress.setText(address);
             final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
             if (temp == null) {
                 holder.newState.setText(getString(R.string.str_ready));
                 holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
                 holder.cardNewWallet.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
-            } else  {
+            } else {
                 if(temp.hasPrivateKey) {
                     holder.newState.setText(getString(R.string.str_imported));
                     holder.newState.setTextColor(getResources().getColor(R.color.colorGray1));
@@ -274,9 +262,9 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 akashAmount         = itemView.findViewById(R.id.akash_amount);
                 secretLayer         = itemView.findViewById(R.id.secret_layer);
                 secretAmount        = itemView.findViewById(R.id.secret_amount);
-                coinLayer         = itemView.findViewById(R.id.coin_layer);
-                coinDenom         = itemView.findViewById(R.id.coin_denom);
-                coinAmount        = itemView.findViewById(R.id.coin_amount);
+                coinLayer           = itemView.findViewById(R.id.coin_layer);
+                coinDenom           = itemView.findViewById(R.id.coin_denom);
+                coinAmount          = itemView.findViewById(R.id.coin_amount);
             }
         }
     }

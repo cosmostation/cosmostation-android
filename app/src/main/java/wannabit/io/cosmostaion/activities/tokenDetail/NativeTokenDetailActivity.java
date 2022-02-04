@@ -31,7 +31,6 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
@@ -39,18 +38,12 @@ import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 public class NativeTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -76,11 +69,6 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     private String                          mDenom;
 
     private Boolean                         mHasVesting = false;
-    private String                          shareAddress;
-
-    private int                             mDivideDecimal = 6;
-    private int                             mDisplayDecimal = 6;
-    private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +100,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mDenom = getIntent().getStringExtra("denom");
 
-        if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+        if (mBaseChain.equals(BNB_MAIN)) {
             if (WUtil.isBep3Coin(mDenom)) { mBtnBep3Send.setVisibility(View.VISIBLE); }
         }
 
@@ -148,17 +136,8 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     }
 
     private void onUpdateView() {
-        shareAddress = mAccount.address;
-        try {
-            if (mAccount.address.startsWith("ex1")) {
-                shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenDetailActivity.this, mBaseChain));
-        if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+        if (mBaseChain.equals(OKEX_MAIN)) {
             final OkToken okToken = getBaseDao().okToken(mDenom);
             Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
             mToolbarSymbol.setText(okToken.original_symbol.toUpperCase());
@@ -201,7 +180,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mAddress.setText(shareAddress);
+        mAddress.setText(mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
             mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -214,7 +193,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
             Bundle bundle = new Bundle();
-            bundle.putString("address", shareAddress);
+            bundle.putString("address", mAccount.address);
             if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
             else { bundle.putString("title", mAccount.nickName); }
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
@@ -229,6 +208,10 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             onStartHTLCSendActivity(mDenom);
 
         } else if (v.equals(mBtnSend)) {
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                Toast.makeText(NativeTokenDetailActivity.this, "Temporary Disable", Toast.LENGTH_SHORT).show();
+                return;
+            }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
             BigDecimal mainAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
@@ -296,41 +279,15 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                 return 2;
             }
             return 1;
-//            int cnt = 1;
-//            if (mApiTxCustomHistory != null) {
-//                cnt = cnt + mApiTxCustomHistory.size();
-//            }
-//            if (mApiTxHistory != null) {
-//                cnt = cnt + mApiTxHistory.size();
-//            }
-//            if (mHasVesting) {
-//                cnt = cnt + 1;
-//            }
-//            return cnt;
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (mBaseChain.equals(KAVA_MAIN)) {
-                if (mDenom.equalsIgnoreCase(TOKEN_HARD) || mDenom.equalsIgnoreCase(TOKEN_SWP)) {
-                    if (mHasVesting) {
-                        if (position == 0) return TYPE_NATIVE;
-                        if (position == 1) return TYPE_VESTING;
-                        else return TYPE_HISTORY;
-                    } else {
-                        if (position == 0) return TYPE_NATIVE;
-                        else return TYPE_HISTORY;
-                    }
-                } else {
-                    if (position == 0) return TYPE_NATIVE;
-                    else return TYPE_HISTORY;
-                }
-
-            } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+            if (mBaseChain.equals(BNB_MAIN)) {
                 if (position == 0) return TYPE_NATIVE;
                 else return TYPE_HISTORY;
 
-            } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+            } else if (mBaseChain.equals(OKEX_MAIN)) {
                 if (position == 0) return TYPE_NATIVE;
                 else return TYPE_HISTORY;
             }
