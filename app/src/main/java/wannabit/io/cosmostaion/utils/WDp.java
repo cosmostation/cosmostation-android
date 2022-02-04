@@ -2065,7 +2065,10 @@ public class WDp {
                     int kavaDecimal = WUtil.getKavaCoinDecimal(baseData, coin.denom);
                     BigDecimal assetValue = userCurrencyValue(baseData, kavaDenom, amount, kavaDecimal);
                     totalValue = totalValue.add(assetValue);
-
+                } else if (baseChain.equals(GRABRIDGE_MAIN) && coin.denom.startsWith("gravity")) {
+                    Assets assets = baseData.getAsset(coin.denom);
+                    BigDecimal available = baseData.getAvailable(assets.denom);
+                    totalValue = totalValue.add(userCurrencyValue(baseData, assets.origin_symbol, available, assets.decimal));
                 } else if (coin.isIbc()) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     IbcToken ibcToken = baseData.getIbcToken(coin.denom);

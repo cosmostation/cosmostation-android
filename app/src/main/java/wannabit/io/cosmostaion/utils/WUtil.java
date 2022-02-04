@@ -1682,7 +1682,7 @@ public class WUtil {
         } else if (denom.startsWith("c")) {
             Assets assets = baseData.getAsset(denom);
             if (assets != null) {
-                Picasso.get().load(ASSET_IMG_URL + assets.origin_chain + "/" + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+                Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
             }
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
@@ -1810,10 +1810,10 @@ public class WUtil {
 //    }
 
     public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, BalancerPoolOuterClass.BalancerPool pool) {
-        if (pool != null) {
+        try {
             BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);
             return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
-        } else {
+        } catch (Exception e) {
             return BigDecimal.ZERO;
         }
     }
