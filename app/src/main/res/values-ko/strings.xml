@@ -1650,6 +1650,13 @@
     <string name="tx_link_account_address">Linked Address</string>
     <string name="tx_link_account_signer">Signer</string>
 
+    <string name="tx_cosmwasm_store_code">컨트랙트\n코드 저장</string>
+    <string name="tx_cosmwasm_instantiate">컨트랙트\n인스턴트화</string>
+    <string name="tx_cosmwasm_execontract">컨트랙트\n실행</string>
+    <string name="tx_cosmwasm_store_code_title">컨트랙트 코드 저장</string>
+    <string name="tx_cosmwasm_instantiate_title">컨트랙트 인스턴트화</string>
+    <string name="tx_cosmwasm_execontract_title">컨트랙트 실행</string>
+
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>
     <string name="str_dp_time_format3" >HH:mm:ss</string>

@@ -2073,6 +2073,13 @@
     <string name="tx_link_account_address">Linked Address</string>
     <string name="tx_link_account_signer">Signer</string>
 
+    <string name="tx_cosmwasm_store_code">Store\nContract Code</string>
+    <string name="tx_cosmwasm_instantiate">Instantiate\nContract</string>
+    <string name="tx_cosmwasm_execontract">Execute\nContract</string>
+    <string name="tx_cosmwasm_store_code_title">Store Contract Code</string>
+    <string name="tx_cosmwasm_instantiate_title">Instantiate Contract</string>
+    <string name="tx_cosmwasm_execontract_title">Execute Contract</string>
+
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>
     <string name="str_dp_time_format3">HH:mm:ss</string>

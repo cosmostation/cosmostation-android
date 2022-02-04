@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -74,6 +71,9 @@ import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxLinkAccountHolder;
 import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxSaveProfileHolder;
 import wannabit.io.cosmostaion.widget.txDetail.certik.TxCreateTaskHolder;
 import wannabit.io.cosmostaion.widget.txDetail.certik.TxTaskResponseHolder;
+import wannabit.io.cosmostaion.widget.txDetail.contract.TxExecuteContractHolder;
+import wannabit.io.cosmostaion.widget.txDetail.contract.TxInstantContractHolder;
+import wannabit.io.cosmostaion.widget.txDetail.contract.TxStoreContractHolder;
 import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityCreatePoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityDepositHolder;
 import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravitySwapHolder;
@@ -115,6 +115,9 @@ import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateEthBridgeHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateUserClaimHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxRemoveLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
+
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
 
 public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener, Dialog_MoreWait.OnTxWaitListener {
     private Toolbar         mToolbar;
@@ -321,6 +324,10 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_KAVA_HARD_LIQUIDATE = 128;
         private static final int TYPE_TX_KAVA_HTLC_CREATE = 129;
         private static final int TYPE_TX_KAVA_HTLC_CLAIM = 130;
+
+        private static final int TYPE_TX_STORE_CONTRACT = 141;
+        private static final int TYPE_TX_INSTANT_CONTRACT = 142;
+        private static final int TYPE_TX_EXECUTE_CONTRACT = 143;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -572,6 +579,18 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 return new TxClaimHTLCHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_claim, viewGroup, false));
 
             }
+
+            // wasm
+            else if (viewType == TYPE_TX_STORE_CONTRACT) {
+                return new TxStoreContractHolder(getLayoutInflater().inflate(R.layout.item_tx_store_contract, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_INSTANT_CONTRACT) {
+                return new TxInstantContractHolder(getLayoutInflater().inflate(R.layout.item_tx_instant_contract, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_EXECUTE_CONTRACT) {
+                return new TxExecuteContractHolder(getLayoutInflater().inflate(R.layout.item_tx_execute_contract, viewGroup, false));
+
+            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
@@ -777,6 +796,14 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_HTLC_CREATE;
                 } else if (msg.getTypeUrl().contains(kava.bep3.v1beta1.Tx.MsgClaimAtomicSwap.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_HTLC_CLAIM;
+                }
+
+                else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgStoreCode.getDescriptor().getFullName())) {
+                    return TYPE_TX_STORE_CONTRACT;
+                } else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgInstantiateContract.getDescriptor().getFullName())) {
+                    return TYPE_TX_INSTANT_CONTRACT;
+                } else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgExecuteContract.getDescriptor().getFullName())) {
+                    return TYPE_TX_EXECUTE_CONTRACT;
                 }
                 return TYPE_TX_UNKNOWN;
             }
