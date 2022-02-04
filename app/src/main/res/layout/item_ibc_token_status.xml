@@ -126,12 +126,15 @@
                         style="@style/font_ss_14_gray1"/>
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_6">
                         <TextView
                             android:id="@+id/across_denom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:singleLine="true"
+                            android:ellipsize="middle"
                             android:text="-"
                             style="@style/font_ss_14_white"/>
                     </RelativeLayout>

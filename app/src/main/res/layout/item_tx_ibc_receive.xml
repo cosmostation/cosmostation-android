@@ -105,14 +105,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tx_ibc_receive_title"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/tx_ibc_receive_amount_symbol"
                         style="@style/font_ss_12_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxWidth="@dimen/space_80"
                         android:layout_alignParentRight="true"
+                        android:singleLine="true"
+                        android:ellipsize="middle"
                         android:text="ATOM" />
 
                     <TextView

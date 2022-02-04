@@ -1386,6 +1386,19 @@ public class WUtil {
         return 6;
     }
 
+    public static int getGBridgeCoinDecimal(String denom) {
+        if (denom.equalsIgnoreCase(WDp.mainDenom(GRABRIDGE_MAIN))) {
+            return 6;
+        } else if (denom.equalsIgnoreCase("gravity0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")) {
+            return 18;
+        } else if (denom.equalsIgnoreCase("gravity0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48")) {
+            return 6;
+        } else if (denom.equalsIgnoreCase("gravity0x6b175474e89094c44da98b954eedeac495271d0f")) {
+            return 18;
+        }
+        return 18;
+    }
+
     public static int getCosmosCoinDecimal(BaseData baseData, String denom) {
         if (denom.equalsIgnoreCase(TOKEN_ATOM)) { return 6; }
         else if (denom.startsWith("pool")) {

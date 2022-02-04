@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Send_Warning;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
@@ -90,7 +91,11 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mBridgeDenom = getIntent().getStringExtra("denom");
+        for (Coin coin: getBaseDao().mGrpcBalance) {
+            if (coin.denom.equalsIgnoreCase(getIntent().getStringExtra("denom"))) {
+                mBridgeDenom = coin.denom;
+            }
+        }
         mBtnIbcSend.setVisibility(View.VISIBLE);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

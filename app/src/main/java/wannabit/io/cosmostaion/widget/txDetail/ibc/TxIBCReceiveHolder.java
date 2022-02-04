@@ -17,6 +17,7 @@ import ibc.core.channel.v1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -61,6 +62,9 @@ public class TxIBCReceiveHolder extends TxHolder {
             } else if (denom.startsWith("c")) {
                 divideDecimal = WUtil.getSifCoinDecimal(denom);
                 itemIbcAmountDenom.setText(denom.toUpperCase());
+            } else if (denom.startsWith("gravity")){
+                divideDecimal = WUtil.getGBridgeCoinDecimal(denom);
+                itemIbcAmountDenom.setText(denom);
             } else {
                 divideDecimal = WDp.mainDivideDecimal(denom);
                 itemIbcAmountDenom.setText(denom.toUpperCase());
