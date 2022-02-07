@@ -23,8 +23,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletAkashHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletAltheaHolder;
@@ -50,6 +48,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletJunoHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletKavaHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletKavaIncentiveHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletKiHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletKonstellationHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletLumHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletMediHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletMintHolder;
@@ -69,14 +68,11 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletUmeeHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
@@ -94,16 +90,14 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -290,6 +284,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_DESMOS            = 32;
         private static final int TYPE_LUM               = 33;
         private static final int TYPE_CHIHUAHUA         = 34;
+        private static final int TYPE_KONSTELLATION     = 35;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
@@ -402,6 +397,9 @@ public class MainSendFragment extends BaseFragment {
 
             } else if (viewType == TYPE_CHIHUAHUA) {
                 return new WalletChihuahuaHolder(getLayoutInflater().inflate(R.layout.item_wallet_chihuahua, viewGroup, false));
+
+            } else if (viewType == TYPE_KONSTELLATION) {
+                return new WalletKonstellationHolder(getLayoutInflater().inflate(R.layout.item_wallet_konstellation, viewGroup, false));
 
             }
 
@@ -522,6 +520,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(CHIHUAHUA_MAIN)) { return TYPE_CHIHUAHUA; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_MAIN)) { return TYPE_AXELAR; }
+                    else if (getMainActivity().mBaseChain.equals(KONSTELL_MAIN)) { return TYPE_KONSTELLATION; }
                 } else if (position == 1) {
                     return TYPE_PRICE;
                 } else if (position == 2) {

@@ -230,6 +230,7 @@
     <string name="str_lum_main_net" translatable="false">Lum</string>
     <string name="str_chihuahua_main_net" translatable="false">Chihuahua</string>
     <string name="str_axelar_main_net" translatable="false">Axelar</string>
+    <string name="str_konstellation_main_net" translatable="false">Konstellation</string>
     <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
     <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
     <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
@@ -504,6 +505,8 @@
     <string name="str_chihuahua_net2" translatable="false">Chihuahua</string>
     <string name="str_axelar_net" translatable="false">(Axelar)</string>
     <string name="str_axelar_net2" translatable="false">Axelar</string>
+    <string name="str_konstellation_net" translatable="false">(Konstellation)</string>
+    <string name="str_konstellation_net2" translatable="false">Konstellation</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -556,6 +559,7 @@
     <string name="str_lum_main" translatable="false">LUM</string>
     <string name="str_chihuahua_main" translatable="false">CHIHUAHUA</string>
     <string name="str_axelar_main" translatable="false">AXELAR</string>
+    <string name="str_konstellation_main" translatable="false">KONSTELLATION</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
@@ -661,6 +665,7 @@
     <string name="str_front_guide_title_desmos"><![CDATA[DESMOS NETWORK]]></string>
     <string name="str_front_guide_title_lum"><![CDATA[LUM NETWORK]]></string>
     <string name="str_front_guide_title_chihuahua"><![CDATA[CHIHUAHUA]]></string>
+    <string name="str_front_guide_title_konstellation"><![CDATA[KONSTELLATION]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -695,6 +700,7 @@
     <string name="str_front_guide_msg_desmos"><![CDATA[A blockchain for decentralized social networks powered by Forbole.]]></string>
     <string name="str_front_guide_msg_lum"><![CDATA[A Cosmos SDK-based blockchain designed for on-chain user reviews and rewards.]]></string>
     <string name="str_front_guide_msg_chihuahua"><![CDATA[Chihuahua chain is the first meme coin in the Cosmos ecosystem.]]></string>
+    <string name="str_front_guide_msg_konstellation"><![CDATA[A Cosmos SDK-based decentralized cross-chain capital markets network.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1916,6 +1922,7 @@
     <string name="s_desmos" translatable="false">DSM</string>
     <string name="s_lum" translatable="false">LUM</string>
     <string name="s_chihuahua" translatable="false">HUAHUA</string>
+    <string name="s_konstellation" translatable="false">DARC</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

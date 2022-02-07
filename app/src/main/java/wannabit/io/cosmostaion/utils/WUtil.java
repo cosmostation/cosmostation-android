@@ -115,6 +115,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
@@ -133,41 +134,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 public class WUtil {
-
-    public static Account getAccountFromLcd(long id, ResLcdAccountInfo lcd) {
-        Account result = new Account();
-        result.id = id;
-        if (lcd.result != null && lcd.height != null) {
-            if (lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
-                    lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                    lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
-                    lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
-                result.address = lcd.result.value.address;
-                result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
-                result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
-                return result;
-            } else {
-                result.address = lcd.result.value.BaseVestingAccount.BaseAccount.address;
-                result.sequenceNumber = Integer.parseInt(lcd.result.value.BaseVestingAccount.BaseAccount.sequence);
-                result.accountNumber = Integer.parseInt(lcd.result.value.BaseVestingAccount.BaseAccount.account_number);
-                return result;
-            }
-        }
-        if (lcd.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
-                lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
-                lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
-            result.address = lcd.value.address;
-            result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
-            result.accountNumber = Integer.parseInt(lcd.value.account_number);
-            return result;
-        } else {
-            result.address = lcd.value.BaseVestingAccount.BaseAccount.address;
-            result.sequenceNumber = Integer.parseInt(lcd.value.BaseVestingAccount.BaseAccount.sequence);
-            result.accountNumber = Integer.parseInt(lcd.value.BaseVestingAccount.BaseAccount.account_number);
-            return result;
-        }
-    }
 
     public static Account getAccountFromBnbLcd(long id, ResBnbAccountInfo lcd) {
         Account result = new Account();
@@ -205,81 +171,6 @@ public class WUtil {
             result.accountNumber = Integer.parseInt(lcd.value.account_number);
         }
         return result;
-    }
-
-    public static Account getAccountFromVestingLcd(long id, ResLcdVestingAccountInfo lcd) {
-        Account result = new Account();
-        result.id = id;
-        if (lcd.result != null && lcd.height != null) {
-            result.address = lcd.result.value.address;
-            result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
-            result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
-        }
-        return result;
-    }
-
-
-    public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {
-        long time = System.currentTimeMillis();
-        ArrayList<Balance> result = new ArrayList<>();
-        if (lcd != null && lcd.result != null && lcd.height != null) {
-            if(lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
-                    lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                    lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
-                    lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
-                if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0){
-                    for (Coin coin : lcd.result.value.coins) {
-                        Balance temp = new Balance();
-                        temp.accountId = accountId;
-                        temp.symbol = coin.denom;
-                        temp.balance = new BigDecimal(coin.amount);
-                        temp.fetchTime = time;
-                        result.add(temp);
-                    }
-                }
-                return result;
-            } else {
-                if (lcd.result.value.BaseVestingAccount.BaseAccount.coins != null && lcd.result.value.BaseVestingAccount.BaseAccount.coins.size() > 0){
-                    for(Coin coin : lcd.result.value.BaseVestingAccount.BaseAccount.coins) {
-                        Balance temp = new Balance();
-                        temp.accountId = accountId;
-                        temp.symbol = coin.denom;
-                        temp.balance = new BigDecimal(coin.amount);
-                        temp.fetchTime = time;
-                        result.add(temp);
-                    }
-                }
-                return result;
-            }
-        }
-        if(lcd.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
-                lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
-                lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
-            if (lcd.value.coins != null && lcd.value.coins.size() > 0){
-                for(Coin coin : lcd.value.coins) {
-                    Balance temp = new Balance();
-                    temp.accountId = accountId;
-                    temp.symbol = coin.denom;
-                    temp.balance = new BigDecimal(coin.amount);
-                    temp.fetchTime = time;
-                    result.add(temp);
-                }
-            }
-            return result;
-        } else {
-            if (lcd.value.BaseVestingAccount.BaseAccount.coins != null && lcd.value.BaseVestingAccount.BaseAccount.coins.size() > 0){
-                for(Coin coin : lcd.value.BaseVestingAccount.BaseAccount.coins) {
-                    Balance temp = new Balance();
-                    temp.accountId = accountId;
-                    temp.symbol = coin.denom;
-                    temp.balance = new BigDecimal(coin.amount);
-                    temp.fetchTime = time;
-                    result.add(temp);
-                }
-            }
-            return result;
-        }
     }
 
     public static ArrayList<Balance> getBalancesFromBnbLcd(long accountId, ResBnbAccountInfo lcd) {
@@ -657,15 +548,6 @@ public class WUtil {
         return result;
     }
 
-    public static Balance getTokenBalance(ArrayList<Balance> list, String symbol) {
-        for (Balance balance:list) {
-            if (balance.symbol.equals(symbol)) {
-                return balance;
-            }
-        }
-        return null;
-    }
-
     public static String prettyPrinter(Object object) {
         String result = "";
         try {
@@ -717,25 +599,6 @@ public class WUtil {
                     + Character.digit(s.charAt(i+1), 16));
         }
         return data;
-    }
-
-    public static int[] Bytearray2intarray(byte[] barray) {
-        int[] iarray = new int[barray.length];
-        int i = 0;
-        for (byte b : barray)
-            iarray[i++] = b & 0xff;
-        return iarray;
-    }
-
-    public static String BytearryToDecimalString(byte[] barray) {
-        String result = "";
-        int[] iarray = new int[barray.length];
-        int i = 0;
-        for (byte b : barray) {
-            iarray[i++] = b & 0xff;
-            result = result + " " + (b & 0xff);
-        }
-        return result;
     }
 
     public static byte[] integerToBytes(BigInteger s, int length) {
@@ -1128,17 +991,6 @@ public class WUtil {
         });
     }
 
-    public static void onSortingProposal(ArrayList<Proposal> proposals, BaseChain chain) {
-        Collections.sort(proposals, new Comparator<Proposal>() {
-            @Override
-            public int compare(Proposal o1, Proposal o2) {
-                if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
-                else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
-                else return 0;
-            }
-        });
-    }
-
     public static void onSortingDenom(ArrayList<String> denom, BaseChain chain) {
         Collections.sort(denom, new Comparator<String>() {
             @Override
@@ -1254,18 +1106,6 @@ public class WUtil {
             }
         });
         return result;
-    }
-
-    public static void onSortingAccount(ArrayList<Account> accounts) {
-        Collections.sort(accounts, new Comparator<Account>() {
-            @Override
-            public int compare(Account o1, Account o2) {
-                if (o1.sortOrder > o2.sortOrder) return 1;
-                else if (o1.sortOrder < o2.sortOrder) return -1;
-                else return 0;
-
-            }
-        });
     }
 
     /**
@@ -2779,6 +2619,9 @@ public class WUtil {
             } else if (chain.equals(AXELAR_MAIN)) {
                 return BLOCK_TIME_AXELAR;
 
+            } else if (chain.equals(KONSTELL_MAIN)) {
+                return BLOCK_TIME_KONSTELLATION;
+
             }
         }
         return BigDecimal.ZERO;
@@ -3072,7 +2915,12 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_axelar);
             guideMsg.setText(R.string.str_front_guide_msg_axelar);
 
-        } 
+        } else if (mainActivity.mBaseChain.equals(KONSTELL_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_konstellation));
+            guideTitle.setText(R.string.str_front_guide_title_konstellation);
+            guideMsg.setText(R.string.str_front_guide_msg_konstellation);
+
+        }
     }
     
     public static Intent getGuide1Intent(BaseChain chain) {
@@ -3185,6 +3033,9 @@ public class WUtil {
 
         } else if (chain.equals(AXELAR_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://axelar.network/"));
+
+        } else if (chain.equals(KONSTELL_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://konstellation.tech/"));
         }
         return null;
     }
@@ -3300,6 +3151,9 @@ public class WUtil {
         } else if (chain.equals(AXELAR_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://axelar.network/blog"));
 
+        } else if (chain.equals(KONSTELL_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://konstellation.medium.com/"));
+
         }
         return null;
     }
@@ -3403,8 +3257,11 @@ public class WUtil {
         } else if (basechain.equals(KAVA_MAIN)) {
             return EXPLORER_KAVA_MAIN;
 
-        }  else if (basechain.equals(AXELAR_MAIN)) {
+        } else if (basechain.equals(AXELAR_MAIN)) {
             return EXPLORER_AXELAR_MAIN;
+
+        } else if (basechain.equals(KONSTELL_MAIN)) {
+            return EXPLORER_KONSTELL_MAIN;
 
         }
 
@@ -3522,6 +3379,9 @@ public class WUtil {
 
         } else if (basechain.equals(AXELAR_MAIN)) {
             return EXPLORER_AXELAR_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(KONSTELL_MAIN)) {
+            return EXPLORER_KONSTELL_MAIN + "txs/" + hash;
 
         }
 
@@ -3954,6 +3814,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(KONSTELL_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(KONSTELL_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         }
 
         else if (basechain.equals(BNB_MAIN)) {
@@ -4184,6 +4049,14 @@ public class WUtil {
                 return new BigDecimal(AXELAR_GAS_RATE_LOW);
             }
             return new BigDecimal(AXELAR_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(KONSTELL_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(KONSTELL_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(KONSTELL_GAS_RATE_LOW);
+            }
+            return new BigDecimal(KONSTELL_GAS_RATE_AVERAGE);
 
         }
 
