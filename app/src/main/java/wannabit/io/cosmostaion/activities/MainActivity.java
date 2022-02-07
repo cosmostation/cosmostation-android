@@ -241,6 +241,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onClickSwitchWallet() {
         startActivity(new Intent(this, WalletSwitchActivity.class));
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         onChainSelect(mSelectedChain);
     }
 
