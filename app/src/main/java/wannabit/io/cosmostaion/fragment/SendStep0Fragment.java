@@ -240,7 +240,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                         }
 
                         if (getSActivity().mAccount.address.equals(matchAddress)) {
-                            Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.error_starname_self_send, Toast.LENGTH_SHORT).show();
                             return;
                         }
 
