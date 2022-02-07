@@ -1174,28 +1174,25 @@ public class WUtil {
         } else if (denom.equalsIgnoreCase("swp")) {
             return 6;
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
-            else return 6;
+            return getIbcDecimal(baseData, denom);
         }
         return 1;
     }
 
     public static int getSifCoinDecimal(BaseData baseData, String denom) {
-      if (denom.equalsIgnoreCase(WDp.mainDenom(SIF_MAIN))) {
-          return 18;
-      } else if (denom.startsWith("ibc/")) {
-          IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-          if (ibcToken != null && ibcToken.auth) {
-              return ibcToken.decimal;
-          }
-      } else {
-          final Assets assets = baseData.getAsset(denom);
-          if (assets != null) {
-              return assets.decimal;
-          }
-      }
-      return 18;
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(WDp.mainDenom(SIF_MAIN))) {
+                return 18;
+            } else if (denom.startsWith("ibc/")) {
+                return getIbcDecimal(baseData, denom);
+            } else {
+                Assets assets = baseData.getAsset(denom);
+                if (assets != null) {
+                    return assets.decimal;
+                }
+            }
+        }
+        return 18;
     }
 
     public static int getSifCoinDecimal(String denom) {
@@ -1213,10 +1210,7 @@ public class WUtil {
         if (denom.equalsIgnoreCase(WDp.mainDenom(GRABRIDGE_MAIN))) {
             return 6;
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.decimal;
-            }
+            return getIbcDecimal(baseData, denom);
         } else {
             final Assets assets = baseData.getAsset(denom);
             if (assets != null) {
@@ -1245,26 +1239,27 @@ public class WUtil {
             Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
             if (poolInfo != null) { return 6; }
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
+            return getIbcDecimal(baseData, denom);
         }
         return 6;
     }
 
     public static int getOsmosisCoinDecimal(BaseData baseData, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { return 6; }
-        else if (denom.equalsIgnoreCase(TOKEN_ION)) { return 6; }
-        else if (denom.startsWith("gamm/pool/")) { return 18; }
-        else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(TOKEN_OSMOSIS) || denom.equalsIgnoreCase(TOKEN_ION)) {
+                return 6;
+            } else if (denom.startsWith("gamm/pool/")) {
+                return 18;
+            } else if (denom.startsWith("ibc/")) {
+                return getIbcDecimal(baseData, denom);
+            }
         }
         return 6;
     }
 
     public static int getIbcDecimal(BaseData baseData, String denom) {
         IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-        if (ibcToken.auth) { return ibcToken.decimal; }
+        if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
         else { return 6; }
     }
 
@@ -2234,16 +2229,6 @@ public class WUtil {
             return BINANCE_MAIN_BUSD_DEPUTY;
         }
         return "";
-    }
-
-    public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
-        if (all == null) return null;
-        for (BnbToken token:all) {
-            if (token.original_symbol.equals(TOKEN_BNB)) {
-                return token;
-            }
-        }
-        return null;
     }
 
     public static BigDecimal getBnbTokenUserCurrencyPrice(BaseData baseData, String denom) {

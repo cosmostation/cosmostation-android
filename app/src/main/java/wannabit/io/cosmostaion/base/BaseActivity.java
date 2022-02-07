@@ -571,7 +571,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         //kava GRPC
         getBaseDao().mIncentiveParam5 = null;
         getBaseDao().mIncentiveRewards = null;
-        getBaseDao().mKavaPrices.clear();
         getBaseDao().mMyHardDeposits.clear();
         getBaseDao().mMyHardBorrows.clear();
         getBaseDao().mModuleCoins.clear();
@@ -937,9 +936,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == TASK_GRPC_FETCH_KAVA_PRICES) {
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<QueryOuterClass.CurrentPriceResponse> currentPrices = (ArrayList<QueryOuterClass.CurrentPriceResponse>) result.resultData;
-                if (currentPrices != null) { getBaseDao().mKavaPrices = currentPrices; }
-                for (QueryOuterClass.CurrentPriceResponse response: currentPrices) {
-                    getBaseDao().mKavaTokenPrice.put(response.getMarketId(), response);
+                if (currentPrices != null) {
+                    for (QueryOuterClass.CurrentPriceResponse response : currentPrices) {
+                        getBaseDao().mKavaTokenPrice.put(response.getMarketId(), response);
+                    }
                 }
             }
         }

@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardElevation="1.5dp"
+            app:cardElevation="0dp"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/colorTransBg"
             app:cardCornerRadius="@dimen/space_6"
-            app:cardElevation="1.5dp"
+            app:cardElevation="0dp"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
