@@ -948,9 +948,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         else if (result.taskType == TASK_FETCH_MINTSCAN_CW20_ASSETS) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mCw20Assets = (ArrayList<Cw20Assets>) result.resultData;
-                for (Cw20Assets assets: getBaseDao().mCw20Assets) {
-                    mTaskCount = mTaskCount + 1;
-                    new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, assets.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                if (getBaseDao().mCw20Assets != null && getBaseDao().mCw20Assets.size() > 0) {
+                    for (Cw20Assets assets: getBaseDao().mCw20Assets) {
+                        mTaskCount = mTaskCount + 1;
+                        new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, assets.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    }
                 }
             }
         }

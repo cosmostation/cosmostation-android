@@ -853,15 +853,9 @@ public class BaseConstant {
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
-    public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
-    public final static String EXPLORER_KAVA_TEST       = "https://dev.mintscan.io/kava-testnet/";
-    public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";
     public final static String EXPLORER_RIZON_TEST      = "https://testnet.mintscan.io/rizon/";
     public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
-    public final static String EXPLORER_MEDI_TEST       = "https://testnet.mintscan.io/medibloc/";
-    public final static String EXPLORER_ALTHEA_TEST     = "https://testnet.mintscan.io/althea/";
     public final static String EXPLORER_UMEE_TEST       = "https://testnet.mintscan.io/umee/";
-    public final static String EXPLORER_AXELAR_TEST     = "https://testnet.mintscan.io/axelar/";
 
 
     public final static String AKASH_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/akash/relay-akash-unknown.png";

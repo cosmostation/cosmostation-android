@@ -180,9 +180,11 @@ public class BaseData {
     }
 
     public Cw20Assets getCw20_gRPC(String contAddress) {
-        for (Cw20Assets assets: mCw20Assets) {
-            if (assets.contract_address.equalsIgnoreCase(contAddress)) {
-                return assets;
+        if (mCw20Assets != null && mCw20Assets.size() > 0) {
+            for (Cw20Assets assets: mCw20Assets) {
+                if (assets.contract_address.equalsIgnoreCase(contAddress)) {
+                    return assets;
+                }
             }
         }
         return null;
