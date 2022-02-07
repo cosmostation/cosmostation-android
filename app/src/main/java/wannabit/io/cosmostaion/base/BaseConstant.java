@@ -745,9 +745,9 @@ public class BaseConstant {
     public final static String JUNO_GAS_RATE_LOW                        = "0.005";
     public final static String JUNO_GAS_RATE_AVERAGE                    = "0.025";
 
-    public final static String KONSTELL_GAS_RATE_TINY                   = "0.000006";
-    public final static String KONSTELL_GAS_RATE_LOW                    = "0.000006";
-    public final static String KONSTELL_GAS_RATE_AVERAGE                = "0.000006";
+    public final static String KONSTELL_GAS_RATE_TINY                   = "0.0001";
+    public final static String KONSTELL_GAS_RATE_LOW                    = "0.001";
+    public final static String KONSTELL_GAS_RATE_AVERAGE                = "0.01";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
@@ -939,5 +939,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_LUM = new BigDecimal("5.7210");
     public final static BigDecimal BLOCK_TIME_CHIHUAHUA = new BigDecimal("5.8172");
     public final static BigDecimal BLOCK_TIME_AXELAR = new BigDecimal("5.5596");
-    public final static BigDecimal BLOCK_TIME_KONSTELLATION = new BigDecimal("5.3617");
+    public final static BigDecimal BLOCK_TIME_KONSTELLATION = new BigDecimal("5.376");
 }
