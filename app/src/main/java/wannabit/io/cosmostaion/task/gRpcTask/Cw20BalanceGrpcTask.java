@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE_OF_CW20;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 
@@ -18,9 +21,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE_OF_CW20;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class Cw20BalanceGrpcTask extends CommonTask {
     private BaseChain   mChain;

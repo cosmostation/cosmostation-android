@@ -1347,7 +1347,7 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken != null && ibcToken.auth) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
                 textView.setText("UnKnown");
@@ -1566,16 +1566,18 @@ public class WUtil {
     }
 
     public static void DpKavaTokenImg(BaseData baseData, ImageView imageView, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
-            Picasso.get().cancelRequest(imageView);
-            imageView.setImageResource(R.drawable.kava_token_img);
-        } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null) {
-                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+                Picasso.get().cancelRequest(imageView);
+                imageView.setImageResource(R.drawable.kava_token_img);
+            } else if (denom.startsWith("ibc/")) {
+                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+                if (ibcToken != null) {
+                    Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+                }
+            } else {
+                Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(imageView);
             }
-        } else {
-            Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(imageView);
         }
     }
 

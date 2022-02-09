@@ -468,10 +468,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         startActivity(new Intent(BaseActivity.this, RestoreActivity.class));
     }
 
-    public void onCancelWithVesting() {
-
-    }
-
     public void onUpdateUserAlarm(Account account, boolean useAlarm) {
         new PushUpdateTask(getBaseApplication(), this, account, getBaseDao().getFCMToken(), useAlarm).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
