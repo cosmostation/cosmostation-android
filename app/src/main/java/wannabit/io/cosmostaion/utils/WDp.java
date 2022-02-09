@@ -3632,17 +3632,9 @@ public class WDp {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binance_ch_img));
             txtView.setText(c.getString(R.string.str_binance_net_2));
 
-        } else if (chain.equals(BNB_TEST)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.binancetestnet));
-            txtView.setText(c.getString(R.string.str_binance_test_net_2));
-
         } else if (chain.equals(KAVA_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_img));
             txtView.setText(c.getString(R.string.str_kava_net_2));
-
-        } else if (chain.equals(KAVA_TEST)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.kava_test_img));
-            txtView.setText(c.getString(R.string.str_kava_net_test_2));
 
         } else if (chain.equals(IOV_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.chain_starname));
@@ -3652,25 +3644,13 @@ public class WDp {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.band_chain_img));
             txtView.setText(c.getString(R.string.str_band_chain_2));
 
-        } else if (chain.equals(IOV_TEST)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_testnet_img));
-            txtView.setText(c.getString(R.string.str_iov_net_test_2));
-
-        } else if (chain.equals(OKEX_MAIN)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.okex_chain_img));
+        }  else if (chain.equals(OKEX_MAIN)) {
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.chain_okx));
             txtView.setText(c.getString(R.string.str_ok_net2));
-
-        } else if (chain.equals(OK_TEST)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.okex_testnet_img));
-            txtView.setText(c.getString(R.string.str_ok_net_test_2));
 
         } else if (chain.equals(CERTIK_MAIN)) {
             if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.certik_chain_img));
             txtView.setText(c.getString(R.string.str_certik_chain_2));
-
-        } else if (chain.equals(CERTIK_TEST)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.certik_testnet_img));
-            txtView.setText(c.getString(R.string.str_certik_chain_test_2));
 
         }
     }

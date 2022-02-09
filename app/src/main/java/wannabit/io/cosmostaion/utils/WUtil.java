@@ -3266,122 +3266,124 @@ public class WUtil {
     }
 
     public static String getTxExplorer(BaseChain basechain, String hash) {
-        if (basechain.equals(BNB_MAIN)) {
-            return EXPLORER_BINANCE_MAIN + "txs/" + hash;
+        if (hash != null) {
+            if (basechain.equals(BNB_MAIN)) {
+                return EXPLORER_BINANCE_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(OKEX_MAIN)) {
-            return EXPLORER_OKEX_MAIN + "tx/0x" + hash;
+            } else if (basechain.equals(OKEX_MAIN)) {
+                return EXPLORER_OKEX_MAIN + "tx/0x" + hash;
 
-        }
+            }
 
-        else if (basechain.equals(COSMOS_MAIN)) {
-            return EXPLORER_COSMOS_MAIN + "txs/" + hash;
+            else if (basechain.equals(COSMOS_MAIN)) {
+                return EXPLORER_COSMOS_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(IRIS_MAIN)) {
-            return EXPLORER_IRIS_MAIN + "txs/" + hash;
+            } else if (basechain.equals(IRIS_MAIN)) {
+                return EXPLORER_IRIS_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(AKASH_MAIN)) {
-            return EXPLORER_AKASH_MAIN + "txs/" + hash;
+            } else if (basechain.equals(AKASH_MAIN)) {
+                return EXPLORER_AKASH_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            return EXPLORER_SENTINEL_MAIN + "txs/" + hash;
+            } else if (basechain.equals(SENTINEL_MAIN)) {
+                return EXPLORER_SENTINEL_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(PERSIS_MAIN)) {
-            return EXPLORER_PERSIS_MAIN + "txs/" + hash;
+            } else if (basechain.equals(PERSIS_MAIN)) {
+                return EXPLORER_PERSIS_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(CRYPTO_MAIN)) {
-            return EXPLORER_CRYPTOORG_MAIN + "txs/" + hash;
+            } else if (basechain.equals(CRYPTO_MAIN)) {
+                return EXPLORER_CRYPTOORG_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(OSMOSIS_MAIN)) {
-            return EXPLORER_OSMOSIS_MAIN + "txs/" + hash;
+            } else if (basechain.equals(OSMOSIS_MAIN)) {
+                return EXPLORER_OSMOSIS_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(IOV_MAIN)) {
-            return EXPLORER_IOV_MAIN + "txs/" + hash;
+            } else if (basechain.equals(IOV_MAIN)) {
+                return EXPLORER_IOV_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(SIF_MAIN)) {
-            return EXPLORER_SIF_MAIN + "txs/" + hash;
+            } else if (basechain.equals(SIF_MAIN)) {
+                return EXPLORER_SIF_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(BAND_MAIN)) {
-            return EXPLORER_BAND_MAIN + "txs/" + hash;
+            } else if (basechain.equals(BAND_MAIN)) {
+                return EXPLORER_BAND_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(MEDI_MAIN)) {
-            return EXPLORER_MEDI_MAIN + "txs/" + hash;
+            } else if (basechain.equals(MEDI_MAIN)) {
+                return EXPLORER_MEDI_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(CERTIK_MAIN)) {
-            return EXPLORER_CERTIK_MAIN + "txs/" + hash;
+            } else if (basechain.equals(CERTIK_MAIN)) {
+                return EXPLORER_CERTIK_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(EMONEY_MAIN)) {
-            return EXPLORER_EMONEY_MAIN + "txs/" + hash;
+            } else if (basechain.equals(EMONEY_MAIN)) {
+                return EXPLORER_EMONEY_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(FETCHAI_MAIN)) {
-            return EXPLORER_FETCHAI_MAIN + "txs/" + hash;
+            } else if (basechain.equals(FETCHAI_MAIN)) {
+                return EXPLORER_FETCHAI_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(RIZON_MAIN)) {
-            return EXPLORER_RIZON_MAIN + "txs/" + hash;
+            } else if (basechain.equals(RIZON_MAIN)) {
+                return EXPLORER_RIZON_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(JUNO_MAIN)) {
-            return EXPLORER_JUNO_MAIN + "txs/" + hash;
+            } else if (basechain.equals(JUNO_MAIN)) {
+                return EXPLORER_JUNO_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(REGEN_MAIN)) {
-            return EXPLORER_REGEN_MAIN + "txs/" + hash;
+            } else if (basechain.equals(REGEN_MAIN)) {
+                return EXPLORER_REGEN_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(BITCANNA_MAIN)) {
-            return EXPLORER_BITCANNA_MAIN + "txs/" + hash;
+            } else if (basechain.equals(BITCANNA_MAIN)) {
+                return EXPLORER_BITCANNA_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(ALTHEA_MAIN)) {
-            return EXPLORER_ALTHEA_MAIN + "txs/" + hash;
+            } else if (basechain.equals(ALTHEA_MAIN)) {
+                return EXPLORER_ALTHEA_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(STARGAZE_MAIN)) {
-            return EXPLORER_STARGAZE_MAIN + "txs/" + hash;
+            } else if (basechain.equals(STARGAZE_MAIN)) {
+                return EXPLORER_STARGAZE_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(GRABRIDGE_MAIN)) {
-            return EXPLORER_GRABRIDGE_MAIN + "txs/" + hash;
+            } else if (basechain.equals(GRABRIDGE_MAIN)) {
+                return EXPLORER_GRABRIDGE_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(KI_MAIN)) {
-            return EXPLORER_KI_MAIN + "txs/" + hash;
+            } else if (basechain.equals(KI_MAIN)) {
+                return EXPLORER_KI_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(COMDEX_MAIN)) {
-            return EXPLORER_COMDEX_MAIN + "txs/" + hash;
+            } else if (basechain.equals(COMDEX_MAIN)) {
+                return EXPLORER_COMDEX_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(SECRET_MAIN)) {
-            return EXPLORER_SECRET_MAIN + "txs/" + hash;
+            } else if (basechain.equals(SECRET_MAIN)) {
+                return EXPLORER_SECRET_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(INJ_MAIN)) {
-            return EXPLORER_INJ_MAIN + "txs/" + hash;
-        
-        } else if (basechain.equals(BITSONG_MAIN)) {
-            return EXPLORER_BITSONG_MAIN + "txs/" + hash;
+            } else if (basechain.equals(INJ_MAIN)) {
+                return EXPLORER_INJ_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(DESMOS_MAIN)) {
-            return EXPLORER_DESMOS_MAIN + "txs/" + hash;
+            } else if (basechain.equals(BITSONG_MAIN)) {
+                return EXPLORER_BITSONG_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(LUM_MAIN)) {
-            return EXPLORER_LUM_MAIN + "txs/" + hash;
+            } else if (basechain.equals(DESMOS_MAIN)) {
+                return EXPLORER_DESMOS_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(CHIHUAHUA_MAIN)) {
-            return EXPLORER_CHIHUAHUA_MAIN + "txs/" + hash;
+            } else if (basechain.equals(LUM_MAIN)) {
+                return EXPLORER_LUM_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(KAVA_MAIN)) {
-            return EXPLORER_KAVA_MAIN + "txs/" + hash;
+            } else if (basechain.equals(CHIHUAHUA_MAIN)) {
+                return EXPLORER_CHIHUAHUA_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(AXELAR_MAIN)) {
-            return EXPLORER_AXELAR_MAIN + "txs/" + hash;
+            } else if (basechain.equals(KAVA_MAIN)) {
+                return EXPLORER_KAVA_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(KONSTELL_MAIN)) {
-            return EXPLORER_KONSTELL_MAIN + "txs/" + hash;
+            } else if (basechain.equals(AXELAR_MAIN)) {
+                return EXPLORER_AXELAR_MAIN + "txs/" + hash;
 
-        }
+            } else if (basechain.equals(KONSTELL_MAIN)) {
+                return EXPLORER_KONSTELL_MAIN + "txs/" + hash;
+
+            }
 
 
-        else if (basechain.equals(COSMOS_TEST)) {
-            return EXPLORER_COSMOS_TEST + "txs/" + hash;
+            else if (basechain.equals(COSMOS_TEST)) {
+                return EXPLORER_COSMOS_TEST + "txs/" + hash;
 
-        } else if (basechain.equals(IRIS_TEST)) {
-            return EXPLORER_IRIS_TEST + "txs/" + hash;
+            } else if (basechain.equals(IRIS_TEST)) {
+                return EXPLORER_IRIS_TEST + "txs/" + hash;
 
-        } else if (basechain.equals(UMEE_TEST)) {
-            return EXPLORER_UMEE_TEST + "txs/" + hash;
+            } else if (basechain.equals(UMEE_TEST)) {
+                return EXPLORER_UMEE_TEST + "txs/" + hash;
 
+            }
         }
         return "";
     }

@@ -142,12 +142,6 @@ public class SendContractActivity extends BaseBroadCastActivity {
         }
     }
 
-    @Override
-    public void onCancelWithVesting() {
-        onBackPressed();
-    }
-
-
     public void onStartSendContract() {
         Intent intent = new Intent(SendContractActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_EXECUTE_CONTRACT);
