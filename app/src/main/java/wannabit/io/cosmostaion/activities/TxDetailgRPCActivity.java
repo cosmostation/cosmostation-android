@@ -231,9 +231,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             startActivity(Intent.createChooser(shareIntent, "send"));
 
         } else if (v.equals(mExplorerBtn)) {
-                String url  = WUtil.getTxExplorer(mBaseChain, mResponse.getTxResponse().getTxhash());
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
+            String url  = WUtil.getTxExplorer(mBaseChain, mResponse.getTxResponse().getTxhash());
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
         }
 
     }

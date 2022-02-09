@@ -1,5 +1,21 @@
 package wannabit.io.cosmostaion.base;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -70,22 +86,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class BaseData {
 
@@ -172,7 +172,7 @@ public class BaseData {
     public ArrayList<Cw20Assets> getCw20sGrpc() {
         ArrayList<Cw20Assets> result = new ArrayList<>();
         for (Cw20Assets assets: mCw20Assets) {
-            if (assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+            if (assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
                 result.add(assets);
             }
         }
@@ -180,9 +180,11 @@ public class BaseData {
     }
 
     public Cw20Assets getCw20_gRPC(String contAddress) {
-        for (Cw20Assets assets: mCw20Assets) {
-            if (assets.contract_address.equalsIgnoreCase(contAddress)) {
-                return assets;
+        if (mCw20Assets != null && mCw20Assets.size() > 0) {
+            for (Cw20Assets assets: mCw20Assets) {
+                if (assets.contract_address.equalsIgnoreCase(contAddress)) {
+                    return assets;
+                }
             }
         }
         return null;

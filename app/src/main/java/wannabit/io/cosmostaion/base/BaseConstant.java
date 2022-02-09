@@ -480,6 +480,7 @@ public class BaseConstant {
     public final static String TOKEN_DESMOS         = "udsm";
     public final static String TOKEN_LUM            = "ulum";
     public final static String TOKEN_CHIHUAHUA      = "uhuahua";
+    public final static String TOKEN_DARC           = "udarc";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
@@ -744,6 +745,10 @@ public class BaseConstant {
     public final static String JUNO_GAS_RATE_LOW                        = "0.005";
     public final static String JUNO_GAS_RATE_AVERAGE                    = "0.025";
 
+    public final static String KONSTELL_GAS_RATE_TINY                   = "0.0001";
+    public final static String KONSTELL_GAS_RATE_LOW                    = "0.001";
+    public final static String KONSTELL_GAS_RATE_AVERAGE                = "0.01";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -800,6 +805,7 @@ public class BaseConstant {
     public final static String DESMOS_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/desmos/";
     public final static String LUM_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/lum-network/";
     public final static String CHIHUAHUA_VAL_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/chihuahua/";
+    public final static String KONSTELL_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/konstellation/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -844,6 +850,7 @@ public class BaseConstant {
     public final static String EXPLORER_LUM_MAIN        = "https://www.mintscan.io/lum/";
     public final static String EXPLORER_CHIHUAHUA_MAIN  = "https://www.mintscan.io/chihuahua/";
     public final static String EXPLORER_AXELAR_MAIN     = "https://www.mintscan.io/axelar/";
+    public final static String EXPLORER_KONSTELL_MAIN   = "https://www.mintscan.io/konstellation/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
     public final static String EXPLORER_OEC_TX          = "https://www.oklink.com/oec/";
@@ -853,15 +860,9 @@ public class BaseConstant {
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
-    public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
-    public final static String EXPLORER_KAVA_TEST       = "https://dev.mintscan.io/kava-testnet/";
-    public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";
     public final static String EXPLORER_RIZON_TEST      = "https://testnet.mintscan.io/rizon/";
     public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
-    public final static String EXPLORER_MEDI_TEST       = "https://testnet.mintscan.io/medibloc/";
-    public final static String EXPLORER_ALTHEA_TEST     = "https://testnet.mintscan.io/althea/";
     public final static String EXPLORER_UMEE_TEST       = "https://testnet.mintscan.io/umee/";
-    public final static String EXPLORER_AXELAR_TEST     = "https://testnet.mintscan.io/axelar/";
 
 
     public final static String AKASH_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/akash/relay-akash-unknown.png";
@@ -894,6 +895,7 @@ public class BaseConstant {
     public final static String CHIHUAHUA_UNKNOWN_RELAYER= "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/chihuahua/relay-chihuahua-unknown.png";
     public final static String KAVA_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/kava/relay-kava-unknown.png";
     public final static String AXELAR_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/axelar/relay-axelar-unknown.png";
+    public final static String KONSTELL_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/konstellation/relay-konstellation-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
     //NFT Denom Default config
@@ -937,4 +939,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_LUM = new BigDecimal("5.7210");
     public final static BigDecimal BLOCK_TIME_CHIHUAHUA = new BigDecimal("5.8172");
     public final static BigDecimal BLOCK_TIME_AXELAR = new BigDecimal("5.5596");
+    public final static BigDecimal BLOCK_TIME_KONSTELLATION = new BigDecimal("5.376");
 }

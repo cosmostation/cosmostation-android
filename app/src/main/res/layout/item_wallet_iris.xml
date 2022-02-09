@@ -14,7 +14,7 @@
         android:layout_marginRight="@dimen/space_12"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardElevation="1.5dp"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBgIris"
         app:cardUseCompatPadding="true">
         <LinearLayout

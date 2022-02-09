@@ -138,11 +138,6 @@ public class UndelegateActivity extends BaseBroadCastActivity {
         }
     }
 
-    @Override
-    public void onCancelWithVesting() {
-        onBackPressed();
-    }
-
     public void onStartUndelegate() {
         Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_UNDELEGATE);

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_PROPOSAL_LIST;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -31,8 +33,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_PROPOSAL_LIST;
 
 public class VoteListActivity extends BaseActivity implements TaskListener {
 
@@ -119,9 +119,9 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                     onSortingProposal(mApiProposalList, mBaseChain);
                     mGrpcProposalsAdapter.notifyDataSetChanged();
                     mRecyclerView.setVisibility(View.VISIBLE);
-                } else {
-                    mEmptyProposal.setVisibility(View.VISIBLE);
                 }
+            } else {
+                mEmptyProposal.setVisibility(View.VISIBLE);
             }
         }
         mSwipeRefreshLayout.setRefreshing(false);

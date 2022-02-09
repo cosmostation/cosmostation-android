@@ -75,7 +75,8 @@ public class WalletSwitchActivity extends BaseActivity {
                 setExpendChains();
                 finish();
             }
-        }, 200);
+        }, 400);
+
     }
 
     public void setExpendChains() {

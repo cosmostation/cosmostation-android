@@ -468,10 +468,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         startActivity(new Intent(BaseActivity.this, RestoreActivity.class));
     }
 
-    public void onCancelWithVesting() {
-
-    }
-
     public void onUpdateUserAlarm(Account account, boolean useAlarm) {
         new PushUpdateTask(getBaseApplication(), this, account, getBaseDao().getFCMToken(), useAlarm).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -571,7 +567,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         //kava GRPC
         getBaseDao().mIncentiveParam5 = null;
         getBaseDao().mIncentiveRewards = null;
-        getBaseDao().mKavaPrices.clear();
         getBaseDao().mMyHardDeposits.clear();
         getBaseDao().mMyHardBorrows.clear();
         getBaseDao().mModuleCoins.clear();
@@ -937,9 +932,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == TASK_GRPC_FETCH_KAVA_PRICES) {
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<QueryOuterClass.CurrentPriceResponse> currentPrices = (ArrayList<QueryOuterClass.CurrentPriceResponse>) result.resultData;
-                if (currentPrices != null) { getBaseDao().mKavaPrices = currentPrices; }
-                for (QueryOuterClass.CurrentPriceResponse response: currentPrices) {
-                    getBaseDao().mKavaTokenPrice.put(response.getMarketId(), response);
+                if (currentPrices != null) {
+                    for (QueryOuterClass.CurrentPriceResponse response : currentPrices) {
+                        getBaseDao().mKavaTokenPrice.put(response.getMarketId(), response);
+                    }
                 }
             }
         }
@@ -948,9 +944,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         else if (result.taskType == TASK_FETCH_MINTSCAN_CW20_ASSETS) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mCw20Assets = (ArrayList<Cw20Assets>) result.resultData;
-                for (Cw20Assets assets: getBaseDao().mCw20Assets) {
-                    mTaskCount = mTaskCount + 1;
-                    new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, assets.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                if (getBaseDao().mCw20Assets != null && getBaseDao().mCw20Assets.size() > 0) {
+                    for (Cw20Assets assets: getBaseDao().mCw20Assets) {
+                        mTaskCount = mTaskCount + 1;
+                        new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, assets.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    }
                 }
             }
         }

@@ -494,6 +494,30 @@
                 android:layout_height="1px"
                 android:background="@color/colorGray10"/>
             <LinearLayout
+                android:id="@+id/konstellation_chain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/space_4">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:src="@drawable/chain_konstellation"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:text="@string/str_konstellation_main_net"
+                    style="@style/font_ss_14_gray8"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorGray10"/>
+            <LinearLayout
                 android:id="@+id/medi_chain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -931,192 +955,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/bnb_test_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
-                <LinearLayout
-                    android:id="@+id/bnb_test_net"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/space_4">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:src="@drawable/binancetestnet"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:text="@string/str_bnb_test_net"
-                        style="@style/font_ss_14_gray8"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/iov_test_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
-                <LinearLayout
-                    android:id="@+id/iov_test_net"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/space_4">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:src="@drawable/iov_testnet_img"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:text="@string/str_iov_test_net"
-                        style="@style/font_ss_14_gray8"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ok_test_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
-                <LinearLayout
-                    android:id="@+id/ok_test_net"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/space_4">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:src="@drawable/okex_testnet_img"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:text="@string/str_ok_test_net"
-                        style="@style/font_ss_14_gray8"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/certik_test_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
-                <LinearLayout
-                    android:id="@+id/certik_test_net"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/space_4">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:src="@drawable/certik_testnet_img"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:text="@string/str_certik_test_net"
-                        style="@style/font_ss_14_gray8"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/rizon_test_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
-                <LinearLayout
-                    android:id="@+id/rizon_test_net"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/space_4">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:src="@drawable/testnet_rizon"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:text="@string/str_rizon_test_net"
-                        style="@style/font_ss_14_gray8"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/medi_test_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
-                <LinearLayout
-                    android:id="@+id/medi_test_net"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/space_4">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:src="@drawable/testnet_medibloc"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:text="@string/str_medi_test_net"
-                        style="@style/font_ss_14_gray8"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/althea_test_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1145,57 +983,6 @@
                         android:text="@string/str_althea_test_net"
                         style="@style/font_ss_14_gray8"/>
                 </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/colorGray10"
-                android:visibility="gone"/>
-            <LinearLayout
-                android:id="@+id/gaia_12k"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="@dimen/space_4"
-                android:visibility="gone">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/cosmos_wh_main"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:text="@string/str_cosmos_test_net_12k"
-                    style="@style/font_ss_14_gray6"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/colorGray10"
-                android:visibility="gone"/>
-            <LinearLayout
-                android:id="@+id/gaia_13k"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="@dimen/space_4"
-                android:visibility="gone">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:src="@drawable/cosmos_wh_main"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:text="@string/str_cosmos_test_net_13k"
-                    style="@style/font_ss_14_gray8"/>
             </LinearLayout>
         </LinearLayout>
 

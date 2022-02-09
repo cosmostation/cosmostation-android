@@ -877,14 +877,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     txIntent.putExtra("txHash", hash);
                 startActivity(txIntent);
 
-            } else if (mBaseChain.equals(RIZON_MAIN) && result.taskType == TASK_HDAC_BROAD_BURN) {
-                Intent txIntent = new Intent(PasswordCheckActivity.this, EventHorizonDetailActivity.class);
-                String hash = String.valueOf(result.resultData);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                if(!TextUtils.isEmpty(hash))
-                    txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-
             } else if (isGRPC(mBaseChain)) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailgRPCActivity.class);
                 txIntent.putExtra("isGen", true);

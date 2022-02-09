@@ -167,11 +167,6 @@ public class IBCSendActivity extends BaseBroadCastActivity {
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-    @Override
-    public void onCancelWithVesting() {
-        onBackPressed();
-    }
-
     private class IbcSendPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();

@@ -65,6 +65,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
@@ -429,8 +430,6 @@ public class WKey {
                 result = bech32Encode("kava".getBytes(), converted);
             } else if (chain.equals(BAND_MAIN)){
                 result = bech32Encode("band".getBytes(), converted);
-            } else if (chain.equals(BNB_TEST)){
-                result = bech32Encode("tbnb".getBytes(), converted);
             } else if (chain.equals(IOV_MAIN)){
                 result = bech32Encode("star".getBytes(), converted);
             } else if (chain.equals(CERTIK_MAIN)){
@@ -487,6 +486,8 @@ public class WKey {
                 result = bech32Encode("umee".getBytes(), converted);
             } else if (chain.equals(AXELAR_MAIN)){
                 result = bech32Encode("axelar".getBytes(), converted);
+            } else if (chain.equals(KONSTELL_MAIN)){
+                result = bech32Encode("darc".getBytes(), converted);
             }
 
         } catch (Exception e) {
@@ -564,6 +565,8 @@ public class WKey {
             return bech32Encode("umee".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AXELAR_MAIN)) {
             return bech32Encode("axelar".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(KONSTELL_MAIN)) {
+            return bech32Encode("darc".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }

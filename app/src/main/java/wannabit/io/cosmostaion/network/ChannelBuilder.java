@@ -29,6 +29,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
@@ -136,6 +137,9 @@ public class ChannelBuilder {
     private final static String GRPC_AXELAR_MAIN = "lcd-axelar-app.cosmostation.io";
     private final static int PORT_AXELAR_MAIN = 9090;
 
+    private final static String GRPC_KONSTELL_MAIN = "lcd-konstellation-app.cosmostation.io";
+    private final static int PORT_KONSTELL_MAIN = 9090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -222,6 +226,8 @@ public class ChannelBuilder {
             return getKavaMain();
         } else if (chain.equals(AXELAR_MAIN)) {
             return getAxelarMain();
+        }  else if (chain.equals(KONSTELL_MAIN)) {
+            return getKonstellMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -643,6 +649,19 @@ public class ChannelBuilder {
             }
         }
         return channel_axelar_main;
+    }
+
+    //Channel for konstellation main
+    private static ManagedChannel channel_konstell_main = null;
+    public static ManagedChannel getKonstellMain() {
+        if (channel_konstell_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_konstell_main = ManagedChannelBuilder.forAddress(GRPC_KONSTELL_MAIN, PORT_KONSTELL_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_konstell_main;
     }
 
     //Channel for stargate testnet

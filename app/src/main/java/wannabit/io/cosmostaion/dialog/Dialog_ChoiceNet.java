@@ -16,26 +16,20 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class Dialog_ChoiceNet extends DialogFragment {
 
 
-    private LinearLayout mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
-    private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
+    private LinearLayout mCosmosTestLayer, mIrisTestLayer;
+    private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov;
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi,
-                         mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mComdex, mBitsong, mInj, mSecret, mDesmos, mLum, mChihuahua, mAxelar;
-    private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer, mUmeeTestLayer, mAxelarTestLayer;
-    private LinearLayout mCosmosTest, mIrisTest, mRizonTest, mMediTest, mAltheaTest, mUmeeTest, mAxelarTest;
+                         mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mComdex, mBitsong, mInj,
+                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation;
+    private LinearLayout mAltheaTestLayer, mUmeeTestLayer;
+    private LinearLayout mCosmosTest, mIrisTest, mAltheaTest, mUmeeTest;
 
     private boolean      mIsAdd = false;
 
@@ -66,17 +60,6 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mCosmosTest = view.findViewById(R.id.cosmos_test_net);
         mIrisTestLayer = view.findViewById(R.id.iris_test_layer);
         mIrisTest = view.findViewById(R.id.iris_test_net);
-        mBinanaceTestLayer = view.findViewById(R.id.bnb_test_layer);
-        mBinanaceTest = view.findViewById(R.id.bnb_test_net);
-
-        mIovTestLayer = view.findViewById(R.id.iov_test_layer);
-        mIovTest = view.findViewById(R.id.iov_test_net);
-        mOKTestLayer = view.findViewById(R.id.ok_test_layer);
-        mOKTest = view.findViewById(R.id.ok_test_net);
-        mCertikTestLayer = view.findViewById(R.id.certik_test_layer);
-        mCertikTest = view.findViewById(R.id.certik_test_net);
-        mTest12k = view.findViewById(R.id.gaia_12k);
-        mTest13k = view.findViewById(R.id.gaia_13k);
 
         mBand = view.findViewById(R.id.band_chain);
         mCertik = view.findViewById(R.id.certik_chain);
@@ -105,17 +88,13 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mLum = view.findViewById(R.id.lum_chain);
         mChihuahua = view.findViewById(R.id.chihuahua_chain);
         mAxelar = view.findViewById(R.id.axelar_chain);
+        mKonstellation = view.findViewById(R.id.konstellation_chain);
 
-        mRizonTestLayer = view.findViewById(R.id.rizon_test_layer);
-        mRizonTest = view.findViewById(R.id.rizon_test_net);
-        mMediTestLayer = view.findViewById(R.id.medi_test_layer);
-        mMediTest = view.findViewById(R.id.medi_test_net);
+
         mAltheaTestLayer = view.findViewById(R.id.althea_test_layer);
         mAltheaTest = view.findViewById(R.id.althea_test_net);
         mUmeeTestLayer = view.findViewById(R.id.umee_test_layer);
         mUmeeTest = view.findViewById(R.id.umee_test_net);
-        mAxelarTestLayer = view.findViewById(R.id.axelar_test_layer);
-        mAxelarTest = view.findViewById(R.id.axelar_test_net);
 
         if (getArguments() != null) {
             mIsAdd = true;
@@ -519,6 +498,18 @@ public class Dialog_ChoiceNet extends DialogFragment {
             }
         });
 
+        mKonstellation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.KONSTELL_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.KONSTELL_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
+
 
         if (BaseChain.SUPPORT_CHAINS().contains(COSMOS_TEST)) {
             mCosmosTestLayer.setVisibility(View.VISIBLE);
@@ -550,96 +541,6 @@ public class Dialog_ChoiceNet extends DialogFragment {
             });
         }
 
-        if (BaseChain.SUPPORT_CHAINS().contains(BNB_TEST)) {
-            mBinanaceTestLayer.setVisibility(View.VISIBLE);
-            mBinanaceTest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mIsAdd) {
-                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.REGEN_MAIN);
-                    } else {
-                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.REGEN_MAIN);
-                    }
-                    getDialog().dismiss();
-                }
-            });
-        }
-
-        if (BaseChain.SUPPORT_CHAINS().contains(IOV_TEST)) {
-            mIovTestLayer.setVisibility(View.VISIBLE);
-            mIovTest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mIsAdd) {
-                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.IOV_TEST);
-                    } else {
-                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IOV_TEST);
-                    }
-                    getDialog().dismiss();
-                }
-            });
-        }
-
-        if (BaseChain.SUPPORT_CHAINS().contains(OK_TEST)) {
-            mOKTestLayer.setVisibility(View.VISIBLE);
-            mOKTest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mIsAdd) {
-                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.OK_TEST);
-                    } else {
-                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.OK_TEST);
-                    }
-                    getDialog().dismiss();
-                }
-            });
-        }
-
-        if (BaseChain.SUPPORT_CHAINS().contains(CERTIK_TEST)) {
-            mCertikTestLayer.setVisibility(View.VISIBLE);
-            mCertikTest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mIsAdd) {
-                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.CERTIK_TEST);
-                    } else {
-                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.CERTIK_TEST);
-                    }
-                    getDialog().dismiss();
-                }
-            });
-        }
-
-        if (BaseChain.SUPPORT_CHAINS().contains(RIZON_TEST)) {
-            mRizonTestLayer.setVisibility(View.VISIBLE);
-            mRizonTest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mIsAdd) {
-                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.RIZON_TEST);
-                    } else {
-                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.RIZON_TEST);
-                    }
-                    getDialog().dismiss();
-                }
-            });
-        }
-
-        if (BaseChain.SUPPORT_CHAINS().contains(MEDI_TEST)) {
-            mMediTestLayer.setVisibility(View.VISIBLE);
-            mMediTest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mIsAdd) {
-                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.MEDI_TEST);
-                    } else {
-                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.MEDI_TEST);
-                    }
-                    getDialog().dismiss();
-                }
-            });
-        }
-
         if (BaseChain.SUPPORT_CHAINS().contains(ALTHEA_TEST)) {
             mAltheaTestLayer.setVisibility(View.VISIBLE);
             mAltheaTest.setOnClickListener(new View.OnClickListener() {
@@ -664,21 +565,6 @@ public class Dialog_ChoiceNet extends DialogFragment {
                         ((BaseActivity)getActivity()).onChainSelected(BaseChain.UMEE_TEST);
                     } else {
                         ((BaseActivity)getActivity()).onChoiceNet(BaseChain.UMEE_TEST);
-                    }
-                    getDialog().dismiss();
-                }
-            });
-        }
-
-        if (BaseChain.SUPPORT_CHAINS().contains(AXELAR_TEST)) {
-            mAxelarTestLayer.setVisibility(View.VISIBLE);
-            mAxelarTest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mIsAdd) {
-                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.AXELAR_TEST);
-                    } else {
-                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.AXELAR_TEST);
                     }
                     getDialog().dismiss();
                 }

@@ -79,6 +79,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -111,6 +112,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CHIHUAHUA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COMDEX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DARC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DESMOS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
@@ -1237,6 +1239,17 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(getBaseDao(), coin.denom), 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, tokenTotalAmount, 6));
+
+        } else if (coin.denom.equals(TOKEN_DARC)) {
+            holder.itemSymbol.setText(getString(R.string.str_konstellation_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KONSTELL_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Konstellation Staking Coin");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_konstellation));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_DARC);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
         }
 
