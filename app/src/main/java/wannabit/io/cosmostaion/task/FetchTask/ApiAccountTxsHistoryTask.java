@@ -1,5 +1,11 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+
 import java.util.ArrayList;
 
 import retrofit2.Response;
@@ -12,16 +18,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class ApiAccountTxsHistoryTask extends CommonTask {
 
@@ -128,7 +124,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.MEDI_MAIN) || mChain.equals(MEDI_TEST)) {
+            } else if (mChain.equals(BaseChain.MEDI_MAIN)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getMediblocApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
@@ -305,6 +301,15 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
+            } else if (mChain.equals(BaseChain.UMEE_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getUmeeApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
             }
 
             else if (mChain.equals(COSMOS_TEST)) {
@@ -325,35 +330,8 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(RIZON_TEST)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getRizonTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
             } else if (mChain.equals(ALTHEA_TEST)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAltheaTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(UMEE_TEST)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getUmeeTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(AXELAR_TEST)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAxelarTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

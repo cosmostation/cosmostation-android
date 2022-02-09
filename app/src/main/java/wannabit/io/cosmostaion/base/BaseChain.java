@@ -1,19 +1,15 @@
 package wannabit.io.cosmostaion.base;
 
-import java.util.ArrayList;
-
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
+
+import java.util.ArrayList;
 
 public enum BaseChain {
     // chain_id is checked on-chain. no need update chain version  21.03.20
@@ -73,6 +69,7 @@ public enum BaseChain {
     CHIHUAHUA_MAIN("chihuahua-mainnet"),
     AXELAR_MAIN("axelar-mainnet"),
     KONSTELL_MAIN("konstellation-mainnet"),
+    UMEE_MAIN("umee-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -97,13 +94,8 @@ public enum BaseChain {
     OK_TEST_LEGACY2("okexchain-testnet1"),
     OK_TEST_LEGACY3("okexchain-65"),
     OK_TEST("okexchain-testnet"),
-    CERTIK_TEST_LEGACY1("shentu-incentivized-3"),
-    CERTIK_TEST("certik-testnet"),
     RIZON_TEST("rizon-testnet2"),
-    MEDI_TEST("medi-testnet"),
-    ALTHEA_TEST("althea-testnet"),
-    UMEE_TEST("umee-testnet"),
-    AXELAR_TEST("axelar-testnet");
+    ALTHEA_TEST("althea-testnet");
 
     private final String chainName;
 
@@ -239,6 +231,9 @@ public enum BaseChain {
         if(chainName.equals(KONSTELL_MAIN.chainName)) {
             return KONSTELL_MAIN;
         }
+        if(chainName.equals(UMEE_MAIN.chainName)) {
+            return UMEE_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -247,9 +242,6 @@ public enum BaseChain {
         if (chainName.equals(IRIS_TEST_LEGACY1.chainName) ||
                 chainName.equals(IRIS_TEST.chainName)) {
             return IRIS_TEST;
-        }
-        if (chainName.equals(UMEE_TEST.chainName)) {
-            return UMEE_TEST;
         }
 
         return null;
@@ -290,9 +282,9 @@ public enum BaseChain {
         result.add(SIF_MAIN);
         result.add(STARGAZE_MAIN);
         result.add(IOV_MAIN);
+        result.add(UMEE_MAIN);
 
 //        result.add(ALTHEA_MAIN);
-        result.add(UMEE_TEST);
         return result;
     }
 
@@ -301,7 +293,7 @@ public enum BaseChain {
     }
 
     public static boolean IS_TESTNET(BaseChain chain) {
-        if (chain.equals(UMEE_TEST) || chain.equals(AXELAR_TEST)) {
+        if (chain.equals(ALTHEA_TEST) || chain.equals(UMEE_MAIN)) {
             return true;
         }
         return false;

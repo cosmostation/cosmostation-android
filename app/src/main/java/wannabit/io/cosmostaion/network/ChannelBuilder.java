@@ -1,14 +1,9 @@
 package wannabit.io.cosmostaion.network;
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import wannabit.io.cosmostaion.base.BaseChain;
-
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
@@ -36,12 +31,15 @@ import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
+
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import wannabit.io.cosmostaion.base.BaseChain;
 
 public class ChannelBuilder {
     private final static String GRPC_COSMOS_MAIN = "lcd-cosmos-app-and.cosmostation.io";
@@ -140,6 +138,10 @@ public class ChannelBuilder {
     private final static String GRPC_KONSTELL_MAIN = "lcd-konstellation-app.cosmostation.io";
     private final static int PORT_KONSTELL_MAIN = 9090;
 
+    private final static String GRPC_UMEE_MAIN = "lcd-office.cosmostation.io";
+    private final static int PORT_UMEE_MAIN = 40800;
+
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -149,16 +151,6 @@ public class ChannelBuilder {
 
     private final static String GRPC_ALTHEA_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_ALTHEA_TEST = 20100;
-
-    private final static String GRPC_RIZON_TEST = "lcd-rizon-testnet.cosmostation.io";
-    private final static int PORT_RIZON_TEST = 9090;
-
-    private final static String GRPC_UMEE_TEST = "lcd-office.cosmostation.io";
-    private final static int PORT_UMEE_TEST = 40800;
-
-    private final static String GRPC_AXELAR_TEST = "lcd-axelar-testnet.cosmostation.io";
-    private final static int PORT_AXELAR_TEST = 9090;
-
 
     public final static int TIME_OUT = 8;
 
@@ -226,22 +218,18 @@ public class ChannelBuilder {
             return getKavaMain();
         } else if (chain.equals(AXELAR_MAIN)) {
             return getAxelarMain();
-        }  else if (chain.equals(KONSTELL_MAIN)) {
+        } else if (chain.equals(KONSTELL_MAIN)) {
             return getKonstellMain();
+        } else if (chain.equals(UMEE_MAIN)) {
+            return getUmeeMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
         } else if (chain.equals(IRIS_TEST)) {
             return getIrisTest();
-        } else if (chain.equals(RIZON_TEST)) {
-            return getRizonTest();
         } else if (chain.equals(ALTHEA_TEST)) {
             return getAltheaTest();
-        } else if (chain.equals(UMEE_TEST)) {
-            return getUmeeTest();
-        } else if (chain.equals(AXELAR_TEST)) {
-            return getAxelarTest();
         }
         return null;
     }
@@ -664,6 +652,19 @@ public class ChannelBuilder {
         return channel_konstell_main;
     }
 
+    //Channel for umee main
+    private static ManagedChannel channel_umee_main = null;
+    public static ManagedChannel getUmeeMain() {
+        if (channel_umee_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_umee_main = ManagedChannelBuilder.forAddress(GRPC_UMEE_MAIN, PORT_UMEE_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_umee_main;
+    }
+
     //Channel for stargate testnet
     private static ManagedChannel channel_cosmos_test = null;
     public static ManagedChannel getCosmosTest() {
@@ -690,19 +691,6 @@ public class ChannelBuilder {
         return channel_iris_test;
     }
 
-    //Channel for rizon testnet
-    private static ManagedChannel channel_rizon_test = null;
-    public static ManagedChannel getRizonTest() {
-        if (channel_rizon_test == null) {
-            synchronized (ChannelBuilder.class) {
-                channel_rizon_test = ManagedChannelBuilder.forAddress(GRPC_RIZON_TEST, PORT_RIZON_TEST)
-                        .usePlaintext()
-                        .build();
-            }
-        }
-        return channel_rizon_test;
-    }
-
     //Channel for althea testnet
     private static ManagedChannel channel_althea_test = null;
     public static ManagedChannel getAltheaTest() {
@@ -714,31 +702,5 @@ public class ChannelBuilder {
             }
         }
         return channel_althea_test;
-    }
-
-    //Channel for umee testnet
-    private static ManagedChannel channel_umee_test = null;
-    public static ManagedChannel getUmeeTest() {
-        if (channel_umee_test == null) {
-            synchronized (ChannelBuilder.class) {
-                channel_umee_test = ManagedChannelBuilder.forAddress(GRPC_UMEE_TEST, PORT_UMEE_TEST)
-                        .usePlaintext()
-                        .build();
-            }
-        }
-        return channel_umee_test;
-    }
-
-    //Channel for axelar testnet
-    private static ManagedChannel channel_axelar_test = null;
-    public static ManagedChannel getAxelarTest() {
-        if (channel_axelar_test == null) {
-            synchronized (ChannelBuilder.class) {
-                channel_axelar_test = ManagedChannelBuilder.forAddress(GRPC_AXELAR_TEST, PORT_AXELAR_TEST)
-                        .usePlaintext()
-                        .build();
-            }
-        }
-        return channel_axelar_test;
     }
 }

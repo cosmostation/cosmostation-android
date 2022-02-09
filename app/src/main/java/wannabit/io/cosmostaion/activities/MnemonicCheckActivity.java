@@ -1,31 +1,5 @@
 package wannabit.io.cosmostaion.activities;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-
-import java.util.ArrayList;
-
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_Safe_Copy;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WUtil;
-
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
@@ -60,8 +34,34 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+
+import java.util.ArrayList;
+
+import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_Safe_Copy;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicCheckActivity extends BaseActivity {
 
@@ -163,7 +163,7 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_lum));
             } else if (getChain(toCheck.baseChain).equals(CHIHUAHUA_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_chihuahua));
-            } else if (getChain(toCheck.baseChain).equals(UMEE_TEST)) {
+            } else if (getChain(toCheck.baseChain).equals(UMEE_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_umee));
             } else if (getChain(toCheck.baseChain).equals(AXELAR_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_axelar));

@@ -119,10 +119,14 @@
 
 
     <string name="url_api_axelar" translatable="false">https://api-axelar.cosmostation.io/</string>
-    <string name="url_api_axelar_test" translatable="false">https://api-axelar-testnet.cosmostation.io/</string>
 
 
     <string name="url_api_konstellation" translatable="false">https://api-konstellation.cosmostation.io/</string>
+
+
+<!--    <string name="url_api_umee" translatable="false">https://api-umee.cosmostation.io/</string>-->
+    <string name="url_api_umee" translatable="false">https://api-office.cosmostation.io/umee-betanet-v5/</string>
+
 
 
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
@@ -138,9 +142,6 @@
 
 
     <string name="url_api_althea_test" translatable="false">https://api-office.cosmostation.io/althea-testnet2v1/</string>
-
-
-    <string name="url_api_umee_test" translatable="false">https://api-office.cosmostation.io/umee-betanet-v5/</string>
 
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
@@ -232,6 +233,7 @@
     <string name="str_chihuahua_main_net" translatable="false">Chihuahua</string>
     <string name="str_axelar_main_net" translatable="false">Axelar</string>
     <string name="str_konstellation_main_net" translatable="false">Konstellation</string>
+    <string name="str_umee_main_net" translatable="false">Umee</string>
     <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
     <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
     <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
@@ -508,16 +510,10 @@
     <string name="str_axelar_net2" translatable="false">Axelar</string>
     <string name="str_konstellation_net" translatable="false">(Konstellation)</string>
     <string name="str_konstellation_net2" translatable="false">Konstellation</string>
-    <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
-    <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
-    <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
-    <string name="str_medi_chain_test_2" translatable="false">Medibloc Testnet</string>
+    <string name="str_umee_net" translatable="false">(Umee)</string>
+    <string name="str_umee_net2" translatable="false">Umee</string>
     <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
     <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
-    <string name="str_umee_chain_test" translatable="false">(Umee Testnet)</string>
-    <string name="str_umee_chain_test_2" translatable="false">Umee Testnet</string>
-    <string name="str_axelar_chain_test" translatable="false">(Axelar Testnet)</string>
-    <string name="str_axelar_chain_test_2" translatable="false">Axelar Testnet</string>
     <string name="str_emoney_net" translatable="false">(E-Money)</string>
     <string name="str_emoney_net2" translatable="false">E-Money</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
@@ -561,11 +557,8 @@
     <string name="str_chihuahua_main" translatable="false">CHIHUAHUA</string>
     <string name="str_axelar_main" translatable="false">AXELAR</string>
     <string name="str_konstellation_main" translatable="false">KONSTELLATION</string>
-    <string name="str_rizon_test" translatable="false">RIZON TEST</string>
-    <string name="str_medi_test" translatable="false">MEDI TEST</string>
+    <string name="str_umee_main" translatable="false">UMEE</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
-    <string name="str_umee_test" translatable="false">UMEE TEST</string>
-    <string name="str_axelar_test" translatable="false">AXELAR TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>

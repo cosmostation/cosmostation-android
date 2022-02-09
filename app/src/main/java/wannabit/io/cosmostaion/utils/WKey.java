@@ -1,10 +1,50 @@
 package wannabit.io.cosmostaion.utils;
 
+import static org.bitcoinj.core.ECKey.CURVE;
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+
 import android.util.Base64;
 
 import com.google.common.collect.ImmutableList;
-import com.google.protobuf2.Any;
 import com.google.protobuf.ByteString;
+import com.google.protobuf2.Any;
 
 import org.bitcoinj.core.Bech32;
 import org.bitcoinj.core.ECKey;
@@ -33,55 +73,6 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
-
-import static org.bitcoinj.core.ECKey.CURVE;
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 public class WKey {
 
@@ -482,7 +473,7 @@ public class WKey {
                 result = bech32Encode("lum".getBytes(), converted);
             } else if (chain.equals(CHIHUAHUA_MAIN)){
                 result = bech32Encode("chihuahua".getBytes(), converted);
-            } else if (chain.equals(UMEE_TEST)){
+            } else if (chain.equals(UMEE_MAIN)){
                 result = bech32Encode("umee".getBytes(), converted);
             } else if (chain.equals(AXELAR_MAIN)){
                 result = bech32Encode("axelar".getBytes(), converted);
@@ -561,7 +552,7 @@ public class WKey {
             return bech32Encode("lum".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(CHIHUAHUA_MAIN)) {
             return bech32Encode("chihuahua".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(UMEE_TEST)) {
+        } else if (chain.equals(UMEE_MAIN)) {
             return bech32Encode("umee".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AXELAR_MAIN)) {
             return bech32Encode("axelar".getBytes(), bech32Decode(dpOpAddress).data);
