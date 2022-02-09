@@ -1645,6 +1645,7 @@ public class BaseData {
 
     //for okchain key custom_path 0 -> tendermint(996), 1 -> ethermint(996), 2 -> etherium(60)
     public long updateAccountPathType(Account account) {
+        if (account.importTime > 1643986800000L) { return -1; }
         ContentValues values = new ContentValues();
         values.put("customPath",   account.customPath);
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
