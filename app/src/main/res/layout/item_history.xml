@@ -16,7 +16,7 @@
         android:clickable="true"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
-        app:cardElevation="1.5dp"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true">
         <RelativeLayout

@@ -26,7 +26,7 @@ public class Cw20Assets implements Parcelable {
     @SerializedName("logo")
     public String logo;
 
-    public String amount = "0";
+    public String amount;
 
     protected Cw20Assets(Parcel in) {
         id = in.readString();

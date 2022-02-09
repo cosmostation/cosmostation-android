@@ -148,18 +148,12 @@ public class SendActivity extends BaseBroadCastActivity {
 
     public void onBeforeStep() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() > 0) {
+        if (mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             onBackPressed();
         }
     }
-
-    @Override
-    public void onCancelWithVesting() {
-        onBackPressed();
-    }
-
 
     public void onStartSend() {
         Intent intent = new Intent(SendActivity.this, PasswordCheckActivity.class);

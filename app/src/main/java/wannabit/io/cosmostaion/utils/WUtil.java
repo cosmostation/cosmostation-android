@@ -115,6 +115,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
@@ -133,41 +134,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 public class WUtil {
-
-    public static Account getAccountFromLcd(long id, ResLcdAccountInfo lcd) {
-        Account result = new Account();
-        result.id = id;
-        if (lcd.result != null && lcd.height != null) {
-            if (lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
-                    lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                    lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
-                    lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
-                result.address = lcd.result.value.address;
-                result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
-                result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
-                return result;
-            } else {
-                result.address = lcd.result.value.BaseVestingAccount.BaseAccount.address;
-                result.sequenceNumber = Integer.parseInt(lcd.result.value.BaseVestingAccount.BaseAccount.sequence);
-                result.accountNumber = Integer.parseInt(lcd.result.value.BaseVestingAccount.BaseAccount.account_number);
-                return result;
-            }
-        }
-        if (lcd.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
-                lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
-                lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
-            result.address = lcd.value.address;
-            result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
-            result.accountNumber = Integer.parseInt(lcd.value.account_number);
-            return result;
-        } else {
-            result.address = lcd.value.BaseVestingAccount.BaseAccount.address;
-            result.sequenceNumber = Integer.parseInt(lcd.value.BaseVestingAccount.BaseAccount.sequence);
-            result.accountNumber = Integer.parseInt(lcd.value.BaseVestingAccount.BaseAccount.account_number);
-            return result;
-        }
-    }
 
     public static Account getAccountFromBnbLcd(long id, ResBnbAccountInfo lcd) {
         Account result = new Account();
@@ -205,81 +171,6 @@ public class WUtil {
             result.accountNumber = Integer.parseInt(lcd.value.account_number);
         }
         return result;
-    }
-
-    public static Account getAccountFromVestingLcd(long id, ResLcdVestingAccountInfo lcd) {
-        Account result = new Account();
-        result.id = id;
-        if (lcd.result != null && lcd.height != null) {
-            result.address = lcd.result.value.address;
-            result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
-            result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
-        }
-        return result;
-    }
-
-
-    public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {
-        long time = System.currentTimeMillis();
-        ArrayList<Balance> result = new ArrayList<>();
-        if (lcd != null && lcd.result != null && lcd.height != null) {
-            if(lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
-                    lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                    lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
-                    lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
-                if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0){
-                    for (Coin coin : lcd.result.value.coins) {
-                        Balance temp = new Balance();
-                        temp.accountId = accountId;
-                        temp.symbol = coin.denom;
-                        temp.balance = new BigDecimal(coin.amount);
-                        temp.fetchTime = time;
-                        result.add(temp);
-                    }
-                }
-                return result;
-            } else {
-                if (lcd.result.value.BaseVestingAccount.BaseAccount.coins != null && lcd.result.value.BaseVestingAccount.BaseAccount.coins.size() > 0){
-                    for(Coin coin : lcd.result.value.BaseVestingAccount.BaseAccount.coins) {
-                        Balance temp = new Balance();
-                        temp.accountId = accountId;
-                        temp.symbol = coin.denom;
-                        temp.balance = new BigDecimal(coin.amount);
-                        temp.fetchTime = time;
-                        result.add(temp);
-                    }
-                }
-                return result;
-            }
-        }
-        if(lcd.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
-                lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
-                lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
-                lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
-            if (lcd.value.coins != null && lcd.value.coins.size() > 0){
-                for(Coin coin : lcd.value.coins) {
-                    Balance temp = new Balance();
-                    temp.accountId = accountId;
-                    temp.symbol = coin.denom;
-                    temp.balance = new BigDecimal(coin.amount);
-                    temp.fetchTime = time;
-                    result.add(temp);
-                }
-            }
-            return result;
-        } else {
-            if (lcd.value.BaseVestingAccount.BaseAccount.coins != null && lcd.value.BaseVestingAccount.BaseAccount.coins.size() > 0){
-                for(Coin coin : lcd.value.BaseVestingAccount.BaseAccount.coins) {
-                    Balance temp = new Balance();
-                    temp.accountId = accountId;
-                    temp.symbol = coin.denom;
-                    temp.balance = new BigDecimal(coin.amount);
-                    temp.fetchTime = time;
-                    result.add(temp);
-                }
-            }
-            return result;
-        }
     }
 
     public static ArrayList<Balance> getBalancesFromBnbLcd(long accountId, ResBnbAccountInfo lcd) {
@@ -657,15 +548,6 @@ public class WUtil {
         return result;
     }
 
-    public static Balance getTokenBalance(ArrayList<Balance> list, String symbol) {
-        for (Balance balance:list) {
-            if (balance.symbol.equals(symbol)) {
-                return balance;
-            }
-        }
-        return null;
-    }
-
     public static String prettyPrinter(Object object) {
         String result = "";
         try {
@@ -717,25 +599,6 @@ public class WUtil {
                     + Character.digit(s.charAt(i+1), 16));
         }
         return data;
-    }
-
-    public static int[] Bytearray2intarray(byte[] barray) {
-        int[] iarray = new int[barray.length];
-        int i = 0;
-        for (byte b : barray)
-            iarray[i++] = b & 0xff;
-        return iarray;
-    }
-
-    public static String BytearryToDecimalString(byte[] barray) {
-        String result = "";
-        int[] iarray = new int[barray.length];
-        int i = 0;
-        for (byte b : barray) {
-            iarray[i++] = b & 0xff;
-            result = result + " " + (b & 0xff);
-        }
-        return result;
     }
 
     public static byte[] integerToBytes(BigInteger s, int length) {
@@ -1128,17 +991,6 @@ public class WUtil {
         });
     }
 
-    public static void onSortingProposal(ArrayList<Proposal> proposals, BaseChain chain) {
-        Collections.sort(proposals, new Comparator<Proposal>() {
-            @Override
-            public int compare(Proposal o1, Proposal o2) {
-                if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
-                else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
-                else return 0;
-            }
-        });
-    }
-
     public static void onSortingDenom(ArrayList<String> denom, BaseChain chain) {
         Collections.sort(denom, new Comparator<String>() {
             @Override
@@ -1256,18 +1108,6 @@ public class WUtil {
         return result;
     }
 
-    public static void onSortingAccount(ArrayList<Account> accounts) {
-        Collections.sort(accounts, new Comparator<Account>() {
-            @Override
-            public int compare(Account o1, Account o2) {
-                if (o1.sortOrder > o2.sortOrder) return 1;
-                else if (o1.sortOrder < o2.sortOrder) return -1;
-                else return 0;
-
-            }
-        });
-    }
-
     /**
      * @memo size
      */
@@ -1334,28 +1174,25 @@ public class WUtil {
         } else if (denom.equalsIgnoreCase("swp")) {
             return 6;
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
-            else return 6;
+            return getIbcDecimal(baseData, denom);
         }
         return 1;
     }
 
     public static int getSifCoinDecimal(BaseData baseData, String denom) {
-      if (denom.equalsIgnoreCase(WDp.mainDenom(SIF_MAIN))) {
-          return 18;
-      } else if (denom.startsWith("ibc/")) {
-          IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-          if (ibcToken != null && ibcToken.auth) {
-              return ibcToken.decimal;
-          }
-      } else {
-          final Assets assets = baseData.getAsset(denom);
-          if (assets != null) {
-              return assets.decimal;
-          }
-      }
-      return 18;
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(WDp.mainDenom(SIF_MAIN))) {
+                return 18;
+            } else if (denom.startsWith("ibc/")) {
+                return getIbcDecimal(baseData, denom);
+            } else {
+                Assets assets = baseData.getAsset(denom);
+                if (assets != null) {
+                    return assets.decimal;
+                }
+            }
+        }
+        return 18;
     }
 
     public static int getSifCoinDecimal(String denom) {
@@ -1373,10 +1210,7 @@ public class WUtil {
         if (denom.equalsIgnoreCase(WDp.mainDenom(GRABRIDGE_MAIN))) {
             return 6;
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.decimal;
-            }
+            return getIbcDecimal(baseData, denom);
         } else {
             final Assets assets = baseData.getAsset(denom);
             if (assets != null) {
@@ -1405,26 +1239,27 @@ public class WUtil {
             Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
             if (poolInfo != null) { return 6; }
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
+            return getIbcDecimal(baseData, denom);
         }
         return 6;
     }
 
     public static int getOsmosisCoinDecimal(BaseData baseData, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { return 6; }
-        else if (denom.equalsIgnoreCase(TOKEN_ION)) { return 6; }
-        else if (denom.startsWith("gamm/pool/")) { return 18; }
-        else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(TOKEN_OSMOSIS) || denom.equalsIgnoreCase(TOKEN_ION)) {
+                return 6;
+            } else if (denom.startsWith("gamm/pool/")) {
+                return 18;
+            } else if (denom.startsWith("ibc/")) {
+                return getIbcDecimal(baseData, denom);
+            }
         }
         return 6;
     }
 
     public static int getIbcDecimal(BaseData baseData, String denom) {
         IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-        if (ibcToken.auth) { return ibcToken.decimal; }
+        if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
         else { return 6; }
     }
 
@@ -1512,7 +1347,7 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken != null && ibcToken.auth) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
                 textView.setText("UnKnown");
@@ -1731,16 +1566,18 @@ public class WUtil {
     }
 
     public static void DpKavaTokenImg(BaseData baseData, ImageView imageView, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
-            Picasso.get().cancelRequest(imageView);
-            imageView.setImageResource(R.drawable.kava_token_img);
-        } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null) {
-                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+                Picasso.get().cancelRequest(imageView);
+                imageView.setImageResource(R.drawable.kava_token_img);
+            } else if (denom.startsWith("ibc/")) {
+                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+                if (ibcToken != null) {
+                    Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+                }
+            } else {
+                Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(imageView);
             }
-        } else {
-            Picasso.get().load(KAVA_COIN_IMG_URL + denom + ".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(imageView);
         }
     }
 
@@ -2396,16 +2233,6 @@ public class WUtil {
         return "";
     }
 
-    public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
-        if (all == null) return null;
-        for (BnbToken token:all) {
-            if (token.original_symbol.equals(TOKEN_BNB)) {
-                return token;
-            }
-        }
-        return null;
-    }
-
     public static BigDecimal getBnbTokenUserCurrencyPrice(BaseData baseData, String denom) {
         BigDecimal result = BigDecimal.ZERO;
         for (BnbTicker ticker: baseData.mBnbTickers) {
@@ -2779,6 +2606,9 @@ public class WUtil {
             } else if (chain.equals(AXELAR_MAIN)) {
                 return BLOCK_TIME_AXELAR;
 
+            } else if (chain.equals(KONSTELL_MAIN)) {
+                return BLOCK_TIME_KONSTELLATION;
+
             }
         }
         return BigDecimal.ZERO;
@@ -3072,7 +2902,12 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_axelar);
             guideMsg.setText(R.string.str_front_guide_msg_axelar);
 
-        } 
+        } else if (mainActivity.mBaseChain.equals(KONSTELL_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_konstellation));
+            guideTitle.setText(R.string.str_front_guide_title_konstellation);
+            guideMsg.setText(R.string.str_front_guide_msg_konstellation);
+
+        }
     }
     
     public static Intent getGuide1Intent(BaseChain chain) {
@@ -3185,6 +3020,9 @@ public class WUtil {
 
         } else if (chain.equals(AXELAR_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://axelar.network/"));
+
+        } else if (chain.equals(KONSTELL_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://konstellation.tech/"));
         }
         return null;
     }
@@ -3300,6 +3138,9 @@ public class WUtil {
         } else if (chain.equals(AXELAR_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://axelar.network/blog"));
 
+        } else if (chain.equals(KONSTELL_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://konstellation.medium.com/"));
+
         }
         return null;
     }
@@ -3403,8 +3244,11 @@ public class WUtil {
         } else if (basechain.equals(KAVA_MAIN)) {
             return EXPLORER_KAVA_MAIN;
 
-        }  else if (basechain.equals(AXELAR_MAIN)) {
+        } else if (basechain.equals(AXELAR_MAIN)) {
             return EXPLORER_AXELAR_MAIN;
+
+        } else if (basechain.equals(KONSTELL_MAIN)) {
+            return EXPLORER_KONSTELL_MAIN;
 
         }
 
@@ -3422,119 +3266,124 @@ public class WUtil {
     }
 
     public static String getTxExplorer(BaseChain basechain, String hash) {
-        if (basechain.equals(BNB_MAIN)) {
-            return EXPLORER_BINANCE_MAIN + "txs/" + hash;
+        if (hash != null) {
+            if (basechain.equals(BNB_MAIN)) {
+                return EXPLORER_BINANCE_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(OKEX_MAIN)) {
-            return EXPLORER_OKEX_MAIN + "tx/0x" + hash;
+            } else if (basechain.equals(OKEX_MAIN)) {
+                return EXPLORER_OKEX_MAIN + "tx/0x" + hash;
 
-        }
+            }
 
-        else if (basechain.equals(COSMOS_MAIN)) {
-            return EXPLORER_COSMOS_MAIN + "txs/" + hash;
+            else if (basechain.equals(COSMOS_MAIN)) {
+                return EXPLORER_COSMOS_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(IRIS_MAIN)) {
-            return EXPLORER_IRIS_MAIN + "txs/" + hash;
+            } else if (basechain.equals(IRIS_MAIN)) {
+                return EXPLORER_IRIS_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(AKASH_MAIN)) {
-            return EXPLORER_AKASH_MAIN + "txs/" + hash;
+            } else if (basechain.equals(AKASH_MAIN)) {
+                return EXPLORER_AKASH_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            return EXPLORER_SENTINEL_MAIN + "txs/" + hash;
+            } else if (basechain.equals(SENTINEL_MAIN)) {
+                return EXPLORER_SENTINEL_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(PERSIS_MAIN)) {
-            return EXPLORER_PERSIS_MAIN + "txs/" + hash;
+            } else if (basechain.equals(PERSIS_MAIN)) {
+                return EXPLORER_PERSIS_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(CRYPTO_MAIN)) {
-            return EXPLORER_CRYPTOORG_MAIN + "txs/" + hash;
+            } else if (basechain.equals(CRYPTO_MAIN)) {
+                return EXPLORER_CRYPTOORG_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(OSMOSIS_MAIN)) {
-            return EXPLORER_OSMOSIS_MAIN + "txs/" + hash;
+            } else if (basechain.equals(OSMOSIS_MAIN)) {
+                return EXPLORER_OSMOSIS_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(IOV_MAIN)) {
-            return EXPLORER_IOV_MAIN + "txs/" + hash;
+            } else if (basechain.equals(IOV_MAIN)) {
+                return EXPLORER_IOV_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(SIF_MAIN)) {
-            return EXPLORER_SIF_MAIN + "txs/" + hash;
+            } else if (basechain.equals(SIF_MAIN)) {
+                return EXPLORER_SIF_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(BAND_MAIN)) {
-            return EXPLORER_BAND_MAIN + "txs/" + hash;
+            } else if (basechain.equals(BAND_MAIN)) {
+                return EXPLORER_BAND_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(MEDI_MAIN)) {
-            return EXPLORER_MEDI_MAIN + "txs/" + hash;
+            } else if (basechain.equals(MEDI_MAIN)) {
+                return EXPLORER_MEDI_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(CERTIK_MAIN)) {
-            return EXPLORER_CERTIK_MAIN + "txs/" + hash;
+            } else if (basechain.equals(CERTIK_MAIN)) {
+                return EXPLORER_CERTIK_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(EMONEY_MAIN)) {
-            return EXPLORER_EMONEY_MAIN + "txs/" + hash;
+            } else if (basechain.equals(EMONEY_MAIN)) {
+                return EXPLORER_EMONEY_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(FETCHAI_MAIN)) {
-            return EXPLORER_FETCHAI_MAIN + "txs/" + hash;
+            } else if (basechain.equals(FETCHAI_MAIN)) {
+                return EXPLORER_FETCHAI_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(RIZON_MAIN)) {
-            return EXPLORER_RIZON_MAIN + "txs/" + hash;
+            } else if (basechain.equals(RIZON_MAIN)) {
+                return EXPLORER_RIZON_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(JUNO_MAIN)) {
-            return EXPLORER_JUNO_MAIN + "txs/" + hash;
+            } else if (basechain.equals(JUNO_MAIN)) {
+                return EXPLORER_JUNO_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(REGEN_MAIN)) {
-            return EXPLORER_REGEN_MAIN + "txs/" + hash;
+            } else if (basechain.equals(REGEN_MAIN)) {
+                return EXPLORER_REGEN_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(BITCANNA_MAIN)) {
-            return EXPLORER_BITCANNA_MAIN + "txs/" + hash;
+            } else if (basechain.equals(BITCANNA_MAIN)) {
+                return EXPLORER_BITCANNA_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(ALTHEA_MAIN)) {
-            return EXPLORER_ALTHEA_MAIN + "txs/" + hash;
+            } else if (basechain.equals(ALTHEA_MAIN)) {
+                return EXPLORER_ALTHEA_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(STARGAZE_MAIN)) {
-            return EXPLORER_STARGAZE_MAIN + "txs/" + hash;
+            } else if (basechain.equals(STARGAZE_MAIN)) {
+                return EXPLORER_STARGAZE_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(GRABRIDGE_MAIN)) {
-            return EXPLORER_GRABRIDGE_MAIN + "txs/" + hash;
+            } else if (basechain.equals(GRABRIDGE_MAIN)) {
+                return EXPLORER_GRABRIDGE_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(KI_MAIN)) {
-            return EXPLORER_KI_MAIN + "txs/" + hash;
+            } else if (basechain.equals(KI_MAIN)) {
+                return EXPLORER_KI_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(COMDEX_MAIN)) {
-            return EXPLORER_COMDEX_MAIN + "txs/" + hash;
+            } else if (basechain.equals(COMDEX_MAIN)) {
+                return EXPLORER_COMDEX_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(SECRET_MAIN)) {
-            return EXPLORER_SECRET_MAIN + "txs/" + hash;
+            } else if (basechain.equals(SECRET_MAIN)) {
+                return EXPLORER_SECRET_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(INJ_MAIN)) {
-            return EXPLORER_INJ_MAIN + "txs/" + hash;
-        
-        } else if (basechain.equals(BITSONG_MAIN)) {
-            return EXPLORER_BITSONG_MAIN + "txs/" + hash;
+            } else if (basechain.equals(INJ_MAIN)) {
+                return EXPLORER_INJ_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(DESMOS_MAIN)) {
-            return EXPLORER_DESMOS_MAIN + "txs/" + hash;
+            } else if (basechain.equals(BITSONG_MAIN)) {
+                return EXPLORER_BITSONG_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(LUM_MAIN)) {
-            return EXPLORER_LUM_MAIN + "txs/" + hash;
+            } else if (basechain.equals(DESMOS_MAIN)) {
+                return EXPLORER_DESMOS_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(CHIHUAHUA_MAIN)) {
-            return EXPLORER_CHIHUAHUA_MAIN + "txs/" + hash;
+            } else if (basechain.equals(LUM_MAIN)) {
+                return EXPLORER_LUM_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(KAVA_MAIN)) {
-            return EXPLORER_KAVA_MAIN + "txs/" + hash;
+            } else if (basechain.equals(CHIHUAHUA_MAIN)) {
+                return EXPLORER_CHIHUAHUA_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(AXELAR_MAIN)) {
-            return EXPLORER_AXELAR_MAIN + "txs/" + hash;
+            } else if (basechain.equals(KAVA_MAIN)) {
+                return EXPLORER_KAVA_MAIN + "txs/" + hash;
 
-        }
+            } else if (basechain.equals(AXELAR_MAIN)) {
+                return EXPLORER_AXELAR_MAIN + "txs/" + hash;
+
+            } else if (basechain.equals(KONSTELL_MAIN)) {
+                return EXPLORER_KONSTELL_MAIN + "txs/" + hash;
+
+            }
 
 
-        else if (basechain.equals(COSMOS_TEST)) {
-            return EXPLORER_COSMOS_TEST + "txs/" + hash;
+            else if (basechain.equals(COSMOS_TEST)) {
+                return EXPLORER_COSMOS_TEST + "txs/" + hash;
 
-        } else if (basechain.equals(IRIS_TEST)) {
-            return EXPLORER_IRIS_TEST + "txs/" + hash;
+            } else if (basechain.equals(IRIS_TEST)) {
+                return EXPLORER_IRIS_TEST + "txs/" + hash;
 
-        } else if (basechain.equals(UMEE_TEST)) {
-            return EXPLORER_UMEE_TEST + "txs/" + hash;
+            } else if (basechain.equals(UMEE_TEST)) {
+                return EXPLORER_UMEE_TEST + "txs/" + hash;
 
+            }
         }
         return "";
     }
@@ -3954,6 +3803,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(KONSTELL_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(KONSTELL_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         }
 
         else if (basechain.equals(BNB_MAIN)) {
@@ -4184,6 +4038,14 @@ public class WUtil {
                 return new BigDecimal(AXELAR_GAS_RATE_LOW);
             }
             return new BigDecimal(AXELAR_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(KONSTELL_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(KONSTELL_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(KONSTELL_GAS_RATE_LOW);
+            }
+            return new BigDecimal(KONSTELL_GAS_RATE_AVERAGE);
 
         }
 

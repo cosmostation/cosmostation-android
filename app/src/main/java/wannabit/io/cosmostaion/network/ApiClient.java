@@ -637,6 +637,21 @@ public class ApiClient {
         }
         return api_axelar;
     }
+
+    //Services for konstellation mainnet api
+    private static HistoryApi api_konstellation = null;
+    public static HistoryApi getKonstellApi(Context c) {
+        if (api_konstellation == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_konstellation))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_konstellation = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_konstellation;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;

@@ -89,7 +89,7 @@
                 android:layout_marginTop="@dimen/space_4"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardElevation="1.5dp"
+                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardUseCompatPadding="true" >
                 <RelativeLayout
@@ -141,7 +141,7 @@
                 android:layout_marginTop="@dimen/space_4"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardElevation="1.5dp"
+                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardUseCompatPadding="true" >
                 <LinearLayout
@@ -298,7 +298,7 @@
                 android:layout_marginBottom="@dimen/space_12"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
-                app:cardElevation="1.5dp"
+                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardUseCompatPadding="true" >
                 <LinearLayout

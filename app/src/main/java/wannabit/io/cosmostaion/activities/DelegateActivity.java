@@ -149,11 +149,6 @@ public class DelegateActivity extends BaseBroadCastActivity {
         }
     }
 
-    @Override
-    public void onCancelWithVesting() {
-        onBackPressed();
-    }
-
     public void onStartDelegate() {
         Intent intent = new Intent(DelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_DELEGATE);

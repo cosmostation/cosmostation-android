@@ -72,6 +72,7 @@ public enum BaseChain {
     LUM_MAIN("lum-mainnet"),
     CHIHUAHUA_MAIN("chihuahua-mainnet"),
     AXELAR_MAIN("axelar-mainnet"),
+    KONSTELL_MAIN("konstellation-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -235,6 +236,9 @@ public enum BaseChain {
         if(chainName.equals(AXELAR_MAIN.chainName)) {
             return AXELAR_MAIN;
         }
+        if(chainName.equals(KONSTELL_MAIN.chainName)) {
+            return KONSTELL_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -273,6 +277,7 @@ public enum BaseChain {
         result.add(JUNO_MAIN);
         result.add(KAVA_MAIN);
         result.add(KI_MAIN);
+        result.add(KONSTELL_MAIN);
         result.add(LUM_MAIN);
         result.add(MEDI_MAIN);
         result.add(OKEX_MAIN);

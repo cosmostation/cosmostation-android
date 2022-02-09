@@ -205,7 +205,7 @@ public class ManageChainSwitchHolder extends BaseHolder {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(dpAccount.id == currentAccount.id) {
+                if(dpAccount.id.equals(currentAccount.id)) {
                     switchActivity.finish();
                     return;
                 }

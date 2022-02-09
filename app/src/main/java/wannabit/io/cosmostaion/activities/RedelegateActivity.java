@@ -154,11 +154,6 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         }
     }
 
-    @Override
-    public void onCancelWithVesting() {
-        onBackPressed();
-    }
-
     public void onStartRedelegate() {
         Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REDELEGATE);
