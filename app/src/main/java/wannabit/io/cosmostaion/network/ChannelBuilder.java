@@ -138,8 +138,8 @@ public class ChannelBuilder {
     private final static String GRPC_KONSTELL_MAIN = "lcd-konstellation-app.cosmostation.io";
     private final static int PORT_KONSTELL_MAIN = 9090;
 
-    private final static String GRPC_UMEE_MAIN = "lcd-office.cosmostation.io";
-    private final static int PORT_UMEE_MAIN = 40800;
+    private final static String GRPC_UMEE_MAIN = "61.74.179.193";
+    private final static int PORT_UMEE_MAIN = 54300;
 
 
 
