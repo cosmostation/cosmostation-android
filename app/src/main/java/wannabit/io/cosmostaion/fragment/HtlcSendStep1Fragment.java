@@ -86,10 +86,10 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         super.onRefreshTab();
         mToAccountList = getSActivity().getBaseDao().onSelectAccountsByHtlcClaim(getSActivity().mRecipientChain);
-        if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.BNB_TEST)) {
+        if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain)));
 
-        }  else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.KAVA_TEST)) {
+        }  else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg2), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain)));
         }
     }
@@ -120,9 +120,9 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 Bundle bundle = new Bundle();
                 String title = String.format(getString(R.string.error_can_not_bep3_account_title), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 String msg = "";
-                if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.BNB_TEST)) {
+                if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
                     msg = String.format(getString(R.string.error_can_not_bep3_account_msg), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
-                } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.KAVA_TEST)) {
+                } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
                     msg = String.format(getString(R.string.error_can_not_bep3_account_msg2), WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
                 }
                 bundle.putString("title", title);

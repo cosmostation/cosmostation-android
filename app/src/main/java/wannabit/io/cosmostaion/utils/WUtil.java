@@ -25,13 +25,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
@@ -1007,11 +1005,11 @@ public class WUtil {
                 if(o1.symbol.equals(WDp.mainDenom(chain))) return -1;
                 if(o2.symbol.equals(WDp.mainDenom(chain))) return 1;
 
-                if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+                if (chain.equals(KAVA_MAIN)) {
                     if(o1.symbol.equals(TOKEN_HARD)) return -1;
                     if(o2.symbol.equals(TOKEN_HARD)) return 1;
 
-                } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+                } else if (chain.equals(OKEX_MAIN)) {
                     if (o1.symbol.equals("okb-c4d")) return -1;
                     if (o2.symbol.equals("okb-c4d")) return 1;
                 }

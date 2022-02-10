@@ -1,5 +1,16 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,21 +44,6 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_DESTINATION_CHAIN = 9100;
@@ -172,22 +168,6 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             onetime_max  = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
             mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 0, 8));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_TEST) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
-            mCapLayer.setVisibility(View.VISIBLE);
-            if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
-                mToSendCoinImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
-                onSetDpDenom(getString(R.string.str_bnb_c));
-
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
-                mToSendCoinImg.setImageDrawable(getResources().getDrawable(R.drawable.btc_img));
-                onSetDpDenom(getString(R.string.str_btc_c));
-            }
-            available_amount = getSActivity().mAccount.getTokenBalance(mToSwapDenom);
-            supply_limit = mKavaBep3Param2.getSupportedSwapAssetLimit(mToSwapDenom);
-            supply_remain = mKavaSuppies2.getRemainCap(mToSwapDenom, supply_limit);
-            onetime_max  = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
-            mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 0, 8));
-
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
             mCapLayer.setVisibility(View.GONE);
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB)) {
@@ -218,21 +198,6 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             onetime_max  = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
             mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 8, 8));
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
-            mCapLayer.setVisibility(View.GONE);
-            if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
-                mToSendCoinImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_on_kava));
-                onSetDpDenom(getString(R.string.str_bnb_c));
-
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
-                mToSendCoinImg.setImageDrawable(getResources().getDrawable(R.drawable.btc_on_kava));
-                onSetDpDenom(getString(R.string.str_btc_c));
-            }
-            available_amount = getBaseDao().getAvailable(mToSwapDenom);
-            supply_limit = mKavaBep3Param2.getSupportedSwapAssetLimit(mToSwapDenom);
-            supply_remain = mKavaSuppies2.getRemainCap(mToSwapDenom, supply_limit);
-            onetime_max  = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
-            mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 8, 8));
         }
 
         mOnceMaxAmount.setText(WDp.getDpAmount2(getContext(), onetime_max, 8, 8));
@@ -350,7 +315,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
                 return true;
             }
 
-        } else if  (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             if (available_amount.compareTo(mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom)) > 0) {
                 return true;
             }

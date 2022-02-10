@@ -1,5 +1,21 @@
 package wannabit.io.cosmostaion.cosmos;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_XRPB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BTCB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BUSD_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_XRPB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
+
 import android.util.Base64;
 
 import com.binance.dex.api.client.domain.broadcast.HtltReq;
@@ -34,30 +50,6 @@ import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_XRPB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BNB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BTC_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BTCB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BUSD_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_XRPB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_BNB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_TEST_BTC_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
-import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 
 
@@ -133,33 +125,6 @@ public class MsgGenerator {
                 htltReq.setHeightSpan(407547);
                 htltReq.setCrossChain(true);
 
-            } else if (toChain.equals(KAVA_TEST)) {
-                //NO case
-            }
-
-        } else if (fromChain.equals(BaseChain.BNB_TEST)) {
-            if (toChain.equals(KAVA_MAIN)) {
-                //NO case
-
-            } else if (toChain.equals(KAVA_TEST)) {
-                if (sendCoins.get(0).denom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
-                    htltReq.setRecipient(BINANCE_TEST_BNB_DEPUTY);
-                    htltReq.setSenderOtherChain(KAVA_TEST_BNB_DEPUTY);
-                }  else if (sendCoins.get(0).denom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
-                    htltReq.setRecipient(BINANCE_TEST_BTC_DEPUTY);
-                    htltReq.setSenderOtherChain(KAVA_TEST_BTC_DEPUTY);
-                }
-                htltReq.setRecipientOtherChain(toAccount.address);
-                htltReq.setTimestamp(timestamp);
-                htltReq.setRandomNumberHash(Sha256.getSha256Digest().digest(originData));
-                Token token = new Token();
-                token.setDenom(toSendCoin.denom);
-                BigDecimal sendAmount = new BigDecimal(toSendCoin.amount).movePointRight(8);
-                token.setAmount(sendAmount.longValue());
-                htltReq.setOutAmount(Collections.singletonList(token));
-                htltReq.setExpectedIncome(sendAmount.toPlainString() + ":" + toSendCoin.denom);
-                htltReq.setHeightSpan(407547);
-                htltReq.setCrossChain(true);
             }
 
         }
@@ -180,7 +145,7 @@ public class MsgGenerator {
     public static Msg genOkDeposit(String delegator, Coin coin, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+        if (chain.equals(OKEX_MAIN)) {
             value.delegator_address = delegator;
             value.quantity = coin;
 
@@ -193,7 +158,7 @@ public class MsgGenerator {
     public static Msg genOkWithdraw(String delegator, Coin coin, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+        if (chain.equals(OKEX_MAIN)) {
             value.delegator_address = delegator;
             value.quantity = coin;
 
@@ -206,7 +171,7 @@ public class MsgGenerator {
     public static Msg genOkVote(String delegator, ArrayList<String> toVals, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+        if (chain.equals(OKEX_MAIN)) {
             value.delegator_address = delegator;
             value.validator_addresses = toVals;
 

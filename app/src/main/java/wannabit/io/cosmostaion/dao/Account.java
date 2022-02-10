@@ -158,10 +158,10 @@ public class Account {
             return SpannableString.valueOf("--");
         }
         try {
-            if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+            if (chain.equals(BaseChain.BNB_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
 
-            } else if (chain.equals(BaseChain.OKEX_MAIN) || chain.equals(BaseChain.OK_TEST)) {
+            } else if (chain.equals(BaseChain.OKEX_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
 
             } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN)) {
