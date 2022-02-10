@@ -101,6 +101,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -232,6 +233,17 @@ public class MainTokensFragment extends BaseFragment {
             public void onRefresh() {
                 onUpdateInfo();
                 getMainActivity().onFetchAllData();
+            }
+        });
+
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (mSwipeRefreshLayout.isRefreshing()) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         });
 
