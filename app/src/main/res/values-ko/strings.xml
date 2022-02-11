@@ -1202,7 +1202,8 @@
     <string name="str_native_token_title">Native Coins</string>
     <string name="str_ibc_token_title">IBC Coins</string>
     <string name="str_unknown_ibc_token_title">Unknown IBC Coins</string>
-    <string name="str_pool_token_title">POOL Coins</string>
+    <string name="str_pool_coin_title">POOL Coins</string>
+    <string name="str_pool_token_title">POOL Tokens</string>
     <string name="str_gravity_dex_token_title">Gravity Dex Coins</string>
     <string name="str_sif_ether_token_title">Ether Bridged Coins</string>
     <string name="str_kava_bep2_token_title">BEP2 Coins</string>

@@ -335,7 +335,11 @@ public class MainTokensFragment extends BaseFragment {
                     return getMainActivity().getString(R.string.str_unknown_token_title);
                 }
 
-                else if (section == SECTION_OSMOSIS_POOL_GRPC || section == SECTION_INJECTIVE_POOL_GRPC) {
+                else if (section == SECTION_OSMOSIS_POOL_GRPC) {
+                    return getMainActivity().getString(R.string.str_pool_coin_title);
+                }
+
+                else if (section == SECTION_INJECTIVE_POOL_GRPC) {
                     return getMainActivity().getString(R.string.str_pool_token_title);
                 }
 
