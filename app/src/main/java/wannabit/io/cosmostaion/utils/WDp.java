@@ -3907,20 +3907,21 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal onParseCommission(BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position) {
-        BigDecimal result = BigDecimal.ZERO;
+    public static ArrayList<Coin> onParseCommission(ServiceOuterClass.GetTxResponse response, int position) {
+        ArrayList<Coin> result = new ArrayList<>();
         if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
             for (Abci.StringEvent event: response.getTxResponse().getLogs(position).getEventsList()) {
                 if (event.getType().equals("withdraw_commission")) {
                     for (int i = 0; i < event.getAttributesList().size(); i ++) {
                         if (event.getAttributes(i).getKey().equals("amount")) {
                             String rawValue = event.getAttributes(i).getValue();
-                            if (rawValue != null) {
-                                for (String rawCoin: rawValue.split(",")) {
-                                    if (rawCoin.contains(WDp.mainDenom(baseChain))) {
-                                        result = result.add(new BigDecimal(rawCoin.replaceAll("[^0-9]", "")));
-                                        break;
-                                    }
+                            for (String rawCoin : rawValue.split(",")) {
+                                Pattern p = Pattern.compile("([0-9])+");
+                                Matcher m = p.matcher(rawCoin);
+                                if (m.find()) {
+                                    String amount = m.group();
+                                    String denom = rawCoin.replaceAll(m.group(), "");
+                                    result.add(new Coin(denom, amount));
                                 }
                             }
                         }

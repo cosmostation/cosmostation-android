@@ -996,8 +996,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemCommissionTitle = itemView.findViewById(R.id.tx_commission_text);
                 itemCommissionValidator = itemView.findViewById(R.id.tx_commission_validator);
                 itemCommissionValidatorMoniker = itemView.findViewById(R.id.tx_commission_moniker);
-                itemCommissionAmount = itemView.findViewById(R.id.tx_commission_amount);
-                itemCommissionAmountDenom = itemView.findViewById(R.id.tx_commission_amount_symbol);
+                itemCommissionAmount = itemView.findViewById(R.id.tx_commission_amount0);
+                itemCommissionAmountDenom = itemView.findViewById(R.id.tx_commission_symbol0);
             }
         }
 
