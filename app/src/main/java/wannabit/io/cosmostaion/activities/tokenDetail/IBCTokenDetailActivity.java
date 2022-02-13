@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,11 +36,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Send_Warning;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class IBCTokenDetailActivity extends BaseActivity implements View.OnClickListener{
 
@@ -204,10 +203,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             final String mainDenom = WDp.mainDenom(mBaseChain);
             final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
-            mMaxAvailable = getBaseDao().getAvailable(mIbcDenom);
-            if (mainDenom.equalsIgnoreCase(mIbcDenom)) {
-                mMaxAvailable = mMaxAvailable.subtract(feeAmount);
-            }
+            mMaxAvailable = getBaseDao().getAvailable(mainDenom).subtract(feeAmount);
             if (mMaxAvailable.compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
