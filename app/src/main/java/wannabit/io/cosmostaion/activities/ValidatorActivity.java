@@ -269,7 +269,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
         BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 0);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
         if (availableAmount.compareTo(feeAmount) < 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
