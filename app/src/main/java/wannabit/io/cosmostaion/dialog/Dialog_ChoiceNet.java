@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.dialog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
@@ -15,11 +19,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
-
 public class Dialog_ChoiceNet extends DialogFragment {
 
 
@@ -27,9 +26,9 @@ public class Dialog_ChoiceNet extends DialogFragment {
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov;
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi,
                          mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mComdex, mBitsong, mInj,
-                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation;
-    private LinearLayout mAltheaTestLayer, mUmeeTestLayer;
-    private LinearLayout mCosmosTest, mIrisTest, mAltheaTest, mUmeeTest;
+                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee;
+    private LinearLayout mAltheaTestLayer;
+    private LinearLayout mCosmosTest, mIrisTest, mAltheaTest;
 
     private boolean      mIsAdd = false;
 
@@ -89,12 +88,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mChihuahua = view.findViewById(R.id.chihuahua_chain);
         mAxelar = view.findViewById(R.id.axelar_chain);
         mKonstellation = view.findViewById(R.id.konstellation_chain);
+        mUmee = view.findViewById(R.id.umee_chain);
 
 
         mAltheaTestLayer = view.findViewById(R.id.althea_test_layer);
         mAltheaTest = view.findViewById(R.id.althea_test_net);
-        mUmeeTestLayer = view.findViewById(R.id.umee_test_layer);
-        mUmeeTest = view.findViewById(R.id.umee_test_net);
 
         if (getArguments() != null) {
             mIsAdd = true;
@@ -510,6 +508,18 @@ public class Dialog_ChoiceNet extends DialogFragment {
             }
         });
 
+        mUmee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.UMEE_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.UMEE_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
+
 
         if (BaseChain.SUPPORT_CHAINS().contains(COSMOS_TEST)) {
             mCosmosTestLayer.setVisibility(View.VISIBLE);
@@ -550,21 +560,6 @@ public class Dialog_ChoiceNet extends DialogFragment {
                         ((BaseActivity)getActivity()).onChainSelected(BaseChain.ALTHEA_TEST);
                     } else {
                         ((BaseActivity)getActivity()).onChoiceNet(BaseChain.ALTHEA_TEST);
-                    }
-                    getDialog().dismiss();
-                }
-            });
-        }
-
-        if (BaseChain.SUPPORT_CHAINS().contains(UMEE_TEST)) {
-            mUmeeTestLayer.setVisibility(View.VISIBLE);
-            mUmeeTest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mIsAdd) {
-                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.UMEE_TEST);
-                    } else {
-                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.UMEE_TEST);
                     }
                     getDialog().dismiss();
                 }

@@ -107,7 +107,7 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
 
         // set send card view
         mSendIcon.setColorFilter(WDp.getChainColor(getContext(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BNB_TEST)) {
+        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
                 mSendDenomTv.setText(getString(R.string.str_bnb_c));
                 mSendDenomTv.setTextColor(getResources().getColor(R.color.colorBnb));
@@ -128,7 +128,7 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             mReceiveChainTv.setText(WDp.getDpChainName(getContext(), getSActivity().mRecipientChain));
             mReceiveAddressTv.setText(getSActivity().mRecipientAccount.address);
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             mDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), getSActivity().mToSwapDenom);
             mSendDenomTv.setText(getSActivity().mToSwapDenom.toUpperCase());
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mSendFeeDenomTv);
@@ -166,7 +166,7 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             mClaimAddressTv.setText(getSActivity().mRecipientAccount.address);
 
 
-        } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mRecipientChain.equals(BaseChain.KAVA_TEST)) {
+        } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
                 mReceiveAmountDenomTv.setText(getString(R.string.str_bnb_c));
                 mRelayFeeAmountDenomTv.setText(getString(R.string.str_bnb_c));

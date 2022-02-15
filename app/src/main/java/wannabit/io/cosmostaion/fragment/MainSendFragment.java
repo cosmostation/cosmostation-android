@@ -102,7 +102,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class MainSendFragment extends BaseFragment {
@@ -518,7 +518,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(DESMOS_MAIN)) { return TYPE_DESMOS; }
                     else if (getMainActivity().mBaseChain.equals(LUM_MAIN)) { return TYPE_LUM; }
                     else if (getMainActivity().mBaseChain.equals(CHIHUAHUA_MAIN)) { return TYPE_CHIHUAHUA; }
-                    else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
+                    else if (getMainActivity().mBaseChain.equals(UMEE_MAIN)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_MAIN)) { return TYPE_AXELAR; }
                     else if (getMainActivity().mBaseChain.equals(KONSTELL_MAIN)) { return TYPE_KONSTELLATION; }
                 } else if (position == 1) {

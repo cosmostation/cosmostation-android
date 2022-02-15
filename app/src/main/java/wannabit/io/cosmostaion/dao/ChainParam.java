@@ -1,5 +1,10 @@
 package wannabit.io.cosmostaion.dao;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -12,14 +17,7 @@ import java.util.List;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 
 public class ChainParam {
@@ -234,7 +232,7 @@ public class ChainParam {
         }
 
         public BigDecimal getQuorum(BaseChain baseChain) {
-            if (baseChain.equals(CERTIK_MAIN) || baseChain.equals(CERTIK_TEST)) {
+            if (baseChain.equals(CERTIK_MAIN)) {
                 return new BigDecimal(govTallyings.tallyparams.defaultTally.quorum).movePointRight(2);
             } else if (isGRPC(baseChain)) {
                 return new BigDecimal(govTallyings.tallyparams.quorum).movePointRight(2);

@@ -1,59 +1,5 @@
 package wannabit.io.cosmostaion.fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import com.squareup.picasso.Picasso;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-
-import tendermint.liquidity.v1beta1.Liquidity;
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.BridgeTokenGrpcActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.ContractTokenGrpcActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.IBCTokenDetailActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenGrpcActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.POOLTokenDetailActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenGrpcActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Assets;
-import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.Cw20Assets;
-import wannabit.io.cosmostaion.dao.IbcToken;
-import wannabit.io.cosmostaion.dao.OkToken;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
-
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
@@ -91,7 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
@@ -144,6 +90,60 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_UMEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.squareup.picasso.Picasso;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
+import tendermint.liquidity.v1beta1.Liquidity;
+import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.BridgeTokenGrpcActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.ContractTokenGrpcActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.IBCTokenDetailActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenGrpcActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.POOLTokenDetailActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenGrpcActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Assets;
+import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.Cw20Assets;
+import wannabit.io.cosmostaion.dao.IbcToken;
+import wannabit.io.cosmostaion.dao.OkToken;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MainTokensFragment extends BaseFragment {
 
@@ -233,6 +233,17 @@ public class MainTokensFragment extends BaseFragment {
             public void onRefresh() {
                 onUpdateInfo();
                 getMainActivity().onFetchAllData();
+            }
+        });
+
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (mSwipeRefreshLayout.isRefreshing()) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         });
 
@@ -979,7 +990,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_UMEE)) {
             holder.itemSymbol.setText(getString(R.string.str_umee_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), UMEE_TEST));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), UMEE_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Umee Staking Coin");
             Picasso.get().cancelRequest(holder.itemImg);

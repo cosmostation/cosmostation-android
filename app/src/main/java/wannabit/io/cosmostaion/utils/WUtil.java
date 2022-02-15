@@ -1,5 +1,46 @@
 package wannabit.io.cosmostaion.utils;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.*;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -69,69 +110,18 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
-import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdVestingAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
-
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 public class WUtil {
 
@@ -1015,11 +1005,11 @@ public class WUtil {
                 if(o1.symbol.equals(WDp.mainDenom(chain))) return -1;
                 if(o2.symbol.equals(WDp.mainDenom(chain))) return 1;
 
-                if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+                if (chain.equals(KAVA_MAIN)) {
                     if(o1.symbol.equals(TOKEN_HARD)) return -1;
                     if(o2.symbol.equals(TOKEN_HARD)) return 1;
 
-                } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+                } else if (chain.equals(OKEX_MAIN)) {
                     if (o1.symbol.equals("okb-c4d")) return -1;
                     if (o2.symbol.equals("okb-c4d")) return 1;
                 }
@@ -2609,6 +2599,9 @@ public class WUtil {
             } else if (chain.equals(KONSTELL_MAIN)) {
                 return BLOCK_TIME_KONSTELLATION;
 
+            } else if (chain.equals(UMEE_MAIN)) {
+                return BLOCK_TIME_UMEE;
+
             }
         }
         return BigDecimal.ZERO;
@@ -2892,7 +2885,7 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_chihuahua);
             guideMsg.setText(R.string.str_front_guide_msg_chihuahua);
 
-        } else if (mainActivity.mBaseChain.equals(UMEE_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(UMEE_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_umee));
             guideTitle.setText(R.string.str_front_guide_title_umee);
             guideMsg.setText(R.string.str_front_guide_msg_umee);
@@ -3015,7 +3008,7 @@ public class WUtil {
         } else if (chain.equals(CHIHUAHUA_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://chi.huahua.wtf/"));
 
-        } else if (chain.equals(UMEE_TEST)) {
+        } else if (chain.equals(UMEE_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
 
         } else if (chain.equals(AXELAR_MAIN)) {
@@ -3132,7 +3125,7 @@ public class WUtil {
         } else if (chain.equals(CHIHUAHUA_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://chi.huahua.wtf"));
 
-        } else if (chain.equals(UMEE_TEST)) {
+        } else if (chain.equals(UMEE_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
 
         } else if (chain.equals(AXELAR_MAIN)) {
@@ -3250,6 +3243,9 @@ public class WUtil {
         } else if (basechain.equals(KONSTELL_MAIN)) {
             return EXPLORER_KONSTELL_MAIN;
 
+        } else if (basechain.equals(UMEE_MAIN)) {
+            return EXPLORER_UMEE_MAIN;
+
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -3257,9 +3253,6 @@ public class WUtil {
 
         } else if (basechain.equals(IRIS_TEST)) {
             return EXPLORER_IRIS_TEST;
-
-        } else if (basechain.equals(UMEE_TEST)) {
-            return EXPLORER_UMEE_TEST;
 
         }
         return "";
@@ -3371,8 +3364,10 @@ public class WUtil {
             } else if (basechain.equals(KONSTELL_MAIN)) {
                 return EXPLORER_KONSTELL_MAIN + "txs/" + hash;
 
-            }
+            } else if (basechain.equals(UMEE_MAIN)) {
+                return EXPLORER_UMEE_MAIN + "txs/" + hash;
 
+            }
 
             else if (basechain.equals(COSMOS_TEST)) {
                 return EXPLORER_COSMOS_TEST + "txs/" + hash;
@@ -3380,11 +3375,7 @@ public class WUtil {
             } else if (basechain.equals(IRIS_TEST)) {
                 return EXPLORER_IRIS_TEST + "txs/" + hash;
 
-            } else if (basechain.equals(UMEE_TEST)) {
-                return EXPLORER_UMEE_TEST + "txs/" + hash;
-
-            }
-        }
+            }         }
         return "";
     }
 
@@ -3793,11 +3784,6 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(UMEE_TEST)) {
-            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
-
         } else if (basechain.equals(AXELAR_MAIN)) {
             BigDecimal gasRate = new BigDecimal(AXELAR_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -3805,6 +3791,11 @@ public class WUtil {
 
         } else if (basechain.equals(KONSTELL_MAIN)) {
             BigDecimal gasRate = new BigDecimal(KONSTELL_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(UMEE_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(UMEE_GAS_RATE_TINY);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -3823,7 +3814,7 @@ public class WUtil {
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(REGEN_MAIN) ||
-                basechain.equals(COSMOS_TEST) || basechain.equals(UMEE_TEST)) {
+                basechain.equals(COSMOS_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -4046,6 +4037,14 @@ public class WUtil {
                 return new BigDecimal(KONSTELL_GAS_RATE_LOW);
             }
             return new BigDecimal(KONSTELL_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(UMEE_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(UMEE_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(UMEE_GAS_RATE_LOW);
+            }
+            return new BigDecimal(UMEE_GAS_RATE_AVERAGE);
 
         }
 

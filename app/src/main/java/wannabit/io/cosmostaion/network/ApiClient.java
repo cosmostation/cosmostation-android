@@ -652,6 +652,21 @@ public class ApiClient {
         }
         return api_konstellation;
     }
+
+    //Services for umee mainnet api
+    private static HistoryApi api_umee = null;
+    public static HistoryApi getUmeeApi(Context c) {
+        if (api_umee == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_umee))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_umee = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_umee;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
@@ -683,21 +698,6 @@ public class ApiClient {
         return api_rizon_swap_status;
     }
 
-    //Services for Rizon test api
-    private static HistoryApi api_rizon_test = null;
-    public static HistoryApi getRizonTestApi(Context c) {
-        if (api_rizon_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_rizon_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_rizon_test = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_rizon_test;
-    }
-
     //Services for Rizon swap_status test api
     private static HdacChain api_rizon_swap_test_status = null;
     public static HdacChain getRizonSwapTestStatus(Context c) {
@@ -727,40 +727,6 @@ public class ApiClient {
         }
         return api_althea_test;
     }
-
-    //Services for Umee test api
-    private static HistoryApi api_umee_test = null;
-    public static HistoryApi getUmeeTestApi(Context c) {
-        if (api_umee_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_umee_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_umee_test = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_umee_test;
-    }
-
-    //Services for Axelar test api
-    private static HistoryApi api_axelar_test = null;
-    public static HistoryApi getAxelarTestApi(Context c) {
-        if (api_axelar_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_axelar))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_axelar_test = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_axelar_test;
-    }
-
-
-
-
 
     //Services for Cosmos Test api
     private static HistoryApi api_cosmos_test = null;

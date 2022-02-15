@@ -749,6 +749,10 @@ public class BaseConstant {
     public final static String KONSTELL_GAS_RATE_LOW                    = "0.001";
     public final static String KONSTELL_GAS_RATE_AVERAGE                = "0.01";
 
+    public final static String UMEE_GAS_RATE_TINY                       = "0.000";
+    public final static String UMEE_GAS_RATE_LOW                        = "0.001";
+    public final static String UMEE_GAS_RATE_AVERAGE                    = "0.005";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -851,6 +855,7 @@ public class BaseConstant {
     public final static String EXPLORER_CHIHUAHUA_MAIN  = "https://www.mintscan.io/chihuahua/";
     public final static String EXPLORER_AXELAR_MAIN     = "https://www.mintscan.io/axelar/";
     public final static String EXPLORER_KONSTELL_MAIN   = "https://www.mintscan.io/konstellation/";
+    public final static String EXPLORER_UMEE_MAIN       = "https://www.mintscan.io/umee/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
     public final static String EXPLORER_OEC_TX          = "https://www.oklink.com/oec/";
@@ -862,7 +867,6 @@ public class BaseConstant {
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
     public final static String EXPLORER_RIZON_TEST      = "https://testnet.mintscan.io/rizon/";
     public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
-    public final static String EXPLORER_UMEE_TEST       = "https://testnet.mintscan.io/umee/";
 
 
     public final static String AKASH_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/akash/relay-akash-unknown.png";
@@ -940,4 +944,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_CHIHUAHUA = new BigDecimal("5.8172");
     public final static BigDecimal BLOCK_TIME_AXELAR = new BigDecimal("5.5596");
     public final static BigDecimal BLOCK_TIME_KONSTELLATION = new BigDecimal("5.376");
+    public final static BigDecimal BLOCK_TIME_UMEE = new BigDecimal("5.658");
 }
