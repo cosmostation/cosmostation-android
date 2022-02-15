@@ -124,8 +124,7 @@
     <string name="url_api_konstellation" translatable="false">https://api-konstellation.cosmostation.io/</string>
 
 
-<!--    <string name="url_api_umee" translatable="false">https://api-umee.cosmostation.io/</string>-->
-    <string name="url_api_umee" translatable="false">https://api-office.cosmostation.io/umeeverse-party-1/</string>
+    <string name="url_api_umee" translatable="false">https://api-umee.cosmostation.io/</string>
 
 
 
