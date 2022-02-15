@@ -1247,6 +1247,22 @@ public class WUtil {
         return 6;
     }
 
+    public static int getInjCoinDecimal(BaseData baseData, String denom) {
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(WDp.mainDenom(INJ_MAIN))) {
+                return 18;
+            } else if (denom.startsWith("ibc/")) {
+                return getIbcDecimal(baseData, denom);
+            } else {
+                Assets assets = baseData.getAsset(denom);
+                if (assets != null) {
+                    return assets.decimal;
+                }
+            }
+        }
+        return 18;
+    }
+
     public static int getIbcDecimal(BaseData baseData, String denom) {
         IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
         if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
