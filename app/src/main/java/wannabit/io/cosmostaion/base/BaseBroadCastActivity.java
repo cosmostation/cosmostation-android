@@ -38,6 +38,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public String                       mStarNameDomainType;                        //starname domain type
     public String                       mStarNameAccount;                           //starname
     public ArrayList<Types.Resource>    mStarNameResources = new ArrayList();       //starname
+    public boolean                      mIsDomain;
 
 
     public Tx.SwapAmountInRoute         mOsmosisSwapAmountInRoute;                          // osmosis

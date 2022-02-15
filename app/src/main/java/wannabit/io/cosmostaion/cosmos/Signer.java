@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.cosmos;
 
+import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
+import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
+
 import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.Duration;
@@ -42,9 +45,6 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
-import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 public class Signer {
 
@@ -326,164 +326,108 @@ public class Signer {
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcRegisterDomainReq(QueryOuterClass.QueryAccountResponse auth, String domain, String admin, String type, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain msgRegisterDomain = starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain.newBuilder().setName(domain).setAdmin(admin).setDomainType(type).build();
-        Any msgRegisterDomainAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRegisterDomain").setValue(msgRegisterDomain.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgRegisterDomainAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getRegisterDomainMsg(domain, admin, type), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcRegisterDomainSimulateReq(QueryOuterClass.QueryAccountResponse auth, String domain, String admin, String type, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain msgRegisterDomain = starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain.newBuilder().setName(domain).setAdmin(admin).setDomainType(type).build();
-        Any msgRegisterDomainAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRegisterDomain").setValue(msgRegisterDomain.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgRegisterDomainAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        return getSignSimulTx(auth, getRegisterDomainMsg(domain, admin, type), fee, memo, pKey, chainId);
     }
 
+    public static ArrayList<Any> getRegisterDomainMsg(String domain, String admin, String type) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain msgRegisterDomain = starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain.newBuilder().setName(domain).setAdmin(admin).setDomainType(type).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRegisterDomain").setValue(msgRegisterDomain.toByteString()).build());
+        return msgAnys;
+    }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcRegisterAccountReq(QueryOuterClass.QueryAccountResponse auth, String domain, String name, String owner, String registerer, ArrayList<Types.Resource> resources, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgRegisterAccount msgRegisterAccount = starnamed.x.starname.v1beta1.Tx.MsgRegisterAccount.newBuilder().setDomain(domain).setName(name).setOwner(owner).setRegisterer(registerer).addAllResources(resources).build();
-        Any msgRegisterAccountAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRegisterAccount").setValue(msgRegisterAccount.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgRegisterAccountAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getRegisterAccountMsg(domain, name, owner, registerer, resources), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcRegisterAccountSimulateReq(QueryOuterClass.QueryAccountResponse auth, String domain, String name, String owner, String registerer, ArrayList<Types.Resource> resources, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgRegisterAccount msgRegisterAccount = starnamed.x.starname.v1beta1.Tx.MsgRegisterAccount.newBuilder().setDomain(domain).setName(name).setOwner(owner).setRegisterer(registerer).addAllResources(resources).build();
-        Any msgRegisterAccountAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRegisterAccount").setValue(msgRegisterAccount.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgRegisterAccountAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        return getSignSimulTx(auth, getRegisterAccountMsg(domain, name, owner, registerer, resources), fee, memo, pKey, chainId);
     }
 
+    public static ArrayList<Any> getRegisterAccountMsg(String domain, String name, String owner, String registerer, ArrayList<Types.Resource> resources) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        starnamed.x.starname.v1beta1.Tx.MsgRegisterAccount msgRegisterAccount = starnamed.x.starname.v1beta1.Tx.MsgRegisterAccount.newBuilder().setDomain(domain).setName(name).setOwner(owner).setRegisterer(registerer).addAllResources(resources).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRegisterAccount").setValue(msgRegisterAccount.toByteString()).build());
+        return msgAnys;
+    }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcDeleteDomainReq(QueryOuterClass.QueryAccountResponse auth, String domain, String owner, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgDeleteDomain msgDeleteDomain = starnamed.x.starname.v1beta1.Tx.MsgDeleteDomain.newBuilder().setDomain(domain).setOwner(owner).build();
-        Any msgDeleteDomainAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgDeleteDomain").setValue(msgDeleteDomain.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDeleteDomainAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getDeleteDomainMsg(domain, owner), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcDeleteDomainSimulateReq(QueryOuterClass.QueryAccountResponse auth, String domain, String owner, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgDeleteDomain msgDeleteDomain = starnamed.x.starname.v1beta1.Tx.MsgDeleteDomain.newBuilder().setDomain(domain).setOwner(owner).build();
-        Any msgDeleteDomainAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgDeleteDomain").setValue(msgDeleteDomain.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDeleteDomainAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
-
+        return getSignSimulTx(auth, getDeleteDomainMsg(domain, owner), fee, memo, pKey, chainId);
     }
 
+    public static ArrayList<Any> getDeleteDomainMsg(String domain, String owner) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        starnamed.x.starname.v1beta1.Tx.MsgDeleteDomain msgDeleteDomain = starnamed.x.starname.v1beta1.Tx.MsgDeleteDomain.newBuilder().setDomain(domain).setOwner(owner).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgDeleteDomain").setValue(msgDeleteDomain.toByteString()).build());
+        return msgAnys;
+    }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcDeleteAccountReq(QueryOuterClass.QueryAccountResponse auth, String domain, String name, String owner, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgDeleteAccount msgDeleteAccount = starnamed.x.starname.v1beta1.Tx.MsgDeleteAccount.newBuilder().setDomain(domain).setName(name).setOwner(owner).build();
-        Any msgDeleteAccountAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgDeleteAccount").setValue(msgDeleteAccount.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDeleteAccountAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getDeleteAccountMsg(domain, name, owner), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcDeleteAccountSimulateReq(QueryOuterClass.QueryAccountResponse auth, String domain, String name, String owner, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgDeleteAccount msgDeleteAccount = starnamed.x.starname.v1beta1.Tx.MsgDeleteAccount.newBuilder().setDomain(domain).setName(name).setOwner(owner).build();
-        Any msgDeleteAccountAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgDeleteAccount").setValue(msgDeleteAccount.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDeleteAccountAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        return getSignSimulTx(auth, getDeleteAccountMsg(domain, name, owner), fee, memo, pKey, chainId);
     }
 
+    public static ArrayList<Any> getDeleteAccountMsg(String domain, String name, String owner) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        starnamed.x.starname.v1beta1.Tx.MsgDeleteAccount msgDeleteAccount = starnamed.x.starname.v1beta1.Tx.MsgDeleteAccount.newBuilder().setDomain(domain).setName(name).setOwner(owner).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgDeleteAccount").setValue(msgDeleteAccount.toByteString()).build());
+        return msgAnys;
+    }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcRenewDomainReq(QueryOuterClass.QueryAccountResponse auth, String domain, String signer, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgRenewDomain msgRenewDomain = starnamed.x.starname.v1beta1.Tx.MsgRenewDomain.newBuilder().setDomain(domain).setSigner(signer).build();
-        Any msgRenewDomainAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRenewDomain").setValue(msgRenewDomain.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgRenewDomainAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getRenewDomainMsg(domain, signer), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcRenewDomainSimulateReq(QueryOuterClass.QueryAccountResponse auth, String domain, String signer, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgRenewDomain msgRenewDomain = starnamed.x.starname.v1beta1.Tx.MsgRenewDomain.newBuilder().setDomain(domain).setSigner(signer).build();
-        Any msgRenewDomainAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRenewDomain").setValue(msgRenewDomain.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgRenewDomainAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        return getSignSimulTx(auth, getRenewDomainMsg(domain, signer), fee, memo, pKey, chainId);
     }
 
+    public static ArrayList<Any> getRenewDomainMsg(String domain, String signer) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        starnamed.x.starname.v1beta1.Tx.MsgRenewDomain msgRenewDomain = starnamed.x.starname.v1beta1.Tx.MsgRenewDomain.newBuilder().setDomain(domain).setSigner(signer).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRenewDomain").setValue(msgRenewDomain.toByteString()).build());
+        return msgAnys;
+    }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcRenewAccountReq(QueryOuterClass.QueryAccountResponse auth, String domain, String name, String signer, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgRenewAccount msgRenewAccount = starnamed.x.starname.v1beta1.Tx.MsgRenewAccount.newBuilder().setDomain(domain).setName(name).setSigner(signer).build();
-        Any msgRenewAccountAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRenewAccount").setValue(msgRenewAccount.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgRenewAccountAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getRenewAccountMsg(domain, name, signer), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcRenewAccountSimulateReq(QueryOuterClass.QueryAccountResponse auth, String domain, String name, String signer, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgRenewAccount msgRenewAccount = starnamed.x.starname.v1beta1.Tx.MsgRenewAccount.newBuilder().setDomain(domain).setName(name).setSigner(signer).build();
-        Any msgRenewAccountAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRenewAccount").setValue(msgRenewAccount.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgRenewAccountAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        return getSignSimulTx(auth, getRenewAccountMsg(domain, name, signer), fee, memo, pKey, chainId);
     }
 
+    public static ArrayList<Any> getRenewAccountMsg(String domain, String name, String signer) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        starnamed.x.starname.v1beta1.Tx.MsgRenewAccount msgRenewAccount = starnamed.x.starname.v1beta1.Tx.MsgRenewAccount.newBuilder().setDomain(domain).setName(name).setSigner(signer).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgRenewAccount").setValue(msgRenewAccount.toByteString()).build());
+        return msgAnys;
+    }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcReplaceResourceReq(QueryOuterClass.QueryAccountResponse auth, String domain, String name, String owner, ArrayList<Types.Resource> resources, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgReplaceAccountResources msgReplaceResource= starnamed.x.starname.v1beta1.Tx.MsgReplaceAccountResources.newBuilder().setDomain(domain).setName(name).setOwner(owner).addAllNewResources(resources).build();
-        Any msgReplaceResourceAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgReplaceAccountResources").setValue(msgReplaceResource.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgReplaceResourceAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getReplaceResourcetMsg(domain, name, owner, resources), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcReplaceResourceSimulateReq(QueryOuterClass.QueryAccountResponse auth, String domain, String name, String owner, ArrayList<Types.Resource> resources, Fee fee, String memo, ECKey pKey, String chainId) {
-        starnamed.x.starname.v1beta1.Tx.MsgReplaceAccountResources msgReplaceResource= starnamed.x.starname.v1beta1.Tx.MsgReplaceAccountResources.newBuilder().setDomain(domain).setName(name).setOwner(owner).addAllNewResources(resources).build();
-        Any msgReplaceResourceAny = Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgReplaceAccountResources").setValue(msgReplaceResource.toByteString()).build();
+        return getSignSimulTx(auth, getReplaceResourcetMsg(domain, name, owner, resources), fee, memo, pKey, chainId);
+    }
 
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgReplaceResourceAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    public static ArrayList<Any> getReplaceResourcetMsg(String domain, String name, String owner, ArrayList<Types.Resource> resources) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        starnamed.x.starname.v1beta1.Tx.MsgReplaceAccountResources msgReplaceResource= starnamed.x.starname.v1beta1.Tx.MsgReplaceAccountResources.newBuilder().setDomain(domain).setName(name).setOwner(owner).addAllNewResources(resources).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/starnamed.x.starname.v1beta1.MsgReplaceAccountResources").setValue(msgReplaceResource.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcSwapInReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoutes, String inputDenom, String inputAmount, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
