@@ -945,4 +945,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_CHIHUAHUA = new BigDecimal("5.8172");
     public final static BigDecimal BLOCK_TIME_AXELAR = new BigDecimal("5.5596");
     public final static BigDecimal BLOCK_TIME_KONSTELLATION = new BigDecimal("5.376");
+    public final static BigDecimal BLOCK_TIME_UMEE = new BigDecimal("5.658");
 }

@@ -2599,6 +2599,9 @@ public class WUtil {
             } else if (chain.equals(KONSTELL_MAIN)) {
                 return BLOCK_TIME_KONSTELLATION;
 
+            } else if (chain.equals(UMEE_MAIN)) {
+                return BLOCK_TIME_UMEE;
+
             }
         }
         return BigDecimal.ZERO;

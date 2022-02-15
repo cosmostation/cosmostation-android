@@ -35,7 +35,7 @@
     <color name="colorTransBgMedi">#2479aaf2</color>
     <color name="colorTransBgAlthea">#24f8d9c0</color>
     <color name="colorTransBgOsmosis">#249248db</color>
-    <color name="colorTransBgUmee">#247dcaff</color>
+    <color name="colorTransBgUmee">#24bb90f8</color>
     <color name="colorTransBgEmoney">#2486ccba</color>
     <color name="colorTransBgAxelar">#24C4C4C4</color>
     <color name="colorTransBgJuno">#24f0827d</color>
@@ -138,8 +138,8 @@
     <color name="colorOsmosis2">#4e1a82</color>
     <color name="colorIon">#3C90FC</color>
 
-    <color name="colorUmee">#7dcaff</color>
-    <color name="colorUmee2">#436b88</color>
+    <color name="colorUmee">#bb90f8</color>
+    <color name="colorUmee2">#7e63a6</color>
 
     <color name="colorEmoney">#86ccba</color>
     <color name="colorEmoney2">#43655c</color>
