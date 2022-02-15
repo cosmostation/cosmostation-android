@@ -749,9 +749,9 @@ public class BaseConstant {
     public final static String KONSTELL_GAS_RATE_LOW                    = "0.001";
     public final static String KONSTELL_GAS_RATE_AVERAGE                = "0.01";
 
-    public final static String UMEE_GAS_RATE_TINY                       = "0.00025";
-    public final static String UMEE_GAS_RATE_LOW                        = "0.0025";
-    public final static String UMEE_GAS_RATE_AVERAGE                    = "0.025";
+    public final static String UMEE_GAS_RATE_TINY                       = "0.000";
+    public final static String UMEE_GAS_RATE_LOW                        = "0.001";
+    public final static String UMEE_GAS_RATE_AVERAGE                    = "0.005";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
@@ -867,7 +867,6 @@ public class BaseConstant {
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
     public final static String EXPLORER_RIZON_TEST      = "https://testnet.mintscan.io/rizon/";
     public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
-    public final static String EXPLORER_UMEE_TEST       = "https://testnet.mintscan.io/umee/";
 
 
     public final static String AKASH_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/akash/relay-akash-unknown.png";

@@ -3795,7 +3795,7 @@ public class WUtil {
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(UMEE_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(UMEE_GAS_RATE_AVERAGE);
+            BigDecimal gasRate = new BigDecimal(UMEE_GAS_RATE_TINY);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
