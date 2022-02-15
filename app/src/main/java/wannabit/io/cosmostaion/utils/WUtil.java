@@ -3587,6 +3587,28 @@ public class WUtil {
                 return new BigDecimal(GAS_AMOUNT_IBC_SEND);
             }
 
+        } else if (basechain.equals(INJ_MAIN)) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward_kava)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            }
+
         } else {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
