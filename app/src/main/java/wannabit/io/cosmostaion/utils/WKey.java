@@ -69,6 +69,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cosmos.auth.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.crypto.Sha256;
@@ -294,19 +295,16 @@ public class WKey {
     }
 
     // For gRpc Keys
-    public static Any generateGrpcPubKeyFromPriv(String privateKey) {
+    public static Any generateGrpcPubKeyFromPriv(QueryOuterClass.QueryAccountResponse auth, String privateKey) {
         ECKey ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
-        cosmos.crypto.secp256k1.Keys.PubKey pubKey = cosmos.crypto.secp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
-        return Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(pubKey.toByteString()).build();
+        if (auth.getAccount().getTypeUrl().contains("/injective.types.v1beta1.EthAccount")) {
+            injective.crypto.v1beta1.ethsecp256k1.Keys.PubKey pubKey = injective.crypto.v1beta1.ethsecp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
+            return Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").setValue(pubKey.toByteString()).build();
+        } else {
+            cosmos.crypto.secp256k1.Keys.PubKey pubKey = cosmos.crypto.secp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
+            return Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(pubKey.toByteString()).build();
+        }
     }
-
-    // For injective gRpc Keys
-    public static Any generateGrpcEthPubKeyFromPriv(String privateKey) {
-        ECKey ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
-        injective.crypto.v1beta1.ethsecp256k1.Keys.PubKey pubKey = injective.crypto.v1beta1.ethsecp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
-        return Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").setValue(pubKey.toByteString()).build();
-    }
-
 
     // Ethermint Style Key gen (OKex)
     public static String createNewAddressSecp256k1(String mainPrefix, byte[] publickKey) throws Exception {
