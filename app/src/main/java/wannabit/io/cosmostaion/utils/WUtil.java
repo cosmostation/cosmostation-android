@@ -2725,6 +2725,9 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(CHIHUAHUA_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/chihuahua-chain")));
+
+        } else if (mainActivity.mBaseChain.equals(UMEE_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/umee")));
         }
         return null;
     }
