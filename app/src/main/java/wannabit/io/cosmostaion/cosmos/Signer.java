@@ -658,166 +658,100 @@ public class Signer {
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcCreateNftIrisReq(QueryOuterClass.QueryAccountResponse auth, String signer, String denomId, String denomName, String id, String name, String uri, String data, Fee fee, String memo, ECKey pKey, String chainId) {
-        ArrayList<Any> msgsAny = new ArrayList<>();
-        irismod.nft.Tx.MsgIssueDenom msgIssueDenom = irismod.nft.Tx.MsgIssueDenom.newBuilder().setId(denomId).setName(denomName).setSchema("").setSender(signer).setMintRestricted(false).setUpdateRestricted(false).build();
-        Any msgIssueDenomAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgIssueDenom").setValue(msgIssueDenom.toByteString()).build();
-        msgsAny.add(msgIssueDenomAny);
-
-        irismod.nft.Tx.MsgMintNFT msgMintNFT = irismod.nft.Tx.MsgMintNFT.newBuilder().setSender(signer).setRecipient(signer).setId(id).setDenomId(denomId).setName(name).setUri(uri).setData(data).build();
-        Any msgMintNftAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgMintNFT").setValue(msgMintNFT.toByteString()).build();
-        msgsAny.add(msgMintNftAny);
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getCreateNftIrisMsg(signer, denomId, denomName, id, name, uri, data), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcCreateNftIrisSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, String denomId, String denomName, String id, String name, String uri, String data, Fee fee, String memo, ECKey pKey, String chainId) {
-        ArrayList<Any> msgsAny = new ArrayList<>();
+        return getSignSimulTx(auth, getCreateNftIrisMsg(signer, denomId, denomName, id, name, uri, data), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getCreateNftIrisMsg(String signer, String denomId, String denomName, String id, String name, String uri, String data) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         irismod.nft.Tx.MsgIssueDenom msgIssueDenom = irismod.nft.Tx.MsgIssueDenom.newBuilder().setId(denomId).setName(denomName).setSchema("").setSender(signer).setMintRestricted(false).setUpdateRestricted(false).build();
         Any msgIssueDenomAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgIssueDenom").setValue(msgIssueDenom.toByteString()).build();
-        msgsAny.add(msgIssueDenomAny);
+        msgAnys.add(msgIssueDenomAny);
 
         irismod.nft.Tx.MsgMintNFT msgMintNFT = irismod.nft.Tx.MsgMintNFT.newBuilder().setSender(signer).setRecipient(signer).setId(id).setDenomId(denomId).setName(name).setUri(uri).setData(data).build();
         Any msgMintNftAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgMintNFT").setValue(msgMintNFT.toByteString()).build();
-        msgsAny.add(msgMintNftAny);
-
-        TxOuterClass.TxBody txBody = getGrpcTxBodys(msgsAny, memo);
-        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(msgMintNftAny);
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcCreateNftCroReq(QueryOuterClass.QueryAccountResponse auth, String signer, String denomId, String denomName, String id, String name, String uri, String data, Fee fee, String memo, ECKey pKey, String chainId) {
-        ArrayList<Any> msgsAny = new ArrayList<>();
-        chainmain.nft.v1.Tx.MsgIssueDenom msgIssueDenom = chainmain.nft.v1.Tx.MsgIssueDenom.newBuilder().setId(denomId).setName(denomName).setSchema("").setSender(signer).build();
-        Any msgIssueDenomAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgIssueDenom").setValue(msgIssueDenom.toByteString()).build();
-        msgsAny.add(msgIssueDenomAny);
-
-        chainmain.nft.v1.Tx.MsgMintNFT msgMintNFT = chainmain.nft.v1.Tx.MsgMintNFT.newBuilder().setSender(signer).setRecipient(signer).setId(id).setDenomId(denomId).setName(name).setUri(uri).setData(data).build();
-        Any msgMintNftAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgMintNFT").setValue(msgMintNFT.toByteString()).build();
-        msgsAny.add(msgMintNftAny);
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getCreateNftCroMsg(signer, denomId, denomName, id, name, uri, data), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcCreateNftCroSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, String denomId, String denomName, String id, String name, String uri, String data, Fee fee, String memo, ECKey pKey, String chainId) {
-        ArrayList<Any> msgsAny = new ArrayList<>();
+        return getSignSimulTx(auth, getCreateNftCroMsg(signer, denomId, denomName, id, name, uri, data), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getCreateNftCroMsg(String signer, String denomId, String denomName, String id, String name, String uri, String data) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         chainmain.nft.v1.Tx.MsgIssueDenom msgIssueDenom = chainmain.nft.v1.Tx.MsgIssueDenom.newBuilder().setId(denomId).setName(denomName).setSchema("").setSender(signer).build();
         Any msgIssueDenomAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgIssueDenom").setValue(msgIssueDenom.toByteString()).build();
-        msgsAny.add(msgIssueDenomAny);
+        msgAnys.add(msgIssueDenomAny);
 
         chainmain.nft.v1.Tx.MsgMintNFT msgMintNFT = chainmain.nft.v1.Tx.MsgMintNFT.newBuilder().setSender(signer).setRecipient(signer).setId(id).setDenomId(denomId).setName(name).setUri(uri).setData(data).build();
         Any msgMintNftAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgMintNFT").setValue(msgMintNFT.toByteString()).build();
-        msgsAny.add(msgMintNftAny);
-
-        TxOuterClass.TxBody txBody = getGrpcTxBodys(msgsAny, memo);
-        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(msgMintNftAny);
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcSendNftIrisReq(QueryOuterClass.QueryAccountResponse auth, String sender, String recipient, String denomId, String id, irismod.nft.QueryOuterClass.QueryNFTResponse irisResponse, Fee fee, String memo, ECKey pKey, String chainId) {
-        irismod.nft.Tx.MsgTransferNFT msgTransferNFT = irismod.nft.Tx.MsgTransferNFT.newBuilder().setId(id).setDenomId(denomId).setSender(sender).setRecipient(recipient).setName(irisResponse.getNft().getName()).setUri(irisResponse.getNft().getUri()).setData(irisResponse.getNft().getData()).build();
-        Any msgTransferNftAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgTransferNftAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getSendNftIrisMsg(sender, recipient, denomId, id, irisResponse), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcSendNftIrisSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String recipient, String denomId, String id, irismod.nft.QueryOuterClass.QueryNFTResponse irisResponse, Fee fee, String memo, ECKey pKey, String chainId) {
-        irismod.nft.Tx.MsgTransferNFT msgTransferNFT = irismod.nft.Tx.MsgTransferNFT.newBuilder().setId(id).setDenomId(denomId).setSender(sender).setRecipient(recipient).setName(irisResponse.getNft().getName()).setUri(irisResponse.getNft().getUri()).setData(irisResponse.getNft().getData()).build();
-        Any msgTransferNftAny = Any.newBuilder().setTypeUrl("/irismod.nft.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build();
+        return getSignSimulTx(auth, getSendNftIrisMsg(sender, recipient, denomId, id, irisResponse), fee, memo, pKey, chainId);
+    }
 
-        TxOuterClass.TxBody txBody = getGrpcTxBody(msgTransferNftAny, memo);
-        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    public static ArrayList<Any> getSendNftIrisMsg(String sender, String recipient, String denomId, String id, irismod.nft.QueryOuterClass.QueryNFTResponse irisResponse) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        irismod.nft.Tx.MsgTransferNFT msgTransferNFT = irismod.nft.Tx.MsgTransferNFT.newBuilder().setId(id).setDenomId(denomId).setSender(sender).setRecipient(recipient).setName(irisResponse.getNft().getName()).setUri(irisResponse.getNft().getUri()).setData(irisResponse.getNft().getData()).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/irismod.nft.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcSendNftCroReq(QueryOuterClass.QueryAccountResponse auth, String sender, String recipient, String denomId, String id, Fee fee, String memo, ECKey pKey, String chainId) {
-        chainmain.nft.v1.Tx.MsgTransferNFT msgTransferNFT = chainmain.nft.v1.Tx.MsgTransferNFT.newBuilder().setId(id).setDenomId(denomId).setSender(sender).setRecipient(recipient).build();
-        Any msgTransferNftAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgTransferNftAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getSendNftCroMsg(sender, recipient, denomId, id), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcSendNftCroSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String recipient, String denomId, String id, Fee fee, String memo, ECKey pKey, String chainId) {
-        chainmain.nft.v1.Tx.MsgTransferNFT msgTransferNFT = chainmain.nft.v1.Tx.MsgTransferNFT.newBuilder().setId(id).setDenomId(denomId).setSender(sender).setRecipient(recipient).build();
-        Any msgTransferNftAny = Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build();
+        return getSignSimulTx(auth, getSendNftCroMsg(sender, recipient, denomId, id), fee, memo, pKey, chainId);
+    }
 
-        TxOuterClass.TxBody txBody = getGrpcTxBody(msgTransferNftAny, memo);
-        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    public static ArrayList<Any> getSendNftCroMsg(String sender, String recipient, String denomId, String id) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        chainmain.nft.v1.Tx.MsgTransferNFT msgTransferNFT = chainmain.nft.v1.Tx.MsgTransferNFT.newBuilder().setId(id).setDenomId(denomId).setSender(sender).setRecipient(recipient).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcCreateProfileReq(QueryOuterClass.QueryAccountResponse auth, String dtag, String nickname, String bio, String profilePicture, String coverPicture, String creator, Fee fee, String memo, ECKey pKey, String chainId) {
-        MsgsProfile.MsgSaveProfile msgSaveProfile = MsgsProfile.MsgSaveProfile.newBuilder().setDtag(dtag).setNickname(nickname).setBio(bio).setProfilePicture(profilePicture).setCoverPicture(coverPicture).setCreator(creator).build();
-        Any msgSaveProfileAny = Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.MsgSaveProfile").setValue(msgSaveProfile.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSaveProfileAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getCreateProfileMsg(dtag, nickname, bio, profilePicture, coverPicture, creator), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcCreateProfileSimulateReq(QueryOuterClass.QueryAccountResponse auth, String dtag, String nickname, String bio, String profilePicture, String coverPicture, String creator, Fee fee, String memo, ECKey pKey, String chainId) {
-        MsgsProfile.MsgSaveProfile msgSaveProfile = MsgsProfile.MsgSaveProfile.newBuilder().setDtag(dtag).setNickname(nickname).setBio(bio).setProfilePicture(profilePicture).setCoverPicture(coverPicture).setCreator(creator).build();
-        Any msgSaveProfileAny = Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.MsgSaveProfile").setValue(msgSaveProfile.toByteString()).build();
+        return getSignSimulTx(auth, getCreateProfileMsg(dtag, nickname, bio, profilePicture, coverPicture, creator), fee, memo, pKey, chainId);
+    }
 
-        TxOuterClass.TxBody txBody = getGrpcTxBody(msgSaveProfileAny, memo);
-        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    public static ArrayList<Any> getCreateProfileMsg(String dtag, String nickname, String bio, String profilePicture, String coverPicture, String creator) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        MsgsProfile.MsgSaveProfile msgSaveProfile = MsgsProfile.MsgSaveProfile.newBuilder().setDtag(dtag).setNickname(nickname).setBio(bio).setProfilePicture(profilePicture).setCoverPicture(coverPicture).setCreator(creator).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.MsgSaveProfile").setValue(msgSaveProfile.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcLinkAccountReq(QueryOuterClass.QueryAccountResponse auth, String singer, BaseChain toChain, Account toAccount, ECKey toKey, Fee fee, String memo, ECKey pKey, String chainId) {
-        byte[] sigbyte = null;
-        String plainString = "Link Chain With Cosmostation";
-        String hexString = "";
-        try {
-            hexString = Hex.toHexString(plainString.getBytes("utf-8"));
-            sigbyte = getGrpcByteSingleSignature(auth, toKey, plainString.getBytes("utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        ModelsChainLinks.Bech32Address desmosBech32 = ModelsChainLinks.Bech32Address.newBuilder().setValue(toAccount.address).setPrefix(WUtil.getDesmosPrefix(toChain)).build();
-        Any chainAddress = Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.Bech32Address").setValue(desmosBech32.toByteString()).build();
-        Keys.PubKey toAccountPub = Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(toKey.getPubKey())).build();
-        Any toAccountPubKey = Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(toAccountPub.toByteString()).build();
-        ModelsChainLinks.Proof desmosProof = ModelsChainLinks.Proof.newBuilder().setSignature(WUtil.ByteArrayToHexString(sigbyte)).setPlainText(hexString).setPubKey(toAccountPubKey).build();
-        ModelsChainLinks.ChainConfig desmosChainConfig = ModelsChainLinks.ChainConfig.newBuilder().setName(WUtil.getDesmosConfig(toChain)).build();
-        MsgsChainLinks.MsgLinkChainAccount linkchain = MsgsChainLinks.MsgLinkChainAccount.newBuilder().setChainAddress(chainAddress).setProof(desmosProof).setChainConfig(desmosChainConfig).setSigner(singer).build();
-
-        Any msgLinkAccountAny = Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.MsgLinkChainAccount").setValue(linkchain.toByteString()).build();
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgLinkAccountAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getLinkAccountMsg(auth, singer, toChain, toAccount, toKey), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcLinkAccountSimulateReq(QueryOuterClass.QueryAccountResponse auth, String singer, BaseChain toChain, Account toAccount, ECKey toKey, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getLinkAccountMsg(auth, singer, toChain, toAccount, toKey), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getLinkAccountMsg(QueryOuterClass.QueryAccountResponse auth, String singer, BaseChain toChain, Account toAccount, ECKey toKey) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         byte[] sigbyte = null;
         String plainString = "Link Chain With Cosmostation";
         String hexString = "";
@@ -835,12 +769,8 @@ public class Signer {
         ModelsChainLinks.ChainConfig desmosChainConfig = ModelsChainLinks.ChainConfig.newBuilder().setName(WUtil.getDesmosConfig(toChain)).build();
         MsgsChainLinks.MsgLinkChainAccount linkchain = MsgsChainLinks.MsgLinkChainAccount.newBuilder().setChainAddress(chainAddress).setProof(desmosProof).setChainConfig(desmosChainConfig).setSigner(singer).build();
 
-        Any msgLinkAccountAny = Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.MsgLinkChainAccount").setValue(linkchain.toByteString()).build();
-        TxOuterClass.TxBody txBody = getGrpcTxBody(msgLinkAccountAny, memo);
-        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.MsgLinkChainAccount").setValue(linkchain.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaSwapReq(QueryOuterClass.QueryAccountResponse auth, String requester, Coin swapIn, Coin swapOut, String slippage, Long deadline, Fee fee, String memo, ECKey pKey, String chainId) {
@@ -1102,12 +1032,13 @@ public class Signer {
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaCreateHTLCSwapReq(QueryOuterClass.QueryAccountResponse auth, String from, String to, ArrayList<Coin> sendCoin, long timtsStamp, String randomNumberHash, Fee fee, String memo, ECKey pKey, String chainId) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin Amount = CoinOuterClass.Coin.newBuilder().setAmount(sendCoin.get(0).amount).setDenom(sendCoin.get(0).denom).build();
         kava.bep3.v1beta1.Tx.MsgCreateAtomicSwap msgCreateAtomicSwap = kava.bep3.v1beta1.Tx.MsgCreateAtomicSwap.newBuilder().setFrom(from).setTo(WUtil.getDuputyKavaAddress(sendCoin.get(0).denom)).setSenderOtherChain(WUtil.getDuputyBnbAddress(sendCoin.get(0).denom)).
                 setRecipientOtherChain(to).setRandomNumberHash(randomNumberHash).setTimestamp(timtsStamp).addAmount(Amount).setHeightSpan(24686).build();
-        Any msgKavaCreateAtomicSwapAny = Any.newBuilder().setTypeUrl("/kava.bep3.v1beta1.MsgCreateAtomicSwap").setValue(msgCreateAtomicSwap.toByteString()).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.bep3.v1beta1.MsgCreateAtomicSwap").setValue(msgCreateAtomicSwap.toByteString()).build());
 
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaCreateAtomicSwapAny, memo);
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgAnys, memo);
         TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
         TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
         TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
@@ -1115,10 +1046,11 @@ public class Signer {
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaClaimHTLCSwapReq(QueryOuterClass.QueryAccountResponse auth, String from, String swapId, String randomNumber, Fee fee, String memo, ECKey pKey, String chainId) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         kava.bep3.v1beta1.Tx.MsgClaimAtomicSwap msgClaimAtomicSwap = kava.bep3.v1beta1.Tx.MsgClaimAtomicSwap.newBuilder().setFrom(from).setSwapId(swapId).setRandomNumber(randomNumber).build();
-        Any msgKavaClaimAtomicSwapAny = Any.newBuilder().setTypeUrl("/kava.bep3.v1beta1.MsgClaimAtomicSwap").setValue(msgClaimAtomicSwap.toByteString()).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.bep3.v1beta1.MsgClaimAtomicSwap").setValue(msgClaimAtomicSwap.toByteString()).build());
 
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaClaimAtomicSwapAny, memo);
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgAnys, memo);
         TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
         TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
         TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
@@ -1126,35 +1058,21 @@ public class Signer {
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcCw20SendReq(QueryOuterClass.QueryAccountResponse auth, String fromAddress, String toAddress, String contractAddress, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
-        Cw20TransferReq req = new Cw20TransferReq(toAddress, amount.get(0).amount);
-        String jsonData = new Gson().toJson(req);
-        ByteString msg = ByteString.copyFromUtf8(jsonData);
-        cosmwasm.wasm.v1.Tx.MsgExecuteContract msgExecuteContract = cosmwasm.wasm.v1.Tx.MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).build();
-        Any msgCw20SendAny = Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgCw20SendAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getCw20SendMsg(fromAddress, toAddress, contractAddress, amount), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcCw20SendSimulateReq(QueryOuterClass.QueryAccountResponse auth, String fromAddress, String toAddress, String contractAddress, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getCw20SendMsg(fromAddress, toAddress, contractAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getCw20SendMsg(String fromAddress, String toAddress, String contractAddress, ArrayList<Coin> amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         Cw20TransferReq req = new Cw20TransferReq(toAddress, amount.get(0).amount);
         String jsonData = new Gson().toJson(req);
         ByteString msg = ByteString.copyFromUtf8(jsonData);
         cosmwasm.wasm.v1.Tx.MsgExecuteContract msgExecuteContract = cosmwasm.wasm.v1.Tx.MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).build();
-        Any msgCw20SendAny = Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgCw20SendAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
-    }
-
-    public static TxOuterClass.TxBody getGrpcTxBody(Any msgAny, String memo) {
-        return TxOuterClass.TxBody.newBuilder().addMessages(msgAny).setMemo(memo).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build());
+        return msgAnys;
     }
 
     public static TxOuterClass.TxBody getGrpcTxBodys(ArrayList<Any> msgsAny, String memo) {
