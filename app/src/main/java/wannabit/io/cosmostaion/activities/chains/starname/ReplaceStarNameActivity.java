@@ -48,7 +48,6 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
     private ViewPager       mViewPager;
 
     private ReplaceStarNamePageAdapter  mPageAdapter;
-    public boolean                      mIsDomain;
     public Types.Domain                 mDomain_gRPC;
     public Types.Account                mAccountResolve_gRPC;
 

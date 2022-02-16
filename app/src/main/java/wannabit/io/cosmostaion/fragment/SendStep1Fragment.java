@@ -1,5 +1,14 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -27,14 +36,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class SendStep1Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -108,6 +109,8 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mDpDecimal = WUtil.getGBridgeCoinDecimal(getBaseDao(), toSendDenom);
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
                 mDpDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), toSendDenom);
+            } else if (getSActivity().mBaseChain.equals(INJ_MAIN)){
+                mDpDecimal = WUtil.getInjCoinDecimal(getBaseDao(), toSendDenom);
             } else {
                 mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             }

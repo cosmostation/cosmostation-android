@@ -149,7 +149,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
         } else if (mBaseChain.equals(INJ_MAIN)) {
             mToolbarSymbolImg.setImageResource(R.drawable.token_ic);
-            mToolbarSymbol.setText("SHARE-" + mPoolDenom.substring(5));
+            mToolbarSymbol.setText("SHARE" + mPoolDenom.substring(5));
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
 
             mDivideDecimal = 18;

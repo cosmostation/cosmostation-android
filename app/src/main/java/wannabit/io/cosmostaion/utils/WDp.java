@@ -2098,6 +2098,10 @@ public class WDp {
                     Assets assets = baseData.getAsset(coin.denom);
                     BigDecimal available = baseData.getAvailable(assets.denom);
                     totalValue = totalValue.add(userCurrencyValue(baseData, assets.origin_symbol, available, assets.decimal));
+                } else if (baseChain.equals(INJ_MAIN) && coin.denom.startsWith("peggy")) {
+                    Assets assets = baseData.getAsset(coin.denom);
+                    BigDecimal available = baseData.getAvailable(assets.denom);
+                    totalValue = totalValue.add(userCurrencyValue(baseData, assets.origin_symbol, available, assets.decimal));
                 } else if (coin.isIbc()) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     IbcToken ibcToken = baseData.getIbcToken(coin.denom);

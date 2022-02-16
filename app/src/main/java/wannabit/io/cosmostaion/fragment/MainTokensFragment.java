@@ -336,7 +336,7 @@ public class MainTokensFragment extends BaseFragment {
                 }
 
                 else if (section == SECTION_OSMOSIS_POOL_GRPC || section == SECTION_INJECTIVE_POOL_GRPC) {
-                    return getMainActivity().getString(R.string.str_pool_token_title);
+                    return getMainActivity().getString(R.string.str_pool_coin_title);
                 }
 
                 else if (section == SECTION_ETHER_GRPC) {
@@ -1422,10 +1422,10 @@ public class MainTokensFragment extends BaseFragment {
     //with Injective Pool gRPC
     private void onBindInjectivePoolToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mInjectivePoolGrpc.get(position);
-        holder.itemSymbol.setText("SHARE-" + coin.denom.substring(5));
+        holder.itemSymbol.setText("SHARE" + coin.denom.substring(5));
         holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         holder.itemInnerSymbol.setText("");
-        holder.itemFullName.setText(coin.denom);
+        holder.itemFullName.setText("Pool Asset");
         holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 18, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));

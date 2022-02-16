@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -241,6 +242,9 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         mGasRate.setText(WDp.getDpGasRate(mSelectedGasRate.toPlainString()));
         mGasAmount.setText(mEstimateGasAmount.toPlainString());
+        if (getSActivity().mBaseChain.equals(BaseChain.INJ_MAIN)) {
+            mGasFee.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+        }
         mGasFee.setText(mFee.toPlainString());
 
         if (mSelectedGasPosition == 0) {
@@ -425,10 +429,15 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_REPLACE_STARNAME) {
-                new SimulReplaceStarNameGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
-                        getSActivity().mStarNameDomain, getSActivity().mStarNameAccount, getSActivity().mStarNameResources,
-                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
+                if (getSActivity().mIsDomain) {
+                    new SimulReplaceStarNameGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
+                            getSActivity().mStarNameDomain, "", getSActivity().mStarNameResources,
+                            getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                } else {
+                    new SimulReplaceStarNameGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
+                            getSActivity().mStarNameDomain, getSActivity().mStarNameAccount, getSActivity().mStarNameResources,
+                            getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
             }
 
             else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_SWAP) {

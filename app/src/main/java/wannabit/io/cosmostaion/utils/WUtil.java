@@ -1247,6 +1247,22 @@ public class WUtil {
         return 6;
     }
 
+    public static int getInjCoinDecimal(BaseData baseData, String denom) {
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(WDp.mainDenom(INJ_MAIN))) {
+                return 18;
+            } else if (denom.startsWith("ibc/")) {
+                return getIbcDecimal(baseData, denom);
+            } else {
+                Assets assets = baseData.getAsset(denom);
+                if (assets != null) {
+                    return assets.decimal;
+                }
+            }
+        }
+        return 18;
+    }
+
     public static int getIbcDecimal(BaseData baseData, String denom) {
         IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
         if (ibcToken != null && ibcToken.auth) { return ibcToken.decimal; }
@@ -2709,6 +2725,9 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(CHIHUAHUA_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/chihuahua-chain")));
+
+        } else if (mainActivity.mBaseChain.equals(UMEE_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/umee")));
         }
         return null;
     }
@@ -3588,6 +3607,28 @@ public class WUtil {
                 return new BigDecimal(GAS_AMOUNT_VOTE);
             } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
                 return new BigDecimal(GAS_AMOUNT_IBC_SEND);
+            }
+
+        } else if (basechain.equals(INJ_MAIN)) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward_kava)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
             }
 
         } else {
