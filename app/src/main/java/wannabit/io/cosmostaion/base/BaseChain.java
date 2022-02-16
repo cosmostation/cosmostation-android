@@ -293,7 +293,7 @@ public enum BaseChain {
     }
 
     public static boolean IS_TESTNET(BaseChain chain) {
-        if (chain.equals(ALTHEA_TEST) || chain.equals(UMEE_MAIN)) {
+        if (chain.equals(ALTHEA_TEST)) {
             return true;
         }
         return false;
