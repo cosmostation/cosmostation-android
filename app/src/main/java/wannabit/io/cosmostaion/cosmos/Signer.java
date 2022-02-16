@@ -577,125 +577,84 @@ public class Signer {
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcIbcTransferReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, String portId, String channelId, Client.Height lastHeight, Fee fee, String memo, ECKey pKey, String chainId) {
-        Client.Height height = Client.Height.newBuilder().setRevisionNumber(lastHeight.getRevisionNumber()).setRevisionHeight(lastHeight.getRevisionHeight() + 1000).build();
-        CoinOuterClass.Coin token = CoinOuterClass.Coin.newBuilder().setAmount(ibcSendAmount).setDenom(ibcSendDenom).build();
-        ibc.applications.transfer.v1.Tx.MsgTransfer msgIbcTransfer = ibc.applications.transfer.v1.Tx.MsgTransfer.newBuilder().setSender(sender).setReceiver(receiver).setSourcePort(portId).setSourceChannel(channelId).setToken(token).setTimeoutHeight(height).setTimeoutTimestamp(0).build();
-        Any msgIbcTransferAny = Any.newBuilder().setTypeUrl("/ibc.applications.transfer.v1.MsgTransfer").setValue(msgIbcTransfer.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgIbcTransferAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, portId, channelId, lastHeight), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcIbcTransferSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, String portId, String channelId, Client.Height lastHeight, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, portId, channelId, lastHeight), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getIbcTransferMsg(String sender, String receiver, String ibcSendDenom, String ibcSendAmount, String portId, String channelId, Client.Height lastHeight) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         Client.Height height = Client.Height.newBuilder().setRevisionNumber(lastHeight.getRevisionNumber()).setRevisionHeight(lastHeight.getRevisionHeight() + 1000).build();
         CoinOuterClass.Coin token = CoinOuterClass.Coin.newBuilder().setAmount(ibcSendAmount).setDenom(ibcSendDenom).build();
         ibc.applications.transfer.v1.Tx.MsgTransfer msgIbcTransfer = ibc.applications.transfer.v1.Tx.MsgTransfer.newBuilder().setSender(sender).setReceiver(receiver).setSourcePort(portId).setSourceChannel(channelId).setToken(token).setTimeoutHeight(height).setTimeoutTimestamp(0).build();
-        Any msgIbcTransferAny = Any.newBuilder().setTypeUrl("/ibc.applications.transfer.v1.MsgTransfer").setValue(msgIbcTransfer.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgIbcTransferAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/ibc.applications.transfer.v1.MsgTransfer").setValue(msgIbcTransfer.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcSifIncentiveReq(QueryOuterClass.QueryAccountResponse auth, String userClaimAddress, Fee fee, String memo, ECKey pKey, String chainId) {
-        sifnode.dispensation.v1.Tx.MsgCreateUserClaim msgCreateUserClaim = sifnode.dispensation.v1.Tx.MsgCreateUserClaim.newBuilder().setUserClaimAddress(userClaimAddress).setUserClaimType(sifnode.dispensation.v1.Types.DistributionType.DISTRIBUTION_TYPE_LIQUIDITY_MINING).build();
-        Any msgCreateUserClaimAny = Any.newBuilder().setTypeUrl("/sifnode.dispensation.v1.MsgCreateUserClaim").setValue(msgCreateUserClaim.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgCreateUserClaimAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth,getSifIncentiveMsg(userClaimAddress), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcSifIncentiveSimulateReq(QueryOuterClass.QueryAccountResponse auth, String userClaimAddress, Fee fee, String memo, ECKey pKey, String chainId) {
-        sifnode.dispensation.v1.Tx.MsgCreateUserClaim msgCreateUserClaim = sifnode.dispensation.v1.Tx.MsgCreateUserClaim.newBuilder().setUserClaimAddress(userClaimAddress).setUserClaimType(sifnode.dispensation.v1.Types.DistributionType.DISTRIBUTION_TYPE_LIQUIDITY_MINING).build();
-        Any msgCreateUserClaimAny = Any.newBuilder().setTypeUrl("/sifnode.dispensation.v1.MsgCreateUserClaim").setValue(msgCreateUserClaim.toByteString()).build();
+        return getSignSimulTx(auth, getSifIncentiveMsg(userClaimAddress), fee, memo, pKey, chainId);
+    }
 
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgCreateUserClaimAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    public static ArrayList<Any> getSifIncentiveMsg(String userClaimAddress) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        sifnode.dispensation.v1.Tx.MsgCreateUserClaim msgCreateUserClaim = sifnode.dispensation.v1.Tx.MsgCreateUserClaim.newBuilder().setUserClaimAddress(userClaimAddress).setUserClaimType(sifnode.dispensation.v1.Types.DistributionType.DISTRIBUTION_TYPE_LIQUIDITY_MINING).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/sifnode.dispensation.v1.MsgCreateUserClaim").setValue(msgCreateUserClaim.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcSifSwapReq(QueryOuterClass.QueryAccountResponse auth, String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
-        sifnode.clp.v1.Types.Asset inputAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(inputDenom).build();
-        sifnode.clp.v1.Types.Asset outpuAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(outputDenom).build();
-        sifnode.clp.v1.Tx.MsgSwap msgSwap = sifnode.clp.v1.Tx.MsgSwap.newBuilder().setSigner(signer).setSentAsset(inputAsset).setReceivedAsset(outpuAsset).setSentAmount(inputAmount).setMinReceivingAmount(outputAmount).build();
-        Any msgSwapAny = Any.newBuilder().setTypeUrl("/sifnode.clp.v1.MsgSwap").setValue(msgSwap.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSwapAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth,getSifSwapMsg(signer, inputDenom, inputAmount, outputDenom, outputAmount), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcSifSwapSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getSifSwapMsg(signer, inputDenom, inputAmount, outputDenom, outputAmount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getSifSwapMsg(String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         sifnode.clp.v1.Types.Asset inputAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(inputDenom).build();
         sifnode.clp.v1.Types.Asset outpuAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(outputDenom).build();
         sifnode.clp.v1.Tx.MsgSwap msgSwap = sifnode.clp.v1.Tx.MsgSwap.newBuilder().setSigner(signer).setSentAsset(inputAsset).setReceivedAsset(outpuAsset).setSentAmount(inputAmount).setMinReceivingAmount(outputAmount).build();
-        Any msgSwapAny = Any.newBuilder().setTypeUrl("/sifnode.clp.v1.MsgSwap").setValue(msgSwap.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSwapAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/sifnode.clp.v1.MsgSwap").setValue(msgSwap.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcSifDepositReq(QueryOuterClass.QueryAccountResponse auth, String signer, String externalDenom, String nativeAmount, String externalAmount, Fee fee, String memo, ECKey pKey, String chainId) {
-        sifnode.clp.v1.Types.Asset externalAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(externalDenom).build();
-        sifnode.clp.v1.Tx.MsgAddLiquidity msgAddLiquidity = sifnode.clp.v1.Tx.MsgAddLiquidity.newBuilder().setSigner(signer).setExternalAsset(externalAsset).setNativeAssetAmount(nativeAmount).setExternalAssetAmount(externalAmount).build();
-        Any msgDepositAny = Any.newBuilder().setTypeUrl("/sifnode.clp.v1.MsgAddLiquidity").setValue(msgAddLiquidity.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDepositAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getSifDepositMsg(signer, externalDenom, nativeAmount, externalAmount), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcSifDepositSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, String externalDenom, String nativeAmount, String externalAmount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getSifDepositMsg(signer, externalDenom, nativeAmount, externalAmount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getSifDepositMsg(String signer, String externalDenom, String nativeAmount, String externalAmount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         sifnode.clp.v1.Types.Asset externalAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(externalDenom).build();
         sifnode.clp.v1.Tx.MsgAddLiquidity msgAddLiquidity = sifnode.clp.v1.Tx.MsgAddLiquidity.newBuilder().setSigner(signer).setExternalAsset(externalAsset).setNativeAssetAmount(nativeAmount).setExternalAssetAmount(externalAmount).build();
-        Any msgDepositAny = Any.newBuilder().setTypeUrl("/sifnode.clp.v1.MsgAddLiquidity").setValue(msgAddLiquidity.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgDepositAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/sifnode.clp.v1.MsgAddLiquidity").setValue(msgAddLiquidity.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcSifWithdrawReq(QueryOuterClass.QueryAccountResponse auth, String signer, String externalDenom, String wBasisPoints, Fee fee, String memo, ECKey pKey, String chainId) {
-        sifnode.clp.v1.Types.Asset externalAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(externalDenom).build();
-        sifnode.clp.v1.Tx.MsgRemoveLiquidity msgRemoveLiquidity = sifnode.clp.v1.Tx.MsgRemoveLiquidity.newBuilder().setSigner(signer).setExternalAsset(externalAsset).setWBasisPoints(wBasisPoints).setAsymmetry("0").build();
-        Any msgWithdrawAny = Any.newBuilder().setTypeUrl("/sifnode.clp.v1.MsgRemoveLiquidity").setValue(msgRemoveLiquidity.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgWithdrawAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getSifWithdrawMsg(signer, externalDenom, wBasisPoints), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcSifWithdrawSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, String externalDenom, String wBasisPoints, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getSifWithdrawMsg(signer, externalDenom, wBasisPoints), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getSifWithdrawMsg(String signer, String externalDenom, String wBasisPoints) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         sifnode.clp.v1.Types.Asset externalAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(externalDenom).build();
         sifnode.clp.v1.Tx.MsgRemoveLiquidity msgRemoveLiquidity = sifnode.clp.v1.Tx.MsgRemoveLiquidity.newBuilder().setSigner(signer).setExternalAsset(externalAsset).setWBasisPoints(wBasisPoints).setAsymmetry("0").build();
-        Any msgWithdrawAny = Any.newBuilder().setTypeUrl("/sifnode.clp.v1.MsgRemoveLiquidity").setValue(msgRemoveLiquidity.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgWithdrawAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/sifnode.clp.v1.MsgRemoveLiquidity").setValue(msgRemoveLiquidity.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcCreateNftIrisReq(QueryOuterClass.QueryAccountResponse auth, String signer, String denomId, String denomName, String id, String name, String uri, String data, Fee fee, String memo, ECKey pKey, String chainId) {
@@ -885,299 +844,199 @@ public class Signer {
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaSwapReq(QueryOuterClass.QueryAccountResponse auth, String requester, Coin swapIn, Coin swapOut, String slippage, Long deadline, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin SwapIn = CoinOuterClass.Coin.newBuilder().setAmount(swapIn.amount).setDenom(swapIn.denom).build();
-        CoinOuterClass.Coin SwapOut = CoinOuterClass.Coin.newBuilder().setAmount(swapOut.amount).setDenom(swapOut.denom).build();
-        kava.swap.v1beta1.Tx.MsgSwapExactForTokens msgSwapExactForTokens = kava.swap.v1beta1.Tx.MsgSwapExactForTokens.newBuilder().setRequester(requester).setExactTokenA(SwapIn).setTokenB(SwapOut).setSlippage(slippage).setDeadline(deadline).build();
-        Any msgKavaSwapAny = Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgSwapExactForTokens").setValue(msgSwapExactForTokens.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaSwapAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaSwapMsg(requester, swapIn, swapOut, slippage, deadline), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaSwapSimulateReq(QueryOuterClass.QueryAccountResponse auth, String requester, Coin swapIn, Coin swapOut, String slippage, Long deadline, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaSwapMsg(requester, swapIn, swapOut, slippage, deadline), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaSwapMsg(String requester, Coin swapIn, Coin swapOut, String slippage, Long deadline) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin SwapIn = CoinOuterClass.Coin.newBuilder().setAmount(swapIn.amount).setDenom(swapIn.denom).build();
         CoinOuterClass.Coin SwapOut = CoinOuterClass.Coin.newBuilder().setAmount(swapOut.amount).setDenom(swapOut.denom).build();
         kava.swap.v1beta1.Tx.MsgSwapExactForTokens msgSwapExactForTokens = kava.swap.v1beta1.Tx.MsgSwapExactForTokens.newBuilder().setRequester(requester).setExactTokenA(SwapIn).setTokenB(SwapOut).setSlippage(slippage).setDeadline(deadline).build();
-        Any msgKavaSwapAny = Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgSwapExactForTokens").setValue(msgSwapExactForTokens.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaSwapAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgSwapExactForTokens").setValue(msgSwapExactForTokens.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaDepositReq(QueryOuterClass.QueryAccountResponse auth, String depositor, Coin tokenA, Coin tokenB, String slippage, Long deadline, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin TokenA = CoinOuterClass.Coin.newBuilder().setAmount(tokenA.amount).setDenom(tokenA.denom).build();
-        CoinOuterClass.Coin TokenB = CoinOuterClass.Coin.newBuilder().setAmount(tokenB.amount).setDenom(tokenB.denom).build();
-        kava.swap.v1beta1.Tx.MsgDeposit msgDeposit = kava.swap.v1beta1.Tx.MsgDeposit.newBuilder().setDepositor(depositor).setTokenA(TokenA).setTokenB(TokenB).setSlippage(slippage).setDeadline(deadline).build();
-        Any msgKavaDepositAny = Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgDeposit").setValue(msgDeposit.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaDepositAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaDepositPoolMsg(depositor, tokenA, tokenB, slippage, deadline), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaDepositPoolSimulateReq(QueryOuterClass.QueryAccountResponse auth, String depositor, Coin tokenA, Coin tokenB, String slippage, Long deadline, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaDepositPoolMsg(depositor, tokenA, tokenB, slippage, deadline), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaDepositPoolMsg(String depositor, Coin tokenA, Coin tokenB, String slippage, Long deadline) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin TokenA = CoinOuterClass.Coin.newBuilder().setAmount(tokenA.amount).setDenom(tokenA.denom).build();
         CoinOuterClass.Coin TokenB = CoinOuterClass.Coin.newBuilder().setAmount(tokenB.amount).setDenom(tokenB.denom).build();
         kava.swap.v1beta1.Tx.MsgDeposit msgDeposit = kava.swap.v1beta1.Tx.MsgDeposit.newBuilder().setDepositor(depositor).setTokenA(TokenA).setTokenB(TokenB).setSlippage(slippage).setDeadline(deadline).build();
-        Any msgKavaDepositAny = Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgDeposit").setValue(msgDeposit.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaDepositAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgDeposit").setValue(msgDeposit.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaWithdrawReq(QueryOuterClass.QueryAccountResponse auth, String from, String shares, Coin minTokenA, Coin minTokenB, Long deadline, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin MinTokenA = CoinOuterClass.Coin.newBuilder().setAmount(minTokenA.amount).setDenom(minTokenA.denom).build();
-        CoinOuterClass.Coin MinTokenB = CoinOuterClass.Coin.newBuilder().setAmount(minTokenB.amount).setDenom(minTokenB.denom).build();
-        kava.swap.v1beta1.Tx.MsgWithdraw msgWithdraw = kava.swap.v1beta1.Tx.MsgWithdraw.newBuilder().setFrom(from).setShares(shares).setMinTokenA(MinTokenA).setMinTokenB(MinTokenB).setDeadline(deadline).build();
-        Any msgKavaWithdrawAny = Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgWithdraw").setValue(msgWithdraw.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaWithdrawAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaWithdrawPoolMsg(from, shares, minTokenA, minTokenB, deadline), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaWithdrawPoolSimulateReq(QueryOuterClass.QueryAccountResponse auth, String from, String shares, Coin minTokenA, Coin minTokenB, Long deadline, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaWithdrawPoolMsg(from, shares, minTokenA, minTokenB, deadline), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaWithdrawPoolMsg(String from, String shares, Coin minTokenA, Coin minTokenB, Long deadline) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin MinTokenA = CoinOuterClass.Coin.newBuilder().setAmount(minTokenA.amount).setDenom(minTokenA.denom).build();
         CoinOuterClass.Coin MinTokenB = CoinOuterClass.Coin.newBuilder().setAmount(minTokenB.amount).setDenom(minTokenB.denom).build();
         kava.swap.v1beta1.Tx.MsgWithdraw msgWithdraw = kava.swap.v1beta1.Tx.MsgWithdraw.newBuilder().setFrom(from).setShares(shares).setMinTokenA(MinTokenA).setMinTokenB(MinTokenB).setDeadline(deadline).build();
-        Any msgKavaWithdrawAny = Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgWithdraw").setValue(msgWithdraw.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaWithdrawAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgWithdraw").setValue(msgWithdraw.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaCreateCdpReq(QueryOuterClass.QueryAccountResponse auth, String sender, Coin collateral, Coin principal, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin Collateral = CoinOuterClass.Coin.newBuilder().setAmount(collateral.amount).setDenom(collateral.denom).build();
-        CoinOuterClass.Coin Principal = CoinOuterClass.Coin.newBuilder().setAmount(principal.amount).setDenom(principal.denom).build();
-        kava.cdp.v1beta1.Tx.MsgCreateCDP msgCreateCDP = kava.cdp.v1beta1.Tx.MsgCreateCDP.newBuilder().setSender(sender).setCollateral(Collateral).setPrincipal(Principal).setCollateralType(collateralType).build();
-        Any msgKavaCreateCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgCreateCDP").setValue(msgCreateCDP.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaCreateCdpAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaCreateCdpMsg(sender, collateral, principal, collateralType), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaCreateCdpSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, Coin collateral, Coin principal, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaCreateCdpMsg(sender, collateral, principal, collateralType), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaCreateCdpMsg(String sender, Coin collateral, Coin principal, String collateralType) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin Collateral = CoinOuterClass.Coin.newBuilder().setAmount(collateral.amount).setDenom(collateral.denom).build();
         CoinOuterClass.Coin Principal = CoinOuterClass.Coin.newBuilder().setAmount(principal.amount).setDenom(principal.denom).build();
         kava.cdp.v1beta1.Tx.MsgCreateCDP msgCreateCDP = kava.cdp.v1beta1.Tx.MsgCreateCDP.newBuilder().setSender(sender).setCollateral(Collateral).setPrincipal(Principal).setCollateralType(collateralType).build();
-        Any msgKavaCreateCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgCreateCDP").setValue(msgCreateCDP.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaCreateCdpAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgCreateCDP").setValue(msgCreateCDP.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaDepositCdpReq(QueryOuterClass.QueryAccountResponse auth, String owner, String depositor, Coin collateral, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin Collateral = CoinOuterClass.Coin.newBuilder().setAmount(collateral.amount).setDenom(collateral.denom).build();
-        kava.cdp.v1beta1.Tx.MsgDeposit msgDepositCdp = kava.cdp.v1beta1.Tx.MsgDeposit.newBuilder().setOwner(owner).setDepositor(depositor).setCollateral(Collateral).setCollateralType(collateralType).build();
-        Any msgKavaDepositCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgDeposit").setValue(msgDepositCdp.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaDepositCdpAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaDepositCdpMsg(owner, depositor, collateral, collateralType), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaDepositCdpSimulateReq(QueryOuterClass.QueryAccountResponse auth, String owner, String depositor, Coin collateral, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaDepositCdpMsg(owner, depositor, collateral, collateralType), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaDepositCdpMsg(String owner, String depositor, Coin collateral, String collateralType) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin Collateral = CoinOuterClass.Coin.newBuilder().setAmount(collateral.amount).setDenom(collateral.denom).build();
         kava.cdp.v1beta1.Tx.MsgDeposit msgDepositCdp = kava.cdp.v1beta1.Tx.MsgDeposit.newBuilder().setOwner(owner).setDepositor(depositor).setCollateral(Collateral).setCollateralType(collateralType).build();
-        Any msgKavaDepositCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgDeposit").setValue(msgDepositCdp.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaDepositCdpAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgDeposit").setValue(msgDepositCdp.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaWithdrawCdpReq(QueryOuterClass.QueryAccountResponse auth, String owner, String depositor, Coin collateral, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin Collateral = CoinOuterClass.Coin.newBuilder().setAmount(collateral.amount).setDenom(collateral.denom).build();
-        kava.cdp.v1beta1.Tx.MsgWithdraw msgDepositCdp = kava.cdp.v1beta1.Tx.MsgWithdraw.newBuilder().setOwner(owner).setDepositor(depositor).setCollateral(Collateral).setCollateralType(collateralType).build();
-        Any msgKavaWithdrawCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgWithdraw").setValue(msgDepositCdp.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaWithdrawCdpAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaWithdrawCdpMsg(owner, depositor, collateral, collateralType), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaWithdrawCdpSimulateReq(QueryOuterClass.QueryAccountResponse auth, String owner, String depositor, Coin collateral, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaWithdrawCdpMsg(owner, depositor, collateral, collateralType), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaWithdrawCdpMsg(String owner, String depositor, Coin collateral, String collateralType) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin Collateral = CoinOuterClass.Coin.newBuilder().setAmount(collateral.amount).setDenom(collateral.denom).build();
         kava.cdp.v1beta1.Tx.MsgWithdraw msgDepositCdp = kava.cdp.v1beta1.Tx.MsgWithdraw.newBuilder().setOwner(owner).setDepositor(depositor).setCollateral(Collateral).setCollateralType(collateralType).build();
-        Any msgKavaWithdrawCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgWithdraw").setValue(msgDepositCdp.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaWithdrawCdpAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgWithdraw").setValue(msgDepositCdp.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaDrawDebtCdpReq(QueryOuterClass.QueryAccountResponse auth, String sender, Coin principal, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin Principal = CoinOuterClass.Coin.newBuilder().setAmount(principal.amount).setDenom(principal.denom).build();
-        kava.cdp.v1beta1.Tx.MsgDrawDebt msgDrawDebt = kava.cdp.v1beta1.Tx.MsgDrawDebt.newBuilder().setSender(sender).setCollateralType(collateralType).setPrincipal(Principal).build();
-        Any msgKavaDrawDebtCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgDrawDebt").setValue(msgDrawDebt.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaDrawDebtCdpAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaDrawDebtwCdpMsg(sender, principal, collateralType), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaDrawDebtCdpSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, Coin principal, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaDrawDebtwCdpMsg(sender, principal, collateralType), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaDrawDebtwCdpMsg(String sender, Coin principal, String collateralType) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin Principal = CoinOuterClass.Coin.newBuilder().setAmount(principal.amount).setDenom(principal.denom).build();
         kava.cdp.v1beta1.Tx.MsgDrawDebt msgDrawDebt = kava.cdp.v1beta1.Tx.MsgDrawDebt.newBuilder().setSender(sender).setCollateralType(collateralType).setPrincipal(Principal).build();
-        Any msgKavaDrawDebtCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgDrawDebt").setValue(msgDrawDebt.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaDrawDebtCdpAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgDrawDebt").setValue(msgDrawDebt.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaRepayCdpReq(QueryOuterClass.QueryAccountResponse auth, String sender, Coin payment, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin Payment = CoinOuterClass.Coin.newBuilder().setAmount(payment.amount).setDenom(payment.denom).build();
-        kava.cdp.v1beta1.Tx.MsgRepayDebt msgRepayDebt = kava.cdp.v1beta1.Tx.MsgRepayDebt.newBuilder().setSender(sender).setCollateralType(collateralType).setPayment(Payment).build();
-        Any msgKavaRepayCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgRepayDebt").setValue(msgRepayDebt.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaRepayCdpAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaRepayCdpMsg(sender, payment, collateralType), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaRepayCdpSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, Coin payment, String collateralType, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaRepayCdpMsg(sender, payment, collateralType), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaRepayCdpMsg(String sender, Coin payment, String collateralType) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin Payment = CoinOuterClass.Coin.newBuilder().setAmount(payment.amount).setDenom(payment.denom).build();
         kava.cdp.v1beta1.Tx.MsgRepayDebt msgRepayDebt = kava.cdp.v1beta1.Tx.MsgRepayDebt.newBuilder().setSender(sender).setCollateralType(collateralType).setPayment(Payment).build();
-        Any msgKavaRepayCdpAny = Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgRepayDebt").setValue(msgRepayDebt.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaRepayCdpAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgRepayDebt").setValue(msgRepayDebt.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaDepositHardReq(QueryOuterClass.QueryAccountResponse auth, String depositer, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin DepositCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.get(0).amount).setDenom(amount.get(0).denom).build();
-        kava.hard.v1beta1.Tx.MsgDeposit msgDeposit = kava.hard.v1beta1.Tx.MsgDeposit.newBuilder().setDepositor(depositer).addAmount(DepositCoin).build();
-        Any msgKavaDepositHardAny = Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgDeposit").setValue(msgDeposit.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaDepositHardAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaDepositHardMsg(depositer, amount), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaDepositHardSimulateReq(QueryOuterClass.QueryAccountResponse auth, String depositer, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaDepositHardMsg(depositer, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaDepositHardMsg(String depositer, ArrayList<Coin> amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin DepositCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.get(0).amount).setDenom(amount.get(0).denom).build();
         kava.hard.v1beta1.Tx.MsgDeposit msgDeposit = kava.hard.v1beta1.Tx.MsgDeposit.newBuilder().setDepositor(depositer).addAmount(DepositCoin).build();
-        Any msgKavaDepositHardAny = Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgDeposit").setValue(msgDeposit.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaDepositHardAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgDeposit").setValue(msgDeposit.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaWithdrawHardReq(QueryOuterClass.QueryAccountResponse auth, String depositer, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin WithdrawCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.get(0).amount).setDenom(amount.get(0).denom).build();
-        kava.hard.v1beta1.Tx.MsgWithdraw msgWithdraw = kava.hard.v1beta1.Tx.MsgWithdraw.newBuilder().setDepositor(depositer).addAmount(WithdrawCoin).build();
-        Any msgKavaWithdrawHardAny = Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgWithdraw").setValue(msgWithdraw.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaWithdrawHardAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaWithdrawHardMsg(depositer, amount), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaWithdrawHardSimulateReq(QueryOuterClass.QueryAccountResponse auth, String depositer, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaWithdrawHardMsg(depositer, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaWithdrawHardMsg(String depositer, ArrayList<Coin> amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin WithdrawCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.get(0).amount).setDenom(amount.get(0).denom).build();
         kava.hard.v1beta1.Tx.MsgWithdraw msgWithdraw = kava.hard.v1beta1.Tx.MsgWithdraw.newBuilder().setDepositor(depositer).addAmount(WithdrawCoin).build();
-        Any msgKavaWithdrawHardAny = Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgWithdraw").setValue(msgWithdraw.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaWithdrawHardAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgWithdraw").setValue(msgWithdraw.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaBorrowHardReq(QueryOuterClass.QueryAccountResponse auth, String borrower, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin BorrowCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.get(0).amount).setDenom(amount.get(0).denom).build();
-        kava.hard.v1beta1.Tx.MsgBorrow msgBorrow = kava.hard.v1beta1.Tx.MsgBorrow.newBuilder().setBorrower(borrower).addAmount(BorrowCoin).build();
-        Any msgKavaBorrowHardAny = Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgBorrow").setValue(msgBorrow.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaBorrowHardAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaBorrowHardMsg(borrower, amount), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaBorrowHardSimulateReq(QueryOuterClass.QueryAccountResponse auth, String borrower, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaBorrowHardMsg(borrower, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaBorrowHardMsg(String borrower, ArrayList<Coin> amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin BorrowCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.get(0).amount).setDenom(amount.get(0).denom).build();
         kava.hard.v1beta1.Tx.MsgBorrow msgBorrow = kava.hard.v1beta1.Tx.MsgBorrow.newBuilder().setBorrower(borrower).addAmount(BorrowCoin).build();
-        Any msgKavaBorrowHardAny = Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgBorrow").setValue(msgBorrow.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaBorrowHardAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgBorrow").setValue(msgBorrow.toByteString()).build());
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaRepayHardReq(QueryOuterClass.QueryAccountResponse auth, String sender, String owner, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
-        CoinOuterClass.Coin RepayCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.get(0).amount).setDenom(amount.get(0).denom).build();
-        kava.hard.v1beta1.Tx.MsgRepay msgRepay = kava.hard.v1beta1.Tx.MsgRepay.newBuilder().setSender(sender).setOwner(owner).addAmount(RepayCoin).build();
-        Any msgKavaRepayHardAny = Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgRepay").setValue(msgRepay.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaRepayHardAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaRepayHardMsg(sender, owner, amount), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaRepayHardSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String owner, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaRepayHardMsg(sender, owner, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaRepayHardMsg(String sender, String owner, ArrayList<Coin> amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin RepayCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.get(0).amount).setDenom(amount.get(0).denom).build();
         kava.hard.v1beta1.Tx.MsgRepay msgRepay = kava.hard.v1beta1.Tx.MsgRepay.newBuilder().setSender(sender).setOwner(owner).addAmount(RepayCoin).build();
-        Any msgKavaRepayHardAny = Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgRepay").setValue(msgRepay.toByteString()).build();
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgKavaRepayHardAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgRepay").setValue(msgRepay.toByteString()).build());
+        return msgAnys;
     }
 
     public static Any getKavaIncentiveUSDXMinting(String sender, String multiplier_name) {
@@ -1205,73 +1064,41 @@ public class Signer {
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaIncentiveAllReq(QueryOuterClass.QueryAccountResponse auth, String sender, String multiplier_name, BaseData baseData, Fee fee, String memo, ECKey pKey, String chainId) {
-        ArrayList<Any> msgsAny = new ArrayList<>();
-        IncentiveReward incentiveRewards = baseData.mIncentiveRewards;
-        if (incentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO) > 0) {
-            msgsAny.add(getKavaIncentiveUSDXMinting(sender, multiplier_name));
-        }
-        if (incentiveRewards.getHardRewardDenoms().size() > 0) {
-            ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
-            for (String denom: incentiveRewards.getHardRewardDenoms()) {
-                denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
-            }
-            msgsAny.add(getKavaIncentiveHard(sender, denoms_to_claims));
-        }
-        if (incentiveRewards.getDelegatorRewardDenoms().size() > 0) {
-            ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
-            for (String denom: incentiveRewards.getDelegatorRewardDenoms()) {
-                denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
-            }
-            msgsAny.add(getKavaIncentiveDelegator(sender, denoms_to_claims));
-        }
-        if (incentiveRewards.getSwapRewardDenoms().size() > 0) {
-            ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
-            for (String denom: incentiveRewards.getSwapRewardDenoms()) {
-                denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
-            }
-            msgsAny.add(getKavaIncentiveSwap(sender, denoms_to_claims));
-        }
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+        return getSignTx(auth, getKavaIncentiveAllMsg(sender, multiplier_name, baseData), fee, memo, pKey, chainId);
     }
 
     public static ServiceOuterClass.SimulateRequest getGrpcKavaIncentiveAllSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String multiplier_name, BaseData baseData, Fee fee, String memo, ECKey pKey, String chainId) {
-        ArrayList<Any> msgsAny = new ArrayList<>();
+        return getSignSimulTx(auth, getKavaIncentiveAllMsg(sender, multiplier_name, baseData), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaIncentiveAllMsg(String sender, String multiplier_name, BaseData baseData) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
         IncentiveReward incentiveRewards = baseData.mIncentiveRewards;
         if (incentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO) > 0) {
-            msgsAny.add(getKavaIncentiveUSDXMinting(sender, multiplier_name));
+            msgAnys.add(getKavaIncentiveUSDXMinting(sender, multiplier_name));
         }
         if (incentiveRewards.getHardRewardDenoms().size() > 0) {
             ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
             for (String denom: incentiveRewards.getHardRewardDenoms()) {
                 denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
             }
-            msgsAny.add(getKavaIncentiveHard(sender, denoms_to_claims));
+            msgAnys.add(getKavaIncentiveHard(sender, denoms_to_claims));
         }
         if (incentiveRewards.getDelegatorRewardDenoms().size() > 0) {
             ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
             for (String denom: incentiveRewards.getDelegatorRewardDenoms()) {
                 denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
             }
-            msgsAny.add(getKavaIncentiveDelegator(sender, denoms_to_claims));
+            msgAnys.add(getKavaIncentiveDelegator(sender, denoms_to_claims));
         }
         if (incentiveRewards.getSwapRewardDenoms().size() > 0) {
             ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
             for (String denom: incentiveRewards.getSwapRewardDenoms()) {
                 denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
             }
-            msgsAny.add(getKavaIncentiveSwap(sender, denoms_to_claims));
+            msgAnys.add(getKavaIncentiveSwap(sender, denoms_to_claims));
         }
-
-        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
-        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
-        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
-        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+        return msgAnys;
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaCreateHTLCSwapReq(QueryOuterClass.QueryAccountResponse auth, String from, String to, ArrayList<Coin> sendCoin, long timtsStamp, String randomNumberHash, Fee fee, String memo, ECKey pKey, String chainId) {
