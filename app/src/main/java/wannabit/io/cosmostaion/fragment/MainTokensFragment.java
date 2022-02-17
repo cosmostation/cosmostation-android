@@ -13,6 +13,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
@@ -58,6 +59,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CHIHUAHUA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COMDEX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CUDOS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DARC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DESMOS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
@@ -1271,6 +1273,17 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_evmos));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_EVMOS);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
+        } else if (coin.denom.equals(TOKEN_CUDOS)) {
+            holder.itemSymbol.setText(getString(R.string.str_cudos_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CUDOS_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Cudos Staking Coin");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_cudos));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CUDOS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 

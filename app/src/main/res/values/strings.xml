@@ -190,6 +190,7 @@
     <string name="str_chihuahua_c" translatable="false">HUAHUA</string>
     <string name="str_konstellation_c" translatable="false">DARC</string>
     <string name="str_evmos_c" translatable="false">PHOTON</string>
+    <string name="str_cudos_c" translatable="false">CUDOS</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
