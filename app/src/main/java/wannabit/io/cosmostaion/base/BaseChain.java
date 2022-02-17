@@ -49,6 +49,7 @@ public enum BaseChain {
     KONSTELL_MAIN("konstellation-mainnet"),
     UMEE_MAIN("umee-mainnet"),
     EVMOS_MAIN("evmos-mainnet"),
+    CUDOS_MAIN("cudos-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -177,6 +178,9 @@ public enum BaseChain {
         if(chainName.equals(EVMOS_MAIN.chainName)) {
             return EVMOS_MAIN;
         }
+        if(chainName.equals(CUDOS_MAIN.chainName)) {
+            return CUDOS_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -204,6 +208,7 @@ public enum BaseChain {
         result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);
         result.add(CRYPTO_MAIN);
+        result.add(CUDOS_MAIN);
         result.add(DESMOS_MAIN);
         result.add(EMONEY_MAIN);
         result.add(EVMOS_MAIN);
@@ -237,7 +242,7 @@ public enum BaseChain {
     }
 
     public static boolean IS_TESTNET(BaseChain chain) {
-        if (chain.equals(ALTHEA_TEST) || chain.equals(EVMOS_MAIN)) {
+        if (chain.equals(ALTHEA_TEST) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
             return true;
         }
         return false;

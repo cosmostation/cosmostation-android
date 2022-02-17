@@ -51,6 +51,7 @@
     <color name="colorTransBgChihuahua">#24ffffff</color>
     <color name="colorTransBgKonstellation">#249bbffe</color>
     <color name="colorTransBgEvmos">#24ffffff</color>
+    <color name="colorTransBgCudos">#2410aecc</color>
     <color name="colorTransBgGray">#E63D3D3D</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
@@ -188,6 +189,9 @@
 
     <color name="colorEvmos">#b8b2db</color>
     <color name="colorEvmos2">#6f6c80</color>
+
+    <color name="colorCudos">#10aecc</color>
+    <color name="colorCudos2">#0d697a</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

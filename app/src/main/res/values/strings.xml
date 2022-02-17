@@ -130,6 +130,9 @@
     <string name="url_api_evmos" translatable="false">https://api-office.cosmostation.io/evmos_9000-2/</string>
 
 
+    <string name="url_api_cudos" translatable="false">https://api-cudos-testnet.cosmostation.io/</string>
+
+
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
     <string name="url_api_rizon" translatable="false">https://api-rizon.cosmostation.io/</string>
