@@ -142,7 +142,7 @@ public class ChannelBuilder {
     private final static String GRPC_UMEE_MAIN = "lcd-umee-app.cosmostation.io";
     private final static int PORT_UMEE_MAIN = 9090;
 
-    private final static String GRPC_EVMOS_MAIN = "lcd-office.cosmostation.io";
+    private final static String GRPC_EVMOS_MAIN = "61.74.179.193";
     private final static int PORT_EVMOS_MAIN = 54100;
 
 

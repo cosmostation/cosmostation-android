@@ -16,6 +16,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
@@ -2918,6 +2919,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_konstellation);
             guideMsg.setText(R.string.str_front_guide_msg_konstellation);
 
+        } else if (mainActivity.mBaseChain.equals(EVMOS_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_evmos));
+            guideTitle.setText(R.string.str_front_guide_title_evmos);
+            guideMsg.setText(R.string.str_front_guide_msg_evmos);
+
         }
     }
     
@@ -3034,6 +3040,9 @@ public class WUtil {
 
         } else if (chain.equals(KONSTELL_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://konstellation.tech/"));
+
+        } else if (chain.equals(EVMOS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://evmos.org/"));
         }
         return null;
     }
@@ -3152,6 +3161,9 @@ public class WUtil {
         } else if (chain.equals(KONSTELL_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://konstellation.medium.com/"));
 
+        } else if (chain.equals(EVMOS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://evmos.blog/"));
+
         }
         return null;
     }
@@ -3263,6 +3275,9 @@ public class WUtil {
 
         } else if (basechain.equals(UMEE_MAIN)) {
             return EXPLORER_UMEE_MAIN;
+
+        } else if (basechain.equals(EVMOS_MAIN)) {
+            return EXPLORER_EVMOS_MAIN;
 
         }
 
@@ -3384,6 +3399,9 @@ public class WUtil {
 
             } else if (basechain.equals(UMEE_MAIN)) {
                 return EXPLORER_UMEE_MAIN + "txs/" + hash;
+
+            } else if (basechain.equals(EVMOS_MAIN)) {
+                return EXPLORER_EVMOS_MAIN + "txs/" + hash;
 
             }
 
@@ -3843,6 +3861,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(EVMOS_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(EVMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         }
 
         else if (basechain.equals(BNB_MAIN)) {
@@ -4089,6 +4112,14 @@ public class WUtil {
                 return new BigDecimal(UMEE_GAS_RATE_LOW);
             }
             return new BigDecimal(UMEE_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(EVMOS_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(EVMOS_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(EVMOS_GAS_RATE_LOW);
+            }
+            return new BigDecimal(EVMOS_GAS_RATE_AVERAGE);
 
         }
 
