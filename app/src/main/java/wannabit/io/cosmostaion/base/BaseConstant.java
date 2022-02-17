@@ -477,6 +477,7 @@ public class BaseConstant {
     public final static String TOKEN_CHIHUAHUA      = "uhuahua";
     public final static String TOKEN_DARC           = "udarc";
     public final static String TOKEN_EVMOS          = "aphoton";
+    public final static String TOKEN_CUDOS          = "acudos";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
@@ -756,6 +757,10 @@ public class BaseConstant {
     public final static String EVMOS_GAS_RATE_LOW                       = "0.000";
     public final static String EVMOS_GAS_RATE_AVERAGE                   = "0.000";
 
+    public final static String CUDOS_GAS_RATE_TINY                      = "0.000";
+    public final static String CUDOS_GAS_RATE_LOW                       = "0.000";
+    public final static String CUDOS_GAS_RATE_AVERAGE                   = "0.000";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -814,6 +819,7 @@ public class BaseConstant {
     public final static String CHIHUAHUA_VAL_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/chihuahua/";
     public final static String KONSTELL_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/konstellation/";
     public final static String EVMOS_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/evmos/";
+    public final static String CUDOS_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cudos/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -861,6 +867,7 @@ public class BaseConstant {
     public final static String EXPLORER_KONSTELL_MAIN   = "https://www.mintscan.io/konstellation/";
     public final static String EXPLORER_UMEE_MAIN       = "https://www.mintscan.io/umee/";
     public final static String EXPLORER_EVMOS_MAIN      = "https://www.mintscan.io/evmos/";
+    public final static String EXPLORER_CUDOS_MAIN      = "https://www.mintscan.io/cudos/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
     public final static String EXPLORER_OEC_TX          = "https://www.oklink.com/oec/";
@@ -907,6 +914,7 @@ public class BaseConstant {
     public final static String KONSTELL_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/konstellation/relay-konstellation-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
     public final static String EVMOS_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/evmos/relay-evmos-unknown.png";
+    public final static String CUDOS_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/cudos/relay-cudos-unknown.png";
 
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM        = "station";

@@ -14,6 +14,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
@@ -2728,6 +2729,9 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(UMEE_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/umee")));
+
+        } else if (mainActivity.mBaseChain.equals(CUDOS_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/cudos")));
         }
         return null;
     }
@@ -2924,6 +2928,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_evmos);
             guideMsg.setText(R.string.str_front_guide_msg_evmos);
 
+        } else if (mainActivity.mBaseChain.equals(CUDOS_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_cudos));
+            guideTitle.setText(R.string.str_front_guide_title_cudos);
+            guideMsg.setText(R.string.str_front_guide_msg_cudos);
+
         }
     }
     
@@ -3043,6 +3052,9 @@ public class WUtil {
 
         } else if (chain.equals(EVMOS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://evmos.org/"));
+
+        } else if (chain.equals(CUDOS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cudos.org/"));
         }
         return null;
     }
@@ -3164,6 +3176,9 @@ public class WUtil {
         } else if (chain.equals(EVMOS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://evmos.blog/"));
 
+        } else if (chain.equals(CUDOS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cudos.org/blog/"));
+
         }
         return null;
     }
@@ -3278,6 +3293,9 @@ public class WUtil {
 
         } else if (basechain.equals(EVMOS_MAIN)) {
             return EXPLORER_EVMOS_MAIN;
+
+        } else if (basechain.equals(CUDOS_MAIN)) {
+            return EXPLORER_CUDOS_MAIN;
 
         }
 
@@ -3402,6 +3420,9 @@ public class WUtil {
 
             } else if (basechain.equals(EVMOS_MAIN)) {
                 return EXPLORER_EVMOS_MAIN + "txs/" + hash;
+
+            } else if (basechain.equals(CUDOS_MAIN)) {
+                return EXPLORER_CUDOS_MAIN + "txs/" + hash;
 
             }
 
@@ -3866,6 +3887,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(CUDOS_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(CUDOS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         }
 
         else if (basechain.equals(BNB_MAIN)) {
@@ -4120,6 +4146,14 @@ public class WUtil {
                 return new BigDecimal(EVMOS_GAS_RATE_LOW);
             }
             return new BigDecimal(EVMOS_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(CUDOS_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(CUDOS_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(CUDOS_GAS_RATE_LOW);
+            }
+            return new BigDecimal(CUDOS_GAS_RATE_AVERAGE);
 
         }
 

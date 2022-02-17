@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
@@ -165,7 +166,7 @@ public class Account {
             } else if (chain.equals(BaseChain.OKEX_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
 
-            } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN)) {
+            } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 18, 6);
 
             } else if (chain.equals(CRYPTO_MAIN)) {

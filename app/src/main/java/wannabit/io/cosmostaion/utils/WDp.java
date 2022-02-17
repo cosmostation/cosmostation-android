@@ -15,6 +15,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
@@ -515,6 +516,15 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
 
+        } else if (chain.equals(CUDOS_MAIN)) {
+            if (coin.denom.equals(TOKEN_CUDOS)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
+
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -912,6 +922,15 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
+
+        } else if (chain.equals(CUDOS_MAIN)) {
+            if (symbol.equals(TOKEN_CUDOS)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -1044,6 +1063,8 @@ public class WDp {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_umee));
             } else if (baseChain.equals(EVMOS_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_evmos));
+            } else if (baseChain.equals(CUDOS_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_cudos));
 
             }
 
@@ -1131,6 +1152,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_umee_net));
             } else if (baseChain.equals(EVMOS_MAIN)) {
                 chainName.setText(c.getString(R.string.str_evmos_net));
+            } else if (baseChain.equals(CUDOS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_cudos_net));
 
             }
 
@@ -1219,6 +1242,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_umee_main));
             } else if (baseChain.equals(EVMOS_MAIN)) {
                 chainName.setText(c.getString(R.string.str_evmos_main));
+            } else if (baseChain.equals(CUDOS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_cudos_main));
 
             }
 
@@ -1314,6 +1339,8 @@ public class WDp {
         } else if (baseChain.equals(EVMOS_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorBlack));
             floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorEvmos));
+        } else if (baseChain.equals(CUDOS_MAIN)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorCudos));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -1397,6 +1424,8 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_konstellattion));
             } else if (baseChain.equals(EVMOS_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_evmos));
+            } else if (baseChain.equals(CUDOS_MAIN)) {
+                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_cudos));
 
             }
             else if (baseChain.equals(COSMOS_TEST) || baseChain.equals(IRIS_TEST) || baseChain.equals(ALTHEA_TEST)) {
@@ -1473,6 +1502,8 @@ public class WDp {
                 return UMEE_MAIN;
             } else if (chainId.contains("evmos")) {
                 return EVMOS_MAIN;
+            } else if (chainId.contains("cudos-")) {
+                return CUDOS_MAIN;
             }
         }
         return null;
@@ -1612,6 +1643,10 @@ public class WDp {
                 if (!address.startsWith("evmos1")) {
                     textView.setText("");
                 }
+            } else if (baseChain.equals(CUDOS_MAIN)) {
+                if (!address.startsWith("cudos1")) {
+                    textView.setText("");
+                }
             }
         }
     }
@@ -1690,12 +1725,8 @@ public class WDp {
                 return "umee";
             } else if (baseChain.equals(EVMOS_MAIN)) {
                 return "evmos";
-            }
-
-            else if (baseChain.equals(BNB_MAIN)) {
-                return "bnb";
-            } else if (baseChain.equals(OKEX_MAIN)) {
-                return "okex";
+            } else if (baseChain.equals(CUDOS_MAIN)) {
+                return "cudos";
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
@@ -1749,6 +1780,7 @@ public class WDp {
             else if (address.startsWith("darc1") && baseChain.equals(KONSTELL_MAIN)) { return true; }
             else if (address.startsWith("umee1") && baseChain.equals(UMEE_MAIN)) { return true; }
             else if (address.startsWith("evmos1") && baseChain.equals(EVMOS_MAIN)) { return true; }
+            else if (address.startsWith("cudos1") && baseChain.equals(CUDOS_MAIN)) { return true; }
         }
         return false;
     }
@@ -1799,6 +1831,7 @@ public class WDp {
             else if (address.startsWith("darc1")) { return Lists.newArrayList(KONSTELL_MAIN); }
             else if (address.startsWith("umee1")) { return Lists.newArrayList(UMEE_MAIN); }
             else if (address.startsWith("evmos1")) { return Lists.newArrayList(EVMOS_MAIN); }
+            else if (address.startsWith("cudos1")) { return Lists.newArrayList(CUDOS_MAIN); }
         }
         return null;
     }
@@ -1838,6 +1871,7 @@ public class WDp {
             else if (chain.equals(KONSTELL_MAIN)) { return KONSTELL_UNKNOWN_RELAYER; }
             else if (chain.equals(UMEE_MAIN)) { return UMEE_UNKNOWN_RELAYER; }
             else if (chain.equals(EVMOS_MAIN)) { return EVMOS_UNKNOWN_RELAYER; }
+            else if (chain.equals(CUDOS_MAIN)) { return CUDOS_UNKNOWN_RELAYER; }
         }
         return null;
     }
@@ -2857,6 +2891,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorKonstellation);
             } else if (chain.equals(EVMOS_MAIN)) {
                 return c.getResources().getColor(R.color.colorEvmos);
+            } else if (chain.equals(CUDOS_MAIN)) {
+                return c.getResources().getColor(R.color.colorCudos);
             }
         }
         return c.getResources().getColor(R.color.colorGray0);
@@ -2936,6 +2972,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorTransBgUmee);
             } else if (chain.equals(EVMOS_MAIN)) {
                 return c.getResources().getColor(R.color.colorTransBgEvmos);
+            } else if (chain.equals(CUDOS_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgCudos);
             }
         }
         return c.getResources().getColor(R.color.colorTransBg);
@@ -3013,6 +3051,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_konstellation);
             } else if (chain.equals(EVMOS_MAIN)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_evmos);
+            } else if (chain.equals(CUDOS_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_cudos);
             }
         }
         return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
@@ -3090,6 +3130,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.colorKonstellation);
             } else if (chain.equals(EVMOS_MAIN)) {
                 return c.getResources().getColorStateList(R.color.colorEvmos);
+            } else if (chain.equals(CUDOS_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorCudos);
             }
         }
         return c.getResources().getColorStateList(R.color.colorTransBg);
@@ -3244,6 +3286,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorEvmos));
             textview.setText(c.getString(R.string.s_evmos));
 
+        } else if (BaseChain.getChain(chain).equals(CUDOS_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorCudos));
+            textview.setText(c.getString(R.string.s_cudos));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -3334,6 +3380,8 @@ public class WDp {
             return TOKEN_DARC;
         } else if (chain.equals(EVMOS_MAIN)) {
             return TOKEN_EVMOS;
+        } else if (chain.equals(CUDOS_MAIN)) {
+            return TOKEN_CUDOS;
         }
         return "";
     }
@@ -3413,6 +3461,8 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_konstellation);
             } else if (baseChain.equals(EVMOS_MAIN)) {
                 imageView.setImageResource(R.drawable.token_evmos);
+            } else if (baseChain.equals(CUDOS_MAIN)) {
+                imageView.setImageResource(R.drawable.token_cudos);
             }
         } else {
             imageView.setImageResource(R.drawable.token_ic);
@@ -3450,7 +3500,7 @@ public class WDp {
             return 0;
         } else if (chain.equals(OKEX_MAIN)) {
             return 0;
-        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN)) {
+        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
             return 18;
         } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
@@ -3464,7 +3514,7 @@ public class WDp {
             return 8;
         } else if (chain.equals(OKEX_MAIN)) {
             return 18;
-        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN)) {
+        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
             return 18;
         } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
@@ -3478,7 +3528,7 @@ public class WDp {
             return 8;
         } else if (denom.equals(TOKEN_OK)) {
             return 18;
-        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ) || denom.equals(TOKEN_EVMOS)) {
+        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ) || denom.equals(TOKEN_EVMOS) || denom.equals(TOKEN_CUDOS)) {
             return 18;
         } else if (denom.equals(TOKEN_CRO)) {
             return 8;
@@ -3492,7 +3542,7 @@ public class WDp {
             return 8;
         } else if (denom.equals(TOKEN_OK)) {
             return 18;
-        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ) || denom.equals(TOKEN_EVMOS)) {
+        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ) || denom.equals(TOKEN_EVMOS) || denom.equals(TOKEN_CUDOS)) {
             return 18;
         } else if (denom.equals(TOKEN_CRO)) {
             return 8;
@@ -3820,6 +3870,8 @@ public class WDp {
             return KONSTELL_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(EVMOS_MAIN)) {
             return EVMOS_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(CUDOS_MAIN)) {
+            return CUDOS_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(OKEX_MAIN)) {

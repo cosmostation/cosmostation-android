@@ -14,6 +14,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
@@ -480,6 +481,8 @@ public class WKey {
                 result = bech32Encode("darc".getBytes(), converted);
             } else if (chain.equals(EVMOS_MAIN)){
                 result = bech32Encode("evmos".getBytes(), converted);
+            } else if (chain.equals(CUDOS_MAIN)){
+                result = bech32Encode("cudos".getBytes(), converted);
             }
 
         } catch (Exception e) {
@@ -561,6 +564,8 @@ public class WKey {
             return bech32Encode("darc".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(EVMOS_MAIN)) {
             return bech32Encode("evmos".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(CUDOS_MAIN)) {
+            return bech32Encode("cudos".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }

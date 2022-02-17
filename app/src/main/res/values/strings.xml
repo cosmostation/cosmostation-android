@@ -240,6 +240,7 @@
     <string name="str_konstellation_main_net" translatable="false">Konstellation</string>
     <string name="str_umee_main_net" translatable="false">Umee</string>
     <string name="str_evmos_main_net" translatable="false">Evmos</string>
+    <string name="str_cudos_main_net" translatable="false">Cudos</string>
     <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
     <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
     <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
@@ -485,6 +486,7 @@
     <string name="str_konstellation_net" translatable="false">(Konstellation)</string>
     <string name="str_umee_net" translatable="false">(Umee)</string>
     <string name="str_evmos_net" translatable="false">(Evmos)</string>
+    <string name="str_cudos_net" translatable="false">(Cudos)</string>
     <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
     <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
     <string name="str_emoney_net" translatable="false">(E-Money)</string>
@@ -532,6 +534,7 @@
     <string name="str_konstellation_main" translatable="false">KONSTELLATION</string>
     <string name="str_umee_main" translatable="false">UMEE</string>
     <string name="str_evmos_main" translatable="false">EVMOS</string>
+    <string name="str_cudos_main" translatable="false">CUDOS</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
@@ -635,6 +638,7 @@
     <string name="str_front_guide_title_chihuahua"><![CDATA[CHIHUAHUA]]></string>
     <string name="str_front_guide_title_konstellation"><![CDATA[KONSTELLATION]]></string>
     <string name="str_front_guide_title_evmos"><![CDATA[EVMOS]]></string>
+    <string name="str_front_guide_title_cudos"><![CDATA[CUDOS]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -671,6 +675,7 @@
     <string name="str_front_guide_msg_chihuahua"><![CDATA[Chihuahua chain is the first meme coin in the Cosmos ecosystem.]]></string>
     <string name="str_front_guide_msg_konstellation"><![CDATA[A Cosmos SDK-based decentralized cross-chain capital markets network.]]></string>
     <string name="str_front_guide_msg_evmos"><![CDATA[A Cosmos SDK based IBC & EVM-compatible(Ethereum Virtual Machine) blockchain.]]></string>
+    <string name="str_front_guide_msg_cudos"><![CDATA[Cudos aims to build a high-performance, sustainable and decentralized cloud computing network.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1894,6 +1899,7 @@
     <string name="s_chihuahua" translatable="false">HUAHUA</string>
     <string name="s_konstellation" translatable="false">DARC</string>
     <string name="s_evmos" translatable="false">PHOTON</string>
+    <string name="s_cudos" translatable="false">CUDOS</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>
