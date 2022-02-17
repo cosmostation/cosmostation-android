@@ -8,7 +8,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
@@ -1102,7 +1101,7 @@ public class WUtil {
      * @memo size
      */
     public static int getMaxMemoSize(BaseChain chain) {
-        if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+        if (chain.equals(BNB_MAIN)) {
             return BaseConstant.MEMO_BNB;
         }
         return BaseConstant.MEMO_ATOM;
@@ -3587,7 +3586,7 @@ public class WUtil {
                 return new BigDecimal(V1_GAS_AMOUNT_MID);
             }
 
-        } else if (basechain.equals(SENTINEL_MAIN) || basechain.equals(FETCHAI_MAIN) || basechain.equals(KI_MAIN) || basechain.equals(MEDI_MAIN)) {
+        } else if (basechain.equals(SENTINEL_MAIN) || basechain.equals(FETCHAI_MAIN) || basechain.equals(KI_MAIN) || basechain.equals(MEDI_MAIN) || basechain.equals(SIF_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -3607,6 +3606,10 @@ public class WUtil {
                 return new BigDecimal(GAS_AMOUNT_VOTE);
             } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
                 return new BigDecimal(GAS_AMOUNT_IBC_SEND);
+            } else if (txType == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
+                return new BigDecimal(SIF_GAS_AMOUNT_CLAIM_INCENTIVE);
+            } else if (txType == CONST_PW_TX_SIF_SWAP || txType == CONST_PW_TX_SIF_JOIN_POOL || txType == CONST_PW_TX_SIF_EXIT_POOL) {
+                return new BigDecimal(SIF_GAS_AMOUNT_DEX);
             }
 
         } else if (basechain.equals(INJ_MAIN)) {

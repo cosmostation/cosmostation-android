@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+
 import android.Manifest;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -23,13 +25,6 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
 
 public class WalletBinanceHolder extends BaseHolder {
     public TextView         mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked, mTvBnbFrozen;
@@ -92,11 +87,7 @@ public class WalletBinanceHolder extends BaseHolder {
         mBtnBep3Send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
-                    mainActivity.onStartHTLCSendActivity(TOKEN_HTLC_BINANCE_BNB);
-                } else if (mainActivity.mBaseChain.equals(BNB_TEST)) {
-                    mainActivity.onStartHTLCSendActivity(TOKEN_HTLC_BINANCE_TEST_BNB);
-                }
+                mainActivity.onStartHTLCSendActivity(TOKEN_HTLC_BINANCE_BNB);
             }
         });
     }

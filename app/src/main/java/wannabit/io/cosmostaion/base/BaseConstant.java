@@ -17,20 +17,15 @@ public class BaseConstant {
     public final static String DB_TABLE_PRICE           = "price";
 
     public final static String PRE_USER_ID                  = "PRE_USER_ID";
-    public final static String PRE_SELECTED_CHAIN           = "PRE_SELECTED_CHAIN";
     public final static String PRE_SELECTED_CHAINS          = "PRE_SELECTED_CHAINS";
     public final static String PRE_VALIDATOR_SORTING        = "PRE_VALIDATOR_SORTING";
     public final static String PRE_MY_VALIDATOR_SORTING     = "PRE_MY_VALIDATOR_SORTING";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
-    public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
     public final static String PRE_USING_FINGERPRINT        = "PRE_USING_FINGERPRINT";
     public final static String PRE_APP_LOCK_TIME            = "PRE_APP_LOCK_TIME";
     public final static String PRE_APP_LOCK_LEAVE_TIME      = "PRE_APP_LOCK_LEAVE_TIME";
-    public final static String PRE_TOKEN_SORTING            = "PRE_TOKEN_SORTING";
-    public final static String PRE_ACCOUNT_ORDER            = "PRE_ACCOUNT_ORDER";
     public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN";
-    public final static String PRE_KAVA_TESTNET_WARN        = "PRE_KAVA_TESTNET_WARN";
     public final static String PRE_EVENT_HIDE               = "PRE_EVENT_HIDE";
     public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
@@ -609,6 +604,9 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
     public final static String SECRET_GAS_AMOUNT_IBC_SEND               = "500000";
+
+    public final static String SIF_GAS_AMOUNT_CLAIM_INCENTIVE           = "250000";
+    public final static String SIF_GAS_AMOUNT_DEX                       = "250000";
 
     public final static String GAS_AMOUNT_SEND                          = "100000";
     public final static String GAS_AMOUNT_STAKE                         = "200000";

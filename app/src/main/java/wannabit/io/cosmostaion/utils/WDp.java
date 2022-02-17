@@ -9,7 +9,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
@@ -22,7 +21,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
@@ -589,7 +587,7 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN)) {
             if (symbol.equals(TOKEN_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
 
@@ -1731,7 +1729,7 @@ public class WDp {
             else if (address.startsWith("iaa1")) { return Lists.newArrayList(IRIS_MAIN, IRIS_TEST); }
             else if (address.startsWith("bnb1")) { return Lists.newArrayList(BNB_MAIN); }
             else if (address.startsWith("kava1")) { return Lists.newArrayList(KAVA_MAIN); }
-            else if (address.startsWith("star1")) { return Lists.newArrayList(IOV_MAIN ,IOV_TEST); }
+            else if (address.startsWith("star1")) { return Lists.newArrayList(IOV_MAIN); }
             else if (address.startsWith("band1")) { return Lists.newArrayList(BAND_MAIN); }
             else if (address.startsWith("secret1")) { return Lists.newArrayList(SECRET_MAIN); }
             else if (address.startsWith("certik1")) { return Lists.newArrayList(CERTIK_MAIN); }
@@ -3245,8 +3243,6 @@ public class WDp {
             return TOKEN_COSMOS_TEST;
         } else if (chain.equals(IRIS_TEST)) {
             return TOKEN_IRIS_TEST;
-        } else if (chain.equals(IOV_TEST)) {
-            return TOKEN_IOV_TEST;
         } else if (chain.equals(RIZON_MAIN)) {
             return TOKEN_RIZON;
         } else if (chain.equals(MEDI_MAIN)) {

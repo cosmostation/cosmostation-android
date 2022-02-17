@@ -187,7 +187,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         TextView randomHashTv = cardSend.findViewById(R.id.random_hash);
 
         iconImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-        if ((mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) && mResSendBnbTxInfo != null) {
+        if (mBaseChain.equals(BaseChain.BNB_MAIN) && mResSendBnbTxInfo != null) {
             final Msg msg = mResSendBnbTxInfo.tx.value.msg.get(0);
 
             if (mResSendBnbTxInfo.ok) {
@@ -269,7 +269,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
         iconImg.setColorFilter(WDp.getChainColor(getBaseContext(), mRecipientChain), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        if ((mRecipientChain.equals(BaseChain.BNB_MAIN) || mRecipientChain.equals(BaseChain.BNB_TEST)) && mResReceiveBnbTxInfo != null) {
+        if (mRecipientChain.equals(BaseChain.BNB_MAIN) && mResReceiveBnbTxInfo != null) {
             final Msg msg = mResReceiveBnbTxInfo.tx.value.msg.get(0);
             if (mResReceiveBnbTxInfo.ok) {
                 statusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
