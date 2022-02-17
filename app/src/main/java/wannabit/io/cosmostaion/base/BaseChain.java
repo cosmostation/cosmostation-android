@@ -48,6 +48,7 @@ public enum BaseChain {
     AXELAR_MAIN("axelar-mainnet"),
     KONSTELL_MAIN("konstellation-mainnet"),
     UMEE_MAIN("umee-mainnet"),
+    EVMOS_MAIN("evmos-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -173,6 +174,9 @@ public enum BaseChain {
         if(chainName.equals(UMEE_MAIN.chainName)) {
             return UMEE_MAIN;
         }
+        if(chainName.equals(EVMOS_MAIN.chainName)) {
+            return EVMOS_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -202,6 +206,7 @@ public enum BaseChain {
         result.add(CRYPTO_MAIN);
         result.add(DESMOS_MAIN);
         result.add(EMONEY_MAIN);
+        result.add(EVMOS_MAIN);
         result.add(FETCHAI_MAIN);
         result.add(GRABRIDGE_MAIN);
         result.add(INJ_MAIN);
@@ -232,7 +237,7 @@ public enum BaseChain {
     }
 
     public static boolean IS_TESTNET(BaseChain chain) {
-        if (chain.equals(ALTHEA_TEST)) {
+        if (chain.equals(ALTHEA_TEST) || chain.equals(EVMOS_MAIN)) {
             return true;
         }
         return false;
