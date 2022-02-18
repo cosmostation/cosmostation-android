@@ -128,9 +128,18 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             mTotalAmount = mCw20Asset.getAmount();
 
-            mItemPerPrice.setVisibility(View.GONE);
-            mItemUpDownPrice.setVisibility(View.GONE);
-            mItemUpDownImg.setVisibility(View.GONE);
+            mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mCw20Asset.denom));
+            mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mCw20Asset.denom));
+            final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mCw20Asset.denom);
+            if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
+                mItemUpDownImg.setVisibility(View.VISIBLE);
+                mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+            } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
+                mItemUpDownImg.setVisibility(View.VISIBLE);
+                mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+            } else {
+                mItemUpDownImg.setVisibility(View.INVISIBLE);
+            }
 
             mAddress.setText(mAccount.address);
             mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
