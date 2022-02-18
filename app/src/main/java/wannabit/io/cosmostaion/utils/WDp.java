@@ -1425,7 +1425,7 @@ public class WDp {
                 return OSMOSIS_MAIN;
             } else if (chainId.contains("crypto-org-")) {
                 return CRYPTO_MAIN;
-            } else if (chainId.contains("laozi-mainnet-")) {
+            } else if (chainId.contains("laozi-mainnet")) {
                 return BAND_MAIN;
             } else if (chainId.contains("shentu-")) {
                 return CERTIK_MAIN;
