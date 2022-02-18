@@ -60,11 +60,11 @@
 
         <wannabit.io.cosmostaion.widget.StopViewPager
             android:id="@+id/view_pager"
-            android:layout_below="@+id/tool_bar"
-            android:layout_above="@+id/bottom_tab"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:layout_above="@+id/bottom_tab"
+            android:layout_below="@+id/tool_bar"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_floating"

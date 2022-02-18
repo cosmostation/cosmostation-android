@@ -68,15 +68,9 @@ public class WalletSwitchActivity extends BaseActivity {
     }
 
     public void onChangeWallet(Long walletId) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getBaseDao().setLastUser(walletId);
-                setExpendChains();
-                finish();
-            }
-        }, 400);
-
+        getBaseDao().setLastUser(walletId);
+        setExpendChains();
+        finish();
     }
 
     public void setExpendChains() {
