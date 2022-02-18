@@ -15,6 +15,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
@@ -141,6 +142,9 @@ public class ChannelBuilder {
     private final static String GRPC_UMEE_MAIN = "lcd-umee-app.cosmostation.io";
     private final static int PORT_UMEE_MAIN = 9090;
 
+    private final static String GRPC_EVMOS_MAIN = "61.74.179.193";
+    private final static int PORT_EVMOS_MAIN = 54100;
+
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -222,6 +226,8 @@ public class ChannelBuilder {
             return getKonstellMain();
         } else if (chain.equals(UMEE_MAIN)) {
             return getUmeeMain();
+        } else if (chain.equals(EVMOS_MAIN)) {
+            return getEvmosMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -663,6 +669,19 @@ public class ChannelBuilder {
             }
         }
         return channel_umee_main;
+    }
+
+    //Channel for evmos main
+    private static ManagedChannel channel_evmos_main = null;
+    public static ManagedChannel getEvmosMain() {
+        if (channel_evmos_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_evmos_main = ManagedChannelBuilder.forAddress(GRPC_EVMOS_MAIN, PORT_EVMOS_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_evmos_main;
     }
 
     //Channel for stargate testnet

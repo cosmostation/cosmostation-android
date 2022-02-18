@@ -13,37 +13,15 @@ import java.util.ArrayList;
 
 public enum BaseChain {
     // chain_id is checked on-chain. no need update chain version  21.03.20
-    COSMOS_LEGACY1("cosmoshub-1"),
-    COSMOS_LEGACY2("cosmoshub-2"),
-    COSMOS_LEGACY3("cosmoshub-3"),
-    COSMOS_LEGACY4("cosmoshub-4"),
     COSMOS_MAIN("cosmoshub-mainnet"),
-    IRIS_LEGACY1("irishub"),
-    IRIS_LEGACY2("irishub-1"),
     IRIS_MAIN("irishub-mainnet"),
-    IOV_LEGACY1("iov-mainnet-2"),
     IOV_MAIN("iov-mainnet"),
-    BNB_LEGACY1("Binance-Chain-Tigris"),
     BNB_MAIN("binance-mainnet"),
-    KAVA_LEGACY1("kava-1"),
-    KAVA_LEGACY2("kava-2"),
-    KAVA_LEGACY3("kava-3"),
-    KAVA_LEGACY4("kava-4"),
-    KAVA_LEGACY5("kava-5"),
-    KAVA_LEGACY6("kava-6"),
     KAVA_MAIN("kava-mainnet"),
-    BAND_MAIN_LEGACY1("band-wenchang-mainnet"),
-    BAND_MAIN_LEGACY2("band-guanyu-mainnet"),
     BAND_MAIN("band-mainnet"),
-    CERTIK_LEGACY1("shentu-1"),
-    CERTIK_LEGACY2("shentu-2"),
     CERTIK_MAIN("shentu-mainnet"),
-    SECRET_LEGACY1("secret-2"),
     SECRET_MAIN("secret-mainnet"),
-    AKASH_LEGACY1("akashnet-1"),
-    AKASH_LEGACY2("akashnet-2"),
     AKASH_MAIN("akashnet-mainnet"),
-    OKEX_LEGACY1("okexchain-66"),
     OKEX_MAIN("okexchain-mainnet"),
     PERSIS_MAIN("persistence-mainnet"),
     SENTINEL_MAIN("sentinel-mainnet"),
@@ -70,29 +48,12 @@ public enum BaseChain {
     AXELAR_MAIN("axelar-mainnet"),
     KONSTELL_MAIN("konstellation-mainnet"),
     UMEE_MAIN("umee-mainnet"),
+    EVMOS_MAIN("evmos-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
     IRIS_TEST_LEGACY1("bifrost-2"),
     IRIS_TEST("iris-testnet"),
-    BNB_TEST_LEGACY1("Binance-Chain-Nile"),
-    BNB_TEST("binance-testnet"),
-    KAVA_TEST_LEGACY4("kava-testnet-4000"),
-    KAVA_TEST_LEGACY5("kava-testnet-5000"),
-    KAVA_TEST_LEGACY6("kava-testnet-6000"),
-    KAVA_TEST_LEGACY8("kava-testnet-8000"),
-    KAVA_TEST_LEGACY9("kava-testnet-9000"),
-    KAVA_TEST_LEGACY11("kava-testnet-11000"),
-    KAVA_TEST_LEGACY12("kava-testnet-12000"),
-    KAVA_TEST_3("kava-3-test"),
-    KAVA_TEST_4("kava-4-test"),
-    KAVA_TEST("kava-testnet"),
-    IOV_TEST_LEGACY1("iovns-galaxynet"),
-    IOV_TEST("iov-testnet"),
-    OK_TEST_LEGACY("okchain"),
-    OK_TEST_LEGACY1("okchain-testnet1"),
-    OK_TEST_LEGACY2("okexchain-testnet1"),
-    OK_TEST_LEGACY3("okexchain-65"),
     OK_TEST("okexchain-testnet"),
     RIZON_TEST("rizon-testnet2"),
     ALTHEA_TEST("althea-testnet");
@@ -108,55 +69,34 @@ public enum BaseChain {
     }
 
     public static BaseChain getChain(String chainName) {
-        if (chainName.equals(COSMOS_LEGACY1.chainName) ||
-                chainName.equals(COSMOS_LEGACY2.chainName) ||
-                chainName.equals(COSMOS_LEGACY3.chainName) ||
-                chainName.equals(COSMOS_LEGACY4.chainName) ||
-                chainName.equals(COSMOS_MAIN.chainName)) {
+        if (chainName.equals(COSMOS_MAIN.chainName)) {
             return COSMOS_MAIN;
         }
-        if (chainName.equals(IRIS_LEGACY1.chainName) ||
-                chainName.equals(IRIS_LEGACY2.chainName) ||
-                chainName.equals(IRIS_MAIN.chainName)) {
+        if (chainName.equals(IRIS_MAIN.chainName)) {
             return IRIS_MAIN;
         }
-        if (chainName.equals(BNB_LEGACY1.chainName) ||
-                chainName.equals(BNB_MAIN.chainName)) {
+        if (chainName.equals(BNB_MAIN.chainName)) {
             return BNB_MAIN;
         }
-        if (chainName.equals(IOV_LEGACY1.chainName) ||
-                chainName.equals(IOV_MAIN.chainName)) {
+        if (chainName.equals(IOV_MAIN.chainName)) {
             return IOV_MAIN;
         }
-        if (chainName.equals(KAVA_LEGACY1.chainName) ||
-                chainName.equals(KAVA_LEGACY2.chainName) ||
-                chainName.equals(KAVA_LEGACY3.chainName) ||
-                chainName.equals(KAVA_LEGACY4.chainName) ||
-                chainName.equals(KAVA_LEGACY5.chainName) ||
-                chainName.equals(KAVA_LEGACY6.chainName) ||
-                chainName.equals(KAVA_MAIN.chainName)) {
+        if (chainName.equals(KAVA_MAIN.chainName)) {
             return KAVA_MAIN;
         }
-        if (chainName.equals(BAND_MAIN_LEGACY1.chainName) ||
-                chainName.equals(BAND_MAIN_LEGACY2.chainName) ||
-                chainName.equals(BAND_MAIN.chainName)) {
+        if (chainName.equals(BAND_MAIN.chainName)) {
             return BAND_MAIN;
         }
-        if (chainName.equals(CERTIK_LEGACY1.chainName) ||
-                chainName.equals(CERTIK_MAIN.chainName)) {
+        if (chainName.equals(CERTIK_MAIN.chainName)) {
             return CERTIK_MAIN;
         }
-        if (chainName.equals(SECRET_LEGACY1.chainName) ||
-                chainName.equals(SECRET_MAIN.chainName)) {
+        if (chainName.equals(SECRET_MAIN.chainName)) {
             return SECRET_MAIN;
         }
-        if (chainName.equals(AKASH_LEGACY1.chainName) ||
-                chainName.equals(AKASH_LEGACY2.chainName) ||
-                chainName.equals(AKASH_MAIN.chainName)) {
+        if (chainName.equals(AKASH_MAIN.chainName)) {
             return AKASH_MAIN;
         }
-        if (chainName.equals(OKEX_LEGACY1.chainName) ||
-                chainName.equals(OKEX_MAIN.chainName)) {
+        if (chainName.equals(OKEX_MAIN.chainName)) {
             return OKEX_MAIN;
         }
         if (chainName.equals(PERSIS_MAIN.chainName)) {
@@ -234,6 +174,9 @@ public enum BaseChain {
         if(chainName.equals(UMEE_MAIN.chainName)) {
             return UMEE_MAIN;
         }
+        if(chainName.equals(EVMOS_MAIN.chainName)) {
+            return EVMOS_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -263,6 +206,7 @@ public enum BaseChain {
         result.add(CRYPTO_MAIN);
         result.add(DESMOS_MAIN);
         result.add(EMONEY_MAIN);
+//        result.add(EVMOS_MAIN);
         result.add(FETCHAI_MAIN);
         result.add(GRABRIDGE_MAIN);
         result.add(INJ_MAIN);
@@ -293,7 +237,7 @@ public enum BaseChain {
     }
 
     public static boolean IS_TESTNET(BaseChain chain) {
-        if (chain.equals(ALTHEA_TEST)) {
+        if (chain.equals(ALTHEA_TEST) || chain.equals(EVMOS_MAIN)) {
             return true;
         }
         return false;

@@ -87,6 +87,11 @@ public class Signer {
                     Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(profile.getAccount().getValue());
                     return account.getBaseVestingAccount().getBaseAccount().getAddress();
                 }
+
+                // evmos
+            } else if (auth.getAccount().getTypeUrl().contains(ethermint.types.v1.Account.EthAccount.getDescriptor().getFullName())) {
+                ethermint.types.v1.Account.EthAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
+                return account.getBaseAccount().getAddress();
             }
         }catch (Exception e) {}
         return "";
@@ -133,6 +138,12 @@ public class Signer {
                 }
             }
 
+            // evmos
+            else if (auth.getAccount().getTypeUrl().contains(ethermint.types.v1.Account.EthAccount.getDescriptor().getFullName())) {
+                ethermint.types.v1.Account.EthAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
+                return account.getBaseAccount().getAccountNumber();
+            }
+
         }catch (Exception e) {}
         return 0;
     }
@@ -176,6 +187,12 @@ public class Signer {
                     Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(profile.getAccount().getValue());
                     return account.getBaseVestingAccount().getBaseAccount().getSequence();
                 }
+            }
+
+            // evmos
+            else if (auth.getAccount().getTypeUrl().contains(ethermint.types.v1.Account.EthAccount.getDescriptor().getFullName())) {
+                ethermint.types.v1.Account.EthAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(auth.getAccount().getValue());
+                return account.getBaseAccount().getSequence();
             }
         }catch (Exception e) {}
         return 0;
@@ -1126,7 +1143,7 @@ public class Signer {
 
     public static byte[] getGrpcByteSingleSignature(QueryOuterClass.QueryAccountResponse auth, ECKey key, byte[] toSignByte) {
         byte[] sigData = new byte[64];
-        if (auth.getAccount().getTypeUrl().contains("/injective.types.v1beta1.EthAccount")) {
+        if (auth.getAccount().getTypeUrl().contains("/injective.types.v1beta1.EthAccount") || auth.getAccount().getTypeUrl().contains("/ethermint.types.v1.EthAccount")) {
             BigInteger privateKey = new BigInteger(key.getPrivateKeyAsHex(), 16);
             Sign.SignatureData sig = Sign.signMessage(toSignByte, ECKeyPair.create(privateKey));
             System.arraycopy(sig.getR(), 0, sigData, 0, 32);

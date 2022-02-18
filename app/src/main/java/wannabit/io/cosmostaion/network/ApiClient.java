@@ -667,6 +667,21 @@ public class ApiClient {
         }
         return api_umee;
     }
+
+    //Services for evmos mainnet api
+    private static HistoryApi api_evmos = null;
+    public static HistoryApi getEvmosApi(Context c) {
+        if (api_evmos == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_evmos))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_evmos = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_evmos;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;

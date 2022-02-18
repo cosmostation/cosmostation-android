@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletCrytoHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletDesmosAppHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletDesmosHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletEmoneyHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletEvmosHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletFetchHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletGraBridgeHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletGuideHolder;
@@ -81,6 +82,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
@@ -285,6 +287,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_LUM               = 33;
         private static final int TYPE_CHIHUAHUA         = 34;
         private static final int TYPE_KONSTELLATION     = 35;
+        private static final int TYPE_EVMOS             = 36;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
@@ -400,6 +403,9 @@ public class MainSendFragment extends BaseFragment {
 
             } else if (viewType == TYPE_KONSTELLATION) {
                 return new WalletKonstellationHolder(getLayoutInflater().inflate(R.layout.item_wallet_konstellation, viewGroup, false));
+
+            } else if (viewType == TYPE_EVMOS) {
+                return new WalletEvmosHolder(getLayoutInflater().inflate(R.layout.item_wallet_evmos, viewGroup, false));
 
             }
 
@@ -521,6 +527,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(UMEE_MAIN)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_MAIN)) { return TYPE_AXELAR; }
                     else if (getMainActivity().mBaseChain.equals(KONSTELL_MAIN)) { return TYPE_KONSTELLATION; }
+                    else if (getMainActivity().mBaseChain.equals(EVMOS_MAIN)) { return TYPE_EVMOS; }
                 } else if (position == 1) {
                     return TYPE_PRICE;
                 } else if (position == 2) {

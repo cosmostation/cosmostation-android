@@ -17,20 +17,15 @@ public class BaseConstant {
     public final static String DB_TABLE_PRICE           = "price";
 
     public final static String PRE_USER_ID                  = "PRE_USER_ID";
-    public final static String PRE_SELECTED_CHAIN           = "PRE_SELECTED_CHAIN";
     public final static String PRE_SELECTED_CHAINS          = "PRE_SELECTED_CHAINS";
     public final static String PRE_VALIDATOR_SORTING        = "PRE_VALIDATOR_SORTING";
     public final static String PRE_MY_VALIDATOR_SORTING     = "PRE_MY_VALIDATOR_SORTING";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
-    public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
     public final static String PRE_USING_FINGERPRINT        = "PRE_USING_FINGERPRINT";
     public final static String PRE_APP_LOCK_TIME            = "PRE_APP_LOCK_TIME";
     public final static String PRE_APP_LOCK_LEAVE_TIME      = "PRE_APP_LOCK_LEAVE_TIME";
-    public final static String PRE_TOKEN_SORTING            = "PRE_TOKEN_SORTING";
-    public final static String PRE_ACCOUNT_ORDER            = "PRE_ACCOUNT_ORDER";
     public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN";
-    public final static String PRE_KAVA_TESTNET_WARN        = "PRE_KAVA_TESTNET_WARN";
     public final static String PRE_EVENT_HIDE               = "PRE_EVENT_HIDE";
     public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
@@ -481,6 +476,7 @@ public class BaseConstant {
     public final static String TOKEN_LUM            = "ulum";
     public final static String TOKEN_CHIHUAHUA      = "uhuahua";
     public final static String TOKEN_DARC           = "udarc";
+    public final static String TOKEN_EVMOS          = "aphoton";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
@@ -530,7 +526,7 @@ public class BaseConstant {
     public final static String KEY_ETH_LEDGER_LIVE_PATH_1   = "m/44'/60'/";
     public final static String KEY_ETH_LEDGER_LIVE_PATH_2   = "'/0/0";
     public final static String KEY_ETH_LEDGER_LEGACY_PATH   = "m/44'/60'/0'/";
-    public final static String KEY_INJ_PATH                 = "m/44'/60'/0'/0/";
+    public final static String KEY_ETH_PATH                 = "m/44'/60'/0'/0/";
     public final static String KEY_BITSONG_PATH             = "m/44'/639'/0'/0/";
     public final static String KEY_DESMOS_PATH              = "m/44'/852'/0'/0/";
     public final static String KEY_LUM_PATH                 = "m/44'/880'/0'/0/";
@@ -609,6 +605,9 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
     public final static String SECRET_GAS_AMOUNT_IBC_SEND               = "500000";
+
+    public final static String SIF_GAS_AMOUNT_CLAIM_INCENTIVE           = "250000";
+    public final static String SIF_GAS_AMOUNT_DEX                       = "250000";
 
     public final static String GAS_AMOUNT_SEND                          = "100000";
     public final static String GAS_AMOUNT_STAKE                         = "200000";
@@ -753,6 +752,10 @@ public class BaseConstant {
     public final static String UMEE_GAS_RATE_LOW                        = "0.001";
     public final static String UMEE_GAS_RATE_AVERAGE                    = "0.005";
 
+    public final static String EVMOS_GAS_RATE_TINY                      = "0.000";
+    public final static String EVMOS_GAS_RATE_LOW                       = "0.000";
+    public final static String EVMOS_GAS_RATE_AVERAGE                   = "0.000";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -810,6 +813,7 @@ public class BaseConstant {
     public final static String LUM_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/lum-network/";
     public final static String CHIHUAHUA_VAL_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/chihuahua/";
     public final static String KONSTELL_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/konstellation/";
+    public final static String EVMOS_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/evmos/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -856,6 +860,7 @@ public class BaseConstant {
     public final static String EXPLORER_AXELAR_MAIN     = "https://www.mintscan.io/axelar/";
     public final static String EXPLORER_KONSTELL_MAIN   = "https://www.mintscan.io/konstellation/";
     public final static String EXPLORER_UMEE_MAIN       = "https://www.mintscan.io/umee/";
+    public final static String EXPLORER_EVMOS_MAIN      = "https://www.mintscan.io/evmos/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
     public final static String EXPLORER_OEC_TX          = "https://www.oklink.com/oec/";
@@ -901,6 +906,7 @@ public class BaseConstant {
     public final static String AXELAR_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/axelar/relay-axelar-unknown.png";
     public final static String KONSTELL_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/konstellation/relay-konstellation-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
+    public final static String EVMOS_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/evmos/relay-evmos-unknown.png";
 
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM        = "station";
@@ -945,4 +951,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_AXELAR = new BigDecimal("5.5596");
     public final static BigDecimal BLOCK_TIME_KONSTELLATION = new BigDecimal("5.376");
     public final static BigDecimal BLOCK_TIME_UMEE = new BigDecimal("5.658");
+    public final static BigDecimal BLOCK_TIME_EVMOS = new BigDecimal("5.824");
 }

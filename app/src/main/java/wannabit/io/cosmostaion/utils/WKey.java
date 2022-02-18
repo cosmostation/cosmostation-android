@@ -16,6 +16,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
@@ -161,7 +162,7 @@ public class WKey {
         } else if (chain.equals(MEDI_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
-        } else if (chain.equals(INJ_MAIN)) {
+        } else if (chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(BITSONG_MAIN)) {
@@ -300,6 +301,11 @@ public class WKey {
         if (auth.getAccount().getTypeUrl().contains("/injective.types.v1beta1.EthAccount")) {
             injective.crypto.v1beta1.ethsecp256k1.Keys.PubKey pubKey = injective.crypto.v1beta1.ethsecp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
             return Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").setValue(pubKey.toByteString()).build();
+
+        } else if (auth.getAccount().getTypeUrl().contains("/ethermint.types.v1.EthAccount")) {
+            ethermint.crypto.v1.ethsecp256k1.Keys.PubKey pubKey = ethermint.crypto.v1.ethsecp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
+            return Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").setValue(pubKey.toByteString()).build();
+
         } else {
             cosmos.crypto.secp256k1.Keys.PubKey pubKey = cosmos.crypto.secp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
             return Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(pubKey.toByteString()).build();
@@ -477,6 +483,8 @@ public class WKey {
                 result = bech32Encode("axelar".getBytes(), converted);
             } else if (chain.equals(KONSTELL_MAIN)){
                 result = bech32Encode("darc".getBytes(), converted);
+            } else if (chain.equals(EVMOS_MAIN)){
+                result = bech32Encode("evmos".getBytes(), converted);
             }
 
         } catch (Exception e) {
@@ -556,6 +564,8 @@ public class WKey {
             return bech32Encode("axelar".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(KONSTELL_MAIN)) {
             return bech32Encode("darc".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(EVMOS_MAIN)) {
+            return bech32Encode("evmos".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
@@ -569,6 +579,8 @@ public class WKey {
             return generateTenderAddressFromPrivateKey(childKey.getPrivateKeyAsHex());
         } else if (chain.equals(INJ_MAIN)) {
             return generateAddressFromPriv("inj", childKey.getPrivateKeyAsHex());
+        } else if (chain.equals(EVMOS_MAIN)) {
+            return generateAddressFromPriv("evmos", childKey.getPrivateKeyAsHex());
         }
         return getDpAddress(chain, childKey.getPublicKeyAsHex());
     }

@@ -26,7 +26,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov;
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi,
                          mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mComdex, mBitsong, mInj,
-                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee;
+                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee, mEvmos;
     private LinearLayout mAltheaTestLayer;
     private LinearLayout mCosmosTest, mIrisTest, mAltheaTest;
 
@@ -89,6 +89,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mAxelar = view.findViewById(R.id.axelar_chain);
         mKonstellation = view.findViewById(R.id.konstellation_chain);
         mUmee = view.findViewById(R.id.umee_chain);
+        mEvmos = view.findViewById(R.id.evmos_chain);
 
 
         mAltheaTestLayer = view.findViewById(R.id.althea_test_layer);
@@ -515,6 +516,18 @@ public class Dialog_ChoiceNet extends DialogFragment {
                     ((BaseActivity)getActivity()).onChainSelected(BaseChain.UMEE_MAIN);
                 } else {
                     ((BaseActivity)getActivity()).onChoiceNet(BaseChain.UMEE_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
+
+        mEvmos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.EVMOS_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.EVMOS_MAIN);
                 }
                 getDialog().dismiss();
             }

@@ -973,32 +973,6 @@ public class BaseData {
         return  getSharedPreferences().getString(BaseConstant.PRE_FCM_TOKEN, "");
     }
 
-
-
-    public void setTokenSorting(int sort) {
-        getSharedPreferences().edit().putInt(BaseConstant.PRE_TOKEN_SORTING, sort).commit();
-    }
-
-    public int getTokenSorting() {
-        return getSharedPreferences().getInt(BaseConstant.PRE_TOKEN_SORTING, 1);
-    }
-
-    public void setKavaWarn() {
-        Date dt = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(dt);
-        c.add(Calendar.DATE, 3);
-        getSharedPreferences().edit().putLong(BaseConstant.PRE_KAVA_TESTNET_WARN, c.getTimeInMillis()).commit();
-    }
-
-    public boolean getKavaWarn() {
-        Date dt = new Date();
-        if (dt.getTime() > getSharedPreferences().getLong(BaseConstant.PRE_KAVA_TESTNET_WARN, 1)) {
-            return true;
-        }
-        return false;
-    }
-
     public void setEventTime() {
         Date dt = new Date();
         Calendar c = Calendar.getInstance();
@@ -1101,10 +1075,18 @@ public class BaseData {
                 result.add(baseChain);
             }
         }
-
-        List<String> userSortedList = getUserSortedChains();
-        Collections.sort(result, (o1, o2) -> userSortedList.indexOf(o1.getChain()) - userSortedList.indexOf(o2.getChain()));
-        return result;
+        ArrayList<BaseChain> sorted = new ArrayList<>();
+        for (String chainName: getUserSortedChains()) {
+            if (result.contains(BaseChain.getChain(chainName))) {
+                sorted.add(BaseChain.getChain(chainName));
+            }
+        }
+        for (BaseChain baseChain: result) {
+            if (!sorted.contains(baseChain)) {
+                sorted.add(baseChain);
+            }
+        }
+        return sorted;
     }
 
     public ArrayList<BaseChain> userSortedChains() {
@@ -1188,78 +1170,6 @@ public class BaseData {
         values.put("spec",      password.spec);
         return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_PASSWORD, null, values);
     }
-
-    //    public ArrayList<Mnemonic> onSelectMnemonics() {
-//        ArrayList<Mnemonic> result = new ArrayList<>();
-//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "dpMasterKey", "typeSize"}, null, null, null, null, null);
-//        if(cursor != null && cursor.moveToFirst()) {
-//            do {
-//                Mnemonic mnemonic = new Mnemonic(
-//                        cursor.getLong(0),
-//                        cursor.getString(1),
-//                        cursor.getString(2),
-//                        cursor.getString(3),
-//                        cursor.getString(4),
-//                        cursor.getInt(5));
-//                result.add(mnemonic);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return result;
-//    }
-//
-//    public Mnemonic onSelectMnemonic(String id) {
-//        Mnemonic result = null;
-//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "dpMasterKey", "typeSize"}, "id == ?", new String[]{id}, null, null, null);
-//        if(cursor != null && cursor.moveToFirst()) {
-//            result = new Mnemonic(
-//                    cursor.getLong(0),
-//                    cursor.getString(1),
-//                    cursor.getString(2),
-//                    cursor.getString(3),
-//                    cursor.getString(4),
-//                    cursor.getInt(5));
-//        }
-//        cursor.close();
-//        return result;
-//    }
-//
-//    public long onInsertMnemonic(Mnemonic mnemonic) {
-//        long result = -1;
-//        if(isDupleMnemonic(mnemonic.dpMasterKey)) return result;
-//        ContentValues values = new ContentValues();
-//        values.put("uuid",          mnemonic.uuid);
-//        values.put("resource",      mnemonic.resource);
-//        values.put("spec",          mnemonic.spec);
-//        values.put("dpMasterKey",   mnemonic.dpMasterKey);
-//        values.put("typeSize",      mnemonic.typeSize);
-//        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_MNEMONIC, null, values);
-//    }
-//
-//    public boolean onHasMnemonic() {
-//        boolean existed = false;
-//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id"}, null, null, null, null, null);
-//        if(cursor != null && cursor.getCount() > 0) {
-//            existed = true;
-//        }
-//        cursor.close();
-//        return existed;
-//    }
-//
-//    public boolean isDupleMnemonic(String dpMasterKey) {
-//        boolean existed = false;
-//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id"}, "dpMasterKey == ?", new String[]{dpMasterKey}, null, null, null);
-//        if(cursor != null && cursor.getCount() > 0) {
-//            existed = true;
-//        }
-//        cursor.close();
-//        return existed;
-//    }
-//
-//    public boolean onDeleteMnemonic(String id) {
-//        return getBaseDB().delete(BaseConstant.DB_TABLE_MNEMONIC, "id = ?", new String[]{id}) > 0;
-//    }
-
 
 
     public ArrayList<Account> onSelectAccounts() {

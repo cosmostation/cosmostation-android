@@ -9,7 +9,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
@@ -18,11 +17,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
@@ -36,7 +35,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -98,6 +96,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
@@ -507,6 +506,15 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+        } else if (chain.equals(EVMOS_MAIN)) {
+            if (coin.denom.equals(TOKEN_EVMOS)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
+
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -589,7 +597,7 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+        } else if (chain.equals(BNB_MAIN)) {
             if (symbol.equals(TOKEN_BNB)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
 
@@ -895,6 +903,15 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(EVMOS_MAIN)) {
+            if (symbol.equals(TOKEN_EVMOS)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -1025,6 +1042,8 @@ public class WDp {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_konstellation));
             } else if (baseChain.equals(UMEE_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_umee));
+            } else if (baseChain.equals(EVMOS_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_evmos));
 
             }
 
@@ -1110,6 +1129,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_konstellation_net));
             } else if (baseChain.equals(UMEE_MAIN)) {
                 chainName.setText(c.getString(R.string.str_umee_net));
+            } else if (baseChain.equals(EVMOS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_evmos_net));
 
             }
 
@@ -1196,6 +1217,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_konstellation_main));
             } else if (baseChain.equals(UMEE_MAIN)) {
                 chainName.setText(c.getString(R.string.str_umee_main));
+            } else if (baseChain.equals(EVMOS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_evmos_main));
 
             }
 
@@ -1288,6 +1311,9 @@ public class WDp {
         } else if (baseChain.equals(UMEE_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorUmee));
             floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorWhite));
+        } else if (baseChain.equals(EVMOS_MAIN)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorBlack));
+            floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorEvmos));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -1337,7 +1363,7 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_medi));
             } else if (baseChain.equals(EMONEY_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_emoney));
-            } else if (baseChain.equals(RIZON_MAIN) || baseChain.equals(RIZON_TEST)) {
+            } else if (baseChain.equals(RIZON_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_rizon));
             } else if (baseChain.equals(JUNO_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_juno));
@@ -1369,6 +1395,8 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_axelar));
             } else if (baseChain.equals(KONSTELL_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_konstellattion));
+            } else if (baseChain.equals(EVMOS_MAIN)) {
+                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_evmos));
 
             }
             else if (baseChain.equals(COSMOS_TEST) || baseChain.equals(IRIS_TEST) || baseChain.equals(ALTHEA_TEST)) {
@@ -1397,7 +1425,7 @@ public class WDp {
                 return OSMOSIS_MAIN;
             } else if (chainId.contains("crypto-org-")) {
                 return CRYPTO_MAIN;
-            } else if (chainId.contains("laozi-mainnet-")) {
+            } else if (chainId.contains("laozi-mainnet")) {
                 return BAND_MAIN;
             } else if (chainId.contains("shentu-")) {
                 return CERTIK_MAIN;
@@ -1443,6 +1471,8 @@ public class WDp {
                 return KONSTELL_MAIN;
             } else if (chainId.contains("umee-")) {
                 return UMEE_MAIN;
+            } else if (chainId.contains("evmos")) {
+                return EVMOS_MAIN;
             }
         }
         return null;
@@ -1578,6 +1608,10 @@ public class WDp {
                 if (!address.startsWith("umee1")) {
                     textView.setText("");
                 }
+            } else if (baseChain.equals(EVMOS_MAIN)) {
+                if (!address.startsWith("evmos1")) {
+                    textView.setText("");
+                }
             }
         }
     }
@@ -1654,6 +1688,8 @@ public class WDp {
                 return "konstellation";
             } else if (baseChain.equals(UMEE_MAIN)) {
                 return "umee";
+            } else if (baseChain.equals(EVMOS_MAIN)) {
+                return "evmos";
             }
 
             else if (baseChain.equals(BNB_MAIN)) {
@@ -1712,6 +1748,7 @@ public class WDp {
             else if (address.startsWith("axelar1") && baseChain.equals(AXELAR_MAIN)) { return true; }
             else if (address.startsWith("darc1") && baseChain.equals(KONSTELL_MAIN)) { return true; }
             else if (address.startsWith("umee1") && baseChain.equals(UMEE_MAIN)) { return true; }
+            else if (address.startsWith("evmos1") && baseChain.equals(EVMOS_MAIN)) { return true; }
         }
         return false;
     }
@@ -1731,7 +1768,7 @@ public class WDp {
             else if (address.startsWith("iaa1")) { return Lists.newArrayList(IRIS_MAIN, IRIS_TEST); }
             else if (address.startsWith("bnb1")) { return Lists.newArrayList(BNB_MAIN); }
             else if (address.startsWith("kava1")) { return Lists.newArrayList(KAVA_MAIN); }
-            else if (address.startsWith("star1")) { return Lists.newArrayList(IOV_MAIN ,IOV_TEST); }
+            else if (address.startsWith("star1")) { return Lists.newArrayList(IOV_MAIN); }
             else if (address.startsWith("band1")) { return Lists.newArrayList(BAND_MAIN); }
             else if (address.startsWith("secret1")) { return Lists.newArrayList(SECRET_MAIN); }
             else if (address.startsWith("certik1")) { return Lists.newArrayList(CERTIK_MAIN); }
@@ -1761,6 +1798,7 @@ public class WDp {
             else if (address.startsWith("axelar1")) { return Lists.newArrayList(AXELAR_MAIN); }
             else if (address.startsWith("darc1")) { return Lists.newArrayList(KONSTELL_MAIN); }
             else if (address.startsWith("umee1")) { return Lists.newArrayList(UMEE_MAIN); }
+            else if (address.startsWith("evmos1")) { return Lists.newArrayList(EVMOS_MAIN); }
         }
         return null;
     }
@@ -1799,6 +1837,7 @@ public class WDp {
             else if (chain.equals(AXELAR_MAIN)) { return AXELAR_UNKNOWN_RELAYER; }
             else if (chain.equals(KONSTELL_MAIN)) { return KONSTELL_UNKNOWN_RELAYER; }
             else if (chain.equals(UMEE_MAIN)) { return UMEE_UNKNOWN_RELAYER; }
+            else if (chain.equals(EVMOS_MAIN)) { return EVMOS_UNKNOWN_RELAYER; }
         }
         return null;
     }
@@ -2111,6 +2150,13 @@ public class WDp {
                     }
                 }
             }
+
+            if (baseChain.equals(JUNO_MAIN) && baseData.getCw20sGrpc().size() > 0) {
+                for (Cw20Assets assets: baseData.getCw20sGrpc()) {
+                    BigDecimal amount = assets.getAmount();
+                    totalValue = totalValue.add(userCurrencyValue(baseData, assets.denom, amount, assets.decimal));
+                }
+            }
         }
 
         else if (baseChain.equals(BNB_MAIN)) {
@@ -2341,7 +2387,7 @@ public class WDp {
             } else if (customPath == 1) {
                 return BaseConstant.KEY_NEW_OK_PATH + String.valueOf(position) + (" (Ethermint Type) ");
             } else {
-                return BaseConstant.KEY_INJ_PATH + String.valueOf(position) + (" (Ethereum Type) ");
+                return BaseConstant.KEY_ETH_PATH + String.valueOf(position) + (" (Ethereum Type) ");
             }
 
         } else if (chain.equals(SECRET_MAIN)) {
@@ -2373,8 +2419,8 @@ public class WDp {
             }
             return BaseConstant.KEY_FETCH_BASE_PATH + String.valueOf(position);
 
-        } else if (chain.equals(INJ_MAIN)) {
-            return KEY_INJ_PATH + String.valueOf(position);
+        } else if (chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN)) {
+            return KEY_ETH_PATH + String.valueOf(position);
 
         } else if (chain.equals(BITSONG_MAIN)) {
             return KEY_BITSONG_PATH + String.valueOf(position);
@@ -2816,6 +2862,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorAxelar);
             } else if (chain.equals(KONSTELL_MAIN)) {
                 return c.getResources().getColor(R.color.colorKonstellation);
+            } else if (chain.equals(EVMOS_MAIN)) {
+                return c.getResources().getColor(R.color.colorEvmos);
             }
         }
         return c.getResources().getColor(R.color.colorGray0);
@@ -2893,6 +2941,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorTransBgKonstellation);
             } else if (chain.equals(UMEE_MAIN)) {
                 return c.getResources().getColor(R.color.colorTransBgUmee);
+            } else if (chain.equals(EVMOS_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgEvmos);
             }
         }
         return c.getResources().getColor(R.color.colorTransBg);
@@ -2968,6 +3018,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_axelar);
             } else if (chain.equals(KONSTELL_MAIN)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_konstellation);
+            } else if (chain.equals(EVMOS_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_evmos);
             }
         }
         return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
@@ -3043,6 +3095,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.colorAxelar);
             } else if (chain.equals(KONSTELL_MAIN)) {
                 return c.getResources().getColorStateList(R.color.colorKonstellation);
+            } else if (chain.equals(EVMOS_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorEvmos);
             }
         }
         return c.getResources().getColorStateList(R.color.colorTransBg);
@@ -3193,6 +3247,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorUmee));
             textview.setText(c.getString(R.string.s_umee));
 
+        } else if (BaseChain.getChain(chain).equals(EVMOS_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorEvmos));
+            textview.setText(c.getString(R.string.s_evmos));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -3245,8 +3303,6 @@ public class WDp {
             return TOKEN_COSMOS_TEST;
         } else if (chain.equals(IRIS_TEST)) {
             return TOKEN_IRIS_TEST;
-        } else if (chain.equals(IOV_TEST)) {
-            return TOKEN_IOV_TEST;
         } else if (chain.equals(RIZON_MAIN)) {
             return TOKEN_RIZON;
         } else if (chain.equals(MEDI_MAIN)) {
@@ -3283,6 +3339,8 @@ public class WDp {
             return TOKEN_AXELAR;
         } else if (chain.equals(KONSTELL_MAIN)) {
             return TOKEN_DARC;
+        } else if (chain.equals(EVMOS_MAIN)) {
+            return TOKEN_EVMOS;
         }
         return "";
     }
@@ -3360,6 +3418,8 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_axelar);
             } else if (baseChain.equals(KONSTELL_MAIN)) {
                 imageView.setImageResource(R.drawable.token_konstellation);
+            } else if (baseChain.equals(EVMOS_MAIN)) {
+                imageView.setImageResource(R.drawable.token_evmos);
             }
         } else {
             imageView.setImageResource(R.drawable.token_ic);
@@ -3383,6 +3443,8 @@ public class WDp {
                 return WUtil.getSifCoinDecimal(baseData, denom);
             } else if (baseChain.equals(GRABRIDGE_MAIN)) {
                 return WUtil.getGBridgeCoinDecimal(baseData, denom);
+            } else if (baseChain.equals(INJ_MAIN)) {
+                return WUtil.getInjCoinDecimal(baseData, denom);
             }
         } else {
             return 6;
@@ -3395,7 +3457,7 @@ public class WDp {
             return 0;
         } else if (chain.equals(OKEX_MAIN)) {
             return 0;
-        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN)) {
+        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN)) {
             return 18;
         } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
@@ -3409,7 +3471,7 @@ public class WDp {
             return 8;
         } else if (chain.equals(OKEX_MAIN)) {
             return 18;
-        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN)) {
+        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN)) {
             return 18;
         } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
@@ -3423,7 +3485,7 @@ public class WDp {
             return 8;
         } else if (denom.equals(TOKEN_OK)) {
             return 18;
-        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ)) {
+        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ) || denom.equals(TOKEN_EVMOS)) {
             return 18;
         } else if (denom.equals(TOKEN_CRO)) {
             return 8;
@@ -3437,7 +3499,7 @@ public class WDp {
             return 8;
         } else if (denom.equals(TOKEN_OK)) {
             return 18;
-        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ)) {
+        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ) || denom.equals(TOKEN_EVMOS)) {
             return 18;
         } else if (denom.equals(TOKEN_CRO)) {
             return 8;
@@ -3763,6 +3825,8 @@ public class WDp {
             return KAVA_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(KONSTELL_MAIN)) {
             return KONSTELL_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(EVMOS_MAIN)) {
+            return EVMOS_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(OKEX_MAIN)) {

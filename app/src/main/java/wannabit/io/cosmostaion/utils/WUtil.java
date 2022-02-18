@@ -8,7 +8,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
@@ -17,6 +16,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
@@ -1102,7 +1102,7 @@ public class WUtil {
      * @memo size
      */
     public static int getMaxMemoSize(BaseChain chain) {
-        if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+        if (chain.equals(BNB_MAIN)) {
             return BaseConstant.MEMO_BNB;
         }
         return BaseConstant.MEMO_ATOM;
@@ -1450,26 +1450,28 @@ public class WUtil {
     }
 
     public static String dpOsmosisTokenName(Context c, BaseData baseData, TextView textView, String denom) {
-        if (denom.equals(TOKEN_OSMOSIS)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
-            textView.setText("OSMO");
+        if (denom != null) {
+            if (denom.equals(TOKEN_OSMOSIS)) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
+                textView.setText("OSMO");
 
-        } else if (denom.equals(TOKEN_ION)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorIon));
-            textView.setText("ION");
+            } else if (denom.equals(TOKEN_ION)) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorIon));
+                textView.setText("ION");
 
-        } else if (denom.startsWith("gamm/pool/")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            String[] split = denom.split("/");
-            textView.setText("GAMM-" + split[split.length - 1]);
+            } else if (denom.startsWith("gamm/pool/")) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                String[] split = denom.split("/");
+                textView.setText("GAMM-" + split[split.length - 1]);
 
-        } else if (denom.startsWith("ibc/")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                textView.setText(ibcToken.display_denom.toUpperCase());
-            } else {
-                textView.setText("UnKnown");
+            } else if (denom.startsWith("ibc/")) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+                if (ibcToken != null && ibcToken.auth) {
+                    textView.setText(ibcToken.display_denom.toUpperCase());
+                } else {
+                    textView.setText("UnKnown");
+                }
             }
         }
         return denom;
@@ -1495,25 +1497,27 @@ public class WUtil {
     }
 
     public static String dpSifTokenName(Context c, BaseData baseData, TextView textView, String denom) {
-        if (denom.equals(TOKEN_SIF)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorSif));
-            textView.setText("ROWAN");
+        if (denom != null) {
+            if (denom.equals(TOKEN_SIF)) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorSif));
+                textView.setText("ROWAN");
 
-        } else if (denom.startsWith("c")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            textView.setText(denom.substring(1).toUpperCase());
+            } else if (denom.startsWith("c")) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setText(denom.substring(1).toUpperCase());
 
-        } else if (denom.startsWith("ibc/")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                textView.setText(ibcToken.display_denom.toUpperCase());
+            } else if (denom.startsWith("ibc/")) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+                if (ibcToken != null && ibcToken.auth) {
+                    textView.setText(ibcToken.display_denom.toUpperCase());
+                } else {
+                    textView.setText("UnKnown");
+                }
             } else {
+                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 textView.setText("UnKnown");
             }
-        } else {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            textView.setText("UnKnown");
         }
         return denom;
     }
@@ -2618,6 +2622,9 @@ public class WUtil {
             } else if (chain.equals(UMEE_MAIN)) {
                 return BLOCK_TIME_UMEE;
 
+            } else if (chain.equals(EVMOS_MAIN)) {
+                return BLOCK_TIME_EVMOS;
+
             }
         }
         return BigDecimal.ZERO;
@@ -2919,6 +2926,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_konstellation);
             guideMsg.setText(R.string.str_front_guide_msg_konstellation);
 
+        } else if (mainActivity.mBaseChain.equals(EVMOS_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_evmos));
+            guideTitle.setText(R.string.str_front_guide_title_evmos);
+            guideMsg.setText(R.string.str_front_guide_msg_evmos);
+
         }
     }
     
@@ -3035,6 +3047,9 @@ public class WUtil {
 
         } else if (chain.equals(KONSTELL_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://konstellation.tech/"));
+
+        } else if (chain.equals(EVMOS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://evmos.org/"));
         }
         return null;
     }
@@ -3153,6 +3168,9 @@ public class WUtil {
         } else if (chain.equals(KONSTELL_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://konstellation.medium.com/"));
 
+        } else if (chain.equals(EVMOS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://evmos.blog/"));
+
         }
         return null;
     }
@@ -3264,6 +3282,9 @@ public class WUtil {
 
         } else if (basechain.equals(UMEE_MAIN)) {
             return EXPLORER_UMEE_MAIN;
+
+        } else if (basechain.equals(EVMOS_MAIN)) {
+            return EXPLORER_EVMOS_MAIN;
 
         }
 
@@ -3385,6 +3406,9 @@ public class WUtil {
 
             } else if (basechain.equals(UMEE_MAIN)) {
                 return EXPLORER_UMEE_MAIN + "txs/" + hash;
+
+            } else if (basechain.equals(EVMOS_MAIN)) {
+                return EXPLORER_EVMOS_MAIN + "txs/" + hash;
 
             }
 
@@ -3587,7 +3611,7 @@ public class WUtil {
                 return new BigDecimal(V1_GAS_AMOUNT_MID);
             }
 
-        } else if (basechain.equals(SENTINEL_MAIN) || basechain.equals(FETCHAI_MAIN) || basechain.equals(KI_MAIN) || basechain.equals(MEDI_MAIN)) {
+        } else if (basechain.equals(SENTINEL_MAIN) || basechain.equals(FETCHAI_MAIN) || basechain.equals(KI_MAIN) || basechain.equals(MEDI_MAIN) || basechain.equals(SIF_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -3607,6 +3631,10 @@ public class WUtil {
                 return new BigDecimal(GAS_AMOUNT_VOTE);
             } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
                 return new BigDecimal(GAS_AMOUNT_IBC_SEND);
+            } else if (txType == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
+                return new BigDecimal(SIF_GAS_AMOUNT_CLAIM_INCENTIVE);
+            } else if (txType == CONST_PW_TX_SIF_SWAP || txType == CONST_PW_TX_SIF_JOIN_POOL || txType == CONST_PW_TX_SIF_EXIT_POOL) {
+                return new BigDecimal(SIF_GAS_AMOUNT_DEX);
             }
 
         } else if (basechain.equals(INJ_MAIN)) {
@@ -3837,6 +3865,11 @@ public class WUtil {
 
         } else if (basechain.equals(UMEE_MAIN)) {
             BigDecimal gasRate = new BigDecimal(UMEE_GAS_RATE_TINY);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(EVMOS_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(EVMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -4086,6 +4119,14 @@ public class WUtil {
                 return new BigDecimal(UMEE_GAS_RATE_LOW);
             }
             return new BigDecimal(UMEE_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(EVMOS_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(EVMOS_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(EVMOS_GAS_RATE_LOW);
+            }
+            return new BigDecimal(EVMOS_GAS_RATE_AVERAGE);
 
         }
 
