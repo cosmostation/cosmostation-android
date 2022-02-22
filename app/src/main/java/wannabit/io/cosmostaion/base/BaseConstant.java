@@ -476,7 +476,7 @@ public class BaseConstant {
     public final static String TOKEN_LUM            = "ulum";
     public final static String TOKEN_CHIHUAHUA      = "uhuahua";
     public final static String TOKEN_DARC           = "udarc";
-    public final static String TOKEN_EVMOS          = "aphoton";
+    public final static String TOKEN_EVMOS          = "aevmos";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
