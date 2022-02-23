@@ -2627,12 +2627,10 @@ public class WUtil {
             } else if (chain.equals(EVMOS_MAIN)) {
                 return BLOCK_TIME_EVMOS;
 
-            }
+            } else if (chain.equals(PROVENANCE_MAIN)) {
+                return BLOCK_TIME_PROVENANCE;
 
-//            else if (chain.equals(PROVENANCE_MAIN)) {
-//                return BLOCK_TIME_PROVENANCE;
-//
-//            }
+            }
         }
         return BigDecimal.ZERO;
     }
