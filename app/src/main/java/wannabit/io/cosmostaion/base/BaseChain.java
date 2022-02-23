@@ -208,7 +208,7 @@ public enum BaseChain {
         result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);
         result.add(CRYPTO_MAIN);
-        result.add(CUDOS_MAIN);
+//        result.add(CUDOS_MAIN);
         result.add(DESMOS_MAIN);
         result.add(EMONEY_MAIN);
 //        result.add(EVMOS_MAIN);
