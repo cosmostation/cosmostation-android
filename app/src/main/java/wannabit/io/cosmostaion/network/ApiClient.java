@@ -682,6 +682,21 @@ public class ApiClient {
         }
         return api_evmos;
     }
+
+    //Services for cudos mainnet api
+    private static HistoryApi api_cudos = null;
+    public static HistoryApi getCudosApi(Context c) {
+        if (api_cudos == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_cudos))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_cudos = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_cudos;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;

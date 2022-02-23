@@ -26,7 +26,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov;
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi,
                          mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mComdex, mBitsong, mInj,
-                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee, mEvmos;
+                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee, mEvmos, mCudos;
     private LinearLayout mAltheaTestLayer;
     private LinearLayout mCosmosTest, mIrisTest, mAltheaTest;
 
@@ -90,7 +90,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mKonstellation = view.findViewById(R.id.konstellation_chain);
         mUmee = view.findViewById(R.id.umee_chain);
         mEvmos = view.findViewById(R.id.evmos_chain);
-
+        mCudos = view.findViewById(R.id.cudos_chain);
 
         mAltheaTestLayer = view.findViewById(R.id.althea_test_layer);
         mAltheaTest = view.findViewById(R.id.althea_test_net);
@@ -528,6 +528,18 @@ public class Dialog_ChoiceNet extends DialogFragment {
                     ((BaseActivity)getActivity()).onChainSelected(BaseChain.EVMOS_MAIN);
                 } else {
                     ((BaseActivity)getActivity()).onChoiceNet(BaseChain.EVMOS_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
+
+        mCudos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.CUDOS_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.CUDOS_MAIN);
                 }
                 getDialog().dismiss();
             }

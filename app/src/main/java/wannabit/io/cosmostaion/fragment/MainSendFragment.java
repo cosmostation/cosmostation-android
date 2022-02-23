@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletChihuahuaHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletComdexHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCosmosHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCrytoHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletCudosHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletDesmosAppHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletDesmosHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletEmoneyHolder;
@@ -80,6 +81,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
@@ -288,6 +290,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_CHIHUAHUA         = 34;
         private static final int TYPE_KONSTELLATION     = 35;
         private static final int TYPE_EVMOS             = 36;
+        private static final int TYPE_CUDOS             = 37;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
@@ -406,6 +409,9 @@ public class MainSendFragment extends BaseFragment {
 
             } else if (viewType == TYPE_EVMOS) {
                 return new WalletEvmosHolder(getLayoutInflater().inflate(R.layout.item_wallet_evmos, viewGroup, false));
+
+            } else if (viewType == TYPE_CUDOS) {
+                return new WalletCudosHolder(getLayoutInflater().inflate(R.layout.item_wallet_cudos, viewGroup, false));
 
             }
 
@@ -528,6 +534,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(AXELAR_MAIN)) { return TYPE_AXELAR; }
                     else if (getMainActivity().mBaseChain.equals(KONSTELL_MAIN)) { return TYPE_KONSTELLATION; }
                     else if (getMainActivity().mBaseChain.equals(EVMOS_MAIN)) { return TYPE_EVMOS; }
+                    else if (getMainActivity().mBaseChain.equals(CUDOS_MAIN)) { return TYPE_CUDOS; }
                 } else if (position == 1) {
                     return TYPE_PRICE;
                 } else if (position == 2) {

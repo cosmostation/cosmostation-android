@@ -13,6 +13,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
@@ -145,6 +146,9 @@ public class ChannelBuilder {
     private final static String GRPC_EVMOS_MAIN = "218.53.140.57";
     private final static int PORT_EVMOS_MAIN = 54100;
 
+    private final static String GRPC_CUDOS_MAIN = "lcd-cudos-testnet.cosmostation.io";
+    private final static int PORT_CUDOS_MAIN = 9090;
+
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -228,6 +232,8 @@ public class ChannelBuilder {
             return getUmeeMain();
         } else if (chain.equals(EVMOS_MAIN)) {
             return getEvmosMain();
+        } else if (chain.equals(CUDOS_MAIN)) {
+            return getCudosMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -682,6 +688,19 @@ public class ChannelBuilder {
             }
         }
         return channel_evmos_main;
+    }
+
+    //Channel for cudos main
+    private static ManagedChannel channel_cudos_main = null;
+    public static ManagedChannel getCudosMain() {
+        if (channel_cudos_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_cudos_main = ManagedChannelBuilder.forAddress(GRPC_CUDOS_MAIN, PORT_CUDOS_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_cudos_main;
     }
 
     //Channel for stargate testnet
