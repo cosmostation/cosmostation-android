@@ -697,6 +697,21 @@ public class ApiClient {
         }
         return api_cudos;
     }
+
+    //Services for provenance mainnet api
+    private static HistoryApi api_provenance = null;
+    public static HistoryApi getProvenanceApi(Context c) {
+        if (api_provenance == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_provenance))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_provenance = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_provenance;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;

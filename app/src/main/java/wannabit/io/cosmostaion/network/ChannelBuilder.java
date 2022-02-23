@@ -31,6 +31,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -149,6 +150,9 @@ public class ChannelBuilder {
     private final static String GRPC_CUDOS_MAIN = "lcd-cudos-testnet.cosmostation.io";
     private final static int PORT_CUDOS_MAIN = 9090;
 
+    private final static String GRPC_PROVENANCE_MAIN = "lcd-provenance-app.cosmostation.io";
+    private final static int PORT_PROVENANCE_MAIN = 9090;
+
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -234,6 +238,8 @@ public class ChannelBuilder {
             return getEvmosMain();
         } else if (chain.equals(CUDOS_MAIN)) {
             return getCudosMain();
+        } else if (chain.equals(PROVENANCE_MAIN)) {
+            return getProvenanceMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -701,6 +707,19 @@ public class ChannelBuilder {
             }
         }
         return channel_cudos_main;
+    }
+
+    //Channel for provenance main
+    private static ManagedChannel channel_provenance_main = null;
+    public static ManagedChannel getProvenanceMain() {
+        if (channel_provenance_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_provenance_main = ManagedChannelBuilder.forAddress(GRPC_PROVENANCE_MAIN, PORT_PROVENANCE_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_provenance_main;
     }
 
     //Channel for stargate testnet
