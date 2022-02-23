@@ -1153,7 +1153,7 @@
     <string name="str_token_swap">코인 스왑</string>
     <string name="str_token_id">ID</string>
     <string name="str_token_swap_time">시간</string>
-    <string name="str_token_swap_input_coin">Inputs</string>
+    <string name="str_token_swap_input_coin">Inputs Coin</string>
     <string name="str_token_swap_output_coin">Outputs </string>
     <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
     <string name="str_token_swap_rate_coin">비율</string>

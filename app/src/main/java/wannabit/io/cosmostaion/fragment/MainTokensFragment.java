@@ -888,7 +888,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_cro_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CRYPTO_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Crypto.org Staking Coin");
+            holder.itemFullName.setText("Cronos");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokencrypto));
 

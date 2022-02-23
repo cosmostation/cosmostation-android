@@ -30,13 +30,14 @@
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
                     android:src="@drawable/token_evmos"/>
+
                 <TextView
+                    style="@style/font_ss_14_evmos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/evmos_icon"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:text="PHOTON"
-                    style="@style/font_ss_14_evmos"/>
+                    android:layout_toRightOf="@+id/evmos_icon"
+                    android:text="EVMOS" />
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

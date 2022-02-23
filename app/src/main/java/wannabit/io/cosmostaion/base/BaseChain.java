@@ -211,7 +211,7 @@ public enum BaseChain {
         result.add(CUDOS_MAIN);
         result.add(DESMOS_MAIN);
         result.add(EMONEY_MAIN);
-        result.add(EVMOS_MAIN);
+//        result.add(EVMOS_MAIN);
         result.add(FETCHAI_MAIN);
         result.add(GRABRIDGE_MAIN);
         result.add(INJ_MAIN);

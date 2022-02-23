@@ -1451,26 +1451,28 @@ public class WUtil {
     }
 
     public static String dpOsmosisTokenName(Context c, BaseData baseData, TextView textView, String denom) {
-        if (denom.equals(TOKEN_OSMOSIS)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
-            textView.setText("OSMO");
+        if (denom != null) {
+            if (denom.equals(TOKEN_OSMOSIS)) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
+                textView.setText("OSMO");
 
-        } else if (denom.equals(TOKEN_ION)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorIon));
-            textView.setText("ION");
+            } else if (denom.equals(TOKEN_ION)) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorIon));
+                textView.setText("ION");
 
-        } else if (denom.startsWith("gamm/pool/")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            String[] split = denom.split("/");
-            textView.setText("GAMM-" + split[split.length - 1]);
+            } else if (denom.startsWith("gamm/pool/")) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                String[] split = denom.split("/");
+                textView.setText("GAMM-" + split[split.length - 1]);
 
-        } else if (denom.startsWith("ibc/")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                textView.setText(ibcToken.display_denom.toUpperCase());
-            } else {
-                textView.setText("UnKnown");
+            } else if (denom.startsWith("ibc/")) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+                if (ibcToken != null && ibcToken.auth) {
+                    textView.setText(ibcToken.display_denom.toUpperCase());
+                } else {
+                    textView.setText("UnKnown");
+                }
             }
         }
         return denom;
@@ -1496,25 +1498,27 @@ public class WUtil {
     }
 
     public static String dpSifTokenName(Context c, BaseData baseData, TextView textView, String denom) {
-        if (denom.equals(TOKEN_SIF)) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorSif));
-            textView.setText("ROWAN");
+        if (denom != null) {
+            if (denom.equals(TOKEN_SIF)) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorSif));
+                textView.setText("ROWAN");
 
-        } else if (denom.startsWith("c")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            textView.setText(denom.substring(1).toUpperCase());
+            } else if (denom.startsWith("c")) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                textView.setText(denom.substring(1).toUpperCase());
 
-        } else if (denom.startsWith("ibc/")) {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                textView.setText(ibcToken.display_denom.toUpperCase());
+            } else if (denom.startsWith("ibc/")) {
+                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+                if (ibcToken != null && ibcToken.auth) {
+                    textView.setText(ibcToken.display_denom.toUpperCase());
+                } else {
+                    textView.setText("UnKnown");
+                }
             } else {
+                textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 textView.setText("UnKnown");
             }
-        } else {
-            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            textView.setText("UnKnown");
         }
         return denom;
     }
@@ -2618,6 +2622,9 @@ public class WUtil {
 
             } else if (chain.equals(UMEE_MAIN)) {
                 return BLOCK_TIME_UMEE;
+
+            } else if (chain.equals(EVMOS_MAIN)) {
+                return BLOCK_TIME_EVMOS;
 
             }
         }

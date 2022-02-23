@@ -92,6 +92,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:gravity="right"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
                     style="@style/font_ss_11_gray1"
                     android:text="13123 block"/>
             </LinearLayout>
