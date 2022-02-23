@@ -33,6 +33,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -171,6 +172,9 @@ public class WKey {
 
         } else if (chain.equals(DESMOS_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(852, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
+        } else if (chain.equals(PROVENANCE_MAIN)) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(505, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         }
 
@@ -488,6 +492,8 @@ public class WKey {
                 result = bech32Encode("evmos".getBytes(), converted);
             } else if (chain.equals(CUDOS_MAIN)){
                 result = bech32Encode("cudos".getBytes(), converted);
+            } else if (chain.equals(PROVENANCE_MAIN)){
+                result = bech32Encode("pb".getBytes(), converted);
             }
 
         } catch (Exception e) {
@@ -571,6 +577,8 @@ public class WKey {
             return bech32Encode("evmos".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(CUDOS_MAIN)) {
             return bech32Encode("cudos".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(PROVENANCE_MAIN)) {
+            return bech32Encode("pb".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }

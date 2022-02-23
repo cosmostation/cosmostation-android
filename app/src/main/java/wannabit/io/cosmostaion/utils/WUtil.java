@@ -33,6 +33,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -2627,6 +2628,11 @@ public class WUtil {
                 return BLOCK_TIME_EVMOS;
 
             }
+
+//            else if (chain.equals(PROVENANCE_MAIN)) {
+//                return BLOCK_TIME_PROVENANCE;
+//
+//            }
         }
         return BigDecimal.ZERO;
     }
@@ -2940,6 +2946,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_cudos);
             guideMsg.setText(R.string.str_front_guide_msg_cudos);
 
+        } else if (mainActivity.mBaseChain.equals(PROVENANCE_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_provenance));
+            guideTitle.setText(R.string.str_front_guide_title_provenance);
+            guideMsg.setText(R.string.str_front_guide_msg_provenance);
+
         }
     }
     
@@ -3062,6 +3073,9 @@ public class WUtil {
 
         } else if (chain.equals(CUDOS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cudos.org/"));
+
+        } else if (chain.equals(PROVENANCE_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.provenance.io/"));
         }
         return null;
     }
@@ -3186,6 +3200,9 @@ public class WUtil {
         } else if (chain.equals(CUDOS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.cudos.org/blog/"));
 
+        } else if (chain.equals(PROVENANCE_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.provenance.io/blog/"));
+
         }
         return null;
     }
@@ -3303,6 +3320,9 @@ public class WUtil {
 
         } else if (basechain.equals(CUDOS_MAIN)) {
             return EXPLORER_CUDOS_MAIN;
+
+        } else if (basechain.equals(PROVENANCE_MAIN)) {
+            return EXPLORER_PROVENANCE_MAIN;
 
         }
 
@@ -3430,6 +3450,9 @@ public class WUtil {
 
             } else if (basechain.equals(CUDOS_MAIN)) {
                 return EXPLORER_CUDOS_MAIN + "txs/" + hash;
+
+            } else if (basechain.equals(PROVENANCE_MAIN)) {
+                return EXPLORER_PROVENANCE_MAIN + "txs/" + hash;
 
             }
 
@@ -3899,6 +3922,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(PROVENANCE_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(PROVENANCE_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         }
 
         else if (basechain.equals(BNB_MAIN)) {
@@ -4161,6 +4189,14 @@ public class WUtil {
                 return new BigDecimal(CUDOS_GAS_RATE_LOW);
             }
             return new BigDecimal(CUDOS_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(PROVENANCE_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(PROVENANCE_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(PROVENANCE_GAS_RATE_LOW);
+            }
+            return new BigDecimal(PROVENANCE_GAS_RATE_AVERAGE);
 
         }
 
