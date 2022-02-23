@@ -2043,15 +2043,15 @@ public class WDp {
             if (baseData.getPrice("usdt") != null && baseData.getPrice("usdt").prices != null) {
                 for (Price.Prices price: baseData.getPrice("usdt").prices) {
                     if (price.currency.equalsIgnoreCase(denom.substring(1))) {
-                        return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 3, RoundingMode.DOWN);
+                        return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 18, RoundingMode.DOWN);
                     }
                 }
             }
         }
         if (baseData.getPrice(denom) != null) {
-            return baseData.getPrice(denom).currencyPrice("usd").setScale(3, RoundingMode.DOWN);
+            return baseData.getPrice(denom).currencyPrice("usd").setScale(18, RoundingMode.DOWN);
         }
-        return BigDecimal.ZERO.setScale(3, RoundingMode.DOWN);
+        return BigDecimal.ZERO.setScale(18, RoundingMode.DOWN);
     }
 
     public static BigDecimal usdValue(BaseData baseData, String denom, BigDecimal amount, int divider) {

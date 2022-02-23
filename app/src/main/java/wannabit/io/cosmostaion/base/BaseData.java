@@ -171,9 +171,11 @@ public class BaseData {
 
     public ArrayList<Cw20Assets> getCw20sGrpc() {
         ArrayList<Cw20Assets> result = new ArrayList<>();
-        for (Cw20Assets assets: mCw20Assets) {
-            if (assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
-                result.add(assets);
+        if (mCw20Assets.size() > 0) {
+            for (Cw20Assets assets: mCw20Assets) {
+                if (assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+                    result.add(assets);
+                }
             }
         }
         return result;
