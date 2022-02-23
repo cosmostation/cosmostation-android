@@ -127,7 +127,7 @@
     <string name="url_api_umee" translatable="false">https://api-umee.cosmostation.io/</string>
 
 
-    <string name="url_api_evmos" translatable="false">https://api-office.cosmostation.io/evmos_9000-2/</string>
+    <string name="url_api_evmos" translatable="false">https://api-office.cosmostation.io/evmos_9000-3/</string>
 
 
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
@@ -186,7 +186,7 @@
     <string name="str_lum_c" translatable="false">LUM</string>
     <string name="str_chihuahua_c" translatable="false">HUAHUA</string>
     <string name="str_konstellation_c" translatable="false">DARC</string>
-    <string name="str_evmos_c" translatable="false">PHOTON</string>
+    <string name="str_evmos_c" translatable="false">EVMOS</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
@@ -1507,7 +1507,7 @@
     <string name="str_token_swap">Coin Swap</string>
     <string name="str_token_id">ID</string>
     <string name="str_token_swap_time">Time</string>
-    <string name="str_token_swap_input_coin">Inputs</string>
+    <string name="str_token_swap_input_coin">Inputs Coin</string>
     <string name="str_token_swap_output_coin">Outputs</string>
     <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
     <string name="str_token_swap_rate_coin">Rate</string>
@@ -1890,7 +1890,7 @@
     <string name="s_lum" translatable="false">LUM</string>
     <string name="s_chihuahua" translatable="false">HUAHUA</string>
     <string name="s_konstellation" translatable="false">DARC</string>
-    <string name="s_evmos" translatable="false">PHOTON</string>
+    <string name="s_evmos" translatable="false">EVMOS</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>
