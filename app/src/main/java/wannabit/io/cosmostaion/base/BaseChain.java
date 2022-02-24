@@ -228,7 +228,7 @@ public enum BaseChain {
         result.add(OKEX_MAIN);
         result.add(OSMOSIS_MAIN);
         result.add(PERSIS_MAIN);
-        result.add(PROVENANCE_MAIN);
+//        result.add(PROVENANCE_MAIN);
         result.add(REGEN_MAIN);
         result.add(RIZON_MAIN);
         result.add(SECRET_MAIN);
