@@ -764,9 +764,9 @@ public class BaseConstant {
     public final static String CUDOS_GAS_RATE_LOW                       = "0.000";
     public final static String CUDOS_GAS_RATE_AVERAGE                   = "0.000";
 
-    public final static String PROVENANCE_GAS_RATE_TINY                 = "0.02";
-    public final static String PROVENANCE_GAS_RATE_LOW                  = "0.02";
-    public final static String PROVENANCE_GAS_RATE_AVERAGE              = "0.02";
+    public final static String PROVENANCE_GAS_RATE_TINY                 = "2000.00";
+    public final static String PROVENANCE_GAS_RATE_LOW                  = "2000.00";
+    public final static String PROVENANCE_GAS_RATE_AVERAGE              = "2000.00";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
