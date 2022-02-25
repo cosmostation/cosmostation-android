@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_4"
                 android:singleLine="true"
-                style="@style/font_ss_10_gray1"/>
+                style="@style/font_ss_10_mono_gray1"/>
             <RelativeLayout
                 android:id="@+id/atom_layer"
                 android:layout_width="match_parent"

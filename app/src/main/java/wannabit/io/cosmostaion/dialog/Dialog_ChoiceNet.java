@@ -26,7 +26,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov;
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi,
                          mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mComdex, mBitsong, mInj,
-                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee, mEvmos, mCudos;
+                         mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee, mEvmos, mCudos, mProvenance;
     private LinearLayout mAltheaTestLayer;
     private LinearLayout mCosmosTest, mIrisTest, mAltheaTest;
 
@@ -91,6 +91,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mUmee = view.findViewById(R.id.umee_chain);
         mEvmos = view.findViewById(R.id.evmos_chain);
         mCudos = view.findViewById(R.id.cudos_chain);
+        mProvenance = view.findViewById(R.id.provenance_chain);
 
         mAltheaTestLayer = view.findViewById(R.id.althea_test_layer);
         mAltheaTest = view.findViewById(R.id.althea_test_net);
@@ -545,6 +546,17 @@ public class Dialog_ChoiceNet extends DialogFragment {
             }
         });
 
+        mProvenance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.PROVENANCE_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.PROVENANCE_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
 
         if (BaseChain.SUPPORT_CHAINS().contains(COSMOS_TEST)) {
             mCosmosTestLayer.setVisibility(View.VISIBLE);

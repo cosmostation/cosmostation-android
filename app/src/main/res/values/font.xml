@@ -149,6 +149,11 @@
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
 
+    <style name="font_ss_10_mono_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textColor">@color/colorGray1</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+    </style>
 
 
     <style name="font_ss_11_white" parent="@android:style/TextAppearance">
@@ -603,6 +608,12 @@
     <style name="font_ss_14_cudos" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorCudos</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_ss_14_provenance" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorProvenance</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 

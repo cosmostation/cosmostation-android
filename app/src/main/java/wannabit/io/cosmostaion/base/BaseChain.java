@@ -50,6 +50,7 @@ public enum BaseChain {
     UMEE_MAIN("umee-mainnet"),
     EVMOS_MAIN("evmos-mainnet"),
     CUDOS_MAIN("cudos-mainnet"),
+    PROVENANCE_MAIN("provenance-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -181,6 +182,9 @@ public enum BaseChain {
         if(chainName.equals(CUDOS_MAIN.chainName)) {
             return CUDOS_MAIN;
         }
+        if(chainName.equals(PROVENANCE_MAIN.chainName)) {
+            return PROVENANCE_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -224,6 +228,7 @@ public enum BaseChain {
         result.add(OKEX_MAIN);
         result.add(OSMOSIS_MAIN);
         result.add(PERSIS_MAIN);
+//        result.add(PROVENANCE_MAIN);
         result.add(REGEN_MAIN);
         result.add(RIZON_MAIN);
         result.add(SECRET_MAIN);

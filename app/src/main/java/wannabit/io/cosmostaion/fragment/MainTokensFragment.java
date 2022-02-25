@@ -32,6 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -67,6 +68,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EVMOS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_GRABRIDGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
@@ -1285,6 +1287,17 @@ public class MainTokensFragment extends BaseFragment {
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CUDOS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
+        } else if (coin.denom.equals(TOKEN_HASH)) {
+            holder.itemSymbol.setText(getString(R.string.str_provenance_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), PROVENANCE_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Provenance Staking Coin");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_hash));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_HASH);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 9, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
         }

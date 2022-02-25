@@ -58,6 +58,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletOkexHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletOsmosisHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletPersisHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletPriceHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletProvenanceHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletRegenHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletRizonHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSecretHolder;
@@ -100,6 +101,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -291,6 +293,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_KONSTELLATION     = 35;
         private static final int TYPE_EVMOS             = 36;
         private static final int TYPE_CUDOS             = 37;
+        private static final int TYPE_PROVENANCE        = 38;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
@@ -412,6 +415,9 @@ public class MainSendFragment extends BaseFragment {
 
             } else if (viewType == TYPE_CUDOS) {
                 return new WalletCudosHolder(getLayoutInflater().inflate(R.layout.item_wallet_cudos, viewGroup, false));
+
+            } else if (viewType == TYPE_PROVENANCE) {
+                return new WalletProvenanceHolder(getLayoutInflater().inflate(R.layout.item_wallet_provenance, viewGroup, false));
 
             }
 
@@ -535,6 +541,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(KONSTELL_MAIN)) { return TYPE_KONSTELLATION; }
                     else if (getMainActivity().mBaseChain.equals(EVMOS_MAIN)) { return TYPE_EVMOS; }
                     else if (getMainActivity().mBaseChain.equals(CUDOS_MAIN)) { return TYPE_CUDOS; }
+                    else if (getMainActivity().mBaseChain.equals(PROVENANCE_MAIN)) { return TYPE_PROVENANCE; }
                 } else if (position == 1) {
                     return TYPE_PRICE;
                 } else if (position == 2) {

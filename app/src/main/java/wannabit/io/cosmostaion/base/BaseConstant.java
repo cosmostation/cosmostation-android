@@ -478,6 +478,7 @@ public class BaseConstant {
     public final static String TOKEN_DARC           = "udarc";
     public final static String TOKEN_EVMOS          = "aevmos";
     public final static String TOKEN_CUDOS          = "acudos";
+    public final static String TOKEN_HASH           = "nhash";
 
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
@@ -532,6 +533,7 @@ public class BaseConstant {
     public final static String KEY_BITSONG_PATH             = "m/44'/639'/0'/0/";
     public final static String KEY_DESMOS_PATH              = "m/44'/852'/0'/0/";
     public final static String KEY_LUM_PATH                 = "m/44'/880'/0'/0/";
+    public final static String KEY_PROVENANCE_PATH          = "m/44'/505'/0'/0/";
     public final static String characterFilter              = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -762,6 +764,10 @@ public class BaseConstant {
     public final static String CUDOS_GAS_RATE_LOW                       = "0.000";
     public final static String CUDOS_GAS_RATE_AVERAGE                   = "0.000";
 
+    public final static String PROVENANCE_GAS_RATE_TINY                 = "2000.00";
+    public final static String PROVENANCE_GAS_RATE_LOW                  = "2000.00";
+    public final static String PROVENANCE_GAS_RATE_AVERAGE              = "2000.00";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -821,6 +827,7 @@ public class BaseConstant {
     public final static String KONSTELL_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/konstellation/";
     public final static String EVMOS_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/evmos/";
     public final static String CUDOS_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cudos/";
+    public final static String PROVENANCE_VAL_URL       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/provenance/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -869,6 +876,7 @@ public class BaseConstant {
     public final static String EXPLORER_UMEE_MAIN       = "https://www.mintscan.io/umee/";
     public final static String EXPLORER_EVMOS_MAIN      = "https://www.mintscan.io/evmos/";
     public final static String EXPLORER_CUDOS_MAIN      = "https://www.mintscan.io/cudos/";
+    public final static String EXPLORER_PROVENANCE_MAIN = "https://www.mintscan.io/provenance/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
     public final static String EXPLORER_OEC_TX          = "https://www.oklink.com/oec/";
@@ -882,40 +890,41 @@ public class BaseConstant {
     public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
 
 
-    public final static String AKASH_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/akash/relay-akash-unknown.png";
-    public final static String BAND_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/band/relay-band-unknown.png";
-    public final static String CERTIK_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/certik/relay-certik-unknown.png";
-    public final static String COSMOS_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/cosmos/relay-cosmos-unknown.png";
-    public final static String CRYPTO_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/cryptoorg/relay-cryptoorg-unknown.png";
-    public final static String EMONEY_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/emoney/relay-emoney-unknown.png";
-    public final static String FETCHAI_UNKNOWN_RELAYER  = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/fetchai/relay-fetchai-unknown.png";
-    public final static String INJ_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/injective/relay-injective-unknown.png";
-    public final static String IRIS_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/iris/relay-iris-unknown.png";
-    public final static String JUNO_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/juno/relay-juno-unknown.png";
-    public final static String OSMOSIS_UNKNOWN_RELAYER  = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/osmosis/relay-osmosis-unknown.png";
-    public final static String PERSIS_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/persistence/relay-persistence-unknown.png";
-    public final static String REGEN_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/regen/relay-regen-unknown.png";
-    public final static String SENTINEL_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/sentinel/relay-sentinel-unknown.png";
-    public final static String SIFCHAIN_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/sifchain/relay-sifchain-unknown.png";
-    public final static String STARNAME_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/starname/relay-starname-unknown.png";
-    public final static String KI_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/kichain/relay-kichain-unknown.png";
-    public final static String BITCANNA_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/bitcanna/relay-bitcanna-unknown.png";
-    public final static String RIZON_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/rizon/relay-rizon-unknown.png";
-    public final static String MEDI_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/medibloc/relay-medibloc-unknown.png";
-    public final static String STARGAZE_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/stargaze/relay-stargaze-unknown.png";
-    public final static String COMDEX_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/comdex/relay-comdex-unknown.png";
-    public final static String SECRET_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/secret/relay-secret-unknown.png";
-    public final static String BITSONG_UNKNOWN_RELAYER  = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/bitsong/relay-bitsong-unknown.png";
-    public final static String DESMOS_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/desmos/relay-desmos-unknown.png";
-    public final static String GRAB_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/gravity-bridge/relay-gravitybridge-unknown.png";
-    public final static String LUM_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/lum-network/relay-lum-unknown.png";
-    public final static String CHIHUAHUA_UNKNOWN_RELAYER= "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/chihuahua/relay-chihuahua-unknown.png";
-    public final static String KAVA_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/kava/relay-kava-unknown.png";
-    public final static String AXELAR_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/axelar/relay-axelar-unknown.png";
-    public final static String KONSTELL_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/konstellation/relay-konstellation-unknown.png";
-    public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
-    public final static String EVMOS_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/evmos/relay-evmos-unknown.png";
-    public final static String CUDOS_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/cudos/relay-cudos-unknown.png";
+    public final static String AKASH_UNKNOWN_RELAYER        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/akash/relay-akash-unknown.png";
+    public final static String BAND_UNKNOWN_RELAYER         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/band/relay-band-unknown.png";
+    public final static String CERTIK_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/certik/relay-certik-unknown.png";
+    public final static String COSMOS_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/cosmos/relay-cosmos-unknown.png";
+    public final static String CRYPTO_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/cryptoorg/relay-cryptoorg-unknown.png";
+    public final static String EMONEY_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/emoney/relay-emoney-unknown.png";
+    public final static String FETCHAI_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/fetchai/relay-fetchai-unknown.png";
+    public final static String INJ_UNKNOWN_RELAYER          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/injective/relay-injective-unknown.png";
+    public final static String IRIS_UNKNOWN_RELAYER         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/iris/relay-iris-unknown.png";
+    public final static String JUNO_UNKNOWN_RELAYER         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/juno/relay-juno-unknown.png";
+    public final static String OSMOSIS_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/osmosis/relay-osmosis-unknown.png";
+    public final static String PERSIS_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/persistence/relay-persistence-unknown.png";
+    public final static String REGEN_UNKNOWN_RELAYER        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/regen/relay-regen-unknown.png";
+    public final static String SENTINEL_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/sentinel/relay-sentinel-unknown.png";
+    public final static String SIFCHAIN_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/sifchain/relay-sifchain-unknown.png";
+    public final static String STARNAME_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/starname/relay-starname-unknown.png";
+    public final static String KI_UNKNOWN_RELAYER           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/kichain/relay-kichain-unknown.png";
+    public final static String BITCANNA_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/bitcanna/relay-bitcanna-unknown.png";
+    public final static String RIZON_UNKNOWN_RELAYER        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/rizon/relay-rizon-unknown.png";
+    public final static String MEDI_UNKNOWN_RELAYER         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/medibloc/relay-medibloc-unknown.png";
+    public final static String STARGAZE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/stargaze/relay-stargaze-unknown.png";
+    public final static String COMDEX_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/comdex/relay-comdex-unknown.png";
+    public final static String SECRET_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/secret/relay-secret-unknown.png";
+    public final static String BITSONG_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/bitsong/relay-bitsong-unknown.png";
+    public final static String DESMOS_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/desmos/relay-desmos-unknown.png";
+    public final static String GRAB_UNKNOWN_RELAYER         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/gravity-bridge/relay-gravitybridge-unknown.png";
+    public final static String LUM_UNKNOWN_RELAYER          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/lum-network/relay-lum-unknown.png";
+    public final static String CHIHUAHUA_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/chihuahua/relay-chihuahua-unknown.png";
+    public final static String KAVA_UNKNOWN_RELAYER         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/kava/relay-kava-unknown.png";
+    public final static String AXELAR_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/axelar/relay-axelar-unknown.png";
+    public final static String KONSTELL_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/konstellation/relay-konstellation-unknown.png";
+    public final static String UMEE_UNKNOWN_RELAYER         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
+    public final static String EVMOS_UNKNOWN_RELAYER        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/evmos/relay-evmos-unknown.png";
+    public final static String CUDOS_UNKNOWN_RELAYER        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/cudos/relay-cudos-unknown.png";
+    public final static String PROVENANCE_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/provenance/relay-provenance-unknown.png";
 
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM        = "station";
@@ -961,4 +970,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_KONSTELLATION = new BigDecimal("5.376");
     public final static BigDecimal BLOCK_TIME_UMEE = new BigDecimal("5.658");
     public final static BigDecimal BLOCK_TIME_EVMOS = new BigDecimal("5.824");
+    public final static BigDecimal BLOCK_TIME_PROVENANCE = new BigDecimal("6.4148");
 }
