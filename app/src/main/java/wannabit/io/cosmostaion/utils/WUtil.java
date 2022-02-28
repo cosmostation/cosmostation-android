@@ -113,6 +113,7 @@ import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.GDexManager;
@@ -1289,7 +1290,16 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.display_denom.toUpperCase();
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom.toUpperCase();
+                        }
+                    }
+                } else {
+                    return ibcToken.display_denom.toUpperCase();
+                }
             } else {
                 return "UnKnown";
             }
@@ -1315,7 +1325,16 @@ public class WUtil {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                textView.setText(ibcToken.display_denom.toUpperCase());
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            textView.setText(assets.denom.toUpperCase());
+                        }
+                    }
+                } else {
+                    textView.setText(ibcToken.display_denom.toUpperCase());
+                }
             } else {
                 textView.setText("UnKnown");
             }
@@ -1356,11 +1375,19 @@ public class WUtil {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                textView.setText(ibcToken.display_denom.toUpperCase());
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            textView.setText(assets.denom.toUpperCase());
+                        }
+                    }
+                } else {
+                    textView.setText(ibcToken.display_denom.toUpperCase());
+                }
             } else {
                 textView.setText("UnKnown");
             }
-
         }
         return denom;
     }
@@ -1393,7 +1420,16 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.display_denom.toUpperCase();
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom.toUpperCase();
+                        }
+                    }
+                } else {
+                    return ibcToken.display_denom.toUpperCase();
+                }
             } else {
                 return "Unknown";
             }
@@ -1405,9 +1441,18 @@ public class WUtil {
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.base_denom.toUpperCase();
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom;
+                        }
+                    }
+                } else {
+                    return ibcToken.base_denom.toUpperCase();
+                }
             } else {
-                return "";
+                return denom;
             }
         } else if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
             return TOKEN_KAVA;
@@ -1426,7 +1471,7 @@ public class WUtil {
         } else if (denom.contains("btc")) {
             return "btc";
         }
-        return "";
+        return denom;
     }
 
     public static String dpOsmosisTokenName(BaseData baseData, String denom) {
@@ -1443,7 +1488,16 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.display_denom.toUpperCase();
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom;
+                        }
+                    }
+                } else {
+                    return ibcToken.display_denom.toUpperCase();
+                }
             } else {
                 return "UnKnown";
             }
@@ -1470,7 +1524,16 @@ public class WUtil {
                 textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
                 if (ibcToken != null && ibcToken.auth) {
-                    textView.setText(ibcToken.display_denom.toUpperCase());
+                    if (ibcToken.base_denom.startsWith("cw20:")) {
+                        String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                        for (Cw20Assets assets: baseData.mCw20Assets) {
+                            if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                                textView.setText(assets.denom.toUpperCase());
+                            }
+                        }
+                    } else {
+                        textView.setText(ibcToken.display_denom.toUpperCase());
+                    }
                 } else {
                     textView.setText("UnKnown");
                 }
@@ -1486,7 +1549,16 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.display_denom.toUpperCase();
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom.toUpperCase();
+                        }
+                    }
+                } else {
+                    return ibcToken.display_denom.toUpperCase();
+                }
             } else {
                 return "UnKnown";
             }
@@ -1512,10 +1584,20 @@ public class WUtil {
                 textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
                 if (ibcToken != null && ibcToken.auth) {
-                    textView.setText(ibcToken.display_denom.toUpperCase());
+                    if (ibcToken.base_denom.startsWith("cw20:")) {
+                        String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                        for (Cw20Assets assets: baseData.mCw20Assets) {
+                            if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                                textView.setText(assets.denom.toUpperCase());
+                            }
+                        }
+                    } else {
+                        textView.setText(ibcToken.display_denom.toUpperCase());
+                    }
                 } else {
                     textView.setText("UnKnown");
                 }
+
             } else {
                 textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 textView.setText("UnKnown");

@@ -43,8 +43,8 @@ public interface Station {
     @GET("v1/assets/{chain}")
     Call<ResAssets> getAssets(@Path("chain") String chain);
 
-    @GET("/v1/assets/{chain}/cw20")
-    Call<ResCw20Assets> getCw20Assets(@Path("chain") String chain);
+    @GET("/v1/assets/cw20")
+    Call<ResCw20Assets> getCw20Assets();
 
     //desmos airdrop
     @POST("airdrop/grants")
