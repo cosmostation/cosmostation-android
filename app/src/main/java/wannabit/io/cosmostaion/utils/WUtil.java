@@ -3620,7 +3620,7 @@ public class WUtil {
             }
 
         } else if (basechain.equals(SECRET_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND || txType == CONST_PW_TX_IBC_TRANSFER) {
                 return new BigDecimal(SECRET_GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
                 return new BigDecimal(SECRET_GAS_AMOUNT_STAKE);
@@ -3637,8 +3637,6 @@ public class WUtil {
                 return new BigDecimal(SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(SECRET_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(SECRET_GAS_AMOUNT_IBC_SEND);
             }
 
         } else if (basechain.equals(CHIHUAHUA_MAIN)) {
@@ -3654,7 +3652,7 @@ public class WUtil {
             }
 
         } else if (basechain.equals(SENTINEL_MAIN) || basechain.equals(FETCHAI_MAIN) || basechain.equals(KI_MAIN) || basechain.equals(MEDI_MAIN) || basechain.equals(SIF_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND || txType == CONST_PW_TX_IBC_TRANSFER) {
                 return new BigDecimal(GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
                 return new BigDecimal(GAS_AMOUNT_STAKE);
@@ -3671,8 +3669,6 @@ public class WUtil {
                 return new BigDecimal(GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(GAS_AMOUNT_IBC_SEND);
             } else if (txType == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
                 return new BigDecimal(SIF_GAS_AMOUNT_CLAIM_INCENTIVE);
             } else if (txType == CONST_PW_TX_SIF_SWAP || txType == CONST_PW_TX_SIF_JOIN_POOL || txType == CONST_PW_TX_SIF_EXIT_POOL) {
