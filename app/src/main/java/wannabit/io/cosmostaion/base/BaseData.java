@@ -38,8 +38,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
@@ -234,7 +236,9 @@ public class BaseData {
                 }
             }
         }
-        return result;
+        Set<IbcPath> arr2 = new HashSet<>(result);
+        ArrayList<IbcPath> resArr2 = new ArrayList<>(arr2);
+        return resArr2;
     }
 
     public ArrayList<IbcPath> getIbcRollbackRelayer(String denom) {

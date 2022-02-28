@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,8 +30,8 @@ import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receive_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Relayer_Channel;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Unknown_Relayer;
-import wannabit.io.cosmostaion.dialog.Dialog_Mnemonics_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -111,7 +110,15 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         onSortRelayer(mIbcSendableRelayers);
         mIbcSelectedRelayer = mIbcSendableRelayers.get(0);
 
-        mIbcSendablePaths = mIbcSelectedRelayer.paths;
+        if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
+            for (IbcPath.Path path: mIbcSelectedRelayer.paths) {
+                if (path.auth != null && path.auth) {
+                    mIbcSendablePaths.add(path);
+                }
+            }
+        } else {
+            mIbcSendablePaths = mIbcSelectedRelayer.paths;
+        }
         if (mIbcSendablePaths.size() <= 0 ) {
             onForceBack();
             return;
