@@ -93,7 +93,6 @@ public class BaseConstant {
     public final static int TASK_HDAC_BROAD_BURN                        = 2903;
     public final static int TASK_RIZON_SWAP_STATUS                      = 2904;
 
-    public final static int TASK_FETCH_SIF_INCENTIVE_LM                 = 3501;
 
     //gRPC
     public final static int TASK_GRPC_FETCH_BALANCE                     = 4001;

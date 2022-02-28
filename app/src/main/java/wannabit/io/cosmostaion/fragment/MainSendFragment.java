@@ -1,5 +1,47 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -64,52 +106,9 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletRizonHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSecretHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSentinelHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSifHolder;
-import wannabit.io.cosmostaion.widget.mainWallet.WalletSifIncentiveHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletStargazeHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletStarnameHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletUmeeHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.UMEE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class MainSendFragment extends BaseFragment {
     private CardView                        mCardView;
@@ -296,7 +295,6 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_PROVENANCE        = 38;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
-        private static final int TYPE_SIF_INCENTIVE     = 50;
         private static final int TYPE_DESMOS_APP        = 60;
         private static final int TYPE_PRICE             = 80;
         private static final int TYPE_MINT              = 81;
@@ -433,9 +431,6 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_KAVA_INCENTIVE) {
                 return new WalletKavaIncentiveHolder(getLayoutInflater().inflate(R.layout.item_wallet_kavaincentive, viewGroup, false));
 
-            } else if (viewType == TYPE_SIF_INCENTIVE) {
-                return new WalletSifIncentiveHolder(getLayoutInflater().inflate(R.layout.item_wallet_sifincentive, viewGroup, false));
-
             } else if (viewType == TYPE_DESMOS_APP) {
                 return new WalletDesmosAppHolder(getLayoutInflater().inflate(R.layout.item_wallet_desmos_app, viewGroup, false));
 
@@ -452,7 +447,7 @@ public class MainSendFragment extends BaseFragment {
         @Override
         public int getItemCount() {
             if (getMainActivity().mBaseChain == null) { return 0; }
-            if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN) || getMainActivity().mBaseChain.equals(DESMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(DESMOS_MAIN)) {
                 return 5;
             } else if (isGRPC(getMainActivity().mBaseChain )) {
                 return 4;
@@ -467,20 +462,7 @@ public class MainSendFragment extends BaseFragment {
 
         @Override
         public int getItemViewType(int position) {
-            if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
-                if (position == 0) {
-                    return TYPE_SIF;
-                } else if (position == 1) {
-                    return TYPE_SIF_INCENTIVE;
-                } else if (position == 2) {
-                    return TYPE_PRICE;
-                } else if (position == 3) {
-                    return TYPE_MINT;
-                } else if (position == 4) {
-                    return TYPE_GIUDE;
-                }
-
-            } else if (getMainActivity().mBaseChain.equals(DESMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(DESMOS_MAIN)) {
                 if (position == 0) {
                     return TYPE_DESMOS;
                 } else if (position == 1) {
@@ -542,6 +524,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(EVMOS_MAIN)) { return TYPE_EVMOS; }
                     else if (getMainActivity().mBaseChain.equals(CUDOS_MAIN)) { return TYPE_CUDOS; }
                     else if (getMainActivity().mBaseChain.equals(PROVENANCE_MAIN)) { return TYPE_PROVENANCE; }
+                    else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) { return TYPE_SIF; }
                 } else if (position == 1) {
                     return TYPE_PRICE;
                 } else if (position == 2) {
