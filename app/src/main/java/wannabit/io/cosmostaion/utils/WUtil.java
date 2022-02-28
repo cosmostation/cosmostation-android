@@ -1720,15 +1720,27 @@ public class WUtil {
         BigDecimal incentive14Day = BigDecimal.ZERO;
         if (gauges.get(0).getDistributedCoinsCount() == 0) { return BigDecimal.ZERO; }
         else {
-            incentive1Day = (new BigDecimal(gauges.get(0).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
+            for (CoinOuterClass.Coin coin: gauges.get(0).getCoinsList()) {
+                if (coin.getDenom().equalsIgnoreCase(gauges.get(0).getDistributedCoins(0).getDenom())) {
+                    incentive1Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
+                }
+            }
         }
         if (gauges.get(1).getDistributedCoinsCount() == 0) { return BigDecimal.ZERO; }
         else {
-            incentive7Day = (new BigDecimal(gauges.get(1).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
+            for (CoinOuterClass.Coin coin: gauges.get(1).getCoinsList()) {
+                if (coin.getDenom().equalsIgnoreCase(gauges.get(1).getDistributedCoins(0).getDenom())) {
+                    incentive7Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
+                }
+            }
         }
         if (gauges.get(2).getDistributedCoinsCount() == 0) { return BigDecimal.ZERO; }
         else {
-            incentive14Day = (new BigDecimal(gauges.get(2).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
+            for (CoinOuterClass.Coin coin: gauges.get(2).getCoinsList()) {
+                if (coin.getDenom().equalsIgnoreCase(gauges.get(2).getDistributedCoins(0).getDenom())) {
+                    incentive14Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
+                }
+            }
         }
         if (position == 0) {
             return incentive1Day;
