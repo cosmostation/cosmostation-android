@@ -623,7 +623,7 @@ public class BaseConstant {
     public final static String OSMOSIS_GAS_AMOUNT_SEND                  = "100000";
     public final static String OSMOSIS_GAS_AMOUNT_STAKE                 = "200000";
     public final static String OSMOSIS_GAS_AMOUNT_REDELEGATE            = "300000";
-    public final static String OSMOSIS_GAS_AMOUNT_REINVEST              = "300000";
+    public final static String OSMOSIS_GAS_AMOUNT_REINVEST              = "350000";
     public final static String OSMOSIS_GAS_AMOUNT_LOW                   = "100000";
     public final static String OSMOSIS_GAS_AMOUNT_POOL                  = "1500000";
     public final static String OSMOSIS_GAS_AMOUNT_SWAP                  = "500000";

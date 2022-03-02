@@ -215,7 +215,7 @@ public enum BaseChain {
 //        result.add(CUDOS_MAIN);
         result.add(DESMOS_MAIN);
         result.add(EMONEY_MAIN);
-//        result.add(EVMOS_MAIN);
+        result.add(EVMOS_MAIN);
         result.add(FETCHAI_MAIN);
         result.add(GRABRIDGE_MAIN);
         result.add(INJ_MAIN);
@@ -228,7 +228,7 @@ public enum BaseChain {
         result.add(OKEX_MAIN);
         result.add(OSMOSIS_MAIN);
         result.add(PERSIS_MAIN);
-//        result.add(PROVENANCE_MAIN);
+        result.add(PROVENANCE_MAIN);
         result.add(REGEN_MAIN);
         result.add(RIZON_MAIN);
         result.add(SECRET_MAIN);
@@ -247,7 +247,7 @@ public enum BaseChain {
     }
 
     public static boolean IS_TESTNET(BaseChain chain) {
-        if (chain.equals(ALTHEA_TEST) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
+        if (chain.equals(ALTHEA_TEST) || chain.equals(CUDOS_MAIN)) {
             return true;
         }
         return false;
