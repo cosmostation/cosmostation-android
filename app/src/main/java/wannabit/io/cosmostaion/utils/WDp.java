@@ -2224,8 +2224,8 @@ public class WDp {
                 }
             }
 
-            if (baseChain.equals(JUNO_MAIN) && baseData.getCw20sGrpc().size() > 0) {
-                for (Cw20Assets assets: baseData.getCw20sGrpc()) {
+            if (baseChain.equals(JUNO_MAIN) && baseData.getCw20sGrpc(baseChain).size() > 0) {
+                for (Cw20Assets assets: baseData.getCw20sGrpc(baseChain)) {
                     BigDecimal amount = assets.getAmount();
                     totalValue = totalValue.add(userCurrencyValue(baseData, assets.denom, amount, assets.decimal));
                 }

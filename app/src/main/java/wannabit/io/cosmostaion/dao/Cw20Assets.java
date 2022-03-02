@@ -11,6 +11,9 @@ public class Cw20Assets implements Parcelable {
     @SerializedName("id")
     public String id;
 
+    @SerializedName("chain")
+    public String chain;
+
     @SerializedName("contract_address")
     public String contract_address;
 
@@ -26,10 +29,11 @@ public class Cw20Assets implements Parcelable {
     @SerializedName("logo")
     public String logo;
 
-    public String amount;
+    public String amount = "0";
 
     protected Cw20Assets(Parcel in) {
         id = in.readString();
+        chain = in.readString();
         contract_address = in.readString();
         denom = in.readString();
         decimal = in.readInt();
@@ -66,6 +70,7 @@ public class Cw20Assets implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
+        dest.writeString(chain);
         dest.writeString(contract_address);
         dest.writeString(denom);
         dest.writeInt(decimal);

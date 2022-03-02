@@ -38,8 +38,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
@@ -169,11 +171,11 @@ public class BaseData {
         }
     }
 
-    public ArrayList<Cw20Assets> getCw20sGrpc() {
+    public ArrayList<Cw20Assets> getCw20sGrpc(BaseChain baseChain) {
         ArrayList<Cw20Assets> result = new ArrayList<>();
         if (mCw20Assets.size() > 0) {
             for (Cw20Assets assets: mCw20Assets) {
-                if (assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+                if (assets.chain.equalsIgnoreCase(WDp.getChainNameByBaseChain(baseChain)) && assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
                     result.add(assets);
                 }
             }
@@ -196,10 +198,16 @@ public class BaseData {
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                if (ibcToken.base_denom.equalsIgnoreCase("xrowan")) {
-                    return ibcToken.display_denom;
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom;
+                        }
+                    }
+                } else {
+                    return ibcToken.base_denom;
                 }
-                return ibcToken.base_denom;
             } else {
                 return "UNKNOWN";
             }
@@ -228,7 +236,9 @@ public class BaseData {
                 }
             }
         }
-        return result;
+        Set<IbcPath> arr2 = new HashSet<>(result);
+        ArrayList<IbcPath> resArr2 = new ArrayList<>(arr2);
+        return resArr2;
     }
 
     public ArrayList<IbcPath> getIbcRollbackRelayer(String denom) {

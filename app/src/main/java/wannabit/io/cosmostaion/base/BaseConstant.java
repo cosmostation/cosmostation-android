@@ -93,7 +93,6 @@ public class BaseConstant {
     public final static int TASK_HDAC_BROAD_BURN                        = 2903;
     public final static int TASK_RIZON_SWAP_STATUS                      = 2904;
 
-    public final static int TASK_FETCH_SIF_INCENTIVE_LM                 = 3501;
 
     //gRPC
     public final static int TASK_GRPC_FETCH_BALANCE                     = 4001;
@@ -624,7 +623,7 @@ public class BaseConstant {
     public final static String OSMOSIS_GAS_AMOUNT_SEND                  = "100000";
     public final static String OSMOSIS_GAS_AMOUNT_STAKE                 = "200000";
     public final static String OSMOSIS_GAS_AMOUNT_REDELEGATE            = "300000";
-    public final static String OSMOSIS_GAS_AMOUNT_REINVEST              = "300000";
+    public final static String OSMOSIS_GAS_AMOUNT_REINVEST              = "350000";
     public final static String OSMOSIS_GAS_AMOUNT_LOW                   = "100000";
     public final static String OSMOSIS_GAS_AMOUNT_POOL                  = "1500000";
     public final static String OSMOSIS_GAS_AMOUNT_SWAP                  = "500000";

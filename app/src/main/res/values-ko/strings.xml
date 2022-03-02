@@ -1349,7 +1349,7 @@
     <string name="str_send_nft_denom_id">Denom ID</string>
     <string name="str_send_nft_token_id">Token ID</string>
 
-    <string name="str_desmos_airdrop"><![CDATA[Profile & AirDrop]]> </string>
+    <string name="str_desmos_airdrop"><![CDATA[Profile]]> </string>
     <string name="str_profile_detail_title">프로필 상세</string>
     <string name="str_edit_profile">프로필 편집</string>
     <string name="str_air_drop"><![CDATA[Link & AirDrop]]></string>

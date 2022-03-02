@@ -52,8 +52,10 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -105,6 +107,11 @@ import starnamed.x.starname.v1beta1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
+import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
+import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
+import wannabit.io.cosmostaion.activities.chains.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -113,6 +120,7 @@ import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.GDexManager;
@@ -1289,7 +1297,16 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.display_denom.toUpperCase();
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom.toUpperCase();
+                        }
+                    }
+                } else {
+                    return ibcToken.display_denom.toUpperCase();
+                }
             } else {
                 return "UnKnown";
             }
@@ -1315,7 +1332,16 @@ public class WUtil {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                textView.setText(ibcToken.display_denom.toUpperCase());
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            textView.setText(assets.denom.toUpperCase());
+                        }
+                    }
+                } else {
+                    textView.setText(ibcToken.display_denom.toUpperCase());
+                }
             } else {
                 textView.setText("UnKnown");
             }
@@ -1356,11 +1382,19 @@ public class WUtil {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                textView.setText(ibcToken.display_denom.toUpperCase());
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            textView.setText(assets.denom.toUpperCase());
+                        }
+                    }
+                } else {
+                    textView.setText(ibcToken.display_denom.toUpperCase());
+                }
             } else {
                 textView.setText("UnKnown");
             }
-
         }
         return denom;
     }
@@ -1393,7 +1427,16 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.display_denom.toUpperCase();
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom.toUpperCase();
+                        }
+                    }
+                } else {
+                    return ibcToken.display_denom.toUpperCase();
+                }
             } else {
                 return "Unknown";
             }
@@ -1405,9 +1448,18 @@ public class WUtil {
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.base_denom.toUpperCase();
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom;
+                        }
+                    }
+                } else {
+                    return ibcToken.base_denom.toUpperCase();
+                }
             } else {
-                return "";
+                return denom;
             }
         } else if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
             return TOKEN_KAVA;
@@ -1426,7 +1478,7 @@ public class WUtil {
         } else if (denom.contains("btc")) {
             return "btc";
         }
-        return "";
+        return denom;
     }
 
     public static String dpOsmosisTokenName(BaseData baseData, String denom) {
@@ -1443,7 +1495,16 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.display_denom.toUpperCase();
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom;
+                        }
+                    }
+                } else {
+                    return ibcToken.display_denom.toUpperCase();
+                }
             } else {
                 return "UnKnown";
             }
@@ -1470,7 +1531,16 @@ public class WUtil {
                 textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
                 if (ibcToken != null && ibcToken.auth) {
-                    textView.setText(ibcToken.display_denom.toUpperCase());
+                    if (ibcToken.base_denom.startsWith("cw20:")) {
+                        String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                        for (Cw20Assets assets: baseData.mCw20Assets) {
+                            if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                                textView.setText(assets.denom.toUpperCase());
+                            }
+                        }
+                    } else {
+                        textView.setText(ibcToken.display_denom.toUpperCase());
+                    }
                 } else {
                     textView.setText("UnKnown");
                 }
@@ -1486,7 +1556,16 @@ public class WUtil {
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.display_denom.toUpperCase();
+                if (ibcToken.base_denom.startsWith("cw20:")) {
+                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                    for (Cw20Assets assets: baseData.mCw20Assets) {
+                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                            return assets.denom.toUpperCase();
+                        }
+                    }
+                } else {
+                    return ibcToken.display_denom.toUpperCase();
+                }
             } else {
                 return "UnKnown";
             }
@@ -1512,10 +1591,20 @@ public class WUtil {
                 textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
                 if (ibcToken != null && ibcToken.auth) {
-                    textView.setText(ibcToken.display_denom.toUpperCase());
+                    if (ibcToken.base_denom.startsWith("cw20:")) {
+                        String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
+                        for (Cw20Assets assets: baseData.mCw20Assets) {
+                            if (assets.contract_address.equalsIgnoreCase(cAddress)) {
+                                textView.setText(assets.denom.toUpperCase());
+                            }
+                        }
+                    } else {
+                        textView.setText(ibcToken.display_denom.toUpperCase());
+                    }
                 } else {
                     textView.setText("UnKnown");
                 }
+
             } else {
                 textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 textView.setText("UnKnown");
@@ -1561,19 +1650,21 @@ public class WUtil {
     }
 
     public static void DpSifTokenImg(BaseData baseData, ImageView imageView, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_SIF)) {
-            Picasso.get().cancelRequest(imageView);
-            imageView.setImageResource(R.drawable.tokensifchain);
-        } else if (denom.startsWith("c")) {
-            Assets assets = baseData.getAsset(denom);
-            if (assets != null) {
-                Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(TOKEN_SIF)) {
+                Picasso.get().cancelRequest(imageView);
+                imageView.setImageResource(R.drawable.tokensifchain);
+            } else if (denom.startsWith("c")) {
+                Assets assets = baseData.getAsset(denom);
+                if (assets != null) {
+                    Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
+                }
+            } else if (denom.startsWith("ibc/")) {
+                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+                try {
+                    Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+                } catch (Exception e){}
             }
-        } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            try {
-                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
-            } catch (Exception e){}
         }
     }
 
@@ -1720,15 +1811,27 @@ public class WUtil {
         BigDecimal incentive14Day = BigDecimal.ZERO;
         if (gauges.get(0).getDistributedCoinsCount() == 0) { return BigDecimal.ZERO; }
         else {
-            incentive1Day = (new BigDecimal(gauges.get(0).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
+            for (CoinOuterClass.Coin coin: gauges.get(0).getCoinsList()) {
+                if (coin.getDenom().equalsIgnoreCase(gauges.get(0).getDistributedCoins(0).getDenom())) {
+                    incentive1Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
+                }
+            }
         }
         if (gauges.get(1).getDistributedCoinsCount() == 0) { return BigDecimal.ZERO; }
         else {
-            incentive7Day = (new BigDecimal(gauges.get(1).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
+            for (CoinOuterClass.Coin coin: gauges.get(1).getCoinsList()) {
+                if (coin.getDenom().equalsIgnoreCase(gauges.get(1).getDistributedCoins(0).getDenom())) {
+                    incentive7Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
+                }
+            }
         }
         if (gauges.get(2).getDistributedCoinsCount() == 0) { return BigDecimal.ZERO; }
         else {
-            incentive14Day = (new BigDecimal(gauges.get(2).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
+            for (CoinOuterClass.Coin coin: gauges.get(2).getCoinsList()) {
+                if (coin.getDenom().equalsIgnoreCase(gauges.get(2).getDistributedCoins(0).getDenom())) {
+                    incentive14Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
+                }
+            }
         }
         if (position == 0) {
             return incentive1Day;
@@ -2951,6 +3054,246 @@ public class WUtil {
 
         }
     }
+
+    public static void getWalletData(MainActivity mainActivity, BaseChain chain, ImageView coinImg, TextView coinDenom) {
+        if (chain.equals(COSMOS_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.atom_ic));
+            coinDenom.setText(R.string.str_atom_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_atom);
+
+        } else if (chain.equals(IRIS_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.iris_toket_img));
+            coinDenom.setText(R.string.str_iris_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_iris);
+
+        } else if (chain.equals(BNB_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.binance_img));
+            coinDenom.setText(R.string.str_front_guide_title_binance);
+            coinDenom.setTextAppearance(R.style.font_ss_14_bnb);
+
+        } else if (chain.equals(KAVA_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.kava_token_img));
+            coinDenom.setText(R.string.str_kava_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_kava);
+
+        } else if (chain.equals(IOV_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.iov_token_img));
+            coinDenom.setText(R.string.str_iov_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_iov);
+
+        } else if (chain.equals(BAND_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.band_token_img));
+            coinDenom.setText(R.string.str_band_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_band);
+
+        } else if (chain.equals(OKEX_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_okx));
+            coinDenom.setText(R.string.str_ok_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_ok);
+
+        } else if (chain.equals(CERTIK_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.certik_token_img));
+            coinDenom.setText(R.string.str_ctk_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_certik);
+
+        } else if (chain.equals(AKASH_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.akash_token_img));
+            coinDenom.setText(R.string.str_akt_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_akash);
+
+        } else if (chain.equals(SECRET_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokensecret));
+            coinDenom.setText(R.string.str_scrt_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_secret);
+
+        } else if (chain.equals(PERSIS_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokenpersistence));
+            coinDenom.setText(R.string.str_xprt_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_persis);
+
+        } else if (chain.equals(SENTINEL_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokensentinel));
+            coinDenom.setText(R.string.str_dvpn_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_sentinel);
+
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokenfetchai));
+            coinDenom.setText(R.string.str_fet_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_fetch);
+
+        } else if (chain.equals(CRYPTO_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokencrypto));
+            coinDenom.setText(R.string.str_cro_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_cryto);
+
+        } else if (chain.equals(SIF_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokensifchain));
+            coinDenom.setText(R.string.str_sif_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_sif);
+
+        } else if (chain.equals(KI_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_kifoundation));
+            coinDenom.setText(R.string.str_ki_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_ki);
+
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_osmosis));
+            coinDenom.setText(R.string.str_osmosis_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_osmosis);
+
+        } else if (chain.equals(RIZON_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_rizon));
+            coinDenom.setText(R.string.str_rizon_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_rizon);
+
+        } else if (chain.equals(MEDI_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokenmedibloc));
+            coinDenom.setText(R.string.str_medi_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_medi);
+
+        } else if (chain.equals(EMONEY_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_emoney));
+            coinDenom.setText(R.string.str_ngm_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_emoney);
+
+        } else if (chain.equals(JUNO_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_juno));
+            coinDenom.setText(R.string.str_juno_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_juno);
+
+        } else if (chain.equals(REGEN_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_regen));
+            coinDenom.setText(R.string.str_regen_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_regen);
+
+        } else if (chain.equals(BITCANNA_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_bitcanna));
+            coinDenom.setText(R.string.str_bitcanna_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_bitcanna);
+
+        } else if (chain.equals(ALTHEA_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_althea));
+            coinDenom.setText(R.string.str_althea_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_althea);
+
+        } else if (chain.equals(STARGAZE_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_stargaze));
+            coinDenom.setText(R.string.str_stargaze_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_stargaze);
+
+        } else if (chain.equals(GRABRIDGE_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_gravitybridge));
+            coinDenom.setText(R.string.str_grabridge_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_grabridge);
+
+        } else if (chain.equals(COMDEX_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_comdex));
+            coinDenom.setText(R.string.str_comdex_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_comdex);
+
+        } else if (chain.equals(INJ_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_injective));
+            coinDenom.setText(R.string.str_inj_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_inj);
+
+        } else if (chain.equals(BITSONG_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_bitsong));
+            coinDenom.setText(R.string.str_bitsong_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_bitsong);
+
+        } else if (chain.equals(DESMOS_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_desmos));
+            coinDenom.setText(R.string.str_desmos_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_desmos);
+
+        } else if (chain.equals(LUM_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_lum));
+            coinDenom.setText(R.string.str_lum_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_lum);
+
+        } else if (chain.equals(CHIHUAHUA_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_huahua));
+            coinDenom.setText(R.string.str_chihuahua_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_chihuahua);
+
+        } else if (chain.equals(UMEE_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_umee));
+            coinDenom.setText(R.string.str_umee_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_umee);
+
+        } else if (chain.equals(AXELAR_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_axelar));
+            coinDenom.setText(R.string.str_axl_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_axelar);
+
+        } else if (chain.equals(KONSTELL_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_konstellation));
+            coinDenom.setText(R.string.str_konstellation_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_konstellation);
+
+        } else if (chain.equals(EVMOS_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_evmos));
+            coinDenom.setText(R.string.str_evmos_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_evmos);
+
+        } else if (chain.equals(CUDOS_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_cudos));
+            coinDenom.setText(R.string.str_cudos_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_cudos);
+
+        } else if (chain.equals(PROVENANCE_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_hash));
+            coinDenom.setText(R.string.str_provenance_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_provenance);
+
+        }
+    }
+
+    public static void getDexTitle(MainActivity mainActivity, BaseChain chain, RelativeLayout mBtnDex, TextView dexTitle) {
+        if (chain.equals(COSMOS_MAIN)) {
+            mBtnDex.setVisibility(View.VISIBLE);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_gravitydex), null, null, null);
+            dexTitle.setText("Gravity Dex");
+        } else if (chain.equals(IRIS_MAIN) || chain.equals(CRYPTO_MAIN)) {
+            mBtnDex.setVisibility(View.VISIBLE);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_nft), null, null, null);
+            dexTitle.setText(R.string.str_nft_c);
+        } else if (chain.equals(KAVA_MAIN)) {
+            mBtnDex.setVisibility(View.VISIBLE);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.cdp_s_ic), null, null, null);
+            dexTitle.setText(R.string.str_kava_dapp);
+        } else if (chain.equals(SIF_MAIN)) {
+            mBtnDex.setVisibility(View.VISIBLE);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_sifdex), null, null, null);
+            dexTitle.setText(R.string.str_sif_dex_title);
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            mBtnDex.setVisibility(View.VISIBLE);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_osmosislab), null, null, null);
+            dexTitle.setText(R.string.str_osmosis_defi_lab);
+        } else if (chain.equals(DESMOS_MAIN)) {
+            mBtnDex.setVisibility(View.VISIBLE);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_profile), null, null, null);
+            dexTitle.setText(R.string.str_desmos_airdrop);
+        } else {
+            mBtnDex.setVisibility(View.GONE);
+        }
+    }
+
+    public static Intent getDexIntent(MainActivity mainActivity, BaseChain chain) {
+        if (chain.equals(COSMOS_MAIN)) {
+            return new Intent(mainActivity, GravityListActivity.class);
+        } else if (chain.equals(IRIS_MAIN) || chain.equals(CRYPTO_MAIN)) {
+            return new Intent(mainActivity, NFTListActivity.class);
+        } else if (chain.equals(KAVA_MAIN)) {
+            return new Intent(mainActivity, DAppsList5Activity.class);
+        } else if (chain.equals(SIF_MAIN)) {
+            return new Intent(mainActivity, SifDexListActivity.class);
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return new Intent(mainActivity, LabsListActivity.class);
+        } else {
+            return null;
+        }
+    }
     
     public static Intent getGuide1Intent(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN)) {
@@ -3620,7 +3963,7 @@ public class WUtil {
             }
 
         } else if (basechain.equals(SECRET_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND || txType == CONST_PW_TX_IBC_TRANSFER) {
                 return new BigDecimal(SECRET_GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
                 return new BigDecimal(SECRET_GAS_AMOUNT_STAKE);
@@ -3637,8 +3980,6 @@ public class WUtil {
                 return new BigDecimal(SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(SECRET_GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(SECRET_GAS_AMOUNT_IBC_SEND);
             }
 
         } else if (basechain.equals(CHIHUAHUA_MAIN)) {
@@ -3654,7 +3995,7 @@ public class WUtil {
             }
 
         } else if (basechain.equals(SENTINEL_MAIN) || basechain.equals(FETCHAI_MAIN) || basechain.equals(KI_MAIN) || basechain.equals(MEDI_MAIN) || basechain.equals(SIF_MAIN)) {
-            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND || txType == CONST_PW_TX_IBC_TRANSFER) {
                 return new BigDecimal(GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
                 return new BigDecimal(GAS_AMOUNT_STAKE);
@@ -3671,8 +4012,6 @@ public class WUtil {
                 return new BigDecimal(GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(GAS_AMOUNT_VOTE);
-            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
-                return new BigDecimal(GAS_AMOUNT_IBC_SEND);
             } else if (txType == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
                 return new BigDecimal(SIF_GAS_AMOUNT_CLAIM_INCENTIVE);
             } else if (txType == CONST_PW_TX_SIF_SWAP || txType == CONST_PW_TX_SIF_JOIN_POOL || txType == CONST_PW_TX_SIF_EXIT_POOL) {

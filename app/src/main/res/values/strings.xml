@@ -66,7 +66,6 @@
 
 
     <string name="url_api_sif" translatable="false">https://api-sifchain.cosmostation.io/</string>
-    <string name="url_api_sif_finance" translatable="false">https://api-cryptoeconomics.sifchain.finance/</string>
 
 
     <string name="url_api_ki" translatable="false">https://api-kichain.cosmostation.io/</string>
@@ -127,7 +126,7 @@
     <string name="url_api_umee" translatable="false">https://api-umee.cosmostation.io/</string>
 
 
-    <string name="url_api_evmos" translatable="false">https://api-office.cosmostation.io/evmos_9000-3/</string>
+    <string name="url_api_evmos" translatable="false">https://api-evmos.cosmostation.io/</string>
 
 
     <string name="url_api_cudos" translatable="false">https://api-cudos-testnet.cosmostation.io/</string>
@@ -1722,7 +1721,7 @@
     <string name="str_send_nft_denom_id">Denom ID</string>
     <string name="str_send_nft_token_id">Token ID</string>
 
-    <string name="str_desmos_airdrop"><![CDATA[Profile & AirDrop]]> </string>
+    <string name="str_desmos_airdrop"><![CDATA[Profile]]> </string>
     <string name="str_profile_detail_title">Profile Detail</string>
     <string name="str_edit_profile">Edit Profile</string>
     <string name="str_air_drop"><![CDATA[Link & AirDrop]]></string>
