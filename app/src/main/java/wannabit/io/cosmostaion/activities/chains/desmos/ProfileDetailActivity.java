@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.chains.desmos;
 
-import android.content.Intent;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROFILE_INFO;
+
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,14 +33,12 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.ProfileInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROFILE_INFO;
-
 public class ProfileDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar                 mToolbar;
     private ImageView               mProfileCoverImg, mProfileImg;
     private TextView                mProfileDtag;
-    private RelativeLayout          mBtnEdit, mBtnAirdrop;
+    private RelativeLayout          mBtnEdit;
 
     private RecyclerView            mRecyclerView;
     private ProfileDetailAdapter    mAdapter;
@@ -56,7 +55,6 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
         mProfileDtag            = findViewById(R.id.profile_dtag);
         mRecyclerView           = findViewById(R.id.recycler);
         mBtnEdit                = findViewById(R.id.btn_edit);
-        mBtnAirdrop             = findViewById(R.id.btn_airdrop);
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -78,7 +76,6 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
 
         onFetchProfile();
         mBtnEdit.setOnClickListener(this);
-        mBtnAirdrop.setOnClickListener(this);
     }
 
     @Override
@@ -124,10 +121,6 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
         if (v.equals(mBtnEdit)) {
             Toast.makeText(this, R.string.str_preparing, Toast.LENGTH_SHORT).show();
             return;
-
-        } else if(v.equals(mBtnAirdrop)) {
-            Intent linkAccount = new Intent(ProfileDetailActivity.this, LinkAccountActivity.class);
-            startActivity(linkAccount);
         }
     }
 

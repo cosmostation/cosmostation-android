@@ -126,25 +126,5 @@
                 style="@style/font_ss_14_white"
                 android:text="@string/str_edit_profile" />
         </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/btn_airdrop"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginRight="@dimen/space_4"
-            android:layout_marginLeft="@dimen/space_4"
-            android:background="@drawable/btn_trans_with_photon_border"
-            android:clickable="true">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:drawableLeft="@drawable/icon_airdrop"
-                android:drawablePadding="@dimen/space_8"
-                android:gravity="center"
-                style="@style/font_ss_14_photon"
-                android:text="@string/str_air_drop" />
-        </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
