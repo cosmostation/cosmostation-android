@@ -952,7 +952,7 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_OSMOSIS = new BigDecimal("6.5324");
     public final static BigDecimal BLOCK_TIME_EMONEY = new BigDecimal("24.8486");
     public final static BigDecimal BLOCK_TIME_RIZON = new BigDecimal("5.8850");
-    public final static BigDecimal BLOCK_TIME_JUNO = new BigDecimal("6.2104");
+    public final static BigDecimal BLOCK_TIME_JUNO = new BigDecimal("6.3104");
     public final static BigDecimal BLOCK_TIME_BITCANNA = new BigDecimal("6.0256");
     public final static BigDecimal BLOCK_TIME_REGEN = new BigDecimal("6.2491");
     public final static BigDecimal BLOCK_TIME_STARGAZE = new BigDecimal("5.8129");

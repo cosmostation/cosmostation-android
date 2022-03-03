@@ -55,11 +55,14 @@
                 android:gravity="center_horizontal"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/card_root">
+        android:layout_below="@+id/card_root"
+        android:layout_marginTop="@dimen/space_2">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
