@@ -168,7 +168,12 @@ public class ChainParam {
                         BigDecimal reductionFactor = BigDecimal.ONE.subtract(new BigDecimal(mStargazeMintingParams.params.reduction_factor));
                         return inflation.multiply(calTax).multiply(reductionFactor).divide(bondingRate, 6, RoundingMode.DOWN);
                     } else {
-                        return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
+                        BigDecimal ap = new BigDecimal(new Gson().fromJson(new Gson().toJson(mMintProvisions), MintProvision.class).mProvision);
+                        if (ap.compareTo(BigDecimal.ZERO) > 0) {
+                            return ap.multiply(calTax).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);
+                        } else {
+                            return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
+                        }
                     }
                 } else {
                     return BigDecimal.ZERO;
