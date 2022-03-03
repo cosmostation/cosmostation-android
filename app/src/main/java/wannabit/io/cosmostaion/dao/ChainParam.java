@@ -126,6 +126,14 @@ public class ChainParam {
             return getMintInflation(baseChain).movePointRight(2);
         }
 
+        public BigDecimal getAnnualProvision() {
+            try {
+                MintProvision temp = new Gson().fromJson(new Gson().toJson(mMintProvisions), MintProvision.class);
+                return new BigDecimal(temp.mProvision);
+            } catch (Exception e) { }
+            return BigDecimal.ZERO;
+        }
+
         public BigDecimal getBondedAmount(BaseChain baseChain) {
             if (isGRPC(baseChain)) {
                 return new BigDecimal(mStakingpools.pool.bonded_tokens);
@@ -168,7 +176,7 @@ public class ChainParam {
                         BigDecimal reductionFactor = BigDecimal.ONE.subtract(new BigDecimal(mStargazeMintingParams.params.reduction_factor));
                         return inflation.multiply(calTax).multiply(reductionFactor).divide(bondingRate, 6, RoundingMode.DOWN);
                     } else {
-                        BigDecimal ap = new BigDecimal(new Gson().fromJson(new Gson().toJson(mMintProvisions), MintProvision.class).mProvision);
+                        BigDecimal ap = getAnnualProvision();
                         if (ap.compareTo(BigDecimal.ZERO) > 0) {
                             return ap.multiply(calTax).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);
                         } else {
