@@ -78,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
                         android:ellipsize="middle"
-                        android:maxWidth="@dimen/space_180"
+                        android:maxWidth="@dimen/space_140"
                         android:singleLine="true"
                         style="@style/font_ss_12_gray1"
                         android:text="-"/>
