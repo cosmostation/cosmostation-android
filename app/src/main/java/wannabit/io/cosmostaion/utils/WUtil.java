@@ -112,6 +112,7 @@ import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.activities.chains.sif.SifDexListActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -3258,6 +3259,10 @@ public class WUtil {
             mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_nft), null, null, null);
             dexTitle.setText(R.string.str_nft_c);
+        } else if (chain.equals(IOV_MAIN)) {
+            mBtnDex.setVisibility(View.VISIBLE);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.name_ic), null, null, null);
+            dexTitle.setText(R.string.str_starname_service);
         } else if (chain.equals(KAVA_MAIN)) {
             mBtnDex.setVisibility(View.VISIBLE);
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.cdp_s_ic), null, null, null);
@@ -3284,6 +3289,8 @@ public class WUtil {
             return new Intent(mainActivity, GravityListActivity.class);
         } else if (chain.equals(IRIS_MAIN) || chain.equals(CRYPTO_MAIN)) {
             return new Intent(mainActivity, NFTListActivity.class);
+        } else if (chain.equals(IOV_MAIN)) {
+            return new Intent(mainActivity, StarNameListActivity.class);
         } else if (chain.equals(KAVA_MAIN)) {
             return new Intent(mainActivity, DAppsList5Activity.class);
         } else if (chain.equals(SIF_MAIN)) {
