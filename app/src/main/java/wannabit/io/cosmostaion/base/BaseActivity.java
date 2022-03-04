@@ -962,11 +962,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 } else {
 //                    WLog.w("mGRpcAccount " + getBaseDao().mGRpcAccount.getTypeUrl());
                     if (getBaseDao().mGRpcAccount != null && !getBaseDao().mGRpcAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
-                        if (mBaseChain.equals(PERSIS_MAIN)) {
-                            WUtil.onParsePersisVestingAccount(getBaseDao());
-                        } else {
-                            WUtil.onParseVestingAccount(getBaseDao(), mBaseChain);
-                        }
+                        WUtil.onParseVestingAccount(getBaseDao(), mBaseChain);
+//                        if (mBaseChain.equals(PERSIS_MAIN)) {
+//                            WUtil.onParsePersisVestingAccount(getBaseDao());
+//                        } else {
+//
+//                        }
                     }
 //                    WLog.w("getBaseDao().mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo.getNetwork());
                 }
