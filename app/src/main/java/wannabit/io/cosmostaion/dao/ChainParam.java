@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.dao;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -85,6 +86,12 @@ public class ChainParam {
         @SerializedName("stargaze_minting_params")
         public StargazeMintingParams mStargazeMintingParams;
 
+        @SerializedName("inflation_params")
+        public EvmosInflationParams mEvmosInflationParams;
+
+        @SerializedName("epoch_mint_provision")
+        public EvmosEpochMintProvision mEvmosEpochMintProvision;
+
         @SerializedName("swap_enabled")
         public boolean swap_enabled;
 
@@ -108,6 +115,10 @@ public class ChainParam {
             } else if (baseChain.equals(STARGAZE_MAIN)) {
                 BigDecimal initialProvision = new BigDecimal(mStargazeMintingParams.params.initial_annual_provisions);
                 return initialProvision.divide(getMainSupply(baseChain), 18, RoundingMode.DOWN);
+            } else if (baseChain.equals(EVMOS_MAIN)) {
+                BigDecimal annualProvisions = new BigDecimal(mEvmosEpochMintProvision.epoch_mint_provision).multiply(new BigDecimal("365"));
+                BigDecimal evmosSupply = getMainSupply(baseChain).subtract(new BigDecimal("200000000000000000000000000"));
+                return annualProvisions.divide(evmosSupply, 18, RoundingMode.DOWN);
             } else {
                 try {
                     MintInflation temp = new Gson().fromJson(new Gson().toJson(mMintInflations), MintInflation.class);
@@ -661,6 +672,35 @@ public class ChainParam {
             @SerializedName("initial_annual_provisions")
             public String initial_annual_provisions;
         }
+    }
+
+    public class EvmosInflationParams {
+        @SerializedName("params")
+        public EvmosInflationParam params;
+
+        public class EvmosInflationParam {
+            @SerializedName("mint_denom")
+            public String mint_denom;
+
+            @SerializedName("inflation_distribution")
+            public InflationDistributions mInflationDistributions;
+
+            public class InflationDistributions {
+                @SerializedName("community_pool")
+                public String community_pool;
+
+                @SerializedName("staking_rewards")
+                public String staking_rewards;
+
+                @SerializedName("usage_incentives")
+                public String usage_incentives;
+            }
+        }
+    }
+
+    public class EvmosEpochMintProvision {
+        @SerializedName("epoch_mint_provision")
+        public String epoch_mint_provision;
     }
 }
 
