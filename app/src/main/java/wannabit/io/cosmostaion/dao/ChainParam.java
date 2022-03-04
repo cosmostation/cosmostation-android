@@ -186,6 +186,13 @@ public class ChainParam {
                     } else if (baseChain.equals(STARGAZE_MAIN)) {
                         BigDecimal reductionFactor = BigDecimal.ONE.subtract(new BigDecimal(mStargazeMintingParams.params.reduction_factor));
                         return inflation.multiply(calTax).multiply(reductionFactor).divide(bondingRate, 6, RoundingMode.DOWN);
+                    } else if (baseChain.equals(EVMOS_MAIN)) {
+                        BigDecimal ap = new BigDecimal(mEvmosEpochMintProvision.epoch_mint_provision).multiply(new BigDecimal("365"));
+                        BigDecimal stakingRewardsFactor = BigDecimal.ZERO;
+                        if (mEvmosInflationParams.params.mInflationDistributions.staking_rewards != null) {
+                            stakingRewardsFactor = new BigDecimal(mEvmosInflationParams.params.mInflationDistributions.staking_rewards);
+                        }
+                        return ap.multiply(stakingRewardsFactor).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);
                     } else {
                         BigDecimal ap = getAnnualProvision();
                         if (ap.compareTo(BigDecimal.ZERO) > 0) {
