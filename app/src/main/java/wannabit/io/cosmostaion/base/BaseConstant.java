@@ -683,8 +683,8 @@ public class BaseConstant {
     public final static String CERTIK_GAS_RATE_LOW                      = "0.05";
     public final static String CERTIK_GAS_RATE_AVERAGE                  = "0.05";
 
-    public final static String EMONEY_GAS_RATE_TINY                     = "1.00";
-    public final static String EMONEY_GAS_RATE_LOW                      = "1.00";
+    public final static String EMONEY_GAS_RATE_TINY                     = "0.10";
+    public final static String EMONEY_GAS_RATE_LOW                      = "0.30";
     public final static String EMONEY_GAS_RATE_AVERAGE                  = "1.00";
 
     public final static String FETCH_GAS_RATE_TINY                      = "0.00";
