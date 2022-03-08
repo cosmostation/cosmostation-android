@@ -8,7 +8,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -850,7 +849,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     }
                 }
             }
-            if (getBaseDao().mGrpcBalance.size() <= 0) {
+            if (getBaseDao().mGrpcBalance.size() <= 0 || getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
                 getBaseDao().mGrpcBalance.add(new Coin(WDp.mainDenom(mBaseChain), "0"));
             }
 
