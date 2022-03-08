@@ -1635,18 +1635,20 @@ public class WUtil {
     }
 
     public static void DpOsmosisTokenImg(BaseData baseData, ImageView imageView, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
-            Picasso.get().cancelRequest(imageView);
-            imageView.setImageResource(R.drawable.token_osmosis);
-        } else if (denom.equalsIgnoreCase(TOKEN_ION)) {
-            imageView.setImageResource(R.drawable.token_ion);
-        } else if (denom.startsWith("gamm/pool/")) {
-            imageView.setImageResource(R.drawable.token_pool);
-        } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            try {
-                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
-            } catch (Exception e){}
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+                Picasso.get().cancelRequest(imageView);
+                imageView.setImageResource(R.drawable.token_osmosis);
+            } else if (denom.equalsIgnoreCase(TOKEN_ION)) {
+                imageView.setImageResource(R.drawable.token_ion);
+            } else if (denom.startsWith("gamm/pool/")) {
+                imageView.setImageResource(R.drawable.token_pool);
+            } else if (denom.startsWith("ibc/")) {
+                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+                try {
+                    Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+                } catch (Exception e){}
+            }
         }
     }
 
@@ -4817,7 +4819,6 @@ public class WUtil {
                     }
                 }
             }
-
         }
     }
 }

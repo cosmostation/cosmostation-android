@@ -276,10 +276,27 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onClickProfile() {
-        if (getBaseDao().mGRpcAccount.getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-            Intent airdrop = new Intent(this, ProfileDetailActivity.class);
-            startActivity(airdrop);
+        if (getBaseDao().mGRpcNodeInfo != null && getBaseDao().mGRpcAccount != null) {
+            if (getBaseDao().mGRpcAccount.getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
+                Intent airdrop = new Intent(this, ProfileDetailActivity.class);
+                startActivity(airdrop);
 
+            } else {
+                if (!mAccount.hasPrivateKey) {
+                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                    add.setCancelable(true);
+                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    return;
+                }
+                BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+                BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_PROFILE, 0);
+                if (available.compareTo(txFee) <= 0) {
+                    Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent profile = new Intent(this, ProfileActivity.class);
+                startActivity(profile);
+            }
         } else {
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();

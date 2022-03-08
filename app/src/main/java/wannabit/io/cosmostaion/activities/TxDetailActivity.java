@@ -16,12 +16,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_COMMISSION;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_TRANSFER;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_MULTI_TRANSFER;
@@ -382,36 +376,21 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 } else {
                     if (mResTxInfo.getMsgType(position - 1).equals(COSMOS_MSG_TYPE_TRANSFER2) ||
                             mResTxInfo.getMsgType(position - 1).equals(OK_MSG_TYPE_TRANSFER) ||
-                            mResTxInfo.getMsgType(position - 1).equals(OK_MSG_TYPE_MULTI_TRANSFER) ||
-                            mResTxInfo.getMsgType(position - 1).equals(CERTIK_MSG_TYPE_TRANSFER)) {
+                            mResTxInfo.getMsgType(position - 1).equals(OK_MSG_TYPE_MULTI_TRANSFER)) {
                         return TYPE_TX_TRANSFER;
 
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(COSMOS_MSG_TYPE_TRANSFER3) ||
-                            mResTxInfo.getMsgType(position - 1).equals(IRIS_MSG_TYPE_TRANSFER)) {
+                    } else if (mResTxInfo.getMsgType(position - 1).equals(COSMOS_MSG_TYPE_TRANSFER3)) {
                         if (mResTxInfo.getMsg(position - 1).value.inputs.size() == 1 &&
                                 mResTxInfo.getMsg(position - 1).value.outputs.size() == 1) {
                             return TYPE_TX_TRANSFER;
                         }
                         return TYPE_TX_MULTI_SEND;
 
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(COSMOS_MSG_TYPE_WITHDRAW_VAL) ||
-                            mResTxInfo.getMsgType(position - 1).equals(IRIS_MSG_TYPE_COMMISSION)) {
+                    } else if (mResTxInfo.getMsgType(position - 1).equals(COSMOS_MSG_TYPE_WITHDRAW_VAL)) {
                         return TYPE_TX_COMMISSION;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(IRIS_MSG_TYPE_WITHDRAW_ALL)) {
-                        return TYPE_TX_REWARD_ALL;
 
                     } else if (mResTxInfo.getMsgType(position - 1).equals(COSMOS_MSG_TYPE_UNJAIL)) {
                         return TYPE_TX_UNJAIL;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
-                        return TYPE_TX_HTLC_CREATE;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_BEP3_CLAM_SWAP)) {
-                        return TYPE_TX_HTLC_CLAIM;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
-                        return TYPE_TX_HTLC_REFUND;
 
                     } else if (mResTxInfo.getMsgType(position - 1).equals(OK_MSG_TYPE_DEPOSIT) ||
                             mResTxInfo.getMsgType(position - 1).equals(OK_MSG_TYPE_WITHDRAW)) {

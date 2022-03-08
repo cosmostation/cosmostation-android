@@ -292,22 +292,6 @@ public class BaseConstant {
     public final static String COSMOS_MSG_TYPE_EDIT_VALIDATOR               = "cosmos-sdk/MsgEditValidator";
     public final static String COSMOS_MSG_TYPE_UNJAIL                       = "cosmos-sdk/MsgUnjail";
 
-    public final static String COSMOS_BANK_TYPE_STDTX                       = "irishub/bank/StdTx";
-    public final static String IRIS_BANK_TYPE_ACCOUNT                       = "irishub/bank/Account";
-    public final static String IRIS_MSG_TYPE_TRANSFER                       = "irishub/bank/Send";
-    public final static String IRIS_MSG_TYPE_DELEGATE                       = "irishub/stake/MsgDelegate";
-    public final static String IRIS_MSG_TYPE_UNDELEGATE                     = "irishub/stake/BeginUnbonding";
-    public final static String IRIS_MSG_TYPE_REDELEGATE                     = "irishub/stake/BeginRedelegate";
-    public final static String IRIS_MSG_TYPE_WITHDRAW                       = "irishub/distr/MsgWithdrawDelegationReward";
-    public final static String IRIS_MSG_TYPE_WITHDRAW_ALL                   = "irishub/distr/MsgWithdrawDelegationRewardsAll";
-    public final static String IRIS_MSG_TYPE_COMMISSION                     = "irishub/distr/MsgWithdrawValidatorRewardsAll";
-    public final static String IRIS_MSG_TYPE_VOTE                           = "irishub/gov/MsgVote";
-    public final static String IRIS_MSG_TYPE_DEPOSIT                        = "irishub/gov/MsgDeposit";
-    public final static String IRIS_MSG_TYPE_SUBMIT_PROPOSAL                = "irishub/gov/MsgSubmitProposal";
-    public final static String IRIS_MSG_TYPE_CREATE_VALIDATOR               = "irishub/stake/MsgCreateValidator";
-    public final static String IRIS_MSG_TYPE_WITHDRAW_MIDIFY                = "irishub/distr/MsgModifyWithdrawAddress";
-    public final static String IRIS_MSG_TYPE_ISSUE_TOKEN                    = "irishub/asset/MsgIssueToken";
-
     public final static String KAVA_MSG_TYPE_POST_PRICE                     = "/kava.pricefeed.v1beta1.MsgPostPrice";
     public final static String KAVA_MSG_TYPE_CREATE_CDP                     = "/kava.cdp.v1beta1.MsgCreateCDP";
     public final static String KAVA_MSG_TYPE_DEPOSIT_CDP                    = "/kava.cdp.v1beta1.MsgDeposit";
