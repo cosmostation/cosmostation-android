@@ -1868,11 +1868,14 @@ public class WUtil {
     }
 
     public static BigDecimal getPoolLpAmount(sifnode.clp.v1.Types.Pool pool, String denom) {
-        if (denom.equals(TOKEN_SIF)) {
-            return getNativeAmount(pool);
-        } else {
-            return getExternalAmount(pool);
+        if (denom != null) {
+            if (denom.equals(TOKEN_SIF)) {
+                return getNativeAmount(pool);
+            } else {
+                return getExternalAmount(pool);
+            }
         }
+        return BigDecimal.ONE;
     }
 
     public static BigDecimal getSifPoolValue(BaseData baseData, sifnode.clp.v1.Types.Pool pool) {

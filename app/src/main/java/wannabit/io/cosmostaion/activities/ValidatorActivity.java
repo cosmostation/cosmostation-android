@@ -457,29 +457,31 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 @Override
                 public void onClick(View v) {
                     Intent txDetail = null;
-                    if (isGRPC(mBaseChain)) {
-                        if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
-                            String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                            startActivity(intent);
+                    if (history.data.txhash != null) {
+                        if (isGRPC(mBaseChain)) {
+                            if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
+                                String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                startActivity(intent);
 
+                            } else {
+                                txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
+                            }
                         } else {
-                            txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
-                        }
-                    } else {
-                        if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainId().equals(history.header.chain_id)) {
-                            String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                            startActivity(intent);
+                            if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainId().equals(history.header.chain_id)) {
+                                String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                startActivity(intent);
 
-                        } else {
-                            txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                            } else {
+                                txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                            }
                         }
+                        txDetail.putExtra("txHash", history.data.txhash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
                     }
-                    txDetail.putExtra("txHash", history.data.txhash);
-                    txDetail.putExtra("isGen", false);
-                    txDetail.putExtra("isSuccess", true);
-                    startActivity(txDetail);
                 }
             });
         }
