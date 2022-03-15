@@ -80,6 +80,10 @@ public class WalletOkexHolder extends BaseHolder {
                 BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
                 BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
                 if (availableAmount.compareTo(feeAmount) <= 0) {
+                    Toast.makeText(mainActivity, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (availableAmount.compareTo(new BigDecimal("0.01")) < 0) {
                     Toast.makeText(mainActivity, R.string.error_not_enough_to_deposit, Toast.LENGTH_SHORT).show();
                     return;
                 }
