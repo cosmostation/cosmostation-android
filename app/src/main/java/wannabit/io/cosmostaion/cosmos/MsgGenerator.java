@@ -144,42 +144,42 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genOkDeposit(String delegator, Coin coin, BaseChain chain) {
+    public static Msg genOkDeposit(String delegator, Coin coin) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OKEX_MAIN)) {
-            value.delegator_address = delegator;
+        try {
+            value.delegator_address = WKey.convertAddressEthToOkex(delegator);
             value.quantity = coin;
 
             result.type = BaseConstant.OK_MSG_TYPE_DEPOSIT;
             result.value = value;
-        }
+        } catch (Exception e) { e.printStackTrace(); }
         return result;
     }
 
-    public static Msg genOkWithdraw(String delegator, Coin coin, BaseChain chain) {
+    public static Msg genOkWithdraw(String delegator, Coin coin) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OKEX_MAIN)) {
-            value.delegator_address = delegator;
+        try {
+            value.delegator_address = WKey.convertAddressEthToOkex(delegator);
             value.quantity = coin;
 
             result.type = BaseConstant.OK_MSG_TYPE_WITHDRAW;
             result.value = value;
-        }
+        } catch (Exception e) { e.printStackTrace(); }
         return result;
     }
 
-    public static Msg genOkVote(String delegator, ArrayList<String> toVals, BaseChain chain) {
+    public static Msg genOkVote(String delegator, ArrayList<String> toVals) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OKEX_MAIN)) {
-            value.delegator_address = delegator;
+        try {
+            value.delegator_address = WKey.convertAddressEthToOkex(delegator);
             value.validator_addresses = toVals;
 
             result.type = BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
             result.value = value;
-        }
+        } catch (Exception e) { e.printStackTrace(); }
         return result;
 
     }

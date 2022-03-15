@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_OK_DIRECT_VOTE;
 
@@ -15,7 +13,6 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -36,19 +33,17 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class SimpleOkDirectVoteTask extends CommonTask {
 
     private Account             mAccount;
-    private BaseChain           mBaseChain;
     private ArrayList<String>   mToValidators;
     private String              mMemo;
     private Fee                 mFees;
 
-    public SimpleOkDirectVoteTask(BaseApplication app, TaskListener listener, Account account, BaseChain chain, ArrayList<String> toVals, String memo, Fee fees) {
+    public SimpleOkDirectVoteTask(BaseApplication app, TaskListener listener, Account account, ArrayList<String> toVals, String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
-        this.mBaseChain = chain;
         this.mToValidators = toVals;
         this.mMemo = memo;
         this.mFees = fees;
-        this.mResult.taskType   = TASK_GEN_TX_OK_DIRECT_VOTE;
+        this.mResult.taskType = TASK_GEN_TX_OK_DIRECT_VOTE;
     }
 
     @Override
@@ -60,16 +55,14 @@ public class SimpleOkDirectVoteTask extends CommonTask {
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
                 return mResult;
             }
-            if (mBaseChain.equals(OKEX_MAIN)) {
-                Response<ResOkAccountInfo> accountResponse = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (!accountResponse.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
 
+            Response<ResOkAccountInfo> accountResponse = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
+            if (!accountResponse.isSuccessful()) {
+                mResult.errorCode = ERROR_CODE_BROADCAST;
+                return mResult;
             }
+            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
+            mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
 
             ECKey ecKey;
             if (mAccount.fromMnemonic) {
@@ -81,28 +74,25 @@ public class SimpleOkDirectVoteTask extends CommonTask {
                 ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
             }
 
-            Msg incentiveMsg = MsgGenerator.genOkVote(mAccount.address, mToValidators, mBaseChain);
+            Msg incentiveMsg = MsgGenerator.genOkVote(mAccount.address, mToValidators);
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(incentiveMsg);
 
-            if (getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mFees, mMemo, ecKey, mApp.getBaseDao().getChainId());
-                Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if (response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
+            ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mFees, mMemo, ecKey, mApp.getBaseDao().getChainId());
+            Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
+            if(response.isSuccessful() && response.body() != null) {
+                if (response.body().txhash != null) {
+                    mResult.resultData = response.body().txhash;
                 }
+                if (response.body().code != null) {
+                    mResult.errorCode = response.body().code;
+                    mResult.errorMsg = response.body().raw_log;
+                    return mResult;
+                }
+                mResult.isSuccess = true;
 
+            } else {
+                mResult.errorCode = ERROR_CODE_BROADCAST;
             }
 
         } catch (Exception e) {
