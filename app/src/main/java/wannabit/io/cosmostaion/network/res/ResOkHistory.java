@@ -38,6 +38,9 @@ public class ResOkHistory {
             @SerializedName("transactionData")
             public ArrayList<TransactionData> transactionDatas;
 
+            @SerializedName("blockTimeU0")
+            public long blockTimeU0;
+
             public class TransactionData {
                 @SerializedName("type")
                 public String type;

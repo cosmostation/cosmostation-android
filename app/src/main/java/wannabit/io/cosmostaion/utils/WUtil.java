@@ -167,7 +167,7 @@ public class WUtil {
         Account result = new Account();
         result.id = id;
         if (lcd.type.equals(COSMOS_AUTH_TYPE_OKEX_ACCOUNT)) {
-            result.address = lcd.value.address;
+            result.address = lcd.value.eth_address;
             result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
             result.accountNumber = Integer.parseInt(lcd.value.account_number);
         }
@@ -4242,7 +4242,7 @@ public class WUtil {
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(KAVA_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(KAVA_GAS_RATE_AVERAGE);
+            BigDecimal gasRate = new BigDecimal(KAVA_GAS_RATE_TINY);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 

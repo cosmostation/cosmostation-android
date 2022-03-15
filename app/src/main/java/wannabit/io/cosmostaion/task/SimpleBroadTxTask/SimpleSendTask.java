@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
@@ -71,16 +70,13 @@ public class SimpleSendTask extends CommonTask {
                 return mResult;
             }
 
-            if (getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
-                Response<ResOkAccountInfo> accountResponse = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (!accountResponse.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
-
+            Response<ResOkAccountInfo> accountResponse = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
+            if (!accountResponse.isSuccessful()) {
+                mResult.errorCode = ERROR_CODE_BROADCAST;
+                return mResult;
             }
+            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
+            mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
 
             ECKey ecKey;
             if (mAccount.fromMnemonic) {
@@ -96,24 +92,21 @@ public class SimpleSendTask extends CommonTask {
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(singleSendMsg);
 
-            if (getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, ecKey, mApp.getBaseDao().getChainId());
-                Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if (response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
+            ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, ecKey, mApp.getBaseDao().getChainId());
+            Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
+            if(response.isSuccessful() && response.body() != null) {
+                if (response.body().txhash != null) {
+                    mResult.resultData = response.body().txhash;
                 }
+                if (response.body().code != null) {
+                    mResult.errorCode = response.body().code;
+                    mResult.errorMsg = response.body().raw_log;
+                    return mResult;
+                }
+                mResult.isSuccess = true;
 
+            } else {
+                mResult.errorCode = ERROR_CODE_BROADCAST;
             }
 
         } catch (Exception e) {

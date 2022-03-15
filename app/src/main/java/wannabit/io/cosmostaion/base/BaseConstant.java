@@ -570,7 +570,7 @@ public class BaseConstant {
     public final static String IOV_GAS_AMOUNT_REPLACE                   = "300000";
     public final static String IOV_GAS_AMOUNT_IBC_SEND                  = "500000";
 
-    public final static String OK_GAS_RATE_AVERAGE                      = "0.000000001";
+    public final static String OK_GAS_RATE_AVERAGE                      = "0.0000000001";
     public final static String OK_GAS_AMOUNT_SEND                       = "200000";
     public final static String OK_GAS_AMOUNT_STAKE                      = "200000";
     public final static String OK_GAS_AMOUNT_STAKE_MUX                  = "20000";

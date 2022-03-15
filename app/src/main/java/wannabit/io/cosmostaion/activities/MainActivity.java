@@ -95,10 +95,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mBaseChain.equals(OKEX_MAIN)) {
-                    Toast.makeText(MainActivity.this, "Temporary Disable", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 onStartSendMainDenom();
             }
         });
