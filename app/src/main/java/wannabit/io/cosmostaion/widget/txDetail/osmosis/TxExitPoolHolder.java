@@ -62,7 +62,7 @@ public class TxExitPoolHolder extends TxHolder {
                         Matcher m1 = p.matcher(OutValue0);
                         if (m1.find()) {
                             String amount = m1.group();
-                            String denom = OutValue0.replaceAll(m1.group(), "");
+                            String denom = OutValue0.substring(m1.end());
                             outCoin0 = new Coin(denom, amount);
                         }
 

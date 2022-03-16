@@ -59,7 +59,7 @@ public class TxTokenSwapHolder extends TxHolder {
                                 Matcher m1 = p.matcher(value);
                                 if (m1.find()) {
                                     String amount = m1.group();
-                                    String denom = value.replaceAll(m1.group(), "");
+                                    String denom = value.substring(m1.end());
                                     inCoin = new Coin(denom, amount);
                                 }
                             }
@@ -83,7 +83,7 @@ public class TxTokenSwapHolder extends TxHolder {
                                 Matcher m1 = p.matcher(value);
                                 if (m1.find()) {
                                     String amount = m1.group();
-                                    String denom = value.replaceAll(m1.group(), "");
+                                    String denom = value.substring(m1.end());
                                     outCoin = new Coin(denom, amount);
                                 }
                             }
@@ -114,10 +114,12 @@ public class TxTokenSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(2).getValue();
-                                if (value.contains("ibc")) {
-                                    inCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
-                                } else {
-                                    inCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                Pattern p = Pattern.compile("([0-9])+");
+                                Matcher m1 = p.matcher(value);
+                                if (m1.find()) {
+                                    String amount = m1.group();
+                                    String denom = value.substring(m1.end());
+                                    inCoin = new Coin(denom, amount);
                                 }
                             }
                         }
@@ -136,10 +138,12 @@ public class TxTokenSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(event.getAttributesCount() - 1).getValue();
-                                if (value.contains("ibc")) {
-                                    outCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
-                                } else {
-                                    outCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                Pattern p = Pattern.compile("([0-9])+");
+                                Matcher m1 = p.matcher(value);
+                                if (m1.find()) {
+                                    String amount = m1.group();
+                                    String denom = value.substring(m1.end());
+                                    outCoin = new Coin(denom, amount);
                                 }
                             }
                         }

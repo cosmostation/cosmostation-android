@@ -55,14 +55,14 @@ public class TxSwapHolder extends TxHolder {
                         Matcher m1 = p.matcher(sendValue);
                         if (m1.find()) {
                             String amount = m1.group();
-                            String denom = sendValue.replaceAll(m1.group(), "");
+                            String denom = sendValue.substring(m1.end());
                             sendCoin = new Coin(denom, amount);
                         }
 
                         Matcher m2 = p.matcher(receiveValue);
                         if (m2.find()) {
                             String amount = m2.group();
-                            String denom = receiveValue.replaceAll(m2.group(), "");
+                            String denom = receiveValue.substring(m2.end());
                             receiveCoin = new Coin(denom, amount);
                         }
                     }
