@@ -938,8 +938,8 @@
     <string name="str_vote_direct">검증인에게 직접 투표</string>
     <string name="str_vote_agent">대리인을 통한 간접 투표</string>
     <string name="str_validator_vote"><![CDATA[검증인 & 투표]]></string>
-    <string name="str_ok_staking_c">위임 하기</string>
-    <string name="str_ok_unbonding_c">위임 철회 하기</string>
+    <string name="str_ok_staking_c">디파짓 입금</string>
+    <string name="str_ok_unbonding_c">디파짓 출금</string>
     <string name="str_ok_direct_vote_c">검증인 투표</string>
     <string name="str_ok_direct_vote">검증인 투표</string>
     <string name="str_vote_to_validator">선택한 검증인</string>

@@ -83,7 +83,7 @@
                         android:ellipsize="middle"
                         android:maxWidth="@dimen/space_140"
                         android:singleLine="true"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_ss_10_gray1"
                         android:text="-"/>
                 </LinearLayout>
                 <LinearLayout

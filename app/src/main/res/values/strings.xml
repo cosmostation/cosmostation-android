@@ -1304,8 +1304,8 @@
     <string name="str_vote_direct">Direct vote to Validator</string>
     <string name="str_vote_agent">Indirect vote with Agent</string>
     <string name="str_validator_vote"><![CDATA[Validators & Vote]]></string>
-    <string name="str_ok_staking_c">STAKING</string>
-    <string name="str_ok_unbonding_c">UNBONDING</string>
+    <string name="str_ok_staking_c">Deposit</string>
+    <string name="str_ok_unbonding_c">Withdraw</string>
     <string name="str_ok_direct_vote_c">VOTE FOR VALIDATOR</string>
     <string name="str_ok_direct_vote">Vote for Validator</string>
     <string name="str_vote_to_validator">Vote to</string>
