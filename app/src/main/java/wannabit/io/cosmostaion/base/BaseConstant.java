@@ -292,22 +292,6 @@ public class BaseConstant {
     public final static String COSMOS_MSG_TYPE_EDIT_VALIDATOR               = "cosmos-sdk/MsgEditValidator";
     public final static String COSMOS_MSG_TYPE_UNJAIL                       = "cosmos-sdk/MsgUnjail";
 
-    public final static String COSMOS_BANK_TYPE_STDTX                       = "irishub/bank/StdTx";
-    public final static String IRIS_BANK_TYPE_ACCOUNT                       = "irishub/bank/Account";
-    public final static String IRIS_MSG_TYPE_TRANSFER                       = "irishub/bank/Send";
-    public final static String IRIS_MSG_TYPE_DELEGATE                       = "irishub/stake/MsgDelegate";
-    public final static String IRIS_MSG_TYPE_UNDELEGATE                     = "irishub/stake/BeginUnbonding";
-    public final static String IRIS_MSG_TYPE_REDELEGATE                     = "irishub/stake/BeginRedelegate";
-    public final static String IRIS_MSG_TYPE_WITHDRAW                       = "irishub/distr/MsgWithdrawDelegationReward";
-    public final static String IRIS_MSG_TYPE_WITHDRAW_ALL                   = "irishub/distr/MsgWithdrawDelegationRewardsAll";
-    public final static String IRIS_MSG_TYPE_COMMISSION                     = "irishub/distr/MsgWithdrawValidatorRewardsAll";
-    public final static String IRIS_MSG_TYPE_VOTE                           = "irishub/gov/MsgVote";
-    public final static String IRIS_MSG_TYPE_DEPOSIT                        = "irishub/gov/MsgDeposit";
-    public final static String IRIS_MSG_TYPE_SUBMIT_PROPOSAL                = "irishub/gov/MsgSubmitProposal";
-    public final static String IRIS_MSG_TYPE_CREATE_VALIDATOR               = "irishub/stake/MsgCreateValidator";
-    public final static String IRIS_MSG_TYPE_WITHDRAW_MIDIFY                = "irishub/distr/MsgModifyWithdrawAddress";
-    public final static String IRIS_MSG_TYPE_ISSUE_TOKEN                    = "irishub/asset/MsgIssueToken";
-
     public final static String KAVA_MSG_TYPE_POST_PRICE                     = "/kava.pricefeed.v1beta1.MsgPostPrice";
     public final static String KAVA_MSG_TYPE_CREATE_CDP                     = "/kava.cdp.v1beta1.MsgCreateCDP";
     public final static String KAVA_MSG_TYPE_DEPOSIT_CDP                    = "/kava.cdp.v1beta1.MsgDeposit";
@@ -586,7 +570,7 @@ public class BaseConstant {
     public final static String IOV_GAS_AMOUNT_REPLACE                   = "300000";
     public final static String IOV_GAS_AMOUNT_IBC_SEND                  = "500000";
 
-    public final static String OK_GAS_RATE_AVERAGE                      = "0.000000001";
+    public final static String OK_GAS_RATE_AVERAGE                      = "0.0000000001";
     public final static String OK_GAS_AMOUNT_SEND                       = "200000";
     public final static String OK_GAS_AMOUNT_STAKE                      = "200000";
     public final static String OK_GAS_AMOUNT_STAKE_MUX                  = "20000";
@@ -683,8 +667,8 @@ public class BaseConstant {
     public final static String CERTIK_GAS_RATE_LOW                      = "0.05";
     public final static String CERTIK_GAS_RATE_AVERAGE                  = "0.05";
 
-    public final static String EMONEY_GAS_RATE_TINY                     = "1.00";
-    public final static String EMONEY_GAS_RATE_LOW                      = "1.00";
+    public final static String EMONEY_GAS_RATE_TINY                     = "0.10";
+    public final static String EMONEY_GAS_RATE_LOW                      = "0.30";
     public final static String EMONEY_GAS_RATE_AVERAGE                  = "1.00";
 
     public final static String FETCH_GAS_RATE_TINY                      = "0.00";

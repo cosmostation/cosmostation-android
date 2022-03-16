@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_OK_WITHDRAW;
 
@@ -15,7 +13,6 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -37,15 +34,13 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class SimpleOkWithdrawTask extends CommonTask {
 
     private Account     mAccount;
-    private BaseChain   mBaseChain;
     private Coin        mDepositCoin;
     private String      mMemo;
     private Fee         mFees;
 
-    public SimpleOkWithdrawTask(BaseApplication app, TaskListener listener, Account account, BaseChain chain, Coin coin, String memo, Fee fees) {
+    public SimpleOkWithdrawTask(BaseApplication app, TaskListener listener, Account account, Coin coin, String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
-        this.mBaseChain = chain;
         this.mDepositCoin = coin;
         this.mMemo = memo;
         this.mFees = fees;
@@ -61,16 +56,14 @@ public class SimpleOkWithdrawTask extends CommonTask {
                 mResult.errorCode = BaseConstant.ERROR_CODE_INVALID_PASSWORD;
                 return mResult;
             }
-            if (mBaseChain.equals(OKEX_MAIN)) {
-                Response<ResOkAccountInfo> accountResponse = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (!accountResponse.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
 
+            Response<ResOkAccountInfo> accountResponse = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
+            if (!accountResponse.isSuccessful()) {
+                mResult.errorCode = ERROR_CODE_BROADCAST;
+                return mResult;
             }
+            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, accountResponse.body()));
+            mApp.getBaseDao().mOkAccountInfo = accountResponse.body();
 
             ECKey ecKey;
             if (mAccount.fromMnemonic) {
@@ -82,28 +75,24 @@ public class SimpleOkWithdrawTask extends CommonTask {
                 ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
             }
 
-            Msg withdrawMsg = MsgGenerator.genOkWithdraw(mAccount.address, mDepositCoin, mBaseChain);
+            Msg withdrawMsg = MsgGenerator.genOkWithdraw(mAccount.address, mDepositCoin);
             ArrayList<Msg> msgs= new ArrayList<>();
             msgs.add(withdrawMsg);
-
-            if (getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mFees, mMemo, ecKey, mApp.getBaseDao().getChainId());
-                Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if (response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
+            ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mFees, mMemo, ecKey, mApp.getBaseDao().getChainId());
+            Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
+            if(response.isSuccessful() && response.body() != null) {
+                if (response.body().txhash != null) {
+                    mResult.resultData = response.body().txhash;
                 }
+                if (response.body().code != null) {
+                    mResult.errorCode = response.body().code;
+                    mResult.errorMsg = response.body().raw_log;
+                    return mResult;
+                }
+                mResult.isSuccess = true;
 
+            } else {
+                mResult.errorCode = ERROR_CODE_BROADCAST;
             }
 
         } catch (Exception e) {

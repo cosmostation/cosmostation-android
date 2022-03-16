@@ -68,8 +68,8 @@ public class HistoryOldHolder extends BaseHolder {
             historyType.setText(type);
         }
         historySuccess.setVisibility(View.GONE);
-        history_time.setText(WDp.getDpTime(mainActivity, history.blocktime));
-        history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.blocktime));
+        history_time.setText(WDp.getDpTime(mainActivity, history.blockTimeU0));
+        history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.blockTimeU0));
         history_block.setText(history.hash + "block");
         historyRoot.setOnClickListener(new View.OnClickListener() {
             @Override

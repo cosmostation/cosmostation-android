@@ -228,12 +228,12 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     public void onFetchPoolListInfo() {
         WLog.w("onFetchPoolListInfo ");
         mTaskCount = 4;
-        mPoolList.clear();
-        mPoolMyList.clear();
-        mPoolOtherList.clear();
-        mIncentivizedPool.clear();
-        mActiveGauges.clear();
-        mPeriodLockUps.clear();
+        mPoolList = new ArrayList<>();
+        mPoolMyList = new ArrayList<>();
+        mPoolOtherList = new ArrayList<>();
+        mIncentivizedPool = new ArrayList<>();
+        mActiveGauges = new ArrayList<>();
+        mPeriodLockUps = new ArrayList<>();
         new OsmosisPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new OsmosisIncentivizedPoolsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new OsmosisActiveGaugesGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

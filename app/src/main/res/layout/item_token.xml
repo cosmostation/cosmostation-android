@@ -62,7 +62,10 @@
                             android:id="@+id/token_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:maxWidth="@dimen/space_140"
                             style="@style/font_ss_14_white"
+                            android:singleLine="true"
+                            android:ellipsize="middle"
                             android:text="-"/>
                         <TextView
                             android:id="@+id/token_inner_symbol"
@@ -80,7 +83,7 @@
                         android:ellipsize="middle"
                         android:maxWidth="@dimen/space_140"
                         android:singleLine="true"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_ss_10_gray1"
                         android:text="-"/>
                 </LinearLayout>
                 <LinearLayout

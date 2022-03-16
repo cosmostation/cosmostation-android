@@ -91,8 +91,6 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
     private int mTaskCount = 0;
     public void onFetchCdpInfo() {
-        mMyCdps.clear();
-        mOtherCdps.clear();
         mTaskCount = 1;
         new KavaCdpsByOwnerGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -103,11 +101,13 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_KAVA_MY_CDPS) {
             if (result.isSuccess && result.resultData != null) {
-                mMyCdps = (ArrayList<QueryOuterClass.CDPResponse>) result.resultData;
+                mMyCdps.clear();
+                mMyCdps.addAll((ArrayList<QueryOuterClass.CDPResponse>) result.resultData);
             }
         }
 
         if (mTaskCount == 0) {
+            mOtherCdps.clear();
             for (Genesis.CollateralParam cdpParam: mCdpParams.getCollateralParamsList()) {
                 boolean has = false;
                 for (QueryOuterClass.CDPResponse cdpMy: mMyCdps) {

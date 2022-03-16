@@ -1,5 +1,12 @@
 package wannabit.io.cosmostaion.activities.chains.sif;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_LIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,13 +46,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.SifDexPoolListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_LIST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
-
 public class SifDexListActivity extends BaseActivity {
 
     private Toolbar                     mToolbar;
@@ -63,8 +63,6 @@ public class SifDexListActivity extends BaseActivity {
     public ArrayList<Types.Pool>                                mOtherEthPools = new ArrayList<>();
     public ArrayList<Types.Pool>                                mMyIbcPools = new ArrayList<>();
     public ArrayList<Types.Pool>                                mOtherIbcPools = new ArrayList<>();
-
-    public ArrayList<Querier.LiquidityProviderRes>              mMyProviders = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,12 +217,12 @@ public class SifDexListActivity extends BaseActivity {
 
     public void onFetchPoolListInfo() {
         mTaskCount = 2;
-        mPoolList.clear();
-        mPoolMyAsset.clear();
-        mMyEthPools.clear();
-        mOtherEthPools.clear();
-        mMyIbcPools.clear();
-        mOtherIbcPools.clear();
+        mPoolList = new ArrayList<>();
+        mPoolMyAsset = new ArrayList<>();
+        mMyEthPools = new ArrayList<>();
+        mOtherEthPools = new ArrayList<>();
+        mMyIbcPools = new ArrayList<>();
+        mOtherIbcPools = new ArrayList<>();
         new SifDexPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SifDexPoolAssetListGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

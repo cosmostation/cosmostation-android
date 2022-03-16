@@ -25,9 +25,10 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxJoinPoolHolder extends TxHolder {
-    ImageView itemJoinPoolImg;
-    TextView itemJoinSender, itemJoinPoolId,
-            itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount;
+    ImageView       itemJoinPoolImg;
+    TextView        itemJoinSender, itemJoinPoolId,
+                    itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount;
+    LinearLayout    itemJoinPoolTokenLayout2;
 
     public TxJoinPoolHolder(@NonNull View itemView) {
         super(itemView);
@@ -40,62 +41,109 @@ public class TxJoinPoolHolder extends TxHolder {
         itemJoinPoolTokenInAmount2 = itemView.findViewById(R.id.tx_token_in_amount2);
         itemJoinPoolTokenOutSymbol = itemView.findViewById(R.id.tx_join_token_out_symbol);
         itemJoinPoolTokenOutAmount = itemView.findViewById(R.id.tx_join_token_out_amount);
+        itemJoinPoolTokenLayout2 = itemView.findViewById(R.id.token_in_layer2);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
         itemJoinPoolImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        try {
-            Tx.MsgJoinPool msg = Tx.MsgJoinPool.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-            itemJoinSender.setText(msg.getSender());
-            itemJoinPoolId.setText("" + msg.getPoolId());
+        if (response.getTx().getBody().getMessages(position).getTypeUrl().contains("MsgJoinPool")) {
+            itemJoinPoolTokenLayout2.setVisibility(View.VISIBLE);
+            try {
+                Tx.MsgJoinPool msg = Tx.MsgJoinPool.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+                itemJoinSender.setText(msg.getSender());
+                itemJoinPoolId.setText("" + msg.getPoolId());
 
-            Coin inCoin0 = null;
-            Coin inCoin1 = null;
-            Coin outCoin = null;
-            if (response.getTxResponse().getLogsCount() > position) {
-                for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
-                    if (event.getType().equals("transfer")) {
-                        String InValue0 = event.getAttributesList().get(2).getValue().split(",")[0];
-                        String InValue1 = event.getAttributesList().get(2).getValue().split(",")[1];
-                        String OutValue = event.getAttributesList().get(5).getValue();
+                Coin inCoin0 = null;
+                Coin inCoin1 = null;
+                Coin outCoin = null;
+                if (response.getTxResponse().getLogsCount() > position) {
+                    for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
+                        if (event.getType().equals("transfer")) {
+                            String InValue0 = event.getAttributesList().get(2).getValue().split(",")[0];
+                            String InValue1 = event.getAttributesList().get(2).getValue().split(",")[1];
+                            String OutValue = event.getAttributesList().get(5).getValue();
 
-                        Pattern p = Pattern.compile("([0-9])+");
-                        Matcher m1 = p.matcher(InValue0);
-                        if (m1.find()) {
-                            String amount = m1.group();
-                            String denom = InValue0.replaceAll(m1.group(), "");
-                            inCoin0 = new Coin(denom, amount);
+                            Pattern p = Pattern.compile("([0-9])+");
+                            Matcher m1 = p.matcher(InValue0);
+                            if (m1.find()) {
+                                String amount = m1.group();
+                                String denom = InValue0.replaceAll(m1.group(), "");
+                                inCoin0 = new Coin(denom, amount);
+                            }
+
+                            Matcher m2 = p.matcher(InValue1);
+                            if (m2.find()) {
+                                String amount = m2.group();
+                                String denom = InValue1.replaceAll(m2.group(), "");
+                                inCoin1 = new Coin(denom, amount);
+                            }
+
+                            outCoin = new Coin(OutValue.replaceAll(OutValue.split("gamm")[0], ""), OutValue.split("gamm")[0]);
                         }
-
-                        Matcher m2 = p.matcher(InValue1);
-                        if (m2.find()) {
-                            String amount = m2.group();
-                            String denom = InValue1.replaceAll(m2.group(), "");
-                            inCoin1 = new Coin(denom, amount);
-                        }
-
-                        outCoin = new Coin(OutValue.replaceAll(OutValue.split("gamm")[0], ""), OutValue.split("gamm")[0]);
                     }
                 }
+                if (inCoin0 != null && inCoin1 != null) {
+                    WDp.showCoinDp(c, baseData, inCoin0, itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, baseChain);
+                    WDp.showCoinDp(c, baseData, inCoin1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, baseChain);
+                } else {
+                    itemJoinPoolTokenInAmount1.setText("");
+                    itemJoinPoolTokenInSymbol1.setText("");
+                    itemJoinPoolTokenInAmount2.setText("");
+                    itemJoinPoolTokenInSymbol2.setText("");
+                }
+                if (outCoin != null) {
+                    WDp.showCoinDp(c, baseData, outCoin, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount, baseChain);
+                } else {
+                    itemJoinPoolTokenOutAmount.setText("");
+                    itemJoinPoolTokenOutSymbol.setText("");
+                }
+            } catch (Exception e) {
+                WLog.w("Exception " + e.getMessage());
             }
-            if (inCoin0 != null && inCoin1 != null) {
-                WDp.showCoinDp(c, baseData, inCoin0, itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, baseChain);
-                WDp.showCoinDp(c, baseData, inCoin1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, baseChain);
-            } else {
-                itemJoinPoolTokenInAmount1.setText("");
-                itemJoinPoolTokenInSymbol1.setText("");
-                itemJoinPoolTokenInAmount2.setText("");
-                itemJoinPoolTokenInSymbol2.setText("");
+
+        } else {
+            itemJoinPoolTokenLayout2.setVisibility(View.GONE);
+            try {
+                Tx.MsgJoinSwapExternAmountIn msg = Tx.MsgJoinSwapExternAmountIn.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+                itemJoinSender.setText(msg.getSender());
+                itemJoinPoolId.setText("" + msg.getPoolId());
+
+                Coin inCoin0 = null;
+                Coin outCoin = null;
+                if (response.getTxResponse().getLogsCount() > position) {
+                    for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
+                        if (event.getType().equals("transfer")) {
+                            String InValue0 = event.getAttributesList().get(2).getValue().split(",")[0];
+                            String OutValue = event.getAttributesList().get(5).getValue();
+
+                            Pattern p = Pattern.compile("([0-9])+");
+                            Matcher m1 = p.matcher(InValue0);
+                            if (m1.find()) {
+                                String amount = m1.group();
+                                String denom = InValue0.replaceAll(m1.group(), "");
+                                inCoin0 = new Coin(denom, amount);
+                            }
+
+                            outCoin = new Coin(OutValue.replaceAll(OutValue.split("gamm")[0], ""), OutValue.split("gamm")[0]);
+                        }
+                    }
+                }
+                if (inCoin0 != null) {
+                    WDp.showCoinDp(c, baseData, inCoin0, itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, baseChain);
+                } else {
+                    itemJoinPoolTokenInAmount1.setText("");
+                    itemJoinPoolTokenInSymbol1.setText("");
+                }
+                if (outCoin != null) {
+                    WDp.showCoinDp(c, baseData, outCoin, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount, baseChain);
+                } else {
+                    itemJoinPoolTokenOutAmount.setText("");
+                    itemJoinPoolTokenOutSymbol.setText("");
+                }
+            } catch (Exception e) {
+                WLog.w("Exception " + e.getMessage());
             }
-            if (outCoin != null) {
-                WDp.showCoinDp(c, baseData, outCoin, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount, baseChain);
-            } else {
-                itemJoinPoolTokenOutAmount.setText("");
-                itemJoinPoolTokenOutSymbol.setText("");
-            }
-        } catch (Exception e) {
-            WLog.w("Exception " + e.getMessage());
         }
     }
 }

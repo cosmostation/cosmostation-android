@@ -567,16 +567,13 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
 
         } else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {
-            new SimpleOkDepositTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleOkDepositTask(getBaseApplication(), this, mAccount, mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OK_WITHDRAW) {
-            new SimpleOkWithdrawTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleOkWithdrawTask(getBaseApplication(), this, mAccount, mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OK_DIRECT_VOTE) {
-            new SimpleOkDirectVoteTask(getBaseApplication(), this, mAccount,
-                    mBaseChain, mOKVoteValidator, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleOkDirectVoteTask(getBaseApplication(), this, mAccount, mOKVoteValidator, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REGISTER_DOMAIN) {
             new RegisterDomainGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,

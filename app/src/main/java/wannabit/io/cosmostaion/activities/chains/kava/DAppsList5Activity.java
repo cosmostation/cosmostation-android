@@ -225,9 +225,9 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public void onFetchData() {
         mTaskCount = 5;
         getBaseDao().mSwapParams = null;
-        mSwapPoolList.clear();
-        mMySwapPoolList.clear();
-        mOtherSwapPoolList.clear();
+        mSwapPoolList = new ArrayList<>();
+        mMySwapPoolList = new ArrayList<>();
+        mOtherSwapPoolList = new ArrayList<>();
         getBaseDao().mCdpParams = null;
         new KavaSwapParamsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaSwapPoolsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

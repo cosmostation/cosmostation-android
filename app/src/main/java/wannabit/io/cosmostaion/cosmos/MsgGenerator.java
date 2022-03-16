@@ -59,12 +59,14 @@ public class MsgGenerator {
         Msg         result      = new Msg();
         Msg.Value   value       = new Msg.Value();
         if (chain.equals(OKEX_MAIN)) {
-            value.from_address = fromAddr;
-            value.to_address = toAddr;
-            value.amount = coins;
+            try {
+                value.from_address = WKey.convertAddressEthToOkex(fromAddr);
+                value.to_address = WKey.convertAddressEthToOkex(toAddr);
+                value.amount = coins;
 
-            result.type = BaseConstant.OK_MSG_TYPE_TRANSFER;
-            result.value = value;
+                result.type = BaseConstant.OK_MSG_TYPE_TRANSFER;
+                result.value = value;
+            } catch (Exception e) { e.printStackTrace(); }
 
         } else {
             value.from_address = fromAddr;
@@ -142,42 +144,42 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genOkDeposit(String delegator, Coin coin, BaseChain chain) {
+    public static Msg genOkDeposit(String delegator, Coin coin) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OKEX_MAIN)) {
-            value.delegator_address = delegator;
+        try {
+            value.delegator_address = WKey.convertAddressEthToOkex(delegator);
             value.quantity = coin;
 
             result.type = BaseConstant.OK_MSG_TYPE_DEPOSIT;
             result.value = value;
-        }
+        } catch (Exception e) { e.printStackTrace(); }
         return result;
     }
 
-    public static Msg genOkWithdraw(String delegator, Coin coin, BaseChain chain) {
+    public static Msg genOkWithdraw(String delegator, Coin coin) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OKEX_MAIN)) {
-            value.delegator_address = delegator;
+        try {
+            value.delegator_address = WKey.convertAddressEthToOkex(delegator);
             value.quantity = coin;
 
             result.type = BaseConstant.OK_MSG_TYPE_WITHDRAW;
             result.value = value;
-        }
+        } catch (Exception e) { e.printStackTrace(); }
         return result;
     }
 
-    public static Msg genOkVote(String delegator, ArrayList<String> toVals, BaseChain chain) {
+    public static Msg genOkVote(String delegator, ArrayList<String> toVals) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(OKEX_MAIN)) {
-            value.delegator_address = delegator;
+        try {
+            value.delegator_address = WKey.convertAddressEthToOkex(delegator);
             value.validator_addresses = toVals;
 
             result.type = BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
             result.value = value;
-        }
+        } catch (Exception e) { e.printStackTrace(); }
         return result;
 
     }
@@ -221,17 +223,16 @@ public class MsgGenerator {
 
     public static ReqBroadCast getBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
         StdSignMsg tosign = genToSignMsg(
-//                BaseChain.getDpChain(account.baseChain),
                 chainId,
                 ""+account.accountNumber,
                 ""+account.sequenceNumber,
                 msgs,
                 fee,
                 memo);
-        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
+//        WLog.w("Tendermint tosign " + WUtil.prettyPrinter(tosign));
 
         String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-        WLog.w("signatureTx " + signatureTx);
+//        WLog.w("Tendermint signatureTx " + signatureTx);
 
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();
@@ -260,7 +261,7 @@ public class MsgGenerator {
     }
 
     public static ReqBroadCast getOKexBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
-        if (!account.newBip44) {
+        if (account.customPath == 0) {
             //using Tendermint type sig
             return getBroadcaseReq(account, msgs, fee, memo, key, chainId);
         } else {

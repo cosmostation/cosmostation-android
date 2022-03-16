@@ -122,7 +122,14 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
                 return;
             }
 
-            String address = WKey.getDpAddress(mChain, WKey.generatePubKeyHexFromPriv(mUserInput));
+            String address = "";
+            if (mChain.equals(BaseChain.INJ_MAIN)) {
+                address = WKey.generateAddressFromPriv("inj", mUserInput);
+            } else if (mChain.equals(BaseChain.EVMOS_MAIN)) {
+                address = WKey.generateAddressFromPriv("evmos", mUserInput);
+            } else {
+                address = WKey.getDpAddress(mChain, WKey.generatePubKeyHexFromPriv(mUserInput));
+            }
             Account account = getBaseDao().onSelectExistAccount(address, mChain);
             if (account != null && account.hasPrivateKey) {
                 Toast.makeText(this, R.string.error_already_imported_address, Toast.LENGTH_SHORT).show();
@@ -208,6 +215,10 @@ public class RestoreKeyActivity extends BaseActivity implements View.OnClickList
             String address = "";
             if (mChain.equals(BaseChain.OKEX_MAIN)) {
                 address = okAddress;
+            } else if (mChain.equals(BaseChain.INJ_MAIN)) {
+                address = WKey.generateAddressFromPriv("inj", mUserInput);
+            } else if (mChain.equals(BaseChain.EVMOS_MAIN)) {
+                address = WKey.generateAddressFromPriv("evmos", mUserInput);
             } else {
                 address = WKey.getDpAddress(mChain, WKey.generatePubKeyHexFromPriv(mUserInput));
             }

@@ -167,7 +167,7 @@ public class WUtil {
         Account result = new Account();
         result.id = id;
         if (lcd.type.equals(COSMOS_AUTH_TYPE_OKEX_ACCOUNT)) {
-            result.address = lcd.value.address;
+            result.address = lcd.value.eth_address;
             result.sequenceNumber = Integer.parseInt(lcd.value.sequence);
             result.accountNumber = Integer.parseInt(lcd.value.account_number);
         }
@@ -1635,18 +1635,20 @@ public class WUtil {
     }
 
     public static void DpOsmosisTokenImg(BaseData baseData, ImageView imageView, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
-            Picasso.get().cancelRequest(imageView);
-            imageView.setImageResource(R.drawable.token_osmosis);
-        } else if (denom.equalsIgnoreCase(TOKEN_ION)) {
-            imageView.setImageResource(R.drawable.token_ion);
-        } else if (denom.startsWith("gamm/pool/")) {
-            imageView.setImageResource(R.drawable.token_pool);
-        } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            try {
-                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
-            } catch (Exception e){}
+        if (denom != null) {
+            if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+                Picasso.get().cancelRequest(imageView);
+                imageView.setImageResource(R.drawable.token_osmosis);
+            } else if (denom.equalsIgnoreCase(TOKEN_ION)) {
+                imageView.setImageResource(R.drawable.token_ion);
+            } else if (denom.startsWith("gamm/pool/")) {
+                imageView.setImageResource(R.drawable.token_pool);
+            } else if (denom.startsWith("ibc/")) {
+                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+                try {
+                    Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+                } catch (Exception e){}
+            }
         }
     }
 
@@ -1866,11 +1868,14 @@ public class WUtil {
     }
 
     public static BigDecimal getPoolLpAmount(sifnode.clp.v1.Types.Pool pool, String denom) {
-        if (denom.equals(TOKEN_SIF)) {
-            return getNativeAmount(pool);
-        } else {
-            return getExternalAmount(pool);
+        if (denom != null) {
+            if (denom.equals(TOKEN_SIF)) {
+                return getNativeAmount(pool);
+            } else {
+                return getExternalAmount(pool);
+            }
         }
+        return BigDecimal.ONE;
     }
 
     public static BigDecimal getSifPoolValue(BaseData baseData, sifnode.clp.v1.Types.Pool pool) {
@@ -4237,7 +4242,7 @@ public class WUtil {
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(KAVA_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(KAVA_GAS_RATE_AVERAGE);
+            BigDecimal gasRate = new BigDecimal(KAVA_GAS_RATE_TINY);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -4817,7 +4822,6 @@ public class WUtil {
                     }
                 }
             }
-
         }
     }
 }

@@ -1566,7 +1566,7 @@ public class MainTokensFragment extends BaseFragment {
     //with Unknown Token gRPC
     private void onBindUnKnownToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mUnknownGrpc.get(position);
-        holder.itemSymbol.setText(coin.denom.toUpperCase());
+        holder.itemSymbol.setText("UNKNOWN");
         holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("");

@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_STAKE_MUX;
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
+
 import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -22,9 +25,6 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_STAKE_MUX;
-import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
 
 public class WalletOkexHolder extends BaseHolder {
     private TextView            mOkTotalAmount, mOkTotalValue, mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
@@ -66,67 +66,68 @@ public class WalletOkexHolder extends BaseHolder {
         mBtnOkDeposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mainActivity, "Temporary Disable", Toast.LENGTH_SHORT).show();
-//                if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0) return;
-//                if (!mainActivity.mAccount.hasPrivateKey) {
-//                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//                    add.setCancelable(true);
-//                    mainActivity.getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//                    return;
-//                }
-//                int myValidatorCnt = 0;
-//                if (mainActivity.getBaseDao().mOkStaking != null && mainActivity.getBaseDao().mOkStaking.validator_address != null) {
-//                    myValidatorCnt = mainActivity.getBaseDao().mOkStaking.validator_address.size();
-//                }
-//                BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
-//                BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
-//                if (availableAmount.compareTo(feeAmount) <= 0) {
-//                    Toast.makeText(mainActivity, R.string.error_not_enough_to_deposit, Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                Intent intent = new Intent(mainActivity, OKStakingActivity.class);
-//                mainActivity.startActivity(intent);
+                if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0) return;
+                if (!mainActivity.mAccount.hasPrivateKey) {
+                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                    add.setCancelable(true);
+                    mainActivity.getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    return;
+                }
+                int myValidatorCnt = 0;
+                if (mainActivity.getBaseDao().mOkStaking != null && mainActivity.getBaseDao().mOkStaking.validator_address != null) {
+                    myValidatorCnt = mainActivity.getBaseDao().mOkStaking.validator_address.size();
+                }
+                BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
+                BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
+                if (availableAmount.compareTo(feeAmount) <= 0) {
+                    Toast.makeText(mainActivity, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (availableAmount.compareTo(new BigDecimal("0.01")) < 0) {
+                    Toast.makeText(mainActivity, R.string.error_not_enough_to_deposit, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Intent intent = new Intent(mainActivity, OKStakingActivity.class);
+                mainActivity.startActivity(intent);
             }
         });
         mBtnOkWithdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mainActivity, "Temporary Disable", Toast.LENGTH_SHORT).show();
-//                if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0) return;
-//                if (!mainActivity.mAccount.hasPrivateKey) {
-//                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//                    add.setCancelable(true);
-//                    mainActivity.getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//                    return;
-//                }
-//
-//                if ((mainActivity.getBaseDao().okDepositAmount()).compareTo(BigDecimal.ZERO) <= 0) {
-//                    Toast.makeText(mainActivity, R.string.error_not_enough_to_withdraw, Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                int myValidatorCnt = 0;
-//                if (mainActivity.getBaseDao().mOkStaking != null && mainActivity.getBaseDao().mOkStaking.validator_address != null) {
-//                    myValidatorCnt = mainActivity.getBaseDao().mOkStaking.validator_address.size();
-//                }
-//                BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
-//                BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
-//                if (availableAmount.compareTo(feeAmount) <= 0) {
-//                    Toast.makeText(mainActivity, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                Intent intent = new Intent(mainActivity, OKUnbondingActivity.class);
-//                mainActivity.startActivity(intent);
+                if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0) return;
+                if (!mainActivity.mAccount.hasPrivateKey) {
+                    Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                    add.setCancelable(true);
+                    mainActivity.getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    return;
+                }
+
+                if ((mainActivity.getBaseDao().okDepositAmount()).compareTo(BigDecimal.ZERO) <= 0) {
+                    Toast.makeText(mainActivity, R.string.error_not_enough_to_withdraw, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                int myValidatorCnt = 0;
+                if (mainActivity.getBaseDao().mOkStaking != null && mainActivity.getBaseDao().mOkStaking.validator_address != null) {
+                    myValidatorCnt = mainActivity.getBaseDao().mOkStaking.validator_address.size();
+                }
+                BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
+                BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
+                if (availableAmount.compareTo(feeAmount) <= 0) {
+                    Toast.makeText(mainActivity, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Intent intent = new Intent(mainActivity, OKUnbondingActivity.class);
+                mainActivity.startActivity(intent);
             }
         });
         mBtnOkVoteForVali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mainActivity, "Temporary Disable", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(mainActivity, OKValidatorListActivity.class);
-//                mainActivity.startActivity(intent);
+                Intent intent = new Intent(mainActivity, OKValidatorListActivity.class);
+                mainActivity.startActivity(intent);
             }
         });
         mBtnOkVote.setOnClickListener(new View.OnClickListener() {
