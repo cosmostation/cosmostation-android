@@ -54,6 +54,7 @@
     <color name="colorTransBgCudos">#2410aecc</color>
     <color name="colorTransBgProvenance">#24628ee4</color>
     <color name="colorTransBgCerberus">#24d7ad17</color>
+    <color name="colorTransBgOmniflix">#246c63ff</color>
     <color name="colorTransBgGray">#E63D3D3D</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
@@ -200,6 +201,9 @@
 
     <color name="colorCerberus">#d7ad17</color>
     <color name="colorCerberus2">#7d6610</color>
+
+    <color name="colorOmniflix">#6c63ff</color>
+    <color name="colorOmniflix2">#3228ab</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

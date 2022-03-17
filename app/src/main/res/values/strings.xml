@@ -136,6 +136,9 @@
     <string name="url_api_cerberus" translatable="false">https://api-cerberus.cosmostation.io/</string>
 
 
+    <string name="url_api_omniflix" translatable="false">https://api-omniflix.cosmostation.io/</string>
+
+
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
     <string name="url_api_rizon" translatable="false">https://api-rizon.cosmostation.io/</string>
@@ -249,6 +252,7 @@
     <string name="str_cudos_main_net" translatable="false">Cudos</string>
     <string name="str_provenance_main_net" translatable="false">Provenance</string>
     <string name="str_cerberus_main_net" translatable="false">Cerberus</string>
+    <string name="str_omniflix_main_net" translatable="false">Omniflix</string>
     <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
     <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
     <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>

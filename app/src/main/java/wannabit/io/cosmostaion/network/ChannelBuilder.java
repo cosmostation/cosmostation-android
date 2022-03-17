@@ -30,6 +30,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
@@ -157,6 +158,9 @@ public class ChannelBuilder {
     private final static String GRPC_CERBERUS_MAIN = "lcd-cerberus-app.cosmostation.io";
     private final static int PORT_CERBERUS_MAIN = 9090;
 
+    private final static String GRPC_OMNIFLIX_MAIN = "lcd-omniflix-app.cosmostation.io";
+    private final static int PORT_OMNIFLIX_MAIN = 9090;
+
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -246,6 +250,8 @@ public class ChannelBuilder {
             return getProvenanceMain();
         } else if (chain.equals(CERBERUS_MAIN)) {
             return getCerberusMain();
+        } else if (chain.equals(OMNIFLIX_MAIN)) {
+            return getOmniflixMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -739,6 +745,19 @@ public class ChannelBuilder {
             }
         }
         return channel_cerberus_main;
+    }
+
+    //Channel for omniflix main
+    private static ManagedChannel channel_omniflix_main = null;
+    public static ManagedChannel getOmniflixMain() {
+        if (channel_omniflix_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_omniflix_main = ManagedChannelBuilder.forAddress(GRPC_OMNIFLIX_MAIN, PORT_OMNIFLIX_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_omniflix_main;
     }
 
     //Channel for stargate testnet

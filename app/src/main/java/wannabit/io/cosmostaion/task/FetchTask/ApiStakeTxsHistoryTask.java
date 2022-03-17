@@ -349,6 +349,15 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
+
+            } else if (mChain.equals(BaseChain.OMNIFLIX_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getOmniflixApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
             }
 
             else if (mChain.equals(BaseChain.COSMOS_TEST)) {
