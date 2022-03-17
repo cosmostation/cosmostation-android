@@ -8,6 +8,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERBERUS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
@@ -31,6 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
@@ -494,6 +496,10 @@ public class WKey {
                 result = bech32Encode("cudos".getBytes(), converted);
             } else if (chain.equals(PROVENANCE_MAIN)){
                 result = bech32Encode("pb".getBytes(), converted);
+            } else if (chain.equals(CERBERUS_MAIN)){
+                result = bech32Encode("cerberus".getBytes(), converted);
+            } else if (chain.equals(OMNIFLIX_MAIN)){
+                result = bech32Encode("omniflix".getBytes(), converted);
             }
 
         } catch (Exception e) {
@@ -579,6 +585,10 @@ public class WKey {
             return bech32Encode("cudos".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(PROVENANCE_MAIN)) {
             return bech32Encode("pb".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(CERBERUS_MAIN)) {
+            return bech32Encode("cerberus".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(OMNIFLIX_MAIN)) {
+            return bech32Encode("omniflix".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }

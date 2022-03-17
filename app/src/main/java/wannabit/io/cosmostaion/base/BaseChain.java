@@ -73,6 +73,8 @@ public enum BaseChain {
     EVMOS_MAIN("evmos-mainnet"),
     CUDOS_MAIN("cudos-mainnet"),
     PROVENANCE_MAIN("provenance-mainnet"),
+    CERBERUS_MAIN("cerberus-mainnet"),
+    OMNIFLIX_MAIN("omniflix-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -174,59 +176,65 @@ public enum BaseChain {
         if (chainName.equals(RIZON_MAIN.chainName)) {
             return RIZON_MAIN;
         }
-        if(chainName.equals(JUNO_MAIN.chainName)) {
+        if (chainName.equals(JUNO_MAIN.chainName)) {
             return JUNO_MAIN;
         }
-        if(chainName.equals(REGEN_MAIN.chainName)) {
+        if (chainName.equals(REGEN_MAIN.chainName)) {
             return REGEN_MAIN;
         }
-        if(chainName.equals(BITCANNA_MAIN.chainName)) {
+        if (chainName.equals(BITCANNA_MAIN.chainName)) {
             return BITCANNA_MAIN;
         }
-        if(chainName.equals(ALTHEA_MAIN.chainName)) {
+        if (chainName.equals(ALTHEA_MAIN.chainName)) {
             return ALTHEA_MAIN;
         }
-        if(chainName.equals(STARGAZE_MAIN.chainName)) {
+        if (chainName.equals(STARGAZE_MAIN.chainName)) {
             return STARGAZE_MAIN;
         }
-        if(chainName.equals(GRABRIDGE_MAIN.chainName)) {
+        if (chainName.equals(GRABRIDGE_MAIN.chainName)) {
             return GRABRIDGE_MAIN;
         }
-        if(chainName.equals(COMDEX_MAIN.chainName)) {
+        if (chainName.equals(COMDEX_MAIN.chainName)) {
             return COMDEX_MAIN;
         }
-        if(chainName.equals(INJ_MAIN.chainName)) {
+        if (chainName.equals(INJ_MAIN.chainName)) {
             return INJ_MAIN;
         }
-        if(chainName.equals(BITSONG_MAIN.chainName)) {
+        if (chainName.equals(BITSONG_MAIN.chainName)) {
             return BITSONG_MAIN;
         }
-        if(chainName.equals(DESMOS_MAIN.chainName)) {
+        if (chainName.equals(DESMOS_MAIN.chainName)) {
             return DESMOS_MAIN;
         }
-        if(chainName.equals(LUM_MAIN.chainName)) {
+        if (chainName.equals(LUM_MAIN.chainName)) {
             return LUM_MAIN;
         }
-        if(chainName.equals(CHIHUAHUA_MAIN.chainName)) {
+        if (chainName.equals(CHIHUAHUA_MAIN.chainName)) {
             return CHIHUAHUA_MAIN;
         }
-        if(chainName.equals(AXELAR_MAIN.chainName)) {
+        if (chainName.equals(AXELAR_MAIN.chainName)) {
             return AXELAR_MAIN;
         }
-        if(chainName.equals(KONSTELL_MAIN.chainName)) {
+        if (chainName.equals(KONSTELL_MAIN.chainName)) {
             return KONSTELL_MAIN;
         }
-        if(chainName.equals(UMEE_MAIN.chainName)) {
+        if (chainName.equals(UMEE_MAIN.chainName)) {
             return UMEE_MAIN;
         }
-        if(chainName.equals(EVMOS_MAIN.chainName)) {
+        if (chainName.equals(EVMOS_MAIN.chainName)) {
             return EVMOS_MAIN;
         }
-        if(chainName.equals(CUDOS_MAIN.chainName)) {
+        if (chainName.equals(CUDOS_MAIN.chainName)) {
             return CUDOS_MAIN;
         }
-        if(chainName.equals(PROVENANCE_MAIN.chainName)) {
+        if (chainName.equals(PROVENANCE_MAIN.chainName)) {
             return PROVENANCE_MAIN;
+        }
+        if (chainName.equals(CERBERUS_MAIN.chainName)) {
+            return CERBERUS_MAIN;
+        }
+        if (chainName.equals(OMNIFLIX_MAIN.chainName)) {
+            return OMNIFLIX_MAIN;
         }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
@@ -251,6 +259,7 @@ public enum BaseChain {
         result.add(BNB_MAIN);
         result.add(BITCANNA_MAIN);
         result.add(BITSONG_MAIN);
+        result.add(CERBERUS_MAIN);
         result.add(CERTIK_MAIN);
         result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);
@@ -269,6 +278,7 @@ public enum BaseChain {
         result.add(LUM_MAIN);
         result.add(MEDI_MAIN);
         result.add(OKEX_MAIN);
+        result.add(OMNIFLIX_MAIN);
         result.add(OSMOSIS_MAIN);
         result.add(PERSIS_MAIN);
         result.add(PROVENANCE_MAIN);
