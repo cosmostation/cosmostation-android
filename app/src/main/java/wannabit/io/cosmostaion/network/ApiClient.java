@@ -697,6 +697,36 @@ public class ApiClient {
         }
         return api_provenance;
     }
+
+    //Services for cerberus mainnet api
+    private static HistoryApi api_cerberus = null;
+    public static HistoryApi getCerberusApi(Context c) {
+        if (api_cerberus == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_cerberus))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_cerberus = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_cerberus;
+    }
+
+    //Services for omniflix mainnet api
+    private static HistoryApi api_omniflix = null;
+    public static HistoryApi getOmniflixApi(Context c) {
+        if (api_omniflix == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_omniflix))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_omniflix = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_omniflix;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
