@@ -7,6 +7,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERBERUS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
@@ -153,6 +154,9 @@ public class ChannelBuilder {
     private final static String GRPC_PROVENANCE_MAIN = "lcd-provenance-app.cosmostation.io";
     private final static int PORT_PROVENANCE_MAIN = 9090;
 
+    private final static String GRPC_CERBERUS_MAIN = "lcd-cerberus-app.cosmostation.io";
+    private final static int PORT_CERBERUS_MAIN = 9090;
+
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -240,6 +244,8 @@ public class ChannelBuilder {
             return getCudosMain();
         } else if (chain.equals(PROVENANCE_MAIN)) {
             return getProvenanceMain();
+        } else if (chain.equals(CERBERUS_MAIN)) {
+            return getCerberusMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -720,6 +726,19 @@ public class ChannelBuilder {
             }
         }
         return channel_provenance_main;
+    }
+
+    //Channel for cerberus main
+    private static ManagedChannel channel_cerberus_main = null;
+    public static ManagedChannel getCerberusMain() {
+        if (channel_cerberus_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_cerberus_main = ManagedChannelBuilder.forAddress(GRPC_CERBERUS_MAIN, PORT_CERBERUS_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_cerberus_main;
     }
 
     //Channel for stargate testnet
