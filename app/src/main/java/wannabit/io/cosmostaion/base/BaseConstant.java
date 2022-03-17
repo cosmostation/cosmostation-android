@@ -969,7 +969,7 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_KONSTELLATION = new BigDecimal("5.376");
     public final static BigDecimal BLOCK_TIME_UMEE = new BigDecimal("5.658");
     public final static BigDecimal BLOCK_TIME_EVMOS = new BigDecimal("5.824");
-    public final static BigDecimal BLOCK_TIME_PROVENANCE = new BigDecimal("6.4148");
-    public final static BigDecimal BLOCK_TIME_CERBERUS = new BigDecimal("6.0000");
-    public final static BigDecimal BLOCK_TIME_OMNIFLIX = new BigDecimal("6.0000");
+    public final static BigDecimal BLOCK_TIME_PROVENANCE = new BigDecimal("6.3061");
+    public final static BigDecimal BLOCK_TIME_CERBERUS = new BigDecimal("5.9666");
+    public final static BigDecimal BLOCK_TIME_OMNIFLIX = new BigDecimal("5.7970");
 }
