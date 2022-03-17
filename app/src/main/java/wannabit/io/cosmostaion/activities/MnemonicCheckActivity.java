@@ -7,6 +7,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERBERUS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
@@ -178,6 +179,8 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_cudos));
             } else if (getChain(toCheck.baseChain).equals(PROVENANCE_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_provenance));
+            } else if (getChain(toCheck.baseChain).equals(CERBERUS_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_cerberus));
             }
             
             if(i >= mWords.size()) mWordsLayer[i].setVisibility(View.INVISIBLE);

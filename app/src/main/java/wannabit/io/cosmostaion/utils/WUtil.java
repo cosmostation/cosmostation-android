@@ -8,6 +8,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERBERUS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
@@ -2739,6 +2740,9 @@ public class WUtil {
             } else if (chain.equals(PROVENANCE_MAIN)) {
                 return BLOCK_TIME_PROVENANCE;
 
+            } else if (chain.equals(CERBERUS_MAIN)) {
+                return BLOCK_TIME_CERBERUS;
+
             }
         }
         return BigDecimal.ZERO;
@@ -3058,6 +3062,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_provenance);
             guideMsg.setText(R.string.str_front_guide_msg_provenance);
 
+        } else if (mainActivity.mBaseChain.equals(CERBERUS_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_cerberus));
+            guideTitle.setText(R.string.str_front_guide_title_cerberus);
+            guideMsg.setText(R.string.str_front_guide_msg_cerberus);
+
         }
     }
 
@@ -3252,6 +3261,11 @@ public class WUtil {
             coinDenom.setText(R.string.str_provenance_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_provenance);
 
+        } else if (chain.equals(CERBERUS_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_cerberus));
+            coinDenom.setText(R.string.str_cerberus_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_cerberus);
+
         }
     }
 
@@ -3429,6 +3443,9 @@ public class WUtil {
 
         } else if (chain.equals(PROVENANCE_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.provenance.io/"));
+
+        } else if (chain.equals(CERBERUS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://cerberus.zone/"));
         }
         return null;
     }
@@ -3556,6 +3573,9 @@ public class WUtil {
         } else if (chain.equals(PROVENANCE_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.provenance.io/blog/"));
 
+        } else if (chain.equals(CERBERUS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@cerberus_zone"));
+
         }
         return null;
     }
@@ -3676,6 +3696,9 @@ public class WUtil {
 
         } else if (basechain.equals(PROVENANCE_MAIN)) {
             return EXPLORER_PROVENANCE_MAIN;
+
+        } else if (basechain.equals(CERBERUS_MAIN)) {
+            return EXPLORER_CERBERUS_MAIN;
 
         }
 
@@ -3806,6 +3829,9 @@ public class WUtil {
 
             } else if (basechain.equals(PROVENANCE_MAIN)) {
                 return EXPLORER_PROVENANCE_MAIN + "txs/" + hash;
+
+            } else if (basechain.equals(CERBERUS_MAIN)) {
+                return EXPLORER_CERBERUS_MAIN + "txs/" + hash;
 
             }
 
@@ -4276,6 +4302,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(CERBERUS_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(CERBERUS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         }
 
         else if (basechain.equals(BNB_MAIN)) {
@@ -4546,6 +4577,14 @@ public class WUtil {
                 return new BigDecimal(PROVENANCE_GAS_RATE_LOW);
             }
             return new BigDecimal(PROVENANCE_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(CERBERUS_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(CERBERUS_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(CERBERUS_GAS_RATE_LOW);
+            }
+            return new BigDecimal(CERBERUS_GAS_RATE_AVERAGE);
 
         }
 

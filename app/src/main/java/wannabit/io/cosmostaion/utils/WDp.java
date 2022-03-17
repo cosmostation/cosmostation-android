@@ -9,6 +9,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERBERUS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
@@ -535,6 +536,15 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 9, 9));
 
+        } else if (chain.equals(CERBERUS_MAIN)) {
+            if (coin.denom.equals(TOKEN_CRBRUS)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -950,6 +960,15 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 9, 9));
+
+        } else if (chain.equals(CERBERUS_MAIN)) {
+            if (symbol.equals(TOKEN_CRBRUS)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -1086,6 +1105,8 @@ public class WDp {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_cudos));
             } else if (baseChain.equals(PROVENANCE_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_provenance));
+            } else if (baseChain.equals(CERBERUS_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_cerberus));
 
             }
 
@@ -1177,6 +1198,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_cudos_net));
             } else if (baseChain.equals(PROVENANCE_MAIN)) {
                 chainName.setText(c.getString(R.string.str_provenance_net));
+            } else if (baseChain.equals(CERBERUS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_cerberus_net));
 
             }
 
@@ -1269,6 +1292,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_cudos_main));
             } else if (baseChain.equals(PROVENANCE_MAIN)) {
                 chainName.setText(c.getString(R.string.str_provenance_main));
+            } else if (baseChain.equals(CERBERUS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_cerberus_main));
 
             }
 
@@ -1368,6 +1393,8 @@ public class WDp {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorCudos));
         } else if (baseChain.equals(PROVENANCE_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorProvenance));
+        } else if (baseChain.equals(CERBERUS_MAIN)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorCerberus));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -1455,6 +1482,8 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_cudos));
             } else if (baseChain.equals(PROVENANCE_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_provenance));
+            } else if (baseChain.equals(CERBERUS_MAIN)) {
+                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_cerberus));
             }
             else if (baseChain.equals(COSMOS_TEST) || baseChain.equals(IRIS_TEST) || baseChain.equals(ALTHEA_TEST)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_darkgray));
@@ -1534,6 +1563,8 @@ public class WDp {
                 return CUDOS_MAIN;
             } else if (chainId.contains("pio-mainnet-")) {
                 return PROVENANCE_MAIN;
+            } else if (chainId.contains("cerberus-")) {
+                return CERBERUS_MAIN;
             }
         }
         return null;
@@ -1681,6 +1712,10 @@ public class WDp {
                 if (!address.startsWith("pb1")) {
                     textView.setText("");
                 }
+            } else if (baseChain.equals(CERBERUS_MAIN)) {
+                if (!address.startsWith("cerberus1")) {
+                    textView.setText("");
+                }
             }
         }
     }
@@ -1763,6 +1798,8 @@ public class WDp {
                 return "cudos";
             } else if (baseChain.equals(PROVENANCE_MAIN)) {
                 return "provenance";
+            } else if (baseChain.equals(CERBERUS_MAIN)) {
+                return "cerberus";
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
@@ -1818,6 +1855,7 @@ public class WDp {
             else if (address.startsWith("evmos1") && baseChain.equals(EVMOS_MAIN)) { return true; }
             else if (address.startsWith("cudos1") && baseChain.equals(CUDOS_MAIN)) { return true; }
             else if (address.startsWith("pb1") && baseChain.equals(PROVENANCE_MAIN)) { return true; }
+            else if (address.startsWith("cerberus1") && baseChain.equals(CERBERUS_MAIN)) { return true; }
         }
         return false;
     }
@@ -1870,6 +1908,7 @@ public class WDp {
             else if (address.startsWith("evmos1")) { return Lists.newArrayList(EVMOS_MAIN); }
             else if (address.startsWith("cudos1")) { return Lists.newArrayList(CUDOS_MAIN); }
             else if (address.startsWith("pb1")) { return Lists.newArrayList(PROVENANCE_MAIN); }
+            else if (address.startsWith("cerberus1")) { return Lists.newArrayList(CERBERUS_MAIN); }
         }
         return null;
     }
@@ -1911,6 +1950,7 @@ public class WDp {
             else if (chain.equals(EVMOS_MAIN)) { return EVMOS_UNKNOWN_RELAYER; }
             else if (chain.equals(CUDOS_MAIN)) { return CUDOS_UNKNOWN_RELAYER; }
             else if (chain.equals(PROVENANCE_MAIN)) { return PROVENANCE_UNKNOWN_RELAYER; }
+            else if (chain.equals(CERBERUS_MAIN)) { return CERBERUS_UNKNOWN_RELAYER; }
         }
         return null;
     }
@@ -2944,6 +2984,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorCudos);
             } else if (chain.equals(PROVENANCE_MAIN)) {
                 return c.getResources().getColor(R.color.colorProvenance);
+            } else if (chain.equals(CERBERUS_MAIN)) {
+                return c.getResources().getColor(R.color.colorCerberus);
             }
         }
         return c.getResources().getColor(R.color.colorGray0);
@@ -3027,6 +3069,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorTransBgCudos);
             } else if (chain.equals(PROVENANCE_MAIN)) {
                 return c.getResources().getColor(R.color.colorTransBgProvenance);
+            } else if (chain.equals(CERBERUS_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgCerberus);
             }
         }
         return c.getResources().getColor(R.color.colorTransBg);
@@ -3108,6 +3152,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_cudos);
             } else if (chain.equals(PROVENANCE_MAIN)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_provenance);
+            } else if (chain.equals(CERBERUS_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_cerberus);
             }
         }
         return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
@@ -3189,6 +3235,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.colorCudos);
             } else if (chain.equals(PROVENANCE_MAIN)) {
                 return c.getResources().getColorStateList(R.color.colorProvenance);
+            } else if (chain.equals(CERBERUS_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorCerberus);
             }
         }
         return c.getResources().getColorStateList(R.color.colorTransBg);
@@ -3351,6 +3399,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorProvenance));
             textview.setText(c.getString(R.string.s_provenance));
 
+        } else if (BaseChain.getChain(chain).equals(CERBERUS_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorCerberus));
+            textview.setText(c.getString(R.string.s_cerberus));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -3445,6 +3497,8 @@ public class WDp {
             return TOKEN_CUDOS;
         } else if (chain.equals(PROVENANCE_MAIN)) {
             return TOKEN_HASH;
+        } else if (chain.equals(CERBERUS_MAIN)) {
+            return TOKEN_CRBRUS;
         }
         return "";
     }
@@ -3528,6 +3582,8 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_cudos);
             } else if (baseChain.equals(PROVENANCE_MAIN)) {
                 imageView.setImageResource(R.drawable.token_hash);
+            } else if (baseChain.equals(CERBERUS_MAIN)) {
+                imageView.setImageResource(R.drawable.token_cerberus);
             }
         } else {
             imageView.setImageResource(R.drawable.token_ic);
@@ -3947,6 +4003,8 @@ public class WDp {
             return CUDOS_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(PROVENANCE_MAIN)) {
             return PROVENANCE_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(CERBERUS_MAIN)) {
+            return CERBERUS_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(OKEX_MAIN)) {
