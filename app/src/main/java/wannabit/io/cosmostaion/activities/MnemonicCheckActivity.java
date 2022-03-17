@@ -29,6 +29,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
@@ -181,6 +182,8 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_provenance));
             } else if (getChain(toCheck.baseChain).equals(CERBERUS_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_cerberus));
+            } else if (getChain(toCheck.baseChain).equals(OMNIFLIX_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_omniflix));
             }
             
             if(i >= mWords.size()) mWordsLayer[i].setVisibility(View.INVISIBLE);

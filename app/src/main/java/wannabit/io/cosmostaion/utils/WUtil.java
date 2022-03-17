@@ -32,6 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
@@ -2743,6 +2744,9 @@ public class WUtil {
             } else if (chain.equals(CERBERUS_MAIN)) {
                 return BLOCK_TIME_CERBERUS;
 
+            } else if (chain.equals(OMNIFLIX_MAIN)) {
+                return BLOCK_TIME_OMNIFLIX;
+
             }
         }
         return BigDecimal.ZERO;
@@ -3067,6 +3071,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_cerberus);
             guideMsg.setText(R.string.str_front_guide_msg_cerberus);
 
+        } else if (mainActivity.mBaseChain.equals(OMNIFLIX_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_omniflix));
+            guideTitle.setText(R.string.str_front_guide_title_omniflix);
+            guideMsg.setText(R.string.str_front_guide_msg_omniflix);
+
         }
     }
 
@@ -3266,6 +3275,11 @@ public class WUtil {
             coinDenom.setText(R.string.str_cerberus_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_cerberus);
 
+        } else if (chain.equals(OMNIFLIX_MAIN)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_omniflix));
+            coinDenom.setText(R.string.str_omniflix_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_omniflix);
+
         }
     }
 
@@ -3446,6 +3460,9 @@ public class WUtil {
 
         } else if (chain.equals(CERBERUS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://cerberus.zone/"));
+
+        } else if (chain.equals(OMNIFLIX_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://omniflix.network/"));
         }
         return null;
     }
@@ -3576,6 +3593,9 @@ public class WUtil {
         } else if (chain.equals(CERBERUS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@cerberus_zone"));
 
+        } else if (chain.equals(OMNIFLIX_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.omniflix.network/"));
+
         }
         return null;
     }
@@ -3699,6 +3719,9 @@ public class WUtil {
 
         } else if (basechain.equals(CERBERUS_MAIN)) {
             return EXPLORER_CERBERUS_MAIN;
+
+        } else if (basechain.equals(OMNIFLIX_MAIN)) {
+            return EXPLORER_OMNIFLIX_MAIN;
 
         }
 
@@ -3832,6 +3855,9 @@ public class WUtil {
 
             } else if (basechain.equals(CERBERUS_MAIN)) {
                 return EXPLORER_CERBERUS_MAIN + "txs/" + hash;
+
+            } else if (basechain.equals(OMNIFLIX_MAIN)) {
+                return EXPLORER_OMNIFLIX_MAIN + "txs/" + hash;
 
             }
 
@@ -4307,6 +4333,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(OMNIFLIX_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(OMNIFLIX_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         }
 
         else if (basechain.equals(BNB_MAIN)) {
@@ -4585,6 +4616,14 @@ public class WUtil {
                 return new BigDecimal(CERBERUS_GAS_RATE_LOW);
             }
             return new BigDecimal(CERBERUS_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(OMNIFLIX_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(OMNIFLIX_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(OMNIFLIX_GAS_RATE_LOW);
+            }
+            return new BigDecimal(OMNIFLIX_GAS_RATE_AVERAGE);
 
         }
 

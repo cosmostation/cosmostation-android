@@ -33,6 +33,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KONSTELL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
@@ -545,6 +546,15 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+        } else if (chain.equals(OMNIFLIX_MAIN)) {
+            if (coin.denom.equals(TOKEN_FLIX)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -969,6 +979,15 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(OMNIFLIX_MAIN)) {
+            if (symbol.equals(TOKEN_FLIX)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -1107,6 +1126,8 @@ public class WDp {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_provenance));
             } else if (baseChain.equals(CERBERUS_MAIN)) {
                 chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_cerberus));
+            } else if (baseChain.equals(OMNIFLIX_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_omniflix));
 
             }
 
@@ -1200,6 +1221,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_provenance_net));
             } else if (baseChain.equals(CERBERUS_MAIN)) {
                 chainName.setText(c.getString(R.string.str_cerberus_net));
+            } else if (baseChain.equals(OMNIFLIX_MAIN)) {
+                chainName.setText(c.getString(R.string.str_omniflix_net));
 
             }
 
@@ -1294,6 +1317,8 @@ public class WDp {
                 chainName.setText(c.getString(R.string.str_provenance_main));
             } else if (baseChain.equals(CERBERUS_MAIN)) {
                 chainName.setText(c.getString(R.string.str_cerberus_main));
+            } else if (baseChain.equals(OMNIFLIX_MAIN)) {
+                chainName.setText(c.getString(R.string.str_omniflix_main));
 
             }
 
@@ -1395,6 +1420,8 @@ public class WDp {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorProvenance));
         } else if (baseChain.equals(CERBERUS_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorCerberus));
+        } else if (baseChain.equals(OMNIFLIX_MAIN)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorOmniflix));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -1484,6 +1511,8 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_provenance));
             } else if (baseChain.equals(CERBERUS_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_cerberus));
+            } else if (baseChain.equals(OMNIFLIX_MAIN)) {
+                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_omniflix));
             }
             else if (baseChain.equals(COSMOS_TEST) || baseChain.equals(IRIS_TEST) || baseChain.equals(ALTHEA_TEST)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_darkgray));
@@ -1565,6 +1594,8 @@ public class WDp {
                 return PROVENANCE_MAIN;
             } else if (chainId.contains("cerberus-")) {
                 return CERBERUS_MAIN;
+            } else if (chainId.contains("omniflixhub-")) {
+                return OMNIFLIX_MAIN;
             }
         }
         return null;
@@ -1716,6 +1747,10 @@ public class WDp {
                 if (!address.startsWith("cerberus1")) {
                     textView.setText("");
                 }
+            } else if (baseChain.equals(OMNIFLIX_MAIN)) {
+                if (!address.startsWith("omniflix1")) {
+                    textView.setText("");
+                }
             }
         }
     }
@@ -1800,6 +1835,8 @@ public class WDp {
                 return "provenance";
             } else if (baseChain.equals(CERBERUS_MAIN)) {
                 return "cerberus";
+            } else if (baseChain.equals(OMNIFLIX_MAIN)) {
+                return "omniflix";
             }
 
             else if (baseChain.equals(COSMOS_TEST)) {
@@ -1856,6 +1893,7 @@ public class WDp {
             else if (address.startsWith("cudos1") && baseChain.equals(CUDOS_MAIN)) { return true; }
             else if (address.startsWith("pb1") && baseChain.equals(PROVENANCE_MAIN)) { return true; }
             else if (address.startsWith("cerberus1") && baseChain.equals(CERBERUS_MAIN)) { return true; }
+            else if (address.startsWith("omniflix1") && baseChain.equals(OMNIFLIX_MAIN)) { return true; }
         }
         return false;
     }
@@ -1909,6 +1947,7 @@ public class WDp {
             else if (address.startsWith("cudos1")) { return Lists.newArrayList(CUDOS_MAIN); }
             else if (address.startsWith("pb1")) { return Lists.newArrayList(PROVENANCE_MAIN); }
             else if (address.startsWith("cerberus1")) { return Lists.newArrayList(CERBERUS_MAIN); }
+            else if (address.startsWith("omniflix1")) { return Lists.newArrayList(OMNIFLIX_MAIN); }
         }
         return null;
     }
@@ -1951,6 +1990,7 @@ public class WDp {
             else if (chain.equals(CUDOS_MAIN)) { return CUDOS_UNKNOWN_RELAYER; }
             else if (chain.equals(PROVENANCE_MAIN)) { return PROVENANCE_UNKNOWN_RELAYER; }
             else if (chain.equals(CERBERUS_MAIN)) { return CERBERUS_UNKNOWN_RELAYER; }
+            else if (chain.equals(OMNIFLIX_MAIN)) { return OMNIFLIX_UNKNOWN_RELAYER; }
         }
         return null;
     }
@@ -2986,6 +3026,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorProvenance);
             } else if (chain.equals(CERBERUS_MAIN)) {
                 return c.getResources().getColor(R.color.colorCerberus);
+            } else if (chain.equals(OMNIFLIX_MAIN)) {
+                return c.getResources().getColor(R.color.colorOmniflix);
             }
         }
         return c.getResources().getColor(R.color.colorGray0);
@@ -3071,6 +3113,8 @@ public class WDp {
                 return c.getResources().getColor(R.color.colorTransBgProvenance);
             } else if (chain.equals(CERBERUS_MAIN)) {
                 return c.getResources().getColor(R.color.colorTransBgCerberus);
+            } else if (chain.equals(OMNIFLIX_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgOmniflix);
             }
         }
         return c.getResources().getColor(R.color.colorTransBg);
@@ -3154,6 +3198,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_provenance);
             } else if (chain.equals(CERBERUS_MAIN)) {
                 return c.getResources().getColorStateList(R.color.color_tab_myvalidator_cerberus);
+            } else if (chain.equals(OMNIFLIX_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_omniflix);
             }
         }
         return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
@@ -3237,6 +3283,8 @@ public class WDp {
                 return c.getResources().getColorStateList(R.color.colorProvenance);
             } else if (chain.equals(CERBERUS_MAIN)) {
                 return c.getResources().getColorStateList(R.color.colorCerberus);
+            } else if (chain.equals(OMNIFLIX_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorOmniflix);
             }
         }
         return c.getResources().getColorStateList(R.color.colorTransBg);
@@ -3403,6 +3451,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorCerberus));
             textview.setText(c.getString(R.string.s_cerberus));
 
+        } else if (BaseChain.getChain(chain).equals(OMNIFLIX_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorOmniflix));
+            textview.setText(c.getString(R.string.s_omniflix));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -3499,6 +3551,8 @@ public class WDp {
             return TOKEN_HASH;
         } else if (chain.equals(CERBERUS_MAIN)) {
             return TOKEN_CRBRUS;
+        } else if (chain.equals(OMNIFLIX_MAIN)) {
+            return TOKEN_FLIX;
         }
         return "";
     }
@@ -3584,6 +3638,8 @@ public class WDp {
                 imageView.setImageResource(R.drawable.token_hash);
             } else if (baseChain.equals(CERBERUS_MAIN)) {
                 imageView.setImageResource(R.drawable.token_cerberus);
+            } else if (baseChain.equals(OMNIFLIX_MAIN)) {
+                imageView.setImageResource(R.drawable.token_omniflix);
             }
         } else {
             imageView.setImageResource(R.drawable.token_ic);
@@ -4005,6 +4061,8 @@ public class WDp {
             return PROVENANCE_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(CERBERUS_MAIN)) {
             return CERBERUS_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(OMNIFLIX_MAIN)) {
+            return OMNIFLIX_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(OKEX_MAIN)) {
