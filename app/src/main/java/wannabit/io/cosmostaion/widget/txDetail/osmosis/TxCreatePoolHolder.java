@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
-import osmosis.gamm.v1beta1.Tx;
+import osmosis.gamm.poolmodels.balancer.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;

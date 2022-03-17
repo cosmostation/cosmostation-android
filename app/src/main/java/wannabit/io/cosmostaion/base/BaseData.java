@@ -52,7 +52,7 @@ import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import kava.swap.v1beta1.Swap;
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
+import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.crypto.EncResult;
@@ -490,7 +490,7 @@ public class BaseData {
     public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
 
     //Osmosis pool list
-    public ArrayList<BalancerPoolOuterClass.BalancerPool>       mGrpcOsmosisPool = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool>                              mGrpcOsmosisPool = new ArrayList<>();
 
     //Gravity pool list
     public ArrayList<Liquidity.Pool>                            mGrpcGravityPools = new ArrayList<>();
@@ -789,8 +789,8 @@ public class BaseData {
     }
 
 
-    public BalancerPoolOuterClass.BalancerPool getOsmosisPoolByDenom(String denom) {
-        for (BalancerPoolOuterClass.BalancerPool pool: mGrpcOsmosisPool) {
+    public BalancerPool.Pool getOsmosisPoolByDenom(String denom) {
+        for (BalancerPool.Pool pool: mGrpcOsmosisPool) {
             if (pool.getTotalShares().getDenom().equals(denom)) {
                 return pool;
             }

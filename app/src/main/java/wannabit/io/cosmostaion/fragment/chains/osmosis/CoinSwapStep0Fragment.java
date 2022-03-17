@@ -24,8 +24,8 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPool;
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset;
+import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.Pool;
 import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.SwapActivity;
@@ -132,7 +132,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         BigDecimal outputAssetAmount = BigDecimal.ZERO;
         BigDecimal outputAssetWeight = BigDecimal.ZERO;
 
-        for (PoolAsset asset: getSActivity().mOsmosisPool.getPoolAssetsList()) {
+        for (Pool.PoolAsset  asset: getSActivity().mOsmosisPool.getPoolAssetsList()) {
             if (asset.getToken().getDenom().equals(getSActivity().mInputDenom)) {
                 inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
                 inputAssetWeight = new BigDecimal(asset.getWeight());
@@ -290,7 +290,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mOsmosisPool = (BalancerPool)result.resultData;
+                getSActivity().mOsmosisPool = (BalancerPool.Pool)result.resultData;
             }
         }
         if (mTaskCount == 0) {

@@ -92,6 +92,12 @@ public final class Genesis {
      */
     com.google.protobuf.DurationOrBuilder getLockableDurationsOrBuilder(
         int index);
+
+    /**
+     * <code>uint64 last_gauge_id = 4;</code>
+     * @return The lastGaugeId.
+     */
+    long getLastGaugeId();
   }
   /**
    * <pre>
@@ -174,6 +180,11 @@ public final class Genesis {
               }
               lockableDurations_.add(
                   input.readMessage(com.google.protobuf.Duration.parser(), extensionRegistry));
+              break;
+            }
+            case 32: {
+
+              lastGaugeId_ = input.readUInt64();
               break;
             }
             default: {
@@ -332,6 +343,17 @@ public final class Genesis {
       return lockableDurations_.get(index);
     }
 
+    public static final int LAST_GAUGE_ID_FIELD_NUMBER = 4;
+    private long lastGaugeId_;
+    /**
+     * <code>uint64 last_gauge_id = 4;</code>
+     * @return The lastGaugeId.
+     */
+    @java.lang.Override
+    public long getLastGaugeId() {
+      return lastGaugeId_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -355,6 +377,9 @@ public final class Genesis {
       for (int i = 0; i < lockableDurations_.size(); i++) {
         output.writeMessage(3, lockableDurations_.get(i));
       }
+      if (lastGaugeId_ != 0L) {
+        output.writeUInt64(4, lastGaugeId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -375,6 +400,10 @@ public final class Genesis {
       for (int i = 0; i < lockableDurations_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, lockableDurations_.get(i));
+      }
+      if (lastGaugeId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(4, lastGaugeId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -400,6 +429,8 @@ public final class Genesis {
           .equals(other.getGaugesList())) return false;
       if (!getLockableDurationsList()
           .equals(other.getLockableDurationsList())) return false;
+      if (getLastGaugeId()
+          != other.getLastGaugeId()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -423,6 +454,9 @@ public final class Genesis {
         hash = (37 * hash) + LOCKABLE_DURATIONS_FIELD_NUMBER;
         hash = (53 * hash) + getLockableDurationsList().hashCode();
       }
+      hash = (37 * hash) + LAST_GAUGE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLastGaugeId());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -580,6 +614,8 @@ public final class Genesis {
         } else {
           lockableDurationsBuilder_.clear();
         }
+        lastGaugeId_ = 0L;
+
         return this;
       }
 
@@ -630,6 +666,7 @@ public final class Genesis {
         } else {
           result.lockableDurations_ = lockableDurationsBuilder_.build();
         }
+        result.lastGaugeId_ = lastGaugeId_;
         onBuilt();
         return result;
       }
@@ -732,6 +769,9 @@ public final class Genesis {
               lockableDurationsBuilder_.addAllMessages(other.lockableDurations_);
             }
           }
+        }
+        if (other.getLastGaugeId() != 0L) {
+          setLastGaugeId(other.getLastGaugeId());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1397,6 +1437,37 @@ public final class Genesis {
         }
         return lockableDurationsBuilder_;
       }
+
+      private long lastGaugeId_ ;
+      /**
+       * <code>uint64 last_gauge_id = 4;</code>
+       * @return The lastGaugeId.
+       */
+      @java.lang.Override
+      public long getLastGaugeId() {
+        return lastGaugeId_;
+      }
+      /**
+       * <code>uint64 last_gauge_id = 4;</code>
+       * @param value The lastGaugeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLastGaugeId(long value) {
+        
+        lastGaugeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 last_gauge_id = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLastGaugeId() {
+        
+        lastGaugeId_ = 0L;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1468,14 +1539,14 @@ public final class Genesis {
       "sis.incentives\032\024gogoproto/gogo.proto\032\036go" +
       "ogle/protobuf/duration.proto\032\037osmosis/in" +
       "centives/params.proto\032\036osmosis/incentive" +
-      "s/gauge.proto\"\317\001\n\014GenesisState\0220\n\006params" +
+      "s/gauge.proto\"\346\001\n\014GenesisState\0220\n\006params" +
       "\030\001 \001(\0132\032.osmosis.incentives.ParamsB\004\310\336\037\000" +
       "\022/\n\006gauges\030\002 \003(\0132\031.osmosis.incentives.Ga" +
       "ugeB\004\310\336\037\000\022\\\n\022lockable_durations\030\003 \003(\0132\031." +
       "google.protobuf.DurationB%\310\336\037\000\230\337\037\001\362\336\037\031ya" +
-      "ml:\"lockable_durations\"B4Z2github.com/os" +
-      "mosis-labs/osmosis/x/incentives/typesb\006p" +
-      "roto3"
+      "ml:\"lockable_durations\"\022\025\n\rlast_gauge_id" +
+      "\030\004 \001(\004B7Z5github.com/osmosis-labs/osmosi" +
+      "s/v7/x/incentives/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1490,7 +1561,7 @@ public final class Genesis {
     internal_static_osmosis_incentives_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_incentives_GenesisState_descriptor,
-        new java.lang.String[] { "Params", "Gauges", "LockableDurations", });
+        new java.lang.String[] { "Params", "Gauges", "LockableDurations", "LastGaugeId", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.moretags);

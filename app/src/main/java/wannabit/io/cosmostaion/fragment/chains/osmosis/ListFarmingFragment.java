@@ -13,7 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
+import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import osmosis.poolincentives.v1beta1.QueryOuterClass;
@@ -30,10 +30,10 @@ public class ListFarmingFragment extends BaseFragment {
     private RecyclerView        mRecyclerView;
     private EarningListAdapter  mAdapter;
 
-    public ArrayList<BalancerPoolOuterClass.BalancerPool>   mTempPoolList = new ArrayList<>();
-    public ArrayList<BalancerPoolOuterClass.BalancerPool>   mPoolList = new ArrayList<>();
-    public ArrayList<BalancerPoolOuterClass.BalancerPool>   mMyIncentivizedPool = new ArrayList<>();
-    public ArrayList<BalancerPoolOuterClass.BalancerPool>   mOtherIncentivizedPool = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool>   mTempPoolList = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool>   mPoolList = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool>   mMyIncentivizedPool = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool>   mOtherIncentivizedPool = new ArrayList<>();
 
     public ArrayList<QueryOuterClass.IncentivizedPool>  mIncentivizedPool = new ArrayList<>();
     public ArrayList<GaugeOuterClass.Gauge>             mActiveGauges = new ArrayList<>();
@@ -80,10 +80,10 @@ public class ListFarmingFragment extends BaseFragment {
         mActiveGauges = getSActivity().mActiveGauges;
         mPeriodLockUps = getSActivity().mPeriodLockUps;
 
-        ArrayList<BalancerPoolOuterClass.BalancerPool> filteredIncentivizedPool = new ArrayList<>();
+        ArrayList<BalancerPool.Pool> filteredIncentivizedPool = new ArrayList<>();
         for (QueryOuterClass.IncentivizedPool incentivizedPool: mIncentivizedPool) {
             boolean already = false;
-            for (BalancerPoolOuterClass.BalancerPool pool: filteredIncentivizedPool) {
+            for (BalancerPool.Pool pool: filteredIncentivizedPool) {
                 if (pool.getId() == incentivizedPool.getPoolId()) {
                     already = true;
                 }
@@ -93,7 +93,7 @@ public class ListFarmingFragment extends BaseFragment {
             }
         }
 
-        for (BalancerPoolOuterClass.BalancerPool pool: filteredIncentivizedPool) {
+        for (BalancerPool.Pool pool: filteredIncentivizedPool) {
             boolean isMaine = false;
             for (Lock.PeriodLock  lockup: mPeriodLockUps) {
                 String tempPoolId = lockup.getCoins(0).getDenom().replaceAll("gamm/pool/", "");
@@ -111,8 +111,8 @@ public class ListFarmingFragment extends BaseFragment {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    public BalancerPoolOuterClass.BalancerPool getPoolwithID(long id){
-        for (BalancerPoolOuterClass.BalancerPool pool: mTempPoolList) {
+    public BalancerPool.Pool getPoolwithID(long id){
+        for (BalancerPool.Pool pool: mTempPoolList) {
             if (pool.getId() == id) {
                 return pool;
             }
@@ -140,14 +140,14 @@ public class ListFarmingFragment extends BaseFragment {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_MY_EARNING) {
                 final EarningMyHolder holder = (EarningMyHolder)viewHolder;
-                final BalancerPoolOuterClass.BalancerPool pool = mMyIncentivizedPool.get(position);
+                final BalancerPool.Pool pool = mMyIncentivizedPool.get(position);
                 final ArrayList<GaugeOuterClass.Gauge> gauges = WUtil.getGaugesByPoolId(pool.getId(), mIncentivizedPool, mActiveGauges);
                 final ArrayList<Lock.PeriodLock> lockups = WUtil.getLockupByPoolId(pool.getId(), mPeriodLockUps);
                 holder.onBindView(getContext(), getSActivity(), getBaseDao(), pool, lockups, gauges);
 
             } else if (getItemViewType(position) == TYPE_OTHER_EARNING) {
                 final EarningOtherHolder holder = (EarningOtherHolder)viewHolder;
-                final BalancerPoolOuterClass.BalancerPool pool = mOtherIncentivizedPool.get(position - mMyIncentivizedPool.size());
+                final BalancerPool.Pool pool = mOtherIncentivizedPool.get(position - mMyIncentivizedPool.size());
                 final ArrayList<GaugeOuterClass.Gauge> gauges =  WUtil.getGaugesByPoolId(pool.getId(), mIncentivizedPool, mActiveGauges);
                 final ArrayList<Lock.PeriodLock> lockups = WUtil.getLockupByPoolId(pool.getId(), mPeriodLockUps);
                 holder.onBindView(getContext(), getSActivity(), getBaseDao(), pool, lockups, gauges);

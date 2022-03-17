@@ -4294,21 +4294,19 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
-     * @return Whether the balancerPoolParams field is set.
+     * <code>.google.protobuf2.Any params = 1;</code>
+     * @return Whether the params field is set.
      */
-    boolean hasBalancerPoolParams();
+    boolean hasParams();
     /**
-     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
-     * @return The balancerPoolParams.
+     * <code>.google.protobuf2.Any params = 1;</code>
+     * @return The params.
      */
-    osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams getBalancerPoolParams();
+    com.google.protobuf2.Any getParams();
     /**
-     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
+     * <code>.google.protobuf2.Any params = 1;</code>
      */
-    osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder getBalancerPoolParamsOrBuilder();
-
-    public osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse.ParamsCase getParamsCase();
+    com.google.protobuf2.AnyOrBuilder getParamsOrBuilder();
   }
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryPoolParamsResponse}
@@ -4356,17 +4354,16 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder subBuilder = null;
-              if (paramsCase_ == 1) {
-                subBuilder = ((osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams) params_).toBuilder();
+              com.google.protobuf2.Any.Builder subBuilder = null;
+              if (params_ != null) {
+                subBuilder = params_.toBuilder();
               }
-              params_ =
-                  input.readMessage(osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.parser(), extensionRegistry);
+              params_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams) params_);
+                subBuilder.mergeFrom(params_);
                 params_ = subBuilder.buildPartial();
               }
-              paramsCase_ = 1;
+
               break;
             }
             default: {
@@ -4401,74 +4398,30 @@ public final class QueryOuterClass {
               osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse.class, osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse.Builder.class);
     }
 
-    private int paramsCase_ = 0;
-    private java.lang.Object params_;
-    public enum ParamsCase
-        implements com.google.protobuf.Internal.EnumLite,
-            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
-      BALANCERPOOLPARAMS(1),
-      PARAMS_NOT_SET(0);
-      private final int value;
-      private ParamsCase(int value) {
-        this.value = value;
-      }
-      /**
-       * @param value The number of the enum to look for.
-       * @return The enum associated with the given number.
-       * @deprecated Use {@link #forNumber(int)} instead.
-       */
-      @java.lang.Deprecated
-      public static ParamsCase valueOf(int value) {
-        return forNumber(value);
-      }
-
-      public static ParamsCase forNumber(int value) {
-        switch (value) {
-          case 1: return BALANCERPOOLPARAMS;
-          case 0: return PARAMS_NOT_SET;
-          default: return null;
-        }
-      }
-      public int getNumber() {
-        return this.value;
-      }
-    };
-
-    public ParamsCase
-    getParamsCase() {
-      return ParamsCase.forNumber(
-          paramsCase_);
-    }
-
-    public static final int BALANCERPOOLPARAMS_FIELD_NUMBER = 1;
+    public static final int PARAMS_FIELD_NUMBER = 1;
+    private com.google.protobuf2.Any params_;
     /**
-     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
-     * @return Whether the balancerPoolParams field is set.
+     * <code>.google.protobuf2.Any params = 1;</code>
+     * @return Whether the params field is set.
      */
     @java.lang.Override
-    public boolean hasBalancerPoolParams() {
-      return paramsCase_ == 1;
+    public boolean hasParams() {
+      return params_ != null;
     }
     /**
-     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
-     * @return The balancerPoolParams.
+     * <code>.google.protobuf2.Any params = 1;</code>
+     * @return The params.
      */
     @java.lang.Override
-    public osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams getBalancerPoolParams() {
-      if (paramsCase_ == 1) {
-         return (osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams) params_;
-      }
-      return osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.getDefaultInstance();
+    public com.google.protobuf2.Any getParams() {
+      return params_ == null ? com.google.protobuf2.Any.getDefaultInstance() : params_;
     }
     /**
-     * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
+     * <code>.google.protobuf2.Any params = 1;</code>
      */
     @java.lang.Override
-    public osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder getBalancerPoolParamsOrBuilder() {
-      if (paramsCase_ == 1) {
-         return (osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams) params_;
-      }
-      return osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.getDefaultInstance();
+    public com.google.protobuf2.AnyOrBuilder getParamsOrBuilder() {
+      return getParams();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -4485,8 +4438,8 @@ public final class QueryOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (paramsCase_ == 1) {
-        output.writeMessage(1, (osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams) params_);
+      if (params_ != null) {
+        output.writeMessage(1, getParams());
       }
       unknownFields.writeTo(output);
     }
@@ -4497,9 +4450,9 @@ public final class QueryOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (paramsCase_ == 1) {
+      if (params_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, (osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams) params_);
+          .computeMessageSize(1, getParams());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4516,14 +4469,10 @@ public final class QueryOuterClass {
       }
       osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse other = (osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse) obj;
 
-      if (!getParamsCase().equals(other.getParamsCase())) return false;
-      switch (paramsCase_) {
-        case 1:
-          if (!getBalancerPoolParams()
-              .equals(other.getBalancerPoolParams())) return false;
-          break;
-        case 0:
-        default:
+      if (hasParams() != other.hasParams()) return false;
+      if (hasParams()) {
+        if (!getParams()
+            .equals(other.getParams())) return false;
       }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -4536,13 +4485,9 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      switch (paramsCase_) {
-        case 1:
-          hash = (37 * hash) + BALANCERPOOLPARAMS_FIELD_NUMBER;
-          hash = (53 * hash) + getBalancerPoolParams().hashCode();
-          break;
-        case 0:
-        default:
+      if (hasParams()) {
+        hash = (37 * hash) + PARAMS_FIELD_NUMBER;
+        hash = (53 * hash) + getParams().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -4677,8 +4622,12 @@ public final class QueryOuterClass {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        paramsCase_ = 0;
-        params_ = null;
+        if (paramsBuilder_ == null) {
+          params_ = null;
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
         return this;
       }
 
@@ -4705,14 +4654,11 @@ public final class QueryOuterClass {
       @java.lang.Override
       public osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse buildPartial() {
         osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse result = new osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse(this);
-        if (paramsCase_ == 1) {
-          if (balancerPoolParamsBuilder_ == null) {
-            result.params_ = params_;
-          } else {
-            result.params_ = balancerPoolParamsBuilder_.build();
-          }
+        if (paramsBuilder_ == null) {
+          result.params_ = params_;
+        } else {
+          result.params_ = paramsBuilder_.build();
         }
-        result.paramsCase_ = paramsCase_;
         onBuilt();
         return result;
       }
@@ -4761,14 +4707,8 @@ public final class QueryOuterClass {
 
       public Builder mergeFrom(osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse other) {
         if (other == osmosis.gamm.v1beta1.QueryOuterClass.QueryPoolParamsResponse.getDefaultInstance()) return this;
-        switch (other.getParamsCase()) {
-          case BALANCERPOOLPARAMS: {
-            mergeBalancerPoolParams(other.getBalancerPoolParams());
-            break;
-          }
-          case PARAMS_NOT_SET: {
-            break;
-          }
+        if (other.hasParams()) {
+          mergeParams(other.getParams());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4798,161 +4738,124 @@ public final class QueryOuterClass {
         }
         return this;
       }
-      private int paramsCase_ = 0;
-      private java.lang.Object params_;
-      public ParamsCase
-          getParamsCase() {
-        return ParamsCase.forNumber(
-            paramsCase_);
-      }
 
-      public Builder clearParams() {
-        paramsCase_ = 0;
-        params_ = null;
-        onChanged();
-        return this;
-      }
-
-
+      private com.google.protobuf2.Any params_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder> balancerPoolParamsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> paramsBuilder_;
       /**
-       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
-       * @return Whether the balancerPoolParams field is set.
+       * <code>.google.protobuf2.Any params = 1;</code>
+       * @return Whether the params field is set.
        */
-      @java.lang.Override
-      public boolean hasBalancerPoolParams() {
-        return paramsCase_ == 1;
+      public boolean hasParams() {
+        return paramsBuilder_ != null || params_ != null;
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
-       * @return The balancerPoolParams.
+       * <code>.google.protobuf2.Any params = 1;</code>
+       * @return The params.
        */
-      @java.lang.Override
-      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams getBalancerPoolParams() {
-        if (balancerPoolParamsBuilder_ == null) {
-          if (paramsCase_ == 1) {
-            return (osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams) params_;
-          }
-          return osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.getDefaultInstance();
+      public com.google.protobuf2.Any getParams() {
+        if (paramsBuilder_ == null) {
+          return params_ == null ? com.google.protobuf2.Any.getDefaultInstance() : params_;
         } else {
-          if (paramsCase_ == 1) {
-            return balancerPoolParamsBuilder_.getMessage();
-          }
-          return osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.getDefaultInstance();
+          return paramsBuilder_.getMessage();
         }
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
+       * <code>.google.protobuf2.Any params = 1;</code>
        */
-      public Builder setBalancerPoolParams(osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams value) {
-        if (balancerPoolParamsBuilder_ == null) {
+      public Builder setParams(com.google.protobuf2.Any value) {
+        if (paramsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           params_ = value;
           onChanged();
         } else {
-          balancerPoolParamsBuilder_.setMessage(value);
+          paramsBuilder_.setMessage(value);
         }
-        paramsCase_ = 1;
+
         return this;
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
+       * <code>.google.protobuf2.Any params = 1;</code>
        */
-      public Builder setBalancerPoolParams(
-          osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder builderForValue) {
-        if (balancerPoolParamsBuilder_ == null) {
+      public Builder setParams(
+          com.google.protobuf2.Any.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
           params_ = builderForValue.build();
           onChanged();
         } else {
-          balancerPoolParamsBuilder_.setMessage(builderForValue.build());
+          paramsBuilder_.setMessage(builderForValue.build());
         }
-        paramsCase_ = 1;
+
         return this;
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
+       * <code>.google.protobuf2.Any params = 1;</code>
        */
-      public Builder mergeBalancerPoolParams(osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams value) {
-        if (balancerPoolParamsBuilder_ == null) {
-          if (paramsCase_ == 1 &&
-              params_ != osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.getDefaultInstance()) {
-            params_ = osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.newBuilder((osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams) params_)
-                .mergeFrom(value).buildPartial();
+      public Builder mergeParams(com.google.protobuf2.Any value) {
+        if (paramsBuilder_ == null) {
+          if (params_ != null) {
+            params_ =
+              com.google.protobuf2.Any.newBuilder(params_).mergeFrom(value).buildPartial();
           } else {
             params_ = value;
           }
           onChanged();
         } else {
-          if (paramsCase_ == 1) {
-            balancerPoolParamsBuilder_.mergeFrom(value);
-          }
-          balancerPoolParamsBuilder_.setMessage(value);
+          paramsBuilder_.mergeFrom(value);
         }
-        paramsCase_ = 1;
+
         return this;
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
+       * <code>.google.protobuf2.Any params = 1;</code>
        */
-      public Builder clearBalancerPoolParams() {
-        if (balancerPoolParamsBuilder_ == null) {
-          if (paramsCase_ == 1) {
-            paramsCase_ = 0;
-            params_ = null;
-            onChanged();
-          }
+      public Builder clearParams() {
+        if (paramsBuilder_ == null) {
+          params_ = null;
+          onChanged();
         } else {
-          if (paramsCase_ == 1) {
-            paramsCase_ = 0;
-            params_ = null;
-          }
-          balancerPoolParamsBuilder_.clear();
+          params_ = null;
+          paramsBuilder_ = null;
         }
+
         return this;
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
+       * <code>.google.protobuf2.Any params = 1;</code>
        */
-      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder getBalancerPoolParamsBuilder() {
-        return getBalancerPoolParamsFieldBuilder().getBuilder();
+      public com.google.protobuf2.Any.Builder getParamsBuilder() {
+        
+        onChanged();
+        return getParamsFieldBuilder().getBuilder();
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
+       * <code>.google.protobuf2.Any params = 1;</code>
        */
-      @java.lang.Override
-      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder getBalancerPoolParamsOrBuilder() {
-        if ((paramsCase_ == 1) && (balancerPoolParamsBuilder_ != null)) {
-          return balancerPoolParamsBuilder_.getMessageOrBuilder();
+      public com.google.protobuf2.AnyOrBuilder getParamsOrBuilder() {
+        if (paramsBuilder_ != null) {
+          return paramsBuilder_.getMessageOrBuilder();
         } else {
-          if (paramsCase_ == 1) {
-            return (osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams) params_;
-          }
-          return osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.getDefaultInstance();
+          return params_ == null ?
+              com.google.protobuf2.Any.getDefaultInstance() : params_;
         }
       }
       /**
-       * <code>.osmosis.gamm.v1beta1.BalancerPoolParams balancerPoolParams = 1;</code>
+       * <code>.google.protobuf2.Any params = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder> 
-          getBalancerPoolParamsFieldBuilder() {
-        if (balancerPoolParamsBuilder_ == null) {
-          if (!(paramsCase_ == 1)) {
-            params_ = osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.getDefaultInstance();
-          }
-          balancerPoolParamsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParamsOrBuilder>(
-                  (osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPoolParams) params_,
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
+          getParamsFieldBuilder() {
+        if (paramsBuilder_ == null) {
+          paramsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
+                  getParams(),
                   getParentForChildren(),
                   isClean());
           params_ = null;
         }
-        paramsCase_ = 1;
-        onChanged();;
-        return balancerPoolParamsBuilder_;
+        return paramsBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -6629,12 +6532,12 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
-    java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> 
+    java.util.List<osmosis.gamm.v1beta1.Pool.PoolAsset> 
         getPoolAssetsList();
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
-    osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset getPoolAssets(int index);
+    osmosis.gamm.v1beta1.Pool.PoolAsset getPoolAssets(int index);
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
@@ -6642,12 +6545,12 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
-    java.util.List<? extends osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder> 
+    java.util.List<? extends osmosis.gamm.v1beta1.Pool.PoolAssetOrBuilder> 
         getPoolAssetsOrBuilderList();
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
-    osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
+    osmosis.gamm.v1beta1.Pool.PoolAssetOrBuilder getPoolAssetsOrBuilder(
         int index);
   }
   /**
@@ -6699,11 +6602,11 @@ public final class QueryOuterClass {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                poolAssets_ = new java.util.ArrayList<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset>();
+                poolAssets_ = new java.util.ArrayList<osmosis.gamm.v1beta1.Pool.PoolAsset>();
                 mutable_bitField0_ |= 0x00000001;
               }
               poolAssets_.add(
-                  input.readMessage(osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.parser(), extensionRegistry));
+                  input.readMessage(osmosis.gamm.v1beta1.Pool.PoolAsset.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -6742,19 +6645,19 @@ public final class QueryOuterClass {
     }
 
     public static final int POOLASSETS_FIELD_NUMBER = 1;
-    private java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> poolAssets_;
+    private java.util.List<osmosis.gamm.v1beta1.Pool.PoolAsset> poolAssets_;
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> getPoolAssetsList() {
+    public java.util.List<osmosis.gamm.v1beta1.Pool.PoolAsset> getPoolAssetsList() {
       return poolAssets_;
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public java.util.List<? extends osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder> 
+    public java.util.List<? extends osmosis.gamm.v1beta1.Pool.PoolAssetOrBuilder> 
         getPoolAssetsOrBuilderList() {
       return poolAssets_;
     }
@@ -6769,14 +6672,14 @@ public final class QueryOuterClass {
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset getPoolAssets(int index) {
+    public osmosis.gamm.v1beta1.Pool.PoolAsset getPoolAssets(int index) {
       return poolAssets_.get(index);
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
+    public osmosis.gamm.v1beta1.Pool.PoolAssetOrBuilder getPoolAssetsOrBuilder(
         int index) {
       return poolAssets_.get(index);
     }
@@ -7123,22 +7026,22 @@ public final class QueryOuterClass {
       }
       private int bitField0_;
 
-      private java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> poolAssets_ =
+      private java.util.List<osmosis.gamm.v1beta1.Pool.PoolAsset> poolAssets_ =
         java.util.Collections.emptyList();
       private void ensurePoolAssetsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          poolAssets_ = new java.util.ArrayList<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset>(poolAssets_);
+          poolAssets_ = new java.util.ArrayList<osmosis.gamm.v1beta1.Pool.PoolAsset>(poolAssets_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder> poolAssetsBuilder_;
+          osmosis.gamm.v1beta1.Pool.PoolAsset, osmosis.gamm.v1beta1.Pool.PoolAsset.Builder, osmosis.gamm.v1beta1.Pool.PoolAssetOrBuilder> poolAssetsBuilder_;
 
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
-      public java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> getPoolAssetsList() {
+      public java.util.List<osmosis.gamm.v1beta1.Pool.PoolAsset> getPoolAssetsList() {
         if (poolAssetsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(poolAssets_);
         } else {
@@ -7158,7 +7061,7 @@ public final class QueryOuterClass {
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
-      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset getPoolAssets(int index) {
+      public osmosis.gamm.v1beta1.Pool.PoolAsset getPoolAssets(int index) {
         if (poolAssetsBuilder_ == null) {
           return poolAssets_.get(index);
         } else {
@@ -7169,7 +7072,7 @@ public final class QueryOuterClass {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setPoolAssets(
-          int index, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset value) {
+          int index, osmosis.gamm.v1beta1.Pool.PoolAsset value) {
         if (poolAssetsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7186,7 +7089,7 @@ public final class QueryOuterClass {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setPoolAssets(
-          int index, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder builderForValue) {
+          int index, osmosis.gamm.v1beta1.Pool.PoolAsset.Builder builderForValue) {
         if (poolAssetsBuilder_ == null) {
           ensurePoolAssetsIsMutable();
           poolAssets_.set(index, builderForValue.build());
@@ -7199,7 +7102,7 @@ public final class QueryOuterClass {
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
-      public Builder addPoolAssets(osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset value) {
+      public Builder addPoolAssets(osmosis.gamm.v1beta1.Pool.PoolAsset value) {
         if (poolAssetsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7216,7 +7119,7 @@ public final class QueryOuterClass {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addPoolAssets(
-          int index, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset value) {
+          int index, osmosis.gamm.v1beta1.Pool.PoolAsset value) {
         if (poolAssetsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7233,7 +7136,7 @@ public final class QueryOuterClass {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addPoolAssets(
-          osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder builderForValue) {
+          osmosis.gamm.v1beta1.Pool.PoolAsset.Builder builderForValue) {
         if (poolAssetsBuilder_ == null) {
           ensurePoolAssetsIsMutable();
           poolAssets_.add(builderForValue.build());
@@ -7247,7 +7150,7 @@ public final class QueryOuterClass {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addPoolAssets(
-          int index, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder builderForValue) {
+          int index, osmosis.gamm.v1beta1.Pool.PoolAsset.Builder builderForValue) {
         if (poolAssetsBuilder_ == null) {
           ensurePoolAssetsIsMutable();
           poolAssets_.add(index, builderForValue.build());
@@ -7261,7 +7164,7 @@ public final class QueryOuterClass {
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllPoolAssets(
-          java.lang.Iterable<? extends osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset> values) {
+          java.lang.Iterable<? extends osmosis.gamm.v1beta1.Pool.PoolAsset> values) {
         if (poolAssetsBuilder_ == null) {
           ensurePoolAssetsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -7301,14 +7204,14 @@ public final class QueryOuterClass {
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
-      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder getPoolAssetsBuilder(
+      public osmosis.gamm.v1beta1.Pool.PoolAsset.Builder getPoolAssetsBuilder(
           int index) {
         return getPoolAssetsFieldBuilder().getBuilder(index);
       }
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
-      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
+      public osmosis.gamm.v1beta1.Pool.PoolAssetOrBuilder getPoolAssetsOrBuilder(
           int index) {
         if (poolAssetsBuilder_ == null) {
           return poolAssets_.get(index);  } else {
@@ -7318,7 +7221,7 @@ public final class QueryOuterClass {
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
-      public java.util.List<? extends osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder> 
+      public java.util.List<? extends osmosis.gamm.v1beta1.Pool.PoolAssetOrBuilder> 
            getPoolAssetsOrBuilderList() {
         if (poolAssetsBuilder_ != null) {
           return poolAssetsBuilder_.getMessageOrBuilderList();
@@ -7329,31 +7232,31 @@ public final class QueryOuterClass {
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
-      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder addPoolAssetsBuilder() {
+      public osmosis.gamm.v1beta1.Pool.PoolAsset.Builder addPoolAssetsBuilder() {
         return getPoolAssetsFieldBuilder().addBuilder(
-            osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.getDefaultInstance());
+            osmosis.gamm.v1beta1.Pool.PoolAsset.getDefaultInstance());
       }
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
-      public osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder addPoolAssetsBuilder(
+      public osmosis.gamm.v1beta1.Pool.PoolAsset.Builder addPoolAssetsBuilder(
           int index) {
         return getPoolAssetsFieldBuilder().addBuilder(
-            index, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.getDefaultInstance());
+            index, osmosis.gamm.v1beta1.Pool.PoolAsset.getDefaultInstance());
       }
       /**
        * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
        */
-      public java.util.List<osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder> 
+      public java.util.List<osmosis.gamm.v1beta1.Pool.PoolAsset.Builder> 
            getPoolAssetsBuilderList() {
         return getPoolAssetsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder> 
+          osmosis.gamm.v1beta1.Pool.PoolAsset, osmosis.gamm.v1beta1.Pool.PoolAsset.Builder, osmosis.gamm.v1beta1.Pool.PoolAssetOrBuilder> 
           getPoolAssetsFieldBuilder() {
         if (poolAssetsBuilder_ == null) {
           poolAssetsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset.Builder, osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAssetOrBuilder>(
+              osmosis.gamm.v1beta1.Pool.PoolAsset, osmosis.gamm.v1beta1.Pool.PoolAsset.Builder, osmosis.gamm.v1beta1.Pool.PoolAssetOrBuilder>(
                   poolAssets_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -13688,115 +13591,114 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n osmosis/gamm/v1beta1/query.proto\022\024osmo" +
-      "sis.gamm.v1beta1\032\024gogoproto/gogo.proto\032\'" +
-      "osmosis/gamm/v1beta1/balancerPool.proto\032" +
-      "\035osmosis/gamm/v1beta1/tx.proto\032\036cosmos/b" +
-      "ase/v1beta1/coin.proto\032*cosmos/base/quer" +
-      "y/v1beta1/pagination.proto\032\034google/api/a" +
-      "nnotations.proto\032\032google/protobuf2/any.p" +
-      "roto\032\031cosmos_proto/cosmos.proto\"6\n\020Query" +
-      "PoolRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"p" +
-      "ool_id\"\"C\n\021QueryPoolResponse\022.\n\004pool\030\001 \001" +
-      "(\0132\025.google.protobuf2.AnyB\t\312\264-\005PoolI\"O\n\021" +
-      "QueryPoolsRequest\022:\n\npagination\030\002 \001(\0132&." +
-      "cosmos.base.query.v1beta1.PageRequest\"\202\001" +
-      "\n\022QueryPoolsResponse\022/\n\005pools\030\001 \003(\0132\025.go" +
-      "ogle.protobuf2.AnyB\t\312\264-\005PoolI\022;\n\npaginat" +
-      "ion\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Pa" +
-      "geResponse\"\026\n\024QueryNumPoolsRequest\"?\n\025Qu" +
-      "eryNumPoolsResponse\022&\n\010numPools\030\001 \001(\004B\024\362" +
-      "\336\037\020yaml:\"num_pools\"\"<\n\026QueryPoolParamsRe" +
-      "quest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id" +
-      "\"\"k\n\027QueryPoolParamsResponse\022F\n\022balancer" +
-      "PoolParams\030\001 \001(\0132(.osmosis.gamm.v1beta1." +
-      "BalancerPoolParamsH\000B\010\n\006params\"=\n\027QueryT" +
-      "otalSharesRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016y" +
-      "aml:\"pool_id\"\"g\n\030QueryTotalSharesRespons" +
-      "e\022K\n\013totalShares\030\001 \001(\0132\031.cosmos.base.v1b" +
-      "eta1.CoinB\033\362\336\037\023yaml:\"total_shares\"\310\336\037\000\"<" +
-      "\n\026QueryPoolAssetsRequest\022\"\n\006poolId\030\001 \001(\004" +
-      "B\022\362\336\037\016yaml:\"pool_id\"\"T\n\027QueryPoolAssetsR" +
-      "esponse\0229\n\npoolAssets\030\001 \003(\0132\037.osmosis.ga" +
-      "mm.v1beta1.PoolAssetB\004\310\336\037\000\"\316\001\n\025QuerySpot" +
-      "PriceRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"" +
-      "pool_id\"\022/\n\014tokenInDenom\030\002 \001(\tB\031\362\336\037\025yaml" +
-      ":\"token_in_denom\"\0221\n\rtokenOutDenom\030\003 \001(\t" +
-      "B\032\362\336\037\026yaml:\"token_out_denom\"\022-\n\013withSwap" +
-      "Fee\030\004 \001(\010B\030\362\336\037\024yaml:\"with_swap_fee\"\"B\n\026Q" +
-      "uerySpotPriceResponse\022(\n\tspotPrice\030\001 \001(\t" +
-      "B\025\362\336\037\021yaml:\"spot_price\"\"\334\001\n\035QuerySwapExa" +
-      "ctAmountInRequest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ry" +
-      "aml:\"sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"" +
-      "pool_id\"\022$\n\007tokenIn\030\003 \001(\tB\023\362\336\037\017yaml:\"tok" +
-      "en_in\"\022N\n\006routes\030\004 \003(\0132\'.osmosis.gamm.v1" +
-      "beta1.SwapAmountInRouteB\025\362\336\037\ryaml:\"route" +
-      "s\"\310\336\037\000\"\203\001\n\036QuerySwapExactAmountInRespons" +
-      "e\022a\n\016tokenOutAmount\030\001 \001(\tBI\332\336\037&github.co" +
-      "m/cosmos/cosmos-sdk/types.Int\362\336\037\027yaml:\"t" +
-      "oken_out_amount\"\310\336\037\000\"\340\001\n\036QuerySwapExactA" +
-      "mountOutRequest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryam" +
-      "l:\"sender\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"po" +
-      "ol_id\"\022O\n\006routes\030\003 \003(\0132(.osmosis.gamm.v1" +
-      "beta1.SwapAmountOutRouteB\025\362\336\037\ryaml:\"rout" +
-      "es\"\310\336\037\000\022&\n\010tokenOut\030\004 \001(\tB\024\362\336\037\020yaml:\"tok" +
-      "en_out\"\"\202\001\n\037QuerySwapExactAmountOutRespo" +
-      "nse\022_\n\rtokenInAmount\030\001 \001(\tBH\332\336\037&github.c" +
-      "om/cosmos/cosmos-sdk/types.Int\362\336\037\026yaml:\"" +
-      "token_in_amount\"\310\336\037\000\"\034\n\032QueryTotalLiquid" +
-      "ityRequest\"\221\001\n\033QueryTotalLiquidityRespon" +
-      "se\022r\n\tliquidity\030\001 \003(\0132\031.cosmos.base.v1be" +
-      "ta1.CoinBD\252\337\037(github.com/cosmos/cosmos-s" +
-      "dk/types.Coins\362\336\037\020yaml:\"liquidity\"\310\336\037\0002\362" +
-      "\014\n\005Query\022\177\n\005Pools\022\'.osmosis.gamm.v1beta1" +
-      ".QueryPoolsRequest\032(.osmosis.gamm.v1beta" +
-      "1.QueryPoolsResponse\"#\202\323\344\223\002\035\022\033/osmosis/g" +
-      "amm/v1beta1/pools\022\214\001\n\010NumPools\022*.osmosis" +
-      ".gamm.v1beta1.QueryNumPoolsRequest\032+.osm" +
-      "osis.gamm.v1beta1.QueryNumPoolsResponse\"" +
-      "\'\202\323\344\223\002!\022\037/osmosis/gamm/v1beta1/num_pools" +
-      "\022\244\001\n\016TotalLiquidity\0220.osmosis.gamm.v1bet" +
-      "a1.QueryTotalLiquidityRequest\0321.osmosis." +
-      "gamm.v1beta1.QueryTotalLiquidityResponse" +
-      "\"-\202\323\344\223\002\'\022%/osmosis/gamm/v1beta1/total_li" +
-      "quidity\022\205\001\n\004Pool\022&.osmosis.gamm.v1beta1." +
-      "QueryPoolRequest\032\'.osmosis.gamm.v1beta1." +
-      "QueryPoolResponse\",\202\323\344\223\002&\022$/osmosis/gamm" +
-      "/v1beta1/pools/{poolId}\022\236\001\n\nPoolParams\022," +
-      ".osmosis.gamm.v1beta1.QueryPoolParamsReq" +
-      "uest\032-.osmosis.gamm.v1beta1.QueryPoolPar" +
-      "amsResponse\"3\202\323\344\223\002-\022+/osmosis/gamm/v1bet" +
-      "a1/pools/{poolId}/params\022\247\001\n\013TotalShares" +
-      "\022-.osmosis.gamm.v1beta1.QueryTotalShares" +
-      "Request\032..osmosis.gamm.v1beta1.QueryTota" +
-      "lSharesResponse\"9\202\323\344\223\0023\0221/osmosis/gamm/v" +
-      "1beta1/pools/{poolId}/total_shares\022\236\001\n\nP" +
-      "oolAssets\022,.osmosis.gamm.v1beta1.QueryPo" +
-      "olAssetsRequest\032-.osmosis.gamm.v1beta1.Q" +
-      "ueryPoolAssetsResponse\"3\202\323\344\223\002-\022+/osmosis" +
-      "/gamm/v1beta1/pools/{poolId}/tokens\022\233\001\n\t" +
-      "SpotPrice\022+.osmosis.gamm.v1beta1.QuerySp" +
-      "otPriceRequest\032,.osmosis.gamm.v1beta1.Qu" +
-      "erySpotPriceResponse\"3\202\323\344\223\002-\022+/osmosis/g" +
-      "amm/v1beta1/pools/{poolId}/prices\022\314\001\n\031Es" +
-      "timateSwapExactAmountIn\0223.osmosis.gamm.v" +
-      "1beta1.QuerySwapExactAmountInRequest\0324.o" +
-      "smosis.gamm.v1beta1.QuerySwapExactAmount" +
-      "InResponse\"D\202\323\344\223\002>\022</osmosis/gamm/v1beta" +
-      "1/{poolId}/estimate/swap_exact_amount_in" +
-      "\022\320\001\n\032EstimateSwapExactAmountOut\0224.osmosi" +
-      "s.gamm.v1beta1.QuerySwapExactAmountOutRe" +
-      "quest\0325.osmosis.gamm.v1beta1.QuerySwapEx" +
-      "actAmountOutResponse\"E\202\323\344\223\002?\022=/osmosis/g" +
-      "amm/v1beta1/{poolId}/estimate/swap_exact" +
-      "_amount_outB.Z,github.com/osmosis-labs/o" +
-      "smosis/x/gamm/typesb\006proto3"
+      "sis.gamm.v1beta1\032\024gogoproto/gogo.proto\032\035" +
+      "osmosis/gamm/v1beta1/tx.proto\032\037osmosis/g" +
+      "amm/v1beta1/pool.proto\032\036cosmos/base/v1be" +
+      "ta1/coin.proto\032*cosmos/base/query/v1beta" +
+      "1/pagination.proto\032\034google/api/annotatio" +
+      "ns.proto\032\032google/protobuf2/any.proto\032\031co" +
+      "smos_proto/cosmos.proto\"6\n\020QueryPoolRequ" +
+      "est\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\"" +
+      "C\n\021QueryPoolResponse\022.\n\004pool\030\001 \001(\0132\025.goo" +
+      "gle.protobuf2.AnyB\t\312\264-\005PoolI\"O\n\021QueryPoo" +
+      "lsRequest\022:\n\npagination\030\002 \001(\0132&.cosmos.b" +
+      "ase.query.v1beta1.PageRequest\"\202\001\n\022QueryP" +
+      "oolsResponse\022/\n\005pools\030\001 \003(\0132\025.google.pro" +
+      "tobuf2.AnyB\t\312\264-\005PoolI\022;\n\npagination\030\002 \001(" +
+      "\0132\'.cosmos.base.query.v1beta1.PageRespon" +
+      "se\"\026\n\024QueryNumPoolsRequest\"?\n\025QueryNumPo" +
+      "olsResponse\022&\n\010numPools\030\001 \001(\004B\024\362\336\037\020yaml:" +
+      "\"num_pools\"\"<\n\026QueryPoolParamsRequest\022\"\n" +
+      "\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\"@\n\027Que" +
+      "ryPoolParamsResponse\022%\n\006params\030\001 \001(\0132\025.g" +
+      "oogle.protobuf2.Any\"=\n\027QueryTotalSharesR" +
+      "equest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_i" +
+      "d\"\"g\n\030QueryTotalSharesResponse\022K\n\013totalS" +
+      "hares\030\001 \001(\0132\031.cosmos.base.v1beta1.CoinB\033" +
+      "\362\336\037\023yaml:\"total_shares\"\310\336\037\000\"<\n\026QueryPool" +
+      "AssetsRequest\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:" +
+      "\"pool_id\"\"T\n\027QueryPoolAssetsResponse\0229\n\n" +
+      "poolAssets\030\001 \003(\0132\037.osmosis.gamm.v1beta1." +
+      "PoolAssetB\004\310\336\037\000\"\316\001\n\025QuerySpotPriceReques" +
+      "t\022\"\n\006poolId\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\022/\n" +
+      "\014tokenInDenom\030\002 \001(\tB\031\362\336\037\025yaml:\"token_in_" +
+      "denom\"\0221\n\rtokenOutDenom\030\003 \001(\tB\032\362\336\037\026yaml:" +
+      "\"token_out_denom\"\022-\n\013withSwapFee\030\004 \001(\010B\030" +
+      "\362\336\037\024yaml:\"with_swap_fee\"\"B\n\026QuerySpotPri" +
+      "ceResponse\022(\n\tspotPrice\030\001 \001(\tB\025\362\336\037\021yaml:" +
+      "\"spot_price\"\"\334\001\n\035QuerySwapExactAmountInR" +
+      "equest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender" +
+      "\"\022\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\022$\n" +
+      "\007tokenIn\030\003 \001(\tB\023\362\336\037\017yaml:\"token_in\"\022N\n\006r" +
+      "outes\030\004 \003(\0132\'.osmosis.gamm.v1beta1.SwapA" +
+      "mountInRouteB\025\362\336\037\ryaml:\"routes\"\310\336\037\000\"\203\001\n\036" +
+      "QuerySwapExactAmountInResponse\022a\n\016tokenO" +
+      "utAmount\030\001 \001(\tBI\332\336\037&github.com/cosmos/co" +
+      "smos-sdk/types.Int\362\336\037\027yaml:\"token_out_am" +
+      "ount\"\310\336\037\000\"\340\001\n\036QuerySwapExactAmountOutReq" +
+      "uest\022!\n\006sender\030\001 \001(\tB\021\362\336\037\ryaml:\"sender\"\022" +
+      "\"\n\006poolId\030\002 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\022O\n\006r" +
+      "outes\030\003 \003(\0132(.osmosis.gamm.v1beta1.SwapA" +
+      "mountOutRouteB\025\362\336\037\ryaml:\"routes\"\310\336\037\000\022&\n\010" +
+      "tokenOut\030\004 \001(\tB\024\362\336\037\020yaml:\"token_out\"\"\202\001\n" +
+      "\037QuerySwapExactAmountOutResponse\022_\n\rtoke" +
+      "nInAmount\030\001 \001(\tBH\332\336\037&github.com/cosmos/c" +
+      "osmos-sdk/types.Int\362\336\037\026yaml:\"token_in_am" +
+      "ount\"\310\336\037\000\"\034\n\032QueryTotalLiquidityRequest\"" +
+      "\221\001\n\033QueryTotalLiquidityResponse\022r\n\tliqui" +
+      "dity\030\001 \003(\0132\031.cosmos.base.v1beta1.CoinBD\252" +
+      "\337\037(github.com/cosmos/cosmos-sdk/types.Co" +
+      "ins\362\336\037\020yaml:\"liquidity\"\310\336\037\0002\362\014\n\005Query\022\177\n" +
+      "\005Pools\022\'.osmosis.gamm.v1beta1.QueryPools" +
+      "Request\032(.osmosis.gamm.v1beta1.QueryPool" +
+      "sResponse\"#\202\323\344\223\002\035\022\033/osmosis/gamm/v1beta1" +
+      "/pools\022\214\001\n\010NumPools\022*.osmosis.gamm.v1bet" +
+      "a1.QueryNumPoolsRequest\032+.osmosis.gamm.v" +
+      "1beta1.QueryNumPoolsResponse\"\'\202\323\344\223\002!\022\037/o" +
+      "smosis/gamm/v1beta1/num_pools\022\244\001\n\016TotalL" +
+      "iquidity\0220.osmosis.gamm.v1beta1.QueryTot" +
+      "alLiquidityRequest\0321.osmosis.gamm.v1beta" +
+      "1.QueryTotalLiquidityResponse\"-\202\323\344\223\002\'\022%/" +
+      "osmosis/gamm/v1beta1/total_liquidity\022\205\001\n" +
+      "\004Pool\022&.osmosis.gamm.v1beta1.QueryPoolRe" +
+      "quest\032\'.osmosis.gamm.v1beta1.QueryPoolRe" +
+      "sponse\",\202\323\344\223\002&\022$/osmosis/gamm/v1beta1/po" +
+      "ols/{poolId}\022\236\001\n\nPoolParams\022,.osmosis.ga" +
+      "mm.v1beta1.QueryPoolParamsRequest\032-.osmo" +
+      "sis.gamm.v1beta1.QueryPoolParamsResponse" +
+      "\"3\202\323\344\223\002-\022+/osmosis/gamm/v1beta1/pools/{p" +
+      "oolId}/params\022\247\001\n\013TotalShares\022-.osmosis." +
+      "gamm.v1beta1.QueryTotalSharesRequest\032..o" +
+      "smosis.gamm.v1beta1.QueryTotalSharesResp" +
+      "onse\"9\202\323\344\223\0023\0221/osmosis/gamm/v1beta1/pool" +
+      "s/{poolId}/total_shares\022\236\001\n\nPoolAssets\022," +
+      ".osmosis.gamm.v1beta1.QueryPoolAssetsReq" +
+      "uest\032-.osmosis.gamm.v1beta1.QueryPoolAss" +
+      "etsResponse\"3\202\323\344\223\002-\022+/osmosis/gamm/v1bet" +
+      "a1/pools/{poolId}/tokens\022\233\001\n\tSpotPrice\022+" +
+      ".osmosis.gamm.v1beta1.QuerySpotPriceRequ" +
+      "est\032,.osmosis.gamm.v1beta1.QuerySpotPric" +
+      "eResponse\"3\202\323\344\223\002-\022+/osmosis/gamm/v1beta1" +
+      "/pools/{poolId}/prices\022\314\001\n\031EstimateSwapE" +
+      "xactAmountIn\0223.osmosis.gamm.v1beta1.Quer" +
+      "ySwapExactAmountInRequest\0324.osmosis.gamm" +
+      ".v1beta1.QuerySwapExactAmountInResponse\"" +
+      "D\202\323\344\223\002>\022</osmosis/gamm/v1beta1/{poolId}/" +
+      "estimate/swap_exact_amount_in\022\320\001\n\032Estima" +
+      "teSwapExactAmountOut\0224.osmosis.gamm.v1be" +
+      "ta1.QuerySwapExactAmountOutRequest\0325.osm" +
+      "osis.gamm.v1beta1.QuerySwapExactAmountOu" +
+      "tResponse\"E\202\323\344\223\002?\022=/osmosis/gamm/v1beta1" +
+      "/{poolId}/estimate/swap_exact_amount_out" +
+      "B1Z/github.com/osmosis-labs/osmosis/v7/x" +
+      "/gamm/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf2.GoGoProtos.getDescriptor(),
-          osmosis.gamm.v1beta1.BalancerPoolOuterClass.getDescriptor(),
           osmosis.gamm.v1beta1.Tx.getDescriptor(),
+          osmosis.gamm.v1beta1.Pool.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
@@ -13850,7 +13752,7 @@ public final class QueryOuterClass {
     internal_static_osmosis_gamm_v1beta1_QueryPoolParamsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_gamm_v1beta1_QueryPoolParamsResponse_descriptor,
-        new java.lang.String[] { "BalancerPoolParams", "Params", });
+        new java.lang.String[] { "Params", });
     internal_static_osmosis_gamm_v1beta1_QueryTotalSharesRequest_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_osmosis_gamm_v1beta1_QueryTotalSharesRequest_fieldAccessorTable = new
@@ -13934,8 +13836,8 @@ public final class QueryOuterClass {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf2.GoGoProtos.getDescriptor();
-    osmosis.gamm.v1beta1.BalancerPoolOuterClass.getDescriptor();
     osmosis.gamm.v1beta1.Tx.getDescriptor();
+    osmosis.gamm.v1beta1.Pool.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();

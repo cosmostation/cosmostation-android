@@ -13589,87 +13589,88 @@ public final class QueryOuterClass {
       "f/duration.proto\032\036cosmos/base/v1beta1/co" +
       "in.proto\032*cosmos/base/query/v1beta1/pagi" +
       "nation.proto\032\036osmosis/incentives/gauge.p" +
-      "roto\" \n\036ModuleToDistributeCoinsRequest\"}" +
-      "\n\037ModuleToDistributeCoinsResponse\022Z\n\005coi" +
-      "ns\030\001 \003(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037" +
-      "\000\252\337\037(github.com/cosmos/cosmos-sdk/types." +
-      "Coins\"\037\n\035ModuleDistributedCoinsRequest\"|" +
-      "\n\036ModuleDistributedCoinsResponse\022Z\n\005coin" +
-      "s\030\001 \003(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000" +
-      "\252\337\037(github.com/cosmos/cosmos-sdk/types.C" +
-      "oins\"\036\n\020GaugeByIDRequest\022\n\n\002id\030\001 \001(\004\"=\n\021" +
-      "GaugeByIDResponse\022(\n\005gauge\030\001 \001(\0132\031.osmos" +
-      "is.incentives.Gauge\"K\n\rGaugesRequest\022:\n\n" +
-      "pagination\030\001 \001(\0132&.cosmos.base.query.v1b" +
-      "eta1.PageRequest\"|\n\016GaugesResponse\022-\n\004da" +
-      "ta\030\001 \003(\0132\031.osmosis.incentives.GaugeB\004\310\336\037" +
-      "\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.quer" +
-      "y.v1beta1.PageResponse\"Q\n\023ActiveGaugesRe" +
-      "quest\022:\n\npagination\030\001 \001(\0132&.cosmos.base." +
-      "query.v1beta1.PageRequest\"\202\001\n\024ActiveGaug" +
-      "esResponse\022-\n\004data\030\001 \003(\0132\031.osmosis.incen" +
-      "tives.GaugeB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'." +
-      "cosmos.base.query.v1beta1.PageResponse\"h" +
-      "\n\033ActiveGaugesPerDenomRequest\022\r\n\005denom\030\001" +
-      " \001(\t\022:\n\npagination\030\002 \001(\0132&.cosmos.base.q" +
-      "uery.v1beta1.PageRequest\"\212\001\n\034ActiveGauge" +
-      "sPerDenomResponse\022-\n\004data\030\001 \003(\0132\031.osmosi" +
-      "s.incentives.GaugeB\004\310\336\037\000\022;\n\npagination\030\002" +
-      " \001(\0132\'.cosmos.base.query.v1beta1.PageRes" +
-      "ponse\"S\n\025UpcomingGaugesRequest\022:\n\npagina" +
-      "tion\030\001 \001(\0132&.cosmos.base.query.v1beta1.P" +
-      "ageRequest\"\204\001\n\026UpcomingGaugesResponse\022-\n" +
+      "roto\032\031osmosis/lockup/lock.proto\" \n\036Modul" +
+      "eToDistributeCoinsRequest\"}\n\037ModuleToDis" +
+      "tributeCoinsResponse\022Z\n\005coins\030\001 \003(\0132\031.co" +
+      "smos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.c" +
+      "om/cosmos/cosmos-sdk/types.Coins\"\037\n\035Modu" +
+      "leDistributedCoinsRequest\"|\n\036ModuleDistr" +
+      "ibutedCoinsResponse\022Z\n\005coins\030\001 \003(\0132\031.cos" +
+      "mos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.co" +
+      "m/cosmos/cosmos-sdk/types.Coins\"\036\n\020Gauge" +
+      "ByIDRequest\022\n\n\002id\030\001 \001(\004\"=\n\021GaugeByIDResp" +
+      "onse\022(\n\005gauge\030\001 \001(\0132\031.osmosis.incentives" +
+      ".Gauge\"K\n\rGaugesRequest\022:\n\npagination\030\001 " +
+      "\001(\0132&.cosmos.base.query.v1beta1.PageRequ" +
+      "est\"|\n\016GaugesResponse\022-\n\004data\030\001 \003(\0132\031.os" +
+      "mosis.incentives.GaugeB\004\310\336\037\000\022;\n\npaginati" +
+      "on\030\002 \001(\0132\'.cosmos.base.query.v1beta1.Pag" +
+      "eResponse\"Q\n\023ActiveGaugesRequest\022:\n\npagi" +
+      "nation\030\001 \001(\0132&.cosmos.base.query.v1beta1" +
+      ".PageRequest\"\202\001\n\024ActiveGaugesResponse\022-\n" +
       "\004data\030\001 \003(\0132\031.osmosis.incentives.GaugeB\004" +
       "\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.q" +
-      "uery.v1beta1.PageResponse\"Y\n\021RewardsEstR" +
-      "equest\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\022" +
-      "\020\n\010lock_ids\030\002 \003(\004\022\021\n\tend_epoch\030\003 \001(\003\"p\n\022" +
-      "RewardsEstResponse\022Z\n\005coins\030\001 \003(\0132\031.cosm" +
-      "os.base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com" +
-      "/cosmos/cosmos-sdk/types.Coins\"\037\n\035QueryL" +
-      "ockableDurationsRequest\"~\n\036QueryLockable" +
-      "DurationsResponse\022\\\n\022lockable_durations\030" +
-      "\001 \003(\0132\031.google.protobuf.DurationB%\310\336\037\000\230\337" +
-      "\037\001\362\336\037\031yaml:\"lockable_durations\"2\325\013\n\005Quer" +
-      "y\022\302\001\n\027ModuleToDistributeCoins\0222.osmosis." +
-      "incentives.ModuleToDistributeCoinsReques" +
-      "t\0323.osmosis.incentives.ModuleToDistribut" +
-      "eCoinsResponse\">\202\323\344\223\0028\0226/osmosis/incenti" +
-      "ves/v1beta1/module_to_distribute_coins\022\275" +
-      "\001\n\026ModuleDistributedCoins\0221.osmosis.ince" +
-      "ntives.ModuleDistributedCoinsRequest\0322.o" +
-      "smosis.incentives.ModuleDistributedCoins" +
-      "Response\"<\202\323\344\223\0026\0224/osmosis/incentives/v1" +
-      "beta1/module_distributed_coins\022\216\001\n\tGauge" +
-      "ByID\022$.osmosis.incentives.GaugeByIDReque" +
-      "st\032%.osmosis.incentives.GaugeByIDRespons" +
-      "e\"4\202\323\344\223\002.\022,/osmosis/incentives/v1beta1/g" +
-      "auge_by_id/{id}\022{\n\006Gauges\022!.osmosis.ince" +
-      "ntives.GaugesRequest\032\".osmosis.incentive" +
-      "s.GaugesResponse\"*\202\323\344\223\002$\022\"/osmosis/incen" +
-      "tives/v1beta1/gauges\022\224\001\n\014ActiveGauges\022\'." +
-      "osmosis.incentives.ActiveGaugesRequest\032(" +
-      ".osmosis.incentives.ActiveGaugesResponse" +
-      "\"1\202\323\344\223\002+\022)/osmosis/incentives/v1beta1/ac" +
-      "tive_gauges\022\266\001\n\024ActiveGaugesPerDenom\022/.o" +
-      "smosis.incentives.ActiveGaugesPerDenomRe" +
-      "quest\0320.osmosis.incentives.ActiveGaugesP" +
-      "erDenomResponse\";\202\323\344\223\0025\0223/osmosis/incent" +
-      "ives/v1beta1/active_gauges_per_denom\022\234\001\n" +
-      "\016UpcomingGauges\022).osmosis.incentives.Upc" +
-      "omingGaugesRequest\032*.osmosis.incentives." +
-      "UpcomingGaugesResponse\"3\202\323\344\223\002-\022+/osmosis" +
-      "/incentives/v1beta1/upcoming_gauges\022\224\001\n\n" +
-      "RewardsEst\022%.osmosis.incentives.RewardsE" +
-      "stRequest\032&.osmosis.incentives.RewardsEs" +
-      "tResponse\"7\202\323\344\223\0021\022//osmosis/incentives/v" +
-      "1beta1/rewards_est/{owner}\022\262\001\n\021LockableD" +
-      "urations\0221.osmosis.incentives.QueryLocka" +
-      "bleDurationsRequest\0322.osmosis.incentives" +
-      ".QueryLockableDurationsResponse\"6\202\323\344\223\0020\022" +
-      "./osmosis/incentives/v1beta1/lockable_du" +
-      "rationsB4Z2github.com/osmosis-labs/osmos" +
-      "is/x/incentives/typesb\006proto3"
+      "uery.v1beta1.PageResponse\"h\n\033ActiveGauge" +
+      "sPerDenomRequest\022\r\n\005denom\030\001 \001(\t\022:\n\npagin" +
+      "ation\030\002 \001(\0132&.cosmos.base.query.v1beta1." +
+      "PageRequest\"\212\001\n\034ActiveGaugesPerDenomResp" +
+      "onse\022-\n\004data\030\001 \003(\0132\031.osmosis.incentives." +
+      "GaugeB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos" +
+      ".base.query.v1beta1.PageResponse\"S\n\025Upco" +
+      "mingGaugesRequest\022:\n\npagination\030\001 \001(\0132&." +
+      "cosmos.base.query.v1beta1.PageRequest\"\204\001" +
+      "\n\026UpcomingGaugesResponse\022-\n\004data\030\001 \003(\0132\031" +
+      ".osmosis.incentives.GaugeB\004\310\336\037\000\022;\n\npagin" +
+      "ation\030\002 \001(\0132\'.cosmos.base.query.v1beta1." +
+      "PageResponse\"Y\n\021RewardsEstRequest\022\037\n\005own" +
+      "er\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\022\020\n\010lock_ids\030\002" +
+      " \003(\004\022\021\n\tend_epoch\030\003 \001(\003\"p\n\022RewardsEstRes" +
+      "ponse\022Z\n\005coins\030\001 \003(\0132\031.cosmos.base.v1bet" +
+      "a1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/cosmo" +
+      "s-sdk/types.Coins\"\037\n\035QueryLockableDurati" +
+      "onsRequest\"~\n\036QueryLockableDurationsResp" +
+      "onse\022\\\n\022lockable_durations\030\001 \003(\0132\031.googl" +
+      "e.protobuf.DurationB%\310\336\037\000\230\337\037\001\362\336\037\031yaml:\"l" +
+      "ockable_durations\"2\325\013\n\005Query\022\302\001\n\027ModuleT" +
+      "oDistributeCoins\0222.osmosis.incentives.Mo" +
+      "duleToDistributeCoinsRequest\0323.osmosis.i" +
+      "ncentives.ModuleToDistributeCoinsRespons" +
+      "e\">\202\323\344\223\0028\0226/osmosis/incentives/v1beta1/m" +
+      "odule_to_distribute_coins\022\275\001\n\026ModuleDist" +
+      "ributedCoins\0221.osmosis.incentives.Module" +
+      "DistributedCoinsRequest\0322.osmosis.incent" +
+      "ives.ModuleDistributedCoinsResponse\"<\202\323\344" +
+      "\223\0026\0224/osmosis/incentives/v1beta1/module_" +
+      "distributed_coins\022\216\001\n\tGaugeByID\022$.osmosi" +
+      "s.incentives.GaugeByIDRequest\032%.osmosis." +
+      "incentives.GaugeByIDResponse\"4\202\323\344\223\002.\022,/o" +
+      "smosis/incentives/v1beta1/gauge_by_id/{i" +
+      "d}\022{\n\006Gauges\022!.osmosis.incentives.Gauges" +
+      "Request\032\".osmosis.incentives.GaugesRespo" +
+      "nse\"*\202\323\344\223\002$\022\"/osmosis/incentives/v1beta1" +
+      "/gauges\022\224\001\n\014ActiveGauges\022\'.osmosis.incen" +
+      "tives.ActiveGaugesRequest\032(.osmosis.ince" +
+      "ntives.ActiveGaugesResponse\"1\202\323\344\223\002+\022)/os" +
+      "mosis/incentives/v1beta1/active_gauges\022\266" +
+      "\001\n\024ActiveGaugesPerDenom\022/.osmosis.incent" +
+      "ives.ActiveGaugesPerDenomRequest\0320.osmos" +
+      "is.incentives.ActiveGaugesPerDenomRespon" +
+      "se\";\202\323\344\223\0025\0223/osmosis/incentives/v1beta1/" +
+      "active_gauges_per_denom\022\234\001\n\016UpcomingGaug" +
+      "es\022).osmosis.incentives.UpcomingGaugesRe" +
+      "quest\032*.osmosis.incentives.UpcomingGauge" +
+      "sResponse\"3\202\323\344\223\002-\022+/osmosis/incentives/v" +
+      "1beta1/upcoming_gauges\022\224\001\n\nRewardsEst\022%." +
+      "osmosis.incentives.RewardsEstRequest\032&.o" +
+      "smosis.incentives.RewardsEstResponse\"7\202\323" +
+      "\344\223\0021\022//osmosis/incentives/v1beta1/reward" +
+      "s_est/{owner}\022\262\001\n\021LockableDurations\0221.os" +
+      "mosis.incentives.QueryLockableDurationsR" +
+      "equest\0322.osmosis.incentives.QueryLockabl" +
+      "eDurationsResponse\"6\202\323\344\223\0020\022./osmosis/inc" +
+      "entives/v1beta1/lockable_durationsB7Z5gi" +
+      "thub.com/osmosis-labs/osmosis/v7/x/incen" +
+      "tives/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -13680,6 +13681,7 @@ public final class QueryOuterClass {
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           osmosis.incentives.GaugeOuterClass.getDescriptor(),
+          osmosis.lockup.Lock.getDescriptor(),
         });
     internal_static_osmosis_incentives_ModuleToDistributeCoinsRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -13804,6 +13806,7 @@ public final class QueryOuterClass {
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     osmosis.incentives.GaugeOuterClass.getDescriptor();
+    osmosis.lockup.Lock.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -90,7 +90,7 @@ import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
 import kava.cdp.v1beta1.Genesis;
 import kava.cdp.v1beta1.QueryOuterClass;
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
+import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -2104,7 +2104,7 @@ public class WDp {
 
     public static BigDecimal perUsdValue(BaseData baseData, String denom) {
         if (denom.contains("gamm/pool/")) {
-            BalancerPoolOuterClass.BalancerPool pool = baseData.getOsmosisPoolByDenom(denom);
+            BalancerPool.Pool pool = baseData.getOsmosisPoolByDenom(denom);
             return WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
         }
         if (denom.startsWith("pool") && denom.length() >= 68) {

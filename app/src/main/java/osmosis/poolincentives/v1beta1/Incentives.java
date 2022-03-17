@@ -3064,9 +3064,9 @@ public final class Incentives {
       "rRecordB\004\310\336\037\000\"z\n\013DistrRecord\022%\n\010gauge_id" +
       "\030\001 \001(\004B\023\362\336\037\017yaml:\"gauge_id\"\022>\n\006weight\030\002 " +
       "\001(\tB.\332\336\037&github.com/cosmos/cosmos-sdk/ty" +
-      "pes.Int\310\336\037\000:\004\350\240\037\001B9Z7github.com/osmosis-" +
-      "labs/osmosis/x/pool-incentives/typesb\006pr" +
-      "oto3"
+      "pes.Int\310\336\037\000:\004\350\240\037\001B<Z:github.com/osmosis-" +
+      "labs/osmosis/v7/x/pool-incentives/typesb" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -1078,8 +1078,8 @@ public final class Genesis {
       "t.v1beta1.MinterB\004\310\336\037\000\0222\n\006params\030\002 \001(\0132\034" +
       ".osmosis.mint.v1beta1.ParamsB\004\310\336\037\000\022=\n\024ha" +
       "lven_started_epoch\030\003 \001(\003B\037\362\336\037\033yaml:\"halv" +
-      "en_started_epoch\"B.Z,github.com/osmosis-" +
-      "labs/osmosis/x/mint/typesb\006proto3"
+      "en_started_epoch\"B1Z/github.com/osmosis-" +
+      "labs/osmosis/v7/x/mint/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -22,7 +22,7 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
+import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.ExitPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -233,7 +233,7 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mOsmosisPool = (BalancerPoolOuterClass.BalancerPool)result.resultData;
+                getSActivity().mOsmosisPool = (BalancerPool.Pool)result.resultData;
             }
         }
         if (mTaskCount == 0) {

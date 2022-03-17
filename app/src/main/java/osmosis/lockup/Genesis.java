@@ -47,6 +47,30 @@ public final class Genesis {
      */
     osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
         int index);
+
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<osmosis.lockup.Lock.SyntheticLock> 
+        getSyntheticLocksList();
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    osmosis.lockup.Lock.SyntheticLock getSyntheticLocks(int index);
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    int getSyntheticLocksCount();
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<? extends osmosis.lockup.Lock.SyntheticLockOrBuilder> 
+        getSyntheticLocksOrBuilderList();
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    osmosis.lockup.Lock.SyntheticLockOrBuilder getSyntheticLocksOrBuilder(
+        int index);
   }
   /**
    * <pre>
@@ -66,6 +90,7 @@ public final class Genesis {
     }
     private GenesisState() {
       locks_ = java.util.Collections.emptyList();
+      syntheticLocks_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -113,6 +138,15 @@ public final class Genesis {
                   input.readMessage(osmosis.lockup.Lock.PeriodLock.parser(), extensionRegistry));
               break;
             }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                syntheticLocks_ = new java.util.ArrayList<osmosis.lockup.Lock.SyntheticLock>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              syntheticLocks_.add(
+                  input.readMessage(osmosis.lockup.Lock.SyntheticLock.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -130,6 +164,9 @@ public final class Genesis {
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
           locks_ = java.util.Collections.unmodifiableList(locks_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          syntheticLocks_ = java.util.Collections.unmodifiableList(syntheticLocks_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -199,6 +236,46 @@ public final class Genesis {
       return locks_.get(index);
     }
 
+    public static final int SYNTHETIC_LOCKS_FIELD_NUMBER = 3;
+    private java.util.List<osmosis.lockup.Lock.SyntheticLock> syntheticLocks_;
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<osmosis.lockup.Lock.SyntheticLock> getSyntheticLocksList() {
+      return syntheticLocks_;
+    }
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends osmosis.lockup.Lock.SyntheticLockOrBuilder> 
+        getSyntheticLocksOrBuilderList() {
+      return syntheticLocks_;
+    }
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public int getSyntheticLocksCount() {
+      return syntheticLocks_.size();
+    }
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public osmosis.lockup.Lock.SyntheticLock getSyntheticLocks(int index) {
+      return syntheticLocks_.get(index);
+    }
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public osmosis.lockup.Lock.SyntheticLockOrBuilder getSyntheticLocksOrBuilder(
+        int index) {
+      return syntheticLocks_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -219,6 +296,9 @@ public final class Genesis {
       for (int i = 0; i < locks_.size(); i++) {
         output.writeMessage(2, locks_.get(i));
       }
+      for (int i = 0; i < syntheticLocks_.size(); i++) {
+        output.writeMessage(3, syntheticLocks_.get(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -235,6 +315,10 @@ public final class Genesis {
       for (int i = 0; i < locks_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, locks_.get(i));
+      }
+      for (int i = 0; i < syntheticLocks_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, syntheticLocks_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -255,6 +339,8 @@ public final class Genesis {
           != other.getLastLockId()) return false;
       if (!getLocksList()
           .equals(other.getLocksList())) return false;
+      if (!getSyntheticLocksList()
+          .equals(other.getSyntheticLocksList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -272,6 +358,10 @@ public final class Genesis {
       if (getLocksCount() > 0) {
         hash = (37 * hash) + LOCKS_FIELD_NUMBER;
         hash = (53 * hash) + getLocksList().hashCode();
+      }
+      if (getSyntheticLocksCount() > 0) {
+        hash = (37 * hash) + SYNTHETIC_LOCKS_FIELD_NUMBER;
+        hash = (53 * hash) + getSyntheticLocksList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -406,6 +496,7 @@ public final class Genesis {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getLocksFieldBuilder();
+          getSyntheticLocksFieldBuilder();
         }
       }
       @java.lang.Override
@@ -418,6 +509,12 @@ public final class Genesis {
           bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           locksBuilder_.clear();
+        }
+        if (syntheticLocksBuilder_ == null) {
+          syntheticLocks_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          syntheticLocksBuilder_.clear();
         }
         return this;
       }
@@ -455,6 +552,15 @@ public final class Genesis {
           result.locks_ = locks_;
         } else {
           result.locks_ = locksBuilder_.build();
+        }
+        if (syntheticLocksBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            syntheticLocks_ = java.util.Collections.unmodifiableList(syntheticLocks_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.syntheticLocks_ = syntheticLocks_;
+        } else {
+          result.syntheticLocks_ = syntheticLocksBuilder_.build();
         }
         onBuilt();
         return result;
@@ -530,6 +636,32 @@ public final class Genesis {
                    getLocksFieldBuilder() : null;
             } else {
               locksBuilder_.addAllMessages(other.locks_);
+            }
+          }
+        }
+        if (syntheticLocksBuilder_ == null) {
+          if (!other.syntheticLocks_.isEmpty()) {
+            if (syntheticLocks_.isEmpty()) {
+              syntheticLocks_ = other.syntheticLocks_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureSyntheticLocksIsMutable();
+              syntheticLocks_.addAll(other.syntheticLocks_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.syntheticLocks_.isEmpty()) {
+            if (syntheticLocksBuilder_.isEmpty()) {
+              syntheticLocksBuilder_.dispose();
+              syntheticLocksBuilder_ = null;
+              syntheticLocks_ = other.syntheticLocks_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              syntheticLocksBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSyntheticLocksFieldBuilder() : null;
+            } else {
+              syntheticLocksBuilder_.addAllMessages(other.syntheticLocks_);
             }
           }
         }
@@ -833,6 +965,246 @@ public final class Genesis {
         }
         return locksBuilder_;
       }
+
+      private java.util.List<osmosis.lockup.Lock.SyntheticLock> syntheticLocks_ =
+        java.util.Collections.emptyList();
+      private void ensureSyntheticLocksIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          syntheticLocks_ = new java.util.ArrayList<osmosis.lockup.Lock.SyntheticLock>(syntheticLocks_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          osmosis.lockup.Lock.SyntheticLock, osmosis.lockup.Lock.SyntheticLock.Builder, osmosis.lockup.Lock.SyntheticLockOrBuilder> syntheticLocksBuilder_;
+
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<osmosis.lockup.Lock.SyntheticLock> getSyntheticLocksList() {
+        if (syntheticLocksBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(syntheticLocks_);
+        } else {
+          return syntheticLocksBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public int getSyntheticLocksCount() {
+        if (syntheticLocksBuilder_ == null) {
+          return syntheticLocks_.size();
+        } else {
+          return syntheticLocksBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.SyntheticLock getSyntheticLocks(int index) {
+        if (syntheticLocksBuilder_ == null) {
+          return syntheticLocks_.get(index);
+        } else {
+          return syntheticLocksBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setSyntheticLocks(
+          int index, osmosis.lockup.Lock.SyntheticLock value) {
+        if (syntheticLocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.set(index, value);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setSyntheticLocks(
+          int index, osmosis.lockup.Lock.SyntheticLock.Builder builderForValue) {
+        if (syntheticLocksBuilder_ == null) {
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSyntheticLocks(osmosis.lockup.Lock.SyntheticLock value) {
+        if (syntheticLocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.add(value);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSyntheticLocks(
+          int index, osmosis.lockup.Lock.SyntheticLock value) {
+        if (syntheticLocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.add(index, value);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSyntheticLocks(
+          osmosis.lockup.Lock.SyntheticLock.Builder builderForValue) {
+        if (syntheticLocksBuilder_ == null) {
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.add(builderForValue.build());
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSyntheticLocks(
+          int index, osmosis.lockup.Lock.SyntheticLock.Builder builderForValue) {
+        if (syntheticLocksBuilder_ == null) {
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addAllSyntheticLocks(
+          java.lang.Iterable<? extends osmosis.lockup.Lock.SyntheticLock> values) {
+        if (syntheticLocksBuilder_ == null) {
+          ensureSyntheticLocksIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, syntheticLocks_);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearSyntheticLocks() {
+        if (syntheticLocksBuilder_ == null) {
+          syntheticLocks_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder removeSyntheticLocks(int index) {
+        if (syntheticLocksBuilder_ == null) {
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.remove(index);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.SyntheticLock.Builder getSyntheticLocksBuilder(
+          int index) {
+        return getSyntheticLocksFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.SyntheticLockOrBuilder getSyntheticLocksOrBuilder(
+          int index) {
+        if (syntheticLocksBuilder_ == null) {
+          return syntheticLocks_.get(index);  } else {
+          return syntheticLocksBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<? extends osmosis.lockup.Lock.SyntheticLockOrBuilder> 
+           getSyntheticLocksOrBuilderList() {
+        if (syntheticLocksBuilder_ != null) {
+          return syntheticLocksBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(syntheticLocks_);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.SyntheticLock.Builder addSyntheticLocksBuilder() {
+        return getSyntheticLocksFieldBuilder().addBuilder(
+            osmosis.lockup.Lock.SyntheticLock.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.SyntheticLock.Builder addSyntheticLocksBuilder(
+          int index) {
+        return getSyntheticLocksFieldBuilder().addBuilder(
+            index, osmosis.lockup.Lock.SyntheticLock.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 3 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<osmosis.lockup.Lock.SyntheticLock.Builder> 
+           getSyntheticLocksBuilderList() {
+        return getSyntheticLocksFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          osmosis.lockup.Lock.SyntheticLock, osmosis.lockup.Lock.SyntheticLock.Builder, osmosis.lockup.Lock.SyntheticLockOrBuilder> 
+          getSyntheticLocksFieldBuilder() {
+        if (syntheticLocksBuilder_ == null) {
+          syntheticLocksBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              osmosis.lockup.Lock.SyntheticLock, osmosis.lockup.Lock.SyntheticLock.Builder, osmosis.lockup.Lock.SyntheticLockOrBuilder>(
+                  syntheticLocks_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          syntheticLocks_ = null;
+        }
+        return syntheticLocksBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -902,10 +1274,12 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n\034osmosis/lockup/genesis.proto\022\016osmosis." +
       "lockup\032\024gogoproto/gogo.proto\032\031osmosis/lo" +
-      "ckup/lock.proto\"U\n\014GenesisState\022\024\n\014last_" +
-      "lock_id\030\001 \001(\004\022/\n\005locks\030\002 \003(\0132\032.osmosis.l" +
-      "ockup.PeriodLockB\004\310\336\037\000B0Z.github.com/osm" +
-      "osis-labs/osmosis/x/lockup/typesb\006proto3"
+      "ckup/lock.proto\"\223\001\n\014GenesisState\022\024\n\014last" +
+      "_lock_id\030\001 \001(\004\022/\n\005locks\030\002 \003(\0132\032.osmosis." +
+      "lockup.PeriodLockB\004\310\336\037\000\022<\n\017synthetic_loc" +
+      "ks\030\003 \003(\0132\035.osmosis.lockup.SyntheticLockB" +
+      "\004\310\336\037\000B3Z1github.com/osmosis-labs/osmosis" +
+      "/v7/x/lockup/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -918,7 +1292,7 @@ public final class Genesis {
     internal_static_osmosis_lockup_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_GenesisState_descriptor,
-        new java.lang.String[] { "LastLockId", "Locks", });
+        new java.lang.String[] { "LastLockId", "Locks", "SyntheticLocks", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.nullable);

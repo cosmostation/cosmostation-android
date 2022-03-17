@@ -20,7 +20,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
+import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -68,7 +68,7 @@ public class StartEarningActivity extends BaseBroadCastActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         try {
-            mOsmosisPool = BalancerPoolOuterClass.BalancerPool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));
+            mOsmosisPool = BalancerPool.Pool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));
             mOsmosisLockupDuration = getIntent().getLongExtra("osmosisDuration", -1);
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();

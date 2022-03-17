@@ -2313,29 +2313,31 @@ public final class QueryOuterClass {
     java.lang.String[] descriptorData = {
       "\n\032osmosis/epochs/query.proto\022\026osmosis.ep" +
       "ochs.v1beta1\032\024gogoproto/gogo.proto\032\034goog" +
-      "le/api/annotations.proto\032\034osmosis/epochs" +
-      "/genesis.proto\"\030\n\026QueryEpochsInfoRequest" +
-      "\"R\n\027QueryEpochsInfoResponse\0227\n\006epochs\030\001 " +
-      "\003(\0132!.osmosis.epochs.v1beta1.EpochInfoB\004" +
-      "\310\336\037\000\".\n\030QueryCurrentEpochRequest\022\022\n\niden" +
-      "tifier\030\001 \001(\t\"2\n\031QueryCurrentEpochRespons" +
-      "e\022\025\n\rcurrent_epoch\030\001 \001(\0032\304\002\n\005Query\022\225\001\n\nE" +
-      "pochInfos\022..osmosis.epochs.v1beta1.Query" +
-      "EpochsInfoRequest\032/.osmosis.epochs.v1bet" +
-      "a1.QueryEpochsInfoResponse\"&\202\323\344\223\002 \022\036/osm" +
-      "osis/epochs/v1beta1/epochs\022\242\001\n\014CurrentEp" +
-      "och\0220.osmosis.epochs.v1beta1.QueryCurren" +
-      "tEpochRequest\0321.osmosis.epochs.v1beta1.Q" +
-      "ueryCurrentEpochResponse\"-\202\323\344\223\002\'\022%/osmos" +
-      "is/epochs/v1beta1/current_epochB0Z.githu" +
-      "b.com/osmosis-labs/osmosis/x/epochs/type" +
-      "sb\006proto3"
+      "le/api/annotations.proto\032*cosmos/base/qu" +
+      "ery/v1beta1/pagination.proto\032\034osmosis/ep" +
+      "ochs/genesis.proto\"\030\n\026QueryEpochsInfoReq" +
+      "uest\"R\n\027QueryEpochsInfoResponse\0227\n\006epoch" +
+      "s\030\001 \003(\0132!.osmosis.epochs.v1beta1.EpochIn" +
+      "foB\004\310\336\037\000\".\n\030QueryCurrentEpochRequest\022\022\n\n" +
+      "identifier\030\001 \001(\t\"2\n\031QueryCurrentEpochRes" +
+      "ponse\022\025\n\rcurrent_epoch\030\001 \001(\0032\304\002\n\005Query\022\225" +
+      "\001\n\nEpochInfos\022..osmosis.epochs.v1beta1.Q" +
+      "ueryEpochsInfoRequest\032/.osmosis.epochs.v" +
+      "1beta1.QueryEpochsInfoResponse\"&\202\323\344\223\002 \022\036" +
+      "/osmosis/epochs/v1beta1/epochs\022\242\001\n\014Curre" +
+      "ntEpoch\0220.osmosis.epochs.v1beta1.QueryCu" +
+      "rrentEpochRequest\0321.osmosis.epochs.v1bet" +
+      "a1.QueryCurrentEpochResponse\"-\202\323\344\223\002\'\022%/o" +
+      "smosis/epochs/v1beta1/current_epochB3Z1g" +
+      "ithub.com/osmosis-labs/osmosis/v7/x/epoc" +
+      "hs/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
+          cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           osmosis.epochs.v1beta1.Genesis.getDescriptor(),
         });
     internal_static_osmosis_epochs_v1beta1_QueryEpochsInfoRequest_descriptor =
@@ -2370,6 +2372,7 @@ public final class QueryOuterClass {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
+    cosmos.base.query.v1beta1.Pagination.getDescriptor();
     osmosis.epochs.v1beta1.Genesis.getDescriptor();
   }
 
