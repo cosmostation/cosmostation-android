@@ -3031,6 +3031,50 @@ public final class Tx {
      * @return The iD.
      */
     long getID();
+
+    /**
+     * <pre>
+     * Amount of unlocking coins. Unlock all if not set.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> 
+        getCoinsList();
+    /**
+     * <pre>
+     * Amount of unlocking coins. Unlock all if not set.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index);
+    /**
+     * <pre>
+     * Amount of unlocking coins. Unlock all if not set.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    int getCoinsCount();
+    /**
+     * <pre>
+     * Amount of unlocking coins. Unlock all if not set.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
+        getCoinsOrBuilderList();
+    /**
+     * <pre>
+     * Amount of unlocking coins. Unlock all if not set.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code osmosis.lockup.MsgBeginUnlocking}
@@ -3046,6 +3090,7 @@ public final class Tx {
     }
     private MsgBeginUnlocking() {
       owner_ = "";
+      coins_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -3068,6 +3113,7 @@ public final class Tx {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -3089,6 +3135,15 @@ public final class Tx {
               iD_ = input.readUInt64();
               break;
             }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                coins_ = new java.util.ArrayList<cosmos.base.v1beta1.CoinOuterClass.Coin>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              coins_.add(
+                  input.readMessage(cosmos.base.v1beta1.CoinOuterClass.Coin.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -3104,6 +3159,9 @@ public final class Tx {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          coins_ = java.util.Collections.unmodifiableList(coins_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -3170,6 +3228,66 @@ public final class Tx {
       return iD_;
     }
 
+    public static final int COINS_FIELD_NUMBER = 3;
+    private java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> coins_;
+    /**
+     * <pre>
+     * Amount of unlocking coins. Unlock all if not set.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
+      return coins_;
+    }
+    /**
+     * <pre>
+     * Amount of unlocking coins. Unlock all if not set.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
+        getCoinsOrBuilderList() {
+      return coins_;
+    }
+    /**
+     * <pre>
+     * Amount of unlocking coins. Unlock all if not set.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    @java.lang.Override
+    public int getCoinsCount() {
+      return coins_.size();
+    }
+    /**
+     * <pre>
+     * Amount of unlocking coins. Unlock all if not set.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    @java.lang.Override
+    public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
+      return coins_.get(index);
+    }
+    /**
+     * <pre>
+     * Amount of unlocking coins. Unlock all if not set.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     */
+    @java.lang.Override
+    public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
+        int index) {
+      return coins_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3190,6 +3308,9 @@ public final class Tx {
       if (iD_ != 0L) {
         output.writeUInt64(2, iD_);
       }
+      for (int i = 0; i < coins_.size(); i++) {
+        output.writeMessage(3, coins_.get(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -3205,6 +3326,10 @@ public final class Tx {
       if (iD_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, iD_);
+      }
+      for (int i = 0; i < coins_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, coins_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3225,6 +3350,8 @@ public final class Tx {
           .equals(other.getOwner())) return false;
       if (getID()
           != other.getID()) return false;
+      if (!getCoinsList()
+          .equals(other.getCoinsList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -3241,6 +3368,10 @@ public final class Tx {
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getID());
+      if (getCoinsCount() > 0) {
+        hash = (37 * hash) + COINS_FIELD_NUMBER;
+        hash = (53 * hash) + getCoinsList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3369,6 +3500,7 @@ public final class Tx {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getCoinsFieldBuilder();
         }
       }
       @java.lang.Override
@@ -3378,6 +3510,12 @@ public final class Tx {
 
         iD_ = 0L;
 
+        if (coinsBuilder_ == null) {
+          coins_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          coinsBuilder_.clear();
+        }
         return this;
       }
 
@@ -3404,8 +3542,18 @@ public final class Tx {
       @java.lang.Override
       public osmosis.lockup.Tx.MsgBeginUnlocking buildPartial() {
         osmosis.lockup.Tx.MsgBeginUnlocking result = new osmosis.lockup.Tx.MsgBeginUnlocking(this);
+        int from_bitField0_ = bitField0_;
         result.owner_ = owner_;
         result.iD_ = iD_;
+        if (coinsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            coins_ = java.util.Collections.unmodifiableList(coins_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.coins_ = coins_;
+        } else {
+          result.coins_ = coinsBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -3461,6 +3609,32 @@ public final class Tx {
         if (other.getID() != 0L) {
           setID(other.getID());
         }
+        if (coinsBuilder_ == null) {
+          if (!other.coins_.isEmpty()) {
+            if (coins_.isEmpty()) {
+              coins_ = other.coins_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureCoinsIsMutable();
+              coins_.addAll(other.coins_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.coins_.isEmpty()) {
+            if (coinsBuilder_.isEmpty()) {
+              coinsBuilder_.dispose();
+              coinsBuilder_ = null;
+              coins_ = other.coins_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              coinsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getCoinsFieldBuilder() : null;
+            } else {
+              coinsBuilder_.addAllMessages(other.coins_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -3489,6 +3663,7 @@ public final class Tx {
         }
         return this;
       }
+      private int bitField0_;
 
       private java.lang.Object owner_ = "";
       /**
@@ -3595,6 +3770,318 @@ public final class Tx {
         iD_ = 0L;
         onChanged();
         return this;
+      }
+
+      private java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> coins_ =
+        java.util.Collections.emptyList();
+      private void ensureCoinsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          coins_ = new java.util.ArrayList<cosmos.base.v1beta1.CoinOuterClass.Coin>(coins_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> coinsBuilder_;
+
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
+        if (coinsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(coins_);
+        } else {
+          return coinsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public int getCoinsCount() {
+        if (coinsBuilder_ == null) {
+          return coins_.size();
+        } else {
+          return coinsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
+        if (coinsBuilder_ == null) {
+          return coins_.get(index);
+        } else {
+          return coinsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder setCoins(
+          int index, cosmos.base.v1beta1.CoinOuterClass.Coin value) {
+        if (coinsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCoinsIsMutable();
+          coins_.set(index, value);
+          onChanged();
+        } else {
+          coinsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder setCoins(
+          int index, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
+        if (coinsBuilder_ == null) {
+          ensureCoinsIsMutable();
+          coins_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          coinsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder addCoins(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
+        if (coinsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCoinsIsMutable();
+          coins_.add(value);
+          onChanged();
+        } else {
+          coinsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder addCoins(
+          int index, cosmos.base.v1beta1.CoinOuterClass.Coin value) {
+        if (coinsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCoinsIsMutable();
+          coins_.add(index, value);
+          onChanged();
+        } else {
+          coinsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder addCoins(
+          cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
+        if (coinsBuilder_ == null) {
+          ensureCoinsIsMutable();
+          coins_.add(builderForValue.build());
+          onChanged();
+        } else {
+          coinsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder addCoins(
+          int index, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
+        if (coinsBuilder_ == null) {
+          ensureCoinsIsMutable();
+          coins_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          coinsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder addAllCoins(
+          java.lang.Iterable<? extends cosmos.base.v1beta1.CoinOuterClass.Coin> values) {
+        if (coinsBuilder_ == null) {
+          ensureCoinsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, coins_);
+          onChanged();
+        } else {
+          coinsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder clearCoins() {
+        if (coinsBuilder_ == null) {
+          coins_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          coinsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public Builder removeCoins(int index) {
+        if (coinsBuilder_ == null) {
+          ensureCoinsIsMutable();
+          coins_.remove(index);
+          onChanged();
+        } else {
+          coinsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getCoinsBuilder(
+          int index) {
+        return getCoinsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
+          int index) {
+        if (coinsBuilder_ == null) {
+          return coins_.get(index);  } else {
+          return coinsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
+           getCoinsOrBuilderList() {
+        if (coinsBuilder_ != null) {
+          return coinsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(coins_);
+        }
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder addCoinsBuilder() {
+        return getCoinsFieldBuilder().addBuilder(
+            cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder addCoinsBuilder(
+          int index) {
+        return getCoinsFieldBuilder().addBuilder(
+            index, cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * Amount of unlocking coins. Unlock all if not set.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       */
+      public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin.Builder> 
+           getCoinsBuilderList() {
+        return getCoinsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
+          getCoinsFieldBuilder() {
+        if (coinsBuilder_ == null) {
+          coinsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder>(
+                  coins_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          coins_ = null;
+        }
+        return coinsBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -4191,18 +4678,21 @@ public final class Tx {
       "inUnlockingAll\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:" +
       "\"owner\"\"K\n\034MsgBeginUnlockingAllResponse\022" +
       "+\n\007unlocks\030\001 \003(\0132\032.osmosis.lockup.Period" +
-      "Lock\"@\n\021MsgBeginUnlocking\022\037\n\005owner\030\001 \001(\t" +
-      "B\020\362\336\037\014yaml:\"owner\"\022\n\n\002ID\030\002 \001(\004\",\n\031MsgBeg" +
-      "inUnlockingResponse\022\017\n\007success\030\001 \001(\0102\242\002\n" +
-      "\003Msg\022R\n\nLockTokens\022\035.osmosis.lockup.MsgL" +
-      "ockTokens\032%.osmosis.lockup.MsgLockTokens" +
-      "Response\022g\n\021BeginUnlockingAll\022$.osmosis." +
-      "lockup.MsgBeginUnlockingAll\032,.osmosis.lo" +
-      "ckup.MsgBeginUnlockingAllResponse\022^\n\016Beg" +
-      "inUnlocking\022!.osmosis.lockup.MsgBeginUnl" +
-      "ocking\032).osmosis.lockup.MsgBeginUnlockin" +
-      "gResponseB0Z.github.com/osmosis-labs/osm" +
-      "osis/x/lockup/typesb\006proto3"
+      "Lock\"\234\001\n\021MsgBeginUnlocking\022\037\n\005owner\030\001 \001(" +
+      "\tB\020\362\336\037\014yaml:\"owner\"\022\n\n\002ID\030\002 \001(\004\022Z\n\005coins" +
+      "\030\003 \003(\0132\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252" +
+      "\337\037(github.com/cosmos/cosmos-sdk/types.Co" +
+      "ins\",\n\031MsgBeginUnlockingResponse\022\017\n\007succ" +
+      "ess\030\001 \001(\0102\242\002\n\003Msg\022R\n\nLockTokens\022\035.osmosi" +
+      "s.lockup.MsgLockTokens\032%.osmosis.lockup." +
+      "MsgLockTokensResponse\022g\n\021BeginUnlockingA" +
+      "ll\022$.osmosis.lockup.MsgBeginUnlockingAll" +
+      "\032,.osmosis.lockup.MsgBeginUnlockingAllRe" +
+      "sponse\022^\n\016BeginUnlocking\022!.osmosis.locku" +
+      "p.MsgBeginUnlocking\032).osmosis.lockup.Msg" +
+      "BeginUnlockingResponseB3Z1github.com/osm" +
+      "osis-labs/osmosis/v7/x/lockup/typesb\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4241,7 +4731,7 @@ public final class Tx {
     internal_static_osmosis_lockup_MsgBeginUnlocking_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_MsgBeginUnlocking_descriptor,
-        new java.lang.String[] { "Owner", "ID", });
+        new java.lang.String[] { "Owner", "ID", "Coins", });
     internal_static_osmosis_lockup_MsgBeginUnlockingResponse_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_osmosis_lockup_MsgBeginUnlockingResponse_fieldAccessorTable = new

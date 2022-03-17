@@ -208,10 +208,6 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             onStartHTLCSendActivity(mDenom);
 
         } else if (v.equals(mBtnSend)) {
-            if (mBaseChain.equals(OKEX_MAIN)) {
-                Toast.makeText(NativeTokenDetailActivity.this, "Temporary Disable", Toast.LENGTH_SHORT).show();
-                return;
-            }
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 add.setCancelable(true);

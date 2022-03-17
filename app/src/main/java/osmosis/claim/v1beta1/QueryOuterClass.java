@@ -6596,9 +6596,9 @@ public final class QueryOuterClass {
       ".claim.v1beta1.QueryTotalClaimableReques" +
       "t\0322.osmosis.claim.v1beta1.QueryTotalClai" +
       "mableResponse\"8\202\323\344\223\0022\0220/osmosis/claim/v1" +
-      "beta1/total_claimable/{address}B/Z-githu" +
-      "b.com/osmosis-labs/osmosis/x/claim/types" +
-      "b\006proto3"
+      "beta1/total_claimable/{address}B2Z0githu" +
+      "b.com/osmosis-labs/osmosis/v7/x/claim/ty" +
+      "pesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

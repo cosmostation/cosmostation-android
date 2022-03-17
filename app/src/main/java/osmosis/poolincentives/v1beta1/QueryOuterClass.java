@@ -8608,8 +8608,8 @@ public final class QueryOuterClass {
       "s.poolincentives.v1beta1.QueryExternalIn" +
       "centiveGaugesResponse\"B\202\323\344\223\002<\022:/osmosis/" +
       "pool-incentives/v1beta1/external_incenti" +
-      "ve_gaugesB9Z7github.com/osmosis-labs/osm" +
-      "osis/x/pool-incentives/typesb\006proto3"
+      "ve_gaugesB<Z:github.com/osmosis-labs/osm" +
+      "osis/v7/x/pool-incentives/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

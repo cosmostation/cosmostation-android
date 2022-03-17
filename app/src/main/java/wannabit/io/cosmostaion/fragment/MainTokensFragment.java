@@ -336,7 +336,7 @@ public class MainTokensFragment extends BaseFragment {
                     return getMainActivity().getString(R.string.str_ibc_token_title);
                 } else if (section == SECTION_IBC_UNKNOWN_GRPC) {
                     return getMainActivity().getString(R.string.str_unknown_ibc_token_title);
-                } else if (section == SECTION_UNKNOWN) {
+                } else if (section == SECTION_UNKNOWN_GRPC) {
                     return getMainActivity().getString(R.string.str_unknown_token_title);
                 }
 
@@ -376,6 +376,9 @@ public class MainTokensFragment extends BaseFragment {
                 if (section == SECTION_NATIVE) {
                     return getMainActivity().getString(R.string.str_native_token_title);
                 } else if (section == SECTION_ETC) {
+                    if (baseChain.equals(OKEX_MAIN)) {
+                        return getMainActivity().getString(R.string.str_oec_kip10_title);
+                    }
                     return getMainActivity().getString(R.string.str_etc_token_title);
                 } else if (section == SECTION_UNKNOWN) {
                     return getMainActivity().getString(R.string.str_unknown_token_title);
@@ -645,16 +648,22 @@ public class MainTokensFragment extends BaseFragment {
                     onBindNativeItem(viewHolder, position);
                 } else if (getItemViewType(position) == SECTION_ETC) {
                     onBindEtcToken(viewHolder, position - mNative.size());
+                } else if (getItemViewType(position) == SECTION_UNKNOWN) {
+                    onBindUnKnownCoin(viewHolder, position - mNative.size() - mEtc.size());
                 }
             } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
                 if (getItemViewType(position) == SECTION_NATIVE) {
                     onBindNativeItem(viewHolder, position);
                 } else if (getItemViewType(position) == SECTION_ETC) {
                     onBindEtcToken(viewHolder, position - mNative.size());
+                } else if (getItemViewType(position) == SECTION_UNKNOWN) {
+                    onBindUnKnownCoin(viewHolder, position - mNative.size() - mEtc.size());
                 }
             } else {
                 if (getItemViewType(position) == SECTION_NATIVE) {
                     onBindNativeItem(viewHolder, position);
+                } else if (getItemViewType(position) == SECTION_UNKNOWN) {
+                    onBindUnKnownCoin(viewHolder, position - mNative.size());
                 }
             }
         }
@@ -1604,7 +1613,7 @@ public class MainTokensFragment extends BaseFragment {
             final OkToken okToken = getBaseDao().okToken(balance.symbol);
             holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");
-            holder.itemFullName.setText("OKExChain Native Coin");
+            holder.itemFullName.setText("OEC Staking Coin");
             if (balance.symbol.equals(TOKEN_OK)) {
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_okx));
@@ -1672,6 +1681,18 @@ public class MainTokensFragment extends BaseFragment {
                 }
             });
         }
+    }
+
+    //with Unknown coin oec, bnb
+    private void onBindUnKnownCoin(TokensAdapter.AssetHolder holder, int position) {
+        final Balance balance = mUnKnown.get(position);
+        holder.itemSymbol.setText("UNKNOWN");
+        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemInnerSymbol.setText("");
+        holder.itemFullName.setText("");
+        holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 6, 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, BigDecimal.ZERO, 6));
     }
 
     public MainActivity getMainActivity() {

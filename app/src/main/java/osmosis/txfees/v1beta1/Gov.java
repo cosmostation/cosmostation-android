@@ -972,9 +972,9 @@ public final class Gov {
       "\tB\020\362\336\037\014yaml:\"title\"\022+\n\013description\030\002 \001(\t" +
       "B\026\362\336\037\022yaml:\"description\"\022L\n\010feetoken\030\003 \001" +
       "(\0132 .osmosis.txfees.v1beta1.FeeTokenB\030\362\336" +
-      "\037\020yaml:\"fee_token\"\310\336\037\000:\014\350\240\037\001\210\240\037\000\230\240\037\000B0Z." +
-      "github.com/osmosis-labs/osmosis/x/txfees" +
-      "/typesb\006proto3"
+      "\037\020yaml:\"fee_token\"\310\336\037\000:\014\350\240\037\001\210\240\037\000\230\240\037\000B3Z1" +
+      "github.com/osmosis-labs/osmosis/v7/x/txf" +
+      "ees/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

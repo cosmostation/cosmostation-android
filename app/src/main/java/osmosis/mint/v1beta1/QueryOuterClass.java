@@ -2125,8 +2125,8 @@ public final class QueryOuterClass {
       "a1.QueryEpochProvisionsRequest\0322.osmosis" +
       ".mint.v1beta1.QueryEpochProvisionsRespon" +
       "se\".\202\323\344\223\002(\022&/osmosis/mint/v1beta1/epoch_" +
-      "provisionsB.Z,github.com/osmosis-labs/os" +
-      "mosis/x/mint/typesb\006proto3"
+      "provisionsB1Z/github.com/osmosis-labs/os" +
+      "mosis/v7/x/mint/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

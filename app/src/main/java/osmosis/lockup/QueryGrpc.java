@@ -371,6 +371,37 @@ public final class QueryGrpc {
     return getLockedByIDMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest,
+      osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse> getSyntheticLockupsByLockupIDMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SyntheticLockupsByLockupID",
+      requestType = osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest.class,
+      responseType = osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest,
+      osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse> getSyntheticLockupsByLockupIDMethod() {
+    io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest, osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse> getSyntheticLockupsByLockupIDMethod;
+    if ((getSyntheticLockupsByLockupIDMethod = QueryGrpc.getSyntheticLockupsByLockupIDMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getSyntheticLockupsByLockupIDMethod = QueryGrpc.getSyntheticLockupsByLockupIDMethod) == null) {
+          QueryGrpc.getSyntheticLockupsByLockupIDMethod = getSyntheticLockupsByLockupIDMethod =
+              io.grpc.MethodDescriptor.<osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest, osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SyntheticLockupsByLockupID"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("SyntheticLockupsByLockupID"))
+              .build();
+        }
+      }
+    }
+    return getSyntheticLockupsByLockupIDMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationRequest,
       osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationResponse> getAccountLockedLongerDurationMethod;
 
@@ -628,6 +659,16 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Returns synthetic lockups by native lockup id
+     * </pre>
+     */
+    public void syntheticLockupsByLockupID(osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest request,
+        io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getSyntheticLockupsByLockupIDMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Returns account locked records with longer duration
      * </pre>
      */
@@ -736,6 +777,13 @@ public final class QueryGrpc {
                 osmosis.lockup.QueryOuterClass.LockedRequest,
                 osmosis.lockup.QueryOuterClass.LockedResponse>(
                   this, METHODID_LOCKED_BY_ID)))
+          .addMethod(
+            getSyntheticLockupsByLockupIDMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest,
+                osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse>(
+                  this, METHODID_SYNTHETIC_LOCKUPS_BY_LOCKUP_ID)))
           .addMethod(
             getAccountLockedLongerDurationMethod(),
             asyncUnaryCall(
@@ -902,6 +950,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Returns synthetic lockups by native lockup id
+     * </pre>
+     */
+    public void syntheticLockupsByLockupID(osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest request,
+        io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSyntheticLockupsByLockupIDMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * Returns account locked records with longer duration
      * </pre>
      */
@@ -1061,6 +1120,16 @@ public final class QueryGrpc {
     public osmosis.lockup.QueryOuterClass.LockedResponse lockedByID(osmosis.lockup.QueryOuterClass.LockedRequest request) {
       return blockingUnaryCall(
           getChannel(), getLockedByIDMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * Returns synthetic lockups by native lockup id
+     * </pre>
+     */
+    public osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse syntheticLockupsByLockupID(osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getSyntheticLockupsByLockupIDMethod(), getCallOptions(), request);
     }
 
     /**
@@ -1236,6 +1305,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * Returns synthetic lockups by native lockup id
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse> syntheticLockupsByLockupID(
+        osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSyntheticLockupsByLockupIDMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Returns account locked records with longer duration
      * </pre>
      */
@@ -1280,9 +1360,10 @@ public final class QueryGrpc {
   private static final int METHODID_ACCOUNT_LOCKED_PAST_TIME_DENOM = 8;
   private static final int METHODID_LOCKED_DENOM = 9;
   private static final int METHODID_LOCKED_BY_ID = 10;
-  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION = 11;
-  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_NOT_UNLOCKING_ONLY = 12;
-  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_DENOM = 13;
+  private static final int METHODID_SYNTHETIC_LOCKUPS_BY_LOCKUP_ID = 11;
+  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION = 12;
+  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_NOT_UNLOCKING_ONLY = 13;
+  private static final int METHODID_ACCOUNT_LOCKED_LONGER_DURATION_DENOM = 14;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1344,6 +1425,10 @@ public final class QueryGrpc {
         case METHODID_LOCKED_BY_ID:
           serviceImpl.lockedByID((osmosis.lockup.QueryOuterClass.LockedRequest) request,
               (io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.LockedResponse>) responseObserver);
+          break;
+        case METHODID_SYNTHETIC_LOCKUPS_BY_LOCKUP_ID:
+          serviceImpl.syntheticLockupsByLockupID((osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest) request,
+              (io.grpc.stub.StreamObserver<osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse>) responseObserver);
           break;
         case METHODID_ACCOUNT_LOCKED_LONGER_DURATION:
           serviceImpl.accountLockedLongerDuration((osmosis.lockup.QueryOuterClass.AccountLockedLongerDurationRequest) request,
@@ -1429,6 +1514,7 @@ public final class QueryGrpc {
               .addMethod(getAccountLockedPastTimeDenomMethod())
               .addMethod(getLockedDenomMethod())
               .addMethod(getLockedByIDMethod())
+              .addMethod(getSyntheticLockupsByLockupIDMethod())
               .addMethod(getAccountLockedLongerDurationMethod())
               .addMethod(getAccountLockedLongerDurationNotUnlockingOnlyMethod())
               .addMethod(getAccountLockedLongerDurationDenomMethod())

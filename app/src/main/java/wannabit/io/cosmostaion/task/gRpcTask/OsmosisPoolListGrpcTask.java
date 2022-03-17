@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import cosmos.base.query.v1beta1.Pagination;
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
+import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import osmosis.gamm.v1beta1.QueryGrpc;
 import osmosis.gamm.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -24,7 +24,7 @@ import com.google.protobuf2.Any;
 public class OsmosisPoolListGrpcTask extends CommonTask {
     private BaseChain mChain;
     private QueryGrpc.QueryBlockingStub mStub;
-    private ArrayList<BalancerPoolOuterClass.BalancerPool> mResultData = new ArrayList<>();
+    private ArrayList<BalancerPool.Pool> mResultData = new ArrayList<>();
 
     public OsmosisPoolListGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
@@ -41,7 +41,7 @@ public class OsmosisPoolListGrpcTask extends CommonTask {
             QueryOuterClass.QueryPoolsResponse response = mStub.pools(request);
 
             for (Any pool: response.getPoolsList()) {
-                mResultData.add(BalancerPoolOuterClass.BalancerPool.parseFrom(pool.getValue()));
+                mResultData.add(BalancerPool.Pool.parseFrom(pool.getValue()));
             }
             mResult.resultData = mResultData;
             mResult.isSuccess = true;

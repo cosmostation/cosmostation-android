@@ -1306,8 +1306,8 @@ public final class Genesis {
       "\336\037\000\230\337\037\001\362\336\037\031yaml:\"lockable_durations\"\022X\n\n" +
       "distr_info\030\003 \001(\0132).osmosis.poolincentive" +
       "s.v1beta1.DistrInfoB\031\310\336\037\001\362\336\037\021yaml:\"distr" +
-      "_info\"B9Z7github.com/osmosis-labs/osmosi" +
-      "s/x/pool-incentives/typesb\006proto3"
+      "_info\"B<Z:github.com/osmosis-labs/osmosi" +
+      "s/v7/x/pool-incentives/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

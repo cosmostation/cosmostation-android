@@ -984,8 +984,8 @@ public final class Genesis {
       "roto\032%osmosis/txfees/v1beta1/feetoken.pr" +
       "oto\"\\\n\014GenesisState\022\021\n\tbasedenom\030\001 \001(\t\0229" +
       "\n\tfeetokens\030\002 \003(\0132 .osmosis.txfees.v1bet" +
-      "a1.FeeTokenB\004\310\336\037\000B0Z.github.com/osmosis-" +
-      "labs/osmosis/x/txfees/typesb\006proto3"
+      "a1.FeeTokenB\004\310\336\037\000B3Z1github.com/osmosis-" +
+      "labs/osmosis/v7/x/txfees/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

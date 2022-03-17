@@ -73,7 +73,7 @@ public final class GaugeOuterClass {
 
     /**
      * <pre>
-     * can distribute multiple coins
+     * total amount of Coins that has been in the gauge.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -82,7 +82,7 @@ public final class GaugeOuterClass {
         getCoinsList();
     /**
      * <pre>
-     * can distribute multiple coins
+     * total amount of Coins that has been in the gauge.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -90,7 +90,7 @@ public final class GaugeOuterClass {
     cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index);
     /**
      * <pre>
-     * can distribute multiple coins
+     * total amount of Coins that has been in the gauge.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -98,7 +98,7 @@ public final class GaugeOuterClass {
     int getCoinsCount();
     /**
      * <pre>
-     * can distribute multiple coins
+     * total amount of Coins that has been in the gauge.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -107,7 +107,7 @@ public final class GaugeOuterClass {
         getCoinsOrBuilderList();
     /**
      * <pre>
-     * can distribute multiple coins
+     * total amount of Coins that has been in the gauge.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -434,7 +434,7 @@ public final class GaugeOuterClass {
     private java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> coins_;
     /**
      * <pre>
-     * can distribute multiple coins
+     * total amount of Coins that has been in the gauge.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -445,7 +445,7 @@ public final class GaugeOuterClass {
     }
     /**
      * <pre>
-     * can distribute multiple coins
+     * total amount of Coins that has been in the gauge.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -457,7 +457,7 @@ public final class GaugeOuterClass {
     }
     /**
      * <pre>
-     * can distribute multiple coins
+     * total amount of Coins that has been in the gauge.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -468,7 +468,7 @@ public final class GaugeOuterClass {
     }
     /**
      * <pre>
-     * can distribute multiple coins
+     * total amount of Coins that has been in the gauge.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -479,7 +479,7 @@ public final class GaugeOuterClass {
     }
     /**
      * <pre>
-     * can distribute multiple coins
+     * total amount of Coins that has been in the gauge.
      * </pre>
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1420,7 +1420,7 @@ public final class GaugeOuterClass {
 
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1434,7 +1434,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1448,7 +1448,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1462,7 +1462,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1483,7 +1483,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1501,7 +1501,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1521,7 +1521,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1542,7 +1542,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1560,7 +1560,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1578,7 +1578,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1597,7 +1597,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1614,7 +1614,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1631,7 +1631,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1642,7 +1642,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1656,7 +1656,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1671,7 +1671,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1682,7 +1682,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -1694,7 +1694,7 @@ public final class GaugeOuterClass {
       }
       /**
        * <pre>
-       * can distribute multiple coins
+       * total amount of Coins that has been in the gauge.
        * </pre>
        *
        * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
@@ -3153,9 +3153,9 @@ public final class GaugeOuterClass {
       "m/cosmos/cosmos-sdk/types.Coins\"u\n\025Locka" +
       "bleDurationsInfo\022\\\n\022lockable_durations\030\001" +
       " \003(\0132\031.google.protobuf.DurationB%\310\336\037\000\230\337\037" +
-      "\001\362\336\037\031yaml:\"lockable_durations\"B4Z2github" +
-      ".com/osmosis-labs/osmosis/x/incentives/t" +
-      "ypesb\006proto3"
+      "\001\362\336\037\031yaml:\"lockable_durations\"B7Z5github" +
+      ".com/osmosis-labs/osmosis/v7/x/incentive" +
+      "s/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

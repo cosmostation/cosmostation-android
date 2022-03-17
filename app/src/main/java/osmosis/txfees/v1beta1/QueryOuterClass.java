@@ -3309,37 +3309,38 @@ public final class QueryOuterClass {
     java.lang.String[] descriptorData = {
       "\n\"osmosis/txfees/v1beta1/query.proto\022\026os" +
       "mosis.txfees.v1beta1\032\024gogoproto/gogo.pro" +
-      "to\032\034google/api/annotations.proto\032%osmosi" +
-      "s/txfees/v1beta1/feetoken.proto\"\027\n\025Query" +
-      "FeeTokensRequest\"i\n\026QueryFeeTokensRespon" +
-      "se\022O\n\nfee_tokens\030\001 \003(\0132 .osmosis.txfees." +
-      "v1beta1.FeeTokenB\031\362\336\037\021yaml:\"fee_tokens\"\310" +
-      "\336\037\000\":\n\027QueryDenomPoolIdRequest\022\037\n\005denom\030" +
-      "\001 \001(\tB\020\362\336\037\014yaml:\"denom\"\">\n\030QueryDenomPoo" +
-      "lIdResponse\022\"\n\006poolID\030\001 \001(\004B\022\362\336\037\016yaml:\"p" +
-      "ool_id\"\"\027\n\025QueryBaseDenomRequest\"C\n\026Quer" +
-      "yBaseDenomResponse\022)\n\nbase_denom\030\001 \001(\tB\025" +
-      "\362\336\037\021yaml:\"base_denom\"2\343\003\n\005Query\022\226\001\n\tFeeT" +
-      "okens\022-.osmosis.txfees.v1beta1.QueryFeeT" +
-      "okensRequest\032..osmosis.txfees.v1beta1.Qu" +
-      "eryFeeTokensResponse\"*\202\323\344\223\002$\022\"/osmosis/t" +
-      "xfees/v1beta1/fee_tokens\022\247\001\n\013DenomPoolId" +
-      "\022/.osmosis.txfees.v1beta1.QueryDenomPool" +
-      "IdRequest\0320.osmosis.txfees.v1beta1.Query" +
-      "DenomPoolIdResponse\"5\202\323\344\223\002/\022-/osmosis/tx" +
-      "fees/v1beta1/denom_pool_id/{denom}\022\226\001\n\tB" +
-      "aseDenom\022-.osmosis.txfees.v1beta1.QueryB" +
-      "aseDenomRequest\032..osmosis.txfees.v1beta1" +
-      ".QueryBaseDenomResponse\"*\202\323\344\223\002$\022\"/osmosi" +
-      "s/txfees/v1beta1/base_denomB0Z.github.co" +
-      "m/osmosis-labs/osmosis/x/txfees/typesb\006p" +
-      "roto3"
+      "to\032\034google/api/annotations.proto\032\036google" +
+      "/protobuf/duration.proto\032%osmosis/txfees" +
+      "/v1beta1/feetoken.proto\"\027\n\025QueryFeeToken" +
+      "sRequest\"i\n\026QueryFeeTokensResponse\022O\n\nfe" +
+      "e_tokens\030\001 \003(\0132 .osmosis.txfees.v1beta1." +
+      "FeeTokenB\031\362\336\037\021yaml:\"fee_tokens\"\310\336\037\000\":\n\027Q" +
+      "ueryDenomPoolIdRequest\022\037\n\005denom\030\001 \001(\tB\020\362" +
+      "\336\037\014yaml:\"denom\"\">\n\030QueryDenomPoolIdRespo" +
+      "nse\022\"\n\006poolID\030\001 \001(\004B\022\362\336\037\016yaml:\"pool_id\"\"" +
+      "\027\n\025QueryBaseDenomRequest\"C\n\026QueryBaseDen" +
+      "omResponse\022)\n\nbase_denom\030\001 \001(\tB\025\362\336\037\021yaml" +
+      ":\"base_denom\"2\343\003\n\005Query\022\226\001\n\tFeeTokens\022-." +
+      "osmosis.txfees.v1beta1.QueryFeeTokensReq" +
+      "uest\032..osmosis.txfees.v1beta1.QueryFeeTo" +
+      "kensResponse\"*\202\323\344\223\002$\022\"/osmosis/txfees/v1" +
+      "beta1/fee_tokens\022\247\001\n\013DenomPoolId\022/.osmos" +
+      "is.txfees.v1beta1.QueryDenomPoolIdReques" +
+      "t\0320.osmosis.txfees.v1beta1.QueryDenomPoo" +
+      "lIdResponse\"5\202\323\344\223\002/\022-/osmosis/txfees/v1b" +
+      "eta1/denom_pool_id/{denom}\022\226\001\n\tBaseDenom" +
+      "\022-.osmosis.txfees.v1beta1.QueryBaseDenom" +
+      "Request\032..osmosis.txfees.v1beta1.QueryBa" +
+      "seDenomResponse\"*\202\323\344\223\002$\022\"/osmosis/txfees" +
+      "/v1beta1/base_denomB3Z1github.com/osmosi" +
+      "s-labs/osmosis/v7/x/txfees/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
+          com.google.protobuf.DurationProto.getDescriptor(),
           osmosis.txfees.v1beta1.Feetoken.getDescriptor(),
         });
     internal_static_osmosis_txfees_v1beta1_QueryFeeTokensRequest_descriptor =
@@ -3387,6 +3388,7 @@ public final class QueryOuterClass {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
+    com.google.protobuf.DurationProto.getDescriptor();
     osmosis.txfees.v1beta1.Feetoken.getDescriptor();
   }
 

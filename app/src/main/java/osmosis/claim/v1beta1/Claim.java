@@ -214,7 +214,7 @@ public final class Claim {
      * index of bool in array refers to action enum #
      * </pre>
      *
-     * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+     * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
      * @return A list containing the actionCompleted.
      */
     java.util.List<java.lang.Boolean> getActionCompletedList();
@@ -224,7 +224,7 @@ public final class Claim {
      * index of bool in array refers to action enum #
      * </pre>
      *
-     * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+     * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
      * @return The count of actionCompleted.
      */
     int getActionCompletedCount();
@@ -234,7 +234,7 @@ public final class Claim {
      * index of bool in array refers to action enum #
      * </pre>
      *
-     * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+     * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
      * @param index The index of the element to return.
      * @return The actionCompleted at the given index.
      */
@@ -481,7 +481,7 @@ public final class Claim {
      * index of bool in array refers to action enum #
      * </pre>
      *
-     * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+     * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
      * @return A list containing the actionCompleted.
      */
     @java.lang.Override
@@ -495,7 +495,7 @@ public final class Claim {
      * index of bool in array refers to action enum #
      * </pre>
      *
-     * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+     * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
      * @return The count of actionCompleted.
      */
     public int getActionCompletedCount() {
@@ -507,7 +507,7 @@ public final class Claim {
      * index of bool in array refers to action enum #
      * </pre>
      *
-     * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+     * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
      * @param index The index of the element to return.
      * @return The actionCompleted at the given index.
      */
@@ -1342,7 +1342,7 @@ public final class Claim {
        * index of bool in array refers to action enum #
        * </pre>
        *
-       * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+       * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
        * @return A list containing the actionCompleted.
        */
       public java.util.List<java.lang.Boolean>
@@ -1356,7 +1356,7 @@ public final class Claim {
        * index of bool in array refers to action enum #
        * </pre>
        *
-       * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+       * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
        * @return The count of actionCompleted.
        */
       public int getActionCompletedCount() {
@@ -1368,7 +1368,7 @@ public final class Claim {
        * index of bool in array refers to action enum #
        * </pre>
        *
-       * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+       * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
        * @param index The index of the element to return.
        * @return The actionCompleted at the given index.
        */
@@ -1381,7 +1381,7 @@ public final class Claim {
        * index of bool in array refers to action enum #
        * </pre>
        *
-       * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+       * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
        * @param index The index to set the value at.
        * @param value The actionCompleted to set.
        * @return This builder for chaining.
@@ -1399,7 +1399,7 @@ public final class Claim {
        * index of bool in array refers to action enum #
        * </pre>
        *
-       * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+       * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
        * @param value The actionCompleted to add.
        * @return This builder for chaining.
        */
@@ -1415,7 +1415,7 @@ public final class Claim {
        * index of bool in array refers to action enum #
        * </pre>
        *
-       * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+       * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
        * @param values The actionCompleted to add.
        * @return This builder for chaining.
        */
@@ -1433,7 +1433,7 @@ public final class Claim {
        * index of bool in array refers to action enum #
        * </pre>
        *
-       * <code>repeated bool action_completed = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
+       * <code>repeated bool action_completed = 3 [(.gogoproto.moretags) = "yaml:&#92;"action_completed&#92;""];</code>
        * @return This builder for chaining.
        */
       public Builder clearActionCompleted() {
@@ -1511,24 +1511,25 @@ public final class Claim {
     java.lang.String[] descriptorData = {
       "\n!osmosis/claim/v1beta1/claim.proto\022\025osm" +
       "osis.claim.v1beta1\032\024gogoproto/gogo.proto" +
-      "\032\036cosmos/base/v1beta1/coin.proto\"\200\002\n\013Cla" +
-      "imRecord\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yaml:\"add" +
-      "ress\"\022\220\001\n\030initial_claimable_amount\030\002 \003(\013" +
-      "2\031.cosmos.base.v1beta1.CoinBS\252\337\037(github." +
-      "com/cosmos/cosmos-sdk/types.Coins\310\336\037\000\362\336\037" +
-      "\037yaml:\"initial_claimable_amount\"\0229\n\020acti" +
-      "on_completed\030\003 \003(\010B\037\362\336\037\027yaml:\"action_com" +
-      "pleted\"\310\336\037\000*_\n\006Action\022\026\n\022ActionAddLiquid" +
-      "ity\020\000\022\016\n\nActionSwap\020\001\022\016\n\nActionVote\020\002\022\027\n" +
-      "\023ActionDelegateStake\020\003\032\004\210\243\036\000B/Z-github.c" +
-      "om/osmosis-labs/osmosis/x/claim/typesb\006p" +
-      "roto3"
+      "\032\036cosmos/base/v1beta1/coin.proto\032!cosmos" +
+      "/bank/v1beta1/genesis.proto\"\374\001\n\013ClaimRec" +
+      "ord\022#\n\007address\030\001 \001(\tB\022\362\336\037\016yaml:\"address\"" +
+      "\022\220\001\n\030initial_claimable_amount\030\002 \003(\0132\031.co" +
+      "smos.base.v1beta1.CoinBS\252\337\037(github.com/c" +
+      "osmos/cosmos-sdk/types.Coins\310\336\037\000\362\336\037\037yaml" +
+      ":\"initial_claimable_amount\"\0225\n\020action_co" +
+      "mpleted\030\003 \003(\010B\033\362\336\037\027yaml:\"action_complete" +
+      "d\"*_\n\006Action\022\026\n\022ActionAddLiquidity\020\000\022\016\n\n" +
+      "ActionSwap\020\001\022\016\n\nActionVote\020\002\022\027\n\023ActionDe" +
+      "legateStake\020\003\032\004\210\243\036\000B2Z0github.com/osmosi" +
+      "s-labs/osmosis/v7/x/claim/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
+          cosmos.bank.v1beta1.Genesis.getDescriptor(),
         });
     internal_static_osmosis_claim_v1beta1_ClaimRecord_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1546,6 +1547,7 @@ public final class Claim {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
+    cosmos.bank.v1beta1.Genesis.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

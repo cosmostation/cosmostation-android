@@ -682,7 +682,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME;
                 }
 
-                else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgCreateBalancerPool.getDescriptor().getFullName())) {
+                else if (msg.getTypeUrl().contains(osmosis.gamm.poolmodels.balancer.Tx.MsgCreateBalancerPool.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_POOL;
                 } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinPool.getDescriptor().getFullName()) ||
                            msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinSwapExternAmountIn.getDescriptor().getFullName())) {

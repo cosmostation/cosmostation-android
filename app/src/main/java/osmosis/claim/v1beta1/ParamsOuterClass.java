@@ -1262,8 +1262,8 @@ public final class ParamsOuterClass {
       "_decay\030\003 \001(\0132\031.google.protobuf.DurationB" +
       "C\310\336\037\000\230\337\037\001\352\336\037\033duration_of_decay,omitempty" +
       "\362\336\037\030yaml:\"duration_of_decay\"\022\023\n\013claim_de" +
-      "nom\030\004 \001(\tB/Z-github.com/osmosis-labs/osm" +
-      "osis/x/claim/typesb\006proto3"
+      "nom\030\004 \001(\tB2Z0github.com/osmosis-labs/osm" +
+      "osis/v7/x/claim/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

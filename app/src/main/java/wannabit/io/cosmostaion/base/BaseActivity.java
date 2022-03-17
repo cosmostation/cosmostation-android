@@ -88,7 +88,7 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import kava.pricefeed.v1beta1.QueryOuterClass;
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
+import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
@@ -888,8 +888,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
-                List<BalancerPoolOuterClass.BalancerPool> pools = (List<BalancerPoolOuterClass.BalancerPool>)result.resultData;
-                getBaseDao().mGrpcOsmosisPool = new ArrayList<BalancerPoolOuterClass.BalancerPool>(pools);
+                List<BalancerPool.Pool> pools = (List<BalancerPool.Pool>)result.resultData;
+                getBaseDao().mGrpcOsmosisPool = new ArrayList<BalancerPool.Pool>(pools);
             }
         }
 

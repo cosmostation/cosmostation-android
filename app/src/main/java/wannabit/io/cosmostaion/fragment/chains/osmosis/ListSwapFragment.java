@@ -18,8 +18,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass.BalancerPool;
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass.PoolAsset;
+import osmosis.gamm.poolmodels.balancer.BalancerPool;
+import osmosis.gamm.v1beta1.Pool;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -44,11 +44,11 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     private ImageButton mBtnToggle;
     private Button  mBtnSwapStart;
 
-    public ArrayList<BalancerPool>      mPoolList = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool> mPoolList = new ArrayList<>();
     public ArrayList<String>            mAllDenoms = new ArrayList<>();
-    public ArrayList<BalancerPool>      mSwapablePools = new ArrayList<>();
+    public ArrayList<BalancerPool.Pool> mSwapablePools = new ArrayList<>();
     public ArrayList<String>            mSwapableDenoms = new ArrayList<>();
-    public BalancerPool                 mSelectedPool;
+    public BalancerPool.Pool            mSelectedPool;
     public String                       mInputCoinDenom;
     public String                       mOutputCoinDenom;
 
@@ -136,7 +136,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         BigDecimal outputAssetAmount = BigDecimal.ZERO;
         BigDecimal outputAssetWeight = BigDecimal.ZERO;
 
-        for (PoolAsset asset: mSelectedPool.getPoolAssetsList()) {
+        for (Pool.PoolAsset asset: mSelectedPool.getPoolAssetsList()) {
             if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
                 inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
                 inputAssetWeight = new BigDecimal(asset.getWeight());
@@ -182,8 +182,8 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnOutputCoinList)) {
             mSwapablePools.clear();
             mSwapableDenoms.clear();
-            for (BalancerPool pool: mPoolList) {
-                for (PoolAsset asset: pool.getPoolAssetsList()) {
+            for (BalancerPool.Pool pool: mPoolList) {
+                for (Pool.PoolAsset asset: pool.getPoolAssetsList()) {
                     if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
                         mSwapablePools.add(pool);
                         break;
@@ -191,8 +191,8 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
                 }
             }
             WLog.w("mSwapablePools " +  mSwapablePools.size());
-            for (BalancerPool sPool: mSwapablePools) {
-                for (PoolAsset asset: sPool.getPoolAssetsList()) {
+            for (BalancerPool.Pool sPool: mSwapablePools) {
+                for (Pool.PoolAsset  asset: sPool.getPoolAssetsList()) {
                     if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
                         mSwapableDenoms.add(asset.getToken().getDenom());
                     }
@@ -222,15 +222,15 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (BalancerPool pool: mPoolList) {
-                for (PoolAsset asset: pool.getPoolAssetsList()) {
+            loop : for (BalancerPool.Pool pool: mPoolList) {
+                for (Pool.PoolAsset  asset: pool.getPoolAssetsList()) {
                     if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
                         mSelectedPool = pool;
                         break loop;
                     }
                 }
             }
-            for (PoolAsset asset: mSelectedPool.getPoolAssetsList()) {
+            for (Pool.PoolAsset  asset: mSelectedPool.getPoolAssetsList()) {
                 if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
                     mOutputCoinDenom = asset.getToken().getDenom();
                     break;
@@ -240,8 +240,8 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
 
         } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (BalancerPool pool: mSwapablePools) {
-                for (PoolAsset asset: pool.getPoolAssetsList()) {
+            loop : for (BalancerPool.Pool pool: mSwapablePools) {
+                for (Pool.PoolAsset  asset: pool.getPoolAssetsList()) {
                     if (asset.getToken().getDenom().equals(mOutputCoinDenom)) {
                         mSelectedPool = pool;
                         break loop;

@@ -15374,6 +15374,1288 @@ public final class QueryOuterClass {
 
   }
 
+  public interface SyntheticLockupsByLockupIDRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.lockup.SyntheticLockupsByLockupIDRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint64 lock_id = 1;</code>
+     * @return The lockId.
+     */
+    long getLockId();
+  }
+  /**
+   * Protobuf type {@code osmosis.lockup.SyntheticLockupsByLockupIDRequest}
+   */
+  public static final class SyntheticLockupsByLockupIDRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.lockup.SyntheticLockupsByLockupIDRequest)
+      SyntheticLockupsByLockupIDRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SyntheticLockupsByLockupIDRequest.newBuilder() to construct.
+    private SyntheticLockupsByLockupIDRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SyntheticLockupsByLockupIDRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SyntheticLockupsByLockupIDRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SyntheticLockupsByLockupIDRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              lockId_ = input.readUInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_SyntheticLockupsByLockupIDRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_SyntheticLockupsByLockupIDRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest.class, osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest.Builder.class);
+    }
+
+    public static final int LOCK_ID_FIELD_NUMBER = 1;
+    private long lockId_;
+    /**
+     * <code>uint64 lock_id = 1;</code>
+     * @return The lockId.
+     */
+    @java.lang.Override
+    public long getLockId() {
+      return lockId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (lockId_ != 0L) {
+        output.writeUInt64(1, lockId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (lockId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, lockId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest)) {
+        return super.equals(obj);
+      }
+      osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest other = (osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest) obj;
+
+      if (getLockId()
+          != other.getLockId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LOCK_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLockId());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code osmosis.lockup.SyntheticLockupsByLockupIDRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.lockup.SyntheticLockupsByLockupIDRequest)
+        osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_SyntheticLockupsByLockupIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_SyntheticLockupsByLockupIDRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest.class, osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest.Builder.class);
+      }
+
+      // Construct using osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        lockId_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_SyntheticLockupsByLockupIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest getDefaultInstanceForType() {
+        return osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest build() {
+        osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest buildPartial() {
+        osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest result = new osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest(this);
+        result.lockId_ = lockId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest) {
+          return mergeFrom((osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest other) {
+        if (other == osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest.getDefaultInstance()) return this;
+        if (other.getLockId() != 0L) {
+          setLockId(other.getLockId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long lockId_ ;
+      /**
+       * <code>uint64 lock_id = 1;</code>
+       * @return The lockId.
+       */
+      @java.lang.Override
+      public long getLockId() {
+        return lockId_;
+      }
+      /**
+       * <code>uint64 lock_id = 1;</code>
+       * @param value The lockId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLockId(long value) {
+        
+        lockId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 lock_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLockId() {
+        
+        lockId_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.lockup.SyntheticLockupsByLockupIDRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.lockup.SyntheticLockupsByLockupIDRequest)
+    private static final osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest();
+    }
+
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SyntheticLockupsByLockupIDRequest>
+        PARSER = new com.google.protobuf.AbstractParser<SyntheticLockupsByLockupIDRequest>() {
+      @java.lang.Override
+      public SyntheticLockupsByLockupIDRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SyntheticLockupsByLockupIDRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SyntheticLockupsByLockupIDRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SyntheticLockupsByLockupIDRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SyntheticLockupsByLockupIDResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:osmosis.lockup.SyntheticLockupsByLockupIDResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<osmosis.lockup.Lock.SyntheticLock> 
+        getSyntheticLocksList();
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    osmosis.lockup.Lock.SyntheticLock getSyntheticLocks(int index);
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    int getSyntheticLocksCount();
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<? extends osmosis.lockup.Lock.SyntheticLockOrBuilder> 
+        getSyntheticLocksOrBuilderList();
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    osmosis.lockup.Lock.SyntheticLockOrBuilder getSyntheticLocksOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code osmosis.lockup.SyntheticLockupsByLockupIDResponse}
+   */
+  public static final class SyntheticLockupsByLockupIDResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:osmosis.lockup.SyntheticLockupsByLockupIDResponse)
+      SyntheticLockupsByLockupIDResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SyntheticLockupsByLockupIDResponse.newBuilder() to construct.
+    private SyntheticLockupsByLockupIDResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SyntheticLockupsByLockupIDResponse() {
+      syntheticLocks_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SyntheticLockupsByLockupIDResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SyntheticLockupsByLockupIDResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                syntheticLocks_ = new java.util.ArrayList<osmosis.lockup.Lock.SyntheticLock>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              syntheticLocks_.add(
+                  input.readMessage(osmosis.lockup.Lock.SyntheticLock.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          syntheticLocks_ = java.util.Collections.unmodifiableList(syntheticLocks_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_SyntheticLockupsByLockupIDResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_SyntheticLockupsByLockupIDResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse.class, osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse.Builder.class);
+    }
+
+    public static final int SYNTHETIC_LOCKS_FIELD_NUMBER = 1;
+    private java.util.List<osmosis.lockup.Lock.SyntheticLock> syntheticLocks_;
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<osmosis.lockup.Lock.SyntheticLock> getSyntheticLocksList() {
+      return syntheticLocks_;
+    }
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends osmosis.lockup.Lock.SyntheticLockOrBuilder> 
+        getSyntheticLocksOrBuilderList() {
+      return syntheticLocks_;
+    }
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public int getSyntheticLocksCount() {
+      return syntheticLocks_.size();
+    }
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public osmosis.lockup.Lock.SyntheticLock getSyntheticLocks(int index) {
+      return syntheticLocks_.get(index);
+    }
+    /**
+     * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public osmosis.lockup.Lock.SyntheticLockOrBuilder getSyntheticLocksOrBuilder(
+        int index) {
+      return syntheticLocks_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < syntheticLocks_.size(); i++) {
+        output.writeMessage(1, syntheticLocks_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < syntheticLocks_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, syntheticLocks_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse)) {
+        return super.equals(obj);
+      }
+      osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse other = (osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse) obj;
+
+      if (!getSyntheticLocksList()
+          .equals(other.getSyntheticLocksList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getSyntheticLocksCount() > 0) {
+        hash = (37 * hash) + SYNTHETIC_LOCKS_FIELD_NUMBER;
+        hash = (53 * hash) + getSyntheticLocksList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code osmosis.lockup.SyntheticLockupsByLockupIDResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:osmosis.lockup.SyntheticLockupsByLockupIDResponse)
+        osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_SyntheticLockupsByLockupIDResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_SyntheticLockupsByLockupIDResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse.class, osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse.Builder.class);
+      }
+
+      // Construct using osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getSyntheticLocksFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (syntheticLocksBuilder_ == null) {
+          syntheticLocks_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          syntheticLocksBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return osmosis.lockup.QueryOuterClass.internal_static_osmosis_lockup_SyntheticLockupsByLockupIDResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse getDefaultInstanceForType() {
+        return osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse build() {
+        osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse buildPartial() {
+        osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse result = new osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (syntheticLocksBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            syntheticLocks_ = java.util.Collections.unmodifiableList(syntheticLocks_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.syntheticLocks_ = syntheticLocks_;
+        } else {
+          result.syntheticLocks_ = syntheticLocksBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse) {
+          return mergeFrom((osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse other) {
+        if (other == osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse.getDefaultInstance()) return this;
+        if (syntheticLocksBuilder_ == null) {
+          if (!other.syntheticLocks_.isEmpty()) {
+            if (syntheticLocks_.isEmpty()) {
+              syntheticLocks_ = other.syntheticLocks_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureSyntheticLocksIsMutable();
+              syntheticLocks_.addAll(other.syntheticLocks_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.syntheticLocks_.isEmpty()) {
+            if (syntheticLocksBuilder_.isEmpty()) {
+              syntheticLocksBuilder_.dispose();
+              syntheticLocksBuilder_ = null;
+              syntheticLocks_ = other.syntheticLocks_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              syntheticLocksBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSyntheticLocksFieldBuilder() : null;
+            } else {
+              syntheticLocksBuilder_.addAllMessages(other.syntheticLocks_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<osmosis.lockup.Lock.SyntheticLock> syntheticLocks_ =
+        java.util.Collections.emptyList();
+      private void ensureSyntheticLocksIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          syntheticLocks_ = new java.util.ArrayList<osmosis.lockup.Lock.SyntheticLock>(syntheticLocks_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          osmosis.lockup.Lock.SyntheticLock, osmosis.lockup.Lock.SyntheticLock.Builder, osmosis.lockup.Lock.SyntheticLockOrBuilder> syntheticLocksBuilder_;
+
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<osmosis.lockup.Lock.SyntheticLock> getSyntheticLocksList() {
+        if (syntheticLocksBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(syntheticLocks_);
+        } else {
+          return syntheticLocksBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public int getSyntheticLocksCount() {
+        if (syntheticLocksBuilder_ == null) {
+          return syntheticLocks_.size();
+        } else {
+          return syntheticLocksBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.SyntheticLock getSyntheticLocks(int index) {
+        if (syntheticLocksBuilder_ == null) {
+          return syntheticLocks_.get(index);
+        } else {
+          return syntheticLocksBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setSyntheticLocks(
+          int index, osmosis.lockup.Lock.SyntheticLock value) {
+        if (syntheticLocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.set(index, value);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setSyntheticLocks(
+          int index, osmosis.lockup.Lock.SyntheticLock.Builder builderForValue) {
+        if (syntheticLocksBuilder_ == null) {
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSyntheticLocks(osmosis.lockup.Lock.SyntheticLock value) {
+        if (syntheticLocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.add(value);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSyntheticLocks(
+          int index, osmosis.lockup.Lock.SyntheticLock value) {
+        if (syntheticLocksBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.add(index, value);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSyntheticLocks(
+          osmosis.lockup.Lock.SyntheticLock.Builder builderForValue) {
+        if (syntheticLocksBuilder_ == null) {
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.add(builderForValue.build());
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addSyntheticLocks(
+          int index, osmosis.lockup.Lock.SyntheticLock.Builder builderForValue) {
+        if (syntheticLocksBuilder_ == null) {
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder addAllSyntheticLocks(
+          java.lang.Iterable<? extends osmosis.lockup.Lock.SyntheticLock> values) {
+        if (syntheticLocksBuilder_ == null) {
+          ensureSyntheticLocksIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, syntheticLocks_);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearSyntheticLocks() {
+        if (syntheticLocksBuilder_ == null) {
+          syntheticLocks_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder removeSyntheticLocks(int index) {
+        if (syntheticLocksBuilder_ == null) {
+          ensureSyntheticLocksIsMutable();
+          syntheticLocks_.remove(index);
+          onChanged();
+        } else {
+          syntheticLocksBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.SyntheticLock.Builder getSyntheticLocksBuilder(
+          int index) {
+        return getSyntheticLocksFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.SyntheticLockOrBuilder getSyntheticLocksOrBuilder(
+          int index) {
+        if (syntheticLocksBuilder_ == null) {
+          return syntheticLocks_.get(index);  } else {
+          return syntheticLocksBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<? extends osmosis.lockup.Lock.SyntheticLockOrBuilder> 
+           getSyntheticLocksOrBuilderList() {
+        if (syntheticLocksBuilder_ != null) {
+          return syntheticLocksBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(syntheticLocks_);
+        }
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.SyntheticLock.Builder addSyntheticLocksBuilder() {
+        return getSyntheticLocksFieldBuilder().addBuilder(
+            osmosis.lockup.Lock.SyntheticLock.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public osmosis.lockup.Lock.SyntheticLock.Builder addSyntheticLocksBuilder(
+          int index) {
+        return getSyntheticLocksFieldBuilder().addBuilder(
+            index, osmosis.lockup.Lock.SyntheticLock.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .osmosis.lockup.SyntheticLock synthetic_locks = 1 [(.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<osmosis.lockup.Lock.SyntheticLock.Builder> 
+           getSyntheticLocksBuilderList() {
+        return getSyntheticLocksFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          osmosis.lockup.Lock.SyntheticLock, osmosis.lockup.Lock.SyntheticLock.Builder, osmosis.lockup.Lock.SyntheticLockOrBuilder> 
+          getSyntheticLocksFieldBuilder() {
+        if (syntheticLocksBuilder_ == null) {
+          syntheticLocksBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              osmosis.lockup.Lock.SyntheticLock, osmosis.lockup.Lock.SyntheticLock.Builder, osmosis.lockup.Lock.SyntheticLockOrBuilder>(
+                  syntheticLocks_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          syntheticLocks_ = null;
+        }
+        return syntheticLocksBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:osmosis.lockup.SyntheticLockupsByLockupIDResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:osmosis.lockup.SyntheticLockupsByLockupIDResponse)
+    private static final osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse();
+    }
+
+    public static osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SyntheticLockupsByLockupIDResponse>
+        PARSER = new com.google.protobuf.AbstractParser<SyntheticLockupsByLockupIDResponse>() {
+      @java.lang.Override
+      public SyntheticLockupsByLockupIDResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SyntheticLockupsByLockupIDResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SyntheticLockupsByLockupIDResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SyntheticLockupsByLockupIDResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public osmosis.lockup.QueryOuterClass.SyntheticLockupsByLockupIDResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface AccountLockedLongerDurationRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:osmosis.lockup.AccountLockedLongerDurationRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -20327,6 +21609,16 @@ public final class QueryOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_osmosis_lockup_LockedResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_lockup_SyntheticLockupsByLockupIDRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_lockup_SyntheticLockupsByLockupIDRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_osmosis_lockup_SyntheticLockupsByLockupIDResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_osmosis_lockup_SyntheticLockupsByLockupIDResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_osmosis_lockup_AccountLockedLongerDurationRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -20423,75 +21715,84 @@ public final class QueryOuterClass {
       "ithub.com/cosmos/cosmos-sdk/types.Int\362\336\037" +
       "\ryaml:\"amount\"\310\336\037\000\" \n\rLockedRequest\022\017\n\007l" +
       "ock_id\030\001 \001(\004\":\n\016LockedResponse\022(\n\004lock\030\001" +
-      " \001(\0132\032.osmosis.lockup.PeriodLock\"\217\001\n\"Acc" +
-      "ountLockedLongerDurationRequest\022\037\n\005owner" +
-      "\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\022H\n\010duration\030\002 \001" +
-      "(\0132\031.google.protobuf.DurationB\033\230\337\037\001\310\336\037\000\362" +
-      "\336\037\017yaml:\"duration\"\"V\n#AccountLockedLonge" +
-      "rDurationResponse\022/\n\005locks\030\001 \003(\0132\032.osmos" +
-      "is.lockup.PeriodLockB\004\310\336\037\000\"\237\001\n2AccountLo" +
-      "ckedLongerDurationNotUnlockingOnlyReques" +
-      "t\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\022H\n\010du" +
-      "ration\030\002 \001(\0132\031.google.protobuf.DurationB" +
-      "\033\230\337\037\001\310\336\037\000\362\336\037\017yaml:\"duration\"\"f\n3AccountL" +
-      "ockedLongerDurationNotUnlockingOnlyRespo" +
-      "nse\022/\n\005locks\030\001 \003(\0132\032.osmosis.lockup.Peri" +
-      "odLockB\004\310\336\037\000\"\243\001\n\'AccountLockedLongerDura" +
-      "tionDenomRequest\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yam" +
-      "l:\"owner\"\022H\n\010duration\030\002 \001(\0132\031.google.pro" +
-      "tobuf.DurationB\033\230\337\037\001\310\336\037\000\362\336\037\017yaml:\"durati" +
-      "on\"\022\r\n\005denom\030\003 \001(\t\"[\n(AccountLockedLonge" +
-      "rDurationDenomResponse\022/\n\005locks\030\001 \003(\0132\032." +
-      "osmosis.lockup.PeriodLockB\004\310\336\037\0002\373\024\n\005Quer" +
-      "y\022\214\001\n\rModuleBalance\022$.osmosis.lockup.Mod" +
-      "uleBalanceRequest\032%.osmosis.lockup.Modul" +
-      "eBalanceResponse\".\202\323\344\223\002(\022&/osmosis/locku" +
-      "p/v1beta1/module_balance\022\241\001\n\022ModuleLocke" +
-      "dAmount\022).osmosis.lockup.ModuleLockedAmo" +
-      "untRequest\032*.osmosis.lockup.ModuleLocked" +
-      "AmountResponse\"4\202\323\344\223\002.\022,/osmosis/lockup/" +
-      "v1beta1/module_locked_amount\022\271\001\n\026Account" +
-      "UnlockableCoins\022-.osmosis.lockup.Account" +
-      "UnlockableCoinsRequest\032..osmosis.lockup." +
-      "AccountUnlockableCoinsResponse\"@\202\323\344\223\002:\0228" +
-      "/osmosis/lockup/v1beta1/account_unlockab" +
-      "le_coins/{owner}\022\265\001\n\025AccountUnlockingCoi" +
-      "ns\022,.osmosis.lockup.AccountUnlockingCoin" +
-      "sRequest\032-.osmosis.lockup.AccountUnlocki" +
-      "ngCoinsResponse\"?\202\323\344\223\0029\0227/osmosis/lockup" +
-      "/v1beta1/account_unlocking_coins/{owner}" +
-      "\022\251\001\n\022AccountLockedCoins\022).osmosis.lockup" +
-      ".AccountLockedCoinsRequest\032*.osmosis.loc" +
-      "kup.AccountLockedCoinsResponse\"<\202\323\344\223\0026\0224" +
-      "/osmosis/lockup/v1beta1/account_locked_c" +
-      "oins/{owner}\022\265\001\n\025AccountLockedPastTime\022," +
-      ".osmosis.lockup.AccountLockedPastTimeReq" +
-      "uest\032-.osmosis.lockup.AccountLockedPastT" +
-      "imeResponse\"?\202\323\344\223\0029\0227/osmosis/lockup/v1b" +
-      "eta1/account_locked_pasttime/{owner}\022\370\001\n" +
-      "%AccountLockedPastTimeNotUnlockingOnly\022<" +
-      ".osmosis.lockup.AccountLockedPastTimeNot" +
-      "UnlockingOnlyRequest\032=.osmosis.lockup.Ac" +
-      "countLockedPastTimeNotUnlockingOnlyRespo" +
-      "nse\"R\202\323\344\223\002L\022J/osmosis/lockup/v1beta1/acc" +
-      "ount_locked_pasttime_not_unlocking_only/" +
-      "{owner}\022\306\001\n\031AccountUnlockedBeforeTime\0220." +
-      "osmosis.lockup.AccountUnlockedBeforeTime" +
-      "Request\0321.osmosis.lockup.AccountUnlocked" +
-      "BeforeTimeResponse\"D\202\323\344\223\002>\022</osmosis/loc" +
-      "kup/v1beta1/account_unlocked_before_time" +
-      "/{owner}\022\312\001\n\032AccountLockedPastTimeDenom\022" +
-      "1.osmosis.lockup.AccountLockedPastTimeDe" +
-      "nomRequest\0322.osmosis.lockup.AccountLocke" +
-      "dPastTimeDenomResponse\"E\202\323\344\223\002?\022=/osmosis" +
-      "/lockup/v1beta1/account_locked_pasttime_" +
-      "denom/{owner}\022\204\001\n\013LockedDenom\022\".osmosis." +
-      "lockup.LockedDenomRequest\032#.osmosis.lock" +
-      "up.LockedDenomResponse\",\202\323\344\223\002&\022$/osmosis" +
-      "/lockup/v1beta1/locked_denom\022\203\001\n\nLockedB" +
-      "yID\022\035.osmosis.lockup.LockedRequest\032\036.osm" +
-      "osis.lockup.LockedResponse\"6\202\323\344\223\0020\022./osm" +
-      "osis/lockup/v1beta1/locked_by_id/{lock_i" +
+      " \001(\0132\032.osmosis.lockup.PeriodLock\"4\n!Synt" +
+      "heticLockupsByLockupIDRequest\022\017\n\007lock_id" +
+      "\030\001 \001(\004\"b\n\"SyntheticLockupsByLockupIDResp" +
+      "onse\022<\n\017synthetic_locks\030\001 \003(\0132\035.osmosis." +
+      "lockup.SyntheticLockB\004\310\336\037\000\"\217\001\n\"AccountLo" +
+      "ckedLongerDurationRequest\022\037\n\005owner\030\001 \001(\t" +
+      "B\020\362\336\037\014yaml:\"owner\"\022H\n\010duration\030\002 \001(\0132\031.g" +
+      "oogle.protobuf.DurationB\033\230\337\037\001\310\336\037\000\362\336\037\017yam" +
+      "l:\"duration\"\"V\n#AccountLockedLongerDurat" +
+      "ionResponse\022/\n\005locks\030\001 \003(\0132\032.osmosis.loc" +
+      "kup.PeriodLockB\004\310\336\037\000\"\237\001\n2AccountLockedLo" +
+      "ngerDurationNotUnlockingOnlyRequest\022\037\n\005o" +
+      "wner\030\001 \001(\tB\020\362\336\037\014yaml:\"owner\"\022H\n\010duration" +
+      "\030\002 \001(\0132\031.google.protobuf.DurationB\033\230\337\037\001\310" +
+      "\336\037\000\362\336\037\017yaml:\"duration\"\"f\n3AccountLockedL" +
+      "ongerDurationNotUnlockingOnlyResponse\022/\n" +
+      "\005locks\030\001 \003(\0132\032.osmosis.lockup.PeriodLock" +
+      "B\004\310\336\037\000\"\243\001\n\'AccountLockedLongerDurationDe" +
+      "nomRequest\022\037\n\005owner\030\001 \001(\tB\020\362\336\037\014yaml:\"own" +
+      "er\"\022H\n\010duration\030\002 \001(\0132\031.google.protobuf." +
+      "DurationB\033\230\337\037\001\310\336\037\000\362\336\037\017yaml:\"duration\"\022\r\n" +
+      "\005denom\030\003 \001(\t\"[\n(AccountLockedLongerDurat" +
+      "ionDenomResponse\022/\n\005locks\030\001 \003(\0132\032.osmosi" +
+      "s.lockup.PeriodLockB\004\310\336\037\0002\311\026\n\005Query\022\214\001\n\r" +
+      "ModuleBalance\022$.osmosis.lockup.ModuleBal" +
+      "anceRequest\032%.osmosis.lockup.ModuleBalan" +
+      "ceResponse\".\202\323\344\223\002(\022&/osmosis/lockup/v1be" +
+      "ta1/module_balance\022\241\001\n\022ModuleLockedAmoun" +
+      "t\022).osmosis.lockup.ModuleLockedAmountReq" +
+      "uest\032*.osmosis.lockup.ModuleLockedAmount" +
+      "Response\"4\202\323\344\223\002.\022,/osmosis/lockup/v1beta" +
+      "1/module_locked_amount\022\271\001\n\026AccountUnlock" +
+      "ableCoins\022-.osmosis.lockup.AccountUnlock" +
+      "ableCoinsRequest\032..osmosis.lockup.Accoun" +
+      "tUnlockableCoinsResponse\"@\202\323\344\223\002:\0228/osmos" +
+      "is/lockup/v1beta1/account_unlockable_coi" +
+      "ns/{owner}\022\265\001\n\025AccountUnlockingCoins\022,.o" +
+      "smosis.lockup.AccountUnlockingCoinsReque" +
+      "st\032-.osmosis.lockup.AccountUnlockingCoin" +
+      "sResponse\"?\202\323\344\223\0029\0227/osmosis/lockup/v1bet" +
+      "a1/account_unlocking_coins/{owner}\022\251\001\n\022A" +
+      "ccountLockedCoins\022).osmosis.lockup.Accou" +
+      "ntLockedCoinsRequest\032*.osmosis.lockup.Ac" +
+      "countLockedCoinsResponse\"<\202\323\344\223\0026\0224/osmos" +
+      "is/lockup/v1beta1/account_locked_coins/{" +
+      "owner}\022\265\001\n\025AccountLockedPastTime\022,.osmos" +
+      "is.lockup.AccountLockedPastTimeRequest\032-" +
+      ".osmosis.lockup.AccountLockedPastTimeRes" +
+      "ponse\"?\202\323\344\223\0029\0227/osmosis/lockup/v1beta1/a" +
+      "ccount_locked_pasttime/{owner}\022\370\001\n%Accou" +
+      "ntLockedPastTimeNotUnlockingOnly\022<.osmos" +
+      "is.lockup.AccountLockedPastTimeNotUnlock" +
+      "ingOnlyRequest\032=.osmosis.lockup.AccountL" +
+      "ockedPastTimeNotUnlockingOnlyResponse\"R\202" +
+      "\323\344\223\002L\022J/osmosis/lockup/v1beta1/account_l" +
+      "ocked_pasttime_not_unlocking_only/{owner" +
+      "}\022\306\001\n\031AccountUnlockedBeforeTime\0220.osmosi" +
+      "s.lockup.AccountUnlockedBeforeTimeReques" +
+      "t\0321.osmosis.lockup.AccountUnlockedBefore" +
+      "TimeResponse\"D\202\323\344\223\002>\022</osmosis/lockup/v1" +
+      "beta1/account_unlocked_before_time/{owne" +
+      "r}\022\312\001\n\032AccountLockedPastTimeDenom\0221.osmo" +
+      "sis.lockup.AccountLockedPastTimeDenomReq" +
+      "uest\0322.osmosis.lockup.AccountLockedPastT" +
+      "imeDenomResponse\"E\202\323\344\223\002?\022=/osmosis/locku" +
+      "p/v1beta1/account_locked_pasttime_denom/" +
+      "{owner}\022\204\001\n\013LockedDenom\022\".osmosis.lockup" +
+      ".LockedDenomRequest\032#.osmosis.lockup.Loc" +
+      "kedDenomResponse\",\202\323\344\223\002&\022$/osmosis/locku" +
+      "p/v1beta1/locked_denom\022\203\001\n\nLockedByID\022\035." +
+      "osmosis.lockup.LockedRequest\032\036.osmosis.l" +
+      "ockup.LockedResponse\"6\202\323\344\223\0020\022./osmosis/l" +
+      "ockup/v1beta1/locked_by_id/{lock_id}\022\313\001\n" +
+      "\032SyntheticLockupsByLockupID\0221.osmosis.lo" +
+      "ckup.SyntheticLockupsByLockupIDRequest\0322" +
+      ".osmosis.lockup.SyntheticLockupsByLockup" +
+      "IDResponse\"F\202\323\344\223\002@\022>/osmosis/lockup/v1be" +
+      "ta1/synthetic_lockups_by_lock_id/{lock_i" +
       "d}\022\316\001\n\033AccountLockedLongerDuration\0222.osm" +
       "osis.lockup.AccountLockedLongerDurationR" +
       "equest\0323.osmosis.lockup.AccountLockedLon" +
@@ -20509,9 +21810,9 @@ public final class QueryOuterClass {
       "rDurationDenomRequest\0328.osmosis.lockup.A" +
       "ccountLockedLongerDurationDenomResponse\"" +
       "L\202\323\344\223\002F\022D/osmosis/lockup/v1beta1/account" +
-      "_locked_longer_duration_denom/{owner}B0Z" +
-      ".github.com/osmosis-labs/osmosis/x/locku" +
-      "p/typesb\006proto3"
+      "_locked_longer_duration_denom/{owner}B3Z" +
+      "1github.com/osmosis-labs/osmosis/v7/x/lo" +
+      "ckup/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -20655,38 +21956,50 @@ public final class QueryOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_LockedResponse_descriptor,
         new java.lang.String[] { "Lock", });
-    internal_static_osmosis_lockup_AccountLockedLongerDurationRequest_descriptor =
+    internal_static_osmosis_lockup_SyntheticLockupsByLockupIDRequest_descriptor =
       getDescriptor().getMessageTypes().get(22);
+    internal_static_osmosis_lockup_SyntheticLockupsByLockupIDRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_lockup_SyntheticLockupsByLockupIDRequest_descriptor,
+        new java.lang.String[] { "LockId", });
+    internal_static_osmosis_lockup_SyntheticLockupsByLockupIDResponse_descriptor =
+      getDescriptor().getMessageTypes().get(23);
+    internal_static_osmosis_lockup_SyntheticLockupsByLockupIDResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_osmosis_lockup_SyntheticLockupsByLockupIDResponse_descriptor,
+        new java.lang.String[] { "SyntheticLocks", });
+    internal_static_osmosis_lockup_AccountLockedLongerDurationRequest_descriptor =
+      getDescriptor().getMessageTypes().get(24);
     internal_static_osmosis_lockup_AccountLockedLongerDurationRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_AccountLockedLongerDurationRequest_descriptor,
         new java.lang.String[] { "Owner", "Duration", });
     internal_static_osmosis_lockup_AccountLockedLongerDurationResponse_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_osmosis_lockup_AccountLockedLongerDurationResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_AccountLockedLongerDurationResponse_descriptor,
         new java.lang.String[] { "Locks", });
     internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyRequest_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyRequest_descriptor,
         new java.lang.String[] { "Owner", "Duration", });
     internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyResponse_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_AccountLockedLongerDurationNotUnlockingOnlyResponse_descriptor,
         new java.lang.String[] { "Locks", });
     internal_static_osmosis_lockup_AccountLockedLongerDurationDenomRequest_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_osmosis_lockup_AccountLockedLongerDurationDenomRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_AccountLockedLongerDurationDenomRequest_descriptor,
         new java.lang.String[] { "Owner", "Duration", "Denom", });
     internal_static_osmosis_lockup_AccountLockedLongerDurationDenomResponse_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_osmosis_lockup_AccountLockedLongerDurationDenomResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_osmosis_lockup_AccountLockedLongerDurationDenomResponse_descriptor,

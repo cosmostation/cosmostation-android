@@ -643,9 +643,9 @@ public final class ParamsOuterClass {
       "\n\037osmosis/incentives/params.proto\022\022osmos" +
       "is.incentives\032\024gogoproto/gogo.proto\"K\n\006P" +
       "arams\022A\n\026distr_epoch_identifier\030\001 \001(\tB!\362" +
-      "\336\037\035yaml:\"distr_epoch_identifier\"B4Z2gith" +
-      "ub.com/osmosis-labs/osmosis/x/incentives" +
-      "/typesb\006proto3"
+      "\336\037\035yaml:\"distr_epoch_identifier\"B7Z5gith" +
+      "ub.com/osmosis-labs/osmosis/v7/x/incenti" +
+      "ves/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

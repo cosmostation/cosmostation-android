@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.task.gRpcTask;
 
 import java.util.concurrent.TimeUnit;
 
-import osmosis.gamm.v1beta1.BalancerPoolOuterClass;
+import osmosis.gamm.poolmodels.balancer.BalancerPool;
 import osmosis.gamm.v1beta1.QueryGrpc;
 import osmosis.gamm.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -34,7 +34,7 @@ public class OsmosisPoolInfoGrpcTask extends CommonTask {
         try {
             QueryOuterClass.QueryPoolRequest request = QueryOuterClass.QueryPoolRequest.newBuilder().setPoolId(mPoolId).build();
             QueryOuterClass.QueryPoolResponse response = mStub.pool(request);
-            mResult.resultData = BalancerPoolOuterClass.BalancerPool.parseFrom(response.getPool().getValue());
+            mResult.resultData = BalancerPool.Pool.parseFrom(response.getPool().getValue());
             mResult.isSuccess = true;
 
         } catch (Exception e) { WLog.e( "OsmosisGrpcPoolInfoTask "+ e.getMessage()); }

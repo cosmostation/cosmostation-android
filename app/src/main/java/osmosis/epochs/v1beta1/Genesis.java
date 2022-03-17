@@ -2239,9 +2239,9 @@ public final class Genesis {
       "\022\036\n\026epoch_counting_started\030\006 \001(\010\022\"\n\032curr" +
       "ent_epoch_start_height\030\010 \001(\003J\004\010\007\020\010\"G\n\014Ge" +
       "nesisState\0227\n\006epochs\030\001 \003(\0132!.osmosis.epo" +
-      "chs.v1beta1.EpochInfoB\004\310\336\037\000B0Z.github.co" +
-      "m/osmosis-labs/osmosis/x/epochs/typesb\006p" +
-      "roto3"
+      "chs.v1beta1.EpochInfoB\004\310\336\037\000B3Z1github.co" +
+      "m/osmosis-labs/osmosis/v7/x/epochs/types" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
