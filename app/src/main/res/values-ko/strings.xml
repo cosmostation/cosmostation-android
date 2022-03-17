@@ -1214,6 +1214,7 @@
     <string name="str_kava_bep2_token_title">BEP2 Coins</string>
     <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_cw20_token_title">CW20 Tokens</string>
+    <string name="str_oec_kip10_title">KIP10 Coins</string>
     <string name="str_unknown_token_title">Unknown</string>
     <string name="str_ibc_info_title">IBC information</string>
     <string name="str_ibc_opposite_chain_id_title">Opposite Chain ID</string>

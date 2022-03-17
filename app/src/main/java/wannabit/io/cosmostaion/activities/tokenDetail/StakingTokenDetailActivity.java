@@ -172,10 +172,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             onStartHTLCSendActivity(WDp.mainDenom(mBaseChain));
 
         } else if (v.equals(mBtnSend)) {
-            if (mBaseChain.equals(OKEX_MAIN)) {
-                Toast.makeText(StakingTokenDetailActivity.this, "Temporary Disable", Toast.LENGTH_SHORT).show();
-                return;
-            }
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 add.setCancelable(true);
