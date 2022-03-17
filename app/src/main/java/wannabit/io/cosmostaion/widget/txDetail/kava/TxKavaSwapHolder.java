@@ -54,7 +54,7 @@ public class TxKavaSwapHolder extends TxHolder {
                                 Matcher m = p.matcher(value);
                                 if (m.find()) {
                                     String amount = m.group();
-                                    String denom = value.replaceAll(m.group(), "");
+                                    String denom = value.substring(m.end());
                                     inCoin = new Coin(denom, amount);
                                 }
                             }
@@ -78,7 +78,7 @@ public class TxKavaSwapHolder extends TxHolder {
                                 Matcher m = p.matcher(value);
                                 if (m.find()) {
                                     String amount = m.group();
-                                    String denom = value.replaceAll(m.group(), "");
+                                    String denom = value.substring(m.end());
                                     outCoin = new Coin(denom, amount);
                                 }
                             }
@@ -110,7 +110,7 @@ public class TxKavaSwapHolder extends TxHolder {
                                 Matcher m = p.matcher(value);
                                 if (m.find()) {
                                     String amount = m.group();
-                                    String denom = value.replaceAll(m.group(), "");
+                                    String denom = value.substring(m.end());
                                     inCoin = new Coin(denom, amount);
                                 }
                             }
@@ -134,7 +134,7 @@ public class TxKavaSwapHolder extends TxHolder {
                                 Matcher m = p.matcher(value);
                                 if (m.find()) {
                                     String amount = m.group();
-                                    String denom = value.replaceAll(m.group(), "");
+                                    String denom = value.substring(m.end());
                                     outCoin = new Coin(denom, amount);
                                 }
                             }

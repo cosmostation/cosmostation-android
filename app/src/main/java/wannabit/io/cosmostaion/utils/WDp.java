@@ -4224,7 +4224,7 @@ public class WDp {
                                 Matcher m = p.matcher(rawCoin);
                                 if (m.find()) {
                                     String amount = m.group();
-                                    String denom = rawCoin.replaceAll(m.group(), "");
+                                    String denom = rawCoin.substring(m.end());
                                     result.add(new Coin(denom, amount));
                                 }
                             }
@@ -4249,7 +4249,7 @@ public class WDp {
                                 Matcher m = p.matcher(rawCoin);
                                 if (m.find()) {
                                     String amount = m.group();
-                                    String denom = rawCoin.replaceAll(m.group(), "");
+                                    String denom = rawCoin.substring(m.end());
                                     result.add(new Coin(denom, amount));
                                 }
                             }

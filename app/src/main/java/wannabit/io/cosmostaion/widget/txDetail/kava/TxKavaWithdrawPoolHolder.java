@@ -55,14 +55,14 @@ public class TxKavaWithdrawPoolHolder extends TxHolder {
                         Matcher m1 = p.matcher(InValue0);
                         if (m1.find()) {
                             String amount = m1.group();
-                            String denom = InValue0.replaceAll(m1.group(), "");
+                            String denom = InValue0.substring(m1.end());
                             inCoin0 = new Coin(denom, amount);
                         }
 
                         Matcher m2 = p.matcher(InValue1);
                         if (m2.find()) {
                             String amount = m2.group();
-                            String denom = InValue1.replaceAll(m2.group(), "");
+                            String denom = InValue1.substring(m2.end());
                             inCoin1 = new Coin(denom, amount);
                         }
                     }

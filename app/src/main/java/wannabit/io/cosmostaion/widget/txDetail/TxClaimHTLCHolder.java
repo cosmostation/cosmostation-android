@@ -51,7 +51,7 @@ public class TxClaimHTLCHolder extends TxHolder {
                         Matcher m1 = p.matcher(receiveValue);
                         if (m1.find()) {
                             String amount = m1.group();
-                            String denom = receiveValue.replaceAll(m1.group(), "");
+                            String denom = receiveValue.substring(m1.end());
                             receiveCoin = new Coin(denom, amount);
                         }
                     }
