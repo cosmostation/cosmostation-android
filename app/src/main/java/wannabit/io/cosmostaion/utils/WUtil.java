@@ -14,6 +14,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
@@ -3077,6 +3078,13 @@ public class WUtil {
             guideMsg.setText(R.string.str_front_guide_msg_omniflix);
 
         }
+
+        else if (mainActivity.mBaseChain.equals(CRESCENT_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_crescent));
+            guideTitle.setText(R.string.str_front_guide_title_crescent);
+            guideMsg.setText(R.string.str_front_guide_msg_crescent);
+
+        }
     }
 
     public static void getWalletData(MainActivity mainActivity, BaseChain chain, ImageView coinImg, TextView coinDenom) {
@@ -3279,6 +3287,13 @@ public class WUtil {
             coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_omniflix));
             coinDenom.setText(R.string.str_omniflix_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_omniflix);
+
+        }
+
+        else if (chain.equals(CRESCENT_TEST)) {
+            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_crescent));
+            coinDenom.setText(R.string.str_stake_c);
+            coinDenom.setTextAppearance(R.style.font_ss_14_crescent);
 
         }
     }
@@ -3731,6 +3746,9 @@ public class WUtil {
         } else if (basechain.equals(IRIS_TEST)) {
             return EXPLORER_IRIS_TEST;
 
+        } else if (basechain.equals(CRESCENT_TEST)) {
+            return EXPLORER_CRESCENT_TEST;
+
         }
         return "";
     }
@@ -3867,7 +3885,11 @@ public class WUtil {
             } else if (basechain.equals(IRIS_TEST)) {
                 return EXPLORER_IRIS_TEST + "txs/" + hash;
 
-            }         }
+            } else if (basechain.equals(CRESCENT_TEST)) {
+                return EXPLORER_CRESCENT_TEST + "txs/" + hash;
+
+            }
+        }
         return "";
     }
 
@@ -4150,7 +4172,7 @@ public class WUtil {
      * Chain Gas Rate
      */
     public static BigDecimal getEstimateGasFeeAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(CRESCENT_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -4353,7 +4375,7 @@ public class WUtil {
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(REGEN_MAIN) ||
-                basechain.equals(COSMOS_TEST)) {
+                basechain.equals(COSMOS_TEST) || basechain.equals(CRESCENT_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
