@@ -154,7 +154,7 @@
     <string name="url_api_althea_test" translatable="false">https://api-office.cosmostation.io/althea-testnet2v1/</string>
 
 
-    <string name="url_api_crescent_test" translatable="false">https://api-crescent-testnet.cosmostation.io/</string>
+    <string name="url_api_crescent_test" translatable="false">https://api-office.cosmostation.io/mooncat-1-1/</string>
 
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
