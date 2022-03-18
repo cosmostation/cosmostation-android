@@ -9,6 +9,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_BEP3_SWAP;
@@ -81,6 +82,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import cosmos.auth.v1beta1.Auth;
@@ -102,6 +104,7 @@ import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
@@ -328,7 +331,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         BigDecimal mainDenomAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
         if (mBaseChain.equals(BNB_MAIN)) {
             if (mainDenomAvailable.compareTo(new BigDecimal(FEE_BNB_SEND)) <= 0) {
-                hasbalance  = false;
+                hasbalance = false;
+            }
+        } else if (mBaseChain.equals(KAVA_MAIN)) {
+            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_HTLS_REFUND, 0);
+            if (mainAvailable.subtract(feeAmount).compareTo(BigDecimal.ZERO) <= 0) {
+                hasbalance = false;
             }
         }
         if (!hasbalance) {
@@ -962,12 +971,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 //                    WLog.w("mGRpcAccount " + getBaseDao().mGRpcAccount.getTypeUrl());
                     if (getBaseDao().mGRpcAccount != null && !getBaseDao().mGRpcAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
                         WUtil.onParseVestingAccount(getBaseDao(), mBaseChain);
-//                        if (mBaseChain.equals(PERSIS_MAIN)) {
-//                            WUtil.onParsePersisVestingAccount(getBaseDao());
-//                        } else {
-//
-//                        }
                     }
+                    ArrayList<Balance> snapBalance = new ArrayList<>();
+                    for (Coin coin: getBaseDao().mGrpcBalance) {
+                        snapBalance.add(new Balance(mAccount.id, coin.denom, coin.amount, Calendar.getInstance().getTime().getTime(), "0", "0"));
+                    }
+                    getBaseDao().onUpdateBalances(mAccount.id, snapBalance);
 //                    WLog.w("getBaseDao().mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo.getNetwork());
                 }
 
