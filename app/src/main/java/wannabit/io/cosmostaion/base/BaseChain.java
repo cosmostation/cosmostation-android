@@ -82,7 +82,8 @@ public enum BaseChain {
     IRIS_TEST("iris-testnet"),
     OK_TEST("okexchain-testnet"),
     RIZON_TEST("rizon-testnet2"),
-    ALTHEA_TEST("althea-testnet");
+    ALTHEA_TEST("althea-testnet"),
+    CRESCENT_TEST("crescent-testnet");
 
     private final String chainName;
 
@@ -245,6 +246,9 @@ public enum BaseChain {
                 chainName.equals(IRIS_TEST.chainName)) {
             return IRIS_TEST;
         }
+        if (chainName.equals(CRESCENT_TEST.chainName)) {
+            return CRESCENT_TEST;
+        }
 
         return null;
     }
@@ -291,6 +295,8 @@ public enum BaseChain {
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);
 
+        result.add(CRESCENT_TEST);
+
 //        result.add(ALTHEA_MAIN);
         return result;
     }
@@ -300,7 +306,7 @@ public enum BaseChain {
     }
 
     public static boolean IS_TESTNET(BaseChain chain) {
-        if (chain.equals(ALTHEA_TEST) || chain.equals(CUDOS_MAIN)) {
+        if (chain.equals(ALTHEA_TEST) || chain.equals(CUDOS_MAIN) || chain.equals(CRESCENT_TEST)) {
             return true;
         }
         return false;
