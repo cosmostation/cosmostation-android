@@ -14,6 +14,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 import android.content.ContentValues;
@@ -1263,7 +1264,9 @@ public class BaseData {
                         result.add(account);
                     }
                 } else if (chain.equals(KAVA_MAIN)) {
-                    result.add(account);
+                    if (getTokenAmount(account.balances, TOKEN_KAVA).compareTo(new BigDecimal("12500")) >= 0) {
+                        result.add(account);
+                    }
                 }
             }
         }
