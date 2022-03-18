@@ -2456,19 +2456,14 @@ public class WUtil {
     }
 
     public static boolean isValidStarName(String starname) {
-        boolean result = false;
-        String regex = "[0-9a-z.-]{0,64}+\\*[a-z0-9.-]{2,16}";
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(starname);
-        if (m.matches()) {
-            result = true;
-        }
-        return result;
+        String[] names = starname.split("\\*");
+        if (names.length != 2) { return false; }
+        return isValidAccount(names[0]) && isValidDomain(names[1]);
     }
 
     public static boolean isValidDomain(String starname) {
         boolean result = false;
-        String regex = "[a-z0-9]{2,32}";
+        String regex = "^[mabcdefghijklnopqrstuvwxy][-a-z0-9_]{0,2}$|^[-a-z0-9_]{4,32}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(starname);
         if (m.matches()) {
@@ -2479,7 +2474,7 @@ public class WUtil {
 
     public static boolean isValidAccount(String starname) {
         boolean result = false;
-        String regex = "[a-z0-9.-]{1,63}";
+        String regex = "^[-.a-z0-9_]{1,63}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(starname);
         if (m.matches()) {
