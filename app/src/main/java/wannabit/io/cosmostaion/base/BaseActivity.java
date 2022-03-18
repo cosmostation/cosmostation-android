@@ -81,6 +81,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import cosmos.auth.v1beta1.Auth;
@@ -102,6 +103,7 @@ import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
@@ -166,6 +168,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -962,12 +965,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 //                    WLog.w("mGRpcAccount " + getBaseDao().mGRpcAccount.getTypeUrl());
                     if (getBaseDao().mGRpcAccount != null && !getBaseDao().mGRpcAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
                         WUtil.onParseVestingAccount(getBaseDao(), mBaseChain);
-//                        if (mBaseChain.equals(PERSIS_MAIN)) {
-//                            WUtil.onParsePersisVestingAccount(getBaseDao());
-//                        } else {
-//
-//                        }
                     }
+                    ArrayList<Balance> snapBalance = new ArrayList<>();
+                    for (Coin coin: getBaseDao().mGrpcBalance) {
+                        snapBalance.add(new Balance(mAccount.id, coin.denom, coin.amount, Calendar.getInstance().getTime().getTime(), "0", "0"));
+                    }
+                    getBaseDao().onUpdateBalances(mAccount.id, snapBalance);
 //                    WLog.w("getBaseDao().mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo.getNetwork());
                 }
 

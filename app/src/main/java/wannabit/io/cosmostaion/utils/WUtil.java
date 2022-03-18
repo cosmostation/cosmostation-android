@@ -4289,6 +4289,9 @@ public class WUtil {
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(KAVA_MAIN)) {
+            if (txType == CONST_PW_TX_HTLS_REFUND) {
+                return new BigDecimal("12500");
+            }
             BigDecimal gasRate = new BigDecimal(KAVA_GAS_RATE_TINY);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
