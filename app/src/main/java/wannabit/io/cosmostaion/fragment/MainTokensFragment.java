@@ -1372,7 +1372,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_crescent));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRESCENT_TEST);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 8, 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
         }
