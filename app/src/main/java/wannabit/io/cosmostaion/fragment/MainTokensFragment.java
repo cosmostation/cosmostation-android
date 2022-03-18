@@ -1364,7 +1364,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_CRESCENT_TEST)) {
-            holder.itemSymbol.setText(getString(R.string.str_stake_c));
+            holder.itemSymbol.setText(getString(R.string.str_cre_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CRESCENT_TEST));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Crescent Staking Coin");

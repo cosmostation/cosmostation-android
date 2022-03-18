@@ -3292,7 +3292,7 @@ public class WUtil {
 
         else if (chain.equals(CRESCENT_TEST)) {
             coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_crescent));
-            coinDenom.setText(R.string.str_stake_c);
+            coinDenom.setText(R.string.str_cre_c);
             coinDenom.setTextAppearance(R.style.font_ss_14_crescent);
 
         }

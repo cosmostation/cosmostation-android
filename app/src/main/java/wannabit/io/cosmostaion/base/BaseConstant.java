@@ -475,7 +475,7 @@ public class BaseConstant {
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
     public final static String TOKEN_IRIS_TEST      = "ubif";
-    public final static String TOKEN_CRESCENT_TEST  = "stake";
+    public final static String TOKEN_CRESCENT_TEST  = "ucre";
 
 
     //HTLC swap support Token Types

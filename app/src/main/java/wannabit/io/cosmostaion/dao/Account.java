@@ -171,7 +171,7 @@ public class Account {
             } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 18, 6);
 
-            } else if (chain.equals(CRYPTO_MAIN) || chain.equals(CRESCENT_TEST)) {
+            } else if (chain.equals(CRYPTO_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 8, 6);
 
             } else if (chain.equals(PROVENANCE_MAIN)) {

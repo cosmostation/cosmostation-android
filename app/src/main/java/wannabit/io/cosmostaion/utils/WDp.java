@@ -583,7 +583,7 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 8, 8));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         }
     }
@@ -1025,7 +1025,7 @@ public class WDp {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         }
     }
@@ -1629,7 +1629,7 @@ public class WDp {
                 return OMNIFLIX_MAIN;
             }
 
-            else if (chainId.contains("crescent-")) {
+            else if (chainId.contains("mooncat-")) {
                 return CRESCENT_TEST;
             }
         }
@@ -1883,7 +1883,7 @@ public class WDp {
             else if (baseChain.equals(COSMOS_TEST)) {
                 return "cosmos-testnet";
             } else if (baseChain.equals(CRESCENT_TEST)) {
-                return "crescent-testnet";
+                return "crescent";
             }
         }
         return null;
@@ -3532,7 +3532,7 @@ public class WDp {
 
         } else if (BaseChain.getChain(chain).equals(CRESCENT_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorCrescent));
-            textview.setText(c.getString(R.string.s_stake));
+            textview.setText(c.getString(R.string.s_cre));
 
         }
     }
@@ -3756,7 +3756,7 @@ public class WDp {
             return 0;
         } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
             return 18;
-        } else if (chain.equals(CRYPTO_MAIN) || chain.equals(CRESCENT_TEST)) {
+        } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
         } else if (chain.equals(PROVENANCE_MAIN)) {
             return 9;
@@ -3772,7 +3772,7 @@ public class WDp {
             return 18;
         } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
             return 18;
-        } else if (chain.equals(CRYPTO_MAIN) || chain.equals(CRESCENT_TEST)) {
+        } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
         } else if (chain.equals(PROVENANCE_MAIN)) {
             return 9;
@@ -3788,7 +3788,7 @@ public class WDp {
             return 18;
         } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ) || denom.equals(TOKEN_EVMOS) || denom.equals(TOKEN_CUDOS)) {
             return 18;
-        } else if (denom.equals(TOKEN_CRO) || denom.equals(TOKEN_CRESCENT_TEST)) {
+        } else if (denom.equals(TOKEN_CRO)) {
             return 8;
         } else if (denom.equals(TOKEN_HASH)) {
             return 9;
@@ -3804,7 +3804,7 @@ public class WDp {
             return 18;
         } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ) || denom.equals(TOKEN_EVMOS) || denom.equals(TOKEN_CUDOS)) {
             return 18;
-        } else if (denom.equals(TOKEN_CRO) || denom.equals(CRESCENT_TEST)) {
+        } else if (denom.equals(TOKEN_CRO)) {
             return 8;
         } else if (denom.equals(TOKEN_HASH)) {
             return 9;

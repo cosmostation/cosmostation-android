@@ -173,8 +173,8 @@ public class ChannelBuilder {
     private final static String GRPC_ALTHEA_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_ALTHEA_TEST = 20100;
 
-    private final static String GRPC_CRESCENT_TEST = "lcd-office.cosmostation.io";
-    private final static int PORT_CRESCENT_TEST = 20400;
+    private final static String GRPC_CRESCENT_TEST = "lcd-crescent-testnet.cosmostation.io";
+    private final static int PORT_CRESCENT_TEST = 9090;
 
     public final static int TIME_OUT = 8;
 
