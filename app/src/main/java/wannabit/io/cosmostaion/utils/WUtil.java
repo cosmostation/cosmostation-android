@@ -3473,6 +3473,9 @@ public class WUtil {
 
         } else if (chain.equals(OMNIFLIX_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://omniflix.network/"));
+
+        } else if (chain.equals(CRESCENT_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crescent.network/"));
         }
         return null;
     }
@@ -3605,6 +3608,9 @@ public class WUtil {
 
         } else if (chain.equals(OMNIFLIX_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.omniflix.network/"));
+
+        } else if (chain.equals(CRESCENT_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crescentnetwork.medium.com/"));
 
         }
         return null;
