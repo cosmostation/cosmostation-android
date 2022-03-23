@@ -13,6 +13,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
@@ -172,6 +173,9 @@ public class ChannelBuilder {
     private final static String GRPC_ALTHEA_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_ALTHEA_TEST = 20100;
 
+    private final static String GRPC_CRESCENT_TEST = "lcd-office.cosmostation.io";
+    private final static int PORT_CRESCENT_TEST = 20400;
+
     public final static int TIME_OUT = 8;
 
 
@@ -260,6 +264,8 @@ public class ChannelBuilder {
             return getIrisTest();
         } else if (chain.equals(ALTHEA_TEST)) {
             return getAltheaTest();
+        } else if (chain.equals(CRESCENT_TEST)) {
+            return getCrescentTest();
         }
         return null;
     }
@@ -797,5 +803,18 @@ public class ChannelBuilder {
             }
         }
         return channel_althea_test;
+    }
+
+    //Channel for crescent testnet
+    private static ManagedChannel channel_crescent_test = null;
+    public static ManagedChannel getCrescentTest() {
+        if (channel_crescent_test == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_crescent_test = ManagedChannelBuilder.forAddress(GRPC_CRESCENT_TEST, PORT_CRESCENT_TEST)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_crescent_test;
     }
 }

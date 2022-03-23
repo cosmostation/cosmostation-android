@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.dialog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 
 import android.app.AlertDialog;
@@ -27,8 +28,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi,
                          mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mComdex, mBitsong, mInj,
                          mSecret, mDesmos, mLum, mChihuahua, mAxelar, mKonstellation, mUmee, mEvmos, mCudos, mProvenance, mCerberus, mOmniflix;
-    private LinearLayout mAltheaTestLayer;
-    private LinearLayout mCosmosTest, mIrisTest, mAltheaTest;
+    private LinearLayout mAltheaTestLayer, mCrescentTestLayer;
+    private LinearLayout mCosmosTest, mIrisTest, mAltheaTest, mCrescentTest;
 
     private boolean      mIsAdd = false;
 
@@ -97,6 +98,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
         mAltheaTestLayer = view.findViewById(R.id.althea_test_layer);
         mAltheaTest = view.findViewById(R.id.althea_test_net);
+        mCrescentTestLayer = view.findViewById(R.id.crescent_test_layer);
+        mCrescentTest = view.findViewById(R.id.crescent_test_net);
 
         if (getArguments() != null) {
             mIsAdd = true;
@@ -623,6 +626,21 @@ public class Dialog_ChoiceNet extends DialogFragment {
                         ((BaseActivity)getActivity()).onChainSelected(BaseChain.ALTHEA_TEST);
                     } else {
                         ((BaseActivity)getActivity()).onChoiceNet(BaseChain.ALTHEA_TEST);
+                    }
+                    getDialog().dismiss();
+                }
+            });
+        }
+
+        if (BaseChain.SUPPORT_CHAINS().contains(CRESCENT_TEST)) {
+            mCrescentTestLayer.setVisibility(View.VISIBLE);
+            mCrescentTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mIsAdd) {
+                        ((BaseActivity) getActivity()).onChainSelected(CRESCENT_TEST);
+                    } else {
+                        ((BaseActivity) getActivity()).onChoiceNet(CRESCENT_TEST);
                     }
                     getDialog().dismiss();
                 }

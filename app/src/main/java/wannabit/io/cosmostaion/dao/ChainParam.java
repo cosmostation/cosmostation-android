@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.dao;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
@@ -13,11 +14,13 @@ import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 
@@ -95,6 +98,9 @@ public class ChainParam {
         @SerializedName("swap_enabled")
         public boolean swap_enabled;
 
+        @SerializedName("crescent_minting_params")
+        public CrescentMintingParams mCrescentMintingParams;
+
 
         public BigDecimal getMintInflation(BaseChain baseChain) {
             if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
@@ -119,6 +125,16 @@ public class ChainParam {
                 BigDecimal annualProvisions = new BigDecimal(mEvmosEpochMintProvision.epoch_mint_provision).multiply(new BigDecimal("365"));
                 BigDecimal evmosSupply = getMainSupply(baseChain).subtract(new BigDecimal("200000000000000000000000000"));
                 return annualProvisions.divide(evmosSupply, 18, RoundingMode.DOWN);
+            } else if (baseChain.equals(CRESCENT_TEST)) {
+                long now = Calendar.getInstance().getTime().getTime();
+                BigDecimal creSupply = getMainSupply(baseChain);
+                BigDecimal annualProvisions = BigDecimal.ZERO;
+                for (Schedules schedules: mCrescentMintingParams.mParams.mSchedules) {
+                    if (schedules.getStart_time() < now && schedules.getEnd_time() > now) {
+                        annualProvisions = schedules.getAmount();
+                    }
+                }
+                return annualProvisions.divide(creSupply, 18, RoundingMode.DOWN);
             } else {
                 try {
                     MintInflation temp = new Gson().fromJson(new Gson().toJson(mMintInflations), MintInflation.class);
@@ -708,6 +724,42 @@ public class ChainParam {
     public class EvmosEpochMintProvision {
         @SerializedName("epoch_mint_provision")
         public String epoch_mint_provision;
+    }
+
+    public class CrescentMintingParams {
+        @SerializedName("params")
+        public CrescentParams mParams;
+    }
+
+    public class CrescentParams {
+        @SerializedName("mint_denom")
+        public String mint_denom;
+
+        @SerializedName("inflation_schedules")
+        public ArrayList<Schedules> mSchedules;
+    }
+
+    public class Schedules {
+        @SerializedName("amount")
+        public String amount;
+
+        @SerializedName("end_time")
+        public String end_time;
+
+        @SerializedName("start_time")
+        public String start_time;
+
+        public BigDecimal getAmount() {
+            return new BigDecimal(amount);
+        }
+
+        public long getEnd_time() {
+            return WDp.dateToLong2(end_time);
+        }
+
+        public long getStart_time() {
+            return WDp.dateToLong2(start_time);
+        }
     }
 }
 

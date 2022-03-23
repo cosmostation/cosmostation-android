@@ -788,6 +788,21 @@ public class ApiClient {
         return api_althea_test;
     }
 
+    //Services for Crescent test api
+    private static HistoryApi api_crescent_test = null;
+    public static HistoryApi getCrescentTestApi(Context c) {
+        if (api_crescent_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_crescent_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_crescent_test = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_crescent_test;
+    }
+
     //Services for Cosmos Test api
     private static HistoryApi api_cosmos_test = null;
     public static HistoryApi getCosmosTestApi(Context c) {
