@@ -57,7 +57,6 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':lib')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
@@ -101,6 +100,9 @@ dependencies {
     implementation files('libs/httpclient-4.5.3.jar')
     implementation files('libs/apache-httpcomponents-httpcore.jar')
     //for ed25519
+    dependencies {
+        implementation "com.github.TrustWallet:wallet-connect-kotlin:1.5.4"
+    }
     implementation files('libs/bip32-ed25519-java-1.0.0-SNAPSHOT.jar')
     implementation 'net.i2p.crypto:eddsa:0.3.0'
     //foreground notification
