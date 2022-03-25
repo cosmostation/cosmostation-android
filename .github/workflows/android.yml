@@ -36,9 +36,11 @@ jobs:
       run: mv app/build/outputs/apk/debug/app-debug.apk ${{ env.FILE_NAME }}
       
     - name: Upload to slack step
-      uses: adrey/slack-file-upload-action@master
+      uses: MeilCli/slack-upload-file@v1
       with:
-        token: ${{ secrets.SLACK_TOKEN }}
-        path: ${{ env.FILE_NAME }}
+        slack_token: ${{ secrets.SLACK_TOKEN }}
+        channels: app-build
+        file_path: ${{ env.FILE_NAME }}
+        file_name: ${{ env.FILE_NAME }}
+        file_type: 'apk'
         initial_comment: ${{ github.event.head_commit.message }}
-        channel: app-build
