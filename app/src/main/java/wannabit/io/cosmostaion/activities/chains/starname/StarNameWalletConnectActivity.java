@@ -57,15 +57,17 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
         wcSession = WCSession.Companion.from(mWcURL);
         wcClient.connect(wcSession, meta, UUID.randomUUID().toString(), null);
         wcClient.setOnDisconnect((code, reason) -> {
-            Toast.makeText(getBaseContext(), getString(R.string.str_wc_disconnected), Toast.LENGTH_SHORT).show();
-            if (!isFinishing()) onBackPressed();
+            runOnUiThread(() -> {
+                Toast.makeText(getBaseContext(), getString(R.string.str_wc_disconnected), Toast.LENGTH_SHORT).show();
+                if (!isFinishing()) onBackPressed();
+            });
+
             return null;
         });
         wcClient.setOnSessionRequest((id, wcPeerMeta) -> {
-            onInitView(wcPeerMeta);
+            runOnUiThread(() -> onInitView(wcPeerMeta));
             return null;
         });
-        wcClient.approveSession(Lists.newArrayList(mAccount.address), 4);
     }
 
     private void initView() {
@@ -100,7 +102,7 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (wcSession != null) {
+        if (wcSession != null && wcClient.isConnected()) {
             wcClient.killSession();
         } else {
             wcClient.disconnect();
@@ -135,6 +137,8 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
             exportDialog.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(exportDialog, "dialog").commitNowAllowingStateLoss();
         }
+
+        wcClient.approveSession(Lists.newArrayList(mAccount.address), -1);
     }
 
     public void onExportAddresses(String jsonData) {

@@ -65,6 +65,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
     private WCClient wcClient;
     private WCSession wcSession;
     private WCBinanceOrder mOrder;
+    private Long mOrderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,61 +104,56 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
         wcSession = WCSession.Companion.from(mWcURL);
         wcClient.connect(wcSession, meta, UUID.randomUUID().toString(), null);
         wcClient.setOnDisconnect((code, reason) -> {
-            Toast.makeText(getBaseContext(), getString(R.string.str_wc_disconnected), Toast.LENGTH_SHORT).show();
-            if (!isFinishing()) onBackPressed();
-            return null;
-        });
-        wcClient.setOnGetAccounts(aLong -> {
-            Toast.makeText(getBaseContext(), getString(R.string.str_wc_approved), Toast.LENGTH_SHORT).show();
-            mWcAccount.setText(mAccount.address);
+            runOnUiThread(() -> {
+                Toast.makeText(getBaseContext(), getString(R.string.str_wc_disconnected), Toast.LENGTH_SHORT).show();
+                if (!isFinishing()) onBackPressed();
+            });
             return null;
         });
         wcClient.setOnSessionRequest((id, wcPeerMeta) -> {
-            onInitView(wcPeerMeta);
+            runOnUiThread(() -> onInitView(wcPeerMeta));
             return null;
         });
         wcClient.setOnBnbTransfer((id, order) -> {
-            onShowTransferDialog(processBnb(id, order));
+            runOnUiThread(() -> {
+                onShowTransferDialog(processBnb(id, order));
+            });
             return null;
         });
         wcClient.setOnBnbTxConfirm((id, order) -> {
-            Toast.makeText(getBaseContext(), getString(R.string.str_wc_sign_result_msg), Toast.LENGTH_SHORT).show();
+            runOnUiThread(() -> {
+                Toast.makeText(getBaseContext(), getString(R.string.str_wc_sign_result_msg), Toast.LENGTH_SHORT).show();
+            });
             new Thread(new ConfirmRunnable()).start();
             return null;
         });
         wcClient.setOnBnbTrade((id, order) -> {
-            onShowNewOrderDialog(processBnb(id, order));
+            runOnUiThread(() -> {
+                onShowNewOrderDialog(processBnb(id, order));
+            });
             return null;
         });
         wcClient.setOnBnbCancel((id, order) -> {
-            onShowCancelDialog(processBnb(id, order));
+            runOnUiThread(() -> {
+                onShowCancelDialog(processBnb(id, order));
+            });
             return null;
         });
-        wcClient.approveSession(Lists.newArrayList(mAccount.address), 4);
     }
 
     private Bundle processBnb(Long id, WCBinanceOrder order) {
         onDismissDialog();
+        mOrderId = id;
         mOrder = order;
         if (order.getMsgs() != null && order.getMsgs().size() > 0) {
-            //TODO decoding rawSingData with memo bug!
-            String rawString = order.getMsgs().get(0).toString();
-            String memo = "";
-            int start = rawString.indexOf("memo=");
-            int end = rawString.indexOf(",", start);
-            if (start > 0) {
-                String front = rawString.substring(0, start - 1);
-                String back = rawString.substring(end + 1, rawString.length());
-                memo = rawString.substring(start, end).replace("memo=", "");
-                rawString = front + back;
-            }
             Bundle bundle = new Bundle();
             bundle.putLong("id", id);
-            bundle.putString("param", rawString);
-            bundle.putString("memo", memo);
+            bundle.putString("param", new Gson().toJson(order));
+            bundle.putString("memo", order.getMemo());
             return bundle;
+        } else {
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -172,7 +168,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (wcSession != null) {
+        if (wcSession != null && wcClient.isConnected()) {
             wcClient.killSession();
         } else {
             wcClient.disconnect();
@@ -189,6 +185,8 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
         mWcUrl.setText(meta.getUrl());
         mWcLayer.setVisibility(View.VISIBLE);
         mLoadingLayer.setVisibility(View.GONE);
+        mWcAccount.setText(mAccount.address);
+        wcClient.approveSession(Lists.newArrayList(mAccount.address), 4);
     }
 
     @Override
@@ -223,7 +221,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
     }
 
     public void onBnbSign(long id) {
-        if (id == Long.parseLong(mOrder.getAccountNumber())) {
+        if (id == mOrderId) {
             new Thread(new SignRunnable()).start();
         }
     }
@@ -236,17 +234,8 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                 String entropy = CryptoHelper.doDecryptData(getBaseContext().getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
                 DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
 
-                String rawString = mOrder.getData();
-                String memo = "";
-                int start = rawString.indexOf("memo=");
-                int end = rawString.indexOf(",", start);
-                if (start > 0) {
-                    String front = rawString.substring(0, start - 1);
-                    String back = rawString.substring(end + 1, rawString.length());
-                    memo = rawString.substring(start, end).replace("memo=", "");
-                    rawString = front + back;
-                }
-                BnbParam bnbParam = new Gson().fromJson(rawString, BnbParam.class);
+                BnbParam bnbParam = new Gson().fromJson(new Gson().toJson(mOrder), BnbParam.class);
+
                 BinanceDexTransactionMessage bdtm[] = new BinanceDexTransactionMessage[1];
 
                 if (bnbParam.getMsgType() == TYPE_NEW_ORDER) {
@@ -254,11 +243,11 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                             .setSender(bnbParam.msgs.get(0).sender)
                             .setId(bnbParam.msgs.get(0).id)
                             .setSymbol(bnbParam.msgs.get(0).symbol)
-                            .setOrderType(OrderType.fromValue(bnbParam.msgs.get(0).ordertype))
+                            .setOrderType(OrderType.fromValue(bnbParam.msgs.get(0).orderType))
                             .setSide(OrderSide.fromValue(bnbParam.msgs.get(0).side))
                             .setPrice(TransactionRequestAssembler.longToDouble(bnbParam.msgs.get(0).price))
                             .setQuantity(TransactionRequestAssembler.longToDouble(bnbParam.msgs.get(0).quantity))
-                            .setTimeInForce(TimeInForce.fromValue(bnbParam.msgs.get(0).timeinforce)).build();
+                            .setTimeInForce(TimeInForce.fromValue(bnbParam.msgs.get(0).timeInforce)).build();
                     bdtm[0] = bean;
 
                 } else if (bnbParam.getMsgType() == TYPE_CANCEL_ORDER) {
@@ -269,7 +258,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                     bdtm[0] = bean;
 
                 } else if (bnbParam.getMsgType() == TYPE_TRANSFER_ORDER) {
-                    JsonObject json = new Gson().fromJson(rawString, JsonObject.class);
+                    JsonObject json = new Gson().fromJson(new Gson().toJson(mOrder), JsonObject.class);
                     TransferMessage bean = new Gson().fromJson(json.getAsJsonArray("msgs").get(0), TransferMessage.class);
                     bdtm[0] = bean;
 
@@ -282,7 +271,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                 sd.setChainId(bnbParam.chain_id);
                 sd.setAccountNumber("" + bnbParam.account_number);
                 sd.setSequence("" + bnbParam.sequence);
-                sd.setMemo(memo);
+                sd.setMemo(mOrder.getMemo());
                 sd.setMsgs(bdtm);
                 sd.setSource("" + bnbParam.source);
 
@@ -294,10 +283,10 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                 callBack.publicKey = EncodeUtils.bytesToHex(publicKeyBytes);
 
                 String result = new Gson().toJson(callBack);
-                wcClient.approveRequest(Long.parseLong(mOrder.getAccountNumber()), result);
+                wcClient.approveRequest(mOrderId, result);
 
             } catch (Exception e) {
-                WLog.w("Ex " + e.getMessage());
+                WLog.e("Ex " + e.getMessage());
             }
 
         }
@@ -307,7 +296,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
         @Override
         public void run() {
             WLog.w("ConfirmRunnable ");
-            wcClient.approveRequest(Long.parseLong(mOrder.getAccountNumber()), StringUtils.EMPTY);
+            wcClient.approveRequest(mOrderId, StringUtils.EMPTY);
         }
     }
 }
