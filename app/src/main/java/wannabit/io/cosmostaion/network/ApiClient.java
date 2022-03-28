@@ -108,6 +108,21 @@ public class ApiClient {
     }
 
 
+    //Services for Imversed history api mainnet
+    private static HistoryApi api_imversed = null;
+    public static HistoryApi getImversedApi(Context c) {
+        if (api_imversed == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_iris_main))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_imversed = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_imversed;
+    }
+
     //Services for Iris history api mainnet
     private static HistoryApi api_iris = null;
     public static HistoryApi getIrisApi(Context c) {
@@ -786,21 +801,6 @@ public class ApiClient {
             }
         }
         return api_althea_test;
-    }
-
-    //Services for Crescent test api
-    private static HistoryApi api_crescent_test = null;
-    public static HistoryApi getCrescentTestApi(Context c) {
-        if (api_crescent_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_crescent_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_crescent_test = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_crescent_test;
     }
 
     //Services for Cosmos Test api

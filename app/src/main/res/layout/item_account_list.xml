@@ -30,16 +30,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/cosmos_wh_main"/>
+
                 <TextView
                     android:id="@+id/chain_name"
+                    style="@style/font_ss_14_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="COSMOS"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_toRightOf="@+id/chain_img"
-                    style="@style/font_ss_14_white"/>
+                    android:singleLine="true"
+                    android:text="COSMOS" />
                 <TextView
                     android:id="@+id/wallet_cnt"
                     android:layout_width="wrap_content"

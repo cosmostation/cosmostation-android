@@ -37,6 +37,30 @@
                 android:layout_height="1px"
                 android:background="@color/colorGray10"/>
             <LinearLayout
+                android:id="@+id/imversed_net"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/space_4">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:src="@drawable/imversed"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:text="@string/str_imversed_main_net"
+                    style="@style/font_ss_14_gray8"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorGray10"/>
+            <LinearLayout
                 android:id="@+id/iris_net"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1062,37 +1086,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_8"
                         android:text="@string/str_althea_test_net"
-                        style="@style/font_ss_14_gray8"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/crescent_test_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/colorGray10"/>
-                <LinearLayout
-                    android:id="@+id/crescent_test_net"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/space_4">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:src="@drawable/testnet_crescent"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:text="@string/str_crescent_test_net"
                         style="@style/font_ss_14_gray8"/>
                 </LinearLayout>
             </LinearLayout>

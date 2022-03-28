@@ -1,5 +1,12 @@
 package wannabit.io.cosmostaion.widget.tokenDetail;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -13,10 +20,8 @@ import com.google.gson.JsonParser;
 
 import java.math.BigDecimal;
 
-import irismod.nft.Nft;
 import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Assets;
@@ -27,60 +32,52 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
-
 public class TokenDetailSupportHolder extends BaseHolder {
-    private CardView            mAmountView;
-    private TextView            mTvTotal;
-    private TextView            mTvAvailable;
-    private RelativeLayout      mLockedLayout;
-    private TextView            mTvLocked;
-    private RelativeLayout      mFrozenLayout;
-    private TextView            mTvFrozen;
-    private RelativeLayout      mVestingLayout;
-    private TextView            mTvVesting;
+    private CardView mAmountView;
+    private TextView mTvTotal;
+    private TextView mTvAvailable;
+    private RelativeLayout mLockedLayout;
+    private TextView mTvLocked;
+    private RelativeLayout mFrozenLayout;
+    private TextView mTvFrozen;
+    private RelativeLayout mVestingLayout;
+    private TextView mTvVesting;
 
     // nft
-    private CardView            mNftInfo;
-    private TextView            mNftName;
-    private TextView            mNftContent;
-    private TextView            mNftDenomId;
-    private TextView            mNftTokenId;
-    private TextView            mNftIssuer;
+    private CardView mNftInfo;
+    private TextView mNftName;
+    private TextView mNftContent;
+    private TextView mNftDenomId;
+    private TextView mNftTokenId;
+    private TextView mNftIssuer;
 
-    private CardView            mNftRawRoot;
-    private TextView            mNftRawData;
+    private CardView mNftRawRoot;
+    private TextView mNftRawData;
 
-    private int                 dpDecimal = 6;
-    private BigDecimal          mAvailableAmount = BigDecimal.ZERO;
+    private int dpDecimal = 6;
+    private BigDecimal mAvailableAmount = BigDecimal.ZERO;
 
     public TokenDetailSupportHolder(@NonNull View itemView) {
         super(itemView);
-        mAmountView         = itemView.findViewById(R.id.card_root);
-        mTvTotal            = itemView.findViewById(R.id.total_amount);
-        mTvAvailable        = itemView.findViewById(R.id.available_amount);
-        mLockedLayout       = itemView.findViewById(R.id.locked_layout);
-        mTvLocked           = itemView.findViewById(R.id.locked_amount);
-        mFrozenLayout       = itemView.findViewById(R.id.frozen_layout);
-        mTvFrozen           = itemView.findViewById(R.id.frozen_amount);
-        mVestingLayout      = itemView.findViewById(R.id.vesting_layout);
-        mTvVesting          = itemView.findViewById(R.id.vesrting_amount);
+        mAmountView = itemView.findViewById(R.id.card_root);
+        mTvTotal = itemView.findViewById(R.id.total_amount);
+        mTvAvailable = itemView.findViewById(R.id.available_amount);
+        mLockedLayout = itemView.findViewById(R.id.locked_layout);
+        mTvLocked = itemView.findViewById(R.id.locked_amount);
+        mFrozenLayout = itemView.findViewById(R.id.frozen_layout);
+        mTvFrozen = itemView.findViewById(R.id.frozen_amount);
+        mVestingLayout = itemView.findViewById(R.id.vesting_layout);
+        mTvVesting = itemView.findViewById(R.id.vesrting_amount);
 
-        mNftInfo            = itemView.findViewById(R.id.nft_card_root);
-        mNftName            = itemView.findViewById(R.id.nft_name);
-        mNftContent         = itemView.findViewById(R.id.nft_content);
-        mNftDenomId         = itemView.findViewById(R.id.denom_id);
-        mNftTokenId         = itemView.findViewById(R.id.token_id);
-        mNftIssuer          = itemView.findViewById(R.id.issuer);
+        mNftInfo = itemView.findViewById(R.id.nft_card_root);
+        mNftName = itemView.findViewById(R.id.nft_name);
+        mNftContent = itemView.findViewById(R.id.nft_content);
+        mNftDenomId = itemView.findViewById(R.id.denom_id);
+        mNftTokenId = itemView.findViewById(R.id.token_id);
+        mNftIssuer = itemView.findViewById(R.id.issuer);
 
-        mNftRawRoot         = itemView.findViewById(R.id.nft_raw_card_root);
-        mNftRawData         = itemView.findViewById(R.id.nft_raw_data);
+        mNftRawRoot = itemView.findViewById(R.id.nft_raw_card_root);
+        mNftRawData = itemView.findViewById(R.id.nft_raw_data);
     }
 
     public void onBindNativeTokengRPC(Context c, BaseChain baseChain, BaseData baseData, String denom) {
@@ -98,7 +95,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
             BigDecimal vestingAmount = baseData.getVesting(denom);
             mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));
             mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-            if (vestingAmount.compareTo(BigDecimal.ZERO) > 0){
+            if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
                 mVestingLayout.setVisibility(View.VISIBLE);
                 mTvVesting.setText(WDp.getDpAmount2(c, vestingAmount, dpDecimal, dpDecimal));
             }
@@ -135,7 +132,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
         BigDecimal vestingAmount = baseData.lockedAmount(denom);
         mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));
         mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-        if (vestingAmount.compareTo(BigDecimal.ZERO) > 0){
+        if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
             mVestingLayout.setVisibility(View.VISIBLE);
             mTvVesting.setText(WDp.getDpAmount2(c, vestingAmount, dpDecimal, dpDecimal));
         }
@@ -158,7 +155,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindOKTokens(Context c, BaseData baseData, String denom) {
-        final OkToken okToken   = baseData.okToken(denom);
+        final OkToken okToken = baseData.okToken(denom);
         if (okToken != null) {
             mLockedLayout.setVisibility(View.VISIBLE);
         }

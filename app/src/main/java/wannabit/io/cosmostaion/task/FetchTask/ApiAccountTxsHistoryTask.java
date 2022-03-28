@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.task.FetchTask;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IMVERSED_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 
@@ -49,6 +49,15 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
             else if (mChain.equals(COSMOS_MAIN)) {
 //                WLog.w("COSMOS_MAIN " + ApiClient.getCosmosApi(mApp).getAccountTxsCustom(mAddress, "50").request().url());
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCosmosApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(IMVERSED_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getImversedApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -378,15 +387,6 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 
             } else if (mChain.equals(ALTHEA_TEST)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAltheaTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(CRESCENT_TEST)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCrescentTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

@@ -121,8 +121,4 @@ public class BaseBroadCastActivity extends BaseActivity {
     public void onNextStep() { }
 
     public void onBeforeStep() { }
-
-    public void onBroadcastTx() {
-
-    }
 }

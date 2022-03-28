@@ -383,6 +383,12 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="font_ss_14_imversed" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorImversed</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
     <style name="font_ss_14_iris" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorIris</item>
@@ -626,12 +632,6 @@
     <style name="font_ss_14_omniflix" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorOmniflix</item>
-        <item name="android:textSize">@dimen/text_size_14</item>
-    </style>
-
-    <style name="font_ss_14_crescent" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/colorCrescent</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 

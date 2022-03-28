@@ -767,28 +767,20 @@
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
 
-        <service android:name=".base.BaseFCM">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+<!--        <service android:name=".base.BaseFCM">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
 
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_notification" />
+<!--        <meta-data-->
+<!--            android:name="com.google.firebase.messaging.default_notification_icon"-->
+<!--            android:resource="@drawable/ic_notification" />-->
 
         <!--<meta-data-->
             <!--android:name="com.google.firebase.messaging.default_notification_color"-->
             <!--android:resource="@color/colorWhite" />-->
 
-
-        <activity
-            android:name=".test.TestActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
-            android:launchMode="singleTask">
-        </activity>
     </application>
 
 </manifest>

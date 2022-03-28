@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
-import java.util.ArrayList;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_MY_PROVIDER;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import java.util.concurrent.TimeUnit;
 
 import sifnode.clp.v1.Querier;
@@ -13,9 +15,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_MY_PROVIDER;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class SifDexMyProviderGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -41,7 +40,9 @@ public class SifDexMyProviderGrpcTask extends CommonTask {
             mResult.resultData = response;
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "SifDexMyProviderGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e("SifDexMyProviderGrpcTask " + e.getMessage());
+        }
         return mResult;
     }
 }

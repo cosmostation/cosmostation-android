@@ -1,0 +1,28 @@
+apply plugin: "kotlin"
+apply plugin: 'maven'
+
+repositories {
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10"
+    //bitcoin
+    api 'org.bitcoinj:bitcoinj-core:0.15.2'
+    //for ed25519
+    api files('libs/bip32-ed25519-java-1.0.0-SNAPSHOT.jar')
+    api 'net.i2p.crypto:eddsa:0.3.0'
+    //Grpc and protobuf
+    api 'io.grpc:grpc-okhttp:1.33.1'
+    api ('io.grpc:grpc-protobuf:1.33.1') {
+        exclude group: 'com.google.api'
+        exclude group: 'com.google.protobuf.GoGoProtos', module: "protobuf-java"
+        exclude group: 'com.google.protobuf.AnyProto', module: "protobuf-java"
+        exclude group: 'com.google.protobuf.AnyOrBuilder', module: "protobuf-java"
+    }
+    api 'io.grpc:grpc-stub:1.33.1'
+    api 'javax.annotation:javax.annotation-api:1.3.2'
+
+}

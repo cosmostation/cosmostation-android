@@ -18,6 +18,7 @@ public enum BaseChain {
     COSMOS_LEGACY3("cosmoshub-3"),
     COSMOS_LEGACY4("cosmoshub-4"),
     COSMOS_MAIN("cosmoshub-mainnet"),
+    IMVERSED_MAIN("imversed"),
     IRIS_LEGACY1("irishub"),
     IRIS_LEGACY2("irishub-1"),
     IRIS_MAIN("irishub-mainnet"),
@@ -82,8 +83,7 @@ public enum BaseChain {
     IRIS_TEST("iris-testnet"),
     OK_TEST("okexchain-testnet"),
     RIZON_TEST("rizon-testnet2"),
-    ALTHEA_TEST("althea-testnet"),
-    CRESCENT_TEST("crescent-testnet");
+    ALTHEA_TEST("althea-testnet");
 
     private final String chainName;
 
@@ -102,6 +102,9 @@ public enum BaseChain {
                 chainName.equals(COSMOS_LEGACY4.chainName) ||
                 chainName.equals(COSMOS_MAIN.chainName)) {
             return COSMOS_MAIN;
+        }
+        if (chainName.equals(IMVERSED_MAIN.chainName)) {
+            return IMVERSED_MAIN;
         }
         if (chainName.equals(IRIS_LEGACY1.chainName) ||
                 chainName.equals(IRIS_LEGACY2.chainName) ||
@@ -246,9 +249,6 @@ public enum BaseChain {
                 chainName.equals(IRIS_TEST.chainName)) {
             return IRIS_TEST;
         }
-        if (chainName.equals(CRESCENT_TEST.chainName)) {
-            return CRESCENT_TEST;
-        }
 
         return null;
     }
@@ -256,6 +256,7 @@ public enum BaseChain {
     public static ArrayList<BaseChain> SUPPORT_CHAINS() {
         ArrayList<BaseChain> result = new ArrayList<>();
         result.add(COSMOS_MAIN);
+        result.add(IMVERSED_MAIN);
         result.add(IRIS_MAIN);
         result.add(AKASH_MAIN);
         result.add(AXELAR_MAIN);
@@ -295,8 +296,6 @@ public enum BaseChain {
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);
 
-        result.add(CRESCENT_TEST);
-
 //        result.add(ALTHEA_MAIN);
         return result;
     }
@@ -306,7 +305,7 @@ public enum BaseChain {
     }
 
     public static boolean IS_TESTNET(BaseChain chain) {
-        if (chain.equals(ALTHEA_TEST) || chain.equals(CUDOS_MAIN) || chain.equals(CRESCENT_TEST)) {
+        if (chain.equals(ALTHEA_TEST) || chain.equals(CUDOS_MAIN)) {
             return true;
         }
         return false;

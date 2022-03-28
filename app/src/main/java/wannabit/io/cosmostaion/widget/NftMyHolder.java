@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.widget;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
@@ -13,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import irismod.nft.Nft;
 import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.nft.NFTListActivity;
@@ -23,20 +25,17 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NFTokenInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-
 public class NftMyHolder extends RecyclerView.ViewHolder {
-    CardView  itemRoot;
+    CardView itemRoot;
     ImageView itemMyNftImg;
-    TextView  itemMyNftTitle, itemMyNftContent;
+    TextView itemMyNftTitle, itemMyNftContent;
 
     public NftMyHolder(@NonNull View itemView) {
         super(itemView);
-        itemRoot            = itemView.findViewById(R.id.card_nft);
-        itemMyNftImg        = itemView.findViewById(R.id.nft_img);
-        itemMyNftTitle      = itemView.findViewById(R.id.nft_title);
-        itemMyNftContent    = itemView.findViewById(R.id.nft_content);
+        itemRoot = itemView.findViewById(R.id.card_nft);
+        itemMyNftImg = itemView.findViewById(R.id.nft_img);
+        itemMyNftTitle = itemView.findViewById(R.id.nft_title);
+        itemMyNftContent = itemView.findViewById(R.id.nft_content);
     }
 
     public void onBindNFT(NFTListActivity activity, String denomId, String tokenId) {
@@ -52,7 +51,8 @@ public class NftMyHolder extends RecyclerView.ViewHolder {
                             try {
                                 Glide.with(activity).load(irisResponse.getNft().getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
                                         placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fitCenter().into(itemMyNftImg);
-                            } catch (Exception e) { }
+                            } catch (Exception e) {
+                            }
                             itemMyNftTitle.setText(irisResponse.getNft().getName());
                             itemMyNftContent.setText(WUtil.getNftDescription(irisResponse.getNft().getData()));
 
@@ -73,7 +73,8 @@ public class NftMyHolder extends RecyclerView.ViewHolder {
                             try {
                                 Glide.with(activity).load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).diskCacheStrategy(DiskCacheStrategy.ALL).
                                         placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(itemMyNftImg);
-                            } catch (Exception e) { }
+                            } catch (Exception e) {
+                            }
                             itemMyNftTitle.setText(myCryptoNftInfo.getName());
                             itemMyNftContent.setText(WUtil.getNftDescription(myCryptoNftInfo.getData()));
 

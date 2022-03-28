@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -49,6 +48,15 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
 
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCosmosApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(BaseChain.IMVERSED_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getImversedApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -380,15 +388,6 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
 
             } else if (mChain.equals(ALTHEA_TEST)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAltheaTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("ApiStakeTxsHistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(CRESCENT_TEST)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCrescentTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

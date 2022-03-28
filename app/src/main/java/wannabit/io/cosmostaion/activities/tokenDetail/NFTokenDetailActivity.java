@@ -77,6 +77,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        //TODO: Support Imversed nft
         if (mBaseChain.equals(IRIS_MAIN)) {
             mIrisResponse = (QueryOuterClass.QueryNFTResponse) getIntent().getSerializableExtra("irisResponse");
         } else if (mBaseChain.equals(CRYPTO_MAIN)) {

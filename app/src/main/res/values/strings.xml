@@ -16,6 +16,8 @@
     <string name="url_lcd_cosmos_test" translatable="false">https://lcd-office.cosmostation.io/stargate-final/</string>
     <string name="url_api_cosmos_test" translatable="false">https://api-office.cosmostation.io/stargate-final/</string>
 
+    <!-- TODO Imversed -->
+    <string name="url_api_imversed_main" translatable="false">http://q.imversed.com/</string>
 
     <string name="url_api_iris_main" translatable="false">https://api-iris.cosmostation.io/</string>
 
@@ -154,13 +156,11 @@
     <string name="url_api_althea_test" translatable="false">https://api-office.cosmostation.io/althea-testnet2v1/</string>
 
 
-    <string name="url_api_crescent_test" translatable="false">https://api-office.cosmostation.io/mooncat-1-1/</string>
-
-
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_private" translatable="false">PRIVATE_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
     <string name="str_atom_c" translatable="false">ATOM</string>
+    <string name="str_imversed_c" translatable="false">IMV</string>
     <string name="str_iris_c" translatable="false">IRIS</string>
     <string name="str_photon_c" translatable="false">PHOTINO</string>
     <string name="str_kava_c" translatable="false">KAVA</string>
@@ -205,8 +205,6 @@
     <string name="str_omniflix_c" translatable="false">FLIX</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
-    <string name="str_cre_c" translatable="false">CRE</string>
-    <string name="str_bcre_c" translatable="false">BCRE</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
@@ -220,6 +218,7 @@
     <string name="str_cosmos_main_net" translatable="false">Cosmos</string>
     <string name="str_cosmos_test_net_12k" translatable="false">COSMOS Testnet (GAIA 12k)</string>
     <string name="str_cosmos_test_net_13k" translatable="false">COSMOS Testnet (GAIA 13k)</string>
+    <string name="str_imversed_main_net" translatable="false">Imversed</string>
     <string name="str_iris_main_net" translatable="false">Iris</string>
     <string name="str_bnb_main_net" translatable="false">Binance</string>
     <string name="str_iov_main_net" translatable="false">Starname</string>
@@ -271,7 +270,6 @@
     <string name="str_althea_test_net" translatable="false">Althea Testnet</string>
     <string name="str_umee_test_net" translatable="false">Umee Testnet</string>
     <string name="str_axelar_test_net" translatable="false">Axelar Testnet</string>
-    <string name="str_crescent_test_net" translatable="false">Crescent Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
@@ -460,6 +458,8 @@
     <string name="str_cosmos_hub_2" translatable="false">Cosmos</string>
     <string name="str_cosmos_testnet" translatable="false">(Stargate Testnet)</string>
     <string name="str_cosmos_testnet_2" translatable="false">Stargate Testnet</string>
+    <string name="str_imversed_net" translatable="false">(Imversed)</string>
+    <string name="str_imversed_net_2" translatable="false">Imversed</string>
     <string name="str_iris_net" translatable="false">(Iris)</string>
     <string name="str_iris_net_2" translatable="false">Iris</string>
     <string name="str_iris_testnet" translatable="false">(Bifrost Testnet)</string>
@@ -511,14 +511,13 @@
     <string name="str_omniflix_net" translatable="false">(Omniflix)</string>
     <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
     <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
-    <string name="str_crescent_chain_test" translatable="false">(Crescent Testnet)</string>
-    <string name="str_crescent_chain_test_2" translatable="false">Crescent Testnet</string>
     <string name="str_emoney_net" translatable="false">(E-Money)</string>
     <string name="str_emoney_net2" translatable="false">E-Money</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
     <string name="str_iris" translatable="false">IRIS</string>
+    <string name="str_imversed" translatable="false">IMVERSED</string>
     <string name="str_binance" translatable="false">BINANCE</string>
     <string name="str_binance_test" translatable="false">BINANCE\nTEST</string>
     <string name="str_iov" translatable="false">STARNAME</string>
@@ -563,7 +562,6 @@
     <string name="str_cerberus_main" translatable="false">CERBERUS</string>
     <string name="str_omniflix_main" translatable="false">OMNIFLIX</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
-    <string name="str_crescent_test" translatable="false">CRESCENT TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -631,6 +629,7 @@
     <string name="str_tx_error_description">Transaction request failed. \nPlease check the error code and message.</string>
     <string name="str_success_loading">Transaction request submitted successfully. \nAfter a few moments, the full results will be displayed.\n(Pending times depends on Tx fee.)</string>
     <string name="str_front_guide_title"><![CDATA[COSMOS HUB]]></string>
+    <string name="str_front_guide_title_imversed"><![CDATA[IMVERSED HUB]]></string>
     <string name="str_front_guide_title_iris"><![CDATA[IRIS HUB]]></string>
     <string name="str_front_guide_title_binance"><![CDATA[BINANCE CHAIN]]></string>
     <string name="str_front_guide_title_kava"><![CDATA[KAVA CHAIN]]></string>
@@ -670,8 +669,8 @@
     <string name="str_front_guide_title_provenance"><![CDATA[PROVENANCE]]></string>
     <string name="str_front_guide_title_cerberus"><![CDATA[CERBERUS]]></string>
     <string name="str_front_guide_title_omniflix"><![CDATA[OMNIFLIX]]></string>
-    <string name="str_front_guide_title_crescent"><![CDATA[CRESCENT]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
+    <string name="str_front_guide_msg_imversed">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
@@ -711,7 +710,6 @@
     <string name="str_front_guide_msg_provenance"><![CDATA[Provenance is a Tendermint-based blockchain network utilized by $HASH, designed to support financial service industry.]]></string>
     <string name="str_front_guide_msg_cerberus"><![CDATA[Cerberus is a community-led tri-headed dog meme coin in Cosmos ecosystem.]]></string>
     <string name="str_front_guide_msg_omniflix"><![CDATA[OmniFlix Network is a blockchain specifically designed for creators and communities, powered by NFTs.]]></string>
-    <string name="str_front_guide_msg_crescent"><![CDATA[Crescent is a Tendermint-based DeFi hub powered by $CRE tokens & Inter-Blockchain Communication protocol.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1900,6 +1898,7 @@
     <string name="s_photon" translatable="false">PHOTON</string>
     <string name="s_muon" translatable="false">MUON</string>
     <string name="s_photino" translatable="false">PHOTINO</string>
+    <string name="s_imversed" translatable="false">IMV</string>
     <string name="s_iris" translatable="false">IRIS</string>
     <string name="s_bnb" translatable="false">BNB</string>
     <string name="s_iov" translatable="false">IOV</string>
@@ -1940,7 +1939,6 @@
     <string name="s_provenance" translatable="false">HASH</string>
     <string name="s_cerberus" translatable="false">CRBRUS</string>
     <string name="s_omniflix" translatable="false">FLIX</string>
-    <string name="s_cre" translatable="false">CRE</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

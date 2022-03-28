@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
@@ -28,16 +27,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_Wallet_for_Starname;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 
 public class StarNameResourceAddActivity extends BaseActivity implements View.OnClickListener {
 
@@ -47,24 +37,24 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
     private ImageView mChainImg;
     private TextView mChainName;
 
-    private StarnameAssets      mStarNameAsset;
-    private BaseChain           mTochain;
-    private Types.Resource      mStarNameResource;
+    private StarnameAssets mStarNameAsset;
+    private BaseChain mTochain;
+    private Types.Resource mStarNameResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starname_resource_add);
 
-        mCancel  = findViewById(R.id.btn_cancel);
-        mConfirm  = findViewById(R.id.btn_confirm);
-        mWallet  = findViewById(R.id.btn_wallet);
-        mScan  = findViewById(R.id.btn_qr);
-        mPaste  = findViewById(R.id.btn_paste);
+        mCancel = findViewById(R.id.btn_cancel);
+        mConfirm = findViewById(R.id.btn_confirm);
+        mWallet = findViewById(R.id.btn_wallet);
+        mScan = findViewById(R.id.btn_qr);
+        mPaste = findViewById(R.id.btn_paste);
 
-        mUserInput  = findViewById(R.id.user_inputs);
-        mChainImg  = findViewById(R.id.chainImg);
-        mChainName  = findViewById(R.id.chainName);
+        mUserInput = findViewById(R.id.user_inputs);
+        mChainImg = findViewById(R.id.chainImg);
+        mChainName = findViewById(R.id.chainName);
 
         try {
             mStarNameResource = Types.Resource.parseFrom(getIntent().getByteArrayExtra("resource"));
@@ -138,8 +128,11 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
             }
 
             Bundle bundle = new Bundle();
-            if (mStarNameAsset != null) { bundle.putParcelable("asset", mStarNameAsset); }
-            else if (mStarNameResource != null) { bundle.putString("chainUri", mStarNameResource.getUri()); }
+            if (mStarNameAsset != null) {
+                bundle.putParcelable("asset", mStarNameAsset);
+            } else if (mStarNameResource != null) {
+                bundle.putString("chainUri", mStarNameResource.getUri());
+            }
             Dialog_Wallet_for_Starname dialog = Dialog_Wallet_for_Starname.newInstance(bundle);
             dialog.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -150,10 +143,10 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
             integrator.initiateScan();
 
         } else if (v.equals(mPaste)) {
-            ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
-                if(TextUtils.isEmpty(userPaste)) {
+                if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -176,8 +169,8 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() != null) {
+        if (result != null) {
+            if (result.getContents() != null) {
                 mUserInput.setText(result.getContents().trim());
             }
         } else {

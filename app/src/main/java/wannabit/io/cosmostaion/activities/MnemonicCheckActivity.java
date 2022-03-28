@@ -12,7 +12,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
@@ -20,6 +19,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IMVERSED_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -107,6 +107,8 @@ public class MnemonicCheckActivity extends BaseActivity {
         for(int i = 0; i < mWordsLayer.length; i++) {
             if (getChain(toCheck.baseChain).equals(COSMOS_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_atom));
+            } else if (getChain(toCheck.baseChain).equals(IMVERSED_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_imversed));
             } else if (getChain(toCheck.baseChain).equals(IRIS_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iris));
             } else if (getChain(toCheck.baseChain).equals(BNB_MAIN)) {
@@ -185,10 +187,6 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_cerberus));
             } else if (getChain(toCheck.baseChain).equals(OMNIFLIX_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_omniflix));
-            }
-
-            else if (getChain(toCheck.baseChain).equals(CRESCENT_TEST)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_crescent));
             }
             
             if(i >= mWords.size()) mWordsLayer[i].setVisibility(View.INVISIBLE);

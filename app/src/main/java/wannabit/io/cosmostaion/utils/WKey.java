@@ -14,7 +14,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
@@ -22,6 +21,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IMVERSED_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -425,6 +425,8 @@ public class WKey {
             byte[] converted = convertBits(hash3, 8,5,true);
             if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
                 result = bech32Encode("cosmos".getBytes(), converted);
+            } else if (chain.equals(IMVERSED_MAIN)){
+                result = bech32Encode("imv".getBytes(), converted);
             } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)){
                 result = bech32Encode("iaa".getBytes(), converted);
             } else if (chain.equals(BNB_MAIN)){
@@ -503,10 +505,6 @@ public class WKey {
                 result = bech32Encode("omniflix".getBytes(), converted);
             }
 
-            else if (chain.equals(CRESCENT_TEST)){
-                result = bech32Encode("cre".getBytes(), converted);
-            }
-
         } catch (Exception e) {
             WLog.w("Secp256k1 genDPAddress Error");
         }
@@ -520,6 +518,8 @@ public class WKey {
     public static String convertDpOpAddressToDpAddress(String dpOpAddress, BaseChain chain) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
             return bech32Encode("cosmos".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(IMVERSED_MAIN)) {
+            return bech32Encode("imv".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             return bech32Encode("iaa".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(KAVA_MAIN)) {
@@ -594,10 +594,6 @@ public class WKey {
             return bech32Encode("cerberus".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OMNIFLIX_MAIN)) {
             return bech32Encode("omniflix".getBytes(), bech32Decode(dpOpAddress).data);
-        }
-
-        else if (chain.equals(CRESCENT_TEST)) {
-            return bech32Encode("cre".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }

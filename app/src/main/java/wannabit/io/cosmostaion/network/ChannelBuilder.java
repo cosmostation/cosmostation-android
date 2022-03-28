@@ -13,7 +13,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.CHIHUAHUA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
@@ -21,6 +20,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IMVERSED_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -50,6 +50,9 @@ import wannabit.io.cosmostaion.base.BaseChain;
 public class ChannelBuilder {
     private final static String GRPC_COSMOS_MAIN = "lcd-cosmos-app-and.cosmostation.io";
     private final static int PORT_COSMOS_MAIN = 9090;
+
+    private final static String GRPC_IMVERSED_MAIN = "q.imversed.com";
+    private final static int PORT_IMVERSED_MAIN = 9090;
 
     private final static String GRPC_IRIS_MAIN = "lcd-iris-app.cosmostation.io";
     private final static int PORT_IRIS_MAIN = 9090;
@@ -163,7 +166,6 @@ public class ChannelBuilder {
     private final static int PORT_OMNIFLIX_MAIN = 9090;
 
 
-
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
 
@@ -173,15 +175,14 @@ public class ChannelBuilder {
     private final static String GRPC_ALTHEA_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_ALTHEA_TEST = 20100;
 
-    private final static String GRPC_CRESCENT_TEST = "lcd-office.cosmostation.io";
-    private final static int PORT_CRESCENT_TEST = 20400;
-
     public final static int TIME_OUT = 8;
 
 
     public static ManagedChannel getChain(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN)) {
             return getCosmosMain();
+        } else if (chain.equals(IMVERSED_MAIN)) {
+            return getImversedMain();
         } else if (chain.equals(IRIS_MAIN)) {
             return getIrisMain();
         } else if (chain.equals(AKASH_MAIN)) {
@@ -256,24 +257,20 @@ public class ChannelBuilder {
             return getCerberusMain();
         } else if (chain.equals(OMNIFLIX_MAIN)) {
             return getOmniflixMain();
-        }
-
-        else if (chain.equals(COSMOS_TEST)) {
+        } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
         } else if (chain.equals(IRIS_TEST)) {
             return getIrisTest();
         } else if (chain.equals(ALTHEA_TEST)) {
             return getAltheaTest();
-        } else if (chain.equals(CRESCENT_TEST)) {
-            return getCrescentTest();
         }
         return null;
     }
 
 
-
     //Channel for cosmos main
     private static ManagedChannel channel_cosmos_main = null;
+
     public static ManagedChannel getCosmosMain() {
         if (channel_cosmos_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -286,7 +283,22 @@ public class ChannelBuilder {
     }
 
     //Channel for iris main
+    private static ManagedChannel channel_imversed_main = null;
+
+    public static ManagedChannel getImversedMain() {
+        if (channel_imversed_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_imversed_main = ManagedChannelBuilder.forAddress(GRPC_IMVERSED_MAIN, PORT_IMVERSED_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_imversed_main;
+    }
+
+    //Channel for iris main
     private static ManagedChannel channel_iris_main = null;
+
     public static ManagedChannel getIrisMain() {
         if (channel_iris_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -300,6 +312,7 @@ public class ChannelBuilder {
 
     //Channel for akash main
     private static ManagedChannel channel_akash_main = null;
+
     public static ManagedChannel getAkashMain() {
         if (channel_akash_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -313,6 +326,7 @@ public class ChannelBuilder {
 
     //Channel for sentinel main
     private static ManagedChannel channel_sentinel_main = null;
+
     public static ManagedChannel getSentinelMain() {
         if (channel_sentinel_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -326,6 +340,7 @@ public class ChannelBuilder {
 
     //Channel for persistence main
     private static ManagedChannel channel_persis_main = null;
+
     public static ManagedChannel getPersisMain() {
         if (channel_persis_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -339,6 +354,7 @@ public class ChannelBuilder {
 
     //Channel for cryto.org main
     private static ManagedChannel channel_crypto_main = null;
+
     public static ManagedChannel getCryptoMain() {
         if (channel_crypto_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -352,6 +368,7 @@ public class ChannelBuilder {
 
     //Channel for osmosis main
     private static ManagedChannel channel_osmosis_main = null;
+
     public static ManagedChannel getOsmosisMain() {
         if (channel_osmosis_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -365,6 +382,7 @@ public class ChannelBuilder {
 
     //Channel for starname main
     private static ManagedChannel channel_starname_main = null;
+
     public static ManagedChannel getStarnameMain() {
         if (channel_starname_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -378,6 +396,7 @@ public class ChannelBuilder {
 
     //Channel for sif main
     private static ManagedChannel channel_sif_main = null;
+
     public static ManagedChannel getSifMain() {
         if (channel_sif_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -391,6 +410,7 @@ public class ChannelBuilder {
 
     //Channel for medibloc main
     private static ManagedChannel channel_medi_main = null;
+
     public static ManagedChannel getMediMain() {
         if (channel_medi_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -404,6 +424,7 @@ public class ChannelBuilder {
 
     //Channel for certik main
     private static ManagedChannel channel_certik_main = null;
+
     public static ManagedChannel getCertikMain() {
         if (channel_certik_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -417,6 +438,7 @@ public class ChannelBuilder {
 
     //Channel for emoney main
     private static ManagedChannel channel_emoney_main = null;
+
     public static ManagedChannel getEmoneyMain() {
         if (channel_emoney_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -430,6 +452,7 @@ public class ChannelBuilder {
 
     //Channel for fetchai main
     private static ManagedChannel channel_fetch_main = null;
+
     public static ManagedChannel getFetchMain() {
         if (channel_fetch_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -443,6 +466,7 @@ public class ChannelBuilder {
 
     //Channel for band main
     private static ManagedChannel channel_band_main = null;
+
     public static ManagedChannel getBandMain() {
         if (channel_band_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -456,6 +480,7 @@ public class ChannelBuilder {
 
     //Channel for rizon main
     private static ManagedChannel channel_rizon_main = null;
+
     public static ManagedChannel getRizonMain() {
         if (channel_rizon_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -469,6 +494,7 @@ public class ChannelBuilder {
 
     //Channel for juno main
     private static ManagedChannel channel_juno_main = null;
+
     public static ManagedChannel getJunoMain() {
         if (channel_juno_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -482,6 +508,7 @@ public class ChannelBuilder {
 
     //Channel for regen main
     private static ManagedChannel channel_regen_main = null;
+
     public static ManagedChannel getRegenMain() {
         if (channel_regen_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -495,6 +522,7 @@ public class ChannelBuilder {
 
     //Channel for bitcanna main
     private static ManagedChannel channel_bitcanna_main = null;
+
     public static ManagedChannel getBitcannaMain() {
         if (channel_bitcanna_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -508,6 +536,7 @@ public class ChannelBuilder {
 
     //Channel for althea main
     private static ManagedChannel channel_althea_main = null;
+
     public static ManagedChannel getAltheaMain() {
         if (channel_althea_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -521,6 +550,7 @@ public class ChannelBuilder {
 
     //Channel for stargaze main
     private static ManagedChannel channel_stargaze_main = null;
+
     public static ManagedChannel getStargazeMain() {
         if (channel_stargaze_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -534,6 +564,7 @@ public class ChannelBuilder {
 
     //Channel for ki main
     private static ManagedChannel channel_ki_main = null;
+
     public static ManagedChannel getKiMain() {
         if (channel_ki_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -547,6 +578,7 @@ public class ChannelBuilder {
 
     //Channel for gravity bridge main
     private static ManagedChannel channel_grabridge_main = null;
+
     public static ManagedChannel getGraBridgeMain() {
         if (channel_grabridge_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -560,6 +592,7 @@ public class ChannelBuilder {
 
     //Channel for comdex main
     private static ManagedChannel channel_comdex_main = null;
+
     public static ManagedChannel getComdexMain() {
         if (channel_comdex_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -573,6 +606,7 @@ public class ChannelBuilder {
 
     //Channel for secret main
     private static ManagedChannel channel_secret_main = null;
+
     public static ManagedChannel getSecretMain() {
         if (channel_secret_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -586,6 +620,7 @@ public class ChannelBuilder {
 
     //Channel for injective main
     private static ManagedChannel channel_inj_main = null;
+
     public static ManagedChannel getInjMain() {
         if (channel_inj_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -599,6 +634,7 @@ public class ChannelBuilder {
 
     //Channel for bitsong main
     private static ManagedChannel channel_bitsong_main = null;
+
     public static ManagedChannel getBitsongMain() {
         if (channel_bitsong_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -612,6 +648,7 @@ public class ChannelBuilder {
 
     //Channel for desmos main
     private static ManagedChannel channel_desmos_main = null;
+
     public static ManagedChannel getDesmosMain() {
         if (channel_desmos_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -625,6 +662,7 @@ public class ChannelBuilder {
 
     //Channel for lum main
     private static ManagedChannel channel_lum_main = null;
+
     public static ManagedChannel getLumMain() {
         if (channel_lum_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -638,6 +676,7 @@ public class ChannelBuilder {
 
     //Channel for chihuahua main
     private static ManagedChannel channel_chihuahua_main = null;
+
     public static ManagedChannel getChihuahuaMain() {
         if (channel_chihuahua_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -651,6 +690,7 @@ public class ChannelBuilder {
 
     //Channel for kava main
     private static ManagedChannel channel_kava_main = null;
+
     public static ManagedChannel getKavaMain() {
         if (channel_kava_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -664,6 +704,7 @@ public class ChannelBuilder {
 
     //Channel for axelar main
     private static ManagedChannel channel_axelar_main = null;
+
     public static ManagedChannel getAxelarMain() {
         if (channel_axelar_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -677,6 +718,7 @@ public class ChannelBuilder {
 
     //Channel for konstellation main
     private static ManagedChannel channel_konstell_main = null;
+
     public static ManagedChannel getKonstellMain() {
         if (channel_konstell_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -690,6 +732,7 @@ public class ChannelBuilder {
 
     //Channel for umee main
     private static ManagedChannel channel_umee_main = null;
+
     public static ManagedChannel getUmeeMain() {
         if (channel_umee_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -703,6 +746,7 @@ public class ChannelBuilder {
 
     //Channel for evmos main
     private static ManagedChannel channel_evmos_main = null;
+
     public static ManagedChannel getEvmosMain() {
         if (channel_evmos_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -716,6 +760,7 @@ public class ChannelBuilder {
 
     //Channel for cudos main
     private static ManagedChannel channel_cudos_main = null;
+
     public static ManagedChannel getCudosMain() {
         if (channel_cudos_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -729,6 +774,7 @@ public class ChannelBuilder {
 
     //Channel for provenance main
     private static ManagedChannel channel_provenance_main = null;
+
     public static ManagedChannel getProvenanceMain() {
         if (channel_provenance_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -742,6 +788,7 @@ public class ChannelBuilder {
 
     //Channel for cerberus main
     private static ManagedChannel channel_cerberus_main = null;
+
     public static ManagedChannel getCerberusMain() {
         if (channel_cerberus_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -755,6 +802,7 @@ public class ChannelBuilder {
 
     //Channel for omniflix main
     private static ManagedChannel channel_omniflix_main = null;
+
     public static ManagedChannel getOmniflixMain() {
         if (channel_omniflix_main == null) {
             synchronized (ChannelBuilder.class) {
@@ -768,6 +816,7 @@ public class ChannelBuilder {
 
     //Channel for stargate testnet
     private static ManagedChannel channel_cosmos_test = null;
+
     public static ManagedChannel getCosmosTest() {
         if (channel_cosmos_test == null) {
             synchronized (ChannelBuilder.class) {
@@ -781,6 +830,7 @@ public class ChannelBuilder {
 
     //Channel for bifrost testnet
     private static ManagedChannel channel_iris_test = null;
+
     public static ManagedChannel getIrisTest() {
         if (channel_iris_test == null) {
             synchronized (ChannelBuilder.class) {
@@ -794,6 +844,7 @@ public class ChannelBuilder {
 
     //Channel for althea testnet
     private static ManagedChannel channel_althea_test = null;
+
     public static ManagedChannel getAltheaTest() {
         if (channel_althea_test == null) {
             synchronized (ChannelBuilder.class) {
@@ -803,18 +854,5 @@ public class ChannelBuilder {
             }
         }
         return channel_althea_test;
-    }
-
-    //Channel for crescent testnet
-    private static ManagedChannel channel_crescent_test = null;
-    public static ManagedChannel getCrescentTest() {
-        if (channel_crescent_test == null) {
-            synchronized (ChannelBuilder.class) {
-                channel_crescent_test = ManagedChannelBuilder.forAddress(GRPC_CRESCENT_TEST, PORT_CRESCENT_TEST)
-                        .usePlaintext()
-                        .build();
-            }
-        }
-        return channel_crescent_test;
     }
 }

@@ -13,6 +13,7 @@
     <color name="colorTransBg0">#222E2E2E</color>
     <color name="colorTransBgCosmos">#249c6cff</color>
     <color name="colorTransBg3">#CC000000</color>
+    <color name="colorTransBgImversed">#2493EDFE</color>
     <color name="colorTransBgIris">#240080ff</color>
     <color name="colorTransBgBinance">#24f0b90b</color>
     <color name="colorTransBgStarname">#246E7CDE</color>
@@ -55,7 +56,6 @@
     <color name="colorTransBgProvenance">#24628ee4</color>
     <color name="colorTransBgCerberus">#24d7ad17</color>
     <color name="colorTransBgOmniflix">#246c63ff</color>
-    <color name="colorTransBgCrescent">#24ffc780</color>
     <color name="colorTransBgGray">#E63D3D3D</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
@@ -79,6 +79,8 @@
 
     <color name="colorPhoton">#05D2DD</color>
 
+    <color name="colorImversed">#93EDFE</color>
+    <color name="colorImversed2">#001632</color>
     <color name="colorIris">#00A8FF</color>
     <color name="colorIris2">#003870</color>
 
@@ -205,10 +207,6 @@
 
     <color name="colorOmniflix">#6c63ff</color>
     <color name="colorOmniflix2">#3228ab</color>
-
-    <color name="colorCrescent">#ffc780</color>
-    <color name="colorCrescent2">#ac8a5e</color>
-    <color name="colorCrescent3">#452318</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

@@ -419,6 +419,7 @@ public class BaseConstant {
 
 
     public final static String TOKEN_ATOM           = "uatom";
+    public final static String TOKEN_IMVERSED       = "nimv";
     public final static String TOKEN_IRIS           = "uiris";
     public final static String TOKEN_IRIS_ATTO      = "iris-atto";
     public final static String TOKEN_BNB            = "BNB";
@@ -475,8 +476,6 @@ public class BaseConstant {
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
     public final static String TOKEN_IRIS_TEST      = "ubif";
-    public final static String TOKEN_CRESCENT_TEST  = "ucre";
-    public final static String TOKEN_BCRESCENT_TEST = "ubcre";
 
 
     //HTLC swap support Token Types
@@ -630,6 +629,10 @@ public class BaseConstant {
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";
     public final static String COSMOS_GAS_RATE_AVERAGE                  = "0.025";
+
+    public final static String IMVERSED_GAS_RATE_TINY                    = "0.00025";
+    public final static String IMVERSED_GAS_RATE_LOW                     = "0.0025";
+    public final static String IMVERSED_GAS_RATE_AVERAGE                 = "0.025";
 
     public final static String IRIS_GAS_RATE_TINY                       = "0.002";
     public final static String IRIS_GAS_RATE_LOW                        = "0.02";
@@ -787,6 +790,7 @@ public class BaseConstant {
     public final static String CHAIN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/chains/logo/";
 
     public final static String COSMOS_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
+    public final static String IMVERSED_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/imversedhub/"; //TODO Imversed
     public final static String IRIS_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
     public final static String KAVA_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/";
     public final static String BAND_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
@@ -825,7 +829,6 @@ public class BaseConstant {
     public final static String PROVENANCE_VAL_URL       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/provenance/";
     public final static String CERBERUS_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cerberus/";
     public final static String OMNIFLIX_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/omniflix/";
-    public final static String CRESCENT_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/crescent/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -838,6 +841,7 @@ public class BaseConstant {
 
 
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";
+    public final static String EXPLORER_IMVERSED_MAIN   = "https://www.mintscan.io/imversed/"; // TODO Imversed
     public final static String EXPLORER_IRIS_MAIN       = "https://www.mintscan.io/iris/";
     public final static String EXPLORER_KAVA_MAIN       = "https://www.mintscan.io/kava/";
     public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/starname/";
@@ -887,7 +891,6 @@ public class BaseConstant {
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
     public final static String EXPLORER_RIZON_TEST      = "https://testnet.mintscan.io/rizon/";
-    public final static String EXPLORER_CRESCENT_TEST   = "https://testnet.mintscan.io/crescent/";
     public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
 
 
@@ -899,6 +902,7 @@ public class BaseConstant {
     public final static String EMONEY_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/emoney/relay-emoney-unknown.png";
     public final static String FETCHAI_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/fetchai/relay-fetchai-unknown.png";
     public final static String INJ_UNKNOWN_RELAYER          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/injective/relay-injective-unknown.png";
+    public final static String IMVERSED_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/imversed/relay-imversed-unknown.png"; // TODO Imversed
     public final static String IRIS_UNKNOWN_RELAYER         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/iris/relay-iris-unknown.png";
     public final static String JUNO_UNKNOWN_RELAYER         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/juno/relay-juno-unknown.png";
     public final static String OSMOSIS_UNKNOWN_RELAYER      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/osmosis/relay-osmosis-unknown.png";
@@ -928,7 +932,6 @@ public class BaseConstant {
     public final static String PROVENANCE_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/provenance/relay-provenance-unknown.png";
     public final static String CERBERUS_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/cerberus/relay-cerberus-unknown.png";
     public final static String OMNIFLIX_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/omniflix/relay-omniflix-unknown.png";
-    public final static String CRESCENT_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/crescent/relay-crescent-unknown.png";
 
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM        = "station";
@@ -940,6 +943,7 @@ public class BaseConstant {
     public final static BigDecimal YEAR_SEC = DAY_SEC.multiply(new BigDecimal("365"));
 
     public final static BigDecimal BLOCK_TIME_COSMOS = new BigDecimal("7.6597");
+    public final static BigDecimal BLOCK_TIME_IMVERSED = new BigDecimal("6.7884"); // it will be corrected
     public final static BigDecimal BLOCK_TIME_IRIS = new BigDecimal("6.7884");
     public final static BigDecimal BLOCK_TIME_IOV = new BigDecimal("6.0124");
     public final static BigDecimal BLOCK_TIME_KAVA = new BigDecimal("6.7262");

@@ -92,6 +92,7 @@ public class StarnameAssets implements Parcelable {
 
     public static ArrayList<StarnameAssets> getStarnameAssets() {
         ArrayList<StarnameAssets> result = new ArrayList<>();
+        result.add(imv);
         result.add(ada);
         result.add(akt);
         result.add(algo);
@@ -146,6 +147,7 @@ public class StarnameAssets implements Parcelable {
     }
 
     public static StarnameAssets ada    = new StarnameAssets("Cardano", "asset:ada", "ADA", "ada.png", null);
+    public static StarnameAssets imv    = new StarnameAssets("Imversed", "asset:imv", "IMV", "imv.png", BaseChain.IMVERSED_MAIN.getChain());
     public static StarnameAssets akt    = new StarnameAssets("Akash", "asset:akt", "AKT", "akash.png", BaseChain.AKASH_MAIN.getChain());
     public static StarnameAssets algo   = new StarnameAssets("Algorand", "asset:algo", "ALGO", "algo.png", null);
     public static StarnameAssets atom   = new StarnameAssets("Cosmos", "asset:atom", "ATOM", "cosmos.png", BaseChain.COSMOS_MAIN.getChain());
