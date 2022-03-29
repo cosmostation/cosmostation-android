@@ -13,10 +13,10 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
-//import com.google.android.gms.tasks.OnCompleteListener;
-//import com.google.android.gms.tasks.Task;
-//import com.google.firebase.iid.FirebaseInstanceId;
-//import com.google.firebase.iid.InstanceIdResult;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.romainpiel.shimmer.ShimmerTextView;
 
 import retrofit2.Call;
@@ -57,19 +57,19 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
         mStart.setOnClickListener(this);
 
-//        FirebaseInstanceId.getInstance().getInstanceId()
-//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//                        if (!task.isSuccessful()) {
-//                            return;
-//                        }
-//                        // Get new Instance ID token
-//                        String token = task.getResult().getToken();
-//                        WLog.w("FCM token new : " + token);
-//                        getBaseDao().setFCMToken(token);
-//                    }
-//                });
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        WLog.w("FCM token new : " + token);
+                        getBaseDao().setFCMToken(token);
+                    }
+                });
 
         getBaseDao().upgradeAaccountAddressforPath();
     }
