@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_cosmos"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_bar_height"
+        android:background="@color/colorBlack"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_ssm_17_white"
+            android:text="@string/str_wallet_connect"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/wc_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar"
+        android:keepScreenOn="true">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/wc_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardPreventCornerOverlap="true"
+            app:cardCornerRadius="@dimen/space_6"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            app:cardElevation="1.5dp"
+            app:cardBackgroundColor="@color/colorTransBgKava"
+            app:cardUseCompatPadding="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/space_16">
+                <ImageView
+                    android:id="@+id/wc_img"
+                    android:layout_width="@dimen/space_64"
+                    android:layout_height="@dimen/space_64"/>
+                <TextView
+                    android:id="@+id/wc_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_16"
+                    android:layout_marginRight="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:gravity="center"
+                    android:text=""
+                    style="@style/font_ss_15_white"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:background="@color/colorGray3"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_14"
+                    android:text="@string/str_connect_to"
+                    style="@style/font_ss_12_gray1"/>
+                <TextView
+                    android:id="@+id/wc_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:text=""
+                    style="@style/font_ss_12_white"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_14"
+                    android:text="@string/str_address"
+                    style="@style/font_ss_12_gray1"/>
+                <TextView
+                    android:id="@+id/wc_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:text=""
+                    style="@style/font_ss_12_white"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btn_disconnect"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:layout_alignParentBottom="true"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_marginBottom="@dimen/space_24"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_photon"
+            android:textAllCaps="false"
+            android:text="@string/str_disconnect"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/loading_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar">
+        <ProgressBar
+            android:layout_width="@dimen/space_60"
+            android:layout_height="@dimen/space_60"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/loading"/>
+    </RelativeLayout>
+
+</RelativeLayout>
+
