@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.google.firebase.FirebaseApp;
+//import com.google.firebase.FirebaseApp;
 import com.squareup.picasso.Picasso;
 
 import java.util.UUID;
@@ -19,7 +19,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        FirebaseApp.initializeApp(this);
+//        FirebaseApp.initializeApp(this);
         new DeviceUuidFactory(this);
 
         registerActivityLifecycleCallbacks(new LifecycleCallbacks());
