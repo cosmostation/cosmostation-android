@@ -20,6 +20,7 @@ import android.util.Base64;
 
 import com.binance.dex.api.client.domain.broadcast.HtltReq;
 import com.binance.dex.api.client.encoding.message.Token;
+import com.google.common.collect.Lists;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
@@ -252,6 +253,43 @@ public class MsgGenerator {
 
         ReqBroadCast reqBroadCast = new ReqBroadCast();
         reqBroadCast.returns = "sync";
+        reqBroadCast.tx = signedTx.value;
+
+        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+
+
+        return reqBroadCast;
+    }
+
+    public static ReqBroadCast getKavaBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
+        StdSignMsg tosign = genToSignMsg(
+                chainId,
+                ""+account.accountNumber,
+                ""+account.sequenceNumber,
+                msgs,
+                fee,
+                memo);
+//        WLog.w("Tendermint tosign " + WUtil.prettyPrinter(tosign));
+
+        String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
+//        WLog.w("Tendermint signatureTx " + signatureTx);
+
+        Signature signature = new Signature();
+        Pub_key pubKey = new Pub_key();
+        pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+
+        pubKey.value = WKey.getPubKeyValue(key);
+        signature.pub_key = pubKey;
+        signature.signature = signatureTx;
+
+        ArrayList<Signature> signatures = new ArrayList<>();
+        signatures.add(signature);
+
+        StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(Lists.newArrayList(), fee, memo, signatures);
+        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
+
+        ReqBroadCast reqBroadCast = new ReqBroadCast();
+        reqBroadCast.returns = "block";
         reqBroadCast.tx = signedTx.value;
 
         WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));

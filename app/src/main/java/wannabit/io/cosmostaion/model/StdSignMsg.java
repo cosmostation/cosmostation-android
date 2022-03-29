@@ -1,6 +1,10 @@
 package wannabit.io.cosmostaion.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
@@ -13,10 +17,11 @@ import wannabit.io.cosmostaion.model.type.Msg;
 
 public class StdSignMsg {
 
-    @SerializedName("chain_id")
+    @SerializedName(value = "chain_id", alternate = {"chainId"})
     public String chain_id;
 
-    @SerializedName("account_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @SerializedName(value = "account_number", alternate = {"accountNumber"})
     public String account_number;
 
     @SerializedName("sequence")
@@ -25,7 +30,7 @@ public class StdSignMsg {
     @SerializedName("fee")
     public Fee fee;
 
-    @SerializedName("msgs")
+    @SerializedName(value = "msgs")
     public ArrayList<Msg> msgs;
 
     @SerializedName("memo")

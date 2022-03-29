@@ -10,12 +10,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 import com.trustwallet.walletconnect.WCClient;
+import com.trustwallet.walletconnect.models.WCAccount;
 import com.trustwallet.walletconnect.models.WCPeerMeta;
 import com.trustwallet.walletconnect.models.session.WCSession;
 
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.crypto.DeterministicKey;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigInteger;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +36,14 @@ import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.model.StdSignMsg;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class KavaWalletConnectActivity extends BaseActivity implements View.OnClickListener {
     private RelativeLayout mWcLayer, mLoadingLayer;
@@ -65,11 +86,15 @@ public class KavaWalletConnectActivity extends BaseActivity implements View.OnCl
     }
 
     private void initWalletConnect() {
-        OkHttpClient client = new OkHttpClient.Builder().pingInterval(1000, TimeUnit.MILLISECONDS).build();
+        OkHttpClient client = new OkHttpClient.Builder().pingInterval(100000, TimeUnit.MILLISECONDS).build();
         wcClient = new WCClient(new GsonBuilder(), client);
         WCPeerMeta meta = new WCPeerMeta("Cosmostation", "https://cosmostation.io", "cosmostation", Lists.newArrayList());
         wcSession = WCSession.Companion.from(mWcURL);
         wcClient.connect(wcSession, meta, UUID.randomUUID().toString(), null);
+        wcClient.setOnGetAccounts(id -> {
+            wcClient.approveRequest(id, makeWCAccount());
+            return null;
+        });
         wcClient.setOnDisconnect((code, reason) -> {
             runOnUiThread(() -> {
                 Toast.makeText(getBaseContext(), getString(R.string.str_wc_disconnected), Toast.LENGTH_SHORT).show();
@@ -81,6 +106,57 @@ public class KavaWalletConnectActivity extends BaseActivity implements View.OnCl
             runOnUiThread(() -> onInitView(wcPeerMeta));
             return null;
         });
+        wcClient.setOnSignTransaction((id, wcSignTransaction) -> {
+            StdSignMsg wcStdSignMsg = new Gson().fromJson(wcSignTransaction.getTransaction(), StdSignMsg.class);
+            try {
+                JSONObject transactionJson = new JSONObject(wcSignTransaction.getTransaction());
+                JSONArray messagesArray = transactionJson.getJSONArray("messages");
+                ArrayList<Msg> msgList = Lists.newArrayList();
+                for (int i = 0; i < messagesArray.length(); i++) {
+                    JSONObject rawMessage = messagesArray.getJSONObject(0).getJSONObject("rawJsonMessage");
+                    Msg msgModel = new Msg();
+                    msgModel.type = rawMessage.getString("type");
+                    msgModel.value = new Gson().fromJson(rawMessage.getString("value"), Msg.Value.class);
+                    List<Map<String, String>> amountMap = (List<Map<String, String>>) msgModel.value.amount;
+                    List<Coin> amountList = Lists.newArrayList();
+                    for (int j = 0; j < amountMap.size(); j++) {
+                        amountList.add( new Coin(amountMap.get(j).get("denom"), amountMap.get(j).get("amount")));
+                    }
+                    msgModel.value.amount = amountList;
+                    msgList.add(msgModel);
+                }
+                wcStdSignMsg.msgs = msgList;
+
+                ECKey mEcKey;
+                if (mAccount.fromMnemonic) {
+                    String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
+                    mEcKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+                } else {
+                    String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                    mEcKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+                }
+
+                Account account = new Account();
+                account.accountNumber = Integer.parseInt(wcStdSignMsg.account_number);
+                account.sequenceNumber = Integer.parseInt(wcStdSignMsg.sequence);
+                ReqBroadCast tx = MsgGenerator.getKavaBroadcaseReq(account, msgList, wcStdSignMsg.fee, wcStdSignMsg.memo, mEcKey, wcStdSignMsg.chain_id);
+                Gson Presenter = new GsonBuilder().disableHtmlEscaping().create();
+                String result = Presenter.toJson(tx);
+                wcClient.approveRequest(id, result);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        });
+    }
+
+    private List<WCAccount> makeWCAccount() {
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            return Lists.newArrayList(new WCAccount(459, mAccount.address));
+        }
+        return Lists.newArrayList();
     }
 
     @Override
@@ -95,7 +171,7 @@ public class KavaWalletConnectActivity extends BaseActivity implements View.OnCl
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (wcSession != null && wcClient.isConnected()) {
+        if (wcSession != null && wcClient.getSession() != null && wcClient.isConnected()) {
             wcClient.killSession();
         } else {
             wcClient.disconnect();
