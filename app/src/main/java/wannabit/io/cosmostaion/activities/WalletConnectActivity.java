@@ -35,8 +35,10 @@ import com.trustwallet.walletconnect.models.binance.WCBinanceOrder;
 import com.trustwallet.walletconnect.models.session.WCSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
+import java.math.BigInteger;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -66,6 +68,8 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
     private WCSession wcSession;
     private WCBinanceOrder mOrder;
     private Long mOrderId;
+
+    private ECKey mEcKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +180,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
     }
 
     private void onInitView(WCPeerMeta meta) {
+        Toast.makeText(getBaseContext(), getString(R.string.str_wc_connected), Toast.LENGTH_SHORT).show();
         Picasso.get()
                 .load(meta.getIcons().get(0))
                 .fit()
@@ -231,9 +236,14 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
         public void run() {
             WLog.w("SignRunnable ");
             try {
-                String entropy = CryptoHelper.doDecryptData(getBaseContext().getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
-
+                if (mAccount.fromMnemonic) {
+                    String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
+                    mEcKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+                } else {
+                    String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                    mEcKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+                }
                 BnbParam bnbParam = new Gson().fromJson(new Gson().toJson(mOrder), BnbParam.class);
 
                 BinanceDexTransactionMessage bdtm[] = new BinanceDexTransactionMessage[1];
@@ -275,8 +285,8 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                 sd.setMsgs(bdtm);
                 sd.setSource("" + bnbParam.source);
 
-                byte[] signatureBytes = Crypto.sign(EncodeUtils.toJsonEncodeBytes(sd), deterministicKey.getPrivateKeyAsHex());
-                byte[] publicKeyBytes = deterministicKey.decompress().getPubKey();
+                byte[] signatureBytes = Crypto.sign(EncodeUtils.toJsonEncodeBytes(sd), mEcKey.getPrivateKeyAsHex());
+                byte[] publicKeyBytes = mEcKey.decompress().getPubKey();
 
                 WcCallBack callBack = new WcCallBack();
                 callBack.signature = EncodeUtils.bytesToHex(signatureBytes);
