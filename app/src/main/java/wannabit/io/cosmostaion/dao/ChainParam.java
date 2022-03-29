@@ -4,7 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -106,7 +105,7 @@ public class ChainParam {
                 BigDecimal osmoSupply = getMainSupply(baseChain);
                 return epochProvisions.multiply(epochPeriods).divide(osmoSupply, 18, RoundingMode.DOWN);
             } else if (baseChain.equals(EMONEY_MAIN)) {
-                for (Asset asset: mEmoneyInflations.mEmoneyInflation.assets) {
+                for (Asset asset : mEmoneyInflations.mEmoneyInflation.assets) {
                     if (asset.denom.equalsIgnoreCase(BaseConstant.TOKEN_NGM)) {
                         return new BigDecimal(asset.inflation);
                     }
@@ -123,12 +122,14 @@ public class ChainParam {
                 try {
                     MintInflation temp = new Gson().fromJson(new Gson().toJson(mMintInflations), MintInflation.class);
                     return new BigDecimal(temp.mInflation);
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
 
                 try {
                     String temp = new Gson().fromJson(new Gson().toJson(mMintInflations), String.class);
                     return new BigDecimal(temp);
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
             }
             return BigDecimal.ZERO;
         }
@@ -141,12 +142,13 @@ public class ChainParam {
             try {
                 MintProvision temp = new Gson().fromJson(new Gson().toJson(mMintProvisions), MintProvision.class);
                 return new BigDecimal(temp.mProvision);
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             return BigDecimal.ZERO;
         }
 
         public BigDecimal getBondedAmount(BaseChain baseChain) {
-            if (isGRPC(baseChain)) {
+            if (baseChain.isGRPC()) {
                 return new BigDecimal(mStakingpools.pool.bonded_tokens);
             } else {
                 return new BigDecimal(mStakingpools.bonded_tokens);
@@ -154,7 +156,7 @@ public class ChainParam {
         }
 
         public BigDecimal getTax(BaseChain baseChain) {
-            if (isGRPC(baseChain)) {
+            if (baseChain.isGRPC()) {
                 return new BigDecimal(mDistributionParams.params.community_tax);
             } else {
                 return new BigDecimal(mDistributionParams.community_tax);
@@ -162,7 +164,7 @@ public class ChainParam {
         }
 
         public BigDecimal getMainSupply(BaseChain baseChain) {
-            String denom = getMainDenom(baseChain);
+            String denom = baseChain.getMainDenom();
             for (Coin coin : getSupplys()) {
                 if (coin.denom.equals(denom)) {
                     return new BigDecimal(coin.amount);
@@ -219,15 +221,17 @@ public class ChainParam {
         }
 
         public BigDecimal getDpRealApr(BaseChain baseChain) {
-            if (getRealApr(baseChain) == BigDecimal.ZERO) { return BigDecimal.ZERO; }
+            if (getRealApr(baseChain) == BigDecimal.ZERO) {
+                return BigDecimal.ZERO;
+            }
             return getRealApr(baseChain).movePointRight(2);
         }
 
         public BigDecimal getBlockPerYear(BaseChain baseChain) {
-            if (isGRPC(baseChain)) {
+            if (baseChain.isGRPC()) {
                 if (baseChain.equals(STARGAZE_MAIN)) {
                     return new BigDecimal(mStargazeMintingParams.params.blocks_per_year);
-                } else if (mMintParams != null && mMintParams.params!= null && mMintParams.params.blocks_per_year!= null) {
+                } else if (mMintParams != null && mMintParams.params != null && mMintParams.params.blocks_per_year != null) {
                     return new BigDecimal(mMintParams.params.blocks_per_year);
                 } else {
                     return BigDecimal.ZERO;
@@ -247,15 +251,18 @@ public class ChainParam {
             try {
                 Supply temp = new Gson().fromJson(new Gson().toJson(supply), Supply.class);
                 result.addAll(temp.supply);
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             try {
-                result = new Gson().fromJson(new Gson().toJson(supply), new TypeToken<List<Coin>>(){}.getType());
-            } catch (Exception e) { }
+                result = new Gson().fromJson(new Gson().toJson(supply), new TypeToken<List<Coin>>() {
+                }.getType());
+            } catch (Exception e) {
+            }
             return result;
         }
 
         public String getMainDenom(BaseChain baseChain) {
-            if (isGRPC(baseChain)) {
+            if (baseChain.isGRPC()) {
                 return mStakingParams.params.bond_denom;
             } else {
                 return mStakingParams.bond_denom;
@@ -265,7 +272,7 @@ public class ChainParam {
         public BigDecimal getQuorum(BaseChain baseChain) {
             if (baseChain.equals(CERTIK_MAIN)) {
                 return new BigDecimal(govTallyings.tallyparams.defaultTally.quorum).movePointRight(2);
-            } else if (isGRPC(baseChain)) {
+            } else if (baseChain.isGRPC()) {
                 return new BigDecimal(govTallyings.tallyparams.quorum).movePointRight(2);
             } else {
                 return new BigDecimal(govTallyings.quorum).movePointRight(2);
@@ -277,7 +284,9 @@ public class ChainParam {
         }
 
         public boolean isOracleEnable(String valOpAddress) {
-            if (activeValidators == null) { return true; }
+            if (activeValidators == null) {
+                return true;
+            }
             for (ActiveValidators.ActiveValidator.Oracle oracle : activeValidators.activeValidator.oracles) {
                 if (oracle.address.equalsIgnoreCase(valOpAddress)) {
                     return true;
@@ -293,7 +302,7 @@ public class ChainParam {
         public int getUnbonding(BaseChain baseChain) {
             int result = 0;
             String unbondingTime = null;
-            if (isGRPC(baseChain)) {
+            if (baseChain.isGRPC()) {
                 unbondingTime = mStakingParams.params.unbonding_time;
                 result = Integer.parseInt(unbondingTime.split("s")[0]) / 60 / 60 / 24;
             } else {

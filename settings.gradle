@@ -1,1 +1,1 @@
-include ':app', ':lib', ':api'
+include ':app', ':lib', ':api', ':networksassets'

@@ -69,7 +69,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal rewardSum = BigDecimal.ZERO;
         for (String opAddress: getSActivity().mValAddresses) {
-            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(getSActivity().mBaseChain.getMainDenom(), opAddress));
         }
         mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
         String monikers = "";

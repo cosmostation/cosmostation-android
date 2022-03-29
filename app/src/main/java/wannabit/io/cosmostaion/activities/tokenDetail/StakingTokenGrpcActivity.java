@@ -94,11 +94,11 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mMainDenom = WDp.mainDenom(mBaseChain);
+        mMainDenom = mBaseChain.getMainDenom();
         mDivideDecimal = WDp.mainDivideDecimal(mBaseChain);
         mDisplayDecimal = WDp.mainDivideDecimal(mBaseChain);
 
-        if (getBaseDao().onParseRemainVestingsByDenom(WDp.mainDenom(mBaseChain)).size() > 0) { mHasVesting = true; }
+        if (getBaseDao().onParseRemainVestingsByDenom(mBaseChain.getMainDenom()).size() > 0) { mHasVesting = true; }
         mBtnIbcSend.setVisibility(View.VISIBLE);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -177,7 +177,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-            final String mainDenom = WDp.mainDenom(mBaseChain);
+            final String mainDenom = mBaseChain.getMainDenom();
             final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
             mTotalAmount = getBaseDao().getAvailable(mMainDenom);
@@ -202,7 +202,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
@@ -238,14 +238,14 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         @Override
         public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
             if (getItemViewType(position) == TYPE_STAKE_NEW) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mBaseChain.getMainDenom());
             }
 
             else if (getItemViewType(position) == TYPE_VESTING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mBaseChain.getMainDenom());
 
             } else if (getItemViewType(position) == TYPE_UNBONDING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mBaseChain.getMainDenom());
 
             }
         }

@@ -29,7 +29,7 @@ public class StationIbcPathsTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<ResIbcPaths> response;
-            if (BaseChain.IS_TESTNET(mBaseChain)) {
+            if (mBaseChain.isTestNet()) {
                 response = ApiClient.getStationTest(mApp).getIbcPaths(mChainId).execute();
             } else {
                 response = ApiClient.getStation(mApp).getIbcPaths(mChainId).execute();

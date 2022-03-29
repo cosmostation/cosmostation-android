@@ -69,14 +69,11 @@ public class Dialog_Htlc_Receive_Chain extends DialogFragment {
         public void onBindViewHolder(@NonNull DestinationChainHolder holder, int position) {
             final BaseChain baseChain = mToChainList.get(position);
             WDp.onDpChain(getContext(), baseChain, holder.chainImg, holder.chainName);
-            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("position", position);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                    getDialog().dismiss();
-                }
+            holder.rootLayer.setOnClickListener(v -> {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("position", position);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
             });
         }
 

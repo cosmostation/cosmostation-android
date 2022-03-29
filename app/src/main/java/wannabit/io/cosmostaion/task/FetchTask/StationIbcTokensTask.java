@@ -29,7 +29,7 @@ public class StationIbcTokensTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<ResIbcTokens> response;
-            if (BaseChain.IS_TESTNET(mBaseChain)) {
+            if (mBaseChain.isTestNet()) {
                 response = ApiClient.getStationTest(mApp).getIbcTokens(mChainId).execute();
             } else {
                 response = ApiClient.getStation(mApp).getIbcTokens(mChainId).execute();

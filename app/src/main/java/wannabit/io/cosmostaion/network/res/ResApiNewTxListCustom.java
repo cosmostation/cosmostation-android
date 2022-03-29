@@ -14,7 +14,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResApiNewTxListCustom {
@@ -104,7 +103,7 @@ public class ResApiNewTxListCustom {
     public JSONArray getMsgs() {
         if (data != null && data.tx != null && data.tx.body != null && data.tx.body.messages != null) {
             return new JSONArray(data.tx.body.messages);
-        } else if  (data != null && data.tx != null && data.tx.value != null && data.tx.value.msg != null) {
+        } else if (data != null && data.tx != null && data.tx.value != null && data.tx.value.msg != null) {
             return new JSONArray(data.tx.value.msg);
         }
         return null;
@@ -129,16 +128,20 @@ public class ResApiNewTxListCustom {
                     String msgType1 = "";
                     try {
                         msgType0 = getMsgs().getJSONObject(0).getString("@type");
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                     try {
                         msgType0 = getMsgs().getJSONObject(0).getString("type");
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                     try {
                         msgType1 = getMsgs().getJSONObject(1).getString("@type");
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                     try {
                         msgType1 = getMsgs().getJSONObject(1).getString("type");
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
 
                     if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") ||
                             msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")) {
@@ -153,10 +156,12 @@ public class ResApiNewTxListCustom {
                 String msgType = "";
                 try {
                     msgType = getMsgs().getJSONObject(0).getString("@type");
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
                 try {
                     msgType = getMsgs().getJSONObject(0).getString("type");
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
 
                 if (msgType.contains("MsgDelegate")) {
                     result = c.getString(R.string.tx_delegate);
@@ -170,11 +175,13 @@ public class ResApiNewTxListCustom {
                     try {
                         to_address = getMsgs().getJSONObject(0).getString("to_address");
                         from_address = getMsgs().getJSONObject(0).getString("from_address");
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                     try {
                         to_address = getMsgs().getJSONObject(0).getJSONObject("value").getString("to_address");
                         from_address = getMsgs().getJSONObject(0).getJSONObject("value").getString("from_address");
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                     if (to_address.equals(address)) {
                         result = c.getString(R.string.tx_receive);
                     } else if (from_address.equals(address)) {
@@ -268,9 +275,7 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP)) {
                     result = c.getString(R.string.tx_kava_bep3_claim);
 
-                }
-
-                else if (msgType.contains("MsgCreatePool")) {
+                } else if (msgType.contains("MsgCreatePool")) {
                     result = c.getString(R.string.tx_osmosis_create_pool);
 
                 } else if (msgType.contains("MsgJoinPool") || msgType.contains("MsgJoinSwapExternAmountIn") || msgType.contains("MsgJoinSwapShareAmountOut")) {
@@ -291,9 +296,7 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("/osmosis.lockup.MsgBeginUnlockingAll")) {
                     result = c.getString(R.string.str_osmosis_begin_unlucking_all);
 
-                }
-
-                else if (msgType.contains("MsgSwapWithinBatch")) {
+                } else if (msgType.contains("MsgSwapWithinBatch")) {
                     result = c.getString(R.string.tx_gravity_swap_batch);
 
                 } else if (msgType.contains("MsgDepositWithinBatch")) {
@@ -301,16 +304,12 @@ public class ResApiNewTxListCustom {
 
                 } else if (msgType.contains("MsgWithdrawWithinBatch")) {
                     result = c.getString(R.string.tx_gravity_withdraw_batch);
-                }
-
-                else if (msgType.contains("MsgAddRecord")) {
+                } else if (msgType.contains("MsgAddRecord")) {
                     result = c.getString(R.string.tx_medi_add_record);
 
                 } else if (msgType.contains("MsgCreateDID")) {
                     result = c.getString(R.string.tx_medi_create_did);
-                }
-
-                else if (msgType.contains("MsgCreateTokenswapRequest")) {
+                } else if (msgType.contains("MsgCreateTokenswapRequest")) {
                     result = c.getString(R.string.tx_rizon_create_Token_swap);
                 }
 
@@ -337,15 +336,15 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_task_response);
 
                 } else if (msgType.contains("MsgCreateTask")) {
-                    result = c .getString(R.string.tx_create_task);
+                    result = c.getString(R.string.tx_create_task);
                 }
 
                 // desmos
                 else if (msgType.contains("MsgSaveProfile")) {
-                    result = c .getString(R.string.tx_save_profile);
+                    result = c.getString(R.string.tx_save_profile);
 
                 } else if (msgType.contains("MsgLinkChainAccount")) {
-                    result = c .getString(R.string.tx_link_chain_account);
+                    result = c.getString(R.string.tx_link_chain_account);
                 }
 
                 // kava msg
@@ -397,7 +396,7 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW)) {
                     result = c.getString(R.string.tx_kava_swap_withdraw);
 
-                }  else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
                     result = c.getString(R.string.tx_kava_incentive_reward);
 
                 } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
@@ -441,10 +440,12 @@ public class ResApiNewTxListCustom {
                 String msgType = "";
                 try {
                     msgType = getMsgs().getJSONObject(0).getString("@type");
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
                 try {
                     msgType = getMsgs().getJSONObject(0).getString("type");
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
                 if (!msgType.contains("MsgWithdrawDelegatorReward")) {
                     allReward = false;
                     break;
@@ -453,22 +454,23 @@ public class ResApiNewTxListCustom {
             if (allReward) {
                 if (data != null && data.logs != null) {
                     BigDecimal totalRewardSum = BigDecimal.ZERO;
-                    for (int i = 0; i < data.logs.size(); i ++) {
+                    for (int i = 0; i < data.logs.size(); i++) {
                         try {
                             for (int j = 0; j < new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").length(); j++) {
                                 if (new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).getString("type").equalsIgnoreCase("transfer")) {
                                     String value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).
-                                                    getJSONArray("attributes").getJSONObject(2).getString("value");
-                                    for (String rawCoin: value.split(",")) {
-                                        if (rawCoin.contains(WDp.mainDenom(chain))) {
+                                            getJSONArray("attributes").getJSONObject(2).getString("value");
+                                    for (String rawCoin : value.split(",")) {
+                                        if (rawCoin.contains(chain.getMainDenom())) {
                                             totalRewardSum = totalRewardSum.add(new BigDecimal(rawCoin.replaceAll("[^0-9]", "")));
                                         }
                                     }
                                 }
                             }
-                        } catch (Exception e) { }
+                        } catch (Exception e) {
+                        }
                     }
-                    return new Coin(WDp.mainDenom(chain), totalRewardSum.toString());
+                    return new Coin(chain.getMainDenom(), totalRewardSum.toString());
                 }
             }
         }
@@ -479,16 +481,20 @@ public class ResApiNewTxListCustom {
             String msgType1 = "";
             try {
                 msgType0 = getMsgs().getJSONObject(0).getString("@type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             try {
                 msgType0 = getMsgs().getJSONObject(0).getString("type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             try {
                 msgType1 = getMsgs().getJSONObject(1).getString("@type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             try {
                 msgType1 = getMsgs().getJSONObject(1).getString("type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") ||
                     msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")) {
                 String denom = "";
@@ -496,11 +502,15 @@ public class ResApiNewTxListCustom {
                 try {
                     denom = getMsgs().getJSONObject(1).getJSONObject("amount").getString("denom");
                     amount = getMsgs().getJSONObject(1).getJSONObject("amount").getString("amount");
-                } catch (JSONException e) { e.printStackTrace(); }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 try {
                     denom = getMsgs().getJSONObject(1).getJSONObject("value").getJSONObject("amount").getString("denom");
                     amount = getMsgs().getJSONObject(1).getJSONObject("value").getJSONObject("amount").getString("amount");
-                } catch (JSONException e) { e.printStackTrace(); }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 return new Coin(denom, amount);
             }
         }
@@ -511,11 +521,13 @@ public class ResApiNewTxListCustom {
         String msgType = "";
         try {
             msgType = getMsgs().getJSONObject(0).getString("@type");
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
 
         try {
             msgType = getMsgs().getJSONObject(0).getString("type");
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
 
         String denom = "";
         String amount = "";
@@ -525,29 +537,34 @@ public class ResApiNewTxListCustom {
             try {
                 denom = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("amount");
-            } catch (JSONException e) {  }
+            } catch (JSONException e) {
+            }
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("amount");
-            } catch (JSONException e) {  }
+            } catch (JSONException e) {
+            }
             return new Coin(denom, amount);
 
         } else if (msgType.contains("MsgDelegate") || msgType.contains("MsgUndelegate") || msgType.contains("MsgBeginRedelegate")) {
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("amount").getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("amount").getString("amount");
-            } catch (JSONException e) {   }
+            } catch (JSONException e) {
+            }
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONObject("amount").getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("value").getJSONObject("amount").getString("amount");
-            } catch (JSONException e) {  }
+            } catch (JSONException e) {
+            }
             return new Coin(denom, amount);
 
         } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("token").getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("token").getString("amount");
-            } catch (JSONException e) {   }
+            } catch (JSONException e) {
+            }
             return new Coin(denom, amount);
         }
         return null;
@@ -559,17 +576,21 @@ public class ResApiNewTxListCustom {
             String msgType = "";
             try {
                 msgType = getMsgs().getJSONObject(0).getString("@type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             try {
                 msgType = getMsgs().getJSONObject(0).getString("type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             String option = "";
             try {
                 option = getMsgs().getJSONObject(0).getString("option");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             try {
                 option = getMsgs().getJSONObject(0).getJSONObject("value").getString("option");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             if (msgType.contains("MsgVote")) {
                 if (option.equals("VOTE_OPTION_YES") || option.equals("Yes")) {
                     result = "YES";
@@ -582,7 +603,9 @@ public class ResApiNewTxListCustom {
                 }
             }
             return result;
-        } catch (Exception e) { WLog.w("Exception : " + e.getMessage()); }
+        } catch (Exception e) {
+            WLog.w("Exception : " + e.getMessage());
+        }
         return null;
     }
 

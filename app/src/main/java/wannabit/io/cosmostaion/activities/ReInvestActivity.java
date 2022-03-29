@@ -175,7 +175,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
             ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>)result.resultData;
             if (rewards != null) {
                 getBaseDao().mGrpcRewards = rewards;
-                mAmount = new Coin(WDp.mainDenom(mBaseChain), getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValAddress).toPlainString());
+                mAmount = new Coin(mBaseChain.getMainDenom(), getBaseDao().getReward(mBaseChain.getMainDenom(), mValAddress).toPlainString());
                 mPageAdapter.mCurrentFragment.onRefreshTab();
             } else {
                 onBackPressed();

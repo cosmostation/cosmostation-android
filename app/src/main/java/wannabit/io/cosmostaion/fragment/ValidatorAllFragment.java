@@ -36,7 +36,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class ValidatorAllFragment extends BaseFragment implements View.OnClickListener {
 
@@ -90,7 +89,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        if (isGRPC(getMainActivity().mBaseChain)) {
+        if (getMainActivity().mBaseChain.isGRPC()) {
             mValidatorSize.setText(""+getBaseDao().mGRpcTopValidators.size());
         } else {
             mValidatorSize.setText(""+getBaseDao().mTopValidators.size());
@@ -130,7 +129,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         public void onBindViewHolder(@NonNull final AllValidatorHolder holder, final int position) {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
             final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
-            if (isGRPC(getMainActivity().mBaseChain)) {
+            if (getMainActivity().mBaseChain.isGRPC()) {
                 final Staking.Validator validator  = getBaseDao().mGRpcTopValidators.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
@@ -216,7 +215,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
         @Override
         public int getItemCount() {
-            if (isGRPC(getMainActivity().mBaseChain)) {
+            if (getMainActivity().mBaseChain.isGRPC()) {
                 return getBaseDao().mGRpcTopValidators.size();
             } else {
                 return getBaseDao().mTopValidators.size();
@@ -248,7 +247,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
 
     public void onSortValidator() {
-        if (isGRPC(getMainActivity().mBaseChain)) {
+        if (getMainActivity().mBaseChain.isGRPC()) {
             if (getBaseDao().getValSorting() == 2){
                 WUtil.onSortingByCommissionV1(getBaseDao().mGRpcTopValidators);
                 mSortType.setText(getString(R.string.str_sorting_by_yield));

@@ -35,10 +35,10 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_POOL_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SUPPLY_OF_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 
 public class GDexDepositStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -138,7 +138,7 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
 
         mAvailable0MaxAmount = getBaseDao().getAvailable(coin0Denom);
         mAvailable1MaxAmount = getBaseDao().getAvailable(coin1Denom);
-        if (coin1Denom.equalsIgnoreCase(TOKEN_ATOM)) { mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(txFeeAmount); }
+        if (coin1Denom.equalsIgnoreCase(COSMOS_MAIN.getMainDenom())) { mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(txFeeAmount); }
 
         mCoin0Decimal = WUtil.getCosmosCoinDecimal(getBaseDao(), coin0Denom);
         mCoin1Decimal = WUtil.getCosmosCoinDecimal(getBaseDao(), coin1Denom);
@@ -148,8 +148,8 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Symbol, coin0Denom);
         WUtil.DpCosmosTokenImg(getBaseDao(), mJoinPoolInput1Img, coin1Denom);
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Symbol, coin1Denom);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Denom, coin0Denom), mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, BaseChain.COSMOS_MAIN);
-        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Denom, coin1Denom), mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, BaseChain.COSMOS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Denom, coin0Denom), mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, COSMOS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Denom, coin1Denom), mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, COSMOS_MAIN);
 
         BigDecimal lpInputAmount0 = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), coin0Denom);
         BigDecimal lpInputAmount1 = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), coin1Denom);

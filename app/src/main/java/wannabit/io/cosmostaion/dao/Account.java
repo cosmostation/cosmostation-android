@@ -1,20 +1,6 @@
 package wannabit.io.cosmostaion.dao;
 
-import android.content.Context;
-import android.text.SpannableString;
-import android.text.TextUtils;
-
-import java.math.BigDecimal;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.UUID;
-
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.utils.WDp;
-
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
@@ -22,37 +8,47 @@ import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
+
+import android.content.Context;
+import android.text.SpannableString;
+import android.text.TextUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.UUID;
+
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.utils.WDp;
 
 public class Account {
-    public Long     id;
-    public String   uuid;
-    public String   nickName;
-    public Boolean  isFavo;
-    public String   address;
-    public String   baseChain;
+    public Long id;
+    public String uuid;
+    public String nickName;
+    public Boolean isFavo;
+    public String address;
+    public String baseChain;
 
-    public Boolean  hasPrivateKey;
-    public String   resource;
-    public String   spec;
-    public Boolean  fromMnemonic;
-    public String   path;
+    public Boolean hasPrivateKey;
+    public String resource;
+    public String spec;
+    public Boolean fromMnemonic;
+    public String path;
 
-    public Boolean  isValidator;
-    public Integer  sequenceNumber;
-    public Integer  accountNumber;
-    public Long     fetchTime;
-    public int      msize;
-    public Long     importTime;
+    public Boolean isValidator;
+    public Integer sequenceNumber;
+    public Integer accountNumber;
+    public Long fetchTime;
+    public int msize;
+    public Long importTime;
 
-    public String   lastTotal;
-    public Long     sortOrder;
-    public Boolean  pushAlarm;
-    public Boolean  newBip44;
-    public Integer  customPath;
+    public String lastTotal;
+    public Long sortOrder;
+    public Boolean pushAlarm;
+    public Boolean newBip44;
+    public Integer customPath;
 
-    public ArrayList<Balance>   balances;
+    public ArrayList<Balance> balances;
 
 
     public static Account getNewInstance() {
@@ -102,11 +98,11 @@ public class Account {
 
     public BigDecimal getBnbBalance() {
         BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
+        if (balances == null || balances.size() == 0) {
             return result;
         }
-        for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
+        for (Balance balance : balances) {
+            if (balance.symbol.equals(BNB_MAIN.getMainDenom())) {
                 result = balance.balance;
                 break;
             }
@@ -116,11 +112,11 @@ public class Account {
 
     public BigDecimal getBnbBalanceScale() {
         BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
+        if (balances == null || balances.size() == 0) {
             return result;
         }
-        for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
+        for (Balance balance : balances) {
+            if (balance.symbol.equals(BNB_MAIN.getMainDenom())) {
                 result = balance.balance;
                 break;
             }
@@ -130,11 +126,11 @@ public class Account {
 
     public BigDecimal getBnbTokenBalance(String symbol) {
         BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
+        if (balances == null || balances.size() == 0) {
             return result;
         }
-        for(Balance balance:balances) {
-            if(balance.symbol.equals(symbol)) {
+        for (Balance balance : balances) {
+            if (balance.symbol.equals(symbol)) {
                 result = balance.balance;
                 break;
             }
@@ -144,11 +140,11 @@ public class Account {
 
     public BigDecimal getTokenBalance(String symbol) {
         BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
+        if (balances == null || balances.size() == 0) {
             return result;
         }
-        for(Balance balance:balances) {
-            if(balance.symbol.equalsIgnoreCase(symbol)) {
+        for (Balance balance : balances) {
+            if (balance.symbol.equalsIgnoreCase(symbol)) {
                 result = balance.balance;
                 break;
             }

@@ -1,5 +1,14 @@
 package wannabit.io.cosmostaion.activities.chains.cosmos;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_MANAGER;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_PARAM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_POOL_LIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_TOTAL_SUPPLY;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,27 +54,18 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_MANAGER;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_PARAM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_POOL_LIST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_TOTAL_SUPPLY;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-
 public class GravityListActivity extends BaseActivity {
 
-    private Toolbar                     mToolbar;
-    private TextView                    mTitle;
-    private ViewPager                   mLabPager;
-    private TabLayout                   mLabTapLayer;
-    private CosmosGravityPageAdapter    mPageAdapter;
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private ViewPager mLabPager;
+    private TabLayout mLabTapLayer;
+    private CosmosGravityPageAdapter mPageAdapter;
 
-    public ArrayList<Liquidity.Pool>                        mPoolList = new ArrayList<>();
-    public ArrayList<String>                                mAllDenoms = new ArrayList<>();
-    public ArrayList<Liquidity.Pool>                        mPoolMyList = new ArrayList<>();
-    public ArrayList<Liquidity.Pool>                        mPoolOtherList = new ArrayList<>();
+    public ArrayList<Liquidity.Pool> mPoolList = new ArrayList<>();
+    public ArrayList<String> mAllDenoms = new ArrayList<>();
+    public ArrayList<Liquidity.Pool> mPoolMyList = new ArrayList<>();
+    public ArrayList<Liquidity.Pool> mPoolOtherList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +106,13 @@ public class GravityListActivity extends BaseActivity {
 
         mLabPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
+
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
+
             @Override
             public void onPageSelected(int i) {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
@@ -138,7 +142,7 @@ public class GravityListActivity extends BaseActivity {
             return;
         }
 
-        BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+        BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_GDEX_SWAP, 0);
         if (available.compareTo(txFee) < 0) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
@@ -171,8 +175,10 @@ public class GravityListActivity extends BaseActivity {
         }
 
         Liquidity.Pool tempPool = null;
-        for (Liquidity.Pool pool: mPoolList) {
-            if (pool.getId() == poolId) { tempPool = pool; }
+        for (Liquidity.Pool pool : mPoolList) {
+            if (pool.getId() == poolId) {
+                tempPool = pool;
+            }
         }
         String coin0denom = tempPool.getReserveCoinDenoms(0);
         String coin1Denom = tempPool.getReserveCoinDenoms(1);
@@ -181,9 +187,11 @@ public class GravityListActivity extends BaseActivity {
         BigDecimal coin0Available = getBaseDao().getAvailable(coin0denom);
         BigDecimal coin1Available = getBaseDao().getAvailable(coin1Denom);
 
-        if (coin1Denom.equalsIgnoreCase(TOKEN_ATOM)) { coin1Available = coin1Available.subtract(feeAmount); }
+        if (coin1Denom.equalsIgnoreCase(COSMOS_MAIN.getMainDenom())) {
+            coin1Available = coin1Available.subtract(feeAmount);
+        }
 
-        if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <=0 ) {
+        if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(GravityListActivity.this, R.string.error_not_enough_to_deposit_pool, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -202,7 +210,7 @@ public class GravityListActivity extends BaseActivity {
             return;
         }
 
-        BigDecimal mainBalance = getBaseDao().getAvailable(TOKEN_ATOM);
+        BigDecimal mainBalance = getBaseDao().getAvailable(COSMOS_MAIN.getMainDenom());
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_GDEX_WITHDRAW, 0);
 
         if (mainBalance.compareTo(feeAmount) < 0) {
@@ -217,7 +225,7 @@ public class GravityListActivity extends BaseActivity {
 
     public void onFetchPoolListInfo() {
         mTaskCount = 3;
-        mPoolList .clear();
+        mPoolList.clear();
         mPoolMyList.clear();
         mPoolOtherList.clear();
         getBaseDao().mGDexPoolTokens.clear();
@@ -239,7 +247,7 @@ public class GravityListActivity extends BaseActivity {
                 }
             }
             mTaskCount = mTaskCount + 1;
-            for (Liquidity.Pool pool: mPoolList ) {
+            for (Liquidity.Pool pool : mPoolList) {
                 new GravityDexManagerGrpcTask(getBaseApplication(), this, mBaseChain, pool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
                 if (getBaseDao().getAvailable(pool.getPoolCoinDenom()) != BigDecimal.ZERO) {
@@ -262,7 +270,7 @@ public class GravityListActivity extends BaseActivity {
         } else if (result.taskType == TASK_GRPC_FETCH_TOTAL_SUPPLY) {
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<CoinOuterClass.Coin> supplys = (ArrayList<CoinOuterClass.Coin>) result.resultData;
-                for (CoinOuterClass.Coin coin: supplys) {
+                for (CoinOuterClass.Coin coin : supplys) {
                     if (coin.getDenom().startsWith("pool")) {
                         getBaseDao().mGDexPoolTokens.add((new Coin(coin.getDenom(), coin.getAmount())));
                     }
@@ -270,9 +278,9 @@ public class GravityListActivity extends BaseActivity {
             }
         }
         if (mTaskCount == 0) {
-            mAllDenoms.add(TOKEN_ATOM);
-            for (Liquidity.Pool pool: mPoolList ) {
-                for (String denom: pool.getReserveCoinDenomsList()) {
+            mAllDenoms.add(COSMOS_MAIN.getMainDenom());
+            for (Liquidity.Pool pool : mPoolList) {
+                for (String denom : pool.getReserveCoinDenomsList()) {
                     if (!mAllDenoms.contains(denom)) {
                         mAllDenoms.add(denom);
                     }
@@ -289,7 +297,7 @@ public class GravityListActivity extends BaseActivity {
     }
 
     public GDexManager getGDexManager(String address) {
-        for (GDexManager gDexManager: getBaseDao().mGDexManager) {
+        for (GDexManager gDexManager : getBaseDao().mGDexManager) {
             if (gDexManager.address.equalsIgnoreCase(address)) {
                 return gDexManager;
             }
@@ -297,10 +305,10 @@ public class GravityListActivity extends BaseActivity {
         return null;
     }
 
-    public BigDecimal getLpAmount (String address, String denom) {
+    public BigDecimal getLpAmount(String address, String denom) {
         BigDecimal result = BigDecimal.ZERO;
         if (getGDexManager(address) != null) {
-            for (Coin coin: getGDexManager(address).reserve) {
+            for (Coin coin : getGDexManager(address).reserve) {
                 if (coin.denom.equalsIgnoreCase(denom)) {
                     result = new BigDecimal(coin.amount);
                 }
@@ -334,7 +342,7 @@ public class GravityListActivity extends BaseActivity {
     public BigDecimal getGdexLpTokenPerUsdPrice(Liquidity.Pool pool) {
         BigDecimal poolValue = getGdexPoolValue(pool);
         BigDecimal totalShare = BigDecimal.ZERO;
-        for (Coin coin: getBaseDao().mGDexPoolTokens) {
+        for (Coin coin : getBaseDao().mGDexPoolTokens) {
             if (coin.denom.equalsIgnoreCase(pool.getPoolCoinDenom())) {
                 totalShare = new BigDecimal(coin.amount);
             }
@@ -346,7 +354,7 @@ public class GravityListActivity extends BaseActivity {
         BigDecimal result = BigDecimal.ZERO;
         BigDecimal myShare = getBaseDao().getAvailable(pool.getPoolCoinDenom());
         BigDecimal totalShare = BigDecimal.ZERO;
-        for (Coin coin: getBaseDao().mGDexPoolTokens) {
+        for (Coin coin : getBaseDao().mGDexPoolTokens) {
             if (coin.denom.equalsIgnoreCase(pool.getPoolCoinDenom())) {
                 totalShare = new BigDecimal(coin.amount);
             }

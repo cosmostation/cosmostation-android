@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
@@ -17,22 +16,13 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
-
 public class TxHardIncentiveHolder extends TxHolder {
-    ImageView       itemMsgImg;
-    RelativeLayout  incen0Layer, incen1Layer, incen2Layer, incen3Layer;
-    TextView        itemSender, itemMultiplier, itemKavaDenom, itemKavaAmount, itemSwpDenom, itemSwpAmount, itemHardDenom, itemHardAmount, itemUsdxDenom, itemUsdxAmount;
+    ImageView itemMsgImg;
+    RelativeLayout incen0Layer, incen1Layer, incen2Layer, incen3Layer;
+    TextView itemSender, itemMultiplier, itemKavaDenom, itemKavaAmount, itemSwpDenom, itemSwpAmount, itemHardDenom, itemHardAmount, itemUsdxDenom, itemUsdxAmount;
 
     public TxHardIncentiveHolder(@NonNull View itemView) {
         super(itemView);
@@ -80,6 +70,7 @@ public class TxHardIncentiveHolder extends TxHolder {
                 WDp.showCoinDp(c, baseData, incentiveCoins.get(3), itemUsdxDenom, itemUsdxAmount, baseChain);
             }
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

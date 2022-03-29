@@ -6,7 +6,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 import android.os.Bundle;
@@ -97,10 +96,10 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onBackPressed();
         }
 
-        final String mainDenom = WDp.mainDenom(getSActivity().mBaseChain);
+        final String mainDenom = getSActivity().mBaseChain.getMainDenom();
         final String toSendDenom = getSActivity().mDenom;
         final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-        if (isGRPC(getSActivity().mBaseChain)) {
+        if (getSActivity().mBaseChain.isGRPC()) {
             if (getSActivity().mDenom.startsWith("ibc/")) {
                 mDpDecimal = WUtil.getIbcDecimal(getBaseDao(), toSendDenom);
             } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
@@ -281,7 +280,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     private boolean isValidateSendAmount() {
         mToSendCoins.clear();
         try {
-            if (isGRPC(getSActivity().mBaseChain)) {
+            if (getSActivity().mBaseChain.isGRPC()) {
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)

@@ -200,7 +200,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-            final String mainDenom = WDp.mainDenom(mBaseChain);
+            final String mainDenom = mBaseChain.getMainDenom();
             final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
             mMaxAvailable = getBaseDao().getAvailable(mainDenom).subtract(feeAmount);
@@ -222,7 +222,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();

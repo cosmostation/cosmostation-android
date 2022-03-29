@@ -59,10 +59,10 @@ public class WalletChainHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final String denom = mainActivity.mBaseChain.getMainDenom();
         final int decimal = WDp.mainDivideDecimal(mainActivity.mBaseChain);
         mTvChainCard.setCardBackgroundColor(WDp.getChainBgColor(mainActivity, mainActivity.mBaseChain));
-        WUtil.getWalletData(mainActivity, mainActivity.mBaseChain, mTvChainIcon, mTvChainDenom);
+        WUtil.getWalletData(mainActivity.mBaseChain, mTvChainIcon, mTvChainDenom);
 
         final BigDecimal availableAmount = baseData.getAvailable(denom);
         final BigDecimal vestingAmount = baseData.getVesting(denom);
@@ -100,7 +100,7 @@ public class WalletChainHolder extends BaseHolder {
         });
 
         // dex, nft, desmos profile setting
-        WUtil.getDexTitle(mainActivity, mainActivity.mBaseChain, mBtnDex, mBtnDexTitle);
+        WUtil.getDexTitle(mainActivity.mBaseChain, mBtnDex, mBtnDexTitle);
         mBtnDex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

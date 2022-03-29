@@ -29,7 +29,7 @@ public class StationParamInfoTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<ChainParam> response;
-            if (BaseChain.IS_TESTNET(mBaseChain)) {
+            if (mBaseChain.isTestNet()) {
                 response = ApiClient.getStationTest(mApp).getParam(mChainId).execute();
             } else {
                 response = ApiClient.getStation(mApp).getParam(mChainId).execute();

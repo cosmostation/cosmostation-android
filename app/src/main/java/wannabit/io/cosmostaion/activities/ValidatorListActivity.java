@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,26 +37,22 @@ import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
-
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
 
-    private Toolbar                 mToolbar;
-    private TextView                mToolbarTitle;
-    private ViewPager               mValidatorPager;
-    private TabLayout               mValidatorTapLayer;
-    private ValidatorPageAdapter    mPageAdapter;
+    private Toolbar mToolbar;
+    private TextView mToolbarTitle;
+    private ViewPager mValidatorPager;
+    private TabLayout mValidatorTapLayer;
+    private ValidatorPageAdapter mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validator_list);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mToolbarTitle       = findViewById(R.id.toolbar_title);
-        mValidatorTapLayer  = findViewById(R.id.validator_tab);
-        mValidatorPager     = findViewById(R.id.validator_view_pager);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarTitle = findViewById(R.id.toolbar_title);
+        mValidatorTapLayer = findViewById(R.id.validator_tab);
+        mValidatorPager = findViewById(R.id.validator_view_pager);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -93,10 +92,12 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
         mValidatorPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) { }
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
-            public void onPageScrollStateChanged(int i) { }
+            public void onPageScrollStateChanged(int i) {
+            }
 
             @Override
             public void onPageSelected(int i) {
@@ -142,14 +143,14 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             return;
         }
         String cosmostation = "";
-        if (isGRPC(mBaseChain)) {
-            BigDecimal delegatableAmount = getBaseDao().getDelegatable(WDp.mainDenom(mBaseChain));
+        if (mBaseChain.isGRPC()) {
+            BigDecimal delegatableAmount = getBaseDao().getDelegatable(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
             if (delegatableAmount.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
                 return;
             }
-            for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
+            for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
                 if (validator.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) {
                     cosmostation = validator.getOperatorAddress();
                 }
@@ -160,14 +161,14 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 startActivity(toDelegate);
             }
         } else {
-            Validator toValidator =  null;
-            BigDecimal delegatableAmount = getBaseDao().delegatableAmount(WDp.mainDenom(mBaseChain));
+            Validator toValidator = null;
+            BigDecimal delegatableAmount = getBaseDao().delegatableAmount(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
             if (delegatableAmount.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
                 return;
             }
-            for (Validator validator: getBaseDao().mAllValidators) {
+            for (Validator validator : getBaseDao().mAllValidators) {
                 if (validator.description.moniker.equalsIgnoreCase("Cosmostation")) {
                     toValidator = validator;
                 }
@@ -188,8 +189,8 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             return;
         }
 
-        if (isGRPC(mBaseChain)) {
-            ArrayList<String> toClaimValaddr= new ArrayList<>();
+        if (mBaseChain.isGRPC()) {
+            ArrayList<String> toClaimValaddr = new ArrayList<>();
             ArrayList<Distribution.DelegationDelegatorReward> toClaimRewards = new ArrayList<>();
             if (getBaseDao().mGrpcRewards == null) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
@@ -197,8 +198,8 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
             BigDecimal singlefeeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
-            for (Distribution.DelegationDelegatorReward reward: getBaseDao().mGrpcRewards) {
-                if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), reward.getValidatorAddress()).compareTo(singlefeeAmount) > 0) {
+            for (Distribution.DelegationDelegatorReward reward : getBaseDao().mGrpcRewards) {
+                if (getBaseDao().getReward(mBaseChain.getMainDenom(), reward.getValidatorAddress()).compareTo(singlefeeAmount) > 0) {
                     toClaimRewards.add(reward);
                 }
             }
@@ -206,20 +207,20 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            WUtil.onSortRewardAmount(toClaimRewards, WDp.mainDenom(mBaseChain));
+            WUtil.onSortRewardAmount(toClaimRewards, mBaseChain.getMainDenom());
             if (toClaimRewards.size() >= 17) {
-                ArrayList<Distribution.DelegationDelegatorReward> temp = new ArrayList(toClaimRewards.subList(0,16));
+                ArrayList<Distribution.DelegationDelegatorReward> temp = new ArrayList(toClaimRewards.subList(0, 16));
                 toClaimRewards = temp;
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
             }
 
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimRewards.size());
             if (available.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
-            for (Distribution.DelegationDelegatorReward reward: toClaimRewards) {
+            for (Distribution.DelegationDelegatorReward reward : toClaimRewards) {
                 toClaimValaddr.add(reward.getValidatorAddress());
             }
 
@@ -229,14 +230,14 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
         } else {
             ArrayList<Validator> toClaimValidators = new ArrayList<>();
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
+            if (getBaseDao().rewardAmount(mBaseChain.getMainDenom()).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             BigDecimal singlefeeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
-            for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(singlefeeAmount) > 0) {
+            for (Validator validator : getBaseDao().mAllValidators) {
+                if (getBaseDao().rewardAmountByValidator(mBaseChain.getMainDenom(), validator.operator_address).compareTo(singlefeeAmount) > 0) {
                     toClaimValidators.add(validator);
                 }
             }
@@ -246,13 +247,13 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
+            WUtil.onSortByOnlyReward(toClaimValidators, mBaseChain.getMainDenom(), getBaseDao());
             if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
+                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0, 16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
             }
 
-            BigDecimal available = mAccount.getTokenBalance(WDp.mainDenom(mBaseChain));
+            BigDecimal available = mAccount.getTokenBalance(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimValidators.size());
 
             if (available.compareTo(feeAmount) < 0) {
@@ -283,7 +284,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     @Override
     public void fetchBusy() {
-        if(!isFinishing()) {
+        if (!isFinishing()) {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onBusyFetch();
         }

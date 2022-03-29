@@ -206,7 +206,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             BigDecimal userInput = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(mDpDecimal).setScale(0);
             if (userInput.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (userInput.compareTo(mMaxAvailable) > 0) return false;
-            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), userInput.toPlainString());
+            Coin coin = new Coin(getSActivity().mBaseChain.getMainDenom(), userInput.toPlainString());
             getSActivity().mAmount = coin;
             return true;
 

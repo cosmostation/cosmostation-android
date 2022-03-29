@@ -1,5 +1,10 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,68 +41,61 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
-
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar         mToolbar;
-    private View            mView;
-    private Button          mBtnCheck, mBtnCheckKey, mBtnDelete;
+    private Toolbar mToolbar;
+    private View mView;
+    private Button mBtnCheck, mBtnCheckKey, mBtnDelete;
 
-    private CardView        mCardName;
-    private ImageView       mChainImg, mNameEditImg;
-    private TextView        mAccountName;
+    private CardView mCardName;
+    private ImageView mChainImg, mNameEditImg;
+    private TextView mAccountName;
 
-    private CardView        mCardAlarm;
-    private SwitchCompat    mAlarmSwitch;
-    private TextView        mAlarmMsg;
+    private CardView mCardAlarm;
+    private SwitchCompat mAlarmSwitch;
+    private TextView mAlarmMsg;
 
-    private CardView        mCardBody;
-    private ImageView       mBtnQr;
-    private TextView        mAccountAddress, mAccountGenTime;
-    private TextView        mAccountChain, mAccountState, mAccountPathTitle, mAccountPath, mImportMsg;
-    private RelativeLayout  mPathLayer;
+    private CardView mCardBody;
+    private ImageView mBtnQr;
+    private TextView mAccountAddress, mAccountGenTime;
+    private TextView mAccountChain, mAccountState, mAccountPathTitle, mAccountPath, mImportMsg;
+    private RelativeLayout mPathLayer;
 
 
-    private CardView        mCardRewardAddress;
-    private ImageView       mBtnRewardAddressChange;
-    private TextView        mRewardAddress;
+    private CardView mCardRewardAddress;
+    private ImageView mBtnRewardAddressChange;
+    private TextView mRewardAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_detail);
-        mToolbar                = findViewById(R.id.tool_bar);
-        mBtnCheck               = findViewById(R.id.btn_check);
-        mView                   = findViewById(R.id.view);
-        mBtnCheckKey            = findViewById(R.id.btn_check_key);
-        mBtnDelete              = findViewById(R.id.btn_delete);
-        mCardName               = findViewById(R.id.card_name);
-        mChainImg               = findViewById(R.id.chain_img);
-        mNameEditImg            = findViewById(R.id.account_edit);
-        mAccountName            = findViewById(R.id.account_name);
-        mCardAlarm              = findViewById(R.id.card_alarm);
-        mAlarmSwitch            = findViewById(R.id.switch_using_alarm);
-        mAlarmMsg               = findViewById(R.id.account_alarm_msg);
-        mCardBody               = findViewById(R.id.card_body);
-        mBtnQr                  = findViewById(R.id.account_qr);
-        mAccountAddress         = findViewById(R.id.account_address);
-        mAccountChain           = findViewById(R.id.account_chain);
-        mAccountGenTime         = findViewById(R.id.account_import_time);
-        mAccountState           = findViewById(R.id.account_import_state);
-        mAccountPathTitle       = findViewById(R.id.path_title);
-        mAccountPath            = findViewById(R.id.account_path);
-        mImportMsg              = findViewById(R.id.import_msg);
-        mPathLayer              = findViewById(R.id.account_path_layer);
-        mCardRewardAddress      = findViewById(R.id.card_reward_address);
+        mToolbar = findViewById(R.id.tool_bar);
+        mBtnCheck = findViewById(R.id.btn_check);
+        mView = findViewById(R.id.view);
+        mBtnCheckKey = findViewById(R.id.btn_check_key);
+        mBtnDelete = findViewById(R.id.btn_delete);
+        mCardName = findViewById(R.id.card_name);
+        mChainImg = findViewById(R.id.chain_img);
+        mNameEditImg = findViewById(R.id.account_edit);
+        mAccountName = findViewById(R.id.account_name);
+        mCardAlarm = findViewById(R.id.card_alarm);
+        mAlarmSwitch = findViewById(R.id.switch_using_alarm);
+        mAlarmMsg = findViewById(R.id.account_alarm_msg);
+        mCardBody = findViewById(R.id.card_body);
+        mBtnQr = findViewById(R.id.account_qr);
+        mAccountAddress = findViewById(R.id.account_address);
+        mAccountChain = findViewById(R.id.account_chain);
+        mAccountGenTime = findViewById(R.id.account_import_time);
+        mAccountState = findViewById(R.id.account_import_state);
+        mAccountPathTitle = findViewById(R.id.path_title);
+        mAccountPath = findViewById(R.id.account_path);
+        mImportMsg = findViewById(R.id.import_msg);
+        mPathLayer = findViewById(R.id.account_path_layer);
+        mCardRewardAddress = findViewById(R.id.card_reward_address);
         mBtnRewardAddressChange = findViewById(R.id.reward_change_btn);
-        mRewardAddress          = findViewById(R.id.reward_address);
+        mRewardAddress = findViewById(R.id.reward_address);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -156,19 +154,19 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void onInitView() {
-        if(getIntent() == null || TextUtils.isEmpty(getIntent().getStringExtra("id"))) {
+        if (getIntent() == null || TextUtils.isEmpty(getIntent().getStringExtra("id"))) {
             onBackPressed();
         }
         mAccount = getBaseDao().onSelectAccount(getIntent().getStringExtra("id"));
-        if(mAccount == null)  onBackPressed();
+        if (mAccount == null) onBackPressed();
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         onUpdatePushStatusUI();
         WDp.showChainDp(AccountDetailActivity.this, mBaseChain, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
         WDp.getChainImg(AccountDetailActivity.this, mBaseChain, mChainImg);
 
-        if (isGRPC(mBaseChain)) {
-            new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain,  mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (mBaseChain.isGRPC()) {
+            new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -203,8 +201,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             if (mBaseChain.equals(OKEX_MAIN)) {
                 mPathLayer.setVisibility(View.VISIBLE);
                 mAccountPathTitle.setText("Address Type");
-                if (mAccount.customPath > 0) { mAccountPath.setText("Ethereum Type Address"); }
-                else { mAccountPath.setText("Legacy Tendermint Type Address"); }
+                if (mAccount.customPath > 0) {
+                    mAccountPath.setText("Ethereum Type Address");
+                } else {
+                    mAccountPath.setText("Legacy Tendermint Type Address");
+                }
                 mAccountPath.setTextColor(getResources().getColor(R.color.colorPhoton));
             }
 
@@ -248,7 +249,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
     public void onChangeNickName(String name) {
         mAccount.nickName = name;
-        if(getBaseDao().onUpdateAccount(mAccount) > 0) {
+        if (getBaseDao().onUpdateAccount(mAccount) > 0) {
             onInitView();
         }
     }
@@ -256,7 +257,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnCheck)) {
-            if(mAccount.hasPrivateKey) {
+            if (mAccount.hasPrivateKey) {
                 Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
                 intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
                 intent.putExtra("checkid", mAccount.id);
@@ -270,7 +271,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         } else if (v.equals(mBtnCheckKey)) {
-            if(mAccount.hasPrivateKey) {
+            if (mAccount.hasPrivateKey) {
                 Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
                 intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_PRIVATE_KEY);
                 intent.putExtra("checkid", mAccount.id);
@@ -285,7 +286,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mBtnDelete)) {
             int accountSum = 0;
-            for (BaseChain baseChain: getBaseDao().dpSortedChains()) {
+            for (BaseChain baseChain : getBaseDao().dpSortedChains()) {
                 accountSum = accountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
             }
             if (accountSum <= 1) {
@@ -339,7 +340,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onTaskResponse(TaskResult result) {
         if (result.taskType == TASK_GRPC_FETCH_WITHDRAW_ADDRESS) {
-            String rewardAddress = (String)result.resultData;
+            String rewardAddress = (String) result.resultData;
             if (!TextUtils.isEmpty(rewardAddress)) {
                 mRewardAddress.setText(rewardAddress.trim());
                 if (rewardAddress.equals(mAccount.address)) {
@@ -350,26 +351,26 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         } else if (result.taskType == TASK_FETCH_NODE_INFO) {
-            NodeInfo nodeinfo = (NodeInfo)result.resultData;
+            NodeInfo nodeinfo = (NodeInfo) result.resultData;
             if (nodeinfo != null) {
                 mAccountChain.setText(nodeinfo.network);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
-            tendermint.p2p.Types.NodeInfo nodeinfo = (tendermint.p2p.Types.NodeInfo)result.resultData;
+            tendermint.p2p.Types.NodeInfo nodeinfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
             if (nodeinfo != null) {
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mAccountChain.setText(nodeinfo.getNetwork());
                     }
-                },100);
+                }, 100);
 
             }
 
-        }  else if (result.taskType == BaseConstant.TASK_PUSH_STATUS_UPDATE) {
+        } else if (result.taskType == BaseConstant.TASK_PUSH_STATUS_UPDATE) {
             if (result.isSuccess) {
-                mAccount = getBaseDao().onUpdatePushEnabled(mAccount, (boolean)result.resultData);
+                mAccount = getBaseDao().onUpdatePushEnabled(mAccount, (boolean) result.resultData);
             }
             onUpdatePushStatusUI();
             onHideWaitDialog();

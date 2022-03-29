@@ -8,7 +8,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -288,26 +287,26 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             return;
         }
 
-        if (isGRPC(mBaseChain)) {
+        if (mBaseChain.isGRPC()) {
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
-            intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+            intent.putExtra("sendTokenDenom", mBaseChain.getMainDenom());
             startActivity(intent);
 
         } else {
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal mainAvailable = getBaseDao().availableAmount(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
-            intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+            intent.putExtra("sendTokenDenom", mBaseChain.getMainDenom());
             startActivity(intent);
         }
 
@@ -328,13 +327,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
         boolean hasbalance = true;
-        BigDecimal mainDenomAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+        BigDecimal mainDenomAvailable = getBaseDao().availableAmount(mBaseChain.getMainDenom());
         if (mBaseChain.equals(BNB_MAIN)) {
             if (mainDenomAvailable.compareTo(new BigDecimal(FEE_BNB_SEND)) <= 0) {
                 hasbalance = false;
             }
         } else if (mBaseChain.equals(KAVA_MAIN)) {
-            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_HTLS_REFUND, 0);
             if (mainAvailable.subtract(feeAmount).compareTo(BigDecimal.ZERO) <= 0) {
                 hasbalance = false;
@@ -691,7 +690,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new KavaIncentiveParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new KavaIncentiveRewardTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (isGRPC(mBaseChain)) {
+        } else if (mBaseChain.isGRPC()) {
             mTaskCount = 9;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -856,14 +855,14 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     if (!coin.getAmount().equals("0")) {
                         getBaseDao().mGrpcBalance.add(new Coin(coin.getDenom(), coin.getAmount()));
                     } else {
-                        if (coin.getDenom().equalsIgnoreCase(WDp.mainDenom(mBaseChain))) {
+                        if (coin.getDenom().equalsIgnoreCase(mBaseChain.getMainDenom())) {
                             getBaseDao().mGrpcBalance.add(new Coin(coin.getDenom(), coin.getAmount()));
                         }
                     }
                 }
             }
-            if (getBaseDao().mGrpcBalance.size() <= 0 || getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
-                getBaseDao().mGrpcBalance.add(new Coin(WDp.mainDenom(mBaseChain), "0"));
+            if (getBaseDao().mGrpcBalance.size() <= 0 || getBaseDao().getAvailable(mBaseChain.getMainDenom()).compareTo(BigDecimal.ZERO) <= 0) {
+                getBaseDao().mGrpcBalance.add(new Coin(mBaseChain.getMainDenom(), "0"));
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_DELEGATIONS) {
@@ -944,7 +943,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
         if (mTaskCount == 0) {
-            if (isGRPC(mBaseChain)) {
+            if (mBaseChain.isGRPC()) {
                 getBaseDao().mGRpcAllValidators.addAll(getBaseDao().mGRpcTopValidators);
                 getBaseDao().mGRpcAllValidators.addAll(getBaseDao().mGRpcOtherValidators);
                 for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {

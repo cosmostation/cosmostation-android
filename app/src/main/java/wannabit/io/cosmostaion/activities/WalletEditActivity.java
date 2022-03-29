@@ -24,21 +24,21 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class WalletEditActivity extends BaseActivity implements View.OnClickListener{
+public class WalletEditActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar             mToolbar;
-    private TextView            mBtnDone;
-    private RecyclerView        mDisplayRecyclerView;
-    private RecyclerView        mHideRecyclerView;
-    private LinearLayout        mEmptyChains;
+    private Toolbar mToolbar;
+    private TextView mBtnDone;
+    private RecyclerView mDisplayRecyclerView;
+    private RecyclerView mHideRecyclerView;
+    private LinearLayout mEmptyChains;
 
-    private DisplayListAdapter  mDisplayListAdapter;
-    private HideListAdapter     mHideListAdapter;
-    private ItemTouchHelper     mItemTouchHelper;
+    private DisplayListAdapter mDisplayListAdapter;
+    private HideListAdapter mHideListAdapter;
+    private ItemTouchHelper mItemTouchHelper;
 
-    private ArrayList<BaseChain>    mAllChains = new ArrayList<>();
-    private ArrayList<BaseChain>    mDisplayChains = new ArrayList<>();
-    private ArrayList<BaseChain>    mHideChains = new ArrayList<>();
+    private ArrayList<BaseChain> mAllChains = new ArrayList<>();
+    private ArrayList<BaseChain> mDisplayChains = new ArrayList<>();
+    private ArrayList<BaseChain> mHideChains = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +69,8 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         mHideListAdapter = new HideListAdapter();
         mHideRecyclerView.setAdapter(mHideListAdapter);
 
-        for (BaseChain baseChain : BaseChain.SUPPORT_CHAINS()) {
-            if (!baseChain.equals(BaseChain.COSMOS_MAIN)) {
+        for (BaseChain baseChain : BaseChain.values()) {
+            if (baseChain.isSupported() && !baseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mAllChains.add(baseChain);
             }
         }
@@ -108,7 +108,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    private class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.DisplayHolder> implements ItemTouchHelperListener{
+    private class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.DisplayHolder> implements ItemTouchHelperListener {
 
         @NonNull
         @Override
@@ -128,7 +128,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
                 public void onClick(View v) {
                     if (getBaseDao().onSelectAccountsByChain(BaseChain.COSMOS_MAIN).size() <= 0) {
                         int dpAccountSum = 0;
-                        for (BaseChain baseChain: mDisplayChains) {
+                        for (BaseChain baseChain : mDisplayChains) {
                             if (!baseChain.equals(chain)) {
                                 dpAccountSum = dpAccountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
                             }
@@ -186,16 +186,17 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         }
 
         public class DisplayHolder extends RecyclerView.ViewHolder {
-            CardView    chainCard;
-            ImageView   chainRemoveImg, chainTokenImg, chainSort;
-            TextView    chainName;
+            CardView chainCard;
+            ImageView chainRemoveImg, chainTokenImg, chainSort;
+            TextView chainName;
+
             public DisplayHolder(@NonNull View itemView) {
                 super(itemView);
-                chainCard           = itemView.findViewById(R.id.chain_card);
-                chainRemoveImg      = itemView.findViewById(R.id.chain_remove_img);
-                chainSort           = itemView.findViewById(R.id.chainSort);
-                chainTokenImg       = itemView.findViewById(R.id.chain_img);
-                chainName           = itemView.findViewById(R.id.chain_name);
+                chainCard = itemView.findViewById(R.id.chain_card);
+                chainRemoveImg = itemView.findViewById(R.id.chain_remove_img);
+                chainSort = itemView.findViewById(R.id.chainSort);
+                chainTokenImg = itemView.findViewById(R.id.chain_img);
+                chainName = itemView.findViewById(R.id.chain_name);
             }
         }
     }
@@ -241,15 +242,16 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         }
 
         public class HideHolder extends RecyclerView.ViewHolder {
-            CardView    chainCard;
-            ImageView   chainAddImg, chainTokenImg;
-            TextView    chainName;
+            CardView chainCard;
+            ImageView chainAddImg, chainTokenImg;
+            TextView chainName;
+
             public HideHolder(@NonNull View itemView) {
                 super(itemView);
-                chainCard           = itemView.findViewById(R.id.chain_card);
-                chainAddImg         = itemView.findViewById(R.id.chain_add_img);
-                chainTokenImg       = itemView.findViewById(R.id.chain_img);
-                chainName           = itemView.findViewById(R.id.chain_name);
+                chainCard = itemView.findViewById(R.id.chain_card);
+                chainAddImg = itemView.findViewById(R.id.chain_add_img);
+                chainTokenImg = itemView.findViewById(R.id.chain_img);
+                chainName = itemView.findViewById(R.id.chain_name);
             }
         }
     }
@@ -257,7 +259,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
     public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         ItemTouchHelperListener listener;
 
-        public ItemTouchHelperCallback(ItemTouchHelperListener listener){
+        public ItemTouchHelperCallback(ItemTouchHelperListener listener) {
             this.listener = listener;
         }
 

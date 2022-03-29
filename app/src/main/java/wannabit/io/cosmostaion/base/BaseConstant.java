@@ -418,53 +418,22 @@ public class BaseConstant {
     public final static int ERROR_CODE_BROADCAST            = 8004;
 
 
-    public final static String TOKEN_ATOM           = "uatom";
-    public final static String TOKEN_IMVERSED       = "nimv";
-    public final static String TOKEN_IRIS           = "uiris";
-    public final static String TOKEN_IRIS_ATTO      = "iris-atto";
-    public final static String TOKEN_BNB            = "BNB";
     public final static String TOKEN_KAVA           = "ukava";
     public final static String TOKEN_HARD           = "hard";
     public final static String TOKEN_USDX           = "usdx";
     public final static String TOKEN_SWP            = "swp";
-    public final static String TOKEN_IOV            = "uiov";
-    public final static String TOKEN_CERTIK         = "uctk";
-    public final static String TOKEN_BAND           = "uband";
-    public final static String TOKEN_AKASH          = "uakt";
-    public final static String TOKEN_SECRET         = "uscrt";
     public final static String TOKEN_OK             = "okt";
-    public final static String TOKEN_OK_OKB         = "okb";
-    public final static String TOKEN_XPRT           = "uxprt";
     public final static String TOKEN_DVPN           = "udvpn";
     public final static String TOKEN_FET            = "afet";
     public final static String TOKEN_CRO            = "basecro";
     public final static String TOKEN_SIF            = "rowan";
-    public final static String TOKEN_KI             = "uxki";
-    public final static String TOKEN_RIZON          = "uatolo";
-    public final static String TOKEN_MEDI           = "umed";
-    public final static String TOKEN_ALTHEA         = "ualtg";
     public final static String TOKEN_OSMOSIS        = "uosmo";
     public final static String TOKEN_ION            = "uion";
-    public final static String TOKEN_UMEE           = "uumee";
     public final static String TOKEN_NGM            = "ungm";
-    public final static String TOKEN_AXELAR         = "uaxl";
-    public final static String TOKEN_JUNO           = "ujuno";
-    public final static String TOKEN_REGEN          = "uregen";
-    public final static String TOKEN_BITCANNA       = "ubcna";
-    public final static String TOKEN_STARGAZE       = "ustars";
-    public final static String TOKEN_GRABRIDGE      = "ugraviton";
-    public final static String TOKEN_COMDEX         = "ucmdx";
     public final static String TOKEN_INJ            = "inj";
-    public final static String TOKEN_BITSONG        = "ubtsg";
-    public final static String TOKEN_DESMOS         = "udsm";
-    public final static String TOKEN_LUM            = "ulum";
-    public final static String TOKEN_CHIHUAHUA      = "uhuahua";
-    public final static String TOKEN_DARC           = "udarc";
     public final static String TOKEN_EVMOS          = "aevmos";
     public final static String TOKEN_CUDOS          = "acudos";
     public final static String TOKEN_HASH           = "nhash";
-    public final static String TOKEN_CRBRUS         = "ucrbrus";
-    public final static String TOKEN_FLIX           = "uflix";
 
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
@@ -472,11 +441,6 @@ public class BaseConstant {
     public final static String TOKEN_EMONEY_DKK     = "edkk";
     public final static String TOKEN_EMONEY_NOK     = "enok";
     public final static String TOKEN_EMONEY_SEK     = "esek";
-
-    public final static String TOKEN_IOV_TEST       = "uvoi";
-    public final static String TOKEN_COSMOS_TEST    = "umuon";
-    public final static String TOKEN_IRIS_TEST      = "ubif";
-
 
     //HTLC swap support Token Types
     public final static String  TOKEN_HTLC_BINANCE_BNB               = "BNB";
@@ -520,10 +484,9 @@ public class BaseConstant {
     public final static String KEY_DESMOS_PATH              = "m/44'/852'/0'/0/";
     public final static String KEY_LUM_PATH                 = "m/44'/880'/0'/0/";
     public final static String KEY_PROVENANCE_PATH          = "m/44'/505'/0'/0/";
-    public final static String characterFilter              = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
-    public final static long CONSTANT_S = 1000l;
+    public final static long CONSTANT_S = 1000L;
     public final static long CONSTANT_10S = CONSTANT_S * 10;
     public final static long CONSTANT_30S = CONSTANT_S * 30;
     public final static long CONSTANT_M = CONSTANT_S * 60;
@@ -781,12 +744,6 @@ public class BaseConstant {
     public final static String BINANCE_MAIN_BUSD_DEPUTY = "bnb10zq89008gmedc6rrwzdfukjk94swynd7dl97w8";
     public final static String KAVA_MAIN_BUSD_DEPUTY    = "kava1hh4x3a4suu5zyaeauvmv7ypf7w9llwlfufjmuu";
 
-    //For 9000
-    public final static String BINANCE_TEST_BNB_DEPUTY  = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
-    public final static String KAVA_TEST_BNB_DEPUTY     = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl";
-    public final static String BINANCE_TEST_BTC_DEPUTY  = "tbnb1dmn2xgnc8kcxn4s0ts5llu9ry3ulp2nlhuh5fz";
-    public final static String KAVA_TEST_BTC_DEPUTY     = "kava1kla4wl0ccv7u85cemvs3y987hqk0afcv7vue84";
-
     public final static String CHAIN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/chains/logo/";
 
     public final static String COSMOS_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
@@ -943,7 +900,7 @@ public class BaseConstant {
     public final static BigDecimal YEAR_SEC = DAY_SEC.multiply(new BigDecimal("365"));
 
     public final static BigDecimal BLOCK_TIME_COSMOS = new BigDecimal("7.6597");
-    public final static BigDecimal BLOCK_TIME_IMVERSED = new BigDecimal("6.7884"); // it will be corrected
+    public final static BigDecimal BLOCK_TIME_IMVERSED = new BigDecimal("6.7884"); // TODO Imversed it will be corrected
     public final static BigDecimal BLOCK_TIME_IRIS = new BigDecimal("6.7884");
     public final static BigDecimal BLOCK_TIME_IOV = new BigDecimal("6.0124");
     public final static BigDecimal BLOCK_TIME_KAVA = new BigDecimal("6.7262");

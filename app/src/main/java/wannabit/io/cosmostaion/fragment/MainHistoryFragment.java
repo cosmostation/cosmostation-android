@@ -46,7 +46,6 @@ import wannabit.io.cosmostaion.widget.HistoryOldHolder;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 
 public class MainHistoryFragment extends BaseFragment implements TaskListener {
@@ -255,7 +254,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (isGRPC(getMainActivity().mBaseChain)) {
+            if (getMainActivity().mBaseChain.isGRPC()) {
                 HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindNewHistory(getMainActivity(), getBaseDao(), history);
@@ -274,7 +273,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if (isGRPC(getMainActivity().mBaseChain)) {
+            if (getMainActivity().mBaseChain.isGRPC()) {
                 return TYPE_NEW_HISTORY;
             } else {
                 return TYPE_OLD_HISTORY;

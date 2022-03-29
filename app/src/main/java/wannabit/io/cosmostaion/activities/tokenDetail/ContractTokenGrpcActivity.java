@@ -175,7 +175,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendContractActivity.class);
-            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_EXECUTE_CONTRACT, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();

@@ -140,7 +140,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
-        BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+        BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_KAVA_SWAP, 0);
         if (available.compareTo(txFee) <= 0) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();

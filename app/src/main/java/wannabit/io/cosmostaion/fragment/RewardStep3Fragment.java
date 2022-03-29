@@ -78,17 +78,17 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         BigDecimal rewardSum    = BigDecimal.ZERO;
         BigDecimal feeAmount    = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         for (String opAddress: getSActivity().mValAddresses) {
-            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(getSActivity().mBaseChain.getMainDenom(), opAddress));
         }
         mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
             mTvGoalLayer.setVisibility(View.GONE);
             mExpectedLayer.setVisibility(View.VISIBLE);
-            BigDecimal availableAmount  = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
+            BigDecimal availableAmount  = getBaseDao().getAvailable(getSActivity().mBaseChain.getMainDenom());
             BigDecimal expectedAmount   = availableAmount.add(rewardSum).subtract(feeAmount);
             mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAmount, mDpDecimal, mDpDecimal));
-            mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedAmount, mDpDecimal));
+            mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), getSActivity().mBaseChain.getMainDenom(), expectedAmount, mDpDecimal));
 
         } else {
             mTvGoalLayer.setVisibility(View.VISIBLE);
@@ -131,7 +131,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         BigDecimal rewardSum    = BigDecimal.ZERO;
         BigDecimal feeAmount    = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         for (String opAddress: getSActivity().mValAddresses) {
-            rewardSum = rewardSum.add(getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+            rewardSum = rewardSum.add(getBaseDao().getReward(getSActivity().mBaseChain.getMainDenom(), opAddress));
         }
         return feeAmount.compareTo(rewardSum) < 0;
     }

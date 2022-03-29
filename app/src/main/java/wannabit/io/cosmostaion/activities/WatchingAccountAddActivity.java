@@ -31,8 +31,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
-
 public class WatchingAccountAddActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar mToolbar;
@@ -47,13 +45,13 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watching_account_add);
 
-        mToolbar        = findViewById(R.id.tool_bar);
-        mInput          = findViewById(R.id.et_address);
-        mCancel         = findViewById(R.id.btn_cancel);
-        mNext           = findViewById(R.id.btn_next);
-        mBtnQr          = findViewById(R.id.btn_qr);
-        mBtnPaste       = findViewById(R.id.btn_paste);
-        mBtnHistory     = findViewById(R.id.btn_history);
+        mToolbar = findViewById(R.id.tool_bar);
+        mInput = findViewById(R.id.et_address);
+        mCancel = findViewById(R.id.btn_cancel);
+        mNext = findViewById(R.id.btn_next);
+        mBtnQr = findViewById(R.id.btn_qr);
+        mBtnPaste = findViewById(R.id.btn_paste);
+        mBtnHistory = findViewById(R.id.btn_history);
         mBtnHistory.setVisibility(View.GONE);
 
         setSupportActionBar(mToolbar);
@@ -81,7 +79,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mCancel)) {
+        if (v.equals(mCancel)) {
             onBackPressed();
 
         } else if (v.equals(mNext)) {
@@ -95,7 +93,8 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                 if (chains.size() == 1) {
                     onGenNewAccount(chains.get(0), mUserInput);
                 } else {
-                    if (!SUPPORT_CHAINS().contains(chains.get(1))) {
+//                    if (!SUPPORT_CHAINS().contains(chains.get(1))) {
+                    if (!chains.get(1).isSupported()) {
                         onGenNewAccount(chains.get(0), mUserInput);
 
                     } else {
@@ -119,10 +118,10 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
             integrator.initiateScan();
 
         } else if (v.equals(mBtnPaste)) {
-            ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
-                if(TextUtils.isEmpty(userPaste)) {
+                if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -154,10 +153,10 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         if (isFinishing()) return;
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_EMPTY_ACCOUNT) {
-            if(result.isSuccess) {
+            if (result.isSuccess) {
                 onStartMainActivity(0);
             } else {
-                if(result.errorCode == 7001) {
+                if (result.errorCode == 7001) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_already_imported_address), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getBaseContext(), getString(R.string.error_import_errer), Toast.LENGTH_SHORT).show();
@@ -170,8 +169,8 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() != null) {
+        if (result != null) {
+            if (result.getContents() != null) {
                 mInput.setText(result.getContents().trim());
                 mInput.setSelection(mInput.getText().length());
             }

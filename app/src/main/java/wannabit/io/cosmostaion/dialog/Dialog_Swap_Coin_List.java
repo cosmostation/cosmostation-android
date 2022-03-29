@@ -1,5 +1,14 @@
 package wannabit.io.cosmostaion.dialog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -28,16 +37,6 @@ import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
-
 public class Dialog_Swap_Coin_List extends DialogFragment {
 
     private TextView mDialogTitle;
@@ -62,8 +61,11 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_swap_coin_list, null);
         mSwapCoinList = getArguments().getStringArrayList("denoms");
         mDialogTitle = view.findViewById(R.id.dialog_swap_title);
-        if (getTargetRequestCode() == 8500) { mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_in)); }
-        else { mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_out)); }
+        if (getTargetRequestCode() == 8500) {
+            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_in));
+        } else {
+            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_out));
+        }
         mRecyclerView = view.findViewById(R.id.recycler);
         mSwapChainListAdapter = new SwapChainListAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -95,7 +97,8 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                 }
                 try {
                     Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.chainImg);
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
                 try {
                     Picasso.get().load(KAVA_COIN_IMG_URL + mSwapCoinList.get(position) + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
@@ -105,8 +108,9 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                     } else {
                         holder.chainName.setText(mSwapCoinList.get(position).toUpperCase());
                     }
-                } catch (Exception e) { }
-            } else if (inputCoin.equals(TOKEN_ATOM)) {
+                } catch (Exception e) {
+                }
+            } else if (inputCoin.equals(COSMOS_MAIN.getMainDenom())) {
                 holder.chainName.setText(getString(R.string.str_atom_c));
                 Picasso.get().cancelRequest(holder.chainImg);
                 holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
@@ -146,7 +150,9 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
         }
 
         @Override
-        public int getItemCount() { return mSwapCoinList.size(); }
+        public int getItemCount() {
+            return mSwapCoinList.size();
+        }
 
         public class SwapChainHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;

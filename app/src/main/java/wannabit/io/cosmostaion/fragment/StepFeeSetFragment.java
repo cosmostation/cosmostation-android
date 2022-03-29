@@ -238,7 +238,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             mRateControlCard.setVisibility(View.VISIBLE);
         }
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain), WDp.mainDivideDecimal(getSActivity().mBaseChain)));
-        mFeeValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain)));
+        mFeeValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), getSActivity().mBaseChain.getMainDenom(), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain)));
 
         mGasRate.setText(WDp.getDpGasRate(mSelectedGasRate.toPlainString()));
         mGasAmount.setText(mEstimateGasAmount.toPlainString());
@@ -279,7 +279,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     private void onSetFee() {
         Fee fee = new Fee();
         Coin gasCoin = new Coin();
-        gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);
+        gasCoin.denom = getSActivity().mBaseChain.getMainDenom();
         gasCoin.amount = mFee.toPlainString();
         ArrayList<Coin> amount = new ArrayList<>();
         amount.add(gasCoin);
@@ -291,7 +291,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
     private boolean onCheckValidate() {
         if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
-            final String mainDenom = WDp.mainDenom(getSActivity().mBaseChain);
+            final String mainDenom = getSActivity().mBaseChain.getMainDenom();
             final BigDecimal mainDenomAvailable = getBaseDao().getAvailable(mainDenom);
             if (getSActivity().mDenom.equals(mainDenom)) {
                 BigDecimal toSend = new BigDecimal(getSActivity().mAmounts.get(0).amount);
@@ -308,7 +308,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             }
 
         } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_DELEGATE) {
-            BigDecimal delegatable = getBaseDao().getDelegatable(WDp.mainDenom(getSActivity().mBaseChain));
+            BigDecimal delegatable = getBaseDao().getDelegatable(getSActivity().mBaseChain.getMainDenom());
             BigDecimal todelegate = new BigDecimal(getSActivity().mAmount.amount);
             if ((todelegate.add(mFee)).compareTo(delegatable) > 0) {
                 Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
@@ -316,14 +316,14 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             }
 
         } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_REWARD) {
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
+            BigDecimal available = getBaseDao().getAvailable(getSActivity().mBaseChain.getMainDenom());
             if (mFee.compareTo(available) > 0) {
                 Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
                 return false;
             }
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (String opAddress: getSActivity().mValAddresses) {
-                rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+                rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(getSActivity().mBaseChain.getMainDenom(), opAddress));
             }
 
             if (mFee.compareTo(rewardSum) > 0) {
@@ -332,7 +332,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             }
 
         } else if (getSActivity().mTxType == CONST_PW_TX_REINVEST) {
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
+            BigDecimal available = getBaseDao().getAvailable(getSActivity().mBaseChain.getMainDenom());
             if (mFee.compareTo(available) > 0) {
                 Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
                 return false;

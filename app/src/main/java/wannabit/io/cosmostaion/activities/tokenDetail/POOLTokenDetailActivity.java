@@ -197,7 +197,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
             Toast.makeText(POOLTokenDetailActivity.this, getString(R.string.error_prepare), Toast.LENGTH_SHORT).show();
             return;
 //            Intent intent = new Intent(getBaseContext(), SendActivity.class);
-//            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+//            BigDecimal mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
 //            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
 //            if (mainAvailable.compareTo(feeAmount) < 0) {
 //                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();

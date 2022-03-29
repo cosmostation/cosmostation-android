@@ -21,8 +21,6 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-
 public class UnBondingHolder extends BaseHolder {
     private CardView            mUndelegateCard;
     private TextView            mUndelegateCnt;
@@ -64,7 +62,7 @@ public class UnBondingHolder extends BaseHolder {
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
         mUndelegateCard.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
-        if (isGRPC(chain)) {
+        if (chain.isGRPC()) {
             onBindUnbondingGRPC(c, chain, baseData, denom);
         } else {
             onBindUnbonding(c, chain, baseData, denom);

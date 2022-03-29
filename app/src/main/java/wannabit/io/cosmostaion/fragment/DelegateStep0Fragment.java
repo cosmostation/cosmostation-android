@@ -90,7 +90,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         setDpDecimals(mDpDecimal);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-        mMaxAvailable = getSActivity().getBaseDao().getDelegatable(WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);
+        mMaxAvailable = getSActivity().getBaseDao().getDelegatable(getSActivity().mBaseChain.getMainDenom()).subtract(feeAmount);
         mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
         onAddAmountWatcher();
     }
@@ -225,7 +225,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (amountTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
-            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
+            Coin coin = new Coin(getSActivity().mBaseChain.getMainDenom(), amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
             getSActivity().mAmount = coin;
             return true;
 

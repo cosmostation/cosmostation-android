@@ -92,7 +92,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mMainDenom = WDp.mainDenom(mBaseChain);
+        mMainDenom = mBaseChain.getMainDenom();
         mDivideDecimal = WDp.mainDivideDecimal(mBaseChain);
 
         if (mBaseChain.equals(BNB_MAIN)) {
@@ -169,7 +169,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnBep3Send)) {
-            onStartHTLCSendActivity(WDp.mainDenom(mBaseChain));
+            onStartHTLCSendActivity(mBaseChain.getMainDenom());
 
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
@@ -179,7 +179,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal mainAvailable = getBaseDao().availableAmount(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
@@ -216,14 +216,14 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         @Override
         public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
             if (getItemViewType(position) == TYPE_STAKE_OLD) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mBaseChain.getMainDenom());
             }
 
             else if (getItemViewType(position) == TYPE_VESTING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mBaseChain.getMainDenom());
 
             } else if (getItemViewType(position) == TYPE_UNBONDING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mBaseChain.getMainDenom());
 
             } else if (getItemViewType(position) == TYPE_HISTORY) {
 

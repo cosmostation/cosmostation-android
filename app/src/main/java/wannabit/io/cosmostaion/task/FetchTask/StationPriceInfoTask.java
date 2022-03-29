@@ -28,7 +28,7 @@ public class StationPriceInfoTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<ArrayList<Price>> response;
-            if (BaseChain.IS_TESTNET(mBaseChain)) {
+            if (mBaseChain.isTestNet()) {
                 response = ApiClient.getStationTest(mApp).getPrice().execute();
             } else {
                 response = ApiClient.getStation(mApp).getPrice().execute();

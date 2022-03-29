@@ -43,7 +43,7 @@ public class WalletBinanceHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final String denom = mainActivity.mBaseChain.getMainDenom();
         final BigDecimal availableAmount    = baseData.availableAmount(denom);
         final BigDecimal lockedAmount       = baseData.lockedAmount(denom);
         final BigDecimal frozenAmount       = baseData.frozenAmount(denom);

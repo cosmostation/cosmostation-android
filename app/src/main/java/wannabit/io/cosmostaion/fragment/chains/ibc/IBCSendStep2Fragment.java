@@ -93,7 +93,7 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onUpdateInitInfo() {
-        final String mainDenom = WDp.mainDenom(getSActivity().mBaseChain);
+        final String mainDenom = getSActivity().mBaseChain.getMainDenom();
         final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
         mMaxAvailable = getBaseDao().getAvailable(getSActivity().mToIbcDenom);
@@ -231,7 +231,7 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onShowEmptyBalanceWarnDialog() {
-        if (WDp.mainDenom(getSActivity().mBaseChain).equalsIgnoreCase(getSActivity().mToIbcDenom)) {
+        if (getSActivity().mBaseChain.getMainDenom().equalsIgnoreCase(getSActivity().mToIbcDenom)) {
             Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
             dialog.setCancelable(true);
             dialog.show(getFragmentManager().beginTransaction(), "dialog");

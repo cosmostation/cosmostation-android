@@ -122,7 +122,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_DELETE_DOMAIN, 0);
             if (available.compareTo(txFee) < 0) {
                 Toast.makeText(this, R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
@@ -143,7 +143,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                 return;
             }
 
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal starNameFee = getBaseDao().getStarNameRenewAccountFee(mDomain_gRPC.getType());
             BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_RENEW_ACCOUNT, 0);
             if (available.compareTo(starNameFee.add(txFee)) < 0) {
@@ -167,7 +167,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                 return;
             }
 
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal available = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal starNameFee = getBaseDao().getReplaceFee();
             BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REPLACE_STARNAME, 0);
             if (available.compareTo(starNameFee.add(txFee)) < 0) {

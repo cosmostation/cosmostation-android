@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
@@ -17,40 +16,32 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
-
 public class TxDelegatorIncentiveHolder extends TxHolder {
-    ImageView       itemDeleIncentiveImg;
-    TextView        itemDeleIncentiveSender, itemDeleIncentiveName;
-    RelativeLayout  incen0Layer, incen1Layer, incen2Layer, incen3Layer;
-    TextView        itemKavaDenom, itemKavaAmount, itemSwpDenom, itemSwpAmount, itemHardDenom, itemHardAmount, itemUsdxDenom, itemUsdxAmount;
+    ImageView itemDeleIncentiveImg;
+    TextView itemDeleIncentiveSender, itemDeleIncentiveName;
+    RelativeLayout incen0Layer, incen1Layer, incen2Layer, incen3Layer;
+    TextView itemKavaDenom, itemKavaAmount, itemSwpDenom, itemSwpAmount, itemHardDenom, itemHardAmount, itemUsdxDenom, itemUsdxAmount;
 
     public TxDelegatorIncentiveHolder(@NonNull View itemView) {
         super(itemView);
-        itemDeleIncentiveImg            = itemView.findViewById(R.id.tx_msg_icon);
-        itemDeleIncentiveSender         = itemView.findViewById(R.id.tx_incentive_sender);
-        itemDeleIncentiveName           = itemView.findViewById(R.id.tx_multiplier_name);
-        incen0Layer                     = itemView.findViewById(R.id.incen0Layer);
-        itemKavaDenom                   = itemView.findViewById(R.id.kava_symbol);
-        itemKavaAmount                  = itemView.findViewById(R.id.kava_amount);
-        incen1Layer                     = itemView.findViewById(R.id.incen1Layer);
-        itemSwpDenom                    = itemView.findViewById(R.id.swp_symbol);
-        itemSwpAmount                   = itemView.findViewById(R.id.swp_amount);
-        incen2Layer                     = itemView.findViewById(R.id.incen2Layer);
-        itemHardDenom                   = itemView.findViewById(R.id.hard_symbol);
-        itemHardAmount                  = itemView.findViewById(R.id.hard_amount);
-        incen3Layer                     = itemView.findViewById(R.id.incen3Layer);
-        itemUsdxDenom                   = itemView.findViewById(R.id.usdx_symbol);
-        itemUsdxAmount                  = itemView.findViewById(R.id.usdx_amount);
+        itemDeleIncentiveImg = itemView.findViewById(R.id.tx_msg_icon);
+        itemDeleIncentiveSender = itemView.findViewById(R.id.tx_incentive_sender);
+        itemDeleIncentiveName = itemView.findViewById(R.id.tx_multiplier_name);
+        incen0Layer = itemView.findViewById(R.id.incen0Layer);
+        itemKavaDenom = itemView.findViewById(R.id.kava_symbol);
+        itemKavaAmount = itemView.findViewById(R.id.kava_amount);
+        incen1Layer = itemView.findViewById(R.id.incen1Layer);
+        itemSwpDenom = itemView.findViewById(R.id.swp_symbol);
+        itemSwpAmount = itemView.findViewById(R.id.swp_amount);
+        incen2Layer = itemView.findViewById(R.id.incen2Layer);
+        itemHardDenom = itemView.findViewById(R.id.hard_symbol);
+        itemHardAmount = itemView.findViewById(R.id.hard_amount);
+        incen3Layer = itemView.findViewById(R.id.incen3Layer);
+        itemUsdxDenom = itemView.findViewById(R.id.usdx_symbol);
+        itemUsdxAmount = itemView.findViewById(R.id.usdx_amount);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -81,6 +72,7 @@ public class TxDelegatorIncentiveHolder extends TxHolder {
                 WDp.showCoinDp(c, baseData, incentiveCoins.get(3), itemUsdxDenom, itemUsdxAmount, baseChain);
             }
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 }

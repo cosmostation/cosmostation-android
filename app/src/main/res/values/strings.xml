@@ -159,6 +159,7 @@
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_private" translatable="false">PRIVATE_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
+
     <string name="str_atom_c" translatable="false">ATOM</string>
     <string name="str_imversed_c" translatable="false">IMV</string>
     <string name="str_iris_c" translatable="false">IRIS</string>
@@ -454,65 +455,55 @@
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
-    <string name="str_cosmos_hub" translatable="false">(Cosmos)</string>
-    <string name="str_cosmos_hub_2" translatable="false">Cosmos</string>
-    <string name="str_cosmos_testnet" translatable="false">(Stargate Testnet)</string>
-    <string name="str_cosmos_testnet_2" translatable="false">Stargate Testnet</string>
-    <string name="str_imversed_net" translatable="false">(Imversed)</string>
-    <string name="str_imversed_net_2" translatable="false">Imversed</string>
-    <string name="str_iris_net" translatable="false">(Iris)</string>
-    <string name="str_iris_net_2" translatable="false">Iris</string>
-    <string name="str_iris_testnet" translatable="false">(Bifrost Testnet)</string>
-    <string name="str_iris_testnet_2" translatable="false">Bifrost Testnet</string>
-    <string name="str_binance_net" translatable="false">(Binance)</string>
-    <string name="str_binance_net_2" translatable="false">Binance</string>
-    <string name="str_binance_test_net" translatable="false">(Binance Testnet)</string>
-    <string name="str_binance_test_net_2" translatable="false">Binance Testnet</string>
-    <string name="str_iov_net" translatable="false">(Starname)</string>
-    <string name="str_iov_net_2" translatable="false">Starname</string>
-    <string name="str_band_chain" translatable="false">(Band)</string>
-    <string name="str_band_chain_2" translatable="false">Band</string>
-    <string name="str_kava_net" translatable="false">(Kava)</string>
-    <string name="str_kava_net_2" translatable="false">Kava</string>
-    <string name="str_ok_net" translatable="false">(OEC)</string>
-    <string name="str_ok_net2" translatable="false">OEC</string>
-    <string name="str_certik_chain" translatable="false">(Certik)</string>
-    <string name="str_certik_chain_2" translatable="false">Certik</string>
-    <string name="str_secret_chain" translatable="false">(Secret)</string>
-    <string name="str_akash_chain" translatable="false">(Akash)</string>
-    <string name="str_persis_net" translatable="false">(Persistence)</string>
-    <string name="str_sentinel_net" translatable="false">(Sentinel)</string>
-    <string name="str_fetch_net" translatable="false">(Fetch.ai)</string>
-    <string name="str_crypto_net" translatable="false">(Crypto.org)</string>
-    <string name="str_sif_net" translatable="false">(SifChain)</string>
-    <string name="str_ki_net" translatable="false">(Ki Foundation)</string>
-    <string name="str_osmosis_net" translatable="false">(Osmosis)</string>
-    <string name="str_medi_net" translatable="false">(Medibloc)</string>
-    <string name="str_rizon_net" translatable="false">(Rizon)</string>
-    <string name="str_regen_net" translatable="false">(Regen)</string>
-    <string name="str_juno_net" translatable="false">(Juno)</string>
-    <string name="str_bitcanna_net" translatable="false">(Bitcanna)</string>
-    <string name="str_althea_net" translatable="false">(Althea)</string>
-    <string name="str_stargaze_net" translatable="false">(Stargaze)</string>
-    <string name="str_grabridge_net" translatable="false">(G-Bridge)</string>
-    <string name="str_comdex_net" translatable="false">(Comdex)</string>
-    <string name="str_inj_net" translatable="false">(Injective)</string>
-    <string name="str_bitsong_net" translatable="false">(Bitsong)</string>
-    <string name="str_desmos_net" translatable="false">(Desmos)</string>
-    <string name="str_lum_net" translatable="false">(Lum)</string>
-    <string name="str_chihuahua_net" translatable="false">(Chihuahua)</string>
-    <string name="str_axelar_net" translatable="false">(Axelar)</string>
-    <string name="str_konstellation_net" translatable="false">(Konstellation)</string>
-    <string name="str_umee_net" translatable="false">(Umee)</string>
-    <string name="str_evmos_net" translatable="false">(Evmos)</string>
-    <string name="str_cudos_net" translatable="false">(Cudos)</string>
-    <string name="str_provenance_net" translatable="false">(Provenance)</string>
-    <string name="str_cerberus_net" translatable="false">(Cerberus)</string>
-    <string name="str_omniflix_net" translatable="false">(Omniflix)</string>
-    <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
-    <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
-    <string name="str_emoney_net" translatable="false">(E-Money)</string>
-    <string name="str_emoney_net2" translatable="false">E-Money</string>
+
+    <string name="str_unknown" translatable="false">Unknown</string>
+
+    <string name="str_cosmos_hub" translatable="false">Cosmos</string>
+    <string name="str_cosmos_testnet" translatable="false">Stargate Testnet</string>
+    <string name="str_imversed_net" translatable="false">Imversed</string>
+    <string name="str_iris_net" translatable="false">Iris</string>
+    <string name="str_iris_testnet" translatable="false">Bifrost Testnet</string>
+    <string name="str_binance_net" translatable="false">Binance</string>
+    <string name="str_binance_test_net" translatable="false">Binance Testnet</string>
+    <string name="str_iov_net" translatable="false">Starname</string>
+    <string name="str_band_chain" translatable="false">Band</string>
+    <string name="str_kava_net" translatable="false">Kava</string>
+    <string name="str_ok_net" translatable="false">OEC</string>
+    <string name="str_certik_chain" translatable="false">Certik</string>
+    <string name="str_secret_chain" translatable="false">Secret</string>
+    <string name="str_akash_chain" translatable="false">Akash</string>
+    <string name="str_persis_net" translatable="false">Persistence</string>
+    <string name="str_sentinel_net" translatable="false">Sentinel</string>
+    <string name="str_fetch_net" translatable="false">Fetch.ai</string>
+    <string name="str_crypto_net" translatable="false">Crypto.org</string>
+    <string name="str_sif_net" translatable="false">SifChain</string>
+    <string name="str_ki_net" translatable="false">Ki Foundation</string>
+    <string name="str_osmosis_net" translatable="false">Osmosis</string>
+    <string name="str_medi_net" translatable="false">Medibloc</string>
+    <string name="str_rizon_net" translatable="false">Rizon</string>
+    <string name="str_regen_net" translatable="false">Regen</string>
+    <string name="str_juno_net" translatable="false">Juno</string>
+    <string name="str_bitcanna_net" translatable="false">Bitcanna</string>
+    <string name="str_althea_net" translatable="false">Althea</string>
+    <string name="str_stargaze_net" translatable="false">Stargaze</string>
+    <string name="str_grabridge_net" translatable="false">G-Bridge</string>
+    <string name="str_comdex_net" translatable="false">Comdex</string>
+    <string name="str_inj_net" translatable="false">Injective</string>
+    <string name="str_bitsong_net" translatable="false">Bitsong</string>
+    <string name="str_desmos_net" translatable="false">Desmos</string>
+    <string name="str_lum_net" translatable="false">Lum</string>
+    <string name="str_chihuahua_net" translatable="false">Chihuahua</string>
+    <string name="str_axelar_net" translatable="false">Axelar</string>
+    <string name="str_konstellation_net" translatable="false">Konstellation</string>
+    <string name="str_umee_net" translatable="false">Umee</string>
+    <string name="str_evmos_net" translatable="false">Evmos</string>
+    <string name="str_cudos_net" translatable="false">Cudos</string>
+    <string name="str_provenance_net" translatable="false">Provenance</string>
+    <string name="str_cerberus_net" translatable="false">Cerberus</string>
+    <string name="str_omniflix_net" translatable="false">Omniflix</string>
+    <string name="str_althea_chain_test" translatable="false">Althea Testnet</string>
+    <string name="str_emoney_net" translatable="false">E-Money</string>
+
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
@@ -619,13 +610,13 @@
     <string name="str_add_half">Half</string>
     <string name="str_add_max">Max</string>
     <string name="str_approximately"><![CDATA[≈]]></string>
-    <string name="str_max_available_delegate_amount"><![CDATA[Max Available : ]]></string>
-    <string name="str_max_available_undelegate_amount"><![CDATA[Max Available : ]]></string>
-    <string name="str_max_available_redelegate_amount"><![CDATA[Max Available : ]]></string>
-    <string name="str_max_available_send_amount"><![CDATA[Max Available : ]]></string>
-    <string name="str_max_available_deposit_amount"><![CDATA[Max Available :  ]]></string>
-    <string name="str_max_available_withdraw_amount"><![CDATA[Max Available : ]]></string>
-    <string name="str_available_send_amount"><![CDATA[Available : ]]></string>
+    <string name="str_max_available_delegate_amount"><![CDATA[Max Available: ]]></string>
+    <string name="str_max_available_undelegate_amount"><![CDATA[Max Available: ]]></string>
+    <string name="str_max_available_redelegate_amount"><![CDATA[Max Available: ]]></string>
+    <string name="str_max_available_send_amount"><![CDATA[Max Available: ]]></string>
+    <string name="str_max_available_deposit_amount"><![CDATA[Max Available:  ]]></string>
+    <string name="str_max_available_withdraw_amount"><![CDATA[Max Available: ]]></string>
+    <string name="str_available_send_amount"><![CDATA[Available: ]]></string>
     <string name="str_tx_error_description">Transaction request failed. \nPlease check the error code and message.</string>
     <string name="str_success_loading">Transaction request submitted successfully. \nAfter a few moments, the full results will be displayed.\n(Pending times depends on Tx fee.)</string>
     <string name="str_front_guide_title"><![CDATA[COSMOS HUB]]></string>
@@ -670,7 +661,7 @@
     <string name="str_front_guide_title_cerberus"><![CDATA[CERBERUS]]></string>
     <string name="str_front_guide_title_omniflix"><![CDATA[OMNIFLIX]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
-    <string name="str_front_guide_msg_imversed">Interchain service infrastructure for a distributed business ecosystem.</string>
+    <string name="str_front_guide_msg_imversed">Blockchain with no code and no server costs, as a service for brands, businesses, and influencers.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
@@ -1043,20 +1034,20 @@
     <string name="str_draw_debt_cdp_c">BORROW MORE USDX</string>
     <string name="str_deposit_cdp_c">DEPOSIT COLLATERAL</string>
     <string name="str_withdraw_cdp_c">WITHDRAW COLLATERAL</string>
-    <string name="str_depositable_amount"><![CDATA[Depositable : ]]></string>
-    <string name="str_deposit_value"><![CDATA[Deposit Value : ]]></string>
-    <!--    <string name="str_loanable_amount"><![CDATA[Loanable : ]]></string>-->
-    <string name="str_loanable_amount"><![CDATA[Max : ]]></string>
-    <string name="str_approximate_value"><![CDATA[Approximate Value : ]]></string>
-    <string name="str_max_paymentable_amount"><![CDATA[Max : ]]></string>
-    <string name="str_repay_particaly"><![CDATA[Repay Partially : ]]></string>
+    <string name="str_depositable_amount"><![CDATA[Depositable: ]]></string>
+    <string name="str_deposit_value"><![CDATA[Deposit Value: ]]></string>
+    <!--    <string name="str_loanable_amount"><![CDATA[Loanable: ]]></string>-->
+    <string name="str_loanable_amount"><![CDATA[Max: ]]></string>
+    <string name="str_approximate_value"><![CDATA[Approximate Value: ]]></string>
+    <string name="str_max_paymentable_amount"><![CDATA[Max: ]]></string>
+    <string name="str_repay_particaly"><![CDATA[Repay Partially: ]]></string>
     <string name="str_cannot_particaly">Cannot repay partially</string>
-    <string name="str_repay_all"><![CDATA[Repay All : ]]></string>
+    <string name="str_repay_all"><![CDATA[Repay All: ]]></string>
     <string name="str_cannot_repay_all">Insufficient USDX to repay all</string>
-    <!--    <string name="str_max_depositable_amount"><![CDATA[Max Depositable : ]]></string>-->
-    <string name="str_max_depositable_amount"><![CDATA[Max : ]]></string>
-    <!--    <string name="str_max_withdrawable_amount"><![CDATA[Max Withdrawable : ]]></string>-->
-    <string name="str_max_withdrawable_amount"><![CDATA[Max : ]]></string>
+    <!--    <string name="str_max_depositable_amount"><![CDATA[Max Depositable: ]]></string>-->
+    <string name="str_max_depositable_amount"><![CDATA[Max: ]]></string>
+    <!--    <string name="str_max_withdrawable_amount"><![CDATA[Max Withdrawable: ]]></string>-->
+    <string name="str_max_withdrawable_amount"><![CDATA[Max: ]]></string>
     <string name="str_add_min">Min</string>
     <string name="str_add_20"><![CDATA[≈ 20]]></string>
     <string name="str_add_50"><![CDATA[≈ 50]]></string>
@@ -1892,53 +1883,6 @@
     <string name="error_profile_dtag_count">Please insert 6 to 30 characters without a blank and special characters</string>
     <string name="error_no_account_this_chain">No linkable account with this chain</string>
     <string name="error_select_account_link">Please select account to link</string>
-
-
-    <string name="s_atom" translatable="false">ATOM</string>
-    <string name="s_photon" translatable="false">PHOTON</string>
-    <string name="s_muon" translatable="false">MUON</string>
-    <string name="s_photino" translatable="false">PHOTINO</string>
-    <string name="s_imversed" translatable="false">IMV</string>
-    <string name="s_iris" translatable="false">IRIS</string>
-    <string name="s_bnb" translatable="false">BNB</string>
-    <string name="s_iov" translatable="false">IOV</string>
-    <string name="s_kava" translatable="false">KAVA</string>
-    <string name="s_band" translatable="false">BAND</string>
-    <string name="s_okt" translatable="false">OKT</string>
-    <string name="s_ctk" translatable="false">CTK</string>
-    <string name="s_akt" translatable="false">AKT</string>
-    <string name="s_scrt" translatable="false">SCRT</string>
-    <string name="s_bif" translatable="false">BIF</string>
-    <string name="s_xprt" translatable="false">XPRT</string>
-    <string name="s_dvpn" translatable="false">DVPN</string>
-    <string name="s_fet" translatable="false">FET</string>
-    <string name="s_cro" translatable="false">CRO</string>
-    <string name="s_sif" translatable="false">ROWAN</string>
-    <string name="s_ki" translatable="false">XKI</string>
-    <string name="s_rizon" translatable="false">ATOLO</string>
-    <string name="s_medi" translatable="false">MED</string>
-    <string name="s_althea" translatable="false">ALTG</string>
-    <string name="s_osmosis" translatable="false">OSMO</string>
-    <string name="s_umee" translatable="false">UMEE</string>
-    <string name="s_emoney" translatable="false">NGM</string>
-    <string name="s_axelar" translatable="false">AXL</string>
-    <string name="s_juno" translatable="false">JUNO</string>
-    <string name="s_regen" translatable="false">REGEN</string>
-    <string name="s_bitcanna" translatable="false">BCNA</string>
-    <string name="s_stargaze" translatable="false">STARS</string>
-    <string name="s_grabridge" translatable="false">GRAVITON</string>
-    <string name="s_comdex" translatable="false">CMDX</string>
-    <string name="s_inj" translatable="false">INJ</string>
-    <string name="s_bitsong" translatable="false">BTSG</string>
-    <string name="s_desmos" translatable="false">DSM</string>
-    <string name="s_lum" translatable="false">LUM</string>
-    <string name="s_chihuahua" translatable="false">HUAHUA</string>
-    <string name="s_konstellation" translatable="false">DARC</string>
-    <string name="s_evmos" translatable="false">EVMOS</string>
-    <string name="s_cudos" translatable="false">CUDOS</string>
-    <string name="s_provenance" translatable="false">HASH</string>
-    <string name="s_cerberus" translatable="false">CRBRUS</string>
-    <string name="s_omniflix" translatable="false">FLIX</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -40,31 +44,26 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
-
 public class RestorePathActivity extends BaseActivity implements TaskListener {
 
-    private String              mHdSeed;
-    private String              mEntropy;
-    private int                 mWordSize;
-    private BaseChain           mChain;
+    private String mHdSeed;
+    private String mEntropy;
+    private int mWordSize;
+    private BaseChain mChain;
 
-    private Toolbar                 mToolbar;
-    private RecyclerView            mRecyclerView;
-    private NewWalletAdapter        mNewWalletAdapter;
+    private Toolbar mToolbar;
+    private RecyclerView mRecyclerView;
+    private NewWalletAdapter mNewWalletAdapter;
 
-    private int                     mCustomPath;
+    private int mCustomPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restore_path);
 
-        mToolbar           = findViewById(R.id.tool_bar);
-        mRecyclerView       = findViewById(R.id.recycler);
+        mToolbar = findViewById(R.id.tool_bar);
+        mRecyclerView = findViewById(R.id.recycler);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -76,7 +75,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         mRecyclerView.setAdapter(mNewWalletAdapter);
 
         mHdSeed = getIntent().getStringExtra("HDseed");
-        mEntropy =  getIntent().getStringExtra("entropy");
+        mEntropy = getIntent().getStringExtra("entropy");
         mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
         mWordSize = getIntent().getIntExtra("size", 24);
         mCustomPath = getIntent().getIntExtra("customPath", 0);
@@ -96,28 +95,27 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), mChain, this, mCustomPath).execute(""+path, mEntropy, ""+mWordSize);
+        new GenerateAccountTask(getBaseApplication(), mChain, this, mCustomPath).execute("" + path, mEntropy, "" + mWordSize);
     }
 
     private void onOverrideAccount(Account account, int path) {
-        new OverrideAccountTask(getBaseApplication(), account, this, mCustomPath).execute(""+path, mEntropy, ""+mWordSize);
+        new OverrideAccountTask(getBaseApplication(), account, this, mCustomPath).execute("" + path, mEntropy, "" + mWordSize);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
-            if(result.isSuccess) {
+            if (result.isSuccess) {
                 onStartMainActivity(0);
             }
 
         } else if (result.taskType == BaseConstant.TASK_OVERRIDE_ACCOUNT) {
-            if(result.isSuccess) {
+            if (result.isSuccess) {
                 onStartMainActivity(0);
             }
         }
     }
-
 
 
     private class NewWalletAdapter extends RecyclerView.Adapter<NewWalletAdapter.NewWalletHolder> {
@@ -139,7 +137,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
                 holder.cardNewWallet.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
             } else {
-                if(temp.hasPrivateKey) {
+                if (temp.hasPrivateKey) {
                     holder.newState.setText(getString(R.string.str_imported));
                     holder.newState.setTextColor(getResources().getColor(R.color.colorGray1));
                     holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
@@ -152,7 +150,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             holder.cardNewWallet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(holder.newState.getText().toString().equals(getString(R.string.str_ready))) {
+                    if (holder.newState.getText().toString().equals(getString(R.string.str_ready))) {
                         onGenAccount(position);
                     } else if (holder.newState.getText().toString().equals(getString(R.string.str_imported))) {
                         Toast.makeText(getBaseContext(), getString(R.string.str_already_imported_key), Toast.LENGTH_SHORT).show();
@@ -163,17 +161,17 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 }
             });
 
-            if (isGRPC(mChain)) {
+            if (mChain.isGRPC()) {
                 holder.coinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), getBaseDao(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
+                WDp.showCoinDp(getBaseContext(), getBaseDao(), mChain.getMainDenom(), "0", holder.coinDenom, holder.coinAmount, mChain);
                 new BalanceGrpcTask(getBaseApplication(), new TaskListener() {
                     @Override
                     public void onTaskResponse(TaskResult result) {
                         WLog.w("result " + result.resultData);
-                        ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>)result.resultData;
+                        ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>) result.resultData;
                         if (balances != null && balances.size() > 0) {
-                            for (CoinOuterClass.Coin balance: balances) {
-                                if (balance.getDenom().equals(WDp.mainDenom(mChain))) {
+                            for (CoinOuterClass.Coin balance : balances) {
+                                if (balance.getDenom().equals(mChain.getMainDenom())) {
                                     WDp.showCoinDp(getBaseContext(), getBaseDao(), balance.getDenom(), balance.getAmount(), holder.coinDenom, holder.coinAmount, mChain);
                                 }
                             }
@@ -187,17 +185,19 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 ApiClient.getBnbChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResBnbAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
-                        if(response.isSuccessful() && response.body() != null && response.body().balances != null) {
-                            for (ResBnbAccountInfo.BnbBalance balance:response.body().balances) {
-                                if (balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
+                        if (response.isSuccessful() && response.body() != null && response.body().balances != null) {
+                            for (ResBnbAccountInfo.BnbBalance balance : response.body().balances) {
+                                if (balance.symbol.equals(BNB_MAIN.getMainDenom())) {
                                     holder.bnbAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.free), 0, 8));
                                     break;
                                 }
                             }
                         }
                     }
+
                     @Override
-                    public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) { }
+                    public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) {
+                    }
                 });
 
             } else if (mChain.equals(OKEX_MAIN)) {
@@ -206,8 +206,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 ApiClient.getOkexChain(getBaseContext()).getAccountBalance(address).enqueue(new Callback<ResOkAccountToken>() {
                     @Override
                     public void onResponse(Call<ResOkAccountToken> call, Response<ResOkAccountToken> response) {
-                        if(response.isSuccessful() && response.body() != null && response.body().data != null && response.body().data.currencies != null) {
-                            for (ResOkAccountToken.OkCurrency balance:response.body().data.currencies) {
+                        if (response.isSuccessful() && response.body() != null && response.body().data != null && response.body().data.currencies != null) {
+                            for (ResOkAccountToken.OkCurrency balance : response.body().data.currencies) {
                                 if (balance.symbol.equals(TOKEN_OK)) {
                                     holder.okAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(balance.available), 0, 18));
                                     break;
@@ -215,8 +215,10 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                             }
                         }
                     }
+
                     @Override
-                    public void onFailure(Call<ResOkAccountToken> call, Throwable t) { }
+                    public void onFailure(Call<ResOkAccountToken> call, Throwable t) {
+                    }
                 });
 
             }
@@ -236,35 +238,35 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
             public NewWalletHolder(View v) {
                 super(v);
-                cardNewWallet       = itemView.findViewById(R.id.card_new_wallet);
-                newPath             = itemView.findViewById(R.id.new_path);
-                newState            = itemView.findViewById(R.id.new_state);
-                newAddress          = itemView.findViewById(R.id.new_address);
-                atomLayer           = itemView.findViewById(R.id.atom_layer);
-                atomAmount          = itemView.findViewById(R.id.atom_amount);
-                photonLayer         = itemView.findViewById(R.id.photon_layer);
-                photonAmount        = itemView.findViewById(R.id.photon_amount);
-                irisLayer           = itemView.findViewById(R.id.iris_layer);
-                irisAmount          = itemView.findViewById(R.id.iris_amount);
-                bnbLayer            = itemView.findViewById(R.id.bnb_layer);
-                bnbAmount           = itemView.findViewById(R.id.bnb_amount);
-                kavaLayer           = itemView.findViewById(R.id.kava_layer);
-                kavaAmount          = itemView.findViewById(R.id.kava_amount);
-                iovLayer            = itemView.findViewById(R.id.iov_layer);
-                iovAmount           = itemView.findViewById(R.id.iov_amount);
-                bandLayer           = itemView.findViewById(R.id.band_layer);
-                bandAmount          = itemView.findViewById(R.id.band_amount);
-                okLayer             = itemView.findViewById(R.id.ok_layer);
-                okAmount            = itemView.findViewById(R.id.ok_amount);
-                certikLayer         = itemView.findViewById(R.id.certik_layer);
-                certikAmount        = itemView.findViewById(R.id.certik_amount);
-                akashLayer          = itemView.findViewById(R.id.akash_layer);
-                akashAmount         = itemView.findViewById(R.id.akash_amount);
-                secretLayer         = itemView.findViewById(R.id.secret_layer);
-                secretAmount        = itemView.findViewById(R.id.secret_amount);
-                coinLayer           = itemView.findViewById(R.id.coin_layer);
-                coinDenom           = itemView.findViewById(R.id.coin_denom);
-                coinAmount          = itemView.findViewById(R.id.coin_amount);
+                cardNewWallet = itemView.findViewById(R.id.card_new_wallet);
+                newPath = itemView.findViewById(R.id.new_path);
+                newState = itemView.findViewById(R.id.new_state);
+                newAddress = itemView.findViewById(R.id.new_address);
+                atomLayer = itemView.findViewById(R.id.atom_layer);
+                atomAmount = itemView.findViewById(R.id.atom_amount);
+                photonLayer = itemView.findViewById(R.id.photon_layer);
+                photonAmount = itemView.findViewById(R.id.photon_amount);
+                irisLayer = itemView.findViewById(R.id.iris_layer);
+                irisAmount = itemView.findViewById(R.id.iris_amount);
+                bnbLayer = itemView.findViewById(R.id.bnb_layer);
+                bnbAmount = itemView.findViewById(R.id.bnb_amount);
+                kavaLayer = itemView.findViewById(R.id.kava_layer);
+                kavaAmount = itemView.findViewById(R.id.kava_amount);
+                iovLayer = itemView.findViewById(R.id.iov_layer);
+                iovAmount = itemView.findViewById(R.id.iov_amount);
+                bandLayer = itemView.findViewById(R.id.band_layer);
+                bandAmount = itemView.findViewById(R.id.band_amount);
+                okLayer = itemView.findViewById(R.id.ok_layer);
+                okAmount = itemView.findViewById(R.id.ok_amount);
+                certikLayer = itemView.findViewById(R.id.certik_layer);
+                certikAmount = itemView.findViewById(R.id.certik_amount);
+                akashLayer = itemView.findViewById(R.id.akash_layer);
+                akashAmount = itemView.findViewById(R.id.akash_amount);
+                secretLayer = itemView.findViewById(R.id.secret_layer);
+                secretAmount = itemView.findViewById(R.id.secret_amount);
+                coinLayer = itemView.findViewById(R.id.coin_layer);
+                coinDenom = itemView.findViewById(R.id.coin_denom);
+                coinAmount = itemView.findViewById(R.id.coin_amount);
             }
         }
     }

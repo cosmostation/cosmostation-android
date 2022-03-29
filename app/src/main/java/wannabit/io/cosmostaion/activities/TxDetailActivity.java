@@ -21,7 +21,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_MULTI_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_WITHDRAW;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 
 import android.content.Intent;
@@ -223,13 +222,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
 
-        } else if(v.equals(mExplorerBtn)) {
+        } else if (v.equals(mExplorerBtn)) {
             if (mBaseChain.equals(BNB_MAIN)) {
-                String url  = WUtil.getTxExplorer(mBaseChain, mResBnbTxInfo.hash);
+                String url = WUtil.getTxExplorer(mBaseChain, mResBnbTxInfo.hash);
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
-            } else if (mResTxInfo != null && !TextUtils.isEmpty(mResTxInfo.txhash)){
-                String url  = WUtil.getTxExplorer(mBaseChain, mResTxInfo.txhash);
+            } else if (mResTxInfo != null && !TextUtils.isEmpty(mResTxInfo.txhash)) {
+                String url = WUtil.getTxExplorer(mBaseChain, mResTxInfo.txhash);
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             } else {
@@ -245,7 +244,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
 
             if (mBaseChain.equals(BNB_MAIN)) {
-                if ((getBaseDao().availableAmount(TOKEN_BNB)).compareTo(new BigDecimal(FEE_BNB_SEND)) < 0) {
+                if ((getBaseDao().availableAmount(BNB_MAIN.getMainDenom())).compareTo(new BigDecimal(FEE_BNB_SEND)) < 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -323,9 +322,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindRewardAll(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_UNJAIL) {
                 onBindUnjail(viewHolder, position);
-            }
-
-            else if (getItemViewType(position) == TYPE_TX_HTLC_CREATE) {
+            } else if (getItemViewType(position) == TYPE_TX_HTLC_CREATE) {
                 onBindCreateHTLC(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_HTLC_CLAIM) {
                 onBindClaimHTLC(viewHolder, position);
@@ -441,7 +438,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemFeeLayer.setVisibility(View.VISIBLE);
                 holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
-                holder.itemHash.setText("0x"+mResTxInfo.txhash);
+                holder.itemHash.setText("0x" + mResTxInfo.txhash);
                 holder.itemMemo.setText(mResTxInfo.tx.value.memo);
 
             } else {

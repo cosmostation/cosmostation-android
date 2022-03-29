@@ -131,7 +131,7 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
         onCalculateFees();
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain), WDp.mainDisplayDecimal(getSActivity().mBaseChain)));
-        mFeeValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain)));
+        mFeeValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), getSActivity().mBaseChain.getMainDenom(), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain)));
 
         mGasRate.setText(WDp.getDpGasRate(mSelectedGasRate.toPlainString()));
         mGasAmount.setText(mEstimateGasAmount.toPlainString());
@@ -155,7 +155,7 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
     private void onSetFee() {
         Fee fee = new Fee();
         Coin gasCoin = new Coin();
-        gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);
+        gasCoin.denom = getSActivity().mBaseChain.getMainDenom();
         gasCoin.amount = mFee.toPlainString();
         ArrayList<Coin> amount = new ArrayList<>();
         amount.add(gasCoin);

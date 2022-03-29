@@ -6,7 +6,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 import android.content.Intent;
@@ -173,7 +172,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
 
             BigDecimal convertedBnbAmount = WUtil.getBnbConvertAmount(getBaseDao(), mDenom, amount);
-            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_BNB, convertedBnbAmount, 0));
+            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), BNB_MAIN.getMainDenom(), convertedBnbAmount, 0));
 
             mItemPerPrice.setText(WUtil.dpBnbTokenUserCurrencyPrice(getBaseDao(), mDenom));
             mItemUpDownPrice.setText("");
@@ -215,7 +214,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal mainAvailable = getBaseDao().availableAmount(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();

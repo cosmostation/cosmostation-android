@@ -45,55 +45,55 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
-public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClickListener{
+public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar                         mToolbar;
-    private ImageView                       mToolbarSymbolImg;
-    private TextView                        mToolbarSymbol;
-    private TextView                        mItemPerPrice;
-    private ImageView                       mItemUpDownImg;
-    private TextView                        mItemUpDownPrice;
+    private Toolbar mToolbar;
+    private ImageView mToolbarSymbolImg;
+    private TextView mToolbarSymbol;
+    private TextView mItemPerPrice;
+    private ImageView mItemUpDownImg;
+    private TextView mItemUpDownPrice;
 
-    private CardView                        mBtnAddressPopup;
-    private ImageView                       mKeyState;
-    private TextView                        mAddress;
-    private TextView                        mTotalValue;
-    private SwipeRefreshLayout              mSwipeRefreshLayout;
-    private RecyclerView                    mRecyclerView;
+    private CardView mBtnAddressPopup;
+    private ImageView mKeyState;
+    private TextView mAddress;
+    private TextView mTotalValue;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
 
-    private RelativeLayout                  mBtnIbcSend;
-    private RelativeLayout                  mBtnBep3Send;
-    private RelativeLayout                  mBtnSend;
+    private RelativeLayout mBtnIbcSend;
+    private RelativeLayout mBtnBep3Send;
+    private RelativeLayout mBtnSend;
 
-    private NativeTokenGrpcAdapter          mAdapter;
-    private String                          mNativeGrpcDenom;
+    private NativeTokenGrpcAdapter mAdapter;
+    private String mNativeGrpcDenom;
 
-    private int                             mDivideDecimal = 6;
-    private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
+    private int mDivideDecimal = 6;
+    private BigDecimal mTotalAmount = BigDecimal.ZERO;
 
-    private Boolean                         mHasVesting = false;
+    private Boolean mHasVesting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_token_detail_native);
 
-        mToolbar                = findViewById(R.id.tool_bar);
-        mToolbarSymbolImg       = findViewById(R.id.toolbar_symbol_img);
-        mToolbarSymbol          = findViewById(R.id.toolbar_symbol);
-        mItemPerPrice           = findViewById(R.id.per_price);
-        mItemUpDownImg          = findViewById(R.id.ic_price_updown);
-        mItemUpDownPrice        = findViewById(R.id.dash_price_updown_tx);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
+        mToolbarSymbol = findViewById(R.id.toolbar_symbol);
+        mItemPerPrice = findViewById(R.id.per_price);
+        mItemUpDownImg = findViewById(R.id.ic_price_updown);
+        mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
 
-        mBtnAddressPopup        = findViewById(R.id.card_root);
-        mKeyState               = findViewById(R.id.img_account);
-        mAddress                = findViewById(R.id.account_Address);
-        mTotalValue             = findViewById(R.id.total_value);
-        mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
-        mRecyclerView           = findViewById(R.id.recycler);
-        mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
-        mBtnBep3Send            = findViewById(R.id.btn_bep3_send);
-        mBtnSend                = findViewById(R.id.btn_send);
+        mBtnAddressPopup = findViewById(R.id.card_root);
+        mKeyState = findViewById(R.id.img_account);
+        mAddress = findViewById(R.id.account_Address);
+        mTotalValue = findViewById(R.id.total_value);
+        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
+        mRecyclerView = findViewById(R.id.recycler);
+        mBtnIbcSend = findViewById(R.id.btn_ibc_send);
+        mBtnBep3Send = findViewById(R.id.btn_bep3_send);
+        mBtnSend = findViewById(R.id.btn_send);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -104,8 +104,12 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mNativeGrpcDenom = getIntent().getStringExtra("denom");
 
         if (mBaseChain.equals(KAVA_MAIN)) {
-            if (getBaseDao().onParseRemainVestingsByDenom(mNativeGrpcDenom).size() > 0) { mHasVesting = true; }
-            if (WUtil.isBep3Coin(mNativeGrpcDenom)) { mBtnBep3Send.setVisibility(View.VISIBLE); }
+            if (getBaseDao().onParseRemainVestingsByDenom(mNativeGrpcDenom).size() > 0) {
+                mHasVesting = true;
+            }
+            if (WUtil.isBep3Coin(mNativeGrpcDenom)) {
+                mBtnBep3Send.setVisibility(View.VISIBLE);
+            }
         }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -204,8 +208,11 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         if (v.equals(mBtnAddressPopup)) {
             Bundle bundle = new Bundle();
             bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
-            else { bundle.putString("title", mAccount.nickName); }
+            if (TextUtils.isEmpty(mAccount.nickName)) {
+                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
+            } else {
+                bundle.putString("title", mAccount.nickName);
+            }
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
@@ -217,7 +224,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-            final String mainDenom = WDp.mainDenom(mBaseChain);
+            final String mainDenom = mBaseChain.getMainDenom();
             final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
@@ -242,7 +249,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
                 return;
             }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal mainAvailable = getBaseDao().getAvailable(mBaseChain.getMainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (mainAvailable.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
@@ -258,27 +265,22 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     }
 
     private class NativeTokenGrpcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_UNKNOWN               = -1;
-        private static final int TYPE_NATIVE                = 0;
+        private static final int TYPE_UNKNOWN = -1;
+        private static final int TYPE_NATIVE = 0;
 
-        private static final int TYPE_VESTING               = 99;
-        private static final int TYPE_HISTORY               = 100;
+        private static final int TYPE_VESTING = 99;
+        private static final int TYPE_HISTORY = 100;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if (viewType == TYPE_UNKNOWN) {
-
-            } else if (viewType == TYPE_NATIVE) {
+            if (viewType == TYPE_NATIVE) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
 
             } else if (viewType == TYPE_VESTING) {
                 return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
 
             }
-//            } else if (viewType == TYPE_HISTORY) {
-//                return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
-//            }
             return null;
         }
 
@@ -291,10 +293,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             } else if (getItemViewType(position) == TYPE_VESTING) {
                 VestingHolder holder = (VestingHolder) viewHolder;
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mNativeGrpcDenom);
-//
-//            } else if (getItemViewType(position) == TYPE_HISTORY) {
-//
-//            } else if (getItemViewType(position) == TYPE_UNKNOWN) {
             }
         }
 

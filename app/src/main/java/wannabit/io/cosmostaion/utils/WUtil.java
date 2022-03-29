@@ -61,6 +61,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -723,40 +725,28 @@ public class WUtil {
      * Sorts
      */
     public static void onSortByValidatorName(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-                return o1.description.moniker.compareTo(o2.description.moniker);
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+            if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+            return o1.description.moniker.compareTo(o2.description.moniker);
         });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.jailed && !o2.jailed) return 1;
+            else if (!o1.jailed && o2.jailed) return -1;
+            else return 0;
         });
     }
 
     public static void onSortByValidatorNameV1(ArrayList<Staking.Validator> validators) {
-        Collections.sort(validators, new Comparator<Staking.Validator>() {
-            @Override
-            public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
-                return o1.getDescription().getMoniker().compareTo(o2.getDescription().getMoniker());
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
+            if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+            return o1.getDescription().getMoniker().compareTo(o2.getDescription().getMoniker());
         });
-        Collections.sort(validators, new Comparator<Staking.Validator>() {
-            @Override
-            public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getJailed() && !o2.getJailed()) return 1;
-                else if (!o1.getJailed() && o2.getJailed()) return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.getJailed() && !o2.getJailed()) return 1;
+            else if (!o1.getJailed() && o2.getJailed()) return -1;
+            else return 0;
         });
     }
 
@@ -772,313 +762,235 @@ public class WUtil {
                 else return 0;
             }
         });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.jailed && !o2.jailed) return 1;
+            else if (!o1.jailed && o2.jailed) return -1;
+            else return 0;
         });
     }
 
     public static void onSortByValidatorPowerV1(ArrayList<Staking.Validator> validators) {
-        Collections.sort(validators, new Comparator<Staking.Validator>() {
-            @Override
-            public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
+            if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
 
-                if (Double.parseDouble(o1.getTokens()) > Double.parseDouble(o2.getTokens()))
-                    return -1;
-                else if (Double.parseDouble(o1.getTokens()) < Double.parseDouble(o2.getTokens()))
-                    return 1;
-                else return 0;
-            }
+            if (Double.parseDouble(o1.getTokens()) > Double.parseDouble(o2.getTokens()))
+                return -1;
+            else if (Double.parseDouble(o1.getTokens()) < Double.parseDouble(o2.getTokens()))
+                return 1;
+            else return 0;
         });
-        Collections.sort(validators, new Comparator<Staking.Validator>() {
-            @Override
-            public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getJailed() && !o2.getJailed()) return 1;
-                else if (!o1.getJailed() && o2.getJailed()) return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.getJailed() && !o2.getJailed()) return 1;
+            else if (!o1.getJailed() && o2.getJailed()) return -1;
+            else return 0;
         });
     }
 
     public static void onSortByOKValidatorPower(ArrayList<Validator> validators) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+            if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
 
-                if (Double.parseDouble(o1.delegator_shares) > Double.parseDouble(o2.delegator_shares))
-                    return -1;
-                else if (Double.parseDouble(o1.delegator_shares) < Double.parseDouble(o2.delegator_shares))
-                    return 1;
-                else return 0;
-            }
+            if (Double.parseDouble(o1.delegator_shares) > Double.parseDouble(o2.delegator_shares))
+                return -1;
+            else if (Double.parseDouble(o1.delegator_shares) < Double.parseDouble(o2.delegator_shares))
+                return 1;
+            else return 0;
         });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.jailed && !o2.jailed) return 1;
+            else if (!o1.jailed && o2.jailed) return -1;
+            else return 0;
         });
     }
 
 
     public static void onSortByDelegate(ArrayList<Validator> validators, final BaseData dao) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-                BigDecimal bondingO1 = dao.delegatedAmountByValidator(o1.operator_address);
-                BigDecimal bondingO2 = dao.delegatedAmountByValidator(o2.operator_address);
-                return bondingO2.compareTo(bondingO1);
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+            if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+            BigDecimal bondingO1 = dao.delegatedAmountByValidator(o1.operator_address);
+            BigDecimal bondingO2 = dao.delegatedAmountByValidator(o2.operator_address);
+            return bondingO2.compareTo(bondingO1);
 
-            }
         });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.jailed && !o2.jailed) return 1;
+            else if (!o1.jailed && o2.jailed) return -1;
+            else return 0;
         });
     }
 
     public static void onSortByDelegateV1(ArrayList<Staking.Validator> validators, final BaseData dao) {
-        Collections.sort(validators, new Comparator<Staking.Validator>() {
-            @Override
-            public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
-                BigDecimal bondingO1 = dao.getDelegation(o1.getOperatorAddress());
-                BigDecimal bondingO2 = dao.getDelegation(o2.getOperatorAddress());
-                return bondingO2.compareTo(bondingO1);
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
+            if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+            BigDecimal bondingO1 = dao.getDelegation(o1.getOperatorAddress());
+            BigDecimal bondingO2 = dao.getDelegation(o2.getOperatorAddress());
+            return bondingO2.compareTo(bondingO1);
         });
-        Collections.sort(validators, new Comparator<Staking.Validator>() {
-            @Override
-            public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getJailed() && !o2.getJailed()) return 1;
-                else if (!o1.getJailed() && o2.getJailed()) return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.getJailed() && !o2.getJailed()) return 1;
+            else if (!o1.getJailed() && o2.getJailed()) return -1;
+            else return 0;
         });
     }
 
     public static void onSortByReward(ArrayList<Validator> validators, String denom, BaseData basedata) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+            if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
 
-                BigDecimal rewardO1 = basedata.rewardAmountByValidator(denom, o1.operator_address);
-                BigDecimal rewardO2 = basedata.rewardAmountByValidator(denom, o2.operator_address);
-                return rewardO2.compareTo(rewardO1);
-            }
+            BigDecimal rewardO1 = basedata.rewardAmountByValidator(denom, o1.operator_address);
+            BigDecimal rewardO2 = basedata.rewardAmountByValidator(denom, o2.operator_address);
+            return rewardO2.compareTo(rewardO1);
         });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.jailed && !o2.jailed) return 1;
+            else if (!o1.jailed && o2.jailed) return -1;
+            else return 0;
         });
     }
 
     public static void onSortByRewardV1(ArrayList<Staking.Validator> validators, String denom, final BaseData dao) {
-        Collections.sort(validators, new Comparator<Staking.Validator>() {
-            @Override
-            public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
-                BigDecimal rewardO1 = dao.getReward(denom, o1.getOperatorAddress());
-                BigDecimal rewardO2 = dao.getReward(denom, o2.getOperatorAddress());
-                return rewardO2.compareTo(rewardO1);
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
+            if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+            BigDecimal rewardO1 = dao.getReward(denom, o1.getOperatorAddress());
+            BigDecimal rewardO2 = dao.getReward(denom, o2.getOperatorAddress());
+            return rewardO2.compareTo(rewardO1);
         });
-        Collections.sort(validators, new Comparator<Staking.Validator>() {
-            @Override
-            public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getJailed() && !o2.getJailed()) return 1;
-                else if (!o1.getJailed() && o2.getJailed()) return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.getJailed() && !o2.getJailed()) return 1;
+            else if (!o1.getJailed() && o2.getJailed()) return -1;
+            else return 0;
         });
     }
 
     public static void onSortByOnlyReward(ArrayList<Validator> validators, String denom, BaseData basedata) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                BigDecimal rewardO1 = basedata.rewardAmountByValidator(denom, o1.operator_address);
-                BigDecimal rewardO2 = basedata.rewardAmountByValidator(denom, o2.operator_address);
-                return rewardO2.compareTo(rewardO1);
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            BigDecimal rewardO1 = basedata.rewardAmountByValidator(denom, o1.operator_address);
+            BigDecimal rewardO2 = basedata.rewardAmountByValidator(denom, o2.operator_address);
+            return rewardO2.compareTo(rewardO1);
         });
     }
 
     public static void onSortRewardAmount(ArrayList<Distribution.DelegationDelegatorReward> rewards, String denom) {
-        Collections.sort(rewards, new Comparator<Distribution.DelegationDelegatorReward>() {
-            @Override
-            public int compare(Distribution.DelegationDelegatorReward o1, Distribution.DelegationDelegatorReward o2) {
-                BigDecimal rewardO1 = getGrpcRewardAmount(o1, denom);
-                BigDecimal rewardO2 = getGrpcRewardAmount(o2, denom);
-                return rewardO2.compareTo(rewardO1);
-            }
+        Collections.sort(rewards, (o1, o2) -> {
+            BigDecimal rewardO1 = getGrpcRewardAmount(o1, denom);
+            BigDecimal rewardO2 = getGrpcRewardAmount(o2, denom);
+            return rewardO2.compareTo(rewardO1);
         });
     }
 
     public static BigDecimal getGrpcRewardAmount(Distribution.DelegationDelegatorReward reward, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        result = decCoinAmount(reward.getRewardList(), denom);
-        return result;
+        return decCoinAmount(reward.getRewardList(), denom);
     }
 
     public static BigDecimal decCoinAmount(List<CoinOuterClass.DecCoin> coins, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
         for (CoinOuterClass.DecCoin coin : coins) {
             if (coin.getDenom().equals(denom)) {
                 return new BigDecimal(coin.getAmount()).movePointLeft(18).setScale(0, RoundingMode.DOWN);
             }
         }
-        return result;
+        return BigDecimal.ZERO;
     }
 
     public static void onSortingByCommission(ArrayList<Validator> validators, final BaseChain chain) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-                if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate))
-                    return 1;
-                else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate))
-                    return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
+            if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+            if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate))
+                return 1;
+            else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate))
+                return -1;
+            else return 0;
         });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.jailed && !o2.jailed) return 1;
+            else if (!o1.jailed && o2.jailed) return -1;
+            else return 0;
         });
     }
 
     public static void onSortingByCommissionV1(ArrayList<Staking.Validator> validators) {
-        Collections.sort(validators, new Comparator<Staking.Validator>() {
-            @Override
-            public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
-                if (Float.parseFloat(o1.getCommission().getCommissionRates().getRate()) > Float.parseFloat(o2.getCommission().getCommissionRates().getRate()))
-                    return 1;
-                else if (Float.parseFloat(o1.getCommission().getCommissionRates().getRate()) < Float.parseFloat(o2.getCommission().getCommissionRates().getRate()))
-                    return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
+            if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+            if (Float.parseFloat(o1.getCommission().getCommissionRates().getRate()) > Float.parseFloat(o2.getCommission().getCommissionRates().getRate()))
+                return 1;
+            else if (Float.parseFloat(o1.getCommission().getCommissionRates().getRate()) < Float.parseFloat(o2.getCommission().getCommissionRates().getRate()))
+                return -1;
+            else return 0;
         });
-        Collections.sort(validators, new Comparator<Staking.Validator>() {
-            @Override
-            public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getJailed() && !o2.getJailed()) return 1;
-                else if (!o1.getJailed() && o2.getJailed()) return -1;
-                else return 0;
-            }
+        Collections.sort(validators, (o1, o2) -> {
+            if (o1.getJailed() && !o2.getJailed()) return 1;
+            else if (!o1.getJailed() && o2.getJailed()) return -1;
+            else return 0;
         });
     }
 
     public static void onSortingDenom(ArrayList<String> denom, BaseChain chain) {
-        Collections.sort(denom, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                if (o1.equals(WDp.mainDenom(chain))) return -1;
-                if (o2.equals(WDp.mainDenom(chain))) return 1;
+        Collections.sort(denom, (o1, o2) -> {
+            if (o1.equals(chain.getMainDenom())) return -1;
+            if (o2.equals(chain.getMainDenom())) return 1;
 
-                if (chain.equals(KAVA_MAIN)) {
-                    if (o1.equals(TOKEN_HARD)) return -1;
-                    if (o2.equals(TOKEN_HARD)) return 1;
+            if (chain.equals(KAVA_MAIN)) {
+                if (o1.equals(TOKEN_HARD)) return -1;
+                if (o2.equals(TOKEN_HARD)) return 1;
 
-                }
-                return 0;
             }
+            return 0;
         });
     }
 
     public static void onSortingNativeCoins(ArrayList<Balance> balances, final BaseChain chain) {
-        Collections.sort(balances, new Comparator<Balance>() {
-            @Override
-            public int compare(Balance o1, Balance o2) {
-                if (o1.symbol.equals(WDp.mainDenom(chain))) return -1;
-                if (o2.symbol.equals(WDp.mainDenom(chain))) return 1;
+        Collections.sort(balances, (o1, o2) -> {
+            if (o1.symbol.equals(chain.getMainDenom())) return -1;
+            if (o2.symbol.equals(chain.getMainDenom())) return 1;
 
-                if (chain.equals(KAVA_MAIN)) {
-                    if (o1.symbol.equals(TOKEN_HARD)) return -1;
-                    if (o2.symbol.equals(TOKEN_HARD)) return 1;
+            if (chain.equals(KAVA_MAIN)) {
+                if (o1.symbol.equals(TOKEN_HARD)) return -1;
+                if (o2.symbol.equals(TOKEN_HARD)) return 1;
 
-                } else if (chain.equals(OKEX_MAIN)) {
-                    if (o1.symbol.equals("okb-c4d")) return -1;
-                    if (o2.symbol.equals("okb-c4d")) return 1;
-                }
-                return o1.symbol.compareTo(o2.symbol);
+            } else if (chain.equals(OKEX_MAIN)) {
+                if (o1.symbol.equals("okb-c4d")) return -1;
+                if (o2.symbol.equals("okb-c4d")) return 1;
             }
+            return o1.symbol.compareTo(o2.symbol);
         });
     }
 
     public static void onSortingCoins(ArrayList<Coin> coins, BaseChain chain) {
-        Collections.sort(coins, new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                if (o1.denom.equals(WDp.mainDenom(chain))) return -1;
-                if (o2.denom.equals(WDp.mainDenom(chain))) return 1;
-                else return 0;
-            }
+        Collections.sort(coins, (o1, o2) -> {
+            if (o1.denom.equals(chain.getMainDenom())) return -1;
+            if (o2.denom.equals(chain.getMainDenom())) return 1;
+            else return 0;
         });
     }
 
     public static void onSortingOsmosisPool(ArrayList<Coin> coins) {
-        Collections.sort(coins, new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                if (o1.osmosisAmmPoolId() < o2.osmosisAmmPoolId()) return -1;
-                else if (o1.osmosisAmmPoolId() > o2.osmosisAmmPoolId()) return 1;
-                return 0;
-            }
+        Collections.sort(coins, (o1, o2) -> {
+            if (o1.osmosisAmmPoolId() < o2.osmosisAmmPoolId()) return -1;
+            else if (o1.osmosisAmmPoolId() > o2.osmosisAmmPoolId()) return 1;
+            return 0;
         });
     }
 
     public static void onSortingGravityPool(ArrayList<Coin> coins, BaseData baseData) {
-        Collections.sort(coins, new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                long id1 = baseData.getGravityPoolByDenom(o1.denom).getId();
-                long id2 = baseData.getGravityPoolByDenom(o2.denom).getId();
-                return id1 < id2 ? -1 : 1;
-            }
+        Collections.sort(coins, (o1, o2) -> {
+            long id1 = baseData.getGravityPoolByDenom(o1.denom).getId();
+            long id2 = baseData.getGravityPoolByDenom(o2.denom).getId();
+            return id1 < id2 ? -1 : 1;
         });
     }
 
     public static void onSortingInjectivePool(ArrayList<Coin> coins) {
-        Collections.sort(coins, new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                if (o1.injectivePoolId() < o2.injectivePoolId()) return -1;
-                else if (o1.injectivePoolId() > o2.injectivePoolId()) return 1;
-                return 0;
-            }
+        Collections.sort(coins, (o1, o2) -> {
+            if (o1.injectivePoolId() < o2.injectivePoolId()) return -1;
+            else if (o1.injectivePoolId() > o2.injectivePoolId()) return 1;
+            return 0;
         });
     }
 
@@ -1091,12 +1003,7 @@ public class WUtil {
             }
         }
 
-        Collections.sort(result, new Comparator<UnbondingInfo.DpEntry>() {
-            @Override
-            public int compare(UnbondingInfo.DpEntry o1, UnbondingInfo.DpEntry o2) {
-                return WDp.dateToLong(c, o1.completion_time) < WDp.dateToLong(c, o2.completion_time) ? -1 : 1;
-            }
-        });
+        Collections.sort(result, (o1, o2) -> WDp.dateToLong(c, o1.completion_time) < WDp.dateToLong(c, o2.completion_time) ? -1 : 1);
         return result;
     }
 
@@ -1108,12 +1015,7 @@ public class WUtil {
             }
         }
 
-        Collections.sort(result, new Comparator<UnbondingInfo.DpEntry>() {
-            @Override
-            public int compare(UnbondingInfo.DpEntry o1, UnbondingInfo.DpEntry o2) {
-                return Long.parseLong(o1.completion_time) < Long.parseLong(o2.completion_time) ? -1 : 1;
-            }
-        });
+        Collections.sort(result, (o1, o2) -> Long.parseLong(o1.completion_time) < Long.parseLong(o2.completion_time) ? -1 : 1);
         return result;
     }
 
@@ -1191,7 +1093,7 @@ public class WUtil {
 
     public static int getSifCoinDecimal(BaseData baseData, String denom) {
         if (denom != null) {
-            if (denom.equalsIgnoreCase(WDp.mainDenom(SIF_MAIN))) {
+            if (denom.equalsIgnoreCase(SIF_MAIN.getMainDenom())) {
                 return 18;
             } else if (denom.startsWith("ibc/")) {
                 return getIbcDecimal(baseData, denom);
@@ -1225,7 +1127,7 @@ public class WUtil {
     }
 
     public static int getGBridgeCoinDecimal(BaseData baseData, String denom) {
-        if (denom.equalsIgnoreCase(WDp.mainDenom(GRABRIDGE_MAIN))) {
+        if (denom.equalsIgnoreCase(GRABRIDGE_MAIN.getMainDenom())) {
             return 6;
         } else if (denom.startsWith("ibc/")) {
             return getIbcDecimal(baseData, denom);
@@ -1239,7 +1141,7 @@ public class WUtil {
     }
 
     public static int getGBridgeCoinDecimal(String denom) {
-        if (denom.equalsIgnoreCase(WDp.mainDenom(GRABRIDGE_MAIN))) {
+        if (denom.equalsIgnoreCase(GRABRIDGE_MAIN.getMainDenom())) {
             return 6;
         } else if (denom.equalsIgnoreCase("gravity0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")) {
             return 18;
@@ -1252,7 +1154,7 @@ public class WUtil {
     }
 
     public static int getCosmosCoinDecimal(BaseData baseData, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_ATOM)) {
+        if (denom.equalsIgnoreCase(COSMOS_MAIN.getMainDenom())) {
             return 6;
         } else if (denom.startsWith("pool")) {
             Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
@@ -1267,7 +1169,7 @@ public class WUtil {
 
     public static int getOsmosisCoinDecimal(BaseData baseData, String denom) {
         if (denom != null) {
-            if (denom.equalsIgnoreCase(TOKEN_OSMOSIS) || denom.equalsIgnoreCase(TOKEN_ION)) {
+            if (denom.equalsIgnoreCase(OSMOSIS_MAIN.getMainDenom()) || denom.equalsIgnoreCase(TOKEN_ION)) {
                 return 6;
             } else if (denom.startsWith("gamm/pool/")) {
                 return 18;
@@ -1280,7 +1182,7 @@ public class WUtil {
 
     public static int getInjCoinDecimal(BaseData baseData, String denom) {
         if (denom != null) {
-            if (denom.equalsIgnoreCase(WDp.mainDenom(INJ_MAIN))) {
+            if (denom.equalsIgnoreCase(INJ_MAIN.getMainDenom())) {
                 return 18;
             } else if (denom.startsWith("ibc/")) {
                 return getIbcDecimal(baseData, denom);
@@ -1307,7 +1209,7 @@ public class WUtil {
      * Token Name
      */
     public static String dpCosmosTokenName(BaseData baseData, String denom) {
-        if (denom.equals(TOKEN_ATOM)) {
+        if (denom.equals(COSMOS_MAIN.getMainDenom())) {
             return "ATOM";
 
         } else if (denom.startsWith("pool")) {
@@ -1315,7 +1217,7 @@ public class WUtil {
             if (poolInfo != null) {
                 return "GDEX-" + poolInfo.getId();
             } else {
-                return "UnKnown";
+                return "Unknown";
             }
 
         } else if (denom.startsWith("ibc/")) {
@@ -1332,14 +1234,14 @@ public class WUtil {
                     return ibcToken.display_denom.toUpperCase();
                 }
             } else {
-                return "UnKnown";
+                return "Unknown";
             }
         }
         return denom;
     }
 
     public static String dpCosmosTokenName(Context c, BaseData baseData, TextView textView, String denom) {
-        if (denom.equals(TOKEN_ATOM)) {
+        if (denom.equals(COSMOS_MAIN.getMainDenom())) {
             textView.setTextColor(c.getResources().getColor(R.color.colorAtom));
             textView.setText("ATOM");
 
@@ -1349,7 +1251,7 @@ public class WUtil {
             if (poolInfo != null) {
                 textView.setText("GDEX-" + poolInfo.getId());
             } else {
-                textView.setText("UnKnown");
+                textView.setText(R.string.str_unknown);
             }
 
         } else if (denom.startsWith("ibc/")) {
@@ -1367,18 +1269,18 @@ public class WUtil {
                     textView.setText(ibcToken.display_denom.toUpperCase());
                 }
             } else {
-                textView.setText("UnKnown");
+                textView.setText(R.string.str_unknown);
             }
 
         } else {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            textView.setText("UnKnown");
+            textView.setText(R.string.str_unknown);
         }
         return denom;
     }
 
     public static String dpKavaTokenName(Context c, BaseData baseData, TextView textView, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+        if (denom.equalsIgnoreCase(KAVA_MAIN.getMainDenom())) {
             textView.setTextColor(c.getResources().getColor(R.color.colorKava));
             textView.setText(R.string.str_kava_c);
         } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
@@ -1417,7 +1319,7 @@ public class WUtil {
                     textView.setText(ibcToken.display_denom.toUpperCase());
                 }
             } else {
-                textView.setText("UnKnown");
+                textView.setText(R.string.str_unknown);
             }
         }
         return denom;
@@ -1530,7 +1432,7 @@ public class WUtil {
                     return ibcToken.display_denom.toUpperCase();
                 }
             } else {
-                return "UnKnown";
+                return "Unknown";
             }
         }
         return denom;
@@ -1566,7 +1468,7 @@ public class WUtil {
                         textView.setText(ibcToken.display_denom.toUpperCase());
                     }
                 } else {
-                    textView.setText("UnKnown");
+                    textView.setText(R.string.str_unknown);
                 }
             }
         }
@@ -1591,7 +1493,7 @@ public class WUtil {
                     return ibcToken.display_denom.toUpperCase();
                 }
             } else {
-                return "UnKnown";
+                return "Unknown";
             }
 
         } else if (denom.startsWith("c")) {
@@ -1626,12 +1528,12 @@ public class WUtil {
                         textView.setText(ibcToken.display_denom.toUpperCase());
                     }
                 } else {
-                    textView.setText("UnKnown");
+                    textView.setText(R.string.str_unknown);
                 }
 
             } else {
                 textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                textView.setText("UnKnown");
+                textView.setText(R.string.str_unknown);
             }
         }
         return denom;
@@ -1641,9 +1543,9 @@ public class WUtil {
      * Token Img
      */
     public static void DpCosmosTokenImg(BaseData baseData, ImageView imageView, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_ATOM)) {
+        if (denom.equalsIgnoreCase(COSMOS_MAIN.getMainDenom())) {
             Picasso.get().cancelRequest(imageView);
-            imageView.setImageResource(R.drawable.atom_ic);
+            imageView.setImageResource(COSMOS_MAIN.getCoinIcon());
         } else if (denom.startsWith("pool")) {
             Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
             if (poolInfo != null) {
@@ -1660,9 +1562,9 @@ public class WUtil {
 
     public static void DpOsmosisTokenImg(BaseData baseData, ImageView imageView, String denom) {
         if (denom != null) {
-            if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+            if (denom.equalsIgnoreCase(OSMOSIS_MAIN.getMainDenom())) {
                 Picasso.get().cancelRequest(imageView);
-                imageView.setImageResource(R.drawable.token_osmosis);
+                imageView.setImageResource(OSMOSIS_MAIN.getCoinIcon());
             } else if (denom.equalsIgnoreCase(TOKEN_ION)) {
                 imageView.setImageResource(R.drawable.token_ion);
             } else if (denom.startsWith("gamm/pool/")) {
@@ -1679,9 +1581,9 @@ public class WUtil {
 
     public static void DpSifTokenImg(BaseData baseData, ImageView imageView, String denom) {
         if (denom != null) {
-            if (denom.equalsIgnoreCase(TOKEN_SIF)) {
+            if (denom.equalsIgnoreCase(SIF_MAIN.getMainDenom())) {
                 Picasso.get().cancelRequest(imageView);
-                imageView.setImageResource(R.drawable.tokensifchain);
+                imageView.setImageResource(SIF_MAIN.getCoinIcon());
             } else if (denom.startsWith("c")) {
                 Assets assets = baseData.getAsset(denom);
                 if (assets != null) {
@@ -1699,9 +1601,9 @@ public class WUtil {
 
     public static void DpKavaTokenImg(BaseData baseData, ImageView imageView, String denom) {
         if (denom != null) {
-            if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            if (denom.equalsIgnoreCase(KAVA_MAIN.getMainDenom())) {
                 Picasso.get().cancelRequest(imageView);
-                imageView.setImageResource(R.drawable.kava_token_img);
+                imageView.setImageResource(KAVA_MAIN.getCoinIcon());
             } else if (denom.startsWith("ibc/")) {
                 IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
                 if (ibcToken != null) {
@@ -2429,11 +2331,10 @@ public class WUtil {
             if (ticker.symbol.equals(getBnbTicSymbol(denom))) {
                 if (isBnbBaseMarketToken(denom)) {
                     BigDecimal perPrice = BigDecimal.ONE.divide(new BigDecimal(ticker.lastPrice), 8, RoundingMode.DOWN);
-                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, TOKEN_BNB));
+                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, BNB_MAIN.getMainDenom()));
                 } else {
                     BigDecimal perPrice = BigDecimal.ONE.multiply(new BigDecimal(ticker.lastPrice)).setScale(8, RoundingMode.DOWN);
-                    ;
-                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, TOKEN_BNB));
+                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, BNB_MAIN.getMainDenom()));
                 }
             }
         }
@@ -2494,10 +2395,10 @@ public class WUtil {
 
     public static String getBnbTicSymbol(String symbol) {
         if (isBnbBaseMarketToken(symbol)) {
-            return TOKEN_BNB + "_" + symbol;
+            return BNB_MAIN.getMainDenom() + "_" + symbol;
 
         } else {
-            return symbol + "_" + TOKEN_BNB;
+            return symbol + "_" + BNB_MAIN.getMainDenom();
         }
     }
 
@@ -2947,456 +2848,253 @@ public class WUtil {
         guideBtn1.setText(R.string.str_home);
         guideBtn2.setText(R.string.str_blog);
         if (mainActivity.mBaseChain.equals(COSMOS_MAIN) || mainActivity.mBaseChain.equals(COSMOS_TEST)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.guide_img));
+            guideImg.setImageResource(R.drawable.guide_img);
             guideTitle.setText(R.string.str_front_guide_title);
             guideMsg.setText(R.string.str_front_guide_msg);
             guideBtn1.setText(R.string.str_guide);
             guideBtn2.setText(R.string.str_faq);
 
         } else if (mainActivity.mBaseChain.equals(IMVERSED_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.imversed)); // TODO: imversed img
+            guideImg.setImageResource(R.drawable.infoicon_imversed);
             guideTitle.setText(R.string.str_front_guide_title_imversed);
             guideMsg.setText(R.string.str_front_guide_msg_imversed);
 
         } else if (mainActivity.mBaseChain.equals(IRIS_MAIN) || mainActivity.mBaseChain.equals(IRIS_TEST)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.irisnet_img));
+            guideImg.setImageResource(R.drawable.irisnet_img);
             guideTitle.setText(R.string.str_front_guide_title_iris);
             guideMsg.setText(R.string.str_front_guide_msg_iris);
 
         } else if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.binance_img));
+            guideImg.setImageResource(R.drawable.binance_img);
             guideTitle.setText(R.string.str_front_guide_title_binance);
             guideMsg.setText(R.string.str_front_guide_msg_bnb);
             guideBtn1.setText(R.string.str_faq_bnb);
             guideBtn2.setText(R.string.str_guide_bnb);
 
         } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.kavamain_img));
+            guideImg.setImageResource(R.drawable.kavamain_img);
             guideTitle.setText(R.string.str_front_guide_title_kava);
             guideMsg.setText(R.string.str_front_guide_msg_kava);
 
         } else if (mainActivity.mBaseChain.equals(IOV_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.iov_img));
+            guideImg.setImageResource(R.drawable.iov_img);
             guideTitle.setText(R.string.str_front_guide_title_iov);
             guideMsg.setText(R.string.str_front_guide_msg_iov);
 
         } else if (mainActivity.mBaseChain.equals(BAND_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_bandprotocol));
+            guideImg.setImageResource(R.drawable.infoicon_bandprotocol);
             guideTitle.setText(R.string.str_front_guide_title_band);
             guideMsg.setText(R.string.str_front_guide_msg_band);
 
         } else if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_okx));
+            guideImg.setImageResource(R.drawable.infoicon_okx);
             guideTitle.setText(R.string.str_front_guide_title_ok);
             guideMsg.setText(R.string.str_front_guide_msg_ok);
             guideBtn1.setText(R.string.str_faq_ok);
             guideBtn2.setText(R.string.str_guide_ok);
 
         } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.certik_img));
+            guideImg.setImageResource(R.drawable.certik_img);
             guideTitle.setText(R.string.str_front_guide_title_certik);
             guideMsg.setText(R.string.str_front_guide_msg_certik);
 
         } else if (mainActivity.mBaseChain.equals(AKASH_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.akash_img));
+            guideImg.setImageResource(R.drawable.akash_img);
             guideTitle.setText(R.string.str_front_guide_title_akash);
             guideMsg.setText(R.string.str_front_guide_msg_akash);
 
         } else if (mainActivity.mBaseChain.equals(SECRET_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.secret_img));
+            guideImg.setImageResource(R.drawable.secret_img);
             guideTitle.setText(R.string.str_front_guide_title_secret);
             guideMsg.setText(R.string.str_front_guide_msg_secret);
 
         } else if (mainActivity.mBaseChain.equals(PERSIS_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.persistence_img));
+            guideImg.setImageResource(R.drawable.persistence_img);
             guideTitle.setText(R.string.str_front_guide_title_persis);
             guideMsg.setText(R.string.str_front_guide_msg_persis);
 
         } else if (mainActivity.mBaseChain.equals(SENTINEL_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.sentinel_img));
+            guideImg.setImageResource(R.drawable.sentinel_img);
             guideTitle.setText(R.string.str_front_guide_title_sentinel);
             guideMsg.setText(R.string.str_front_guide_msg_sentinel);
 
         } else if (mainActivity.mBaseChain.equals(FETCHAI_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.fetchai_img));
+            guideImg.setImageResource(R.drawable.fetchai_img);
             guideTitle.setText(R.string.str_front_guide_title_fetch);
             guideMsg.setText(R.string.str_front_guide_msg_fetch);
 
         } else if (mainActivity.mBaseChain.equals(CRYPTO_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.cryptochain_img));
+            guideImg.setImageResource(R.drawable.cryptochain_img);
             guideTitle.setText(R.string.str_front_guide_title_crypto);
             guideMsg.setText(R.string.str_front_guide_msg_crypto);
 
         } else if (mainActivity.mBaseChain.equals(SIF_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.sifchain_img));
+            guideImg.setImageResource(R.drawable.sifchain_img);
             guideTitle.setText(R.string.str_front_guide_title_sif);
             guideMsg.setText(R.string.str_front_guide_msg_sif);
 
         } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.kifoundation_img));
+            guideImg.setImageResource(R.drawable.kifoundation_img);
             guideTitle.setText(R.string.str_front_guide_title_ki);
             guideMsg.setText(R.string.str_front_guide_msg_ki);
 
         } else if (mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_osmosis));
+            guideImg.setImageResource(R.drawable.infoicon_osmosis);
             guideTitle.setText(R.string.str_front_guide_title_osmosis);
             guideMsg.setText(R.string.str_front_guide_msg_osmosis);
 
         } else if (mainActivity.mBaseChain.equals(RIZON_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_rizon));
+            guideImg.setImageResource(R.drawable.infoicon_rizon);
             guideTitle.setText(R.string.str_front_guide_title_rizon);
             guideMsg.setText(R.string.str_front_guide_msg_rizon);
 
         } else if (mainActivity.mBaseChain.equals(MEDI_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.medibloc_img));
+            guideImg.setImageResource(R.drawable.medibloc_img);
             guideTitle.setText(R.string.str_front_guide_title_medi);
             guideMsg.setText(R.string.str_front_guide_msg_medi);
 
         } else if (mainActivity.mBaseChain.equals(EMONEY_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_emoney));
+            guideImg.setImageResource(R.drawable.infoicon_emoney);
             guideTitle.setText(R.string.str_front_guide_title_emoney);
             guideMsg.setText(R.string.str_front_guide_msg_emoney);
 
         } else if (mainActivity.mBaseChain.equals(JUNO_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_juno));
+            guideImg.setImageResource(R.drawable.infoicon_juno);
             guideTitle.setText(R.string.str_front_guide_title_juno);
             guideMsg.setText(R.string.str_front_guide_msg_juno);
 
         } else if (mainActivity.mBaseChain.equals(REGEN_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_regen));
+            guideImg.setImageResource(R.drawable.infoicon_regen);
             guideTitle.setText(R.string.str_front_guide_title_regen);
             guideMsg.setText(R.string.str_front_guide_msg_regen);
 
         } else if (mainActivity.mBaseChain.equals(BITCANNA_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_bitcanna));
+            guideImg.setImageResource(R.drawable.infoicon_bitcanna);
             guideTitle.setText(R.string.str_front_guide_title_bitcanna);
             guideMsg.setText(R.string.str_front_guide_msg_bitcanna);
 
         } else if (mainActivity.mBaseChain.equals(ALTHEA_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_althea));
+            guideImg.setImageResource(R.drawable.infoicon_althea);
             guideTitle.setText(R.string.str_front_guide_title_althea);
             guideMsg.setText(R.string.str_front_guide_msg_althea);
 
         } else if (mainActivity.mBaseChain.equals(STARGAZE_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_stargaze));
+            guideImg.setImageResource(R.drawable.infoicon_stargaze);
             guideTitle.setText(R.string.str_front_guide_title_stargaze);
             guideMsg.setText(R.string.str_front_guide_msg_stargaze);
 
         } else if (mainActivity.mBaseChain.equals(GRABRIDGE_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_gravitybridge));
+            guideImg.setImageResource(R.drawable.infoicon_gravitybridge);
             guideTitle.setText(R.string.str_front_guide_title_grabridge);
             guideMsg.setText(R.string.str_front_guide_msg_grabridge);
 
         } else if (mainActivity.mBaseChain.equals(COMDEX_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_comdex));
+            guideImg.setImageResource(R.drawable.infoicon_comdex);
             guideTitle.setText(R.string.str_front_guide_title_comdex);
             guideMsg.setText(R.string.str_front_guide_msg_comdex);
 
         } else if (mainActivity.mBaseChain.equals(INJ_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_injective));
+            guideImg.setImageResource(R.drawable.infoicon_injective);
             guideTitle.setText(R.string.str_front_guide_title_inj);
             guideMsg.setText(R.string.str_front_guide_msg_inj);
 
         } else if (mainActivity.mBaseChain.equals(BITSONG_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_bitsong));
+            guideImg.setImageResource(R.drawable.infoicon_bitsong);
             guideTitle.setText(R.string.str_front_guide_title_bitsong);
             guideMsg.setText(R.string.str_front_guide_msg_bitsong);
 
         } else if (mainActivity.mBaseChain.equals(DESMOS_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_desmos));
+            guideImg.setImageResource(R.drawable.infoicon_desmos);
             guideTitle.setText(R.string.str_front_guide_title_desmos);
             guideMsg.setText(R.string.str_front_guide_msg_desmos);
 
         } else if (mainActivity.mBaseChain.equals(LUM_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_lumnetwork));
+            guideImg.setImageResource(R.drawable.infoicon_lumnetwork);
             guideTitle.setText(R.string.str_front_guide_title_lum);
             guideMsg.setText(R.string.str_front_guide_msg_lum);
 
         } else if (mainActivity.mBaseChain.equals(CHIHUAHUA_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_chihuahua));
+            guideImg.setImageResource(R.drawable.infoicon_chihuahua);
             guideTitle.setText(R.string.str_front_guide_title_chihuahua);
             guideMsg.setText(R.string.str_front_guide_msg_chihuahua);
 
         } else if (mainActivity.mBaseChain.equals(UMEE_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_umee));
+            guideImg.setImageResource(R.drawable.infoicon_umee);
             guideTitle.setText(R.string.str_front_guide_title_umee);
             guideMsg.setText(R.string.str_front_guide_msg_umee);
 
         } else if (mainActivity.mBaseChain.equals(AXELAR_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_axelar));
+            guideImg.setImageResource(R.drawable.infoicon_axelar);
             guideTitle.setText(R.string.str_front_guide_title_axelar);
             guideMsg.setText(R.string.str_front_guide_msg_axelar);
 
         } else if (mainActivity.mBaseChain.equals(KONSTELL_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_konstellation));
+            guideImg.setImageResource(R.drawable.infoicon_konstellation);
             guideTitle.setText(R.string.str_front_guide_title_konstellation);
             guideMsg.setText(R.string.str_front_guide_msg_konstellation);
 
         } else if (mainActivity.mBaseChain.equals(EVMOS_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_evmos));
+            guideImg.setImageResource(R.drawable.infoicon_evmos);
             guideTitle.setText(R.string.str_front_guide_title_evmos);
             guideMsg.setText(R.string.str_front_guide_msg_evmos);
 
         } else if (mainActivity.mBaseChain.equals(CUDOS_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_cudos));
+            guideImg.setImageResource(R.drawable.infoicon_cudos);
             guideTitle.setText(R.string.str_front_guide_title_cudos);
             guideMsg.setText(R.string.str_front_guide_msg_cudos);
 
         } else if (mainActivity.mBaseChain.equals(PROVENANCE_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_provenance));
+            guideImg.setImageResource(R.drawable.infoicon_provenance);
             guideTitle.setText(R.string.str_front_guide_title_provenance);
             guideMsg.setText(R.string.str_front_guide_msg_provenance);
 
         } else if (mainActivity.mBaseChain.equals(CERBERUS_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_cerberus));
+            guideImg.setImageResource(R.drawable.infoicon_cerberus);
             guideTitle.setText(R.string.str_front_guide_title_cerberus);
             guideMsg.setText(R.string.str_front_guide_msg_cerberus);
 
         } else if (mainActivity.mBaseChain.equals(OMNIFLIX_MAIN)) {
-            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_omniflix));
+            guideImg.setImageResource(R.drawable.infoicon_omniflix);
             guideTitle.setText(R.string.str_front_guide_title_omniflix);
             guideMsg.setText(R.string.str_front_guide_msg_omniflix);
 
         }
     }
 
-    public static void getWalletData(MainActivity mainActivity, BaseChain chain, ImageView coinImg, TextView coinDenom) {
-        if (chain.equals(COSMOS_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.atom_ic));
-            coinDenom.setText(R.string.str_atom_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_atom);
-
-        } else if (chain.equals(IMVERSED_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.imversed_token_img));
-            coinDenom.setText(R.string.str_imversed_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_imversed);
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.iris_toket_img));
-            coinDenom.setText(R.string.str_iris_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_iris);
-
-        } else if (chain.equals(BNB_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.binance_img));
-            coinDenom.setText(R.string.str_front_guide_title_binance);
-            coinDenom.setTextAppearance(R.style.font_ss_14_bnb);
-
-        } else if (chain.equals(KAVA_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.kava_token_img));
-            coinDenom.setText(R.string.str_kava_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_kava);
-
-        } else if (chain.equals(IOV_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.iov_token_img));
-            coinDenom.setText(R.string.str_iov_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_iov);
-
-        } else if (chain.equals(BAND_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.band_token_img));
-            coinDenom.setText(R.string.str_band_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_band);
-
-        } else if (chain.equals(OKEX_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_okx));
-            coinDenom.setText(R.string.str_ok_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_ok);
-
-        } else if (chain.equals(CERTIK_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.certik_token_img));
-            coinDenom.setText(R.string.str_ctk_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_certik);
-
-        } else if (chain.equals(AKASH_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.akash_token_img));
-            coinDenom.setText(R.string.str_akt_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_akash);
-
-        } else if (chain.equals(SECRET_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokensecret));
-            coinDenom.setText(R.string.str_scrt_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_secret);
-
-        } else if (chain.equals(PERSIS_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokenpersistence));
-            coinDenom.setText(R.string.str_xprt_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_persis);
-
-        } else if (chain.equals(SENTINEL_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokensentinel));
-            coinDenom.setText(R.string.str_dvpn_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_sentinel);
-
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokenfetchai));
-            coinDenom.setText(R.string.str_fet_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_fetch);
-
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokencrypto));
-            coinDenom.setText(R.string.str_cro_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_cryto);
-
-        } else if (chain.equals(SIF_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokensifchain));
-            coinDenom.setText(R.string.str_sif_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_sif);
-
-        } else if (chain.equals(KI_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_kifoundation));
-            coinDenom.setText(R.string.str_ki_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_ki);
-
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_osmosis));
-            coinDenom.setText(R.string.str_osmosis_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_osmosis);
-
-        } else if (chain.equals(RIZON_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_rizon));
-            coinDenom.setText(R.string.str_rizon_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_rizon);
-
-        } else if (chain.equals(MEDI_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.tokenmedibloc));
-            coinDenom.setText(R.string.str_medi_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_medi);
-
-        } else if (chain.equals(EMONEY_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_emoney));
-            coinDenom.setText(R.string.str_ngm_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_emoney);
-
-        } else if (chain.equals(JUNO_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_juno));
-            coinDenom.setText(R.string.str_juno_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_juno);
-
-        } else if (chain.equals(REGEN_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_regen));
-            coinDenom.setText(R.string.str_regen_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_regen);
-
-        } else if (chain.equals(BITCANNA_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_bitcanna));
-            coinDenom.setText(R.string.str_bitcanna_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_bitcanna);
-
-        } else if (chain.equals(ALTHEA_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_althea));
-            coinDenom.setText(R.string.str_althea_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_althea);
-
-        } else if (chain.equals(STARGAZE_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_stargaze));
-            coinDenom.setText(R.string.str_stargaze_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_stargaze);
-
-        } else if (chain.equals(GRABRIDGE_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_gravitybridge));
-            coinDenom.setText(R.string.str_grabridge_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_grabridge);
-
-        } else if (chain.equals(COMDEX_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_comdex));
-            coinDenom.setText(R.string.str_comdex_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_comdex);
-
-        } else if (chain.equals(INJ_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_injective));
-            coinDenom.setText(R.string.str_inj_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_inj);
-
-        } else if (chain.equals(BITSONG_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_bitsong));
-            coinDenom.setText(R.string.str_bitsong_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_bitsong);
-
-        } else if (chain.equals(DESMOS_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_desmos));
-            coinDenom.setText(R.string.str_desmos_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_desmos);
-
-        } else if (chain.equals(LUM_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_lum));
-            coinDenom.setText(R.string.str_lum_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_lum);
-
-        } else if (chain.equals(CHIHUAHUA_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_huahua));
-            coinDenom.setText(R.string.str_chihuahua_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_chihuahua);
-
-        } else if (chain.equals(UMEE_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_umee));
-            coinDenom.setText(R.string.str_umee_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_umee);
-
-        } else if (chain.equals(AXELAR_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_axelar));
-            coinDenom.setText(R.string.str_axl_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_axelar);
-
-        } else if (chain.equals(KONSTELL_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_konstellation));
-            coinDenom.setText(R.string.str_konstellation_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_konstellation);
-
-        } else if (chain.equals(EVMOS_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_evmos));
-            coinDenom.setText(R.string.str_evmos_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_evmos);
-
-        } else if (chain.equals(CUDOS_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_cudos));
-            coinDenom.setText(R.string.str_cudos_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_cudos);
-
-        } else if (chain.equals(PROVENANCE_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_hash));
-            coinDenom.setText(R.string.str_provenance_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_provenance);
-
-        } else if (chain.equals(CERBERUS_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_cerberus));
-            coinDenom.setText(R.string.str_cerberus_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_cerberus);
-
-        } else if (chain.equals(OMNIFLIX_MAIN)) {
-            coinImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.token_omniflix));
-            coinDenom.setText(R.string.str_omniflix_c);
-            coinDenom.setTextAppearance(R.style.font_ss_14_omniflix);
-
-        }
+    public static void getWalletData(BaseChain chain, ImageView coinImg, TextView coinDenom) {
+        coinImg.setImageResource(chain.getCoinIcon());
+        coinDenom.setText(chain.getSymbolTitle());
+        coinDenom.setTextColor(ContextCompat.getColor(coinDenom.getContext(), chain.getDenomColor()));
     }
 
-    public static void getDexTitle(MainActivity mainActivity, BaseChain chain, RelativeLayout mBtnDex, TextView dexTitle) {
+    public static void getDexTitle(BaseChain chain, RelativeLayout mBtnDex, TextView dexTitle) {
         if (chain.equals(COSMOS_MAIN)) {
             mBtnDex.setVisibility(View.VISIBLE);
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_gravitydex), null, null, null);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_gravitydex, 0, 0, 0);
             dexTitle.setText("Gravity Dex");
         } else if (chain.equals(IRIS_MAIN) || chain.equals(CRYPTO_MAIN)) {
             mBtnDex.setVisibility(View.VISIBLE);
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_nft), null, null, null);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_nft, 0, 0, 0);
             dexTitle.setText(R.string.str_nft_c);
         } else if (chain.equals(IOV_MAIN)) {
             mBtnDex.setVisibility(View.VISIBLE);
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.name_ic), null, null, null);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.name_ic, 0, 0, 0);
             dexTitle.setText(R.string.str_starname_service);
         } else if (chain.equals(KAVA_MAIN)) {
             mBtnDex.setVisibility(View.VISIBLE);
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.cdp_s_ic), null, null, null);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cdp_s_ic, 0, 0, 0);
             dexTitle.setText(R.string.str_kava_dapp);
         } else if (chain.equals(SIF_MAIN)) {
             mBtnDex.setVisibility(View.VISIBLE);
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_sifdex), null, null, null);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_sifdex, 0, 0, 0);
             dexTitle.setText(R.string.str_sif_dex_title);
         } else if (chain.equals(OSMOSIS_MAIN)) {
             mBtnDex.setVisibility(View.VISIBLE);
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_osmosislab), null, null, null);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_osmosislab, 0, 0, 0);
             dexTitle.setText(R.string.str_osmosis_defi_lab);
         } else if (chain.equals(DESMOS_MAIN)) {
             mBtnDex.setVisibility(View.VISIBLE);
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(mainActivity.getResources().getDrawable(R.drawable.icon_profile), null, null, null);
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_profile, 0, 0, 0);
             dexTitle.setText(R.string.str_desmos_airdrop);
         } else {
             mBtnDex.setVisibility(View.GONE);
@@ -4963,7 +4661,7 @@ public class WUtil {
                 }
                 WLog.w("remainVesting " + denom + "  " + remainVesting);
 
-                if (coin.denom.equalsIgnoreCase(WDp.mainDenom(baseChain))) {
+                if (coin.denom.equalsIgnoreCase(baseChain.getMainDenom())) {
                     BigDecimal stakedAmount = baseData.getDelegationSum();
                     if (remainVesting.compareTo(stakedAmount) >= 0) {
                         delegatedVesting = stakedAmount;
