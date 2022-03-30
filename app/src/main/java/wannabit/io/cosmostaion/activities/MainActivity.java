@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -41,6 +42,7 @@ import java.util.ArrayList;
 
 import desmos.profiles.v1beta1.ModelsProfile;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.cresent.CresentConnectActivity;
 import wannabit.io.cosmostaion.activities.chains.desmos.ProfileActivity;
 import wannabit.io.cosmostaion.activities.chains.desmos.ProfileDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
@@ -427,6 +429,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 wIntent = new Intent(this, WalletConnectActivity.class);
             } else if (mBaseChain.equals(KAVA_MAIN)) {
                 wIntent = new Intent(this, KavaWalletConnectActivity.class);
+            } else if (mBaseChain.equals(CRESCENT_TEST)) {
+                wIntent = new Intent(this, CresentConnectActivity.class);
             }
             wIntent.putExtra("wcUrl", data.getStringExtra("wcUrl"));
             startActivity(wIntent);

@@ -119,13 +119,13 @@ public class WalletChainHolder extends BaseHolder {
             }
         });
 
-        if (mainActivity.mBaseChain.equals(BaseChain.COSMOS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        if (mainActivity.mBaseChain.equals(BaseChain.COSMOS_MAIN) || mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
             mBtnWalletConnect.setVisibility(View.VISIBLE);
         } else { mBtnWalletConnect.setVisibility(View.GONE); }
         mBtnWalletConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                if (mainActivity.mBaseChain.equals(BaseChain.KAVA_MAIN) || mainActivity.mBaseChain.equals(BaseChain.CRESCENT_TEST)) {
                     if (!mainActivity.mAccount.hasPrivateKey) {
                         Dialog_WatchMode dialog = Dialog_WatchMode.newInstance();
                         dialog.setCancelable(true);
