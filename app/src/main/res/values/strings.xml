@@ -2173,4 +2173,13 @@
         <item>1540000</item>
     </string-array>
 
+    <string name="rate_submit" translatable="false">Rate</string>
+    <string name="install_submit" translatable="false">Learn more</string>
+    <string name="rate_cancel" translatable="false">Not now</string>
+    <string name="maybe_later" translatable="false">Maybe Later</string>
+    <string name="rate_us_title" translatable="false">Rate us</string>
+    <string name="install_browser_title" translatable="false">Sync with Fulldive and get rewards</string>
+    <string name="install_browser_description" translatable="false">Thank you for trying our Full apps, we feature many more great apps such as a browser that rewards you cash when you browse, check it out!</string>
+    <string name="rate_us_description" translatable="false">Do you like Fulldive? We would love to hear your feedback and make the app better for you.</string>
+
 </resources>

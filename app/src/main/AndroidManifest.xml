@@ -11,6 +11,10 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
+    <permission
+        android:name="com.fulldive.extension.fdwallet.access.read"
+        android:protectionLevel="signature" />
+
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="false"
@@ -673,6 +677,21 @@
         <!--        <meta-data-->
         <!--            android:name="com.google.firebase.messaging.default_notification_color"-->
         <!--            android:resource="@color/colorWhite" />-->
+
+        <activity
+            android:name="wannabit.io.cosmostaion.appextensions.StealthActivity"
+            android:exported="true"
+            android:theme="@style/stealthTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+
+        <provider
+            android:name="wannabit.io.cosmostaion.appextensions.FulldiveContentProvider"
+            android:authorities="com.fulldive.extension.fdwallet.FulldiveContentProvider"
+            android:exported="true"
+            android:permission="com.fulldive.extension.fdwallet.access.read" />
 
     </application>
 

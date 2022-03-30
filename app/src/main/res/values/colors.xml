@@ -246,4 +246,7 @@
 
     <color name="colorDialog">#007AFF</color>
 
+    <color name="textColorPrimary">#0D1826</color>
+    <color name="textColorSecondary">#BABDC1</color>
+    <color name="textColorAccent">#FF9900</color>
 </resources>

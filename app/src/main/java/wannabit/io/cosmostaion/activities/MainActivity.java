@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.activities.chains.desmos.ProfileActivity;
 import wannabit.io.cosmostaion.activities.chains.desmos.ProfileDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.activities.chains.sif.SifIncentiveActivity;
+import wannabit.io.cosmostaion.appextensions.PopupManager;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -157,6 +158,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         });
 
         mContentsPager.setCurrentItem(getIntent().getIntExtra("page", 0), false);
+        PopupManager.INSTANCE.onAppStarted(this);
     }
 
     @Override
