@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "wannabit.io.cosmostaion"
+        applicationId "com.fulldive.extension.fdwallet"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 145
         versionName "1.5.45"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -28,14 +28,16 @@ android {
     }
 
     signingConfigs {
-        debug {
-//            storeFile file('debug.keystore')
-        }
         release {
-            storeFile file('eostartkeystore')
-            storePassword "dnjsjqlt034#"
-            keyAlias "key0"
-            keyPassword "dnjsjqlt034#"
+            storeFile file('../keys/keys.jks')
+            storePassword System.getenv("FULLDIVE_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("FULLDIVE_ALIAS")
+            keyPassword System.getenv("FULLDIVE_ALIAS_PASSWORD")
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    output.outputFileName = "FDWallet-v${android.defaultConfig.versionName}-${variant.buildType.name}.apk"
+                }
+            }
         }
     }
 

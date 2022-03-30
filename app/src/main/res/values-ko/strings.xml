@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cosmostation</string>
+    <string name="app_name">FD Wallet</string>
 
     <string name="str_ok">OK</string>
     <string name="str_no">No</string>
@@ -140,6 +140,7 @@
     <string name="str_faq_ok">Market</string>
     <string name="str_guide_ok">Communities</string>
     <string name="str_telegram">텔레그램</string>
+    <string name="str_discord">Discord</string>
     <string name="str_explore">익스플로러</string>
     <string name="str_explore_bnb">바이낸스 익스플로러</string>
     <string name="str_homepage">코스모스테이션</string>

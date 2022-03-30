@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cosmostation</string>
+    <string name="app_name">FD Wallet</string>
     <string name="db_password" translatable="false">wannabit</string>
 
     <!--    <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>-->
@@ -367,8 +367,8 @@
     <string name="str_expected_balance">Expected Available</string>
     <string name="str_success">success</string>
     <string name="str_failed">(failed)</string>
-    <string name="str_preparing">Preparing...</string>
-    <string name="str_deprecated">Deprecated...</string>
+    <string name="str_preparing">Preparing…</string>
+    <string name="str_deprecated">Deprecated…</string>
     <string name="str_select_wallet_path_c">SELECT WALLET TO RESTORE</string>
     <string name="str_watch_address_path_c">WATCH ADDRESS</string>
     <string name="str_address_pubkey">Insert address.</string>
@@ -416,6 +416,7 @@
     <string name="str_faq_ok">Market</string>
     <string name="str_guide_ok">Communities</string>
     <string name="str_telegram">Telegram</string>
+    <string name="str_discord">Discord</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
     <string name="str_homepage">Cosmostation</string>
