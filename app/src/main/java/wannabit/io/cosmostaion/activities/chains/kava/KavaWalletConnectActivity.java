@@ -117,12 +117,7 @@ public class KavaWalletConnectActivity extends BaseActivity implements View.OnCl
                     Msg msgModel = new Msg();
                     msgModel.type = rawMessage.getString("type");
                     msgModel.value = new Gson().fromJson(rawMessage.getString("value"), Msg.Value.class);
-                    List<Map<String, String>> amountMap = (List<Map<String, String>>) msgModel.value.amount;
-                    List<Coin> amountList = Lists.newArrayList();
-                    for (int j = 0; j < amountMap.size(); j++) {
-                        amountList.add( new Coin(amountMap.get(j).get("denom"), amountMap.get(j).get("amount")));
-                    }
-                    msgModel.value.amount = amountList;
+                    msgModel.value.amount = msgModel.value.getCoins();
                     msgList.add(msgModel);
                 }
                 wcStdSignMsg.msgs = msgList;
