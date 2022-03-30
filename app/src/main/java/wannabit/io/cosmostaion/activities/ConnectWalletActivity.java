@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities.chains.kava;
+package wannabit.io.cosmostaion.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.cardview.widget.CardView;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
@@ -25,10 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigInteger;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -40,13 +40,16 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.StdSignMsg;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WUtil;
 
-public class KavaWalletConnectActivity extends BaseActivity implements View.OnClickListener {
+public class ConnectWalletActivity extends BaseActivity implements View.OnClickListener {
     private RelativeLayout mWcLayer, mLoadingLayer;
+    private CardView mWcCardView;
     private ImageView mWcImg;
     private TextView mWcName, mWcUrl, mWcAccount;
     private Button mBtnDisconnect;
@@ -58,7 +61,7 @@ public class KavaWalletConnectActivity extends BaseActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kava_wallet_connect);
+        setContentView(R.layout.activity_connect_wallet);
         initView();
         loadInfo();
         initWalletConnect();
@@ -68,11 +71,13 @@ public class KavaWalletConnectActivity extends BaseActivity implements View.OnCl
         mWcURL = getIntent().getStringExtra("wcUrl");
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mWcCardView.setCardBackgroundColor(WDp.getChainBgColor(this, mBaseChain));
     }
 
     private void initView() {
         mWcLayer = findViewById(R.id.wc_layer);
         mLoadingLayer = findViewById(R.id.loading_layer);
+        mWcCardView = findViewById(R.id.wc_card);
         mWcImg = findViewById(R.id.wc_img);
         mWcName = findViewById(R.id.wc_name);
         mWcUrl = findViewById(R.id.wc_url);
@@ -135,7 +140,7 @@ public class KavaWalletConnectActivity extends BaseActivity implements View.OnCl
                 Account account = new Account();
                 account.accountNumber = Integer.parseInt(wcStdSignMsg.account_number);
                 account.sequenceNumber = Integer.parseInt(wcStdSignMsg.sequence);
-                ReqBroadCast tx = MsgGenerator.getKavaBroadcaseReq(account, msgList, wcStdSignMsg.fee, wcStdSignMsg.memo, mEcKey, wcStdSignMsg.chain_id);
+                ReqBroadCast tx = MsgGenerator.getWcBroadcaseReq(account, msgList, wcStdSignMsg.fee, wcStdSignMsg.memo, mEcKey, wcStdSignMsg.chain_id);
                 Gson Presenter = new GsonBuilder().disableHtmlEscaping().create();
                 String result = Presenter.toJson(tx);
                 wcClient.approveRequest(id, result);
@@ -145,6 +150,84 @@ public class KavaWalletConnectActivity extends BaseActivity implements View.OnCl
 
             return null;
         });
+        wcClient.setOnKeplrEnable((id, strings) -> {
+            wcClient.approveRequest(id, strings);
+            return null;
+        });
+        wcClient.setOnKeplrGetKey((id, strings) -> {
+            ECKey ecKey;
+            if (mAccount.fromMnemonic) {
+                String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
+                ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+            } else {
+                String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+            }
+
+
+            KeplrWallet keplr = new KeplrWallet(
+                    WUtil.getWalletName(this, mAccount),
+                    "secp256k1",
+                    ecKey.getPublicKeyAsHex(),
+                    WKey.generateTenderAddressFromPrivateKey(ecKey.getPrivateKeyAsHex()),
+                    mAccount.address,
+                    false);
+            wcClient.approveRequest(id, Lists.newArrayList(keplr));
+            return null;
+        });
+        wcClient.setOnKeplrSignAmino((id, jsonArray) -> {
+            StdSignMsg signMsg = new Gson().fromJson(jsonArray.get(2), StdSignMsg.class);
+            for (int i = 0; i < signMsg.msgs.size(); i++) {
+                signMsg.msgs.get(i).value.amount = signMsg.msgs.get(i).value.getCoins();
+            }
+            ECKey mEcKey;
+            if (mAccount.fromMnemonic) {
+                String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
+                mEcKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+            } else {
+                String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                mEcKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+            }
+
+            Account account = new Account();
+            account.accountNumber = Integer.parseInt(signMsg.account_number);
+            account.sequenceNumber = Integer.parseInt(signMsg.sequence);
+            ReqBroadCast tx = MsgGenerator.getWcBroadcaseReq(account, signMsg.msgs, signMsg.fee, signMsg.memo, mEcKey, signMsg.chain_id);
+            Signature signature = tx.tx.signatures.get(0);
+            SignModel model3 = new SignModel(signMsg, signature);
+            wcClient.approveRequest(id, Lists.newArrayList(model3));
+            return null;
+        });
+    }
+
+    class SignModel {
+        StdSignMsg signed;
+        Signature signature;
+
+        public SignModel(StdSignMsg signed, Signature signature) {
+            this.signed = signed;
+            this.signature = signature;
+        }
+    }
+
+    class KeplrWallet {
+        String name;
+        String algo;
+        String pubKey;
+        String address;
+        String bech32Address;
+        Boolean isNanoLedger;
+
+        public KeplrWallet(String name, String algo, String pubKey, String address, String bech32Address, Boolean isNanoLedger) {
+            this.name = name;
+            this.algo = algo;
+            this.pubKey = pubKey;
+            this.address = address;
+            this.bech32Address = bech32Address;
+            this.isNanoLedger = isNanoLedger;
+        }
     }
 
     private List<WCAccount> makeWCAccount() {
@@ -180,7 +263,7 @@ public class KavaWalletConnectActivity extends BaseActivity implements View.OnCl
                 .fit()
                 .placeholder(R.drawable.validator_none_img)
                 .into(mWcImg);
-        mWcName.setText(meta.getDescription());
+        mWcName.setText(meta.getName());
         mWcUrl.setText(meta.getUrl());
         mWcLayer.setVisibility(View.VISIBLE);
         mLoadingLayer.setVisibility(View.GONE);

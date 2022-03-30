@@ -261,7 +261,7 @@ public class MsgGenerator {
         return reqBroadCast;
     }
 
-    public static ReqBroadCast getKavaBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
+    public static ReqBroadCast getWcBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
         StdSignMsg tosign = genToSignMsg(
                 chainId,
                 ""+account.accountNumber,

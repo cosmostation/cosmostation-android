@@ -351,10 +351,9 @@
         </activity>
 
         <activity
-            android:name=".activities.chains.cresent.CresentConnectActivity"
+            android:name=".activities.ConnectWalletActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -514,14 +513,6 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
-
-        <activity
-            android:name=".activities.chains.kava.KavaWalletConnectActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden">
-        </activity>
-
 
 
 
